@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         $posts = $user->posts()->with(['topic', 'user'])->latest()->paginate(25);
 
-        return \view('user.post.index', [
+        return view('user.post.index', [
             'posts' => $posts,
             'user'  => $user,
         ]);

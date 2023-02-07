@@ -49,7 +49,7 @@
         <div class="movie-bottom">
             <div class="movie-details">
                 @if(isset($meta->crew))
-                    @if(!empty($directors = $meta->crew()->wherePivot('department' ,'=', 'Directing')->take(1)->get()))
+                    @if(!empty($directors = $meta->crew()->wherePivot('department', '=', 'Directing')->wherePivot('job', '=', 'Director')->take(3)->get()))
                         <span class="badge-user text-bold text-purple">
                         <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Directors:
                         @foreach($directors as $director)

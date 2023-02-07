@@ -12,7 +12,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $duplicates = DB::table('peers')
             ->select(
@@ -39,7 +39,7 @@ return new class () extends Migration {
             }
         }
 
-        Schema::table('peers', function (Blueprint $table) {
+        Schema::table('peers', function (Blueprint $table): void {
             $table->unique(['user_id', 'torrent_id', 'peer_id']);
         });
     }

@@ -31,7 +31,7 @@ class StoreBanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ban_reason'   => 'required|string|max:65536',
+            'ban_reason' => 'required|string|max:65536',
         ];
     }
 }

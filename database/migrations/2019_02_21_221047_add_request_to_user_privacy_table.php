@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('user_privacy', function (Blueprint $table) {
+        Schema::table('user_privacy', function (Blueprint $table): void {
             $table->boolean('show_profile_request_extra')->index()->default(1)->after('show_profile_forum_extra');
             $table->json('json_request_groups')->after('json_rank_groups');
             $table->json('json_other_groups')->after('json_request_groups');

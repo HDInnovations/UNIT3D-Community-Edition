@@ -102,9 +102,9 @@ class UserActive extends Component
             ->when(
                 $this->name,
                 fn ($query) => $query
-                ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
+                    ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
-            ->when($this->ip !== '', fn ($query) => $query->where('ip', '=', $this->ip))
+            ->when($this->ip !== '', fn ($query) => $query->having('ip', '=', $this->ip))
             ->when($this->port !== '', fn ($query) => $query->where('port', '=', $this->port))
             ->when($this->client !== '', fn ($query) => $query->where('agent', '=', $this->client))
             ->when($this->seeding === 'include', fn ($query) => $query->where('seeder', '=', 1))
@@ -115,7 +115,7 @@ class UserActive extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.user-active', [
+        return view('livewire.user-active', [
             'actives' => $this->active,
         ]);
     }

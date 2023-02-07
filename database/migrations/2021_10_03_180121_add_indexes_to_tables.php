@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('articles');
 
@@ -19,7 +19,7 @@ return new class () extends Migration {
             }
         });
 
-        Schema::table('bon_transactions', function (Blueprint $table) {
+        Schema::table('bon_transactions', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('bon_transactions;');
 
@@ -40,7 +40,7 @@ return new class () extends Migration {
             }
         });
 
-        Schema::table('bookmarks', function (Blueprint $table) {
+        Schema::table('bookmarks', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('bookmarks');
 
@@ -53,7 +53,7 @@ return new class () extends Migration {
             }
         });
 
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('posts', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('posts');
 
@@ -62,7 +62,7 @@ return new class () extends Migration {
             }
         });
 
-        Schema::table('topics', function (Blueprint $table) {
+        Schema::table('topics', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('topics');
 
@@ -71,7 +71,7 @@ return new class () extends Migration {
             }
         });
 
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('torrents');
 
@@ -100,7 +100,7 @@ return new class () extends Migration {
             }
         });
 
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $sm = Schema::getConnection()->getDoctrineSchemaManager();
             $doctrineTable = $sm->listTableDetails('users');
 

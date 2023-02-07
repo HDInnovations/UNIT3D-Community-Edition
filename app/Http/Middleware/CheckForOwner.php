@@ -22,7 +22,7 @@ class CheckForOwner
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
-        \abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($request->user()->group->is_owner, 403);
 
         return $next($request);
     }

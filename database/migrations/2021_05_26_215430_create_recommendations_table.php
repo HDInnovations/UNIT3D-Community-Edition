@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('recommendations', function (Blueprint $table) {
+        Schema::create('recommendations', function (Blueprint $table): void {
             $table->id();
             $table->string('title');
             $table->string('poster')->nullable();

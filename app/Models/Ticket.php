@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     protected $casts = [
         'closed_at'   => 'datetime',
@@ -33,11 +33,11 @@ class Ticket extends Model
 
     public function scopeStale($query)
     {
-        return $query->with(['comments' => function ($query) {
+        return $query->with(['comments' => function ($query): void {
             $query->latest('id');
         }, 'comments.user'])
             ->has('comments')
-            ->where('reminded_at', '<', \strtotime('+ 3 days'))
+            ->where('reminded_at', '<', strtotime('+ 3 days'))
             ->orWhereNull('reminded_at');
     }
 

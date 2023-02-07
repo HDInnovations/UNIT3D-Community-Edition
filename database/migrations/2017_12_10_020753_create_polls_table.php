@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('polls', function (Blueprint $table) {
+        Schema::create('polls', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->default(0);
             $table->string('title');

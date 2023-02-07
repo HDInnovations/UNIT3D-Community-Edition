@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('keywords', function (Blueprint $table) {
+        Schema::create('keywords', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('name')->index();
             $table->integer('torrent_id')->unsigned()->index();

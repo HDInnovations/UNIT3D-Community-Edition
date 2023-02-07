@@ -28,7 +28,7 @@ class PrivacySettingController extends Controller
      */
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        \abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->id === $user->id, 403);
 
         $privacy = $user->privacy;
 
@@ -72,7 +72,7 @@ class PrivacySettingController extends Controller
             'show_topic'                 => 'required|boolean',
             'show_upload'                => 'required|boolean',
             'json_profile_groups'        => 'array',
-            'json_profile_groups.*'        => Rule::in($validGroups),
+            'json_profile_groups.*'      => Rule::in($validGroups),
             'json_torrent_groups'        => 'array',
             'json_torrent_groups.*'      => Rule::in($validGroups),
             'json_forum_groups'          => 'array',
@@ -120,24 +120,24 @@ class PrivacySettingController extends Controller
         $privacy->show_requested = $request->show_requested;
         $privacy->show_topic = $request->show_topic;
         $privacy->show_upload = $request->show_upload;
-        $privacy->json_profile_groups = \array_map('intval', $request->json_profile_groups ?? []);
-        $privacy->json_torrent_groups = \array_map('intval', $request->json_torrent_groups ?? []);
-        $privacy->json_forum_groups = \array_map('intval', $request->json_forum_groups ?? []);
-        $privacy->json_bon_groups = \array_map('intval', $request->json_bon_groups ?? []);
-        $privacy->json_comment_groups = \array_map('intval', $request->json_comment_groups ?? []);
-        $privacy->json_wishlist_groups = \array_map('intval', $request->json_wishlist_groups ?? []);
-        $privacy->json_follower_groups = \array_map('intval', $request->json_follower_groups ?? []);
-        $privacy->json_achievement_groups = \array_map('intval', $request->json_achievement_groups ?? []);
-        $privacy->json_rank_groups = \array_map('intval', $request->json_rank_groups ?? []);
-        $privacy->json_request_groups = \array_map('intval', $request->json_request_groups ?? []);
-        $privacy->json_other_groups = \array_map('intval', $request->json_other_groups ?? []);
+        $privacy->json_profile_groups = array_map('intval', $request->json_profile_groups ?? []);
+        $privacy->json_torrent_groups = array_map('intval', $request->json_torrent_groups ?? []);
+        $privacy->json_forum_groups = array_map('intval', $request->json_forum_groups ?? []);
+        $privacy->json_bon_groups = array_map('intval', $request->json_bon_groups ?? []);
+        $privacy->json_comment_groups = array_map('intval', $request->json_comment_groups ?? []);
+        $privacy->json_wishlist_groups = array_map('intval', $request->json_wishlist_groups ?? []);
+        $privacy->json_follower_groups = array_map('intval', $request->json_follower_groups ?? []);
+        $privacy->json_achievement_groups = array_map('intval', $request->json_achievement_groups ?? []);
+        $privacy->json_rank_groups = array_map('intval', $request->json_rank_groups ?? []);
+        $privacy->json_request_groups = array_map('intval', $request->json_request_groups ?? []);
+        $privacy->json_other_groups = array_map('intval', $request->json_other_groups ?? []);
         $privacy->save();
 
         $user->private_profile = $request->private_profile;
         $user->hidden = $request->hidden;
         $user->save();
 
-        return \to_route('users.privacy_settings.edit', ['user' => $user])
+        return to_route('users.privacy_settings.edit', ['user' => $user])
             ->withSuccess('Your privacy settings have been successfully saved.');
     }
 
@@ -146,7 +146,7 @@ class PrivacySettingController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        \abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
 
         $groups = Group::query()
             ->where('is_modo', '=', '0')
@@ -158,6 +158,6 @@ class PrivacySettingController extends Controller
             ->latest('level')
             ->get();
 
-        return \view('user.privacy_setting.edit', ['user' => $user, 'groups'=> $groups]);
+        return view('user.privacy_setting.edit', ['user' => $user, 'groups' => $groups]);
     }
 }

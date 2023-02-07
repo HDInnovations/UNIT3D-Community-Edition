@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('chatrooms', function (Blueprint $table) {
+        Schema::create('chatrooms', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name')->unique();
             $table->timestamps();

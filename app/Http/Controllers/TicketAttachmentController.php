@@ -22,6 +22,6 @@ class TicketAttachmentController extends Controller
      */
     final public function download(TicketAttachment $attachment): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        return \response()->download(\getcwd().'/files/attachments/attachments/'.$attachment->file_name)->deleteFileAfterSend(false);
+        return response()->download(getcwd().'/files/attachments/attachments/'.$attachment->file_name)->deleteFileAfterSend(false);
     }
 }

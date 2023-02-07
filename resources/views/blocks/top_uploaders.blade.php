@@ -58,8 +58,7 @@
                                         <a href="{{ route('users.show', ['username' => $uploader->user->username]) }}">
                                                 <span class="badge-user text-bold"
                                                       style="color:{{ $uploader->user->group->color }}; background-image:{{ $uploader->user->group->effect }}; margin-bottom: 10px;">
-                                                    <i class="{{ $uploader->user->group->icon }}" data-toggle="tooltip"
-                                                       data-original-title="{{ $uploader->user->group->name }}"></i>
+                                                    <i class="{{ $uploader->user->group->icon }}" title="{{ $uploader->user->group->name }}"></i>
                                                     {{ $uploader->user->username }}
                                                 </span>
                                         </a>
@@ -121,8 +120,7 @@
                                                 <span class="badge-user text-bold"
                                                       style="color:{{ $past_uploader->user->group->color }}; background-image:{{ $past_uploader->user->group->effect }}; margin-bottom: 10px;">
                                                     <i class="{{ $past_uploader->user->group->icon }}"
-                                                       data-toggle="tooltip"
-                                                       data-original-title="{{ $past_uploader->user->group->name }}"></i>
+                                                       title="{{ $past_uploader->user->group->name }}"></i>
                                                     {{ $past_uploader->user->username }}
                                                 </span>
                                         </a>

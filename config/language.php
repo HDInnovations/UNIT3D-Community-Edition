@@ -21,7 +21,7 @@ return [
     | This option enable language route.
     |
     */
-    'route'         => true,
+    'route' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     | to url('/')
     |
     */
-    'home'          => true,
+    'home' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     | This option will add the language code to the redirected url
     |
     */
-    'url'          => false,
+    'url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     | This option the language of carbon library.
     |
     */
-    'carbon'        => true,
+    'carbon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -62,7 +62,7 @@ return [
     | This option the language of jenssegers/date library.
     |
     */
-    'date'          => false,
+    'date' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     | This option indicates the prefix for language routes.
     |
     */
-    'prefix'        => 'languages',
+    'prefix' => 'languages',
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'flags'         => ['width' => '20px', 'ul_class' => '', 'li_class' => '', 'img_class' => ''],
+    'flags' => ['width' => '20px', 'ul_class' => '', 'li_class' => '', 'img_class' => ''],
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ return [
     |
     */
 
-    'mode'          => ['code' => 'short', 'name' => 'native'],
+    'mode' => ['code' => 'short', 'name' => 'native'],
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'allowed'       => [
+    'allowed' => [
         'ar',
         'az',
         'be',

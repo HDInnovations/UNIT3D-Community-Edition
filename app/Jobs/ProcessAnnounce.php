@@ -14,14 +14,17 @@
 
 namespace App\Jobs;
 
+use App\Models\FreeleechToken;
 use App\Models\History;
 use App\Models\Peer;
+use App\Models\PersonalFreeleech;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class ProcessAnnounce implements ShouldQueue
 {
@@ -33,7 +36,7 @@ class ProcessAnnounce implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected $queries, protected $user, protected $torrent)
+    public function __construct(protected $queries, protected $user, protected $group, protected $torrent)
     {
     }
 
@@ -48,6 +51,8 @@ class ProcessAnnounce implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function handle(): void
@@ -58,9 +63,9 @@ class ProcessAnnounce implements ShouldQueue
         // Set Variables
         $realUploaded = $this->queries['uploaded'];
         $realDownloaded = $this->queries['downloaded'];
-        $event = \strtolower($this->queries['event']);
-        $peerId = \base64_decode($this->queries['peer_id']);
-        $ipAddress = \base64_decode($this->queries['ip-address']);
+        $event = strtolower($this->queries['event']);
+        $peerId = base64_decode($this->queries['peer_id']);
+        $ipAddress = base64_decode($this->queries['ip-address']);
 
         // Get The Current Peer
         $peer = $this->torrent->peers
@@ -80,7 +85,6 @@ class ProcessAnnounce implements ShouldQueue
 
         // Get history information
         $history = History::query()
-            ->where('created_at', '>', $this->user->created_at)
             ->where('torrent_id', '=', $this->torrent->id)
             ->where('user_id', '=', $this->user->id)
             ->first();
@@ -99,16 +103,27 @@ class ProcessAnnounce implements ShouldQueue
             $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
         }
 
-        $oldUpdate = $peer->updated_at->timestamp ?? \now()->timestamp;
+        if ($history->updated_at->timestamp > now()->subHours(2)->timestamp && $history->seeder && $this->queries['left'] == 0) {
+            $oldUpdate = $history->updated_at->timestamp;
+        } else {
+            $oldUpdate = now()->timestamp;
+        }
 
-        // Modification of Upload and Download
-        $personalFreeleech = \cache()->get('personal_freeleech:'.$this->user->id);
-        $freeleechToken = \cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id);
+        // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
+        $personalFreeleech = cache()->get('personal_freeleech:'.$this->user->id) ??
+            PersonalFreeleech::query()
+                ->where('user_id', '=', $this->user->id)
+                ->exists();
+        $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
+            FreeleechToken::query()
+                ->where('user_id', '=', $this->user->id)
+                ->where('torrent_id', '=', $this->torrent->id)
+                ->exists();
 
         if ($personalFreeleech ||
-            $this->user->group->is_freeleech == 1 ||
+            $this->group->is_freeleech == 1 ||
             $freeleechToken ||
-            \config('other.freeleech') == 1) {
+            config('other.freeleech') == 1) {
             $modDownloaded = 0;
         } elseif ($this->torrent->free >= 1) {
             // FL value in DB are from 0% to 100%.
@@ -120,8 +135,8 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         if ($this->torrent->doubleup == 1 ||
-            $this->user->group->is_double_upload == 1 ||
-            \config('other.doubleup') == 1) {
+            $this->group->is_double_upload == 1 ||
+            config('other.doubleup') == 1) {
             $modUploaded = $uploaded * 2;
         } else {
             $modUploaded = $uploaded;
@@ -139,7 +154,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
-        $peer->updated_at = \now();
+        $peer->updated_at = now();
         $peer->save();
 
         $history->user_id = $this->user->id;
@@ -153,7 +168,7 @@ class ProcessAnnounce implements ShouldQueue
             case 'started':
 
                 $history->active = 1;
-                $history->immune = (int) ($history->immune === null ? $this->user->group->is_immune : (bool) $history->immune && (bool) $this->user->group->is_immune);
+                $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
                 $history->save();
                 break;
 
@@ -164,7 +179,7 @@ class ProcessAnnounce implements ShouldQueue
                 $history->actual_uploaded += $uploaded;
                 $history->downloaded += $modDownloaded;
                 $history->actual_downloaded += $downloaded;
-                $history->completed_at = \now();
+                $history->completed_at = now();
 
                 // Seedtime allocation
                 if ($this->queries['left'] == 0) {
@@ -176,9 +191,10 @@ class ProcessAnnounce implements ShouldQueue
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->uploaded += $modUploaded;
-                    $this->user->downloaded += $modDownloaded;
-                    $this->user->save();
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
+                    ]);
                 }
                 // End User Update
 
@@ -206,9 +222,10 @@ class ProcessAnnounce implements ShouldQueue
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->uploaded += $modUploaded;
-                    $this->user->downloaded += $modDownloaded;
-                    $this->user->save();
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
+                    ]);
                 }
                 // End User Update
                 break;
@@ -232,9 +249,10 @@ class ProcessAnnounce implements ShouldQueue
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->uploaded += $modUploaded;
-                    $this->user->downloaded += $modDownloaded;
-                    $this->user->save();
+                    $this->user->update([
+                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
+                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
+                    ]);
                 }
                 // End User Update
         }

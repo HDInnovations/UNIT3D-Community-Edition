@@ -74,8 +74,7 @@
                                     <a href="{{ route('users.show', ['username' => $hpeers->user->username]) }}"><span
                                                 class="badge-user text-bold"
                                                 style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i
-                                                    class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $hpeers->user->group->name }}"></i>
+                                                    class="{{ $hpeers->user->group->icon }}" title="{{ $hpeers->user->group->name }}"></i>
                                                 {{ $hpeers->user->username }}</span></a>
                                 </td>
                             @endif
@@ -88,14 +87,12 @@
                             <td>
                                     <span
                                             class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded, 2) }}</span>
-                                <span class="badge-extra text-blue" data-toggle="tooltip"
-                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(__('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded, 2) }}</span>
+                                <span class="badge-extra text-blue" title="{{ __('torrent.credited') }} {{ strtolower(__('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded, 2) }}</span>
                             </td>
                             <td>
                                     <span
                                             class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded, 2) }}</span>
-                                <span class="badge-extra text-orange" data-toggle="tooltip"
-                                      data-original-title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
+                                <span class="badge-extra text-orange" title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded, 2) }}</span>
                             </td>
                             <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
                             <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>

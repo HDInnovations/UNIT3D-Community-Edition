@@ -243,9 +243,9 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--filled"
+                            class="form__button form__button--filled form__button--centered"
                         >
-                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> {{ __('notification.mark-all-read') }}
+                            {{ __('notification.mark-all-read') }}
                         </button>
                     </p>
                 </form>
@@ -265,9 +265,8 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--filled"
+                            class="form__button form__button--filled form__button--centered"
                         >
-                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ __('notification.delete-all') }}
                         </button>
                     </p>

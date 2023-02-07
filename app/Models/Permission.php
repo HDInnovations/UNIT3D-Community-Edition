@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Tells Laravel To Not Maintain The Timestamp Columns.

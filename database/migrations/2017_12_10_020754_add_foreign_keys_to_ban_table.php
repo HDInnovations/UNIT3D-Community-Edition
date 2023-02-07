@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('ban', function (Blueprint $table) {
+        Schema::table('ban', function (Blueprint $table): void {
             $table->foreign('owned_by', 'foreign_ban_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
             $table->foreign('created_by', 'foreign_staff_ban_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });

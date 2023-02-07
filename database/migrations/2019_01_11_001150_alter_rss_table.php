@@ -22,7 +22,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::dropIfExists('rss');
-        Schema::create('rss', function (Blueprint $table) {
+        Schema::create('rss', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('position')->default(0);
             $table->string('name', '255')->default('Default');

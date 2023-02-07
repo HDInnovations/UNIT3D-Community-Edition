@@ -35,12 +35,12 @@ class TorrentResource extends JsonResource
         }
 
         return [
-            'type'          => 'torrent',
-            'id'            => (string) $this->id,
-            'attributes'    => [
+            'type'       => 'torrent',
+            'id'         => (string) $this->id,
+            'attributes' => [
                 'meta' => [
-                    'poster'   => isset($meta->poster) ? \tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135',
-                    'genres'   => isset($meta->genres) ? $meta->genres->pluck('name')->implode(', ') : 'None',
+                    'poster' => isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135',
+                    'genres' => isset($meta->genres) ? $meta->genres->pluck('name')->implode(', ') : 'None',
                 ],
                 'name'              => $this->name,
                 'release_year'      => $this->release_year,
@@ -71,9 +71,9 @@ class TorrentResource extends JsonResource
                 'distributor_id'    => $this->when($this->distributor_id !== null, $this->distributor_id),
                 'region_id'         => $this->when($this->region_id !== null, $this->region_id),
                 'created_at'        => $this->created_at,
-                'download_link'     => \route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
-                'magnet_link'       => $this->when(\config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.$this->info_hash.'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => \auth('api')->user()->passkey]).'&xl='.$this->size),
-                'details_link'      => \route('torrent', ['id' => $this->id]),
+                'download_link'     => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => \auth('api')->user()->rsskey]),
+                'magnet_link'       => $this->when(config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.$this->info_hash.'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$this->size),
+                'details_link'      => route('torrent', ['id' => $this->id]),
             ],
         ];
     }

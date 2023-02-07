@@ -18,6 +18,7 @@ use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest
@@ -31,11 +32,11 @@ class SeedboxController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
 
-        return \view('user.seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return view('user.seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
     }
 
     /**
@@ -50,15 +51,15 @@ class SeedboxController extends Controller
         $seedboxIps = $userSeedboxes->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
         $seedboxNames = $userSeedboxes->pluck('name');
 
-        $v = \validator(
+        $v = validator(
             $request->input(),
             [
-                'name'  => [
+                'name' => [
                     'required',
                     'alpha_num',
                     Rule::notIn($seedboxNames),
                 ],
-                'ip'    => [
+                'ip' => [
                     'bail',
                     'required',
                     'ip',
@@ -72,7 +73,7 @@ class SeedboxController extends Controller
         );
 
         if ($v->fails()) {
-            return \to_route('seedboxes.index', ['username' => $user->username])
+            return to_route('seedboxes.index', ['username' => $user->username])
                 ->withErrors($v->errors());
         }
 
@@ -84,25 +85,25 @@ class SeedboxController extends Controller
         $seedbox->ip = $validated['ip'];
         $seedbox->save();
 
-        return \to_route('seedboxes.index', ['username' => $user->username])
-            ->withSuccess(\trans('user.seedbox-added-success'));
+        return to_route('seedboxes.index', ['username' => $user->username])
+            ->withSuccess(trans('user.seedbox-added-success'));
     }
 
     /**
      * Delete A Seedbox.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
 
-        \abort_unless(($user->group->is_modo || $user->id == $seedbox->user_id), 403);
+        abort_unless(($user->group->is_modo || $user->id == $seedbox->user_id), 403);
 
         $seedbox->delete();
 
-        return \to_route('seedboxes.index', ['username' => $user->username])
-            ->withSuccess(\trans('user.seedbox-deleted-success'));
+        return to_route('seedboxes.index', ['username' => $user->username])
+            ->withSuccess(trans('user.seedbox-deleted-success'));
     }
 }

@@ -46,7 +46,7 @@ class DemoSeed extends Command
         $this->warn('*** This process could take a few minutes ***');
         $this->warn('Press CTRL + C to abort');
 
-        \sleep(5);
+        sleep(5);
 
         $abort = false;
 
@@ -74,11 +74,11 @@ class DemoSeed extends Command
                     $year = 2021;
 
                     if (\array_key_exists('release_date', $movie)) {
-                        $year = (int) \substr($movie['release_date'], 0, 4);
+                        $year = (int) substr($movie['release_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
-                    $selected = \random_int(0, \count($freeleech) - 1);
+                    $selected = random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
                         'user_id'        => $uid,
@@ -94,9 +94,9 @@ class DemoSeed extends Command
                         'featured'       => false,
                         'sticky'         => 0,
                         'release_year'   => $year,
-                        'created_at'     => \now(),
-                        'bumped_at'      => \now(),
-                        'updated_at'     => \now(),
+                        'created_at'     => now(),
+                        'bumped_at'      => now(),
+                        'updated_at'     => now(),
                     ]);
                 } catch (Exception $exception) {
                     $abort = true;
@@ -136,11 +136,11 @@ class DemoSeed extends Command
                     $year = 2021;
 
                     if (\array_key_exists('first_air_date', $tv)) {
-                        $year = (int) \substr($tv['first_air_date'], 0, 4);
+                        $year = (int) substr($tv['first_air_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
-                    $selected = \random_int(0, \count($freeleech) - 1);
+                    $selected = random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
                         'user_id'        => $uid,
@@ -156,9 +156,9 @@ class DemoSeed extends Command
                         'featured'       => false,
                         'sticky'         => 0,
                         'release_year'   => $year,
-                        'created_at'     => \now(),
-                        'bumped_at'      => \now(),
-                        'updated_at'     => \now(),
+                        'created_at'     => now(),
+                        'bumped_at'      => now(),
+                        'updated_at'     => now(),
                     ]);
                 } catch (Exception $exception) {
                     $abort = true;
@@ -185,7 +185,7 @@ class DemoSeed extends Command
 
     private function fetchMovie($id)
     {
-        \sleep(2);
+        sleep(2);
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->movie($id);
 
@@ -194,7 +194,7 @@ class DemoSeed extends Command
 
     private function fetchTv($id)
     {
-        \sleep(2);
+        sleep(2);
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->tv($id);
 

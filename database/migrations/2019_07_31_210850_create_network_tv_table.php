@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('network_tv', function (Blueprint $table) {
+        Schema::create('network_tv', function (Blueprint $table): void {
             $table->unsignedInteger('network_id');
             $table->unsignedInteger('tv_id');
             $table->primary(['network_id', 'tv_id']);

@@ -22,7 +22,7 @@ class CheckForAdmin
      */
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
-        \abort_unless($request->user()->group->is_admin, 403);
+        abort_unless($request->user()->group->is_admin, 403);
 
         return $next($request);
     }

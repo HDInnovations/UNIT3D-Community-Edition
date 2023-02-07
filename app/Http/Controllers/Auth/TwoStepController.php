@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\TwoStep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Auth\TwoStepControllerTest
@@ -54,14 +55,14 @@ class TwoStepController extends Controller
      */
     private function setUser2StepData(): void
     {
-        $user = \auth()->user();
+        $user = auth()->user();
         $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
         $authCount = $twoStepAuth->authCount;
         $this->user = $user;
         $this->twoStepAuth = $twoStepAuth;
         $this->authCount = $authCount;
         $this->authStatus = $twoStepAuth->authStatus;
-        $this->remainingAttempts = \config('auth.TwoStepExceededCount') - $authCount;
+        $this->remainingAttempts = config('auth.TwoStepExceededCount') - $authCount;
     }
 
     /**
@@ -73,7 +74,7 @@ class TwoStepController extends Controller
         $this->twoStepAuth->save();
 
         $returnData = [
-            'message'           => \trans('auth.titleFailed'),
+            'message'           => trans('auth.titleFailed'),
             'authCount'         => $this->authCount,
             'remainingAttempts' => $this->remainingAttempts,
         ];
@@ -88,11 +89,11 @@ class TwoStepController extends Controller
     /**
      * Show the twostep verification form.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function showVerification(): \Illuminate\Contracts\View\View
     {
-        \abort_if(! \config('auth.TwoStepEnabled'), 404);
+        abort_if(! config('auth.TwoStepEnabled'), 404);
 
         $twoStepAuth = $this->twoStepAuth;
         $authStatus = $this->authStatus;
@@ -106,13 +107,13 @@ class TwoStepController extends Controller
             'remainingAttempts' => $this->remainingAttempts + 1,
         ];
 
-        if ($this->authCount > \config('auth.TwoStepExceededCount')) {
+        if ($this->authCount > config('auth.TwoStepExceededCount')) {
             $exceededTimeDetails = $this->exceededTimeParser($twoStepAuth->updated_at);
 
             $data['timeUntilUnlock'] = $exceededTimeDetails['tomorrow'];
             $data['timeCountdownUnlock'] = $exceededTimeDetails['remaining'];
 
-            return \view('auth.twostep-exceeded')->with($data);
+            return view('auth.twostep-exceeded')->with($data);
         }
 
         $carbon = new Carbon();
@@ -126,7 +127,7 @@ class TwoStepController extends Controller
         if (! $sentTimestamp) {
             $this->sendVerificationCodeNotification($twoStepAuth);
         } else {
-            $timeBuffer = \config('laravel2step.laravel2stepTimeResetBufferSeconds');
+            $timeBuffer = config('laravel2step.laravel2stepTimeResetBufferSeconds');
             $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
             if ($carbon->gt($timeAllowedToSendCode)) {
                 $this->sendVerificationCodeNotification($twoStepAuth);
@@ -135,20 +136,20 @@ class TwoStepController extends Controller
             }
         }
 
-        return \view('auth.twostep-verification')->with($data);
+        return view('auth.twostep-verification')->with($data);
     }
 
     /**
      * Verify the user code input.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function verify(Request $request): ?\Illuminate\Http\JsonResponse
     {
-        \abort_if(! \config('auth.TwoStepEnabled'), 404);
+        abort_if(! config('auth.TwoStepEnabled'), 404);
 
         if ($request->ajax()) {
-            $validator = \validator($request->all(), [
+            $validator = validator($request->all(), [
                 'v_input_1' => 'required|min:1|max:1',
                 'v_input_2' => 'required|min:1|max:1',
                 'v_input_3' => 'required|min:1|max:1',
@@ -158,7 +159,7 @@ class TwoStepController extends Controller
             if ($validator->fails()) {
                 $returnData = $this->invalidCodeReturnData($validator->errors());
 
-                return \response()->json($returnData, 418);
+                return response()->json($returnData, 418);
             }
 
             $code = $request->v_input_1.$request->v_input_2.$request->v_input_3.$request->v_input_4;
@@ -167,20 +168,20 @@ class TwoStepController extends Controller
             if ($validCode != $code) {
                 $returnData = $this->invalidCodeReturnData();
 
-                return \response()->json($returnData, 418);
+                return response()->json($returnData, 418);
             }
 
             $this->resetActivationCountdown($this->twoStepAuth);
 
             $returnData = [
-                'nextUri' => \session('nextUri', '/'),
-                'message' => \trans('auth.titlePassed'),
+                'nextUri' => session('nextUri', '/'),
+                'message' => trans('auth.titlePassed'),
             ];
 
-            return \response()->json($returnData, 200);
+            return response()->json($returnData, 200);
         }
 
-        \abort(404);
+        abort(404);
     }
 
     /**
@@ -188,16 +189,16 @@ class TwoStepController extends Controller
      */
     public function resend(): \Illuminate\Http\JsonResponse
     {
-        \abort_if(! \config('auth.TwoStepEnabled'), 404);
+        abort_if(! config('auth.TwoStepEnabled'), 404);
 
         $twoStepAuth = $this->twoStepAuth;
         $this->sendVerificationCodeNotification($twoStepAuth);
 
         $returnData = [
-            'title'   => \trans('auth.verificationEmailSuccess'),
-            'message' => \trans('auth.verificationEmailSentMsg'),
+            'title'   => trans('auth.verificationEmailSuccess'),
+            'message' => trans('auth.verificationEmailSentMsg'),
         ];
 
-        return \response()->json($returnData, 200);
+        return response()->json($returnData, 200);
     }
 }

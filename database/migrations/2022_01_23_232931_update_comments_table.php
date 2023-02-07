@@ -12,7 +12,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table): void {
             $table->bigIncrements('id')->change();
             $table->morphs('commentable');
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
@@ -57,7 +57,7 @@ return new class () extends Migration {
             }
         }
 
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table): void {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
             $table->dropForeign('fk_comments_articles_1');
             $table->dropIndex('fk_comments_torrents_1');

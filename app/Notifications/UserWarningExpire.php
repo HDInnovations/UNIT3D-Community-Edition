@@ -30,15 +30,15 @@ class UserWarningExpire extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): \Illuminate\Notifications\Messages\MailMessage
+    public function toMail(mixed $notifiable): MailMessage
     {
-        $profileUrl = \href_profile($this->user);
+        $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
             ->greeting('Hit and Run Warning Expired!')
             ->line('Your Hit and Run Warning has expired or been seeded off!')
             ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 
     /**
@@ -49,7 +49,7 @@ class UserWarningExpire extends Notification
         return [
             'title' => $this->torrent->name.' Hit and Run Warning Expired',
             'body'  => 'Your Hit and Run Warning has expired or been seeded off on '.$this->torrent->name,
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

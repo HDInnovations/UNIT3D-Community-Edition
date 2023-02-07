@@ -24,11 +24,11 @@ class BanController extends Controller
      */
     public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
         $bans = $user->userban()->latest()->get();
 
-        return \view('user.ban.index', [
+        return view('user.ban.index', [
             'bans' => $bans,
             'user' => $user,
         ]);
