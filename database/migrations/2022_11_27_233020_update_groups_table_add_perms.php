@@ -10,9 +10,9 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('groups', function (Blueprint $table) {
+        Schema::table('groups', function (Blueprint $table): void {
             $table->dropColumn('is_incognito');
             $table->boolean('can_download')->after('can_upload')->default(true);
             $table->boolean('can_request')->after('can_download')->default(true);
