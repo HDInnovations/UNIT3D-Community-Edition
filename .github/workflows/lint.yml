@@ -4,16 +4,19 @@ jobs:
   phplint:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Code Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 2
-      - name: "laravel-pint"
+      - name: Run Pint
         uses: aglipanci/laravel-pint-action@0.1.0
         with:
           preset: psr12
           verboseMode: true
-      - name: Commit changes
+      - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: PHP Style Change (Laravel Pint in CI)
-          skip_fetch: true
+          commit_message: PHP Style Change (Laravel Pint CI)
+          commit_user_name: HDVinne
+          commit_user_email: hdinnovations@protonmail.com
+          commit_author: HDVinnie <hdinnovations@protonmail.com>
