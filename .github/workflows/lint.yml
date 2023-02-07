@@ -1,7 +1,7 @@
 name: PHP Linting (Pint)
 on: [push, pull_request]
 permissions:
-  contents: read|write
+  contents: write
 jobs:
   phplint:
     runs-on: ubuntu-20.04
