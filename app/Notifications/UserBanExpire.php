@@ -32,7 +32,7 @@ class UserBanExpire extends Notification
     {
         return (new MailMessage())
             ->greeting('You have been unbanned 🤩')
-            ->line('You have been unbanned from '.\config('other.title'))
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->line('You have been unbanned from '.config('other.title'))
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 }

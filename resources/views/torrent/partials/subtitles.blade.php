@@ -26,8 +26,8 @@
                 <tr>
                     <td>
                         {{ $subtitle->language->name }}
-                        <i class="{{ config("other.font-awesome") }} fa-closed-captioning" data-toggle="tooltip"
-                           data-title="{{ $subtitle->note }}"></i>
+                        <i class="{{ config("other.font-awesome") }} fa-closed-captioning"
+                           title="{{ $subtitle->note }}"></i>
                     </td>
                     <td>
                         <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
@@ -50,8 +50,8 @@
                             <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
                             <span class="badge-user text-bold"
                                   style="color:{{ $subtitle->user->group->color }}; background-image:{{ $subtitle->user->group->effect }};">
-                                <i class="{{ $subtitle->user->group->icon }}" data-toggle="tooltip"
-                                   data-original-title="{{ $subtitle->user->group->name }}"></i> {{ $subtitle->user->username }}
+                                <i class="{{ $subtitle->user->group->icon }}"
+                                   title="{{ $subtitle->user->group->name }}"></i> {{ $subtitle->user->username }}
                             </span>
                             </a>
                         @endif

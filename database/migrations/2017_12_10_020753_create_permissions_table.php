@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('forum_id')->index('fk_permissions_forums1_idx');
             $table->integer('group_id')->index('fk_permissions_groups1_idx');

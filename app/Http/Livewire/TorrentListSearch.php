@@ -13,10 +13,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -105,46 +103,46 @@ class TorrentListSearch extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'name'             => ['except' => ''],
-        'description'      => ['except' => ''],
-        'mediainfo'        => ['except' => ''],
-        'uploader'         => ['except' => ''],
-        'keywords'         => ['except' => ''],
-        'startYear'        => ['except' => ''],
-        'endYear'          => ['except' => ''],
-        'categories'       => ['except' => []],
-        'types'            => ['except' => []],
-        'resolutions'      => ['except' => []],
-        'genres'           => ['except' => []],
-        'regions'          => ['except' => []],
-        'distributors'     => ['except' => []],
-        'tmdbId'           => ['except' => ''],
-        'imdbId'           => ['except' => ''],
-        'tvdbId'           => ['except' => ''],
-        'malId'            => ['except' => ''],
-        'playlistId'       => ['except' => ''],
-        'collectionId'     => ['except' => ''],
-        'free'             => ['except' => []],
-        'doubleup'         => ['except' => false],
-        'featured'         => ['except' => false],
-        'stream'           => ['except' => false],
-        'sd'               => ['except' => false],
-        'highspeed'        => ['except' => false],
-        'bookmarked'       => ['except' => false],
-        'wished'           => ['except' => false],
-        'internal'         => ['except' => false],
-        'personalRelease'  => ['except' => false],
-        'alive'            => ['except' => false],
-        'dying'            => ['except' => false],
-        'dead'             => ['except' => false],
-        'downloaded'       => ['except' => false],
-        'seeding'          => ['except' => false],
-        'leeching'         => ['except' => false],
-        'incomplete'       => ['except' => false],
-        'sortField'        => ['except' => 'bumped_at'],
-        'sortDirection'    => ['except' => 'desc'],
-        'page'             => ['except' => 1],
-        'perPage'          => ['except' => ''],
+        'name'            => ['except' => ''],
+        'description'     => ['except' => ''],
+        'mediainfo'       => ['except' => ''],
+        'uploader'        => ['except' => ''],
+        'keywords'        => ['except' => ''],
+        'startYear'       => ['except' => ''],
+        'endYear'         => ['except' => ''],
+        'categories'      => ['except' => []],
+        'types'           => ['except' => []],
+        'resolutions'     => ['except' => []],
+        'genres'          => ['except' => []],
+        'regions'         => ['except' => []],
+        'distributors'    => ['except' => []],
+        'tmdbId'          => ['except' => ''],
+        'imdbId'          => ['except' => ''],
+        'tvdbId'          => ['except' => ''],
+        'malId'           => ['except' => ''],
+        'playlistId'      => ['except' => ''],
+        'collectionId'    => ['except' => ''],
+        'free'            => ['except' => []],
+        'doubleup'        => ['except' => false],
+        'featured'        => ['except' => false],
+        'stream'          => ['except' => false],
+        'sd'              => ['except' => false],
+        'highspeed'       => ['except' => false],
+        'bookmarked'      => ['except' => false],
+        'wished'          => ['except' => false],
+        'internal'        => ['except' => false],
+        'personalRelease' => ['except' => false],
+        'alive'           => ['except' => false],
+        'dying'           => ['except' => false],
+        'dead'            => ['except' => false],
+        'downloaded'      => ['except' => false],
+        'seeding'         => ['except' => false],
+        'leeching'        => ['except' => false],
+        'incomplete'      => ['except' => false],
+        'sortField'       => ['except' => 'bumped_at'],
+        'sortDirection'   => ['except' => 'desc'],
+        'page'            => ['except' => 1],
+        'perPage'         => ['except' => ''],
     ];
 
     protected array $rules = [
@@ -166,29 +164,20 @@ class TorrentListSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTorrentsStatProperty(): ?object
-    {
-        return DB::table('torrents')
-            ->selectRaw('count(*) as total')
-            ->selectRaw('count(case when seeders > 0 then 1 end) as alive')
-            ->selectRaw('count(case when seeders = 0 then 1 end) as dead')
-            ->first();
-    }
-
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return cache()->get('personal_freeleech:'.auth()->user()->id);
     }
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $user = \auth()->user();
+        $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
             && \strlen($field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'
-            && @\preg_match($field, 'Validate regex') !== false;
+            && @preg_match($field, 'Validate regex') !== false;
 
         return Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
@@ -196,7 +185,7 @@ class TorrentListSearch extends Component
             ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
             ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
             ->when($this->uploader !== '', fn ($query) => $query->ofUploader($this->uploader))
-            ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(\array_map('trim', explode(',', $this->keywords))))
+            ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
@@ -206,7 +195,7 @@ class TorrentListSearch extends Component
             ->when($this->regions !== [], fn ($query) => $query->ofRegion($this->regions))
             ->when($this->distributors !== [], fn ($query) => $query->ofDistributor($this->distributors))
             ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
-            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
+            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
             ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
@@ -247,10 +236,9 @@ class TorrentListSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.torrent-list-search', [
-            'user'              => User::with(['group'])->findOrFail(\auth()->user()->id),
+        return view('livewire.torrent-list-search', [
+            'user'              => User::with(['group'])->findOrFail(auth()->user()->id),
             'torrents'          => $this->torrents,
-            'torrentsStat'      => $this->torrentsStat,
             'personalFreeleech' => $this->personalFreeleech,
         ]);
     }

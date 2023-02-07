@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Peer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
@@ -10,7 +12,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $duplicates = DB::table('peers')
             ->select(
@@ -37,7 +39,7 @@ return new class () extends Migration {
             }
         }
 
-        Schema::table('peers', function (Blueprint $table) {
+        Schema::table('peers', function (Blueprint $table): void {
             $table->unique(['user_id', 'torrent_id', 'peer_id']);
         });
     }

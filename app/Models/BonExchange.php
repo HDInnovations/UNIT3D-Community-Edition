@@ -45,4 +45,11 @@ class BonExchange extends Model
         'personal_freeleech' => 'boolean',
         'invite'             => 'boolean',
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id'];
 }

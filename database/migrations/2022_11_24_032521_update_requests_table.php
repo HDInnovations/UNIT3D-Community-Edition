@@ -11,7 +11,7 @@ return new class () extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         TorrentRequest::query()
             ->whereNull('imdb')
@@ -41,7 +41,7 @@ return new class () extends Migration {
             ->orWhere('mal', 'not regex', '\d+')
             ->update(['mal' => '0']);
 
-        Schema::table('requests', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table): void {
             $table->integer('imdb')->unsigned()->change();
             $table->integer('tvdb')->unsigned()->change();
             $table->integer('tmdb')->unsigned()->change();

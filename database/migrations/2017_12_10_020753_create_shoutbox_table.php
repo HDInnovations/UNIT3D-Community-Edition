@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('shoutbox', function (Blueprint $table) {
+        Schema::create('shoutbox', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user')->unsigned()->index('user');
             $table->text('message');

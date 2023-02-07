@@ -130,77 +130,81 @@ class TorrentRequestSearch extends Component
     {
         return TorrentRequest::with(['category', 'type', 'resolution'])
             ->withCount(['comments'])
-            ->when($this->name, function ($query) {
+            ->when($this->name, function ($query): void {
                 $query->where('name', 'LIKE', '%'.$this->name.'%');
             })
-            ->when($this->requestor, function ($query) {
+            ->when($this->requestor, function ($query): void {
                 $match = User::where('username', 'LIKE', '%'.$this->requestor.'%')->oldest('username')->first();
                 if ($match) {
-                    $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
+                    $query
+                        ->where('user_id', '=', $match->id)
+                        ->when(! (auth()->user()->group->is_modo || auth()->user()->id === $match->id), function ($query): void {
+                            $query->where('anon', '=', 0);
+                        });
                 }
             })
-            ->when($this->categories, function ($query) {
+            ->when($this->categories, function ($query): void {
                 $query->whereIntegerInRaw('category_id', $this->categories);
             })
-            ->when($this->types, function ($query) {
+            ->when($this->types, function ($query): void {
                 $query->whereIntegerInRaw('type_id', $this->types);
             })
-            ->when($this->resolutions, function ($query) {
+            ->when($this->resolutions, function ($query): void {
                 $query->whereIntegerInRaw('resolution_id', $this->resolutions);
             })
-            ->when($this->tmdbId, function ($query) {
+            ->when($this->tmdbId, function ($query): void {
                 $query->where('tmdb', '=', $this->tmdbId);
             })
-            ->when($this->imdbId, function ($query) {
-                if (\preg_match('/tt0*?(?=(\d{7,8}))/', $this->imdbId, $matches)) {
+            ->when($this->imdbId, function ($query): void {
+                if (preg_match('/tt0*?(?=(\d{7,8}))/', $this->imdbId, $matches)) {
                     $query->where('imdb', '=', $matches[1]);
                 } else {
                     $query->where('imdb', '=', $this->imdbId);
                 }
             })
-            ->when($this->tvdbId, function ($query) {
+            ->when($this->tvdbId, function ($query): void {
                 $query->where('tvdb', '=', $this->tvdbId);
             })
-            ->when($this->malId, function ($query) {
+            ->when($this->malId, function ($query): void {
                 $query->where('mal', '=', $this->malId);
             })
-            ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query) {
-                $query->where(function ($query) {
-                    $query->where(function ($query) {
+            ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query): void {
+                $query->where(function ($query): void {
+                    $query->where(function ($query): void {
                         if ($this->unfilled) {
-                            $query->whereNull('filled_hash')->whereNull('claimed');
+                            $query->whereNull('torrent_id')->whereNull('claimed');
                         }
                     })
-                    ->orWhere(function ($query) {
-                        if ($this->claimed) {
-                            $query->whereNotNull('claimed')->whereNull('filled_hash')->whereNull('approved_by');
-                        }
-                    })
-                    ->orWhere(function ($query) {
-                        if ($this->pending) {
-                            $query->whereNotNull('filled_hash')->whereNull('approved_by');
-                        }
-                    })
-                    ->orWhere(function ($query) {
-                        if ($this->filled) {
-                            $query->whereNotNull('filled_hash')->whereNotNull('approved_by');
-                        }
-                    });
+                        ->orWhere(function ($query): void {
+                            if ($this->claimed) {
+                                $query->whereNotNull('claimed')->whereNull('torrent_id')->whereNull('approved_by');
+                            }
+                        })
+                        ->orWhere(function ($query): void {
+                            if ($this->pending) {
+                                $query->whereNotNull('torrent_id')->whereNull('approved_by');
+                            }
+                        })
+                        ->orWhere(function ($query): void {
+                            if ($this->filled) {
+                                $query->whereNotNull('torrent_id')->whereNotNull('approved_by');
+                            }
+                        });
                 });
             })
-            ->when($this->myRequests, function ($query) {
-                $query->where('user_id', '=', \auth()->user()->id);
+            ->when($this->myRequests, function ($query): void {
+                $query->where('user_id', '=', auth()->user()->id);
             })
-            ->when($this->myClaims, function ($query) {
-                $requestCliams = TorrentRequestClaim::where('username', '=', \auth()->user()->username)->pluck('request_id');
-                $query->whereIntegerInRaw('id', $requestCliams)->whereNull('filled_hash')->whereNull('approved_by');
+            ->when($this->myClaims, function ($query): void {
+                $requestClaims = TorrentRequestClaim::where('username', '=', auth()->user()->username)->pluck('request_id');
+                $query->whereIntegerInRaw('id', $requestClaims)->whereNull('torrent_id')->whereNull('approved_by');
             })
-            ->when($this->myVoted, function ($query) {
-                $requestVotes = TorrentRequestBounty::where('user_id', '=', \auth()->user()->id)->pluck('requests_id');
+            ->when($this->myVoted, function ($query): void {
+                $requestVotes = TorrentRequestBounty::where('user_id', '=', auth()->user()->id)->pluck('requests_id');
                 $query->whereIntegerInRaw('id', $requestVotes);
             })
-            ->when($this->myFilled, function ($query) {
-                $query->where('filled_by', '=', \auth()->user()->id);
+            ->when($this->myFilled, function ($query): void {
+                $query->where('filled_by', '=', auth()->user()->id);
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
@@ -219,8 +223,8 @@ class TorrentRequestSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.torrent-request-search', [
-            'user'                     => \auth()->user(),
+        return view('livewire.torrent-request-search', [
+            'user'                     => auth()->user(),
             'torrentRequests'          => $this->torrentRequests,
             'torrentRequestStat'       => $this->torrentRequestStat,
             'torrentRequestBountyStat' => $this->torrentRequestBountyStat,

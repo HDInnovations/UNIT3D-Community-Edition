@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('application_image_proofs', function (Blueprint $table) {
+        Schema::create('application_image_proofs', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('application_id')->index();
             $table->string('image');

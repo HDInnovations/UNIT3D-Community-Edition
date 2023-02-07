@@ -56,6 +56,8 @@ class AutoRemovePersonalFreeleech extends Command
 
             // Delete The Record From DB
             $pfl->delete();
+
+            cache()->forget('personal_freeleech:'.$pfl->user_id);
         }
 
         $this->comment('Automated Removal User Personal Freeleech Command Complete');

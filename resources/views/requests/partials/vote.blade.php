@@ -1,5 +1,5 @@
-<div class="panel__action" x-data="{ open: false }">
-    <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+<div class="form__group form__group--short-horizontal" x-data="{ open: false }">
+    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="open = true; $refs.dialog.showModal();">
         {{ __('request.vote') }}
     </button>
     <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>

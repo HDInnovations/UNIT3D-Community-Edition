@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('private_messages', function (Blueprint $table) {
+        Schema::create('private_messages', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('sender_id')->unsigned()->index();
             $table->integer('reciever_id')->unsigned()->index();

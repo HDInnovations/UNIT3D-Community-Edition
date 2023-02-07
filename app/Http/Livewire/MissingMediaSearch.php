@@ -20,11 +20,11 @@ class MissingMediaSearch extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'categories'      => ['except' => []],
-        'sortField'       => ['except' => 'created_at'],
-        'sortDirection'   => ['except' => 'desc'],
-        'page'            => ['except' => 1],
-        'perPage'         => ['except' => ''],
+        'categories'    => ['except' => []],
+        'sortField'     => ['except' => 'created_at'],
+        'sortDirection' => ['except' => 'desc'],
+        'page'          => ['except' => 1],
+        'perPage'       => ['except' => ''],
     ];
 
     final public function paginationView(): string
@@ -35,7 +35,7 @@ class MissingMediaSearch extends Component
     final public function getMediasProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
-            ->withCount(['requests' => fn ($query) => $query->whereNull('filled_hash')->whereNull('claimed')])
+            ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereNull('claimed')])
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

@@ -39,7 +39,7 @@ class PollController extends Controller
     {
         $polls = Poll::latest()->paginate(15);
 
-        return \view('poll.latest', ['polls' => $polls]);
+        return view('poll.latest', ['polls' => $polls]);
     }
 
     /**
@@ -52,11 +52,11 @@ class PollController extends Controller
         $userHasVoted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($userHasVoted) {
-            return \to_route('poll_results', ['id' => $poll->id])
-                ->withInfo(\trans('poll.already-voted-result'));
+            return to_route('poll_results', ['id' => $poll->id])
+                ->withInfo(trans('poll.already-voted-result'));
         }
 
-        return \view('poll.show', ['poll' => $poll]);
+        return view('poll.show', ['poll' => $poll]);
     }
 
     /**
@@ -70,8 +70,8 @@ class PollController extends Controller
             ->where('poll_id', '=', $poll->id)
             ->exists();
         if ($voted) {
-            return \to_route('poll_results', ['id' => $poll->id])
-                ->withErrors(\trans('poll.already-voted-error'));
+            return to_route('poll_results', ['id' => $poll->id])
+                ->withErrors(trans('poll.already-voted-error'));
         }
 
         // Operate options after validation
@@ -85,15 +85,15 @@ class PollController extends Controller
         $voter->user_id = $user->id;
         $voter->save();
 
-        $pollUrl = \href_poll($poll);
-        $profileUrl = \href_profile($user);
+        $pollUrl = href_poll($poll);
+        $profileUrl = href_profile($user);
 
         $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
+            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
         );
 
-        return \to_route('poll_results', ['id' => $poll->id])
-            ->withSuccess(\trans('poll.vote-counted'));
+        return to_route('poll_results', ['id' => $poll->id])
+            ->withSuccess(trans('poll.vote-counted'));
     }
 
     /**
@@ -107,6 +107,6 @@ class PollController extends Controller
             'total_votes' => $poll->totalVotes(),
         ];
 
-        return \view('poll.result', $map);
+        return view('poll.result', $map);
     }
 }

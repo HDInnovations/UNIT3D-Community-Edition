@@ -40,10 +40,10 @@ class QuickSearchDropdown extends Component
                 ->oldest('name')
                 ->take(10)
                 ->get(),
-            default  => [],
+            default => [],
         };
 
-        return \view('livewire.quick-search-dropdown', [
+        return view('livewire.quick-search-dropdown', [
             'search_results' => $search_results,
         ]);
     }

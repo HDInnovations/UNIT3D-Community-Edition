@@ -11,7 +11,7 @@ return new class () extends Migration {
     public function up(): void
     {
         //Create Table
-        Schema::create('internals', function (Blueprint $table) {
+        Schema::create('internals', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('icon')->default('none');
@@ -19,7 +19,7 @@ return new class () extends Migration {
         });
 
         //Update Users Table
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->integer('internal_id')->index('fk_users_internal_idx')->after('group_id')->nullable();
         });
     }
@@ -33,7 +33,7 @@ return new class () extends Migration {
         Schema::dropIfExists('internals');
 
         //Update Users Table
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->dropColumn('internal_id');
         });
     }

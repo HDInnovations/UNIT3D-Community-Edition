@@ -53,7 +53,7 @@ class AutoStatsClients extends Command
             ->toArray();
 
         if (! empty($clients)) {
-            \cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
+            cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
         }
 
         $this->comment('Automated Client Stats Completed.');

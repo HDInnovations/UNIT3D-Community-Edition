@@ -23,7 +23,7 @@ class CompanyController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('mediahub.company.index');
+        return view('mediahub.company.index');
     }
 
     /**
@@ -35,7 +35,7 @@ class CompanyController extends Controller
         $shows = $company->tv()->oldest('name')->paginate(25);
         $movies = $company->movie()->oldest('title')->paginate(25);
 
-        return \view('mediahub.company.show', [
+        return view('mediahub.company.show', [
             'company' => $company,
             'shows'   => $shows,
             'movies'  => $movies,

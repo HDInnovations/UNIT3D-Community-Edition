@@ -16,7 +16,6 @@
             @csrf
             <input type="hidden" name="type" value="{{ __('torrent.torrent') }}">
             <input type="hidden" name="id" value="{{ $torrent->id }}">
-            <input type="hidden" name="slug" value="{{ $torrent->slug }}">
             <input type="hidden" name="old_status" value="{{ $torrent->status }}">
             <input type="hidden" name="status" value="3">
             <p class="form__group">

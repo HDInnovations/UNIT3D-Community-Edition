@@ -22,8 +22,15 @@ use voku\helper\AntiXSS;
 
 class PrivateMessage extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A User.
@@ -52,7 +59,7 @@ class PrivateMessage extends Model
      */
     public function setMessageAttribute(string $value): void
     {
-        $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

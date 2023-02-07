@@ -23,6 +23,6 @@ class CacheUser
             return;
         }
 
-        return \cache()->remember('cachedUser.'.$id, 30, fn () => User::find($id));
+        return cache()->remember('cachedUser.'.$id, 30, fn () => User::find($id));
     }
 }

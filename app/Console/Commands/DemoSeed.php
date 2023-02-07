@@ -20,7 +20,6 @@ use App\Services\Tmdb\Client\TV;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class DemoSeed extends Command
 {
@@ -47,7 +46,7 @@ class DemoSeed extends Command
         $this->warn('*** This process could take a few minutes ***');
         $this->warn('Press CTRL + C to abort');
 
-        \sleep(5);
+        sleep(5);
 
         $abort = false;
 
@@ -75,17 +74,16 @@ class DemoSeed extends Command
                     $year = 2021;
 
                     if (\array_key_exists('release_date', $movie)) {
-                        $year = (int) \substr($movie['release_date'], 0, 4);
+                        $year = (int) substr($movie['release_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
-                    $selected = \random_int(0, \count($freeleech) - 1);
+                    $selected = random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
                         'user_id'        => $uid,
                         'tmdb'           => $id,
                         'name'           => $movie['title'].' ('.$year.')',
-                        'slug'           => Str::slug($movie['title']),
                         'description'    => $movie['overview'],
                         'category_id'    => 1,
                         'type_id'        => random_int(1, 6),
@@ -243,9 +241,9 @@ Menu
 01:34:15.858                             : en:Who Gets Away?
 01:44:15.249                             : en:End Credits
                         ',
-                        'created_at' => \now(),
-                        'bumped_at'  => \now(),
-                        'updated_at' => \now(),
+                        'created_at' => now(),
+                        'bumped_at'  => now(),
+                        'updated_at' => now(),
                     ]);
                 } catch (Exception $exception) {
                     $abort = true;
@@ -285,17 +283,16 @@ Menu
                     $year = 2021;
 
                     if (\array_key_exists('first_air_date', $tv)) {
-                        $year = (int) \substr($tv['first_air_date'], 0, 4);
+                        $year = (int) substr($tv['first_air_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
-                    $selected = \random_int(0, \count($freeleech) - 1);
+                    $selected = random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
                         'user_id'        => $uid,
                         'tmdb'           => $id,
                         'name'           => $tv['name'].' ('.$year.')',
-                        'slug'           => Str::slug($tv['name']),
                         'description'    => $tv['overview'],
                         'category_id'    => 2,
                         'type_id'        => random_int(1, 6),
@@ -453,9 +450,9 @@ Menu
 01:34:15.858                             : en:Who Gets Away?
 01:44:15.249                             : en:End Credits
                         ',
-                        'created_at' => \now(),
-                        'bumped_at'  => \now(),
-                        'updated_at' => \now(),
+                        'created_at' => now(),
+                        'bumped_at'  => now(),
+                        'updated_at' => now(),
                     ]);
                 } catch (Exception $exception) {
                     $abort = true;
@@ -482,7 +479,7 @@ Menu
 
     private function fetchMovie($id)
     {
-        \sleep(2);
+        sleep(2);
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->movie($id);
 
@@ -491,7 +488,7 @@ Menu
 
     private function fetchTv($id)
     {
-        \sleep(2);
+        sleep(2);
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->tv($id);
 

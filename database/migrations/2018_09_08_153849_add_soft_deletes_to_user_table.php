@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->dateTime('disabled_at')->after('last_login')->nullable();
             $table->integer('deleted_by')->after('disabled_at')->nullable();
             $table->softDeletes();

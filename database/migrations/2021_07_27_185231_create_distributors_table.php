@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('distributors', function (Blueprint $table) {
+        Schema::create('distributors', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('slug');
