@@ -16,12 +16,12 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
-                <div class="form__group form__group--horizontal" x-data="{ open: false }">
-                    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                <div class="form__group form__group--horizontal" x-data>
+                    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.add-torrent') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                    <dialog class="dialog" x-ref="dialog">
                         <h4 class="dialog__heading">
                             {{ __('playlist.add-to-playlist') }}
                         </h4>
@@ -29,7 +29,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('playlists.attach') }}"
-                            x-on:click.outside="open = false; $refs.dialog.close();"
+                            x-on:click.outside="$refs.dialog.close()"
                         >
                             @csrf
                             <p class="form__group">
@@ -49,7 +49,7 @@
                                 <button class="form__button form__button--filled">
                                     {{ __('common.add') }}
                                 </button>
-                                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>

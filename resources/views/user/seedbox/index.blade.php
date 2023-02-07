@@ -26,11 +26,11 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.seedboxes') }}</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data="{ open: false }">
-                    <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                <div class="panel__action" x-data>
+                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
                         {{ __(('common.add')) }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                    <dialog class="dialog" x-ref="dialog">
                         <h3 class="dialog__heading">
                             {{ __('user.add-seedbox') }}
                         </h3>
@@ -38,7 +38,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('seedboxes.store', ['username' => $user->username]) }}"
-                            x-on:click.outside="open = false; $refs.dialog.close();"
+                            x-on:click.outside="$refs.dialog.close()"
                         >
                             @csrf
                             <p class="form__group">
@@ -70,7 +70,7 @@
                                 <button class="form__button form__button--filled">
                                     {{ __('common.submit') }}
                                 </button>
-                                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                <button x-on:click.prevent="$refs.dialog.close()" class="form__button form__button--outlined">
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>
