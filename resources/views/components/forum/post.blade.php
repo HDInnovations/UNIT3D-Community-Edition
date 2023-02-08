@@ -87,10 +87,10 @@
                 </form>
             </li>
             <li class="post__toolbar-item">
-                @livewire('like-button', ['post' => $post->id])
+                @livewire('like-button', ['post' => $post->id], key('like-'.$post->id))
             </li>
             <li class="post__toolbar-item">
-                @livewire('dislike-button', ['post' => $post->id])
+                @livewire('dislike-button', ['post' => $post->id], key('dislike-'.$post->id))
             </li>
             <li class="post__toolbar-item">
                 <a

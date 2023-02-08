@@ -34,7 +34,7 @@ class UpdateForumRequest extends FormRequest
             'name'                      => 'required',
             'position'                  => 'required',
             'description'               => 'required',
-            'parent_id'                 => 'exists:forums,id',
+            'parent_id'                 => 'required|integer',
             'permissions'               => 'array',
             'permissions.*'             => 'exists:groups,id',
             'permissions.*.show_forum'  => 'boolean',

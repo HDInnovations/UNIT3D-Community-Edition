@@ -29,7 +29,6 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -48,7 +47,7 @@ class TopicController extends Controller
     /**
      * Show The Topic.
      */
-    public function topic(int $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function topic(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         // Find the topic
         $topic = Topic::findOrFail($id);
@@ -56,22 +55,8 @@ class TopicController extends Controller
         // Get the forum of the topic
         $forum = $topic->forum;
 
-        // Get The category of the forum
-        $category = Forum::findOrFail($forum->id);
-
-        // Get all posts
-        $posts = $topic->posts()->with(['user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips'])
-            ->withCount(['likes' => function (Builder $query): void {
-                $query->where('like', '=', 1);
-            }, 'likes as dislikes_count' => function (Builder $query): void {
-                $query->where('dislike', '=', 1);
-            }])->paginate(25);
-
-        // First post
-        $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();
-
         // The user can post a topic here ?
-        if (! $category->getPermission()->read_topic) {
+        if (! $forum->getPermission()->read_topic) {
             // Redirect him to the forum index
             return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To Read This Topic!');
@@ -81,12 +66,9 @@ class TopicController extends Controller
         $topic->views++;
         $topic->save();
 
-        return view('forum.topic', [
+        return view('forum.topic.show', [
             'topic'     => $topic,
             'forum'     => $forum,
-            'category'  => $category,
-            'posts'     => $posts,
-            'firstPost' => $firstPost,
         ]);
     }
 
@@ -104,7 +86,7 @@ class TopicController extends Controller
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
-        return view('forum.new_topic', [
+        return view('forum.topic.create', [
             'forum'    => $forum,
             'category' => $category,
             'title'    => $request->input('title'),
@@ -221,7 +203,7 @@ class TopicController extends Controller
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
 
-        return view('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
+        return view('forum.topic.edit', ['topic' => $topic, 'categories' => $categories]);
     }
 
     /**

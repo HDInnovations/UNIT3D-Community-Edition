@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.subscriptions') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>{{ $forum->name }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum {{ __('common.subscriptions') }}">
+    <meta name="description" content="{{ __('forum.display-forum') }}">
 @endsection
 
 @section('breadcrumbs')
@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('common.subscriptions') }}
+        {{ $forum->name }}
     </li>
 @endsection
 
@@ -23,7 +23,8 @@
     @include('forum.partials.buttons')
 @endsection
 
+@section('page', 'page__forum--display')
+
 @section('main')
-    @livewire('subscribed-forum', [], key('forums'))
-    @livewire('subscribed-topic', [], key('topics'))
+    @livewire('forum-topic-search', ['forum' => $forum])
 @endsection
