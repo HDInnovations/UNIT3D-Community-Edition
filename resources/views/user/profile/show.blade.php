@@ -187,7 +187,7 @@
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_about'))
                             <tr>
                                 <td>{{ __('user.about') }}</td>
-                                <td>
+                                <td class="bbcode-rendered">
                                     @joypixels($user->getAboutHtml())
                                 </td>
                             </tr>

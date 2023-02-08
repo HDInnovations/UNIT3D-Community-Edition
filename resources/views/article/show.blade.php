@@ -31,7 +31,7 @@
             </time>
         </div>
     </header>
-    <div class="panel__body">
+    <div class="panel__body bbcode-rendered">
         @joypixels($article->getContentHtml())
     </div>
 </section>
