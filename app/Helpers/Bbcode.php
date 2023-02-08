@@ -219,7 +219,7 @@ class Bbcode
     /**
      * Parses the BBCode string.
      */
-    public function parse($source): string
+    public function parse($source, $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', $source);
@@ -337,8 +337,10 @@ class Bbcode
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 
-        // Replace line breaks
-        $source = str_replace(["\r\n", "\n"], '<br>', $source);
+        if ($replaceLineBreaks) {
+            // Replace line breaks
+            $source = str_replace(["\r\n", "\n"], '<br>', $source);
+        }
 
         return $source;
     }
