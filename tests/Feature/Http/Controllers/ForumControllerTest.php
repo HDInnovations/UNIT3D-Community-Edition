@@ -41,12 +41,8 @@ class ForumControllerTest extends TestCase
 
         $this->actingAs($user)->get(route('forum_latest_posts'))
             ->assertOk()
-            ->assertViewIs('forum.latest_posts')
-            ->assertViewHas('results')
-            ->assertViewHas('user')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics');
+            ->assertViewIs('forum.post.index')
+            ->assertViewHas('posts');
     }
 
     /** @test */
@@ -59,12 +55,9 @@ class ForumControllerTest extends TestCase
 
         $this->actingAs($user)->get(route('forum_latest_topics'))
             ->assertOk()
-            ->assertViewIs('forum.latest_topics')
-            ->assertViewHas('results')
-            ->assertViewHas('user')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics');
+            ->assertViewIs('forum.topic.index')
+            ->assertViewHas('topics')
+            ->assertViewHas('forumCategories');
     }
 
     /** @test */
@@ -104,15 +97,7 @@ class ForumControllerTest extends TestCase
         $this->actingAs($user)->get(route('forum_subscriptions'))
             ->assertOk()
             ->assertViewIs('forum.subscriptions')
-            ->assertViewHas('results')
             ->assertViewHas('user')
-            ->assertViewHas('name')
-            ->assertViewHas('body')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics')
-            ->assertViewHas('params')
-            ->assertViewHas('forum_neos')
-            ->assertViewHas('topic_neos');
+            ->assertViewHas('forums');
     }
 }
