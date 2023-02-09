@@ -214,9 +214,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <div class="text-center">
-                {{ $actives->links() }}
-            </div>
+            {{ $actives->links('partials.pagination') }}
         </div>
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
