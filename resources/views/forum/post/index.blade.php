@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.subscriptions') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>{{ __('common.latest-posts') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum {{ __('common.subscriptions') }}">
+    <meta name="description" content="Forum {{ __('common.latest-posts') }}">
 @endsection
 
 @section('breadcrumbs')
@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('common.subscriptions') }}
+        {{ __('common.posts') }}
     </li>
 @endsection
 
@@ -24,6 +24,5 @@
 @endsection
 
 @section('main')
-    @livewire('subscribed-forum', [], key('forums'))
-    @livewire('subscribed-topic', [], key('topics'))
+    @livewire('post-search')
 @endsection

@@ -34,7 +34,7 @@ class StoreForumRequest extends FormRequest
             'name'                      => 'required',
             'position'                  => 'required',
             'description'               => 'required',
-            'parent_id'                 => 'sometimes|exists:forums,id',
+            'parent_id'                 => 'required|integer',
             'permissions'               => 'sometimes|array',
             'permissions.*'             => 'sometimes|exists:groups,id',
             'permissions.*.show_forum'  => 'sometimes|boolean',

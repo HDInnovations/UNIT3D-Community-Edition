@@ -78,7 +78,7 @@ class TopicControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('forum_edit_topic_form', ['id' => $topic->id]));
 
         $response->assertOk();
-        $response->assertViewIs('forum.edit_topic');
+        $response->assertViewIs('forum.topic.edit');
         $response->assertViewHas('topic');
         $response->assertViewHas('categories');
 
