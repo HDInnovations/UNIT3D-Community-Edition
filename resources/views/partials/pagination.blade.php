@@ -26,7 +26,7 @@
                             <a
                                 class="pagination__link"
                                 href="{{ $paginator->url(1) }}"
-                                wire:click.prevent="gotoPage(1)"
+                                wire:click.prevent="gotoPage(1, '{{ $paginator->getPageName() }}')"
                                 rel="prev"
                             >
                                 1
@@ -39,7 +39,7 @@
                                 <a
                                     class="pagination__link"
                                     href="{{ $paginator->url(2) }}"
-                                    wire:click.prevent="gotoPage(2)"
+                                    wire:click.prevent="gotoPage(2, '{{ $paginator->getPageName() }}')"
                                 >
                                     2
                                 </a>
@@ -56,7 +56,7 @@
                                 <a
                                     class="pagination__link"
                                     href="{{ $paginator->url($page) }}"
-                                    wire:click.prevent="gotoPage({{ $page }})"
+                                    wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
                                 >
                                     {{ $page }}
                                 </a>
@@ -69,7 +69,7 @@
                                 <a
                                     class="pagination__link"
                                     href="{{ $paginator->url($paginator->currentPage() + 4) }}"
-                                    wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }})"
+                                    wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }}, '{{ $paginator->getPageName() }}')"
                                 >
                                     {{ $paginator->currentPage() + 4 }}
                                 </a>
@@ -83,7 +83,7 @@
                             <a
                                 class="pagination__link"
                                 href="{{ $paginator->url($paginator->lastPage()) }}"
-                                wire:click.prevent="gotoPage({{ $paginator->lastPage() }})"
+                                wire:click.prevent="gotoPage({{ $paginator->lastPage() }}, '{{ $paginator->getPageName() }}')"
                                 rel="next"
                             >
                                 {{ $paginator->lastPage() }}
