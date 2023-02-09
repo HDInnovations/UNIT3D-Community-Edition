@@ -67,8 +67,8 @@ class TopicController extends Controller
         $topic->save();
 
         return view('forum.topic.show', [
-            'topic'     => $topic,
-            'forum'     => $forum,
+            'topic' => $topic,
+            'forum' => $forum,
         ]);
     }
 

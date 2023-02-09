@@ -43,16 +43,18 @@ class TopicPostSearch extends Component
             ->select('posts.*')
             ->with('user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips')
             ->withCount([
-                'likes' => fn ($query) => $query->where('like', '=', 1),
+                'likes'                  => fn ($query) => $query->where('like', '=', 1),
                 'likes as dislike_count' => fn ($query) => $query->where('dislike', '=', 1),
             ])
             ->where('topic_id', '=', $this->topic->id)
             ->join('topics', 'topics.id', '=', 'posts.topic_id')
-            ->join('permissions', fn ($query) => $query
-                ->on('permissions.forum_id', '=', 'topics.forum_id')
-                ->on('permissions.group_id', '=', DB::raw((int) auth()->user()->group->id))
-                ->on('permissions.show_forum', '=', DB::raw(1))
-                ->on('permissions.read_topic', '=', DB::raw(1))
+            ->join(
+                'permissions',
+                fn ($query) => $query
+                    ->on('permissions.forum_id', '=', 'topics.forum_id')
+                    ->on('permissions.group_id', '=', DB::raw((int) auth()->user()->group->id))
+                    ->on('permissions.show_forum', '=', DB::raw(1))
+                    ->on('permissions.read_topic', '=', DB::raw(1))
             )
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderBy('created_at')

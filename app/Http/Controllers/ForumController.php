@@ -17,7 +17,6 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
@@ -32,7 +31,7 @@ class ForumController extends Controller
         $user = $request->user();
 
         return view('forum.subscriptions', [
-            'user'       => $user,
+            'user' => $user,
         ]);
     }
 
@@ -101,7 +100,7 @@ class ForumController extends Controller
         }
 
         return view('forum.forum_topic.index', [
-            'forum'      => $forum,
+            'forum' => $forum,
         ]);
     }
 }

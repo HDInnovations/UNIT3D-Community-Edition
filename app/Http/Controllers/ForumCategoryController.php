@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
-use App\Models\Post;
 use App\Models\Topic;
 
 /**
@@ -45,7 +44,7 @@ class ForumCategoryController extends Controller
         // $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
         return view('forum.category_topic.index', [
-            'forum'      => $forum,
+            'forum' => $forum,
         ]);
     }
 }

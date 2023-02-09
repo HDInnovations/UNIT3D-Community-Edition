@@ -30,7 +30,7 @@ class ForumCategoryTopicSearch extends Component
     public String $subscribed = '';
     public Forum $category;
 
-    final public function mount(Forum $category)
+    final public function mount(Forum $category): void
     {
         $this->category = $category;
     }
@@ -44,17 +44,21 @@ class ForumCategoryTopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group',)
+            ->with('user', 'user.group')
             ->whereIn('forum_id', Forum::where('parent_id', '=', $this->category->id)->select('id'))
             ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))
-            ->when($this->subscribed === 'include', fn ($query) => $query
-                ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
+            ->when(
+                $this->subscribed === 'include',
+                fn ($query) => $query
+                    ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             )
-            ->when($this->subscribed === 'exclude', fn ($query) => $query
-                ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
+            ->when(
+                $this->subscribed === 'exclude',
+                fn ($query) => $query
+                    ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
             )
             ->orderByDesc('pinned')
             ->orderBy($this->sortField, $this->sortDirection)
