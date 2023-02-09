@@ -12,100 +12,23 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ $details->name }}
+        {{ $person->name }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container">
-
-        <div class="block">
-            <div class="panel-body">
-                <div class="col-sm-12 movie-list" style=" margin: 0;">
-                    <div class="row">
-
-                        <section class="col-sm-3">
-                            <img src="{{ isset($details->still) ? tmdb_image('cast_big', $details->still) : 'https://via.placeholder.com/300x450' }}"
-                                 alt="{{ $details->name }}" class="img-responsive thumb">
-                        </section>
-
-                        <section class="col-sm-9">
-
-                            <p class="actor-bio shortened">{{ $details->biography }}</p>
-
-                            <br>
-
-                            <i class="fa fa-book text-green" aria-hidden="true"></i> {{ __('mediahub.wiki-read') }}
-                            <a target="_blank"
-                               href="https://en.wikipedia.org/wiki/{{ $details->name }}">{{ $details->name }} Wiki</a>
-
-                            <hr>
-
-                            <dl class="dl-horizontal">
-                                <dt><i class="fa fa-heart text-green" aria-hidden="true"></i> {{ __('mediahub.born') }}
-                                </dt>
-                                <dd>
-                                    {{ $details->birthday ?? '' }}
-                                    In {{ $details->place_of_birth ?? '' }}
-                                </dd>
-                                <br>
-                                <dt><i class="fa fa-film text-green"
-                                       aria-hidden="true"></i> {{ __('mediahub.movie-credits') }} </dt>
-                                <dd>{{ $credits->movie->count() ?? '0' }}</dd>
-                                <dt><i class="fa fa-step-backward text-green"
-                                       aria-hidden="true"></i> {{ __('mediahub.first-seen') }} </dt>
-                                <dd>In
-                                    <a href="{{ route('mediahub.movies.show', ['id' => $credits->movie->first()->id ?? '0']) }}">{{ $credits->movie->first()->title ?? 'N/A'}}</a>
-                                </dd>
-                                <dt><i class="fa fa-step-forward text-green"
-                                       aria-hidden="true"></i> {{ __('mediahub.latest-project') }} </dt>
-                                <dd>Last in <a
-                                            href="{{ route('mediahub.movies.show', ['id' => $credits->movie->last()->id ?? '0']) }}">{{ $credits->movie->last()->title ?? 'N/A' }} </a>
-                                </dd>
-                                <br>
-                                <dt><i class="fa fa-tv-retro text-green"
-                                       aria-hidden="true"></i> {{ __('mediahub.tv-credits') }} </dt>
-                                <dd>{{ $credits->tv->count() ?? '0' }}</dd>
-                                <dt><i class="fa fa-step-backward text-green"
-                                       aria-hidden="true"></i> {{ __('mediahub.first-seen') }} </dt>
-                                <dd>In
-                                    <a href="{{ route('mediahub.shows.show', ['id' => $credits->tv->first()->id ?? '0']) }}">{{ $credits->tv->first()->name ?? 'N/A'}}</a>
-                                </dd>
-                                <dt><i class="fa fa-step-forward text-green"
-                                       aria-hidden="true"></i> {{ __('mediahub.latest-project') }} </dt>
-                                <dd>Last in <a
-                                            href="{{ route('mediahub.shows.show', ['id' => $credits->tv->last()->id ?? '0']) }}">{{ $credits->tv->last()->name ?? 'N/A' }} </a>
-                                </dd>
-                            </dl>
-
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="block">
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('mediahub.movies') }} ({{ $person->movie->count() }})</h2>
+        <div class="panel__body">
             <table class="table table-striped clearfix">
                 <tbody>
-                @if(! empty($credits->movie))
-                    @if (count($credits->movie) <= 0)
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h1 class="text-blue">
-                                    <i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>No Data Found!
-                                </h1>
-                            </div>
-                        </div>
-                    @endif
-                    @foreach($credits->movie as $movie)
+                    @forelse($person->movie as $movie)
                         <tr>
                             <td class="col-sm-1">
                                 <img src="{{ isset($movie->poster) ? tmdb_image('poster_small', $movie->poster) : 'https://via.placeholder.com/90x135' }}"
-                                     alt="{{ $movie->name }}" class="img-responsive">
+                                    alt="{{ $movie->name }}" class="img-responsive">
                             </td>
                             <td class="col-sm-5">
-                                <i class="fa fa-film text-purple" aria-hidden="true"></i>
-                                <strong>{{ __('mediahub.movie') }}</strong><br>
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
                                         href="{{ route('mediahub.movies.show', ['id' => $movie->id]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
@@ -125,34 +48,27 @@
                                 {{ $movie->overview }}
                             </td>
                         </tr>
-                    @endforeach
-                @endif
+                    @empty
+                        <tr>
+                            <td colspan="3">{{ __('mediahub.no-data') }}</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-
-        <div class="block">
-            <table class="table table-striped clearfix">
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('mediahub.shows') }} ({{ $person->tv->count() }})</h2>
+        <div class="panel__body">
+            <table class="table table-striped">
                 <tbody>
-                @if(! empty($credits->tv))
-                    @if (count($credits->tv) <= 0)
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <h1 class="text-blue">
-                                    <i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i>{{ __('mediahub.no-data') }}
-                                </h1>
-                            </div>
-                        </div>
-                    @endif
-                    @foreach($credits->tv as $show)
+                    @forelse($person->tv as $show)
                         <tr>
                             <td class="col-sm-1">
                                 <img src="{{ isset($show->poster) ? tmdb_image('poster_small', $show->poster) : 'https://via.placeholder.com/90x135' }}"
-                                     alt="{{ $show->name }}" class="img-responsive">
+                                    alt="{{ $show->name }}" class="img-responsive">
                             </td>
                             <td class="col-sm-5">
-                                <i class="fa fa-tv-retro text-purple" aria-hidden="true"></i>
-                                <strong> {{ __('mediahub.show') }}</strong><br>
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
                                         href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}">{{ $show->name }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
@@ -172,10 +88,60 @@
                                 {{ $show->overview }}
                             </td>
                         </tr>
-                    @endforeach
-                @endif
+                    @empty
+                        <tr>
+                            <td colspan="3">{{ __('mediahub.no-data') }}</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $person->name }}</h2>
+        <img
+            src="{{ isset($person->still) ? tmdb_image('cast_big', $person->still) : 'https://via.placeholder.com/300x450' }}"
+            alt="{{ $person->name }}"
+        >
+        <div class="panel__body">{{ $person->biography ?? 'No biography' }}</div>
+        <dl class="key-value">
+            <dt>{{ __('mediahub.born') }}</dt>
+            <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
+            <dt>Place of Birth</dt>
+            <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
+            <dt>{{ __('mediahub.movie-credits') }}</dt>
+            <dd>{{ $person->movie->count() ?? '0' }}</dd>
+            <dt>{{ __('mediahub.first-seen') }} </dt>
+            <dd>
+                <a href="{{ route('mediahub.movies.show', ['id' => $person->movie->first()->id ?? '0']) }}">
+                    {{ $person->movie->first()->title ?? 'N/A'}}
+                </a>
+            </dd>
+            <dt>{{ __('mediahub.latest-project') }}</dt>
+            <dd>
+                <a href="{{ route('mediahub.movies.show', ['id' => $person->movie->last()->id ?? '0']) }}">
+                    {{ $person->movie->last()->title ?? 'N/A' }}
+                </a>
+            </dd>
+            <dt>{{ __('mediahub.tv-credits') }}</dt>
+            <dd>{{ $person->tv->count() ?? '0' }}</dd>
+            <dt>{{ __('mediahub.first-seen') }}</dt>
+            <dd>
+                In
+                <a href="{{ route('mediahub.shows.show', ['id' => $person->tv->first()->id ?? '0']) }}">
+                    {{ $person->tv->first()->name ?? 'N/A'}}
+                </a>
+            </dd>
+            <dt>{{ __('mediahub.latest-project') }}</dt>
+            <dd>
+                Last in
+                <a href="{{ route('mediahub.shows.show', ['id' => $person->tv->last()->id ?? '0']) }}">
+                    {{ $person->tv->last()->name ?? 'N/A' }}
+                </a>
+            </dd>
+        </dl>
+    </section>
 @endsection
