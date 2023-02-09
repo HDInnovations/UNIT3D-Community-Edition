@@ -98,13 +98,14 @@
             <h2 class="panel__heading">{{ __('common.download') }}</h2>
             <div class="panel__body">
                 <p class="form__group form__group--horizontal">
-                    <button
+                    <a
                         href="{{ route('playlists.download', ['id' => $playlist->id]) }}"
                         class="form__button form__button--filled form__button--centered"
+                        download
                     >
                         <i class='{{ config('other.font-awesome') }} fa-download'></i>
                         {{ __('playlist.download-all') }}
-                    </button>
+                    </a>
                 </p>
                 <p class="form__group form__group--horizontal">
                     <a
