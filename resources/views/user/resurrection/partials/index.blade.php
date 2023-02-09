@@ -71,7 +71,5 @@
         @endforeach
         </tbody>
     </table>
-    <div class="text-center">
-        {{ $resurrections->links() }}
-    </div>
+    {{ $resurrections->links('partials.pagination') }}
 </div>

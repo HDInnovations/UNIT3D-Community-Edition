@@ -171,7 +171,7 @@
                 </div>
             @endforeach
         </div>
-        {{ $torrents->links() }}
+        {{ $torrents->links('partials.pagination') }}
     </section>
     <livewire:comments :model="$playlist"/>
 @endsection
