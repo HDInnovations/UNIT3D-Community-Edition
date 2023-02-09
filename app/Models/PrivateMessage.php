@@ -69,6 +69,6 @@ class PrivateMessage extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->message, true));
+        return (new Linkify())->linky($bbcode->parse($this->message));
     }
 }

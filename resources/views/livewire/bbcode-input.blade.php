@@ -189,7 +189,7 @@
     </menu>
     <div class="bbcode-input__tab-pane">
         @if ($isPreviewEnabled)
-            <p class="bbcode-input__preview">
+            <p class="bbcode-input__preview bbcode-rendered">
                 @joypixels($contentHtml)
             </p>
             <input type="hidden" name="{{ $name }}" wire:model.defer="contentBbcode">

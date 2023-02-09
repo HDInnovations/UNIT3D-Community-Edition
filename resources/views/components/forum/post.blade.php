@@ -211,7 +211,7 @@
         </dl>
     </aside>
     <div
-        class="post__content"
+        class="post__content bbcode-rendered"
         data-bbcode="{{ $post->content }}"
     >
         @joypixels($post->getContentHtml())

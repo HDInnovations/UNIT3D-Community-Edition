@@ -80,6 +80,6 @@ class Message extends Model
      */
     public static function getMessageHtml($message): string
     {
-        return (new Bbcode())->parse($message, true);
+        return (new Bbcode())->parse($message);
     }
 }
