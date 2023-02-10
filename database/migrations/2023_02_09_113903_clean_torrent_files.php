@@ -14,25 +14,27 @@ return new class () extends Migration {
 
         Torrent::select('file_name')->orderBy('id')->chunk(100, function ($torrents) use ($directory): void {
             foreach ($torrents as $torrent) {
-                $dict = Bencode::bdecode_file($directory.$torrent->file_name);
+                if (file_exists($directory.$torrent->file_name)) {
+                    $dict = Bencode::bdecode_file($directory.$torrent->file_name);
 
-                // Whitelisted keys
-                $dict = array_intersect_key($dict, [
-                    'announce'   => '',
-                    'comment'    => '',
-                    'created by' => '',
-                    'encoding'   => '',
-                    'info'       => '',
-                ]);
+                    // Whitelisted keys
+                    $dict = array_intersect_key($dict, [
+                        'announce' => '',
+                        'comment' => '',
+                        'created by' => '',
+                        'encoding' => '',
+                        'info' => '',
+                    ]);
 
-                $dict['announce'] = config('app.url').'/announce/PID';
+                    $dict['announce'] = config('app.url').'/announce/PID';
 
-                $comment = config('torrent.comment', null);
-                if ($comment !== null) {
-                    $result['comment'] = $comment;
+                    $comment = config('torrent.comment', null);
+                    if ($comment !== null) {
+                        $result['comment'] = $comment;
+                    }
+
+                    file_put_contents($directory.$torrent->file_name, Bencode::bencode($dict));
                 }
-
-                file_put_contents($directory.$torrent->file_name, Bencode::bencode($dict));
             }
         });
     }
