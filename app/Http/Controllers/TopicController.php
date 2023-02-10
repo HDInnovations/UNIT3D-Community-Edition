@@ -86,7 +86,7 @@ class TopicController extends Controller
                 ->withErrors('You Cannot Start A New Topic Here!');
         }
 
-        return view('forum.topic.create', [
+        return view('forum.forum_topic.create', [
             'forum'    => $forum,
             'category' => $category,
             'title'    => $request->input('title'),
