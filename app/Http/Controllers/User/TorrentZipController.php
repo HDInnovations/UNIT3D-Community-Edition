@@ -70,8 +70,11 @@ class TorrentZipController extends Controller
 
                     $fileToDownload = Bencode::bencode($dict);
 
-                    $filename = str_replace([' ', '/', '\\'], ['.', '-', '-'],
-                        '['.config('torrent.source').']'.$torrent->name.'.torrent');
+                    $filename = str_replace(
+                        [' ', '/', '\\'],
+                        ['.', '-', '-'],
+                        '['.config('torrent.source').']'.$torrent->name.'.torrent'
+                    );
 
                     $zipArchive->addFromString($filename, $fileToDownload);
                 }
