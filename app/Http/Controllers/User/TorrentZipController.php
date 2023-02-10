@@ -55,23 +55,26 @@ class TorrentZipController extends Controller
             $announceUrl = route('announce', ['passkey' => $user->passkey]);
 
             foreach ($historyTorrents as $torrent) {
-                $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+                if (file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
 
-                // Set the announce key and add the user passkey
-                $dict['announce'] = $announceUrl;
+                    // Set the announce key and add the user passkey
+                    $dict['announce'] = $announceUrl;
 
-                // Set link to torrent as the comment
-                if (config('torrent.comment')) {
-                    $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $torrent->id]);
-                } else {
-                    $dict['comment'] = route('torrent', ['id' => $torrent->id]);
+                    // Set link to torrent as the comment
+                    if (config('torrent.comment')) {
+                        $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $torrent->id]);
+                    } else {
+                        $dict['comment'] = route('torrent', ['id' => $torrent->id]);
+                    }
+
+                    $fileToDownload = Bencode::bencode($dict);
+
+                    $filename = str_replace([' ', '/', '\\'], ['.', '-', '-'],
+                        '['.config('torrent.source').']'.$torrent->name.'.torrent');
+
+                    $zipArchive->addFromString($filename, $fileToDownload);
                 }
-
-                $fileToDownload = Bencode::bencode($dict);
-
-                $filename = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent');
-
-                $zipArchive->addFromString($filename, $fileToDownload);
             }
 
             $zipArchive->close();
