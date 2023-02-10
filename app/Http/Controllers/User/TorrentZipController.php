@@ -60,9 +60,6 @@ class TorrentZipController extends Controller
                 // Set the announce key and add the user passkey
                 $dict['announce'] = $announceUrl;
 
-                // Remove multi-tracker announce url possibly still stored by legacy upload system
-                unset($dict['announce-list']);
-
                 // Set link to torrent as the comment
                 if (config('torrent.comment')) {
                     $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $torrent->id]);
