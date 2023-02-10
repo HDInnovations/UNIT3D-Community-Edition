@@ -206,7 +206,7 @@ class Bencode
 
     public static function bdecode_file($filename)
     {
-        $f = file_get_contents($filename, FILE_BINARY);
+        $f = file_get_contents($filename);
 
         return self::bdecode($f);
     }
