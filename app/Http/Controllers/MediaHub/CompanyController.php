@@ -32,8 +32,8 @@ class CompanyController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $company = Company::withCount('tv', 'movie')->findOrFail($id);
-        $shows = $company->tv()->oldest('name')->paginate(25, ['*'], 'showsPage');
-        $movies = $company->movie()->oldest('title')->paginate(25, ['*'], 'moviesPage');
+        $shows = $company->tv()->has('torrents')->oldest('name')->paginate(25, ['*'], 'showsPage');
+        $movies = $company->movie()->has('torrents')->oldest('title')->paginate(25, ['*'], 'moviesPage');
 
         return view('mediahub.company.show', [
             'company' => $company,
