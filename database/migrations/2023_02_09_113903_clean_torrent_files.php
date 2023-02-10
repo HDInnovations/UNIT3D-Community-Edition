@@ -19,11 +19,11 @@ return new class () extends Migration {
 
                     // Whitelisted keys
                     $dict = array_intersect_key($dict, [
-                        'announce' => '',
-                        'comment' => '',
+                        'announce'   => '',
+                        'comment'    => '',
                         'created by' => '',
-                        'encoding' => '',
-                        'info' => '',
+                        'encoding'   => '',
+                        'info'       => '',
                     ]);
 
                     $dict['announce'] = config('app.url').'/announce/PID';
