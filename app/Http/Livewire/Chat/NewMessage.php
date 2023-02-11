@@ -19,25 +19,25 @@ use Livewire\Component;
 
 class NewMessage extends Component
 {
-    public $room;
+    public $chatroom;
 
     public $body = '';
 
-    final public function mount(Chatroom $room): void
+    final public function mount(Chatroom $chatroom): void
     {
-        $this->room = $room;
+        $this->chatroom = $chatroom;
     }
 
     final public function store(): void
     {
-        $message = $this->room->messages()->create([
+        $message = $this->chatroom->messages()->create([
             'message' => $this->body,
             'user_id' => auth()->user()->id
         ]);
 
         $this->emit('message.sent', $message->id);
 
-        broadcast(new MessageSent($this->room, $message))->toOthers();
+        broadcast(new MessageSent($this->chatroom, $message))->toOthers();
 
         $this->body = '';
     }

@@ -27,16 +27,16 @@ class MessageSent implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    protected $room;
+    private Message $message;
 
-    public $message;
+    private Chatroom $chatroom;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(Chatroom $room, Message $message)
+    public function __construct(Chatroom $chatroom, Message $message)
     {
-        $this->room = $room;
+        $this->chatroom = $chatroom;
         $this->message = $message;
     }
 
@@ -45,6 +45,6 @@ class MessageSent implements ShouldBroadcastNow
      */
     public function broadcastOn(): PrivateChannel
     {
-        return new PrivateChannel('chat.'.$this->room->id);
+        return new PrivateChannel('chat.'.$this->chatroom->id);
     }
 }

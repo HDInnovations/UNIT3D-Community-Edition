@@ -19,21 +19,21 @@ use Livewire\Component;
 
 class Messages extends Component
 {
-    public $roomId;
+    public $chatroomId;
 
     public $messages;
 
-    final public function mount(Chatroom $room, Message $messages): void
+    final public function mount(Chatroom $chatroom, Message $messages): void
     {
-        $this->roomId = $room->id;
+        $this->chatroomId = $chatroom->id;
         $this->messages = $messages;
     }
 
     final public function getListeners(): array
     {
         return [
-            'message.sent'                                        => 'prependMessage',
-            "echo-private:chat.{$this->roomId},Chat\\MessageSent" => 'prependMessageFromBroadcast'
+            'message.sent'                                            => 'prependMessage',
+            "echo-private:chat.{$this->chatroomId},Chat\\MessageSent" => 'prependMessageFromBroadcast'
         ];
     }
 

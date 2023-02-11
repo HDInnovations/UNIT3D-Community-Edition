@@ -18,21 +18,21 @@ use Livewire\Component;
 
 class Users extends Component
 {
-    public $roomId;
+    public $chatroomId;
 
     public $users;
 
-    final public function mount(Chatroom $room): void
+    final public function mount(Chatroom $chatroom): void
     {
-        $this->roomId = $room->id;
+        $this->chatroomId = $chatroom->id;
     }
 
     final public function getListeners(): array
     {
         return [
-            "echo-presence:chat.{$this->roomId},here"    => 'setUsersHere',
-            "echo-presence:chat.{$this->roomId},joining" => 'setUserJoining',
-            "echo-presence:chat.{$this->roomId},leaving" => 'setUserLeaving',
+            "echo-presence:chat.{$this->chatroomId},here"    => 'setUsersHere',
+            "echo-presence:chat.{$this->chatroomId},joining" => 'setUserJoining',
+            "echo-presence:chat.{$this->chatroomId},leaving" => 'setUserLeaving',
         ];
     }
 

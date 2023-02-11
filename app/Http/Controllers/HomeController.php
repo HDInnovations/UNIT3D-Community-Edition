@@ -50,8 +50,8 @@ class HomeController extends Controller
         $user = $request->user();
 
         // Chat
-        $room = Chatroom::whereName('General')->first();
-        $messages = $room->messages()->with(['user'])->latest()->get();
+        $chatroom = Chatroom::whereName('General')->first();
+        $messages = $chatroom->messages()->with(['user'])->latest()->get();
 
         // Latest Articles/News Block
         $articles = cache()->remember('latest_article', $expiresAt, fn () => Article::latest()->take(1)->get());
@@ -157,7 +157,7 @@ class HomeController extends Controller
             'past_uploaders'     => $pastUploaders,
             'freeleech_tokens'   => $freeleechTokens,
             'bookmarks'          => $bookmarks,
-            'room'               => $room,
+            'chatroom'           => $chatroom,
             'messages'           => $messages
         ]);
     }

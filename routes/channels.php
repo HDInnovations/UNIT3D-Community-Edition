@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('chat.{roomId}', static fn ($user) => Arr::only($user->toArray(), [
+Broadcast::channel('chat.{chatroomId}', static fn ($user) => Arr::only($user->toArray(), [
     'id',
     'username'
 ]));
