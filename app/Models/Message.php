@@ -23,19 +23,6 @@ class Message extends Model
     use HasFactory;
 
     /**
-     * The Attributes That Are Mass Assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'message',
-        'user_id',
-        'chatroom_id',
-        'receiver_id',
-        'bot_id',
-    ];
-
-    /**
      * Belongs To A Bot.
      */
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
