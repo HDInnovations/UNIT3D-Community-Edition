@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Bookmark;
+use App\Models\Chatroom;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -49,6 +50,7 @@ class HomeController extends Controller
         $user = $request->user();
 
         // Chat
+        $room = Chatroom::find(1);
         $messages = $room->messages()->with(['user'])->latest()->get();
 
         // Latest Articles/News Block
@@ -155,6 +157,8 @@ class HomeController extends Controller
             'past_uploaders'     => $pastUploaders,
             'freeleech_tokens'   => $freeleechTokens,
             'bookmarks'          => $bookmarks,
+            'room'               => $room,
+            'messages'           => $messages
         ]);
     }
 }

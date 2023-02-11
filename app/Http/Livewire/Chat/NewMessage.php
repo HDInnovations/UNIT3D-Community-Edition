@@ -15,6 +15,7 @@ namespace App\Http\Livewire\Chat;
 
 use App\Events\MessageSent;
 use App\Models\Chatroom;
+use App\Models\Message;
 use Livewire\Component;
 
 class NewMessage extends Component
@@ -31,7 +32,7 @@ class NewMessage extends Component
     final public function store(): void
     {
         $message = $this->room->messages()->create([
-            'body'    => $this->body,
+            'message' => $this->body,
             'user_id' => auth()->user()->id
         ]);
 

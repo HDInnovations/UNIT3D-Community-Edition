@@ -22,6 +22,8 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A Bot.
      */
