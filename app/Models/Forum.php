@@ -93,6 +93,14 @@ class Forum extends Model
     }
 
     /**
+     * Belongs To Many Subscribed Users.
+     */
+    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, Subscription::class);
+    }
+
+    /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
      */
     public function notifySubscribers($poster, $topic): void

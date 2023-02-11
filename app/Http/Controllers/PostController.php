@@ -148,7 +148,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
         $post = Post::findOrFail($postId);
 
-        return view('forum.post_edit', [
+        return view('forum.post.edit', [
             'topic'    => $topic,
             'forum'    => $forum,
             'post'     => $post,

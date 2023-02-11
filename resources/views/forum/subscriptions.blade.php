@@ -20,52 +20,10 @@
 @endsection
 
 @section('nav-tabs')
-    @include('forum.buttons')
+    @include('forum.partials.buttons')
 @endsection
 
 @section('main')
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('forum.forums') }}</h2>
-        @foreach ($results->whereIn('id', $forum_neos) as $subforum)
-                <x-forum.subforum-listing :subforum="$subforum" />
-        @endforeach
-    </section>
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('forum.topics') }}</h2>
-        @foreach ($results as $result)
-            @foreach($result->subscription_topics as $topic)
-                <x-forum.topic-listing :topic="$topic" />
-            @endforeach
-        @endforeach
-    </section>
-    {{ $results->links('partials.pagination') }}
-@endsection
-
-@section('sidebar')
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('forum.post-quick-search') }}</h2>
-        <div class="panel__body">
-            <form class="form form--horizontal" method="GET" action="{{ route('forum_search_form') }}">
-                <input type="hidden" name="sorting" value="created_at">
-                <input type="hidden" name="direction" value="desc">
-                <p class="form__group">
-                    <input
-                        id="body"
-                        class="form__text"
-                        name="body"
-                        placeholder=""
-                        type="text"
-                        value="{{ isset($params) && is_array($params) && array_key_exists('body', $params) ? $params['body'] : '' }}"
-                    >
-                    <label class="form__label form__label--floating" for="body">
-                        {{ __('forum.forums-post-search') }}
-                    </label>
-                </p>
-                <button type="submit" class="form__button form__button--filled">
-                    {{ __('common.search') }}
-                </button>
-            </form>
-        </div>
-    </section>
-    @include('forum.stats')
+    @livewire('subscribed-forum', [], key('forums'))
+    @livewire('subscribed-topic', [], key('topics'))
 @endsection

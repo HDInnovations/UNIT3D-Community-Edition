@@ -7,7 +7,7 @@
             <tbody>
             <tr>
                 <td>
-                    <div class="panel-body">
+                    <div class="panel-body bbcode-rendered">
                         @joypixels($torrent->getDescriptionHtml())
                     </div>
                 </td>

@@ -423,7 +423,7 @@ class TorrentController extends Controller
 
         $previewContent = $joyPixel->toImage(
             $linkify->linky(
-                $bbcode->parse($request->input('description'), true)
+                $bbcode->parse($request->input('description'))
             )
         );
 

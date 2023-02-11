@@ -31,7 +31,7 @@
 @endsection
 
 @section('nav-tabs')
-    @include('forum.buttons')
+    @include('forum.partials.buttons')
 @endsection
 
 @section('content')

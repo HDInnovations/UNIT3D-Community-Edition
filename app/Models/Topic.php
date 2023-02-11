@@ -65,6 +65,22 @@ class Topic extends Model
     }
 
     /**
+     * Has One Permissions through Forum.
+     */
+    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Permission::class, 'forum_id', 'forum_id');
+    }
+    /**
+     * Belongs to Many Subscribed Users.
+     */
+    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, Subscription::class);
+    }
+
+
+    /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      */
     public function notifySubscribers($poster, $topic, $post): void
