@@ -30,7 +30,7 @@ class Users extends Component
     final public function getListeners(): array
     {
         return [
-            "echo-presence:chat.{$this->roomId},here" => 'setUsersHere',
+            "echo-presence:chat.{$this->roomId},here"    => 'setUsersHere',
             "echo-presence:chat.{$this->roomId},joining" => 'setUserJoining',
             "echo-presence:chat.{$this->roomId},leaving" => 'setUserLeaving',
         ];
@@ -38,8 +38,8 @@ class Users extends Component
 
    final public function setUsersHere($users): void
    {
-        $this->users = $users;
-    }
+       $this->users = $users;
+   }
 
     final public function setUserJoining($user): void
     {
@@ -48,9 +48,7 @@ class Users extends Component
 
     final public function setUserLeaving($user): bool
     {
-        $this->users = \array_filter($this->users, function ($u) use ($user) {
-            return $u['id'] !== $user['id'];
-        });
+        $this->users = array_filter($this->users, fn ($u) => $u['id'] !== $user['id']);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

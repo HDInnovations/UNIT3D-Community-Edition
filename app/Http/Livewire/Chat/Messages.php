@@ -32,7 +32,7 @@ class Messages extends Component
     final public function getListeners(): array
     {
         return [
-            'message.sent' => 'prependMessage',
+            'message.sent'                                        => 'prependMessage',
             "echo-private:chat.{$this->roomId},Chat\\MessageSent" => 'prependMessageFromBroadcast'
         ];
     }

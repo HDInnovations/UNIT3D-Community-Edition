@@ -31,7 +31,7 @@ class NewMessage extends Component
     final public function store(): void
     {
         $message = $this->room->messages()->create([
-            'body' => $this->body,
+            'body'    => $this->body,
             'user_id' => auth()->user()->id
         ]);
 
