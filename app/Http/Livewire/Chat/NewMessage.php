@@ -15,7 +15,6 @@ namespace App\Http\Livewire\Chat;
 
 use App\Events\MessageSent;
 use App\Models\Chatroom;
-use App\Models\Message;
 use Livewire\Component;
 
 class NewMessage extends Component
