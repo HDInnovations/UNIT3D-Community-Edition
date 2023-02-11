@@ -39,7 +39,7 @@
         </section>
         <section class="panelV2">
             <h2 class="panel__heading">{{ $torrentRequest->name }}</h2>
-            <div class="panel__body">
+            <div class="panel__body bbcode-rendered">
                 @joypixels($torrentRequest->getDescriptionHtml())
             </div>
         </section>

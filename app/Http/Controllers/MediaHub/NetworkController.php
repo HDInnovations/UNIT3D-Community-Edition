@@ -32,7 +32,7 @@ class NetworkController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $network = Network::withCount('tv')->findOrFail($id);
-        $shows = $network->tv()->oldest('name')->paginate(25);
+        $shows = $network->tv()->has('torrents')->oldest('name')->paginate(25);
 
         return view('mediahub.network.show', [
             'network' => $network,

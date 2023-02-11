@@ -21,54 +21,13 @@
 @endsection
 
 @section('nav-tabs')
-    @include('forum.buttons')
+    @include('forum.partials.buttons')
 @endsection
 
 @section('page', 'page__forum--topic')
 
 @section('main')
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ $topic->name }}</h2>
-        @if ($topic->approved || $topic->denied || $topic->solved || $topic->invalid || $topic->bug || $topic->suggestion || $topic->implemented)
-            <ul class="topic-tags">
-                <li class="topic-tag">
-                    <i class="{{ config('other.font-awesome') }} fa-tags"></i>
-                </li>
-                @if ($topic->approved)
-                    <li class="topic-tag topic-tag--approved">{{ __('forum.approved') }}</li>
-                @endif
-                @if ($topic->denied)
-                    <li class="topic-tag topic-tag--denied">{{ __('forum.denied') }}</li>
-                @endif
-                @if ($topic->solved)
-                    <li class="topic-tag topic-tag--solved">{{ __('forum.solved') }}</li>
-                @endif
-                @if ($topic->invalid)
-                    <li class="topic-tag topic-tag--invalid">{{ __('forum.invalid') }}</li>
-                @endif
-                @if ($topic->bug)
-                    <li class="topic-tag topic-tag--bug">{{ __('forum.bug') }}</li>
-                @endif
-                @if ($topic->suggestion)
-                    <li class="topic-tag topic-tag--suggestion">{{ __('forum.suggestion') }}</li>
-                @endif
-                @if ($topic->implemented)
-                    <li class="topic-tag topic-tag--implemented">{{ __('forum.implemented') }}</li>
-                @endif
-            </ul>
-        @endif
-    </section>
-    {{ $posts->links('partials.pagination') }}
-    <div class="panel__body">
-        <ol class="topic-posts">
-            @foreach ($posts as $k => $post)
-                <li class="topic-posts__item">
-                    <x-forum.post :post="$post" />
-                </li>
-          @endforeach
-        </ol>
-    </div>
-    {{ $posts->links('partials.pagination') }}
+    @livewire('topic-post-search', ['topic' => $topic])
     @if ($topic->state === 'close' && auth()->user()->group->is_modo)
         <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
     @endif
@@ -77,8 +36,6 @@
             id="forum_reply_form"
             method="POST"
             action="{{ route('forum_reply', ['id' => $topic->id]) }}"
-            x-data="{ showReply: {{ $posts->onLastPage() ? 'true' : 'false' }} }"
-            x-show="showReply"
         >
             @csrf
             @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])

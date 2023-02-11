@@ -82,7 +82,7 @@
                 </p>
             </form>
         @else
-            <div class="comment__content">
+            <div class="comment__content bbcode-rendered">
                 @joypixels($comment->getContentHtml())
             </div>
         @endif

@@ -258,65 +258,42 @@ class PlaylistController extends Controller
         }
 
         // Zip File Name
-        $zipFileName = sprintf('[%s]%s.zip', $user->username, $playlist->name);
+        $zipFileName = '['.$user->username.']'.$playlist->name.'.zip';
 
         // Create ZipArchive Obj
         $zipArchive = new ZipArchive();
 
         // Get Users History
-        $playlistTorrents = PlaylistTorrent::where('playlist_id', '=', $playlist->id)->get();
+        $playlistTorrents = Torrent::whereRelation('playlists', 'playlist_id', '=', $playlist->id)->get();
 
-        if ($zipArchive->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
-            $failCSV = '"Name","URL","ID"';
-            $failCount = 0;
+        if ($zipArchive->open($path.$zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+            $announceUrl = route('announce', ['passkey' => $user->passkey]);
 
-            foreach ($playlistTorrents as $playlistTorrent) {
-                // Get Torrent
-                $torrent = Torrent::withAnyStatus()->find($playlistTorrent->torrent_id);
+            foreach ($playlistTorrents as $torrent) {
+                $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
 
-                // Define The Torrent Filename
-                $tmpFileName = sprintf('%s.torrent', Str::slug($torrent->title));
+                // Set the announce key and add the user passkey
+                $dict['announce'] = $announceUrl;
 
-                // The Torrent File Exist?
-                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'"
-';
-                    $failCount++;
+                // Set link to torrent as the comment
+                if (config('torrent.comment')) {
+                    $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $torrent->id]);
                 } else {
-                    // Delete The Last Torrent Tmp File If Exist
-                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
-                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
-                    }
-
-                    // Get The Content Of The Torrent
-                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
-                    // Set the announce key and add the user passkey
-                    $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
-                    // Remove Other announce url
-                    unset($dict['announce-list']);
-
-                    $fileToDownload = Bencode::bencode($dict);
-                    file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
-
-                    // Add Files To ZipArchive
-                    $zipArchive->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
+                    $dict['comment'] = route('torrent', ['id' => $torrent->id]);
                 }
+
+                $fileToDownload = Bencode::bencode($dict);
+
+                $filename = str_replace([' ', '/', '\\'], ['.', '-', '-'], '['.config('torrent.source').']'.$torrent->name.'.torrent');
+
+                $zipArchive->addFromString($filename, $fileToDownload);
             }
 
-            if ($failCount > 0) {
-                $CSVtmpName = sprintf('%s.zip', $playlist->name).'-missingTorrentFiles.CSV';
-                file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
-                $zipArchive->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
-            }
-
-            // Close ZipArchive
             $zipArchive->close();
+        }
 
-            $zipFile = $path.'/'.$zipFileName;
-
-            if (file_exists($zipFile)) {
-                return response()->download($zipFile)->deleteFileAfterSend(true);
-            }
+        if (file_exists($path.$zipFileName)) {
+            return response()->download($path.$zipFileName)->deleteFileAfterSend(true);
         }
 
         return redirect()->back()->withErrors(trans('common.something-went-wrong'));

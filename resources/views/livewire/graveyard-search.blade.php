@@ -566,10 +566,7 @@
                     {{ __('common.no-result') }}
                 </div>
             @endif
-            <br>
-            <div class="text-center">
-                {{ $torrents->links() }}
-            </div>
+            {{ $torrents->links('partials.pagination') }}
         </div>
     </div>
 </div>

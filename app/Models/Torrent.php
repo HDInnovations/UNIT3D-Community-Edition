@@ -237,7 +237,7 @@ class Torrent extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->description, true));
+        return (new Linkify())->linky($bbcode->parse($this->description));
     }
 
     /**
