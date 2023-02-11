@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
+use Database\Seeders\ChatroomTableSeeder;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
@@ -29,6 +30,8 @@ class HomeControllerTest extends TestCase
     /** @test */
     public function whenAuthenticatedHomepageReturns200(): void
     {
+        $this->seed(ChatroomTableSeeder::class);
+
         $user = User::factory()->create();
 
         $this->actingAs($user)

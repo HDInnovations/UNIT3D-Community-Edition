@@ -205,22 +205,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Echo Settings.
-     */
-    public function echoes(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(UserEcho::class);
-    }
-
-    /**
-     * Has Many Audible Settings.
-     */
-    public function audibles(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(UserAudible::class);
-    }
-
-    /**
      * Has Many Thanks Given.
      */
     public function thanksGiven(): \Illuminate\Database\Eloquent\Relations\HasMany

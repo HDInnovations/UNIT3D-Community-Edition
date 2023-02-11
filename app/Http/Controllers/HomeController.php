@@ -50,7 +50,7 @@ class HomeController extends Controller
         $user = $request->user();
 
         // Chat
-        $room = Chatroom::find(1);
+        $room = Chatroom::whereName('General')->first();
         $messages = $room->messages()->with(['user'])->latest()->get();
 
         // Latest Articles/News Block
