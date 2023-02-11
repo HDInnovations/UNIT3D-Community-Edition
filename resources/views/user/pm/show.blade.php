@@ -20,7 +20,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">Re: {{ $pm->subject }}</h2>
-        <div class="panel__body">
+        <div class="panel__body bbcode-rendered">
             @joypixels($pm->getMessageHtml())
         </div>
     </section>

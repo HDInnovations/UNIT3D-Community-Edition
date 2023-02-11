@@ -91,6 +91,6 @@ class Article extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->content, true));
+        return (new Linkify())->linky($bbcode->parse($this->content));
     }
 }

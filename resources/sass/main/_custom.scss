@@ -22,6 +22,19 @@
     --bbcode-input-border: 1px solid #555;
     --bbcode-input-border-radius: 5px;
 
+    --bbcode-rendered-fg-default: #24292f;
+    --bbcode-rendered-fg-muted: #57606a;
+    --bbcode-rendered-fg-subtle: #667788;
+    --bbcode-rendered-canvas-default: transparent;
+    --bbcode-rendered-canvas-subtle: #ececec;
+    --bbcode-rendered-border-default: #bebebe;
+    --bbcode-rendered-border-muted: #babbbd;
+    --bbcode-rendered-neutral-muted: #aeb3b833;
+    --bbcode-rendered-accent-fg: #0969da;
+    --bbcode-rendered-accent-emphasis: #0969da;
+    --bbcode-rendered-attention-subtle: #7289da;
+    --bbcode-rendered-danger-fg: #ff141ccc;
+
     --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
     --button-filled-border: none;
     --button-filled-border-radius: 9999px;
@@ -9156,72 +9169,6 @@ section.tall_categories div.category.anime span {
 
 .home .page-title h1 {
     color: #fff;
-}
-
-// BBCode Style
-.bbcode-quote {
-    background: #ebeaec;
-    padding: 10px;
-    margin: 0 0 15px 15px;
-    border-radius: 3px;
-    font-size: 14px !important;
-    font-family: inherit;
-}
-
-.bbcode-quote-head {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.bbcode-quote-date {
-    float: right;
-}
-
-.bbcode-code {
-    background: lightgray;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.bbcode-alert {
-    background: rgba(255, 20, 28, 0.8);
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.bbcode-note {
-    background: #7289da;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.spoiler-content {
-    margin: 0;
-    padding: 0 15px;
-    border: 1px solid #ddd;
-    position: relative;
-    background: #efefef;
-}
-
-.spoiler-button {
-    background: #aa65c7;
-    color: #fff;
-    text-align: center;
-    border: none;
-    border-radius: 3px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 0 3px 0 0 #883da7;
-    vertical-align: middle;
-    cursor: pointer;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-    transition: background 0.1s ease-in-out;
-}
-
-.spoiler-button:before {
-    color: #375a7f;
-    content: '\25BA ';
 }
 
 .image {

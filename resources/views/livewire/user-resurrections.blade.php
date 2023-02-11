@@ -109,10 +109,8 @@
                                 {{ $resurrection->created_at->diffForHumans() }}
                             </td>
                             <td>
-                                @php $torrent = App\Models\Torrent::where('id', '=',
-                                    $resurrection->torrent_id)->pluck('id') @endphp
                                 @php $history = App\Models\History::select(['seedtime'])->where('user_id', '=',
-                                    $user->id)->where('torrent_id', '=', $torrent)->first() @endphp
+                                    $user->id)->where('torrent_id', '=', $resurrection->torrent_id)->first() @endphp
                                 {{ empty($history) ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
                             </td>
                             <td>
@@ -140,9 +138,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                <div class="text-center">
-                    {{ $resurrections->links() }}
-                </div>
+                {{ $resurrections->links('partials.pagination') }}
             </div>
         </div>
     </div>
