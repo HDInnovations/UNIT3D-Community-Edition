@@ -29,20 +29,12 @@ use App\Achievements\UserUploadedFirstSubtitle;
 use App\Models\MediaLanguage;
 use App\Models\Subtitle;
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
 class SubtitleController extends Controller
 {
-    /**
-     * SubtitleController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -105,19 +97,6 @@ class SubtitleController extends Controller
         // Save Subtitle
         Storage::disk('subtitles')->put($filename, file_get_contents($subtitleFile));
         $subtitle->save();
-
-        // Announce To Shoutbox
-        $torrentUrl = href_torrent($subtitle->torrent);
-        $profileUrl = href_profile($user);
-        if (! $subtitle->anon) {
-            $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]', $profileUrl, $user->username, $subtitle->language->name, $torrentUrl, $subtitle->torrent->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                sprintf('An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]', $subtitle->language->name, $torrentUrl, $subtitle->torrent->name)
-            );
-        }
 
         // Achievements
         $user->unlock(new UserUploadedFirstSubtitle(), 1);

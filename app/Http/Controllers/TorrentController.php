@@ -39,7 +39,6 @@ use App\Models\TorrentFile;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Models\Warning;
-use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
@@ -57,13 +56,6 @@ use JsonException;
  */
 class TorrentController extends Controller
 {
-    /**
-     * TorrentController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of the Torrent resource.
      */
@@ -614,28 +606,6 @@ class TorrentController extends Controller
 
         // check for trusted user and update torrent
         if ($user->group->is_trusted && ! $request->mod_queue_opt_in) {
-            $appurl = config('app.url');
-            $user = $torrent->user;
-            $username = $user->username;
-            $anon = $torrent->anon;
-
-            // Announce To Shoutbox
-            if ($anon == 0) {
-                $this->chatRepository->systemMessage(
-                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
-                );
-            } else {
-                $this->chatRepository->systemMessage(
-                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
-                );
-            }
-
-            if ($torrent->free >= 1) {
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can! :fire:'
-                );
-            }
-
             TorrentHelper::approveHelper($torrent->id);
         }
 

@@ -18,7 +18,6 @@ use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -27,14 +26,6 @@ use Illuminate\Support\Carbon;
  */
 class AutoGraveyard extends Command
 {
-    /**
-     * AutoGraveyards Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -73,21 +64,10 @@ class AutoGraveyard extends Command
                 $user->fl_tokens += config('graveyard.reward');
                 $user->save();
 
-                // Auto Shout
-                $appurl = config('app.url');
-
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
-                );
-
                 // Bump Torrent With FL
-                $torrentUrl = href_torrent($torrent);
                 $torrent->bumped_at = Carbon::now();
                 $torrent->free = 100;
                 $torrent->fl_until = Carbon::now()->addDays(3);
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top. :stopwatch:', $torrentUrl, $torrent->name)
-                );
                 $torrent->save();
 
                 // Send Private Message

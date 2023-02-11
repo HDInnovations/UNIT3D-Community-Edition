@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Models\FeaturedTorrent;
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -24,14 +23,6 @@ use Illuminate\Support\Carbon;
  */
 class AutoRemoveFeaturedTorrent extends Command
 {
-    /**
-     * AutoRemoveFeaturedTorrent Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -62,13 +53,6 @@ class AutoRemoveFeaturedTorrent extends Command
                 $torrent->doubleup = 0;
                 $torrent->featured = 0;
                 $torrent->save();
-
-                // Auto Announce Featured Expired
-                $appurl = config('app.url');
-
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
-                );
             }
 
             // Delete The Record From DB

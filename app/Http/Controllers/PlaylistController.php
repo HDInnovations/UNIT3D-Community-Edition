@@ -19,7 +19,6 @@ use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\Tv;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
@@ -31,13 +30,6 @@ use Exception;
  */
 class PlaylistController extends Controller
 {
-    /**
-     * PlaylistController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display All Playlists.
      */
@@ -99,13 +91,6 @@ class PlaylistController extends Controller
         }
 
         $playlist->save();
-        // Announce To Shoutbox
-        $appurl = config('app.url');
-        if ($playlist->is_private != 1) {
-            $this->chatRepository->systemMessage(
-                sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
-            );
-        }
 
         return to_route('playlists.show', ['id' => $playlist->id])
             ->withSuccess(trans('playlist.published-success'));

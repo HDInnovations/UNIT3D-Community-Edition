@@ -41,8 +41,6 @@ use App\Models\TorrentRequestBounty;
 use App\Models\TwoStepAuth;
 use App\Models\User;
 use App\Models\UserActivation;
-use App\Models\UserAudible;
-use App\Models\UserEcho;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use App\Models\Voter;
@@ -303,22 +301,6 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserAudible::withoutGlobalScopes()
-            ->whereIntegerNotInRaw('user_id', $userIds)
-            ->whereNotNull('user_id')
-            ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserAudible::withoutGlobalScopes()
-            ->whereIntegerNotInRaw('target_id', $userIds)
-            ->whereNotNull('target_id')
-            ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserEcho::withoutGlobalScopes()
-            ->whereIntegerNotInRaw('user_id', $userIds)
-            ->whereNotNull('user_id')
-            ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserEcho::withoutGlobalScopes()
-            ->whereIntegerNotInRaw('target_id', $userIds)
-            ->whereNotNull('target_id')
-            ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);
         Note::withoutGlobalScopes()
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
@@ -709,26 +691,6 @@ return new class () extends Migration {
         Schema::table('user_activations', function (Blueprint $table): void {
             $table->unsignedInteger('user_id')->change();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-        });
-
-        Schema::table('user_audibles', function (Blueprint $table): void {
-            $table->unsignedInteger('user_id')->change();
-            $table->dropIndex(['user_id']);
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-
-            $table->unsignedInteger('target_id')->nullable()->change();
-            $table->dropIndex(['target_id']);
-            $table->foreign('target_id')->references('id')->on('users')->cascadeOnUpdate();
-        });
-
-        Schema::table('user_echoes', function (Blueprint $table): void {
-            $table->unsignedInteger('user_id')->change();
-            $table->dropIndex(['user_id']);
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
-
-            $table->unsignedInteger('target_id')->nullable()->change();
-            $table->dropIndex(['target_id']);
-            $table->foreign('target_id')->references('id')->on('users')->cascadeOnUpdate();
         });
 
         Schema::table('user_notes', function (Blueprint $table): void {

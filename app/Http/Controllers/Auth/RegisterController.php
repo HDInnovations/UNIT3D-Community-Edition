@@ -22,7 +22,6 @@ use App\Models\User;
 use App\Models\UserActivation;
 use App\Models\UserNotification;
 use App\Models\UserPrivacy;
-use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -31,13 +30,6 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-    /**
-     * RegisterController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Registration Form.
      */
@@ -153,21 +145,7 @@ class RegisterController extends Controller
         $userActivation->token = $token;
         $userActivation->save();
         $this->dispatch(new SendActivationMail($user, $token));
-        // Select A Random Welcome Message
-        $profileUrl = href_profile($user);
-        $welcomeArray = [
-            sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
-            sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profileUrl, $user->username),
-            sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profileUrl, $user->username),
-            sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
-        ];
-        $selected = random_int(0, \count($welcomeArray) - 1);
-        $this->chatRepository->systemMessage(
-            $welcomeArray[$selected]
-        );
+
         // Send Welcome PM
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = 1;

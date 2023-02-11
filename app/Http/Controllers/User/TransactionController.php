@@ -20,7 +20,6 @@ use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\User;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -29,13 +28,6 @@ use Illuminate\Support\Carbon;
  */
 class TransactionController extends Controller
 {
-    /**
-     * BonusController Constructor.
-     */
-    public function __construct(protected \App\Interfaces\ByteUnitsInterface $byteUnits, private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Show Bonus Store System.
      */

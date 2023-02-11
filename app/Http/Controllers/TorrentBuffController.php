@@ -17,7 +17,6 @@ use App\Bots\IRCAnnounceBot;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -26,13 +25,6 @@ use Illuminate\Support\Carbon;
  */
 class TorrentBuffController extends Controller
 {
-    /**
-     * TorrentController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Bump A Torrent.
      */
@@ -44,14 +36,6 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
-
-        // Announce To Chat
-        $torrentUrl = href_torrent($torrent);
-        $profileUrl = href_profile($user);
-
-        $this->chatRepository->systemMessage(
-            sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
-        );
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
@@ -108,22 +92,11 @@ class TorrentBuffController extends Controller
             $fl_until = $request->input('fl_until');
             if ($fl_until !== null) {
                 $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:', $torrentUrl, $torrent->name, $torrentFlAmount)
-                );
-            } else {
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $torrentFlAmount)
-                );
             }
         } else {
             // Get amount of FL before revoking for chat announcement
             $torrentFlAmount = $torrent->free;
             $torrent->free = '0';
-
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech! :poop:', $torrentUrl, $torrent->name, $torrentFlAmount)
-            );
         }
 
         $torrent->save();
@@ -153,12 +126,6 @@ class TorrentBuffController extends Controller
             $featured->torrent_id = $torrent->id;
             $featured->save();
 
-            $torrentUrl = href_torrent($torrent);
-            $profileUrl = href_profile($user);
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $profileUrl, $user->username)
-            );
-
             return to_route('torrent', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         }
@@ -185,12 +152,6 @@ class TorrentBuffController extends Controller
             $torrent->doubleup = '0';
             $torrent->featured = '0';
             $torrent->save();
-
-            $appurl = config('app.url');
-
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
-            );
         }
 
         $featured_torrent->delete();
@@ -215,19 +176,9 @@ class TorrentBuffController extends Controller
             $du_until = $request->input('du_until');
             if ($du_until !== null) {
                 $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:', $torrentUrl, $torrent->name)
-                );
-            } else {
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrentUrl, $torrent->name)
-                );
             }
         } else {
             $torrent->doubleup = '0';
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrentUrl, $torrent->name)
-            );
         }
 
         $torrent->save();

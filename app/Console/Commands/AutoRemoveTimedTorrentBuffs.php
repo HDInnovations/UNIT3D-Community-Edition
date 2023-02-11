@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -23,14 +22,6 @@ use Illuminate\Support\Carbon;
  */
 class AutoRemoveTimedTorrentBuffs extends Command
 {
-    /**
-     * AutoRemoveTimedTorrentBuffs Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -59,11 +50,6 @@ class AutoRemoveTimedTorrentBuffs extends Command
                 $torrent->free = 0;
                 $torrent->fl_until = null;
                 $torrent->save();
-
-                // Announce To Chat
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed freeleech buff has expired.', $appurl, $torrent->id, $torrent->name)
-                );
             }
         }
 
@@ -74,11 +60,6 @@ class AutoRemoveTimedTorrentBuffs extends Command
                 $torrent->doubleup = 0;
                 $torrent->du_until = null;
                 $torrent->save();
-
-                // Announce To Chat
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed double upload buff has expired.', $appurl, $torrent->id, $torrent->name)
-                );
             }
         }
 

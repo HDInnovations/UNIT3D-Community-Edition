@@ -34,7 +34,6 @@ use App\Notifications\NewRequestFill;
 use App\Notifications\NewRequestFillApprove;
 use App\Notifications\NewRequestFillReject;
 use App\Notifications\NewRequestUnclaim;
-use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -46,13 +45,6 @@ use Exception;
  */
 class RequestController extends Controller
 {
-    /**
-     * RequestController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -192,18 +184,6 @@ class RequestController extends Controller
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bounty');
         $user->save();
-        $trUrl = href_request($torrentRequest);
-        $profileUrl = href_profile($user);
-        // Auto Shout
-        if ($torrentRequest->anon == 0) {
-            $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', $profileUrl, $user->username, $trUrl, $torrentRequest->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                sprintf('An anonymous user has created a new request [url=%s]%s[/url]', $trUrl, $torrentRequest->name)
-            );
-        }
 
         return to_route('requests.index')
             ->withSuccess(trans('request.added-request'));
@@ -330,18 +310,6 @@ class RequestController extends Controller
         $BonTransactions->save();
         $user->seedbonus -= $request->input('bonus_value');
         $user->save();
-        $trUrl = href_request($tr);
-        $profileUrl = href_profile($user);
-        // Auto Shout
-        if ($torrentRequestBounty->anon == 0) {
-            $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]', $profileUrl, $user->username, $request->input('bonus_value'), $trUrl, $tr->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                sprintf('An anonymous user added %s BON bounty to request [url=%s]%s[/url]', $request->input('bonus_value'), $trUrl, $tr->name)
-            );
-        }
 
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $tr->user;
@@ -434,20 +402,6 @@ class RequestController extends Controller
             $fillUser->addProgress(new UserFilled50Requests(), 1);
             $fillUser->addProgress(new UserFilled75Requests(), 1);
             $fillUser->addProgress(new UserFilled100Requests(), 1);
-
-            $trUrl = href_request($tr);
-            $profileUrl = href_profile($fillUser);
-
-            // Auto Shout
-            if ($tr->filled_anon == 0) {
-                $this->chatRepository->systemMessage(
-                    sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', $profileUrl, $fillUser->username, $trUrl, $tr->name)
-                );
-            } else {
-                $this->chatRepository->systemMessage(
-                    sprintf('An anonymous user has filled request, [url=%s]%s[/url]', $trUrl, $tr->name)
-                );
-            }
 
             $requester = $fillUser;
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill_approve')) {

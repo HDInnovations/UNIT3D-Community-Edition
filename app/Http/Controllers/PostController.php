@@ -30,7 +30,6 @@ use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
 use App\Notifications\NewPostTag;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Exception;
@@ -40,13 +39,6 @@ use Exception;
  */
 class PostController extends Controller
 {
-    /**
-     * PostController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Store A New Post To A Topic.
      */
@@ -104,7 +96,6 @@ class PostController extends Controller
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
         } else {
-            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);

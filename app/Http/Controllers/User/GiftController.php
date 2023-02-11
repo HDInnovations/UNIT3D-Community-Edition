@@ -18,18 +18,10 @@ use App\Http\Requests\StoreGiftRequest;
 use App\Models\BonTransactions;
 use App\Models\User;
 use App\Notifications\NewBon;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 class GiftController extends Controller
 {
-    /**
-     * UserGiftController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Show previous gift history.
      */
@@ -118,17 +110,6 @@ class GiftController extends Controller
         if ($recipient->acceptsNotification($user, $recipient, 'bon', 'show_bon_gift')) {
             $recipient->notify(new NewBon('gift', $user->username, $bonTransactions));
         }
-
-        $this->chatRepository->systemMessage(
-            sprintf(
-                '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
-                href_profile($user),
-                $user->username,
-                $value,
-                href_profile($recipient),
-                $recipient->username
-            )
-        );
 
         return redirect()->back()->withSuccess(trans('bon.gift-sent'));
     }

@@ -28,7 +28,6 @@ use App\Achievements\UserMadeFirstPost;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -37,13 +36,6 @@ use Exception;
  */
 class TopicController extends Controller
 {
-    /**
-     * TopicController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Show The Topic.
      */
@@ -173,7 +165,6 @@ class TopicController extends Controller
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $forum->notifyStaffers($user, $topic);
         } else {
-            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
             $forum->notifySubscribers($user, $topic);
         }
 

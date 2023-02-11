@@ -17,7 +17,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
 use App\Models\Option;
 use App\Models\Poll;
-use App\Repositories\ChatRepository;
 use Exception;
 
 /**
@@ -25,13 +24,6 @@ use Exception;
  */
 class PollController extends Controller
 {
-    /**
-     * PollController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display All Polls.
      */
@@ -71,12 +63,6 @@ class PollController extends Controller
 
         $options = collect($storePoll->input('options'))->map(fn ($value) => new Option(['name' => $value]));
         $poll->options()->saveMany($options);
-
-        $pollUrl = href_poll($poll);
-
-        $this->chatRepository->systemMessage(
-            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
-        );
 
         return to_route('staff.polls.index')
             ->withSuccess('Your poll has been created.');
@@ -131,14 +117,6 @@ class PollController extends Controller
         $newOptions = collect($storePoll->input('new-option-content'))->map(fn ($content) => new Option(['name' => $content]));
 
         $poll->options()->saveMany($newOptions);
-
-        // Last work from store()
-        $pollUrl = href_poll($poll);
-
-        $this->chatRepository->systemMessage(
-            sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
-        );
-
         $poll->save();
 
         return to_route('staff.polls.index')

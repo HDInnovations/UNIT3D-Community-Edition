@@ -18,7 +18,6 @@ use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
-use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -28,14 +27,6 @@ use Exception;
  */
 class AutoNerdStat extends Command
 {
-    /**
-     * AutoNerdStat Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -133,9 +124,6 @@ class AutoNerdStat extends Command
                 config('other.title').' Is King!',
             ];
             $selected = random_int(0, \count($statArray) - 1);
-
-            // Auto Shout Nerd Stat
-            $this->chatRepository->systemMessage($statArray[$selected], 2);
         }
 
         $this->comment('Automated Nerd Stat Command Complete');

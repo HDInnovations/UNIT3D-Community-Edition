@@ -17,18 +17,10 @@ use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Notifications\NewReseedRequest;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 class ReseedController extends Controller
 {
-    /**
-     * ReseedController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Reseed Request A Torrent.
      */
@@ -44,12 +36,6 @@ class ReseedController extends Controller
             foreach ($reseed as $r) {
                 User::find($r->user_id)->notify(new NewReseedRequest($torrent));
             }
-
-            $torrentUrl = href_torrent($torrent);
-
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrentUrl, $torrent->name)
-            );
 
             return to_route('torrent', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');

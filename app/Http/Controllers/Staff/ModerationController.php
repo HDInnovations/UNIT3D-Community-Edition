@@ -18,7 +18,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateModerationRequest;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
 
 /**
@@ -26,13 +25,6 @@ use Illuminate\Support\Carbon;
  */
 class ModerationController extends Controller
 {
-    /**
-     * ModerationController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Torrent Moderation Panel.
      */
@@ -82,19 +74,6 @@ class ModerationController extends Controller
 
         switch ($request->status) {
             case 1: // Approve
-                $appurl = config('app.url');
-
-                // Announce To Shoutbox
-                if ($torrent->anon === 0) {
-                    $this->chatRepository->systemMessage(
-                        sprintf('User [url=%s/users/', $appurl).$torrent->user->username.']'.$torrent->user->username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
-                    );
-                } else {
-                    $this->chatRepository->systemMessage(
-                        sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
-                    );
-                }
-
                 TorrentHelper::approveHelper($id);
 
                 return to_route('staff.moderation.index')

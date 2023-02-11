@@ -17,7 +17,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreChatStatusRequest;
 use App\Http\Requests\Staff\UpdateChatStatusRequest;
 use App\Models\ChatStatus;
-use App\Repositories\ChatRepository;
 use Exception;
 
 /**
@@ -26,18 +25,11 @@ use Exception;
 class ChatStatusController extends Controller
 {
     /**
-     * ChatController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
-    /**
      * Chat Management.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatstatuses = $this->chatRepository->statuses();
+        $chatstatuses =ChatStatus::all();
 
         return view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,

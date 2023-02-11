@@ -17,7 +17,6 @@ use App\Http\Requests\VoteOnPoll;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Models\Voter;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -25,13 +24,6 @@ use Illuminate\Http\Request;
  */
 class PollController extends Controller
 {
-    /**
-     * PollController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Show All Polls.
      */
@@ -84,13 +76,6 @@ class PollController extends Controller
         $voter->poll_id = $poll->id;
         $voter->user_id = $user->id;
         $voter->save();
-
-        $pollUrl = href_poll($poll);
-        $profileUrl = href_profile($user);
-
-        $this->chatRepository->systemMessage(
-            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', $profileUrl, $user->username, $pollUrl, $poll->title)
-        );
 
         return to_route('poll_results', ['id' => $poll->id])
             ->withSuccess(trans('poll.vote-counted'));

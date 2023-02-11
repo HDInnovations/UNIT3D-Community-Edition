@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
-use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -40,14 +39,6 @@ class AutoRecycleClaimedTorrentRequests extends Command
     protected $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
 
     /**
-     * AutoRecycleClaimedTorrentRequests Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws Exception
@@ -66,12 +57,8 @@ class AutoRecycleClaimedTorrentRequests extends Command
                 ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
                 ->first();
             if ($requestClaim) {
-                $trUrl = href_request($torrentRequest);
-                $this->chatRepository->systemMessage(
-                    sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $torrentRequest->name)
-                );
-
                 $requestClaim->delete();
+
                 $torrentRequest->claimed = null;
                 $torrentRequest->save();
             }

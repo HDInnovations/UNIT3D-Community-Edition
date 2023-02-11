@@ -13,12 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Message;
 use App\Models\Peer;
-use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
 use Exception;
 
@@ -27,13 +25,6 @@ use Exception;
  */
 class FlushController extends Controller
 {
-    /**
-     * FlushController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Flsuh All Old Peers From Database.
      *
@@ -66,13 +57,8 @@ class FlushController extends Controller
     public function chat(): \Illuminate\Http\RedirectResponse
     {
         foreach (Message::all() as $message) {
-            broadcast(new MessageDeleted($message));
             $message->delete();
         }
-
-        $this->chatRepository->systemMessage(
-            'Chatbox Has Been Flushed! :broom:'
-        );
 
         return to_route('staff.dashboard.index')
             ->withSuccess('Chatbox Has Been Flushed');
