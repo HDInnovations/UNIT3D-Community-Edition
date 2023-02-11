@@ -29,7 +29,7 @@ class ChatStatusController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatstatuses =ChatStatus::all();
+        $chatstatuses = ChatStatus::all();
 
         return view('Staff.chat.status.index', [
             'chatstatuses' => $chatstatuses,
