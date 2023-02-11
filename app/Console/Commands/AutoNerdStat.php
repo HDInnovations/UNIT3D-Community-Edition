@@ -21,12 +21,15 @@ use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
+use App\Traits\ChatMessage;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest
  */
 class AutoNerdStat extends Command
 {
+    use ChatMessage;
+
     /**
      * The name and signature of the console command.
      *
@@ -124,6 +127,9 @@ class AutoNerdStat extends Command
                 config('other.title').' Is King!',
             ];
             $selected = random_int(0, \count($statArray) - 1);
+
+            // Automated Chat Message
+            $this->emitChatMessage($statArray[$selected]);
         }
 
         $this->comment('Automated Nerd Stat Command Complete');
