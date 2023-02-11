@@ -51,7 +51,7 @@ class AutoInsertPeers extends Command
     public function handle(): void
     {
         $key = config('cache.prefix').':peers:batch';
-        $peerCount = Redis::connection('peer')->command('LRANGE', [$key, '0', '-1']);
+        $peerCount = Redis::connection('peer')->command('LLEN', [$key]);
         $cycles = ceil($peerCount / self::PEERS_PER_CYCLE);
 
         for ($i = 0; $i < $cycles; $i++) {
