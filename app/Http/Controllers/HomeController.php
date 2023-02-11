@@ -48,6 +48,9 @@ class HomeController extends Controller
         // Authorized User
         $user = $request->user();
 
+        // Chat
+        $messages = $room->messages()->with(['user'])->latest()->get();
+
         // Latest Articles/News Block
         $articles = cache()->remember('latest_article', $expiresAt, fn () => Article::latest()->take(1)->get());
         foreach ($articles as $article) {
