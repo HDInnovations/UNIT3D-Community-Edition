@@ -18,6 +18,8 @@ class HomeControllerTest extends TestCase
         parent::setUp();
 
         $this->seed(GroupsTableSeeder::class);
+        $this->seed(UsersTableSeeder::class);
+        $this->seed(ChatroomTableSeeder::class);
     }
 
     /** @test */
@@ -31,9 +33,6 @@ class HomeControllerTest extends TestCase
     /** @test */
     public function whenAuthenticatedHomepageReturns200(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(ChatroomTableSeeder::class);
-
         $user = User::factory()->create();
 
         $this->actingAs($user)
