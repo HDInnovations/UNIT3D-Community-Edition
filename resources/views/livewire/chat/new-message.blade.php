@@ -8,7 +8,7 @@
     </form>
 </div>
 
-<script>
+<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
     function formScope() {
         let typingTimer
 
