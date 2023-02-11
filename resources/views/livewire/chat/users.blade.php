@@ -22,7 +22,7 @@
             },
 
             listenForWhisper () {
-                Echo.private('chat.{{ $roomId }}')
+                Echo.private('chat.{{ $chatroomId }}')
                     .listenForWhisper('typing', (e) => {
                         this.typing[e.id] = e.typing
                     })
