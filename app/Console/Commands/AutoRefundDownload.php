@@ -15,9 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\Torrent;
-use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 
 class AutoRefundDownload extends Command
 {
