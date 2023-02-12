@@ -42,111 +42,34 @@ class AutoRefundDownload extends Command
      */
     public function handle()
     {
-        $current = Carbon::now();
-        // grace-in-seconds * (Months / seedtime-requirement)
-        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (2_592_000 / config('hitrun.seedtime')));
-
         History::query()
+            ->with(['user', 'torrent'])
             ->where('active', '=', 1)
             ->where('seeder', '=', 1)
-            ->where('seedtime', '>=', (2_592_000 + config('hitrun.seedtime'))
-                ->where('created_at', '>=', $current->copy()->subSeconds(2_592_000 + $grace)->toDateTimeString()))
-            ->chunkById(100, function ($histories) use ($current): void {
+            ->where('seedtime', '>', config('hitrun.seedtime'))
+            ->chunkById(100, function ($histories): void {
                 foreach ($histories as $history) {
-                    $user = User::where('id', '=', $history->user_id)->first();
-                    $torrent = Torrent::where('id', '=', $history->torrent_id)->first();
-                    if ((config('other.refundable') || $torrent->refundable == 1 || $user->group->is_refundable == 1) && ($torrent->user_id != $user->id)) {
-                        $monthly_refund = ($torrent->size / 12);
+                    if ((config('other.refundable') || $history->torrent->refundable == 1 || $history->user->group->is_refundable == 1) && ($history->torrent->user_id != $history->user->id)) {
+                        // TODO: Rework Logic
 
-                        // One month refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (2_592_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= 2_592_000 + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 2) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(2_592_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && $monthly_refund >= $history->refunded_download ? ($monthly_refund - $history->refunded_download) : $monthly_refund;
-                            $refund_amount = $history->refunded_download != $monthly_refund ? $monthly_refund : 0;
-                        }
+                        // One week seedtime equals quater refund based on torrent size
 
-                        // Two months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (5_184_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 2) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 3) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(5_184_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 2) >= $history->refunded_download ? (($monthly_refund * 2) - $history->refunded_download) : ($monthly_refund * 2);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 2) ? ($monthly_refund * 2) : 0;
-                        }
 
-                        // Three months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (7_776_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 3) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 4) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(7_776_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 3) >= $history->refunded_download ? (($monthly_refund * 3) - $history->refunded_download) : ($monthly_refund * 3);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 3) ? ($monthly_refund * 3) : 0;
-                        }
+                        // Two weeks seedtime equals half refund based on torrent size
 
-                        // Four months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (10_368_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 4) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 5) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(10_368_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 4) >= $history->refunded_download ? (($monthly_refund * 4) - $history->refunded_download) : ($monthly_refund * 4);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 4) ? ($monthly_refund * 4) : 0;
-                        }
 
-                        // Five months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (12_960_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 5) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 6) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(12_960_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 5) >= $history->refunded_download ? (($monthly_refund * 5) - $history->refunded_download) : ($monthly_refund * 5);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 5) ? ($monthly_refund * 5) : 0;
-                        }
+                        // Three weeks seedtime equals three quater refund based on torrent size
 
-                        // Six months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (15_552_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 6) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 7) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(15_552_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 6) >= $history->refunded_download ? (($monthly_refund * 6) - $history->refunded_download) : ($monthly_refund * 6);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 6) ? ($monthly_refund * 6) : 0;
-                        }
 
-                        // Seven months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (18_144_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 7) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 8) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(18_144_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 7) >= $history->refunded_download ? (($monthly_refund * 7) - $history->refunded_download) : ($monthly_refund * 7);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 7) ? ($monthly_refund * 7) : 0;
-                        }
+                        // One month seedtime equals full refund based on torrent size
 
-                        // Eight months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (20_736_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 8) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 9) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(20_736_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 8) >= $history->refunded_download ? (($monthly_refund * 8) - $history->refunded_download) : ($monthly_refund * 8);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 8) ? ($monthly_refund * 8) : 0;
-                        }
 
-                        // Nine months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (23_328_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 9) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 10) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(23_328_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 9) >= $history->refunded_download ? (($monthly_refund * 9) - $history->refunded_download) : ($monthly_refund * 9);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 9) ? ($monthly_refund * 9) : 0;
-                        }
-
-                        // Ten months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (25_920_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 10) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 11) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(25_920_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 10) >= $history->refunded_download ? (($monthly_refund * 10) - $history->refunded_download) : ($monthly_refund * 10);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 10) ? ($monthly_refund * 10) : 0;
-                        }
-
-                        // Eleven months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (28_512_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 11) + config('hitrun.seedtime') && $history->seedtime < (2_592_000 * 12) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(28_512_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && ($monthly_refund * 11) >= $history->refunded_download ? (($monthly_refund * 11) - $history->refunded_download) : ($monthly_refund * 11);
-                            $refund_amount = $history->refunded_download != ($monthly_refund * 11) ? ($monthly_refund * 11) : 0;
-                        }
-
-                        // Twelve months refund
-                        $grace = ((config('hitrun.grace') * 24 * 60 * 60) * (31_104_000 / config('hitrun.seedtime')));
-                        if ($history->seedtime >= (2_592_000 * 12) + config('hitrun.seedtime') && $history->created_at >= $current->copy()->subSeconds(31_104_000 + $grace)->toDateTimeString()) {
-                            $mod_download = $history->refunded_download != 0 && $torrent->size >= $history->refunded_download ? ($torrent->size - $history->refunded_download) : $torrent->size;
-                            $refund_amount = $history->refunded_download != $torrent->size ? $torrent->size : 0;
-                        }
-
-                        if (isset($refund_amount) && $refund_amount != 0) {
+                        if (isset($refund_amount, $mod_download) && $mod_download != 0 && $refund_amount != 0) {
                             $history->refunded_download += $refund_amount;
                             $history->save();
-                            $user->downloaded -= $mod_download;
-                            $user->save();
+
+                            $history->user->downloaded -= $mod_download;
+                            $history->user->save();
                         }
                     }
                 }
