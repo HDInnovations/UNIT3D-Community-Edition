@@ -156,7 +156,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
-        Redis::connection('peer')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer)]);
+        Redis::connection('peer')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer->toArray())]);
         //$peer->save();
 
         $history->user_id = $this->user->id;
