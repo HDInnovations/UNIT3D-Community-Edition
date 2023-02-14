@@ -14,7 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
+use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -32,20 +32,22 @@ class PostSearch extends Component
     final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()
-            ->select('posts.*')
-            ->with('user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips')
-            ->withCount([
-                'likes'                  => fn ($query) => $query->where('like', '=', 1),
-                'likes as dislike_count' => fn ($query) => $query->where('dislike', '=', 1),
+            ->with('user', 'user.group', 'topic:id,name')
+            ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+            ->withSum('tips', 'cost')
+            ->withExists([
+                'likes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
             ])
-            ->join('topics', 'topics.id', '=', 'posts.topic_id')
-            ->join(
-                'permissions',
-                fn ($query) => $query
-                    ->on('permissions.forum_id', '=', 'topics.forum_id')
-                    ->on('permissions.group_id', '=', DB::raw((int) auth()->user()->group->id))
-                    ->on('permissions.show_forum', '=', DB::raw(1))
-                    ->on('permissions.read_topic', '=', DB::raw(1))
+            ->whereNotIn('topic_id', Topic::query()
+                ->whereRelation('forumPermissions', fn ($query) => $query
+                    ->where('group_id', '=', auth()->user()->group->id)
+                    ->where(fn ($query) => $query
+                        ->where('show_forum', '!=', 1)
+                        ->orWhere('read_topic', '!=', 1)
+                    )
+                )
+                ->select('id')
             )
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderByDesc('created_at')
