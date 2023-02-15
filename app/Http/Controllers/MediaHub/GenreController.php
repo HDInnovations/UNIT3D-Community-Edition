@@ -23,7 +23,7 @@ class GenreController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $genres = Genre::paginate(25);
+        $genres = Genre::withCount(['tv', 'movie'])->orderBy('name')->get();
 
         return view('mediahub.genre.index', ['genres' => $genres]);
     }

@@ -375,13 +375,13 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::get('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'addForm'])->name('forum_new_topic_form');
             Route::post('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'newTopic'])->name('forum_new_topic');
             Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
-            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close');
-            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open');
+            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close')->middleware('modo');
+            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open')->middleware('modo');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
             Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
             Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
-            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic');
-            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic');
+            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic')->middleware('modo');
+            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic')->middleware('modo');
         });
 
         // Topic Label System
