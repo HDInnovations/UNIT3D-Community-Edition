@@ -27,8 +27,6 @@ class TicketPrioritiesTableSeeder extends Seeder
 
     /**
      * Auto generated seed file.
-     *
-     * @return voids
      */
     final public function run(): void
     {
