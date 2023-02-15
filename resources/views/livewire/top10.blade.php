@@ -8,7 +8,10 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($torrentsDay as $torrent)
+        @foreach($torrentsDay->loadExists([
+            'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+        ]) as $torrent)
             @php $meta = null @endphp
             @if ($torrent->category->tv_meta)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
@@ -191,7 +194,7 @@
                             @endif
                         @endif
 
-                        @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
+                        @if ($torrent->freeleechTokens_exists)
                             <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        title='{{ __('torrent.freeleech-token') }}'></i>
@@ -291,7 +294,7 @@
                             </a>
                         @endif
                         <div>
-                            @livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+                            @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key($torrent->id))
                         </div>
                     </td>
                     <td class="torrent-listings-tmdb" style="vertical-align: middle;">
@@ -362,7 +365,10 @@
         </thead>
         <tbody>
         @if($torrentsWeek)
-        @foreach($torrentsWeek as $torrent)
+        @foreach($torrentsWeek->loadExists([
+            'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+        ]) as $torrent)
             @php $meta = null @endphp
             @if ($torrent->category->tv_meta)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
@@ -542,7 +548,7 @@
                         @endif
                     @endif
 
-                    @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
+                    @if ($torrent->freeleechTokens_exists)
                         <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        title='{{ __('torrent.freeleech-token') }}'></i>
@@ -642,7 +648,7 @@
                         </a>
                     @endif
                     <div>
-                        @livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+                        @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key($torrent->id))
                     </div>
                 </td>
                 <td class="torrent-listings-tmdb" style="vertical-align: middle;">
@@ -714,7 +720,10 @@
         </thead>
         <tbody>
         @if($torrentsMonth)
-        @foreach($torrentsMonth as $torrent)
+        @foreach($torrentsMonth->loadExists([
+            'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+        ]) as $torrent)
             @php $meta = null @endphp
             @if ($torrent->category->tv_meta)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
@@ -894,7 +903,7 @@
                         @endif
                     @endif
 
-                    @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
+                    @if ($torrent->freeleechTokens_exists)
                         <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        title='{{ __('torrent.freeleech-token') }}'></i>
@@ -994,7 +1003,7 @@
                         </a>
                     @endif
                     <div>
-                        @livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+                        @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key($torrent->id))
                     </div>
                 </td>
                 <td class="torrent-listings-tmdb" style="vertical-align: middle;">
@@ -1066,7 +1075,10 @@
         </thead>
         <tbody>
         @if($torrentsYear)
-        @foreach($torrentsYear as $torrent)
+        @foreach($torrentsYear->loadExists([
+            'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+        ]) as $torrent)
             @php $meta = null @endphp
             @if ($torrent->category->tv_meta)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
@@ -1249,7 +1261,7 @@
                         @endif
                     @endif
 
-                    @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
+                    @if ($torrent->freeleechTokens_exists)
                         <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        title='{{ __('torrent.freeleech-token') }}'></i>
@@ -1352,7 +1364,7 @@
                         </a>
                     @endif
                     <div>
-                        @livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+                        @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key($torrent->id))
                     </div>
                 </td>
                 <td class="torrent-listings-tmdb" style="vertical-align: middle;">
@@ -1424,7 +1436,10 @@
         </thead>
         <tbody>
         @if($torrentsAll)
-            @foreach($torrentsAll as $torrent)
+            @foreach($torrentsAll->loadExists([
+                'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            ]) as $torrent)
                 @php $meta = null @endphp
                 @if ($torrent->category->tv_meta)
                     @if ($torrent->tmdb || $torrent->tmdb != 0)
@@ -1607,7 +1622,7 @@
                             @endif
                         @endif
 
-                        @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
+                        @if ($torrent->freeleechTokens_exists)
                             <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        title='{{ __('torrent.freeleech-token') }}'></i>
@@ -1707,7 +1722,7 @@
                             </a>
                         @endif
                         <div>
-                            @livewire('small-bookmark-button', ['torrent' => $torrent->id], key($torrent->id))
+                            @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key($torrent->id))
                         </div>
                     </td>
                     <td class="torrent-listings-tmdb" style="vertical-align: middle;">

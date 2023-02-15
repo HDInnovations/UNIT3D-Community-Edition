@@ -119,11 +119,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimestamps();
     }
 
-    public function isBookmarked(int $torrentId): bool
-    {
-        return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
-    }
-
     /**
      * Belongs To Many Seeding Torrents.
      */

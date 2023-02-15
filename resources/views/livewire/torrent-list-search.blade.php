@@ -311,7 +311,7 @@
                                 </span>
                                 @endif
 
-                                @if ($user->freeleechTokens->where('torrent_id', $torrent->id)->first())
+                                @if ($torrent->freeleechTokens_exists)
                                     <span class='badge-extra text-bold torrent-listings-freeleech-token'>
                                     <i class='{{ config('other.font-awesome') }} fa-star text-bold'
                                        title='{{ __('torrent.freeleech-token') }}'></i>
@@ -390,7 +390,7 @@
                                 @endif
                             </td>
                             <td class="torrent-listings-download" style="vertical-align: middle;">
-                                @livewire('small-bookmark-button', ['torrent' => $torrent->id], key('torrent-'.$torrent->id))
+                                @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('torrent-'.$torrent->id))
                                 @if (config('torrent.download_check_page') == 1)
                                     <a href="{{ route('download_check', ['id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button"
