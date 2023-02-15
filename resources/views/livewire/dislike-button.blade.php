@@ -3,10 +3,10 @@
     wire:click="store({{ $post->id }})"
     title="{{ __('forum.dislike-post') }}"
 >
-    @if(auth()->user()->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first())
+    @if($post->dislikes_exists)
         <i class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down fa-beat"></i>
     @else
         <i class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"></i>
     @endif
-    <span class="votes__dislike-count">{{ $post->dislikes()->count() }}</span>
+    <span class="votes__dislike-count">{{ $post->dislike_count }}</span>
 </button>
