@@ -246,10 +246,10 @@ class AnnounceController extends Controller
 
         // Part.2 Extract optional announce fields
         foreach ([
-            'event'   => '',
+            'event' => '',
             'numwant' => 25,
             'corrupt' => 0,
-            'key'     => '',
+            'key' => '',
         ] as $item => $value) {
             $queries[$item] = $request->query->get($item, $value);
         }

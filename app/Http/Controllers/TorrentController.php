@@ -158,8 +158,8 @@ class TorrentController extends Controller
             ->sortBy('position')
             ->mapWithKeys(fn ($cat) => [
                 $cat['id'] => [
-                    'name' => $cat['name'],
-                    'type' => match (1) {
+                    'name'               => $cat['name'],
+                    'type'               => match (1) {
                         $cat->movie_meta => 'movie',
                         $cat->tv_meta    => 'tv',
                         $cat->game_meta  => 'game',

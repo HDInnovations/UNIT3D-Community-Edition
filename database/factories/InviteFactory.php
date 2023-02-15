@@ -15,7 +15,7 @@ class InviteFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'     => fn () => User::factory()->create()->id,
+            'user_id'     => fn ()     => User::factory()->create()->id,
             'email'       => $this->faker->safeEmail(),
             'code'        => $this->faker->word(),
             'expires_on'  => $this->faker->dateTime(),
