@@ -59,7 +59,7 @@ class ForumController extends Controller
             ['slug' => Str::slug($request->title)]
             + $request->safe()->only(
                 [
-                    'title',
+                    'name',
                     'position',
                     'description',
                     'parent_id'
@@ -123,7 +123,7 @@ class ForumController extends Controller
                 'slug'      => Str::slug($request->title),
                 'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,
             ]
-            + $request->safe()->only(['title', 'position', 'description'])
+            + $request->safe()->only(['name', 'position', 'description'])
         );
 
         // Permissions

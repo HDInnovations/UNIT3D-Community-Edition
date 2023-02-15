@@ -69,6 +69,22 @@ class Post extends Model
     }
 
     /**
+     * A Post Author Has Many Posts.
+     */
+    public function authorPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Post::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * A Post Author Has Many Topics.
+     */
+    public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Topic::class, 'first_post_user_id', 'user_id');
+    }
+
+    /**
      * Set The Posts Content After Its Been Purified.
      */
     public function setContentAttribute(?string $value): void
@@ -83,7 +99,7 @@ class Post extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse(htmlspecialchars_decode($this->content), true));
+        return (new Linkify())->linky($bbcode->parse(htmlspecialchars_decode($this->content)));
     }
 
     /**

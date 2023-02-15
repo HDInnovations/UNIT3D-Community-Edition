@@ -27,7 +27,7 @@
         'aside header'
         'aside content'
         'aside footer';
-    grid-template-columns: 153px 1fr;
+    grid-template-columns: 153px minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     border-radius: 5px;
     box-shadow: var(--post-shadow);

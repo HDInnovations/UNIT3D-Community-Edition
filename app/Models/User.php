@@ -722,7 +722,7 @@ class User extends Authenticatable
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->signature, true));
+        return (new Linkify())->linky($bbcode->parse($this->signature));
     }
 
     /**
@@ -744,7 +744,7 @@ class User extends Authenticatable
 
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->about, true));
+        return (new Linkify())->linky($bbcode->parse($this->about));
     }
 
     /**

@@ -16,7 +16,7 @@ class QuickSearchDropdown extends Component
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         $search = '%'.str_replace(' ', '%', $this->quicksearchText).'%';
-        $search_results = match ($this->quicksearchRadio) {
+        $search_results = $this->quicksearchText === '' ? [] : match ($this->quicksearchRadio) {
             'movies' => Movie::query()
                 ->select(['id', 'poster', 'title', 'release_date'])
                 ->selectRaw("concat(title, ' ', release_date) as title_and_year")

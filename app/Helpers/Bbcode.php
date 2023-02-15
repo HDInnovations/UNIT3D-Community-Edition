@@ -115,14 +115,14 @@ class Bbcode
         'quote' => [
             'openBbcode'  => '/^\[quote\]/i',
             'closeBbcode' => '[/quote]',
-            'openHtml'    => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><div class="pt-5">',
-            'closeHtml'   => '</div></div></li></ul>',
+            'openHtml'    => '<blockquote>',
+            'closeHtml'   => '</blockquote>',
         ],
         'namedquote' => [
             'openBbcode'  => '/^\[quote=([^<>"]*?)\]/i',
             'closeBbcode' => '[/quote]',
-            'openHtml'    => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><strong><span><i class="fas fa-quote-left"></i> Quoting $1 :</span></strong><div class="pt-5">',
-            'closeHtml'   => '</div></div></li></ul>',
+            'openHtml'    => '<blockquote><i class="fas fa-quote-left"></i> <cite>Quoting $1:</cite><p>',
+            'closeHtml'   => '</p></blockquote>',
         ],
         'namedlink' => [
             'openBbcode'  => '/^\[url=(.*?)\]/i',
@@ -157,13 +157,13 @@ class Bbcode
         'alert' => [
             'openBbcode'  => '/^\[alert\]/i',
             'closeBbcode' => '[/alert]',
-            'openHtml'    => '<div class="bbcode-alert">',
+            'openHtml'    => '<div class="bbcode-rendered__alert">',
             'closeHtml'   => '</div>',
         ],
         'note' => [
             'openBbcode'  => '/^\[note\]/i',
             'closeBbcode' => '[/note]',
-            'openHtml'    => '<div class="bbcode-note">',
+            'openHtml'    => '<div class="bbcode-rendered__note">',
             'closeHtml'   => '</div>',
         ],
         'sub' => [
@@ -205,13 +205,13 @@ class Bbcode
         'spoiler' => [
             'openBbcode'  => '/^\[spoiler\]/i',
             'closeBbcode' => '[/spoiler]',
-            'openHtml'    => '<details class="label label-primary"><summary>Spoiler</summary><pre><code><div style="text-align:left;">',
+            'openHtml'    => '<details><summary>Spoiler</summary><pre><code><div style="text-align:left;">',
             'closeHtml'   => '</div></code></pre></details>',
         ],
         'named-spoiler' => [
             'openBbcode'  => '/^\[spoiler=(.*?)\]/i',
             'closeBbcode' => '[/spoiler]',
-            'openHtml'    => '<details class="label label-primary"><summary>$1</summary><pre><code><div style="text-align:left;">',
+            'openHtml'    => '<details><summary>$1</summary><pre><code><div style="text-align:left;">',
             'closeHtml'   => '</div></code></pre></details>',
         ],
     ];
@@ -219,7 +219,7 @@ class Bbcode
     /**
      * Parses the BBCode string.
      */
-    public function parse($source): string
+    public function parse($source, $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', $source);
@@ -337,8 +337,10 @@ class Bbcode
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 
-        // Replace line breaks
-        $source = str_replace(["\r\n", "\n"], '<br>', $source);
+        if ($replaceLineBreaks) {
+            // Replace line breaks
+            $source = str_replace(["\r\n", "\n"], '<br>', $source);
+        }
 
         return $source;
     }

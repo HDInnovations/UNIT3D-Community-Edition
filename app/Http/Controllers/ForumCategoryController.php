@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
-use App\Models\Post;
 use App\Models\Topic;
 
 /**
@@ -30,35 +29,22 @@ class ForumCategoryController extends Controller
         // Find the topic
         $forum = Forum::findOrFail($id);
 
-        // Total Forums Count
-        $numForums = Forum::count();
-        // Total Posts Count
-        $numPosts = Post::count();
-        // Total Topics Count
-        $numTopics = Topic::count();
-
         // Check if this is a category or forum
         if ($forum->parent_id != 0) {
             return to_route('forums.show', ['id' => $forum->id]);
         }
 
         // Check if the user has permission to view the forum
-        $category = Forum::findOrFail($forum->id);
-        if (! $category->getPermission()->show_forum) {
+        if (! $forum->getPermission()->show_forum) {
             return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Category!');
         }
 
         // Fetch topics->posts in descending order
-        $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
+        // $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
-        return view('forum.category', [
-            'forum'      => $forum,
-            'topics'     => $topics,
-            'category'   => $category,
-            'num_posts'  => $numPosts,
-            'num_forums' => $numForums,
-            'num_topics' => $numTopics,
+        return view('forum.category_topic.index', [
+            'forum' => $forum,
         ]);
     }
 }

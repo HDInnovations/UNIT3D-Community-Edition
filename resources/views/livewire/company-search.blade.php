@@ -1,9 +1,24 @@
-<div>
-    <div class="mb-10">
-        <input type="text" wire:model="search" class="form-control" placeholder="Search By Name"/>
-    </div>
-
-    <div class="blocks">
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">{{ __('mediahub.companies') }}</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        class="form__text"
+                        placeholder=""
+                        type="text"
+                        wire:model.debounce.250ms="search"
+                    />
+                    <label class="form__label form__label--floating">
+                        {{ __('torrent.search-by-name') }}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </header>
+    {{ $companies->links('partials.pagination') }}
+    <div class="panel__body blocks">
         @foreach ($companies as $company)
             <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}" style="padding: 0 2px;">
                 <div class="general media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
@@ -23,8 +38,5 @@
             </a>
         @endforeach
     </div>
-    <br>
-    <div class="text-center">
-        {{ $companies->links() }}
-    </div>
-</div>
+    {{ $companies->links('partials.pagination') }}
+</section>

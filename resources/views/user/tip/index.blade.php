@@ -64,9 +64,7 @@
             @endforeach
             </tbody>
         </table>
-        <div class="some-padding text-center">
-            {{ $bontransactions->links() }}
-        </div>
+        {{ $bontransactions->links('partials.pagination') }}
     </section>
 @endsection
 

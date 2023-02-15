@@ -1,9 +1,9 @@
-<li class="data-table__action" x-data="{ open: false }">
-    <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+<li class="data-table__action" x-data>
+    <button class="form__button form__button--filled" x-on:click.stop="$refs.dialog.showModal()">
         <i class="{{ config('other.font-awesome') }} fa-pause"></i>
         {{ __('common.moderation-postpone') }}
     </button>
-    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+    <dialog class="dialog" x-ref="dialog">
         <h4 class="dialog__heading">
             {{ __('common.moderation-postpone') }} {{ __('torrent.torrent') }}: {{ $torrent->name }}
         </h4>
@@ -11,7 +11,7 @@
             class="dialog__form"
             method="POST"
             action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-            x-on:click.outside="open = false; $refs.dialog.close();"
+            x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
             <input type="hidden" name="type" value="{{ __('torrent.torrent') }}">
@@ -26,7 +26,7 @@
                 <button class="form__button form__button--filled">
                     {{ __('common.moderation-postpone') }}
                 </button>
-                <button class="form__button form__button--outlined" x-on:click.prevent="open = false; $refs.dialog.close()">
+                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
             </p>

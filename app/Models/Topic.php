@@ -28,11 +28,6 @@ class Topic extends Model
     ];
 
     /**
-     * The relationships that should always be loaded.
-     */
-    protected $with = ['posts', 'forum'];
-
-    /**
      * Belongs To A Forum.
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -63,6 +58,22 @@ class Topic extends Model
     {
         return $this->hasMany(Subscription::class);
     }
+
+    /**
+     * Has One Permissions through Forum.
+     */
+    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Permission::class, 'forum_id', 'forum_id');
+    }
+    /**
+     * Belongs to Many Subscribed Users.
+     */
+    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, Subscription::class);
+    }
+
 
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
