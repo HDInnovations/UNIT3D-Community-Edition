@@ -28,11 +28,6 @@ class Topic extends Model
     ];
 
     /**
-     * The relationships that should always be loaded.
-     */
-    protected $with = ['posts', 'forum'];
-
-    /**
      * Belongs To A Forum.
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
