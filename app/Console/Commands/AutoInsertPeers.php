@@ -26,7 +26,7 @@ class AutoInsertPeers extends Command
     /**
      * MySql can handle a max of 65k placeholders per query,
      * and there are 14 fields on each peer that are updated.
-     * (`agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`)
+     * (`agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
      */
     public const PEERS_PER_CYCLE = 65_000 / 14;
 
