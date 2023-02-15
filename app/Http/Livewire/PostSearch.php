@@ -36,18 +36,23 @@ class PostSearch extends Component
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'cost')
             ->withExists([
-                'likes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
             ])
-            ->whereNotIn('topic_id', Topic::query()
-                ->whereRelation('forumPermissions', fn ($query) => $query
-                    ->where('group_id', '=', auth()->user()->group->id)
-                    ->where(fn ($query) => $query
-                        ->where('show_forum', '!=', 1)
-                        ->orWhere('read_topic', '!=', 1)
+            ->whereNotIn(
+                'topic_id',
+                Topic::query()
+                    ->whereRelation(
+                        'forumPermissions',
+                        fn ($query) => $query
+                            ->where('group_id', '=', auth()->user()->group->id)
+                            ->where(
+                                fn ($query) => $query
+                                    ->where('show_forum', '!=', 1)
+                                    ->orWhere('read_topic', '!=', 1)
+                            )
                     )
-                )
-                ->select('id')
+                    ->select('id')
             )
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderByDesc('created_at')
