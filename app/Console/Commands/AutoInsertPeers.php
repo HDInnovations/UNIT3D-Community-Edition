@@ -25,9 +25,10 @@ class AutoInsertPeers extends Command
 {
     /**
      * MySql can handle a max of 65k placeholders per query,
-     * and there are 13 fields on each peer that are updated.
+     * and there are 14 fields on each peer that are updated.
+     * (`agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`)
      */
-    public const PEERS_PER_CYCLE = 65_000 / 13;
+    public const PEERS_PER_CYCLE = 65_000 / 14;
 
     /**
      * The name and signature of the console command.
@@ -52,10 +53,9 @@ class AutoInsertPeers extends Command
     {
         $key = config('cache.prefix').':peers:batch';
         $peerCount = Redis::connection('peer')->command('LLEN', [$key]);
-        $cycles = ceil($peerCount / self::PEERS_PER_CYCLE);
 
-        for ($i = 0; $i < $cycles; $i++) {
-            $peers = Redis::connection('peer')->command('LPOP', [$key, self::PEERS_PER_CYCLE]);
+        for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= self::PEERS_PER_CYCLE) {
+            $peers = Redis::connection('peer')->command('LPOP', [$key, max(0, min($peersLeft, self::PEERS_PER_CYCLE))]);
             $peers = array_map('unserialize', $peers);
 
             Peer::upsert(
