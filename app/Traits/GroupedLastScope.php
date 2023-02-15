@@ -24,7 +24,7 @@ trait GroupedLastScope
      * Each group is composed of one or more columns that make a unique combination to return the
      * last entry for.
      *
-     * @param array|null                            $fields A list of fields that's considered as a unique entry by the query.
+     * @param array|null $fields A list of fields that's considered as a unique entry by the query.
      */
     public function scopeLastPerGroup(Builder $query, ?array $fields = null): Builder
     {
