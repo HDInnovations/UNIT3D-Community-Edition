@@ -17,7 +17,7 @@ class SubscriptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'  => fn ()  => User::factory()->create()->id,
+            'user_id'  => fn () => User::factory()->create()->id,
             'forum_id' => fn () => Forum::factory()->create()->id,
             'topic_id' => fn () => Topic::factory()->create()->id,
         ];

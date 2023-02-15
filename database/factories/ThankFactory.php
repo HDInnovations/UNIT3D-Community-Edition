@@ -16,7 +16,7 @@ class ThankFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'    => fn ()    => User::factory()->create()->id,
+            'user_id'    => fn () => User::factory()->create()->id,
             'torrent_id' => fn () => Torrent::factory()->create()->id,
         ];
     }

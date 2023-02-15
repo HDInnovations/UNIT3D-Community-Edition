@@ -15,7 +15,7 @@ class AuditFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'        => fn ()        => User::factory()->create()->id,
+            'user_id'        => fn () => User::factory()->create()->id,
             'model_name'     => $this->faker->word(),
             'model_entry_id' => $this->faker->randomNumber(),
             'action'         => $this->faker->word(),

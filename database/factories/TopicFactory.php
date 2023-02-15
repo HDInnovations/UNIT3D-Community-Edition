@@ -27,13 +27,13 @@ class TopicFactory extends Factory
             'suggestion'               => $this->faker->boolean(),
             'implemented'              => $this->faker->boolean(),
             'num_post'                 => $this->faker->randomNumber(),
-            'first_post_user_id'       => fn ()       => User::factory()->create()->id,
+            'first_post_user_id'       => fn () => User::factory()->create()->id,
             'last_post_user_id'        => $this->faker->randomNumber(),
             'first_post_user_username' => $this->faker->word(),
             'last_post_user_username'  => $this->faker->word(),
             'last_reply_at'            => $this->faker->dateTime(),
             'views'                    => $this->faker->randomNumber(),
-            'forum_id'                 => fn ()                 => Forum::factory()->create()->id,
+            'forum_id'                 => fn () => Forum::factory()->create()->id,
         ];
     }
 }

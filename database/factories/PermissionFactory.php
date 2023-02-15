@@ -16,8 +16,8 @@ class PermissionFactory extends Factory
     public function definition(): array
     {
         return [
-            'forum_id'    => fn ()    => Forum::factory()->create()->id,
-            'group_id'    => fn ()    => Group::factory()->create()->id,
+            'forum_id'    => fn () => Forum::factory()->create()->id,
+            'group_id'    => fn () => Group::factory()->create()->id,
             'show_forum'  => $this->faker->boolean(),
             'read_topic'  => $this->faker->boolean(),
             'reply_topic' => $this->faker->boolean(),

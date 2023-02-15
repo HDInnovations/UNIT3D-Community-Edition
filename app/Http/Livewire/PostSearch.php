@@ -36,7 +36,7 @@ class PostSearch extends Component
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'cost')
             ->withExists([
-                'likes'    => fn ($query)    => $query->where('user_id', '=', auth()->id()),
+                'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
             ])
             ->whereNotIn(

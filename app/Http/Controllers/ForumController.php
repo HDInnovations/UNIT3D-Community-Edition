@@ -58,7 +58,7 @@ class ForumController extends Controller
     {
         $categories = Forum::query()
             ->with(['forums' => fn ($query) => $query
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
             ])
             ->where('parent_id', '=', 0)
             ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])

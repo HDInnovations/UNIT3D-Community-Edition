@@ -16,8 +16,8 @@ class LikeFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'     => fn ()     => User::factory()->create()->id,
-            'post_id'     => fn ()     => Post::factory()->create()->id,
+            'user_id'     => fn () => User::factory()->create()->id,
+            'post_id'     => fn () => Post::factory()->create()->id,
             'subtitle_id' => $this->faker->randomNumber(),
             'like'        => $this->faker->boolean(),
             'dislike'     => $this->faker->boolean(),
