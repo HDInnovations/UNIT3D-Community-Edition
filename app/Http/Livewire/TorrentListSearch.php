@@ -145,10 +145,6 @@ class TorrentListSearch extends Component
         'perPage'         => ['except' => ''],
     ];
 
-    protected array $rules = [
-        'genres.*' => 'exists:genres,id',
-    ];
-
     final public function paginationView(): string
     {
         return 'vendor.pagination.livewire-pagination';
@@ -181,6 +177,10 @@ class TorrentListSearch extends Component
 
         return Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
+            ->withExists([
+                'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            ])
             ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
             ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
             ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))

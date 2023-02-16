@@ -41,7 +41,7 @@
         <i class='{{ config("other.font-awesome") }} fa-file'></i> {{ __('torrent.show-files') }}
     </a>
 
-    @livewire('bookmark-button', ['torrent' => $torrent->id])
+    @livewire('bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()])
 
     @if ($playlists->count() > 0)
         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">
