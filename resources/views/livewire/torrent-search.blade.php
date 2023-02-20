@@ -1,15 +1,23 @@
-<div class="container" x-data="{ open: false }">
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.search') }}</h2>
+<div class="page__torrents torrent-search__component">
+    <section class="panelV2 torrent-search__filters" x-data="{ open: false }">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('common.search') }}</h2>
+            <div class="panel__actions">
+                <div class="panel__action">
+                    <button
+                        class="form__button form__button--outlined form__button--centered"
+                        x-on:click="open = ! open"
+                        x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'">
+                    </button>
+                </div>
+            </div>
+        </header>
         <div class="panel__body" style="padding: 5px;">
-            <div class="form__group--horizontal" style="display: flex; align-items: center;">
+            <div class="form__group--horizontal">
                 <p class="form__group">
                     <input wire:model="name" class="form__text" placeholder="" autofocus>
                     <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
                 </p>
-                <button class="form__button form__button--outlined form__button--centered" style="white-space: nowrap; padding: 12px 12px;" @click="open = ! open"
-                        x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'">
-                </button>
             </div>
             <form class="form" x-cloak x-show="open">
                 <div class="form__group--short-horizontal">
@@ -49,11 +57,11 @@
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
-                    <div class="form__group adv-search-region">
+                    <div class="form__group">
                         @php $regions = cache()->remember('regions', 3_600, fn () => App\Models\Region::all()->sortBy('position')) @endphp
                         <div id="regions" wire:ignore></div>
                     </div>
-                    <div class="form__group adv-search-distributor">
+                    <div class="form__group">
                         @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::all()->sortBy('position')) @endphp
                         <div id="distributors" wire:ignore></div>
                     </div>
@@ -94,10 +102,10 @@
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input
-                                                    class="form__checkbox"
-                                                    type="checkbox"
-                                                    value="{{ $category->id }}"
-                                                    wire:model="categories"
+                                                class="form__checkbox"
+                                                type="checkbox"
+                                                value="{{ $category->id }}"
+                                                wire:model="categories"
                                             >
                                             {{ $category->name }}
                                         </label>
@@ -115,10 +123,10 @@
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input
-                                                    class="form__checkbox"
-                                                    type="checkbox"
-                                                    value="{{ $type->id }}"
-                                                    wire:model="types"
+                                                class="form__checkbox"
+                                                type="checkbox"
+                                                value="{{ $type->id }}"
+                                                wire:model="types"
                                             >
                                             {{ $type->name }}
                                         </label>
@@ -136,10 +144,10 @@
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input
-                                                    class="form__checkbox"
-                                                    type="checkbox"
-                                                    value="{{ $resolution->id }}"
-                                                    wire:model="resolutions"
+                                                class="form__checkbox"
+                                                type="checkbox"
+                                                value="{{ $resolution->id }}"
+                                                wire:model="resolutions"
                                             >
                                             {{ $resolution->name }}
                                         </label>
@@ -157,10 +165,10 @@
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input
-                                                    class="form__checkbox"
-                                                    type="checkbox"
-                                                    value="{{ $genre->id }}"
-                                                    wire:model="genres"
+                                                class="form__checkbox"
+                                                type="checkbox"
+                                                value="{{ $genre->id }}"
+                                                wire:model="genres"
                                             >
                                             {{ $genre->name }}
                                         </label>
@@ -176,10 +184,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="0"
-                                                wire:model="free"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="0"
+                                            wire:model="free"
                                         >
                                         0% Freeleech
                                     </label>
@@ -187,10 +195,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="25"
-                                                wire:model="free"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="25"
+                                            wire:model="free"
                                         >
                                         25% Freeleech
                                     </label>
@@ -198,10 +206,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="50"
-                                                wire:model="free"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="50"
+                                            wire:model="free"
                                         >
                                         50% Freeleech
                                     </label>
@@ -209,10 +217,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="75"
-                                                wire:model="free"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="75"
+                                            wire:model="free"
                                         >
                                         75% Freeleech
                                     </label>
@@ -220,10 +228,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="100"
-                                                wire:model="free"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="100"
+                                            wire:model="free"
                                         >
                                         100% Freeleech
                                     </label>
@@ -231,10 +239,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="doubleup"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="doubleup"
                                         >
                                         Double Upload
                                     </label>
@@ -242,10 +250,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="featured"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="featured"
                                         >
                                         Featured
                                     </label>
@@ -260,10 +268,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="internal"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="internal"
                                         >
                                         {{ __('torrent.internal') }}
                                     </label>
@@ -271,10 +279,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="personalRelease"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="personalRelease"
                                         >
                                         {{ __('torrent.personal-release') }}
                                     </label>
@@ -282,10 +290,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="stream"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="stream"
                                         >
                                         {{ __('torrent.stream-optimized') }}
                                     </label>
@@ -293,10 +301,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="sd"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="sd"
                                         >
                                         {{ __('torrent.sd-content') }}
                                     </label>
@@ -304,10 +312,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="highspeed"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="highspeed"
                                         >
                                         {{ __('common.high-speeds') }}
                                     </label>
@@ -322,10 +330,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="alive"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="alive"
                                         >
                                         {{ __('torrent.alive') }}
                                     </label>
@@ -333,10 +341,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="dying"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="dying"
                                         >
                                         Dying
                                     </label>
@@ -344,10 +352,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="dead"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="dead"
                                         >
                                         Dead
                                     </label>
@@ -362,10 +370,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="notDownloaded"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="notDownloaded"
                                         >
                                         Not Downloaded
                                     </label>
@@ -373,10 +381,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="downloaded"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="downloaded"
                                         >
                                         Downloaded
                                     </label>
@@ -384,10 +392,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="seeding"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="seeding"
                                         >
                                         Seeding
                                     </label>
@@ -395,10 +403,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="leeching"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="leeching"
                                         >
                                         Leeching
                                     </label>
@@ -406,10 +414,10 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model="incomplete"
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="incomplete"
                                         >
                                         Incomplete
                                     </label>
@@ -421,52 +429,199 @@
             </form>
         </div>
     </section>
+    <section class="panelV2 torrent-search__results">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
+            <div class="panel__actions">
+                <div class="panel__action">
+                    <div class="form__group">
+                        <select
+                            class="form__select"
+                            wire:model="view"
+                            required
+                        >
+                            <option value="list">{{ __('torrent.list') }}</option>
+                            <option value="card">{{ __('torrent.cards') }}</option>
+                            <option value="group">{{ __('torrent.groupings') }}</option>
+                        </select>
+                        <label class="form__label form__label--floating">
+                            Layout
+                        </label>
+                    </div>
+                </div>
+                <div class="panel__action">
+                    <div class="form__group">
+                        <select
+                            class="form__select"
+                            wire:model="perPage"
+                            required
+                        >
+                            <option>25</option>
+                            <option>50</option>
+                            <option>75</option>
+                            <option>100</option>
+                        </select>
+                        <label class="form__label form__label--floating">
+                            {{ __('common.quantity') }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </header>
+        {{ $torrents->links('partials.pagination') }}
+        @switch (true)
+            @case($view === 'list')
+                <div class="data-table-wrapper torrent-search--list__results">
+                    <table class="data-table">
+                        <thead>
+                            <tr class="torrent-search--list__headers">
+                                @if (auth()->user()->show_poster)
+                                    <th>Poster</th>
+                                @endif
+                                <th style="text-align: center">Format</th>
+                                <th class="torrents-filename" wire:click="sortBy('name')" role="columnheader button">
+                                    {{ __('torrent.name') }}
+                                    @include('livewire.includes._sort-icon', ['field' => 'name'])
+                                </th>
+                                <th>{{ __('common.actions') }}</th>
+                                <th>Rating</th>
+                                <th class="torrents-listings-size" wire:click="sortBy('size')" role="columnheader button" style="text-align: right">
+                                    {{ __('torrent.size') }}
+                                    @include('livewire.includes._sort-icon', ['field' => 'size'])
+                                </th>
+                                <th class="torrents-listings-seeders" wire:click="sortBy('seeders')" role="columnheader button" title="{{ __('torrent.seeders') }}" style="text-align: right">
+                                    <i class="fas fa-arrow-alt-circle-up"></i>
+                                    @include('livewire.includes._sort-icon', ['field' => 'seeders'])
+                                </th>
+                                <th class="torrents-listings-leechers" wire:click="sortBy('leechers')" role="columnheader button" title="{{ __('torrent.leechers') }}" style="text-align: right">
+                                    <i class="fas fa-arrow-alt-circle-down"></i>
+                                    @include('livewire.includes._sort-icon', ['field' => 'leechers'])
+                                </th>
+                                <th class="torrents-listings-completed" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}" style="text-align: right">
+                                    <i class="fas fa-check-circle"></i>
+                                    @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                                </th>
+                                <th class="torrents-listings-age" wire:click="sortBy('created_at')" role="columnheader button" style="text-align: right">
+                                    {{ __('torrent.age') }}
+                                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($torrents as $torrent)
+                                <x-torrent.row :meta="$torrent->meta" :torrent="$torrent" :personalFreeleech="$personalFreeleech" />
+                            @empty
+                                <tr>
+                                    <td colspan="10">{{ __('common.no-result') }}</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                @break
+
+            @case($view === 'card')
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="torrents-filename" wire:click="sortBy('name')" role="columnheader button">
+                                {{ __('torrent.name') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'name'])
+                            </th>
+                            <th class="torrents-listings-size" wire:click="sortBy('size')" role="columnheader button">
+                                {{ __('torrent.size') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'size'])
+                            </th>
+                            <th class="torrents-listings-seeders" wire:click="sortBy('seeders')" role="columnheader button" title="{{ __('torrent.seeders') }}">
+                                <i class="fas fa-arrow-alt-circle-up"></i>
+                                @include('livewire.includes._sort-icon', ['field' => 'seeders'])
+                            </th>
+                            <th class="torrents-listings-leechers" wire:click="sortBy('leechers')" role="columnheader button" title="{{ __('torrent.leechers') }}">
+                                <i class="fas fa-arrow-alt-circle-down"></i>
+                                @include('livewire.includes._sort-icon', ['field' => 'leechers'])
+                            </th>
+                            <th class="torrents-listings-completed" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}">
+                                <i class="fas fa-check-circle"></i>
+                                @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                            </th>
+                            <th class="torrents-listings-age" wire:click="sortBy('created_at')" role="columnheader button">
+                                {{ __('common.created_at') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="panel__body torrent-search--card__results">
+                    @forelse ($torrents as $torrent)
+                        <x-torrent.card :meta="$torrent->meta" :torrent="$torrent" />
+                    @empty
+                        {{ __('common.no-result') }}
+                    @endforelse
+                </div>
+                @break
+
+            @case($view === 'group')
+                <div class="panel__body torrent-search--grouped__results">
+                    @forelse ($torrents as $group)
+                        @switch ($group->meta)
+                            @case('movie')
+                                <x-movie.card :media="$group" :personalFreeleech="$personalFreeleech" />
+                                @break
+                            @case('tv')
+                                <x-tv.card :media="$group" :personalFreeleech="$personalFreeleech" />
+                                @break
+                        @endswitch
+                    @endforeach
+                </div>
+                @break
+        @endswitch
+        {{ $torrents->links('partials.pagination') }}
+    </section>
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('livewire:load', function () {
+          let myRegions = [
+              @foreach($regions as $region)
+              {
+                  label: "{{ $region->name }}", value: "{{ $region->id }}"
+              },
+              @endforeach
+          ]
+          VirtualSelect.init({
+            ele: '#regions',
+            options: myRegions,
+            multiple: true,
+            search: true,
+            placeholder: "{{__('Select Regions')}}",
+            noOptionsText: "{{__('No results found')}}",
+          })
+
+          let regions = document.querySelector('#regions')
+          regions.addEventListener('change', () => {
+            let data = regions.value
+            @this.set('regions', data)
+          })
+
+          let myDistributors = [
+              @foreach($distributors as $distributor)
+              {
+                  label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
+              },
+              @endforeach
+          ]
+          VirtualSelect.init({
+            ele: '#distributors',
+            options: myDistributors,
+            multiple: true,
+            search: true,
+            placeholder: "{{__('Select Distributor')}}",
+            noOptionsText: "{{__('No results found')}}",
+          })
+
+          let distributors = document.querySelector('#distributors')
+          distributors.addEventListener('change', () => {
+            let data = distributors.value
+            @this.set('distributors', data)
+          })
+        })
+      </script>
 </div>
-
-<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-  document.addEventListener('livewire:load', function () {
-    let myRegions = [
-        @foreach($regions as $region)
-        {
-            label: "{{ $region->name }}", value: "{{ $region->id }}"
-        },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#regions',
-      options: myRegions,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Regions')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let regions = document.querySelector('#regions')
-    regions.addEventListener('change', () => {
-      let data = regions.value
-      @this.set('regions', data)
-    })
-
-    let myDistributors = [
-        @foreach($distributors as $distributor)
-        {
-            label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
-        },
-        @endforeach
-    ]
-    VirtualSelect.init({
-      ele: '#distributors',
-      options: myDistributors,
-      multiple: true,
-      search: true,
-      placeholder: "{{__('Select Distributor')}}",
-      noOptionsText: "{{__('No results found')}}",
-    })
-
-    let distributors = document.querySelector('#distributors')
-    distributors.addEventListener('change', () => {
-      let data = distributors.value
-      @this.set('distributors', data)
-    })
-  })
-</script>

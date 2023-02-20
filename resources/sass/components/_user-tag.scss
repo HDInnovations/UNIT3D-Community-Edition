@@ -1,4 +1,10 @@
 .user-tag,
 .user-tag__link {
     font-family: inherit;
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+.user-tag__link::before {
+    margin-right: 0.5ch;
 }

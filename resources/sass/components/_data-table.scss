@@ -3,10 +3,19 @@
     border: 0;
     color: var(--data-table-fg);
     border-collapse: collapse;
+    height: 1px;
 }
 
 .data-table-wrapper {
     overflow-x: auto;
+}
+
+.data-table > tr,
+.data-table > thead > tr,
+.data-table > tbody > tr,
+.data-table > tfoot > tr {
+    border: 0 !important; /* Can be removed after global table styles are removed */
+    height: 100%;
 }
 
 /* header */
@@ -20,6 +29,7 @@
     padding: 7px;
     font-size: 12px;
     font-weight: bold;
+    height: 100%;
 }
 
 /* cell */
@@ -29,11 +39,12 @@
 .data-table > tfoot > tr > td {
     padding: 7px;
     font-size: 14px;
+    height: 100%;
 }
 
 .data-table > tr:not(.data-table > tr:last-child) > td,
 .data-table > tbody > tr:not(.data-table > tbody > tr:last-child) > td {
-    border-bottom: var(--data-table-tr-border);
+    border-bottom: var(--data-table-tr-border) !important; /* !important can be removed after global table styles are removed */
 }
 
 .data-table tr:nth-child(even) > td {

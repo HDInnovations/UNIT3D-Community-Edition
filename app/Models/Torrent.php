@@ -36,6 +36,16 @@ class Torrent extends Model
     use TorrentFilter;
 
     /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'fl_until' => 'datetime',
+        'du_until' => 'datetime',
+    ];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

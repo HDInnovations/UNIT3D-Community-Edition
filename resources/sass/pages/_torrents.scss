@@ -1,38 +1,352 @@
-.page__torrents {
+.page__torrents:not(:has(.torrent-search--grouped__results)) {
   margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
 }
 
 @media only screen and (min-width: 1600px) {
-  .page__torrents {
+  .page__torrents:not(:has(.torrent-search--grouped__results)) {
     margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
   }
 }
 
 @media only screen and (min-width: 2500px) {
-  .page__torrents {
+  .page__torrents:not(:has(.torrent-search--grouped__results)) {
     margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
   }
 }
 
-/*
-Grouped Torrents
-*/
-
-/* All results */
-.torrent-search--grouped__results {
-  --bg: #091830;
-  --header-bg: #2b384d;
-  --text: white;
-  --text-muted: #878787;
-  --table-stripe: rgba(255, 255, 255, 0.05);
-  --hover-brightness-emphasis: 1.2;
-  --chip-border: rgba(255, 255, 255, 0.05);
+.torrent-search__component {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
 }
+
+.torrent-search__filters {
+  margin: 0 max(12px, 45vw - 600px)
+}
+
+.torrent-search__results {
+  margin: 12px;
+}
+
+@media only screen and (max-width: 767px) {
+  .torrent-search__filters {
+    margin: 0 max(0, 45vw - 600px);
+  }
+
+  .torrent-search__results {
+    margin: 0 max(0, 45vw - 600px);
+  }
+}
+
+/* List
+---------------------------------------------------------------------------- */
+
+.torrent-search--list__headers,
+.torrent-search--list__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-columns: 60px 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
+  grid-template-areas: "poster format overview buttons rating size seeders leechers completed age";
+}
+
+.torrent-search--list__poster {
+  grid-area: poster;
+}
+
+.torrent-search--list__poster-img {
+  width: 53px;
+  border-radius: 5px;
+}
+
+.torrent-search--list__format {
+  grid-area: format;
+}
+
+.torrent-search--list__format > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 4px;
+}
+
+.torrent-search--list__resolution-and-type {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--torrent-row-format-bg);
+  color: var(--torrent-row-format-fg);
+  border-radius: 8px;
+  padding: 2px 6px;
+  text-align: center;
+}
+
+.torrent-search--list__type,
+.torrent-search--list__resolution {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.torrent-search--list__overview {
+  grid-area: overview;
+  display: grid;
+  place-items: center left;
+}
+
+.torrent-search--list__overview > div {
+  display: grid;
+  grid-template-areas: "name name" "uploader icons";
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.torrent-search--list__name {
+  grid-area: name;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--torrent-row-fg);
+  padding: 8px 0 4px 0;
+}
+
+.torrent-search--list__uploader {
+  grid-area: uploader;
+  margin-right: 12px;
+  font-size: 12px;
+}
+
+.torrent-search--list__icons {
+  grid-area: icons;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2.5rem;
+  font-size: 12px;
+}
+
+.torrent-search--list__thanks {
+  font: inherit;
+  color: var(--torrent-row-thanks-fg);
+}
+.torrent-search--list__comments {
+  font: inherit;
+  color: var(--torrent-row-comments-fg);
+  ;
+}
+
+.torrent-search--list__thanks::before,
+.torrent-search--list__comments::before {
+    margin-right: 2px;
+}
+
+.torrent-search--list__internal {
+  color: var(--torrent-row-internal-fg);
+}
+
+.torrent-search--list__personal-release {
+  color: var(--torrent-row-personal-fg);
+}
+
+.torrent-search--list__stream-optimized {
+  color: var(--torrent-row-stream-optimized-fg)
+}
+
+.torrent-search--list__featured {
+  color: var(--torrent-row-featured-fg);
+}
+
+.torrent-search--list__freeleech {
+  color: var(--torrent-row-freeleech-fg);
+}
+
+.torrent-search--list__double-upload {
+  color: var(--torrent-row-double-upload-fg);
+}
+
+.torrent-search--list__sticky {
+  color: var(--torrent-row-sticky-fg);
+}
+
+.torrent-search--list__highspeed {
+  color: var(--torrent-row-highspeed-fg);
+}
+
+.torrent-search--list__sd {
+  color: var(--torrent-row-sd-fg);
+}
+
+.torrent-search--list__bumped {
+  color: var(--torrent-row-bumped-fg);
+}
+
+.torrent-search--list__buttons {
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  color: var(--torrent-row-buttons-fg);
+}
+
+.torrent-search--list__rating {
+  grid-area: rating;
+  display: grid;
+  place-items: center right;
+}
+
+.torrent-search--list__size {
+  grid-area: size;
+  display: grid;
+  place-items: center right;
+}
+
+.torrent-search--list__seeders {
+  grid-area: seeders;
+}
+
+.torrent-search--list__leechers {
+  grid-area: leechers;
+}
+
+.torrent-search--list__completed {
+  grid-area: completed;
+}
+
+.torrent-search--list__seeders,
+.torrent-search--list__leechers,
+.torrent-search--list__completed {
+  > a {
+    display: grid;
+    place-items: center right;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.torrent-search--list__seeders a {
+  color: var(--torrent-row-seeders-fg);
+}
+
+.torrent-search--list__leechers a {
+  color: var(--torrent-row-leechers-fg);
+}
+
+.torrent-search--list__completed a {
+  color: var(--torrent-row-completed-fg);
+}
+
+.torrent-search--list__age {
+  grid-area: age;
+  display: grid;
+  place-items: center right;
+  color: var(--torrent-row-fg);
+}
+
+@media only screen and (max-width: 1200px) {
+  .torrent-search--list__headers {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .torrent-search--list__row {
+    grid-template-areas:
+      "poster format format overview overview overview overview overview overview"
+      "age age size size rating seeders leechers completed buttons";
+
+    grid-template-columns: 60px 40px 60px 30px 80px 80px 80px 80px 1fr;
+    grid-template-rows: repeat(2, auto);
+  }
+
+  .torrent-search--list__buttons > div {
+    display: flex;
+    column-gap: 1.5rem;
+    padding-left: 40px;
+  }
+
+  .torrent-search--list__buttons {
+    place-content: center left;
+  }
+
+  .torrent-search--list__age {
+    place-items: center left;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .torrent-search--list__headers {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .torrent-search--list__row {
+    grid-template-areas:
+      "poster poster poster format format buttons buttons buttons buttons buttons buttons buttons"
+      "overview overview overview overview overview overview overview overview overview overview overview overview"
+      "age age age age size size size size rating rating rating rating"
+      "seeders seeders seeders seeders leechers leechers leechers  leechers completed completed completed completed";
+
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(4, auto);
+  }
+
+  .torrent-search--list__format {
+    place-items: center left;
+  }
+
+  .torrent-search--list__overview > div {
+    grid-template-areas: "name" "uploader" "icons";
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+  }
+
+  .torrent-search--list__uploader {
+    padding: 8px 0;
+  }
+
+  .torrent-search--list__icons {
+    justify-content: center;
+    padding: 16px 0 6px 0;
+  }
+
+  .torrent-search--list__buttons {
+    width: 100%
+  }
+
+  .torrent-search--list__buttons > div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .torrent-search--list__rating,
+  .torrent-search--list__size,
+  .torrent-search--list__seeders a,
+  .torrent-search--list__leechers a,
+  .torrent-search--list__completed a,
+  .torrent-search--list__age {
+    place-items: center center;
+  }
+}
+
+
+/* Cards
+---------------------------------------------------------------------------- */
+.torrent-search--card__results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-gap: 3rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .torrent-search--card__results {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+/* Grouped Torrents
+---------------------------------------------------------------------------- */
 
 /* Individual search result */
 .torrent-search--grouped__result {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--torrent-group-bg);
+  color: var(--torrent-group-text);
   margin: 16px 12px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
@@ -47,7 +361,7 @@ Grouped Torrents
     "poster plot plot genres";
   grid-template-columns: auto auto 1fr auto;
   grid-template-rows: auto 1fr;
-  background-color: var(--header-bg);
+  background-color: var(--torrent-group-header-bg);
   height: 90px;
 }
 
@@ -75,7 +389,7 @@ Grouped Torrents
 .torrent-search--grouped__plot {
   grid-area: plot;
   margin: 10px 10px 0 10px;
-  color: var(--text-muted);
+  color: var(--torrent-group-text-muted);
   font-size: 12px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   word-wrap: break-word;
@@ -88,7 +402,7 @@ Grouped Torrents
   margin: 0;
   padding: 5px 0 0 5px;
   font-size: 12px;
-  color: var(--text);
+  color: var(--torrent-group-text);
   align-self: end;
   padding-left: 10px;
 }
@@ -98,7 +412,7 @@ Grouped Torrents
 }
 
 .torrent-search-grouped__directors-by {
-  color: var(--text-muted);
+  color: var(--torrent-group-text-muted);
 }
 
 .torrent-search--grouped__genres {
@@ -117,15 +431,15 @@ Grouped Torrents
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 10px;
   text-align: center;
-  color: var(--text);
-  border: 2px solid var(--chip-border);
+  color: var(--torrent-group-text);
+  border: 2px solid var(--torrent-group-chip-border);
   line-height: 1.25;
 }
 
 .torrent-search--grouped__genre:hover {
-  backdrop-filter: brightness(var(--hover-brightness-emphasis));
+  backdrop-filter: brightness(var(--torrent-group-hover-brightness-emphasis));
   transition: backdrop-filter 0.1s;
-  color: var(--text) !important;
+  color: var(--torrent-group-text) !important;
 }
 
 .torrent-search--grouped__dropdown {
@@ -137,7 +451,7 @@ Grouped Torrents
     cursor: pointer;
     list-style: none;
     font-size: 14px;
-    border-top: 1px solid var(--header-bg);
+    border-top: 1px solid var(--torrent-group-header-bg);
     padding-top: 8px;
     padding-bottom: 8px;
     padding-left: 16px;
@@ -145,14 +459,14 @@ Grouped Torrents
     &::before {
       content: "\f105";
       font-family: "Font Awesome\ 5 Pro", sans-serif;
-      color: var(--text);
+      color: var(--torrent-group-text);
       font-size: 12px;
       display: inline-block;
       padding: 0 6px;
     }
 
     &:hover::before {
-      filter: brightness(calc(1 / var(--hover-brightness-emphasis)));
+      filter: brightness(calc(1 / var(--torrent-group-hover-brightness-emphasis)));
       transition: filter 0.1s;
     }
   }
@@ -194,11 +508,11 @@ Grouped Torrents
   table-layout: fixed;
   border-width: 3px 0 !important;
   border-style: solid !important;
-  border-color: var(--header-bg) !important;
+  border-color: var(--torrent-group-header-bg) !important;
 }
 
 .torrent-search--grouped__torrents tbody:nth-child(odd) {
-  background-color: var(--table-stripe);
+  background-color: var(--torrent-group-table-stripe);
 }
 
 .torrent-search--grouped__torrents > tbody > tr {
@@ -227,7 +541,7 @@ a.torrent-search--grouped__edit {
 .torrent-search--grouped__bookmark button:hover,
 a.torrent-search--grouped__edit:hover {
   color: inherit !important;
-  filter: brightness(calc(1 / var(--hover-brightness-emphasis)));
+  filter: brightness(calc(1 / var(--torrent-group-hover-brightness-emphasis)));
 }
 
 /* Table cells */
@@ -467,7 +781,7 @@ td.torrent-search--grouped__age time {
   .torrent-search--grouped__name:not(
       tr:first-child .torrent-search--grouped__name
     ) {
-    border-top: 1px solid var(--header-bg);
+    border-top: 1px solid var(--torrent-group-header-bg);
   }
 
   .torrent-search--grouped__name a {

@@ -188,8 +188,6 @@ Route::group(['middleware' => 'language'], function (): void {
 
         Route::group(['prefix' => 'torrents'], function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('torrents');
-            Route::get('/cards', [App\Http\Controllers\TorrentCardController::class, 'index'])->name('cards');
-            Route::get('/grouped', [App\Http\Controllers\TorrentGroupController::class, 'index'])->name('grouped');
             Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'show'])->name('torrent');
             Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers');
             Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history');

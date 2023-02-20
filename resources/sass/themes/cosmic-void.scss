@@ -67,6 +67,10 @@
     --icon-button-border-radius: 9999px;
     --icon-button-fg: currentColor;
 
+    --icon-button-filled-bg: #444;
+    --icon-button-filled-fg: white;
+    --icon-button-filled-border: none;
+
     --input-text-border: 1px solid #555;
     --input-text-border-active: 2px solid #2195f3;
     --input-text-border-error: 1px solid #ba1b1b;
@@ -143,6 +147,33 @@
     --torrent-card-head-fg: #fff;
     --torrent-card-link-fg: #fff;
     --torrent-card-genre-fg: #fff;
+
+    --torrent-group-bg: #1c1c1c;
+    --torrent-group-header-bg: #303030;
+    --torrent-group-text: white;
+    --torrent-group-text-muted: #878787;
+    --torrent-group-table-stripe: rgba(255, 255, 255, 0.05);
+    --torrent-group-hover-brightness-emphasis: 1.2;
+    --torrent-group-chip-border: rgba(255, 255, 255, 0.05);
+
+    --torrent-row-fg: #ccc;
+    --torrent-row-format-fg: #ccc;
+    --torrent-row-format-bg: #3c3c3c;
+    --torrent-row-seeders-fg: #ddd;
+    --torrent-row-leechers-fg: #ddd;
+    --torrent-row-completed-fg: #ddd;
+    --torrent-row-thanks-fg: #ddd;
+    --torrent-row-comments-fg: #ddd;
+    --torrent-row-internal-fg: #ddd;
+    --torrent-row-personal-fg: #ddd;
+    --torrent-row-stream-optimized-fg: #ddd;
+    --torrent-row-featured-fg: #ddd;
+    --torrent-row-freeleech-fg: #ddd;
+    --torrent-row-double-upload-fg: #ddd;
+    --torrent-row-sticky-fg: #ddd;
+    --torrent-row-highspeed-fg: #ddd;
+    --torrent-row-sd-fg: #ddd;
+    --torrent-row-bumped-fg: #ddd;
 }
 
 body {
