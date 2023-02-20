@@ -2,7 +2,7 @@
     <header class="torrent-search--grouped__header" >
         @if (auth()->user()->show_poster == 1)
             <a
-                href="{{ route('torrents.similar', ['category_id' => $media->torrents[0]['category_id'] ?? '1', 'tmdb' => $media->id]) }}"
+                href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}"
                 class="torrent-search--grouped__poster"
             >
                 <img
@@ -13,8 +13,8 @@
             </a>
         @endif
         <h2 class="torrent-search--grouped__title-name">
-            <a href="{{ route('torrents.similar', ['category_id' => $media->torrents[0]['category_id'] ?? '1', 'tmdb' => $media->id]) }}">
-                {{ $media->name ?? '' }} (<time>{{ substr($media->release_date ?? '', 0, 4) ?? '' }}</time>)
+            <a href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}">
+                {{ $media->title ?? '' }} (<time>{{ substr($media->release_date ?? '', 0, 4) ?? '' }}</time>)
             </a>
         </h2>
         <address class="torrent-search--grouped__directors">
@@ -34,7 +34,7 @@
             @endif
         </address>
         <div class="torrent-search--grouped__genres">
-            @foreach ($media->genres as $genre)
+            @foreach ($media->genres->take(3) as $genre)
                 <a
                     href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}"
                     class="torrent-search--grouped__genre"

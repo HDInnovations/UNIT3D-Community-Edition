@@ -20,13 +20,6 @@ Grouped Torrents
 
 /* All results */
 .torrent-search--grouped__results {
-  margin: 0 auto;
-  /* --bg: #303030;
-    --header-bg: #444;
-    --text: #ddd;
-    --text-muted: #888;
-    --table-stripe: rgba(255, 255, 255, 0.03);
-    --hover-brightness-emphasis: 1.2; */
   --bg: #091830;
   --header-bg: #2b384d;
   --text: white;
@@ -86,6 +79,7 @@ Grouped Torrents
   font-size: 12px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   word-wrap: break-word;
+  overflow-y: auto;
 }
 
 .torrent-search--grouped__directors {
@@ -255,17 +249,6 @@ td.torrent-search--grouped__age {
   vertical-align: middle;
 }
 
-.torrent-search--grouped__type {
-  text-align: right;
-  padding-right: 20px;
-}
-
-.torrent-search--grouped__name {
-  font-family: inherit;
-  display: inline;
-  font-size: 13px;
-}
-
 .torrent-search--grouped__download,
 .torrent-search--grouped__bookmark,
 .torrent-search--grouped__edit {
@@ -284,7 +267,10 @@ td.torrent-search--grouped__age {
 /* Styles for torrent information */
 th.torrent-search--grouped__type {
   grid-area: type;
-  width: 7%;
+  width: 75px;
+  text-align: right;
+  padding-left: 10px;
+  white-space: nowrap;
 }
 
 td.torrent-search--grouped__overview {
@@ -309,6 +295,9 @@ h3.torrent-search--grouped__name {
   grid-area: name;
   margin: 0;
   height: 100%;
+  font-family: inherit;
+  display: inline;
+  font-size: 13px;
 }
 
 h3.torrent-search--grouped__name a {
@@ -361,6 +350,8 @@ td.torrent-search--grouped__completed {
 td.torrent-search--grouped__age {
   grid-area: age;
   width: 12.5%;
+  padding-right: 12px;
+  white-space: nowrap;
 }
 
 td.torrent-search--grouped__age time {
