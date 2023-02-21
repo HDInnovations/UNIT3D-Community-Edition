@@ -61,6 +61,10 @@ class TorrentCardSearch extends Component
 
     public string $collectionId = '';
 
+    public string $networkId = '';
+
+    public string $companyId = '';
+
     public array $free = [];
 
     public bool $doubleup = false;
@@ -123,6 +127,8 @@ class TorrentCardSearch extends Component
         'malId'           => ['except' => ''],
         'playlistId'      => ['except' => ''],
         'collectionId'    => ['except' => ''],
+        'companyId'       => ['except' => ''],
+        'networkId'       => ['except' => ''],
         'free'            => ['except' => []],
         'doubleup'        => ['except' => false],
         'featured'        => ['except' => false],
@@ -210,6 +216,8 @@ class TorrentCardSearch extends Component
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
             ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
+            ->when($this->companyId !== '', fn ($query) => $query->ofCompany((int) $this->companyId))
+            ->when($this->networkId !== '', fn ($query) => $query->ofNetwork((int) $this->networkId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
             ->when($this->featured !== false, fn ($query) => $query->featured())

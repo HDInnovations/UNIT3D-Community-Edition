@@ -49,16 +49,22 @@
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
-                    <div class="row">
-                        <div class="col-sm-6 col-xs-12 adv-search-region">
-                            @php $regions = cache()->remember('regions', 3_600, fn () => App\Models\Region::all()->sortBy('position')) @endphp
-                            <div id="regions" wire:ignore></div>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 adv-search-distributor">
-                            @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::all()->sortBy('position')) @endphp
-                            <div id="distributors" wire:ignore></div>
-                        </div>
+                    <div class="form__group adv-search-region">
+                        @php $regions = cache()->remember('regions', 3_600, fn () => App\Models\Region::all()->sortBy('position')) @endphp
+                        <div id="regions" wire:ignore></div>
                     </div>
+                    <div class="form__group adv-search-distributor">
+                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::all()->sortBy('position')) @endphp
+                        <div id="distributors" wire:ignore></div>
+                    </div>
+                    <p class="form__group">
+                        <input wire:model="companyId" class="form__text" placeholder="">
+                        <label class="form__label form__label--floating">Company ID</label>
+                    </p>
+                    <p class="form__group">
+                        <input wire:model="networkId" class="form__text" placeholder="">
+                        <label class="form__label form__label--floating">Network ID</label>
+                    </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">

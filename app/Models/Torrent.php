@@ -223,6 +223,14 @@ class Torrent extends Model
     }
 
     /**
+     * Bookmarks.
+     */
+    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    /**
      * Set The Torrents Description After Its Been Purified.
      */
     public function setDescriptionAttribute(?string $value): void
@@ -256,16 +264,6 @@ class Torrent extends Model
         $bytes = $this->size;
 
         return StringHelper::formatBytes($bytes, 2);
-    }
-
-    /**
-     * Bookmarks.
-     */
-    public function bookmarked(): bool
-    {
-        return (bool) Bookmark::where('user_id', '=', auth()->user()->id)
-            ->where('torrent_id', '=', $this->id)
-            ->first();
     }
 
     /**
