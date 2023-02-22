@@ -294,20 +294,11 @@ Route::group(['middleware' => 'language'], function (): void {
         // Genres
         Route::get('/genres', [App\Http\Controllers\MediaHub\GenreController::class, 'index'])->name('mediahub.genres.index');
 
-        // Genre
-        Route::get('/genre/{id}', [App\Http\Controllers\MediaHub\GenreController::class, 'show'])->name('mediahub.genres.show');
-
         // Networks
         Route::get('/networks', [App\Http\Controllers\MediaHub\NetworkController::class, 'index'])->name('mediahub.networks.index');
 
-        // Network
-        Route::get('/network/{id}', [App\Http\Controllers\MediaHub\NetworkController::class, 'show'])->name('mediahub.networks.show');
-
         // Companies
         Route::get('/companies', [App\Http\Controllers\MediaHub\CompanyController::class, 'index'])->name('mediahub.companies.index');
-
-        // Company
-        Route::get('/company/{id}', [App\Http\Controllers\MediaHub\CompanyController::class, 'show'])->name('mediahub.companies.show');
 
         // TV Shows
         Route::get('/tv-shows', [App\Http\Controllers\MediaHub\TvShowController::class, 'index'])->name('mediahub.shows.index');
@@ -329,12 +320,6 @@ Route::group(['middleware' => 'language'], function (): void {
 
         // Collection
         Route::get('/collections/{id}', [App\Http\Controllers\MediaHub\CollectionController::class, 'show'])->name('mediahub.collections.show');
-
-        // Movies
-        Route::get('/movies', [App\Http\Controllers\MediaHub\MovieController::class, 'index'])->name('mediahub.movies.index');
-
-        // Movie
-        Route::get('/movies/{id}', [App\Http\Controllers\MediaHub\MovieController::class, 'show'])->name('mediahub.movies.show');
     });
 
     /*

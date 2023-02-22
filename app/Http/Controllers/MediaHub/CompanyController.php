@@ -25,20 +25,4 @@ class CompanyController extends Controller
     {
         return view('mediahub.company.index');
     }
-
-    /**
-     * Show A Company.
-     */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $company = Company::withCount('tv', 'movie')->findOrFail($id);
-        $shows = $company->tv()->has('torrents')->oldest('name')->paginate(25, ['*'], 'showsPage');
-        $movies = $company->movie()->has('torrents')->oldest('title')->paginate(25, ['*'], 'moviesPage');
-
-        return view('mediahub.company.show', [
-            'company' => $company,
-            'shows'   => $shows,
-            'movies'  => $movies,
-        ]);
-    }
 }
