@@ -14,7 +14,6 @@
 namespace App\Http\Controllers\MediaHub;
 
 use App\Http\Controllers\Controller;
-use App\Models\Network;
 
 class NetworkController extends Controller
 {
