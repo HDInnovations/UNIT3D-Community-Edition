@@ -61,15 +61,21 @@
 ---------------------------------------------------------------------------- */
 
 .form__standard-icon-button {
+    all: unset;
     font-size: 13px;
     font-weight: 600px;
     line-height: 1;
-    margin: 14px 6px;
+    padding: 14px;
     border-radius: var(--icon-button-border-radius);
     border: var(--icon-button-border);
     background: var(--icon-button-bg);
     color: var(--icon-button-fg);
     transition: filter 300ms;
+    display: inline-grid;
+    min-height: 29px;
+    min-width: 29px;
+    box-sizing: border-box;
+    cursor: pointer;
 
     &:hover {
         filter: brightness(1.1);
@@ -85,6 +91,7 @@
 ---------------------------------------------------------------------------- */
 
 .form__contained-icon-button {
+    all: unset;
     font-size: 13px;
     font-weight: 600px;
     line-height: 1;
@@ -92,6 +99,13 @@
     margin: 6px;
     border-radius: var(--icon-button-border-radius);
     transition: filter 300ms;
+    display: inline-grid;
+    min-height: 29px;
+    min-width: 29px;
+    background: transparent;
+    border: 1px solid currentColor;
+    box-sizing: border-box;
+    cursor: pointer;
 
     &:hover {
         filter: brightness(1.1);

@@ -22,7 +22,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class TorrentGroupSearch extends Component
+class TorrentSearch extends Component
 {
     use WithPagination;
 
@@ -106,6 +106,12 @@ class TorrentGroupSearch extends Component
 
     public int $perPage = 25;
 
+    public string $sortField = 'bumped_at';
+
+    public string $sortDirection = 'desc';
+
+    public string $view = 'list';
+
     protected $queryString = [
         'name'            => ['except' => ''],
         'description'     => ['except' => ''],
@@ -147,6 +153,7 @@ class TorrentGroupSearch extends Component
         'incomplete'      => ['except' => false],
         'page'            => ['except' => 1],
         'perPage'         => ['except' => ''],
+        'view'            => ['except' => 'list'],
     ];
 
     final public function paginationView(): string
@@ -169,7 +176,97 @@ class TorrentGroupSearch extends Component
         return cache()->get('personal_freeleech:'.auth()->user()->id);
     }
 
-    final public function getTorrentsProperty()
+    final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $user = auth()->user();
+        $isRegexAllowed = $user->group->is_modo;
+        $isRegex = fn ($field) => $isRegexAllowed
+            && \strlen($field) > 2
+            && $field[0] === '/'
+            && $field[-1] === '/'
+            && @preg_match($field, 'Validate regex') !== false;
+
+        $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+            ->when($this->view === 'list', fn ($query) => $query->withCount(['thanks', 'comments']))
+            ->withExists([
+                'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+            ])
+            ->selectRaw("
+                CASE
+                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                END as meta
+            ")
+            ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
+            ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
+            ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
+            ->when($this->uploader !== '', fn ($query) => $query->ofUploader($this->uploader))
+            ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
+            ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
+            ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
+            ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
+            ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
+            ->when($this->genres !== [], fn ($query) => $query->ofGenre($this->genres))
+            ->when($this->regions !== [], fn ($query) => $query->ofRegion($this->regions))
+            ->when($this->distributors !== [], fn ($query) => $query->ofDistributor($this->distributors))
+            ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
+            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
+            ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
+            ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
+            ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
+            ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
+            ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
+            ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
+            ->when($this->featured !== false, fn ($query) => $query->featured())
+            ->when($this->stream !== false, fn ($query) => $query->streamOptimized())
+            ->when($this->sd !== false, fn ($query) => $query->sd())
+            ->when($this->highspeed !== false, fn ($query) => $query->highspeed())
+            ->when($this->bookmarked !== false, fn ($query) => $query->bookmarkedBy($user))
+            ->when($this->wished !== false, fn ($query) => $query->wishedBy($user))
+            ->when($this->internal !== false, fn ($query) => $query->internal())
+            ->when($this->personalRelease !== false, fn ($query) => $query->personalRelease())
+            ->when($this->alive !== false, fn ($query) => $query->alive())
+            ->when($this->dying !== false, fn ($query) => $query->dying())
+            ->when($this->dead !== false, fn ($query) => $query->dead())
+            ->when($this->notDownloaded !== false, fn ($query) => $query->notDownloadedBy($user))
+            ->when($this->downloaded !== false, fn ($query) => $query->downloadedBy($user))
+            ->when($this->seeding !== false, fn ($query) => $query->seededBy($user))
+            ->when($this->leeching !== false, fn ($query) => $query->leechedBy($user))
+            ->when($this->incomplete !== false, fn ($query) => $query->uncompletedBy($user))
+            ->latest('sticky')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+
+        $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
+        $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
+        $gameIds = $torrents->getCollection()->where('meta', '=', 'game')->pluck('igdb');
+
+        $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+        $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+        if ($gameIds->isNotEmpty()) {
+            $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+        }
+
+        $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
+            $torrent->meta = match ($torrent->meta) {
+                'movie' => $movies[$torrent->tmdb] ?? null,
+                'tv'    => $tv[$torrent->tmdb] ?? null,
+                'game'  => $games[$torrent->igdb] ?? null,
+                default => null,
+            };
+
+            return $torrent;
+        });
+
+        return $torrents;
+    }
+
+    final public function getGroupedTorrentsProperty()
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
@@ -391,7 +488,7 @@ class TorrentGroupSearch extends Component
                                         ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
                                         ->map(
                                             fn ($season) => $season
-                                                ->sortKeys()
+                                                ->sortKeys(SORT_NATURAL)
                                                 ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
                                                 ->map(fn ($packOrEpisodes, $key) => match ($key) {
                                                     'Season Pack' => $packOrEpisodes
@@ -409,7 +506,7 @@ class TorrentGroupSearch extends Component
                                                         ),
                                                     'Episodes' => $packOrEpisodes
                                                         ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
-                                                        ->sortKeys()
+                                                        ->sortKeys(SORT_NATURAL)
                                                         ->map(
                                                             fn ($episode) => $episode
                                                                 ->sortBy('type.position')
@@ -471,12 +568,23 @@ class TorrentGroupSearch extends Component
         return $medias;
     }
 
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.torrent-group-search', [
+        return view('livewire.torrent-search', [
             'user'              => User::with(['group'])->findOrFail(auth()->user()->id),
-            'medias'            => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
+            'torrents'          => $this->view === 'group' ? $this->groupedTorrents : $this->torrents,
         ]);
     }
 }
