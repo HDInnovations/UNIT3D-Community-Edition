@@ -20,7 +20,7 @@
     {{ $companies->links('partials.pagination') }}
     <div class="panel__body blocks">
         @foreach ($companies as $company)
-            <a href="{{ route('grouped', ['companyId' => $company->id]) }}" style="padding: 0 2px;">
+            <a href="{{ route('torrents', ['view' => 'group', 'companyId' => $company->id]) }}" style="padding: 0 2px;">
                 <div class="general media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                     <h2 class="text-bold">
                         @if(isset($company->logo))
