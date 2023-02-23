@@ -65,15 +65,21 @@ class Top10 extends Component
             ->get());
     }
 
+    final public function getPersonalFreeleechProperty()
+    {
+        return cache()->get('personal_freeleech:'.auth()->user()->id);
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.top10', [
-            'user'          => auth()->user(),
-            'torrentsDay'   => $this->torrentsDay,
-            'torrentsWeek'  => $this->torrentsWeek,
-            'torrentsMonth' => $this->torrentsMonth,
-            'torrentsYear'  => $this->torrentsYear,
-            'torrentsAll'   => $this->torrentsAll,
+            'user'              => auth()->user(),
+            'torrentsDay'       => $this->torrentsDay,
+            'torrentsWeek'      => $this->torrentsWeek,
+            'torrentsMonth'     => $this->torrentsMonth,
+            'torrentsYear'      => $this->torrentsYear,
+            'torrentsAll'       => $this->torrentsAll,
+            'personalFreeleech' => $this->personalFreeleech,
         ]);
     }
 }
