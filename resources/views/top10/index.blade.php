@@ -12,7 +12,7 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" 
+        <a class="nav-tab__link"
             href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
                 1       => 'card',
                 2       => 'group',
@@ -39,13 +39,6 @@
     </li>
 @endsection
 
-@section('content')
-    <style>
-        td {
-            vertical-align: middle !important;
-        }
-    </style>
-    <div class="box container">
-        @livewire('top10')
-    </div>
+@section('main')
+    @livewire('top10')
 @endsection
