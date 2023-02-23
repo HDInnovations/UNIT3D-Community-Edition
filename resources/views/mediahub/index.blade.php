@@ -25,7 +25,7 @@
                     <h2 style="font-size: 12px;">{{ $tv }} {{ __('mediahub.shows') }}</h2>
                 </div>
             </a>
-            <a href="{{ route('grouped', ['categories' => $movieCategoryIds]) }}" class="">
+            <a href="{{ route('torrents', ['view' => 'group', 'categories' => $movieCategoryIds]) }}" class="">
                 <div class="movie media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                     <h2>{{ __('mediahub.movies') }} Hub</h2>
                     <span style="background-color: #01d277;"></span>
