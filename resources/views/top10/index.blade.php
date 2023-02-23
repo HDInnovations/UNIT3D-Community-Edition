@@ -12,18 +12,14 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents') }}">
-            List
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
-            Cards
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
-            Grouped
+        <a class="nav-tab__link" 
+            href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                default => 'list'
+            }]) }}"
+        >
+            {{ __('common.search') }}
         </a>
     </li>
     <li class="nav-tabV2--active">
