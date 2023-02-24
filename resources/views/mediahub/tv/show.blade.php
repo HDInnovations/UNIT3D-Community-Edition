@@ -120,14 +120,14 @@
             <dt>Networks</dt>
             <dd>
                 @foreach($show->networks as $network)
-                    <a href="{{ route('mediahub.networks.show', ['id' => $network->id]) }}">{{ $network->name }}</a>
+                    <a href="{{ route('torrents', ['view' => 'group', 'networkId' => $network->id]) }}">{{ $network->name }}</a>
                     @if (! $loop->last), @endif
                 @endforeach
             </dd>
             <dt>Companies</dt>
             <dd>
                 @foreach($show->companies as $company)
-                    <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}">{{ $company->name }}</a>
+                    <a href="{{ route('torrents', ['view' => 'group', 'companyId' => $company->id]) }}">{{ $company->name }}</a>
                     @if (! $loop->last), @endif
                 @endforeach
             </dd>
@@ -138,7 +138,7 @@
             <dt>Genres</dt>
             <dd>
                 @foreach($show->genres as $genre)
-                    <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">{{ $genre->name }}</a>
+                    <a href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}">{{ $genre->name }}</a>
                     @if (! $loop->last), @endif
                 @endforeach
             </dd>

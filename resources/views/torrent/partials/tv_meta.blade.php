@@ -15,7 +15,7 @@
             @if(isset($meta->networks) && $meta->networks->isNotEmpty())
                 @php $network = $meta->networks->first() @endphp
                 <div class="badge-user">
-                    <a href="{{ route('mediahub.networks.show', ['id' => $network->id]) }}">
+                    <a href="{{ route('torrents', ['view' => 'group', 'networkId' => $network->id]) }}">
                         @if(isset($network->logo))
                             <img class="img-responsive" src="{{ tmdb_image('logo_small', $network->logo) }}"
                                  title="{{ $network->name }}">
@@ -29,7 +29,7 @@
             @if(isset($meta->companies) && $meta->companies->isNotEmpty())
                 @php $company = $meta->companies->first() @endphp
                 <div class="badge-user">
-                    <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}">
+                    <a href="{{ route('torrents', ['view' => 'group', 'companyId' => $company->id]) }}">
                         @if(isset($company->logo))
                             <img class="img-responsive" src="{{ tmdb_image('logo_small', $company->logo) }}"
                                  title="{{ $company->name }}">
@@ -122,7 +122,7 @@
                 @if (isset($meta->genres) && $meta->genres->isNotEmpty())
                     @foreach ($meta->genres as $genre)
                         <span class="badge-user text-bold text-green">
-                    <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                    <a href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
                     </a>
                 </span>
