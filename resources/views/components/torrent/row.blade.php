@@ -229,10 +229,10 @@
         </td>
     @elseif ($torrent->category->movie_meta || $torrent->category->tv_meta)
         <td
-            class="torrent-search--list__rating {{ rating_color($meta->vote_average ?? 'text-white') }}"
+            class="torrent-search--list__rating"
             title="{{ $meta->vote_count ?? 0 }} Votes"
         >
-            <span>{{ round(($meta->vote_average ?? 0) * 10) }}%</span>
+            <span class="{{ rating_color($meta->vote_average ?? 'text-white') }}">{{ round(($meta->vote_average ?? 0) * 10) }}%</span>
         </td>
     @else
         <td class="torrent-search--list__rating">N/A</td>

@@ -112,15 +112,17 @@ if (! \function_exists('modal_style')) {
 if (! \function_exists('rating_color')) {
     function rating_color($number)
     {
-        if ($number > 0 && $number <= 3.9) {
+        $rating = round((float) $number);
+
+        if ($rating > 0 && $rating <= 4) {
             return 'text-danger';
         }
 
-        if ($number >= 4 && $number <= 6.9) {
+        if ($rating >= 4 && $rating <= 7) {
             return 'text-warning';
         }
 
-        if ($number >= 7 && $number <= 10) {
+        if ($rating >= 7 && $rating <= 10) {
             return 'text-success';
         }
     }
