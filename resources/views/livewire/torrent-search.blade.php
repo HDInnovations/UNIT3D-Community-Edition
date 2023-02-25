@@ -456,10 +456,17 @@
                             wire:model="perPage"
                             required
                         >
-                            <option>25</option>
-                            <option>50</option>
-                            <option>75</option>
-                            <option>100</option>
+                            @if ($view === 'card')
+                                <option>24</option>
+                                <option>48</option>
+                                <option>72</option>
+                                <option>96</option>
+                            @else
+                                <option>25</option>
+                                <option>50</option>
+                                <option>75</option>
+                                <option>100</option>
+                            @endif
                         </select>
                         <label class="form__label form__label--floating">
                             {{ __('common.quantity') }}
@@ -474,34 +481,37 @@
                 <div class="data-table-wrapper torrent-search--list__results">
                     <table class="data-table">
                         <thead>
-                            <tr class="torrent-search--list__headers">
+                            <tr @class([
+                                'torrent-search--list__headers' => auth()->user()->show_poster,
+                                'torrent-search--list__no-poster-headers' => ! auth()->user()->show_poster,
+                            ])>
                                 @if (auth()->user()->show_poster)
-                                    <th>Poster</th>
+                                    <th class="torrent-search--list__poster-header">Poster</th>
                                 @endif
-                                <th style="text-align: center">Format</th>
-                                <th class="torrents-filename" wire:click="sortBy('name')" role="columnheader button">
+                                <th class="torrent-search--list__format-header">Format</th>
+                                <th class="torrent-search--list__name-header" wire:click="sortBy('name')" role="columnheader button">
                                     {{ __('torrent.name') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'name'])
                                 </th>
-                                <th>{{ __('common.actions') }}</th>
-                                <th>Rating</th>
-                                <th class="torrents-listings-size" wire:click="sortBy('size')" role="columnheader button" style="text-align: right">
+                                <th class="torrent-search--list__actions-header">{{ __('common.actions') }}</th>
+                                <th class="torrent-search--list__ratings-header">Rating</th>
+                                <th class="torrent-search--list__size-header" wire:click="sortBy('size')" role="columnheader button">
                                     {{ __('torrent.size') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'size'])
                                 </th>
-                                <th class="torrents-listings-seeders" wire:click="sortBy('seeders')" role="columnheader button" title="{{ __('torrent.seeders') }}" style="text-align: right">
+                                <th class="torrent-search--list__seeders-header" wire:click="sortBy('seeders')" role="columnheader button" title="{{ __('torrent.seeders') }}">
                                     <i class="fas fa-arrow-alt-circle-up"></i>
                                     @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                                 </th>
-                                <th class="torrents-listings-leechers" wire:click="sortBy('leechers')" role="columnheader button" title="{{ __('torrent.leechers') }}" style="text-align: right">
+                                <th class="torrent-search--list__leechers-header" wire:click="sortBy('leechers')" role="columnheader button" title="{{ __('torrent.leechers') }}">
                                     <i class="fas fa-arrow-alt-circle-down"></i>
                                     @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                                 </th>
-                                <th class="torrents-listings-completed" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}" style="text-align: right">
+                                <th class="torrent-search--list__completed-header" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}">
                                     <i class="fas fa-check-circle"></i>
                                     @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                                 </th>
-                                <th class="torrents-listings-age" wire:click="sortBy('created_at')" role="columnheader button" style="text-align: right">
+                                <th class="torrent-search--list__age-header" wire:click="sortBy('created_at')" role="columnheader button">
                                     {{ __('torrent.age') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
@@ -524,27 +534,27 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th class="torrents-filename" wire:click="sortBy('name')" role="columnheader button">
+                            <th class="torrent-search--list__name-header" wire:click="sortBy('name')" role="columnheader button">
                                 {{ __('torrent.name') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'name'])
                             </th>
-                            <th class="torrents-listings-size" wire:click="sortBy('size')" role="columnheader button">
+                            <th class="torrent-search--list__size-header" wire:click="sortBy('size')" role="columnheader button">
                                 {{ __('torrent.size') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'size'])
                             </th>
-                            <th class="torrents-listings-seeders" wire:click="sortBy('seeders')" role="columnheader button" title="{{ __('torrent.seeders') }}">
+                            <th class="torrent-search--list__seeders-header" wire:click="sortBy('seeders')" role="columnheader button" title="{{ __('torrent.seeders') }}">
                                 <i class="fas fa-arrow-alt-circle-up"></i>
                                 @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                             </th>
-                            <th class="torrents-listings-leechers" wire:click="sortBy('leechers')" role="columnheader button" title="{{ __('torrent.leechers') }}">
+                            <th class="torrent-search--list__leechers-header" wire:click="sortBy('leechers')" role="columnheader button" title="{{ __('torrent.leechers') }}">
                                 <i class="fas fa-arrow-alt-circle-down"></i>
                                 @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                             </th>
-                            <th class="torrents-listings-completed" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}">
+                            <th class="torrent-search--list__completed-header" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}">
                                 <i class="fas fa-check-circle"></i>
                                 @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                             </th>
-                            <th class="torrents-listings-age" wire:click="sortBy('created_at')" role="columnheader button">
+                            <th class="torrent-search--list__age-header" wire:click="sortBy('created_at')" role="columnheader button">
                                 {{ __('common.created_at') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
