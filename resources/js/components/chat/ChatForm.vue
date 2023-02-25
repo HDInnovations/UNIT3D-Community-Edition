@@ -1,111 +1,177 @@
 <template>
-    <div class="chatbox__message-input">
-        <div
-            class="chatbox__bot-info"
-            v-if="$parent.bot > 0 && $parent.activeTab.substr(0, 3) == 'bot'"
-        >
+  <div class="message-input">
+    <div class="wrap" id="frameWrap">
+      <div class="width-table" style="margin: auto; padding-bottom: 5px; height: 22px">
+        <div class="width-75" style="padding: 0; height: 22px">
+          <div
+              style="padding-left: 0; margin-left: 0; padding-bottom: 0; margin-bottom: 0"
+              v-if="$parent.bot > 0 && $parent.activeTab.substr(0, 3) == 'bot'"
+          >
+                        <span class="badge-extra" style="margin-left: 0; padding-left: 5px; margin-bottom: 0"
+                        >{{ $parent.botName }} can accept messages from any tab if you type:
+                            <strong>/{{ $parent.botCommand }} help</strong></span
+                        >
+          </div>
+          <div
+              class="typing pull-left"
+              v-if="
+                            $parent.target < 1 &&
+                            $parent.bot < 1 &&
+                            $parent.activePeer &&
+                            $parent.activePeer.username != ''
+                        "
+              style="padding-left: 0; margin-left: 0; padding-bottom: 0; margin-bottom: 0"
+          >
+                        <span class="badge-extra" style="margin-left: 0; padding-left: 5px; margin-bottom: 0">{{
+                            $parent.activePeer ? $parent.activePeer.username + ' is typing ...' : '*'
+                          }}</span>
+          </div>
+          <div v-if="$parent.tab != 'userlist'" style="margin-right: 5px; display: inline-block">
+            <span>Audio: </span>
+            <i
+                v-if="
+                                $parent.room &&
+                                $parent.room > 0 &&
+                                $parent.bot < 1 &&
+                                $parent.target < 1 &&
+                                $parent.tab != 'userlist'
+                            "
+                @click.prevent="$parent.changeAudible('room', $parent.room, $parent.listening ? 0 : 1)"
+                :class="$parent.listening ? 'fa fa-bell pointee' : 'fa fa-bell-slash pointee'"
+                :style="`color: ${$parent.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+            ></i>
+
+            <i
+                v-if="$parent.bot && $parent.bot >= 1 && $parent.target < 1 && $parent.tab != 'userlist'"
+                @click.prevent="$parent.changeAudible('bot', $parent.bot, $parent.listening ? 0 : 1)"
+                :class="$parent.listening ? 'fa fa-bell pointee' : 'fa fa-bell-slash pointee'"
+                :style="`color: ${$parent.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+            ></i>
+
+            <i
+                v-if="$parent.target && $parent.target >= 1 && $parent.bot < 1 && $parent.tab != 'userlist'"
+                @click.prevent="$parent.changeAudible('target', $parent.target, $parent.listening ? 0 : 1)"
+                :class="$parent.listening ? 'fa fa-bell pointee' : 'fa fa-bell-slash pointee'"
+                :style="`color: ${$parent.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+            ></i>
+          </div>
+          <div style="margin-right: 5px; display: inline-block">
+            <span style="margin-right: 5px">Status: </span>
+            <i
+                v-for="status in $parent.statuses"
+                @click="$emit('changedStatus', status.id)"
+                :class="status.icon ? status.icon + ' pointee mr-5' : 'fa fa-dot-circle-o pointee mr-5'"
+                :style="`color: ${status.color}`"
+            ></i>
             <span>
-                {{ $parent.botName }} can accept messages from any tab if you type:
-                <strong>/{{ $parent.botCommand }} help</strong>
-            </span>
+                            <chatrooms-dropdown
+                                :current="user.chatroom.id"
+                                :chatrooms="$parent.chatrooms"
+                                class="pull-right"
+                                @changedRoom="$parent.changeRoom"
+                            >
+                            </chatrooms-dropdown>
+                        </span>
+          </div>
         </div>
-        <div
-            class="chatbox__typing"
-            v-if="
-                $parent.target < 1 &&
-                $parent.bot < 1 &&
-                $parent.activePeer &&
-                $parent.activePeer.username != ''
-            "
-        >
-            <span>{{
-                $parent.activePeer ? $parent.activePeer.username + ' is typing ...' : '*'
-            }}</span>
-        </div>
-        <div class="chatbox__textarea-container form__group">
+      </div>
+    </div>
+    <div class="row" style="margin: auto">
+      <div class="chatbox__textarea-container form__group">
             <textarea
+                id="chat-message"
                 class="chatbox__textarea form__textarea"
                 name="message"
                 placeholder=""
                 send="true"
             ></textarea>
-            <label class="form__label form__label--floating">Write your message...</label>
-        </div>
+        <label class="form__label form__label--floating">Write your message...</label>
+      </div>
     </div>
+  </div>
 </template>
-<style lang="scss">
-.chatbox__message-input {
-    background: inherit;
+<style lang="scss" scoped>
+.col-md-4,
+.col-md-6,
+.col-md-12 {
+  padding: 0;
 }
-.chatbox__typing {
-    font-size: 12px;
-    padding:0 5px 5px 5px;
+.pointee {
+  cursor: pointer;
 }
-.chatbox__bot-info {
-    font-size: 12px;
-    padding: 6px;
+.mr-5 {
+  margin-right: 5px;
 }
-.chatbox__textarea-container {
-    margin: 0 6px 6px 6px;
-    width: calc(100% - 2 * 6px);
+.info {
+  .badge-extra {
+    width: auto;
+    margin: 0 8px 0 0;
+  }
+  i {
+    &.fa {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }
 </style>
 <script>
 import ChatroomsDropdown from './ChatroomsDropdown';
 
 export default {
-    components: {
-        ChatroomsDropdown,
+  components: {
+    ChatroomsDropdown,
+  },
+  data() {
+    return {
+      user: null,
+      editor: null,
+      input: null,
+    };
+  },
+  computed: {
+    receiver_id() {
+      return this.$parent.receiver_id;
     },
-    data() {
-        return {
-            user: null,
-            editor: null,
-            input: null,
-        };
+    bot_id() {
+      return this.$parent.bot_id;
     },
-    computed: {
-        receiver_id() {
-            return this.$parent.receiver_id;
-        },
-        bot_id() {
-            return this.$parent.bot_id;
-        },
+  },
+  methods: {
+    keyup(e) {
+      this.$emit('typing', this.user);
     },
-    methods: {
-        keyup(e) {
-            this.$emit('typing', this.user);
-        },
-        keydown(e) {
-            if (e.keyCode === 13 && !e.shiftKey) {
-                e.preventDefault();
-                this.sendMessage();
-            }
-        },
-        sendMessage() {
-            let msg = this.input.val().trim();
+    keydown(e) {
+      if (e.keyCode === 13 && !e.shiftKey) {
+        e.preventDefault();
+        this.sendMessage();
+      }
+    },
+    sendMessage() {
+      let msg = this.input.val().trim();
 
-            if (msg !== null && msg !== '') {
-                this.$emit('message-sent', {
-                    message: msg,
-                    save: true,
-                    user_id: this.user.id,
-                    receiver_id: this.receiver_id,
-                    bot_id: this.bot_id,
-                });
+      if (msg !== null && msg !== '') {
+        this.$emit('message-sent', {
+          message: msg,
+          save: true,
+          user_id: this.user.id,
+          receiver_id: this.receiver_id,
+          bot_id: this.bot_id,
+        });
 
-                this.input.val('');
-            }
-        },
+        this.input.val('');
+      }
     },
-    created() {
-        this.user = this.$parent.auth;
-    },
-    mounted() {
-        this.editor = $('#chat-message').val();
-        this.input = $('#chat-message');
-        this.input.keyup(this.keyup);
-        this.input.keydown(this.keydown);
-    },
+  },
+  created() {
+    this.user = this.$parent.auth;
+  },
+  mounted() {
+    this.editor = $('#chat-message').val();
+    this.input = $('#chat-message');
+    this.input.keyup(this.keyup);
+    this.input.keydown(this.keydown);
+  },
 };
 </script>
