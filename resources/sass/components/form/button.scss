@@ -87,6 +87,18 @@
     }
 }
 
+.form__standard-icon-button--short {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    min-height: unset;
+}
+
+.form__standard-icon-button--skinny {
+    padding-left: 2px;
+    padding-right: 2px;
+    min-width: unset;
+}
+
 /* Contained Icon Buttons
 ---------------------------------------------------------------------------- */
 
