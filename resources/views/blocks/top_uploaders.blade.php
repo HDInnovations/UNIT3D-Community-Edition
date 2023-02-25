@@ -1,5 +1,5 @@
 <section class="panelV2" x-data="{ tab: 'alltime'}">
-    <h2 class="panel__heading">{{ __('blocks.top-torrents') }}</h2>
+    <h2 class="panel__heading">Top Uploaders</h2>
     <menu class="panel__tabs">
         <li
             class="panel__tab"
@@ -7,7 +7,7 @@
             x-bind:class="tab === 'alltime' && 'panel__tab--active'"
             x-on:click="tab = 'alltime'"
         >
-            {{ __('blocks.new-torrents') }}
+            All Time
         </li>
         <li
             class="panel__tab"
