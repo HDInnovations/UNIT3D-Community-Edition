@@ -100,6 +100,9 @@
     --input-text-border-hover: 2px solid #999;
     --input-text-border-radius: 5px;
     --input-text-fg: #bbb;
+    --input-text-padding: 12px;
+    --input-text-padding-active: 11px;
+    --input-text-padding-hover: 11px;
 
     --key-value-even-bg: #272727;
     --key-value-fg: var(--text-color);
@@ -155,6 +158,10 @@
     --select-border-hover: 2px solid #999;
     --select-border-radius: 5px;
     --select-fg: #bbb;
+    --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23bbb' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+    --select-padding: 11px;
+    --select-padding-active: 10px;
+    --select-padding-hover: 10px;
 
     --subforum-listing-odd-bg: #2a2a2a;
     --subforum-listing-even-bg: transparent;
@@ -165,6 +172,9 @@
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #bbb;
+    --textarea-padding: 12px;
+    --textarea-padding-active: 11px;
+    --textarea-padding-hover: 11px;
 
     --torrent-card-bg: #272727;
     --torrent-card-fg: var(--text-color);
