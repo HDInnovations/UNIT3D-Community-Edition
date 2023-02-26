@@ -136,9 +136,9 @@
     --select-border-radius: 5px;
     --select-fg: #bbb;
     --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23bbb' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
-    --select-padding: 11px;
-    --select-padding-active: 10px;
-    --select-padding-hover: 10px;
+    --select-padding: 11px 23px 11px 11px;
+    --select-padding-active: 10px 22px 10px 10px;
+    --select-padding-hover: 10px 22px 10px 10px;
 
     --textarea-border: 1px solid #555;
     --textarea-border-active: 2px solid #2196f3;
