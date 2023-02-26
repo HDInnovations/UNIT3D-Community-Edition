@@ -38,15 +38,98 @@
   }
 }
 
+/* Icons
+---------------------------------------------------------------------------- */
+
+.torrent-icons {
+  grid-area: icons;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+.torrent-icons__thanks {
+  font: inherit;
+  color: var(--torrent-row-thanks-fg);
+}
+.torrent-icons__comments {
+  font: inherit;
+  color: var(--torrent-row-comments-fg);
+}
+
+.torrent-icons__thanks::before,
+.torrent-icons__comments::before {
+    letter-spacing: 2px;
+}
+
+.torrent-icons__internal {
+  color: var(--torrent-row-internal-fg);
+}
+
+.torrent-icons__personal-release {
+  color: var(--torrent-row-personal-fg);
+}
+
+.torrent-icons__stream-optimized {
+  color: var(--torrent-row-stream-optimized-fg)
+}
+
+.torrent-icons__featured {
+  color: var(--torrent-row-featured-fg);
+}
+
+.torrent-icons__freeleech {
+  color: var(--torrent-row-freeleech-fg);
+}
+
+.torrent-icons__double-upload {
+  color: var(--torrent-row-double-upload-fg);
+}
+
+.torrent-icons__sticky {
+  color: var(--torrent-row-sticky-fg);
+}
+
+.torrent-icons__highspeed {
+  color: var(--torrent-row-highspeed-fg);
+}
+
+.torrent-icons__sd {
+  color: var(--torrent-row-sd-fg);
+}
+
+.torrent-icons__bumped {
+  color: var(--torrent-row-bumped-fg);
+}
+
 /* List
 ---------------------------------------------------------------------------- */
 
 .torrent-search--list__headers,
 .torrent-search--list__row {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-rows: auto;
   grid-template-columns: 60px 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
   grid-template-areas: "poster format overview buttons rating size seeders leechers completed age";
+}
+
+.torrent-search--list__no-poster-headers,
+.torrent-search--list__no-poster-row {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
+  grid-template-areas: "format overview buttons rating size seeders leechers completed age";
+}
+
+.torrent-search--list__sticky-row td {
+  background-color: var(--torrent-row-sticky-bg) !important;
+}
+
+.torrent-search--list__size-header,
+.torrent-search--list__seeders-header,
+.torrent-search--list__leechers-header,
+.torrent-search--list__completed-header,
+.torrent-search--list__age-header {
+  text-align: right;
 }
 
 .torrent-search--list__poster {
@@ -107,73 +190,14 @@
   padding: 8px 0 4px 0;
 }
 
+.torrent-search--list__name:visited {
+  color: var(--torrent-row-visited-fg);
+}
+
 .torrent-search--list__uploader {
   grid-area: uploader;
   margin-right: 12px;
   font-size: 12px;
-}
-
-.torrent-search--list__icons {
-  grid-area: icons;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 2.5rem;
-  font-size: 12px;
-}
-
-.torrent-search--list__thanks {
-  font: inherit;
-  color: var(--torrent-row-thanks-fg);
-}
-.torrent-search--list__comments {
-  font: inherit;
-  color: var(--torrent-row-comments-fg);
-  ;
-}
-
-.torrent-search--list__thanks::before,
-.torrent-search--list__comments::before {
-    margin-right: 2px;
-}
-
-.torrent-search--list__internal {
-  color: var(--torrent-row-internal-fg);
-}
-
-.torrent-search--list__personal-release {
-  color: var(--torrent-row-personal-fg);
-}
-
-.torrent-search--list__stream-optimized {
-  color: var(--torrent-row-stream-optimized-fg)
-}
-
-.torrent-search--list__featured {
-  color: var(--torrent-row-featured-fg);
-}
-
-.torrent-search--list__freeleech {
-  color: var(--torrent-row-freeleech-fg);
-}
-
-.torrent-search--list__double-upload {
-  color: var(--torrent-row-double-upload-fg);
-}
-
-.torrent-search--list__sticky {
-  color: var(--torrent-row-sticky-fg);
-}
-
-.torrent-search--list__highspeed {
-  color: var(--torrent-row-highspeed-fg);
-}
-
-.torrent-search--list__sd {
-  color: var(--torrent-row-sd-fg);
-}
-
-.torrent-search--list__bumped {
-  color: var(--torrent-row-bumped-fg);
 }
 
 .torrent-search--list__buttons {
@@ -238,17 +262,41 @@
 }
 
 @media only screen and (max-width: 1200px) {
-  .torrent-search--list__headers {
+  .torrent-search--list__headers,
+  .torrent-search--list__no-poster-headers {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .torrent-search--list__name-header,
+  .torrent-search--list__size-header,
+  .torrent-search--list__seeders-header,
+  .torrent-search--list__leechers-header,
+  .torrent-search--list__completed-header,
+  .torrent-search--list__age-header {
+    flex-grow: 1;
+  }
+
+  .torrent-search--list__poster-header,
+  .torrent-search--list__format-header,
+  .torrent-search--list__actions-header,
+  .torrent-search--list__ratings-header {
+    display: none;
   }
 
   .torrent-search--list__row {
     grid-template-areas:
       "poster format format overview overview overview overview overview overview"
       "age age size size rating seeders leechers completed buttons";
-
     grid-template-columns: 60px 40px 60px 30px 80px 80px 80px 80px 1fr;
+    grid-template-rows: repeat(2, auto);
+  }
+
+  .torrent-search--list__no-poster-row {
+    grid-template-areas:
+      "format overview overview overview overview overview overview"
+      "age size rating seeders leechers completed buttons";
+    grid-template-columns: 100px 30px 80px 80px 80px 80px 1fr;
     grid-template-rows: repeat(2, auto);
   }
 
@@ -268,20 +316,24 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .torrent-search--list__headers {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
   .torrent-search--list__row {
     grid-template-areas:
       "poster poster poster format format buttons buttons buttons buttons buttons buttons buttons"
       "overview overview overview overview overview overview overview overview overview overview overview overview"
       "age age age age size size size size rating rating rating rating"
       "seeders seeders seeders seeders leechers leechers leechers  leechers completed completed completed completed";
-
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: auto;
+  }
+
+  .torrent-search--list__no-poster-row {
+    grid-template-areas:
+      "format buttons buttons"
+      "overview overview overview"
+      "age size rating"
+      "seeders leechers completed";
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
   }
 
   .torrent-search--list__format {
@@ -289,18 +341,14 @@
   }
 
   .torrent-search--list__overview > div {
-    grid-template-areas: "name" "uploader" "icons";
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "name name" "uploader icons";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto;
+    column-gap: 1rem;
   }
 
   .torrent-search--list__uploader {
     padding: 8px 0;
-  }
-
-  .torrent-search--list__icons {
-    justify-content: center;
-    padding: 16px 0 6px 0;
   }
 
   .torrent-search--list__buttons {
@@ -594,7 +642,7 @@ td.torrent-search--grouped__overview {
   grid-template-columns: auto auto 1fr auto;
   grid-column-gap: 6px;
   align-items: center;
-  grid-template-areas: "edit name legend flags";
+  grid-template-areas: "edit name legend icons";
 }
 
 td.torrent-search--grouped__overview > div {
@@ -624,11 +672,6 @@ h3.torrent-search--grouped__name a {
 .torrent-search--grouped__legend {
   grid-area: legend;
   text-align: left;
-}
-
-.torrent-search--grouped__flags {
-  grid-area: flags;
-  letter-spacing: 3px;
 }
 
 td.torrent-search--grouped__download {

@@ -94,7 +94,7 @@
 
 .panel__tabs {
     display: flex;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding: 0;
     margin: 0;
     background-color: var(--data-table-th-bg);

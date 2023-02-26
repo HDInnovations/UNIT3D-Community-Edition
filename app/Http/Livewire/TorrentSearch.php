@@ -171,6 +171,11 @@ class TorrentSearch extends Component
         $this->resetPage();
     }
 
+    final public function updatedView(): void
+    {
+        $this->perPage = $this->view === 'card' ? 24 : 25;
+    }
+
     final public function getPersonalFreeleechProperty()
     {
         return cache()->get('personal_freeleech:'.auth()->user()->id);
