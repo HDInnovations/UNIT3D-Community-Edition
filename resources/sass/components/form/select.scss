@@ -15,6 +15,10 @@
 
 .form__select {
     background-color: inherit !important; /* !important can be removed once site-wide `select` styling is removed */
+    background: var(--select-icon);
+    background-size: 16px;
+    background-position: calc(100% - 12px) center;
+    background-repeat: no-repeat;
     border: var(--select-border);
     border-radius: 5px;
     color: var(--select-fg);
@@ -23,8 +27,9 @@
     height: 40px;
     max-width: 100%;
     outline: none;
-    padding: 12px;
+    padding: var(--select-padding);
     width: 100%;
+    appearance: none;
 
     @media screen and (prefers-reduced-motion: no-preference) {
         transition: border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -32,11 +37,13 @@
 
     &:hover {
         border: var(--select-border-hover);
+        padding: var(--select-padding-hover);
     }
 
     &:focus,
     &:focus:hover {
         border: var(--select-border-active);
+        padding: var(--select-padding-active);
 
         & + .form__label--floating {
             top: -3px;

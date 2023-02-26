@@ -20,7 +20,7 @@
     height: 40px;
     max-width: 100%;
     outline: none;
-    padding: 12px;
+    padding: var(--textarea-padding);
     width: 100%;
 
     @media screen and (prefers-reduced-motion: no-preference) {
@@ -29,11 +29,13 @@
 
     &:hover {
         border: var(--textarea-border-hover);
+        padding: var(--textarea-padding-hover);
     }
 
     &:focus,
     &:focus:hover {
         border: var(--textarea-border-active);
+        padding: var(--textarea-padding-active);
         height: 140px;
 
         & ~ .form__label--floating {
