@@ -842,6 +842,13 @@ Route::group(['middleware' => 'language'], function (): void {
             });
         });
 
+        // Peers
+        Route::group(['prefix' => 'peers'], function (): void {
+            Route::name('staff.peers.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PeerController::class, 'index'])->name('index');
+            });
+        });
+
         // Polls System
         Route::group(['prefix' => 'polls'], function (): void {
             Route::name('staff.polls.')->group(function (): void {
