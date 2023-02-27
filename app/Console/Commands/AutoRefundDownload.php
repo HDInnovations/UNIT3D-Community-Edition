@@ -57,14 +57,15 @@ class AutoRefundDownload extends Command
             ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
             ->where('history.created_at', '>=', $now->copy()->subSeconds($MIN_SEEDTIME))
             ->whereColumn('torrents.user_id', '!=', 'history.user_id')
-            ->when(! config('other.refundable'), fn ($query) => $query->where(fn ($query) => $query
-                ->where('groups.is_refundable', '=', 1)
-                ->orWhere('torrents.refundable', '=', 1)
+            ->when(! config('other.refundable'), fn ($query) => $query->where(
+                fn ($query) => $query
+                    ->where('groups.is_refundable', '=', 1)
+                    ->orWhere('torrents.refundable', '=', 1)
             ))
             ->update([
                 'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size - history.refunded_download)'),
-                'users.downloaded' => DB::raw('users.downloaded - @delta'),
-                'history.updated_at' => DB::raw('history.updated_at'),
+                'users.downloaded'          => DB::raw('users.downloaded - @delta'),
+                'history.updated_at'        => DB::raw('history.updated_at'),
             ]);
 
         $this->comment('Automated Download Refund Command Complete');
