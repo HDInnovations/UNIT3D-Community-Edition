@@ -96,14 +96,21 @@ class ProcessMovieJob implements ShouldQueue
         }
 
         if (isset($this->movie['credits']['crew'])) {
+            $crew_movie_relations = [];
+
             foreach ($this->movie['credits']['crew'] as $crew) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))
-                    ->movie()
-                    ->syncWithoutDetaching([$this->movie['id'] => [
-                        'department' => $crew['department'] ?? null,
-                        'job'        => $crew['job'] ?? null,
-                    ]]);
+                $crew_movie_relations[] = [
+                    'movie_id'  => $this->movie['id'],
+                    'person_id' => $crew['id'],
+                    'department' => $crew['department'] ?? null,
+                    'job' => $crew['job'] ?? null,
+                ];
             }
+
+            $crew = \array_map([$tmdb, 'person_array'], $this->movie['credits']['crew']);
+            Crew::upsert($crew, 'id');
+
+            Movie::find($this->movie['id'])->crew()->sync($crew_movie_relations);
         }
 
         if (isset($this->movie['recommendations'])) {
