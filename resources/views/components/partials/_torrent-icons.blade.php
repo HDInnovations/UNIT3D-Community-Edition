@@ -1,6 +1,10 @@
-<div class="torrent-icons">
-    <i class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks">{{ $torrent->thanks_count }}</i>
-    <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments">{{ $torrent->comments_count }}</i>
+<span class="torrent-icons">
+    @isset($torrent->thanks_count)
+        <i class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks">{{ $torrent->thanks_count }}</i>
+    @endisset
+    @isset($torrent->comments_count)
+        <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments">{{ $torrent->comments_count }}</i>
+    @endisset
     @if ($torrent->internal)
         <i
             class="{{ config('other.font-awesome') }} fa-magic torrent-icons__internal"
@@ -69,4 +73,4 @@
             title="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"
         ></i>
     @endif
-</div>
+</span>

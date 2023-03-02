@@ -1,5 +1,5 @@
 <div class="form__group form__group--short-horizontal" x-data>
-    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
+    <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
         {{ __('common.report') }}
     </button>
     <dialog class="dialog" x-ref="dialog">

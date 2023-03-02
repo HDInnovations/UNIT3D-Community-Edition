@@ -18,20 +18,20 @@
             </a>
         </h2>
         <address class="torrent-search--grouped__directors">
-            {{-- TODO: We should not be sending api calls for every show searched. This should be stored in the db instead. --}}
-            {{-- @if(!empty($creators = (new App\Services\Tmdb\Client\TV($media->id))->get_creator()))
+            @if($media->creators->isNotEmpty())
                 <span class="torrent-search-grouped__directors-by">by</span>
-                @foreach($creators as $creator)
-                    <a href="{{ route('mediahub.persons.show', ['id' => $creator['id']]) }}"
+                @foreach($media->creators as $creator)
+                    <a
+                        href="{{ route('mediahub.persons.show', ['id' => $creator->id]) }}"
                         class="torrent-search--grouped__director"
                     >
-                        {{ $creator['name'] }}
+                        {{ $creator->name }}
                     </a>
                     @if (! $loop->last)
                         ,
                     @endif
                 @endforeach
-            @endif --}}
+            @endif
         </address>
         <div class="torrent-search--grouped__genres">
             @foreach ($media->genres->take(3) as $genre)

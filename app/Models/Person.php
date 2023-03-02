@@ -25,21 +25,15 @@ class Person extends Model
 
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Tv::class, 'person_tv', 'tv_id', 'person_id');
-    }
-
-    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Season::class, 'person_season', 'season_id', 'person_id');
-    }
-
-    public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Episode::class, 'episode_person', 'episode_id', 'person_id');
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
     }
 
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Movie::class, 'person_movie', 'movie_id', 'person_id');
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
     }
 }
