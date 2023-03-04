@@ -74,7 +74,7 @@ class ProcessMovieJob implements ShouldQueue
             $client = new Client\Collection($this->movie['belongs_to_collection']['id']);
             $belongsToCollection = $client->getData();
             if (isset($belongsToCollection['name'])) {
-                $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
+                $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
 
                 $belongsToCollectionArray = [
                     'name'      => $belongsToCollection['name'] ?? null,
@@ -97,7 +97,12 @@ class ProcessMovieJob implements ShouldQueue
 
         if (isset($this->movie['credits']['crew'])) {
             foreach ($this->movie['credits']['crew'] as $crew) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->movie()->syncWithoutDetaching([$this->movie['id']]);
+                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))
+                    ->movie()
+                    ->syncWithoutDetaching([$this->movie['id'] => [
+                        'department' => $crew['department'] ?? null,
+                        'job'        => $crew['job'] ?? null,
+                    ]]);
             }
         }
 

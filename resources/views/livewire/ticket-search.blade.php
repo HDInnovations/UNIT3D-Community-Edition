@@ -181,6 +181,6 @@
             @endforelse
             </tbody>
         </table>
-        {{ $tickets->links() }}
+        {{ $tickets->links('partials.pagination') }}
     </div>
 </section>

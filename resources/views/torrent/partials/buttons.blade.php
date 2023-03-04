@@ -15,7 +15,6 @@
                       style="display: inline;">
                     @csrf
                     <button type="submit" class="btn btn-primary btn-sm torrent-freeleech-token"
-                            data-toggle=tooltip
                             data-html="true"
                             title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'>
                         {{ __('torrent.use-fl-token') }}
@@ -42,7 +41,7 @@
         <i class='{{ config("other.font-awesome") }} fa-file'></i> {{ __('torrent.show-files') }}
     </a>
 
-    @livewire('bookmark-button', ['torrent' => $torrent->id])
+    @livewire('bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()])
 
     @if ($playlists->count() > 0)
         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_playlist_torrent">

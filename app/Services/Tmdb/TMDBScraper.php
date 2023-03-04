@@ -56,11 +56,11 @@ class TMDBScraper implements ShouldQueue
                 'episode_run_time'   => $tmdb->ifHasItems('episode_run_time', $tv),
                 'first_air_date'     => $tmdb->ifExists('first_air_date', $tv),
                 'homepage'           => $tv['homepage'],
-                'imdb_id'            => \substr($tv['external_ids']['imdb_id'] ?? '', 2),
+                'imdb_id'            => substr($tv['external_ids']['imdb_id'] ?? '', 2),
                 'in_production'      => $tv['in_production'],
                 'last_air_date'      => $tmdb->ifExists('last_air_date', $tv),
                 'name'               => Str::limit($tv['name'], 200),
-                'name_sort'          => \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name'], 100))),
+                'name_sort'          => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], Str::limit($tv['name'], 100))),
                 'number_of_episodes' => $tv['number_of_episodes'],
                 'number_of_seasons'  => $tv['number_of_seasons'],
                 'origin_country'     => $tmdb->ifHasItems('origin_country', $tv),
@@ -93,10 +93,10 @@ class TMDBScraper implements ShouldQueue
 
         if (\array_key_exists('title', $movie)) {
             $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
-            \preg_match($re, (string) $movie['title'], $matches);
+            preg_match($re, (string) $movie['title'], $matches);
 
             $year = (new DateTime($movie['release_date']))->format('Y');
-            $titleSort = \addslashes(\str_replace(
+            $titleSort = addslashes(str_replace(
                 ['The ', 'An ', 'A ', '"'],
                 [''],
                 Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $movie['title'], 100)
@@ -107,7 +107,7 @@ class TMDBScraper implements ShouldQueue
                 'backdrop'          => $tmdb->image('backdrop', $movie),
                 'budget'            => $movie['budget'] ?? null,
                 'homepage'          => $movie['homepage'] ?? null,
-                'imdb_id'           => \substr($movie['imdb_id'] ?? '', 2),
+                'imdb_id'           => substr($movie['imdb_id'] ?? '', 2),
                 'original_language' => $movie['original_language'] ?? null,
                 'original_title'    => $movie['original_title'] ?? null,
                 'overview'          => $movie['overview'] ?? null,

@@ -17,18 +17,14 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents') }}">
-            List
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
-            Cards
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
-            Grouped
+        <a class="nav-tab__link"
+            href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                default => 'list'
+            }]) }}"
+        >
+            {{ __('torrent.search') }}
         </a>
     </li>
     <li class="nav-tabV2">
@@ -304,6 +300,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') }}' : '0'"
+                                x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                                 class="form__text"
                                 placeholder=""
                             >

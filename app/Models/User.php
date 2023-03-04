@@ -22,14 +22,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use voku\helper\AntiXSS;
 
 class User extends Authenticatable
 {
+    use Achiever;
     use HasFactory;
     use Notifiable;
-    use Achiever;
     use SoftDeletes;
     use UsersOnlineTrait;
 
@@ -58,26 +57,33 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A Group.
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Group::class)->withDefault([
-            'color'         => \config('user.group.defaults.color'),
-            'effect'        => \config('user.group.defaults.effect'),
-            'icon'          => \config('user.group.defaults.icon'),
-            'name'          => \config('user.group.defaults.name'),
-            'slug'          => \config('user.group.defaults.slug'),
-            'position'      => \config('user.group.defaults.position'),
-            'is_admin'      => \config('user.group.defaults.is_admin'),
-            'is_freeleech'  => \config('user.group.defaults.is_freeleech'),
-            'is_immune'     => \config('user.group.defaults.is_immune'),
-            'is_incognito'  => \config('user.group.defaults.is_incognito'),
-            'is_internal'   => \config('user.group.defaults.is_internal'),
-            'is_modo'       => \config('user.group.defaults.is_modo'),
-            'is_trusted'    => \config('user.group.defaults.is_trusted'),
-            'can_upload'    => \config('user.group.defaults.can_upload'),
-            'level'         => \config('user.group.defaults.level'),
+            'color'        => config('user.group.defaults.color'),
+            'effect'       => config('user.group.defaults.effect'),
+            'icon'         => config('user.group.defaults.icon'),
+            'name'         => config('user.group.defaults.name'),
+            'slug'         => config('user.group.defaults.slug'),
+            'position'     => config('user.group.defaults.position'),
+            'is_admin'     => config('user.group.defaults.is_admin'),
+            'is_freeleech' => config('user.group.defaults.is_freeleech'),
+            'is_immune'    => config('user.group.defaults.is_immune'),
+            'is_incognito' => config('user.group.defaults.is_incognito'),
+            'is_internal'  => config('user.group.defaults.is_internal'),
+            'is_modo'      => config('user.group.defaults.is_modo'),
+            'is_trusted'   => config('user.group.defaults.is_trusted'),
+            'can_upload'   => config('user.group.defaults.can_upload'),
+            'level'        => config('user.group.defaults.level'),
         ]);
     }
 
@@ -113,11 +119,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimestamps();
     }
 
-    public function isBookmarked(int $torrentId): bool
-    {
-        return $this->bookmarks()->where('torrent_id', '=', $torrentId)->first() !== null;
-    }
-
     /**
      * Belongs To Many Seeding Torrents.
      */
@@ -139,7 +140,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs to many followers.
+     */
+    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'target_id', 'user_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
 
+    /**
+     * Belongs to many followees.
+     */
+    public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'target_id')
+            ->as('follow')
+            ->withTimestamps();
+    }
+
+    /**
      * Has Many Messages.
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -265,14 +285,6 @@ class User extends Authenticatable
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Peer::class);
-    }
-
-    /**
-     * Has Many Followers.
-     */
-    public function follows(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Follow::class);
     }
 
     /**
@@ -508,14 +520,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the Users username as slug.
-     */
-    public function getSlugAttribute(): string
-    {
-        return Str::slug($this->username);
-    }
-
-    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool
@@ -537,12 +541,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $target->notification->$targetGroup && \is_array($target->notification->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->notification->$targetGroup['default_groups'])) {
-                return $target->notification->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->notification?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->notification->$targetGroup, true);
         }
 
         return true;
@@ -554,7 +554,7 @@ class User extends Authenticatable
     public function isVisible(self $target, string $group = 'profile', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
-        $sender = \auth()->user();
+        $sender = auth()->user();
         if ($sender->id == $target->id) {
             return true;
         }
@@ -571,12 +571,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->privacy?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
         }
 
         return true;
@@ -588,7 +584,7 @@ class User extends Authenticatable
     public function isAllowed(self $target, string $group = 'profile', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
-        $sender = \auth()->user();
+        $sender = auth()->user();
         if ($sender->id == $target->id) {
             return true;
         }
@@ -605,12 +601,8 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $target->privacy->$targetGroup && \is_array($target->privacy->$targetGroup['default_groups'])) {
-            if (\array_key_exists($sender->group->id, $target->privacy->$targetGroup['default_groups'])) {
-                return $target->privacy->$targetGroup['default_groups'][$sender->group->id] == 1;
-            }
-
-            return true;
+        if (\is_array($target->privacy?->$targetGroup)) {
+            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
         }
 
         return true;
@@ -653,13 +645,13 @@ class User extends Authenticatable
             return INF;
         }
 
-        return \round($this->uploaded / $this->downloaded, 2);
+        return round($this->uploaded / $this->downloaded, 2);
     }
 
     public function getRatioString(): string
     {
         $ratio = $this->getRatio();
-        if (\is_infinite($ratio)) {
+        if (is_infinite($ratio)) {
             return '∞';
         }
 
@@ -675,7 +667,7 @@ class User extends Authenticatable
             return INF;
         }
 
-        return \round($this->uploaded / ($this->downloaded + $size), 2);
+        return round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
     /**
@@ -684,11 +676,11 @@ class User extends Authenticatable
     public function ratioAfterSizeString($size, bool $freeleech = false): string
     {
         if ($freeleech) {
-            return $this->getRatioString().' ('.\trans('torrent.freeleech').')';
+            return $this->getRatioString().' ('.trans('torrent.freeleech').')';
         }
 
         $ratio = $this->ratioAfterSize($size);
-        if (\is_infinite($ratio)) {
+        if (is_infinite($ratio)) {
             return '∞';
         }
 
@@ -705,7 +697,7 @@ class User extends Authenticatable
             return '∞';
         }
 
-        $bytes = \round(($this->uploaded / $ratio) - $this->downloaded);
+        $bytes = round(($this->uploaded / $ratio) - $this->downloaded);
 
         return StringHelper::formatBytes($bytes);
     }
@@ -715,7 +707,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute(?string $value): void
     {
-        $this->attributes['signature'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['signature'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -725,7 +717,7 @@ class User extends Authenticatable
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->signature, true));
+        return (new Linkify())->linky($bbcode->parse($this->signature));
     }
 
     /**
@@ -733,7 +725,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute(?string $value): void
     {
-        $this->attributes['about'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['about'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -747,7 +739,7 @@ class User extends Authenticatable
 
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->about, true));
+        return (new Linkify())->linky($bbcode->parse($this->about));
     }
 
     /**
@@ -757,6 +749,6 @@ class User extends Authenticatable
      */
     public function getSeedbonus(): string
     {
-        return \number_format($this->seedbonus, 0, '.', ',');
+        return number_format($this->seedbonus, 0, '.', ',');
     }
 }

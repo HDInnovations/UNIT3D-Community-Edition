@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('topic_subscriptions', function (Blueprint $table) {
+        Schema::create('topic_subscriptions', function (Blueprint $table): void {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('topic_id');

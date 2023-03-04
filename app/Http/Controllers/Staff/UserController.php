@@ -14,8 +14,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\UpdateUserRequest;
 use App\Models\Comment;
-use App\Models\Follow;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -42,19 +42,11 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * @var string[]
-     */
-    private const WEIGHTS = [
-        'is_modo',
-        'is_admin',
-    ];
-
-    /**
      * Users List.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.user.index');
+        return view('Staff.user.index');
     }
 
     /**
@@ -67,7 +59,7 @@ class UserController extends Controller
         $internals = Internal::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
-        return \view('Staff.user.edit', [
+        return view('Staff.user.edit', [
             'user'      => $user,
             'groups'    => $groups,
             'internals' => $internals,
@@ -78,51 +70,19 @@ class UserController extends Controller
     /**
      * Edit A User.
      */
-    public function edit(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function edit(UpdateUserRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::with('group')->where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
+        $group = Group::findOrFail($request->group_id);
 
-        $sendto = (int) $request->input('group_id');
+        abort_if(! $staff->group->is_owner && ($staff->group->level < $user->group->level || $staff->group->level < $group->level), 403);
 
-        $sender = -1;
-        $target = -1;
-        foreach (self::WEIGHTS as $pos => $weight) {
-            if ($user->group->$weight && $user->group->$weight == 1) {
-                $target = $pos;
-            }
+        $user->update($request->validated());
 
-            if ($staff->group->$weight && $staff->group->$weight == 1) {
-                $sender = $pos;
-            }
-        }
+        cache()->forget('user:'.$user->passkey);
 
-        if ($target == 1 && $user->group->id == 10) {
-            $target = 2;
-        }
-
-        if ($sender == 1 && $staff->group->id == 10) {
-            $sender = 2;
-        }
-
-        // Hard coded until group change.
-
-        if ($target >= $sender || ($sender == 0 && ($sendto === 6 || $sendto === 4 || $sendto === 10)) || ($sender == 1 && ($sendto === 4 || $sendto === 10))) {
-            return \to_route('users.show', ['username' => $user->username])
-                ->withErrors('You Are Not Authorized To Perform This Action!');
-        }
-
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->uploaded = $request->input('uploaded');
-        $user->downloaded = $request->input('downloaded');
-        $user->title = $request->input('title');
-        $user->about = $request->input('about');
-        $user->group_id = (int) $request->input('group_id');
-        $user->internal_id = (int) $request->input('internal_id');
-        $user->save();
-
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -140,7 +100,9 @@ class UserController extends Controller
         $user->can_chat = $request->input('can_chat');
         $user->save();
 
-        return \to_route('users.show', ['username' => $user->username])
+        cache()->forget('user:'.$user->passkey);
+
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -153,7 +115,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->input('new_password'));
         $user->save();
 
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Password Was Updated Successfully!');
     }
 
@@ -164,7 +126,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_if($user->group->is_modo || \auth()->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 
         // Removes UserID from Torrents if any and replaces with System UserID (1)
         foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
@@ -229,9 +191,8 @@ class UserController extends Controller
         }
 
         // Removes all follows for user
-        foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-            $follow->delete();
-        }
+        $user->followers()->detach();
+        $user->following()->detach();
 
         // Removes UserID from Sent Invites if any and replaces with System UserID (1)
         foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
@@ -258,14 +219,17 @@ class UserController extends Controller
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();
+            cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
         }
 
         if ($user->delete()) {
-            return \to_route('staff.dashboard.index')
+            return to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
 
-        return \to_route('staff.dashboard.index')
+        cache()->forget('user:'.$user->passkey);
+
+        return to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
     }
 
@@ -281,7 +245,7 @@ class UserController extends Controller
         $warning->warned_by = $request->user()->id;
         $warning->torrent = null;
         $warning->reason = $request->input('message');
-        $warning->expires_on = $carbon->copy()->addDays(\config('hitrun.expire'));
+        $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
         $warning->active = '1';
         $warning->save();
 
@@ -293,7 +257,7 @@ class UserController extends Controller
         $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
         $pm->save();
 
-        return \to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Warning issued successfully!');
     }
 }

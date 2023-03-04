@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketCategory extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 }

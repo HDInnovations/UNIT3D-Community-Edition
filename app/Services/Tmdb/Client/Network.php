@@ -33,8 +33,8 @@ class Network
                     'Accept'       => 'application/json',
                 ],
                 'query' => [
-                    'api_key'            => \config('api-keys.tmdb'),
-                    'language'           => \config('app.meta_locale'),
+                    'api_key'            => config('api-keys.tmdb'),
+                    'language'           => config('app.meta_locale'),
                     'append_to_response' => 'images',
                 ],
             ]
@@ -42,7 +42,7 @@ class Network
 
         $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/network/'.$id);
 
-        $this->data = \json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     public function getData()
@@ -57,12 +57,12 @@ class Network
 
     public function get_known_for_department()
     {
-        return \preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
+        return preg_replace('/[[:^print:]]/', '', $this->data['known_for_department']);
     }
 
     public function get_deathday()
     {
-        return \preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
+        return preg_replace('/[[:^print:]]/', '', $this->data['deathday']);
     }
 
     public function get_id()
@@ -77,7 +77,7 @@ class Network
 
     public function get_name()
     {
-        return \preg_replace('/[[:^print:]]/', '', $this->data['name']);
+        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
     }
 
     public function get_gender()

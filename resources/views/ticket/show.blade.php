@@ -92,7 +92,7 @@
                     >
                         @csrf
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled">
+                            <button class="form__button form__button--filled form__button--centered">
                                 {{ __('ticket.unassign') }}
                             </button>
                         </p>
@@ -105,8 +105,7 @@
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled">
-                            <i class="fas fa-times"></i>
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.delete') }}
                         </button>
                     </p>
@@ -119,8 +118,7 @@
                 >
                     <p class="form__group form__group--horizontal">
                         @csrf
-                        <button class="form__button form__button--filled">
-                            <i class="fas fa-times"></i>
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.close') }}
                         </button>
                     </p>

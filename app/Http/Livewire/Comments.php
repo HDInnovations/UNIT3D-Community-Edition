@@ -27,6 +27,8 @@ use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
+use App\Notifications\NewCommentTag;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;
@@ -57,10 +59,17 @@ class Comments extends Component
 
     final public function mount(): void
     {
-        $this->user = \auth()->user();
+        $this->user = auth()->user();
     }
 
-    final public function loadMore()
+    final public function taggedUsers(): array
+    {
+        preg_match_all('/@([\w\-]+)/', implode('', $this->newCommentState), $matches);
+
+        return $matches[1];
+    }
+
+    final public function loadMore(): void
     {
         $this->perPage += 10;
     }
@@ -68,7 +77,13 @@ class Comments extends Component
     final public function postComment(): void
     {
         if ($this->user->can_comment === 0) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => \trans('comment.rights-revoked')]);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+
+            return;
+        }
+
+        if (strtolower(class_basename($this->model)) === 'torrent' && ! $this->model->isApproved()) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.torrent-status')]);
 
             return;
         }
@@ -81,10 +96,6 @@ class Comments extends Component
         $comment->user()->associate($this->user);
         $comment->anon = $this->anon;
         $comment->save();
-
-        $this->newCommentState = [
-            'content' => '',
-        ];
 
         // Achievements
         if ($comment->anon === 0) {
@@ -102,10 +113,20 @@ class Comments extends Component
             $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
-        //Notification
+        // New Comment Notification
         if ($this->user->id !== $this->model->user_id) {
-            User::find($this->model->user_id)->notify(new NewComment(\strtolower(\class_basename($this->model)), $comment));
+            User::find($this->model->user_id)->notify(new NewComment(strtolower(class_basename($this->model)), $comment));
         }
+
+        // User Tagged Notification
+        if ($this->user->id !== $this->model->user_id) {
+            $users = User::whereIn('username', $this->taggedUsers())->get();
+            Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->model)), $comment));
+        }
+
+        $this->newCommentState = [
+            'content' => '',
+        ];
 
         $this->gotoPage(1);
     }
@@ -122,7 +143,7 @@ class Comments extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.comments', [
+        return view('livewire.comments', [
             'comments' => $this->comments,
         ]);
     }

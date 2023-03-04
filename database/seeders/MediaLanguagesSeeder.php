@@ -21,8 +21,8 @@ class MediaLanguagesSeeder extends Seeder
     {
         foreach ($this->languages as $code => $language) {
             MediaLanguage::updateOrCreate([
-                'code'  => $code,
-                'name'  => $language,
+                'code' => $code,
+                'name' => $language,
             ]);
         }
     }

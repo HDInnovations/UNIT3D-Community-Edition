@@ -25,7 +25,9 @@ class TorrentPeerController extends Controller
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::query()
-            ->with(['user'])
+            ->with('user')
+            ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'port', 'agent', 'created_at', 'updated_at', 'seeder'])
+            ->selectRaw('INET6_NTOA(ip) as ip')
             ->where('torrent_id', '=', $id)
             ->latest('seeder')
             ->get()
@@ -40,6 +42,6 @@ class TorrentPeerController extends Controller
                 return $peer;
             });
 
-        return \view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
+        return view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
     }
 }

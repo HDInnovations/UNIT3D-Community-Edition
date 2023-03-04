@@ -45,7 +45,7 @@ class UserTicketAssigned extends Notification
         return (new MailMessage())
             ->subject('Your ticket was assigned (Ticket # '.$this->ticket->id.')')
             ->line('Your ticket was assigned to '.$this->ticket->user->username)
-            ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
+            ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
     }
 
     /**

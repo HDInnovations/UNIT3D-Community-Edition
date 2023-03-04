@@ -29,30 +29,27 @@ use voku\helper\AntiXSS;
 
 class Torrent extends Model
 {
+    use Auditable;
+    use GroupedLastScope;
     use HasFactory;
     use Moderatable;
-    use Auditable;
     use TorrentFilter;
-    use GroupedLastScope;
+
+    /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'fl_until' => 'datetime',
+        'du_until' => 'datetime',
+    ];
 
     /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
-    }
-
-    /**
-     * Belongs To A Uploader.
-     */
-    public function uploader(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        // Not needed yet but may use this soon.
-
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
@@ -204,11 +201,27 @@ class Torrent extends Model
     }
 
     /**
-     * Relationship To A Single Request.
+     * Relationship To Many Requests.
      */
-    public function request(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
+        return $this->hasMany(TorrentRequest::class);
+    }
+
+    /**
+     * Has many free leech tokens.
+     */
+    public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FreeleechToken::class);
+    }
+
+    /**
+     * Bookmarks.
+     */
+    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Bookmark::class);
     }
 
     /**
@@ -216,7 +229,7 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute(?string $value): void
     {
-        $this->attributes['description'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -226,7 +239,7 @@ class Torrent extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->description, true));
+        return (new Linkify())->linky($bbcode->parse($this->description));
     }
 
     /**
@@ -256,23 +269,13 @@ class Torrent extends Model
     }
 
     /**
-     * Bookmarks.
-     */
-    public function bookmarked(): bool
-    {
-        return (bool) Bookmark::where('user_id', '=', \auth()->user()->id)
-            ->where('torrent_id', '=', $this->id)
-            ->first();
-    }
-
-    /**
      * Notify Uploader When An Action Is Taken.
      */
     public function notifyUploader($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
         if ($type == 'thank') {
-            if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
+            if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));
 
                 return true;
@@ -281,7 +284,7 @@ class Torrent extends Model
             return true;
         }
 
-        if ($user->acceptsNotification(\auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
+        if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
             $user->notify(new NewComment('torrent', $payload));
 
             return true;
@@ -295,8 +298,8 @@ class Torrent extends Model
      */
     public function isFreeleech($user = null): bool
     {
-        $pfree = $user && ($user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first());
+        $pfree = $user && ($user->group->is_freeleech || cache()->get('personal_freeleech:'.$user->id));
 
-        return $this->free || \config('other.freeleech') || $pfree;
+        return $this->free || config('other.freeleech') || $pfree;
     }
 }

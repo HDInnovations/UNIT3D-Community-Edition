@@ -33,8 +33,8 @@ class TorrentsResource extends ResourceCollection
     public function with($request): array
     {
         return [
-            'links'    => [
-                'self' => \route('torrents.index'),
+            'links' => [
+                'self' => route('torrents.index'),
             ],
         ];
     }

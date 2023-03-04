@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="{{ route('achievements.index') }}" type="button" class="btn btn-sm btn-primary pull-left">All
+                <a href="{{ route('users.achievements.index', ['user' => auth()->user()]) }}" type="button" class="btn btn-sm btn-primary pull-left">All
                     Achievements</a>
                 <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>

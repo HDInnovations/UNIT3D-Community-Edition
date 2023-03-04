@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Du har inte tillräckligt med bonus',
     'edit-request'        => 'Redigera förfrågan',
     'enter-bp'            => 'Ange bonuspoäng (minst 100)',
-    'enter-hash'          => 'Ange Info Hash för den uppladdade Torrent',
+    'enter-hash'          => 'Ange ID för den uppladdade Torrent',
     'fill'                => 'Fylla',
     'fill-request'        => 'Fyll i denna förfrågan',
     'filled'              => 'fylld',

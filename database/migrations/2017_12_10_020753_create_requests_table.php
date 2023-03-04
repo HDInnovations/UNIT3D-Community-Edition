@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->string('name');
             $table->integer('category_id')->index('category_id');

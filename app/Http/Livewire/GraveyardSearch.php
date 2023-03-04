@@ -105,7 +105,7 @@ class GraveyardSearch extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $user = \auth()->user();
+        $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
             && \strlen($field) >= 2
@@ -120,7 +120,7 @@ class GraveyardSearch extends Component
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
             ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
-            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
+            ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
             ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
@@ -147,8 +147,8 @@ class GraveyardSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.graveyard-search', [
-            'user'         => \auth()->user(),
+        return view('livewire.graveyard-search', [
+            'user'         => auth()->user(),
             'torrents'     => $this->torrents,
             'torrentsStat' => $this->torrentsStat,
         ]);

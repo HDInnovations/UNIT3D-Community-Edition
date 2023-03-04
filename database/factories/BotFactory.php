@@ -15,7 +15,6 @@ class BotFactory extends Factory
     {
         return [
             'position'     => $this->faker->randomNumber(),
-            'slug'         => $this->faker->slug(),
             'name'         => $this->faker->name(),
             'command'      => $this->faker->word(),
             'color'        => $this->faker->word(),

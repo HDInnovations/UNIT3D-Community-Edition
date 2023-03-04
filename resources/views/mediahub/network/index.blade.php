@@ -20,7 +20,5 @@
 @endsection
 
 @section('content')
-    <div class="box container">
-        @livewire('network-search')
-    </div>
+    @livewire('network-search')
 @endsection

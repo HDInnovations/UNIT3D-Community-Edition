@@ -5,7 +5,6 @@
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'vendor/font-awesome';
 @import '~sweetalert2/src/sweetalert2';
-@import '../js/wysibb/theme/default/wbbtheme.css';
 @import 'vendor/virtual-select';
 @import 'vendor/alpinejs';
 
@@ -21,6 +20,7 @@
 @import 'components/achievement';
 @import 'components/article-preview';
 @import 'components/bbcode-input';
+@import 'components/bbcode-rendered';
 @import 'components/comment';
 @import 'components/comparison';
 @import 'components/data-table';

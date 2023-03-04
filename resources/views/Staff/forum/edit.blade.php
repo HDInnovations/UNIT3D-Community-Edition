@@ -36,8 +36,8 @@
             <form class="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
                 @csrf
                 <p class="form__group">
-                    <input id="title" class="form__text" type="text" name="title" value="{{ $forum->name }}">
-                    <label class="form__label form__label--floating" for="title">Title</label>
+                    <input id="name" class="form__text" type="text" name="name" value="{{ $forum->name }}">
+                    <label class="form__label form__label--floating" for="name">Title</label>
                 </p>
                 <p class="form__group">
                     <textarea

@@ -20,6 +20,6 @@ class MissingController extends Controller
      */
     final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        return \view('missing.index');
+        return view('missing.index');
     }
 }

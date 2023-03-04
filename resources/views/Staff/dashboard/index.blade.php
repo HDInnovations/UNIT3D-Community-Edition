@@ -189,6 +189,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.peers.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Peers
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.rss.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('staff.rss') }}
@@ -479,10 +485,14 @@
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Load</h2>
+            <h2 class="panel__heading">Load Average</h2>
             <dl class="key-value">
-                <dt>Average</dt>
-                <dd>{{ $avg }}</dd>
+                <dt>1 minute</dt>
+                <dd>{{ $avg['1-minute'] }}</dd>
+                <dt>5 minutes</dt>
+                <dd>{{ $avg['5-minute'] }}</dd>
+                <dt>15 minutes</dt>
+                <dd>{{ $avg['15-minute'] }}</dd>
             </dl>
         </section>
     </div>

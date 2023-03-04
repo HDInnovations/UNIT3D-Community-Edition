@@ -24,23 +24,23 @@ class HiddenCaptcha
      */
     public static function render(string $mustBeEmptyField = '_username'): string
     {
-        $ts = \time();
+        $ts = time();
         $random = Str::random(16);
 
         // Generate the token
         $token = [
             'timestamp'         => $ts,
-            'session_id'        => \session()->getId(),
-            'ip'                => \request()->ip(),
-            'user_agent'        => \request()->header('User-Agent'),
+            'session_id'        => session()->getId(),
+            'ip'                => request()->ip(),
+            'user_agent'        => request()->header('User-Agent'),
             'random_field_name' => $random,
             'must_be_empty'     => $mustBeEmptyField,
         ];
 
         // Encrypt the token
-        $token = Crypt::encrypt(\serialize($token));
+        $token = Crypt::encrypt(serialize($token));
 
-        return (string) \view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
+        return (string) view('partials.captcha', ['mustBeEmptyField' => $mustBeEmptyField, 'ts' => $ts, 'random' => $random, 'token' => $token]);
     }
 
     /**
@@ -61,7 +61,7 @@ class HiddenCaptcha
         }
 
         // Check time limits
-        $now = \time();
+        $now = time();
         if ($now - $token['timestamp'] < $minLimit || $now - $token['timestamp'] > $maxLimit) {
             return false;
         }
@@ -74,7 +74,7 @@ class HiddenCaptcha
         // Check if the random field value is similar to the token value
         $randomField = $formData[$token['random_field_name']];
 
-        return \ctype_digit($randomField) && $token['timestamp'] == $randomField;
+        return ctype_digit($randomField) && $token['timestamp'] == $randomField;
     }
 
     /**
@@ -89,7 +89,7 @@ class HiddenCaptcha
             return false;
         }
 
-        $token = @\unserialize($token);
+        $token = @unserialize($token);
 
         // Token is null or unserializable
         if (! $token || ! \is_array($token) || empty($token)) {
@@ -100,9 +100,9 @@ class HiddenCaptcha
         if (empty($token['session_id']) ||
             empty($token['ip']) ||
             empty($token['user_agent']) ||
-            $token['session_id'] !== \session()->getId() ||
-            $token['ip'] !== \request()->ip() ||
-            $token['user_agent'] !== \request()->header('User-Agent')
+            $token['session_id'] !== session()->getId() ||
+            $token['ip'] !== request()->ip() ||
+            $token['user_agent'] !== request()->header('User-Agent')
         ) {
             return false;
         }

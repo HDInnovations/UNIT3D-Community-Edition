@@ -46,10 +46,10 @@ class UsernameReminder extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->subject(\trans('common.your').' '.\config('app.name').' '.\trans('common.username'))
-                    ->greeting(\trans('common.contact-header').', '.$notifiable->username)
-                    ->line(\trans('email.username-reminder').' '.$notifiable->username)
-                    ->action('Login as '.$notifiable->username, \route('login'))
-                    ->line(\trans('email.thanks').' '.\config('app.name'));
+            ->subject(trans('common.your').' '.config('app.name').' '.trans('common.username'))
+            ->greeting(trans('common.contact-header').', '.$notifiable->username)
+            ->line(trans('email.username-reminder').' '.$notifiable->username)
+            ->action('Login as '.$notifiable->username, route('login'))
+            ->line(trans('email.thanks').' '.config('app.name'));
     }
 }

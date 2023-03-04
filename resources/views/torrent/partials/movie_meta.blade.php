@@ -15,7 +15,7 @@
             @if(isset($meta->companies) && $meta->companies->isNotEmpty())
                 @php $company = $meta->companies->first() @endphp
                 <div class="badge-user">
-                    <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}">
+                    <a href="{{ route('torrents', ['view' => 'group', 'companyId' => $company->id]) }}">
                         @if(isset($company->logo))
                             <img class="img-responsive" src="{{ tmdb_image('logo_small', $company->logo) }}"
                                  title="{{ $company->name }}">
@@ -49,7 +49,7 @@
         <div class="movie-bottom">
             <div class="movie-details">
                 @if(isset($meta->crew))
-                    @if(!empty($directors = $meta->crew()->where('known_for_department' ,'=', 'Directing')->take(1)->get()))
+                    @if(!empty($directors = $meta->crew()->wherePivot('department', '=', 'Directing')->wherePivot('job', '=', 'Director')->take(3)->get()))
                         <span class="badge-user text-bold text-purple">
                         <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Directors:
                         @foreach($directors as $director)
@@ -101,7 +101,7 @@
                 @if (isset($meta->genres) && $meta->genres->isNotEmpty())
                     @foreach ($meta->genres as $genre)
                         <span class="badge-user text-bold text-green">
-                    <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                    <a href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre->name }}
                     </a>
                 </span>

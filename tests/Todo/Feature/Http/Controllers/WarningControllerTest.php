@@ -112,7 +112,7 @@ class WarningControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('warnings.show', ['username' => $warning->username]));
 
         $response->assertOk();
-        $response->assertViewIs('user.warninglog');
+        $response->assertViewIs('user.warning.index');
         $response->assertViewHas('warnings');
         $response->assertViewHas('warningcount');
         $response->assertViewHas('softDeletedWarnings');

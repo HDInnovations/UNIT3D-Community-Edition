@@ -104,7 +104,6 @@ class PageControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.pages.store'), [
             'name'    => $page->name,
-            'slug'    => $page->slug,
             'content' => $page->content,
         ]);
 
@@ -123,7 +122,6 @@ class PageControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.pages.update', ['id' => $page->id]), [
             'name'    => $page->name,
-            'slug'    => $page->slug,
             'content' => $page->content,
         ]);
 

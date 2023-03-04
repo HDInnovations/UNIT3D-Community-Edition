@@ -20,8 +20,8 @@ class UserFactory extends Factory
         return [
             'username'            => $this->faker->unique()->userName(),
             'email'               => $this->faker->unique()->safeEmail(),
-            'password'            => \bcrypt('secret'),
-            'passkey'             => \md5(\random_bytes(60)),
+            'password'            => bcrypt('secret'),
+            'passkey'             => md5(random_bytes(60)),
             'group_id'            => fn () => Group::factory()->create()->id,
             'active'              => true,
             'uploaded'            => $this->faker->randomNumber(),
@@ -34,7 +34,7 @@ class UserFactory extends Factory
             'seedbonus'           => $this->faker->randomFloat(),
             'invites'             => $this->faker->randomNumber(),
             'hitandruns'          => $this->faker->randomNumber(),
-            'rsskey'              => \md5(\random_bytes(60)),
+            'rsskey'              => md5(random_bytes(60)),
             'chatroom_id'         => fn () => Chatroom::factory()->create()->id,
             'censor'              => $this->faker->boolean(),
             'chat_hidden'         => $this->faker->boolean(),
@@ -60,11 +60,11 @@ class UserFactory extends Factory
             'remember_token'      => Str::random(10),
             'api_token'           => $this->faker->uuid(),
             //'last_login'          => $this->faker->dateTime(),
-            'last_action'         => $this->faker->dateTime(),
+            'last_action' => $this->faker->dateTime(),
             //'disabled_at'         => $this->faker->dateTime(),
             //'deleted_by'          => $this->faker->randomNumber(),
-            'locale'              => $this->faker->word(),
-            'chat_status_id'      => fn () => ChatStatus::factory()->create()->id,
+            'locale'         => $this->faker->word(),
+            'chat_status_id' => fn () => ChatStatus::factory()->create()->id,
         ];
     }
 }

@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use RuntimeException;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\GitUpdaterTest
@@ -92,7 +93,7 @@ class GitUpdater extends Command
         Press CTRL + C ANYTIME to abort! Aborting can lead to unexpected results!
         ');
 
-        \sleep(1);
+        sleep(1);
 
         $this->update();
 
@@ -105,7 +106,7 @@ class GitUpdater extends Command
     {
         $updating = $this->checkForUpdates();
 
-        if ((\is_countable($updating) ? \count($updating) : 0) > 0) {
+        if ((is_countable($updating) ? \count($updating) : 0) > 0) {
             $this->alertDanger('Found Updates');
 
             $this->cyan('Files that need updated:');
@@ -129,7 +130,7 @@ class GitUpdater extends Command
 
                 $this->restore($paths);
 
-                $conflicts = \array_intersect($updating, $paths);
+                $conflicts = array_intersect($updating, $paths);
                 if ($conflicts !== []) {
                     $this->red('There are some files that was not updated because because of conflicts.');
                     $this->red('We will walk you through updating these files now.');
@@ -180,7 +181,7 @@ class GitUpdater extends Command
 
         $this->process('git fetch origin');
         $process = $this->process('git diff ..origin/master --name-only');
-        $updating = \array_filter(\explode("\n", $process->getOutput()), 'strlen');
+        $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
         $this->done();
 
@@ -193,7 +194,7 @@ class GitUpdater extends Command
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
 
         foreach ($updating as $file) {
-            if ($this->io->confirm(\sprintf('Update %s', $file), true)) {
+            if ($this->io->confirm(sprintf('Update %s', $file), true)) {
                 $this->updateFile($file);
             }
         }
@@ -203,7 +204,7 @@ class GitUpdater extends Command
 
     private function updateFile($file): void
     {
-        $this->process(\sprintf('git checkout origin/master -- %s', $file));
+        $this->process(sprintf('git checkout origin/master -- %s', $file));
     }
 
     private function backup(array $paths): void
@@ -211,14 +212,14 @@ class GitUpdater extends Command
         $this->header('Backing Up Files');
 
         $this->commands([
-            'rm -rf '.\storage_path('gitupdate'),
-            'mkdir '.\storage_path('gitupdate'),
+            'rm -rf '.storage_path('gitupdate'),
+            'mkdir '.storage_path('gitupdate'),
         ], true);
 
         foreach ($paths as $path) {
             $this->validatePath($path);
             $this->createBackupPath($path);
-            $this->process($this->copyCommand.' '.\base_path($path).' '.\storage_path('gitupdate').'/'.$path);
+            $this->process($this->copyCommand.' '.base_path($path).' '.storage_path('gitupdate').'/'.$path);
         }
 
         $this->done();
@@ -229,15 +230,15 @@ class GitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($paths as $path) {
-            $to = Str::replaceLast('/.', '', \base_path(\dirname($path)));
-            $from = \storage_path('gitupdate').'/'.$path;
+            $to = Str::replaceLast('/.', '', base_path(\dirname($path)));
+            $from = storage_path('gitupdate').'/'.$path;
 
-            if (\is_dir($from)) {
-                $to .= '/'.\basename($from).'/';
+            if (is_dir($from)) {
+                $to .= '/'.basename($from).'/';
                 $from .= '/*';
             }
 
-            $this->process(\sprintf('%s %s %s', $this->copyCommand, $from, $to));
+            $this->process(sprintf('%s %s %s', $this->copyCommand, $from, $to));
         }
 
         $this->commands([
@@ -333,24 +334,24 @@ class GitUpdater extends Command
 
     private function validatePath($path): void
     {
-        if (! \is_file(\base_path($path)) && ! \is_dir(\base_path($path))) {
-            $this->red(\sprintf("The path '%s' is invalid", $path));
+        if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
+            $this->red(sprintf("The path '%s' is invalid", $path));
         }
     }
 
     private function createBackupPath($path): void
     {
-        if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \is_file(\base_path($path))) {
-            if (! \mkdir($concurrentDirectory = \storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && ! \is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
+        if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! is_file(base_path($path))) {
+            if (! mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && ! is_dir($concurrentDirectory)) {
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
-        } elseif (\is_file(\base_path($path)) && \dirname($path) !== '.') {
+        } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname($path);
-            if (! \is_dir(\storage_path(\sprintf('gitupdate/%s', $path))) && ! \mkdir($concurrentDirectory = \storage_path(\sprintf(
+            if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! mkdir($concurrentDirectory = storage_path(sprintf(
                 'gitupdate/%s',
                 $path
-            )), 0775, true) && ! \is_dir($concurrentDirectory)) {
-                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
+            )), 0775, true) && ! is_dir($concurrentDirectory)) {
+                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }
     }
@@ -358,8 +359,8 @@ class GitUpdater extends Command
     private function paths(): array
     {
         $p = $this->process('git diff master --name-only');
-        $paths = \array_filter(\explode("\n", $p->getOutput()), 'strlen');
+        $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
 
-        return \array_merge($paths, self::ADDITIONAL);
+        return array_merge($paths, self::ADDITIONAL);
     }
 }

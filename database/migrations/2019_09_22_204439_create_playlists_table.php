@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('playlists', function (Blueprint $table) {
+        Schema::create('playlists', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->integer('user_id')->index();
             $table->string('name');

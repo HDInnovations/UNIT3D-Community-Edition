@@ -53,7 +53,7 @@ class ChatControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $bot = Bot::where('slug', 'systembot')->firstOrFail();
+        $bot = Bot::where('is_systembot', '1')->firstOrFail();
 
         $systemUser = User::where('username', 'System')->firstOrFail();
 
@@ -92,11 +92,41 @@ class ChatControllerTest extends TestCase
 
         $response->assertOk()
             ->assertJson(['data' => [
-                ['slug' => 'systembot'],
-                ['slug' => 'nerdbot'],
-                ['slug' => 'casinobot'],
-                ['slug' => 'betbot'],
-                ['slug' => 'triviabot'],
+                [
+                    'is_systembot' => true,
+                    'is_nerdbot'   => false,
+                    'is_casinobot' => false,
+                    'is_betbot'    => false,
+                    'is_triviabot' => false,
+                ],
+                [
+                    'is_systembot' => false,
+                    'is_nerdbot'   => true,
+                    'is_casinobot' => false,
+                    'is_betbot'    => false,
+                    'is_triviabot' => false,
+                ],
+                [
+                    'is_systembot' => false,
+                    'is_nerdbot'   => false,
+                    'is_casinobot' => true,
+                    'is_betbot'    => false,
+                    'is_triviabot' => false,
+                ],
+                [
+                    'is_systembot' => false,
+                    'is_nerdbot'   => false,
+                    'is_casinobot' => false,
+                    'is_betbot'    => true,
+                    'is_triviabot' => false,
+                ],
+                [
+                    'is_systembot' => false,
+                    'is_nerdbot'   => false,
+                    'is_casinobot' => false,
+                    'is_betbot'    => false,
+                    'is_triviabot' => true,
+                ],
             ]]);
     }
 
@@ -129,7 +159,7 @@ class ChatControllerTest extends TestCase
 
         $chatroom = Chatroom::factory()->create();
 
-        $bot = Bot::where('slug', 'systembot')->firstOrFail();
+        $bot = Bot::where('is_systembot', '1')->firstOrFail();
 
         $systemUser = User::where('username', 'System')->firstOrFail();
 
