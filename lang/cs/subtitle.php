@@ -12,23 +12,23 @@
  */
 
 return [
-    'downloads'                   => 'Downloads',
-    'extension'                   => 'Extension',
-    'delete-confirm'              => 'Are You Sure You Want To Delete This?',
-    'note'                        => 'Note',
-    'note-help'                   => 'Extra Info for this subtitle',
-    'rules-title'                 => 'Subtitle Rules',
+    'downloads'                   => 'Ke stažení',
+    'extension'                   => 'Rozšíření',
+    'delete-confirm'              => 'Určitě to chcete smazat?',
+    'note'                        => 'Poznámka',
+    'note-help'                   => 'Dodatečné informace k těmto titulkám',
+    'rules-title'                 => 'Pravidla titulek',
     'rules'                       => '<ul>
-                                        <li>Only proper subtitles are allowed (correct frame rate, translation, spelling, timing)</li>
-                                        <li>No Google-translated, machine-translated and incorrect subtitles</li>
-                                        <li>Subtitles must be in sync with the video</li>
-                                        <li>ZIP archives are only allowed for SUB+IDX or as bundles of the same language for a TV season pack</li>
-                                        <li>Repeated uploads of junk subs will constitute a violation and subject to a disciplinary action</li>
-                                        <li>Keep the Note of the subtitle short, NO urls/links are allowed</li>
+                                        <li>Povoleny jsou pouze správné titulky (správná snímková frekvence, překlad, pravopis, časování)</li>
+                                        <li>Žádné titulky přeložené Googlem, strojově přeložené a nesprávné titulky</li>
+                                        <li>Titulky musí být synchronizovány s videem</li>
+                                        <li>Archivy ZIP jsou povoleny pouze pro SUB+IDX nebo jako balíčky stejného jazyka pro balíček televizní sezóny</li>.
+                                        <li>Pakované nahrávání nevyžádaných subverzí bude považováno za porušení předpisů a bude předmětem disciplinárního řízení</li>.
+                                        <li>Udržujte poznámku k titulkům krátkou, ŽÁDNÉ url/odkazy nejsou povoleny</li>.
                                       </ul>',
-    'size'                        => 'Size',
-    'subtitle-file'               => 'Subtitle File',
-    'subtitle-file-types'         => 'Accepted files are SRT, ASS, SUP and ZIP',
-    'uploaded'                    => 'Uploaded',
-    'uploader'                    => 'Uploader',
+    'size'                        => 'Velikost',
+    'subtitle-file'               => 'Soubor s titulky',
+    'subtitle-file-types'         => 'Přijímány jsou soubory SRT, ASS, SUP a ZIP.',
+    'uploaded'                    => 'Nahráno',
+    'uploader'                    => 'Nahrál',
 ];
