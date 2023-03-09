@@ -32,13 +32,13 @@ class StoreGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'           => 'required|string|unique:groups',
-            'position'       => 'required|integer',
-            'level'          => 'required|integer',
-            'download_slots' => 'integer',
-            'color'          => 'required',
-            'icon'           => 'required',
-            'effect'         => 'sometimes',
+            'name'             => 'required|string|unique:groups',
+            'position'         => 'required|integer',
+            'level'            => 'required|integer',
+            'download_slots'   => 'integer',
+            'color'            => 'required',
+            'icon'             => 'required',
+            'effect'           => 'sometimes',
             'is_internal'      => 'required|boolean',
             'is_modo'          => 'required|boolean',
             'is_admin'         => 'required|boolean',
