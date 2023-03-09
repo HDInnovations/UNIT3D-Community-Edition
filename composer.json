@@ -52,7 +52,9 @@
         "pestphp/pest": "^1.22.5",
         "pestphp/pest-plugin-laravel": "^1.4",
         "phpunit/phpunit": "^9.6.4",
-        "spatie/laravel-ignition": "^2.0"
+        "spatie/laravel-ignition": "^2.0",
+        "jasonmccreary/laravel-test-assertions": "^2.0",
+        "laravel-shift/factory-generator": "dev-master"
     },
     "config": {
         "preferred-install": "dist",
