@@ -78,6 +78,8 @@ class NotificationSearch extends Component
     final public function getNotificationsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return auth()->user()->notifications()
+            ->select('*')
+            ->selectRaw("CASE WHEN read_at IS NULL THEN 'FALSE' ELSE 'TRUE' END as is_read")
             ->when($this->bon_gifts, function ($query): void {
                 $query->where('type', '=', \App\Notifications\NewBon::class);
             })
@@ -135,6 +137,8 @@ class NotificationSearch extends Component
             ->when($this->uploads, function ($query): void {
                 $query->where('type', '=', \App\Notifications\NewUpload::class);
             })
+            ->reorder()
+            ->orderBy('is_read')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

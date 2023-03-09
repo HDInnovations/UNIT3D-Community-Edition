@@ -152,7 +152,8 @@ class RegisterController extends Controller
         $userActivation->user_id = $user->id;
         $userActivation->token = $token;
         $userActivation->save();
-        $this->dispatch(new SendActivationMail($user, $token));
+        dispatch(new SendActivationMail($user, $token));
+
         // Select A Random Welcome Message
         $profileUrl = href_profile($user);
         $welcomeArray = [
@@ -168,6 +169,7 @@ class RegisterController extends Controller
         $this->chatRepository->systemMessage(
             $welcomeArray[$selected]
         );
+
         // Send Welcome PM
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = 1;

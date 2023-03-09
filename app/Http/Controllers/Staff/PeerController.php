@@ -7,19 +7,21 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Staff;
 
-class TorrentGroupController extends Controller
+use App\Http\Controllers\Controller;
+
+class PeerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display All Pages.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('torrent.group');
+        return view('Staff.peer.index');
     }
 }

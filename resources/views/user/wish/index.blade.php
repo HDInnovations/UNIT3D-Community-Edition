@@ -69,8 +69,8 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('mediahub.movies.show', ['id' => $wish->tmdb]) }}" target="_blank">
-                                    MediaHub
+                                <a href="{{ route('torrents', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
+                                    Torrents
                                 </a>
                             </td>
                             <td>

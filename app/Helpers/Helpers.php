@@ -112,15 +112,17 @@ if (! \function_exists('modal_style')) {
 if (! \function_exists('rating_color')) {
     function rating_color($number)
     {
-        if ($number > 0 && $number <= 3.9) {
+        $rating = round((float) $number);
+
+        if ($rating > 0 && $rating <= 4) {
             return 'text-danger';
         }
 
-        if ($number >= 4 && $number <= 6.9) {
+        if ($rating >= 4 && $rating <= 7) {
             return 'text-warning';
         }
 
-        if ($number >= 7 && $number <= 10) {
+        if ($rating >= 7 && $rating <= 10) {
             return 'text-success';
         }
     }
@@ -133,15 +135,17 @@ if (! \function_exists('language_flag')) {
             'English', 'English (US)' => 'us',
             'English (GB)' => 'gb',
             'English (CA)' => 'can',
-            'Albanian'     => 'al',
+            'English (AU)' => 'au',
+            'Albanian', 'Albanian (AL)' => 'al',
             'Arabic', 'Arabic (001)' => 'ae',
             'Belarusian' => 'by',
             'Bengali'    => 'bd',
-            'Bosnian'    => 'ba',
+            'Bosnian', 'Bosnian (BA)' => 'ba',
             'Bulgarian', 'Bulgarian (BG)' => 'bg',
             'Catalan' => 'ca',
-            'Chinese', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)' => 'cn',
+            'Chinese', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)' => 'cn',
             'Chinese (HK)', 'Chinese-Hant-HK' => 'hk',
+            'Chinese (Taiwan)' => 'tw',
             'Croatian', 'Croatian (HR)' => 'hr',
             'Czech', 'Czech (CZ)' => 'cz',
             'Danish', 'Danish (DK)' => 'dk',
@@ -172,7 +176,7 @@ if (! \function_exists('language_flag')) {
             'Portuguese (BR)' => 'br',
             'Romanian', 'Romanian (RO)' => 'ro',
             'Russian', 'Russian (RU)' => 'ru',
-            'Serbian', 'Serbian-Latn-RS' => 'rs',
+            'Serbian', 'Serbian-Latn-RS', 'Serbian (RS)' => 'rs',
             'Slovak', 'Slovak (SK)' => 'sk',
             'Slovenian', 'Slovenian (SI)' => 'si',
             'Spanish', 'Spanish (ES)' => 'es',

@@ -31,6 +31,28 @@ For example dark blue,
 }
 */
 
+:root {
+    --torrent-row-fg: #ccc;
+    --torrent-row-format-fg: #ccc;
+    --torrent-row-format-bg: #3c3c3c;
+    --torrent-row-buttons-fg: currentColor;
+    --torrent-row-seeders-fg: #3fb618;
+    --torrent-row-leechers-fg: var(--color-light-red);
+    --torrent-row-completed-fg: var(--color-400);
+    --torrent-row-thanks-fg: var(--color-400);
+    --torrent-row-comments-fg: #3fb618;
+    --torrent-row-internal-fg: #baaf92;
+    --torrent-row-personal-fg: #865be9;
+    --torrent-row-stream-optimized-fg: var(--color-light-red);
+    --torrent-row-featured-fg: var(--color-400);
+    --torrent-row-freeleech-fg: #FFB800;
+    --torrent-row-double-upload-fg: #3fb618;
+    --torrent-row-sticky-fg: var(--text-color);
+    --torrent-row-highspeed-fg: var(--color-light-red);
+    --torrent-row-sd-fg: var(--color-400);
+    --torrent-row-bumped-fg: #ffb800;
+}
+
 body {
     background-color: var(--color-dark-blue);
 }

@@ -30,7 +30,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('mediahub.movies.show', ['id' => $movie->id]) }}">{{ $movie->title }}</a><br>
+                                        href="{{ route('torrents', ['tmdbId' => $movie->id]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
                                     @if ($movie->genres)
@@ -116,13 +116,13 @@
             <dd>{{ $person->movie->count() ?? '0' }}</dd>
             <dt>{{ __('mediahub.first-seen') }} </dt>
             <dd>
-                <a href="{{ route('mediahub.movies.show', ['id' => $person->movie->first()->id ?? '0']) }}">
+                <a href="{{ route('torrents', ['tmdbId' => $person->movie->first()->id ?? '0']) }}">
                     {{ $person->movie->first()->title ?? 'N/A'}}
                 </a>
             </dd>
             <dt>{{ __('mediahub.latest-project') }}</dt>
             <dd>
-                <a href="{{ route('mediahub.movies.show', ['id' => $person->movie->last()->id ?? '0']) }}">
+                <a href="{{ route('torrents', ['tmdbId' => $person->movie->last()->id ?? '0']) }}">
                     {{ $person->movie->last()->title ?? 'N/A' }}
                 </a>
             </dd>

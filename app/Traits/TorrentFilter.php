@@ -148,6 +148,31 @@ trait TorrentFilter
             ->whereIn('tmdb', DB::table('collection_movie')->select('movie_id')->where('collection_id', '=', $collectionId));
     }
 
+    public function scopeOfCompany(Builder $query, int $companyId): Builder
+    {
+        return $query
+            ->where(
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIn('tmdb', DB::table('company_movie')->select('movie_id')->where('company_id', '=', $companyId))
+                    )
+                    ->orWhere(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIn('tmdb', DB::table('company_tv')->select('tv_id')->where('company_id', '=', $companyId))
+                    )
+            );
+    }
+
+    public function scopeOfNetwork(Builder $query, int $networkId): Builder
+    {
+        return $query
+            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+            ->whereIn('tmdb', DB::table('network_tv')->select('tv_id')->where('network_id', '=', $networkId));
+    }
+
     public function scopeOfFreeleech(Builder $query, string|array $free): Builder
     {
         return $query->whereIntegerInRaw('free', (array) $free);
