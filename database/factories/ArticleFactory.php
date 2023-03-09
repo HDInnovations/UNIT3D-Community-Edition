@@ -22,7 +22,7 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(),
+            'title'   => $this->faker->sentence(),
             'content' => $this->faker->text(),
             'user_id' => \App\Models\User::factory(),
         ];

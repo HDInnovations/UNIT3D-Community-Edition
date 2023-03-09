@@ -22,7 +22,7 @@ class BanFactory extends Factory
     public function definition()
     {
         return [
-            'owned_by' => \App\Models\User::factory(),
+            'owned_by'   => \App\Models\User::factory(),
             'created_by' => \App\Models\User::factory(),
         ];
     }

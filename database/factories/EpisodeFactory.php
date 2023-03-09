@@ -22,10 +22,10 @@ class EpisodeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name'          => $this->faker->name(),
             'season_number' => $this->faker->randomNumber(),
-            'season_id' => \App\Models\Season::factory(),
-            'tv_id' => $this->faker->randomDigitNotNull(),
+            'season_id'     => \App\Models\Season::factory(),
+            'tv_id'         => $this->faker->randomDigitNotNull(),
         ];
     }
 }

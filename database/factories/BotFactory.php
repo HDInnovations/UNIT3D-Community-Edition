@@ -22,21 +22,21 @@ class BotFactory extends Factory
     public function definition()
     {
         return [
-            'position' => $this->faker->randomNumber(),
-            'name' => $this->faker->name(),
-            'command' => $this->faker->word(),
-            'active' => $this->faker->boolean(),
+            'position'     => $this->faker->randomNumber(),
+            'name'         => $this->faker->name(),
+            'command'      => $this->faker->word(),
+            'active'       => $this->faker->boolean(),
             'is_protected' => $this->faker->boolean(),
             'is_triviabot' => $this->faker->boolean(),
-            'is_nerdbot' => $this->faker->boolean(),
+            'is_nerdbot'   => $this->faker->boolean(),
             'is_systembot' => $this->faker->boolean(),
             'is_casinobot' => $this->faker->boolean(),
-            'is_betbot' => $this->faker->boolean(),
-            'uploaded' => $this->faker->randomNumber(),
-            'downloaded' => $this->faker->randomNumber(),
-            'fl_tokens' => $this->faker->randomNumber(),
-            'seedbonus' => $this->faker->randomFloat(),
-            'invites' => $this->faker->randomNumber(),
+            'is_betbot'    => $this->faker->boolean(),
+            'uploaded'     => $this->faker->randomNumber(),
+            'downloaded'   => $this->faker->randomNumber(),
+            'fl_tokens'    => $this->faker->randomNumber(),
+            'seedbonus'    => $this->faker->randomFloat(),
+            'invites'      => $this->faker->randomNumber(),
         ];
     }
 }

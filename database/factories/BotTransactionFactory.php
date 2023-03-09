@@ -22,11 +22,11 @@ class BotTransactionFactory extends Factory
     public function definition()
     {
         return [
-            'cost' => $this->faker->randomFloat(),
+            'cost'    => $this->faker->randomFloat(),
             'user_id' => \App\Models\User::factory(),
-            'bot_id' => \App\Models\Bot::factory(),
+            'bot_id'  => \App\Models\Bot::factory(),
             'to_user' => $this->faker->boolean(),
-            'to_bot' => $this->faker->boolean(),
+            'to_bot'  => $this->faker->boolean(),
             'comment' => $this->faker->text(),
         ];
     }

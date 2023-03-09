@@ -23,7 +23,7 @@ class ApplicationUrlProofFactory extends Factory
     {
         return [
             'application_id' => \App\Models\Application::factory(),
-            'url' => $this->faker->url(),
+            'url'            => $this->faker->url(),
         ];
     }
 }

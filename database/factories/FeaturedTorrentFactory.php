@@ -22,7 +22,7 @@ class FeaturedTorrentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => \App\Models\User::factory(),
+            'user_id'    => \App\Models\User::factory(),
             'torrent_id' => \App\Models\Torrent::factory(),
         ];
     }

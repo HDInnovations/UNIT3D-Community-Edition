@@ -22,11 +22,11 @@ class AuditFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => \App\Models\User::factory(),
-            'model_name' => $this->faker->word(),
+            'user_id'        => \App\Models\User::factory(),
+            'model_name'     => $this->faker->word(),
             'model_entry_id' => $this->faker->randomDigitNotNull(),
-            'action' => $this->faker->word(),
-            'record' => $this->faker->word(),
+            'action'         => $this->faker->word(),
+            'record'         => $this->faker->word(),
         ];
     }
 }

@@ -22,11 +22,11 @@ class ApplicationFactory extends Factory
     public function definition()
     {
         return [
-            'type' => $this->faker->word(),
-            'email' => $this->faker->unique()->email(),
-            'status' => $this->faker->boolean(),
+            'type'         => $this->faker->word(),
+            'email'        => $this->faker->unique()->email(),
+            'status'       => $this->faker->boolean(),
             'moderated_by' => \App\Models\User::factory(),
-            'user_id' => \App\Models\User::factory(),
+            'user_id'      => \App\Models\User::factory(),
         ];
     }
 }

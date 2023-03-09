@@ -22,7 +22,7 @@ class FailedLoginAttemptFactory extends Factory
     public function definition()
     {
         return [
-            'username' => $this->faker->userName(),
+            'username'   => $this->faker->userName(),
             'ip_address' => $this->faker->word(),
         ];
     }

@@ -22,7 +22,7 @@ class ChatStatusFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name(),
+            'name'  => $this->faker->unique()->name(),
             'color' => $this->faker->unique()->word(),
         ];
     }

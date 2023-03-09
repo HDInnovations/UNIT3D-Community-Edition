@@ -22,11 +22,11 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'content' => $this->faker->text(),
-            'anon' => $this->faker->randomNumber(),
-            'user_id' => \App\Models\User::factory(),
+            'content'          => $this->faker->text(),
+            'anon'             => $this->faker->randomNumber(),
+            'user_id'          => \App\Models\User::factory(),
             'commentable_type' => $this->faker->word(),
-            'commentable_id' => $this->faker->randomDigitNotNull(),
+            'commentable_id'   => $this->faker->randomDigitNotNull(),
         ];
     }
 }
