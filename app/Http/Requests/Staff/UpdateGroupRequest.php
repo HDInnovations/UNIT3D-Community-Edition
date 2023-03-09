@@ -38,7 +38,7 @@ class UpdateGroupRequest extends FormRequest
             'download_slots' => 'integer',
             'color'          => 'required',
             'icon'           => 'required',
-            'effect',
+            'effect'         => 'sometimes',
             'is_internal'      => 'required|boolean',
             'is_modo'          => 'required|boolean',
             'is_admin'         => 'required|boolean',
