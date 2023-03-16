@@ -5,11 +5,6 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   color: var(--bbcode-rendered-fg-default);
-
-  br:first-child {
-    display: none;
-  }
-
   margin: 0;
   background-color: var(--bbcode-rendered-canvas-default);
 
@@ -344,14 +339,6 @@
     content: "";
   }
 
-  > *:first-child {
-    margin-top: 0 !important;
-  }
-
-  > *:last-child {
-    margin-bottom: 0 !important;
-  }
-
   a:not([href]) {
     color: inherit;
     text-decoration: none;
@@ -364,16 +351,8 @@
   dl,
   table,
   pre {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-
-  blockquote > :first-child {
-    margin-top: 0;
-  }
-
-  blockquote > :last-child {
-    margin-bottom: 0;
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 
   details {
