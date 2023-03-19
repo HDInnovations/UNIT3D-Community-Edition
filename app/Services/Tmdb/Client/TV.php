@@ -35,7 +35,7 @@ class TV
                 'query' => [
                     'api_key'            => config('api-keys.tmdb'),
                     'language'           => config('app.meta_locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
+                    'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles',
                 ],
             ]
         );

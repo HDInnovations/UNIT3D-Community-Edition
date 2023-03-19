@@ -138,7 +138,7 @@ class PlaylistController extends Controller
             }
 
             if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
-                $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
+                $meta = Movie::with('genres', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
             }
         }
 

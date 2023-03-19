@@ -1,0 +1,40 @@
+/* Tags
+---------------------------------------------------------------------------- */
+
+.request__tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    align-items: baseline;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.request__tags li:not(:last-child)::after {
+    content: "\2022";
+    display: inline-block;
+    margin-left: 0.5ch;
+}
+
+.request__tags > li > span, .request__tags > li > time {
+    white-space: nowrap
+}
+
+.request__tags > li > span, .request__tags > li > time {
+    color: var(--torrent-tag-fg);
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+@media screen and (max-width: 767px) {
+    .request__tags {
+        display: flex;
+        gap: 6px;
+    }
+
+    .request__tags.request__tags > li::after {
+        display: none;
+    }
+}

@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\MediaHub;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Person;
 
 class PersonController extends Controller
@@ -38,6 +39,14 @@ class PersonController extends Controller
             'movie.genres'
         ])->findOrFail($id);
 
-        return view('mediahub.person.show', ['person' => $person]);
+
+        $movieCategoryIds = Category::where('movie_meta', '=', 1)->pluck('id')->toArray();
+        $tvCategoryIds = Category::where('tv_meta', '=', 1)->pluck('id')->toArray();
+
+        return view('mediahub.person.show', [
+            'person'           => $person,
+            'movieCategoryIds' => $movieCategoryIds,
+            'tvCategoryIds'    => $tvCategoryIds
+        ]);
     }
 }

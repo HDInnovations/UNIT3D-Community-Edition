@@ -66,7 +66,7 @@ class RequestController extends Controller
      */
     public function request(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = TorrentRequest::with('category')->findOrFail($id);
         $user = $request->user();
         $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
@@ -74,11 +74,25 @@ class RequestController extends Controller
 
         $meta = null;
         if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
-            $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrentRequest->tmdb)->first();
+            $meta = Tv::with([
+                'genres',
+                'credits' => ['person', 'occupation'],
+                'networks',
+                'seasons'
+            ])
+                ->where('id', '=', $torrentRequest->tmdb)
+                ->first();
         }
 
         if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
-            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $torrentRequest->tmdb)->first();
+            $meta = Movie::with([
+                'genres',
+                'credits' => ['person', 'occupation'],
+                'companies',
+                'collection'
+            ])
+                ->where('id', '=', $torrentRequest->tmdb)
+                ->first();
         }
 
         if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {

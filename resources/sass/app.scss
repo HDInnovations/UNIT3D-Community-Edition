@@ -10,6 +10,7 @@
 
 // Base
 @import 'base/typography';
+@import 'base/scrollbar';
 
 // Components
 @import 'variables';
@@ -44,6 +45,8 @@
 @import 'components/forum/topic-listing';
 @import 'components/forum/topic-tag';
 @import 'components/key-value';
+@import 'components/mediainfo';
+@import 'components/meta';
 @import 'components/pagination';
 @import 'components/panel';
 @import 'components/playlist';
@@ -66,6 +69,8 @@
 @import 'pages/home';
 @import 'pages/missing';
 @import 'pages/notifications';
+@import 'pages/request';
 @import 'pages/staff';
 @import 'pages/stats';
+@import 'pages/torrent';
 @import 'pages/torrents';

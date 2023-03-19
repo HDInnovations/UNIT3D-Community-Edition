@@ -99,12 +99,25 @@ class TorrentController extends Controller
         $trailer = null;
         $platforms = null;
         if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-            $meta = Tv::with('genres', 'cast', 'companies', 'networks', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
+            $meta = Tv::with([
+                'genres',
+                'credits' => ['person', 'occupation'],
+                'companies',
+                'networks',
+                'recommendations'
+            ])->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
         if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-            $meta = Movie::with('genres', 'cast', 'companies', 'collection', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
+            $meta = Movie::with([
+                'genres',
+                'credits' => ['person', 'occupation'],
+                'companies',
+                'collection',
+                'recommendations'
+            ])
+                ->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 

@@ -1,4 +1,4 @@
-<div class="form__group form__group--short-horizontal" x-data>
+<li class="form__group form__group--short-horizontal" x-data>
     <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
         {{ __('request.vote') }}
     </button>
@@ -57,4 +57,4 @@
             </p>
         </form>
     </dialog>
-</div>
+</li>

@@ -115,6 +115,28 @@
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
 
+    --meta-backdrop-filter:  brightness(30%);
+    --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
+    --meta-dropdown-bg: #4449;
+    --meta-dropdown-backdrop-filter-hover:  brightness(2) blur(10px);
+    --meta-dropdown-hover-bg: rgba(255,255,255,0.1);
+    --meta-dropdown-fg: #bbb;
+    --meta-dropdown-hover-fg: #ccc;
+    --meta-description-fg: #ddd;
+    --meta-id-tag-fg: #eee;
+    --meta-id-tag-bg: transparent;
+    --meta-id-tag-hover-fg: #fff;
+    --meta-id-tag-hover-bg: rgba(255,255,255,0.1);
+    --meta-chips-heading-fg: #bbb;
+    --meta-chip-icon-fg: #1f1f1f;
+    --meta-chip-icon-hover-bg: #bbb;
+    --meta-chip-icon-bg: #cdcdcd;
+    --meta-chip-name-fg: #e2e2e2;
+    --meta-chip-value-fg: #aaa;
+    --meta-chip-value-hover-fg: #ccc;
+    --meta-chip-backdrop-filter-hover:  brightness(2) blur(10px);
+    --meta-chip-hover-bg: rgba(255,255,255,0.1);
+
     --meter-fg: #333;
     --meter-bg: #505050;
 
@@ -213,6 +235,11 @@
     --torrent-row-highspeed-fg: #996666;
     --torrent-row-sd-fg: #997766;
     --torrent-row-bumped-fg: #f98a1e;
+
+    --torrent-tag-fg: #eee;
+    --torrent-tag-bg: transparent;
+    --torrent-tag-hover-fg: #fff;
+    --torrent-tag-hover-bg: rgba(255,255,255,0.1);
 }
 
 .tooltip .tooltip-inner {

@@ -1,29 +1,41 @@
-<div class="panel panel-chat shoutbox torrent-extra-meta"
+<section class="panelV2"
      x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'recommendations' }" id="tab_wrapper">
     <!-- The tabs navigation -->
-    <div class="panel-heading">
-        <h4>
-            <nav>
-                <i class="{{ config("other.font-awesome") }} fa-waveform-path"></i>
-                <a :class="{ 'active': 'recommendations' === tab }"
-                   @click.prevent="tab = 'recommendations'; window.location.hash = 'recommendations'" href="#">Recommendations</a>
-                |
-                <a :class="{ 'active': 'collection' === tab }"
-                   @click.prevent="tab = 'collection'; window.location.hash = 'collection'" href="#">Collection</a> |
-                <a :class="{ 'active': 'playlists' === tab }"
-                   @click.prevent="tab = 'playlists'; window.location.hash = 'playlists'" href="#">Playlists</a>
-            </nav>
-        </h4>
-    </div>
-
+    <h2 class="panel__heading">Relations</h2>
+    <menu class="panel__tabs">
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === 'recommendations' && 'panel__tab--active'"
+            x-on:click="tab = 'recommendations'; window.location.hash = 'recommendations'"
+        >
+            Recommendations
+        </li>
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === 'collection' && 'panel__tab--active'"
+            x-on:click="tab = 'collection'; window.location.hash = 'collection'"
+        >
+            Collection
+        </li>
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === 'playlists' && 'panel__tab--active'"
+            x-on:click="tab = 'playlists'; window.location.hash = 'playlists'"
+        >
+            Playlists
+        </li>
+    </menu>
     <!-- The tabs content -->
     <div x-show="tab === 'recommendations'">
         @include('torrent.partials.recommendations')
     </div>
-    <div x-show="tab === 'collection'">
+    <div x-show="tab === 'collection'" x-cloak>
         @include('torrent.partials.collection')
     </div>
-    <div x-show="tab === 'playlists'">
+    <div x-show="tab === 'playlists'" x-cloak>
         @include('torrent.partials.playlists')
     </div>
-</div>
+</section>
