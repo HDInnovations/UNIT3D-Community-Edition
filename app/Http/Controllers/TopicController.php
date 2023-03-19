@@ -215,11 +215,13 @@ class TopicController extends Controller
         $topic = Topic::findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
-        $topic->name = $request->name;
-        $forum = Forum::findOrFail($request->forum_id);
+
+        $forum = Forum::findOrFail($request->input('forum_id'));
 
         if ($forum->getPermission()->start_topic) {
-            $topic->forum_id = $request->forum->id;
+            $topic->name = $request->input('name');
+            $topic->forum_id = $forum->id;
+            $topic->save();
         } else {
             return to_route('forums.index')
                 ->withErrors('You Cannot Start A New Topic Here!');

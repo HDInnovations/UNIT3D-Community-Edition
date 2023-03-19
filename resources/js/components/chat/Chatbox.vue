@@ -570,12 +570,12 @@ export default {
       });
     },
     forceMessage(name) {
-      $('#chat-message').bbcode('/msg ' + name + ' ');
-      $('#chat-message').htmlcode('/msg ' + name + ' ');
+      $('#chat-message').val('/msg ' + name + ' ');
+      $('#chat-message').val('/msg ' + name + ' ');
     },
     forceGift(name) {
-      $('#chat-message').bbcode('/gift ' + name + ' ');
-      $('#chat-message').htmlcode('/gift ' + name + ' ');
+      $('#chat-message').val('/gift ' + name + ' ');
+      $('#chat-message').val('/gift ' + name + ' ');
     },
     freezeChat() {
       this.frozen = true;
