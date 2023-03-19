@@ -82,7 +82,7 @@ class PeerSearch extends Component
                 'torrents.name',
             ])
             ->selectRaw('INET6_NTOA(ip) as ip')
-            ->with('user', 'user.group')
+            ->with(['user', 'user.group'])
             ->join('users', 'users.id', '=', 'peers.user_id')
             ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
             ->when($this->ip !== '', fn ($query) => $query->having('ip', 'LIKE', '%'.$this->ip.'%'))

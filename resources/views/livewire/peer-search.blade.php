@@ -99,6 +99,12 @@
                             </td>
                             @if (\config('announce.connectable_check'))
                                 <td>
+                                    @php
+                                        $connectable = false;
+                                        if (cache()->has('peers:connectable:'.$peer->ip.'-'.$peer->port.'-'.$peer->agent)) {
+                                            $connectable = cache()->get('peers:connectable:'.$peer->ip.'-'.$peer->port.'-'.$peer->agent);
+                                        }
+                                    @endphp
                                     @if ($connectable)
                                         <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Connectable"></i>
                                     @else
