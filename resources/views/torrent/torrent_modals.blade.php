@@ -220,7 +220,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <pre id="torrent_nfo" style="font-size:10pt; font-family: 'Courier New', monospace;">
-                        {!! App\Helpers\Nfo::parseNfo($torrent->nfo) !!}
+                        {{ iconv('cp437', 'utf8', $torrent->nfo) }}
                     </pre>
                 </div>
                 <div class="modal-footer">
