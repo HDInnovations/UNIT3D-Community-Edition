@@ -16,7 +16,6 @@ namespace App\Http\Livewire;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -80,10 +79,10 @@ class TorrentRequestSearch extends Component
         'imdbId'        => ['except' => ''],
         'tvdbId'        => ['except' => ''],
         'malId'         => ['except' => ''],
-        'unfilled'       => ['except' => false],
+        'unfilled'      => ['except' => false],
         'claimed'       => ['except' => false],
         'pending'       => ['except' => false],
-        'filled'         => ['except' => false],
+        'filled'        => ['except' => false],
         'myRequests'    => ['except' => false],
         'myClaims'      => ['except' => false],
         'myVoted'       => ['except' => false],
