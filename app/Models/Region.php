@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Region extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Indicates If The Model Should Be Timestamped.
@@ -28,6 +28,13 @@ class Region extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Has Many Torrents.

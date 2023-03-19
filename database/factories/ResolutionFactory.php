@@ -15,7 +15,6 @@ class ResolutionFactory extends Factory
     {
         return [
             'name'     => $this->faker->name(),
-            'slug'     => $this->faker->slug(),
             'position' => $this->faker->randomNumber(),
         ];
     }

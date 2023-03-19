@@ -64,7 +64,7 @@ class PostControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('forum_post_edit_form', ['id' => $post->id, 'postId' => $post->postId]));
 
         $response->assertOk();
-        $response->assertViewIs('forum.post_edit');
+        $response->assertViewIs('forum.post.edit');
         $response->assertViewHas('topic');
         $response->assertViewHas('forum');
         $response->assertViewHas('post');

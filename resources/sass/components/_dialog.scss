@@ -4,13 +4,15 @@
     border-radius: var(--dialog-border-radius);
     padding: 0;
     color: inherit;
-    max-height: calc(100% - 12px);
+    max-height: calc(100vh - 12px);
     overflow-y: auto;
     width: 500px;
-    max-width: calc(100% - 12px);
-    position: absolute;
-    left: calc(50% - min(500px / 2, (100% - 12px) / 2));
-    right: calc(50% - min(500px / 2, (100% - 12px) / 2));
+    max-width: calc(100vw - 12px);
+    position: fixed;
+    left: calc(50vw - min(500px / 2, (100vw - 12px) / 2));
+    right: calc(50vw - min(500px / 2, (100vw - 12px) / 2));
+    top: calc(50vh - (100vh - 12px) / 2);
+    bottom: calc(50vh - (100vh - 12px) / 2);
 }
 
 .dialog::backdrop {

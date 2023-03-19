@@ -42,7 +42,7 @@
         <div class="torrent-card__left-header">
             <span class="torrent-card__category">{{ $torrent->category->name }}</span>
             <span class="torrent-card__meta-seperator"> &bull; </span>
-            <span class="torrent-card__resolution">{{ $torrent->resolution->name }}</span>
+            <span class="torrent-card__resolution">{{ $torrent->resolution->name ?? 'No Res'}}</span>
             <span class="torrent-card__meta-seperator"> </span>
             <span class="torrent-card__type">{{ $torrent->type->name }}</span>
             <span class="torrent-card__meta-seperator"> &bull; </span>
@@ -105,7 +105,7 @@
             <ul class="torrent-card__genres">
                 @foreach($meta->genres as $genre)
                     <li class="torrent-card__genre-item">
-                        <a class="torrent-card__genre" href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                        <a class="torrent-card__genre" href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}">
                             {{ $genre->name }}
                         </a>
                     </li>
@@ -131,7 +131,7 @@
                 <a
                     class="form__standard-icon-button"
                     download
-                    href="{{ route('download_check_page', ['id' => $torrent->id]) }}"
+                    href="{{ route('download_check', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-download"></i>
                 </a>

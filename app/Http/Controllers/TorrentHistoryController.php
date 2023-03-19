@@ -26,6 +26,6 @@ class TorrentHistoryController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('torrent_id', '=', $id)->latest()->get();
 
-        return \view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
+        return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
 }

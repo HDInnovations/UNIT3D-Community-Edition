@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('bon_transactions', function (Blueprint $table) {
+        Schema::table('bon_transactions', function (Blueprint $table): void {
             $table->integer('post_id')->nullable()->index()->after('torrent_id');
         });
     }

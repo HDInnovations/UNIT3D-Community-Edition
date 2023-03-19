@@ -19,17 +19,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
-     * The Attributes That Aren't Mass Assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var string[]
      */
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A Request.

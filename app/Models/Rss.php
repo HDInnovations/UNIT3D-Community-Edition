@@ -17,12 +17,13 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use stdClass;
 
 class Rss extends Model
 {
+    use Auditable;
     use HasFactory;
     use SoftDeletes;
-    use Auditable;
 
     /**
      * The Database Table Used By The Model.
@@ -50,6 +51,13 @@ class Rss extends Model
     ];
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -72,13 +80,13 @@ class Rss extends Model
     /**
      * Get the RSS feeds JSON Torrent as object.
      */
-    public function getObjectTorrentAttribute(): \stdClass|bool
+    public function getObjectTorrentAttribute(): stdClass|bool
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
         if ($this->json_torrent) {
             $expected = $this->expected_fields;
 
-            return (object) \array_merge($expected, $this->json_torrent);
+            return (object) array_merge($expected, $this->json_torrent);
         }
 
         return false;

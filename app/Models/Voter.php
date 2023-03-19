@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voter extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Belongs To A Poll.

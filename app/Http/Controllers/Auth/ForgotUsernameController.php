@@ -28,7 +28,7 @@ class ForgotUsernameController extends Controller
      */
     public function showForgotUsernameForm(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('auth.username');
+        return view('auth.username');
     }
 
     /**
@@ -38,32 +38,32 @@ class ForgotUsernameController extends Controller
     {
         $email = $request->get('email');
 
-        if (! \config('captcha.enabled')) {
-            $v = \validator($request->all(), [
+        if (! config('captcha.enabled')) {
+            $v = validator($request->all(), [
                 'email' => 'required',
             ]);
         } else {
-            $v = \validator($request->all(), [
+            $v = validator($request->all(), [
                 'email'   => 'required',
                 'captcha' => 'hiddencaptcha',
             ]);
         }
 
         if ($v->fails()) {
-            return \to_route('username.request')
+            return to_route('username.request')
                 ->withErrors($v->errors());
         }
 
         $user = User::where('email', '=', $email)->first();
         if (empty($user)) {
-            return \to_route('username.request')
-                ->withErrors(\trans('email.no-email-found'));
+            return to_route('username.request')
+                ->withErrors(trans('email.no-email-found'));
         }
 
         //send username reminder notification
         $user->notify(new UsernameReminder());
 
-        return \to_route('login')
-            ->withSuccess(\trans('email.username-sent'));
+        return to_route('login')
+            ->withSuccess(trans('email.username-sent'));
     }
 }

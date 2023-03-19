@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Sul ei ole piisavalt boonust',
     'edit-request'        => 'Muuda taotlust',
     'enter-bp'            => 'Sisestage boonuspunktid (vähemalt 100)',
-    'enter-hash'          => 'Sisestage üleslaaditud Torrenti info-info',
+    'enter-hash'          => 'Sisestage üleslaaditud Torrenti ID',
     'fill'                => 'Täitke',
     'fill-request'        => 'Täitke see taotlus',
     'filled'              => 'Täidetud',

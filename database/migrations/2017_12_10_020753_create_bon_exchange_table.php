@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('bon_exchange', function (Blueprint $table) {
+        Schema::create('bon_exchange', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('description')->nullable();
             $table->bigInteger('value')->unsigned()->default(0);

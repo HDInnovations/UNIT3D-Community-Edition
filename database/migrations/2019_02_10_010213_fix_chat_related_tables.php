@@ -21,12 +21,12 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('user_echoes', function (Blueprint $table) {
+        Schema::table('user_echoes', function (Blueprint $table): void {
             $table->integer('room_id')->change();
             $table->integer('bot_id')->change();
             $table->integer('target_id')->change();
         });
-        Schema::table('user_audibles', function (Blueprint $table) {
+        Schema::table('user_audibles', function (Blueprint $table): void {
             $table->integer('room_id')->change();
             $table->integer('bot_id')->change();
             $table->integer('target_id')->change();

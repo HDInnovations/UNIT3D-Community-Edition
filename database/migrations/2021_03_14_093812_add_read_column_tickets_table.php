@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('tickets', function (Blueprint $table) {
+        Schema::table('tickets', function (Blueprint $table): void {
             $table->tinyInteger('user_read')->nullable()->after('staff_id');
             $table->tinyInteger('staff_read')->nullable()->after('user_read');
         });

@@ -19,14 +19,14 @@ use Livewire\Component;
 
 class DislikeButton extends Component
 {
-    public $post;
+    public Post $post;
 
     public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
-    final public function mount($post): void
+    final public function mount(Post $post): void
     {
-        $this->user = \auth()->user();
-        $this->post = Post::findOrFail($post);
+        $this->user = auth()->user();
+        $this->post = $post;
     }
 
     final public function store(): void
@@ -55,6 +55,6 @@ class DislikeButton extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.dislike-button');
+        return view('livewire.dislike-button');
     }
 }

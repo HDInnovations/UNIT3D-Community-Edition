@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('jobs', function (Blueprint $table): void {
             $table->bigInteger('id', true)->unsigned();
             $table->string('queue');
             $table->text('payload');

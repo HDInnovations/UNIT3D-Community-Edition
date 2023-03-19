@@ -185,7 +185,7 @@ return [
     'special-double_upload'    => 'Ειδικό Double Upload',
     'special-freeleech'        => 'Ειδικά Freeleech',
     'staff-tools'              => 'Εργαλεία Προσωπικού',
-    'start-year'	              => 'Χρονος έναρξης',
+    'start-year'               => 'Χρονος έναρξης',
     'started'                  => 'Ξεκίνησε',
     'status'                   => 'Κατάσταση',
     'statistics'               => 'Statistics',

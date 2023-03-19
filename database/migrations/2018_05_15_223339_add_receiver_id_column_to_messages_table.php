@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('messages', function (Blueprint $table) {
+        Schema::table('messages', function (Blueprint $table): void {
             $table->integer('receiver_id')->after('chatroom_id')->unsigned()->nullable();
         });
     }

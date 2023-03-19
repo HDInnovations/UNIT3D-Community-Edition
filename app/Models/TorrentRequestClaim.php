@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TorrentRequestClaim extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.

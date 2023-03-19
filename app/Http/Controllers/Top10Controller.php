@@ -20,6 +20,6 @@ class Top10Controller extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('top10.index');
+        return view('top10.index');
     }
 }

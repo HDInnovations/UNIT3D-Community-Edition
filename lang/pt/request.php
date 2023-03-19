@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Você não tem bônus suficiente',
     'edit-request'        => 'Editar pedido',
     'enter-bp'            => 'Insira pontos de bônus (mínimo de 100)',
-    'enter-hash'          => 'Digite o Info Hash do Torrent enviado',
+    'enter-hash'          => 'Digite o ID do Torrent enviado',
     'fill'                => 'Preencher',
     'fill-request'        => 'Preencha este pedido',
     'filled'              => 'Preenchidas',

@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Nincs elég bónuszod',
     'edit-request'        => 'Kérés szerkesztése',
     'enter-bp'            => 'Bónuszpontok megadása (minimum 100)',
-    'enter-hash'          => 'Adja meg a feltöltött Torrent Info Info-ját',
+    'enter-hash'          => 'Adja meg a feltöltött Torrent ID-ját',
     'fill'                => 'Tölt',
     'fill-request'        => 'Töltse ki ezt a kérést',
     'filled'              => 'Megtöltött',

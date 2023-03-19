@@ -22,6 +22,19 @@
     --bbcode-input-border: 1px solid #555;
     --bbcode-input-border-radius: 5px;
 
+    --bbcode-rendered-fg-default: #24292f;
+    --bbcode-rendered-fg-muted: #57606a;
+    --bbcode-rendered-fg-subtle: #667788;
+    --bbcode-rendered-canvas-default: transparent;
+    --bbcode-rendered-canvas-subtle: #ececec;
+    --bbcode-rendered-border-default: #bebebe;
+    --bbcode-rendered-border-muted: #babbbd;
+    --bbcode-rendered-neutral-muted: #aeb3b833;
+    --bbcode-rendered-accent-fg: #0969da;
+    --bbcode-rendered-accent-emphasis: #0969da;
+    --bbcode-rendered-attention-subtle: #7289da;
+    --bbcode-rendered-danger-fg: #ff141ccc;
+
     --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
     --button-filled-border: none;
     --button-filled-border-radius: 9999px;
@@ -62,12 +75,19 @@
     --icon-button-border-radius: 9999px;
     --icon-button-fg: currentColor;
 
+    --icon-button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
+    --icon-button-filled-fg: white;
+    --icon-button-filled-border: none;
+
     --input-text-border: 1px solid #555;
     --input-text-border-active: 2px solid #2195f3;
     --input-text-border-error: 1px solid #ba1b1b;
     --input-text-border-hover: 2px solid #999;
     --input-text-border-radius: 5px;
     --input-text-fg: #444;
+    --input-text-padding: 12px;
+    --input-text-padding-active: 11px;
+    --input-text-padding-hover: 11px;
 
     --key-value-even-bg: #e2e2e2;
     --key-value-fg: inherit;
@@ -123,6 +143,10 @@
     --select-border-hover: 2px solid #999;
     --select-border-radius: 5px;
     --select-fg: #444;
+    --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23444' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+    --select-padding: 11px 23px 11px 11px;
+    --select-padding-active: 10px 22px 10px 10px;
+    --select-padding-hover: 10px 22px 10px 10px;
 
     --subforum-listing-odd-bg: #ddd;
     --subforum-listing-even-bg: transparent;
@@ -133,6 +157,9 @@
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #444;
+    --textarea-padding: 12px;
+    --textarea-padding-active: 11px;
+    --textarea-padding-hover: 11px;
 
     --torrent-card-bg: #e2e2e2;
     --torrent-card-fg: inherit;
@@ -141,6 +168,37 @@
     --torrent-card-head-fg: #fff;
     --torrent-card-link-fg: #3b3b3b;
     --torrent-card-genre-fg: #444;
+
+    --torrent-group-bg: #f5f5f5;
+    --torrent-group-header-bg: #d3d3d3;
+    --torrent-group-text: #555;
+    --torrent-group-text-muted: #555;
+    --torrent-group-table-stripe: rgba(0, 0, 0, 0.05);
+    --torrent-group-hover-brightness-emphasis: 1.13;
+    --torrent-group-chip-border: #eee;
+
+    --torrent-row-fg: #2a2a2a;
+    --torrent-row-visited-fg: #8768e0;
+    --torrent-row-sticky-bg: #dff0d8;
+    --torrent-row-format-fg: #222;
+    --torrent-row-format-bg: #cdcdcd;
+    --torrent-row-buttons-fg: currentColor;
+    --torrent-row-seeders-fg: #3fb618;
+    --torrent-row-leechers-fg: #ff0039;
+    --torrent-row-completed-fg: #42a5f5;
+    --torrent-row-thanks-fg: #f92672;
+    --torrent-row-comments-fg: #3fb618;
+    --torrent-row-internal-fg: #baaf94;
+    --torrent-row-personal-fg: #865be9;
+    --torrent-row-stream-optimized-fg: #ff0039;
+    --torrent-row-featured-fg: #f92672;
+    --torrent-row-freeleech-fg: #ffb800;
+    --torrent-row-double-upload-fg: #4cb828;
+    --torrent-row-sticky-fg: #111111;
+    --torrent-row-highspeed-fg: #ff0039;
+    --torrent-row-sd-fg: #ff7518;
+    --torrent-row-bumped-fg: #f9ba13;
+
 }
 
 .permalink {
@@ -9156,72 +9214,6 @@ section.tall_categories div.category.anime span {
 
 .home .page-title h1 {
     color: #fff;
-}
-
-// BBCode Style
-.bbcode-quote {
-    background: #ebeaec;
-    padding: 10px;
-    margin: 0 0 15px 15px;
-    border-radius: 3px;
-    font-size: 14px !important;
-    font-family: inherit;
-}
-
-.bbcode-quote-head {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.bbcode-quote-date {
-    float: right;
-}
-
-.bbcode-code {
-    background: lightgray;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.bbcode-alert {
-    background: rgba(255, 20, 28, 0.8);
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.bbcode-note {
-    background: #7289da;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-.spoiler-content {
-    margin: 0;
-    padding: 0 15px;
-    border: 1px solid #ddd;
-    position: relative;
-    background: #efefef;
-}
-
-.spoiler-button {
-    background: #aa65c7;
-    color: #fff;
-    text-align: center;
-    border: none;
-    border-radius: 3px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 0 3px 0 0 #883da7;
-    vertical-align: middle;
-    cursor: pointer;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-    transition: background 0.1s ease-in-out;
-}
-
-.spoiler-button:before {
-    color: #375a7f;
-    content: '\25BA ';
 }
 
 .image {

@@ -54,8 +54,8 @@
                                         {{ __('common.edit') }}
                                     </a>
                                 </li>
-                                <li class="data-table__action" x-data="{ open: false }">
-                                    <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                                <li class="data-table__action" x-data>
+                                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
                                         {{ __('common.delete') }}
                                     </button>
                                     <dialog class="dialog" x-ref="dialog">
@@ -66,7 +66,7 @@
                                             class="dialog__form"
                                             method="POST"
                                             action="{{ route('staff.regions.destroy', ['id' => $region->id]) }}"
-                                            x-on:click.outside="open = false; $refs.dialog.close();"
+                                            x-on:click.outside="$refs.dialog.close()"
                                         >
                                             @csrf
                                             @method('DELETE')
@@ -97,7 +97,7 @@
                                                 <button class="form__button form__button--filled">
                                                     {{ __('common.delete') }}
                                                 </button>
-                                                <button class="form__button form__button--outlined" x-on:click.prevent="open = false; $refs.dialog.close();">
+                                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                                     {{ __('common.cancel') }}
                                                 </button>
                                             </p>

@@ -49,7 +49,5 @@
             </a>
         </article>
     @endforeach
-    <div class="text-center">
-        {{ $articles->links() }}
-    </div>
+    {{ $articles->links('partials.pagination') }}
 @endsection

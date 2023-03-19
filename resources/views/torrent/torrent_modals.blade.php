@@ -60,7 +60,6 @@
                         @csrf
                         <input id="type" name="type" type="hidden" value="Torrent">
                         <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                        <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
                         <label for="file_name" class="col-sm-2 control-label">{{ __('torrent.torrent') }}</label>
                         <div class="col-sm-10">
                             <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
@@ -248,7 +247,6 @@
                     <div class="form-group">
                         <input id="type" name="type" type="hidden" value="{{ __('torrent.torrent') }}">
                         <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                        <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
                         <input type="hidden" name="old_status" value="{{ $torrent->status }}">
                         <input type="hidden" name="status" value="3">
                         <label for="postpone_reason" class="col-sm-2 control-label">{{ __('common.reason') }}</label>
@@ -288,7 +286,6 @@
                     <div class="form-group">
                         <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}">
                         <input id="id" type="hidden" name="id" value="{{ $torrent->id }}">
-                        <input id="slug" type="hidden" name="slug" value="{{ $torrent->slug }}">
                         <input type="hidden" name="old_status" value="{{ $torrent->status }}">
                         <input type="hidden" name="status" value="2">
                         <label for="file_name" class="col-sm-2 control-label">{{ __('torrent.torrent') }}</label>

@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('reports', function (Blueprint $table) {
+        Schema::table('reports', function (Blueprint $table): void {
             // new columns
             $table->integer('reported_user')->unsigned();
             $table->integer('torrent_id')->unsigned();

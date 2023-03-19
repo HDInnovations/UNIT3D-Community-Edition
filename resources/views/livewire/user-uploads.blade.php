@@ -194,7 +194,7 @@
                 </tbody>
             </table>
             <div class="text-center">
-                {{ $uploads->links() }}
+                {{ $uploads->links('partials.pagination') }}
             </div>
         </div>
     </div>

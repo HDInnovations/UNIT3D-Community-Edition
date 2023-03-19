@@ -22,13 +22,13 @@ class RedirectIfAuthenticated
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next, ...$guards): mixed
+    public function handle(Request $request, Closure $next, string ...$guards): mixed
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (\auth()->guard($guard)->check()) {
-                return \redirect()->to(RouteServiceProvider::HOME);
+            if (auth()->guard($guard)->check()) {
+                return redirect()->to(RouteServiceProvider::HOME);
             }
         }
 

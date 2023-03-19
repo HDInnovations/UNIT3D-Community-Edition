@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('subtitles', function (Blueprint $table) {
+        Schema::create('subtitles', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('file_name');

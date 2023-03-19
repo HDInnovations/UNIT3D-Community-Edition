@@ -174,7 +174,7 @@ return [
     'special'                  => 'Especial',
     'special-freeleech'        => 'Freeleech especial',
     'staff-tools'              => 'Herramientas de administración',
-    'start-year'	              => 'Desde el año',
+    'start-year'               => 'Desde el año',
     'started'                  => 'Empezado',
     'status'                   => 'Estado',
     'statistics'               => 'Estadística',

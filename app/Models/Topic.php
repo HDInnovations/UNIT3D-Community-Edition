@@ -20,17 +20,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     protected $casts = [
         'last_reply_at' => 'datetime',
     ];
-
-    /**
-     * The relationships that should always be loaded.
-     */
-    protected $with = ['posts', 'forum'];
 
     /**
      * Belongs To A Forum.
@@ -63,6 +58,22 @@ class Topic extends Model
     {
         return $this->hasMany(Subscription::class);
     }
+
+    /**
+     * Has One Permissions through Forum.
+     */
+    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Permission::class, 'forum_id', 'forum_id');
+    }
+    /**
+     * Belongs to Many Subscribed Users.
+     */
+    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, Subscription::class);
+    }
+
 
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
@@ -104,7 +115,7 @@ class Topic extends Model
      */
     public function viewable(): bool
     {
-        if (\auth()->user()->group->is_modo) {
+        if (auth()->user()->group->is_modo) {
             return true;
         }
 
@@ -117,7 +128,7 @@ class Topic extends Model
     public function notifyStarter($poster, $topic, $post): bool
     {
         $user = User::find($topic->first_post_user_id);
-        if ($user->acceptsNotification(\auth()->user(), $user, 'forum', 'show_forum_topic')) {
+        if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
             $user->notify(new NewPost('topic', $poster, $post));
         }
 

@@ -22,7 +22,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::rename('topic_subscriptions', 'subscriptions');
-        Schema::table('subscriptions', function (Blueprint $table) {
+        Schema::table('subscriptions', function (Blueprint $table): void {
             $table->dropUnique('topic_subscriptions_user_id_topic_id_unique');
             $table->integer('forum_id')->nullable()->index()->after('user_id');
             $table->integer('user_id')->change();

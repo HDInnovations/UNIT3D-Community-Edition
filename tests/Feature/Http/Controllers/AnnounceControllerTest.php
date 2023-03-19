@@ -27,7 +27,7 @@ class AnnounceControllerTest extends TestCase
         $peer_id = '19045931013802080695'; // 20 bytes
 
         Torrent::factory()->create([
-            'info_hash' => \bin2hex($info_hash),
+            'info_hash' => bin2hex($info_hash),
             'status'    => 1, // Approved
         ]);
 

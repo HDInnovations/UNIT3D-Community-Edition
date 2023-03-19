@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('media_languages', function (Blueprint $table) {
+        Schema::create('media_languages', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->string('name');
             $table->char('code', 2);

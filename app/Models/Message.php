@@ -72,7 +72,7 @@ class Message extends Model
      */
     public function setMessageAttribute(string $value): void
     {
-        $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -80,6 +80,6 @@ class Message extends Model
      */
     public static function getMessageHtml($message): string
     {
-        return (new Bbcode())->parse($message, true);
+        return (new Bbcode())->parse($message);
     }
 }

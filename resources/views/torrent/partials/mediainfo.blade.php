@@ -104,8 +104,8 @@
                                     @foreach ($mediaInfo['text'] as $key => $textElement)
                                         <span><img src="{{ language_flag($textElement['language'] ?? __('common.unknown')) }}"
                                                    alt="{{ $textElement['language'] ?? __('common.unknown') }}"
-                                                   width="20" height="13" data-toggle="tooltip"
-                                                   data-original-title="{{ $textElement['language'] ?? __('common.unknown') }} | {{ $textElement['format'] ?? __('common.unknown') }} | {{ $textElement['title'] ?? __('common.unknown') }}">&nbsp;</span>
+                                                   width="20" height="13"
+                                                   title="{{ $textElement['language'] ?? __('common.unknown') }} | {{ $textElement['format'] ?? __('common.unknown') }} | {{ $textElement['title'] ?? __('common.unknown') }}">&nbsp;</span>
                                     @endforeach
                                 @endif
                             </div>

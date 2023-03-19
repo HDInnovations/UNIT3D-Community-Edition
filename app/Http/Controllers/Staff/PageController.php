@@ -14,9 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StorePageRequest;
+use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -30,7 +31,7 @@ class PageController extends Controller
     {
         $pages = Page::all();
 
-        return \view('Staff.page.index', ['pages' => $pages]);
+        return view('Staff.page.index', ['pages' => $pages]);
     }
 
     /**
@@ -38,33 +39,17 @@ class PageController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.page.create');
+        return view('Staff.page.create');
     }
 
     /**
      * Store A New Page.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $page = new Page();
-        $page->name = $request->input('name');
-        $page->slug = Str::slug($page->name);
-        $page->content = $request->input('content');
+        Page::create($request->validated());
 
-        $v = \validator($page->toArray(), [
-            'name'    => 'required',
-            'slug'    => 'required',
-            'content' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.pages.index')
-                ->withErrors($v->errors());
-        }
-
-        $page->save();
-
-        return \to_route('staff.pages.index')
+        return to_route('staff.pages.index')
             ->withSuccess('Page has been created successfully');
     }
 
@@ -75,46 +60,30 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
 
-        return \view('Staff.page.edit', ['page' => $page]);
+        return view('Staff.page.edit', ['page' => $page]);
     }
 
     /**
      * Edit A Page.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdatePageRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $page = Page::findOrFail($id);
-        $page->name = $request->input('name');
-        $page->slug = Str::slug($page->name);
-        $page->content = $request->input('content');
+        Page::where('id', '=', $id)->update($request->validated());
 
-        $v = \validator($page->toArray(), [
-            'name'    => 'required',
-            'slug'    => 'required',
-            'content' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.pages.index')
-                ->withErrors($v->errors());
-        }
-
-        $page->save();
-
-        return \to_route('staff.pages.index')
+        return to_route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
     }
 
     /**
      * Delete A Page.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
         Page::findOrFail($id)->delete();
 
-        return \to_route('staff.pages.index')
+        return to_route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');
     }
 }
