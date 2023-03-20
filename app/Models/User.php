@@ -150,6 +150,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs to many connectable seeding torrents.
+     */
+    public function connectableSeedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'peers')
+            ->wherePivot('seeder', '=', 1)
+            ->wherePivot('connectable', '=', 1);
+    }
+
+    /**
      * Belongs to many followees.
      */
     public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
