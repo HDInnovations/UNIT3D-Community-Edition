@@ -30,7 +30,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('torrents', ['view' => 'group', 'tmdb' => $movie->id, 'categories' => $movieCategoryIds]) }}">{{ $movie->title }}</a><br>
+                                        href="{{ route('torrents', ['view' => 'group', 'tmdbId' => $movie->id, 'categories' => $movieCategoryIds]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
                                     @if ($movie->genres)
@@ -70,7 +70,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('torrents', ['view' => 'group', 'id' => $show->id, 'categories' => $tvCategoryIds]) }}">{{ $show->name }}</a><br>
+                                        href="{{ route('torrents', ['view' => 'group', 'tmdbId' => $show->id, 'id' => $show->id, 'categories' => $tvCategoryIds]) }}">{{ $show->name }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
                                     @if ($show->genres)
