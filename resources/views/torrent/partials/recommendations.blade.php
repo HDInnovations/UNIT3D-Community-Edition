@@ -3,6 +3,7 @@
         <div class="scroller" style="padding-bottom: 10px;">
             @forelse($meta->recommendations ?? [] as $recommendation)
                 <div class="item mini backdrop mini_card">
+                    <div class="image_content">
                     <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation->recommendation_movie_id ?? $recommendation->recommendation_tv_id]) }}">
                         @isset($recommendation->poster)
                             <img
@@ -16,7 +17,7 @@
                             <span>
                                 @isset($recommendation->release_date)
                                     {{ substr($recommendation->release_date, 0, 4) }}
-                                @elseisset($recommendation->first_air_date)
+                                @else($recommendation->first_air_date)
                                     {{ substr($recommendation->first_air_date, 0, 4) }}
                                 @endif
                             </span>
@@ -25,6 +26,7 @@
                             </span>
                         </div>
                     </a>
+                    </div>
                 </div>
             @empty
                 No Recommendations Found!
