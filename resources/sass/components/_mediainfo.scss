@@ -3,7 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 14px;
-    column-gap: 12px;
+    column-gap: 40px;
 }
 
 .mediainfo h3 {
@@ -33,7 +33,6 @@
 }
 
 .mediainfo__filename {
-    grid-area: filename;
     font-weight: bold;
     padding-bottom: 20px;
     overflow-wrap: break-word;
@@ -47,21 +46,18 @@
 }
 
 .mediainfo__general {
-    grid-area: general;
+    flex-basis: 20%;
 }
 
 .mediainfo__video {
-    grid-area: video;
-    flex: 1 2 400px;
+    max-width: max-content;
 }
 
 .mediainfo__audio {
-    grid-area: audio;
-    flex: 1 2 300px;
+    flex-basis: 100%;
 }
 
 .mediainfo__subtitles {
-    grid-area: subtitles;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -82,6 +78,5 @@
 }
 
 .mediainfo__encode-settings {
-    grid-area: settings;
     flex-basis: 100%;
 }
