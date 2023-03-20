@@ -173,7 +173,7 @@
                     </a>
                 </article>
             @endforeach
-            @if (isset($torrent) && $torrent->keywords->isNotEmpty())
+            @if (isset($torrent) && $torrent->keywords?->isNotEmpty())
                 <article class="meta__keywords">
                     <a class="meta-chip" href="{{ route('torrents', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
