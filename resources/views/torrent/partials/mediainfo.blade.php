@@ -68,8 +68,15 @@
                         <h3>Audio</h3>
                         <dl>
                             @foreach ($mediaInfo['audio'] as $key => $audioElement)
-                                <dt>#{{ $loop->iteration }}</dt>
+                                <dt>{{ $loop->iteration }}.</dt>
                                 <dd>
+                                    <img
+                                        src="{{ language_flag($audioElement['language'] ?? __('common.unknown')) }}"
+                                        alt="{{ $audioElement['language'] ?? __('common.unknown') }}"
+                                        width="20"
+                                        height="13"
+                                        title="{{ $audioElement['language'] ?? __('common.unknown') }}"
+                                    />
                                     {{ $audioElement['language'] ?? __('common.unknown') }}
                                     / {{ $audioElement['format'] ?? __('common.unknown') }}
                                     / {{ $audioElement['channels'] ?? __('common.unknown') }}
