@@ -46,7 +46,7 @@
     <li class="form__group form__group--short-horizontal">
         @livewire('thank-button', ['torrent' => $torrent->id])
     </li>
-    @if ($torrent->nfo !== null)
+    @if ($torrent->nfo)
         <li x-data class="form__group form__group--short-horizontal">
             <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                 <i class='{{ config("other.font-awesome") }} fa-info-circle'></i> NFO
