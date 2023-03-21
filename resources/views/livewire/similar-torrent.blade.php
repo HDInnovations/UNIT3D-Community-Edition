@@ -1,4 +1,13 @@
 <div style="display: flex; flex-direction: column; gap: 16px">
+    @if ($checked && $user->group->is_modo)
+        <menu style="list-style-type: none; padding: 0; margin: 0">
+            <li>
+                <button class="form__button form__button--filled" wire:click="alertConfirm()">
+                    Delete ({{ count($checked) }})
+                </button>
+            </li>
+        </menu>
+    @endif
     <table class="data-table" id="torrent-similar">
         <thead>
             <tr>
@@ -32,15 +41,6 @@
             </tr>
         </thead>
     </table>
-    @if ($checked && $user->group->is_modo)
-        <menu style="list-style-type: none; padding: 0; margin: 0">
-            <li>
-                <button class="form__button form__button--filled" wire:click="alertConfirm()">
-                    Delete ({{ count($checked) }})
-                </button>
-            </li>
-        </menu>
-    @endif
     @foreach($torrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
         <section class="panelV2" x-data>
             <h2 class="panel__heading">{{ $type }}</h2>
@@ -54,7 +54,7 @@
                             @foreach($torrents as $torrent)
                                 @if ($user->group->is_modo)
                                     <tr>
-                                        <td colspan="0" rowspan="2" x-on:click="$el.firstElementChild.click()">
+                                        <td colspan="0" rowspan="2" x-on:click.self="$el.firstElementChild.click()">
                                             <input type="checkbox" value="{{ $torrent->id }}" wire:model="checked">
                                         </td>
                                     </tr>
