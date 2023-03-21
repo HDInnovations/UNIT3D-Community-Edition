@@ -15,32 +15,19 @@ namespace App\Bots;
 
 class IRCAnnounceBot
 {
-    /**
-     * @var mixed
-     */
     public $server;
-
-    /**
-     * @var mixed
-     */
+    
     public $port;
-
-    /**
-     * @var mixed
-     */
+    
     public $hostname;
-
-    /**
-     * @var mixed
-     */
+    
     public $nickservpass;
-
-    /**
-     * @var mixed
-     */
+    
     public $joinchannel;
 
-    protected $socket = null;
+    protected $socket;
+    
+    protected $eol;
 
     private $channel;
 
@@ -50,7 +37,7 @@ class IRCAnnounceBot
 
     public function __construct()
     {
-        $eol = PHP_EOL;
+        $this->eol = PHP_EOL;
         $this->username = config('irc-bot.username');
         $this->channel = config('irc-bot.channel');
         $this->server = config('irc-bot.server');
@@ -89,7 +76,7 @@ class IRCAnnounceBot
                 return;
             }
             // If MOTD
-            if ($ex[1] == "366") {
+            if ($ex[1] === "366") {
                 return;
             }
         }
@@ -97,17 +84,17 @@ class IRCAnnounceBot
 
     private function send_data($data): void
     {
-        fputs($this->socket, sprintf('%s %s', $data, $eol));
+        fwrite($this->socket, sprintf('%s %s', $data, $this->eol));
     }
 
     private function say($channel, $string): void
     {
-        $this->send_data(sprintf('PRIVMSG %s %s %s', $channel, $string, $eol));
+        $this->send_data(sprintf('PRIVMSG %s %s %s', $channel, $string, $this->eol));
     }
 
     private function join($channel): void
     {
-        $this->send_data(sprintf('JOIN %s %s', $channel, $eol));
+        $this->send_data(sprintf('JOIN %s %s', $channel, $this->eol));
     }
 
     public function message($channel, $message): void
@@ -117,6 +104,6 @@ class IRCAnnounceBot
             $this->join($channel);
         }
 
-        $this->say($channel, $message, $eol);
+        $this->say($channel, $message);
     }
 }
