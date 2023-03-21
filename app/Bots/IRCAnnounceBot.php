@@ -16,17 +16,17 @@ namespace App\Bots;
 class IRCAnnounceBot
 {
     public $server;
-    
+
     public $port;
-    
+
     public $hostname;
-    
+
     public $nickservpass;
-    
+
     public $joinchannel;
 
     protected $socket;
-    
+
     protected $eol;
 
     private $channel;
