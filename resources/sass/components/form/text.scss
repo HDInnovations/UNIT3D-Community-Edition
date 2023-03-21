@@ -47,7 +47,8 @@
     }
 
     &:valid:not(:placeholder-shown),
-    &:focus:placeholder-shown {
+    &:focus:placeholder-shown,
+    &:read-only {
         & + .form__label--floating {
             top: -3px;
             font-size: 11px;
