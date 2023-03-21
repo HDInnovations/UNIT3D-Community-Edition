@@ -124,12 +124,19 @@
   background-color: var(--torrent-row-sticky-bg) !important;
 }
 
-.torrent-search--list__size-header,
-.torrent-search--list__seeders-header,
-.torrent-search--list__leechers-header,
-.torrent-search--list__completed-header,
-.torrent-search--list__age-header {
+.torrent-search--list__ratings-header.torrent-search--list__ratings-header,
+.torrent-search--list__size-header.torrent-search--list__size-header,
+.torrent-search--list__seeders-header.torrent-search--list__seeders-header,
+.torrent-search--list__leechers-header.torrent-search--list__leechers-header,
+.torrent-search--list__completed-header.torrent-search--list__completed-header,
+.torrent-search--list__age-header.torrent-search--list__age-header {
   text-align: right;
+}
+
+.torrent-search--list__poster-header.torrent-search--list__poster-header,
+.torrent-search--list__format-header.torrent-search--list__format-header,
+.torrent-search--list__actions-header.torrent-search--list__actions-header {
+  text-align: center;
 }
 
 .torrent-search--list__poster {
