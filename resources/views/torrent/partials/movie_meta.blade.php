@@ -19,12 +19,28 @@
         </a>
         <ul class="meta__dropdown">
             <li>
-                <a href="{{ route('upload_form', ['category_id' => $category->id, 'title' => rawurlencode($meta?->title ?? '') ?? 'Unknown', 'imdb' => $torrent->imdb ?? '', 'tmdb' => $meta?->id ?? '']) }}">
+                <a href="{{ route('upload_form', [
+                    'category_id' => $category->id,
+                    'title'       => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                    'imdb'        => $torrent->imdb ?? '',
+                    'tmdb'        => $meta?->id ?? '',
+                    'mal'         => $torrent->mal ?? '',
+                    'tvdb'        => $torrent->tvdb ?? '',
+                    'igdb'        => $torrent->igdb ?? '',
+                ]) }}">
                     {{ __('common.upload') }}
                 </a>
             </li>
             <li>
-                <a href="{{ route('add_request_form', ['title' => rawurlencode($meta->title ?? ''), 'imdb' => $torrent->imdb ?? '', 'tmdb' => $meta?->id ?? '']) }}">
+                <a href="{{ route('add_request_form', [
+                    'category_id' => $category->id,
+                    'title'       => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                    'imdb'        => $torrent->imdb ?? '',
+                    'tmdb'        => $meta?->id ?? '',
+                    'mal'         => $torrent->mal ?? '',
+                    'tvdb'        => $torrent->tvdb ?? '',
+                    'igdb'        => $torrent->igdb ?? '',
+                ]) }}">
                     Request similar
                 </a>
             </li>
@@ -43,15 +59,15 @@
                 </a>
             </li>
         @endif
-        @if ($torrent->tmdb ?? 0 > 0)
+        @if ($meta->id ?? 0 > 0)
             <li class="meta__tmdb">
                 <a
                     class="meta-id-tag"
-                    href="https://www.themoviedb.org/movie/{{ $torrent->tmdb }}"
+                    href="https://www.themoviedb.org/movie/{{ $meta->id }}"
                     title="The Movie Database"
                     target="_blank"
                 >
-                    TMDB: {{ $torrent->tmdb }}
+                    TMDB: {{ $meta->id }}
                 </a>
             </li>
         @endif

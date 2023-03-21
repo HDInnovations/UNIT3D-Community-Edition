@@ -394,7 +394,7 @@ class TorrentController extends Controller
     /**
      * Torrent Upload Form.
      */
-    public function create(Request $request, int $categoryId = 0, string $title = '', string $imdb = '0', string $tmdb = '0'): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $categories = [];
@@ -420,10 +420,13 @@ class TorrentController extends Controller
             'regions'      => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
             'user'         => $user,
-            'category_id'  => $categoryId,
-            'title'        => $title,
-            'imdb'         => str_replace('tt', '', $imdb),
-            'tmdb'         => $tmdb,
+            'category_id'  => $request->category_id,
+            'title'        => urldecode($request->title),
+            'imdb'         => $request->imdb,
+            'tmdb'         => $request->tmdb,
+            'mal'          => $request->mal,
+            'tvdb'         => $request->tvdb,
+            'igdb'         => $request->igdb,
         ]);
     }
 
