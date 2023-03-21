@@ -324,11 +324,11 @@
                     @endif
                     <li>
                         @if ($torrent->isApproved())
-                            Approved By: <x-user_tag :user="$torrent->user" :anon="false" />
+                            Approved By: <x-user_tag :user="$torrent->moderated" :anon="false" />
                         @elseif ($torrent->isPostponed())
-                            Postponed By: <x-user_tag :user="$torrent->user" :anon="false" />
+                            Postponed By: <x-user_tag :user="$torrent->moderated" :anon="false" />
                         @elseif ($torrent->isRejected())
-                            Rejected By: <x-user_tag :user="$torrent->user" :anon="false" />
+                            Rejected By: <x-user_tag :user="$torrent->moderated" :anon="false" />
                         @else
                             Unmoderated
                         @endif
