@@ -120,7 +120,7 @@ class RequestController extends Controller
     /**
      * Torrent Request Add Form.
      */
-    public function addRequestForm(Request $request, string $title = '', int $imdb = 0, int $tmdb = 0): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function addRequestForm(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
 
@@ -129,9 +129,13 @@ class RequestController extends Controller
             'types'       => Type::all()->sortBy('position'),
             'resolutions' => Resolution::all()->sortBy('position'),
             'user'        => $user,
-            'title'       => $title,
-            'imdb'        => str_replace('tt', '', $imdb),
-            'tmdb'        => $tmdb,
+            'category_id' => $request->category_id,
+            'title'       => urldecode($request->title),
+            'imdb'        => $request->imdb,
+            'tmdb'        => $request->tmdb,
+            'mal'         => $request->mal,
+            'tvdb'        => $request->tvdb,
+            'igdb'        => $request->igdb,
         ]);
     }
 

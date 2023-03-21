@@ -158,7 +158,7 @@ Route::group(['middleware' => 'language'], function (): void {
         });
 
         Route::group(['prefix' => 'requests'], function (): void {
-            Route::get('/add/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\RequestController::class, 'addRequestForm'])->name('add_request_form');
+            Route::get('/add', [App\Http\Controllers\RequestController::class, 'addRequestForm'])->name('add_request_form');
             Route::post('/add', [App\Http\Controllers\RequestController::class, 'addRequest'])->name('add_request');
             Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequestForm'])->name('edit_request_form');
             Route::post('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequest'])->name('edit_request');
@@ -182,7 +182,7 @@ Route::group(['middleware' => 'language'], function (): void {
 
         // Torrents System
         Route::group(['prefix' => 'upload'], function (): void {
-            Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
+            Route::get('/', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
             Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('upload');
             Route::post('/preview', [App\Http\Controllers\TorrentController::class, 'preview']);
         });

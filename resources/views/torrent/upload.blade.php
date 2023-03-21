@@ -285,7 +285,7 @@
                                 id="autotvdb"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="cats[cat].type === 'tv' ? '{{ old('tvdb') }}' : '0'"
+                                x-bind:value="cats[cat].type === 'tv' ? '{{ $tvdb ?: old('tvdb') }}' : '0'"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'tv'"
                             >
@@ -299,7 +299,7 @@
                                 id="automal"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') }}' : '0'"
+                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $mal ?: old('mal') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                                 class="form__text"
                                 placeholder=""
@@ -314,7 +314,7 @@
                             id="autoigdb"
                             inputmode="numeric"
                             pattern="[0-9]*"
-                            x-bind:value="cats[cat].type === 'game' ? '{{ old('igdb') }}' : '0'"
+                            x-bind:value="cats[cat].type === 'game' ? '{{ $igdb ?: old('igdb') }}' : '0'"
                             class="form__text"
                             x-bind:required="cats[cat].type === 'game'"
                         >

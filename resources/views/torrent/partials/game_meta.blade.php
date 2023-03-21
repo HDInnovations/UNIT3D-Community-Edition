@@ -19,8 +19,29 @@
         </a>
         <ul class="meta__dropdown">
             <li>
-                <a href="{{ route('upload_form', ['category_id' => $category->id, 'title' => rawurlencode($meta->name ?? $meta->title ?? '') ?? 'Unknown']) }}">
+                <a href="{{ route('upload_form', [
+                    'category_id' => $category->id,
+                    'title'       => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                    'imdb'        => $torrent->imdb ?? '',
+                    'tmdb'        => $torrent->tmdb ?? '',
+                    'mal'         => $torrent->mal ?? '',
+                    'tvdb'        => $torrent->tvdb ?? '',
+                    'igdb'        => $torrent->igdb ?? '',
+                ]) }}">
                     {{ __('common.upload') }}
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('add_request_form', [
+                    'category_id' => $category->id,
+                    'title'       => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                    'imdb'        => $torrent->imdb ?? '',
+                    'tmdb'        => $torrent->tmdb ?? '',
+                    'mal'         => $torrent->mal ?? '',
+                    'tvdb'        => $torrent->tvdb ?? '',
+                    'igdb'        => $torrent->igdb ?? '',
+                ]) }}">
+                    Request similar
                 </a>
             </li>
         </ul>

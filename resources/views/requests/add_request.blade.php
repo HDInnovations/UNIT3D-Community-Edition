@@ -46,7 +46,7 @@
                         >
                             <option hidden selected disabled value=""></option>
                             @foreach ($categories as $category)
-                                <option class="form__option" value="{{ $category->id }}">
+                                <option class="form__option" value="{{ $category->id }}" @selected((old('category_id') ?: $category_id) ==  $category->id)>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -102,7 +102,7 @@
                                 pattern="[0-9]*"
                                 required
                                 type="text"
-                                x-bind:value="{{ $tmdb ?: old('tmdb') }}"
+                                value="{{ $tmdb ?: old('tmdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autotmdb">TMDB ID</label>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
@@ -117,7 +117,7 @@
                                 pattern="[0-9]*"
                                 required
                                 type="text"
-                                x-bind:value="{{ $imdb ?: old('imdb') }}"
+                                value="{{ $imdb ?: old('imdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autoimdb">IMDB ID</label>
                         </p>
@@ -131,7 +131,7 @@
                                 pattern="[0-9]*"
                                 placeholder=""
                                 type="text"
-                                x-bind:value="{{ old('tvdb') }}"
+                                value="{{ $tvdb ?: old('tvdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autotvdb">TVDB ID</label>
                         </p>
@@ -145,7 +145,7 @@
                                 pattern="[0-9]*"
                                 placeholder=""
                                 type="text"
-                                value="{{ old('mal') }}"
+                                value="{{ $mal ?: old('mal') }}"
                             >
                             <label class="form__label form__label--floating" for="automal">MAL ID ({{ __('torrent.required-anime') }})</label>
                         </p>
@@ -158,7 +158,7 @@
                                 pattern="[0-9]*"
                                 placeholder
                                 type="text"
-                                value="{{ old('igdb') ?? '0' }}"
+                                value="{{ $igdb ?: old('igdb') ?? '0' }}"
                             >
                             <label class="form__label form__label--floating" for="name">
                                 IGDB ID ({{ __('request.required') }} For Games)
