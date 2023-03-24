@@ -46,7 +46,7 @@
     @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
         <i
             class="{{ config('other.font-awesome') }} fa-chevron-double-up text-green torrent-icons__double-upload"
-            title="@if(config('other.doubleup')){{ __('torrent.global-double-upload') }}&NewLine;@endif&ZeroWidthSpace;@if(auth()->user()->group->is_double_upload){{ __('torrent.special-double_upload') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->doubleup > 0){{ $torrent->doubleup }}% {{ __('torrent.double-upload') }}@if($torrent->du_until !== null) (expires {{ $torrent->du_until->diffForHumans() }})@endif&ZeroWidthSpace;@endif"
+            title="@if(config('other.doubleup')){{ __('torrent.global-double-upload') }}&NewLine;@endif&ZeroWidthSpace;@if(auth()->user()->group->is_double_upload){{ __('torrent.special-double_upload') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->doubleup > 0)100% {{ __('torrent.double-upload') }}@if($torrent->du_until !== null) (expires {{ $torrent->du_until->diffForHumans() }})@endif&ZeroWidthSpace;@endif"
         ></i>
     @endif
     @if ($torrent->sticky)
