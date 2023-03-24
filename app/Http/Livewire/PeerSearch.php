@@ -167,7 +167,14 @@ class PeerSearch extends Component
             ->when(
                 $this->duplicateIpsOnly,
                 fn ($query) => $query
-                    ->whereIn('peers.ip', Peer::select('ip')->groupBy('ip')->havingRaw('COUNT(ip) > 1'))
+                    ->whereIn(
+                        'peers.ip',
+                        Peer::query()
+                            ->select('ip')
+                            ->fromSub(Peer::select('ip', 'user_id')->distinct(), 'distinct_ips')
+                            ->groupBy('ip')
+                            ->havingRaw('COUNT(*) > 1')
+                    )
             )
             ->when(
                 $this->includeSeedsize,
@@ -185,7 +192,7 @@ class PeerSearch extends Component
                             ->selectRaw('SUM(IF(peers.connectable = 0, torrents.size, 0)) as unconnectable_size')
                     )
             )
-            ->when($this->ip !== '', fn ($query) => $query->having('peers.ip', 'LIKE', '%'.$this->ip.'%'))
+            ->when($this->ip !== '', fn ($query) => $query->having('ip', 'LIKE', '%'.$this->ip.'%'))
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', '=', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', '%'.$this->agent.'%'))
             ->when($this->torrent !== '', fn ($query) => $query->whereIn(
