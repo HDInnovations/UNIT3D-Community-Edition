@@ -35,7 +35,7 @@ class GeneralSettingController extends Controller
             'style'          => 'required|numeric',
             'custom_css'     => 'nullable|url',
             'standalone_css' => 'nullable|url',
-            'torrent_layout' => ['required', Rule::in([0])],
+            'torrent_layout' => ['required', Rule::in([0, 1, 2])],
             'show_poster'    => 'required|boolean',
             'ratings'        => ['required', Rule::in([0, 1])],
         ]);

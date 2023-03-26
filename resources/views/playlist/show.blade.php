@@ -137,8 +137,8 @@
                 <p class="playlist__author">
                     <x-user_tag :user="$playlist->user" :anon="false" />
                 </p>
-                <p class="playlist__description">
-                    {{ $playlist->description }}
+                <p class="playlist__description bbcode-rendered">
+                    @joypixels($playlist->getDescriptionHtml())
                 </p>
             </div>
         </div>
@@ -150,7 +150,7 @@
                 @php
                     $meta = match(1) {
                         $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
-                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'cast', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
+                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
                         $playlistTorrent->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
                         default => null,
                     };

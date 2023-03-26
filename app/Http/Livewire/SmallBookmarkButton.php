@@ -14,40 +14,32 @@
 namespace App\Http\Livewire;
 
 use App\Models\Torrent;
+use App\Models\User;
 use Livewire\Component;
 
 class SmallBookmarkButton extends Component
 {
-    public $torrent;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
-    final public function mount($torrent): void
-    {
-        $this->user = auth()->user();
-        $this->torrent = Torrent::withAnyStatus()->findOrFail($torrent);
-    }
-
-    final public function getIsBookmarkedProperty(): int
-    {
-        return $this->torrent->bookmarked() ? 1 : 0;
-    }
+    public Torrent $torrent;
+    public bool $isBookmarked;
+    public User $user;
 
     final public function store(): void
     {
-        if ($this->user->isBookmarked($this->torrent->id)) {
+        if ($this->user->bookmarks()->where('torrent_id', '=', $this->torrent->id)->exists()) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Torrent Has Already Been Bookmarked!']);
 
             return;
         }
 
         $this->user->bookmarks()->attach($this->torrent->id);
+        $this->isBookmarked = true;
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Bookmarked Successfully!']);
     }
 
     final public function destroy(): void
     {
         $this->user->bookmarks()->detach($this->torrent->id);
+        $this->isBookmarked = false;
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
     }
 

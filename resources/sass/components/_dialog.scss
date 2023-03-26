@@ -15,6 +15,12 @@
     bottom: calc(50vh - (100vh - 12px) / 2);
 }
 
+.dialog--auto-width {
+    width: max-content;
+    left: 0;
+    right: 0;
+}
+
 .dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.67);
 }

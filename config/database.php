@@ -1,15 +1,6 @@
 <?php
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D Community Edition
- *
- * @author     HDVinnie <hdinnovations@protonmail.com>
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- */
+
+use Illuminate\Support\Str;
 
 return [
 
@@ -70,7 +61,6 @@ return [
             'options'        => \extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
-
             'dump' => [
                 'dump_binary_path' => '/usr/bin', // only the path, so without `mysqldump` or `pg_dump`
                 'use_single_transaction',
@@ -105,6 +95,8 @@ return [
             'charset'        => 'utf8',
             'prefix'         => '',
             'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
     ],
@@ -135,15 +127,20 @@ return [
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'predis'),
+        'client' => env('REDIS_CLIENT', 'phpredis'),
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix'  => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+        ],
 
         'default' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
             'username'           => env('REDIS_USERNAME'),
-            'password'           => env('REDIS_PASSWORD', null),
-            'port'               => env('REDIS_PORT', 6379),
-            'database'           => env('REDIS_DB', 0),
+            'password'           => env('REDIS_PASSWORD'),
+            'port'               => env('REDIS_PORT', '6379'),
+            'database'           => env('REDIS_DB', '0'),
             'read_write_timeout' => -1,
         ],
 
@@ -151,9 +148,9 @@ return [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
             'username'           => env('REDIS_USERNAME'),
-            'password'           => env('REDIS_PASSWORD', null),
-            'port'               => env('REDIS_PORT', 6379),
-            'database'           => env('REDIS_CACHE_DB', 1),
+            'password'           => env('REDIS_PASSWORD'),
+            'port'               => env('REDIS_PORT', '6379'),
+            'database'           => env('REDIS_CACHE_DB', '1'),
             'read_write_timeout' => -1,
         ],
 

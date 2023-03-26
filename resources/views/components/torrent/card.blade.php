@@ -105,7 +105,7 @@
             <ul class="torrent-card__genres">
                 @foreach($meta->genres as $genre)
                     <li class="torrent-card__genre-item">
-                        <a class="torrent-card__genre" href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                        <a class="torrent-card__genre" href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}">
                             {{ $genre->name }}
                         </a>
                     </li>

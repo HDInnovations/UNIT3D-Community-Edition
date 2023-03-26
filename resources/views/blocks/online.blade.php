@@ -1,60 +1,41 @@
-<div class="col-md-10 col-sm-10 col-md-offset-1">
-    <div class="clearfix visible-sm-block"></div>
-    <div class="panel panel-chat shoutbox">
-        <div class="panel-heading">
-            <h4><i class="{{ config('other.font-awesome') }} fa-users"></i> {{ __('blocks.users-online') }}
-                <span class="label label-default">{{ $users->count() }}</span>
-            </h4>
-        </div>
-
-        <div class="panel-body">
+<section class="panelV2">
+    <h2 class="panel__heading">
+        <i class="{{ config('other.font-awesome') }} fa-users"></i>
+        {{ __('blocks.users-online') }} ({{ $users->count() }})
+    </h2>
+    <div class="panel__body">
+        <ul style="display: flex; flex-wrap: wrap; column-gap: 1rem; list-style-type: none; padding: 0">
             @foreach ($users as $user)
-                @if ($user->hidden == 1 || !$user->isVisible($user, 'other', 'show_online'))
-                    <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
-                        <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i>
-                        {{ strtoupper(__('common.hidden')) }}
-                        @if (auth()->user()->group->is_modo)
-                            <a href="{{ route('users.show', ['username' => $user->username]) }}">
-                                {{ $user->username }}
-                                @if ($user->warnings_count > 0)
-                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
-                                       title="{{ __('common.active-warning') }}"></i>
-                                @endif
-                            </a>
+                <li>
+                    <x-user_tag :user="$user" :anon="$user->hidden || ! $user->isVisible($user, 'other', 'show_online')">
+                        @if ($user->warnings_count > 0)
+                            <x-slot:appended-icons>
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                    title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
+                                ></i>
+                            </x-slot>
                         @endif
-                    </span>
-                @else
-                    <a href="{{ route('users.show', ['username' => $user->username]) }}">
-                        <span class="badge-user text-bold"
-                              style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }}; margin-bottom: 10px;">
-                            <i class="{{ $user->group->icon }}" title="{{ $user->group->name }}"></i>
-                            {{ $user->username }}
-                            @if ($user->warnings_count > 0)
-                                <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
-                                   title="{{ __('common.active-warning') }}"></i>
-                            @endif
-                        </span>
-                    </a>
-                @endif
+                    </x-user_tag>
+                </li>
             @endforeach
-        </div>
-        <div class="panel-footer">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center">
-                        <span class="badge-user text-orange text-bold">
-                            <i class="{{ config('other.font-awesome') }} fa-eye-slash" aria-hidden="true"></i>
-                            {{ strtoupper(__('common.hidden')) }}
-                        </span>
-                        @foreach ($groups as $group)
-                            <span class="badge-user text-bold"
-                                  style="color:{{ $group->color }}; background-image:{{ $group->effect }};">
-                                <i class="{{ $group->icon }}" aria-hidden="true"></i> {{ $group->name }}
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
+        </ul>
+        <hr>
+        <ul style="display: flex; flex-wrap: wrap; column-gap: 1rem; list-style-type: none; padding: 0; justify-content: center">
+            @foreach ($groups as $group)
+                <x-user_tag
+                    :user="(object) [
+                        'username' => $group->name,
+                        'group'    => (object) [
+                            'icon'   => $group->icon,
+                            'color'  => $group->color,
+                            'effect' => $group->effect,
+                            'name'   => $group->name,
+                        ]
+                    ]"
+                    :anon="false"
+                />
+            @endforeach
+        </ul>
     </div>
-</div>
+</section>

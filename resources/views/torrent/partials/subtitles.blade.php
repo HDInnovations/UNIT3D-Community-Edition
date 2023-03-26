@@ -1,85 +1,154 @@
-<div class="panel panel-chat shoutbox torrent-subtitles">
-    <div class="panel-heading">
-        <h4>
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">
             <i class="{{ config("other.font-awesome") }} fa-closed-captioning"></i> {{ __('common.subtitles') }}
-            <a href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}" class="btn btn-xs btn-primary"
-               style="float: right;"
-               title="{{ __('common.add') }} {{ __('common.subtitle') }}">{{ __('common.add') }} {{ __('common.subtitle') }}</a>
-        </h4>
-    </div>
+        </h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <a
+                    href="{{ route('subtitles.create', ['torrent_id' => $torrent->id]) }}"
+                    class="form__button form__button--text"
+                >
 
-    <div class="table-responsive">
-        <table class="table table-condensed table-bordered table-striped">
+                    {{ __('common.add') }} {{ __('common.subtitle') }}
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="data-table-wrapper">
+        <table class="data-table">
             <thead>
-            <tr>
-                <th>{{ __('common.language') }}</th>
-                <th>{{ __('common.download') }}</th>
-                <th>{{ __('subtitle.extension') }}</th>
-                <th>{{ __('subtitle.size') }}</th>
-                <th>{{ __('subtitle.downloads') }}</th>
-                <th>{{ __('subtitle.uploaded') }}</th>
-                <th>{{ __('subtitle.uploader') }}</th>
-            </tr>
+                <tr>
+                    <th>{{ __('common.language') }}</th>
+                    <th>Note</th>
+                    <th>{{ __('subtitle.extension') }}</th>
+                    <th>{{ __('subtitle.size') }}</th>
+                    <th>{{ __('subtitle.downloads') }}</th>
+                    <th>{{ __('subtitle.uploaded') }}</th>
+                    <th>{{ __('subtitle.uploader') }}</th>
+                    <th>{{ __('common.actions') }}</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($torrent->subtitles as $subtitle)
-                <tr>
-                    <td>
-                        {{ $subtitle->language->name }}
-                        <i class="{{ config("other.font-awesome") }} fa-closed-captioning"
-                           title="{{ $subtitle->note }}"></i>
-                    </td>
-                    <td>
-                        <a href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
-                           class="btn btn-xs btn-warning">{{ __('common.download') }}</a>
-                    </td>
-                    <td>{{ $subtitle->extension }}</td>
-                    <td>{{ $subtitle->getSize() }}</td>
-                    <td>{{ $subtitle->downloads }}</td>
-                    <td>{{ $subtitle->created_at->diffForHumans() }}</td>
-                    <td>
-                        @if ($subtitle->anon == true)
-                            <span class="badge-user text-orange text-bold">{{ strtoupper(__('common.anonymous')) }}
-                                @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
-                                    <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
-                                    ({{ $subtitle->user->username }})
-                                </a>
+                @forelse($torrent->subtitles as $subtitle)
+                    <tr>
+                        <td>{{ $subtitle->language->name }}</td>
+                        <td>{{ $subtitle->note }}</td>
+                        <td>{{ $subtitle->extension }}</td>
+                        <td>{{ $subtitle->getSize() }}</td>
+                        <td>{{ $subtitle->downloads }}</td>
+                        <td>{{ $subtitle->created_at->diffForHumans() }}</td>
+                        <td>
+                            <x-user_tag :user="$subtitle->user" :anon="$subtitle->anon" />
+                        </td>
+                        <td>
+                            <menu class="data-table__actions">
+                                <li class="data-table__action">
+                                    <a
+                                        href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                                        class="form__button form__button--text"
+                                        title="{{ __('common.download') }}"
+                                        download
+                                    >
+                                        {{ __('common.download') }}
+                                    </a>
+                                </li>
+                                @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
+                                    <li class="data-table__action">
+                                        <span x-data>
+                                            <button
+                                                class="form__button form__button--text"
+                                                title="{{ __('common.edit') }}"
+                                                x-on:click.stop="$refs.dialog.showModal()"
+                                            >
+                                                {{ __('common.edit') }}
+                                            </button>
+                                            <dialog class="dialog" x-ref="dialog">
+                                                <h4 class="dialog__heading">
+                                                    {{ __('common.edit') }} {{ __('common.subtitle') }}
+                                                </h4>
+                                                <form
+                                                    class="dialog__form"
+                                                    method="POST"
+                                                    action="{{ route('subtitles.update', ['id' => $subtitle->id]) }}"
+                                                    x-on:click.outside="$refs.dialog.close()"
+                                                >
+                                                    @csrf
+                                                    <input id="torrent_id" name="torrent_id" type="hidden" value="{{ $torrent->id }}">
+                                                    <p class="form__group">
+                                                        <select class="form__select" id="language_id" name="language_id" required>
+                                                            <option value="{{ $subtitle->language_id }}" selected>
+                                                                {{ $subtitle->language->name }} ({{ __('torrent.current') }})
+                                                            </option>
+                                                            @foreach (App\Models\MediaLanguage::all()->sortBy('name') as $media_language)
+                                                                <option value="{{ $media_language->id }}">
+                                                                    {{ $media_language->name }} ({{ $media_language->code }})
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <label class="form__label form__label--floating" for="torrent_id">{{ __('common.language') }}</label>
+                                                    </p>
+                                                    <p class="form__group">
+                                                        <input
+                                                            id="note"
+                                                            class="form__text"
+                                                            name="note"
+                                                            type="text"
+                                                            value="{{ $subtitle->note }}"
+                                                            required
+                                                        >
+                                                        <label class="form__label form__label--floating" for="note">{{ __('subtitle.note') }}</label>
+                                                    </p>
+                                                    <p class="form__group">
+                                                        <button class="form__button form__button--filled">
+                                                            {{ __('common.save') }}
+                                                        </button>
+                                                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                                            {{ __('common.cancel') }}
+                                                        </button>
+                                                    </p>
+                                                </form>
+                                            </dialog>
+                                        </span>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            method="POST"
+                                            action="{{ route('subtitles.destroy', ['id' => $subtitle->id]) }}"
+                                            x-data
+                                            style="display: inline"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <input id="torrent_id" name="torrent_id" type="hidden" value="{{ $torrent->id }}">
+                                            <button
+                                                x-on:click.prevent="Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: 'Are you sure you want to deactivate this subtitle: {{ $subtitle->language->name }}?',
+                                                    icon: 'warning',
+                                                    showConfirmButton: true,
+                                                    showCancelButton: true,
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $root.submit();
+                                                    }
+                                                })"
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
                                 @endif
-                        </span>
-                        @else
-                            <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
-                            <span class="badge-user text-bold"
-                                  style="color:{{ $subtitle->user->group->color }}; background-image:{{ $subtitle->user->group->effect }};">
-                                <i class="{{ $subtitle->user->group->icon }}"
-                                   title="{{ $subtitle->user->group->name }}"></i> {{ $subtitle->user->username }}
-                            </span>
-                            </a>
-                        @endif
-
-                        @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
-                            <div class="align-right" style="display: inline-block;">
-                                @include('subtitle.modals', ['subtitle' => $subtitle, 'torrent' => $torrent, 'media_languages' => App\Models\MediaLanguage::all()->sortBy('name')])
-                                <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}"
-                                   title="{{ __('common.edit') }} {{ __('common.subtitle') }}"><i
-                                            class="fa fa-edit text-green"></i></a>
-                                <a data-toggle="modal" data-target="#modal_delete_subtitle-{{ $subtitle->id }}"
-                                   title="{{ __('common.delete') }} {{ __('common.subtitle') }}"><i
-                                            class="fa fa-trash text-red"></i></a>
-                            </div>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
+                            </menu>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7">No External Subtitles Available</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
-    <div class="panel-footer text-center">
-        @if (count($torrent->subtitles) === 0)
-            <div class="text-center">
-                <h4 class="text-bold text-danger">
-                    <i class="{{ config('other.font-awesome') }} fa-frown"></i> No External Subtitles Availible
-                </h4>
-            </div>
-        @endif
-    </div>
-</div>
+</section>

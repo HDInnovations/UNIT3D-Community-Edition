@@ -67,12 +67,19 @@
     --icon-button-border-radius: 9999px;
     --icon-button-fg: currentColor;
 
+    --icon-button-filled-bg: #444;
+    --icon-button-filled-fg: white;
+    --icon-button-filled-border: none;
+
     --input-text-border: 1px solid #555;
     --input-text-border-active: 2px solid #2195f3;
     --input-text-border-error: 1px solid #ba1b1b;
     --input-text-border-hover: 2px solid #999;
     --input-text-border-radius: 5px;
     --input-text-fg: #bbb;
+    --input-text-padding: 12px;
+    --input-text-padding-active: 11px;
+    --input-text-padding-hover: 11px;
 
     --key-value-even-bg: #222;
     --key-value-fg: inherit;
@@ -84,6 +91,27 @@
     --label-fg-active: #2195f3;
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
+    --meta-backdrop-filter:  brightness(30%);
+    --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
+    --meta-dropdown-bg: #4449;
+    --meta-dropdown-backdrop-filter-hover:  brightness(2) blur(10px);
+    --meta-dropdown-hover-bg: rgba(255,255,255,0.1);
+    --meta-dropdown-fg: #bbb;
+    --meta-dropdown-hover-fg: #ccc;
+    --meta-description-fg: #ddd;
+    --meta-id-tag-fg: #eee;
+    --meta-id-tag-bg: transparent;
+    --meta-id-tag-hover-fg: #fff;
+    --meta-id-tag-hover-bg: rgba(255,255,255,0.1);
+    --meta-chips-heading-fg: #bbb;
+    --meta-chip-icon-fg: #1f1f1f;
+    --meta-chip-icon-hover-bg: #bbb;
+    --meta-chip-icon-bg: #cdcdcd;
+    --meta-chip-name-fg: #e2e2e2;
+    --meta-chip-value-fg: #aaa;
+    --meta-chip-value-hover-fg: #ccc;
+    --meta-chip-backdrop-filter-hover:  brightness(2) blur(10px);
+    --meta-chip-hover-bg: rgba(255,255,255,0.1);
 
     --meter-fg: #333;
     --meter-bg: #505050;
@@ -128,6 +156,10 @@
     --select-border-hover: 2px solid #999;
     --select-border-radius: 5px;
     --select-fg: #bbb;
+    --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23bbb' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+    --select-padding: 11px 23px 11px 11px;
+    --select-padding-active: 10px 22px 10px 10px;
+    --select-padding-hover: 10px 22px 10px 10px;
 
     --textarea-border: 1px solid #555;
     --textarea-border-active: 2px solid #2196f3;
@@ -135,6 +167,9 @@
     --textarea-border-hover: 2px solid #999;
     --textarea-border-radius: 5px;
     --textarea-fg: #bbb;
+    --textarea-padding: 12px;
+    --textarea-padding-active: 11px;
+    --textarea-padding-hover: 11px;
 
     --torrent-card-bg: #222;
     --torrent-card-fg: inherit;
@@ -143,6 +178,40 @@
     --torrent-card-head-fg: #fff;
     --torrent-card-link-fg: #fff;
     --torrent-card-genre-fg: #fff;
+
+    --torrent-group-bg: #1c1c1c;
+    --torrent-group-header-bg: #303030;
+    --torrent-group-text: white;
+    --torrent-group-text-muted: #878787;
+    --torrent-group-table-stripe: rgba(255, 255, 255, 0.05);
+    --torrent-group-hover-brightness-emphasis: 1.2;
+    --torrent-group-chip-border: rgba(255, 255, 255, 0.05);
+
+    --torrent-row-fg: #ccc;
+    --torrent-row-visited-fg: #ccc;
+    --torrent-row-sticky-bg: #19191b;
+    --torrent-row-format-fg: #ccc;
+    --torrent-row-format-bg: #3c3c3c;
+    --torrent-row-seeders-fg: #ddd;
+    --torrent-row-leechers-fg: #ddd;
+    --torrent-row-completed-fg: #ddd;
+    --torrent-row-thanks-fg: #ddd;
+    --torrent-row-comments-fg: #ddd;
+    --torrent-row-internal-fg: #ddd;
+    --torrent-row-personal-fg: #ddd;
+    --torrent-row-stream-optimized-fg: #ddd;
+    --torrent-row-featured-fg: #ddd;
+    --torrent-row-freeleech-fg: #ddd;
+    --torrent-row-double-upload-fg: #ddd;
+    --torrent-row-sticky-fg: #ddd;
+    --torrent-row-highspeed-fg: #ddd;
+    --torrent-row-sd-fg: #ddd;
+    --torrent-row-bumped-fg: #ddd;
+
+    --torrent-tag-fg: #eee;
+    --torrent-tag-bg: transparent;
+    --torrent-tag-hover-fg: #fff;
+    --torrent-tag-hover-bg: rgba(255,255,255,0.1);
 }
 
 body {

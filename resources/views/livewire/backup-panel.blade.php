@@ -15,7 +15,7 @@
                     {{ __('backup.create_a_new_files_backup') }}
                 </a>
                 <button
-                    class="form__contained-icon-button form__contained-icon-button--filled"
+                    class="form__standard-icon-button"
                     wire:loading.attr="disabled"
                     wire:click="updateBackupStatuses"
                 >

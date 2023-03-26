@@ -84,7 +84,10 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        $torrent = Torrent::withAnyStatus()->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])->findOrFail($id);
+        $torrent = Torrent::withAnyStatus()
+            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
+            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
+            ->findOrFail($id);
         $freeleechToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
         $personalFreeleech = cache()->get('personal_freeleech:'.$user->id);
         $totalTips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
@@ -96,12 +99,25 @@ class TorrentController extends Controller
         $trailer = null;
         $platforms = null;
         if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-            $meta = Tv::with('genres', 'cast', 'companies', 'networks', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
+            $meta = Tv::with([
+                'genres',
+                'credits' => ['person', 'occupation'],
+                'companies',
+                'networks',
+                'recommendations'
+            ])->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
         if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-            $meta = Movie::with('genres', 'cast', 'companies', 'collection', 'recommendations')->where('id', '=', $torrent->tmdb)->first();
+            $meta = Movie::with([
+                'genres',
+                'credits' => ['person', 'occupation'],
+                'companies',
+                'collection',
+                'recommendations'
+            ])
+                ->where('id', '=', $torrent->tmdb)->first();
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
@@ -378,7 +394,7 @@ class TorrentController extends Controller
     /**
      * Torrent Upload Form.
      */
-    public function create(Request $request, int $categoryId = 0, string $title = '', string $imdb = '0', string $tmdb = '0'): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         $categories = [];
@@ -404,10 +420,13 @@ class TorrentController extends Controller
             'regions'      => Region::all()->sortBy('position'),
             'distributors' => Distributor::all()->sortBy('position'),
             'user'         => $user,
-            'category_id'  => $categoryId,
-            'title'        => $title,
-            'imdb'         => str_replace('tt', '', $imdb),
-            'tmdb'         => $tmdb,
+            'category_id'  => $request->category_id,
+            'title'        => urldecode($request->title),
+            'imdb'         => $request->imdb,
+            'tmdb'         => $request->tmdb,
+            'mal'          => $request->mal,
+            'tvdb'         => $request->tvdb,
+            'igdb'         => $request->igdb,
         ]);
     }
 

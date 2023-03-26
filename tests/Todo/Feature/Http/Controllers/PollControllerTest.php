@@ -59,7 +59,7 @@ class PollControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('poll', ['id' => $poll->id]));
 
-        $response->assertRedirect(withInfo('You have already vote on this poll. Here are the results.'));
+        $response->assertRedirect(withInfo('You have already voted on this poll. Here are the results.'));
 
         // TODO: perform additional assertions
     }
@@ -77,7 +77,7 @@ class PollControllerTest extends TestCase
             // TODO: send request data
         ]);
 
-        $response->assertRedirect(withErrors('Bro have already vote on this poll. Your vote has not been counted.'));
+        $response->assertRedirect(withErrors('You have already voted on this poll. Your vote has not been counted.'));
 
         // TODO: perform additional assertions
     }

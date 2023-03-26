@@ -14,10 +14,10 @@
 return [
     'about'      => 'O',
     'bot'        => 'Bot',
-    'bots'       => 'Bots',
+    'bots'       => 'Boti',
     'color'      => 'Barva',
     'command'    => 'Příkaz',
-    'edit-bot'   => 'Upravit Bot',
+    'edit-bot'   => 'Upravit Bota',
     'emoji-code' => 'Kód Emoji',
     'help'       => 'Pomoc',
     'icon'       => 'Ikona',

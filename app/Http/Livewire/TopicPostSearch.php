@@ -46,6 +46,7 @@ class TopicPostSearch extends Component
                 'likes'                  => fn ($query) => $query->where('like', '=', 1),
                 'likes as dislike_count' => fn ($query) => $query->where('dislike', '=', 1),
             ])
+            ->withSum('tips', 'cost')
             ->where('topic_id', '=', $this->topic->id)
             ->join('topics', 'topics.id', '=', 'posts.topic_id')
             ->join(

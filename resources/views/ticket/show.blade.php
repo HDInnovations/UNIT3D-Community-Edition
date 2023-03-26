@@ -77,7 +77,7 @@
                         <select name="user_id" class="form__select" x-on:change="$root.submit()">
                             <option hidden disabled selected value=""></option>
                             @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
-                                <option value="{{ $user->id }}" @selected($user->id = $ticket->staff_id)>
+                                <option value="{{ $user->id }}" @selected($user->id === $ticket->staff_id)>
                                     {{ $user->username }}
                                 </option>
                             @endforeach
