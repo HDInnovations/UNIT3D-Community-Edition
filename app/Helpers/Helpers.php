@@ -156,6 +156,7 @@ if (! \function_exists('language_flag')) {
             'French (CA)' => 'can-qc',
             'Georgian'    => 'ge',
             'German', 'German (DE)' => 'de',
+            'German (CH)' => 'ch',
             'Greek', 'Greek (GR)' => 'gr',
             'Hebrew', 'Hebrew (IL)' => 'il',
             'Hindi', 'Tamil', 'Telugu', 'Hindi (IN)', 'Tamil (IN)', 'Telugu (IN)' => 'in',
