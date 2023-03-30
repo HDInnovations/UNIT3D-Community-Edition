@@ -29,6 +29,7 @@ use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -83,6 +84,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->save();
 
                 cache()->forget('user:'.$user->passkey);
+                Unit3dAnnounce::addUser($user);
 
                 // Removes UserID from Torrents if any and replaces with System UserID (1)
                 foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {

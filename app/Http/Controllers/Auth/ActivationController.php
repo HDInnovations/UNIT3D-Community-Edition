@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
+use App\Services\Unit3dAnnounce;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Auth\ActivationControllerTest
@@ -39,6 +40,8 @@ class ActivationController extends Controller
             $activation->user->save();
 
             $activation->delete();
+
+            Unit3dAnnounce::addUser($activation->user);
 
             return to_route('login')
                 ->withSuccess(trans('auth.activation-success'));

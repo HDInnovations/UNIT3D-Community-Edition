@@ -18,6 +18,7 @@ use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -128,6 +129,8 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
+        Unit3dAnnounce::addTorrent($torrent);
+
         return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
     }
@@ -147,6 +150,8 @@ class TorrentBuffController extends Controller
             $torrent->doubleup = '1';
             $torrent->featured = '1';
             $torrent->save();
+
+            Unit3dAnnounce::addTorrent($torrent);
 
             $featured = new FeaturedTorrent();
             $featured->user_id = $user->id;
@@ -185,6 +190,8 @@ class TorrentBuffController extends Controller
             $torrent->doubleup = '0';
             $torrent->featured = '0';
             $torrent->save();
+
+            Unit3dAnnounce::addTorrent($torrent);
 
             $appurl = config('app.url');
 
@@ -232,6 +239,8 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
+        Unit3dAnnounce::addTorrent($torrent);
+
         return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
@@ -251,6 +260,8 @@ class TorrentBuffController extends Controller
             $freeleechToken->user_id = $user->id;
             $freeleechToken->torrent_id = $torrent->id;
             $freeleechToken->save();
+
+            Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
 
             $user->fl_tokens -= '1';
             $user->save();

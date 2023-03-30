@@ -19,6 +19,8 @@ use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Str;
 
 /**
@@ -84,6 +86,10 @@ class GroupController extends Controller
         Group::where('id', '=', $id)->update(['slug' => Str::slug($request->name)] + $request->validated());
 
         cache()->forget('group:'.$id);
+
+        foreach (User::where('group_id', '=', $id)->get() as $user) {
+            Unit3dAnnounce::addUser($user);
+        }
 
         return to_route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');

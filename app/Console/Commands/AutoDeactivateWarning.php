@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Warning;
 use App\Notifications\UserManualWarningExpire;
 use App\Notifications\UserWarningExpire;
+use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -78,6 +79,7 @@ class AutoDeactivateWarning extends Command
                 $warning->warneduser->save();
 
                 cache()->forget('user:'.$warning->warneduser->passkey);
+                Unit3dAnnounce::addUser($warning->warneduser);
             }
         }
 
