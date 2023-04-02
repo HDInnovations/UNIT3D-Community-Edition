@@ -1,16 +1,18 @@
-.page__torrents:not(:has(.torrent-search--grouped__results)) {
-  margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
-}
-
-@media only screen and (min-width: 1600px) {
+@supports selector(:has(.torrent-search-grouped_-results)) {
   .page__torrents:not(:has(.torrent-search--grouped__results)) {
-    margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
   }
-}
 
-@media only screen and (min-width: 2500px) {
-  .page__torrents:not(:has(.torrent-search--grouped__results)) {
-    margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+  @media only screen and (min-width: 1600px) {
+    .page__torrents:not(:has(.torrent-search--grouped__results)) {
+      margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+  }
+
+  @media only screen and (min-width: 2500px) {
+    .page__torrents:not(:has(.torrent-search--grouped__results)) {
+      margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    }
   }
 }
 
@@ -20,8 +22,16 @@
   row-gap: 2rem;
 }
 
-.torrent-search__filters {
-  margin: 0 max(12px, 45vw - 600px)
+@supports selector(:has(.torrent-search-grouped_-results)) {
+  .torrent-search__filters {
+    margin: 0 max(12px, 45vw - 600px)
+  }
+}
+
+@supports not selector(:has(.torrent-search-grouped_-results)) {
+  .torrent-search__filters {
+    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px));
+  }
 }
 
 .torrent-search__results {
