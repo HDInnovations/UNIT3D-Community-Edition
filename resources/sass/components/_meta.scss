@@ -19,6 +19,7 @@
 .meta__description {
     grid-area: description;
     max-height: 150px;
+    overflow-y: auto;
     color: var(--meta-description-fg);
 }
 
