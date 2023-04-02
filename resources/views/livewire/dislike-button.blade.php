@@ -8,5 +8,5 @@
     @else
         <i class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"></i>
     @endif
-    <span class="votes__dislike-count">{{ $post->dislike_count }}</span>
+    <span class="votes__dislike-count">{{ $dislikesCount }}</span>
 </button>
