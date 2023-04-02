@@ -23,10 +23,13 @@ class LikeButton extends Component
 
     public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
-    final public function mount(Post $post): void
+    public int $likesCount;
+
+    final public function mount(Post $post, int $likesCount): void
     {
         $this->user = auth()->user();
         $this->post = $post;
+        $this->likesCount = $likesCount;
     }
 
     final public function store(): void
@@ -49,6 +52,8 @@ class LikeButton extends Component
         $new->post_id = $this->post->id;
         $new->like = 1;
         $new->save();
+
+        $this->likesCount += 1;
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Like Was Successfully Applied!']);
     }

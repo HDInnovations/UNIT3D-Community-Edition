@@ -42,10 +42,7 @@ class TopicPostSearch extends Component
         return Post::query()
             ->select('posts.*')
             ->with('user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips')
-            ->withCount([
-                'likes'                  => fn ($query) => $query->where('like', '=', 1),
-                'likes as dislike_count' => fn ($query) => $query->where('dislike', '=', 1),
-            ])
+            ->withCount(['likes', 'dislikes'])
             ->withSum('tips', 'cost')
             ->where('topic_id', '=', $this->topic->id)
             ->join('topics', 'topics.id', '=', 'posts.topic_id')
