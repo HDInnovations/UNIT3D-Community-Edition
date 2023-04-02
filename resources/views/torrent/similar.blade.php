@@ -36,5 +36,5 @@
             @include('torrent.partials.no_meta')
             @break
     @endswitch
-    @livewire('similar-torrent', ['category' => $category, 'tmdbId' => $tmdb, 'igdbId' => $igdb])
+    @livewire('similar-torrent', ['category' => $category, 'tmdbId' => $tmdb, 'igdbId' => $igdb, 'work' => $meta])
 @endsection
