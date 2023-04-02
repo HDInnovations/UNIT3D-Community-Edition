@@ -33,6 +33,8 @@ class SimilarTorrent extends Component
 {
     public Category $category;
 
+    public Movie|Tv|Game $work;
+
     public $tmdbId;
 
     public $igdbId;

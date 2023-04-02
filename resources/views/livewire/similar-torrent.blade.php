@@ -59,7 +59,7 @@
                                         </td>
                                     </tr>
                                 @endif
-                                <x-torrent.row :torrent="$torrent" :personal_freeleech="$personalFreeleech" />
+                                <x-torrent.row :torrent="$torrent" :meta="$work" :personal_freeleech="$personalFreeleech" />
                             @endforeach
                         </tbody>
                     @endforeach
