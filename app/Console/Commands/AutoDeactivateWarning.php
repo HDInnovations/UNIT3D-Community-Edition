@@ -67,8 +67,7 @@ class AutoDeactivateWarning extends Command
 
         // Calculate User Warning Count and Enable DL Priv If Required.
         $warnings = Warning::with('warneduser')
-            ->select(DB::raw('user_id, count(*) as value'))
-            ->where('active', '=', 1)
+            ->select(DB::raw('user_id, SUM(active = 1) as value'))
             ->groupBy('user_id')
             ->having('value', '<', config('hitrun.max_warnings'))
             ->get();
