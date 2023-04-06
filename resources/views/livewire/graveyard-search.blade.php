@@ -527,19 +527,9 @@
                                             <div class="modal-footer">
                                                 <form id="resurrect-torrent" class="text-center" role="form"
                                                       method="POST"
-                                                      action="{{ route('graveyard.store', ['id' => $torrent->id]) }}">
+                                                      action="{{ route('graveyard.store') }}">
                                                     @csrf
-                                                    @if (!$history)
-                                                        <label for="seedtime"></label><input hidden="seedtime"
-                                                                                             name="seedtime"
-                                                                                             id="seedtime"
-                                                                                             value="{{ config('graveyard.time') }}">
-                                                    @else
-                                                        <label for="seedtime"></label><input hidden="seedtime"
-                                                                                             name="seedtime"
-                                                                                             id="seedtime"
-                                                                                             value="{{ $history->seedtime + config('graveyard.time') }}">
-                                                    @endif
+                                                    <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">
                                                         {{ __('common.cancel') }}
                                                     </button>

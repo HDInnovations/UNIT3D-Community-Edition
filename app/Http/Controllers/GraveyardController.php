@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Graveyard;
+use App\Models\History;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 use Exception;
@@ -34,38 +35,40 @@ class GraveyardController extends Controller
     /**
      * Resurrect A Torrent.
      */
-    public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $torrent = Torrent::findOrFail($id);
-        $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
-
-        if ($resurrected) {
-            return to_route('graveyard.index')
-                ->withErrors(trans('graveyard.resurrect-failed-pending'));
-        }
+        $torrent = Torrent::findOrFail($request->torrent_id);
 
         if ($user->id === $torrent->user_id) {
             return to_route('graveyard.index')
                 ->withErrors(trans('graveyard.resurrect-failed-own'));
         }
 
+        if ($torrent->seeders !== 0) {
+            return to_route('graveyard.index')
+                ->withErrors('This torrent is not dead.');
+        }
+
+        if ($torrent->created_at->gt(now()->subDays(30))) {
+            return to_route('graveyard.index')
+                ->withErrors('This torrent is not older than 30 days.');
+        }
+
+        $resurrection = Graveyard::where('torrent_id', '=', $torrent->id)->exists();
+
+        if ($resurrection) {
+            return to_route('graveyard.index')
+                ->withErrors(trans('graveyard.resurrect-failed-pending'));
+        }
+
+        $history = History::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->first();
+        $seedtime = config('graveyard.time') + $history?->seedtime ?? 0;
+
         $graveyard = new Graveyard();
         $graveyard->user_id = $user->id;
         $graveyard->torrent_id = $torrent->id;
-        $graveyard->seedtime = $request->input('seedtime');
-
-        $v = validator($graveyard->toArray(), [
-            'user_id'    => 'required',
-            'torrent_id' => 'required',
-            'seedtime'   => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return to_route('graveyard.index')
-                ->withErrors($v->errors());
-        }
-
+        $graveyard->seedtime = $seedtime;
         $graveyard->save();
 
         return to_route('graveyard.index')

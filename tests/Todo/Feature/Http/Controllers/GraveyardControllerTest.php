@@ -80,8 +80,8 @@ class GraveyardControllerTest extends TestCase
         $graveyard = Graveyard::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('graveyard.store', ['id' => $graveyard->id]), [
-            // TODO: send request data
+        $response = $this->actingAs($user)->post(route('graveyard.store'), [
+            'torrent_id' => $graveyard->id,
         ]);
 
         $response->assertRedirect(withErrors('Torrent Resurrection Failed! This torrent is already pending a resurrection.'));
