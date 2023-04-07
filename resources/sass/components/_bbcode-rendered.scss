@@ -285,10 +285,17 @@
   }
 
   blockquote {
-    margin: 0;
-    padding: 0.25em 0 0.25em 1em;
+    padding: 0.25em 0.25em 0.25em 1em;
     color: var(--bbcode-rendered-fg-muted);
-    border-left: 0.25em solid var(--bbcode-rendered-border-default);
+    border-left: 0.25em solid var(--bbcode-rendered-quote-border);
+    font-size: 15px;
+    background-color: var(--bbcode-rendered-quote-bg);
+    border-radius: 6px;
+  }
+
+  blockquote > cite {
+    font-size: 12px;
+    font-weight: bold;
   }
 
   ul,
@@ -376,8 +383,8 @@
   dl,
   table,
   pre {
-    margin-top: 0;
-    margin-bottom: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   blockquote > :first-child {
