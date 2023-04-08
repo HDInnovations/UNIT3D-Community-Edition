@@ -30,6 +30,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use Exception;
+use Illuminate\Support\Facades\Redis;
 
 class AnnounceController extends Controller
 {
@@ -382,7 +383,10 @@ class AnnounceController extends Controller
      */
     protected function checkTorrent($infoHash): object
     {
+        $cacheKey = config('cache.prefix').'torrents:infohash2id';
         // Check Info Hash Against Torrents Table
+        $torrentId = Redis::connection('cache')->command('HGET', [$cacheKey, hex2bin($infoHash)]);
+
         $torrent = Torrent::withAnyStatus()
             ->with([
                 'peers' => fn ($query) => $query
@@ -390,8 +394,16 @@ class AnnounceController extends Controller
                     ->selectRaw('INET6_NTOA(ip) as ip')
             ])
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
-            ->where('info_hash', '=', hex2bin($infoHash))
+            ->when(
+                $torrentId === null,
+                fn ($query) => $query->where('info_hash', '=', hex2bin($infoHash)),
+                fn ($query) => $query->where('id', '=', $torrentId),
+            )
             ->first();
+
+        if ($torrentId === null && $torrent !== null) {
+            Redis::connection('cache')->command('HSET', [$cacheKey, hex2bin($infoHash), $torrent->id]);
+        }
 
         // If Torrent Doesn't Exsist Return Error to Client
         throw_if($torrent === null, new TrackerException(150));
