@@ -213,7 +213,7 @@ class Bencode
 
     public static function get_infohash($t): string
     {
-        return sha1(self::bencode($t['info']));
+        return sha1(self::bencode($t['info']), true);
     }
 
     public static function get_meta($t): array
