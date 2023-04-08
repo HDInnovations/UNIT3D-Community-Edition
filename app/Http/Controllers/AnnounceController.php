@@ -390,7 +390,7 @@ class AnnounceController extends Controller
                     ->selectRaw('INET6_NTOA(ip) as ip')
             ])
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
-            ->where('info_hash', '=', $infoHash)
+            ->where('info_hash', '=', hex2bin($infoHash))
             ->first();
 
         // If Torrent Doesn't Exsist Return Error to Client

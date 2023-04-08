@@ -52,7 +52,7 @@ class TorrentResource extends JsonResource
                 'media_info'      => $this->mediainfo,
                 'bd_info'         => $this->bdinfo,
                 'description'     => $this->description,
-                'info_hash'       => $this->info_hash,
+                'info_hash'       => bin2hex($this->info_hash),
                 'size'            => $this->size,
                 'num_file'        => $this->num_file,
                 'freeleech'       => $this->free.'%',
@@ -74,7 +74,7 @@ class TorrentResource extends JsonResource
                 'region_id'       => $this->when($this->region_id !== null, $this->region_id),
                 'created_at'      => $this->created_at,
                 'download_link'   => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]),
-                'magnet_link'     => $this->when(config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.$this->info_hash.'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$this->size),
+                'magnet_link'     => $this->when(config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.bin2hex($this->info_hash).'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$this->size),
                 'details_link'    => route('torrent', ['id' => $this->id]),
             ],
         ];

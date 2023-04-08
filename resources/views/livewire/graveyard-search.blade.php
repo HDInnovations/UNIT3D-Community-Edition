@@ -273,7 +273,7 @@
                                 </a>
                             @endif
                             @if (config('torrent.magnet') == 1)
-                                <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
+                                <a href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}">
                                     <button class="btn btn-primary btn-circle" type="button" title="{{ __('common.magnet') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
                                     </button>

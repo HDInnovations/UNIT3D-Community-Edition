@@ -27,7 +27,7 @@ class Unit3dAnnounce
         $isSuccess = self::put('torrents', [
             'id'              => $torrent->id,
             'status'          => $torrent->status,
-            'info_hash'       => $torrent->info_hash,
+            'info_hash'       => bin2hex($torrent->info_hash),
             'is_deleted'      => false,
             'seeders'         => $torrent->seeders,
             'leechers'        => $torrent->leechers,
@@ -47,7 +47,7 @@ class Unit3dAnnounce
     {
         $isSuccess = self::delete('torrents', [
             'id'        => $torrent->id,
-            'info_hash' => $torrent->info_hash,
+            'info_hash' => bin2hex($torrent->info_hash),
         ]);
 
         if (! $isSuccess) {
@@ -97,7 +97,7 @@ class Unit3dAnnounce
     {
         $isSuccess = self::delete('users', [
             'id'      => $user->id,
-            'passkey' => $user->info_hash,
+            'passkey' => $user->passkey,
         ]);
 
         if (! $isSuccess) {

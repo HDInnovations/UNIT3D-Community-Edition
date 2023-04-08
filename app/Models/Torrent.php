@@ -46,6 +46,15 @@ class Torrent extends Model
     ];
 
     /**
+     * The attributes that should not be included in audit log.
+     *
+     * @var array
+     */
+    protected $discarded = [
+        'info_hash',
+    ];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
