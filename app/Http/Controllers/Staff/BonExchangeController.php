@@ -48,7 +48,7 @@ class BonExchangeController extends Controller
             'upload'             => $request->type === 'upload',
             'download'           => $request->type === 'download',
             'personal_freeleech' => $request->type === 'personal_freeleech',
-            'upload'             => $request->type === 'invite',
+            'invite'             => $request->type === 'invite',
         ]
         + $request->validated());
 
