@@ -344,7 +344,6 @@ class TorrentController extends BaseController
             && @preg_match($field, 'Validate regex') !== false;
 
         $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
             ->when($request->filled('name'), fn ($query) => $query->ofName($request->name, $isRegex($request->name)))
             ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->description)))
             ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->mediainfo)))
@@ -378,7 +377,7 @@ class TorrentController extends BaseController
             ->when($request->filled('episodeNumber'), fn ($query) => $query->ofEpisode((int) $request->episodeNumber))
             ->latest('sticky')
             ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
-            ->paginate($request->input('perPage') ?? $this->perPage);
+            ->cursorPaginate($request->input('perPage') ?? $this->perPage);
 
         if ($torrents !== null) {
             return new TorrentsResource($torrents);
