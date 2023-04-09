@@ -184,21 +184,18 @@ class TorrentBuffController extends Controller
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent->free = '0';
+        $torrent->doubleup = '0';
+        $torrent->featured = '0';
+        $torrent->save();
 
-        if (isset($torrent)) {
-            $torrent->free = '0';
-            $torrent->doubleup = '0';
-            $torrent->featured = '0';
-            $torrent->save();
+        Unit3dAnnounce::addTorrent($torrent);
 
-            Unit3dAnnounce::addTorrent($torrent);
+        $appurl = config('app.url');
 
-            $appurl = config('app.url');
-
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
-            );
-        }
+        $this->chatRepository->systemMessage(
+            sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+        );
 
         $featured_torrent->delete();
 
