@@ -53,7 +53,7 @@ class GroupController extends Controller
     {
         $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
 
-        foreach (Forum::all()->pluck('id') as $collection) {
+        foreach (Forum::pluck('id') as $collection) {
             $permission = new Permission();
             $permission->forum_id = $collection;
             $permission->group_id = $group->id;
