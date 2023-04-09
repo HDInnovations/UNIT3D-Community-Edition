@@ -43,7 +43,7 @@ class AutoHighspeedTag extends Command
      */
     public function handle(): void
     {
-        $seedboxIps = Seedbox::all()->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+        $seedboxIps = Seedbox::pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
         Torrent::withAnyStatus()
             ->leftJoinSub(

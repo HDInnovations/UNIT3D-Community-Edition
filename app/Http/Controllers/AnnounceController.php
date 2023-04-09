@@ -177,7 +177,7 @@ class AnnounceController extends Controller
         ), new TrackerException(121));
 
         // Block Blacklisted Clients
-        $clientBlacklist = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::all()->pluck('name')->toArray());
+        $clientBlacklist = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('name')->toArray());
         throw_if(
             \in_array($userAgent, $clientBlacklist),
             new TrackerException(128, [':ua' => $request->header('User-Agent')])
