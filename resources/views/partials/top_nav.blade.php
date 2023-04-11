@@ -201,12 +201,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('graveyard.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-skull"></i>
-                        {{ __('graveyard.graveyard') }}
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('top10.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                         Top 10
