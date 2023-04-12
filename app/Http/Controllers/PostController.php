@@ -106,7 +106,7 @@ class PostController extends Controller
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
             // Notify All Subscribers Of New Reply
-            if ($topic->first_user_poster_id != $user->id) {
+            if ($topic->first_post_user_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);
             }
 
