@@ -120,7 +120,7 @@ class PrivateMessageController extends Controller
             $recipient = User::where('username', '=', $request->input('receiver_id'))->firstOrFail();
         } else {
             return to_route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
-                ->withErrors($v->errors());
+                ->withErrors("The recipient doesn't exist");
         }
 
         $privateMessage = new PrivateMessage();
