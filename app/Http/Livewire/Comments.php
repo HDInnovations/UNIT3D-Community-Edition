@@ -99,7 +99,7 @@ class Comments extends Component
 
         // Achievements
         if ($comment->anon === 0) {
-            $this->user->unlock(new UserMadeComment(), 1);
+            $this->user->unlock(new UserMadeComment());
             $this->user->addProgress(new UserMadeTenComments(), 1);
             $this->user->addProgress(new UserMade50Comments(), 1);
             $this->user->addProgress(new UserMade100Comments(), 1);

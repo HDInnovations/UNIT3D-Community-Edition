@@ -120,7 +120,7 @@ class SubtitleController extends Controller
         }
 
         // Achievements
-        $user->unlock(new UserUploadedFirstSubtitle(), 1);
+        $user->unlock(new UserUploadedFirstSubtitle());
         $user->addProgress(new UserUploaded25Subtitles(), 1);
         $user->addProgress(new UserUploaded50Subtitles(), 1);
         $user->addProgress(new UserUploaded100Subtitles(), 1);
