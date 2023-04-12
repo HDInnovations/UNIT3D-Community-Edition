@@ -386,12 +386,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_security', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i>
-                            {{ __('user.my-security') }}
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('users.achievements.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                             My {{ __('user.achievements') }}

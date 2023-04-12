@@ -448,6 +448,44 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::get('/', [App\Http\Controllers\User\ResurrectionController::class, 'index'])->name('index');
         });
 
+        // Email
+        Route::group(['prefix' => 'email', 'as' => 'email.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update');
+        });
+
+        // Password
+        Route::group(['prefix' => 'password', 'as' => 'password.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\PasswordController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PasswordController::class, 'update'])->name('update');
+        });
+
+        // Passkey
+        Route::group(['prefix' => 'passkey', 'as' => 'passkey.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PasskeyController::class, 'update'])->name('update');
+        });
+
+        // Rsskey
+        Route::group(['prefix' => 'rsskey', 'as' => 'rsskey.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\RsskeyController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\RsskeyController::class, 'update'])->name('update');
+        });
+
+        // Apikey
+        Route::group(['prefix' => 'apikey', 'as' => 'apikey.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\ApikeyController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
+        });
+
+        // Two-Step Authentication
+        if (config('auth.TwoStepEnabled') === true) {
+            Route::group(['prefix' => 'two-step', 'as' => 'two_step.'], function (): void {
+                Route::get('/edit', [App\Http\Controllers\User\TwoStepController::class, 'edit'])->name('edit');
+                Route::patch('/', [App\Http\Controllers\User\TwoStepController::class, 'update'])->name('update');
+            });
+        }
+
         // Topics
         Route::group(['prefix' => 'topics', 'as' => 'topics.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
@@ -533,18 +571,6 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
-        });
-
-        // Settings
-        Route::group(['prefix' => 'users'], function (): void {
-            Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
-            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
-            Route::post('/{username}/settings/change_password', [App\Http\Controllers\User\UserController::class, 'changePassword'])->name('change_password');
-            Route::post('/{username}/settings/change_email', [App\Http\Controllers\User\UserController::class, 'changeEmail'])->name('change_email');
-            Route::post('/{username}/settings/change_pid', [App\Http\Controllers\User\UserController::class, 'changePID'])->name('change_pid');
-            Route::post('/{username}/settings/change_rid', [App\Http\Controllers\User\UserController::class, 'changeRID'])->name('change_rid');
-            Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\User\UserController::class, 'changeApiToken'])->name('change_api_token');
-            Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep'])->name('change_twostep');
         });
 
         // Tips

@@ -63,7 +63,7 @@
         @endif
     </ul>
 </li>
-@if ($isProfileOwner)
+@if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
             class="{{ Route::is('users.general_settings.edit', 'user_security', 'user_privacy', 'user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
@@ -72,38 +72,84 @@
             {{ __('user.settings') }}
         </a>
         <ul class="nav-tab-menu__items">
-            <li class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            @if ($isProfileOwner)
+                <li class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                    <a
+                        class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+                    >
+                        {{ __('user.general') }}
+                    </a>
+                </li>
+            @endif
+            <li class="{{ Route::is('users.email.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.email.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.email.edit', ['user' => $user]) }}"
                 >
-                    {{ __('user.general') }}
+                    {{ __('common.email') }}
                 </a>
             </li>
-            <li class="{{ Route::is('user_security') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.password.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_security') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_security', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.password.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.password.edit', ['user' => $user]) }}"
                 >
-                    {{ __('user.security') }}
+                    {{ __('common.password') }}
                 </a>
             </li>
-            <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.passkey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.privacy_settings.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.passkey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.passkey.edit', ['user' => $user]) }}"
                 >
-                    {{ __('user.privacy') }}
+                    Passkey
                 </a>
             </li>
-            <li class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.rsskey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.notification_settings.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.rsskey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.rsskey.edit', ['user' => $user]) }}"
                 >
-                    {{ __('user.notification') }}
+                    RSS Key
                 </a>
             </li>
+            <li class="{{ Route::is('users.apikey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.apikey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.apikey.edit', ['user' => $user]) }}"
+                >
+                    API Key
+                </a>
+            </li>
+            @if (config('auth.TwoStepEnabled') == true)
+                <li class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                    <a
+                        class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.two_step.edit', ['user' => $user]) }}"
+                    >
+                        Two-Step Authentication
+                    </a>
+                </li>
+            @endif
+            @if ($isProfileOwner)
+                <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                    <a
+                        class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.privacy_settings.edit', ['user' => $user]) }}"
+                    >
+                        {{ __('user.privacy') }}
+                    </a>
+                </li>
+                <li class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                    <a
+                        class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.notification_settings.edit', ['user' => $user]) }}"
+                    >
+                        {{ __('user.notification') }}
+                    </a>
+                </li>
+            @endif
         </ul>
     </li>
 @endif
