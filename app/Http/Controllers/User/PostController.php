@@ -23,7 +23,11 @@ class PostController extends Controller
      */
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $posts = $user->posts()->with(['topic', 'user'])->latest()->paginate(25);
+        $posts = $user->posts()
+            ->withCount(['likes', 'dislikes'])
+            ->with(['topic', 'user'])
+            ->latest()
+            ->paginate(25);
 
         return view('user.post.index', [
             'posts' => $posts,
