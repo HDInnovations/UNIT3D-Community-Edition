@@ -278,17 +278,72 @@
             </dialog>
         </li>
     @endif
-    @if ($current = $user->history->where('torrent_id', $torrent->id)->first())
-        @if ($current->seeder == 0 && $current->active == 1 && $torrent->seeders <= 2)
-            <li class="form__group form__group--short-horizontal">
-                <form action="{{ route('reseed', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+    @if (
+        $torrent->seeders <= 2
+        /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
+        && null !== ($history = $user->history->where('torrent_id', $torrent->id)->first())
+        && $history->seeder == 0
+        && $history->active == 1
+    )
+        <li class="form__group form__group--short-horizontal">
+            <form action="{{ route('reseed', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                @csrf
+                <button class="form__button form__button--outlined form__button--centered">
+                    <i class='{{ config("other.font-awesome") }} fa-envelope'></i> {{ __('torrent.request-reseed') }}
+                </button>
+            </form>
+        </li>
+    @endif
+    @if (DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
+        <li class="form__group form__group--short-horizontal">
+            <button class="form__button form_-button--outline form__button--centered" disabled>
+                {{ strtolower(__('graveyard.pending')) }}
+            </button>
+        </li>
+    @elseif ($torrent->seeders == 0)
+        <li class="form__group form__group--short-horizontal" x-data>
+            <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
+                <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> {{ __('graveyard.resurrect') }}
+            </button>
+            <dialog class="dialog" x-ref="dialog">
+                <h4 class="dialog__heading">
+                    {{ __('graveyard.resurrect') }} {{ strtolower(__('torrent.torrent')) }} ?
+                </h4>
+                <form
+                    class="dialog__form"
+                    method="POST"
+                    action="{{ route('graveyard.store') }}"
+                    x-on:click.outside="$refs.dialog.close()"
+                >
                     @csrf
-                    <button class="form__button form__button--outlined form__button--centered">
-                        <i class='{{ config("other.font-awesome") }} fa-envelope'></i> {{ __('torrent.request-reseed') }}
-                    </button>
+                    <input type="hidden" name="torrent_id" value="{{ $torrent->id }}">
+                    <p class="form__group">
+                        {{ __('graveyard.howto') }}
+                    </p>
+                    <p>{!! __('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
+                        <span class="text-red text-bold">
+                            {{ $history === null ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                        </span>
+                        {{ strtolower(__('graveyard.howto-hits')) }}
+                        <span class="text-red text-bold">
+                            {{ App\Helpers\StringHelper::timeElapsed($history?->seedtime ?? 0 + config('graveyard.time')) }}
+                        </span>
+                        {{ strtolower(__('graveyard.howto-desc2')) }}
+                        <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                            {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }} Token(s)!
+                        </span>
+                    </p>
+                    <p class="form__group" style="text-align: left">
+                        <button class="form__button form__button--filled">
+                            {{ __('graveyard.resurrect') }}
+                        </button>
+                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                            {{ __('common.cancel') }}
+                        </button>
+                    </p>
                 </form>
-            </li>
-        @endif
+            </dialog>
+        </li>
     @endif
     <li x-data class="form__group form__group--short-horizontal">
         <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">

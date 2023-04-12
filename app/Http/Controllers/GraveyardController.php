@@ -25,14 +25,6 @@ use Exception;
 class GraveyardController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('graveyard.index');
-    }
-
-    /**
      * Resurrect A Torrent.
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
@@ -41,24 +33,24 @@ class GraveyardController extends Controller
         $torrent = Torrent::findOrFail($request->torrent_id);
 
         if ($user->id === $torrent->user_id) {
-            return to_route('graveyard.index')
+            return to_route('torrent.show', ['id' => $torrent->id])
                 ->withErrors(trans('graveyard.resurrect-failed-own'));
         }
 
         if ($torrent->seeders !== 0) {
-            return to_route('graveyard.index')
+            return to_route('torrent.show', ['id' => $torrent->id])
                 ->withErrors('This torrent is not dead.');
         }
 
         if ($torrent->created_at->gt(now()->subDays(30))) {
-            return to_route('graveyard.index')
+            return to_route('torrent.show', ['id' => $torrent->id])
                 ->withErrors('This torrent is not older than 30 days.');
         }
 
         $resurrection = Graveyard::where('torrent_id', '=', $torrent->id)->exists();
 
         if ($resurrection) {
-            return to_route('graveyard.index')
+            return to_route('torrent.show', ['id' => $torrent->id])
                 ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
 
@@ -71,7 +63,7 @@ class GraveyardController extends Controller
         $graveyard->seedtime = $seedtime;
         $graveyard->save();
 
-        return to_route('graveyard.index')
+        return to_route('torrent.show', ['id' => $torrent->id])
             ->withSuccess(trans('graveyard.resurrect-complete'));
     }
 
@@ -89,7 +81,7 @@ class GraveyardController extends Controller
         abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
-        return to_route('graveyard.index')
+        return to_route('users.resurrections.index', ['user' => $user])
             ->withSuccess(trans('graveyard.resurrect-canceled'));
     }
 }

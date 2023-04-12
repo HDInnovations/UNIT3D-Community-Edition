@@ -222,7 +222,6 @@ Route::group(['middleware' => 'language'], function (): void {
         // Graveyard System
         Route::group(['prefix' => 'graveyard'], function (): void {
             Route::name('graveyard.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\GraveyardController::class, 'index'])->name('index');
                 Route::post('/', [App\Http\Controllers\GraveyardController::class, 'store'])->name('store');
                 Route::delete('/{id}', [App\Http\Controllers\GraveyardController::class, 'destroy'])->name('destroy');
             });
