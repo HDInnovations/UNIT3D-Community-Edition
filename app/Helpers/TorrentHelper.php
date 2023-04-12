@@ -79,7 +79,7 @@ class TorrentHelper
 
         if ($anon == 0) {
             // Achievements
-            $user->unlock(new UserMadeUpload(), 1);
+            $user->unlock(new UserMadeUpload());
             $user->addProgress(new UserMade25Uploads(), 1);
             $user->addProgress(new UserMade50Uploads(), 1);
             $user->addProgress(new UserMade100Uploads(), 1);

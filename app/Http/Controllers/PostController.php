@@ -121,7 +121,7 @@ class PostController extends Controller
         }
 
         // Achievements
-        $user->unlock(new UserMadeFirstPost(), 1);
+        $user->unlock(new UserMadeFirstPost());
         $user->addProgress(new UserMade25Posts(), 1);
         $user->addProgress(new UserMade50Posts(), 1);
         $user->addProgress(new UserMade100Posts(), 1);
