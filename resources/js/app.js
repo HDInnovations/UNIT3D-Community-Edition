@@ -1,3 +1,5 @@
+window._ = require('lodash');
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -41,6 +43,21 @@ if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+import Vue from 'vue';
+import chatbox from './components/chat/Chatbox';
+
+if (document.getElementById('vue')) {
+    new Vue({
+        el: '#vue',
+        components: { chatbox: chatbox },
+    });
 }
 
 /*
