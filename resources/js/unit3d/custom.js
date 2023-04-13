@@ -1,32 +1,43 @@
 // Scroll To Top/Bottom
-$(document).ready(function () {
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 50) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
-        }
-        if ($(this).scrollTop() + $(window).height() < $(document).height() - 50) {
-            $('#back-to-down').fadeIn();
-        } else {
-            $('#back-to-down').fadeOut();
-        }
-    });
-    $('#back-to-top').click(function () {
-        $('#back-to-top').tooltip('hide');
-        $('body,html').animate({ scrollTop: 0 }, 800);
-        return false;
-    });
-    $('#back-to-down').click(function () {
-        $('#back-to-down').tooltip('hide');
-        $('body,html').animate({ scrollTop: $('body').height() }, 800);
-        return false;
-    });
-    $('#back-to-top').tooltip('show');
-    $('#back-to-down').tooltip('show');
-});
+document.addEventListener('DOMContentLoaded', function() {
+    let rootElement = document.documentElement;
+    let topOfPage = document.getElementById('top-of-page');
+    let bottomOfPage = document.getElementById('bottom-of-page');
 
-// Bootstrap Tooltips
-$(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    let handleScroll = function() {
+        if (rootElement.scrollTop > 50) {
+            topOfPage.style.opacity = 0.7
+        } else {
+            topOfPage.style.opacity = 0
+        }
+
+        if (rootElement.scrollTop < rootElement.scrollHeight - rootElement.clientHeight - 50) {
+            bottomOfPage.style.opacity = 0.7
+        } else {
+            bottomOfPage.style.opacity = 0
+        }
+    }
+
+    handleScroll();
+
+    topOfPage.style.transition = 'opacity 0.8s';
+    bottomOfPage.style.transition = 'opacity 0.8s';
+
+    window.addEventListener('scroll', handleScroll);
+
+    topOfPage.addEventListener('click', function (event) {
+        event.preventDefault();
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+    });
+
+    bottomOfPage.addEventListener('click', function (event) {
+        event.preventDefault();
+        rootElement.scrollTo({
+            top: rootElement.scrollHeight,
+            behavior: "smooth",
+        })
+    });
 });
