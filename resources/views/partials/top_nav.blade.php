@@ -252,13 +252,13 @@
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ auth()->user()->seedingTorrents()->count() }}
+                    {{ Cache::remember('users:'.auth()->id().':seeding_count', 60, fn () => DB::table('peers')->distinct()->where('user_id', '=', auth()->id())->where('seeder', '=', 1)->count('torrent_id')) }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('users.history.index', ['user' => auth()->user(), 'unsatisfied' => 'include']) }}">
+                <a href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ auth()->user()->leechingTorrents()->count() }}
+                    {{ Cache::remember('users:'.auth()->id().':leeching_count', 60, fn () => DB::table('peers')->distinct()->where('user_id', '=', auth()->id())->where('seeder', '=', 0)->count('torrent_id')) }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
