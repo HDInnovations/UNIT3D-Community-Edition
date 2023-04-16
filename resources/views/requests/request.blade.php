@@ -169,9 +169,8 @@
                     <dd>
                         <a
                             href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}"
-                            title="{{ $torrentRequest->torrent->name }}"
                         >
-                            {{ $torrentRequest->name }}
+                            {{ $torrentRequest->torrent->name }}
                         </a>
                     </dd>
                 </dl>
