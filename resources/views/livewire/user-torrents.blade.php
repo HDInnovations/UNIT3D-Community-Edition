@@ -161,7 +161,7 @@
     </section>
     <section class="panelV2 user-torrents">
         <h2 class="panel__heading">{{ __('user.torrents-history') }}</h2>
-        <div class="data-table-wrapp">
+        <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                 <th class="user-torrents__name-header" wire:click="sortBy('name')" role="columnheader button">
