@@ -199,7 +199,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
 
                 // Torrent Completed Update
-                $this->torrent->increment('times_completed');
+                $this->torrent->times_completed += 1;
                 break;
 
             case 'stopped':
