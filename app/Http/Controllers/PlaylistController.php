@@ -43,7 +43,7 @@ class PlaylistController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $playlists = Playlist::with('user')->withCount('torrents')->where(function ($query): void {
+        $playlists = Playlist::with(['user:id,username,group_id', 'user.group'])->withCount('torrents')->where(function ($query): void {
             $query->where('is_private', '=', 0)
                 ->orWhere(function ($query): void {
                     $query->where('is_private', '=', 1)->where('user_id', '=', auth()->id());

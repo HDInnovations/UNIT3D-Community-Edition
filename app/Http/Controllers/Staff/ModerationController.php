@@ -40,9 +40,9 @@ class ModerationController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $current = Carbon::now();
-        $pending = Torrent::with(['user', 'category', 'type'])->pending()->get();
-        $postponed = Torrent::with(['user', 'category', 'type'])->postponed()->get();
-        $rejected = Torrent::with(['user', 'category', 'type'])->rejected()->get();
+        $pending = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type'])->pending()->get();
+        $postponed = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type'])->postponed()->get();
+        $rejected = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type'])->rejected()->get();
 
         return view('Staff.moderation.index', [
             'current'   => $current,
