@@ -26,7 +26,7 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.resurrections') }}</h2>
-        <div class="data-table">
+        <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <th class="user-resurrections__name-header" wire:click="sortBy('name')" role="columnheader button">
