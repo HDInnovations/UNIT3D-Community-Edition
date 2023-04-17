@@ -56,15 +56,12 @@ class Kernel extends HttpKernel
         ],
         'api' => [
             'throttle:api',
-            'bindings',
         ],
         'announce' => [
             'throttle:announce',
-            'bindings',
         ],
         'rss' => [
             'throttle:rss',
-            'bindings',
         ],
     ];
 
