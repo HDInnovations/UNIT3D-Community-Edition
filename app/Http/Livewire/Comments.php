@@ -135,7 +135,7 @@ class Comments extends Component
     {
         return $this->model
             ->comments()
-            ->with(['user:id,username,group_id', 'user.group', 'children.user:id,username,group_id', 'children.user.group', 'children.children'])
+            ->with(['user:id,username,group_id,image', 'user.group', 'children.user:id,username,group_id', 'children.user.group', 'children.children'])
             ->parent()
             ->latest()
             ->paginate($this->perPage);
