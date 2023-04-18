@@ -20,7 +20,7 @@ class PasswordStrength extends Component
         4 => 'Strong',
     ];
 
-    final public function updatedPassword($password)
+    final public function updatedPassword($password): void
     {
         $this->strengthScore = (new Zxcvbn())->passwordStrength($password)['score'];
     }
