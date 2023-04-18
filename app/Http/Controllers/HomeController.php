@@ -296,7 +296,15 @@ class HomeController extends Controller
         $topics = cache()->remember('latest_topics', $expiresAt, fn () => Topic::with('forum')->latest()->take(5)->get());
 
         // Latest Posts Block
-        $posts = cache()->remember('latest_posts', $expiresAt, fn () => Post::with('topic', 'user')->withCount('authorPosts', 'authorTopics')->latest()->take(5)->get());
+        $posts = cache()->remember(
+            'latest_posts',
+            $expiresAt,
+            fn () => Post::with('topic', 'user')
+                ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                ->latest()
+                ->take(5)
+                ->get()
+        );
 
         // Online Block
         $users = cache()->remember('online_users', $expiresAt, fn () => User::with('group', 'privacy')
