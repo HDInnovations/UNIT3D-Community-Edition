@@ -80,10 +80,3 @@
         </div>
     </div>
 </div>
-
-<a id="top-of-page" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
-    <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
-</a>
-<a id="bottom-of-page" href="#" class="btn btn-primary btn-lg back-to-down" role="button">
-    <i class="{{ config('other.font-awesome') }} fa-arrow-square-down"></i>
-</a>
