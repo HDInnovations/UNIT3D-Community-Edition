@@ -259,13 +259,13 @@
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ $peer_counts->seeding }}
+                    {{ $peer_counts->seeding ?? 0 }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ $peer_counts->leeching }}
+                    {{ $peer_counts->leeching ?? 0 }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
