@@ -24,6 +24,7 @@ class PasswordStrength extends Component
     {
         $this->strengthScore = (new Zxcvbn())->passwordStrength($password)['score'];
     }
+
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.password-strength');
