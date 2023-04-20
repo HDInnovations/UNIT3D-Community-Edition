@@ -51,34 +51,7 @@
                         <label class="form__label form__label--floating" for="current_password">Current Password</label>
                     </p>
                 @endif
-                <p class="form__group">
-                    <input
-                        id="new_password"
-                        class="form__text"
-                        autocomplete="new-password"
-                        minlength="12"
-                        name="new_password"
-                        placeholder=""
-                        required
-                        type="password"
-                        value="{{ old('new_password') }}"
-                    >
-                    <label class="form__label form__label--floating" for="new_password">New Password</label>
-                </p>
-                <p class="form__group">
-                    <input
-                        id="new_password_confirmation"
-                        class="form__text"
-                        autocomplete="new-password"
-                        minlength="12"
-                        name="new_password_confirmation"
-                        placeholder=""
-                        required
-                        type="password"
-                        value="{{ old('new_password') }}"
-                    >
-                    <label class="form__label form__label--floating" for="new_password_confirmation">Repeat Password</label>
-                </p>
+                <livewire:password-strength />
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}
