@@ -1,4 +1,4 @@
-<div>
+<div style="display: contents; background-color: inherit;">
     <p class="form__group">
         <input
                 id="new_password"
