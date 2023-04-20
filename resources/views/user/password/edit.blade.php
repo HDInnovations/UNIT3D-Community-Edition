@@ -51,7 +51,7 @@
                         <label class="form__label form__label--floating" for="current_password">Current Password</label>
                     </p>
                 @endif
-                <livewire:password-strength/>
+                <livewire:password-strength />
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}
