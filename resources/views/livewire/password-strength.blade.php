@@ -28,8 +28,18 @@
         >
         <label class="form__label form__label--floating" for="new_password_confirmation">Repeat Password</label>
     </p>
-
-    <p>Password strength:</p> {{ $strengthLevels[$strengthScore] ?? 'Weak' }}
-
-    <progress value="{{ $strengthScore }}" max="4"></progress>
+    <p class="form__group">
+        <label class="form__label" for="password_strength">
+            Password strength: <b>{{ $strengthLevels[$strengthScore] ?? 'Weak' }}</b>
+        </label>
+        <meter
+            id="password_strength"
+            class="form__meter"
+            min="0"
+            max="4"
+            value="{{ $strengthScore }}"
+        >
+            {{ $strengthLevels[$strengthScore] ?? 'Weak' }}
+        </meter>
+    </p>
 </div>
