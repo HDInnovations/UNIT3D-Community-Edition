@@ -47,9 +47,9 @@ class GraveyardController extends Controller
                 ->withErrors('This torrent is not older than 30 days.');
         }
 
-        $resurrection = Graveyard::where('torrent_id', '=', $torrent->id)->exists();
+        $isPending = Graveyard::where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists();
 
-        if ($resurrection) {
+        if ($isPending) {
             return to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
