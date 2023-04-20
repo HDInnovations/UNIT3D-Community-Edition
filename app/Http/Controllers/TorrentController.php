@@ -46,6 +46,7 @@ use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
@@ -373,6 +374,9 @@ class TorrentController extends Controller
                 if ($torrent->featured == 1) {
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
+
+                $cacheKey = config('cache.prefix').'torrents:infohash2id';
+                Redis::connection('cache')->command('HDEL', [$cacheKey, hex2bin($torrent->info_hash)]);
 
                 Unit3dAnnounce::removeTorrent($torrent);
 
