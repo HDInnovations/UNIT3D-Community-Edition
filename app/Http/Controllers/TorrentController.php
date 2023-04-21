@@ -376,7 +376,7 @@ class TorrentController extends Controller
                 }
 
                 $cacheKey = config('cache.prefix').'torrents:infohash2id';
-                Redis::connection('cache')->command('HDEL', [$cacheKey, hex2bin($torrent->info_hash)]);
+                Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
 
                 Unit3dAnnounce::removeTorrent($torrent);
 
