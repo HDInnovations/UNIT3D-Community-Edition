@@ -9,7 +9,7 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("claimRequest", ['id' => $torrentRequest->id]) }}"
+            action="{{ route("requests.claims.store", ['id' => $torrentRequest->id]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf

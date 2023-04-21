@@ -157,21 +157,29 @@ Route::group(['middleware' => 'language'], function (): void {
             });
         });
 
-        Route::group(['prefix' => 'requests'], function (): void {
-            Route::get('/add', [App\Http\Controllers\RequestController::class, 'addRequestForm'])->name('add_request_form');
-            Route::post('/add', [App\Http\Controllers\RequestController::class, 'addRequest'])->name('add_request');
-            Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequestForm'])->name('edit_request_form');
-            Route::post('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequest'])->name('edit_request');
-            Route::get('/{id}{hash?}', [App\Http\Controllers\RequestController::class, 'request'])->name('request');
-            Route::post('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approveRequest'])->name('approveRequest');
-            Route::post('/{id}/delete', [App\Http\Controllers\RequestController::class, 'deleteRequest'])->name('deleteRequest');
-            Route::post('/{id}/fill', [App\Http\Controllers\RequestController::class, 'fillRequest'])->name('fill_request');
-            Route::post('/{id}/reject', [App\Http\Controllers\RequestController::class, 'rejectRequest'])->name('rejectRequest');
-            Route::post('/{id}/vote', [App\Http\Controllers\RequestController::class, 'addBonus'])->name('add_votes');
-            Route::post('/{id}/claim', [App\Http\Controllers\RequestController::class, 'claimRequest'])->name('claimRequest');
-            Route::post('/{id}/unclaim', [App\Http\Controllers\RequestController::class, 'unclaimRequest'])->name('unclaimRequest');
-            Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
+        Route::group(['prefix' => 'requests', 'as' => 'requests.'], function (): void {
+            Route::get('/add', [App\Http\Controllers\RequestController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\RequestController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [App\Http\Controllers\RequestController::class, 'update'])->name('update');
+            Route::get('/{id}', [App\Http\Controllers\RequestController::class, 'show'])->name('show');
+            Route::delete('/{id}', [App\Http\Controllers\RequestController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approve'])->name('approve');
+            Route::post('/{id}/fill', [App\Http\Controllers\RequestController::class, 'fill'])->name('fill');
+            Route::post('/{id}/reject', [App\Http\Controllers\RequestController::class, 'reject'])->name('reject');
+            Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'reset'])->name('reset')->middleware('modo');
+
+            Route::group(['prefix' => 'bounties', 'as' => 'bounties.'], function (): void {
+                Route::post('/{id}', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+            });
+
+            Route::group(['prefix' => 'claims', 'as' => 'claims.'], function (): void {
+                Route::post('/{id}', [App\Http\Controllers\ClaimController::class, 'store'])->name('store');
+                Route::delete('/{id}', [App\Http\Controllers\ClaimController::class, 'destroy'])->name('destroy');
+            });
         });
+
+
 
         // Top 10 System
         Route::group(['prefix' => 'top10'], function (): void {

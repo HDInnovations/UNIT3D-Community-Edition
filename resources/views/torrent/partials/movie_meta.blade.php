@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('add_request_form', [
+                <a href="{{ route('requests.create', [
                     'category_id' => $category->id,
                     'title'       => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
                     'imdb'        => $torrent->imdb ?? '',

@@ -22,7 +22,7 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('request.add-request') }}</h2>
             <div class="panel__body">
-                <form class="form" method="POST" action="{{ route('add_request') }}">
+                <form class="form" method="POST" action="{{ route('requests.store') }}">
                     @csrf
                     <p class="form__group">
                         <input

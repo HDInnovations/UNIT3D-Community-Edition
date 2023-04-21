@@ -5,7 +5,7 @@
                 <h2 class="panel__heading">{{ __('request.requests') }}</h2>
                 <div class="panel__actions">
                     <div class="panel__action">
-                        <a href="{{ route('add_request') }}" class="form__button form__button--text">
+                        <a href="{{ route('requests.create') }}" class="form__button form__button--text">
                             {{ __('request.add-request') }}
                         </a>
                     </div>
@@ -57,7 +57,7 @@
                         @forelse($torrentRequests as $torrentRequest)
                             <tr>
                                 <td>
-                                    <a href="{{ route('request', ['id' => $torrentRequest->id]) }}">
+                                    <a href="{{ route('requests.show', ['id' => $torrentRequest->id]) }}">
                                         {{ $torrentRequest->name }}
                                     </a>
                                 </td>

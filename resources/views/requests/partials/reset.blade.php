@@ -1,7 +1,7 @@
 <li class="form__group form__group--short-horizontal">
     <form
         method="POST"
-        action="{{ route("resetRequest", ['id' => $torrentRequest->id]) }}"
+        action="{{ route("requests.reset", ['id' => $torrentRequest->id]) }}"
         x-data
         style="display: contents"
     >
