@@ -55,7 +55,7 @@ class RequestController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('torrent_request.index');
+        return view('requests.index');
     }
 
     /**
@@ -104,7 +104,7 @@ class RequestController extends Controller
                 ->find($torrentRequest->igdb);
         }
 
-        return view('requests.request', [
+        return view('requests.show', [
             'torrentRequest'      => $torrentRequest,
             'voters'              => $voters,
             'user'                => $user,
@@ -121,7 +121,7 @@ class RequestController extends Controller
     {
         $user = $request->user();
 
-        return view('requests.add_request', [
+        return view('requests.create', [
             'categories'  => Category::all()->sortBy('position'),
             'types'       => Type::all()->sortBy('position'),
             'resolutions' => Resolution::all()->sortBy('position'),
@@ -232,7 +232,7 @@ class RequestController extends Controller
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
 
-        return view('requests.edit_request', [
+        return view('requests.edit', [
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
             'resolutions'    => Resolution::all()->sortBy('position'),

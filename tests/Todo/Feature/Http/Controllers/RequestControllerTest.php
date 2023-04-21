@@ -43,7 +43,7 @@ class RequestControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('requests.create'));
 
         $response->assertOk();
-        $response->assertViewIs('requests.add_request');
+        $response->assertViewIs('requests.create');
         $response->assertViewHas('categories');
         $response->assertViewHas('types');
         $response->assertViewHas('user');
@@ -118,7 +118,7 @@ class RequestControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('requests.edit', ['id' => $id]));
 
         $response->assertOk();
-        $response->assertViewIs('requests.edit_request');
+        $response->assertViewIs('requests.edit');
         $response->assertViewHas('categories');
         $response->assertViewHas('types');
         $response->assertViewHas('user');
@@ -190,7 +190,7 @@ class RequestControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('request.show', ['id' => $id]));
 
         $response->assertOk();
-        $response->assertViewIs('requests.request');
+        $response->assertViewIs('requests.show');
         $response->assertViewHas('torrentRequest');
         $response->assertViewHas('voters');
         $response->assertViewHas('user');
