@@ -270,8 +270,8 @@ class ProcessAnnounce implements ShouldQueue
             ->where('peer_id', '!=', $peerId)
             ->count();
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0);
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0);
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && strtolower($this->queries['event']) !== 'stopped');
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && strtolower($this->queries['event']) !== 'stopped');
 
         $this->torrent->save();
     }
