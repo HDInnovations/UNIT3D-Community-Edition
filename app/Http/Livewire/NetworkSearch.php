@@ -48,7 +48,7 @@ class NetworkSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.network-search', [
+        return view('livewire.network-search', [
             'networks' => $this->networks,
         ]);
     }

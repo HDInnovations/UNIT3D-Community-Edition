@@ -1,3 +1,31 @@
+.user-torrents {
+    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
+    max-width: max-content;
+    align-self: center;
+}
+
+@media only screen and (min-width: 1600px) {
+    .user-torrents {
+        margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+@media only screen and (min-width: 2500px) {
+    .user-torrents {
+        margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+.user-torrents__filters {
+    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px));
+}
+
+@media only screen and (max-width: 767px) {
+    .user-torrents__filters {
+        margin: 0 max(0, 45vw - 600px);
+    }
+}
+
 .user-torrents__name-header,
 .user-torrents__seeders-header,
 .user-torrents__leechers-header,

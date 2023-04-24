@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('featured_torrents', function (Blueprint $table) {
+        Schema::create('featured_torrents', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->integer('torrent_id')->index();

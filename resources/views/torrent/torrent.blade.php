@@ -19,89 +19,61 @@
     </li>
 @endsection
 
-@section('content')
-    <div id="torrent-page">
-        <div class="meta-wrapper box container" id="meta-info">
-            {{-- Movie Meta Block --}}
-            @if ($torrent->category->movie_meta)
-                @include('torrent.partials.movie_meta')
-            @endif
+@section('main')
+      @switch (true)
+          @case($torrent->category->movie_meta)
+              @include('torrent.partials.movie_meta', ['category' => $torrent->category, 'tmdb' => $torrent->tmdb])
+              @break
+          @case($torrent->category->tv_meta)
+              @include('torrent.partials.tv_meta', ['category' => $torrent->category, 'tmdb' => $torrent->tmdb])
+              @break
+          @case($torrent->category->game_meta)
+              @include('torrent.partials.game_meta', ['category' => $torrent->category, 'igdb' => $torrent->igdb])
+              @break
+          @default
+              @include('torrent.partials.no_meta', ['category' => $torrent->category])
+              @break
+      @endswitch
+      <h1 class="torrent__name">
+          {{ $torrent->name }}
+      </h1>
+      @include('torrent.partials.general')
+      @include('torrent.partials.buttons')
 
-            {{-- TV Meta Block --}}
-            @if ($torrent->category->tv_meta)
-                @include('torrent.partials.tv_meta')
-            @endif
+      {{-- Tools Block --}}
+      @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user->id || auth()->user()->group->is_internal)
+          @include('torrent.partials.tools')
+      @endif
 
-            {{-- Game Meta Block --}}
-            @if ($torrent->category->game_meta)
-                @include('torrent.partials.game_meta')
-            @endif
+      {{-- Audits Block --}}
+      @if (auth()->user()->group->is_modo)
+          @include('torrent.partials.audits')
+          @include('torrent.partials.downloads')
+      @endif
 
-            {{-- No Meta Block --}}
-            @if ($torrent->category->no_meta)
-                @include('torrent.partials.no_meta')
-            @endif
+      {{-- MediaInfo Block --}}
+      @if ($torrent->mediainfo !== null)
+          @include('torrent.partials.mediainfo')
+      @endif
 
-            <div style="padding: 10px; position: relative;">
-                <div class="vibrant-overlay"></div>
-                <div class="button-overlay"></div>
-            </div>
-            <h1 class="text-center" style="font-size: 22px; margin: 12px 0 0 0;">
-                {{ $torrent->name }}
-            </h1>
-            <div class="torrent-buttons">
-                @include('torrent.partials.buttons')
-            </div>
-        </div>
+      {{-- BDInfo Block --}}
+      @if ($torrent->bdinfo !== null)
+          @include('torrent.partials.bdinfo')
+      @endif
 
-        <div class="meta-general box container">
-            {{-- General Info Block --}}
-            @include('torrent.partials.general')
+      {{-- Description Block --}}
+      @include('torrent.partials.description')
 
-            {{-- Tools Block --}}
-            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id || auth()->user()->group->is_internal)
-                @include('torrent.partials.tools')
-            @endif
+      {{-- Subtitles Block --}}
+      @if($torrent->category->movie_meta || $torrent->category->tv_meta)
+          @include('torrent.partials.subtitles')
+      @endif
 
-            {{-- Audits Block --}}
-            @if (auth()->user()->group->is_modo)
-                @include('torrent.partials.audits')
-                @include('torrent.partials.downloads')
-            @endif
+      {{-- Extra Meta Block --}}
+      @include('torrent.partials.extra_meta')
 
-            {{-- MediaInfo Block --}}
-            @if ($torrent->mediainfo !== null)
-                @include('torrent.partials.mediainfo')
-            @endif
-
-            {{-- BDInfo Block --}}
-            @if ($torrent->bdinfo !== null)
-                @include('torrent.partials.bdinfo')
-            @endif
-
-            {{-- Description Block --}}
-            @include('torrent.partials.description')
-
-            {{-- Subtitles Block --}}
-            @if($torrent->category->movie_meta || $torrent->category->tv_meta)
-                @include('torrent.partials.subtitles')
-            @endif
-
-            {{-- TipJar Block --}}
-            @include('torrent.partials.tipjar')
-
-            {{-- Extra Meta Block --}}
-            @include('torrent.partials.extra_meta')
-        </div>
-
-        <div class="torrent box container" id="comments">
-            {{-- Commments Block --}}
-            @include('torrent.partials.comments')
-        </div>
-
-        {{-- Modals Block --}}
-        @include('torrent.torrent_modals', ['user' => $user, 'torrent' => $torrent])
-    </div>
+      {{-- Commments Block --}}
+      @include('torrent.partials.comments')
 @endsection
 
 @section('javascripts')

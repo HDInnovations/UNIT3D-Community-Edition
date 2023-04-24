@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\UserActivation;
+use App\Services\Unit3dAnnounce;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Auth\ActivationControllerTest
@@ -24,8 +25,8 @@ class ActivationController extends Controller
 {
     public function activate($token): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $memberGroup = \cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $memberGroup = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup[0]) {
@@ -40,11 +41,13 @@ class ActivationController extends Controller
 
             $activation->delete();
 
-            return \to_route('login')
-                ->withSuccess(\trans('auth.activation-success'));
+            Unit3dAnnounce::addUser($activation->user);
+
+            return to_route('login')
+                ->withSuccess(trans('auth.activation-success'));
         }
 
-        return \to_route('login')
-            ->withErrors(\trans('auth.activation-error'));
+        return to_route('login')
+            ->withErrors(trans('auth.activation-error'));
     }
 }

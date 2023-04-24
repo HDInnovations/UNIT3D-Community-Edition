@@ -24,9 +24,6 @@ mix.options({
 
     /*
      * Themes
-     *
-     * Note: Default wysibb theme is compiled into public/css/app.css from resources/sass/app.scss
-     *
      */
     .sass('resources/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
     .sass('resources/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
@@ -42,8 +39,6 @@ mix.options({
      * Login and TwoStep Auth styles
      *
      * We compile each of these separately since they should only be loaded with the certain views
-     *
-     * Note: These will likely be reworked into VueJS component(s)
      */
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
     .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
@@ -53,12 +48,11 @@ mix.options({
      *
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
-    .babel(['resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js', 'resources/js/unit3d/custom.js'], 'public/js/unit3d.js')
+    .babel(['resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
 
     /*
      * Copy assets
      */
-    .copy('resources/sass/vendor/webfonts/wysibb', 'public/fonts/wysibb')
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
     .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap')
 

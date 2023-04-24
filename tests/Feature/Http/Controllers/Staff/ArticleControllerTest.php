@@ -103,7 +103,6 @@ class ArticleControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.articles.store'), [
             'title'   => $article->title,
-            'slug'    => $article->slug,
             'content' => $article->content,
             'user_id' => $user->id,
         ]);
@@ -123,7 +122,6 @@ class ArticleControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.articles.update', ['id' => $article->id]), [
             'title'   => $article->title,
-            'slug'    => $article->slug,
             'content' => $article->content,
             'user_id' => $user->id,
         ]);

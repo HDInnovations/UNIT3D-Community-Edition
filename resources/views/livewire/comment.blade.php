@@ -82,7 +82,7 @@
                 </p>
             </form>
         @else
-            <div class="comment__content">
+            <div class="comment__content bbcode-rendered">
                 @joypixels($comment->getContentHtml())
             </div>
         @endif
@@ -113,7 +113,7 @@
                     @enderror
                     </p>
                     <p class="form__group">
-                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:modal="anon">
+                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:model="anon">
                         <label for="reply-anon" class="form__label">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group">

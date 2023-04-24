@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('git_updates', function (Blueprint $table) {
+        Schema::create('git_updates', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('hash')->unique();

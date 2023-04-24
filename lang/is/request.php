@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Þú hefur ekki nóg bónus',
     'edit-request'        => 'Breyta beiðni',
     'enter-bp'            => 'Sláðu inn bónus stig (að lágmarki 100)',
-    'enter-hash'          => 'Sláðu inn upplýsingar Hash af hlaðið Torrent',
+    'enter-hash'          => 'Sláðu inn upplýsingar ID af hlaðið Torrent',
     'fill'                => 'Fylla',
     'fill-request'        => 'Fylltu út þessa beiðni',
     'filled'              => 'Fyllt',

@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Warning;
 use App\Notifications\UserManualWarningExpire;
 use App\Notifications\UserWarningExpire;
+use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,7 @@ class AutoDeactivateWarning extends Command
             ->get();
 
         foreach ($warnings as $warning) {
-            if ($warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= \config('hitrun.seedtime'))) {
+            if ($warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= config('hitrun.seedtime'))) {
                 // Set Records Active To 0 in warnings table
                 $warning->active = '0';
                 $warning->save();
@@ -66,16 +67,18 @@ class AutoDeactivateWarning extends Command
 
         // Calculate User Warning Count and Enable DL Priv If Required.
         $warnings = Warning::with('warneduser')
-            ->select(DB::raw('user_id, count(*) as value'))
-            ->where('active', '=', 1)
+            ->select(DB::raw('user_id, SUM(active = 1) as value'))
             ->groupBy('user_id')
-            ->having('value', '<', \config('hitrun.max_warnings'))
+            ->having('value', '<', config('hitrun.max_warnings'))
             ->get();
 
         foreach ($warnings as $warning) {
             if ($warning->warneduser->can_download === 0) {
                 $warning->warneduser->can_download = 1;
                 $warning->warneduser->save();
+
+                cache()->forget('user:'.$warning->warneduser->passkey);
+                Unit3dAnnounce::addUser($warning->warneduser);
             }
         }
 

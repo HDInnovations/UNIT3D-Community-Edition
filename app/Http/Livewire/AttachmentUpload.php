@@ -32,7 +32,7 @@ class AttachmentUpload extends Component
 
     final public function mount(int $id): void
     {
-        $this->user = \auth()->user();
+        $this->user = auth()->user();
         $this->ticket = $id;
     }
 
@@ -42,7 +42,7 @@ class AttachmentUpload extends Component
             'attachment' => 'image|max:1024', // 1MB Max
         ]);
 
-        $fileName = \uniqid('', true).'.'.$this->attachment->getClientOriginalExtension();
+        $fileName = uniqid('', true).'.'.$this->attachment->getClientOriginalExtension();
 
         $this->attachment->storeAs('attachments', $fileName, 'attachments');
 
@@ -64,6 +64,6 @@ class AttachmentUpload extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.attachment-upload', ['attachments' => $this->attachments]);
+        return view('livewire.attachment-upload', ['attachments' => $this->attachments]);
     }
 }

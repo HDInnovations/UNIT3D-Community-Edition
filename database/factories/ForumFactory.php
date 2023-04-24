@@ -19,7 +19,6 @@ class ForumFactory extends Factory
             'num_post'                => $this->faker->randomNumber(),
             'last_topic_id'           => $this->faker->randomNumber(),
             'last_topic_name'         => $this->faker->word(),
-            'last_topic_slug'         => $this->faker->word(),
             'last_post_user_id'       => $this->faker->randomNumber(),
             'last_post_user_username' => $this->faker->word(),
             'name'                    => $this->faker->name(),

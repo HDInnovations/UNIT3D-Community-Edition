@@ -39,14 +39,13 @@ class BotsTableSeeder extends Seeder
     {
         return [
             [
-                'name'       => 'SystemBot',
-                'slug'       => 'systembot',
-                'emoji'      => '1f916',
-                'command'    => 'systembot',
-                'position'   => 1,
-                'color'      => '#f1c40f',
-                'icon'       => 'fab fa-android',
-                'help'       => '{me} v0.1 Help -- Notes about / ! and @{me} tab
+                'name'     => 'SystemBot',
+                'emoji'    => '1f916',
+                'command'  => 'systembot',
+                'position' => 1,
+                'color'    => '#f1c40f',
+                'icon'     => 'fab fa-android',
+                'help'     => '{me} v0.1 Help -- Notes about / ! and @{me} tab
 
 All [b]echo[/b] commands begin with / and echo output to current tab.
 All [b]room[/b] commands begin with ! and echo output for all in current room.
@@ -62,14 +61,13 @@ Available Bots:
                 'is_systembot' => 1,
             ],
             [
-                'name'       => 'NerdBot',
-                'slug'       => 'nerdbot',
-                'emoji'      => '1f913',
-                'command'    => 'nerdbot',
-                'position'   => 2,
-                'color'      => '#f1c40f',
-                'icon'       => 'fab fa-android',
-                'help'       => '{me} v0.1 Help -- Notes about / ! and @{me} tab
+                'name'     => 'NerdBot',
+                'emoji'    => '1f913',
+                'command'  => 'nerdbot',
+                'position' => 2,
+                'color'    => '#f1c40f',
+                'icon'     => 'fab fa-android',
+                'help'     => '{me} v0.1 Help -- Notes about / ! and @{me} tab
 
 All [b]echo[/b] commands begin with / and echo output to current tab.
 All [b]room[/b] commands begin with ! and echo output for all in current room.
@@ -105,7 +103,6 @@ None.
             ],
             [
                 'name'         => 'CasinoBot',
-                'slug'         => 'casinobot',
                 'command'      => 'casinobot',
                 'emoji'        => '1f3b0',
                 'position'     => 3,
@@ -117,7 +114,6 @@ None.
             ],
             [
                 'name'         => 'BetBot',
-                'slug'         => 'betbot',
                 'command'      => 'betbot',
                 'emoji'        => '1f3b2',
                 'position'     => 4,
@@ -129,7 +125,6 @@ None.
             ],
             [
                 'name'         => 'TriviaBot',
-                'slug'         => 'triviabot',
                 'command'      => 'triviabot',
                 'emoji'        => '2753',
                 'position'     => 5,

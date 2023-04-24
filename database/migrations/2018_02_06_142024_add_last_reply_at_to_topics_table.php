@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('topics', function (Blueprint $table) {
+        Schema::table('topics', function (Blueprint $table): void {
             $table->timestamp('last_reply_at')->nullable()->after('last_post_user_username');
         });
     }

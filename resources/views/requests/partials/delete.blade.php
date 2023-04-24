@@ -1,10 +1,11 @@
-<form
-    action="{{ route("deleteRequest", ['id' => $torrentRequest->id]) }}"
-    method="POST"
-    x-data
->
-    @csrf
-    <div class="form__group form__group--short-horizontal">
+<li class="form__group form__group--short-horizontal">
+    <form
+        action="{{ route("deleteRequest", ['id' => $torrentRequest->id]) }}"
+        method="POST"
+        x-data
+        style="display: contents"
+    >
+        @csrf
         <button
             x-on:click.prevent="Swal.fire({
                 title: 'Are you sure?',
@@ -17,9 +18,9 @@
                     $root.submit();
                 }
             })"
-            class="form__button form__button--filled form__button--centered"
+            class="form__button form__button--outlined form__button--centered"
         >
             {{ __('common.delete') }}
         </button>
-    </div>
-</form>
+    </form>
+</li>

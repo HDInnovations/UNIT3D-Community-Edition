@@ -13,10 +13,9 @@
 
 namespace App\Jobs;
 
-use App\Models\Cast;
+use App\Enums\Occupations;
 use App\Models\Collection;
 use App\Models\Company;
-use App\Models\Crew;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Person;
@@ -74,7 +73,7 @@ class ProcessMovieJob implements ShouldQueue
             $client = new Client\Collection($this->movie['belongs_to_collection']['id']);
             $belongsToCollection = $client->getData();
             if (isset($belongsToCollection['name'])) {
-                $titleSort = \addslashes(\str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
+                $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
 
                 $belongsToCollectionArray = [
                     'name'      => $belongsToCollection['name'] ?? null,
@@ -88,18 +87,44 @@ class ProcessMovieJob implements ShouldQueue
             }
         }
 
-        if (isset($this->movie['credits']['cast'])) {
-            foreach ($this->movie['credits']['cast'] as $cast) {
-                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
-                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->movie()->syncWithoutDetaching([$this->movie['id']]);
+        $people_ids = [];
+        $credits = [];
+
+        foreach ($this->movie['credits']['cast'] ?? [] as $person) {
+            $credits[] = [
+                'movie_id'      => $this->movie['id'],
+                'person_id'     => $person['id'],
+                'occupation_id' => Occupations::ACTOR->value,
+                'character'     => $person['character'] ?? '',
+                'order'         => $person['order'] ?? null
+            ];
+            $people_ids[] = $person['id'];
+        }
+
+        foreach ($this->movie['credits']['crew'] ?? [] as $person) {
+            $job = Occupations::from_tmdb_job($person['job']);
+
+            if ($job !== null) {
+                $credits[] = [
+                    'movie_id'      => $this->movie['id'],
+                    'person_id'     => $person['id'],
+                    'occupation_id' => $job->value,
+                    'order'         => null
+                ];
+                $people_ids[] = $person['id'];
             }
         }
 
-        if (isset($this->movie['credits']['crew'])) {
-            foreach ($this->movie['credits']['crew'] as $crew) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->movie()->syncWithoutDetaching([$this->movie['id']]);
-            }
+        $people = [];
+
+        foreach (array_unique($people_ids) as $person_id) {
+            $client = new Client\Person($person_id);
+            $person = $client->getData();
+            $people[] = $tmdb->person_array($person);
         }
+
+        Person::upsert($people, 'id');
+        Movie::find($this->movie['id'])->people()->sync($credits);
 
         if (isset($this->movie['recommendations'])) {
             foreach ($this->movie['recommendations']['results'] as $recommendation) {

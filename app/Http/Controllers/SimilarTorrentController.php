@@ -13,9 +13,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
+use MarcReichel\IGDBLaravel\Models\Game;
+use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
 class SimilarTorrentController extends Controller
 {
@@ -24,26 +27,73 @@ class SimilarTorrentController extends Controller
      */
     public function show(int $categoryId, int $tmdbId): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $torrent = Torrent::where('category_id', '=', $categoryId)
-            ->where('tmdb', '=', $tmdbId)
-            ->first();
+        $category = Category::query()->findOrFail($categoryId);
 
-        \abort_if(! $torrent || $torrent->count() === 0, 404, 'No Similar Torrents Found');
+        switch (true) {
+            case $category->movie_meta:
+                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb', '=', $tmdbId)->exists();
 
-        $meta = null;
-        if ($torrent->category->tv_meta) {
-            $meta = Tv::with('genres', 'cast', 'networks', 'seasons')->where('id', '=', $tmdbId)->first();
+                abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
+
+                $meta = Movie::with([
+                    'genres',
+                    'credits' => ['person', 'occupation'],
+                    'companies'
+                ])
+                    ->find($tmdbId);
+                $trailer = ( new \App\Services\Tmdb\Client\Movie($tmdbId))->get_trailer();
+                $tmdb = $tmdbId;
+                break;
+            case $category->tv_meta:
+                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb', '=', $tmdbId)->exists();
+
+                abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
+
+                $meta = Tv::with([
+                    'genres',
+                    'credits' => ['person', 'occupation'],
+                    'companies',
+                    'networks'
+                ])
+                    ->find($tmdbId);
+                $trailer = ( new \App\Services\Tmdb\Client\TV($tmdbId))->get_trailer();
+                $tmdb = $tmdbId;
+                break;
+            case $category->game_meta:
+                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('igdb', '=', $tmdbId)->exists();
+
+                abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
+
+                $meta = Game::with([
+                    'cover'    => ['url', 'image_id'],
+                    'artworks' => ['url', 'image_id'],
+                    'genres'   => ['name'],
+                    'videos'   => ['video_id', 'name'],
+                    'involved_companies.company',
+                    'involved_companies.company.logo',
+                    'platforms',
+                ])
+                    ->find($tmdbId);
+                $link = collect($meta->videos)->take(1)->pluck('video_id');
+                $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
+                $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
+                $igdb = $tmdbId;
+                break;
+            default:
+                abort(404, 'No Similar Torrents Found');
+                break;
         }
 
-        if ($torrent->category->movie_meta) {
-            $meta = Movie::with('genres', 'cast', 'companies', 'collection')->where('id', '=', $tmdbId)->first();
-        }
+        $personalFreeleech = cache()->get('personal_freeleech:'.auth()->user()->id);
 
-        return \view('torrent.similar', [
-            'meta'       => $meta,
-            'torrent'    => $torrent,
-            'categoryId' => $categoryId,
-            'tmdbId'     => $tmdbId,
+        return view('torrent.similar', [
+            'meta'               => $meta,
+            'personal_freeleech' => $personalFreeleech,
+            'trailer'            => $trailer,
+            'platforms'          => $platforms ?? null,
+            'category'           => $category,
+            'tmdb'               => $tmdb ?? null,
+            'igdb'               => $igdb ?? null,
         ]);
     }
 }

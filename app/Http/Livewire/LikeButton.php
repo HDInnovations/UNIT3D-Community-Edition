@@ -19,14 +19,17 @@ use Livewire\Component;
 
 class LikeButton extends Component
 {
-    public $post;
+    public Post $post;
 
     public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
-    final public function mount($post): void
+    public int $likesCount;
+
+    final public function mount(Post $post, int $likesCount): void
     {
-        $this->user = \auth()->user();
-        $this->post = Post::findOrFail($post);
+        $this->user = auth()->user();
+        $this->post = $post;
+        $this->likesCount = $likesCount;
     }
 
     final public function store(): void
@@ -50,11 +53,13 @@ class LikeButton extends Component
         $new->like = 1;
         $new->save();
 
+        $this->likesCount += 1;
+
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Like Was Successfully Applied!']);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.like-button');
+        return view('livewire.like-button');
     }
 }

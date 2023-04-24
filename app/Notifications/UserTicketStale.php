@@ -43,10 +43,10 @@ class UserTicketStale extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->cc($this->ticket->staff->email)
-                    ->subject('Your ticket is still open')
-                    ->line('This is a reminder that your ticket is still open')
-                    ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
+            ->cc($this->ticket->staff->email)
+            ->subject('Your ticket is still open')
+            ->line('This is a reminder that your ticket is still open')
+            ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
     }
 
     /**

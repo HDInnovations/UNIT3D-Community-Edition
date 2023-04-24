@@ -1,4 +1,5 @@
 <?php
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,12 +14,10 @@
 
 namespace App\Jobs;
 
-use App\Models\Cast;
+use App\Enums\Occupations;
 use App\Models\Company;
-use App\Models\Crew;
 use App\Models\Episode;
 use App\Models\Genre;
-use App\Models\GuestStar;
 use App\Models\Network;
 use App\Models\Person;
 use App\Models\Recommendation;
@@ -65,12 +64,6 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
-        foreach ($this->tv['created_by'] as $person) {
-            if (isset($person['id'])) {
-                Person::updateOrCreate(['id' => $person['id']], $tmdb->person_array($person))->tv()->syncWithoutDetaching([$this->id]);
-            }
-        }
-
         foreach ($this->tv['networks'] as $network) {
             $client = new Client\Network($network['id']);
             $network = $client->getData();
@@ -98,21 +91,61 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
-        if (isset($this->tv['credits']['cast'])) {
-            foreach ($this->tv['credits']['cast'] as $cast) {
-                Cast::updateOrCreate(['id' => $cast['id']], $tmdb->cast_array($cast))->tv()->syncWithoutDetaching([$this->tv['id']]);
-                Person::updateOrCreate(['id' => $cast['id']], $tmdb->person_array($cast))->tv()->syncWithoutDetaching([$this->tv['id']]);
+        $people_ids = [];
+        $credits = [];
+
+        foreach ($this->tv['aggregate_credits']['cast'] ?? [] as $person) {
+            foreach ($person['roles'] as $role) {
+                $credits[] = [
+                    'tv_id'         => $this->tv['id'],
+                    'person_id'     => $person['id'],
+                    'occupation_id' => Occupations::ACTOR->value,
+                    'character'     => $role['character'] ?? '',
+                    'order'         => $person['order'] ?? null
+                ];
+                $people_ids[] = $person['id'];
             }
         }
 
-        if (isset($this->tv['credits']['crew'])) {
-            foreach ($this->tv['credits']['crew'] as $crew) {
-                Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->tv['id']]);
+        foreach ($this->tv['aggregate_credits']['crew'] ?? [] as $person) {
+            foreach ($person['jobs'] as $job) {
+                $occupation = Occupations::from_tmdb_job($job['job']);
+
+                if ($occupation !== null) {
+                    $credits[] = [
+                        'tv_id'         => $this->tv['id'],
+                        'person_id'     => $person['id'],
+                        'occupation_id' => $occupation->value,
+                        'order'         => null,
+                    ];
+                    $people_ids[] = $person['id'];
+                }
             }
         }
+
+        foreach ($this->tv['created_by'] ?? [] as $person) {
+            $credits[] = [
+                'tv_id'         => $this->tv['id'],
+                'person_id'     => $person['id'],
+                'occupation_id' => Occupations::CREATOR->value,
+                'order'         => null,
+            ];
+            $people_ids[] = $person['id'];
+        }
+
+        $people = [];
+
+        foreach (array_unique($people_ids) as $person_id) {
+            $client = new Client\Person($person_id);
+            $person = $client->getData();
+            $people[] = $tmdb->person_array($person);
+        }
+
+        Person::upsert($people, 'id');
+        Tv::find($this->tv['id'])->people()->sync($credits);
 
         foreach ($this->tv['seasons'] as $season) {
-            $client = new Client\Season($this->id, \sprintf('%02d', $season['season_number']));
+            $client = new Client\Season($this->id, sprintf('%02d', $season['season_number']));
             $season = $client->getData();
             if (isset($season['season_number'])) {
                 $seasonArray = [
@@ -120,56 +153,31 @@ class ProcessTvJob implements ShouldQueue
                     'poster'        => $tmdb->image('poster', $season),
                     'name'          => $tmdb->ifExists('name', $season),
                     'overview'      => $tmdb->ifExists('overview', $season),
-                    'season_number' => \sprintf('%02d', $season['season_number']),
+                    'season_number' => sprintf('%02d', $season['season_number']),
                     'tv_id'         => $this->id,
                 ];
 
                 Season::updateOrCreate(['id' => $season['id']], $seasonArray)->tv();
 
                 foreach ($season['episodes'] as $episode) {
-                    $client = new Client\Episode($this->id, \sprintf('%02d', $season['season_number']), $episode['episode_number']);
+                    $client = new Client\Episode($this->id, sprintf('%02d', $season['season_number']), $episode['episode_number']);
                     $episode = $client->getData();
                     if (isset($episode['episode_number'])) {
                         $episodeArray = [
                             'tv_id'           => $this->id,
                             'air_date'        => $tmdb->ifExists('air_date', $episode),
                             'name'            => Str::limit($tmdb->ifExists('name', $episode), 200),
-                            'episode_number'  => \sprintf('%02d', $episode['episode_number']),
+                            'episode_number'  => sprintf('%02d', $episode['episode_number']),
                             'overview'        => $tmdb->ifExists('overview', $episode),
                             'still'           => $tmdb->image('still', $episode),
                             'production_code' => $episode['production_code'],
-                            'season_number'   => \sprintf('%02d', $episode['season_number']),
+                            'season_number'   => sprintf('%02d', $episode['season_number']),
                             'vote_average'    => $episode['vote_average'],
                             'vote_count'      => $episode['vote_count'],
                             'season_id'       => $season['id'],
                         ];
 
                         Episode::updateOrCreate(['id' => $episode['id']], $episodeArray)->season();
-
-                        foreach ($episode['credits']['guest_stars'] as $person) {
-                            if (isset($person['id'])) {
-                                GuestStar::updateOrCreate(['id' => $person['id']], $tmdb->person_array($person))->episode()->syncWithoutDetaching([$episode['id']]);
-                                Person::updateOrCreate(['id' => $person['id']], $tmdb->person_array($person))->tv()->syncWithoutDetaching([$this->id]);
-                            }
-                        }
-                    }
-                }
-
-                foreach ($season['credits']['cast'] as $person) {
-                    if (isset($person['id'])) {
-                        Cast::updateOrCreate(['id' => $person['id']], $tmdb->cast_array($person))->season()->syncWithoutDetaching([$season['id']]);
-                        Cast::updateOrCreate(['id' => $person['id']], $tmdb->cast_array($person))->tv()->syncWithoutDetaching([$this->id]);
-                        Person::updateOrCreate(['id' => $person['id']], $tmdb->person_array($person))->tv()->syncWithoutDetaching([$this->id]);
-                        $client = new Client\Person($person['id']);
-                        $people = $client->getData();
-                        Crew::updateOrCreate(['id' => $people['id']], $tmdb->person_array($people))->season()->syncWithoutDetaching([$season['id']]);
-                    }
-                }
-
-                foreach ($season['credits']['crew'] as $crew) {
-                    if (isset($crew['id'])) {
-                        Crew::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->season()->syncWithoutDetaching([$season['id']]);
-                        Person::updateOrCreate(['id' => $crew['id']], $tmdb->person_array($crew))->tv()->syncWithoutDetaching([$this->id]);
                     }
                 }
             }

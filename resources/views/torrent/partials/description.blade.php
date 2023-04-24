@@ -1,18 +1,9 @@
-<div class="panel panel-chat shoutbox torrent-description">
-    <div class="panel-heading">
-        <h4><i class="{{ config("other.font-awesome") }} fa-sticky-note"></i> {{ __('common.description') }}</h4>
+<section class="panelV2">
+    <h2 class="panel__heading">
+        <i class="{{ config("other.font-awesome") }} fa-sticky-note"></i>
+        {{ __('common.description') }}
+    </h2>
+    <div class="panel__body bbcode-rendered">
+        @joypixels($torrent->getDescriptionHtml())
     </div>
-    <div class="table-responsive">
-        <table class="table table-condensed table-bordered table-striped">
-            <tbody>
-            <tr>
-                <td>
-                    <div class="panel-body">
-                        @joypixels($torrent->getDescriptionHtml())
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+</section>

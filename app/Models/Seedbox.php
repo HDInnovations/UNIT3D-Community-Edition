@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seedbox extends Model
 {
-    use HasFactory;
-    use Encryptable;
     use Auditable;
+    use Encryptable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.

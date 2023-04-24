@@ -1,0 +1,83 @@
+.torrent__name {
+    font-size: 22px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.torrent__buttons {
+    margin: 10px 0;
+    padding: 0;
+}
+
+/* Tags
+---------------------------------------------------------------------------- */
+
+.torrent__tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    align-items: baseline;
+    font-size: 14px;
+    justify-content: center;
+}
+
+.torrent__tags li:not(:last-child)::after {
+    content: "\2022";
+    display: inline-block;
+    margin-left: -0.5ch;
+}
+
+.torrent__tags li {
+    white-space: nowrap
+}
+
+.torrent__tags > li > a, .torrent__tags > li > span, .torrent__tags > li > time {
+    color: var(--torrent-tag-fg);
+    padding: 6px 12px;
+    display: inline-block;
+}
+
+.torrent__tags > li > a:hover {
+    background-color: var(--torrent-tag-hover-bg);
+    border-radius: 9999px;
+    color: var(--torrent-tag-hover-fg);
+}
+
+.torrent__seeders-link.torrent__seeders-link {
+    color: var(--torrent-row-seeders-fg);
+}
+
+.torrent__seeders-link:hover.torrent__seeders-link:hover {
+    color: var(--torrent-row-seeders-fg);
+}
+
+.torrent__leechers-link.torrent__leechers-link {
+    color: var(--torrent-row-leechers-fg);
+}
+
+.torrent__leechers-link:hover.torrent__leechers-link:hover {
+    color: var(--torrent-row-leechers-fg);
+}
+
+.torrent__completed-link.torrent__completed-link {
+    color: var(--torrent-row-completed-fg);
+}
+
+.torrent__completed-link:hover.torrent__completed-link:hover {
+    color: var(--torrent-row-completed-fg);
+}
+
+@media screen and (max-width: 767px) {
+    .torrent__tags {
+        display: flex;
+        gap: 6px;
+    }
+
+    .torrent__tags.torrent__tags > li::after {
+        display: none;
+    }
+}

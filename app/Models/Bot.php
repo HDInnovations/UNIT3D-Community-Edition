@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bot extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Indicates If The Model Should Be Timestamped.
@@ -37,4 +37,11 @@ class Bot extends Model
     protected $casts = [
         'name' => 'string',
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 }

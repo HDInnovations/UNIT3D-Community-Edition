@@ -23,12 +23,12 @@ class UserEchoResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id'         => $this->id,
-            'user_id'    => $this->user_id,
-            'user'       => $this->user,
-            'target'     => $this->target,
-            'room'       => $this->room,
-            'bot'        => $this->bot,
+            'id'      => $this->id,
+            'user_id' => $this->user_id,
+            'user'    => $this->user,
+            'target'  => $this->target,
+            'room'    => $this->room,
+            'bot'     => $this->bot,
         ];
     }
 }

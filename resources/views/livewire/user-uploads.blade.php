@@ -1,79 +1,84 @@
-<div>
-    <div class="container well search mt-5">
-        <div class="form-horizontal form-condensed form-torrent-search form-bordered">
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">{{ __('torrent.name') }}</label>
-                <div class="col-sm-9 fatten-me">
-                    <input type="text" class="form-control" id="name" wire:model="name" placeholder="{{ __('torrent.name') }}">
-                </div>
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+    <section class="panelV2 user-uploads__filters">
+        <h2 class="panel__heading">{{ __('common.search') }}</h2>
+        <div class="panel__body">
+            <div class="form__group--horizontal">
+                <p class="form__group">
+                    <input wire:model="name" class="form__text" placeholder="" autofocus="">
+                    <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
+                </p>
             </div>
-
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <div class="mt-5 col-sm-1 label label-default fatten-me">
-                    {{ __('torrent.filters') }}
+            <div class="form__group--short-horizontal">
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.filters') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            <p class="form__group">
+                                <label style="user-select: none" class="form__label" x-data="{ state: @entangle('personalRelease'), ...ternaryCheckbox() }">
+                                    <input
+                                        type="checkbox"
+                                        class="user-uploads__checkbox"
+                                        x-init="updateTernaryCheckboxProperties($el, state)"
+                                        x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
+                                        x-bind:checked="state === 'include'"
+                                    >
+                                    {{ __('torrent.downloaded') }}
+                                </label>
+                            </p>
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="col-sm-10">
-                    <span class="badge-user">
-                        <label style="user-select: none" class="inline" x-data="{ state: @entangle('personalRelease'), ...ternaryCheckbox() }">
-                            <input
-                                type="checkbox"
-                                class="user-uploads__checkbox"
-                                x-init="updateTernaryCheckboxProperties($el, state)"
-                                x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
-                                x-bind:checked="state === 'include'"
-                            >
-                            {{ __('torrent.personal-release') }}
-                        </label>
-                    </span>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('torrent.moderation') }}</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="0" wire:model="status">
+                                    {{ __('torrent.pending') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="1" wire:model="status">
+                                    {{ __('torrent.approved') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="2" wire:model="status">
+                                    {{ __('torrent.rejected') }}
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="3" wire:model="status">
+                                    Postponed
+                                </label>
+                            </p>
+                        </div>
+                    </fieldset>
                 </div>
-            </div>
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <div class="mt-5 col-sm-1 label label-default fatten-me">
-                    {{ __('torrent.moderation') }}
-                </div>
-                <div class="col-sm-10">
-                    <span class="badge-user">
-                        <label class="inline">
-                            <input type="checkbox" class="user-uploads__checkbox" wire:model="status" value="0">
-                            {{ __('torrent.pending') }}
-                        </label>
-                    </span>
-                    <span class="badge-user">
-                        <label class="inline">
-                            <input type="checkbox" class="user-uploads__checkbox" wire:model="status" value="1">
-                            {{ __('torrent.approved') }}
-                        </label>
-                    </span>
-                    <span class="badge-user">
-                        <label class="inline">
-                            <input type="checkbox" class="user-uploads__checkbox" wire:model="status" value="2">
-                            {{ __('torrent.rejected') }}
-                        </label>
-                    </span>
-                    <span class="badge-user">
-                        <label class="inline">
-                            <input type="checkbox" class="user-uploads__checkbox" wire:model="status" value="3">
-                            Postponed
-                        </label>
-                    </span>
-                </div>
-            </div>
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <div class="mt-5 col-sm-1 label label-default fatten-me">Options</div>
-                <div class="col-sm-10">
-                    <span class="badge-user">
-                        <label class="inline">
-                            <input type="checkbox" class="user-uploads__checkbox" wire:model="showMorePrecision">
-                            Show more precision
-                        </label>
-                    </span>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Precision</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input type="checkbox" class="user-uploads__checkbox" wire:model="showMorePrecision">
+                                    Show more precision
+                                </label>
+                            </p>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered">
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('user.uploads') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                 <th class="user-uploads__name-header" wire:click="sortBy('name')" role="columnheader button">
                     {{ __('torrent.name') }}
@@ -193,11 +198,9 @@
                 @endforeach
                 </tbody>
             </table>
-            <div class="text-center">
-                {{ $uploads->links() }}
-            </div>
         </div>
-    </div>
+        {{ $uploads->links('partials.pagination') }}
+    </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         function ternaryCheckbox() {
             return {

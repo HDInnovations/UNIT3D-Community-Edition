@@ -23,7 +23,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->integer('type_id')->index();
         });
 
@@ -33,7 +33,7 @@ return new class () extends Migration {
             $torrent->save();
         }
 
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->dropColumn('type');
         });
     }

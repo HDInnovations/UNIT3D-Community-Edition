@@ -59,7 +59,7 @@ class UserNotification extends Model
      */
     public function getExpectedGroupsAttribute(): array
     {
-        return ['default_groups' => ['1' => 0]];
+        return [];
     }
 
     /**

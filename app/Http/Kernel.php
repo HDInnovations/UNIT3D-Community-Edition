@@ -31,7 +31,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
 
         // Extra
         \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
@@ -56,15 +56,12 @@ class Kernel extends HttpKernel
         ],
         'api' => [
             'throttle:api',
-            'bindings',
         ],
         'announce' => [
             'throttle:announce',
-            'bindings',
         ],
         'rss' => [
             'throttle:rss',
-            'bindings',
         ],
     ];
 
@@ -75,7 +72,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         'admin'         => \App\Http\Middleware\CheckForAdmin::class,
         'auth'          => \App\Http\Middleware\Authenticate::class,
         'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Du har ikke nok Bonus',
     'edit-request'        => 'Rediger request',
     'enter-bp'            => 'Indtast bonuspoint (minimum 100)',
-    'enter-hash'          => 'Indtast Info Hash af den uploadede Torrent',
+    'enter-hash'          => 'Indtast ID af den uploadede Torrent',
     'fill'                => 'Opfyld',
     'fill-request'        => 'Opfyld denne request',
     'filled'              => 'Opfyldt',

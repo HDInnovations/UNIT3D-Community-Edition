@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class FeaturedTorrent extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Belongs To A Torrent.

@@ -77,7 +77,7 @@
                         <select name="user_id" class="form__select" x-on:change="$root.submit()">
                             <option hidden disabled selected value=""></option>
                             @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
-                                <option value="{{ $user->id }}" @selected($user->id = $ticket->staff_id)>
+                                <option value="{{ $user->id }}" @selected($user->id === $ticket->staff_id)>
                                     {{ $user->username }}
                                 </option>
                             @endforeach
@@ -92,7 +92,7 @@
                     >
                         @csrf
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled">
+                            <button class="form__button form__button--filled form__button--centered">
                                 {{ __('ticket.unassign') }}
                             </button>
                         </p>
@@ -105,8 +105,7 @@
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled">
-                            <i class="fas fa-times"></i>
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.delete') }}
                         </button>
                     </p>
@@ -119,8 +118,7 @@
                 >
                     <p class="form__group form__group--horizontal">
                         @csrf
-                        <button class="form__button form__button--filled">
-                            <i class="fas fa-times"></i>
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.close') }}
                         </button>
                     </p>

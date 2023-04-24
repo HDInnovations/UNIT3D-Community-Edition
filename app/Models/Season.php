@@ -28,7 +28,7 @@ class Season extends Model
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q) {
+        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q): void {
             $q->where('tv_meta', '=', true);
         });
     }
@@ -42,20 +42,5 @@ class Season extends Model
     {
         return $this->hasMany(Episode::class)
             ->oldest('episode_number');
-    }
-
-    public function person(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Person::class);
-    }
-
-    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Cast::class);
-    }
-
-    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Crew::class);
     }
 }

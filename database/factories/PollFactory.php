@@ -17,7 +17,6 @@ class PollFactory extends Factory
         return [
             'user_id'         => fn () => User::factory()->create()->id,
             'title'           => $this->faker->word(),
-            'slug'            => $this->faker->slug(),
             'ip_checking'     => $this->faker->boolean(),
             'multiple_choice' => $this->faker->boolean(),
         ];

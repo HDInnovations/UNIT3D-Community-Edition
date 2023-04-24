@@ -17,18 +17,14 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents') }}">
-            List
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
-            Cards
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
-            Grouped
+        <a class="nav-tab__link"
+            href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                default => 'list'
+            }]) }}"
+        >
+            {{ __('torrent.search') }}
         </a>
     </li>
     <li class="nav-tabV2">
@@ -289,7 +285,7 @@
                                 id="autotvdb"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="cats[cat].type === 'tv' ? '{{ old('tvdb') }}' : '0'"
+                                x-bind:value="cats[cat].type === 'tv' ? '{{ $tvdb ?: old('tvdb') }}' : '0'"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'tv'"
                             >
@@ -303,7 +299,8 @@
                                 id="automal"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ old('mal') }}' : '0'"
+                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $mal ?: old('mal') }}' : '0'"
+                                x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                                 class="form__text"
                                 placeholder=""
                             >
@@ -317,7 +314,7 @@
                             id="autoigdb"
                             inputmode="numeric"
                             pattern="[0-9]*"
-                            x-bind:value="cats[cat].type === 'game' ? '{{ old('igdb') }}' : '0'"
+                            x-bind:value="cats[cat].type === 'game' ? '{{ $igdb ?: old('igdb') }}' : '0'"
                             class="form__text"
                             x-bind:required="cats[cat].type === 'game'"
                         >

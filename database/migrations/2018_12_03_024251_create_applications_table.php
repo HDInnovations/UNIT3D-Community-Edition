@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('applications', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('type');
             $table->string('email')->unique();

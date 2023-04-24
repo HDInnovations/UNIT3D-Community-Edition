@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Jūs neturite pakankamai premijos',
     'edit-request'        => 'Redaguoti užklausą',
     'enter-bp'            => 'Įveskite premijos taškus (mažiausiai 100)',
-    'enter-hash'          => 'Įveskite įkeltos „Torrent“ informacijos Hash',
+    'enter-hash'          => 'Įveskite įkeltos „Torrent“ ID',
     'fill'                => 'Užpildykite',
     'fill-request'        => 'Užpildykite šį prašymą',
     'filled'              => 'Užpildyta',

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Enums\Occupations;
 use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
@@ -26,14 +27,20 @@ class Movie extends Model
         return $this->belongsToMany(Genre::class);
     }
 
-    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Cast::class, 'cast_movie', 'cast_id', 'movie_id');
+        return $this->belongsToMany(Person::class, 'credits');
     }
 
-    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Crew::class, 'crew_movie', 'person_id', 'movie_id');
+        return $this->hasMany(Credit::class);
+    }
+
+    public function directors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Person::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::DIRECTOR->value);
     }
 
     public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -58,14 +65,14 @@ class Movie extends Model
 
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
             $q->where('movie_meta', '=', true);
         });
     }
 
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(TorrentRequest::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+        return $this->hasMany(TorrentRequest::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
             $q->where('movie_meta', '-', true);
         });
     }

@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use App\Enums\Occupations;
 use Illuminate\Database\Eloquent\Model;
 
 class Tv extends Model
@@ -28,7 +29,7 @@ class Tv extends Model
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
             $q->where('tv_meta', '=', true);
         });
     }
@@ -39,29 +40,25 @@ class Tv extends Model
             ->oldest('season_number');
     }
 
-    public function persons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Person::class);
+        return $this->belongsToMany(Person::class, 'credits');
     }
 
-    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Cast::class, 'cast_tv', 'cast_id', 'tv_id');
+        return $this->hasMany(Credit::class);
     }
 
-    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Crew::class, 'crew_tv', 'person_id', 'tv_id');
+        return $this->belongsToMany(Person::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::CREATOR->value);
     }
 
     public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
-    }
-
-    public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Person::class);
     }
 
     public function networks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

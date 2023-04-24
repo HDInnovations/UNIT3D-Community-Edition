@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Ju nuk keni Bonus të mjaftueshëm',
     'edit-request'        => 'Ndrysho kërkesën',
     'enter-bp'            => 'Futni pikë bonus (minimumi 100)',
-    'enter-hash'          => 'Shkruani Info Hash të Torrent-it të ngarkuar',
+    'enter-hash'          => 'Shkruani ID të Torrent-it të ngarkuar',
     'fill'                => 'mbush',
     'fill-request'        => 'Plotësoni këtë kërkesë',
     'filled'              => 'i mbushur',

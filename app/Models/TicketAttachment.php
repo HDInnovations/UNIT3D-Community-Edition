@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketAttachment extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     protected $appends = [
         'full_disk_path',

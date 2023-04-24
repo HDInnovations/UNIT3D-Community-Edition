@@ -58,7 +58,7 @@ class BackupPanel extends Component
             ->values()
             ->toArray());
 
-        if (! $this->activeDisk && count($this->backupStatuses)) {
+        if (! $this->activeDisk && \count($this->backupStatuses)) {
             $this->activeDisk = $this->backupStatuses[0]['disk'];
         }
 
@@ -161,12 +161,12 @@ class BackupPanel extends Component
             'Pragma'              => 'public',
         ];
 
-        return response()->stream(function () use ($backup) {
+        return response()->stream(function () use ($backup): void {
             $stream = $backup->stream();
 
             fpassthru($stream);
 
-            if (is_resource($stream)) {
+            if (\is_resource($stream)) {
                 fclose($stream);
             }
         }, 200, $downloadHeaders);

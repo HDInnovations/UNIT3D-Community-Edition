@@ -26,33 +26,32 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
-use App\Models\Follow;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
-use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 
 class TorrentHelper
 {
     public static function approveHelper($id): void
     {
-        $appurl = \config('app.url');
-        $appname = \config('app.name');
+        $appurl = config('app.url');
+        $appname = config('app.name');
 
         Torrent::approve($id);
-        $torrent = Torrent::with('uploader')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::with('user')->withAnyStatus()->where('id', '=', $id)->first();
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
 
-        $uploader = $torrent->uploader;
+        $uploader = $torrent->user;
 
         $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
         if ($wishes) {
             foreach ($wishes as $wish) {
-                $wish->source = \sprintf('%s/torrents/%s', $appurl, $torrent->id);
+                $wish->source = sprintf('%s/torrents/%s', $appurl, $torrent->id);
                 $wish->save();
 
                 // Send Private Message
@@ -60,20 +59,16 @@ class TorrentHelper
                 $pm->sender_id = 1;
                 $pm->receiver_id = $wish->user_id;
                 $pm->subject = 'Wish List Notice!';
-                $pm->message = \sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
+                $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }
         }
 
         if ($torrent->anon == 0) {
-            $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
-            if ($followers) {
-                foreach ($followers as $follower) {
-                    $pushto = User::with('notification')->find($follower->user_id);
-                    if ($pushto->acceptsNotification($uploader, $pushto, 'following', 'show_following_upload')) {
-                        $pushto->notify(new NewUpload('follower', $torrent));
-                    }
+            foreach ($uploader->followers()->get() as $follower) {
+                if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
+                    $follower->notify(new NewUpload('follower', $torrent));
                 }
             }
         }
@@ -84,7 +79,7 @@ class TorrentHelper
 
         if ($anon == 0) {
             // Achievements
-            $user->unlock(new UserMadeUpload(), 1);
+            $user->unlock(new UserMadeUpload());
             $user->addProgress(new UserMade25Uploads(), 1);
             $user->addProgress(new UserMade50Uploads(), 1);
             $user->addProgress(new UserMade100Uploads(), 1);
@@ -99,17 +94,19 @@ class TorrentHelper
         }
 
         // Announce To IRC
-        if (\config('irc-bot.enabled')) {
-            $appname = \config('app.name');
+        if (config('irc-bot.enabled')) {
+            $appname = config('app.name');
             $ircAnnounceBot = new IRCAnnounceBot();
             if ($anon == 0) {
-                $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
-                $ircAnnounceBot->message(\config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
+                $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
+                $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
             } else {
-                $ircAnnounceBot->message(\config('irc-bot.channel'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
-                $ircAnnounceBot->message(\config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']');
+                $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
+                $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']');
             }
-            $ircAnnounceBot->message(\config('irc-bot.channel'), \sprintf('[Link: %s/torrents/', $appurl).$id.']');
+            $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
+
+        Unit3dAnnounce::addTorrent($torrent);
     }
 }

@@ -14,6 +14,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use Exception;
 
 class UserObserver
 {
@@ -29,12 +30,12 @@ class UserObserver
      * Handle the User "saved" event.
      *
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function saved(User $user): void
     {
         //\cache()->put(\sprintf('user:%s', $user->passkey), $user);
-        \cache()->forget('cachedUser.'.$user->id);
+        cache()->forget('cachedUser.'.$user->id);
     }
 
     /**

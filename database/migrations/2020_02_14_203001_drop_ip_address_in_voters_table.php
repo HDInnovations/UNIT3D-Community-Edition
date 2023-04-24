@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('voters', function (Blueprint $table) {
+        Schema::table('voters', function (Blueprint $table): void {
             $table->dropColumn('ip_address');
         });
     }

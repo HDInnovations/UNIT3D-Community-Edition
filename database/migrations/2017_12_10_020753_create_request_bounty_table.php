@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('request_bounty', function (Blueprint $table) {
+        Schema::create('request_bounty', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('user_id')->index('addedby');
             $table->float('seedbonus', 12)->unsigned()->default(0.00);

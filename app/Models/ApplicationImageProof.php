@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApplicationImageProof extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Attributes That Are Mass Assignable.

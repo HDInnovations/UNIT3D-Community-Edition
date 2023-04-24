@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('torrents', function (Blueprint $table) {
+        Schema::create('torrents', function (Blueprint $table): void {
             $table->bigInteger('id', true)->unsigned();
             $table->string('name')->index('name');
             $table->string('slug');

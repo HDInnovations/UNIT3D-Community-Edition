@@ -16,12 +16,12 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
-                <div class="form__group form__group--horizontal" x-data="{ open: false }">
-                    <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                <div class="form__group form__group--horizontal" x-data>
+                    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.add-torrent') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                    <dialog class="dialog" x-ref="dialog">
                         <h4 class="dialog__heading">
                             {{ __('playlist.add-to-playlist') }}
                         </h4>
@@ -29,7 +29,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('playlists.attach') }}"
-                            x-on:click.outside="open = false; $refs.dialog.close();"
+                            x-on:click.outside="$refs.dialog.close()"
                         >
                             @csrf
                             <p class="form__group">
@@ -49,7 +49,7 @@
                                 <button class="form__button form__button--filled">
                                     {{ __('common.add') }}
                                 </button>
-                                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>
@@ -59,7 +59,7 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         href="{{ route('playlists.edit', ['id' => $playlist->id]) }}"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-edit"></i>
                         {{ __('playlist.edit-playlist') }}
@@ -73,7 +73,7 @@
                     @csrf
                     @method('DELETE')
                         <p class="form__group form__group--horizontal">
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to delete this playlist: {{ $playlist->name }}?',
@@ -85,7 +85,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--filled"
+                            class="form__button form__button--filled form__button--centered"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             {{ __('common.delete') }}
@@ -98,18 +98,19 @@
             <h2 class="panel__heading">{{ __('common.download') }}</h2>
             <div class="panel__body">
                 <p class="form__group form__group--horizontal">
-                    <button
+                    <a
                         href="{{ route('playlists.download', ['id' => $playlist->id]) }}"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
+                        download
                     >
                         <i class='{{ config('other.font-awesome') }} fa-download'></i>
                         {{ __('playlist.download-all') }}
-                    </button>
+                    </a>
                 </p>
                 <p class="form__group form__group--horizontal">
                     <a
                         href="{{ route('torrents', ['playlistId' => $playlist->id]) }}"
-                        class="form__button form__button--filled"
+                        class="form__button form__button--filled form__button--centered"
                     >
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i>
                         Playlist Torrents List
@@ -136,8 +137,8 @@
                 <p class="playlist__author">
                     <x-user_tag :user="$playlist->user" :anon="false" />
                 </p>
-                <p class="playlist__description">
-                    {{ $playlist->description }}
+                <p class="playlist__description bbcode-rendered">
+                    @joypixels($playlist->getDescriptionHtml())
                 </p>
             </div>
         </div>
@@ -149,7 +150,7 @@
                 @php
                     $meta = match(1) {
                         $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
-                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'cast', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
+                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
                         $playlistTorrent->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
                         default => null,
                     };
@@ -171,7 +172,7 @@
                 </div>
             @endforeach
         </div>
-        {{ $torrents->links() }}
+        {{ $torrents->links('partials.pagination') }}
     </section>
     <livewire:comments :model="$playlist"/>
 @endsection

@@ -1,35 +1,3 @@
-@props([
-    'post' => (object) [
-        'id'                               => 1,
-        'topic'                            => (object) [
-            'id' => 1,
-            'name' => '',
-            'state' => 'closed',
-            'tips' => [
-                (object) ['cost' => 0],
-            ],
-        ],
-        'page'                             => -1,
-        'created_at'                       => '',
-        'user'                             => [
-            'id'       => 1,
-            'image'    => null,
-            'group' => (object) [
-                'color' => '',
-                'effect' => '',
-                'group' => '',
-                'icon' => '',
-            ],
-            'posts' => [],
-            'signature' => '',
-            'title' => '',
-            'topics' => [],
-            'username' => '',
-        ],
-        'content'                         => '',
-    ],
-])
-
 <article class="post" id="post-{{ $post->id }}">
     <header class="post__header">
         <time
@@ -45,10 +13,10 @@
                 <a href="{{ route('forum_topic', ['id' => $post->topic->id]) }}">{{ $post->topic->name }}</a>
             </span>
         @endif
-        @if($post->tips?->sum('cost') > 0)
+        @if($post->tips_sum_cost > 0)
             <dl class="post__tip-stats">
                 <dt>{{ __('torrent.bon-tipped') }}</dt>
-                <dd>{{ $post->tips?->sum('cost') ?? 0 }}</dd>
+                <dd>{{ $post->tips_sum_cost ?? 0 }}</dd>
             </dl>
         @endif
         <menu class="post__toolbar">
@@ -87,10 +55,10 @@
                 </form>
             </li>
             <li class="post__toolbar-item">
-                @livewire('like-button', ['post' => $post->id])
+                @livewire('like-button', ['post' => $post, 'likesCount' => $post->likes_count], key('like-'.$post->id))
             </li>
             <li class="post__toolbar-item">
-                @livewire('dislike-button', ['post' => $post->id])
+                @livewire('dislike-button', ['post' => $post, 'dislikesCount' => $post->dislikes_count], key('dislike-'.$post->id))
             </li>
             <li class="post__toolbar-item">
                 <a
@@ -110,7 +78,7 @@
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]{{ \htmlspecialchars($post->content) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}] {{ \str_replace(["\n", "\r"], ["\\n", "\\r"], \htmlspecialchars($post->content)) }}[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
@@ -195,23 +163,23 @@
         </dl>
         <dl class="post__author-topics">
             <dt>
-                <a href="{{ route('user_topics', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.topics.index', ['user' => $post->user]) }}">
                 {{ __('forum.topics') }}
                 </a>
             </dt>
-            <dd>{{ $post->user->topics?->count() ?? '0' }}</dd>
+            <dd>{{ $post->author_topics_count ?? '0' }}</dd>
         </dl>
         <dl class="post__author-posts">
             <dt>
-                <a href="{{ route('user_posts', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.posts.index', ['user' => $post->user]) }}">
                     {{ __('forum.posts') }}
                 </a>
             </dt>
-            <dd>{{ $post->user->posts?->count() ?? '0' }}</dd>
+            <dd>{{ $post->author_posts_count ?? '0' }}</dd>
         </dl>
     </aside>
     <div
-        class="post__content"
+        class="post__content bbcode-rendered"
         data-bbcode="{{ $post->content }}"
     >
         @joypixels($post->getContentHtml())
