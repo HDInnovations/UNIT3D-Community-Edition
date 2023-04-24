@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('request.edit-request') }} - {{ config('other.title') }}</title>
+    <title>{{ __('request.add-request') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -10,32 +10,19 @@
             {{ __('request.requests') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        <a href="{{ route('request', ['id' => $torrentRequest->id]) }}" class="breadcrumb__link">
-            {{ $torrentRequest->name }}
-        </a>
-    </li>
     <li class="breadcrumb--active">
-        {{ __('common.edit') }}
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 
-@section('page', 'page__request--edit')
+@section('page', 'page__request--create')
 
 @section('main')
-    @if ($user->can_request == 0)
+    @if ($user->can_request)
         <section class="panelV2">
-            <h2 class="panel__heading">
-                <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
-                {{ __('request.no-privileges') }}!
-            </h2>
-            <p class="panel__body">{{ __('request.no-privileges-desc') }}!</p>
-        </section>
-    @else
-        <section class="panelV2">
-            <h2 class="panel__heading">{{ __('request.edit-request') }}</h2>
+            <h2 class="panel__heading">{{ __('request.add-request') }}</h2>
             <div class="panel__body">
-                <form class="form" method="POST" action="{{ route('edit_request', ['id' => $torrentRequest->id]) }}">
+                <form class="form" method="POST" action="{{ route('requests.store') }}">
                     @csrf
                     <p class="form__group">
                         <input
@@ -44,7 +31,7 @@
                             name="name"
                             required
                             type="text"
-                            value="{{ $torrentRequest->name ?: old('name') }}"
+                            value="{{ $title ?: old('name') }}"
                         >
                         <label class="form__label form__label--floating" for="title">
                             {{ __('request.title') }}
@@ -59,7 +46,7 @@
                         >
                             <option hidden selected disabled value=""></option>
                             @foreach ($categories as $category)
-                                <option class="form__option" value="{{ $category->id }}" @selected($torrentRequest->category_id == $category->id)>
+                                <option class="form__option" value="{{ $category->id }}" @selected((old('category_id') ?: $category_id) ==  $category->id)>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -77,7 +64,7 @@
                         >
                             <option hidden disabled selected value=""></option>
                             @foreach ($types as $type)
-                                <option value="{{ $type->id }}" @selected(old('type_id')==$type->id) @selected($torrentRequest->type_id == $type->id)>
+                                <option value="{{ $type->id }}" @selected(old('type_id')==$type->id)>
                                     {{ $type->name }}
                                 </option>
                             @endforeach
@@ -95,7 +82,7 @@
                         >
                             <option hidden disabled selected value=""></option>
                             @foreach ($resolutions as $resolution)
-                                <option value="{{ $resolution->id }}" @selected($torrentRequest->resolution_id == $resolution->id)>
+                                <option value="{{ $resolution->id }}" @selected(old('resolution_id')==$resolution->id)>
                                     {{ $resolution->name }}
                                 </option>
                             @endforeach
@@ -115,7 +102,7 @@
                                 pattern="[0-9]*"
                                 required
                                 type="text"
-                                value="{{ $torrentRequest->tmdb ?: old('tmdb') }}"
+                                value="{{ $tmdb ?: old('tmdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autotmdb">TMDB ID</label>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
@@ -130,7 +117,7 @@
                                 pattern="[0-9]*"
                                 required
                                 type="text"
-                                value="{{ $torrentRequest->imdb ?: old('imdb') }}"
+                                value="{{ $imdb ?: old('imdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autoimdb">IMDB ID</label>
                         </p>
@@ -144,7 +131,7 @@
                                 pattern="[0-9]*"
                                 placeholder=""
                                 type="text"
-                                value="{{ $torrentRequest->tvdb ?: (old('tvdb') ?? '0') }}"
+                                value="{{ $tvdb ?: old('tvdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autotvdb">TVDB ID</label>
                         </p>
@@ -158,7 +145,7 @@
                                 pattern="[0-9]*"
                                 placeholder=""
                                 type="text"
-                                value="{{ $torrentRequest->mal ?: (old('mal') ?? '0') }}"
+                                value="{{ $mal ?: old('mal') }}"
                             >
                             <label class="form__label form__label--floating" for="automal">MAL ID ({{ __('torrent.required-anime') }})</label>
                         </p>
@@ -169,9 +156,9 @@
                                 inputmode="numeric"
                                 name="igdb"
                                 pattern="[0-9]*"
-                                placeholder=""
+                                placeholder
                                 type="text"
-                                value="{{ $torrentRequest->igdb ?: (old('igdb') ?? '0') }}"
+                                value="{{ $igdb ?: old('igdb') ?? '0' }}"
                             >
                             <label class="form__label form__label--floating" for="name">
                                 IGDB ID ({{ __('request.required') }} For Games)
@@ -181,9 +168,20 @@
                     @livewire('bbcode-input', [
                         'name' => 'description',
                         'label' => __('request.description'),
-                        'required' => true,
-                        'content' => $torrentRequest->description
+                        'required' => true
                     ])
+                    <p class="form__group">
+                        <input
+                            class="form__text"
+                            name="bounty"
+                            type="text"
+                            pattern="[0-9]*?[1-9][0-9]{2,}"
+                            value="100"
+                            required>
+                        <label class="form__label form__label--floating" for="bonus_point">
+                            {{ __('request.reward') }} ({{ __('request.reward-desc') }})
+                        </label>
+                    </p>
                     <p class="form__group">
                         <input type="hidden" name="anon" value="0">
                         <input
@@ -192,7 +190,7 @@
                             id="anon"
                             name="anon"
                             value="1"
-                            @checked($torrentRequest->anon)
+                            @checked(old('anon'))
                         >
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
@@ -204,5 +202,24 @@
                 </form>
             </div>
         </section>
+    @else
+        <section class="panelV2">
+            <h2 class="panel__heading">
+                <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
+                {{ __('request.no-privileges') }}!
+            </h2>
+            <p class="panel__body">{{ __('request.no-privileges-desc') }}!</p>
+        </section>
     @endif
 @endsection
+
+@if ($user->can_request)
+    @section('sidebar')
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('common.info') }}</h2>
+            <div class="panel__body">
+                {{ __('request.no-imdb-id') }}
+            </div>
+        </div>
+    @endsection
+@endif

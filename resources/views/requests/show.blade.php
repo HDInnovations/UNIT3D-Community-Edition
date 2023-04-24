@@ -179,7 +179,7 @@
                         <div class="form__group">
                             <form
                                 method="POST"
-                                action="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}"
+                                action="{{ route('requests.approve', ['id' => $torrentRequest->id]) }}"
                                 style="display: contents"
                             >
                                 @csrf
@@ -189,7 +189,7 @@
                             </form>
                             <form
                                 method="POST"
-                                action="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}"
+                                action="{{ route('requests.reject', ['id' => $torrentRequest->id]) }}"
                                 style="display: contents"
                             >
                                 @csrf

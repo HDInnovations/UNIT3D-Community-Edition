@@ -9,7 +9,7 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("fill_request", ['id' => $torrentRequest->id]) }}"
+            action="{{ route("requests.fill", ['id' => $torrentRequest->id]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf

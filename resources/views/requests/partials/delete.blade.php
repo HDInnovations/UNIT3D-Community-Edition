@@ -1,11 +1,12 @@
 <li class="form__group form__group--short-horizontal">
     <form
-        action="{{ route("deleteRequest", ['id' => $torrentRequest->id]) }}"
+        action="{{ route("requests.destroy", ['id' => $torrentRequest->id]) }}"
         method="POST"
         x-data
         style="display: contents"
     >
         @csrf
+        @method('DELETE')
         <button
             x-on:click.prevent="Swal.fire({
                 title: 'Are you sure?',

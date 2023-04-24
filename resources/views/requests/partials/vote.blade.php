@@ -9,7 +9,7 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("add_votes", ['id' => $torrentRequest->id]) }}"
+            action="{{ route("requests.bounties.store", ['id' => $torrentRequest->id]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
