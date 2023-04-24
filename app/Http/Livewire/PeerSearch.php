@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Peer;
 use App\Models\Torrent;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -192,9 +193,9 @@ class PeerSearch extends Component
                             ->selectRaw('SUM(IF(peers.connectable = 0, torrents.size, 0)) as unconnectable_size')
                     )
             )
-            ->when($this->ip !== '', fn ($query) => $query->having('ip', 'LIKE', '%'.$this->ip.'%'))
+            ->when($this->ip !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ip)'), 'LIKE', $this->ip.'%'))
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', '=', $this->port))
-            ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', '%'.$this->agent.'%'))
+            ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
             ->when($this->torrent !== '', fn ($query) => $query->whereIn(
                 'torrents.name',
                 Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
