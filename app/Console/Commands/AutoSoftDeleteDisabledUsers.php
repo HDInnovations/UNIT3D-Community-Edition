@@ -21,7 +21,6 @@ use App\Models\History;
 use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
-use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
@@ -131,11 +130,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all Posts made by User from the shoutbox
                 foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
                     $shout->delete();
-                }
-
-                // Removes all notes for user
-                foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-                    $note->delete();
                 }
 
                 // Removes all likes for user
