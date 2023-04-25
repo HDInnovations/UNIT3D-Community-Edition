@@ -143,16 +143,24 @@ class Comments extends Component
             'torrent'    => href_torrent($this->model),
             default      => "#"
         };
-        
+
         if ($comment->anon == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
-                    $profileUrl, $this->user->username, $modelUrl, $this->model->name ?? $this->model->title)
+                sprintf(
+                    '[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                    $profileUrl,
+                    $this->user->username,
+                    $modelUrl,
+                    $this->model->name ?? $this->model->title
+                )
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
-                    $modelUrl, $this->model->name ?? $this->model->title)
+                sprintf(
+                    'An anonymous user has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                    $modelUrl,
+                    $this->model->name ?? $this->model->title
+                )
             );
         }
 
