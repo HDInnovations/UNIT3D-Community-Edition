@@ -28,6 +28,7 @@ use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
+use App\Repositories\ChatRepository;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -36,6 +37,8 @@ use voku\helper\AntiXSS;
 class Comments extends Component
 {
     use WithPagination;
+
+    protected ChatRepository $chatRepository;
 
     public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
 
@@ -56,6 +59,11 @@ class Comments extends Component
     protected $validationAttributes = [
         'newCommentState.content' => 'comment',
     ];
+
+    final public function boot(ChatRepository $chatRepository): void
+    {
+        $this->chatRepository = $chatRepository;
+    }
 
     final public function mount(): void
     {
@@ -98,7 +106,7 @@ class Comments extends Component
         $comment->save();
 
         // Achievements
-        if ($comment->anon === 0) {
+        if ($comment->anon == 0) {
             $this->user->unlock(new UserMadeComment());
             $this->user->addProgress(new UserMadeTenComments(), 1);
             $this->user->addProgress(new UserMade50Comments(), 1);
@@ -122,6 +130,30 @@ class Comments extends Component
         if ($this->user->id !== $this->model->user_id) {
             $users = User::whereIn('username', $this->taggedUsers())->get();
             Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->model)), $comment));
+        }
+
+        // Auto Shout
+        $profileUrl = href_profile($this->user);
+
+        $modelUrl = match (strtolower(class_basename($this->model))) {
+            'article'    => href_article($this->model),
+            'collection' => href_collection($this->model),
+            'playlist'   => href_playlist($this->model),
+            'request'    => href_request($this->model),
+            'torrent'    => href_torrent($this->model),
+            default      => "#"
+        };
+        
+        if ($comment->anon == 0) {
+            $this->chatRepository->systemMessage(
+                \sprintf('[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                    $profileUrl, $this->user->username, $modelUrl, $this->model->name ?? $this->model->title)
+            );
+        } else {
+            $this->chatRepository->systemMessage(
+                \sprintf('An anonymous user has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                    $modelUrl, $this->model->name ?? $this->model->title)
+            );
         }
 
         $this->newCommentState = [
