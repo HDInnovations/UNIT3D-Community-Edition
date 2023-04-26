@@ -79,8 +79,16 @@
                                 @endphp
                                 <td>@choice('user.client-connectable-state', $connectable)</td>
                             @endif
-                            <td>{{ $peer->created_at ? $peer->created_at->diffForHumans() : 'N/A' }}</td>
-                            <td>{{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}</td>
+                            <td>
+                                <time datetime="{{ $peer->created_at }}" title="{{ $peer->created_at }}">
+                                    {{ $peer->created_at ? $peer->created_at->diffForHumans() : 'N/A' }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $peer->updated_at }}" title="{{ $peer->updated_at }}">
+                                    {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}
+                                </time>
+                            </td>
                             <td class="{{ $peer->seeder ? 'text-green' : 'text-red' }}">
                                 @if ($peer->seeder == 0)
                                     {{ __('torrent.leecher') }}
