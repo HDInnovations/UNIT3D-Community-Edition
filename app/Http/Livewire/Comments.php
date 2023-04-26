@@ -121,32 +121,35 @@ class Comments extends Component
             $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
+        // Set Polymorhic Model Name
+        $modelName = str()->snake(class_basename($this->model), ' ');
+
         // New Comment Notification
-        if ($this->user->id !== $this->model->user_id && strtolower(class_basename($this->model)) !== 'collection') {
-            User::find($this->model->user_id)->notify(new NewComment(strtolower(class_basename($this->model)), $comment));
+        if ($this->user->id !== $this->model->user_id && $modelName !== 'collection') {
+            User::find($this->model->user_id)->notify(new NewComment($modelName, $comment));
         }
 
         // User Tagged Notification
         $users = User::whereIn('username', $this->taggedUsers())->get();
-        Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->model)), $comment));
+        Notification::sendNow($users, new NewCommentTag($modelName, $comment));
 
         // Auto Shout
         $profileUrl = href_profile($this->user);
 
-        $modelUrl = match (strtolower(class_basename($this->model))) {
-            'article'    => href_article($this->model),
-            'collection' => href_collection($this->model),
-            'playlist'   => href_playlist($this->model),
-            'request'    => href_request($this->model),
-            'torrent'    => href_torrent($this->model),
-            default      => "#"
+        $modelUrl = match ($modelName) {
+            'article'         => href_article($this->model),
+            'collection'      => href_collection($this->model),
+            'playlist'        => href_playlist($this->model),
+            'torrent request' => href_request($this->model),
+            'torrent'         => href_torrent($this->model),
+            default           => "#"
         };
 
-        if (strtolower(class_basename($this->model)) !== 'ticket') {
+        if ($modelName !== 'ticket') {
             if ($comment->anon == 0) {
                 $this->chatRepository->systemMessage(
                     sprintf(
-                        '[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                        '[url=%s]%s[/url] has left a comment on '.$modelName.' [url=%s]%s[/url]',
                         $profileUrl,
                         $this->user->username,
                         $modelUrl,
@@ -156,7 +159,7 @@ class Comments extends Component
             } else {
                 $this->chatRepository->systemMessage(
                     sprintf(
-                        'An anonymous user has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                        'An anonymous user has left a comment on '.$modelName.' [url=%s]%s[/url]',
                         $modelUrl,
                         $this->model->name ?? $this->model->title
                     )

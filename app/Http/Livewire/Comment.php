@@ -149,32 +149,35 @@ class Comment extends Component
             $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
+        // Set Polymorhic Model Name
+        $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
+
         // New Comment Notification
-        if ($this->user->id !== $this->comment->user_id && strtolower(class_basename($this->comment->commentable_type)) !== 'collection') {
-            User::find($this->comment->user_id)->notify(new NewComment(strtolower(class_basename($this->comment->commentable_type)), $reply));
+        if ($this->user->id !== $this->comment->user_id && $modelName !== 'collection') {
+            User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
         }
 
         // User Tagged Notification
         $users = User::whereIn('username', $this->taggedUsers())->get();
-        Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->comment->commentable_type)), $reply));
+        Notification::sendNow($users, new NewCommentTag($modelName, $reply));
 
         // Auto Shout
         $profileUrl = href_profile($this->user);
 
-        $modelUrl = match (strtolower(class_basename($this->comment->commentable_type))) {
-            'article'    => href_article($this->comment->commentable_type),
-            'collection' => href_collection($this->comment->commentable_type),
-            'playlist'   => href_playlist($this->comment->commentable_type),
-            'request'    => href_request($this->comment->commentable_type),
-            'torrent'    => href_torrent($this->comment->commentable_type),
-            default      => "#"
+        $modelUrl = match ($modelName) {
+            'article'         => href_article($this->comment->commentable_id),
+            'collection'      => href_collection($this->comment->commentable_id),
+            'playlist'        => href_playlist($this->comment->commentable_id),
+            'torrent request' => href_request($this->comment->commentable_id),
+            'torrent'         => href_torrent($this->comment->commentable_id),
+            default           => "#"
         };
 
-        if (strtolower(class_basename($this->comment->commentable_type)) !== 'ticket') {
+        if ($modelName !== 'ticket') {
             if ($reply->anon == 0) {
                 $this->chatRepository->systemMessage(
                     sprintf(
-                        '[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->comment->commentable_type)).' [url=%s]%s[/url]',
+                        '[url=%s]%s[/url] has left a comment on '.$modelName.' [url=%s]%s[/url]',
                         $profileUrl,
                         $this->user->username,
                         $modelUrl,
@@ -184,7 +187,7 @@ class Comment extends Component
             } else {
                 $this->chatRepository->systemMessage(
                     sprintf(
-                        'An anonymous user has left a comment on '.strtolower(class_basename($this->comment->commentable_type)).' [url=%s]%s[/url]',
+                        'An anonymous user has left a comment on '.$modelName.' [url=%s]%s[/url]',
                         $modelUrl,
                         $this->comment->commentable->name ?? $this->comment->commentable->title
                     )

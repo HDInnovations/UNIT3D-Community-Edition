@@ -42,7 +42,7 @@ class NewCommentTag extends Notification implements ShouldQueue
      */
     public function toArray($notifiable): array
     {
-        if ($this->type == 'torrent') {
+        if ($this->type === 'torrent') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => $this->comment->user->username.' Has Tagged You',
@@ -58,7 +58,7 @@ class NewCommentTag extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'torrentrequest') {
+        if ($this->type === 'torrent request') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => $this->comment->user->username.' Has Tagged You',
@@ -74,7 +74,7 @@ class NewCommentTag extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'ticket') {
+        if ($this->type === 'ticket') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => $this->comment->user->username.' Has Tagged You',
@@ -90,7 +90,7 @@ class NewCommentTag extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'playlist') {
+        if ($this->type === 'playlist') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => $this->comment->user->username.' Has Tagged You',
@@ -106,7 +106,7 @@ class NewCommentTag extends Notification implements ShouldQueue
             ];
         }
 
-        if ($this->type == 'collection') {
+        if ($this->type === 'collection') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => $this->comment->user->username.' Has Tagged You',
