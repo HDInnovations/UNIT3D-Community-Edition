@@ -88,8 +88,16 @@
                                     </span>
                                 </span>
                             </td>
-                            <td>{{ $history->created_at ? $history->created_at->diffForHumans() : 'N/A' }}</td>
-                            <td>{{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}</td>
+                            <td>
+                                <time datetime="{{ $history->created_at }}" title="{{ $history->created_at }}">
+                                    {{ $history->created_at ? $history->created_at->diffForHumans() : 'N/A' }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $history->updated_at }}" title="{{ $history->updated_at }}">
+                                    {{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}
+                                </time>
+                            </td>
                             @if ($history->seedtime < config('hitrun.seedtime'))
                                 <td class="text-red">{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}</td>
                             @else
