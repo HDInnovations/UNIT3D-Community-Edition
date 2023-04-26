@@ -165,11 +165,11 @@ class Comment extends Component
         $profileUrl = href_profile($this->user);
 
         $modelUrl = match ($modelName) {
-            'article'         => href_article($this->comment->commentable_id),
-            'collection'      => href_collection($this->comment->commentable_id),
-            'playlist'        => href_playlist($this->comment->commentable_id),
-            'torrent request' => href_request($this->comment->commentable_id),
-            'torrent'         => href_torrent($this->comment->commentable_id),
+            'article'         => href_article($this->comment->commentable),
+            'collection'      => href_collection($this->comment->commentable),
+            'playlist'        => href_playlist($this->comment->commentable),
+            'torrent request' => href_request($this->comment->commentable),
+            'torrent'         => href_torrent($this->comment->commentable),
             default           => "#"
         };
 
