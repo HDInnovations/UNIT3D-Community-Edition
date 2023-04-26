@@ -122,15 +122,13 @@ class Comments extends Component
         }
 
         // New Comment Notification
-        if ($this->user->id !== $this->model->user_id) {
+        if ($this->user->id !== $this->model->user_id && strtolower(class_basename($this->model)) !== 'collection') {
             User::find($this->model->user_id)->notify(new NewComment(strtolower(class_basename($this->model)), $comment));
         }
 
         // User Tagged Notification
-        if ($this->user->id !== $this->model->user_id) {
-            $users = User::whereIn('username', $this->taggedUsers())->get();
-            Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->model)), $comment));
-        }
+        $users = User::whereIn('username', $this->taggedUsers())->get();
+        Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->model)), $comment));
 
         // Auto Shout
         $profileUrl = href_profile($this->user);
@@ -144,24 +142,26 @@ class Comments extends Component
             default      => "#"
         };
 
-        if ($comment->anon == 0) {
-            $this->chatRepository->systemMessage(
-                sprintf(
-                    '[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
-                    $profileUrl,
-                    $this->user->username,
-                    $modelUrl,
-                    $this->model->name ?? $this->model->title
-                )
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                sprintf(
-                    'An anonymous user has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
-                    $modelUrl,
-                    $this->model->name ?? $this->model->title
-                )
-            );
+        if (strtolower(class_basename($this->model)) !== 'ticket') {
+            if ($comment->anon == 0) {
+                $this->chatRepository->systemMessage(
+                    sprintf(
+                        '[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                        $profileUrl,
+                        $this->user->username,
+                        $modelUrl,
+                        $this->model->name ?? $this->model->title
+                    )
+                );
+            } else {
+                $this->chatRepository->systemMessage(
+                    sprintf(
+                        'An anonymous user has left a comment on '.strtolower(class_basename($this->model)).' [url=%s]%s[/url]',
+                        $modelUrl,
+                        $this->model->name ?? $this->model->title
+                    )
+                );
+            }
         }
 
         $this->newCommentState = [

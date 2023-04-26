@@ -28,12 +28,15 @@ use App\Achievements\UserMadeTenComments;
 use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
+use App\Repositories\ChatRepository;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use voku\helper\AntiXSS;
 
 class Comment extends Component
 {
+    protected ChatRepository $chatRepository;
+
     public $comment;
 
     public $anon = false;
@@ -59,6 +62,11 @@ class Comment extends Component
     public $editState = [
         'content' => '',
     ];
+
+    final public function boot(ChatRepository $chatRepository): void
+    {
+        $this->chatRepository = $chatRepository;
+    }
 
     final public function mount(): void
     {
@@ -126,7 +134,7 @@ class Comment extends Component
         $reply->save();
 
         // Achievements
-        if ($reply->anon === 0) {
+        if ($reply->anon == 0) {
             $this->user->unlock(new UserMadeComment());
             $this->user->addProgress(new UserMadeTenComments(), 1);
             $this->user->addProgress(new UserMade50Comments(), 1);
@@ -142,14 +150,46 @@ class Comment extends Component
         }
 
         // New Comment Notification
-        if ($this->user->id !== $this->comment->user_id) {
+        if ($this->user->id !== $this->comment->user_id && strtolower(class_basename($this->comment->commentable_type)) !== 'collection') {
             User::find($this->comment->user_id)->notify(new NewComment(strtolower(class_basename($this->comment->commentable_type)), $reply));
         }
 
         // User Tagged Notification
-        if ($this->user->id !== $this->comment->user_id) {
-            $users = User::whereIn('username', $this->taggedUsers())->get();
-            Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->comment->commentable_type)), $reply));
+        $users = User::whereIn('username', $this->taggedUsers())->get();
+        Notification::sendNow($users, new NewCommentTag(strtolower(class_basename($this->comment->commentable_type)), $reply));
+
+        // Auto Shout
+        $profileUrl = href_profile($this->user);
+
+        $modelUrl = match (strtolower(class_basename($this->comment->commentable_type))) {
+            'article'    => href_article($this->comment->commentable_type),
+            'collection' => href_collection($this->comment->commentable_type),
+            'playlist'   => href_playlist($this->comment->commentable_type),
+            'request'    => href_request($this->comment->commentable_type),
+            'torrent'    => href_torrent($this->comment->commentable_type),
+            default      => "#"
+        };
+
+        if (strtolower(class_basename($this->comment->commentable_type)) !== 'ticket') {
+            if ($reply->anon == 0) {
+                $this->chatRepository->systemMessage(
+                    sprintf(
+                        '[url=%s]%s[/url] has left a comment on '.strtolower(class_basename($this->comment->commentable_type)).' [url=%s]%s[/url]',
+                        $profileUrl,
+                        $this->user->username,
+                        $modelUrl,
+                        $this->comment->commentable->name ?? $this->comment->commentable->title
+                    )
+                );
+            } else {
+                $this->chatRepository->systemMessage(
+                    sprintf(
+                        'An anonymous user has left a comment on '.strtolower(class_basename($this->comment->commentable_type)).' [url=%s]%s[/url]',
+                        $modelUrl,
+                        $this->comment->commentable->name ?? $this->comment->commentable->title
+                    )
+                );
+            }
         }
 
         $this->replyState = [
