@@ -10,7 +10,6 @@
   "devDependencies": {
     "ajv": "^8.10.0",
     "axios": "^0.26.1",
-    "bootstrap-sass": "^3.4.3",
     "cross-env": "^7.0.3",
     "jquery": "^3.6.0",
     "laravel-echo": "^1.11.4",

@@ -1,8 +1,4 @@
-// Web Font Components
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,700|Ubuntu');
-
 // Vendor components
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'vendor/font-awesome';
 @import '~sweetalert2/src/sweetalert2';
 @import 'vendor/virtual-select';
@@ -60,6 +56,7 @@
 @import 'components/user-uploads';
 
 // Layout
+@import 'layout/footer';
 @import 'layout/header';
 @import 'layout/main';
 @import 'layout/secondary-nav';
