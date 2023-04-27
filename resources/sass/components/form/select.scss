@@ -46,7 +46,7 @@
         padding: var(--select-padding-active);
 
         & + .form__label--floating {
-            top: -3px;
+            top: -5px;
             font-size: 11px;
             color: var(--label-fg-active);
             border-radius: 0;
@@ -57,7 +57,7 @@
     &:valid:not(.form__select--default),
     &:focus:placeholder-shown {
         & + .form__label--floating {
-            top: -3px;
+            top: -5px;
             font-size: 11px;
             border-radius: 0;
             padding: 0 4px;
