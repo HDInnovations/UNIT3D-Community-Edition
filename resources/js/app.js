@@ -9,8 +9,6 @@ window._ = require('lodash');
 try {
     // Note: Eventually we will end up 100% jQuery free.
     window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap-sass');
 } catch (e) {}
 
 $.ajaxSetup({
