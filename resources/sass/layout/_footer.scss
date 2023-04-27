@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: 100vh;
+    padding-top: 20px;
+}
+
+.footer__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+    gap: 4rem;
+}
+
+.footer__section-title {
+    font-size: 22px;
+}
+
+.footer__section-list {
+    list-style-type: none;
+    padding-left: 6px;
+    font-size: 15px;
+}
+
+.footer__stats {
+    font-size: 14px;
+}
