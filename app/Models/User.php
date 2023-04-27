@@ -202,6 +202,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Has One Watchlist Object.
+     */
+    public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Watchlist::class);
+    }
+
+    /**
      * Has Many RSS Feeds.
      */
     public function rss(): \Illuminate\Database\Eloquent\Relations\HasMany

@@ -9,3 +9,8 @@
 .user-tag__link::before {
     margin-right: 0.5ch;
 }
+
+.user-tag__link ~ i,
+.user-tag__link ~ a {
+    margin-left: 0.5ch;
+}

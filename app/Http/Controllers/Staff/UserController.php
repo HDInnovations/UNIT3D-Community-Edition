@@ -35,7 +35,6 @@ use App\Models\Warning;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -58,13 +57,11 @@ class UserController extends Controller
         $user = User::withTrashed()->where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
         $internals = Internal::all();
-        $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return view('Staff.user.edit', [
             'user'      => $user,
             'groups'    => $groups,
             'internals' => $internals,
-            'notes'     => $notes,
         ]);
     }
 
@@ -107,19 +104,6 @@ class UserController extends Controller
 
         return to_route('users.show', ['username' => $user->username])
             ->withSuccess('Account Permissions Successfully Edited');
-    }
-
-    /**
-     * Edit A Users Password.
-     */
-    protected function password(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-        $user->password = Hash::make($request->input('new_password'));
-        $user->save();
-
-        return to_route('users.show', ['username' => $user->username])
-            ->withSuccess('Account Password Was Updated Successfully!');
     }
 
     /**
