@@ -118,10 +118,10 @@
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary cancel-button" data-dismiss="modal">
+                        <button type="button" class="form__button form__button--filled" data-dismiss="modal">
                             Cancel
                         </button>
-                        <button type="button" class="btn btn-danger delete-button" wire:click="deleteFile">
+                        <button type="button" class="form__button form__button--outlined" wire:click="deleteFile">
                             Delete
                         </button>
                     </div>

@@ -76,8 +76,9 @@
                                                                  required>
                 </div>
                 <div class="col s6">
-                    <button type="submit"
-                            class="btn waves-effect waves-light blue right">{{ __('common.submit') }}</button>
+                    <button type="submit" class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
                 </div>
             </div>
         </form>

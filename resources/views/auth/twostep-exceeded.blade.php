@@ -44,7 +44,7 @@
                             </small>
                         </h4>
                         <p class="text-center">
-                            <a class="btn btn-info" href="{{ route('logout') }}"
+                            <a class="form__button form__button--filled" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                tabindex="6">
                                 <i class="glyphicon glyphicon-home" aria-hidden="true"></i> {{ __('auth.returnButton') }}

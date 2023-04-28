@@ -128,7 +128,7 @@
                                 <div class="row">
                                     <div class="col-xs-8 col-xs-offset-2 text-center submit-container">
                                         <button type="submit"
-                                                class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block"
+                                                class="form__button form__button--filled"
                                                 id="submit_verification" tabindex="5">
                                             {{ __('auth.verifyButton') }}
                                         </button>
@@ -145,7 +145,7 @@
                             </div>
                         </form>
                         <div class="col-xs-12 text-center">
-                            <a class="btn btn-link" id="resend_code_trigger" href="#" tabindex="6">
+                            <a class="form__button form__button--filled" id="resend_code_trigger" href="#" tabindex="6">
                                 {{ __('auth.missingCode') }}
                             </a>
                         </div>
