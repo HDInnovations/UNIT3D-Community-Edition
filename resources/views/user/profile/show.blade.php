@@ -428,7 +428,7 @@
                         <abbr title="{{ __('user.avg-seedtime') }} ({{ __('user.per-torrent') }})">
                             {{ __('user.avg-seedtime') }}
                         </abbr>
-                    <dd>{{ App\Helpers\StringHelper::timeElapsed(round($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}</dd>
+                    <dd>{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0 / max(1, $history->count ?? 0)) }}</dd>
                     <dt>
                         <abbr title="{{ __('user.seeding-size') }} ({{ __('user.all-torrents') }})">
                             {{ __('user.seeding-size') }}</dt>
@@ -475,7 +475,7 @@
                     <dt>{{ __('common.ratio') }}</dt>
                     <dd>{{ $user->getRatioString() }}</dd>
                     <dt>Real {{ __('common.ratio') }}</dt>
-                    <dd>{{ $history->download_sum ? round($history->upload_sum ?? 0 / $history->download_sum, 2) : "\u{221E}" }}</dd>
+                    <dd>{{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}</dd>
                     <dt>{{ __('common.buffer') }}</dt>
                     <dd>{{ $user->untilRatio(config('other.ratio')) }}</dd>
                     <dt>{{ __('common.account') }} {{ __('common.upload') }} (Total)</dt>
@@ -665,17 +665,17 @@
                     </dt>
                     <dd>{{ $user->getSeedBonus() }}</dd>
                     <dt>{{ __('user.tips-received') }}</dt>
-                    <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, null, '&#8239;') }}</dd>
+                    <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                     <dt>{{ __('user.tips-given') }}</dt>
-                    <dd>{{ \number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 0, null, '&#8239;') }}</dd>
+                    <dd>{{ \number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                     <dt>{{ __('user.gift-received') }}</dt>
-                    <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 0, null, '&#8239;') }}</dd>
+                    <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                     <dt>{{ __('user.gift-given') }}</dt>
-                    <dd>{{ \number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 0, null, '&#8239;') }}</dd>
+                    <dd>{{ \number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                     <dt>{{ __('user.bounty-received') }}</dt>
-                    <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 0, null, '&#8239;') }}</dd>
+                    <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                     <dt>{{ __('user.bounty-given') }}</dt>
-                    <dd>{{ \number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 0, null, '&#8239;') }}</dd>
+                    <dd>{{ \number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                 </dl>
             </section>
         @endif
