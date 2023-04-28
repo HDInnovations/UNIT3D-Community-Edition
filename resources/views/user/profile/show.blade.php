@@ -1,4 +1,4 @@
- @extends('layout.default')
+@extends('layout.default')
 
 @section('title')
     <title>{{ $user->username }} - {{ __('common.members') }} - {{ config('other.title') }}</title>
@@ -431,8 +431,9 @@
                     <dd>{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0 / max(1, $history->count ?? 0)) }}</dd>
                     <dt>
                         <abbr title="{{ __('user.seeding-size') }} ({{ __('user.all-torrents') }})">
-                            {{ __('user.seeding-size') }}</dt>
+                            {{ __('user.seeding-size') }}
                         </abbr>
+                    </dt>
                     <dd>{{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size') , 2) }}</dd>
                 </dl>
             </section>
@@ -541,61 +542,60 @@
                             </time>
                         @endif
                     </dd>
-                        <dt>{{ __('user.can-upload') }}</td>
+                    <dt>{{ __('user.can-upload') }}</dt>
+                    <dd>
+                        @if ($user->can_upload == 1)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </dd>
+                    <dt>{{ __('user.can-download') }}</dt>
                         <dd>
-                            @if ($user->can_upload == 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </dd>
-                        <dt>{{ __('user.can-download') }}</dt>
-                            <dd>
-                            @if ($user->can_download == 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </dd>
-                        <dt>{{ __('user.can-comment') }}</dt>
-                        <dd>
-                            @if ($user->can_comment == 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </dd>
-                        <dt>{{ __('user.can-request') }}</dt>
-                        <dd>
-                            @if ($user->can_request == 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </dd>
-                        <dt>{{ __('user.can-chat') }}</dt>
-                        <dd>
-                            @if ($user->can_chat == 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </dd>
-                        <dt>{{ __('user.can-invite') }}</dt>
-                        <dd>
-                            @if ($user->can_invite == 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </dd>
-                        <dt>
-                            <a href="{{ route('invites.index', ['username' => $user->username]) }}">
-                                {{ __('user.invites') }}
-                            </a>
-                        </dt>
-                        <dd>{{ $user->invites }}</dd>
-                    </tr>
+                        @if ($user->can_download == 1)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </dd>
+                    <dt>{{ __('user.can-comment') }}</dt>
+                    <dd>
+                        @if ($user->can_comment == 1)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </dd>
+                    <dt>{{ __('user.can-request') }}</dt>
+                    <dd>
+                        @if ($user->can_request == 1)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </dd>
+                    <dt>{{ __('user.can-chat') }}</dt>
+                    <dd>
+                        @if ($user->can_chat == 1)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </dd>
+                    <dt>{{ __('user.can-invite') }}</dt>
+                    <dd>
+                        @if ($user->can_invite == 1)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </dd>
+                    <dt>
+                        <a href="{{ route('invites.index', ['username' => $user->username]) }}">
+                            {{ __('user.invites') }}
+                        </a>
+                    </dt>
+                    <dd>{{ $user->invites }}</dd>
                 </dl>
             </section>
         @endif
