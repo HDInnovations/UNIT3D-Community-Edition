@@ -128,7 +128,7 @@
                             @endif
                         </x-slot:appendedIcons>
                     </x-user_tag>
-                    <time datetime="{{ $user->created_at }}" title="{{ $user->created_at }}" class="profile__registered">
+                    <time datetime="{{ $user->created_at }}" title="{{ $user->created_at }}" class="profile__registration">
                         {{ __('user.registration-date') }}: {{ $user->created_at?->format('Y-m-d') ?? "N/A" }}
                     </time>
                     <img
