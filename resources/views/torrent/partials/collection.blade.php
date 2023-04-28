@@ -15,11 +15,9 @@
                     </p>
 
                     <a href="{{ route('mediahub.collections.show', ['id' => $meta->collection['0']->id]) }}"
-                       role="button" class="btn btn-labeled btn-primary"
+                       role="button" class="form__button form__button--filled"
                        style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
-				    								<span class="btn-label">
-				    									<i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
-				    								</span>
+                        <i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
                     </a>
                 </section>
             </div>

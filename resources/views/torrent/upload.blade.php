@@ -451,7 +451,7 @@
                         <input type="hidden" name="free" value="0" />
                     @endif
                     <p class="form__group">
-                        <button type="submit" class="form__button form__button--filled" name="post" value="true" id="post" class="btn btn-success">
+                        <button type="submit" class="form__button form__button--filled" name="post" value="true" id="post">
                             {{ __('common.submit') }}
                         </button>
                     </p>

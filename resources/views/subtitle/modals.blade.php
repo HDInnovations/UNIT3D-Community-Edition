@@ -40,9 +40,9 @@
                     </div>
                     <div class="modal-footer">
                         <div class="text-center">
-                            <button class="btn btn-sm btn-primary" type="button"
+                            <button class="form__button form__button--outlined" type="button"
                                     data-dismiss="modal">{{ __('common.close') }}</button>
-                            <input class="btn btn-success" type="submit" value="{{ __('common.save') }}">
+                            <input class="form__button form__button--filled" type="submit" value="{{ __('common.save') }}">
                         </div>
                     </div>
                 </form>
@@ -66,11 +66,11 @@
                         <h4 class="modal-title text-center" id="myModalLabel">{{ __('subtitle.delete-confirm') }}</h4>
                     </div>
                     <div class="modal-body text-center">
-                        <input class="btn btn-danger" type="submit"
+                        <input class="form__button form__button--filled" type="submit"
                                value="{{ __('common.delete') }} - {{ $subtitle->language->name }} {{ __('common.subtitle') }}">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-sm btn-primary" type="button"
+                        <button class="form__button form__button--outlined" type="button"
                                 data-dismiss="modal">{{ __('common.close') }}</button>
                     </div>
                 </form>

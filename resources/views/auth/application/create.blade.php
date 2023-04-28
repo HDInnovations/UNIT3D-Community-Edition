@@ -108,8 +108,8 @@
                                 <div class="more-images"></div>
 
                                 <div class="form-group">
-                                    <button id="addImg" class="btn btn-primary">{{ __('auth.add-image') }}</button>
-                                    <button id="delImg" class="btn btn-primary">{{ __('auth.delete-image') }}</button>
+                                    <button id="addImg" class="form__button form__button--filled">{{ __('auth.add-image') }}</button>
+                                    <button id="delImg" class="form__button form__button--filled">{{ __('auth.delete-image') }}</button>
                                 </div>
 
                                 <hr>
@@ -133,8 +133,8 @@
                                 <div class="more-links"></div>
 
                                 <div class="form-group">
-                                    <button id="addLink" class="btn btn-primary">{{ __('auth.add-profile') }}</button>
-                                    <button id="delLink" class="btn btn-primary">{{ __('auth.delete-profile') }}</button>
+                                    <button id="addLink" class="form__button form__button--filled">{{ __('auth.add-profile') }}</button>
+                                    <button id="delLink" class="form__button form__button--filled">{{ __('auth.delete-profile') }}</button>
                                 </div>
 
                                 <hr>
@@ -155,7 +155,7 @@
 
                                 <div class="form-group">
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="form__button form__button--filled">
                                             {{ __('common.submit') }}
                                         </button>
                                     </div>
