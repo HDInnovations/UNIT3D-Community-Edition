@@ -151,13 +151,8 @@ Route::group(['middleware' => 'language'], function (): void {
         });
 
         // Requests System
-        Route::group(['prefix' => 'requests'], function (): void {
-            Route::name('requests.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\RequestController::class, 'index'])->name('index');
-            });
-        });
-
         Route::group(['prefix' => 'requests', 'as' => 'requests.'], function (): void {
+            Route::get('/', [App\Http\Controllers\RequestController::class, 'index'])->name('index');
             Route::get('/add', [App\Http\Controllers\RequestController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\RequestController::class, 'store'])->name('store');
             Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'edit'])->name('edit');
@@ -178,8 +173,6 @@ Route::group(['middleware' => 'language'], function (): void {
                 Route::delete('/{id}', [App\Http\Controllers\ClaimController::class, 'destroy'])->name('destroy');
             });
         });
-
-
 
         // Top 10 System
         Route::group(['prefix' => 'top10'], function (): void {
@@ -513,11 +506,6 @@ Route::group(['middleware' => 'language'], function (): void {
         // Earnings
         Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
-        });
-
-        // Filters
-        Route::group(['prefix' => 'users'], function (): void {
-            Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
         });
 
         // Gifts
