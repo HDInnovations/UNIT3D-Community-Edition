@@ -1,31 +1,19 @@
-<div class="modal fade" id="modal-achievement" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog{{ modal_style() }} modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header mx-auto">
-                <div class="text-center">
-                    <p style="font-size: 27px;">{{ __('common.achievement-title') }}!</p>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="py-3 text-center">
-                    <h3>
-                        {{ __('common.unlocked-achievement', ['achievement' => Session::get('achievement')]) }}
-                    </h3>
-
-                    <span class="modal-icon display-1-lg">
-                        <i class="fas fa-trophy-alt fa-4x text-gold"></i>
-                    </span>
-
-                    <h3>Well done!</h3>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a href="{{ route('users.achievements.index', ['user' => auth()->user()]) }}" type="button" class="btn btn-sm btn-primary pull-left">All
-                    Achievements</a>
-                <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-        </div>
+<dialog class="dialog" x-data x-ref="dialog" x-init="$el.showModal()">
+    <h1 class="dialog__heading">
+        {{ __('common.unlocked-achievement', ['achievement' => Session::get('achievement')]) }}
+    </h1>
+    <div class="dialog__form" x-on:click.outside="$refs.dialog.close()" style="text-align: center">
+        <span class="modal-icon display-1-lg">
+            <i class="fas fa-trophy-alt fa-4x text-gold"></i>
+        </span>
+        <span>Well done!</span>
+        <p class="form__group">
+            <a
+                href="{{ route('users.achievements.index', ['user' => auth()->user()]) }}"
+                class="form__button form__button--outlined"
+            >
+                All Achievements
+            </a>
+        </p>
     </div>
-</div>
+</dialog>
