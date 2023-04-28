@@ -115,7 +115,7 @@ class TorrentControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('edit_form', ['id' => $torrent->id]));
 
         $response->assertOk();
-        $response->assertViewIs('torrent.edit_torrent');
+        $response->assertViewIs('torrent.edit');
         $response->assertViewHas('categories');
         $response->assertViewHas('types');
         $response->assertViewHas('torrent');
@@ -334,7 +334,7 @@ class TorrentControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('torrent', ['id' => $torrent->id]));
 
         $response->assertOk();
-        $response->assertViewIs('torrent.torrent');
+        $response->assertViewIs('torrent.show');
         $response->assertViewHas('torrent');
         $response->assertViewHas('comments');
         $response->assertViewHas('user');
@@ -374,7 +374,7 @@ class TorrentControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('torrents'));
 
         $response->assertOk();
-        $response->assertViewIs('torrent.torrents');
+        $response->assertViewIs('torrent.index');
         $response->assertViewHas('personal_freeleech');
         $response->assertViewHas('repository');
         $response->assertViewHas('bookmarks');
@@ -417,7 +417,7 @@ class TorrentControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('upload_form'));
 
         $response->assertOk();
-        $response->assertViewIs('torrent.upload');
+        $response->assertViewIs('torrent.create');
         $response->assertViewHas('categories');
         $response->assertViewHas('types');
         $response->assertViewHas('user');
