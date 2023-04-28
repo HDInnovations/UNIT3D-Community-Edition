@@ -71,7 +71,7 @@ class TorrentController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('torrent.torrents');
+        return view('torrent.index');
     }
 
     /**
@@ -147,7 +147,7 @@ class TorrentController extends Controller
 
         $playlists = $user->playlists;
 
-        return view('torrent.torrent', [
+        return view('torrent.show', [
             'torrent'            => $torrent,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,
@@ -190,7 +190,7 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
-        return view('torrent.edit_torrent', [
+        return view('torrent.edit', [
             'categories'   => $categories,
             'types'        => $types,
             'resolutions'  => Resolution::all()->sortBy('position'),
@@ -420,7 +420,7 @@ class TorrentController extends Controller
             $categories[(int) $cat->id] = $temp;
         }
 
-        return view('torrent.upload', [
+        return view('torrent.create', [
             'categories'   => $categories,
             'types'        => Type::all()->sortBy('position'),
             'resolutions'  => Resolution::all()->sortBy('position'),
