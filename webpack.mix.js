@@ -54,7 +54,6 @@ mix.options({
      * Copy assets
      */
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
-    .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap')
 
     /*
      * Extra JS
