@@ -428,7 +428,7 @@
                         <abbr title="{{ __('user.avg-seedtime') }} ({{ __('user.per-torrent') }})">
                             {{ __('user.avg-seedtime') }}
                         </abbr>
-                    <dd>{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0 / max(1, $history->count ?? 0)) }}</dd>
+                    <dd>{{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}</dd>
                     <dt>
                         <abbr title="{{ __('user.seeding-size') }} ({{ __('user.all-torrents') }})">
                             {{ __('user.seeding-size') }}
