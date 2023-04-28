@@ -2771,7 +2771,7 @@ body.tvshow .movie-poster {
 }
 
 .element {
-    @extend .center-block;
+    @extend .center-block !optional;
 }
 
 .align-left {
