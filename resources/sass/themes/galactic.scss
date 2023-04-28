@@ -323,39 +323,8 @@ a.text-bright:hover {
     border-radius: 0;
 }
 
-.wysibb {
-    border: 1px solid #404040 !important;
-}
-
-.wysibb,
-.wysibb-text,
-.wysibb-toolbar {
-    background-color: #232323;
-    color: var(--text-color);
-}
-
-.wysibb-toolbar {
-    border-bottom: 1px solid #404040 !important;
-}
-
-.wysibb-toolbar-container {
-    border-right: 1px solid #404040 !important;
-}
-
-#topic-response,
-.wysibb-body {
-    background-color: #2b2b2b;
-}
-
 .bottom-resize-line {
     background-color: #404040;
-}
-
-.btn-inner,
-.fonticon,
-.ve-tlb-italic1 {
-    color: var(--text-color) !important;
-    text-shadow: none !important;
 }
 
 .panel {
@@ -499,16 +468,9 @@ a:hover {
     background-color: #262626 !important;
 }
 
-.block,
-.btn-info,
-.btn-primary,
-.btn-success {
+.block {
     box-shadow: none;
     border: 0;
-}
-
-.btn-danger {
-    box-shadow: none;
 }
 
 .label-info,
@@ -521,8 +483,6 @@ a:hover {
     box-shadow: none;
 }
 
-.btn-default,
-.btn-warning,
 .bbcode-spoiler-button,
 .label-default,
 .label-primary,
@@ -531,82 +491,23 @@ a:hover {
     border: 0;
 }
 
-.btn-default,
 .bbcode-spoiler-button {
     background-color: var(--color-magenta);
     background-image: none;
 }
 
-.btn-default:hover,
 .bbcode-spoiler-button:hover {
     background-color: var(--color-light-magenta);
     background-image: none;
-}
-
-.btn-default:active,
-.btn-primary:active,
-.btn-success:active,
-.btn-info:active,
-.btn-warning:active,
-.btn-danger:active {
-    margin-top: 0 !important;
 }
 
 .label-default {
     background-color: #6f6f6f;
 }
 
-.btn-warning {
-    background-color: var(--color-yellow);
-    background-image: none;
-}
-
-.btn-warning:active,
-.btn-warning:hover {
-    background-color: var(--color-light-yellow);
-    background-image: none;
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-info,
 .label-info {
     background-color: var(--color-magenta);
     background-image: none;
-}
-
-.btn-info:active,
-.btn-info:hover {
-    background-color: var(--color-light-magenta);
-    background-image: none;
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-primary,
-.btn-primary:hover,
-.label-primary {
-    background-color: var(--color-purple);
-    background-image: none;
-}
-
-.btn-primary:hover {
-    background-color: var(--color-light-purple);
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-success,
-.btn-success:hover,
-.label-success {
-    background-color: var(--color-green);
-    background-image: none;
-}
-
-.btn-success:hover {
-    background-color: var(--color-light-green);
-    box-shadow: none;
-    border: 0;
 }
 
 .text-green {
@@ -628,7 +529,6 @@ a:hover {
 }
 
 .alert-danger,
-.btn-danger,
 .label-danger,
 .panel-danger,
 .panel-danger > .panel-heading {
@@ -641,12 +541,6 @@ a:hover {
     color: var(--color-light-red);
 }
 
-.btn-danger:hover {
-    background-color: var(--color-light-red);
-    background-image: none;
-}
-
-.btn-danger:hover,
 .container.box {
     border: 0;
     box-shadow: none;
@@ -787,37 +681,12 @@ span.badge-user {
     margin: 0.25em;
 }
 
-.btn[name='tip'] {
-    background-color: #333;
-}
-
-.btn[name='tip']:hover {
-    background-color: #444;
-}
-
 .bottom-resize-line:hover {
     background-color: #505050 !important;
 }
 
-.wysibb-toolbar-btn.on,
-.wysibb-toolbar-btn:hover {
-    background: #404040 !important;
-    border: 0 !important;
-    box-shadow: none !important;
-}
-
-.on .btn-inner {
-    background-color: #404040;
-    border: 0 !important;
-}
-
 .panel-footer > .badge-extra,
 h3 {
-    color: var(--text-color);
-}
-
-.wysibb-textarea {
-    box-shadow: none !important;
     color: var(--text-color);
 }
 
@@ -917,13 +786,6 @@ div.topic-new-post {
 
 .col-md-10:first-child {
     padding-top: 10px;
-}
-
-.btn {
-    -webkit-transition: none !important;
-    -o-transition: none !important;
-    transition: none !important;
-    box-shadow: none !important;
 }
 
 .mentioned {
@@ -1027,12 +889,6 @@ div.topic-new-post {
 
 #frame #sidepanel #bottom-bar button:hover {
     background: #435f7a;
-}
-
-#frame .content .contact-profile {
-    background: #313434;
-    color: #e5e5e5;
-    border-bottom: 2px #424242 solid;
 }
 
 #frame .content .contact-profile .social-media i:hover {

@@ -57,39 +57,6 @@ body {
     background-color: var(--color-dark-blue);
 }
 
-.btn-primary,
-.btn-danger,
-.label-primary {
-    background-color: var(--color-purple);
-    background-image: none;
-}
-
-.btn-info,
-.label-info {
-    background-color: var(--color-magenta);
-    background-image: none;
-}
-
-.btn-success {
-    background-color: var(--color-green);
-    background-image: none;
-}
-
-.btn-warning {
-    background-color: var(--color-yellow);
-    background-image: none;
-}
-
-.btn:active,
-.btn:hover,
-.btn:focus,
-.btn:active:hover,
-.btn:active:focus,
-.btn:active:hover:focus {
-    background-color: var(--color-light-purple) !important;
-    background-image: none;
-}
-
 .ratio-bar {
     background-color: #2b2b2b;
 }
@@ -100,10 +67,6 @@ body {
 
 .nav-tabs > #active {
     background-color: var(--color-dark-green);
-}
-
-.btn-primary :hover {
-    background-color: var(--color-light-purple);
 }
 
 .text-green {
@@ -241,7 +204,6 @@ a.text-bright:hover {
 .panel-default,
 .panel-default > .panel-heading,
 .alert-info,
-.btn-info,
 .panel-info,
 .panel-info > .panel-heading {
     background-color: var(--color-magenta) !important;
@@ -280,19 +242,6 @@ a.text-bright:hover {
 
 .list-inline {
     color: inherit;
-}
-
-.gradient.silver,
-.gradient.pink,
-.gradient.purple,
-.gradient.green,
-.gradient.teal,
-.gradient.light_blue,
-.gradient.blue,
-.gradient.orange,
-.gradient.yellow,
-.gradient.red {
-    background-image: var(--gradient-background);
 }
 
 div.header.silver div.inner_content,

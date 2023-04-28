@@ -352,19 +352,6 @@ hr {
     border-color: #353535;
 }
 
-.gradient.blue,
-.gradient.green,
-.gradient.light_blue,
-.gradient.orange,
-.gradient.pink,
-.gradient.purple,
-.gradient.red,
-.gradient.silver,
-.gradient.teal,
-.gradient.yellow {
-    background-image: radial-gradient(at 30% top, #19191b 0, #3a3a3f 70%);
-}
-
 div.header.blue div.inner_content,
 div.header.green div.inner_content,
 div.header.light_blue div.inner_content,
@@ -402,15 +389,6 @@ ul.nav.nav-tabs.mb-5 {
 .panel-primary,
 .panel-primary > .panel-heading {
     background-color: #635f5f;
-}
-
-.btn:hover {
-    background: none;
-}
-
-.decoda-code,
-.decoda-quote {
-    border: 1px solid #494949;
 }
 
 .text-red {
@@ -738,33 +716,6 @@ tr.success > td {
     background-color: #19191b !important;
 }
 
-.select2-container--default .select2-selection--single {
-    background-color: #4a4a4d;
-    border: 2px solid rgba(0, 0, 0, 0.56);
-}
-
-.select2-results__option {
-    background-color: #4a4a4d;
-    color: #bcbcbc;
-}
-
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #bcbcbc;
-    color: #4a4a4d;
-}
-
-#topic-response,
-.wysibb-body {
-    background-color: #4a4a4d;
-}
-
-.wysibb,
-.wysibb-text,
-.wysibb-toolbar {
-    background-color: #4a4a4d;
-    color: var(--text-color);
-}
-
 .badge-user {
     border: 0;
     box-shadow: none;
@@ -779,53 +730,6 @@ tr.success > td {
 .img-thumbnail,
 body {
     background-color: #222;
-}
-
-.btn-default {
-    color: #dddddd;
-    background-color: #444;
-    border-color: #444;
-}
-
-.btn-default:hover {
-    color: #dddddd;
-    background-color: #313131;
-    border-color: #2b2a2a;
-}
-
-.btn-outline-default {
-    color: #444;
-    border-color: #444;
-}
-
-.btn-outline-default:hover {
-    color: #dddddd;
-    background-color: #444;
-    border-color: #444;
-}
-
-.btn-primary,
-.btn-danger,
-.btn-info,
-.btn-success,
-.btn-default,
-.btn-warning {
-    color: #dddddd;
-    background-color: #444;
-    border-color: #444;
-    background-image: none;
-}
-
-.btn:active,
-.btn:hover,
-.btn:focus,
-.btn:active:hover,
-.btn:active:focus,
-.btn:active:hover:focus {
-    color: #dddddd;
-    background-color: #313131;
-    border-color: #2b2a2a;
-    background-image: none;
 }
 
 div.blocks div.media_blocks {
@@ -845,10 +749,6 @@ div.blocks div.media_blocks span {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-transform: uppercase;
-}
-
-.disk-good {
-    color: #dddddd !important;
 }
 
 .text-bright {
