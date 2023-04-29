@@ -46,6 +46,13 @@ class TorrentRequest extends Model
     protected $table = 'requests';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
