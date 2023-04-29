@@ -139,7 +139,7 @@ if (! \function_exists('language_flag')) {
             'Albanian', 'Albanian (AL)' => 'al',
             'Arabic', 'Arabic (001)' => 'ae',
             'Belarusian' => 'by',
-            'Bengali' => 'bd',
+            'Bengali'    => 'bd',
             'Bosnian', 'Bosnian (BA)' => 'ba',
             'Bulgarian', 'Bulgarian (BG)' => 'bg',
             'Chinese', 'Mandarin', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)', 'Chinese (Simplified)' => 'cn',
@@ -154,7 +154,7 @@ if (! \function_exists('language_flag')) {
             'Finnish', 'Finnish (FI)' => 'fi',
             'French', 'French (FR)' => 'fr',
             'French (CA)' => 'can-qc',
-            'Georgian' => 'ge',
+            'Georgian'    => 'ge',
             'German', 'German (DE)' => 'de',
             'German (CH)' => 'ch',
             'Greek', 'Greek (GR)' => 'gr',
@@ -192,7 +192,7 @@ if (! \function_exists('language_flag')) {
             'Turkish', 'Turkish (TR)' => 'tr',
             'Ukrainian', 'Ukrainian (UA)' => 'ua',
             'Vietnamese', 'Vietnamese (VN)' => 'vn',
-            'Welsh' => 'gb-wls', 
+            'Welsh' => 'gb-wls',
             default => null,
         };
 
