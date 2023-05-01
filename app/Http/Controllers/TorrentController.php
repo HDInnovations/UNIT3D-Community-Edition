@@ -13,9 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
-use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
@@ -42,7 +40,6 @@ use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
-use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -435,25 +432,6 @@ class TorrentController extends Controller
             'tvdb'         => $request->tvdb,
             'igdb'         => $request->igdb,
         ]);
-    }
-
-    /**
-     * Preview torrent description.
-     */
-    public function preview(Request $request): \Illuminate\Http\JsonResponse
-    {
-        // Preview The Upload
-        $joyPixel = app()->make(LaravelJoyPixels::class);
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
-        $previewContent = $joyPixel->toImage(
-            $linkify->linky(
-                $bbcode->parse($request->input('description'))
-            )
-        );
-
-        return response()->json($previewContent);
     }
 
     /**

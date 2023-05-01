@@ -192,7 +192,6 @@ Route::group(['middleware' => 'language'], function (): void {
         Route::group(['prefix' => 'upload'], function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
             Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('upload');
-            Route::post('/preview', [App\Http\Controllers\TorrentController::class, 'preview']);
         });
 
         Route::group(['prefix' => 'torrents'], function (): void {
