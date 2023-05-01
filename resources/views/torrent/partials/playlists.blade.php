@@ -1,4 +1,4 @@
-<div class="panel-body" style="padding: 5px;">
+<div class="panel__body" style="padding: 5px;">
     <section class="playlists" style="height: 210px;">
         <div class="scroller" style="padding-bottom: 10px;">
             <div class="row">

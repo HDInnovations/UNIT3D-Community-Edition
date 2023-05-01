@@ -45,7 +45,7 @@
                                 </h1>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel__body">
                             <div class="alert alert-info text-center">
                                 {{ config('other.title') }} {{ __('auth.appl-intro') }}
                             </div>

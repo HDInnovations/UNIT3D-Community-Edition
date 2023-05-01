@@ -63,7 +63,7 @@
         <br>
 
         <div class="panel panel-chat shoutbox">
-            <div class="panel-heading">
+            <div class="panel__heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-film"></i> Movies</h4>
             </div>
             <div class="table-responsive">

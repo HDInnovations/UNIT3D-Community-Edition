@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel verification-form-panel">
-                    <div class="panel-heading text-center" id="verification_status_title">
+                    <div class="panel__heading text-center" id="verification_status_title">
                         <h3>
                             {{ __('auth.title') }}
                         </h3>
@@ -54,7 +54,7 @@
                             </em>
                         </p>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel__body">
                         <form id="verification_form" class="form-horizontal" method="POST">
                             @csrf
                             <div class="form-group margin-bottom-1 code-inputs">

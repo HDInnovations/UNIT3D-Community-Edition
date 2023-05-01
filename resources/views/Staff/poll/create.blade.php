@@ -25,7 +25,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('poll.create-poll') }}</h2>
-        <div class="panel-body">
+        <div class="panel__body">
             <form
                 class="form"
                 method="POST"

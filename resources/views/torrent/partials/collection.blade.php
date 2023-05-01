@@ -1,4 +1,4 @@
-<div class="panel-body" style="padding: 5px;">
+<div class="panel__body" style="padding: 5px;">
     @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
         <div id="collection_waypoint" class="collection">
             <div class="header collection"

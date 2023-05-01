@@ -24,7 +24,7 @@
     <div class="container">
         <div class="block">
             <div class="panel panel-info">
-                <div class="panel-heading">
+                <div class="panel__heading">
                     <div class="text-center">
                         <h2>{{ $user->username }}</h2>
                         @if ($user->getRatio() < config('other.ratio') || $user->can_download == 0)
@@ -37,7 +37,7 @@
             </div>
 
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div class="panel__heading">
                     <h4 class="text-center">{{ __('torrent.info') }}</h4>
                 </div>
                 <div class="text-center">
