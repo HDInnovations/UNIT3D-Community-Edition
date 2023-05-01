@@ -96,7 +96,7 @@ class TorrentBuffController extends Controller
         $torrentFlAmount = $request->input('freeleech');
 
         $v = validator($request->input(), [
-            'freeleech' => 'numeric|not_in:0',
+            'freeleech' => 'numeric|min:0|max:100',
         ]);
 
         if ($v->fails()) {
