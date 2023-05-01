@@ -133,7 +133,7 @@
             :anon="false"
             :user="$post->user"
         >
-            <x-slot:appended-icons>
+            <x-slot:appendedIcons>
                 @if ($post->user->isOnline())
                     <i class="{{ config('other.font-awesome') }} fa-circle text-green" title="Online"></i>
                 @else
