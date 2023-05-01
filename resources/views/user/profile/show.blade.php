@@ -408,7 +408,7 @@
                 <h2 class="panel__heading">{{ __('common.warnings') }}</h2>
                 <dl class="key-value">
                     <dt>{{ __('user.active-warnings') }}</dt>
-                    <dd>{{ $warnings->count() }}</dd>
+                    <dd>{{ $user->active_warnings_count ?? 0 }}</dd>
                     <dt>{{ __('user.hit-n-runs-count') }}</dt>
                     <dd>{{ $user->hitandruns }}</dd>
                 </dl>

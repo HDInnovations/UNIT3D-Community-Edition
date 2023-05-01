@@ -40,7 +40,7 @@ class UserController extends Controller
                 'posts',
                 'filledRequests' => fn ($query) => $query->whereNotNull('approved_by'),
                 'requests',
-                'userwarning as warnings_count',
+                'userwarning as active_warnings_count' => fn ($query) => $query->where('active', '=', 1),
                 'userwarning as soft_deleted_warnings_count' => fn ($query) => $query->onlyTrashed(),
             ])
             ->with([
