@@ -107,12 +107,6 @@
     </script>
 @endif
 
-@if (Session::has('achievement'))
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $('#modal-achievement').modal('show')
-    </script>
-@endif
-
 @foreach (['warning', 'success', 'info'] as $key)
     @if (Session::has($key))
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
