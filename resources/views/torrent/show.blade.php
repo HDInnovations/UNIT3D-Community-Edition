@@ -79,9 +79,7 @@
 @section('javascripts')
     @if (isset($trailer))
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
-          $('.show-trailer').each(function () {
-            $(this).off('click')
-            $(this).on('click', function (e) {
+          document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
               e.preventDefault()
               Swal.fire({
                 showConfirmButton: false,
@@ -92,38 +90,7 @@
                 title: '<i style="color: #a5a5a5;">Trailer</i>',
                 text: ''
               })
-            })
           })
         </script>
     @endif
-
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
-      $('.torrent-freeleech-token').on('click', function (event) {
-        event.preventDefault();
-        let form = $(this).parents('form');
-        Swal.fire({
-          title: 'Are you sure?',
-          text: 'This will use one of your Freeleech Tokens!',
-          icon: 'warning',
-          showConfirmButton: true,
-          showCloseButton: true,
-        }).then((result) => {
-          if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
-            Swal.fire({
-              title: 'Are you sure?',
-              text: 'This torrent has 0 seeders!',
-              icon: 'warning',
-              showConfirmButton: true,
-              showCancelButton: true,
-            }).then((result) => {
-              if (result.isConfirmed) {
-                form.submit();
-              }
-            });
-          } else if (result.isConfirmed) {
-            form.submit();
-          }
-        });
-      });
-    </script>
 @endsection
