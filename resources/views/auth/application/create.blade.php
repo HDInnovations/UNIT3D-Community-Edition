@@ -161,7 +161,7 @@
                         Swal.fire({
                             title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
                             icon: 'error',
-                            html: jQuery('#ERROR_COPY').html(),
+                            html: document.getElementById('ERROR_COPY').innerHTML,
                             showCloseButton: true,
                         })
                     </script>
