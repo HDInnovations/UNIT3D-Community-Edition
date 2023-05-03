@@ -30,12 +30,41 @@
     @if ($fileExists)
         @if ($torrent->free !== 100 && config('other.freeleech') == false && ! $personal_freeleech && $user->group->is_freeleech == 0 && ! $freeleech_token)
             <li class="form__group form__group--short-horizontal">
-                <form action="{{ route('freeleech_token', ['id' => $torrent->id]) }}" method="POST"
-                    style="display: contents;">
+                <form
+                    action="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
+                    method="POST"
+                    style="display: contents;"
+                    x-data
+                >
                     @csrf
                     <button
                         class="form__button form__button--outlined form__button--centered"
                         title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'
+                        x-on:click.prevent="
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'This will use one of your Freeleech Tokens!',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCloseButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: 'This torrent has 0 seeders!',
+                                        icon: 'warning',
+                                        showConfirmButton: true,
+                                        showCancelButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $root.submit();
+                                        }
+                                    });
+                                } else if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            });
+                        "
                     >
                         {{ __('torrent.use-fl-token') }}
                     </button>
