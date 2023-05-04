@@ -48,6 +48,7 @@
                         <th>{{ __('common.download') }}</th>
                         <th>{{ __('common.added') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
+                        <th>{{ __('torrent.completed_at') }}</th>
                         <th>{{ __('torrent.seedtime') }}</th>
                     </tr>
                 </thead>
@@ -96,6 +97,11 @@
                             <td>
                                 <time datetime="{{ $history->updated_at }}" title="{{ $history->updated_at }}">
                                     {{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $history->completed_at }}" title="{{ $history->completed_at }}">
+                                    {{ $history->completed_at ? $history->completed_at->diffForHumans() : 'N/A' }}
                                 </time>
                             </td>
                             @if ($history->seedtime < config('hitrun.seedtime'))
