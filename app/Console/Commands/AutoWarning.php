@@ -85,6 +85,7 @@ class AutoWarning extends Command
                         // Send Notifications
                         $hr->user->notify(new UserWarning($hr->user, $hr->torrent));
 
+                        $hr->timestamps = false;
                         $hr->save();
                     }
                 }
