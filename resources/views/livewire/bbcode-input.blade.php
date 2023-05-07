@@ -189,9 +189,9 @@
     </menu>
     <div class="bbcode-input__tab-pane">
         @if ($isPreviewEnabled)
-            <p class="bbcode-input__preview bbcode-rendered">
+            <div class="bbcode-input__preview bbcode-rendered">
                 @joypixels($contentHtml)
-            </p>
+            </div>
             <input type="hidden" name="{{ $name }}" wire:model.defer="contentBbcode">
         @else
             <p class="form__group">
