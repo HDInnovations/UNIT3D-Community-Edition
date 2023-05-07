@@ -91,7 +91,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--text" href
+                            class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-broom"></i>
                             {{ __('staff.flush-chat') }}
@@ -227,7 +227,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--text" href
+                            class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
                             {{ __('staff.flush-ghost-peers') }}
@@ -290,7 +290,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--text" href
+                            class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-history"></i>
                             {{ __('staff.mass-validate-users') }}
