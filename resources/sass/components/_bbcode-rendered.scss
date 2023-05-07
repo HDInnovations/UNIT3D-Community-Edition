@@ -5,19 +5,6 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   color: var(--bbcode-rendered-fg-default);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-
-  > * {
-    font-size: 15px;
-    line-height: 1.5;
-    word-wrap: break-word;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-  }
-  * {
-    color: var(--bbcode-rendered-fg-default);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  }
 
   br:first-child {
     display: none;
@@ -68,7 +55,7 @@
     margin: 0.67em 0;
     font-weight: 600;
     padding-bottom: 0.3em;
-    font-size: 2em;
+    font-size: 30px;
     border-bottom: 1px solid var(--bbcode-rendered-border-muted);
   }
 
@@ -109,7 +96,6 @@
   pre,
   samp {
     font-family: monospace, monospace;
-    font-size: 1em;
   }
 
   figure {
@@ -252,30 +238,25 @@
   }
 
   h2 {
-    font-weight: 600;
     padding-bottom: 0.3em;
-    font-size: 1.5em;
+    font-size: 23px;
     border-bottom: 1px solid var(--bbcode-rendered-border-muted);
   }
 
   h3 {
-    font-weight: 600;
-    font-size: 1.25em;
+    font-size: 19px;
   }
 
   h4 {
-    font-weight: 600;
-    font-size: 1em;
+    font-size: 15px;
   }
 
   h5 {
-    font-weight: 600;
-    font-size: 0.875em;
+    font-size: 13px;
   }
 
   h6 {
-    font-weight: 600;
-    font-size: 0.85em;
+    font-size: 13px;
     color: var(--bbcode-rendered-fg-muted);
   }
 
@@ -466,7 +447,6 @@
   dl dt {
     padding: 0;
     margin-top: 16px;
-    font-size: 1em;
     font-style: italic;
     font-weight: 600;
   }
@@ -515,17 +495,13 @@
   tt {
     padding: 0.2em 0.4em;
     margin: 0;
-    font-size: 85%;
+    font-size: 13px;
     background-color: var(--bbcode-rendered-neutral-muted);
     border-radius: 6px;
   }
 
   del code {
     text-decoration: inherit;
-  }
-
-  pre code {
-    font-size: 100%;
   }
 
   pre > code {

@@ -205,14 +205,14 @@ class Bbcode
         'spoiler' => [
             'openBbcode'  => '/^\[spoiler\]/i',
             'closeBbcode' => '[/spoiler]',
-            'openHtml'    => '<details><summary>Spoiler</summary><pre><code><div style="text-align:left;">',
-            'closeHtml'   => '</div></code></pre></details>',
+            'openHtml'    => '<details><summary>Spoiler</summary><div style="text-align:left;">',
+            'closeHtml'   => '</div></details>',
         ],
         'named-spoiler' => [
             'openBbcode'  => '/^\[spoiler=(.*?)\]/i',
             'closeBbcode' => '[/spoiler]',
-            'openHtml'    => '<details><summary>$1</summary><pre><code><div style="text-align:left;">',
-            'closeHtml'   => '</div></code></pre></details>',
+            'openHtml'    => '<details><summary>$1</summary><div style="text-align:left;">',
+            'closeHtml'   => '</div></details>',
         ],
     ];
 
