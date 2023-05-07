@@ -71,7 +71,6 @@ class TopicSearch extends Component
                     ->where('forum_id', '=', $this->forumId)
                     ->orWhereIn('forum_id', Forum::where('parent_id', '=', $this->forumId)->select('id'))
             ))
-            ->orderByDesc('pinned')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
     }
