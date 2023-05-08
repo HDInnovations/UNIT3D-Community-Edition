@@ -105,7 +105,6 @@
                                 value="{{ $tmdb ?: old('tmdb') }}"
                             >
                             <label class="form__label form__label--floating" for="autotmdb">TMDB ID</label>
-                            <output name="apimatch" id="apimatch" for="torrent"></output>
                         </p>
                         <p class="form__group">
                             <input type="hidden" name="imdb" value="0" />
