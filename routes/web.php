@@ -333,57 +333,51 @@ Route::group(['middleware' => 'language'], function (): void {
         });
 
         // Forum Category System
-        Route::group(['prefix' => 'categories'], function (): void {
-            Route::name('forums.categories.')->group(function (): void {
-                Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->where('id', '[0-9]+')->name('show');
-            });
+        Route::group(['prefix' => 'categories', 'as' => 'forums.categories.'], function (): void {
+            Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->where('id', '[0-9]+')->name('show');
         });
 
         // Posts System
-        Route::group(['prefix' => 'posts'], function (): void {
-            Route::post('/topic/{id}/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('forum_reply');
-            Route::get('/posts/{id}/post-{postId}/edit', [App\Http\Controllers\PostController::class, 'postEditForm'])->name('forum_post_edit_form');
-            Route::post('/posts/{postId}/edit', [App\Http\Controllers\PostController::class, 'postEdit'])->name('forum_post_edit');
-            Route::delete('/posts/{postId}/delete', [App\Http\Controllers\PostController::class, 'postDelete'])->name('forum_post_delete');
+        Route::group(['prefix' => 'posts', 'as' => 'posts.'], function (): void {
+            Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\PostController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [App\Http\Controllers\PostController::class, 'update'])->name('update');
+            Route::delete('/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->name('destroy');
         });
 
-        // Search Forums
-        Route::get('/subscriptions', [App\Http\Controllers\ForumController::class, 'subscriptions'])->name('forum_subscriptions');
-        Route::get('/latest/topics', [App\Http\Controllers\ForumController::class, 'latestTopics'])->name('forum_latest_topics');
-        Route::get('/latest/posts', [App\Http\Controllers\ForumController::class, 'latestPosts'])->name('forum_latest_posts');
-        Route::get('/search', [App\Http\Controllers\ForumController::class, 'search'])->name('forum_search_form');
-
-        Route::group(['prefix' => 'topics'], function (): void {
-            Route::get('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'addForm'])->name('forum_new_topic_form');
-            Route::post('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'newTopic'])->name('forum_new_topic');
-            Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
-            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close')->middleware('modo');
-            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open')->middleware('modo');
-            Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
-            Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
-            Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
-            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic')->middleware('modo');
-            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic')->middleware('modo');
+        //Topics System
+        Route::group(['prefix' => 'topics', 'as' => 'topics.'], function (): void {
+            Route::get('/', [App\Http\Controllers\TopicController::class, 'index'])->name('index');
+            Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
+            Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
+            Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');
+            Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->middleware('modo');
+            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'close'])->name('close')->middleware('modo');
+            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'open'])->name('open')->middleware('modo');
+            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pin'])->name('pin')->middleware('modo');
+            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpin'])->name('unpin')->middleware('modo');
         });
 
         // Topic Label System
-        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function (): void {
-            Route::name('topics.')->group(function (): void {
-                Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
-                Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
-                Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
-                Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
-                Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
-                Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
-                Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
-            });
+        Route::group(['prefix' => 'topics', 'as' => 'topics.', 'middleware' => 'modo'], function (): void {
+            Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
+            Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
+            Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
+            Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
+            Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
+            Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
+            Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
         });
 
         // Subscription System
-        Route::post('/subscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'subscribeTopic'])->name('subscribe_topic');
-        Route::post('/unsubscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeTopic'])->name('unsubscribe_topic');
-        Route::post('/subscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'subscribeForum'])->name('subscribe_forum');
-        Route::post('/unsubscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeForum'])->name('unsubscribe_forum');
+        Route::group(['prefix' => 'subscriptions', 'as' => 'subscriptions.'], function (): void {
+            Route::get('/', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\SubscriptionController::class, 'store'])->name('store');
+            Route::post('/{id}', [App\Http\Controllers\SubscriptionController::class, 'destroy'])->name('destroy');
+        });
     });
 
     /*

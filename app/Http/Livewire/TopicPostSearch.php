@@ -50,7 +50,7 @@ class TopicPostSearch extends Component
                 'permissions',
                 fn ($query) => $query
                     ->on('permissions.forum_id', '=', 'topics.forum_id')
-                    ->on('permissions.group_id', '=', DB::raw((int) auth()->user()->group->id))
+                    ->on('permissions.group_id', '=', DB::raw((int) auth()->user()->group_id))
                     ->on('permissions.show_forum', '=', DB::raw(1))
                     ->on('permissions.read_topic', '=', DB::raw(1))
             )

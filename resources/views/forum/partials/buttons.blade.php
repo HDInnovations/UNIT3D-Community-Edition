@@ -1,23 +1,23 @@
-<li class="{{ Route::is('forum_latest_topics') ? 'nav-tab--active' : 'nav-tabV2' }}">
+<li class="{{ Route::is('topics.index') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
-        class="{{ Route::is('forum_latest_topics') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('forum_latest_topics') }}"
+        class="{{ Route::is('topics.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('topics.index') }}"
     >
         {{ __('common.topics') }}
     </a>
 </li>
-<li class="{{ Route::is('forum_latest_posts') ? 'nav-tab--active' : 'nav-tabV2' }}">
+<li class="{{ Route::is('posts.index') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
-        class="{{ Route::is('forum_latest_posts') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('forum_latest_posts') }}"
+        class="{{ Route::is('posts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('posts.index') }}"
     >
         {{ __('common.posts') }}
     </a>
 </li>
-<li class="{{ Route::is('forum_subscriptions') ? 'nav-tab--active' : 'nav-tabV2' }}">
+<li class="{{ Route::is('subscriptions.index') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
-        class="{{ Route::is('forum_subscriptions') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('forum_subscriptions') }}"
+        class="{{ Route::is('subscriptions.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('subscriptions.index') }}"
     >
         {{ __('common.subscriptions') }}
     </a>

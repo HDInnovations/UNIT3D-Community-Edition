@@ -27,7 +27,7 @@
         <h2 class="topic-listing__heading">
             <a
                 class="topic-listing__link"
-                href="{{ route('forum_topic', ['id' => $topic->id]) }}"
+                href="{{ route('topics.show', ['id' => $topic->id]) }}"
             >
                 {{ $topic->name }}
             </a>
