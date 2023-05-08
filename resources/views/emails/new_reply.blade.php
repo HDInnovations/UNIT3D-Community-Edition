@@ -3,8 +3,8 @@
 **{{ __('email.newreply-message') }}:**
 <a href="{{ route('users.show', ['username' => $user->username]) }}">{{ $user->username }}</a>
 {{ strtolower(__('email.newreply-replied')) }}
-<a href="{{ route('forum_topic', ['id' => $topic->id]) }}">{{ $topic->name }}</a>
-@component('mail::button', ['url' => route('forum_topic', ['id' => $topic->id]), 'color' => 'blue'])
+<a href="{{ route('topics.show', ['id' => $topic->id]) }}">{{ $topic->name }}</a>
+@component('mail::button', ['url' => route('topics.show', ['id' => $topic->id]), 'color' => 'blue'])
 {{ __('email.newreply-view') }}
 @endcomponent
 @endcomponent

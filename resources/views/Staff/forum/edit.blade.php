@@ -49,7 +49,7 @@
                 </p>
                 <p class="form__group">
                     <select name="forum_type" class="form__select">
-                        @if ($forum->getCategory() == null)
+                        @if ($forum->category == null)
                             <option value="category" selected>Category (Current)</option>
                             <option value="forum">Forum</option>
                         @else
@@ -61,9 +61,9 @@
                 </p>
                 <p class="form__group">
                     <select name="parent_id" class="form__select">
-                        @if ($forum->getCategory() != null)
+                        @if ($forum->category != null)
                             <option value="{{ $forum->parent_id }}" selected>
-                                {{ $forum->getCategory()->name }} (Current)
+                                {{ $forum->category->name }} (Current)
                             </option>
                         @endif
                         @foreach ($categories as $category)

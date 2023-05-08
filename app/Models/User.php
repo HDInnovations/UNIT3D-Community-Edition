@@ -506,6 +506,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Subscribed topics.
+     */
+    public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Forum::class, 'subscriptions');
+    }
+
+    /**
+     * Has Many Subscribed topics.
+     */
+    public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Topic::class, 'subscriptions');
+    }
+
+    /**
      * Has many free leech tokens.
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany

@@ -16,7 +16,6 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Topic;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
@@ -24,44 +23,16 @@ use Illuminate\Http\Request;
 class ForumController extends Controller
 {
     /**
-     * Search For Subscribed Forums & Topics.
-     */
-    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = $request->user();
-
-        return view('forum.subscriptions', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * Latest Topics.
-     */
-    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('forum.topic.index');
-    }
-
-    /**
-     * Latest Posts.
-     */
-    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('forum.post.index');
-    }
-
-    /**
      * Show All Forums.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $categories = Forum::query()
             ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ])
             ->where('parent_id', '=', 0)
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
             ->get();
 
