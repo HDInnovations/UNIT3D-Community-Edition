@@ -40,6 +40,8 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
+        $user = $request->user();
+
         $request->validate([
             'forum_id' => 'sometimes|prohibits:topic_id,required_without:topic_id,exists:forums,id',
             'topic_id' => 'sometimes|prohibits:forum_id,required_without:forum_id,exists:topics,id',
@@ -52,7 +54,7 @@ class SubscriptionController extends Controller
                         ->where('id', '=', $request->forum_id)
                         ->whereRelation('permissions', [
                             ['show_forum', '=', 1],
-                            ['group_id', '=', auth()->user()->group_id],
+                            ['group_id', '=', $user->group_id],
                         ])
                         ->exists(),
                     403
@@ -68,7 +70,7 @@ class SubscriptionController extends Controller
                         ->where('id', '=', $request->topic_id)
                         ->whereRelation('forumPermissions', [
                             ['read_topic', '=', 1],
-                            ['group_id', '=', auth()->user()->group_id],
+                            ['group_id', '=', $user->group_id],
                         ])
                         ->exists(),
                     403
@@ -84,11 +86,13 @@ class SubscriptionController extends Controller
     /**
      * Destroy a subscription.
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
+        $user = $request->user();
+
         $subscription = Subscription::findOrFail($id);
 
-        abort_unless($subscription->user_id === auth()->id(), 403);
+        abort_unless($subscription->user_id === $user->id, 403);
 
         $subscription->delete();
 

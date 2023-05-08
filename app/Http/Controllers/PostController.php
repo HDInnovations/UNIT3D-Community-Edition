@@ -76,7 +76,7 @@ class PostController extends Controller
         $forum = $topic->forum;
 
         $post = Post::create([
-            'content'  => $request->content,
+            'content'  => $request->input('content'),
             'user_id'  => $user->id,
             'topic_id' => $topic->id,
         ]);
@@ -99,10 +99,10 @@ class PostController extends Controller
         ]);
 
         // Post To Chatbox and Notify Subscribers
-        $appurl = config('app.url');
-        $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
+        $appUrl = config('app.url');
+        $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appUrl, $topic->id, $post->getPageNumber(), $post->id);
         $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
-        $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
+        $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
@@ -145,18 +145,23 @@ class PostController extends Controller
     /**
      * Edit A Post.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+
         $post = Post::find($id);
         $topic = $post->topic()
             ->whereRelation('forumPermissions', [
                 ['show_forum', '=', 1],
                 ['read_topic', '=', 1],
                 ['reply_topic', '=', 1],
-                ['group_id', '=', auth()->user()->group_id],
+                ['group_id', '=', $user->group_id],
             ])
-            ->when(! auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->sole();
+
+        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+
         $forum = $topic->forum;
         $category = $forum->category;
 
@@ -188,15 +193,15 @@ class PostController extends Controller
             $post->topic()
                 ->whereRelation('forumPermissions', [
                     ['reply_topic', '=', 1],
-                    ['group_id', '=', auth()->user()->group_id],
+                    ['group_id', '=', $user->group_id],
                 ])
-                ->when(! auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+                ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
                 ->exists(),
             403
         );
 
         $post->update([
-            'content' => $request->content,
+            'content' => $request->input('content'),
         ]);
 
         return redirect()->to($postUrl)
@@ -217,7 +222,7 @@ class PostController extends Controller
 
         $topic = $post->topic()->whereRelation('forumPermissions', [
             ['reply_topic', '=', 1],
-            ['group_id', '=', auth()->user()->group_id],
+            ['group_id', '=', $user->group_id],
         ])
             ->sole();
 

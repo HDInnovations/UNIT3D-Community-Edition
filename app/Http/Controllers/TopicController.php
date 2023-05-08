@@ -56,18 +56,20 @@ class TopicController extends Controller
     /**
      * Show Topic.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
+        $user = $request->user();
+
         $topic = Topic::whereRelation('forumPermissions', [
             ['show_forum', '=', 1],
             ['read_topic', '=', 1],
-            ['group_id', '=', auth()->user()->group_id],
+            ['group_id', '=', $user->group_id],
         ])
             ->findOrFail($id);
 
         $forum = $topic->forum;
 
-        $subscription = Subscription::where('user_id', '=', auth()->id())->where('topic_id', '=', $id)->first();
+        $subscription = Subscription::where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
 
         $topic->views++;
         $topic->save();
@@ -82,12 +84,14 @@ class TopicController extends Controller
     /**
      * Create Topic.
      */
-    public function create(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function create(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
+        $user = $request->user();
+
         $forum = Forum::whereRelation('permissions', [
             ['show_forum', '=', 1],
             ['start_topic', '=', 1],
-            ['group_id', '=', auth()->user()->group_id],
+            ['group_id', '=', $user->group_id],
         ])
             ->findOrFail($id);
 
@@ -109,7 +113,7 @@ class TopicController extends Controller
         $user = $request->user();
         $forum = Forum::whereRelation('permissions', [
             ['start_topic', '=', 1],
-            ['group_id', '=', auth()->user()->group_id],
+            ['group_id', '=', $user->group_id],
         ])
             ->findOrFail($id);
 
@@ -128,7 +132,7 @@ class TopicController extends Controller
         ]);
 
         Post::create([
-            'content'  => $request->content,
+            'content'  => $request->input('content'),
             'user_id'  => $user->id,
             'topic_id' => $topic->id,
         ]);
@@ -143,9 +147,9 @@ class TopicController extends Controller
         ]);
 
         // Post To ShoutBox
-        $appurl = config('app.url');
-        $topicUrl = sprintf('%s/forums/topics/%s', $appurl, $topic->id);
-        $profileUrl = sprintf('%s/users/%s', $appurl, $user->username);
+        $appUrl = config('app.url');
+        $topicUrl = sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
+        $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $forum->notifyStaffers($user, $topic);
@@ -182,9 +186,9 @@ class TopicController extends Controller
         $topic = Topic::whereRelation('forumPermissions', [
             ['show_forum', '=', 1],
             ['read_topic', '=', 1],
-            ['group_id', '=', auth()->user()->group_id]
+            ['group_id', '=', $user->group_id]
         ])
-            ->when(! auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -215,14 +219,14 @@ class TopicController extends Controller
         ]);
 
         $topic = Topic::query()
-            ->when(! auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
         $newForum = Forum::whereRelation('permissions', [
             ['start_topic', '=', 1],
-            ['group_id', '=', auth()->user()->group_id],
+            ['group_id', '=', $user->group_id],
         ])
             ->whereKey($request->forum_id)
             ->sole();
