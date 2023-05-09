@@ -25,9 +25,7 @@
                 <form
                     class="panel__action"
                     action="{{ route('searchPMOutbox') }}"
-                    method="POST"
                 >
-                    @csrf
                     <p class="form__group">
                         <input
                             id="search"
