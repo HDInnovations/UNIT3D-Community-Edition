@@ -24,8 +24,9 @@ class PostController extends Controller
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $posts = $user->posts()
-            ->withCount(['likes', 'dislikes'])
-            ->with(['topic', 'user'])
+            ->with('user', 'user.group', 'topic:id,name')
+            ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+            ->withSum('tips', 'cost')
             ->latest()
             ->paginate(25);
 
