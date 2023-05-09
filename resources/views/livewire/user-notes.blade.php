@@ -24,7 +24,7 @@
                                 id="message"
                                 class="form__textarea"
                                 name="message"
-                                placeholder=""
+                                placeholder=" "
                                 wire:model.defer="message"
                             ></textarea>
                             <label class="form__label form__label--floating" for="message">

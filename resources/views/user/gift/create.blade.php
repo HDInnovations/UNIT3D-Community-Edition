@@ -38,7 +38,7 @@
                         id="users"
                         class="form__text"
                         name="to_username"
-                        placeholder=""
+                        placeholder=" "
                         required
                         type="text"
                     >
@@ -53,7 +53,7 @@
                         inputmode="numeric"
                         name="bonus_points"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         required
                         type="text"
                     >
@@ -66,7 +66,7 @@
                         id="bonus_message"
                         class="form__textarea"
                         name="bonus_message"
-                        placeholder=""
+                        placeholder=" "
                         required
                     ></textarea>
                     <label class="form__label form__label--floating" for="bonus_message">

@@ -90,7 +90,7 @@
                         id="title"
                         class="form__text"
                         name="title"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $user->title }}"
                     >

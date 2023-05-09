@@ -628,7 +628,7 @@
                                             type="text"
                                             pattern="[0-9]*"
                                             inputmode="numeric"
-                                            placeholder=""
+                                            placeholder=" "
                                         />
                                         <label class="form__label form__label--floating">
                                             {{ __('bon.amount') }}
@@ -638,7 +638,7 @@
                                             id="bonus_message"
                                             class="form__textarea"
                                             name="bonus_message"
-                                            placeholder=""
+                                            placeholder=" "
                                         ></textarea>
                                         <label class="form__label form__label--floating" for="bonus__message">
                                             {{ __('pm.message') }}

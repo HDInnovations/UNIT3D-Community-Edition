@@ -19,7 +19,7 @@
                     id="message"
                     class="form__text"
                     name="message"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 ></textarea>
                 <label for="message" class="form__label form__label--floating">

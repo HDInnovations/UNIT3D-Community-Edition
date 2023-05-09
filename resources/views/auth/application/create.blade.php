@@ -76,7 +76,7 @@
                                         class="form__text"
                                         name="images[]"
                                         type="url"
-                                        placeholder=""
+                                        placeholder=" "
                                         required
                                     >
                                     <label
@@ -96,7 +96,7 @@
                                         class="form__text"
                                         name="links[]"
                                         type="url"
-                                        placeholder=""
+                                        placeholder=" "
                                     >
                                     <label
                                         class="form__label form__label--floating"

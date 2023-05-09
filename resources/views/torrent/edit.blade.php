@@ -314,7 +314,7 @@
                         class="form__text"
                         name="keywords"
                         type="text"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ old('keywords') ?? $keywords->implode(', ') }}"
                     >
                     <label class="form__label form__label--floating" for="keywords">
@@ -332,7 +332,7 @@
                         id="description"
                         class="form__textarea"
                         name="mediainfo"
-                        placeholder=""
+                        placeholder=" "
                     >{{ old('mediainfo') ?? $torrent->mediainfo }}</textarea>
                     <label class="form__label form__label--floating" for="description">
                         {{ __('torrent.media-info') }}
@@ -344,7 +344,7 @@
                         id="bdinfo"
                         class="form__textarea"
                         name="bdinfo"
-                        placeholder=""
+                        placeholder=" "
                     >{{ old('bdinfo') ?? $torrent->bdinfo }}</textarea>
                     <label class="form__label form__label--floating" for="description">
                         BDInfo (Quick Summary)

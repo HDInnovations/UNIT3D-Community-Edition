@@ -79,7 +79,7 @@
                         inputmode="numeric"
                         name="position"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $forum->position }}"
                         required

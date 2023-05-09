@@ -26,7 +26,7 @@
                             class="form__text"
                             type="text"
                             wire:model="search"
-                            placeholder=""
+                            placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         Message

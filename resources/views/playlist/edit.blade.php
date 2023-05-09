@@ -44,7 +44,7 @@
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         required
                         value="{{ $playlist->name }}"
                     >

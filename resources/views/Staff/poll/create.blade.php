@@ -54,7 +54,7 @@
                             class="form__text"
                             name="options[]"
                             type="text"
-                            placeholder=""
+                            placeholder=" "
                         >
                         <label class="form__label form__label--floating" x-bind:for="'option' + option">
                             {{ __('poll.option') }}

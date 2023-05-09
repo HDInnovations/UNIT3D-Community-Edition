@@ -2,7 +2,7 @@
  * Usage
  *
  * <p class="form__group">
- *     <textarea id="textarea" class="form__textarea" placeholder=""></textarea>
+ *     <textarea id="textarea" class="form__textarea" placeholder=" "></textarea>
  *     <label class="form__label form__label--floating" for="textarea"></label>
  *     @error('error')
  *         <span class="form__hint">{{ $error }}</span>
