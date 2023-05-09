@@ -35,7 +35,7 @@ class UpdateGroupRequest extends FormRequest
             'name'             => 'required|string',
             'position'         => 'required|integer',
             'level'            => 'required|integer',
-            'download_slots'   => 'integer',
+            'download_slots'   => 'nullable|integer',
             'color'            => 'required',
             'icon'             => 'required',
             'effect'           => 'sometimes',
