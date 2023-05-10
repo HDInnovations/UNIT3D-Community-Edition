@@ -242,6 +242,8 @@
                                             <a href="{{ route('staff.peers.index', ['ip' => $client->ip, 'groupBy' => 'user_ip']) }}">
                                                 {{ $client->ip }}
                                             </a>
+                                        @elseif (auth()->id() === $user->id)
+                                            {{ $client->ip }}
                                         @endif
                                     </td>
                                     <td>{{ $client->port }}</td>
