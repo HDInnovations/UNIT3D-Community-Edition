@@ -109,7 +109,7 @@
                                         <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this seedbox: {{ $seedbox->name }}?',
+                                                text: `Are you sure you want to delete this seedbox: ${atob('{{ base64_encode($seedbox->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

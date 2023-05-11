@@ -62,10 +62,10 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this type: {{ $type->name }}?',
+                                                text: `Are you sure you want to delete this type: ${atob('{{ base64_encode($type->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

@@ -49,10 +49,10 @@
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <button 
+                                            <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this notification: {{ $notification->data['body'] }}?',
+                                                    text: `Are you sure you want to delete this notification: ${atob('{{ base64_encode($notification->data['body']) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,

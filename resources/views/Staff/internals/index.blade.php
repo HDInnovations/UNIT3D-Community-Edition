@@ -66,10 +66,10 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this internal group: {{ $internal->name }}?',
+                                                text: `Are you sure you want to delete this internal group: ${atob('{{ base64_encode($internal->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

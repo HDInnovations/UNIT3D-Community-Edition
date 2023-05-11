@@ -42,7 +42,7 @@
                 </p>
                 @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.message'), 'required' => true])
                 <p class="form__group">
-                    <button 
+                    <button
                         x-on:click.prevent="Swal.fire({
                             title: 'Are you sure?',
                             text: 'Are you sure you want to send this private message to every user on the site?',
