@@ -125,8 +125,29 @@ class Comments extends Component
         $modelName = str()->snake(class_basename($this->model), ' ');
 
         // New Comment Notification
-        if ($this->user->id !== $this->model->user_id && $modelName !== 'collection') {
-            User::find($this->model->user_id)->notify(new NewComment($modelName, $comment));
+        switch ($modelName) {
+            case 'ticket':
+                $ticket = $this->model;
+
+                if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
+                    User::find($ticket->staff_id)->notify(new NewComment($modelName, $comment));
+                }
+
+                if ($this->user->id !== $ticket->user_id) {
+                    User::find($ticket->user_id)->notify(new NewComment($modelName, $comment));
+                }
+
+                break;
+
+            case 'article':
+            case 'playlist':
+            case 'torrent request':
+            case 'torrent':
+                if ($this->user->id !== $this->model->user_id) {
+                    User::find($this->model->user_id)->notify(new NewComment($modelName, $comment));
+                }
+
+                break;
         }
 
         // User Tagged Notification

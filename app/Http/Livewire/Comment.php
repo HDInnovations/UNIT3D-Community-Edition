@@ -149,12 +149,37 @@ class Comment extends Component
             $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
-        // Set Polymorhic Model Name
+        // Set Polymorphic Model Name
         $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
         // New Comment Notification
-        if ($this->user->id !== $this->comment->user_id && $modelName !== 'collection') {
-            User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
+        switch ($modelName) {
+            case 'ticket':
+                $ticket = $this->comment->commentable;
+
+                if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
+                    User::find($ticket->staff_id)->notify(new NewComment($modelName, $reply));
+                }
+
+                if ($this->user->id !== $ticket->user_id) {
+                    User::find($ticket->user_id)->notify(new NewComment($modelName, $reply));
+                }
+
+                if (! \in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
+                    User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
+                }
+
+                break;
+
+            case 'article':
+            case 'playlist':
+            case 'torrent request':
+            case 'torrent':
+                if ($this->user->id !== $this->comment->user_id) {
+                    User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
+                }
+
+                break;
         }
 
         // User Tagged Notification
