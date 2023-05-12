@@ -147,7 +147,7 @@
                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                     <details
                         class="torrent-search--grouped__dropdown"
-                        @if ($loop->last && ! $season->has('Season Pack')))
+                        @if ($loop->last && ! $season->has('Season Pack'))
                             open
                         @endif
                     >
