@@ -71,7 +71,7 @@
             x-bind:class="tab === 'undeleted' && 'panel__tab--active'"
             x-on:click="tab = 'undeleted'"
         >
-            {{ __('user.warnings') }} ({{ $user->warnings_count ?? 0 }})
+            {{ __('user.warnings') }} ({{ $user->active_warnings_count ?? 0 }})
         </li>
         <li
             class="panel__tab"
@@ -79,7 +79,7 @@
             x-bind:class="tab === 'deleted' && 'panel__tab--active'"
             x-on:click="tab = 'deleted'"
         >
-            {{ __('user.soft-deleted-warnings') }} ({{ $user->soft_deleted_warning_count ?? 0 }})
+            {{ __('user.soft-deleted-warnings') }} ({{ $user->soft_deleted_warnings_count ?? 0 }})
         </li>
     </menu>
     <div class="data-table-wrapper" x-show="tab === 'undeleted'">
@@ -102,7 +102,7 @@
                             <x-user_tag :user="$warning->staffuser" :anon="false" />
                         </td>
                         <td>
-                            @isset($warning->torrent)
+                            @isset($warning->torrenttitle)
                                 <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                     {{ $warning->torrenttitle->name }}
                                 </a>
@@ -188,7 +188,7 @@
                             <x-user_tag :user="$warning->staffuser" :anon="false" />
                         </td>
                         <td>
-                            @isset($warning->torrent)
+                            @isset($warning->torrenttitle)
                                 <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
                                     {{ $warning->torrenttitle->name }}
                                 </a>
