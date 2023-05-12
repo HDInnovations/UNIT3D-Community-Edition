@@ -93,40 +93,30 @@ class TorrentBuffController extends Controller
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
-        $torrentFlAmount = $request->input('freeleech');
 
-        $v = validator($request->input(), [
+        $request->validate([
             'freeleech' => 'numeric|min:0|max:100',
+            'fl_until'  => 'nullable|numeric'
         ]);
 
-        if ($v->fails()) {
-            return to_route('torrent', ['id' => $torrent->id])
-                ->withErrors($v->errors());
-        }
-
-        if ($torrent->free == 0) {
-            $torrent->free = $torrentFlAmount;
-            $fl_until = $request->input('fl_until');
-            if ($fl_until !== null) {
-                $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
+        if ($request->freeleech != 0) {
+            if ($request->fl_until !== null) {
+                $torrent->fl_until = Carbon::now()->addDays($request->fl_until);
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:', $torrentUrl, $torrent->name, $torrentFlAmount)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days. :stopwatch:', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $torrentFlAmount)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             }
-        } else {
-            // Get amount of FL before revoking for chat announcement
-            $torrentFlAmount = $torrent->free;
-            $torrent->free = '0';
-
+        } elseif ($torrent->free != 0) {
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech! :poop:', $torrentUrl, $torrent->name, $torrentFlAmount)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech! :poop:', $torrentUrl, $torrent->name, $torrent->free)
             );
         }
 
+        $torrent->free = $request->freeleech;
         $torrent->save();
 
         Unit3dAnnounce::addTorrent($torrent);
