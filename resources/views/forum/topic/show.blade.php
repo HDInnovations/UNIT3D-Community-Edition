@@ -64,7 +64,7 @@
             <dt>{{ __('forum.created-at') }}</dt>
             <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
             <dt>{{ __('forum.replies') }}</dt>
-            <dd>{{ $topic->num_post }}</dd>
+            <dd>{{ $topic->num_post - 1 }}</dd>
             <dt>{{ __('forum.views') }}</dt>
             <dd>{{ $topic->views }}</dd>
         </dl>
