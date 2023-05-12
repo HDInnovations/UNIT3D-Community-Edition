@@ -194,7 +194,7 @@ class PeerSearch extends Component
                     )
             )
             ->when($this->ip !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ip)'), 'LIKE', $this->ip.'%'))
-            ->when($this->port !== '', fn ($query) => $query->where('peers.port', '=', $this->port))
+            ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
             ->when($this->torrent !== '', fn ($query) => $query->whereIn(
                 'torrents.name',
