@@ -229,6 +229,7 @@ class PostController extends Controller
         $post->delete();
 
         $latestPost = $topic->latestPost;
+        $isTopicDeleted = false;
 
         if ($latestPost === null) {
             $topic->delete();
@@ -248,7 +249,7 @@ class PostController extends Controller
         $latestPost = $lastRepliedTopic->latestPost;
         $latestPoster = $latestPost->user;
 
-        $forum->query()->update([
+        $forum->update([
             'num_post'                => $forum->posts()->count(),
             'num_topic'               => $forum->topics()->count(),
             'last_post_user_id'       => $latestPoster->id,
