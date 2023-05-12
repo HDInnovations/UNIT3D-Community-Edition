@@ -284,122 +284,122 @@
             @livewire('user-notes', ['user' => $user])
             @include('user.profile.partials.bans', ['bans' => $user->userban])
             @include('user.profile.partials.warnings', ['warnings' => $warnings])
-        @endif
-        <section class="panelV2">
-            <header class="panel__header">
-                <h2 class="panel__heading">Watchlist</h2>
-                <div class="panel__actions">
-                    @if($watch === null)
-                        <div class="panel__action" x-data="{ open: false }">
-                            <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
-                                Watch
-                            </button>
-                            <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
-                                <h3 class="dialog__heading">
-                                    Watch user: {{ $user->username }}
-                                </h3>
-                                <form
-                                    class="dialog__form"
-                                    method="POST"
-                                    action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}"
-                                    x-on:click.outside="open = false; $refs.dialog.close();"
-                                >
-                                    @csrf
-                                    <p class="form__group">
-                                        <textarea
-                                            id="watchlist_reason"
-                                            class="form__textarea"
-                                            name="message"
-                                            required
-                                        ></textarea>
-                                        <label class="form__label form__label--floating" for="watchlist_reason">Reason</label>
-                                    </p>
-                                    <p class="form__group">
-                                        <button class="form__button form__button--filled">
-                                            {{ __('common.save') }}
-                                        </button>
-                                        <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
-                                            {{ __('common.cancel') }}
-                                        </button>
-                                    </p>
-                                </form>
-                            </dialog>
-                        </div>
-                    @else
-                        <form
-                            class="panel__action"
-                            action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
-                            method="POST"
-                        >
-                            @csrf
-                            @method('DELETE')
-                            <button class="form__button form__button--text">
-                                Unwatch
-                            </button>
-                        </form>
-                    @endif
-                </div>
-            </header>
-            <div class="data-table-wrapper">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Watched By</th>
-                            <th>Message</th>
-                            <th>Created At</th>
-                            <th>{{ __('common.action') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if ($watch === null)
-                            <tr>
-                                <td colspan="4">Not watched</td>
-                            </tr>
+            <section class="panelV2">
+                <header class="panel__header">
+                    <h2 class="panel__heading">Watchlist</h2>
+                    <div class="panel__actions">
+                        @if($watch === null)
+                            <div class="panel__action" x-data="{ open: false }">
+                                <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                                    Watch
+                                </button>
+                                <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                                    <h3 class="dialog__heading">
+                                        Watch user: {{ $user->username }}
+                                    </h3>
+                                    <form
+                                        class="dialog__form"
+                                        method="POST"
+                                        action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}"
+                                        x-on:click.outside="open = false; $refs.dialog.close();"
+                                    >
+                                        @csrf
+                                        <p class="form__group">
+                                            <textarea
+                                                id="watchlist_reason"
+                                                class="form__textarea"
+                                                name="message"
+                                                required
+                                            ></textarea>
+                                            <label class="form__label form__label--floating" for="watchlist_reason">Reason</label>
+                                        </p>
+                                        <p class="form__group">
+                                            <button class="form__button form__button--filled">
+                                                {{ __('common.save') }}
+                                            </button>
+                                            <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                                {{ __('common.cancel') }}
+                                            </button>
+                                        </p>
+                                    </form>
+                                </dialog>
+                            </div>
                         @else
-                            <tr>
-                                <td>
-                                    <x-user_tag :anon="false" :user="$watch->author" />
-                                </td>
-                                <td>{{ $watch->message }}</td>
-                                <td>
-                                    <time datetime="{{ $watch->created_at }}">{{ $watch->created_at }}</time>
-                                </td>
-                                <td>
-                                    <menu class="data-table__actions">
-                                        <li class="data-table__action">
-                                            <form
-                                                action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
-                                                method="POST"
-                                                x-data
-                                            >
-                                                @csrf
-                                                @method('DELETE')
-                                                <button
-                                                    x-on:click.prevent="Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: 'Are you sure you want to unwatch this user: {{ $watch->user->username }}?',
-                                                        icon: 'warning',
-                                                        showConfirmButton: true,
-                                                        showCancelButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            $root.submit();
-                                                        }
-                                                    })"
-                                                    class="form__button form__button--text"
-                                                >
-                                                    Unwatch
-                                                </button>
-                                            </form>
-                                        </li>
-                                    </menu>
-                                </td>
-                            </tr>
+                            <form
+                                class="panel__action"
+                                action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
+                                method="POST"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button class="form__button form__button--text">
+                                    Unwatch
+                                </button>
+                            </form>
                         @endif
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                    </div>
+                </header>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Watched By</th>
+                                <th>Message</th>
+                                <th>Created At</th>
+                                <th>{{ __('common.action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($watch === null)
+                                <tr>
+                                    <td colspan="4">Not watched</td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td>
+                                        <x-user_tag :anon="false" :user="$watch->author" />
+                                    </td>
+                                    <td>{{ $watch->message }}</td>
+                                    <td>
+                                        <time datetime="{{ $watch->created_at }}">{{ $watch->created_at }}</time>
+                                    </td>
+                                    <td>
+                                        <menu class="data-table__actions">
+                                            <li class="data-table__action">
+                                                <form
+                                                    action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
+                                                    method="POST"
+                                                    x-data
+                                                >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        x-on:click.prevent="Swal.fire({
+                                                            title: 'Are you sure?',
+                                                            text: 'Are you sure you want to unwatch this user: {{ $watch->user->username }}?',
+                                                            icon: 'warning',
+                                                            showConfirmButton: true,
+                                                            showCancelButton: true,
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                $root.submit();
+                                                            }
+                                                        })"
+                                                        class="form__button form__button--text"
+                                                    >
+                                                        Unwatch
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </menu>
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        @endif
     @endsection
 
     @section('sidebar')
