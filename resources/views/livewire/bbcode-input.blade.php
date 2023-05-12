@@ -199,7 +199,7 @@
                     id="bbcode-{{ $name }}"
                     name="{{ $name }}"
                     class="form__textarea bbcode-input__input"
-                    placeholder=""
+                    placeholder=" "
                     x-ref="bbcode"
                     wire:model.defer="contentBbcode"
                     @if ($isRequired)

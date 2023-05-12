@@ -55,7 +55,7 @@
                         id="name"
                         class="form__text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->name }}"
                     >
@@ -68,7 +68,7 @@
                         inputmode="numeric"
                         name="position"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->position }}"
                     >
@@ -79,7 +79,7 @@
                         id="command"
                         class="form__text"
                         name="command"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->command }}"
                     >
@@ -90,7 +90,7 @@
                         id="info"
                         class="form__text"
                         name="info"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->info }}"
                     >
@@ -101,7 +101,7 @@
                         id="about"
                         class="form__text"
                         name="about"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->about }}"
                     >
@@ -112,7 +112,7 @@
                         id="emoji"
                         class="form__text"
                         name="emoji"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->emoji }}"
                     >
@@ -123,7 +123,7 @@
                         id="icon"
                         class="form__text"
                         name="icon"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->icon }}"
                     >
@@ -134,7 +134,7 @@
                         id="color"
                         class="form__text"
                         name="color"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $bot->color }}"
                     >
@@ -145,7 +145,7 @@
                         id="help"
                         class="form__textarea"
                         name="help"
-                        placeholder=""
+                        placeholder=" "
                     >{{ $bot->help }}</textarea>
                     <label class="form__label form__label--floating" for="help">{{ __('bot.help') }}</label>
                 </p>

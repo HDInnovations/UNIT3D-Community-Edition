@@ -302,7 +302,7 @@
                                 x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $mal ?: old('mal') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                                 class="form__text"
-                                placeholder=""
+                                placeholder=" "
                             >
                             <label class="form__label form__label--floating" for="automal">MAL ID ({{ __('torrent.required-anime') }})</label>
                         </p>
@@ -327,7 +327,7 @@
                             id="autokeywords"
                             class="form__text"
                             value="{{ old('keywords') }}"
-                            placeholder=""
+                            placeholder=" "
                         >
                         <label class="form__label form__label--floating" for="autokeywords">
                             {{ __('torrent.keywords') }} (<i>{{ __('torrent.keywords-example') }}</i>)
@@ -339,7 +339,7 @@
                             id="upload-form-mediainfo"
                             name="mediainfo"
                             class="form__textarea"
-                            placeholder=""
+                            placeholder=" "
                         >{{ old('mediainfo') }}</textarea>
                         <label class="form__label form__label--floating" for="upload-form-mediainfo">
                             {{ __('torrent.media-info-parser') }}
@@ -350,7 +350,7 @@
                             id="upload-form-bdinfo"
                             name="bdinfo"
                             class="form__textarea"
-                            placeholder=""
+                            placeholder=" "
                         >{{ old('bdinfo') }}</textarea>
                         <label class="form__label form__label--floating" for="upload-form-bdinfo">
                             BDInfo (Quick Summary)

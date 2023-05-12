@@ -21,7 +21,7 @@
                     inputmode="numeric"
                     name="bonus_value"
                     pattern="[0-9]*?[1-9][0-9]{2,}"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
                 <label for="bonus_value" class="form__label form__label--floating">

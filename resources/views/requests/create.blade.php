@@ -128,7 +128,7 @@
                                 inputmode="numeric"
                                 name="tvdb"
                                 pattern="[0-9]*"
-                                placeholder=""
+                                placeholder=" "
                                 type="text"
                                 value="{{ $tvdb ?: old('tvdb') }}"
                             >
@@ -142,7 +142,7 @@
                                 inputmode="numeric"
                                 name="mal"
                                 pattern="[0-9]*"
-                                placeholder=""
+                                placeholder=" "
                                 type="text"
                                 value="{{ $mal ?: old('mal') }}"
                             >

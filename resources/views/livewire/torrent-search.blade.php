@@ -15,44 +15,44 @@
         <div class="panel__body" style="padding: 5px;">
             <div class="form__group--horizontal">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder="" autofocus>
+                    <input wire:model="name" class="form__text" placeholder=" " autofocus>
                     <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
                 </p>
             </div>
             <form class="form" x-cloak x-show="open">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="description" class="form__text" placeholder="">
+                        <input wire:model="description" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.description') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="mediainfo" class="form__text" placeholder="">
+                        <input wire:model="mediainfo" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.media-info') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="keywords" class="form__text" placeholder="">
+                        <input wire:model="keywords" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.keywords') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="uploader" class="form__text" placeholder="">
+                        <input wire:model="uploader" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.uploader') }}</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="startYear" class="form__text" placeholder="">
+                        <input wire:model="startYear" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.start-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="endYear" class="form__text" placeholder="">
+                        <input wire:model="endYear" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.end-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="playlistId" class="form__text" placeholder="">
+                        <input wire:model="playlistId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Playlist ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="collectionId" class="form__text" placeholder="">
+                        <input wire:model="collectionId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Collection ID</label>
                     </p>
                 </div>
@@ -66,29 +66,29 @@
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
-                        <input wire:model="companyId" class="form__text" placeholder="">
+                        <input wire:model="companyId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Company ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="networkId" class="form__text" placeholder="">
+                        <input wire:model="networkId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Network ID</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="tmdbId" class="form__text" placeholder="">
+                        <input wire:model="tmdbId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">TMDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="imdbId" class="form__text" placeholder="">
+                        <input wire:model="imdbId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">IMDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="tvdbId" class="form__text" placeholder="">
+                        <input wire:model="tvdbId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">TVDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="malId" class="form__text" placeholder="">
+                        <input wire:model="malId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">MAL ID</label>
                     </p>
                 </div>

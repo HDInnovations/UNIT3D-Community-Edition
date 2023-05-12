@@ -19,7 +19,7 @@
                     id="torrent_id"
                     class="form__text"
                     name="torrent_id"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
                 <label for="torrent_id" class="form__label form__label--floating">

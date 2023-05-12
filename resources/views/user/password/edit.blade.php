@@ -44,7 +44,7 @@
                             class="form__text"
                             autocomplete="current-password"
                             name="current_password"
-                            placeholder=""
+                            placeholder=" "
                             required
                             type="password"
                         >

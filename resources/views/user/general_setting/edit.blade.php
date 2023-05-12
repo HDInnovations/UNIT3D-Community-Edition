@@ -67,7 +67,7 @@
                             id="custom_css"
                             class="form__text"
                             name="custom_css"
-                            placeholder=""
+                            placeholder=" "
                             type="url"
                             value="{{ $user->custom_css }}"
                         >
@@ -80,7 +80,7 @@
                             id="standalone_css"
                             class="form__text"
                             name="standalone_css"
-                            placeholder=""
+                            placeholder=" "
                             type="url"
                             value="{{ $user->standalone_css }}"
                         >

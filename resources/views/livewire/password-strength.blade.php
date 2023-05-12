@@ -6,7 +6,7 @@
                 autocomplete="new-password"
                 minlength="12"
                 name="new_password"
-                placeholder=""
+                placeholder=" "
                 required
                 type="password"
                 value="{{ old('new_password') }}"
@@ -21,7 +21,7 @@
                 autocomplete="new-password"
                 minlength="12"
                 name="new_password_confirmation"
-                placeholder=""
+                placeholder=" "
                 required
                 type="password"
                 value="{{ old('new_password') }}"

@@ -5,7 +5,7 @@
             <form class="form">
                 <div class="form__group">
                     <p class="form__group">
-                        <input wire:model="name" class="form__text" placeholder="" autofocus="">
+                        <input wire:model="name" class="form__text" placeholder=" " autofocus="">
                         <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
                     </p>
                 </div>

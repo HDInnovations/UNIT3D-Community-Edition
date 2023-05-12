@@ -82,7 +82,7 @@
                 id="chat-message"
                 class="chatbox__textarea form__textarea"
                 name="message"
-                placeholder=""
+                placeholder=" "
                 send="true"
             ></textarea>
         <label class="form__label form__label--floating">Write your message...</label>

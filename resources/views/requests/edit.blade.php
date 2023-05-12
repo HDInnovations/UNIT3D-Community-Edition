@@ -143,7 +143,7 @@
                                 inputmode="numeric"
                                 name="tvdb"
                                 pattern="[0-9]*"
-                                placeholder=""
+                                placeholder=" "
                                 type="text"
                                 value="{{ $torrentRequest->tvdb ?: (old('tvdb') ?? '0') }}"
                             >
@@ -157,7 +157,7 @@
                                 inputmode="numeric"
                                 name="mal"
                                 pattern="[0-9]*"
-                                placeholder=""
+                                placeholder=" "
                                 type="text"
                                 value="{{ $torrentRequest->mal ?: (old('mal') ?? '0') }}"
                             >
@@ -170,7 +170,7 @@
                                 inputmode="numeric"
                                 name="igdb"
                                 pattern="[0-9]*"
-                                placeholder=""
+                                placeholder=" "
                                 type="text"
                                 value="{{ $torrentRequest->igdb ?: (old('igdb') ?? '0') }}"
                             >

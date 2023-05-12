@@ -32,7 +32,7 @@
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->name }}"
                     />
                     <label class="form__label form__label--floating">
@@ -44,7 +44,7 @@
                         class="form__text"
                         type="text"
                         name="position"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->position }}"
                     />
                     <label class="form__label form__label--floating">
@@ -56,7 +56,7 @@
                         class="form__text"
                         type="text"
                         name="level"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->level }}"
                     />
                     <label class="form__label form__label--floating">
@@ -68,7 +68,7 @@
                         class="form__text"
                         type="text"
                         name="download_slots"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->download_slots }}"
                     />
                     <label class="form__label form__label--floating">
@@ -80,7 +80,7 @@
                         class="form__text"
                         type="text"
                         name="color"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->color }}"
                     />
                     <label class="form__label form__label--floating">
@@ -92,7 +92,7 @@
                         class="form__text"
                         type="text"
                         name="icon"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->icon }}"
                     />
                     <label class="form__label form__label--floating">

@@ -117,7 +117,7 @@
                         class="form__text"
                         list="torrent_quick_tips"
                         name="tip"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         pattern="[0-9]*"
                         inputmode="numeric"

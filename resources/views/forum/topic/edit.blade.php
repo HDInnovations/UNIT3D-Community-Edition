@@ -41,7 +41,7 @@
                         class="form__text"
                         maxlength="75"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $topic->name }}"
