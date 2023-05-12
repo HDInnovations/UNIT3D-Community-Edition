@@ -344,7 +344,7 @@ class Bbcode
                 if (strcasecmp($tag, $el['closeBbcode']) === 0) {
                     $source = substr_replace($source, $el['closeHtml'], $index, \strlen($el['closeBbcode']));
 
-                    if ($el['block'] === true) {
+                    if ($replaceLineBreaks === true && $el['block'] === true) {
                         $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($el['closeHtml']) - 1);
                     }
                 } else {
@@ -361,7 +361,7 @@ class Bbcode
                         $replacement = preg_replace($el['openBbcode'], $el['openHtml'], $matches[0]);
                         $source = substr_replace($source, $replacement, $index, \strlen($matches[0]));
 
-                        if ($el['block'] === true) {
+                        if ($replaceLineBreaks === true && $el['block'] === true) {
                             $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($replacement) - 1);
                         }
 
@@ -425,8 +425,6 @@ class Bbcode
                 $source = substr_replace($source, '', $tagStopIndex + 1, 1);
             }
         }
-
-        $bbcodeStopIndex = \strlen($source) - 1;
 
         // Does there exist 2 characters before the tag and are they \r\n?
         // Otherwise, does there exist 1 character before the tag and is it \n?
