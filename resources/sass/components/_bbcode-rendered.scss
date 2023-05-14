@@ -350,7 +350,12 @@
   ol,
   dl,
   table,
-  pre {
+  pre,
+  .bbcode-rendered__center,
+  .bbcode-rendered__left,
+  .bbcode-rendered__right,
+  .bbcode-rendered__alert,
+  .bbcode-rendered__note {
     margin-top: 12px;
     margin-bottom: 12px;
   }
