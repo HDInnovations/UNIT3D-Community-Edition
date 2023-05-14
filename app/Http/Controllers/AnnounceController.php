@@ -390,7 +390,7 @@ class AnnounceController extends Controller
         $torrent = Torrent::withAnyStatus()
             ->with([
                 'peers' => fn ($query) => $query
-                    ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port'])
+                    ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])
                     ->selectRaw('INET6_NTOA(ip) as ip')
             ])
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
