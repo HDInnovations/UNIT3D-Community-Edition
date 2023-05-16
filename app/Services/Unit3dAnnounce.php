@@ -77,11 +77,11 @@ class Unit3dAnnounce
         $isSuccess = self::put('users', [
             'id'              => $user->id,
             'passkey'         => $user->passkey,
-            'can_download'    => $user->can_download,
+            'can_download'    => (bool) $user->can_download,
             'download_slots'  => $user->group->download_slots,
-            'is_immune'       => $user->group->is_immune,
-            'num_seeding'     => $peers->num_seeding,
-            'num_leeching'    => $peers->num_leeching,
+            'is_immune'       => (bool) $user->group->is_immune,
+            'num_seeding'     => $peers->num_seeding ?? 0,
+            'num_leeching'    => $peers->num_leeching ?? 0,
             'download_factor' => $user->group->is_freeleech ? 0 : 100,
             'upload_factor'   => $user->group->is_double_upload ? 200 : 100,
         ]);
