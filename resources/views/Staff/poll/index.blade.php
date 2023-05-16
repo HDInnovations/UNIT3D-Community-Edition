@@ -73,10 +73,10 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this poll: {{ $poll->title }}?',
+                                                text: `Are you sure you want to delete this poll: ${atob('{{ base64_encode($poll->title) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

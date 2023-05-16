@@ -141,7 +141,7 @@
                                         <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this warning: {{ $warning->reason }}?',
+                                                text: `Are you sure you want to delete this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,
@@ -211,10 +211,10 @@
                                         x-data
                                     >
                                         @csrf
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to restore this warning: {{ $warning->reason }}?',
+                                                text: `Are you sure you want to restore this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

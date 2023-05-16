@@ -54,7 +54,7 @@
                                 <button
                                     x-on:click.prevent="Swal.fire({
                                         title: 'Are you sure?',
-                                        text: 'Are you sure you want to delete this user and all their associated records?: {{ $user->username }}',
+                                        text: `Are you sure you want to delete this user and all their associated records: ${atob('{{ base64_encode($user->username) }}')}?`,
                                         icon: 'warning',
                                         showConfirmButton: true,
                                         showCancelButton: true,

@@ -79,7 +79,7 @@
                 <p class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.chat') }}" x-data>
                         @csrf
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to delete all chatbox messages in all chatrooms (including private chatbox messages)?',
@@ -215,7 +215,7 @@
                 <p class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
                         @csrf
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to delete all ghost peers?',
@@ -278,7 +278,7 @@
                 <p class="form__group form__group--horizontal">
                     <form method="GET" action="{{ route('staff.mass-actions.validate') }}" x-data>
                         @csrf
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to automatically validate all users even if their email address isn\'t confirmed?',

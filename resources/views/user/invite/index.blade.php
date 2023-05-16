@@ -72,10 +72,10 @@
                                             x-data
                                         >
                                             @csrf
-                                            <button 
+                                            <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to resend the email to: {{ $invite->email }}?',
+                                                    text: `Are you sure you want to resend the email to: ${atob('{{ base64_encode($invite->email) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,
