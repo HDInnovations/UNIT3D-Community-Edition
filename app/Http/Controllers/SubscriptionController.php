@@ -80,6 +80,9 @@ class SubscriptionController extends Controller
 
                 return back()
                     ->withSuccess('You are now subscribed to this topic. You will now receive site notifications when a reply is left.');
+
+            default:
+                return back()->withErrors(['Failed to subscribe.']);
         }
     }
 
