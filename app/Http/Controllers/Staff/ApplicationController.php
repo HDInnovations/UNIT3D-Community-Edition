@@ -20,6 +20,7 @@ use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
+use App\Models\Scopes\ApprovedScope;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 use Exception;
@@ -35,7 +36,7 @@ class ApplicationController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.application.index', [
-            'applications' => Application::withAnyStatus()
+            'applications' => Application::withoutGlobalScope(ApprovedScope::class)
                 ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
                 ->latest()
                 ->paginate(25),
@@ -48,7 +49,7 @@ class ApplicationController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.application.show', [
-            'application' => Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
+            'application' => Application::withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
         ]);
     }
 
@@ -59,7 +60,12 @@ class ApplicationController extends Controller
      */
     public function approve(ApproveApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $application = Application::withAnyStatus()->findOrFail($id);
+        $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $application->update([
+            'status'       => Application::APPROVED,
+            'moderated_at' => now(),
+            'moderated_by' => $request->user()->id,
+        ]);
 
         $invite = Invite::create([
             'user_id'    => $request->user()->id,
@@ -71,8 +77,6 @@ class ApplicationController extends Controller
 
         Mail::to($application->email)->send(new InviteUser($invite));
 
-        $application->markApproved();
-
         return to_route('staff.applications.index')
             ->withSuccess('Application Approved');
     }
@@ -82,8 +86,12 @@ class ApplicationController extends Controller
      */
     public function reject(RejectApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $application = Application::withAnyStatus()->findOrFail($id);
-        $application->markRejected();
+        $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $application->update([
+            'status'       => Application::REJECTED,
+            'moderated_at' => now(),
+            'moderated_by' => $request->user()->id,
+        ]);
 
         Mail::to($application->email)->send(new DenyApplication($request->deny));
 

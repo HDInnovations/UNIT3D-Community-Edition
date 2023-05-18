@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTipRequest;
 use App\Models\BonTransactions;
 use App\Models\Post;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Notifications\NewPostTip;
@@ -59,7 +60,7 @@ class TipController extends Controller
 
         $request = $request->safe()->collect();
         $tipable = match (true) {
-            $request->has('torrent') => Torrent::withAnyStatus()->findOrFail($request->get('torrent')),
+            $request->has('torrent') => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->get('torrent')),
             $request->has('post')    => Post::findOrFail($request->get('post')),
         };
         $recipient = $tipable->user;

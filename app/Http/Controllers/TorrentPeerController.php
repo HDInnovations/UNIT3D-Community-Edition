@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 
 class TorrentPeerController extends Controller
@@ -23,7 +24,7 @@ class TorrentPeerController extends Controller
      */
     public function index(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         return view('torrent.peers', [
             'torrent' => $torrent,

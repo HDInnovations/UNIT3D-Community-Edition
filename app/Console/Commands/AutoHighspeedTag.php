@@ -47,7 +47,7 @@ class AutoHighspeedTag extends Command
             ->pluck('ip')
             ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
-        Torrent::withAnyStatus()
+        Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
                 Peer::where('seeder', '=', 1)
                     ->distinct()

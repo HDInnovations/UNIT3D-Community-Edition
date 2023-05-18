@@ -86,7 +86,7 @@ class TorrentControllerTest extends TestCase
 
         $torrent = Torrent::factory()->create([
             'user_id' => $user->id,
-            'status'  => 1,
+            'status'  => Torrent::APPROVED,
         ]);
 
         $response = $this->actingAs($user, 'api')->getJson(sprintf('api/torrents/%s', $torrent->id));

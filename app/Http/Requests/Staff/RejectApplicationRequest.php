@@ -13,7 +13,9 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Application;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RejectApplicationRequest extends FormRequest
 {
@@ -23,7 +25,7 @@ class RejectApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 2,
+            'status' => Rule::in(Application::REJECTED),
             'deny'   => 'required'
         ];
     }

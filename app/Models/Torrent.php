@@ -17,22 +17,24 @@ use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
+use App\Models\Scopes\ApprovedScope;
 use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
 use App\Traits\GroupedLastScope;
 use App\Traits\TorrentFilter;
-use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * @method \Illuminate\Database\Eloquent\Builder<static> scopeWithAnyStatus(\Illuminate\Database\Eloquent\Builder $builder)
+ */
 class Torrent extends Model
 {
     use Auditable;
     use GroupedLastScope;
     use HasFactory;
-    use Moderatable;
     use TorrentFilter;
 
     protected $guarded = [];
@@ -43,8 +45,9 @@ class Torrent extends Model
      * @var array
      */
     protected $casts = [
-        'fl_until' => 'datetime',
-        'du_until' => 'datetime',
+        'fl_until'     => 'datetime',
+        'du_until'     => 'datetime',
+        'moderated_at' => 'datetime',
     ];
 
     /**
@@ -60,6 +63,11 @@ class Torrent extends Model
     public const APPROVED = 1;
     public const REJECTED = 2;
     public const POSTPONED = 3;
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ApprovedScope());
+    }
 
     /**
      * Belongs To A User.

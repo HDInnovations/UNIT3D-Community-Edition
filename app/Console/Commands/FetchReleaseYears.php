@@ -44,17 +44,17 @@ class FetchReleaseYears extends Command
     {
         $appurl = config('app.url');
 
-        $torrents = Torrent::withAnyStatus()
+        $torrents = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['category'])
             ->select(['id', 'name', 'category_id', 'tmdb', 'release_year'])
             ->whereNull('release_year')
             ->get();
 
-        $withyear = Torrent::withAnyStatus()
+        $withyear = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->whereNotNull('release_year')
             ->count();
 
-        $withoutyear = Torrent::withAnyStatus()
+        $withoutyear = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->whereNull('release_year')
             ->count();
 

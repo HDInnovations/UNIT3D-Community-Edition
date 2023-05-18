@@ -27,6 +27,7 @@ use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
 use App\Models\PrivateMessage;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
@@ -40,10 +41,12 @@ class TorrentHelper
         $appurl = config('app.url');
         $appname = config('app.name');
 
-        Torrent::approve($id);
-        $torrent = Torrent::with('user')->withAnyStatus()->find($id);
+        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->find($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
+        $torrent->status = Torrent::APPROVED;
+        $torrent->moderated_at = now();
+        $torrent->moderated_by = auth()->id();
         $torrent->save();
 
         $uploader = $torrent->user;

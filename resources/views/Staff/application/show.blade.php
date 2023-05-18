@@ -81,18 +81,24 @@
             </dd>
             <dt>{{ __('common.status') }}</dt>
             <dd>
-                @if ($application->status == 0)
-                    <span class="application--pending">{{ __('request.pending') }}</span>
-                @elseif ($application->status == 1)
-                    <span class="application--approved">{{ __('request.approve') }}</span>
-                @else
-                    <span class="application--rejected">{{ __('request.reject') }}</span>
-                @endif
+                @switch($application->status)
+                    @case(\App\Models\Application::PENDING)
+                        <span class="application--pending">Pending</span>
+                        @break
+                    @case(\App\Models\Application::APPROVED)
+                        <span class="application--approved">Approved</span>
+                        @break
+                    @case(\App\Models\Application::REJECTED)
+                        <span class="application--rejected">Rejected</span>
+                        @break
+                    @default
+                        <span class="application--unknown">Unknown</span>
+                @endswitch
             </dd>
         </dl>
     </section>
     <section class="panelV2">
-        @if($application->status)
+        @if($application->status !== \App\Models\Application::PENDING)
             <h2 class="panel__heading">{{ __('common.moderated-by') }}</h2>
             <div class="panel__body">
                 <x-user_tag :anon="false" :user="$application->moderated" />

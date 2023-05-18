@@ -118,25 +118,25 @@
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-torrents__checkbox" type="checkbox" value="0" wire:model="status">
+                                    <input class="user-torrents__checkbox" type="checkbox" value="{{ \App\Models\Torrent::PENDING }}" wire:model="status">
                                     {{ __('torrent.pending') }}
                                 </label>
                             </p>
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-torrents__checkbox" type="checkbox" value="1" wire:model="status">
+                                    <input class="user-torrents__checkbox" type="checkbox" value="{{ \App\Models\Torrent::APPROVED }}" wire:model="status">
                                     {{ __('torrent.approved') }}
                                 </label>
                             </p>
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-torrents__checkbox" type="checkbox" value="2" wire:model="status">
+                                    <input class="user-torrents__checkbox" type="checkbox" value="{{ \App\Models\Torrent::REJECTED }}" wire:model="status">
                                     {{ __('torrent.rejected') }}
                                 </label>
                             </p>
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-torrents__checkbox" type="checkbox" value="3" wire:model="status">
+                                    <input class="user-torrents__checkbox" type="checkbox" value="{{ \App\Models\Torrent::POSTPONED }}" wire:model="status">
                                     Postponed
                                 </label>
                             </p>
@@ -432,16 +432,16 @@
                         </td>
                         <td class="user-torrents__status">
                             @switch($history->status)
-                                @case(0)
+                                @case(\App\Models\Torrent::PENDING)
                                     <span title="{{ __('torrent.pending') }}" class="{{ config('other.font-awesome') }} fa-tasks text-orange"></span>
                                     @break
-                                @case(1)
+                                @case(\App\Models\Torrent::APPROVED)
                                     <span title="{{ __('torrent.approved') }}" class="{{ config('other.font-awesome') }} fa-check text-green"></span>
                                     @break
-                                @case(2)
+                                @case(\App\Models\Torrent::REJECTED)
                                     <span title="{{ __('torrent.rejected') }}" class ="{{ config('other.font-awesome') }} fa-times text-red"></span>
                                     @break
-                                @case(3)
+                                @case(\App\Models\Torrent::POSTPONED)
                                     <span title="Postponed" class ="{{ config('other.font-awesome') }} fa-hourglass text-red"></span>
                                     @break
                             @endswitch

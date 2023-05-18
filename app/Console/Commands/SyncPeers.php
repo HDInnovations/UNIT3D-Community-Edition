@@ -42,7 +42,7 @@ class SyncPeers extends Command
      */
     public function handle(): void
     {
-        Torrent::withAnyStatus()
+        Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
                 Peer::query()
                     ->select('torrent_id')

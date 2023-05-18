@@ -386,7 +386,7 @@ class AnnounceController extends Controller
         // Check Info Hash Against Torrents Table
         $torrentId = Redis::connection('cache')->command('HGET', [$cacheKey, hex2bin($infoHash)]);
 
-        $torrent = Torrent::withAnyStatus()
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with([
                 'peers' => fn ($query) => $query
                     ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])

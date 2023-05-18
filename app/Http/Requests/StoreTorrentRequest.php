@@ -16,6 +16,7 @@ namespace App\Http\Requests;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentTools;
 use App\Models\Category;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -66,7 +67,7 @@ class StoreTorrentRequest extends FormRequest
                         }
                     }
 
-                    $torrent = Torrent::withAnyStatus()->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
+                    $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
 
                     if ($torrent !== null) {
                         match ($torrent->status) {
