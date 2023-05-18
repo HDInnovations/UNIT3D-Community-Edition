@@ -90,7 +90,7 @@ return [
      *                  'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'
      */
 
-    'referrer-policy' => 'same-origin',
+    'referrer-policy' => 'no-referrer-when-downgrade',
 
     /*
      * Clear-Site-Data
@@ -481,19 +481,32 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src
         'connect-src' => [
-            'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
-            'wss://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
-            'https://api.themoviedb.org/',
+            'self' => true,
+
+            'allow' => [
+                'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
+                'wss://'.parse_url(env('APP_URL'), PHP_URL_HOST).':8443/socket.io/',
+                'https://api.themoviedb.org/',
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
         'default-src' => [
-
+            'none' => true,
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/font-src
         'font-src' => [
+            'self' => true,
 
+            'schemes' => [
+                'data:',
+                'https:'
+            ],
+
+            'allow' => [
+                'fonts.gstatic.com',
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/form-action
@@ -513,7 +526,17 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/img-src
         'img-src' => [
+            'self' => true,
 
+            'schemes' => [
+                'data:',
+                'https:',
+            ],
+
+            'allow' => [
+                'image.tmdb.org',
+                'via.placeholder.com/400x600',
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/manifest-src
@@ -640,7 +663,21 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
         'style-src' => [
-            'https://fonts.googleapis.com/',
+            'self' => true,
+            'unsafe-inline' => true,
+
+            'schemes' => [
+                'https:',
+            ],
+
+            'allow' => [
+                'fonts.googleapis.com',
+                'gitcdn.xyz',
+                'github.io',
+                "*.github.io",
+                'raw.githubusercontent.com',
+                'github.com'
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src-attr
