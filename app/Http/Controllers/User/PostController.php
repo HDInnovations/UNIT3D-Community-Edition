@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Topic;
 use App\Models\User;
 
 class PostController extends Controller
@@ -27,6 +28,21 @@ class PostController extends Controller
             ->with('user', 'user.group', 'topic:id,name')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'cost')
+            ->whereNotIn(
+                'topic_id',
+                Topic::query()
+                    ->whereRelation(
+                        'forumPermissions',
+                        fn ($query) => $query
+                            ->where('group_id', '=', auth()->user()->group_id)
+                            ->where(
+                                fn ($query) => $query
+                                    ->where('show_forum', '!=', 1)
+                                    ->orWhere('read_topic', '!=', 1)
+                            )
+                    )
+                    ->select('id')
+            )
             ->latest()
             ->paginate(25);
 
