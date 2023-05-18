@@ -18,6 +18,20 @@ html, body {
     gap: 4rem;
 }
 
+@media only screen and (max-width: 867px) {
+    .footer__section {
+        flex-basis: calc(50% - 2rem);
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 1038px) and (min-width: 868px) {
+    .footer__section {
+        flex-basis: calc(32% - 2rem);
+        text-align: center;
+    }
+}
+
 .footer__section-title {
     font-size: 22px;
 }
