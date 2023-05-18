@@ -663,7 +663,7 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
         'style-src' => [
-            'self' => true,
+            'self'          => true,
             'unsafe-inline' => true,
 
             'schemes' => [
