@@ -91,7 +91,7 @@ class HomeController extends Controller
                 $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $newest = $newest->map(function ($torrent) use ($movies, $tv) {
+            $newest = $newest->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -137,7 +137,7 @@ class HomeController extends Controller
                 $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $seeded = $seeded->map(function ($torrent) use ($movies, $tv) {
+            $seeded = $seeded->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -183,7 +183,7 @@ class HomeController extends Controller
                 $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $leeched = $leeched->map(function ($torrent) use ($movies, $tv) {
+            $leeched = $leeched->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -231,7 +231,7 @@ class HomeController extends Controller
                 $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $dying = $dying->map(function ($torrent) use ($movies, $tv) {
+            $dying = $dying->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -278,7 +278,7 @@ class HomeController extends Controller
                 $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $dead = $dead->map(function ($torrent) use ($movies, $tv) {
+            $dead = $dead->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
