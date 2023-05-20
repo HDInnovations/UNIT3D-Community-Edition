@@ -87,18 +87,17 @@ config/secure-headers.php   <-- Content Security Policy must be disabled
 ```
 
 ### <a name="auto-install"></a> Automated Installer
-**A UNIT3D Installer has been released by Poppabear.**
 
 **Officially Supported OS's**
 - Ubuntu 20.04 LTS
 
 ```bash
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
+git clone https://github.com/HDInnovations/UNIT3D-Installer.git installer
 cd installer
 sudo ./install.sh
 ```
 
-Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
+Check it out here for more information: https://github.com/HDInnovations/UNIT3D-Installer
 
 ### Demo Data
 
