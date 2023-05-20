@@ -19,6 +19,7 @@ use App\Models\Keyword;
 use App\Models\PlaylistTorrent;
 use App\Models\User;
 use App\Models\Wish;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
@@ -238,6 +239,11 @@ trait TorrentFilter
     public function scopeDead(Builder $query): Builder
     {
         return $query->where('seeders', '=', 0);
+    }
+
+    public function scopeGraveyard(Builder $query): Builder
+    {
+        return $query->where('seeders', '=', 0)->where('created_at', '<', Carbon::now()->subDays(30));
     }
 
     public function scopeNotDownloadedBy(Builder $query, User $user): Builder

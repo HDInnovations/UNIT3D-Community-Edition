@@ -28,4 +28,11 @@ class TorrentRequestClaim extends Model
      * @var string
      */
     protected $table = 'request_claims';
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 }

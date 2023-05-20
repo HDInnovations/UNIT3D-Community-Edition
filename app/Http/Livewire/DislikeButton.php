@@ -23,10 +23,13 @@ class DislikeButton extends Component
 
     public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
-    final public function mount(Post $post): void
+    public int $dislikesCount;
+
+    final public function mount(Post $post, int $dislikesCount): void
     {
         $this->user = auth()->user();
         $this->post = $post;
+        $this->dislikesCount = $dislikesCount;
     }
 
     final public function store(): void
@@ -49,6 +52,8 @@ class DislikeButton extends Component
         $new->post_id = $this->post->id;
         $new->dislike = 1;
         $new->save();
+
+        $this->dislikesCount += 1;
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Dislike Was Successfully Applied!']);
     }

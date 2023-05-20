@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('topics.show', ['id' => $topic->id]) }}" class="breadcrumb__link">
             {{ $topic->name }}
         </a>
     </li>
@@ -32,15 +32,16 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('forum.edit-topic') }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('forum_edit_topic', ['id' => $topic->id]) }}">
+            <form class="form" method="POST" action="{{ route('topics.update', ['id' => $topic->id]) }}">
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="forum_name"
                         class="form__text"
                         maxlength="75"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $topic->name }}"

@@ -110,8 +110,7 @@ class Preloader
 (new Preloader())
     ->paths(
         __DIR__.'/vendor/laravel',
-        __DIR__.'/app/Http/Controllers/AnnounceController.php',
-        __DIR__.'/app/Jobs/ProcessAnnounce.php',
+        __DIR__.'/app',
     )
     ->ignore(
         'Laravel\Telescope',

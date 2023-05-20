@@ -3,21 +3,21 @@
         <header class="panel__header">
             <h2 class="panel__heading">UNIT3D Backup Manager</h2>
             <div class="panel__actions">
-                <button id="create-backup" class="panel__action form__button form__button--text" x-on:click="backupFun()">
+                <button id="create-backup" class="panel__action form__button form__button--text" x-on:click="backup()">
                     {{ __('backup.create_a_new_backup') }}
                 </button>
                 <a class="panel__action form__button form__button--text" id="create-backup-only-db"
-                    wire:click.prevent="">
+                    x-on:click.prevent="backup('only-db')">
                     {{ __('backup.create_a_new_db_backup') }}
                 </a>
                 <a class="panel__action form__button form__button--text" id="create-backup-only-files"
-                    wire:click.prevent="">
+                    x-on:click.prevent="backup('only-files')">
                     {{ __('backup.create_a_new_files_backup') }}
                 </a>
                 <button
                     class="form__standard-icon-button"
                     wire:loading.attr="disabled"
-                    wire:click="updateBackupStatuses"
+                    wire:click="$refresh"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-sync" wire:loading.class="fa-spin"></i>
                 </button>
@@ -35,7 +35,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($backupStatuses as $backupStatus)
+                @foreach($this->backupStatuses as $backupStatus)
                     <tr>
                         <td>{{ $backupStatus['disk'] }}</td>
                         <td>
@@ -69,31 +69,48 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($files as $file)
+                @forelse($this->backups as $backup)
                     <tr>
-                        <td>{{ $file['path'] }}</td>
-                        <td>{{ $file['date'] }}</td>
-                        <td>{{ $file['size'] }}</td>
+                        <td>{{ $backup['path'] }}</td>
+                        <td>{{ $backup['date'] }}</td>
+                        <td>{{ $backup['size'] }}</td>
                         <td>
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
                                         target="_blank"
-                                        wire:click.prevent="downloadFile('{{ $file['path'] }}')"
+                                        wire:click.prevent="downloadBackup('{{ $backup['path'] }}')"
                                     >
                                         {{ __('common.download') }}
                                     </a>
                                 </li>
-                                <li class="data-table__action">
-                                    <a
+                                <li class="data-table__action" x-data>
+                                    <button
                                         class="form__button form__button--text"
-                                        href="#"
-                                        target="_blank"
-                                        wire:click.prevent="showDeleteModal({{ $loop->index }})"
+                                        x-on:click.stop="$refs.dialog.showModal()"
                                     >
                                         {{ __('common.delete') }}
-                                    </a>
+                                    </button>
+                                    <dialog class="dialog" x-ref="dialog">
+                                        <h3 class="dialog__heading">
+                                            Delete backup
+                                        </h3>
+                                        <form class="dialog__form" x-on:click.outside="$refs.dialog.close()">
+                                            @csrf
+                                            <p class="form__group">
+                                                Are you sure you want to delete the backup created at {{ $backup['date'] }} ?
+                                            </p>
+                                            <p class="form__group">
+                                                <button wire:click="deleteBackup({{ $loop->index }}); $refresh;" formmethod="dialog" formnovalidate class="form__button form__button--filled">
+                                                    {{ __('common.delete') }}
+                                                </button>
+                                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                                    {{ __('common.cancel') }}
+                                                </button>
+                                            </p>
+                                        </form>
+                                    </dialog>
                                 </li>
                             </menu>
                         </td>
@@ -106,28 +123,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h5 class="modal-title mb-3">Delete backup</h5>
-                        @if($deletingFile)
-                            <span class="text-muted">
-                                Are you sure you want to delete the backup created at {{ $deletingFile['date'] }} ?
-                            </span>
-                        @endif
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary cancel-button" data-dismiss="modal">
-                            Cancel
-                        </button>
-                        <button type="button" class="btn btn-danger delete-button" wire:click="deleteFile">
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
       document.addEventListener('livewire:load', function () {
@@ -136,10 +131,6 @@
           position: 'top-end',
           showConfirmButton: false,
           timer: 3000
-        })
-        @this.updateBackupStatuses()
-        @this.on('backupStatusesUpdated', function () {
-        @this.getFiles()
         })
         @this.on('showErrorToast', function (message) {
           Toast.fire({
@@ -151,35 +142,15 @@
             className: 'toastify-custom',
           })
         })
-        const backupFun = function (option = '') {
-          Swal.fire({
-            title: '<strong style=" color: rgb(17,17,17);">Success</strong>',
-            icon: 'success',
-            html: 'Creating a new backup in the background...' + (option ? ' (' + option + ')' : ''),
-            showCloseButton: true,
-          })
+      })
+      function backup(option = '') {
         @this.createBackup(option)
-        }
-        $('#create-backup').on('click', function () {
-          backupFun()
+        Swal.fire({
+          title: '<strong style=" color: rgb(17,17,17);">Success</strong>',
+          icon: 'success',
+          html: 'Creating a new backup in the background...' + (option ? ' (' + option + ')' : ''),
+          showCloseButton: true,
         })
-        $('#create-backup-only-db').on('click', function () {
-          backupFun('only-db')
-        })
-        $('#create-backup-only-files').on('click', function () {
-          backupFun('only-files')
-        })
-        const deleteModal = $('#deleteModal')
-      @this.on('showDeleteModal', function () {
-        deleteModal.modal('show')
-      })
-      @this.on('hideDeleteModal', function () {
-        deleteModal.modal('hide')
-      })
-        deleteModal.on('hidden.bs.modal', function () {
-        @this.deletingFile
-          = null
-        })
-    })
+      }
     </script>
 </div>

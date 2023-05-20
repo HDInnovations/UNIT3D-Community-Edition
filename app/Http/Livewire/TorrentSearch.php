@@ -93,6 +93,8 @@ class TorrentSearch extends Component
 
     public bool $dead = false;
 
+    public bool $graveyard = false;
+
     public bool $notDownloaded = false;
 
     public bool $downloaded = false;
@@ -146,6 +148,7 @@ class TorrentSearch extends Component
         'alive'           => ['except' => false],
         'dying'           => ['except' => false],
         'dead'            => ['except' => false],
+        'graveyard'       => ['except' => false],
         'downloaded'      => ['except' => false],
         'seeding'         => ['except' => false],
         'leeching'        => ['except' => false],
@@ -224,6 +227,8 @@ class TorrentSearch extends Component
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
             ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
+            ->when($this->companyId !== '', fn ($query) => $query->ofCompany((int) $this->companyId))
+            ->when($this->networkId !== '', fn ($query) => $query->ofNetwork((int) $this->networkId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
             ->when($this->featured !== false, fn ($query) => $query->featured())
@@ -237,6 +242,7 @@ class TorrentSearch extends Component
             ->when($this->alive !== false, fn ($query) => $query->alive())
             ->when($this->dying !== false, fn ($query) => $query->dying())
             ->when($this->dead !== false, fn ($query) => $query->dead())
+            ->when($this->graveyard !== false, fn ($query) => $query->graveyard())
             ->when($this->notDownloaded !== false, fn ($query) => $query->notDownloadedBy($user))
             ->when($this->downloaded !== false, fn ($query) => $query->downloadedBy($user))
             ->when($this->seeding !== false, fn ($query) => $query->seededBy($user))

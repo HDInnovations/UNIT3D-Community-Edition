@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\History;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
+use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -84,6 +85,7 @@ class AutoWarning extends Command
                         // Send Notifications
                         $hr->user->notify(new UserWarning($hr->user, $hr->torrent));
 
+                        $hr->timestamps = false;
                         $hr->save();
                     }
                 }
@@ -98,6 +100,7 @@ class AutoWarning extends Command
                     $warning->warneduser->save();
 
                     cache()->forget('user:'.$warning->warneduser->passkey);
+                    Unit3dAnnounce::addUser($warning->warneduser);
                 }
             }
         }

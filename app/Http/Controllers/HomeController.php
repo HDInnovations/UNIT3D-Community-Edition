@@ -85,11 +85,13 @@ class HomeController extends Controller
 
             $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
             $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-            if ($gameIds->isNotEmpty()) {
-                $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+            $games = [];
+
+            foreach ($gameIds as $gameId) {
+                $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $newest = $newest->map(function ($torrent) use ($movies, $tv) {
+            $newest = $newest->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -129,11 +131,13 @@ class HomeController extends Controller
 
             $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
             $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-            if ($gameIds->isNotEmpty()) {
-                $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+            $games = [];
+
+            foreach ($gameIds as $gameId) {
+                $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $seeded = $seeded->map(function ($torrent) use ($movies, $tv) {
+            $seeded = $seeded->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -173,11 +177,13 @@ class HomeController extends Controller
 
             $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
             $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-            if ($gameIds->isNotEmpty()) {
-                $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+            $games = [];
+
+            foreach ($gameIds as $gameId) {
+                $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $leeched = $leeched->map(function ($torrent) use ($movies, $tv) {
+            $leeched = $leeched->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -219,11 +225,13 @@ class HomeController extends Controller
 
             $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
             $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-            if ($gameIds->isNotEmpty()) {
-                $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+            $games = [];
+
+            foreach ($gameIds as $gameId) {
+                $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $dying = $dying->map(function ($torrent) use ($movies, $tv) {
+            $dying = $dying->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -264,11 +272,13 @@ class HomeController extends Controller
 
             $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
             $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-            if ($gameIds->isNotEmpty()) {
-                $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+            $games = [];
+
+            foreach ($gameIds as $gameId) {
+                $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
             }
 
-            $dead = $dead->map(function ($torrent) use ($movies, $tv) {
+            $dead = $dead->map(function ($torrent) use ($movies, $tv, $games) {
                 $torrent->meta = match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
                     'tv'    => $tv[$torrent->tmdb] ?? null,
@@ -286,7 +296,15 @@ class HomeController extends Controller
         $topics = cache()->remember('latest_topics', $expiresAt, fn () => Topic::with('forum')->latest()->take(5)->get());
 
         // Latest Posts Block
-        $posts = cache()->remember('latest_posts', $expiresAt, fn () => Post::with('topic', 'user')->withCount('authorPosts', 'authorTopics')->latest()->take(5)->get());
+        $posts = cache()->remember(
+            'latest_posts',
+            $expiresAt,
+            fn () => Post::with('topic', 'user')
+                ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                ->latest()
+                ->take(5)
+                ->get()
+        );
 
         // Online Block
         $users = cache()->remember('online_users', $expiresAt, fn () => User::with('group', 'privacy')

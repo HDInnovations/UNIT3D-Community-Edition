@@ -201,12 +201,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('graveyard.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-skull"></i>
-                        {{ __('graveyard.graveyard') }}
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('top10.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                         Top 10
@@ -255,16 +249,23 @@
                     {{ auth()->user()->getDownloaded() }}
                 </a>
             </li>
+            @php
+                $peer_counts = Cache::remember(
+                    'users:'.auth()->id().':peer_counts',
+                    60,
+                    fn () => DB::table('peers')->selectRaw('SUM(seeder = 0) as leeching, SUM(seeder = 1) as seeding')->where('user_id', '=', auth()->id())->first()
+                )
+            @endphp
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ auth()->user()->seedingTorrents()->count() }}
+                    {{ $peer_counts->seeding ?? 0 }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('users.history.index', ['user' => auth()->user(), 'unsatisfied' => 'include']) }}">
+                <a href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ auth()->user()->leechingTorrents()->count() }}
+                    {{ $peer_counts->leeching ?? 0 }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
@@ -389,12 +390,6 @@
                         <a href="{{ route('users.privacy_settings.edit', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                             {{ __('user.my-privacy') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('user_security', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i>
-                            {{ __('user.my-security') }}
                         </a>
                     </li>
                     <li>

@@ -15,19 +15,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
-use App\Models\Group;
-use App\Models\History;
 use App\Models\Invite;
-use App\Models\TorrentRequest;
+use App\Models\Peer;
 use App\Models\User;
-use App\Models\Warning;
-use App\Rules\EmailBlacklist;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -39,41 +33,62 @@ class UserController extends Controller
      */
     public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with(['privacy', 'history'])
-            ->withCount('torrents')
+        $user = User::with(['privacy'])
+            ->withCount([
+                'torrents',
+                'topics',
+                'posts',
+                'filledRequests' => fn ($query) => $query->whereNotNull('approved_by'),
+                'requests',
+                'userwarning as active_warnings_count'       => fn ($query) => $query->where('active', '=', 1),
+                'userwarning as soft_deleted_warnings_count' => fn ($query) => $query->onlyTrashed(),
+            ])
+            ->with([
+                'userban' => ['banneduser', 'staffuser'],
+            ])
             ->where('username', '=', $username)
             ->when(auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
-            ->firstOrFail();
+            ->sole();
 
-        $groups = Group::all();
         $followers = $user->followers()->latest()->limit(25)->get();
-        $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $user->id)->where('active', '=', 1)->take(config('hitrun.max_warnings'))->get();
-        $hitrun = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->latest()->paginate(10);
 
-        $bonupload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        //$bondownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
+        $warnings = $user
+            ->userwarning()
+            ->latest()
+            ->paginate(2, ['*'], 'warningsPage');
 
-        //  With Multipliers
-        $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
-        //  Without Multipliers
-        $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
+        $softDeletedWarnings = $user
+            ->userwarning()
+            ->with(['torrenttitle', 'warneduser'])
+            ->latest('created_at')
+            ->onlyTrashed()
+            ->paginate(2, ['*'], 'deletedWarningsPage');
 
-        $defUpl = config('other.default_upload');
-        $multiUpload = $hisUplCre - $hisUpl;
-        $manUpload = $user->uploaded - $hisUplCre - $defUpl - $bonupload;
-        $realupload = $user->getUploaded();
+        $watch = $user->watchlist;
 
-        $hisDown = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
-        $defDown = config('other.default_download');
-        $freeDownload = $hisDown + $defDown - $user->downloaded;
-        $realdownload = $user->getDownloaded();
-        $refunded_download = History::where('user_id', '=', $user->id)->sum('refunded_download');
+        $boughtUpload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
+        //$boughtDownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
+
+        $history = DB::table('history')
+            ->where('user_id', '=', $user->id)
+            ->where('created_at', '>', $user->created_at)
+            ->selectRaw('SUM(actual_uploaded) as upload_sum')
+            ->selectRaw('SUM(uploaded) as credited_upload_sum')
+            ->selectRaw('SUM(actual_downloaded) as download_sum')
+            ->selectRaw('SUM(downloaded) as credited_download_sum')
+            ->selectRaw('SUM(refunded_download) as refunded_download_sum')
+            ->selectRaw('SUM(seedtime) as seedtime_sum')
+            ->selectRaw('SUM(actual_downloaded > 0) as download_count')
+            ->selectRaw('COUNT(*) as count')
+            ->first();
+
+        $peers = Peer::query()
+            ->selectRaw('SUM(seeder = 0) as leeching')
+            ->selectRaw('SUM(seeder = 1) as seeding')
+            ->where('user_id', '=', $user->id)
+            ->first();
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
-
-        $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
-        $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
         $clients = $user->peers()
             ->select('agent', 'port')
@@ -87,33 +102,18 @@ class UserController extends Controller
             ->get();
 
         return view('user.profile.show', [
-            'route'     => 'profile',
-            'user'      => $user,
-            'groups'    => $groups,
-            'followers' => $followers,
-            'history'   => $history,
-            'warnings'  => $warnings,
-            'hitrun'    => $hitrun,
-
-            //'bondownload'     => $bondownload,
-            'realdownload'      => $realdownload,
-            'def_download'      => $defDown,
-            'his_down'          => $hisDown,
-            'free_down'         => $freeDownload,
-            'refunded_download' => $refunded_download,
-
-            'realupload'   => $realupload,
-            'def_upload'   => $defUpl,
-            'his_upl'      => $hisUpl,
-            'multi_upload' => $multiUpload,
-            'bonupload'    => $bonupload,
-            'man_upload'   => $manUpload,
-
-            'requested'    => $requested,
-            'filled'       => $filled,
+            'user'                => $user,
+            'followers'           => $followers,
+            'history'             => $history,
+            'warnings'            => $warnings,
+            'softDeletedWarnings' => $softDeletedWarnings,
+            'boughtUpload'        => $boughtUpload,
+            // 'boughtDownload'        => $boughtDownload,
             'invitedBy'    => $invitedBy,
             'clients'      => $clients,
             'achievements' => $achievements,
+            'peers'        => $peers,
+            'watch'        => $watch,
         ]);
     }
 
@@ -183,157 +183,6 @@ class UserController extends Controller
 
         return to_route('user_edit_profile_form', ['username' => $user->username])
             ->withSuccess('Your Account Was Updated Successfully!');
-    }
-
-    /**
-     * User Security Settings.
-     */
-    public function security(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        abort_unless($request->user()->id == $user->id, 403);
-
-        return view('user.settings.security.index', ['user' => $user]);
-    }
-
-    /**
-     * User TwoStep Auth.
-     */
-    protected function changeTwoStep(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        if ($request->getMethod() == 'GET') {
-            return to_route('user_security', ['username' => $request->user()->username]);
-        }
-
-        $user = auth()->user();
-
-        abort_unless(config('auth.TwoStepEnabled') == true, 403);
-        $user->twostep = $request->input('twostep');
-        $user->save();
-
-        return to_route('users.show', ['username' => $user->username])
-            ->withSuccess('You Changed Your TwoStep Auth Status!');
-    }
-
-    /**
-     * User Password Change.
-     */
-    protected function changePassword(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        abort_unless($request->user()->id == $user->id, 403);
-
-        $v = validator($request->all(), [
-            'current_password'          => 'required',
-            'new_password'              => 'required|min:6|confirmed',
-            'new_password_confirmation' => 'required|min:6',
-        ]);
-        if ($v->passes()) {
-            if (Hash::check($request->input('current_password'), $user->password)) {
-                $user->password = Hash::make($request->input('new_password'));
-                $user->save();
-
-                return to_route('home.index')->withSuccess('Your Password Has Been Reset');
-            }
-
-            return to_route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                ->withErrors('Your Password Was Incorrect!');
-        }
-
-        return to_route('user_security', ['username' => $user->username, 'hash' => '#password'])
-            ->withErrors('Your New Password Is To Weak!');
-    }
-
-    /**
-     * User Email Change.
-     */
-    protected function changeEmail(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        abort_unless($request->user()->id == $user->id, 403);
-
-        if (config('email-blacklist.enabled')) {
-            $v = validator($request->all(), [
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:70',
-                    'unique:users',
-                    new EmailBlacklist(),
-                ],
-            ]);
-        } else {
-            $v = validator($request->all(), [
-                'email' => 'required|string|email|max:70|unique:users',
-            ]);
-        }
-
-        if ($v->fails()) {
-            return to_route('user_security', ['username' => $user->username, 'hash' => '#email'])
-                ->withErrors($v->errors());
-        }
-
-        $user->email = $request->input('email');
-        $user->save();
-
-        return to_route('user_security', ['username' => $user->username, 'hash' => '#email'])
-            ->withSuccess('Your Email Was Updated Successfully!');
-    }
-
-    /**
-     * Change User PID.
-     *
-     * @throws Exception
-     */
-    public function changePID(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        abort_unless($request->user()->id == $user->id, 403);
-
-        $user->passkey = md5(random_bytes(60).$user->password);
-        $user->save();
-
-        cache()->forget('user:'.$user->passkey);
-
-        return to_route('user_security', ['username' => $user->username, 'hash' => '#pid'])
-            ->withSuccess('Your PID Was Changed Successfully!');
-    }
-
-    /**
-     * Change User RID.
-     */
-    public function changeRID(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        abort_unless($request->user()->id == $user->id, 403);
-
-        $user->rsskey = md5(random_bytes(60).$user->password);
-        $user->save();
-
-        return to_route('user_security', ['username' => $user->username, 'hash' => '#rid'])
-            ->withSuccess('Your RID Was Changed Successfully!');
-    }
-
-    /**
-     * Change User API Token.
-     */
-    public function changeApiToken(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->firstOrFail();
-
-        abort_unless($request->user()->id == $user->id, 403);
-
-        $user->api_token = Str::random(100);
-        $user->save();
-
-        return to_route('user_security', ['username' => $user->username, 'hash' => '#api'])
-            ->withSuccess('Your API Token Was Changed Successfully!');
     }
 
     /**

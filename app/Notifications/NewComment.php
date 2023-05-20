@@ -41,7 +41,7 @@ class NewComment extends Notification
      */
     public function toArray($notifiable): array
     {
-        if ($this->type == 'torrent') {
+        if ($this->type === 'torrent') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Torrent Comment Received',
@@ -57,7 +57,7 @@ class NewComment extends Notification
             ];
         }
 
-        if ($this->type == 'torrentrequest') {
+        if ($this->type === 'torrent request') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Request Comment Received',
@@ -73,7 +73,7 @@ class NewComment extends Notification
             ];
         }
 
-        if ($this->type == 'ticket') {
+        if ($this->type === 'ticket') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Ticket Comment Received',
@@ -89,7 +89,7 @@ class NewComment extends Notification
             ];
         }
 
-        if ($this->type == 'playlist') {
+        if ($this->type === 'playlist') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Playlist Comment Received',
@@ -105,7 +105,7 @@ class NewComment extends Notification
             ];
         }
 
-        if ($this->type == 'collection') {
+        if ($this->type === 'collection') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Collection Comment Received',

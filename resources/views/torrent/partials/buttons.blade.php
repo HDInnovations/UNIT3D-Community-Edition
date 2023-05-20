@@ -20,7 +20,7 @@
             @endif
         @else
             <a
-                href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ $torrent->info_hash }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}"
+                href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}"
                 class="form__button form__button--filled form__button--centered"
             >
                 <i class='{{ config("other.font-awesome") }} fa-magnet'></i> {{ __('common.magnet') }}
@@ -30,12 +30,41 @@
     @if ($fileExists)
         @if ($torrent->free !== 100 && config('other.freeleech') == false && ! $personal_freeleech && $user->group->is_freeleech == 0 && ! $freeleech_token)
             <li class="form__group form__group--short-horizontal">
-                <form action="{{ route('freeleech_token', ['id' => $torrent->id]) }}" method="POST"
-                    style="display: contents;">
+                <form
+                    action="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
+                    method="POST"
+                    style="display: contents;"
+                    x-data
+                >
                     @csrf
                     <button
                         class="form__button form__button--outlined form__button--centered"
                         title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'
+                        x-on:click.prevent="
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'This will use one of your Freeleech Tokens!',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCloseButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: 'This torrent has 0 seeders!',
+                                        icon: 'warning',
+                                        showConfirmButton: true,
+                                        showCancelButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            $root.submit();
+                                        }
+                                    });
+                                } else if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            });
+                        "
                     >
                         {{ __('torrent.use-fl-token') }}
                     </button>
@@ -88,7 +117,7 @@
                         class="form__text"
                         list="torrent_quick_tips"
                         name="tip"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         pattern="[0-9]*"
                         inputmode="numeric"
@@ -278,17 +307,72 @@
             </dialog>
         </li>
     @endif
-    @if ($current = $user->history->where('torrent_id', $torrent->id)->first())
-        @if ($current->seeder == 0 && $current->active == 1 && $torrent->seeders <= 2)
-            <li class="form__group form__group--short-horizontal">
-                <form action="{{ route('reseed', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+    @if (
+        $torrent->seeders <= 2
+        /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
+        && null !== ($history = $user->history->where('torrent_id', $torrent->id)->first())
+        && $history->seeder == 0
+        && $history->active == 1
+    )
+        <li class="form__group form__group--short-horizontal">
+            <form action="{{ route('reseed', ['id' => $torrent->id]) }}" method="POST" style="display: inline;">
+                @csrf
+                <button class="form__button form__button--outlined form__button--centered">
+                    <i class='{{ config("other.font-awesome") }} fa-envelope'></i> {{ __('torrent.request-reseed') }}
+                </button>
+            </form>
+        </li>
+    @endif
+    @if (DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
+        <li class="form__group form__group--short-horizontal">
+            <button class="form__button form__button--outlined form__button--centered" disabled>
+                {{ strtolower(__('graveyard.pending')) }}
+            </button>
+        </li>
+    @elseif ($torrent->seeders == 0 && $torrent->created_at->lt(\Illuminate\Support\Carbon::now()->subDays(30)))
+        <li class="form__group form__group--short-horizontal" x-data>
+            <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
+                <i class="{{ config('other.font-awesome') }} fa-list-ol"></i> {{ __('graveyard.resurrect') }}
+            </button>
+            <dialog class="dialog" x-ref="dialog">
+                <h4 class="dialog__heading">
+                    {{ __('graveyard.resurrect') }} {{ strtolower(__('torrent.torrent')) }} ?
+                </h4>
+                <form
+                    class="dialog__form"
+                    method="POST"
+                    action="{{ route('graveyard.store') }}"
+                    x-on:click.outside="$refs.dialog.close()"
+                >
                     @csrf
-                    <button class="form__button form__button--outlined form__button--centered">
-                        <i class='{{ config("other.font-awesome") }} fa-envelope'></i> {{ __('torrent.request-reseed') }}
-                    </button>
+                    <input type="hidden" name="torrent_id" value="{{ $torrent->id }}">
+                    <p class="form__group">
+                        {{ __('graveyard.howto') }}
+                    </p>
+                    <p>{!! __('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
+                        <span class="text-red text-bold">
+                            {{ $history === null ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                        </span>
+                        {{ strtolower(__('graveyard.howto-hits')) }}
+                        <span class="text-red text-bold">
+                            {{ App\Helpers\StringHelper::timeElapsed($history?->seedtime ?? 0 + config('graveyard.time')) }}
+                        </span>
+                        {{ strtolower(__('graveyard.howto-desc2')) }}
+                        <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                            {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }} Token(s)!
+                        </span>
+                    </p>
+                    <p class="form__group" style="text-align: left">
+                        <button class="form__button form__button--filled">
+                            {{ __('graveyard.resurrect') }}
+                        </button>
+                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                            {{ __('common.cancel') }}
+                        </button>
+                    </p>
                 </form>
-            </li>
-        @endif
+            </dialog>
+        </li>
     @endif
     <li x-data class="form__group form__group--short-horizontal">
         <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">

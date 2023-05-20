@@ -35,7 +35,7 @@ class StoreGroupRequest extends FormRequest
             'name'             => 'required|string|unique:groups',
             'position'         => 'required|integer',
             'level'            => 'required|integer',
-            'download_slots'   => 'integer',
+            'download_slots'   => 'nullable|integer',
             'color'            => 'required',
             'icon'             => 'required',
             'effect'           => 'sometimes',

@@ -8,5 +8,5 @@
     @else
         <i class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up"></i>
     @endif
-    <span class="votes__like-count">{{ $post->likes_count }}</span>
+    <span class="votes__like-count">{{ $likesCount }}</span>
 </button>

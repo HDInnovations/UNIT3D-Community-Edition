@@ -25,6 +25,12 @@ class Post extends Model
     use Auditable;
     use HasFactory;
 
+    protected $fillable = [
+        'content',
+        'topic_id',
+        'user_id',
+    ];
+
     /**
      * Belongs To A Topic.
      */

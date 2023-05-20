@@ -13,9 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
-use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
@@ -41,10 +39,11 @@ use App\Models\Type;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
-use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
@@ -69,7 +68,7 @@ class TorrentController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('torrent.torrents');
+        return view('torrent.index');
     }
 
     /**
@@ -145,7 +144,7 @@ class TorrentController extends Controller
 
         $playlists = $user->playlists;
 
-        return view('torrent.torrent', [
+        return view('torrent.show', [
             'torrent'            => $torrent,
             'user'               => $user,
             'personal_freeleech' => $personalFreeleech,
@@ -188,7 +187,7 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
-        return view('torrent.edit_torrent', [
+        return view('torrent.edit', [
             'categories'   => $categories,
             'types'        => $types,
             'resolutions'  => Resolution::all()->sortBy('position'),
@@ -373,6 +372,11 @@ class TorrentController extends Controller
                     FeaturedTorrent::where('torrent_id', '=', $id)->delete();
                 }
 
+                $cacheKey = config('cache.prefix').'torrents:infohash2id';
+                Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+
+                Unit3dAnnounce::removeTorrent($torrent);
+
                 $torrent->delete();
 
                 return to_route('torrents')
@@ -413,7 +417,7 @@ class TorrentController extends Controller
             $categories[(int) $cat->id] = $temp;
         }
 
-        return view('torrent.upload', [
+        return view('torrent.create', [
             'categories'   => $categories,
             'types'        => Type::all()->sortBy('position'),
             'resolutions'  => Resolution::all()->sortBy('position'),
@@ -428,25 +432,6 @@ class TorrentController extends Controller
             'tvdb'         => $request->tvdb,
             'igdb'         => $request->igdb,
         ]);
-    }
-
-    /**
-     * Preview torrent description.
-     */
-    public function preview(Request $request): \Illuminate\Http\JsonResponse
-    {
-        // Preview The Upload
-        $joyPixel = app()->make(LaravelJoyPixels::class);
-        $bbcode = new Bbcode();
-        $linkify = new Linkify();
-
-        $previewContent = $joyPixel->toImage(
-            $linkify->linky(
-                $bbcode->parse($request->input('description'))
-            )
-        );
-
-        return response()->json($previewContent);
     }
 
     /**

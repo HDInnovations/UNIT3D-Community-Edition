@@ -25,10 +25,10 @@
     }"
 >
     <p class="bbcode-input__tabs">
-        <input class="bbcode-input__tab-input" type="radio" id="bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model="isPreviewEnabled" />
-        <label class="bbcode-input__tab-label" for="bbcode-preview-disabled">Write</label>
-        <input class="bbcode-input__tab-input" type="radio" id="bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model="isPreviewEnabled" />
-        <label class="bbcode-input__tab-label" for="bbcode-preview-enabled">{{ __('common.preview') }}</label>
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model="isPreviewEnabled" />
+        <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">Write</label>
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model="isPreviewEnabled" />
+        <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-enabled">{{ __('common.preview') }}</label>
     </p>
     <p class="bbcode-input__icon-bar-toggle">
         <button type="button" class="form__button form__button--text" x-on:click="showButtons = ! showButtons">BBCode</button>
@@ -189,9 +189,9 @@
     </menu>
     <div class="bbcode-input__tab-pane">
         @if ($isPreviewEnabled)
-            <p class="bbcode-input__preview bbcode-rendered">
+            <div class="bbcode-input__preview bbcode-rendered">
                 @joypixels($contentHtml)
-            </p>
+            </div>
             <input type="hidden" name="{{ $name }}" wire:model.defer="contentBbcode">
         @else
             <p class="form__group">
@@ -199,7 +199,7 @@
                     id="bbcode-{{ $name }}"
                     name="{{ $name }}"
                     class="form__textarea bbcode-input__input"
-                    placeholder=""
+                    placeholder=" "
                     x-ref="bbcode"
                     wire:model.defer="contentBbcode"
                     @if ($isRequired)

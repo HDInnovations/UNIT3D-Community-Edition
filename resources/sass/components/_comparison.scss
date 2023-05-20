@@ -1,4 +1,8 @@
 .comparison__screenshots {
+    // required to override `.bbcode-rendered` styling.
+    margin: unset !important;
+    padding: unset !important;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,6 +20,10 @@
 }
 
 .comparison__row {
+    // required to override `.bbcode-rendered` styling.
+    // margin: unset !important;
+    padding: unset !important;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -25,10 +33,20 @@
     margin-left: max(0px, 50% - 50vw);
 }
 
+.comparison__image-container {
+    // required to override `.bbcode-rendered` styling.
+    margin: unset !important;
+}
+
 .comparison__image--hidden,
 .comparison__image-container--hidden {
     visibility: hidden;
     width: 0px;
+}
+
+.comparison__figure {
+    // required to override `.bbcode-rendered` styling.
+    margin: unset !important;
 }
 
 .comparison__image {
@@ -42,6 +60,9 @@
     text-align: center;
     top: 4px;
     left: calc(50vw - 50%);
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    color: white;
+    font-size: 18px;
 }
 
 .comparison__text {

@@ -21,6 +21,7 @@ use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBan;
 use App\Notifications\UserBanExpire;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 use Exception;
 
@@ -69,6 +70,7 @@ class BanController extends Controller
         ]);
 
         cache()->forget('user:'.$user->passkey);
+        Unit3dAnnounce::addUser($user);
 
         // Send Notifications
         $user->notify(new UserBan($ban));
@@ -105,6 +107,7 @@ class BanController extends Controller
         ]);
 
         cache()->forget('user:'.$user->passkey);
+        Unit3dAnnounce::addUser($user);
 
         // Send Notifications
         $user->notify(new UserBanExpire());

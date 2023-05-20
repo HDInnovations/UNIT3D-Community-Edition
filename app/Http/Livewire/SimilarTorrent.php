@@ -33,6 +33,8 @@ class SimilarTorrent extends Component
 {
     public Category $category;
 
+    public Movie|Tv|Game $work;
+
     public $tmdbId;
 
     public $igdbId;
@@ -74,30 +76,25 @@ class SimilarTorrent extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
-        $query = Torrent::query();
-        $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        return Torrent::query()
+            ->with('user:id,username,group_id', 'category', 'type', 'resolution')
             ->withCount(['thanks', 'comments'])
-            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', auth()->id())]);
-        if ($this->category->movie_meta) {
-            $query = $query->whereHas('category', function ($q): void {
-                $q->where('movie_meta', '=', true);
-            });
-        }
-
-        if ($this->category->tv_meta) {
-            $query = $query->whereHas('category', function ($q): void {
-                $q->where('tv_meta', '=', true);
-            });
-        }
-
-        if ($this->category->tv_meta || $this->category->movie_meta) {
-            $query = $query->where('tmdb', '=', $this->tmdbId);
-        } else {
-            $query = $query->where('igdb', '=', $this->igdbId);
-        }
-        $query = $query->orderBy($this->sortField, $this->sortDirection);
-
-        return $query->get();
+            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', auth()->id())])
+            ->when(
+                $this->category->movie_meta,
+                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),
+            )
+            ->when(
+                $this->category->tv_meta,
+                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('tv_meta', '=', 1)),
+            )
+            ->when(
+                $this->category->tv_meta || $this->category->movie_meta,
+                fn ($query) => $query->where('tmdb', '=', $this->tmdbId),
+                fn ($query) => $query->where('igdb', '=', $this->igdbId),
+            )
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
     }
 
     final public function sortBy($field): void

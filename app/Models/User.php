@@ -202,6 +202,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Has One Watchlist Object.
+     */
+    public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Watchlist::class);
+    }
+
+    /**
      * Has Many RSS Feeds.
      */
     public function rss(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -498,6 +506,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Subscribed topics.
+     */
+    public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Forum::class, 'subscriptions');
+    }
+
+    /**
+     * Has Many Subscribed topics.
+     */
+    public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Topic::class, 'subscriptions');
+    }
+
+    /**
      * Has many free leech tokens.
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -759,6 +783,6 @@ class User extends Authenticatable
      */
     public function getSeedbonus(): string
     {
-        return number_format($this->seedbonus, 0, '.', ',');
+        return number_format($this->seedbonus, 0, null, "\u{202F}");
     }
 }

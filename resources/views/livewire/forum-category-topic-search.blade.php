@@ -30,7 +30,7 @@
                             class="form__text"
                             type="text"
                             wire:model="search"
-                            placeholder=""
+                            placeholder=" "
                         />
                         <label for="search" class="form__label form__label--floating">
                             {{ __('common.search') }}

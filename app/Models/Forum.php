@@ -28,7 +28,7 @@ class Forum extends Model
      *
      * @var string[]
      */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'created_at'];
 
     /**
      * Has Many Topic.
@@ -60,20 +60,27 @@ class Forum extends Model
     }
 
     /**
-     * Has Many Subscribed Topics.
+     * Returns The Category In Which The Forum Is Located.
      */
-    public function subscription_topics(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\HasMany
+    public function category()
     {
-        if (auth()->user() !== null) {
-            $id = $this->id;
-            $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
+        return $this->hasOne(self::class, 'id', 'parent_id');
+    }
 
-            return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions): void {
-                $query->whereIntegerInRaw('topics.id', [$id])->orWhereIntegerInRaw('topics.id', $subscriptions);
-            });
-        }
+    /**
+     * All posts inside the forum.
+     */
+    public function posts()
+    {
+        return $this->hasManyThrough(Post::class, Topic::class);
+    }
 
-        return $this->hasMany(Topic::class, 'id', 'topic_id');
+    /**
+     * Latest topic.
+     */
+    public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Topic::class)->ofMany('last_reply_at', 'max');
     }
 
     /**
@@ -141,46 +148,6 @@ class Forum extends Model
     public function getForumsInCategory()
     {
         return self::where('parent_id', '=', $this->id)->get();
-    }
-
-    /**
-     * Returns A Table With The Forums In The Category.
-     */
-    public function getForumsInCategoryById(int $forumId)
-    {
-        return self::where('parent_id', '=', $forumId)->get();
-    }
-
-    /**
-     * Returns The Category In Which The Forum Is Located.
-     */
-    public function getCategory()
-    {
-        return self::find($this->parent_id);
-    }
-
-    /**
-     * Count The Number Of Posts In The Forum.
-     */
-    public function getPostCount(int $forumId): float|int
-    {
-        $topics = self::find($forumId)->topics;
-        $count = 0;
-        foreach ($topics as $t) {
-            $count += $t->posts()->count();
-        }
-
-        return $count;
-    }
-
-    /**
-     * Count The Number Of Topics In The Forum.
-     */
-    public function getTopicCount(int $forumId): int
-    {
-        $forum = self::find($forumId);
-
-        return Topic::where('forum_id', '=', $forum->id)->count();
     }
 
     /**

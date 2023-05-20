@@ -48,13 +48,12 @@ mix.options({
      *
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
-    .babel(['resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js', 'resources/js/unit3d/custom.js'], 'public/js/unit3d.js')
+    .babel(['resources/js/unit3d/tmdb.js', 'resources/js/unit3d/parser.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
 
     /*
      * Copy assets
      */
     .copy('resources/sass/vendor/webfonts/font-awesome', 'public/fonts/font-awesome')
-    .copy('resources/sass/vendor/webfonts/bootstrap', 'public/fonts/bootstrap')
 
     /*
      * Extra JS

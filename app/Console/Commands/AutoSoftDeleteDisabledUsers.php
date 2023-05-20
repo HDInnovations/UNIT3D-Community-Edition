@@ -21,7 +21,6 @@ use App\Models\History;
 use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
-use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
@@ -29,6 +28,7 @@ use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -83,6 +83,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->save();
 
                 cache()->forget('user:'.$user->passkey);
+                Unit3dAnnounce::addUser($user);
 
                 // Removes UserID from Torrents if any and replaces with System UserID (1)
                 foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
@@ -129,11 +130,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all Posts made by User from the shoutbox
                 foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
                     $shout->delete();
-                }
-
-                // Removes all notes for user
-                foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-                    $note->delete();
                 }
 
                 // Removes all likes for user

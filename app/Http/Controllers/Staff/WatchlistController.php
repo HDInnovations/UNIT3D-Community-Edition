@@ -41,7 +41,7 @@ class WatchlistController extends Controller
 
         Watchlist::create(['user_id' => $user->id, 'staff_id' => $request->user()->id] + $request->validated());
 
-        return to_route('staff.watchlist.index')
+        return to_route('users.show', ['username' => $user->username])
             ->withSuccess('User Successfully Being Watched');
     }
 

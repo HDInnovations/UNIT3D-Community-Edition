@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Torrent;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CheatedTorrentController extends Controller
@@ -26,19 +27,35 @@ class CheatedTorrentController extends Controller
     {
         $cheatedTorrents = Torrent::query()
             ->select([
-                'id',
-                'name',
-                'seeders',
-                'leechers',
-                'times_completed',
-                'size',
-                'balance',
-                'balance_offset',
-                'created_at',
+                'torrents.id',
+                'torrents.name',
+                'torrents.seeders',
+                'torrents.leechers',
+                'torrents.times_completed',
+                'torrents.size',
+                'torrents.balance',
+                'torrents.balance_offset',
+                'torrents.created_at',
             ])
+            ->selectRaw('MAX(history.completed_at) as last_completed')
+            ->selectRaw('MAX(history.created_at) as last_started')
             ->selectRaw('balance + COALESCE(balance_offset, 0) AS current_balance')
             ->selectRaw('(CAST((balance + COALESCE(balance_offset, 0)) AS float) / CAST((size + 1) AS float)) AS times_cheated')
+            ->join('history', 'history.torrent_id', '=', 'torrents.id')
+            ->groupBy([
+                'torrents.id',
+                'torrents.name',
+                'torrents.seeders',
+                'torrents.leechers',
+                'torrents.times_completed',
+                'torrents.size',
+                'torrents.balance',
+                'torrents.balance_offset',
+                'torrents.created_at',
+            ])
             ->having('current_balance', '<>', '0')
+            ->having('last_completed', '<', Carbon::now()->subHours(2))
+            ->having('last_started', '<', Carbon::now()->subHours(2))
             ->orderByDesc('times_cheated')
             ->paginate(25);
 

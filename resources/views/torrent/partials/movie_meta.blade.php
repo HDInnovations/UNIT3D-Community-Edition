@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('add_request_form', [
+                <a href="{{ route('requests.create', [
                     'category_id' => $category->id,
                     'title'       => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
                     'imdb'        => $torrent->imdb ?? '',
@@ -47,15 +47,15 @@
         </ul>
     </div>
     <ul class="meta__ids">
-        @if ($torrent->imdb ?? 0 > 0)
+        @if ($meta->imdb_id ?? 0 > 0)
             <li class="meta__imdb">
                 <a
                     class="meta-id-tag"
-                    href="https://www.imdb.com/title/tt{{ \str_pad((int) $torrent->imdb, \max(\strlen((int) $torrent->imdb), 7), '0', STR_PAD_LEFT) }}"
+                    href="https://www.imdb.com/title/tt{{ \str_pad((int) $meta->imdb_id, \max(\strlen((int) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
                     title="Internet Movie Database"
                     target="_blank"
                 >
-                    IMDB: {{ \str_pad((int) $torrent->imdb, \max(\strlen((int) $torrent->imdb), 7), '0', STR_PAD_LEFT) }}
+                    IMDB: {{ \str_pad((int) $meta->imdb_id, \max(\strlen((int) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}
                 </a>
             </li>
         @endif
@@ -88,7 +88,7 @@
                 <a
                     class="meta-id-tag"
                     href="https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}"
-                    title="MyAnimeList"
+                    title="TheTVDB"
                     target="_blank"
                 >
                     TVDB: {{ $torrent->tvdb }}

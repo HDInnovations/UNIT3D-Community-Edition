@@ -31,13 +31,14 @@
     @if ($topic->state === 'close' && auth()->user()->group->is_modo)
         <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
     @endif
-    @if ($topic->state === 'open' || auth()->user()->group->is_modo)
+    @if (($topic->state === 'open' && $forum->getPermission()->reply_topic) || auth()->user()->group->is_modo)
         <form
             id="forum_reply_form"
             method="POST"
-            action="{{ route('forum_reply', ['id' => $topic->id]) }}"
+            action="{{ route('posts.store') }}"
         >
             @csrf
+            <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
             @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])
             <p class="form__group">
                 <button type="submit" class="form__button form__button--filled">
@@ -65,25 +66,27 @@
             <dt>{{ __('forum.replies') }}</dt>
             <dd>{{ $topic->num_post - 1 }}</dd>
             <dt>{{ __('forum.views') }}</dt>
-            <dd>{{ $topic->views - 1 }}</dd>
+            <dd>{{ $topic->views }}</dd>
         </dl>
         <div class="panel__body">
-            @if(auth()->user()->subscriptions()->ofTopic($topic->id)->exists())
-                <form class="form" action="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" method="POST">
+            @if($subscription === null)
+                <form class="form" action="{{ route('subscriptions.store') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
                     <p class="form__group form__group--horizontal">
                         <button class="form__button form__button--filled form__button--centered">
-                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
-                            {{ __('forum.unsubscribe') }}
+                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> {{ __('forum.subscribe') }}
                         </button>
                     </p>
                 </form>
             @else
-                <form class="form" action="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" method="POST">
+                <form class="form" action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}" method="POST">
                     @csrf
+                    <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
                     <p class="form__group form__group--horizontal">
                         <button class="form__button form__button--filled form__button--centered">
-                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> {{ __('forum.subscribe') }}
+                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
+                            {{ __('forum.unsubscribe') }}
                         </button>
                     </p>
                 </form>
@@ -95,7 +98,7 @@
             <h2 class="panel__heading">{{ __('forum.topic') }} {{ __('user.settings') }}</h2>
             <div class="panel__body">
                 @if ($topic->state === 'close')
-                    <form class="form" action="{{ route('forum_open', ['id' => $topic->id]) }}" method="POST">
+                    <form class="form" action="{{ route('topics.open', ['id' => $topic->id]) }}" method="POST">
                         @csrf
                         <p class="form__group form__group--horizontal">
                             <button class="form__button form__button--filled form__button--centered">
@@ -104,7 +107,7 @@
                         </p>
                     </form>
                 @else
-                    <form class="form" action="{{ route('forum_close', ['id' => $topic->id]) }}" method="POST">
+                    <form class="form" action="{{ route('topics.close', ['id' => $topic->id]) }}" method="POST">
                         @csrf
                         <p class="form__group form__group--horizontal">
                             <button class="form__button form__button--filled form__button--centered">
@@ -116,25 +119,25 @@
                 <div class="form">
                     <p class="form__group form__group--horizontal">
                         <a
-                            href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}"
+                            href="{{ route('topics.edit', ['id' => $topic->id]) }}"
                             class="form__button form__button--filled form__button--centered"
                         >
                             {{ __('common.edit') }}
                         </a>
                     </p>
                 </div>
-                <form class="form" action="{{ route('forum_delete_topic', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled form__button--centered">
-                            {{ __('common.delete') }}
-                        </button>
-                    </p>
-                </form>
                 @if (auth()->user()->group->is_modo)
+                    <form class="form" action="{{ route('topics.destroy', ['id' => $topic->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <p class="form__group form__group--horizontal">
+                            <button class="form__button form__button--filled form__button--centered">
+                                {{ __('common.delete') }}
+                            </button>
+                        </p>
+                    </form>
                     @if ($topic->pinned === 0)
-                        <form class="form" action="{{ route('forum_pin_topic', ['id' => $topic->id]) }}" method="POST">
+                        <form class="form" action="{{ route('topics.pin', ['id' => $topic->id]) }}" method="POST">
                             @csrf
                             <p class="form__group form__group--horizontal">
                                 <button class="form__button form__button--filled form__button--centered">
@@ -143,7 +146,7 @@
                             </p>
                         </form>
                     @else
-                        <form class="form" action="{{ route('forum_unpin_topic', ['id' => $topic->id]) }}" method="POST">
+                        <form class="form" action="{{ route('topics.unpin', ['id' => $topic->id]) }}" method="POST">
                             @csrf
                             <p class="form__group form__group--horizontal">
                                 <button class="form__button form__button--filled form__button--centered">

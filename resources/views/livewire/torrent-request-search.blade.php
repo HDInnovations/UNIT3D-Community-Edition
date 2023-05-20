@@ -5,7 +5,7 @@
                 <h2 class="panel__heading">{{ __('request.requests') }}</h2>
                 <div class="panel__actions">
                     <div class="panel__action">
-                        <a href="{{ route('add_request') }}" class="form__button form__button--text">
+                        <a href="{{ route('requests.create') }}" class="form__button form__button--text">
                             {{ __('request.add-request') }}
                         </a>
                     </div>
@@ -57,7 +57,7 @@
                         @forelse($torrentRequests as $torrentRequest)
                             <tr>
                                 <td>
-                                    <a href="{{ route('request', ['id' => $torrentRequest->id]) }}">
+                                    <a href="{{ route('requests.show', ['id' => $torrentRequest->id]) }}">
                                         {{ $torrentRequest->name }}
                                     </a>
                                 </td>
@@ -119,32 +119,32 @@
                                 wire:model="name"
                                 type="search"
                                 class="form__text"
-                                placeholder=""
+                                placeholder=" "
                             />
                             <label class="form__label form__label--floating">
                                 {{ __('common.name') }}
                             </label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="requestor" class="form__text" placeholder="">
+                            <input wire:model="requestor" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">{{ __('common.author') }}</label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
-                            <input wire:model="tmdbId" class="form__text" placeholder="">
+                            <input wire:model="tmdbId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">TMDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="imdbId" class="form__text" placeholder="">
+                            <input wire:model="imdbId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">IMDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="tvdbId" class="form__text" placeholder="">
+                            <input wire:model="tvdbId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">TVDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="malId" class="form__text" placeholder="">
+                            <input wire:model="malId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">MAL ID</label>
                         </p>
                     </div>

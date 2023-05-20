@@ -202,9 +202,9 @@ class uploadExtensionBuilder {
 
             // Torrent Category
             if (release.type === 'Movie') {
-                $('#autocat').val(1);
+                document.getElementById('autocat').value = 1;
             } else if (release.type === 'TV Show') {
-                $('#autocat').val(2);
+                document.getElementById('autocat').value = 2;
             }
 
             // Torrent Type
@@ -218,40 +218,40 @@ class uploadExtensionBuilder {
                 matcher.indexOf('avc') > 0 ||
                 matcher.indexOf('vc-1') > 0
             ) {
-                $('#autotype').val(1);
+                document.getElementById('autotype').value = 1;
             }
             if (matcher.indexOf('remux') > 0) {
-                $('#autotype').val(2);
+                document.getElementById('autotype').value = 2;
             }
             if (matcher.indexOf('x264') > 0) {
-                $('#autotype').val(3);
+                document.getElementById('autotype').value = 3;
             }
             if (matcher.indexOf('x265') > 0) {
-                $('#autotype').val(3);
+                document.getElementById('autotype').value = 3;
             }
             if (matcher.indexOf('webdl') > 0 || matcher.indexOf('web-dl') > 0) {
-                $('#autotype').val(4);
+                document.getElementById('autotype').value = 4;
             }
             if (matcher.indexOf('web-rip') > 0 || matcher.indexOf('webrip') > 0) {
-                $('#autotype').val(5);
+                document.getElementById('autotype').value = 5;
             }
             if (matcher.indexOf('hdtv') > 0) {
-                $('#autotype').val(6);
+                document.getElementById('autotype').value = 6;
             }
 
             // Torrent Resolution
             if (release.resolution) {
-                $('#autores').val(release.resolution);
+                document.getElementById('autores').value = release.resolution;
             }
 
             // Torrent Season (TV Only)
             if (release.season) {
-                $('#season_number').val(release.season);
+                document.getElementById('season_number').value = release.season;
             }
 
             // Torrent Episode (TV Only)
             if (release.episode) {
-                $('#episode_number').val(release.episode);
+                document.getElementById('episode_number').value = release.episode;
             }
 
             // Torrent TMDB ID
@@ -278,10 +278,9 @@ class uploadExtensionBuilder {
                 data = JSON.parse(data);
                 if (release.type === 'Movie') {
                     if (data.results && data.results.length > 0) {
-                        $('#autotmdb').val(data.results[0].id);
-                        $('#apimatch').val(
-                            'Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')'
-                        );
+                        document.getElementById('autotmdb').value = data.results[0].id;
+                        document.getElementById('apimatch').value =
+                            'Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')';
                         theMovieDb.movies.getKeywords(
                             {
                                 id: data.results[0].id,
@@ -299,10 +298,9 @@ class uploadExtensionBuilder {
                     }
                 } else if (release.type === 'TV Show') {
                     if (data.results && data.results.length > 0) {
-                        $('#autotmdb').val(data.results[0].id);
-                        $('#apimatch').val(
-                            'Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')'
-                        );
+                        document.getElementById('autotmdb').value = data.results[0].id;
+                        document.getElementById('apimatch').value =
+                            'Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')';
                         theMovieDb.tv.getKeywords(
                             {
                                 id: data.results[0].id,
@@ -330,10 +328,10 @@ class uploadExtensionBuilder {
                 data = JSON.parse(data);
                 if (release.type === 'Movie') {
                     let tags = data.keywords.map(({ name }) => name).join(', ');
-                    $('#autokeywords').val(tags);
+                    document.getElementById('autokeywords').value = tags;
                 } else if (release.type === 'TV Show' && data?.results.length > 0) {
                     let tags = data.results.map(({ name }) => name).join(', ');
-                    $('#autokeywords').val(tags);
+                    document.getElementById('autokeywords').value = tags;
                 }
             }
 
@@ -347,10 +345,10 @@ class uploadExtensionBuilder {
                 let imdb = data.imdb_id;
                 imdb = imdb.substring(2) ?? 0;
                 if (release.type === 'Movie') {
-                    $('#autoimdb').val(imdb);
+                    document.getElementById('autoimdb').value = imdb;
                 } else if (release.type === 'TV Show') {
-                    $('#autoimdb').val(imdb);
-                    $('#autotvdb').val(data.tvdb_id ?? 0);
+                    document.getElementById('autoimdb').value = imdb;
+                    document.getElementById('autotvdb').value = data.tvdb_id ?? 0;
                 }
             }
 

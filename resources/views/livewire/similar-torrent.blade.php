@@ -55,11 +55,16 @@
                                 @if ($user->group->is_modo)
                                     <tr>
                                         <td colspan="0" rowspan="2" x-on:click.self="$el.firstElementChild.click()">
-                                            <input type="checkbox" value="{{ $torrent->id }}" wire:model="checked">
+                                            <input
+                                                id="torrent_checkbox_{{ $torrent->id }}"
+                                                type="checkbox"
+                                                value="{{ $torrent->id }}"
+                                                wire:model="checked"
+                                            >
                                         </td>
                                     </tr>
                                 @endif
-                                <x-torrent.row :torrent="$torrent" :personal_freeleech="$personalFreeleech" />
+                                <x-torrent.row :torrent="$torrent" :meta="$work" :personal_freeleech="$personalFreeleech" />
                             @endforeach
                         </tbody>
                     @endforeach

@@ -20,54 +20,47 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="block">
-            <div class="some-padding">
-                <form role="form" method="POST"
-                      action="{{ route('user_edit_profile', ['username' => $user->username]) }}"
-                      enctype="multipart/form-data">
-                    @csrf
-                    <div class="well">
-
-                        <div class="form-group">
-                            <label for="image">{{ __('user.avatar') }}</label>
-                            <small>{{ __('user.formats-are-supported', ['formats' => '.jpg , .jpeg , .bmp , .png , .tiff ,
-                                .gif']) }}</small>
-                            <input type="file" name="image" id="image">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="title">{{ __('user.custom-title') }}</label>
-                            <input type="text" name="title" id="title" class="form-control" value="{{ $user->title }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="about">{{ __('user.about-me') }} <span class="badge-extra">BBCode
-                                    {{ __('common.is-allowed') }}</span></label>
-                            <textarea name="about" id="editor" cols="30" rows="10"
-                                      class="form-control">{{ $user->about }}</textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="signature">{{ __('user.forum-signature') }} <span class="badge-extra">BBCode
-                                    {{ __('common.is-allowed') }}</span></label>
-                            <textarea name="signature" id="editor" cols="30" rows="10"
-                                      class="form-control">{{ $user->signature }}</textarea>
-                        </div>
-
-                        @if ( !is_null($user->signature))
-                            <div class="text-center">
-                                <p>{{ __('user.forum-signature') }} </p> {!! $user->getSignature() !!}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="well text-center">
-                        <button type="submit" class="btn btn-primary">{{ __('common.submit') }}</button>
-                    </div>
-                </form>
-
-            </div>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('user.edit-profile') }}</h2>
+        <div class="panel__body">
+            <form
+                method="POST"
+                action="{{ route('user_edit_profile', ['username' => $user->username]) }}"
+                enctype="multipart/form-data"
+                class="form"
+            >
+                @csrf
+                <p class="form__group">
+                    <label for="image" class="form__label">{{ __('user.avatar') }}</label>
+                    <input
+                        id="image"
+                        class="form__file"
+                        accept=".jpg, .jpeg, .bmp, .png, .tiff, .gif"
+                        name="image"
+                        type="file"
+                    >
+                </p>
+                <p class="form__group">
+                    <input
+                        id="title"
+                        class="form__text"
+                        name="title"
+                        placeholder=" "
+                        type="text"
+                        value="{{ $user->title }}"
+                    >
+                    <label for="title" class="form__label form__label--floating">
+                        {{ __('user.custom-title') }}
+                    </label>
+                </p>
+                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about], key('about'))
+                @livewire('bbcode-input', ['name' => 'signature', 'label' => __('user.forum-signature'), 'required' => false, 'content' => $user->signature], key('signature'))
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
+            </form>
         </div>
-    </div>
-    </div>
+    </section>
 @endsection

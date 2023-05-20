@@ -135,7 +135,7 @@ class TorrentRequestSearch extends Component
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
 
-        return TorrentRequest::with(['category', 'type', 'resolution'])
+        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
             ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
             ->when($this->requestor !== '', fn ($query) => $query->ofUploader($this->requestor))

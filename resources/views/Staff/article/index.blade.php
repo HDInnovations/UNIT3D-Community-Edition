@@ -88,7 +88,7 @@
                                         <button    
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this article: {{ $article->title }}?',
+                                                text: `Are you sure you want to delete this article: ${atob('{{ base64_encode($article->title) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,
