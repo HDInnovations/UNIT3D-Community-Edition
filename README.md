@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-9-f4645f.svg" /></a> 
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-10-f4645f.svg" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg" /></a>
@@ -28,7 +28,6 @@
 2. [Some Features](#features)
 3. [Requirements](#requirements)
 4. [Installation](#installation)
-4.1 [Automated-Installer](#auto-install)
 5. [Updating](#updating)
 6. [Version Support Information](#versions)
 7. [Security](#security)
@@ -76,29 +75,9 @@ UNIT3D currently offers the following features:
 - TheMovieDB API Key: https://www.themoviedb.org/documentation/api
 - A good dedicated server. Dont try running this on some basic server if you plan to run a large tracker!
 
-
 ## <a name="installation"></a> 🖥️ Installation
-```
-NOTE: If you are running UNIT3D on a non HTTPS instance you MUST change the following configs.
 
-.env  <-- SESSION_SECURE_COOKIE must be set to false
-config/secure-headers.php   <-- HTTP Strict Transport Security must be set to false
-config/secure-headers.php   <-- Content Security Policy must be disabled
-```
-
-### <a name="auto-install"></a> Automated Installer
-**A UNIT3D Installer has been released by Poppabear.**
-
-**Officially Supported OS's**
-- Ubuntu 20.04 LTS
-
-```bash
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
-cd installer
-sudo ./install.sh
-```
-
-Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
+Check it out here for more information: https://github.com/HDInnovations/UNIT3D-Installer
 
 ### Demo Data
 
