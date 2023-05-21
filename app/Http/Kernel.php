@@ -53,7 +53,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\UpdateLastAction::class,
-            'throttle:web',
+            //'throttle:web',
         ],
         'api' => [
             'throttle:api',
