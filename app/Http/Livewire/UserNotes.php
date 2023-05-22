@@ -64,7 +64,7 @@ class UserNotes extends Component
 
         $this->message = '';
 
-        session()->flash('success', 'Note has successfully been posted');
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been posted!']);
     }
 
     final public function destroy(int $id): void
@@ -73,6 +73,6 @@ class UserNotes extends Component
 
         Note::where('id', '=', $id)->delete();
 
-        session()->flash('success', 'Note has successfully been deleted');
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
     }
 }
