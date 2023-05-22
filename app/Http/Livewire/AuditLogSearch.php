@@ -60,7 +60,7 @@ class AuditLogSearch extends Component
     final public function getModelNamesProperty()
     {
         $modelList = [];
-        $path = app_path() . "/Models";
+        $path = app_path()."/Models";
         $results = scandir($path);
 
         foreach ($results as $result) {
@@ -69,7 +69,7 @@ class AuditLogSearch extends Component
             }
             $filename = $result;
 
-            $modelList[] = substr($filename,0,-4);
+            $modelList[] = substr($filename, 0, -4);
         }
 
         return $modelList;
