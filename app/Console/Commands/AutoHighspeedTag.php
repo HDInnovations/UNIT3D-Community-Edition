@@ -44,13 +44,13 @@ class AutoHighspeedTag extends Command
     public function handle(): void
     {
         $seedboxIps = Seedbox::all()
-            ->where('seeder', '=', 1)
             ->pluck('ip')
             ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
         Torrent::withAnyStatus()
             ->leftJoinSub(
-                Peer::distinct()
+                Peer::where('seeder', '=', 1)
+                    ->distinct()
                     ->select('torrent_id')
                     ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
                 'highspeed_torrents',
