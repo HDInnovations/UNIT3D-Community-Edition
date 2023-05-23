@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\FailedLoginAttempt;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
