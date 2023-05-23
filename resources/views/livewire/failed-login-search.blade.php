@@ -21,7 +21,9 @@
                     <input
                             id="userId"
                             class="form__text"
-                            type="number"
+                            type="text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             wire:model="userId"
                             placeholder=" "
                     />
