@@ -55,9 +55,9 @@ class FailedLoginSearch extends Component
     {
         return FailedLoginAttempt::query()
             ->with('user')
-            ->when($this->username, fn ($query) => $query->whereIn('username', User::select('username')->where('username', '=', $this->username)))
+            ->when($this->username, fn ($query) => $query->where('username', 'LIKE', $this->username.'%'))
             ->when($this->userId, fn ($query) => $query->where('user_id', '=', $this->userId))
-            ->when($this->ipAddress, fn ($query) => $query->where('ip_address', '=', $this->ipAddress))
+            ->when($this->ipAddress, fn ($query) => $query->where('ip_address', 'LIKE', $this->ipAddress.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
