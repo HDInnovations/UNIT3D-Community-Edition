@@ -1,9 +1,8 @@
 <?php
 
 use App\Enums\UserGroups;
-use App\Models\Group;
-use App\Models\UserPrivacy;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class () extends Migration {
     /**
@@ -11,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        $allowedGroups = Group::query()
+        $allowedGroups = DB::table('groups')
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
             ->where('id', '!=', UserGroups::VALIDATING)
@@ -45,7 +44,7 @@ return new class () extends Migration {
             ARRAY_FILTER_USE_BOTH
         ));
 
-        foreach (UserPrivacy::all() as $user_privacy) {
+        foreach (DB::table('user_privacy')->get() as $user_privacy) {
             $user_privacy->json_profile_groups = $migrate($user_privacy->json_profile_groups['default_groups']);
             $user_privacy->json_torrent_groups = $migrate($user_privacy->json_torrent_groups['default_groups']);
             $user_privacy->json_forum_groups = $migrate($user_privacy->json_forum_groups['default_groups']);

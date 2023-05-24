@@ -1,9 +1,8 @@
 <?php
 
 use App\Enums\UserGroups;
-use App\Models\Group;
-use App\Models\UserNotification;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 return new class () extends Migration {
     /**
@@ -11,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        $allowedGroups = Group::query()
+        $allowedGroups = DB::table('groups')
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
             ->where('id', '!=', UserGroups::VALIDATING)
@@ -45,7 +44,7 @@ return new class () extends Migration {
             ARRAY_FILTER_USE_BOTH
         ));
 
-        foreach (UserNotification::all() as $user_notification) {
+        foreach (DB::table('user_notifications')->get() as $user_notification) {
             $user_notification->json_account_groups = $migrate($user_notification->json_account_groups['default_groups']);
             $user_notification->json_bon_groups = $migrate($user_notification->json_bon_groups['default_groups']);
             $user_notification->json_mention_groups = $migrate($user_notification->json_mention_groups['default_groups']);
