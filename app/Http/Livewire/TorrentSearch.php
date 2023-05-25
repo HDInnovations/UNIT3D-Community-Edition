@@ -498,9 +498,9 @@ class TorrentSearch extends Component
                                         ),
                                     'Seasons' => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
+                                        ->sortKeys(SORT_NATURAL)
                                         ->map(
                                             fn ($season) => $season
-                                                ->sortKeys(SORT_NATURAL)
                                                 ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
                                                 ->map(fn ($packOrEpisodes, $key) => match ($key) {
                                                     'Season Pack' => $packOrEpisodes
