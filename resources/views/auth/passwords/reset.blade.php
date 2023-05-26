@@ -76,8 +76,9 @@
                                                                  required>
                 </div>
                 <div class="col s6">
-                    <button type="submit"
-                            class="btn waves-effect waves-light blue right">{{ __('common.submit') }}</button>
+                    <button type="submit" class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
                 </div>
             </div>
         </form>
@@ -118,7 +119,7 @@
       Swal.fire({
         title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
         icon: 'error',
-        html: jQuery('#ERROR_COPY').html(),
+        html: document.getElementById('ERROR_COPY').innerHTML,
         showCloseButton: true,
       })
 

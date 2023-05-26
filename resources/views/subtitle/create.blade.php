@@ -70,7 +70,7 @@
                         name="note"
                         id="note"
                         class="form__text"
-                        placeholder=""
+                        placeholder=" "
                     >
                     <label class="form__label form__label--floating" for="note">
                         {{ __('subtitle.note') }} ({{ __('subtitle.note-help') }})

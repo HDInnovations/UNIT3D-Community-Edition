@@ -19,6 +19,7 @@ use App\Http\Requests\Staff\UpdateModerationRequest;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 
 /**
@@ -39,9 +40,9 @@ class ModerationController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $current = Carbon::now();
-        $pending = Torrent::with(['user', 'category', 'type'])->pending()->get();
-        $postponed = Torrent::with(['user', 'category', 'type'])->postponed()->get();
-        $rejected = Torrent::with(['user', 'category', 'type'])->rejected()->get();
+        $pending = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type'])->pending()->get();
+        $postponed = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type'])->postponed()->get();
+        $rejected = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type'])->rejected()->get();
 
         return view('Staff.moderation.index', [
             'current'   => $current,
@@ -110,6 +111,8 @@ class ModerationController extends Controller
                     'message'     => "Greetings, \n\nYour upload ".$torrent->name." has been rejected. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
 
+                Unit3dAnnounce::addTorrent($torrent);
+
                 return to_route('staff.moderation.index')
                     ->withSuccess('Torrent Rejected');
 
@@ -122,6 +125,8 @@ class ModerationController extends Controller
                     'subject'     => 'Your upload, '.$torrent->name.' ,has been postponed by '.$staff->username,
                     'message'     => "Greetings, \n\nYour upload, ".$torrent->name." ,has been postponed. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
+
+                Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
                     ->withSuccess('Torrent Postponed');

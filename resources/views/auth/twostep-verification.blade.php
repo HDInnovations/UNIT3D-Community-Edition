@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel verification-form-panel">
-                    <div class="panel-heading text-center" id="verification_status_title">
+                    <div class="panel__heading text-center" id="verification_status_title">
                         <h3>
                             {{ __('auth.title') }}
                         </h3>
@@ -54,7 +54,7 @@
                             </em>
                         </p>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel__body">
                         <form id="verification_form" class="form-horizontal" method="POST">
                             @csrf
                             <div class="form-group margin-bottom-1 code-inputs">
@@ -128,7 +128,7 @@
                                 <div class="row">
                                     <div class="col-xs-8 col-xs-offset-2 text-center submit-container">
                                         <button type="submit"
-                                                class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block"
+                                                class="form__button form__button--filled"
                                                 id="submit_verification" tabindex="5">
                                             {{ __('auth.verifyButton') }}
                                         </button>
@@ -145,7 +145,7 @@
                             </div>
                         </form>
                         <div class="col-xs-12 text-center">
-                            <a class="btn btn-link" id="resend_code_trigger" href="#" tabindex="6">
+                            <a class="form__button form__button--filled" id="resend_code_trigger" href="#" tabindex="6">
                                 {{ __('auth.missingCode') }}
                             </a>
                         </div>

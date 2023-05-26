@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Models\Warning;
 use App\Notifications\UserManualWarningExpire;
 use App\Notifications\UserWarningExpire;
+use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -66,8 +67,7 @@ class AutoDeactivateWarning extends Command
 
         // Calculate User Warning Count and Enable DL Priv If Required.
         $warnings = Warning::with('warneduser')
-            ->select(DB::raw('user_id, count(*) as value'))
-            ->where('active', '=', 1)
+            ->select(DB::raw('user_id, SUM(active = 1) as value'))
             ->groupBy('user_id')
             ->having('value', '<', config('hitrun.max_warnings'))
             ->get();
@@ -78,6 +78,7 @@ class AutoDeactivateWarning extends Command
                 $warning->warneduser->save();
 
                 cache()->forget('user:'.$warning->warneduser->passkey);
+                Unit3dAnnounce::addUser($warning->warneduser);
             }
         }
 

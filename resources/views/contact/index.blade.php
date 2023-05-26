@@ -32,7 +32,7 @@
                         id="contact-name"
                         class="form__text"
                         name="contact-name"
-                        placeholder=""
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ auth()->user()->username }}"
@@ -46,7 +46,7 @@
                         id="email"
                         class="form__text"
                         name="email"
-                        placeholder=""
+                        placeholder=" "
                         required
                         type="email"
                         value="{{ auth()->user()->email }}"
@@ -60,7 +60,7 @@
                         id="message"
                         class="form__textarea"
                         name="message"
-                        placeholder=""
+                        placeholder=" "
                         required
                     ></textarea>
                     <label class="form__label form__label--floating" for="message">

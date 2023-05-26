@@ -10,7 +10,6 @@
   "devDependencies": {
     "ajv": "^8.10.0",
     "axios": "^0.26.1",
-    "bootstrap-sass": "^3.4.3",
     "cross-env": "^7.0.3",
     "jquery": "^3.6.0",
     "laravel-echo": "^1.11.4",
@@ -32,7 +31,6 @@
     "alpinejs": "^3.9.1",
     "dayjs": "^1.11.0",
     "laravel-echo-server": "^1.6.3",
-    "node-vibrant": "^3.1.6",
     "pusher-js": "^7.0.6",
     "virtual-select-plugin": "^1.0.26"
   }

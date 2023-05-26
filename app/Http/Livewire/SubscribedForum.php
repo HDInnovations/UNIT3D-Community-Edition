@@ -26,7 +26,7 @@ class SubscribedForum extends Component
         return Forum::query()
             ->where('parent_id', '!=', 0)
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
             ->paginate(25, ['*'], 'subscribedForumsPage');
     }

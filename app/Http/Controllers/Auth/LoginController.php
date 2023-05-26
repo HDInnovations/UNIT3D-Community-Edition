@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -101,6 +102,7 @@ class LoginController extends Controller
             $user->save();
 
             cache()->forget('user:'.$user->passkey);
+            Unit3dAnnounce::addUser($user);
 
             return to_route('home.index')
                 ->withSuccess(trans('auth.welcome-restore'));
@@ -118,6 +120,7 @@ class LoginController extends Controller
             $user->save();
 
             cache()->forget('user:'.$user->passkey);
+            Unit3dAnnounce::addUser($user);
 
             return to_route('home.index')
                 ->withSuccess(trans('auth.welcome-restore'));

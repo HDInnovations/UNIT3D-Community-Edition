@@ -6,7 +6,7 @@
                 <div class="form__group">
                     <input
                         class="form__text"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         wire:model.debounce.250ms="search"
                     />
@@ -35,9 +35,9 @@
                             </p>
 
                             <a href="{{ route('mediahub.collections.show', ['id' => $collection->id]) }}" role="button"
-                            class="btn btn-labeled btn-primary"
+                            class="form__button form__button--filled"
                             style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
-                                <span class="btn-label"><i class="{{ config("other.font-awesome") }} fa-copy"></i> {{ __('mediahub.view-collection') }}</span>
+                                <i class="{{ config("other.font-awesome") }} fa-copy"></i> {{ __('mediahub.view-collection') }}
                             </a>
                         </section>
                     </div>
@@ -46,4 +46,4 @@
         @endforeach
     </div>
     {{ $collections->links('partials.pagination') }}
-</div>
+</section>

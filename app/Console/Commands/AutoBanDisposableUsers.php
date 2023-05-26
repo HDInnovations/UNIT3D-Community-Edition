@@ -19,6 +19,7 @@ use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Exception;
@@ -90,6 +91,7 @@ class AutoBanDisposableUsers extends Command
                 }
 
                 cache()->forget('user:'.$user->passkey);
+                Unit3dAnnounce::addUser($user);
             }
         });
         $this->comment('Automated User Banning Command Complete');

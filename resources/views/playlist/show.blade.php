@@ -76,7 +76,7 @@
                         <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
-                                text: 'Are you sure you want to delete this playlist: {{ $playlist->name }}?',
+                                text: `Are you sure you want to delete this playlist: ${atob('{{ base64_encode($playlist->name) }}')}?`,
                                 icon: 'warning',
                                 showConfirmButton: true,
                                 showCancelButton: true,
@@ -150,7 +150,7 @@
                 @php
                     $meta = match(1) {
                         $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
-                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'cast', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
+                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
                         $playlistTorrent->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
                         default => null,
                     };

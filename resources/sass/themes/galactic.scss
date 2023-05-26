@@ -49,6 +49,8 @@
     --bbcode-rendered-accent-emphasis: #2260be;
     --bbcode-rendered-attention-subtle: #7289da;
     --bbcode-rendered-danger-fg: #ff141ccc;
+    --bbcode-rendered-quote-bg: #6662;
+    --bbcode-rendered-quote-border: var(--color-green);
 
     --button-filled-bg: var(--color-green);
     --button-filled-border: none;
@@ -115,13 +117,35 @@
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
 
+    --meta-backdrop-filter:  brightness(30%);
+    --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
+    --meta-dropdown-bg: #4449;
+    --meta-dropdown-backdrop-filter-hover:  brightness(2) blur(10px);
+    --meta-dropdown-hover-bg: rgba(255,255,255,0.1);
+    --meta-dropdown-fg: #bbb;
+    --meta-dropdown-hover-fg: #ccc;
+    --meta-description-fg: #ddd;
+    --meta-id-tag-fg: #eee;
+    --meta-id-tag-bg: transparent;
+    --meta-id-tag-hover-fg: #fff;
+    --meta-id-tag-hover-bg: rgba(255,255,255,0.1);
+    --meta-chips-heading-fg: #bbb;
+    --meta-chip-icon-fg: #1f1f1f;
+    --meta-chip-icon-hover-bg: #bbb;
+    --meta-chip-icon-bg: #cdcdcd;
+    --meta-chip-name-fg: #e2e2e2;
+    --meta-chip-value-fg: #aaa;
+    --meta-chip-value-hover-fg: #ccc;
+    --meta-chip-backdrop-filter-hover:  brightness(2) blur(10px);
+    --meta-chip-hover-bg: rgba(255,255,255,0.1);
+
     --meter-fg: #333;
     --meter-bg: #505050;
 
     --notification-read: transparent;
     --notification-unread: var(--color-green);
 
-    --paginate-bg: #272727;
+    --paginate-bg: #1c1c1c;
     --paginate-bg-hover: #222;
     --paginate-bg-current: #202020;
     --paginate-fg: #888;
@@ -151,6 +175,8 @@
     --post-aside-bg: #393939;
     --post-aside-fg: #ccc;
     --post-footer-fg: var(--text-color);
+
+    --scrollbar-color: #ffffff19;
 
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
@@ -213,29 +239,11 @@
     --torrent-row-highspeed-fg: #996666;
     --torrent-row-sd-fg: #997766;
     --torrent-row-bumped-fg: #f98a1e;
-}
 
-.tooltip .tooltip-inner {
-    background: black;
-    color: white;
-}
-
-.tooltip .tooltip-arrow {
-    border-color: black;
-}
-
-.tooltip.popover .popover-inner {
-    background: #f9f9f9;
-    color: black;
-}
-
-.tooltip.popover .popover-arrow {
-    border-color: #f9f9f9;
-}
-
-.ratio-bar {
-    margin-bottom: 1em;
-    background-color: var(--color-dark-magenta);
+    --torrent-tag-fg: #eee;
+    --torrent-tag-bg: transparent;
+    --torrent-tag-hover-fg: #fff;
+    --torrent-tag-hover-bg: rgba(255,255,255,0.1);
 }
 
 .text-bright {
@@ -256,12 +264,7 @@ a.text-bright:hover {
     color: #958;
 }
 
-.list-group-item {
-    color: var(--text-color);
-    border: 1px dashed #404040;
-}
 
-.list-group-item,
 .panel-footer {
     background-color: #232323;
 }
@@ -292,49 +295,9 @@ a.text-bright:hover {
     border-radius: 0;
 }
 
-.wysibb {
-    border: 1px solid #404040 !important;
-}
-
-.wysibb,
-.wysibb-text,
-.wysibb-toolbar {
-    background-color: #232323;
-    color: var(--text-color);
-}
-
-.wysibb-toolbar {
-    border-bottom: 1px solid #404040 !important;
-}
-
-.wysibb-toolbar-container {
-    border-right: 1px solid #404040 !important;
-}
-
-#topic-response,
-.wysibb-body {
-    background-color: #2b2b2b;
-}
-
-.bottom-resize-line {
-    background-color: #404040;
-}
-
-.btn-inner,
-.fonticon,
-.ve-tlb-italic1 {
-    color: var(--text-color) !important;
-    text-shadow: none !important;
-}
-
 .panel {
     -webkit-box-shadow: none;
     box-shadow: none;
-    border: 0;
-}
-
-.panel-success > .panel-heading {
-    background-color: var(--color-dark-green);
     border: 0;
 }
 
@@ -359,10 +322,6 @@ a.text-bright:hover {
 
 .panel-chat > .panel-heading {
     background-color: var(--color-dark-blue);
-}
-
-.col-md-10 {
-    background-color: rgba(43, 43, 43, 0.38);
 }
 
 .badge-extra.text-red {
@@ -449,10 +408,6 @@ a:hover {
     color: var(--color-light-blue);
 }
 
-.profile-footer {
-    background-color: #262626;
-}
-
 .well {
     border: 0;
     box-shadow: none;
@@ -468,112 +423,7 @@ a:hover {
     background-color: #262626 !important;
 }
 
-.block,
-.btn-info,
-.btn-primary,
-.btn-success {
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-danger {
-    box-shadow: none;
-}
-
-.label-info,
-.label-success {
-    box-shadow: none;
-    border: 0;
-}
-
-.label-danger {
-    box-shadow: none;
-}
-
-.btn-default,
-.btn-warning,
-.bbcode-spoiler-button,
-.label-default,
-.label-primary,
-.label-warning {
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-default,
-.bbcode-spoiler-button {
-    background-color: var(--color-magenta);
-    background-image: none;
-}
-
-.btn-default:hover,
-.bbcode-spoiler-button:hover {
-    background-color: var(--color-light-magenta);
-    background-image: none;
-}
-
-.btn-default:active,
-.btn-primary:active,
-.btn-success:active,
-.btn-info:active,
-.btn-warning:active,
-.btn-danger:active {
-    margin-top: 0 !important;
-}
-
-.label-default {
-    background-color: #6f6f6f;
-}
-
-.btn-warning {
-    background-color: var(--color-yellow);
-    background-image: none;
-}
-
-.btn-warning:active,
-.btn-warning:hover {
-    background-color: var(--color-light-yellow);
-    background-image: none;
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-info,
-.label-info {
-    background-color: var(--color-magenta);
-    background-image: none;
-}
-
-.btn-info:active,
-.btn-info:hover {
-    background-color: var(--color-light-magenta);
-    background-image: none;
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-primary,
-.btn-primary:hover,
-.label-primary {
-    background-color: var(--color-purple);
-    background-image: none;
-}
-
-.btn-primary:hover {
-    background-color: var(--color-light-purple);
-    box-shadow: none;
-    border: 0;
-}
-
-.btn-success,
-.btn-success:hover,
-.label-success {
-    background-color: var(--color-green);
-    background-image: none;
-}
-
-.btn-success:hover {
-    background-color: var(--color-light-green);
+.block {
     box-shadow: none;
     border: 0;
 }
@@ -596,11 +446,7 @@ a:hover {
     color: #979;
 }
 
-.alert-danger,
-.btn-danger,
-.label-danger,
-.panel-danger,
-.panel-danger > .panel-heading {
+.alert-danger {
     background-color: var(--color-red);
     background-image: none;
     border: 0;
@@ -610,12 +456,6 @@ a:hover {
     color: var(--color-light-red);
 }
 
-.btn-danger:hover {
-    background-color: var(--color-light-red);
-    background-image: none;
-}
-
-.btn-danger:hover,
 .container.box {
     border: 0;
     box-shadow: none;
@@ -625,8 +465,7 @@ tr.success > td {
     background-color: #404040 !important;
 }
 
-.container.box,
-.torrent-desc {
+.container.box {
     background-color: #2b2b2b;
 }
 
@@ -635,21 +474,6 @@ tr.success > td {
     box-shadow: none;
     background-color: #373737;
     text-shadow: 1.5px 1.5px #000;
-}
-
-.content > .col-md-10 {
-    border-radius: 10px;
-}
-
-a.view-torrent,
-a.view-torrent:hover {
-    color: var(--text-color);
-    background: 0 0;
-    -webkit-text-fill-color: initial;
-}
-
-a.view-torrent:visited {
-    color: #a295fe;
 }
 
 .form-control {
@@ -682,51 +506,16 @@ a.view-torrent:visited {
     border-bottom: 3px solid #252525;
 }
 
-.movie-title,
-.topic .topic-posts .post article.post-content,
-aside.post-info {
+.movie-title {
     color: var(--text-color);
-}
-
-.bbcode-spoiler-content {
-    border: 0;
-    background-color: #353535;
-}
-
-.f-display .f-display-table-wrapper {
-    background: 0 0;
-}
-
-.profil {
-    background: #2b2b2b;
-    padding: 0;
 }
 
 .head {
     box-shadow: unset;
 }
 
-aside.post-info {
-    border: unset !important;
-    background: 0 0 !important;
-    border-radius: 0 !important;
-}
-
-.post-signature {
-    background-color: #2b2b2b;
-    border-top: 2px dashed #555 !important;
-}
-
 body {
     background-color: #232323;
-}
-
-.news-blocks,
-.news-blocks div,
-.news-blocks:hover {
-    background: 0 0;
-    border: 0;
-    color: var(--text-color);
 }
 
 .articles .article {
@@ -734,13 +523,8 @@ body {
     box-shadow: none;
 }
 
-ul.comments-list li {
-    background: #232323;
-}
-
 .container.box,
-label,
-ul.comments-list li {
+label {
     color: var(--text-color);
 }
 
@@ -748,45 +532,12 @@ table > tbody > tr {
     border-bottom: 1px dotted #404040;
 }
 
-.ratio-bar .badge-user {
-    background: #403240;
-}
-
 span.badge-user {
     margin: 0.25em;
 }
 
-.btn[name='tip'] {
-    background-color: #333;
-}
-
-.btn[name='tip']:hover {
-    background-color: #444;
-}
-
-.bottom-resize-line:hover {
-    background-color: #505050 !important;
-}
-
-.wysibb-toolbar-btn.on,
-.wysibb-toolbar-btn:hover {
-    background: #404040 !important;
-    border: 0 !important;
-    box-shadow: none !important;
-}
-
-.on .btn-inner {
-    background-color: #404040;
-    border: 0 !important;
-}
-
 .panel-footer > .badge-extra,
 h3 {
-    color: var(--text-color);
-}
-
-.wysibb-textarea {
-    box-shadow: none !important;
     color: var(--text-color);
 }
 
@@ -799,45 +550,13 @@ div.stats * {
     color: var(--text-color) !important;
 }
 
-.message-body,
-.message-headers {
-    background-color: #404040;
-    color: var(--text-color);
-}
-
-.message-body {
-    border-top: 1px dotted #2b2b2b;
-}
-
 i.torrent-icon {
     color: #6888bb;
 }
 
-.panel-default > .panel-heading {
-    background-color: #454545;
-    border: 0;
-}
 
-#l-footer,
 .comments {
     background-color: #252525;
-}
-
-.bbcode-code,
-.bbcode-quote {
-    background-color: #2b2b2b;
-    color: var(--text-color);
-}
-
-.bbcode-quote {
-    background-color: #353535;
-}
-
-.topic .topic-posts .post article.post-content blockquote {
-    border: 0;
-    background-color: #353535;
-    border-left: 4px solid #575;
-    color: var(--text-color);
 }
 
 .progress {
@@ -862,45 +581,8 @@ ul.nav.nav-tabs.mb-5 {
     padding-bottom: 10px;
 }
 
-div.topic-new-post {
-    background: unset !important;
-}
-
-.members-table tbody tr td .name,
-.text-black {
-    color: var(--text-color);
-}
-
-#l-footer {
-    margin: 0;
-    background-image: none !important;
-}
-
 .footer-icon {
     color: rgba(148, 123, 204, 1);
-}
-
-.inner-content {
-    padding-bottom: 20px;
-}
-
-.col-md-10:first-child {
-    padding-top: 10px;
-}
-
-.btn {
-    -webkit-transition: none !important;
-    -o-transition: none !important;
-    transition: none !important;
-    box-shadow: none !important;
-}
-
-.mentioned {
-    background-color: rgba(9, 144, 255, 0.42);
-}
-
-.mentions {
-    background-color: rgba(10, 255, 64, 0.28);
 }
 
 /* CHAT */
@@ -908,113 +590,8 @@ div.topic-new-post {
     background: #262929;
 }
 
-#frame #sidepanel {
-    background: #313434;
-    color: #f5f5f5;
-}
-
-#frame #sidepanel #profile {
-    background: #313434;
-}
-
-#frame #sidepanel #profile .wrap img {
-    border: 2px solid #e74c3c;
-}
-
-#frame #sidepanel #profile .wrap img.online {
-    border: 2px solid #2ecc71;
-}
-
-#frame #sidepanel #profile .wrap img.away {
-    border: 2px solid #f1c40f;
-}
-
-#frame #sidepanel #profile .wrap img.busy {
-    border: 2px solid #e74c3c;
-}
-
-#frame #sidepanel #profile .wrap img.offline {
-    border: 2px solid #95a5a6;
-}
-
-#frame #sidepanel #profile .wrap i.expand-button {
-    color: #435f7a;
-}
-
-#frame #sidepanel #profile .wrap #status-options {
-    background: #435f7a;
-}
-
-#frame #sidepanel #profile .wrap #status-options:before {
-    border-bottom: 8px solid #435f7a;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li:hover {
-    background: #496886;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-online span.status-circle {
-    background: #2ecc71;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-online.active span.status-circle:before {
-    border: 1px solid #2ecc71;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-away span.status-circle {
-    background: #f1c40f;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-away.active span.status-circle:before {
-    border: 1px solid #f1c40f;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle {
-    background: #e74c3c;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-busy.active span.status-circle:before {
-    border: 1px solid #e74c3c;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-offline span.status-circle {
-    background: #95a5a6;
-}
-
-#frame #sidepanel #profile .wrap #status-options ul li#status-offline.active span.status-circle:before {
-    border: 1px solid #95a5a6;
-}
-
-#frame #sidepanel #bottom-bar button {
-    background: #313434;
-    color: #f5f5f5;
-}
-
-#frame #sidepanel #bottom-bar button:nth-child(1) {
-    border-right: 1px solid #2c3e50;
-}
-
-#frame #sidepanel #bottom-bar button:hover {
-    background: #435f7a;
-}
-
-#frame .content .contact-profile {
-    background: #313434;
-    color: #e5e5e5;
-    border-bottom: 2px #424242 solid;
-}
-
-#frame .content .contact-profile .social-media i:hover {
-    color: #435f7a;
-}
-
 #frame .content .messages ul li {
     border-bottom: 1px dashed #424545;
-}
-
-#frame .content .messages ul li.sent .messages-container {
-    background: none;
-    color: #dddddd;
 }
 
 .chatbox {
@@ -1052,11 +629,6 @@ div.topic-new-post {
     background: #435f7a;
 }
 
-.thumbnail {
-    background-color: rgba(30, 30, 30, 0.51);
-    border: 1px solid #282828;
-}
-
 .alert-info {
     background-color: #446;
     border-color: #446;
@@ -1085,14 +657,11 @@ div.topic-new-post {
     background-color: #171717;
 }
 
-//Mobile by Peter
+/* Mobile */
 @media only screen and (max-width: 613px) {
     ul.nav.nav-tabs.mb-5 {
         float: left;
         display: inline-block;
-    }
-    .col-md-10:first-child {
-        padding-bottom: 4px;
     }
     .panel .nav-tabs {
         padding-bottom: 6px;
@@ -1100,24 +669,7 @@ div.topic-new-post {
     }
 }
 
-// Pages
-.page-content {
-    line-height: 1.5em;
-}
-
-.page-content h1 {
-    font-weight: bold;
-    border-bottom: 1px solid #555;
-    font-size: 1.75em;
-}
-
-.page-content h2 {
-    font-size: 1.5em;
-}
-
-.page-content h3 {
-    font-size: 1.2em;
-}
+/* Pages */
 
 a > strong {
     color: var(--color-blue);
@@ -1127,14 +679,7 @@ a > strong:hover {
     color: var(--color-light-blue);
 }
 
-.page-content blockquote {
-    color: var(--text-color);
-    border-color: var(--color-light-purple);
-    border-left-width: 3px;
-    border-radius: 2px;
-}
 
-.page-content code,
 pre {
     color: var(--text-color);
     background-color: #232323;
@@ -1142,11 +687,7 @@ pre {
     border-radius: 3px;
 }
 
-.page-content > pre > code {
-    border: none;
-}
 
-.page-content li,
 ul {
     color: var(--text-color);
 }
@@ -1157,10 +698,6 @@ fieldset[disabled] {
     background-color: hsla(0, 0%, 100%, 0.16);
     color: #fff;
     border: 2px solid rgba(0, 0, 0, 0.56);
-}
-
-.dark-th {
-    background-color: rgba(17, 17, 17, 0.96);
 }
 
 /* Chat Message Bubbles

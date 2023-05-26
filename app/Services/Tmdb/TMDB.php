@@ -62,6 +62,7 @@ class TMDB
     public function person_array($person): array
     {
         return [
+            'id'                   => $this->ifExists('id', $person),
             'birthday'             => $this->ifExists('birthday', $person),
             'known_for_department' => $this->ifExists('known_for_department', $person),
             'deathday'             => $this->ifExists('deathday', $person),

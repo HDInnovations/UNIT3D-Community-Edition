@@ -24,7 +24,7 @@ class PostControllerTest extends TestCase
         $post = Post::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_post_delete', ['postId' => $post->postId]));
+        $response = $this->actingAs($user)->get(route('posts.destroy', ['id' => $post->id]));
 
         $response->assertRedirect(withSuccess('This Post Is Now Deleted!'));
 
@@ -41,7 +41,7 @@ class PostControllerTest extends TestCase
         $post = Post::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('forum_post_edit', ['postId' => $post->postId]), [
+        $response = $this->actingAs($user)->post(route('posts.update', ['id' => $post->id]), [
             // TODO: send request data
         ]);
 
@@ -61,7 +61,7 @@ class PostControllerTest extends TestCase
         $post = Post::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_post_edit_form', ['id' => $post->id, 'postId' => $post->postId]));
+        $response = $this->actingAs($user)->get(route('posts.edit', ['id' => $post->id]));
 
         $response->assertOk();
         $response->assertViewIs('forum.post.edit');
@@ -83,7 +83,7 @@ class PostControllerTest extends TestCase
         $post = Post::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('forum_reply', ['id' => $post->id]), [
+        $response = $this->actingAs($user)->post(route('posts.store'), [
             // TODO: send request data
         ]);
 

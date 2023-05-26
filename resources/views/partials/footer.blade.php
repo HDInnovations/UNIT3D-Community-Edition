@@ -1,89 +1,98 @@
-@php $bg = rand(1, 13); $bgchange = $bg.".jpg" @endphp
-<br>
-<div id="l-footer" style="background-image: url('/img/footer/{{ $bgchange }}');">
-    <div class="container">
-        <div class="col-md-2 l-footer-section">
-            <h2 class="l-footer-section-title"><span class="text-bold">{{ config('other.title') }}</span></h2>
-            <footer>{{ config('other.meta_description') }}</footer>
-            <br>
+<footer class="footer">
+    <div class="footer__wrapper">
+        <section class="footer__section">
+            <h2 class="footer__section-title">
+                <b>{{ config('other.title') }}</b>
+            </h2>
+            <p>{{ config('other.meta_description') }}</p>
             <i class="{{ config('other.font-awesome') }} fa-tv-retro footer-icon" style="font-size: 90px;"></i>
-        </div>
-
-        <div class="col-md-2 l-footer-section">
-            <h2 class="l-footer-section-title">{{ __('common.account') }}</h2>
-            <ul>
+        </section>
+        <section class="footer__section">
+            <h2 class="footer__section-title">{{ __('common.account') }}</h2>
+            <ul class="footer__section-list">
                 <li>
-                    <a
-                            href="{{ route('users.show', ['username' => auth()->user()->username]) }}">{{ __('user.my-profile') }}</a>
+                    <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">{{ __('user.my-profile') }}</a>
                 </li>
                 <li>
-                    <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('common.logout') }}</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf
+                    <form action="{{ route('logout') }}" method="POST" style="display: contents;">
+                        @csrf
+                        <button style="display: contents">
+                            {{ __('common.logout') }}
+                        </button>
                     </form>
                 </li>
             </ul>
-        </div>
-
-        <div class="col-md-2 l-footer-section">
-            <h2 class="l-footer-section-title">{{ __('common.community') }}</h2>
-            <ul>
-                <li><a href="{{ route('forums.index') }}">{{ __('forum.forums') }}</a></li>
-                <li><a href="{{ route('articles.index') }}">{{ __('common.news') }}</a></li>
+        </section>
+        <section class="footer__section">
+            <h2 class="footer__section-title">{{ __('common.community') }}</h2>
+            <ul class="footer__section-list">
+                <li>
+                    <a href="{{ route('forums.index') }}">{{ __('forum.forums') }}</a>
+                </li>
+                <li>
+                    <a href="{{ route('articles.index') }}">{{ __('common.news') }}</a>
+                </li>
             </ul>
-        </div>
-
+        </section>
         @if ($footer_pages)
-            <div class="col-md-2 l-footer-section">
-                <h2 class="l-footer-section-title">{{ __('common.pages') }}</h2>
-                <ul>
+            <section class="footer__section">
+                <h2 class="footer__section-title">{{ __('common.pages') }}</h2>
+                <ul class="footer__section-list">
                     @foreach ($footer_pages as $page)
-                        <li><a href="{{ route('pages.show', ['id' => $page->id]) }}">{{ $page->name }}</a></li>
+                        <li>
+                            <a href="{{ route('pages.show', ['id' => $page->id]) }}">
+                                {{ $page->name }}
+                            </a>
+                        </li>
                     @endforeach
-                    <li><a href="{{ route('pages.index') }}">[View All]</a></li>
+                    <li>
+                        <a href="{{ route('pages.index') }}">[View All]</a>
+                    </li>
                 </ul>
-            </div>
+            </section>
         @endif
-
-        <div class="col-md-2 l-footer-section">
-            <h2 class="l-footer-section-title">{{ __('common.info') }}</h2>
-            <ul>
-                <li><a href="{{ route('staff') }}">{{ __('common.staff') }}</a></li>
-                <li><a href="{{ route('internal') }}">{{ __('common.internal') }}</a></li>
-                <li><a href="{{ route('client_blacklist') }}">{{ __('common.blacklist') }}</a></li>
-                <li><a href="{{ route('about') }}">{{ __('common.about') }}</a></li>
+        <section class="footer__section">
+            <h2 class="footer__section-title">{{ __('common.info') }}</h2>
+            <ul class="footer__section-list">
+                <li>
+                    <a href="{{ route('staff') }}">{{ __('common.staff') }}</a>
+                </li>
+                <li>
+                    <a href="{{ route('internal') }}">{{ __('common.internal') }}</a>
+                </li>
+                <li>
+                    <a href="{{ route('client_blacklist') }}">{{ __('common.blacklist') }}</a>
+                </li>
+                <li>
+                    <a href="{{ route('about') }}">{{ __('common.about') }}</a>
+                </li>
             </ul>
-        </div>
-
-        <div class="col-md-2 l-footer-section">
-            <h2 class="l-footer-section-title">{{ __('common.other') }}</h2>
-            <ul>
-                <li><a href="https://github.com/sponsors/HDVinnie" target="_blank"
-                       class="btn btn-xs btn-primary">{{ __('common.sponsor') }}</a></li>
-                <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank"
-                       class="btn btn-xs btn-primary">{{ __('common.powered-by') }}</a></li>
+        </section>
+        <section class="footer__section">
+            <h2 class="footer__section-title">{{ __('common.other') }}</h2>
+            <ul class="footer__section-list">
+                <li>
+                    <a
+                        href="https://github.com/sponsors/HDVinnie"
+                        target="_blank"
+                        class="form__button form__button--outlined"
+                    >
+                        {{ __('common.sponsor') }}
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href="https://github.com/HDInnovations/UNIT3D"
+                        target="_blank"
+                        class="form__button form__button--outlined"
+                    >
+                        {{ __('common.powered-by') }}
+                    </a>
+                </li>
             </ul>
-        </div>
+        </section>
     </div>
-</div>
-
-<div class="subfooter text-center">
-    <div class="container">
-        <div class="subfooter-inner">
-            <div class="row">
-                <div class="col-md-12">
-                    <span class="text-bold">
-                        This page took {{ number_format(microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT')), 3) }} seconds to render and {{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MB of memory
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<a id="top-of-page" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
-    <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
-</a>
-<a id="bottom-of-page" href="#" class="btn btn-primary btn-lg back-to-down" role="button">
-    <i class="{{ config('other.font-awesome') }} fa-arrow-square-down"></i>
-</a>
+    <p class="footer__stats">
+        This page took {{ number_format(microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT')), 3) }} seconds to render and {{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MB of memory
+    </p>
+</footer>

@@ -45,7 +45,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return to_route('request', ['id' => $id])
+            return to_route('requests.show', ['id' => $id])
                 ->withErrors($v->errors());
         }
 
@@ -60,7 +60,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return to_route('request', ['id' => $id])
+        return to_route('requests.show', ['id' => $id])
             ->withSuccess(trans('user.report-sent'));
     }
 

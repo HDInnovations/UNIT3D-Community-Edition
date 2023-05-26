@@ -151,26 +151,27 @@ Route::group(['middleware' => 'language'], function (): void {
         });
 
         // Requests System
-        Route::group(['prefix' => 'requests'], function (): void {
-            Route::name('requests.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\RequestController::class, 'index'])->name('index');
-            });
-        });
+        Route::group(['prefix' => 'requests', 'as' => 'requests.'], function (): void {
+            Route::get('/', [App\Http\Controllers\RequestController::class, 'index'])->name('index');
+            Route::get('/add', [App\Http\Controllers\RequestController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\RequestController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [App\Http\Controllers\RequestController::class, 'update'])->name('update');
+            Route::get('/{id}', [App\Http\Controllers\RequestController::class, 'show'])->name('show');
+            Route::delete('/{id}', [App\Http\Controllers\RequestController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approve'])->name('approve');
+            Route::post('/{id}/fill', [App\Http\Controllers\RequestController::class, 'fill'])->name('fill');
+            Route::post('/{id}/reject', [App\Http\Controllers\RequestController::class, 'reject'])->name('reject');
+            Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'reset'])->name('reset')->middleware('modo');
 
-        Route::group(['prefix' => 'requests'], function (): void {
-            Route::get('/add/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\RequestController::class, 'addRequestForm'])->name('add_request_form');
-            Route::post('/add', [App\Http\Controllers\RequestController::class, 'addRequest'])->name('add_request');
-            Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequestForm'])->name('edit_request_form');
-            Route::post('/{id}/edit', [App\Http\Controllers\RequestController::class, 'editRequest'])->name('edit_request');
-            Route::get('/{id}{hash?}', [App\Http\Controllers\RequestController::class, 'request'])->name('request');
-            Route::post('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approveRequest'])->name('approveRequest');
-            Route::post('/{id}/delete', [App\Http\Controllers\RequestController::class, 'deleteRequest'])->name('deleteRequest');
-            Route::post('/{id}/fill', [App\Http\Controllers\RequestController::class, 'fillRequest'])->name('fill_request');
-            Route::post('/{id}/reject', [App\Http\Controllers\RequestController::class, 'rejectRequest'])->name('rejectRequest');
-            Route::post('/{id}/vote', [App\Http\Controllers\RequestController::class, 'addBonus'])->name('add_votes');
-            Route::post('/{id}/claim', [App\Http\Controllers\RequestController::class, 'claimRequest'])->name('claimRequest');
-            Route::post('/{id}/unclaim', [App\Http\Controllers\RequestController::class, 'unclaimRequest'])->name('unclaimRequest');
-            Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'resetRequest'])->name('resetRequest')->middleware('modo');
+            Route::group(['prefix' => 'bounties', 'as' => 'bounties.'], function (): void {
+                Route::post('/{id}', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+            });
+
+            Route::group(['prefix' => 'claims', 'as' => 'claims.'], function (): void {
+                Route::post('/{id}', [App\Http\Controllers\ClaimController::class, 'store'])->name('store');
+                Route::delete('/{id}', [App\Http\Controllers\ClaimController::class, 'destroy'])->name('destroy');
+            });
         });
 
         // Top 10 System
@@ -182,9 +183,8 @@ Route::group(['middleware' => 'language'], function (): void {
 
         // Torrents System
         Route::group(['prefix' => 'upload'], function (): void {
-            Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
+            Route::get('/', [App\Http\Controllers\TorrentController::class, 'create'])->name('upload_form');
             Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('upload');
-            Route::post('/preview', [App\Http\Controllers\TorrentController::class, 'preview']);
         });
 
         Route::group(['prefix' => 'torrents'], function (): void {
@@ -222,9 +222,8 @@ Route::group(['middleware' => 'language'], function (): void {
         // Graveyard System
         Route::group(['prefix' => 'graveyard'], function (): void {
             Route::name('graveyard.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\GraveyardController::class, 'index'])->name('index');
-                Route::post('/{id}/store', [App\Http\Controllers\GraveyardController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\GraveyardController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\GraveyardController::class, 'store'])->name('store');
+                Route::delete('/{id}', [App\Http\Controllers\GraveyardController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -334,57 +333,51 @@ Route::group(['middleware' => 'language'], function (): void {
         });
 
         // Forum Category System
-        Route::group(['prefix' => 'categories'], function (): void {
-            Route::name('forums.categories.')->group(function (): void {
-                Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->where('id', '[0-9]+')->name('show');
-            });
+        Route::group(['prefix' => 'categories', 'as' => 'forums.categories.'], function (): void {
+            Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->where('id', '[0-9]+')->name('show');
         });
 
         // Posts System
-        Route::group(['prefix' => 'posts'], function (): void {
-            Route::post('/topic/{id}/reply', [App\Http\Controllers\PostController::class, 'reply'])->name('forum_reply');
-            Route::get('/posts/{id}/post-{postId}/edit', [App\Http\Controllers\PostController::class, 'postEditForm'])->name('forum_post_edit_form');
-            Route::post('/posts/{postId}/edit', [App\Http\Controllers\PostController::class, 'postEdit'])->name('forum_post_edit');
-            Route::delete('/posts/{postId}/delete', [App\Http\Controllers\PostController::class, 'postDelete'])->name('forum_post_delete');
+        Route::group(['prefix' => 'posts', 'as' => 'posts.'], function (): void {
+            Route::get('/', [App\Http\Controllers\PostController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\PostController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [App\Http\Controllers\PostController::class, 'update'])->name('update');
+            Route::delete('/{id}', [App\Http\Controllers\PostController::class, 'destroy'])->name('destroy');
         });
 
-        // Search Forums
-        Route::get('/subscriptions', [App\Http\Controllers\ForumController::class, 'subscriptions'])->name('forum_subscriptions');
-        Route::get('/latest/topics', [App\Http\Controllers\ForumController::class, 'latestTopics'])->name('forum_latest_topics');
-        Route::get('/latest/posts', [App\Http\Controllers\ForumController::class, 'latestPosts'])->name('forum_latest_posts');
-        Route::get('/search', [App\Http\Controllers\ForumController::class, 'search'])->name('forum_search_form');
-
-        Route::group(['prefix' => 'topics'], function (): void {
-            Route::get('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'addForm'])->name('forum_new_topic_form');
-            Route::post('/forum/{id}/new-topic', [App\Http\Controllers\TopicController::class, 'newTopic'])->name('forum_new_topic');
-            Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'topic'])->name('forum_topic');
-            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'closeTopic'])->name('forum_close')->middleware('modo');
-            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'openTopic'])->name('forum_open')->middleware('modo');
-            Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editForm'])->name('forum_edit_topic_form');
-            Route::post('/{id}/edit', [App\Http\Controllers\TopicController::class, 'editTopic'])->name('forum_edit_topic');
-            Route::delete('/{id}/delete', [App\Http\Controllers\TopicController::class, 'deleteTopic'])->name('forum_delete_topic');
-            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pinTopic'])->name('forum_pin_topic')->middleware('modo');
-            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpinTopic'])->name('forum_unpin_topic')->middleware('modo');
+        //Topics System
+        Route::group(['prefix' => 'topics', 'as' => 'topics.'], function (): void {
+            Route::get('/', [App\Http\Controllers\TopicController::class, 'index'])->name('index');
+            Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
+            Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
+            Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
+            Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
+            Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');
+            Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->middleware('modo');
+            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'close'])->name('close')->middleware('modo');
+            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'open'])->name('open')->middleware('modo');
+            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pin'])->name('pin')->middleware('modo');
+            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpin'])->name('unpin')->middleware('modo');
         });
 
         // Topic Label System
-        Route::group(['prefix' => 'topics', 'middleware' => 'modo'], function (): void {
-            Route::name('topics.')->group(function (): void {
-                Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
-                Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
-                Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
-                Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
-                Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
-                Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
-                Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
-            });
+        Route::group(['prefix' => 'topics', 'as' => 'topics.', 'middleware' => 'modo'], function (): void {
+            Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
+            Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
+            Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
+            Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
+            Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
+            Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
+            Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
         });
 
         // Subscription System
-        Route::post('/subscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'subscribeTopic'])->name('subscribe_topic');
-        Route::post('/unsubscribe/topic/{route}.{topic}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeTopic'])->name('unsubscribe_topic');
-        Route::post('/subscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'subscribeForum'])->name('subscribe_forum');
-        Route::post('/unsubscribe/forum/{route}.{forum}', [App\Http\Controllers\SubscriptionController::class, 'unsubscribeForum'])->name('unsubscribe_forum');
+        Route::group(['prefix' => 'subscriptions', 'as' => 'subscriptions.'], function (): void {
+            Route::get('/', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\SubscriptionController::class, 'store'])->name('store');
+            Route::post('/{id}', [App\Http\Controllers\SubscriptionController::class, 'destroy'])->name('destroy');
+        });
     });
 
     /*
@@ -449,6 +442,44 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::get('/', [App\Http\Controllers\User\ResurrectionController::class, 'index'])->name('index');
         });
 
+        // Email
+        Route::group(['prefix' => 'email', 'as' => 'email.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update');
+        });
+
+        // Password
+        Route::group(['prefix' => 'password', 'as' => 'password.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\PasswordController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PasswordController::class, 'update'])->name('update');
+        });
+
+        // Passkey
+        Route::group(['prefix' => 'passkey', 'as' => 'passkey.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\PasskeyController::class, 'update'])->name('update');
+        });
+
+        // Rsskey
+        Route::group(['prefix' => 'rsskey', 'as' => 'rsskey.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\RsskeyController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\RsskeyController::class, 'update'])->name('update');
+        });
+
+        // Apikey
+        Route::group(['prefix' => 'apikey', 'as' => 'apikey.'], function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\ApikeyController::class, 'edit'])->name('edit');
+            Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
+        });
+
+        // Two-Step Authentication
+        if (config('auth.TwoStepEnabled') === true) {
+            Route::group(['prefix' => 'two-step', 'as' => 'two_step.'], function (): void {
+                Route::get('/edit', [App\Http\Controllers\User\TwoStepController::class, 'edit'])->name('edit');
+                Route::patch('/', [App\Http\Controllers\User\TwoStepController::class, 'update'])->name('update');
+            });
+        }
+
         // Topics
         Route::group(['prefix' => 'topics', 'as' => 'topics.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
@@ -469,11 +500,6 @@ Route::group(['middleware' => 'language'], function (): void {
         // Earnings
         Route::group(['prefix' => 'users/{username}/earnings', 'as' => 'earnings.'], function (): void {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
-        });
-
-        // Filters
-        Route::group(['prefix' => 'users'], function (): void {
-            Route::post('/{username}/userFilters', [App\Http\Controllers\User\UserController::class, 'myFilter'])->name('myfilter');
         });
 
         // Gifts
@@ -504,8 +530,8 @@ Route::group(['middleware' => 'language'], function (): void {
 
         // Private Messages
         Route::group(['prefix' => 'mail'], function (): void {
-            Route::post('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
-            Route::post('/searchPMOutbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
+            Route::get('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
+            Route::get('/searchPMOutbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
             Route::get('/inbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessages'])->name('inbox');
             Route::get('/message/{id}', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessageById'])->name('message');
             Route::get('/outbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
@@ -534,18 +560,6 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
-        });
-
-        // Settings
-        Route::group(['prefix' => 'users'], function (): void {
-            Route::get('/{username}/settings/security{hash?}', [App\Http\Controllers\User\UserController::class, 'security'])->name('user_security');
-            Route::get('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep']);
-            Route::post('/{username}/settings/change_password', [App\Http\Controllers\User\UserController::class, 'changePassword'])->name('change_password');
-            Route::post('/{username}/settings/change_email', [App\Http\Controllers\User\UserController::class, 'changeEmail'])->name('change_email');
-            Route::post('/{username}/settings/change_pid', [App\Http\Controllers\User\UserController::class, 'changePID'])->name('change_pid');
-            Route::post('/{username}/settings/change_rid', [App\Http\Controllers\User\UserController::class, 'changeRID'])->name('change_rid');
-            Route::post('/{username}/settings/change_api_token', [App\Http\Controllers\User\UserController::class, 'changeApiToken'])->name('change_api_token');
-            Route::post('/{username}/settings/change_twostep', [App\Http\Controllers\User\UserController::class, 'changeTwoStep'])->name('change_twostep');
         });
 
         // Tips

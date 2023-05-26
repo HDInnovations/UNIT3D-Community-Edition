@@ -1,7 +1,7 @@
 <section class="panelV2">
     <header class="panel__header">
         <h2 class="panel__heading">
-            <a href="{{ route('forum_latest_posts') }}">
+            <a href="{{ route('posts.index') }}">
                 {{ __('blocks.latest-posts') }}
             </a>
         </h2>

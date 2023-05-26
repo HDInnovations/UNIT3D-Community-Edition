@@ -1,3 +1,31 @@
+.user-uploads {
+    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
+    max-width: max-content;
+    align-self: center;
+}
+
+@media only screen and (min-width: 1600px) {
+    .user-uploads {
+        margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+@media only screen and (min-width: 2500px) {
+    .user-uploads {
+        margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+.user-uploads__filters {
+    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px));
+}
+
+@media only screen and (max-width: 767px) {
+    .user-uploads__filters {
+        margin: 0 max(0, 45vw - 600px);
+    }
+}
+
 .user-uploads__name-header,
 .user-uploads__size-header,
 .user-uploads__seeders-header,

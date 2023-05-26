@@ -43,19 +43,4 @@ class Season extends Model
         return $this->hasMany(Episode::class)
             ->oldest('episode_number');
     }
-
-    public function person(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Person::class);
-    }
-
-    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Cast::class);
-    }
-
-    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Crew::class, 'crew_season', 'person_id', 'season_id');
-    }
 }

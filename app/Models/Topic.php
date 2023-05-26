@@ -27,6 +27,20 @@ class Topic extends Model
         'last_reply_at' => 'datetime',
     ];
 
+    protected $fillable = [
+        'name',
+        'state',
+        'first_post_user_id',
+        'last_post_user_id',
+        'first_post_user_username',
+        'last_post_user_username',
+        'views',
+        'pinned',
+        'forum_id',
+        'num_post',
+        'last_reply_at',
+    ];
+
     /**
      * Belongs To A Forum.
      */
@@ -66,6 +80,7 @@ class Topic extends Model
     {
         return $this->hasMany(Permission::class, 'forum_id', 'forum_id');
     }
+
     /**
      * Belongs to Many Subscribed Users.
      */
@@ -74,6 +89,13 @@ class Topic extends Model
         return $this->belongsToMany(User::class, Subscription::class);
     }
 
+    /**
+     * Latest post.
+     */
+    public function latestPost(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Post::class)->latestOfMany();
+    }
 
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.

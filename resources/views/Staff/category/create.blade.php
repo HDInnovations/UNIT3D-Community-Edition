@@ -39,7 +39,7 @@
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                     >
                     <label class="form__label form__label--floating" for="name">{{ __('common.name') }}<label>
                 </p>
@@ -49,7 +49,7 @@
                         class="form__text"
                         type="text"
                         name="position"
-                        placeholder=""
+                        placeholder=" "
                     >
                     <label class="form__label form__label--floating" for="positon">{{ __('common.position') }}</label>
                 </p>
@@ -59,7 +59,7 @@
                         class="form__text"
                         type="text"
                         name="icon"
-                        placeholder=""
+                        placeholder=" "
                     >
                     <label class="form__label form__label--floating" for="icon">{{ __('common.icon') }} (FontAwesome)</label>
                 </p>

@@ -49,7 +49,7 @@
                 @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
-                        {{ __('pm.reply') }}
+                        {{ __('pm.send') }}
                     </button>
                 </p>
             </form>

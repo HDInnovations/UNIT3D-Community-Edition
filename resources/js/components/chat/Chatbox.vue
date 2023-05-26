@@ -12,14 +12,14 @@
     <div
         :class="this.fullscreen == 1 ? `clearfix visible-sm-block panel-fullscreen` : `clearfix visible-sm-block`"
     ></div>
-    <div :class="this.fullscreen == 1 ? `panel panel-chat panel-fullscreen` : `panel panel-chat`">
-      <div class="panel-heading" id="frameHeader">
+    <section :class="this.fullscreen == 1 ? `panelV2 panel panel-chat panel-fullscreen` : `panelV2 panel panel-chat`">
+      <header class="panel__heading" id="frameHeader">
         <div class="button-holder no-space">
           <div class="button-left">
             <h4><i class="fas fa-comment-dots"></i> Chatbox v3.0</h4>
           </div>
           <div class="button-right">
-            <a href="" view="bot" @click.prevent="startBot()" class="btn btn-xs btn-warning">
+            <a href="" view="bot" @click.prevent="startBot()" class="form__button form__button--text">
               <i class="fa fa-robot"></i> {{ helpName }}
             </a>
             <a
@@ -27,7 +27,7 @@
                 view="list"
                 v-if="target < 1 && bot < 1 && tab != 'userlist'"
                 @click.prevent="changeTab('list', 'userlist')"
-                class="btn btn-xs btn-primary"
+                class="form__button form__button--text"
             >
               <i class="fa fa-users"></i> Users In {{ tab }}: {{ users.length }}
             </a>
@@ -35,30 +35,30 @@
                 href="#"
                 id="panel-fullscreen"
                 role="button"
-                :class="`btn btn-xs btn-success`"
+                :class="`form__button form__button--text`"
                 title="Toggle Fullscreen"
                 @click.prevent="changeFullscreen()"
             ><i
                 :class="
                                     this.fullscreen == 1
-                                        ? `glyphicon glyphicon-resize-small`
-                                        : `glyphicon glyphicon-resize-full`
+                                        ? `fas fa-compress`
+                                        : `fas fa-expand`
                                 "
             ></i>
             </a>
           </div>
         </div>
-      </div>
+      </header>
       <div class="panel-body" id="frameBody">
         <div id="frame" @mouseover="freezeChat()" @mouseout="unfreezeChat()">
           <div class="content no-space">
             <div class="button-holder nav nav-tabs mb-5" id="frameTabs">
               <div>
-                <ul role="tablist" class="nav nav-tabs no-border mb-0" v-if="boot == 1">
+                <ul role="tablist" class="panel__tabs no-border mb-0" v-if="boot == 1">
                   <li
                       v-for="echo in echoes"
                       v-if="echo.room && echo.room.name.length > 0"
-                      :class="tab != '' && tab === echo.room.name ? 'active' : null"
+                      :class="tab != '' && tab === echo.room.name ? 'panel__tab panel__tab--active' : 'panel__tab'"
                   >
                     <a
                         href=""
@@ -79,7 +79,7 @@
                   <li
                       v-for="echo in echoes"
                       v-if="echo.target && echo.target.id >= 3 && echo.target.username.length > 0"
-                      :class="target >= 3 && target === echo.target.id ? 'active' : null"
+                      :class="target >= 3 && target === echo.target.id ? 'panel__tab panel__tab--active' : 'panel__tab'"
                   >
                     <a
                         href=""
@@ -100,7 +100,7 @@
                   <li
                       v-for="echo in echoes"
                       v-if="echo.bot && echo.bot.id >= 1 && echo.bot.name.length > 0"
-                      :class="bot > 0 && bot === echo.bot.id ? 'active' : null"
+                      :class="bot > 0 && bot === echo.bot.id ? 'panel__tab panel__tab--active' : 'panel__tab'"
                   >
                     <a href="" role="tab" view="bot" @click.prevent="changeTab('bot', echo.bot.id)">
                       <i
@@ -174,7 +174,7 @@
         >
         </chat-form>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -570,12 +570,12 @@ export default {
       });
     },
     forceMessage(name) {
-      $('#chat-message').bbcode('/msg ' + name + ' ');
-      $('#chat-message').htmlcode('/msg ' + name + ' ');
+      $('#chat-message').val('/msg ' + name + ' ');
+      $('#chat-message').val('/msg ' + name + ' ');
     },
     forceGift(name) {
-      $('#chat-message').bbcode('/gift ' + name + ' ');
-      $('#chat-message').htmlcode('/gift ' + name + ' ');
+      $('#chat-message').val('/gift ' + name + ' ');
+      $('#chat-message').val('/gift ' + name + ' ');
     },
     freezeChat() {
       this.frozen = true;

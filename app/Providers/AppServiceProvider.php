@@ -66,9 +66,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with(['footer_pages' => $footerPages]);
         });
 
-        // Boostrap Pagination
-        \Illuminate\Pagination\Paginator::useBootstrap();
-
         // Hidden Captcha
         Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 

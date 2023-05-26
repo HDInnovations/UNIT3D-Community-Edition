@@ -50,7 +50,7 @@
     outline: none;
 }
 
-.quick-search:not(:focus-within) .quick-search__results {
+.quick-search:not(:focus-within):not(:active) .quick-search__results {
     display: none;
 }
 
@@ -144,7 +144,9 @@
 }
 
 .quick-search__image {
+    /* TMDb posters should always be a ratio of 1.5 */
     width: 40px;
+    height: 60px;
     border-radius: 5px;
 }
 

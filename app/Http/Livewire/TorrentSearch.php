@@ -15,7 +15,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Movie;
-use App\Models\Person;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
@@ -94,6 +93,8 @@ class TorrentSearch extends Component
 
     public bool $dead = false;
 
+    public bool $graveyard = false;
+
     public bool $notDownloaded = false;
 
     public bool $downloaded = false;
@@ -147,6 +148,7 @@ class TorrentSearch extends Component
         'alive'           => ['except' => false],
         'dying'           => ['except' => false],
         'dead'            => ['except' => false],
+        'graveyard'       => ['except' => false],
         'downloaded'      => ['except' => false],
         'seeding'         => ['except' => false],
         'leeching'        => ['except' => false],
@@ -225,6 +227,8 @@ class TorrentSearch extends Component
             ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
             ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
+            ->when($this->companyId !== '', fn ($query) => $query->ofCompany((int) $this->companyId))
+            ->when($this->networkId !== '', fn ($query) => $query->ofNetwork((int) $this->networkId))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup !== false, fn ($query) => $query->doubleup())
             ->when($this->featured !== false, fn ($query) => $query->featured())
@@ -238,6 +242,7 @@ class TorrentSearch extends Component
             ->when($this->alive !== false, fn ($query) => $query->alive())
             ->when($this->dying !== false, fn ($query) => $query->dying())
             ->when($this->dead !== false, fn ($query) => $query->dead())
+            ->when($this->graveyard !== false, fn ($query) => $query->graveyard())
             ->when($this->notDownloaded !== false, fn ($query) => $query->notDownloadedBy($user))
             ->when($this->downloaded !== false, fn ($query) => $query->downloadedBy($user))
             ->when($this->seeding !== false, fn ($query) => $query->seededBy($user))
@@ -253,8 +258,10 @@ class TorrentSearch extends Component
 
         $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
         $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-        if ($gameIds->isNotEmpty()) {
-            $games = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->whereIntegerInRaw('id', $gameIds);
+        $games = [];
+
+        foreach ($gameIds as $gameId) {
+            $games[] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
         }
 
         $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
@@ -335,8 +342,8 @@ class TorrentSearch extends Component
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
 
-        $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-        $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+        $movies = Movie::with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+        $tv = Tv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
         $torrents = Torrent::query()
             ->with('type:id,name,position', 'resolution:id,name,position')
@@ -537,17 +544,7 @@ class TorrentSearch extends Component
                     ),
             });
 
-        $movieDirectors = Person::query()
-            ->join('crew_movie', 'person_id', '=', 'person.id')
-            ->whereIntegerInRaw('movie_id', $movieIds)
-            ->where('department', '=', 'Directing')
-            ->where('job', '=', 'Director')
-            ->get()
-            ->groupBy('movie_id')
-            ->map
-            ->take(3);
-
-        $medias = $groups->through(function ($group) use ($torrents, $movies, $tv, $movieDirectors) {
+        $medias = $groups->through(function ($group) use ($torrents, $movies, $tv) {
             $media = collect(['meta' => 'no']);
 
             switch ($group->meta) {
@@ -556,7 +553,6 @@ class TorrentSearch extends Component
                     $media->meta = 'movie';
                     $media->torrents = $torrents['movie'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
-                    $media->directors = $movieDirectors[$group->tmdb] ?? collect();
                     break;
 
                 case 'tv':

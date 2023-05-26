@@ -343,42 +343,59 @@ class TorrentController extends BaseController
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
 
-        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
-            ->when($request->filled('name'), fn ($query) => $query->ofName($request->name, $isRegex($request->name)))
-            ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->description)))
-            ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->mediainfo)))
-            ->when($request->filled('uploader'), fn ($query) => $query->ofUploader($request->uploader))
-            ->when($request->filled('keywords'), fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $request->keywords))))
-            ->when($request->filled('startYear'), fn ($query) => $query->releasedAfterOrIn((int) $request->startYear))
-            ->when($request->filled('endYear'), fn ($query) => $query->releasedBeforeOrIn((int) $request->endYear))
-            ->when($request->filled('categories'), fn ($query) => $query->ofCategory($request->categories))
-            ->when($request->filled('types'), fn ($query) => $query->ofType($request->types))
-            ->when($request->filled('resolutions'), fn ($query) => $query->ofResolution($request->resolutions))
-            ->when($request->filled('genres'), fn ($query) => $query->ofGenre($request->genres))
-            ->when($request->filled('tmdbId'), fn ($query) => $query->ofTmdb((int) $request->tmdbId))
-            ->when($request->filled('imdbId'), fn ($query) => $query->ofImdb((int) $request->imdbId))
-            ->when($request->filled('tvdbId'), fn ($query) => $query->ofTvdb((int) $request->tvdbId))
-            ->when($request->filled('malId'), fn ($query) => $query->ofMal((int) $request->malId))
-            ->when($request->filled('playlistId'), fn ($query) => $query->ofPlaylist((int) $request->playlistId))
-            ->when($request->filled('collectionId'), fn ($query) => $query->ofCollection((int) $request->collectionId))
-            ->when($request->filled('free'), fn ($query) => $query->ofFreeleech($request->free))
-            ->when($request->filled('doubleup'), fn ($query) => $query->doubleup())
-            ->when($request->filled('featured'), fn ($query) => $query->featured())
-            ->when($request->filled('stream'), fn ($query) => $query->streamOptimized())
-            ->when($request->filled('sd'), fn ($query) => $query->sd())
-            ->when($request->filled('highspeed'), fn ($query) => $query->highspeed())
-            ->when($request->filled('internal'), fn ($query) => $query->internal())
-            ->when($request->filled('personalRelease'), fn ($query) => $query->personalRelease())
-            ->when($request->filled('alive'), fn ($query) => $query->alive())
-            ->when($request->filled('dying'), fn ($query) => $query->dying())
-            ->when($request->filled('dead'), fn ($query) => $query->dead())
-            ->when($request->filled('file_name'), fn ($query) => $query->ofFilename($request->file_name))
-            ->when($request->filled('seasonNumber'), fn ($query) => $query->ofSeason((int) $request->seasonNumber))
-            ->when($request->filled('episodeNumber'), fn ($query) => $query->ofEpisode((int) $request->episodeNumber))
-            ->latest('sticky')
-            ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
-            ->paginate($request->input('perPage') ?? $this->perPage);
+
+        // Caching
+        $url = $request->url();
+        $queryParams = $request->query();
+
+        // Don't cache the api_token so that multiple users can share the cache
+        unset($queryParams['api_token']);
+        $queryParams['isRegexAllowed'] = $isRegexAllowed;
+
+        // Sorting query params by key (acts by reference)
+        ksort($queryParams);
+
+        // Transforming the query array to query string
+        $queryString = http_build_query($queryParams);
+        $cacheKey = $url.'?'.$queryString;
+
+        $torrents = cache()->remember($cacheKey, 300, function () use ($request, $isRegex) {
+            return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+                ->when($request->filled('name'), fn ($query) => $query->ofName($request->name, $isRegex($request->name)))
+                ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->description)))
+                ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->mediainfo)))
+                ->when($request->filled('uploader'), fn ($query) => $query->ofUploader($request->uploader))
+                ->when($request->filled('keywords'), fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $request->keywords))))
+                ->when($request->filled('startYear'), fn ($query) => $query->releasedAfterOrIn((int) $request->startYear))
+                ->when($request->filled('endYear'), fn ($query) => $query->releasedBeforeOrIn((int) $request->endYear))
+                ->when($request->filled('categories'), fn ($query) => $query->ofCategory($request->categories))
+                ->when($request->filled('types'), fn ($query) => $query->ofType($request->types))
+                ->when($request->filled('resolutions'), fn ($query) => $query->ofResolution($request->resolutions))
+                ->when($request->filled('genres'), fn ($query) => $query->ofGenre($request->genres))
+                ->when($request->filled('tmdbId'), fn ($query) => $query->ofTmdb((int) $request->tmdbId))
+                ->when($request->filled('imdbId'), fn ($query) => $query->ofImdb((int) $request->imdbId))
+                ->when($request->filled('tvdbId'), fn ($query) => $query->ofTvdb((int) $request->tvdbId))
+                ->when($request->filled('malId'), fn ($query) => $query->ofMal((int) $request->malId))
+                ->when($request->filled('playlistId'), fn ($query) => $query->ofPlaylist((int) $request->playlistId))
+                ->when($request->filled('collectionId'), fn ($query) => $query->ofCollection((int) $request->collectionId))
+                ->when($request->filled('free'), fn ($query) => $query->ofFreeleech($request->free))
+                ->when($request->filled('doubleup'), fn ($query) => $query->doubleup())
+                ->when($request->filled('featured'), fn ($query) => $query->featured())
+                ->when($request->filled('stream'), fn ($query) => $query->streamOptimized())
+                ->when($request->filled('sd'), fn ($query) => $query->sd())
+                ->when($request->filled('highspeed'), fn ($query) => $query->highspeed())
+                ->when($request->filled('internal'), fn ($query) => $query->internal())
+                ->when($request->filled('personalRelease'), fn ($query) => $query->personalRelease())
+                ->when($request->filled('alive'), fn ($query) => $query->alive())
+                ->when($request->filled('dying'), fn ($query) => $query->dying())
+                ->when($request->filled('dead'), fn ($query) => $query->dead())
+                ->when($request->filled('file_name'), fn ($query) => $query->ofFilename($request->file_name))
+                ->when($request->filled('seasonNumber'), fn ($query) => $query->ofSeason((int) $request->seasonNumber))
+                ->when($request->filled('episodeNumber'), fn ($query) => $query->ofEpisode((int) $request->episodeNumber))
+                ->latest('sticky')
+                ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
+                ->cursorPaginate($request->input('perPage') ?? $this->perPage);
+        });
 
         if ($torrents !== null) {
             return new TorrentsResource($torrents);

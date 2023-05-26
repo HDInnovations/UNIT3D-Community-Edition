@@ -25,9 +25,7 @@
                 <form
                     class="panel__action"
                     action="{{ route('searchPMInbox') }}"
-                    method="POST"
                 >
-                    @csrf
                     <p class="form__group">
                         <input
                             id="search"
@@ -71,7 +69,7 @@
                             </td>
                             <td>
                                 @if ($pm->read == 0)
-                                    <i class="{{ \config('other.font-awesome') }} fa-cross text-red" title="{{ __('pm.unread') }}"></i>
+                                    <i class="{{ \config('other.font-awesome') }} fa-times text-red" title="{{ __('pm.unread') }}"></i>
                                 @else
                                     <i class="{{ \config('other.font-awesome') }} fa-check text-green" title="{{ __('pm.read') }}"></i>
                                 @endif

@@ -79,6 +79,7 @@ class AutoPreWarning extends Command
 
                         // Set History Prewarn
                         $pre->prewarn = 1;
+                        $pre->timestamps = false;
                         $pre->save();
                     }
                 }

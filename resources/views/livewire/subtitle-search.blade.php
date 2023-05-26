@@ -106,7 +106,7 @@
                             wire:model="search"
                             type="search"
                             class="form__text"
-                            placeholder=""
+                            placeholder=" "
                         >
                         <label for="search" class="form__label form__label--floating">
                             {{ __('torrent.name') }}

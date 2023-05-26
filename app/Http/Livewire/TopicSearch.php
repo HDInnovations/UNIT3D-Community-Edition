@@ -39,10 +39,10 @@ class TopicSearch extends Component
     {
         return Forum::query()
             ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ])
             ->where('parent_id', '=', 0)
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
             ->get();
     }
@@ -52,7 +52,7 @@ class TopicSearch extends Component
         return Topic::query()
             ->select('topics.*')
             ->with('user', 'user.group')
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))
@@ -71,7 +71,6 @@ class TopicSearch extends Component
                     ->where('forum_id', '=', $this->forumId)
                     ->orWhereIn('forum_id', Forum::where('parent_id', '=', $this->forumId)->select('id'))
             ))
-            ->orderByDesc('pinned')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
     }

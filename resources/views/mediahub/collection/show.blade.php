@@ -53,10 +53,8 @@
                 </div>
                 <div class="movie-bottom">
                     <a href="{{ route('torrents', ['collectionId' => $collection->id]) }}" role="button"
-                       class="btn btn-sm btn-labeled btn-success">
-                    <span class='btn-label'>
+                       class="form__button form__button--filled">
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Collection Torrents List
-                    </span>
                     </a>
                 </div>
             </div>
@@ -65,7 +63,7 @@
         <br>
 
         <div class="panel panel-chat shoutbox">
-            <div class="panel-heading">
+            <div class="panel__heading">
                 <h4><i class="{{ config("other.font-awesome") }} fa-film"></i> Movies</h4>
             </div>
             <div class="table-responsive">
