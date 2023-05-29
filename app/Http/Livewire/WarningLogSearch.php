@@ -97,4 +97,3 @@ class WarningLogSearch extends Component
         ]);
     }
 }
-
