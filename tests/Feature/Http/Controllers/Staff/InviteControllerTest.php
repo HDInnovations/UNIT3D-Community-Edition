@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
-use App\Http\Livewire\WarningLogSearch;
+use App\Http\Livewire\InviteLogSearch;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -42,6 +42,6 @@ class InviteControllerTest extends TestCase
 
         $response->assertOk();
         $response->assertViewIs('Staff.invite.index');
-        $response->assertSeeLivewire(WarningLogSearch::class);
+        $response->assertSeeLivewire(InviteLogSearch::class);
     }
 }
