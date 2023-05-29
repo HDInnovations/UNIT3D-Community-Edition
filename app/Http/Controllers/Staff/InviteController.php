@@ -23,12 +23,11 @@ class InviteController extends Controller
 {
     /**
      * Invites Log.
+     *
+     * @see \app\Http\Livewire\InviteLogSearch
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $invites = Invite::latest()->paginate(25);
-        $invitecount = Invite::count();
-
-        return view('Staff.invite.index', ['invites' => $invites, 'invitecount' => $invitecount]);
+        return view('Staff.invite.index');
     }
 }
