@@ -366,10 +366,12 @@ class RequestController extends Controller
         $filler->increment('seedbonus', $fillAmount);
 
         // Achievements
-        $filler->addProgress(new UserFilled25Requests(), 1);
-        $filler->addProgress(new UserFilled50Requests(), 1);
-        $filler->addProgress(new UserFilled75Requests(), 1);
-        $filler->addProgress(new UserFilled100Requests(), 1);
+        if (! $tr->filled_anon) {
+            $filler->addProgress(new UserFilled25Requests(), 1);
+            $filler->addProgress(new UserFilled50Requests(), 1);
+            $filler->addProgress(new UserFilled75Requests(), 1);
+            $filler->addProgress(new UserFilled100Requests(), 1);
+        }
 
         $requestUrl = href_request($tr);
         $userUrl = href_profile($filler);
