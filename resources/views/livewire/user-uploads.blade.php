@@ -173,9 +173,9 @@
                         </td>
                         <td class="user-uploads__personal-release">
                             @if ($torrent->personal_release === 1)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green" title="Immune"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-check text-green" title="{{ __('torrent.personal-release') }}"></i>
                             @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red" title="Not immune"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red" title="{{ __('torrent.personal-release') }}"></i>
                             @endif
                         </td>
                         <td class="user-uploads__status">
