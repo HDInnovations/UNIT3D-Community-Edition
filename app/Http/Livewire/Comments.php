@@ -105,22 +105,6 @@ class Comments extends Component
         $comment->anon = $this->anon;
         $comment->save();
 
-        // Achievements
-        if ($comment->anon == 0) {
-            $this->user->unlock(new UserMadeComment());
-            $this->user->addProgress(new UserMadeTenComments(), 1);
-            $this->user->addProgress(new UserMade50Comments(), 1);
-            $this->user->addProgress(new UserMade100Comments(), 1);
-            $this->user->addProgress(new UserMade200Comments(), 1);
-            $this->user->addProgress(new UserMade300Comments(), 1);
-            $this->user->addProgress(new UserMade400Comments(), 1);
-            $this->user->addProgress(new UserMade500Comments(), 1);
-            $this->user->addProgress(new UserMade600Comments(), 1);
-            $this->user->addProgress(new UserMade700Comments(), 1);
-            $this->user->addProgress(new UserMade800Comments(), 1);
-            $this->user->addProgress(new UserMade900Comments(), 1);
-        }
-
         // Set Polymorhic Model Name
         $modelName = str()->snake(class_basename($this->model), ' ');
 
@@ -186,6 +170,22 @@ class Comments extends Component
                     )
                 );
             }
+        }
+
+        // Achievements
+        if ($comment->anon == 0 && $modelName !== 'ticket') {
+            $this->user->unlock(new UserMadeComment());
+            $this->user->addProgress(new UserMadeTenComments(), 1);
+            $this->user->addProgress(new UserMade50Comments(), 1);
+            $this->user->addProgress(new UserMade100Comments(), 1);
+            $this->user->addProgress(new UserMade200Comments(), 1);
+            $this->user->addProgress(new UserMade300Comments(), 1);
+            $this->user->addProgress(new UserMade400Comments(), 1);
+            $this->user->addProgress(new UserMade500Comments(), 1);
+            $this->user->addProgress(new UserMade600Comments(), 1);
+            $this->user->addProgress(new UserMade700Comments(), 1);
+            $this->user->addProgress(new UserMade800Comments(), 1);
+            $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
         $this->newCommentState = [
