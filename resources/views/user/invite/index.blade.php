@@ -85,7 +85,7 @@
                                                     }
                                                 })"
                                                 class="form__button form__button--text"
-                                                @disabled($invite->accepted_at !== null)
+                                                @disabled($invite->accepted_at !== null || $invite->expires_on < now())
                                             >
                                                 {{ __('common.resend') }}
                                             </button>
