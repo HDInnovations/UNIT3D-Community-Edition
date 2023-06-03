@@ -199,7 +199,7 @@ class TicketController extends Controller
         $ticket->closed_at = now();
         $ticket->save();
 
-        return to_route('tickets.show', ['id' => $ticket->id])
+        return to_route('tickets.index')
             ->withSuccess(trans('ticket.closed-success'));
     }
 }
