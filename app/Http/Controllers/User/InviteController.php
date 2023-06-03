@@ -153,6 +153,11 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invite-already-used'));
         }
 
+        if ($invite->expires_on < now()) {
+            return to_route('invites.index', ['username' => $user->username])
+                ->withErrors(trans('user.invite-expired'));
+        }
+
         Mail::to($invite->email)->send(new InviteUser($invite));
 
         return to_route('invites.index', ['username' => $user->username])
