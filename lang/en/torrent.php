@@ -128,6 +128,7 @@ return [
     'no-meta'                  => 'No Metadata Found',
     'no-privileges'            => 'You are not able to download this file - Please check below for more info',
     'no-privileges-desc'       => 'Please solve the failed results above for download button to appear',
+    'not-personal-release'     => 'Not a Personal Release',
     'not-completed'            => 'Started Downloading But Never Completed',
     'not-downloaded'           => 'Not Downloaded',
     'not-seeding'              => 'Not Seeding',
