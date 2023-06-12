@@ -264,12 +264,6 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.gifts.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-gift"></i>
-                        {{ __('staff.user-gifting') }}
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.mass-pm.create') }}">
                         <i class="{{ config('other.font-awesome') }} fa-envelope-square"></i>
                         {{ __('staff.mass-pm') }}
