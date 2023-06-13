@@ -46,8 +46,8 @@ Route::group(['middleware' => 'language'], function (): void {
         Route::post('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'store'])->name('application.store');
 
         // Authentication
-        Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('');
+        // Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+        // Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('');
 
         // Forgot Username
         Route::get('username/reminder', [App\Http\Controllers\Auth\ForgotUsernameController::class, 'showForgotUsernameForm'])->name('username.request');
@@ -69,7 +69,7 @@ Route::group(['middleware' => 'language'], function (): void {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'banned']], function (): void {
+    Route::group(['middleware' => ['auth', 'twostep', 'banned', 'weak_password']], function (): void {
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');

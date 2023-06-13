@@ -47,6 +47,7 @@ class PasswordController extends Controller
         ]);
 
         $user->password = Hash::make($request->new_password);
+        $user->weak_password = false;
         $user->save();
 
         if ($changedByStaff) {

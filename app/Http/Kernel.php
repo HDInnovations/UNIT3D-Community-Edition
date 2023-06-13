@@ -78,6 +78,7 @@ class Kernel extends HttpKernel
         'auth'          => \App\Http\Middleware\Authenticate::class,
         'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'banned'        => \App\Http\Middleware\CheckIfBanned::class,
+        'weak_password' => \App\Http\Middleware\CheckForWeakPassword::class,
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'           => \Illuminate\Auth\Middleware\Authorize::class,
