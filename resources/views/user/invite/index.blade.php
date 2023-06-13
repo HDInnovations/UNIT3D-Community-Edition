@@ -37,7 +37,10 @@
                     <tr>
                         <th>{{ __('user.sender') }}</th>
                         <th>{{ __('common.email') }}</th>
-                        <th>{{ __('user.code') }}</th>
+                        @if ($user->group->is_modo)
+                            <th>{{ __('user.code') }}</th>
+                            <th>{{ __('common.message') }}</th>
+                        @endif
                         <th>{{ __('user.created-on') }}</th>
                         <th>{{ __('user.expires-on') }}</th>
                         <th>{{ __('user.accepted-by') }}</th>
@@ -52,7 +55,10 @@
                                 <x-user_tag :user="$invite->sender" :anon="false" />
                             </td>
                             <td>{{ $invite->email }}</td>
-                            <td>{{ $invite->code }}</td>
+                            @if ($user->group->is_modo)
+                                <td>{{ $invite->code }}</td>
+                                <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
+                            @endif
                             <td>{{ $invite->created_at }}</td>
                             <td>{{ $invite->expires_on }}</td>
                             <td>
