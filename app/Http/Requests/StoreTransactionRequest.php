@@ -54,6 +54,9 @@ class StoreTransactionRequest extends FormRequest
                         case $item->personal_freeleech && cache()->get('personal_freeleech:'.$user->id):
                             $fail('Your previous personal freeleech is still active.');
                             break;
+                        case $item->invite && $user->invites >= config('other.max_unused_user_invites', 1):
+                            $fail('You already have the maximum amount of unused invites allowed per user.');
+                            break;
                     }
                 },
             ],
