@@ -48,7 +48,7 @@
         <a href="{{ route('login') }}">
             <h2 class="inactive underlineHover">{{ __('auth.login') }}</h2>
         </a>
-        <a href="{{ route('registrationForm', ['code' => 'null']) }}">
+        <a href="{{ route('register') }}">
             <h2 class="inactive underlineHover">{{ __('auth.signup') }}</h2>
         </a>
 
@@ -65,15 +65,18 @@
                 @hiddencaptcha
             @endif
 
+            @if (session('status'))
+                <div class="form__hint">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <button type="submit" class="fadeIn fourth">{{ __('common.submit') }}</button>
         </form>
 
         <div id="formFooter">
             <a href="{{ route('password.request') }}">
                 <h2 class="active">{{ __('auth.lost-password') }} </h2>
-            </a>
-            <a href="{{ route('username.request') }}">
-                <h2 class="inactive underlineHover">{{ __('auth.lost-username') }} </h2>
             </a>
         </div>
     </div>

@@ -31,7 +31,7 @@
     </div>
 @endif
 <div class="wrapper fadeInDown">
-    @if (config('other.invite-only') == true && !$code)
+    @if (config('other.invite-only') == true && ! request()->has('code'))
         <div class="alert alert-info">
             {{ __('auth.need-invite') }}
         </div>
@@ -53,7 +53,7 @@
         <a href="{{ route('login') }}">
             <h2 class="inactive underlineHover">{{ __('auth.login') }} </h2>
         </a>
-        <a href="{{ route('registrationForm', ['code' => $code]) }}">
+        <a href="{{ route('register', ['code' => request()->query('code')]) }}">
             <h2 class="active">{{ __('auth.signup') }} </h2>
         </a>
 
@@ -61,7 +61,7 @@
             <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ __('auth.user-icon') }}"/>
         </div>
 
-        <form role="form" method="POST" action="{{ route('register', ['code' => $code]) }}">
+        <form role="form" method="POST" action="{{ route('register', ['code' => request()->query('code')]) }}">
             @csrf
             <label for="username"></label><input type="text" id="username" class="fadeIn second" name="username"
                                                  placeholder="{{ __('auth.username') }}" required autofocus>
@@ -78,9 +78,6 @@
         <div id="formFooter">
             <a href="{{ route('password.request') }}">
                 <h2 class="inactive underlineHover">{{ __('auth.lost-password') }} </h2>
-            </a>
-            <a href="{{ route('username.request') }}">
-                <h2 class="inactive underlineHover">{{ __('auth.lost-username') }} </h2>
             </a>
             @if (config('email-white-blacklist.enabled') == 'block')
                 <br>
