@@ -38,7 +38,7 @@ class InviteController extends Controller
         $owner = User::where('username', '=', $username)->firstOrFail();
         abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
 
-        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
+        $invites = Invite::withTrashed()->with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 
         return view('user.invite.index', ['user' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
@@ -136,6 +136,32 @@ class InviteController extends Controller
 
         return to_route('invites.create')
             ->withSuccess(trans('user.invite-sent-success'));
+    }
+
+    /**
+     * Retract a sent invite.
+     */
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    {
+        $user = $request->user();
+        $invite = Invite::findOrFail($id);
+
+        abort_unless($user->group->is_modo || $invite->user->id === $user->id, 403);
+
+        if ($invite->accepted_by !== null) {
+            return to_route('invites.index', ['username' => $user->username])
+                ->withErrors(trans('user.invite-already-used'));
+        }
+
+        if ($invite->expires_on < now()) {
+            return to_route('invites.index', ['username' => $user->username])
+                ->withErrors(trans('user.invite-expired'));
+        }
+
+        $invite->delete();
+
+        return to_route('invites.index', ['username' => $user->username])
+            ->withSuccess('Invite deleted successfully.');
     }
 
     /**

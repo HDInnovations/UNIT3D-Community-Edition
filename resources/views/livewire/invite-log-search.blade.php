@@ -89,6 +89,7 @@
                 <th>{{ __('user.expires-on') }}</th>
                 <th>{{ __('user.accepted-by') }}</th>
                 <th>{{ __('user.accepted-at') }}</th>
+                <th>{{ __('user.deleted-on') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -120,6 +121,11 @@
                     <td>
                         <time datetime="{{ $invite->accepted_at ?? '' }}">
                             {{ $invite->accepted_at ?? 'N/A' }}
+                        </time>
+                    </td>
+                    <td>
+                        <time datetime="{{ $invite->deleted_at ?? '' }}">
+                            {{ $invite->deleted_at ?? 'N/A' }}
                         </time>
                     </td>
                 </tr>
