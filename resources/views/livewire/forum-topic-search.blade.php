@@ -69,7 +69,7 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
             <div class="panel__body">
-                <form class="form">
+                <form class="form" x-data x-on:submit.prevent>
                     <p class="form__group">
                         <input
                             id="search"
