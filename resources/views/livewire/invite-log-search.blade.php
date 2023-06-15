@@ -114,6 +114,7 @@
                         @include('livewire.includes._sort-icon', ['field' => 'accepted_at'])
                     </th>
                 </tr>
+            </thead>
             <tbody>
             @forelse ($invites as $invite)
                 <tr>
@@ -143,6 +144,11 @@
                     <td>
                         <time datetime="{{ $invite->accepted_at ?? '' }}">
                             {{ $invite->accepted_at ?? 'N/A' }}
+                        </time>
+                    </td>
+                    <td>
+                        <time datetime="{{ $invite->deleted_at ?? '' }}">
+                            {{ $invite->deleted_at ?? 'N/A' }}
                         </time>
                     </td>
                 </tr>

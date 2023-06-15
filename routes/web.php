@@ -514,6 +514,7 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
             Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
             Route::post('/{id}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
+            Route::delete('/{id}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy');
             Route::get('/{username}', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
 
@@ -938,14 +939,6 @@ Route::group(['middleware' => 'language'], function (): void {
                 Route::get('/{id}/edit', [App\Http\Controllers\Staff\TypeController::class, 'edit'])->name('edit');
                 Route::patch('/{id}/update', [App\Http\Controllers\Staff\TypeController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\TypeController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // User Gifting (From System)
-        Route::group(['prefix' => 'gifts'], function (): void {
-            Route::name('staff.gifts.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\Staff\GiftController::class, 'store'])->name('store');
             });
         });
 

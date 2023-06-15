@@ -161,6 +161,7 @@ return [
     'invites-send'                         => 'Invites Send',
     'judge'                                => 'Judge',
     'last-login'                           => 'Last Login',
+    'last-action'                          => 'Last Action',
     'locked'                               => 'Locked',
     'locked-achievements'                  => 'Locked Achievements',
     'member-since'                         => 'Member Since',

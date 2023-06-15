@@ -76,7 +76,7 @@ class TicketSearch extends Component
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
                 ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
-                ->when($this->show, fn ($query) => $query->whereNotNull('closed_at')->orWhereNull('closed_at'))
+                ->when($this->show, fn ($query) => $query->whereNotNull('closed_at'))
                 ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
