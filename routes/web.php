@@ -941,14 +941,6 @@ Route::group(['middleware' => 'language'], function (): void {
             });
         });
 
-        // User Gifting (From System)
-        Route::group(['prefix' => 'gifts'], function (): void {
-            Route::name('staff.gifts.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\Staff\GiftController::class, 'store'])->name('store');
-            });
-        });
-
         // User Staff Notes
         Route::group(['prefix' => 'notes'], function (): void {
             Route::name('staff.notes.')->group(function (): void {
