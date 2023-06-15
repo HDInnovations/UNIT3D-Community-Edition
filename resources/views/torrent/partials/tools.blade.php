@@ -157,6 +157,27 @@
                         </dialog>
                     </li>
                     <li>
+                        @if ($torrent->refundable == 0)
+                            <form action="{{ route('refundable', ['id' => $torrent->id]) }}"
+                                  method="POST"
+                                  style="display: inline;">
+                                @csrf
+                                <button type="submit" class="form__button form__button--outlined">
+                                    <i class="{{ config('other.font-awesome') }} fa-repeat"></i> {{ __('torrent.refundable') }}
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('refundable', ['id' => $torrent->id]) }}"
+                                  method="POST"
+                                  style="display: inline;">
+                                @csrf
+                                <button type="submit" class="form__button form__button--outlined">
+                                    <i class="{{ config('other.font-awesome') }} fa-repeat"></i> {{ __('torrent.revoke') }} {{ __('torrent.refundable') }}
+                                </button>
+                            </form>
+                        @endif
+                    </li>
+                    <li>
                         @if ($torrent->sticky == 0)
                             <form
                                 action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"

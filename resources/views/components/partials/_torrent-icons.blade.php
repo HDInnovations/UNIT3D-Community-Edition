@@ -49,6 +49,11 @@
             title="@if(config('other.doubleup')){{ __('torrent.global-double-upload') }}&NewLine;@endif&ZeroWidthSpace;@if(auth()->user()->group->is_double_upload){{ __('torrent.special-double_upload') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->doubleup > 0)100% {{ __('torrent.double-upload') }}@if($torrent->du_until !== null) (expires {{ $torrent->du_until->diffForHumans() }})@endif&ZeroWidthSpace;@endif"
         ></i>
     @endif
+    @if ($torrent->refundable || auth()->user()->group->is_refundable)
+        <i class="{{ config('other.font-awesome') }} fa-percentage"
+           title='{{ __('torrent.refundable') }}'>
+        </i>
+    @endif
     @if ($torrent->sticky)
         <i
             class="{{ config('other.font-awesome') }} fa-thumbtack torrent-icons__sticky"

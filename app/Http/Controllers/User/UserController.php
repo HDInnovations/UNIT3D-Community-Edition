@@ -76,6 +76,7 @@ class UserController extends Controller
             ->selectRaw('SUM(uploaded) as credited_upload_sum')
             ->selectRaw('SUM(actual_downloaded) as download_sum')
             ->selectRaw('SUM(downloaded) as credited_download_sum')
+            ->selectRaw('SUM(refunded_download) as refunded_download_sum')
             ->selectRaw('SUM(seedtime) as seedtime_sum')
             ->selectRaw('SUM(actual_downloaded > 0) as download_count')
             ->selectRaw('COUNT(*) as count')
