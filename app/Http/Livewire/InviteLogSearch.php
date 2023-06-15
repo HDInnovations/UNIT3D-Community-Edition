@@ -30,6 +30,10 @@ class InviteLogSearch extends Component
 
     public string $receiver = '';
 
+    public string $sortField = 'created_at';
+
+    public string $sortDirection = 'desc';
+
     public int $perPage = 25;
 
     protected $queryString = [
@@ -59,7 +63,7 @@ class InviteLogSearch extends Component
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))
             ->when($this->receiver, fn ($query) => $query->whereIn('accepted_by', User::select('id')->where('username', '=', $this->receiver)))
-            ->latest()
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
@@ -68,5 +72,16 @@ class InviteLogSearch extends Component
         return view('livewire.invite-log-search', [
             'invites' => $this->invites,
         ]);
+    }
+
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 }
