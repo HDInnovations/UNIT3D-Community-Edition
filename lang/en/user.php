@@ -372,6 +372,7 @@ return [
     'unsatisfieds'                => 'Unsatisfieds',
     'upload-bon'                  => 'Upload Added from BON Store',
     'upload-recorded'             => 'Recorded Upload',
+    'upload-snatches'             => 'Upload Snatches',
     'upload-true'                 => 'True Upload',
     'uploads'                     => 'Uploads',
     'uploads-table'               => 'Uploads Table',
