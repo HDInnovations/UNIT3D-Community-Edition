@@ -20,7 +20,7 @@
     background-position: calc(100% - 4px) center;
     background-repeat: no-repeat;
     border: var(--select-border);
-    border-radius: 5px;
+    border-radius: var(--select-border-radius);
     color: var(--select-fg);
     font-size: 14px;
     font-weight: normal;

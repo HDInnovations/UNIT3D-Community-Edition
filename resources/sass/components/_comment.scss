@@ -26,11 +26,12 @@
     align-items: center;
     padding: 12px 16px;
     margin-left: 58px;
-    border-radius: 20px;
+    border-radius: var(--message-bubble-border-radius);
+    border: var(--message-bubble-border);
     font-size: 13px;
     color: var(--message-bubble-fg, currentColor);
     background-color: var(--message-bubble-bg, inherit);
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: var(--message-bubble-box-shadow);
     width: fit-content;
 }
 
@@ -43,7 +44,7 @@
     position: relative;
     left: -58px;
     bottom: -12px;
-    border-radius: 50%;
+    border-radius: var(--message-bubble-avatar-border-radius);
     width: 36px;
     align-self: self-end;
     background-color: transparent;

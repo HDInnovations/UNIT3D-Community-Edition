@@ -16,6 +16,10 @@
     list-style-type: none;
 }
 
+.subforum-listings__item:not(:last-of-type) {
+    border-bottom: var(--subforum-listing-border);
+}
+
 .subforum-listing {
     display: grid;
     grid-template-areas: 'figure header topics posts latest';

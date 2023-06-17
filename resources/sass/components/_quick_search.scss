@@ -11,8 +11,8 @@
 
 .quick-search:active,
 .quick-search:focus-within {
-    box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
-    border-radius: 16px;
+    box-shadow: var(--quick-search-box-shadow);
+    border-radius: var(--quick-search-border-radius);
 }
 
 .quick-search__inputs {
@@ -21,16 +21,17 @@
     flex-direction: row-reverse;
     align-items: stretch;
     gap: 2px;
-    background-color: #444;
-    border-radius: 16px;
+    background-color: var(--quick-search-bg);
+    border-radius: var(--quick-search-border-radius);
     overflow: hidden;
-    border: 1px solid transparent;
+    border: var(--quick-search-border);
     height: 100%;
 }
 
 .quick-search:active .quick-search__inputs,
 .quick-search:focus-within .quick-search__inputs {
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--quick-search-border-radius) var(--quick-search-border-radius) 0 0;
+    border-bottom: 1px solid transparent;
 }
 
 .quick-search__input {
@@ -39,7 +40,7 @@
     border: none;
     font-size: 13px;
     padding: 1px 0 1px 8px;
-    color: #b6b6b6;
+    color: var(--quick-search-fg);
 }
 
 .quick-search__input::placeholder {
@@ -64,13 +65,13 @@
 
 .quick-search__radio-label {
     cursor: pointer;
-    color: #b6b6b6;
+    color: var(--quick-search-selector-fg);
     display: flex;
 }
 
 .quick-search__radio-label:hover,
 .quick-search__radio-label:focus-within {
-    color: #ddd;
+    color: var(--quick-search-selector-hover-fg);
 }
 
 .quick-search__radio-icon {
@@ -88,12 +89,12 @@
 
 .quick-search__radio-icon:hover,
 .quick-search__radio-label:focus-within .quick-search__radio-icon {
-    background-color: #4b4b4b;
+    background-color: var(--quick-search-selector-hover-bg);
 }
 
 .quick-search__radio:checked ~ .quick-search__radio-icon:before {
-    background-color: #555;
-    color: #ddd;
+    background-color: var(--quick-search-selector-selected-bg);
+    color: var(--quick-search-selector-selected-fg);
 }
 
 .quick-search__radio {
@@ -113,19 +114,26 @@
     left: 0;
     top: 100%;
     width: 100%;
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
+    border-radius: 0 0 var(--quick-search-border-radius) var(--quick-search-border-radius);
+    border-bottom: var(--quick-search-border);
+    border-left: var(--quick-search-border);
+    border-right: var(--quick-search-border);
+    box-shadow: var(--quick-search-box-shadow);
     max-height: 80vh;
     overflow-y: auto;
+}
+
+.quick-search__result {
+    border-top: var(--quick-search-result-border);
 }
 
 .quick-search__result-link,
 .quick-search__result--empty,
 .quick-search__result--keep-typing {
     display: flex;
-    background-color: #444;
+    background-color: var(--quick-search-bg);
     text-decoration: none;
-    color: #ccc;
+    color: var(--quick-search-fg);
     font-size: 12px;
 }
 
@@ -140,14 +148,14 @@
 
 .quick-search__result-link:hover,
 .quick-search__result-link:focus {
-    background-color: #555;
+    background-color: var(--quick-search-result-hover-bg);
 }
 
 .quick-search__image {
     /* TMDb posters should always be a ratio of 1.5 */
     width: 40px;
     height: 60px;
-    border-radius: 5px;
+    border-radius: var(--quick-search-result-image-border-radius);
 }
 
 .quick-search__result-text {
@@ -159,6 +167,6 @@
 }
 
 .quick-search__result-year {
-    color: #888;
+    color: var(--quick-search-result-year-fg);
     font-size: 13px;
 }

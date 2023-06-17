@@ -1,6 +1,6 @@
 .top-nav {
-    background-color: #363636;
-    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--top-nav-bg);
+    box-shadow: var(--top-nav-box-shadow);
     display: grid;
     grid-template: 'left . menus . right toggle' 48px / 1fr 40px auto 40px 1fr auto;
     align-items: center;
@@ -115,7 +115,7 @@
     border-radius: 5px;
     cursor: pointer;
     display: grid;
-    color: #bbb;
+    color: var(--top-nav-dropdown-fg);
     font-size: 15px;
     white-space: nowrap;
     text-decoration: none;
@@ -149,8 +149,10 @@
 
 .top-nav__dropdown:hover > a,
 .top-nav__dropdown:focus-within > a {
-    color: #eee;
-    background-color: #404040;
+    color: var(--top-nav-dropdown-hover-fg);
+    background-color: var(--top-nav-dropdown-hover-bg);
+    text-decoration: var(--top-nav-dropdown-hover-text-decoration);
+    text-underline-offset: 3px;
 }
 
 .top-nav__dropdown:hover > ul,
@@ -165,10 +167,10 @@
     flex-direction: column;
     padding: 6px;
     row-gap: 6px;
-    background-color: #3c3c3c;
-    border-radius: 6px;
-    box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    background-color: var(--top-nav-dropdown-menu-bg);
+    border-radius: var(--top-nav-dropdown-menu-border-radius);
+    box-shadow: var(--top-nav-dropdown-menu-box-shadow);
+    border: var(--top-nav-dropdown-menu-border);
     list-style-type: none;
     z-index: 1000;
 }
@@ -196,7 +198,7 @@
 
 .top-nav__dropdown > ul > li > a,
 .top-nav__dropdown > ul > li > form > button {
-    color: #bbb;
+    color: var(--top-nav-dropdown-menu-item-fg);
     font-size: 15px;
     text-decoration: none;
     padding: 6px 90px 6px 6px;
@@ -207,7 +209,7 @@
     column-gap: 10px;
     align-items: center;
     line-height: 15px;
-    background: transparent;
+    background: var(--top-nav-dropdown-menu-item-bg);
     outline: none;
     width: 100%;
     border: none;
@@ -220,18 +222,20 @@
 .top-nav__dropdown > ul > li > a:focus,
 .top-nav__dropdown > ul > li > form > button:hover,
 .top-nav__dropdown > ul > li > form > button:focus {
-    background-color: #424242;
+    background-color: var(--top-nav-dropdown-menu-item-hover-bg);
+    text-decoration: var(--top-nav-dropdown-menu-item-hover-text-decoration);
+    text-underline-offset: 3px;
 }
 
 .top-nav__dropdown > ul > li > a > i,
 .top-nav__dropdown > ul > li > form > button > i {
     font-size: 15px;
     line-height: 30px;
-    color: #ccc;
+    color: var(--top-nav-dropdown-menu-item-icon-fg);
     text-align: center;
     aspect-ratio: 1;
     border-radius: 50%;
-    background-color: #484848;
+    background-color: var(--top-nav-dropdown-menu-item-icon-bg);
 }
 
 .top-nav__dropdown > ul > li > a > svg {
@@ -257,7 +261,7 @@
     grid-auto-flow: column;
     font-size: 11px;
     list-style-type: none;
-    color: #ddd;
+    color: var(--top-nav-ratio-bar-fg);
     align-content: center;
     justify-content: center;
     padding: 0;
@@ -285,7 +289,7 @@
 
 .top-nav__ratio-bar,
 .top-nav__ratio-bar a {
-    color: #aaa;
+    color: var(--top-nav-ratio-bar-fg);
     text-decoration: none;
 }
 
@@ -374,18 +378,19 @@
 }
 
 .top-nav__icon-bar > li > a > i {
-    color: #bbb;
+    color: var(--top-nav-icon-bar-icon-fg);
     font-size: 16px;
     text-align: center;
     aspect-ratio: 1;
-    border-radius: 50%;
-    background-color: #424242;
+    border-radius: var(--top-nav-icon-bar-icon-border-radius);
+    background-color: var(--top-nav-icon-bar-icon-bg);
     height: 32px;
     line-height: 32px;
 }
 
 .top-nav__icon-bar > li > a:hover > i {
-    color: #b6b6b6;
+    color: var(--top-nav-icon-bar-icon-hover-fg);
+    background-color: var(--top-nav-icon-bar-icon-hover-bg);
 }
 
 .top-nav__icon-bar > li > a > svg {
@@ -399,7 +404,7 @@
 .top-nav__profile-image {
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: var(--top-nav-icon-bar-icon-border-radius);
 }
 
 /* Stats
@@ -414,7 +419,7 @@
     grid-area: stats;
     list-style-type: none;
     font-size: 12px;
-    color: #999;
+    color: var(--top-nav-stats-fg);
     font-weight: bold;
     margin: 0;
     padding: 0;
@@ -447,7 +452,7 @@
     background-color: transparent;
     outline: none;
     border: none;
-    color: #999;
+    color: var(--top-nav-toggle-fg);
 
     @media screen and (min-width: 767px) {
         display: none;
