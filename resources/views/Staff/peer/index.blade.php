@@ -15,6 +15,10 @@
     </li>
 @endsection
 
+@section('nav-tabs')
+    @include('Staff.partials.user-info-search')
+@endsection
+
 @section('page', 'page__peers--index')
 
 @section('content')
