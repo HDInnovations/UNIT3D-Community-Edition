@@ -44,6 +44,7 @@ return [
     'media-languages-desc'     => '(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)',
     'moderation'               => 'Moderation',
     'moderation-since'         => 'Moderated at',
+    'notes'                    => 'Notes',
     'page'                     => 'Page',
     'pages'                    => 'Pages',
     'please-moderate'          => 'Please Moderate This Torrent!',

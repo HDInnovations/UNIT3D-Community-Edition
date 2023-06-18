@@ -19,6 +19,10 @@
     </li>
 @endsection
 
+@section('nav-tabs')
+    @include('Staff.partials.user-info-search')
+@endsection
+
 @section('page', 'page__invite-log--index')
 
 @section('main')
