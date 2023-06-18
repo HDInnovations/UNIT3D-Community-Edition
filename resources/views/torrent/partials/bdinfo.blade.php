@@ -1,4 +1,4 @@
-<section class="panel panel-chat shoutbox torrent-bdinfo">
+<section class="panelV2 torrent-bdinfo">
     <h2 class="panel__heading">
         <i class="{{ config("other.font-awesome") }} fa-compact-disc"></i>
         BDInfo
