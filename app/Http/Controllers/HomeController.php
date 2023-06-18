@@ -62,12 +62,12 @@ class HomeController extends Controller
         $newest = cache()->remember('newest_torrents', $expiresAt, function () use ($user) {
             $newest = Torrent::with(['user', 'category', 'type', 'resolution'])
                 ->withExists([
-                    'bookmarks'                => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'freeleechTokens'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'history as seeding'       => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 1),
-                    'history as leeching'      => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
                     'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -122,12 +122,12 @@ class HomeController extends Controller
         $seeded = cache()->remember('seeded_torrents', $expiresAt, function () use ($user) {
             $seeded = Torrent::with(['user', 'category', 'type', 'resolution'])
                 ->withExists([
-                    'bookmarks'                => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'freeleechTokens'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'history as seeding'       => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 1),
-                    'history as leeching'      => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
                     'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -182,12 +182,12 @@ class HomeController extends Controller
         $leeched = cache()->remember('leeched_torrents', $expiresAt, function () use ($user) {
             $leeched = Torrent::with(['user', 'category', 'type', 'resolution'])
                 ->withExists([
-                    'bookmarks'                => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'freeleechTokens'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'history as seeding'       => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 1),
-                    'history as leeching'      => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
                     'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -242,12 +242,12 @@ class HomeController extends Controller
         $dying = cache()->remember('dying_torrents', $expiresAt, function () use ($user) {
             $dying = Torrent::with(['user', 'category', 'type', 'resolution'])
                 ->withExists([
-                    'bookmarks'                => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'freeleechTokens'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'history as seeding'       => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 1),
-                    'history as leeching'      => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
                     'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -304,12 +304,12 @@ class HomeController extends Controller
         $dead = cache()->remember('dead_torrents', $expiresAt, function () use ($user) {
             $dead = Torrent::with(['user', 'category', 'type', 'resolution'])
                 ->withExists([
-                    'bookmarks'                => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'freeleechTokens'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                    'history as seeding'       => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 1),
-                    'history as leeching'      => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
                     'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
