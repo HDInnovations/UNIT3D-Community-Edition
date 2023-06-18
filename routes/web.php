@@ -409,6 +409,11 @@ Route::group(['middleware' => 'language'], function (): void {
             Route::delete('/', [App\Http\Controllers\User\FollowController::class, 'destroy'])->name('destroy');
         });
 
+        // Following
+        Route::group(['prefix' => 'following', 'as' => 'following.'], function (): void {
+            Route::get('/', [App\Http\Controllers\User\FollowingController::class, 'index'])->name('index');
+        });
+
         // General settings
         Route::group(['prefix' => 'general-settings', 'as' => 'general_settings.'], function (): void {
             Route::get('/edit', [App\Http\Controllers\User\GeneralSettingController::class, 'edit'])->name('edit');
