@@ -27,13 +27,6 @@ use Exception;
 class ClaimController extends Controller
 {
     /**
-     * RequestController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
-    /**
      * Claim A Torrent Request.
      */
     public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
