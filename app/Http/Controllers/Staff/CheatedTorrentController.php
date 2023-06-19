@@ -67,7 +67,7 @@ class CheatedTorrentController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        Torrent::where('id', '=', $id)->update(['balance_offset' => DB::raw('balance * -1')]);
+        Torrent::findOrFail($id)->update(['balance_offset' => DB::raw('balance * -1')]);
 
         return to_route('staff.cheated_torrents.index')
             ->withSuccess('Balance successfully reset');

@@ -47,7 +47,7 @@ class PollController extends Controller
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::where('id', '=', $id)->firstOrFail();
+        $poll = Poll::findOrFail($id);
 
         return view('Staff.poll.show', ['poll' => $poll]);
     }

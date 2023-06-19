@@ -68,7 +68,7 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Page::where('id', '=', $id)->update($request->validated());
+        Page::findOrFail($id)->update($request->validated());
 
         return to_route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');

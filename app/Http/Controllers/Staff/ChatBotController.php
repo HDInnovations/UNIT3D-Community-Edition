@@ -55,7 +55,7 @@ class ChatBotController extends Controller
      */
     public function update(UpdateChatBotRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Bot::where('id', '=', $id)->update($request->validated());
+        Bot::findOrFail($id)->update($request->validated());
 
         return to_route('staff.bots.edit', ['id' => $id])
             ->withSuccess("The Bot Has Been Updated");

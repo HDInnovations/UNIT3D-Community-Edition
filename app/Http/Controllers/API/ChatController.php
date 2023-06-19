@@ -114,7 +114,7 @@ class ChatController extends Controller
     public function botMessages($botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $runbot = null;
-        $bot = Bot::where('id', '=', $botId)->firstOrFail();
+        $bot = Bot::findOrFail($botId);
         if ($bot->is_systembot) {
             $runbot = new SystemBot($this->chatRepository);
         } elseif ($bot->is_nerdbot) {

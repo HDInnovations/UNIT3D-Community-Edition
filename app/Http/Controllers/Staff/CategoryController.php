@@ -90,7 +90,7 @@ class CategoryController extends Controller
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
-        Category::where('id', '=', $id)->update([
+        Category::findOrFail($id)->update([
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',

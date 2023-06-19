@@ -67,7 +67,7 @@ class DistributorController extends Controller
      */
     public function update(UpdateDistributorRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Distributor::where('id', '=', $id)->update($request->validated());
+        Distributor::findOrFail($id)->update($request->validated());
 
         return to_route('staff.distributors.index')
             ->withSuccess('Distributor Successfully Modified');

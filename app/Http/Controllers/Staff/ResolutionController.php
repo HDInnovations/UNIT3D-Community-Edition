@@ -65,7 +65,7 @@ class ResolutionController extends Controller
      */
     public function update(UpdateResolutionRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Resolution::where('id', '=', $id)->update($request->validated());
+        Resolution::findOrFail($id)->update($request->validated());
 
         return to_route('staff.resolutions.index')
             ->withSuccess('Resolution Successfully Modified');

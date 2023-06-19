@@ -71,7 +71,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Note::where('id', '=', $id)->delete();
+        Note::findOrFail($id)->delete();
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
     }

@@ -48,7 +48,7 @@ class InternalController extends Controller
      */
     public function update(UpdateInternalRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Internal::where('id', '=', $id)->update($request->validated());
+        Internal::findOrFail($id)->update($request->validated());
 
         return to_route('staff.internals.index')
             ->withSuccess('Internal Group Was Updated Successfully!');

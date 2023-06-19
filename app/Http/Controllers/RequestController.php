@@ -77,8 +77,7 @@ class RequestController extends Controller
                 'networks',
                 'seasons'
             ])
-                ->where('id', '=', $torrentRequest->tmdb)
-                ->first();
+                ->find($torrentRequest->tmdb);
         }
 
         if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
@@ -88,8 +87,7 @@ class RequestController extends Controller
                 'companies',
                 'collection'
             ])
-                ->where('id', '=', $torrentRequest->tmdb)
-                ->first();
+                ->find($torrentRequest->tmdb);
         }
 
         if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {
@@ -304,7 +302,7 @@ class RequestController extends Controller
         ]);
 
         $torrent_id = basename($request->torrent_id);
-        $torrent = Torrent::withAnyStatus()->where('id', '=', $torrent_id)->first();
+        $torrent = Torrent::withAnyStatus()->find($torrent_id);
 
         if ($torrent->isApproved() === false) {
             return to_route('requests.show', ['id' => $request->input('request_id')])

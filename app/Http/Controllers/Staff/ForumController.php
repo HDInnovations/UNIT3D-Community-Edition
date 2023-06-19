@@ -118,7 +118,7 @@ class ForumController extends Controller
     {
         $groups = Group::all();
 
-        Forum::where('id', '=', $id)->update(
+        Forum::findOrFail($id)->update(
             [
                 'slug'      => Str::slug($request->title),
                 'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,

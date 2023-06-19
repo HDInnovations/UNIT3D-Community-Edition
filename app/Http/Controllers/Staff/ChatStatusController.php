@@ -78,7 +78,7 @@ class ChatStatusController extends Controller
      */
     public function update(UpdateChatStatusRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        ChatStatus::where('id', '=', $id)->update($request->validated());
+        ChatStatus::findOrFail($id)->update($request->validated());
 
         return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');

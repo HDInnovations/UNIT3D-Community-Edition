@@ -83,7 +83,7 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Group::where('id', '=', $id)->update(['slug' => Str::slug($request->name)] + $request->validated());
+        Group::findOrFail($id)->update(['slug' => Str::slug($request->name)] + $request->validated());
 
         cache()->forget('group:'.$id);
 

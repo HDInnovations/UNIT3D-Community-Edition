@@ -71,7 +71,7 @@ class BonExchangeController extends Controller
      */
     public function update(UpdateBonExchangeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::where('id', '=', $id)->update([
+        BonExchange::findOrFail($id)->update([
             'upload'             => $request->type === 'upload',
             'download'           => $request->type === 'download',
             'personal_freeleech' => $request->type === 'personal_freeleech',

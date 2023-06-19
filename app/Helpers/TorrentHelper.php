@@ -41,7 +41,7 @@ class TorrentHelper
         $appname = config('app.name');
 
         Torrent::approve($id);
-        $torrent = Torrent::with('user')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::with('user')->withAnyStatus()->find($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->save();

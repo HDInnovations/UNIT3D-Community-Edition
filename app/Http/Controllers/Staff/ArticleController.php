@@ -83,7 +83,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
-        Article::where('id', '=', $id)->update(['image' => $filename ?? null,] + $request->validated());
+        Article::findOrFail($id)->update(['image' => $filename ?? null,] + $request->validated());
 
         return to_route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');

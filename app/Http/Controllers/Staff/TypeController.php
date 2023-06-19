@@ -68,7 +68,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Type::where('id', '=', $id)->update($request->validated());
+        Type::findOrFail($id)->update($request->validated());
 
         return to_route('staff.types.index')
             ->withSuccess('Type Successfully Modified');

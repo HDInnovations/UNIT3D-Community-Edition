@@ -165,7 +165,7 @@ class PrivateMessageController extends Controller
     {
         $user = $request->user();
 
-        $message = PrivateMessage::where('id', '=', $id)->firstOrFail();
+        $message = PrivateMessage::findOrFail($id);
 
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = $user->id;
@@ -203,7 +203,7 @@ class PrivateMessageController extends Controller
     public function deletePrivateMessage(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
+        $pm = PrivateMessage::findOrFail($id);
 
         $dest = 'default';
         if ($request->has('dest') && $request->input('dest') == 'outbox') {

@@ -131,14 +131,14 @@ class PlaylistController extends Controller
         $meta = null;
 
         if (isset($random)) {
-            $torrent = Torrent::where('id', '=', $random->torrent_id)->firstOrFail();
+            $torrent = Torrent::findOrFail($random->torrent_id);
 
             if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
-                $meta = Tv::with('genres', 'networks', 'seasons')->where('id', '=', $torrent->tmdb)->first();
+                $meta = Tv::with('genres', 'networks', 'seasons')->find($torrent->tmdb);
             }
 
             if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
-                $meta = Movie::with('genres', 'companies', 'collection')->where('id', '=', $torrent->tmdb)->first();
+                $meta = Movie::with('genres', 'companies', 'collection')->find($torrent->tmdb);
             }
         }
 

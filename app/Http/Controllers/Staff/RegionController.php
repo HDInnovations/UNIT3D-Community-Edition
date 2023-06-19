@@ -67,7 +67,7 @@ class RegionController extends Controller
      */
     public function update(UpdateRegionRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Region::where('id', '=', $id)->update($request->validated());
+        Region::findOrFail($id)->update($request->validated());
 
         return to_route('staff.regions.index')
             ->withSuccess('Region Successfully Modified');

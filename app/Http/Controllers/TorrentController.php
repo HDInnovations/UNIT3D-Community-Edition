@@ -104,7 +104,7 @@ class TorrentController extends Controller
                 'companies',
                 'networks',
                 'recommendations'
-            ])->where('id', '=', $torrent->tmdb)->first();
+            ])->find($torrent->tmdb);
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
@@ -116,7 +116,7 @@ class TorrentController extends Controller
                 'collection',
                 'recommendations'
             ])
-                ->where('id', '=', $torrent->tmdb)->first();
+                ->find($torrent->tmdb);
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 

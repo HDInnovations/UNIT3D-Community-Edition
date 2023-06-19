@@ -65,7 +65,7 @@ class MediaLanguageController extends Controller
      */
     public function update(UpdateMediaLanguageRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        MediaLanguage::where('id', '=', $id)->update($request->validated());
+        MediaLanguage::findOrFail($id)->update($request->validated());
 
         return to_route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');

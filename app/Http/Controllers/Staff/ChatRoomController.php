@@ -79,7 +79,7 @@ class ChatRoomController extends Controller
      */
     public function update(UpdateChatRoomRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Chatroom::where('id', '=', $id)->update($request->validated());
+        Chatroom::findOrFail($id)->update($request->validated());
 
         return to_route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Modified');
