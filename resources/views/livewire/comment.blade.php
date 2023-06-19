@@ -54,7 +54,7 @@
                 <img
                         class="post__avatar"
                         style="width: 50%;"
-                        src="{{ url((!$comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
+                        src="{{ url((! $comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
                         alt=""
                 >
             </figure>
@@ -63,18 +63,8 @@
                     :anon="$comment->anon"
                     :user="$comment->user"
             >
-            <x-slot:appended-icons>
-                @if ($comment->user->isOnline())
-                    <i class="{{ config('other.font-awesome') }} fa-circle text-green" title="Online"></i>
-                @else
-                    <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="Offline"></i>
-                @endif
-                <a href="{{ route('create', ['receiver_id' => $comment->user->id, 'username' => $comment->user->username]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
-                </a>
-            </x-slot:appended-icons>
             </x-user_tag>
-            @if (! empty($comment->user->title))
+            @if (! $comment->anon && ! empty($comment->user->title))
                 <p class="post__author-title">
                     {{ $comment->user->title }}
                 </p>
