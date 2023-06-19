@@ -29,10 +29,8 @@ class ChatBotController extends Controller
      */
     public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $bots = Bot::oldest('position')->get();
-
         return view('Staff.chat.bot.index', [
-            'bots' => $bots,
+            'bots' => Bot::oldest('position')->get(),
         ]);
     }
 
@@ -41,12 +39,9 @@ class ChatBotController extends Controller
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $user = $request->user();
-        $bot = Bot::findOrFail($id);
-
         return view('Staff.chat.bot.edit', [
-            'user' => $user,
-            'bot'  => $bot,
+            'user' => $request->user(),
+            'bot'  => Bot::findOrFail($id),
         ]);
     }
 

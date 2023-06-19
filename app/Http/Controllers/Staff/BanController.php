@@ -35,9 +35,9 @@ class BanController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bans = Ban::latest()->paginate(25);
-
-        return view('Staff.ban.index', ['bans' => $bans]);
+        return view('Staff.ban.index', [
+            'bans' => Ban::latest()->paginate(25),
+        ]);
     }
 
     /**
@@ -75,7 +75,7 @@ class BanController extends Controller
         // Send Notifications
         $user->notify(new UserBan($ban));
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $username])
             ->withSuccess('User Is Now Banned!');
     }
 

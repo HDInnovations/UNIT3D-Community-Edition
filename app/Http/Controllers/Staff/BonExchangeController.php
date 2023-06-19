@@ -26,9 +26,9 @@ class BonExchangeController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bonExchanges = BonExchange::orderBy('position')->get();
-
-        return view('Staff.bon_exchange.index', ['bonExchanges' => $bonExchanges]);
+        return view('Staff.bon_exchange.index', [
+            'bonExchanges' => BonExchange::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -61,9 +61,9 @@ class BonExchangeController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bonExchange = BonExchange::findOrFail($id);
-
-        return view('Staff.bon_exchange.edit', ['bonExchange' => $bonExchange]);
+        return view('Staff.bon_exchange.edit', [
+            'bonExchange' => BonExchange::findOrFail($id),
+        ]);
     }
 
     /**

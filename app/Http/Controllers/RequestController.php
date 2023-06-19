@@ -117,13 +117,11 @@ class RequestController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
         return view('requests.create', [
             'categories'  => Category::orderBy('position')->get(),
             'types'       => Type::orderBy('position')->get(),
             'resolutions' => Resolution::orderBy('position')->get(),
-            'user'        => $user,
+            'user'        => $request->user(),
             'category_id' => $request->category_id,
             'title'       => urldecode($request->title),
             'imdb'        => $request->imdb,
@@ -225,15 +223,13 @@ class RequestController extends Controller
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
-
         return view('requests.edit', [
             'categories'     => Category::orderBy('position')->get(),
             'types'          => Type::orderBy('position')->get(),
             'resolutions'    => Resolution::orderBy('position')->get(),
-            'user'           => $user,
-            'torrentRequest' => $torrentRequest, ]);
+            'user'           => $request->user(),
+            'torrentRequest' => TorrentRequest::findOrFail($id),
+        ]);
     }
 
     /**
@@ -452,9 +448,7 @@ class RequestController extends Controller
      */
     public function reset(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        abort_unless($user->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
         TorrentRequest::whereKey($id)->update([
             'filled_by'     => null,

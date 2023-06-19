@@ -37,10 +37,8 @@ class ChatStatusController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatstatuses = $this->chatRepository->statuses();
-
         return view('Staff.chat.status.index', [
-            'chatstatuses' => $chatstatuses,
+            'chatstatuses' => $this->chatRepository->statuses(),
         ]);
     }
 

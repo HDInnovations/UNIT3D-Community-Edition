@@ -28,9 +28,9 @@ class DistributorController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributors = Distributor::orderBy('position')->get();
-
-        return view('Staff.distributor.index', ['distributors' => $distributors]);
+        return view('Staff.distributor.index', [
+            'distributors' => Distributor::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -57,9 +57,9 @@ class DistributorController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributor = Distributor::findOrFail($id);
-
-        return view('Staff.distributor.edit', ['distributor' => $distributor]);
+        return view('Staff.distributor.edit', [
+            'distributor' => Distributor::findOrFail($id),
+        ]);
     }
 
     /**
@@ -78,10 +78,10 @@ class DistributorController extends Controller
      */
     public function delete(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributors = Distributor::orderBy('position')->get();
-        $distributor = Distributor::findOrFail($id);
-
-        return view('Staff.distributor.delete', ['distributors' => $distributors, 'distributor' => $distributor]);
+        return view('Staff.distributor.delete', [
+            'distributors' => Distributor::orderBy('position')->get(),
+            'distributor'  => Distributor::findOrFail($id),
+        ]);
     }
 
     /**

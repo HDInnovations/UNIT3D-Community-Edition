@@ -26,10 +26,8 @@ class BanController extends Controller
     {
         abort_unless($request->user()->group->is_modo, 403);
 
-        $bans = $user->userban()->latest()->get();
-
         return view('user.ban.index', [
-            'bans' => $bans,
+            'bans' => $user->userban()->latest()->get(),
             'user' => $user,
         ]);
     }

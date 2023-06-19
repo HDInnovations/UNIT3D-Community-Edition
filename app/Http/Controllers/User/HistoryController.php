@@ -27,18 +27,16 @@ class HistoryController extends Controller
     {
         abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
-        $history = DB::table('history')
-            ->where('user_id', '=', $user->id)
-            ->where('created_at', '>', $user->created_at)
-            ->selectRaw('sum(actual_uploaded) as upload')
-            ->selectRaw('sum(uploaded) as credited_upload')
-            ->selectRaw('sum(actual_downloaded) as download')
-            ->selectRaw('sum(downloaded) as credited_download')
-            ->first();
-
         return view('user.history.index', [
             'user'    => $user,
-            'history' => $history,
+            'history' => DB::table('history')
+                ->where('user_id', '=', $user->id)
+                ->where('created_at', '>', $user->created_at)
+                ->selectRaw('sum(actual_uploaded) as upload')
+                ->selectRaw('sum(uploaded) as credited_upload')
+                ->selectRaw('sum(actual_downloaded) as download')
+                ->selectRaw('sum(downloaded) as credited_download')
+                ->first(),
         ]);
     }
 }

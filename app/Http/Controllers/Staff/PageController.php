@@ -29,9 +29,9 @@ class PageController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $pages = Page::all();
-
-        return view('Staff.page.index', ['pages' => $pages]);
+        return view('Staff.page.index', [
+            'pages' => Page::all(),
+        ]);
     }
 
     /**
@@ -58,9 +58,9 @@ class PageController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $page = Page::findOrFail($id);
-
-        return view('Staff.page.edit', ['page' => $page]);
+        return view('Staff.page.edit', [
+            'page' => Page::findOrFail($id),
+        ]);
     }
 
     /**

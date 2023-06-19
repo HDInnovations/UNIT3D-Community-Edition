@@ -29,9 +29,9 @@ class TypeController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $types = Type::orderBy('position')->get();
-
-        return view('Staff.type.index', ['types' => $types]);
+        return view('Staff.type.index', [
+            'types' => $types = Type::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -58,9 +58,9 @@ class TypeController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $type = Type::findOrFail($id);
-
-        return view('Staff.type.edit', ['type' => $type]);
+        return view('Staff.type.edit', [
+            'type' => Type::findOrFail($id),
+        ]);
     }
 
     /**

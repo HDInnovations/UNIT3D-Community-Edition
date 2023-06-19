@@ -43,14 +43,21 @@ class PlaylistController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $playlists = Playlist::with(['user:id,username,group_id,image', 'user.group'])->withCount('torrents')->where(function ($query): void {
-            $query->where('is_private', '=', 0)
-                ->orWhere(function ($query): void {
-                    $query->where('is_private', '=', 1)->where('user_id', '=', auth()->id());
-                });
-        })->oldest('name')->paginate(24);
-
-        return view('playlist.index', ['playlists' => $playlists]);
+        return view('playlist.index', [
+            'playlists' => Playlist::with([
+                'user:id,username,group_id,image',
+                'user.group'
+            ])
+                ->withCount('torrents')
+                ->where(function ($query): void {
+                    $query->where('is_private', '=', 0)
+                        ->orWhere(function ($query): void {
+                            $query->where('is_private', '=', 1)->where('user_id', '=', auth()->id());
+                        });
+                })
+                ->oldest('name')
+                ->paginate(24),
+        ]);
     }
 
     /**
@@ -142,19 +149,21 @@ class PlaylistController extends Controller
             }
         }
 
-        $torrents = PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon,created_at'])
-            ->where('playlist_id', '=', $playlist->id)
-            ->whereHas('torrent')
-            ->orderBy(function ($query): void {
-                $query->select('name')
-                    ->from('torrents')
-                    ->whereColumn('id', 'playlist_torrents.torrent_id')
-                    ->latest()
-                    ->limit(1);
-            })
-            ->paginate(26);
-
-        return view('playlist.show', ['playlist' => $playlist, 'meta' => $meta, 'torrents' => $torrents]);
+        return view('playlist.show', [
+            'playlist' => $playlist,
+            'meta'     => $meta,
+            'torrents' => PlaylistTorrent::with(['torrent:id,name,category_id,resolution_id,type_id,tmdb,seeders,leechers,times_completed,size,anon,created_at'])
+                ->where('playlist_id', '=', $playlist->id)
+                ->whereHas('torrent')
+                ->orderBy(function ($query): void {
+                    $query->select('name')
+                        ->from('torrents')
+                        ->whereColumn('id', 'playlist_torrents.torrent_id')
+                        ->latest()
+                        ->limit(1);
+                })
+                ->paginate(26),
+        ]);
     }
 
     /**
@@ -202,14 +211,14 @@ class PlaylistController extends Controller
         ]);
 
         if ($v->fails()) {
-            return to_route('playlists.edit', ['id' => $playlist->id])
+            return to_route('playlists.edit', ['id' => $id])
                 ->withInput()
                 ->withErrors($v->errors());
         }
 
         $playlist->save();
 
-        return to_route('playlists.show', ['id' => $playlist->id])
+        return to_route('playlists.show', ['id' => $id])
             ->withSuccess(trans('playlist.update-success'));
     }
 

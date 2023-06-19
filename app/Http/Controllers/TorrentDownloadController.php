@@ -26,10 +26,10 @@ class TorrentDownloadController extends Controller
      */
     public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $user = $request->user();
-
-        return view('torrent.download_check', ['torrent' => $torrent, 'user' => $user]);
+        return view('torrent.download_check', [
+            'torrent' => Torrent::withAnyStatus()->findOrFail($id),
+            'user'    => $request->user(),
+        ]);
     }
 
     /**

@@ -34,9 +34,10 @@ class SeedboxController extends Controller
 
         abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
-        $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
-
-        return view('user.seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return view('user.seedbox.index', [
+            'user'      => $user,
+            'seedboxes' => Seedbox::where('user_id', '=', $user->id)->paginate(25),
+        ]);
     }
 
     /**

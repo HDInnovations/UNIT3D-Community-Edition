@@ -33,9 +33,9 @@ class GroupController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $groups = Group::orderBy('position')->get();
-
-        return view('Staff.group.index', ['groups' => $groups]);
+        return view('Staff.group.index', [
+            'groups' => Group::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -73,9 +73,9 @@ class GroupController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $group = Group::findOrFail($id);
-
-        return view('Staff.group.edit', ['group' => $group]);
+        return view('Staff.group.edit', [
+            'group' => Group::findOrFail($id),
+        ]);
     }
 
     /**

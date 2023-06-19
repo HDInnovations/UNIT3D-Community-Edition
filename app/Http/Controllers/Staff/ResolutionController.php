@@ -26,9 +26,9 @@ class ResolutionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $resolutions = Resolution::orderBy('position')->get();
-
-        return view('Staff.resolution.index', ['resolutions' => $resolutions]);
+        return view('Staff.resolution.index', [
+            'resolutions' => Resolution::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -55,9 +55,9 @@ class ResolutionController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $resolution = Resolution::findOrFail($id);
-
-        return view('Staff.resolution.edit', ['resolution' => $resolution]);
+        return view('Staff.resolution.edit', [
+            'resolution' => Resolution::findOrFail($id),
+        ]);
     }
 
     /**

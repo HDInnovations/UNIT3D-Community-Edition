@@ -89,7 +89,7 @@ class BountyController extends Controller
             $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
 
-        return to_route('requests.show', ['id' => $request->input('request_id')])
+        return to_route('requests.show', ['id' => $request->integer('request_id')])
             ->withSuccess(trans('request.added-bonus'));
     }
 }

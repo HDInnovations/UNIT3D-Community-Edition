@@ -36,11 +36,13 @@ class InviteController extends Controller
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->sole();
+
         abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
 
-        $invites = Invite::withTrashed()->with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
-
-        return view('user.invite.index', ['user' => $owner, 'invites' => $invites, 'route' => 'invite']);
+        return view('user.invite.index', [
+            'user'    => $owner,
+            'invites' => Invite::withTrashed()->with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25),
+        ]);
     }
 
     /**
@@ -65,7 +67,7 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invites-disabled-group'));
         }
 
-        return view('user.invite.create', ['user' => $user, 'route' => 'invite']);
+        return view('user.invite.create', ['user' => $user]);
     }
 
     /**

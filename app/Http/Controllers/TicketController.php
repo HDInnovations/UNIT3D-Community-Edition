@@ -34,12 +34,9 @@ class TicketController extends Controller
      */
     final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $categories = TicketCategory::orderBy('position')->get();
-        $priorities = TicketPriority::orderBy('position')->get();
-
         return view('ticket.create', [
-            'categories' => $categories,
-            'priorities' => $priorities,
+            'categories' => TicketCategory::orderBy('position')->get(),
+            'priorities' => TicketPriority::orderBy('position')->get(),
         ]);
     }
 

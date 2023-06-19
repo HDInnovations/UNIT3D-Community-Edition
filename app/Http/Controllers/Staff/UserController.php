@@ -54,14 +54,10 @@ class UserController extends Controller
      */
     public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::withTrashed()->where('username', '=', $username)->sole();
-        $groups = Group::all();
-        $internals = Internal::all();
-
         return view('Staff.user.edit', [
-            'user'      => $user,
-            'groups'    => $groups,
-            'internals' => $internals,
+            'user'      => User::withTrashed()->where('username', '=', $username)->sole(),
+            'groups'    => Group::all(),
+            'internals' => Internal::all(),
         ]);
     }
 
@@ -81,7 +77,7 @@ class UserController extends Controller
         cache()->forget('user:'.$user->passkey);
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $username])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -102,7 +98,7 @@ class UserController extends Controller
         cache()->forget('user:'.$user->passkey);
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $username])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -245,7 +241,7 @@ class UserController extends Controller
         $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
         $pm->save();
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $username])
             ->withSuccess('Warning issued successfully!');
     }
 }

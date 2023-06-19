@@ -32,9 +32,9 @@ class ForumController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Forum::orderBy('position')->where('parent_id', '=', 0)->get();
-
-        return view('Staff.forum.index', ['categories' => $categories]);
+        return view('Staff.forum.index', [
+            'categories' => Forum::orderBy('position')->where('parent_id', '=', 0)->get(),
+        ]);
     }
 
     /**
@@ -42,10 +42,10 @@ class ForumController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
-
-        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
+        return view('Staff.forum.create', [
+            'categories' => Forum::where('parent_id', '=', 0)->get(),
+            'groups'     => Group::all(),
+        ]);
     }
 
     /**
@@ -100,14 +100,10 @@ class ForumController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $forum = Forum::findOrFail($id);
-        $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
-
         return view('Staff.forum.edit', [
-            'categories' => $categories,
-            'groups'     => $groups,
-            'forum'      => $forum,
+            'categories' => Forum::where('parent_id', '=', 0)->get(),
+            'groups'     => Group::all(),
+            'forum'      => Forum::findOrFail($id),
         ]);
     }
 

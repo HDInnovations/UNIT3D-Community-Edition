@@ -38,10 +38,8 @@ class ChatRoomController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatrooms = $this->chatRepository->rooms();
-
         return view('Staff.chat.room.index', [
-            'chatrooms' => $chatrooms,
+            'chatrooms' => $this->chatRepository->rooms(),
         ]);
     }
 
@@ -69,9 +67,9 @@ class ChatRoomController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatroom = Chatroom::findOrFail($id);
-
-        return view('Staff.chat.room.edit', ['chatroom' => $chatroom]);
+        return view('Staff.chat.room.edit', [
+            'chatroom' => Chatroom::findOrFail($id),
+        ]);
     }
 
     /**

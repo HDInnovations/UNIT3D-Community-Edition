@@ -26,9 +26,9 @@ class MediaLanguageController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $mediaLanguages = MediaLanguage::orderBy('name')->get();
-
-        return view('Staff.media_language.index', ['media_languages' => $mediaLanguages]);
+        return view('Staff.media_language.index', [
+            'media_languages' => MediaLanguage::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -55,9 +55,9 @@ class MediaLanguageController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
-
-        return view('Staff.media_language.edit', ['media_language' => $mediaLanguage]);
+        return view('Staff.media_language.edit', [
+            'media_language' => MediaLanguage::findOrFail($id),
+        ]);
     }
 
     /**

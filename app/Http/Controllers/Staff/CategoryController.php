@@ -30,9 +30,9 @@ class CategoryController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Category::orderBy('position')->get();
-
-        return view('Staff.category.index', ['categories' => $categories]);
+        return view('Staff.category.index', [
+            'categories' => Category::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -73,9 +73,9 @@ class CategoryController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $category = Category::findOrFail($id);
-
-        return view('Staff.category.edit', ['category' => $category]);
+        return view('Staff.category.edit', [
+            'category' => Category::findOrFail($id),
+        ]);
     }
 
     /**

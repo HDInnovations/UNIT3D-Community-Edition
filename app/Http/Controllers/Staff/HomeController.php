@@ -36,42 +36,6 @@ class HomeController extends Controller
         // User Info
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $users = cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
-            return DB::table('users')
-                ->selectRaw('count(*) as total')
-                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
-                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
-                ->first();
-        });
-
-        // Torrent Info
-        $torrents = cache()->remember('dashboard_torrents', 300, function () {
-            return DB::table('torrents')
-                ->selectRaw('count(*) as total')
-                ->selectRaw('count(case when status = 0 then 1 end) as pending')
-                ->selectRaw('count(case when status = 2 then 1 end) as rejected')
-                ->selectRaw('count(case when status = 3 then 1 end) as postponed')
-                ->first();
-        });
-
-        // Peers Info
-        $peers = cache()->remember('dashboard_peers', 300, function () {
-            return DB::table('peers')
-                ->selectRaw('count(*) as total')
-                ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
-                ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
-                ->first();
-        });
-
-        // Reports Info
-        $reports = DB::table('reports')
-            ->selectRaw('count(case when solved = 0 then 1 end) as unsolved')
-            ->first();
-
-        // Pending Applications Count
-        $apps = DB::table('applications')
-            ->selectRaw('count(case when status = 0 then 1 end) as pending')
-            ->first();
 
         // SSL Info
         try {
@@ -82,28 +46,43 @@ class HomeController extends Controller
 
         // System Information
         $systemInformation = new SystemInformation();
-        $uptime = $systemInformation->uptime();
-        $ram = $systemInformation->memory();
-        $disk = $systemInformation->disk();
-        $avg = $systemInformation->avg();
-        $basic = $systemInformation->basic();
-
-        // Directory Permissions
-        $filePermissions = $systemInformation->directoryPermissions();
 
         return view('Staff.dashboard.index', [
-            'users'            => $users,
-            'torrents'         => $torrents,
-            'peers'            => $peers,
-            'reports'          => $reports,
-            'apps'             => $apps,
+            'users' => cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
+                return DB::table('users')
+                    ->selectRaw('count(*) as total')
+                    ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+                    ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
+                    ->first();
+            }),
+            'torrents' => cache()->remember('dashboard_torrents', 300, function () {
+                return DB::table('torrents')
+                    ->selectRaw('count(*) as total')
+                    ->selectRaw('count(case when status = 0 then 1 end) as pending')
+                    ->selectRaw('count(case when status = 2 then 1 end) as rejected')
+                    ->selectRaw('count(case when status = 3 then 1 end) as postponed')
+                    ->first();
+            }),
+            'peers' => cache()->remember('dashboard_peers', 300, function () {
+                return DB::table('peers')
+                    ->selectRaw('count(*) as total')
+                    ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
+                    ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
+                    ->first();
+            }),
+            'reports' => DB::table('reports')
+                ->selectRaw('count(case when solved = 0 then 1 end) as unsolved')
+                ->first(),
+            'apps' => DB::table('applications')
+                ->selectRaw('count(case when status = 0 then 1 end) as pending')
+                ->first(),
             'certificate'      => $certificate,
-            'uptime'           => $uptime,
-            'ram'              => $ram,
-            'disk'             => $disk,
-            'avg'              => $avg,
-            'basic'            => $basic,
-            'file_permissions' => $filePermissions,
+            'uptime'           => $systemInformation->uptime(),
+            'ram'              => $systemInformation->memory(),
+            'disk'             => $systemInformation->disk(),
+            'avg'              => $systemInformation->avg(),
+            'basic'            => $systemInformation->basic(),
+            'file_permissions' => $systemInformation->directoryPermissions(),
         ]);
     }
 }

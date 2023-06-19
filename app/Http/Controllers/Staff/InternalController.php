@@ -28,9 +28,9 @@ class InternalController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internals = Internal::orderBy('name')->get();
-
-        return view('Staff.internals.index', ['internals' => $internals]);
+        return view('Staff.internals.index', [
+            'internals' => Internal::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -38,9 +38,9 @@ class InternalController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $internal = Internal::findOrFail($id);
-
-        return view('Staff.internals.edit', ['internal' => $internal]);
+        return view('Staff.internals.edit', [
+            'internal' => Internal::findOrFail($id),
+        ]);
     }
 
     /**
