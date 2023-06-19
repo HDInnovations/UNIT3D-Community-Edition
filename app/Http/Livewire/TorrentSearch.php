@@ -196,8 +196,22 @@ class TorrentSearch extends Component
         $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->when($this->view === 'list', fn ($query) => $query->withCount(['thanks', 'comments']))
             ->withExists([
-                'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
-                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
             ])
             ->selectRaw("
                 CASE
@@ -346,9 +360,24 @@ class TorrentSearch extends Component
         $tv = Tv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
         $torrents = Torrent::query()
-            ->with('type:id,name,position', 'resolution:id,name,position')
+            ->with(['type:id,name,position', 'resolution:id,name,position'])
             ->withExists([
-                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
             ])
             ->select([
                 'id',
