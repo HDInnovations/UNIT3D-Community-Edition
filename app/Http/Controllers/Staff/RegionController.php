@@ -28,7 +28,7 @@ class RegionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $regions = Region::all()->sortBy('position');
+        $regions = Region::orderBy('position')->get();
 
         return view('Staff.region.index', ['regions' => $regions]);
     }

@@ -32,7 +32,7 @@ class ForumController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
+        $categories = Forum::orderBy('position')->where('parent_id', '=', 0)->get();
 
         return view('Staff.forum.index', ['categories' => $categories]);
     }

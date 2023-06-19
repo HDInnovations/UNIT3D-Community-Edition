@@ -65,8 +65,8 @@ class PageController extends Controller
     {
         $internals = Internal::query()
             ->with('users')
-            ->get()
-            ->sortBy('name');
+            ->orderBy('name')
+            ->get();
 
         return view('page.internal', ['internals' => $internals]);
     }

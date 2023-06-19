@@ -33,7 +33,7 @@ class GroupController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $groups = Group::all()->sortBy('position');
+        $groups = Group::orderBy('position')->get();
 
         return view('Staff.group.index', ['groups' => $groups]);
     }

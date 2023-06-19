@@ -26,7 +26,7 @@ class BonExchangeController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bonExchanges = BonExchange::all()->sortBy('position');
+        $bonExchanges = BonExchange::orderBy('position')->get();
 
         return view('Staff.bon_exchange.index', ['bonExchanges' => $bonExchanges]);
     }

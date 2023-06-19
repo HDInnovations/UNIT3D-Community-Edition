@@ -30,7 +30,7 @@ class CategoryController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Category::all()->sortBy('position');
+        $categories = Category::orderBy('position')->get();
 
         return view('Staff.category.index', ['categories' => $categories]);
     }

@@ -120,9 +120,9 @@ class RequestController extends Controller
         $user = $request->user();
 
         return view('requests.create', [
-            'categories'  => Category::all()->sortBy('position'),
-            'types'       => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
+            'categories'  => Category::orderBy('position')->get(),
+            'types'       => Type::orderBy('position')->get(),
+            'resolutions' => Resolution::orderBy('position')->get(),
             'user'        => $user,
             'category_id' => $request->category_id,
             'title'       => urldecode($request->title),
@@ -229,9 +229,9 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         return view('requests.edit', [
-            'categories'     => Category::all()->sortBy('position'),
-            'types'          => Type::all()->sortBy('position'),
-            'resolutions'    => Resolution::all()->sortBy('position'),
+            'categories'     => Category::orderBy('position')->get(),
+            'types'          => Type::orderBy('position')->get(),
+            'resolutions'    => Resolution::orderBy('position')->get(),
             'user'           => $user,
             'torrentRequest' => $torrentRequest, ]);
     }

@@ -28,7 +28,7 @@ class InternalController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internals = Internal::all()->sortBy('name');
+        $internals = Internal::orderBy('name')->get();
 
         return view('Staff.internals.index', ['internals' => $internals]);
     }

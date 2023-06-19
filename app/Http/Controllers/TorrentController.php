@@ -169,8 +169,9 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $categories = Category::all()
-            ->sortBy('position')
+        $categories = Category::query()
+            ->orderBy('position')
+            ->get()
             ->mapWithKeys(fn ($cat) => [
                 $cat['id'] => [
                     'name' => $cat['name'],
@@ -183,16 +184,16 @@ class TorrentController extends Controller
                     },
                 ]
             ]);
-        $types = Type::all()->sortBy('position')->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]);
+        $types = Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]);
 
         abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return view('torrent.edit', [
             'categories'   => $categories,
             'types'        => $types,
-            'resolutions'  => Resolution::all()->sortBy('position'),
-            'regions'      => Region::all()->sortBy('position'),
-            'distributors' => Distributor::all()->sortBy('position'),
+            'resolutions'  => Resolution::orderBy('position')->get(),
+            'regions'      => Region::orderBy('position')->get(),
+            'distributors' => Distributor::orderBy('position')->get(),
             'keywords'     => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
             'torrent'      => $torrent,
             'user'         => $user,
@@ -402,7 +403,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $categories = [];
-        foreach (Category::all()->sortBy('position') as $cat) {
+        foreach (Category::orderBy('position')->get() as $cat) {
             $temp = [
                 'name' => $cat->name,
             ];
@@ -419,10 +420,10 @@ class TorrentController extends Controller
 
         return view('torrent.create', [
             'categories'   => $categories,
-            'types'        => Type::all()->sortBy('position'),
-            'resolutions'  => Resolution::all()->sortBy('position'),
-            'regions'      => Region::all()->sortBy('position'),
-            'distributors' => Distributor::all()->sortBy('position'),
+            'types'        => Type::orderBy('position')->get(),
+            'resolutions'  => Resolution::orderBy('position')->get(),
+            'regions'      => Region::orderBy('position')->get(),
+            'distributors' => Distributor::orderBy('position')->get(),
             'user'         => $user,
             'category_id'  => $request->category_id,
             'title'        => urldecode($request->title),

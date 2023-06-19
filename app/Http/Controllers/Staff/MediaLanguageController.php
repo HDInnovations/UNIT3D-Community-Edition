@@ -26,7 +26,7 @@ class MediaLanguageController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $mediaLanguages = MediaLanguage::all()->sortBy('name');
+        $mediaLanguages = MediaLanguage::orderBy('name')->get();
 
         return view('Staff.media_language.index', ['media_languages' => $mediaLanguages]);
     }

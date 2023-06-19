@@ -85,7 +85,7 @@ class StatsController extends Controller
         $numTorrent = cache()->remember('num_torrent', $this->carbon, fn () => Torrent::count());
 
         // Total Categories With Torrent Count
-        $categories = Category::withCount('torrents')->get()->sortBy('position');
+        $categories = Category::withCount('torrents')->orderBy('position')->get();
 
         // Total HD Count
         $numHd = cache()->remember('num_hd', $this->carbon, fn () => Torrent::where('sd', '=', 0)->count());

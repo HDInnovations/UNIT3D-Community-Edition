@@ -26,7 +26,7 @@ class ResolutionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $resolutions = Resolution::all()->sortBy('position');
+        $resolutions = Resolution::orderBy('position')->get();
 
         return view('Staff.resolution.index', ['resolutions' => $resolutions]);
     }
