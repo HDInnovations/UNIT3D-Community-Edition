@@ -17,7 +17,6 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Notifications\NewRequestClaim;
 use App\Notifications\NewRequestUnclaim;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Exception;
 
