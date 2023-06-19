@@ -68,7 +68,7 @@ class ForumController extends Controller
         );
 
         // Permissions
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             $perm = Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $group->id)->first();
             if ($perm == null) {
                 $perm = new Permission();
@@ -127,7 +127,7 @@ class ForumController extends Controller
         );
 
         // Permissions
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             $perm = Permission::where('forum_id', '=', $id)->where('group_id', '=', $group->id)->first();
             if ($perm == null) {
                 $perm = new Permission();

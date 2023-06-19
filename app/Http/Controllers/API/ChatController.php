@@ -249,7 +249,7 @@ class ChatController extends Controller
             }
 
             $senderListening = false;
-            foreach ($senderEchoes as $se => $senderEcho) {
+            foreach ($senderEchoes as $senderEcho) {
                 if ($senderEcho['target_id'] == $receiverId) {
                     $senderListening = true;
                 }
@@ -265,7 +265,7 @@ class ChatController extends Controller
             }
 
             $receiverListening = false;
-            foreach ($receiverEchoes as $se => $receiverEcho) {
+            foreach ($receiverEchoes as $receiverEcho) {
                 if ($receiverEcho['target_id'] == $userId) {
                     $receiverListening = true;
                 }
@@ -305,7 +305,7 @@ class ChatController extends Controller
             }
 
             $senderListening = false;
-            foreach ($senderAudibles as $se => $senderEcho) {
+            foreach ($senderAudibles as $senderEcho) {
                 if ($senderEcho['target_id'] == $receiverId) {
                     $senderListening = true;
                 }
@@ -322,7 +322,7 @@ class ChatController extends Controller
             }
 
             $receiverListening = false;
-            foreach ($receiverAudibles as $se => $receiverEcho) {
+            foreach ($receiverAudibles as $receiverEcho) {
                 if ($receiverEcho['target_id'] == $userId) {
                     $receiverListening = true;
                 }
@@ -516,7 +516,7 @@ class ChatController extends Controller
         }
 
         $senderListening = false;
-        foreach ($senderEchoes as $se => $senderEcho) {
+        foreach ($senderEchoes as $senderEcho) {
             if ($senderEcho['room_id'] == $room->id) {
                 $senderListening = true;
             }
