@@ -119,7 +119,7 @@ trait TwoStep
      */
     protected function getTwoStepAuthStatus(int $userId)
     {
-        return TwoStepAuth::where('userId', '=', $userId)->firstOrFail();
+        return TwoStepAuth::where('userId', '=', $userId)->sole();
     }
 
     /**

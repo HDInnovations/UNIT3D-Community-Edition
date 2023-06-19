@@ -80,7 +80,7 @@ class ClaimController extends Controller
         abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
 
         if ($torrentRequest->claimed == 1) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
+            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->sole();
             $isAnon = $requestClaim->anon;
             $requestClaim->delete();
 

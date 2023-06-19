@@ -47,7 +47,7 @@ class BanController extends Controller
      */
     public function store(StoreBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
         $staff = $request->user();
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
@@ -84,7 +84,7 @@ class BanController extends Controller
      */
     public function update(UpdateBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
         $staff = $request->user();
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);

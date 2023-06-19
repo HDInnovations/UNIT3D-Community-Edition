@@ -29,7 +29,7 @@ return new class () extends Migration {
 
         if (Schema::hasColumn('torrents', 'resolution')) {
             foreach (Torrent::all() as $torrent) {
-                $resolution_id = Resolution::where('name', '=', $torrent->resolution)->firstOrFail()->id;
+                $resolution_id = Resolution::where('name', '=', $torrent->resolution)->sole()->id;
                 $torrent->resolution_id = $resolution_id;
                 $torrent->save();
             }

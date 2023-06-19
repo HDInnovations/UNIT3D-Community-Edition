@@ -122,7 +122,7 @@ class UserController extends Controller
      */
     public function editProfileForm(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         abort_unless($request->user()->id == $user->id, 403);
 
@@ -134,7 +134,7 @@ class UserController extends Controller
      */
     public function editProfile(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         abort_unless($request->user()->id == $user->id, 403);
 

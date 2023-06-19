@@ -39,7 +39,7 @@ class TorrentDownloadController extends Controller
     {
         $user = $request->user();
         if (! $user && $rsskey) {
-            $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+            $user = User::where('rsskey', '=', $rsskey)->sole();
         }
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();

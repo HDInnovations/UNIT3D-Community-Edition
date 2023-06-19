@@ -148,7 +148,7 @@ class RssController extends Controller
      */
     public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
-        $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+        $user = User::where('rsskey', '=', $rsskey)->sole();
 
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));

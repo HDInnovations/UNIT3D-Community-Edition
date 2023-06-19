@@ -171,7 +171,7 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo, 403);
 
-        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
+        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent->free = '0';

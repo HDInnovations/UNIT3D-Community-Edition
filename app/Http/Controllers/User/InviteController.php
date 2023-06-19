@@ -35,7 +35,7 @@ class InviteController extends Controller
     public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $owner = User::where('username', '=', $username)->firstOrFail();
+        $owner = User::where('username', '=', $username)->sole();
         abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
 
         $invites = Invite::withTrashed()->with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);

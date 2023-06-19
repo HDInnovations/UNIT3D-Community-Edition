@@ -54,7 +54,7 @@ class UserController extends Controller
      */
     public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::withTrashed()->where('username', '=', $username)->firstOrFail();
+        $user = User::withTrashed()->where('username', '=', $username)->sole();
         $groups = Group::all();
         $internals = Internal::all();
 
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function edit(UpdateUserRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::with('group')->where('username', '=', $username)->firstOrFail();
+        $user = User::with('group')->where('username', '=', $username)->sole();
         $staff = $request->user();
         $group = Group::findOrFail($request->group_id);
 
@@ -90,7 +90,7 @@ class UserController extends Controller
      */
     public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');
         $user->can_comment = $request->input('can_comment');
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     protected function destroy(string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 
@@ -226,7 +226,7 @@ class UserController extends Controller
      */
     protected function warnUser(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
         $carbon = new Carbon();
         $warning = new Warning();
         $warning->user_id = $user->id;

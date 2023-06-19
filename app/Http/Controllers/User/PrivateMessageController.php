@@ -117,7 +117,7 @@ class PrivateMessageController extends Controller
         }
 
         if ($request->has('receiver_id')) {
-            $recipient = User::where('username', '=', $request->input('receiver_id'))->firstOrFail();
+            $recipient = User::where('username', '=', $request->input('receiver_id'))->sole();
         } else {
             return to_route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
                 ->withErrors("The recipient doesn't exist");

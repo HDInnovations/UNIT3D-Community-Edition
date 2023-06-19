@@ -37,7 +37,7 @@ class WishController extends Controller
      */
     public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
+        $user = User::with('wishes')->where('username', '=', $username)->sole();
 
         abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
