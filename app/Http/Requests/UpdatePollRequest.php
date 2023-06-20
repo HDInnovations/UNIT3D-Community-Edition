@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
@@ -15,42 +15,19 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-/**
- * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
- */
-class StorePoll extends FormRequest
+class UpdatePollRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      */
     public function rules(): array
     {
         return [
-            'title' => [
-                'required',
-                'min:10'
-            ],
-            'multiple_choice' => [
-                'required',
-                'boolean'
-            ],
-            'options.*.name' => [
-                'required',
-                'max:255'
-            ],
-            'options' => [
-                'array',
-                'min:2',
-                'max:20'
-            ],
+            'title'           => 'required|min:10',
+            'multiple_choice' => 'required|boolean',
+            'options.*.name'  => 'required|max:255',
+            'options.*.id'    => 'required|integer',
+            'options'         => 'array|min:2',
         ];
     }
 
