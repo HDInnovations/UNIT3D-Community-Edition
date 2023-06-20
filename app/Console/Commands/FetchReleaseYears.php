@@ -64,7 +64,7 @@ class FetchReleaseYears extends Command
         foreach ($torrents as $torrent) {
             $meta = null;
             if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = Tv::where('id', '=', $torrent->tmdb)->first();
+                $meta = Tv::find($torrent->tmdb);
                 if (isset($meta->first_air_date) && substr($meta->first_air_date, 0, 4) > '1900') {
                     $torrent->release_year = substr($meta->first_air_date, 0, 4);
                     $torrent->save();
@@ -75,7 +75,7 @@ class FetchReleaseYears extends Command
             }
 
             if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
-                $meta = Movie::where('id', '=', $torrent->tmdb)->first();
+                $meta = Movie::find($torrent->tmdb);
                 if (isset($meta->release_date) && substr($meta->release_date, 0, 4) > '1900') {
                     $torrent->release_year = substr($meta->release_date, 0, 4);
                     $torrent->save();

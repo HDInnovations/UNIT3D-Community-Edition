@@ -17,8 +17,8 @@
                         ]) as $torrent)
                             @php
                                 $meta = match(true) {
-                                    $torrent->category->tv_meta && $torrent->tmdb != 0    => App\Models\Tv::where('id', '=', $torrent->tmdb)->first(),
-                                    $torrent->category->movie_meta && $torrent->tmdb != 0 => App\Models\Movie::where('id', '=', $torrent->tmdb)->first(),
+                                    $torrent->category->tv_meta && $torrent->tmdb != 0    => App\Models\Tv::find($torrent->tmdb),
+                                    $torrent->category->movie_meta && $torrent->tmdb != 0 => App\Models\Movie::find($torrent->tmdb),
                                     $torrent->category->game_meta && $torrent->igdb != 0  => MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb),
                                     default                                               => null,
                                 };

@@ -56,7 +56,7 @@ class AutoRemoveFeaturedTorrent extends Command
 
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featuredTorrent->torrent_id)->first();
+            $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
             if (isset($torrent)) {
                 $torrent->free = 0;
                 $torrent->doubleup = 0;

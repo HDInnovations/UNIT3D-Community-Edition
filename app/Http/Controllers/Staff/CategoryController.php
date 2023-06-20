@@ -30,9 +30,9 @@ class CategoryController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Category::all()->sortBy('position');
-
-        return view('Staff.category.index', ['categories' => $categories]);
+        return view('Staff.category.index', [
+            'categories' => Category::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -73,9 +73,9 @@ class CategoryController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $category = Category::findOrFail($id);
-
-        return view('Staff.category.edit', ['category' => $category]);
+        return view('Staff.category.edit', [
+            'category' => Category::findOrFail($id),
+        ]);
     }
 
     /**
@@ -90,7 +90,7 @@ class CategoryController extends Controller
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
-        Category::where('id', '=', $id)->update([
+        Category::findOrFail($id)->update([
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',

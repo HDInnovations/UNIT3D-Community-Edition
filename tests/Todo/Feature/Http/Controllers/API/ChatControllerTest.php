@@ -53,9 +53,9 @@ class ChatControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $bot = Bot::where('is_systembot', '1')->firstOrFail();
+        $bot = Bot::where('is_systembot', '1')->sole();
 
-        $systemUser = User::where('username', 'System')->firstOrFail();
+        $systemUser = User::where('username', 'System')->sole();
 
         Message::factory()->create([
             'user_id'     => $user->id,
@@ -159,9 +159,9 @@ class ChatControllerTest extends TestCase
 
         $chatroom = Chatroom::factory()->create();
 
-        $bot = Bot::where('is_systembot', '1')->firstOrFail();
+        $bot = Bot::where('is_systembot', '1')->sole();
 
-        $systemUser = User::where('username', 'System')->firstOrFail();
+        $systemUser = User::where('username', 'System')->sole();
 
         $response = $this->actingAs($user)->post('api/chat/messages', [
             'receiver_id' => $systemUser->id,

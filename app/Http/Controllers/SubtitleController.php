@@ -56,10 +56,10 @@ class SubtitleController extends Controller
      */
     public function create(int $torrentId): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($torrentId);
-        $mediaLanguages = MediaLanguage::all()->sortBy('name');
-
-        return view('subtitle.create', ['torrent' => $torrent, 'media_languages' => $mediaLanguages]);
+        return view('subtitle.create', [
+            'torrent'         => Torrent::withAnyStatus()->findOrFail($torrentId),
+            'media_languages' => MediaLanguage::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -184,7 +184,7 @@ class SubtitleController extends Controller
 
         $subtitle->delete();
 
-        return to_route('torrent', ['id' => $request->input('torrent_id')])
+        return to_route('torrent', ['id' => $request->integer('torrent_id')])
             ->withSuccess('Subtitle Successfully Deleted');
     }
 

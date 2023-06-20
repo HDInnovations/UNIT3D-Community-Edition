@@ -14,7 +14,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 use JsonException;
 
 /**
@@ -37,13 +37,11 @@ class VersionController extends Controller
      */
     public function checkVersion(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $client = new Client();
-        $response = json_decode((string) $client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody(), true, 512, JSON_THROW_ON_ERROR);
-        $lastestVersion = $response[0]['tag_name'];
+        $latestVersion = Http::get('//api.github.com/repos/HDInnovations/UNIT3D/releases')[0]['tag_name'];
 
         return response([
-            'updated'       => ! version_compare($this->versionController, $lastestVersion, '<'),
-            'latestversion' => $lastestVersion,
+            'updated'       => ! version_compare($this->versionController, $latestVersion, '<'),
+            'latestversion' => $latestVersion,
         ]);
     }
 }

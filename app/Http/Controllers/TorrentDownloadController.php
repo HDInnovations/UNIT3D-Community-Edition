@@ -26,10 +26,10 @@ class TorrentDownloadController extends Controller
      */
     public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $user = $request->user();
-
-        return view('torrent.download_check', ['torrent' => $torrent, 'user' => $user]);
+        return view('torrent.download_check', [
+            'torrent' => Torrent::withAnyStatus()->findOrFail($id),
+            'user'    => $request->user(),
+        ]);
     }
 
     /**
@@ -39,7 +39,7 @@ class TorrentDownloadController extends Controller
     {
         $user = $request->user();
         if (! $user && $rsskey) {
-            $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+            $user = User::where('rsskey', '=', $rsskey)->sole();
         }
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();

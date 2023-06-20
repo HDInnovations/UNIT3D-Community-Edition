@@ -37,10 +37,8 @@ class ChatStatusController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatstatuses = $this->chatRepository->statuses();
-
         return view('Staff.chat.status.index', [
-            'chatstatuses' => $chatstatuses,
+            'chatstatuses' => $this->chatRepository->statuses(),
         ]);
     }
 
@@ -78,7 +76,7 @@ class ChatStatusController extends Controller
      */
     public function update(UpdateChatStatusRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        ChatStatus::where('id', '=', $id)->update($request->validated());
+        ChatStatus::findOrFail($id)->update($request->validated());
 
         return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');

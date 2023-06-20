@@ -28,9 +28,9 @@ class InternalController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internals = Internal::all()->sortBy('name');
-
-        return view('Staff.internals.index', ['internals' => $internals]);
+        return view('Staff.internals.index', [
+            'internals' => Internal::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -38,9 +38,9 @@ class InternalController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $internal = Internal::findOrFail($id);
-
-        return view('Staff.internals.edit', ['internal' => $internal]);
+        return view('Staff.internals.edit', [
+            'internal' => Internal::findOrFail($id),
+        ]);
     }
 
     /**
@@ -48,7 +48,7 @@ class InternalController extends Controller
      */
     public function update(UpdateInternalRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Internal::where('id', '=', $id)->update($request->validated());
+        Internal::findOrFail($id)->update($request->validated());
 
         return to_route('staff.internals.index')
             ->withSuccess('Internal Group Was Updated Successfully!');
