@@ -31,8 +31,16 @@ class UpdateBanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'unban_reason' => 'required|string|max:65536',
-            'group_id'     => 'required|integer|exists:groups,id'
+            'unban_reason' => [
+                'required',
+                'string',
+                'max:65536',
+            ],
+            'group_id'     => [
+                'required',
+                'integer',
+                'exists:groups,id',
+            ],
         ];
     }
 }

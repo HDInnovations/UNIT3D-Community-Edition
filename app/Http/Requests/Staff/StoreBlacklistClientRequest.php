@@ -31,8 +31,15 @@ class StoreBlacklistClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => 'required|string|unique:blacklist_clients',
-            'reason' => 'sometimes|string',
+            'name'   => [
+                'required',
+                'string',
+                'unique:blacklist_clients',
+            ],
+            'reason' => [
+                'sometimes',
+                'string',
+            ],
         ];
     }
 }

@@ -31,8 +31,16 @@ class UpdateMediaLanguageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:media_languages',
-            'code' => 'required|string|unique:media_languages',
+            'name' => [
+                'required',
+                'string',
+                'unique:media_languages',
+            ],
+            'code' => [
+                'required',
+                'string',
+                'unique:media_languages',
+            ],
         ];
     }
 }

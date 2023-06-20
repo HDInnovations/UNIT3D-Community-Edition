@@ -31,7 +31,11 @@ class StoreWatchedUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => 'required|string|min:3',
+            'message' => [
+                'required',
+                'string',
+                'min:3',
+            ],
         ];
     }
 }

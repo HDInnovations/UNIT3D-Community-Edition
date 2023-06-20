@@ -31,16 +31,43 @@ class StoreForumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                      => 'required',
-            'position'                  => 'required',
-            'description'               => 'required',
-            'parent_id'                 => 'required|integer',
-            'permissions'               => 'sometimes|array',
-            'permissions.*'             => 'sometimes|exists:groups,id',
-            'permissions.*.show_forum'  => 'sometimes|boolean',
-            'permissions.*.read_topic'  => 'sometimes|boolean',
-            'permissions.*.reply_topic' => 'sometimes|boolean',
-            'permissions.*.start_topic' => 'sometimes|boolean',
+            'name'                      => [
+                'required',
+            ],
+            'position'                  => [
+                'required',
+            ],
+            'description'               => [
+                'required',
+            ],
+            'parent_id'                 => [
+                'required',
+                'integer',
+            ],
+            'permissions'               => [
+                'sometimes',
+                'array',
+            ],
+            'permissions.*'             => [
+                'sometimes',
+                'exists:groups,id',
+            ],
+            'permissions.*.show_forum'  => [
+                'sometimes',
+                'boolean',
+            ],
+            'permissions.*.read_topic'  => [
+                'sometimes',
+                'boolean',
+            ],
+            'permissions.*.reply_topic' => [
+                'sometimes',
+                'boolean',
+            ],
+            'permissions.*.start_topic' => [
+                'sometimes',
+                'boolean',
+            ],
         ];
     }
 }
