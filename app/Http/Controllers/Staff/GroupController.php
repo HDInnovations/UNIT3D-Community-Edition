@@ -54,14 +54,14 @@ class GroupController extends Controller
         $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
 
         foreach (Forum::pluck('id') as $collection) {
-            $permission = new Permission();
-            $permission->forum_id = $collection;
-            $permission->group_id = $group->id;
-            $permission->show_forum = 0;
-            $permission->read_topic = 0;
-            $permission->reply_topic = 0;
-            $permission->start_topic = 0;
-            $permission->save();
+            Permission::create([
+                'forum_id'    => $collection,
+                'group_id'    => $group->id,
+                'show_forum'  => 0,
+                'read_topic'  => 0,
+                'reply_topic' => 0,
+                'start_topic' => 0,
+            ]);
         }
 
         return to_route('staff.groups.index')
