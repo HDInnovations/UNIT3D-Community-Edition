@@ -18,7 +18,6 @@ use App\Http\Requests\Staff\StoreRegionRequest;
 use App\Http\Requests\Staff\UpdateRegionRequest;
 use App\Models\Region;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Exception;
 
 class RegionController extends Controller
@@ -81,15 +80,7 @@ class RegionController extends Controller
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $region = Region::findOrFail($id);
-
-        $validated = $request->validate([
-            'region_id' => [
-                'required',
-                'exists:regions,id',
-                Rule::notIn([$region->id]),
-            ],
-        ]);
-        $region->torrents()->update($validated);
+        $region->torrents()->update($request->validated());
         $region->delete();
 
         return to_route('staff.regions.index')
