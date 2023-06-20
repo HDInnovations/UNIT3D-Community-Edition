@@ -64,6 +64,11 @@ class User extends Authenticatable
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * ID of the system user.
+     */
+    public const SYSTEM_USER_ID = 1;
+
+    /**
      * Belongs To A Group.
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -35,6 +35,8 @@ class Torrent extends Model
     use Moderatable;
     use TorrentFilter;
 
+    protected $guarded = [];
+
     /**
      * The Attributes That Should Be Mutated To Dates.
      *

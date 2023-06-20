@@ -76,6 +76,7 @@ class UserController extends Controller
         $user->update($request->validated());
 
         cache()->forget('user:'.$user->passkey);
+
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['username' => $username])
@@ -88,15 +89,18 @@ class UserController extends Controller
     public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->sole();
-        $user->can_upload = $request->input('can_upload');
-        $user->can_download = $request->input('can_download');
-        $user->can_comment = $request->input('can_comment');
-        $user->can_invite = $request->input('can_invite');
-        $user->can_request = $request->input('can_request');
-        $user->can_chat = $request->input('can_chat');
-        $user->save();
+
+        $user->update([
+            'can_upload'   => $request->boolean('can_upload'),
+            'can_download' => $request->boolean('can_download'),
+            'can_comment'  => $request->boolean('can_comment'),
+            'can_invite'   => $request->boolean('can_invite'),
+            'can_request'  => $request->boolean('can_request'),
+            'can_chat'     => $request->boolean('can_chat'),
+        ]);
 
         cache()->forget('user:'.$user->passkey);
+
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['username' => $username])
@@ -112,57 +116,52 @@ class UserController extends Controller
 
         abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 
-        $user->can_upload = 0;
-        $user->can_download = 0;
-        $user->can_comment = 0;
-        $user->can_invite = 0;
-        $user->can_request = 0;
-        $user->can_chat = 0;
-        $user->group_id = UserGroups::PRUNED;
-        $user->deleted_by = auth()->user()->id;
-        $user->save();
+        $user->update([
+            'can_upload'   => false,
+            'can_download' => false,
+            'can_comment'  => false,
+            'can_invite'   => false,
+            'can_request'  => false,
+            'can_chat'     => false,
+            'group_id'     => UserGroups::PRUNED,
+            'deleted_by'   => auth()->id(),
+        ]);
 
-        // Removes UserID from Torrents if any and replaces with System UserID (1)
-        foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
-            $tor->user_id = 1;
-            $tor->save();
-        }
+        Torrent::withAnyStatus()->where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Comments if any and replaces with System UserID (1)
-        foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-            $com->user_id = 1;
-            $com->save();
-        }
+        Comment::where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Posts if any and replaces with System UserID (1)
-        foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-            $post->user_id = 1;
-            $post->save();
-        }
+        Post::where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Topic Creators if any and replaces with System UserID (1)
-        foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->first_post_user_id = 1;
-            $topic->save();
-        }
+        Topic::where('first_post_user_id', '=', $user->id)->update([
+            'first_post_user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Topic if any and replaces with System UserID (1)
-        foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->last_post_user_id = 1;
-            $topic->save();
-        }
+        Topic::where('last_post_user_id', '=', $user->id)->update([
+            'last_post_user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from PM if any and replaces with System UserID (1)
-        foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-            $sent->sender_id = 1;
-            $sent->save();
-        }
+        PrivateMessage::where('sender_id', '=', $user->id)->update([
+            'sender_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from PM if any and replaces with System UserID (1)
-        foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
-            $received->receiver_id = 1;
-            $received->save();
-        }
+        PrivateMessage::where('receiver_id', '=', $user->id)->update([
+            'receiver_id' => User::SYSTEM_USER_ID,
+        ]);
+
+        Invite::where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
+
+        Invite::where('accepted_by', '=', $user->id)->update([
+            'accepted_by' => User::SYSTEM_USER_ID,
+        ]);
 
         Message::where('user_id', '=', $user->id)->delete();
         Note::where('user_id', '=', $user->id)->delete();
@@ -175,18 +174,6 @@ class UserController extends Controller
         $user->followers()->detach();
         $user->following()->detach();
 
-        // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-        foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
-            $sentInvite->user_id = 1;
-            $sentInvite->save();
-        }
-
-        // Removes UserID from Received Invite if any and replaces with System UserID (1)
-        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
-            $receivedInvite->accepted_by = 1;
-            $receivedInvite->save();
-        }
-
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();
@@ -194,12 +181,13 @@ class UserController extends Controller
         }
 
         if ($user->delete()) {
+            cache()->forget('user:'.$user->passkey);
+
+            Unit3dAnnounce::removeUser($user);
+
             return to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
-
-        cache()->forget('user:'.$user->passkey);
-        Unit3dAnnounce::removeUser($user);
 
         return to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
@@ -211,23 +199,22 @@ class UserController extends Controller
     protected function warnUser(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->sole();
-        $carbon = new Carbon();
-        $warning = new Warning();
-        $warning->user_id = $user->id;
-        $warning->warned_by = $request->user()->id;
-        $warning->torrent = null;
-        $warning->reason = $request->input('message');
-        $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
-        $warning->active = '1';
-        $warning->save();
 
-        // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = 1;
-        $pm->receiver_id = $user->id;
-        $pm->subject = 'Received warning';
-        $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
-        $pm->save();
+        Warning::create([
+            'user_id'    => $user->id,
+            'warned_by'  => $request->user()->id,
+            'torrent'    => null,
+            'reason'     => $request->string('message'),
+            'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
+            'active'     => '1',
+        ]);
+
+        PrivateMessage::create([
+            'sender_id'   => User::SYSTEM_USER_ID,
+            'receiver_id' => $user->id,
+            'subject'     => 'Received warning',
+            'message'     => 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
+        ]);
 
         return to_route('users.show', ['username' => $username])
             ->withSuccess('Warning issued successfully!');
