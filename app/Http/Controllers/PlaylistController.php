@@ -108,6 +108,7 @@ class PlaylistController extends Controller
         $playlist->save();
         // Announce To Shoutbox
         $appurl = config('app.url');
+
         if ($playlist->is_private != 1) {
             $this->chatRepository->systemMessage(
                 sprintf('User [url=%s/', $appurl).$user->username.'.'.$user->id.']'.$user->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', $appurl).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'

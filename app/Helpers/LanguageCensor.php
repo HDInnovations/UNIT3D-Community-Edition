@@ -36,9 +36,11 @@ class LanguageCensor
         $length = \strlen((string) $word);
         $stringLength = \strlen((string) $string);
         $pos = stripos($string, (string) $word, 0);
+
         while ($pos !== false) {
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
             $last = ($pos + $length) < $stringLength ? $string[$pos + $length] : ' ';
+
             if (self::isSpecial($prev) && self::isSpecial($last)) {
                 $result[] = $pos;
             }
@@ -61,6 +63,7 @@ class LanguageCensor
             \assert($wordLength > 0);
             $indexes = self::matchWordIndexes($source, $word);
             $ignore = 0;
+
             for ($i = 0; $i < $length; $i++) {
                 if ((is_countable($indexes) ? \count($indexes) : 0) > 0 && $indexes[0] == $i) {
                     $match = substr($source, $indexes[0], $wordLength);
@@ -77,6 +80,7 @@ class LanguageCensor
         }
 
         $replaceDict = config('censor.replace', []);
+
         foreach ($replaceDict as $word => $replacement) {
             $source = str_ireplace($word, $replacement, $source);
         }

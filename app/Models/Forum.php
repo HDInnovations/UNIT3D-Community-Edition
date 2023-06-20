@@ -44,6 +44,7 @@ class Forum extends Model
     public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         $children = $this->forums->pluck('id')->toArray();
+
         if (\is_array($children)) {
             return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
         }

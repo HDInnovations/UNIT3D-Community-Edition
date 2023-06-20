@@ -119,6 +119,7 @@ class RssController extends Controller
 
         if ($success === null) {
             $error = trans('rss.error');
+
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -276,6 +277,7 @@ class RssController extends Controller
 
         if ($success === null) {
             $error = trans('rss.error');
+
             if ($v->errors()) {
                 $error = $v->errors();
             }

@@ -17,6 +17,7 @@ return new class () extends Migration {
         // Change all "free->1" torrents to "free->100" for now FL discounts
         $fl_torrents = DB::table('torrents')->select('id', 'free')->where('free', '=', 1)->get();
         $i = 0;
+
         foreach ($fl_torrents as $torrent) {
             DB::table('torrents')
                 ->where('id', $torrent->id)
@@ -36,6 +37,7 @@ return new class () extends Migration {
         // Change all "free->100" torrents to "free->1" for now FL discounts
         $fl_torrents = DB::table('torrents')->select('id', 'free')->where('free', '>', 1)->get();
         $i = 0;
+
         foreach ($fl_torrents as $torrent) {
             DB::table('torrents')
                 ->where('id', $torrent->id)

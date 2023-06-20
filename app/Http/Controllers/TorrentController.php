@@ -218,16 +218,19 @@ class TorrentController extends Controller
         $category = Category::findOrFail($request->input('category_id'));
 
         $resolutionRule = 'nullable|exists:resolutions,id';
+
         if ($category->movie_meta || $category->tv_meta) {
             $resolutionRule = 'required|exists:resolutions,id';
         }
 
         $episodeRule = 'nullable|numeric';
+
         if ($category->tv_meta) {
             $episodeRule = 'required|numeric';
         }
 
         $seasonRule = 'nullable|numeric';
+
         if ($category->tv_meta) {
             $seasonRule = 'required|numeric';
         }
@@ -284,6 +287,7 @@ class TorrentController extends Controller
 
         // TMDB Meta
         $tmdbScraper = new TMDBScraper();
+
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
         }
@@ -369,6 +373,7 @@ class TorrentController extends Controller
             }
         } else {
             $errors = '';
+
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }

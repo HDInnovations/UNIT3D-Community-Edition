@@ -28,5 +28,4 @@ return [
     'reward'             => 'Freeleech tokens',
     'rewarded'           => 'Belønnet',
     'seedtime-goal'      => 'Seedtids-mål',
-
 ];

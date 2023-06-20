@@ -73,6 +73,7 @@ class Poll extends Model
     public function totalVotes(): int
     {
         $result = 0;
+
         foreach ($this->options as $option) {
             $result += $option->votes;
         }

@@ -187,7 +187,6 @@ class UserController extends Controller
             $receivedInvite->save();
         }
 
-
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();

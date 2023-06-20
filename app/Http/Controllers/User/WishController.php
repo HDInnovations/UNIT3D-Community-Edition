@@ -56,6 +56,7 @@ class WishController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
+
         if ($request->get('tmdb') === 0) {
             return to_route('wishes.index', ['username' => $user->username])
                 ->withErrors('TMDB ID Required');

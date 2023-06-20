@@ -62,6 +62,7 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
+
         if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return to_route('registrationForm', ['code' => $code])
                 ->withErrors(trans('auth.invalid-key'));
@@ -139,6 +140,7 @@ class RegisterController extends Controller
         $userNotification->setDefaultValues();
         $userNotification->user_id = $user->id;
         $userNotification->save();
+
         if ($key) {
             // Update The Invite Record
             $key->accepted_by = $user->id;

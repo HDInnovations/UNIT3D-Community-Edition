@@ -68,6 +68,7 @@ class PollController extends Controller
         $voted = Voter::where('user_id', '=', $user->id)
             ->where('poll_id', '=', $poll->id)
             ->exists();
+
         if ($voted) {
             return to_route('poll_results', ['id' => $poll->id])
                 ->withErrors(trans('poll.already-voted-error'));

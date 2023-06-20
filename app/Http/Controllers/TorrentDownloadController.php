@@ -38,6 +38,7 @@ class TorrentDownloadController extends Controller
     public function store(Request $request, int $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
         $user = $request->user();
+
         if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->sole();
         }

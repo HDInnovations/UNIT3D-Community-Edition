@@ -70,6 +70,7 @@ class RequestController extends Controller
         $carbon = Carbon::now()->addDay();
 
         $meta = null;
+
         if ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
             $meta = Tv::with([
                 'genres',

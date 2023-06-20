@@ -12,8 +12,6 @@
  */
 
 return [
-
-
     /*
     |--------------------------------------------------------------------------
     | External tracker
@@ -23,7 +21,6 @@ return [
     |
     */
     'external_tracker' => [
-
         /*
         |--------------------------------------------------------------------------
         | External tracker
@@ -90,11 +87,9 @@ return [
     */
 
     'min_interval' => [
-
         'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', true),
 
         'interval' => (int) env('MIN_ANNOUNCE_INTERVAL', 60 * 10),
-
     ],
     /*
     |--------------------------------------------------------------------------
@@ -146,5 +141,4 @@ return [
     'slots_system' => [
         'enabled' => false,
     ],
-
 ];

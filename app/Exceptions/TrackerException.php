@@ -80,6 +80,7 @@ class TrackerException extends Exception
     public function __construct(int $code = 999, array $replace = null, Throwable $throwable = null)
     {
         $message = self::ERROR_MSG[$code];
+
         if ($replace) {
             foreach ($replace as $key => $value) {
                 $message = str_replace($key, $value, $message);

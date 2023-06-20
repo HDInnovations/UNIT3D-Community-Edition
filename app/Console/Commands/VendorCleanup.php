@@ -120,11 +120,13 @@ class VendorCleanup extends Command
                 foreach ($files as $file) {
                     if (is_dir($file)) {
                         $this->out('DELETING DIR: '.$file);
+
                         if (! $isDry) {
                             $this->delTree($file);
                         }
                     } else {
                         $this->out('DELETING FILE: '.$file);
+
                         if (! $isDry) {
                             @unlink($file);
                         }
@@ -142,8 +144,10 @@ class VendorCleanup extends Command
     protected function expandDirectoryTree(string $dir): array
     {
         $directories = [];
+
         foreach (array_diff(scandir($dir), ['.', '..']) as $file) {
             $directory = $dir.'/'.$file;
+
             if (is_dir($directory)) {
                 $directories[] = $directory;
                 $directories = array_merge($directories, $this->expandDirectoryTree($directory));
@@ -166,6 +170,7 @@ class VendorCleanup extends Command
             new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST
         );
+
         foreach ($iterator as $filename => $fileInfo) {
             if ($fileInfo->isDir()) {
                 @rmdir($filename);

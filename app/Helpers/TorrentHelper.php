@@ -49,6 +49,7 @@ class TorrentHelper
         $uploader = $torrent->user;
 
         $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
+
         if ($wishes) {
             foreach ($wishes as $wish) {
                 $wish->source = sprintf('%s/torrents/%s', $appurl, $torrent->id);
@@ -97,6 +98,7 @@ class TorrentHelper
         if (config('irc-bot.enabled')) {
             $appname = config('app.name');
             $ircAnnounceBot = new IRCAnnounceBot();
+
             if ($anon == 0) {
                 $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
                 $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');

@@ -79,5 +79,4 @@ return [
     'voters'              => 'Bruger(re) har stemt på dette request!',
     'votes'               => 'Stemmer',
     'yes'                 => 'Ja',
-
 ];

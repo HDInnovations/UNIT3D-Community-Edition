@@ -152,6 +152,7 @@ class SimilarTorrent extends Component
 
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
+
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
                 if (! \in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
@@ -176,13 +177,13 @@ class SimilarTorrent extends Component
             PlaylistTorrent::where('torrent_id', '=', $torrent->id)->delete();
             Subtitle::where('torrent_id', '=', $torrent->id)->delete();
             Graveyard::where('torrent_id', '=', $torrent->id)->delete();
+
             if ($torrent->featured === 1) {
                 FeaturedTorrent::where('torrent_id', '=', $torrent->id)->delete();
             }
 
             $torrent->delete();
         }
-
 
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();

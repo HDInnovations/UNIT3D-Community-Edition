@@ -261,6 +261,7 @@ class AutoBonAllocation extends Command
         //Move data from array to Users table
         foreach ($array as $key => $value) {
             $user = User::find($key);
+
             if ($user) {
                 $user->seedbonus += $value;
                 $user->save();

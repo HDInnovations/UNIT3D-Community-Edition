@@ -218,5 +218,4 @@ return [
     'view-trailer'             => 'Bande-annonce',
     'votes'                    => 'Votes',
     'year-range'               => 'Par année',
-
 ];

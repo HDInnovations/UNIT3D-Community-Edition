@@ -43,6 +43,7 @@ class SimilarTorrentController extends Controller
                     ->find($tmdbId);
                 $trailer = ( new \App\Services\Tmdb\Client\Movie($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
+
                 break;
             case $category->tv_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb', '=', $tmdbId)->exists();
@@ -58,6 +59,7 @@ class SimilarTorrentController extends Controller
                     ->find($tmdbId);
                 $trailer = ( new \App\Services\Tmdb\Client\TV($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
+
                 break;
             case $category->game_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('igdb', '=', $tmdbId)->exists();
@@ -78,9 +80,11 @@ class SimilarTorrentController extends Controller
                 $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
                 $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
                 $igdb = $tmdbId;
+
                 break;
             default:
                 abort(404, 'No Similar Torrents Found');
+
                 break;
         }
 

@@ -121,6 +121,7 @@ class PrivateMessageController extends Controller
         $user = $request->user();
 
         $dest = 'default';
+
         if ($request->has('dest') && $request->input('dest') == 'profile') {
             $dest = 'profile';
         }
@@ -158,6 +159,7 @@ class PrivateMessageController extends Controller
         }
 
         $privateMessage->save();
+
         if ($dest == 'profile') {
             return to_route('users.show', ['username' => $recipient->username])
                 ->withSuccess(trans('pm.sent-success'));
@@ -215,6 +217,7 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::findOrFail($id);
 
         $dest = 'default';
+
         if ($request->has('dest') && $request->input('dest') == 'outbox') {
             $dest = 'outbox';
         }
@@ -252,6 +255,7 @@ class PrivateMessageController extends Controller
     public function markAllAsRead(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
+
         foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $pm) {
             $pm->read = 1;
             $pm->save();

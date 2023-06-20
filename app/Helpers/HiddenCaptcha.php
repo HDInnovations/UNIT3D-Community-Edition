@@ -62,6 +62,7 @@ class HiddenCaptcha
 
         // Check time limits
         $now = time();
+
         if ($now - $token['timestamp'] < $minLimit || $now - $token['timestamp'] > $maxLimit) {
             return false;
         }

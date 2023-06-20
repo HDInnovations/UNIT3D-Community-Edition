@@ -67,6 +67,7 @@ class ProcessTvJob implements ShouldQueue
         foreach ($this->tv['networks'] as $network) {
             $client = new Client\Network($network['id']);
             $network = $client->getData();
+
             if (isset($network['name'])) {
                 if (isset($network['images']['logos'][0]) && \array_key_exists('file_path', $network['images']['logos'][0])) {
                     $logo = 'https://image.tmdb.org/t/p/original'.$network['images']['logos'][0]['file_path'];
@@ -147,6 +148,7 @@ class ProcessTvJob implements ShouldQueue
         foreach ($this->tv['seasons'] as $season) {
             $client = new Client\Season($this->id, sprintf('%02d', $season['season_number']));
             $season = $client->getData();
+
             if (isset($season['season_number'])) {
                 $seasonArray = [
                     'air_date'      => $tmdb->ifExists('air_date', $season),
@@ -162,6 +164,7 @@ class ProcessTvJob implements ShouldQueue
                 foreach ($season['episodes'] as $episode) {
                     $client = new Client\Episode($this->id, sprintf('%02d', $season['season_number']), $episode['episode_number']);
                     $episode = $client->getData();
+
                     if (isset($episode['episode_number'])) {
                         $episodeArray = [
                             'tv_id'           => $this->id,

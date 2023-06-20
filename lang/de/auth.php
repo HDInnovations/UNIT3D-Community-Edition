@@ -99,5 +99,4 @@ return [
 
     'verificationLockedMessage' => 'Konto gesperrt!',
     'verificationLockedTitle'   => 'Oje!',
-
 ];

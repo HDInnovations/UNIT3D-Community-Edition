@@ -69,9 +69,11 @@ class TransactionController extends Controller
         switch (true) {
             case $item->upload:
                 $user->increment('uploaded', $item->value);
+
                 break;
             case $item->download:
                 $user->decrement('downloaded', $item->value);
+
                 break;
             case $item->personal_freeleech:
                 $personalFreeleech = new PersonalFreeleech();
@@ -88,9 +90,11 @@ class TransactionController extends Controller
                 $privateMessage->message = sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
                 [color=red][b]'.trans('common.system-message').'[/b][/color]';
                 $privateMessage->save();
+
                 break;
             case $item->invite:
                 $user->increment('invites', $item->value);
+
                 break;
         }
 

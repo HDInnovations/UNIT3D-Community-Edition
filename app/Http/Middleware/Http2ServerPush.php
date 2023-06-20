@@ -72,6 +72,7 @@ class Http2ServerPush
                 }
 
                 $excludeKeywords = collect($excludeKeywords)->map(fn ($keyword) => preg_quote($keyword));
+
                 if ($excludeKeywords->count() <= 0) {
                     return true;
                 }
@@ -82,6 +83,7 @@ class Http2ServerPush
 
         $sizeLimit ??= max(1, (int) $this->getConfig('size_limit', 32 * 1_024));
         $headersText = trim($headers->implode(','));
+
         while (\strlen($headersText) > $sizeLimit) {
             $headers->pop();
             $headersText = trim($headers->implode(','));
@@ -122,6 +124,7 @@ class Http2ServerPush
     private function buildLinkHeaderString(string $url): ?string
     {
         $type = collect(self::LINK_TYPE_MAP)->first(fn ($type, $extension) => Str::contains(strtoupper($url), $extension));
+
         if (! preg_match('#^https?://#i', $url)) {
             $basePath = $this->getConfig('base_path', '/');
             $url = $basePath.ltrim($url, $basePath);

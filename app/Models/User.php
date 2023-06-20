@@ -575,6 +575,7 @@ class User extends Authenticatable
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
+
         if ($sender->id === $target->id) {
             return false;
         }
@@ -605,6 +606,7 @@ class User extends Authenticatable
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = auth()->user();
+
         if ($sender->id == $target->id) {
             return true;
         }
@@ -635,6 +637,7 @@ class User extends Authenticatable
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = auth()->user();
+
         if ($sender->id == $target->id) {
             return true;
         }
@@ -701,6 +704,7 @@ class User extends Authenticatable
     public function getRatioString(): string
     {
         $ratio = $this->getRatio();
+
         if (is_infinite($ratio)) {
             return '∞';
         }
@@ -730,6 +734,7 @@ class User extends Authenticatable
         }
 
         $ratio = $this->ratioAfterSize($size);
+
         if (is_infinite($ratio)) {
             return '∞';
         }

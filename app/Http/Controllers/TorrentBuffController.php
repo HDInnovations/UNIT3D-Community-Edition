@@ -207,6 +207,7 @@ class TorrentBuffController extends Controller
         if ($torrent->doubleup == 0) {
             $torrent->doubleup = '1';
             $du_until = $request->input('du_until');
+
             if ($du_until !== null) {
                 $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
                 $this->chatRepository->systemMessage(

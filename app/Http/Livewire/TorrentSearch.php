@@ -577,13 +577,14 @@ class TorrentSearch extends Component
                     $media->meta = 'movie';
                     $media->torrents = $torrents['movie'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
-                    break;
 
+                    break;
                 case 'tv':
                     $media = $tv[$group->tmdb] ?? collect();
                     $media->meta = 'tv';
                     $media->torrents = $torrents['tv'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
+
                     break;
             }
 

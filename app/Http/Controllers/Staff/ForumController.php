@@ -70,12 +70,14 @@ class ForumController extends Controller
         // Permissions
         foreach ($groups as $group) {
             $perm = Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $group->id)->first();
+
             if ($perm == null) {
                 $perm = new Permission();
             }
 
             $perm->forum_id = $forum->id;
             $perm->group_id = $group->id;
+
             if (\array_key_exists($group->id, $request->input('permissions'))) {
                 $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
                 $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
@@ -125,12 +127,14 @@ class ForumController extends Controller
         // Permissions
         foreach ($groups as $group) {
             $permission = Permission::where('forum_id', '=', $id)->where('group_id', '=', $group->id)->first();
+
             if ($permission == null) {
                 $permission = new Permission();
             }
 
             $permission->forum_id = $id;
             $permission->group_id = $group->id;
+
             if (\array_key_exists($group->id, $request->input('permissions'))) {
                 $permission->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
                 $permission->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);

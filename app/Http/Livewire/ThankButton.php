@@ -38,6 +38,7 @@ class ThankButton extends Component
         }
 
         $thank = Thank::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
+
         if ($thank) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Thanked!']);
 

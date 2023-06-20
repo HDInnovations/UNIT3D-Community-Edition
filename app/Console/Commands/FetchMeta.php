@@ -42,6 +42,7 @@ class FetchMeta extends Command
 
         $tmdbScraper = new TMDBScraper();
         $torrents = Torrent::with('category')->select('tmdb', 'category_id')->whereNotNull('tmdb')->where('tmdb', '!=', 0)->oldest()->get();
+
         foreach ($torrents as $torrent) {
             if ($torrent->category->tv_meta) {
                 $tmdbScraper->tv($torrent->tmdb);

@@ -278,7 +278,6 @@ class TopicController extends Controller
             ]);
         }
 
-
         return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');
     }

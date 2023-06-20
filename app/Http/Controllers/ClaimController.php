@@ -46,6 +46,7 @@ class ClaimController extends Controller
             $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
+
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
                 $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
             }
@@ -82,6 +83,7 @@ class ClaimController extends Controller
             $sender = $isAnon == 1 ? 'Anonymous' : $user->username;
 
             $requester = $torrentRequest->user;
+
             if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
                 $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }

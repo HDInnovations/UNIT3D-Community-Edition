@@ -93,6 +93,7 @@ class ChatRoomController extends Controller
         $chatroom = Chatroom::findOrFail($id);
         $users = User::where('chatroom_id', '=', $id)->get();
         $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->pluck('id');
+
         foreach ($users as $user) {
             $user->chatroom_id = $default[0];
             $user->save();

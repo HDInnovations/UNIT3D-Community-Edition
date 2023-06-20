@@ -100,5 +100,4 @@ return [
     'verificationLockedTitle'   => 'Doh!',
 
     'verificationModalConfBtn' => 'Ok',
-
 ];

@@ -154,7 +154,6 @@ class Comment extends Component
                 }
 
                 break;
-
             case 'article':
             case 'playlist':
             case 'torrent request':

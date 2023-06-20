@@ -578,6 +578,7 @@ class Markdown
     protected function blockListContinue($Line, array $Block)
     {
         $matches = [];
+
         if (isset($Block['interrupted']) && empty($Block['li']['handler']['argument'])) {
             return;
         }

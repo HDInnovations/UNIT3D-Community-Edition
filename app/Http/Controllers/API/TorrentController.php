@@ -68,6 +68,7 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
+
         if (! $request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
@@ -131,11 +132,13 @@ class TorrentController extends BaseController
         $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
         $du_until = $request->input('du_until');
+
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
             $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
         }
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
         $fl_until = $request->input('fl_until');
+
         if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
         }
@@ -150,16 +153,19 @@ class TorrentController extends BaseController
         }
 
         $resolutionRule = 'nullable|exists:resolutions,id';
+
         if ($category->movie_meta || $category->tv_meta) {
             $resolutionRule = 'required|exists:resolutions,id';
         }
 
         $episodeRule = 'nullable|numeric';
+
         if ($category->tv_meta) {
             $episodeRule = 'required|numeric';
         }
 
         $seasonRule = 'nullable|numeric';
+
         if ($category->tv_meta) {
             $seasonRule = 'required|numeric';
         }
@@ -229,6 +235,7 @@ class TorrentController extends BaseController
         }
 
         $tmdbScraper = new TMDBScraper();
+
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
         }
@@ -342,7 +349,6 @@ class TorrentController extends BaseController
             && $field[0] === '/'
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
-
 
         // Caching
         $url = $request->url();

@@ -28,5 +28,4 @@ return [
     'new-news'                => 'Nye Nyheder',
     'new-torrents'            => 'Nye Torrents',
     'latest-poll'             => ' Seneste Afstemning',
-
 ];

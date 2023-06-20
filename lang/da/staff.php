@@ -70,5 +70,4 @@ return [
     'chat-tools'               => 'Chatværktøjer',
     'flush-chat'               => 'Tøm chatboksen',
     'seedboxes'                => 'Registrerede seedbokse',
-
 ];

@@ -85,6 +85,7 @@ class BountyController extends Controller
 
         $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
         $requester = $tr->user;
+
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
             $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
         }
