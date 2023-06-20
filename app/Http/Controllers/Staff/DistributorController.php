@@ -14,11 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\DestroyDistributorRequest;
 use App\Http\Requests\Staff\StoreDistributorRequest;
 use App\Http\Requests\Staff\UpdateDistributorRequest;
 use App\Models\Distributor;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Exception;
 
 class DistributorController extends Controller
@@ -89,18 +88,10 @@ class DistributorController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(DestroyDistributorRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $distributor = Distributor::findOrFail($id);
-
-        $validated = $request->validate([
-            'distributor_id' => [
-                'required',
-                'exists:distributors,id',
-                Rule::notIn([$distributor->id]),
-            ],
-        ]);
-        $distributor->torrents()->update($validated);
+        $distributor->torrents()->update($request->validated());
         $distributor->delete();
 
         return to_route('staff.distributors.index')
