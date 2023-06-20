@@ -46,23 +46,23 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($gifttransactions as $b)
+            @foreach($gifttransactions as $bonTransaction)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
-                            <span class="badge-user text-bold">{{ $b->senderObj->username }}</span>
+                        <a href="{{ route('users.show', ['username' => $bonTransaction->senderObj->username]) }}">
+                            <span class="badge-user text-bold">{{ $bonTransaction->senderObj->username }}</span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
-                            <span class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
+                        <a href="{{ route('users.show', ['username' => $bonTransaction->receiverObj->username]) }}">
+                            <span class="badge-user text-bold">{{ $bonTransaction->receiverObj->username }}</span>
                         </a>
                     </td>
                     <td>
-                        {{ $b->cost }}
+                        {{ $bonTransaction->cost }}
                     </td>
                     <td>
-                        {{ $b->date_actioned }}
+                        {{ $bonTransaction->date_actioned }}
                     </td>
                 </tr>
             @endforeach

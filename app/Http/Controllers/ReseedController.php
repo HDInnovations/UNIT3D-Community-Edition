@@ -37,12 +37,12 @@ class ReseedController extends Controller
         // TODO: Store reseed requests so can be viewed in a table view.
 
         $torrent = Torrent::findOrFail($id);
-        $reseed = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
+        $potentialReseeds = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
 
         if ($torrent->seeders <= 2) {
             // Send Notification
-            foreach ($reseed as $r) {
-                User::find($r->user_id)->notify(new NewReseedRequest($torrent));
+            foreach ($potentialReseeds as $potentialReseed) {
+                User::find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
             }
 
             $torrentUrl = href_torrent($torrent);

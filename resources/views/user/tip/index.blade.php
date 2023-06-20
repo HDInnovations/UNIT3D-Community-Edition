@@ -39,27 +39,27 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($bontransactions as $b)
+            @foreach($bontransactions as $bonTransaction)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $b->senderObj->username]) }}">
-                            <span class="badge-user text-bold">{{ $b->senderObj->username }}</span>
+                        <a href="{{ route('users.show', ['username' => $bonTransaction->senderObj->username]) }}">
+                            <span class="badge-user text-bold">{{ $bonTransaction->senderObj->username }}</span>
                         </a>
                     </td>
                     <td>
-                        @if($b->whereNotNull('torrent_id'))
-                            @php $torrent = App\Models\Torrent::select(['anon'])->find($b->torrent_id) @endphp
+                        @if($bonTransaction->whereNotNull('torrent_id'))
+                            @php $torrent = App\Models\Torrent::select(['anon'])->find($bonTransaction->torrent_id) @endphp
                         @endif
-                        @if(isset($torrent) && $torrent->anon === 1 && $b->receiver !== $user->id)
+                        @if(isset($torrent) && $torrent->anon === 1 && $bonTransaction->receiver !== $user->id)
                             <span class="badge-user text-bold">{{ __('common.anonymous') }}</span>
                         @else
-                            <a href="{{ route('users.show', ['username' => $b->receiverObj->username]) }}">
-                                <span class="badge-user text-bold">{{ $b->receiverObj->username }}</span>
+                            <a href="{{ route('users.show', ['username' => $bonTransaction->receiverObj->username]) }}">
+                                <span class="badge-user text-bold">{{ $bonTransaction->receiverObj->username }}</span>
                             </a>
                         @endif
                     </td>
-                    <td>{{ $b->cost }}</td>
-                    <td>{{ $b->date_actioned }}</td>
+                    <td>{{ $bonTransaction->cost }}</td>
+                    <td>{{ $bonTransaction->date_actioned }}</td>
                 </tr>
             @endforeach
             </tbody>
