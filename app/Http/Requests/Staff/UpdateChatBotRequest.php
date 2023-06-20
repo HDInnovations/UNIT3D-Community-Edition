@@ -31,12 +31,12 @@ class UpdateChatBotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => [
+            'name' => [
                 'required',
                 'min:1',
                 'max:255',
             ],
-            'command'  => [
+            'command' => [
                 'required',
                 'alpha_dash',
                 'min:1',
@@ -45,24 +45,24 @@ class UpdateChatBotRequest extends FormRequest
             'position' => [
                 'required',
             ],
-            'color'    => [
+            'color' => [
                 'required',
             ],
-            'icon'     => [
+            'icon' => [
                 'required',
             ],
-            'emoji'    => [
+            'emoji' => [
                 'required',
             ],
-            'help'     => [
+            'help' => [
                 'sometimes',
                 'max:9999',
             ],
-            'info'     => [
+            'info' => [
                 'sometimes',
                 'max:9999',
             ],
-            'about'    => [
+            'about' => [
                 'sometimes',
                 'max:9999',
             ],

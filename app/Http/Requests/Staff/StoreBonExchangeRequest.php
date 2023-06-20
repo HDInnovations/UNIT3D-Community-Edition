@@ -35,15 +35,15 @@ class StoreBonExchangeRequest extends FormRequest
                 'required',
                 'string',
             ],
-            'value'       => [
+            'value' => [
                 'required',
                 'numeric',
             ],
-            'cost'        => [
+            'cost' => [
                 'required',
                 'numeric',
             ],
-            'type'        => [
+            'type' => [
                 'required',
                 'string',
                 'in:upload,download,personal_freeleech,invite',

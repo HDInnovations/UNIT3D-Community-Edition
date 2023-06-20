@@ -31,7 +31,7 @@ class UpdateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'   => [
+            'title' => [
                 'required',
                 'string',
                 'max:255',
@@ -41,7 +41,7 @@ class UpdateArticleRequest extends FormRequest
                 'string',
                 'max:65536',
             ],
-            'image'   => [
+            'image' => [
                 'max:10240',
             ],
         ];

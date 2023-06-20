@@ -31,32 +31,32 @@ class StoreForumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                      => [
+            'name' => [
                 'required',
             ],
-            'position'                  => [
+            'position' => [
                 'required',
             ],
-            'description'               => [
+            'description' => [
                 'required',
             ],
-            'parent_id'                 => [
+            'parent_id' => [
                 'required',
                 'integer',
             ],
-            'permissions'               => [
+            'permissions' => [
                 'sometimes',
                 'array',
             ],
-            'permissions.*'             => [
+            'permissions.*' => [
                 'sometimes',
                 'exists:groups,id',
             ],
-            'permissions.*.show_forum'  => [
+            'permissions.*.show_forum' => [
                 'sometimes',
                 'boolean',
             ],
-            'permissions.*.read_topic'  => [
+            'permissions.*.read_topic' => [
                 'sometimes',
                 'boolean',
             ],

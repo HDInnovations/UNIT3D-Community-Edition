@@ -31,29 +31,29 @@ class UpdateForumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                      => [
+            'name' => [
                 'required',
             ],
-            'position'                  => [
+            'position' => [
                 'required',
             ],
-            'description'               => [
+            'description' => [
                 'required',
             ],
-            'parent_id'                 => [
+            'parent_id' => [
                 'required',
                 'integer',
             ],
-            'permissions'               => [
+            'permissions' => [
                 'array',
             ],
-            'permissions.*'             => [
+            'permissions.*' => [
                 'exists:groups,id',
             ],
-            'permissions.*.show_forum'  => [
+            'permissions.*.show_forum' => [
                 'boolean',
             ],
-            'permissions.*.read_topic'  => [
+            'permissions.*.read_topic' => [
                 'boolean',
             ],
             'permissions.*.reply_topic' => [
@@ -62,7 +62,7 @@ class UpdateForumRequest extends FormRequest
             'permissions.*.start_topic' => [
                 'boolean',
             ],
-            'forum_type'                => [
+            'forum_type' => [
                 'in:category,forum',
             ],
         ];

@@ -31,102 +31,102 @@ class UpdateRssRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => [
+            'name' => [
                 'required',
                 'min:3',
                 'max:255',
             ],
-            'search'          => [
+            'search' => [
                 'max:255',
             ],
-            'description'     => [
+            'description' => [
                 'max:255',
             ],
-            'uploader'        => [
+            'uploader' => [
                 'max:255',
             ],
-            'categories'      => [
+            'categories' => [
                 'sometimes',
                 'array',
                 'max:999',
             ],
-            'categories.*'    => [
+            'categories.*' => [
                 'sometimes',
                 'exists:categories,id',
             ],
-            'types'           => [
+            'types' => [
                 'sometimes',
                 'array',
                 'max:999',
             ],
-            'types.*'         => [
+            'types.*' => [
                 'sometimes',
                 'exists:types,id',
             ],
-            'resolutions'     => [
+            'resolutions' => [
                 'sometimes',
                 'array',
                 'max:999',
             ],
-            'resolutions.*'   => [
+            'resolutions.*' => [
                 'sometimes',
                 'exists:resolutions,id',
             ],
-            'genres'          => [
+            'genres' => [
                 'sometimes',
                 'array',
                 'max:999',
             ],
-            'genres.*'        => [
+            'genres.*' => [
                 'sometimes',
                 'exists:genres,id',
             ],
-            'position'        => [
+            'position' => [
                 'sometimes',
                 'integer',
                 'max:9999',
             ],
-            'imdb'            => [
+            'imdb' => [
                 'sometimes',
                 'integer',
             ],
-            'tvdb'            => [
+            'tvdb' => [
                 'sometimes',
                 'integer',
             ],
-            'tmdb'            => [
+            'tmdb' => [
                 'sometimes',
                 'integer',
             ],
-            'mal'             => [
+            'mal' => [
                 'sometimes',
                 'integer',
             ],
-            'freeleech'       => [
+            'freeleech' => [
                 'sometimes',
                 'boolean',
             ],
-            'doubleupload'    => [
+            'doubleupload' => [
                 'sometimes',
                 'boolean',
             ],
-            'featured'        => [
+            'featured' => [
                 'sometimes',
                 'boolean',
             ],
-            'stream'          => [
+            'stream' => [
                 'sometimes',
                 'boolean',
             ],
-            'highspeed'       => [
+            'highspeed' => [
                 'sometimes',
                 'boolean',
             ],
-            'sd'              => [
+            'sd' => [
                 'sometimes',
                 'boolean',
             ],
-            'internal'        => [
+            'internal' => [
                 'sometimes',
                 'boolean',
             ],
@@ -134,19 +134,19 @@ class UpdateRssRequest extends FormRequest
                 'sometimes',
                 'boolean',
             ],
-            'bookmark'        => [
+            'bookmark' => [
                 'sometimes',
                 'boolean',
             ],
-            'alive'           => [
+            'alive' => [
                 'sometimes',
                 'boolean',
             ],
-            'dying'           => [
+            'dying' => [
                 'sometimes',
                 'boolean',
             ],
-            'dead'            => [
+            'dead' => [
                 'sometimes',
                 'boolean',
             ],

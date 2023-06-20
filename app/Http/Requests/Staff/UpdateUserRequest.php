@@ -31,30 +31,30 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username'    => [
+            'username' => [
                 'required',
             ],
-            'uploaded'    => [
-                'required',
-                'integer',
-            ],
-            'downloaded'  => [
+            'uploaded' => [
                 'required',
                 'integer',
             ],
-            'title'       => [
+            'downloaded' => [
+                'required',
+                'integer',
+            ],
+            'title' => [
                 'nullable',
                 'present',
                 'string',
                 'max:255',
             ],
-            'about'       => [
+            'about' => [
                 'nullable',
                 'present',
                 'string',
                 'max:16777216',
             ],
-            'group_id'    => [
+            'group_id' => [
                 'required',
                 'exists:groups,id',
             ],
@@ -62,17 +62,17 @@ class UpdateUserRequest extends FormRequest
                 'nullable',
                 'exists:internals,id',
             ],
-            'seedbonus'   => [
+            'seedbonus' => [
                 'required',
                 'integer',
                 'min:0',
             ],
-            'invites'     => [
+            'invites' => [
                 'required',
                 'integer',
                 'min:0',
             ],
-            'fl_tokens'   => [
+            'fl_tokens' => [
                 'required',
                 'integer',
                 'min:0',

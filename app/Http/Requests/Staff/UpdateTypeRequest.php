@@ -31,7 +31,7 @@ class UpdateTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => [
+            'name' => [
                 'required',
             ],
             'position' => [

@@ -31,10 +31,10 @@ class StoreInternalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'   => [
+            'name' => [
                 'required',
             ],
-            'icon'   => [
+            'icon' => [
                 'required',
             ],
             'effect' => [

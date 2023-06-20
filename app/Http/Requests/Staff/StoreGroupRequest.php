@@ -32,57 +32,57 @@ class StoreGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'             => [
+            'name' => [
                 'required',
                 'string',
                 'unique:groups',
             ],
-            'position'         => [
+            'position' => [
                 'required',
                 'integer',
             ],
-            'level'            => [
+            'level' => [
                 'required',
                 'integer',
             ],
-            'download_slots'   => [
+            'download_slots' => [
                 'nullable',
                 'integer',
             ],
-            'color'            => [
+            'color' => [
                 'required',
             ],
-            'icon'             => [
+            'icon' => [
                 'required',
             ],
-            'effect'           => [
+            'effect' => [
                 'sometimes',
             ],
-            'is_internal'      => [
+            'is_internal' => [
                 'required',
                 'boolean',
             ],
-            'is_modo'          => [
+            'is_modo' => [
                 'required',
                 'boolean',
             ],
-            'is_admin'         => [
+            'is_admin' => [
                 'required',
                 'boolean',
             ],
-            'is_owner'         => [
+            'is_owner' => [
                 'required',
                 'boolean',
             ],
-            'is_trusted'       => [
+            'is_trusted' => [
                 'required',
                 'boolean',
             ],
-            'is_immune'        => [
+            'is_immune' => [
                 'required',
                 'boolean',
             ],
-            'is_freeleech'     => [
+            'is_freeleech' => [
                 'required',
                 'boolean',
             ],
@@ -90,15 +90,15 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
-            'is_incognito'     => [
+            'is_incognito' => [
                 'required',
                 'boolean',
             ],
-            'can_upload'       => [
+            'can_upload' => [
                 'required',
                 'boolean',
             ],
-            'autogroup'        => [
+            'autogroup' => [
                 'required',
                 'boolean',
             ],

@@ -35,11 +35,11 @@ class UpdateModerationRequest extends FormRequest
                 'required',
                 'in:0,1,2,3',
             ],
-            'status'     => [
+            'status' => [
                 'required',
                 'in:1,2,3',
             ],
-            'message'    => [
+            'message' => [
                 'required_if:status,2,3',
                 'string',
             ],

@@ -31,7 +31,7 @@ class StoreDistributorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => [
+            'name' => [
                 'required',
                 'unique:distributors,name',
             ],

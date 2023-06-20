@@ -36,7 +36,7 @@ class UpdateBanRequest extends FormRequest
                 'string',
                 'max:65536',
             ],
-            'group_id'     => [
+            'group_id' => [
                 'required',
                 'integer',
                 'exists:groups,id',

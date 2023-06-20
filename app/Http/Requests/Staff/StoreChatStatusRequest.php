@@ -31,13 +31,13 @@ class StoreChatStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => [
+            'name' => [
                 'required',
             ],
             'color' => [
                 'required',
             ],
-            'icon'  => [
+            'icon' => [
                 'required',
             ],
         ];

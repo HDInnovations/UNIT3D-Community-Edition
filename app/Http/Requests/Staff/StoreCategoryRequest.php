@@ -31,7 +31,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => [
+            'name' => [
                 'required',
                 'string',
             ],
@@ -39,17 +39,17 @@ class StoreCategoryRequest extends FormRequest
                 'required',
                 'numeric',
             ],
-            'icon'     => [
+            'icon' => [
                 'required',
                 'string',
             ],
-            'meta'     => [
+            'meta' => [
                 'required',
                 'string',
                 'in:movie,tv,game,music,no',
                 'exclude',
             ],
-            'image'    => [
+            'image' => [
                 'max:10240',
             ],
         ];

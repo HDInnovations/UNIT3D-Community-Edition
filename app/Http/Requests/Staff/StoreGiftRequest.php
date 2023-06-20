@@ -31,7 +31,7 @@ class StoreGiftRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username'  => [
+            'username' => [
                 'required',
                 'exists:users,username',
                 'max:180',
@@ -41,7 +41,7 @@ class StoreGiftRequest extends FormRequest
                 'integer',
                 'min:0',
             ],
-            'invites'   => [
+            'invites' => [
                 'required',
                 'integer',
                 'min:0',
