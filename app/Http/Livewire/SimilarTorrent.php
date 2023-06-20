@@ -212,8 +212,7 @@ class SimilarTorrent extends Component
 
     final public function deleteSingleRecord($torrentId): void
     {
-        $torrent = Torrent::findOrFail($torrentId);
-        $torrent->delete();
+        Torrent::findOrFail($torrentId)->delete();
         $this->checked = array_diff($this->checked, [$torrentId]);
 
         $this->dispatchBrowserEvent('swal:modal', [

@@ -94,6 +94,7 @@ class BlacklistClientController extends Controller
         $client = BlacklistClient::findOrFail($id);
 
         Unit3dAnnounce::removeBlacklistedAgent($client);
+
         $client->delete();
 
         cache()->forget('client_blacklist');

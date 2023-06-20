@@ -110,8 +110,7 @@ class CategoryController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        Category::findOrFail($id)->delete();
 
         return to_route('staff.categories.index')
             ->withSuccess('Category Successfully Deleted');

@@ -159,31 +159,17 @@ class ForumController extends Controller
     {
         $forum = Forum::findOrFail($id);
 
-        $permissions = Permission::where('forum_id', '=', $forum->id)->get();
-        foreach ($permissions as $p) {
-            $p->delete();
-        }
-
-        unset($permissions);
+        Permission::where('forum_id', '=', $forum->id)->delete();
 
         if ($forum->parent_id == 0) {
             $category = $forum;
-            $permissions = Permission::where('forum_id', '=', $category->id)->get();
-            foreach ($permissions as $p) {
-                $p->delete();
-            }
+            Permission::where('forum_id', '=', $category->id)->delete();
 
             foreach ($category->getForumsInCategory() as $forum) {
-                $permissions = Permission::where('forum_id', '=', $forum->id)->get();
-                foreach ($permissions as $p) {
-                    $p->delete();
-                }
+                Permission::where('forum_id', '=', $forum->id)->delete();
 
                 foreach ($forum->topics as $t) {
-                    foreach ($t->posts as $p) {
-                        $p->delete();
-                    }
-
+                    $t->posts()->delete();
                     $t->delete();
                 }
 
@@ -192,16 +178,10 @@ class ForumController extends Controller
 
             $category->delete();
         } else {
-            $permissions = Permission::where('forum_id', '=', $forum->id)->get();
-            foreach ($permissions as $p) {
-                $p->delete();
-            }
+            Permission::where('forum_id', '=', $forum->id)->delete();
 
             foreach ($forum->topics as $t) {
-                foreach ($t->posts as $p) {
-                    $p->delete();
-                }
-
+                $t->posts()->delete();
                 $t->delete();
             }
 

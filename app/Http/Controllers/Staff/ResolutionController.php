@@ -78,8 +78,7 @@ class ResolutionController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $resolution = Resolution::findOrFail($id);
-        $resolution->delete();
+        Resolution::findOrFail($id)->delete();
 
         return to_route('staff.resolutions.index')
             ->withSuccess('Resolution Successfully Deleted');

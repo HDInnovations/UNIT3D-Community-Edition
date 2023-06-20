@@ -152,9 +152,7 @@ class PollController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::findOrFail($id);
-        $poll->delete();
-
+        Poll::findOrFail($id)->delete();
         Option::where('poll_id', '=', $id)->delete();
 
         return to_route('staff.polls.index')

@@ -81,8 +81,7 @@ class TypeController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $type = Type::findOrFail($id);
-        $type->delete();
+        Type::findOrFail($id)->delete();
 
         return to_route('staff.types.index')
             ->withSuccess('Type Successfully Deleted');

@@ -78,8 +78,7 @@ class InternalController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $internal = Internal::findOrFail($id);
-        $internal->delete();
+        Internal::findOrFail($id)->delete();
 
         return to_route('staff.internals.index')
             ->withSuccess('Group Has Been Removed.');

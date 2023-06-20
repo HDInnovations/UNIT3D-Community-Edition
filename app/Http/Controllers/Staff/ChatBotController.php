@@ -63,8 +63,7 @@ class ChatBotController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $bot = Bot::where('is_protected', '=', 0)->findOrFail($id);
-        $bot->delete();
+        Bot::where('is_protected', '=', 0)->findOrFail($id)->delete();
 
         return to_route('staff.bots.index')
             ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');

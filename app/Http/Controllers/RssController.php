@@ -295,8 +295,7 @@ class RssController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        $rss->delete();
+        Rss::where('is_private', '=', 1)->findOrFail($id)->delete();
 
         return to_route('rss.index', ['hash' => 'private'])
             ->withSuccess(trans('rss.deleted'));

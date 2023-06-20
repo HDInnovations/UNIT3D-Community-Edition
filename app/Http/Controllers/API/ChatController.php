@@ -381,8 +381,7 @@ class ChatController extends Controller
 
     public function deleteRoomEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserEcho::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->sole();
-        $echo->delete();
+        UserEcho::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->delete();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($userId);
         $room = $this->chatRepository->roomFindOrFail($request->input('room_id'));
@@ -403,8 +402,7 @@ class ChatController extends Controller
 
     public function deleteTargetEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserEcho::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->sole();
-        $echo->delete();
+        UserEcho::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->delete();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($userId);
         $senderEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
@@ -418,8 +416,7 @@ class ChatController extends Controller
 
     public function deleteBotEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserEcho::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->sole();
-        $echo->delete();
+        UserEcho::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->delete();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($userId);
         $senderEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();

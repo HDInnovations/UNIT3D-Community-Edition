@@ -52,8 +52,7 @@ class WatchlistController extends Controller
      */
     final public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $watchedUser = Watchlist::findOrFail($id);
-        $watchedUser->delete();
+        Watchlist::findOrFail($id)->delete();
 
         return to_route('staff.watchlist.index')
             ->withSuccess('Successfully Stopped Watching User');

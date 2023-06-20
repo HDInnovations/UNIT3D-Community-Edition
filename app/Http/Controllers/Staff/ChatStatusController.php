@@ -89,8 +89,7 @@ class ChatStatusController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $chatstatus = ChatStatus::findOrFail($id);
-        $chatstatus->delete();
+        ChatStatus::findOrFail($id)->delete();
 
         return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');

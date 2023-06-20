@@ -78,8 +78,7 @@ class MediaLanguageController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
-        $mediaLanguage->delete();
+        MediaLanguage::findOrFail($id)->delete();
 
         return to_route('staff.media_languages.index')
             ->withSuccess('Media Language Has Successfully Been Deleted');

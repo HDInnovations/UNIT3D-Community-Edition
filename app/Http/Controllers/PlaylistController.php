@@ -234,10 +234,7 @@ class PlaylistController extends Controller
 
         abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
 
-        foreach ($playlist->torrents as $playlistTorrent) {
-            $playlistTorrent->delete();
-        }
-
+        $playlist->torrents()->delete();
         $playlist->delete();
 
         return to_route('playlists.index')
