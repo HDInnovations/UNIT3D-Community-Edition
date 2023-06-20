@@ -51,11 +51,6 @@ class PeerSearch extends Component
         'sortDirection'    => ['except' => 'desc'],
     ];
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');

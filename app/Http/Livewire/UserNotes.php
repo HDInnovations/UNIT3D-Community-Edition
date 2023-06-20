@@ -32,11 +32,6 @@ class UserNotes extends Component
 
     public string $sortDirection = 'desc';
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
