@@ -19,7 +19,7 @@ class TicketAttachment extends Model
     protected function fullDiskPath(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => $this->disk_path . '' . $this->file_name,
+            get: fn ($value) => $this->disk_path.''.$this->file_name,
         );
     }
 
