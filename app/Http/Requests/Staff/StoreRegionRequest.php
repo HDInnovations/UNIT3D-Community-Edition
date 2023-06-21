@@ -31,8 +31,13 @@ class StoreRegionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => 'required|unique:regions,name',
-            'position' => 'required',
+            'name' => [
+                'required',
+                'unique:regions,name',
+            ],
+            'position' => [
+                'required',
+            ],
         ];
     }
 }
