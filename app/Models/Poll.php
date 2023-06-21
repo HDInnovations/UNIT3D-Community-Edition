@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -59,12 +60,11 @@ class Poll extends Model
         return $this->hasMany(Voter::class);
     }
 
-    /**
-     * Set The Poll's Title.
-     */
-    public function setTitleAttribute($title): void
+    protected function title(): Attribute
     {
-        $this->attributes['title'] = $title;
+        return new Attribute(
+            set: fn ($value) => $value,
+        );
     }
 
     /**

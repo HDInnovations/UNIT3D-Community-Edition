@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -67,12 +68,11 @@ class Message extends Model
         return $this->belongsTo(Chatroom::class);
     }
 
-    /**
-     * Set The Chat Message After Its Been Purified.
-     */
-    public function setMessageAttribute(string $value): void
+    protected function message(): Attribute
     {
-        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**

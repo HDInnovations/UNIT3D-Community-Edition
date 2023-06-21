@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,20 +55,18 @@ class UserNotification extends Model
         ]);
     }
 
-    /**
-     * Get the Expected groups for form validation.
-     */
-    public function getExpectedGroupsAttribute(): array
+    protected function expectedGroups(): Attribute
     {
-        return [];
+        return new Attribute(
+            get: fn ($value) => [],
+        );
     }
 
-    /**
-     * Get the Expected fields for form validation.
-     */
-    public function getExpectedFieldsAttribute(): array
+    protected function expectedFields(): Attribute
     {
-        return [];
+        return new Attribute(
+            get: fn ($value) => [],
+        );
     }
 
     /**

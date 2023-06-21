@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use App\Helpers\MarkdownExtra;
 use App\Traits\Auditable;
@@ -31,12 +32,11 @@ class Page extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    /**
-     * Set The Pages Content After Its Been Purified.
-     */
-    public function setContentAttribute(?string $value): void
+    protected function content(): Attribute
     {
-        $this->attributes['content'] = $value;
+        return new Attribute(
+            set: fn ($value) => $value,
+        );
     }
 
     /**

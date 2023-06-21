@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
@@ -233,12 +234,11 @@ class Torrent extends Model
         return $this->hasMany(Bookmark::class);
     }
 
-    /**
-     * Set The Torrents Description After Its Been Purified.
-     */
-    public function setDescriptionAttribute(?string $value): void
+    protected function description(): Attribute
     {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**
@@ -251,12 +251,13 @@ class Torrent extends Model
         return (new Linkify())->linky($bbcode->parse($this->description));
     }
 
-    /**
-     * Set The Torrents MediaInfo After Its Been Purified.
-     */
-    public function setMediaInfoAttribute(?string $value): void
+    protected function mediaInfo(): Attribute
     {
-        $this->attributes['mediainfo'] = $value;
+        return new Attribute(
+            set: fn ($value) => [
+                'mediainfo' => $value,
+            ],
+        );
     }
 
     /**

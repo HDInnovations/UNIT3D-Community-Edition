@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,12 +53,11 @@ class PrivateMessage extends Model
         ]);
     }
 
-    /**
-     * Set The PM Message After Its Been Purified.
-     */
-    public function setMessageAttribute(string $value): void
+    protected function message(): Attribute
     {
-        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**

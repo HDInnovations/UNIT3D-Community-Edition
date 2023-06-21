@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,9 +16,11 @@ class TicketAttachment extends Model
         'full_disk_path',
     ];
 
-    public function getFullDiskPathAttribute(): string
+    protected function fullDiskPath(): Attribute
     {
-        return $this->disk_path.''.$this->file_name;
+        return new Attribute(
+            get: fn ($value) => $this->disk_path . '' . $this->file_name,
+        );
     }
 
     /**

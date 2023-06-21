@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -77,49 +78,24 @@ class Rss extends Model
         return $this->belongsTo(User::class, 'staff_id');
     }
 
-    /**
-     * Get the RSS feeds JSON Torrent as object.
-     */
-    public function getObjectTorrentAttribute(): stdClass|bool
+    protected function objectTorrent(): Attribute
     {
-        // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
-        if ($this->json_torrent) {
-            $expected = $this->expected_fields;
-
-            return (object) array_merge($expected, $this->json_torrent);
-        }
-
-        return false;
+        return new Attribute(
+            get: function ($value) {
+                // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
+                if ($this->json_torrent) {
+                    $expected = $this->expected_fields;
+                    return (object) array_merge($expected, $this->json_torrent);
+                }
+                return false;
+            },
+        );
     }
 
-    /**
-     * Get the RSS feeds expected fields for form validation.
-     */
-    public function getExpectedFieldsAttribute(): array
+    protected function expectedFields(): Attribute
     {
-        // Just Torrents for now... extendable to check on feed type in future.
-        return [
-            'search'          => null,
-            'description'     => null,
-            'uploader'        => null,
-            'imdb'            => null,
-            'mal'             => null,
-            'categories'      => null,
-            'types'           => null,
-            'resolutions'     => null,
-            'genres'          => null,
-            'freeleech'       => null,
-            'doubleupload'    => null,
-            'featured'        => null,
-            'stream'          => null,
-            'highspeed'       => null,
-            'sd'              => null,
-            'internal'        => null,
-            'personalrelease' => null,
-            'bookmark'        => null,
-            'alive'           => null,
-            'dying'           => null,
-            'dead'            => null,
-        ];
+        return new Attribute(
+            get: fn ($value) => ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null, 'mal' => null, 'categories' => null, 'types' => null, 'resolutions' => null, 'genres' => null, 'freeleech' => null, 'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'sd' => null, 'internal' => null, 'personalrelease' => null, 'bookmark' => null, 'alive' => null, 'dying' => null, 'dead' => null],
+        );
     }
 }

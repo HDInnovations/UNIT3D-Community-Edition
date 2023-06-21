@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Traits\Auditable;
@@ -90,12 +91,11 @@ class Post extends Model
         return $this->hasMany(Topic::class, 'first_post_user_id', 'user_id');
     }
 
-    /**
-     * Set The Posts Content After Its Been Purified.
-     */
-    public function setContentAttribute(?string $value): void
+    protected function content(): Attribute
     {
-        $this->attributes['content'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**

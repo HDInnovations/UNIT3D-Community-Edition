@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Traits\Auditable;
@@ -49,12 +50,11 @@ class Playlist extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    /**
-     * Set The Playlists Description After It's Been Purified.
-     */
-    public function setDescriptionAttribute(?string $value): void
+    protected function description(): Attribute
     {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**

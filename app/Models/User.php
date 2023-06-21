@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
@@ -752,12 +753,11 @@ class User extends Authenticatable
         return StringHelper::formatBytes($bytes);
     }
 
-    /**
-     * Set The Users Signature After Its Been Purified.
-     */
-    public function setSignatureAttribute(?string $value): void
+    protected function signature(): Attribute
     {
-        $this->attributes['signature'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**
@@ -770,12 +770,11 @@ class User extends Authenticatable
         return (new Linkify())->linky($bbcode->parse($this->signature));
     }
 
-    /**
-     * Set The Users About Me After Its Been Purified.
-     */
-    public function setAboutAttribute(?string $value): void
+    protected function about(): Attribute
     {
-        $this->attributes['about'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        return new Attribute(
+            set: fn ($value) => htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES),
+        );
     }
 
     /**
