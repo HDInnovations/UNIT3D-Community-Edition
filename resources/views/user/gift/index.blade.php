@@ -31,9 +31,11 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('bon.gifts') }}</h2>
             <div class="panel__actions">
-                <a class="panel__action" href="{{ route('gifts.create', ['username' => $user->username]) }}">
-                    {{ __('bon.send-gift') }}
-                </a>
+                <div class="panel__action">
+                    <a class="form__button form__button--text" href="{{ route('users.gifts.create', ['user' => $user]) }}">
+                        {{ __('bon.send-gift') }}
+                    </a>
+                </div>
             </div>
         </header>
         <table class="table table-condensed table-striped">
@@ -46,44 +48,44 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($gifttransactions as $bonTransaction)
+            @foreach($gifts as $gift)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $bonTransaction->senderObj->username]) }}">
-                            <span class="badge-user text-bold">{{ $bonTransaction->senderObj->username }}</span>
+                        <a href="{{ route('users.show', ['username' => $gift->senderObj->username]) }}">
+                            <span class="badge-user text-bold">{{ $gift->senderObj->username }}</span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $bonTransaction->receiverObj->username]) }}">
-                            <span class="badge-user text-bold">{{ $bonTransaction->receiverObj->username }}</span>
+                        <a href="{{ route('users.show', ['username' => $gift->receiverObj->username]) }}">
+                            <span class="badge-user text-bold">{{ $gift->receiverObj->username }}</span>
                         </a>
                     </td>
                     <td>
-                        {{ $bonTransaction->cost }}
+                        {{ $gift->cost }}
                     </td>
                     <td>
-                        {{ $bonTransaction->date_actioned }}
+                        {{ $gift->date_actioned }}
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
-        {{ $gifttransactions->links('partials.pagination') }}
+        {{ $gifts->links('partials.pagination') }}
     </section>
 @endsection
 
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.your-points') }}</h2>
-        <div class="panel__body">{{ $userbon }}</div>
+        <div class="panel__body">{{ $bon }}</div>
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.total-gifts') }}</h2>
         <dl class="key-value">
             <dt>{{ __('bon.you-have-received-gifts') }}</dt>
-            <dd>{{ $gifts_received }}</dd>
+            <dd>{{ $receivedGifts }}</dd>
             <dt>{{ __('bon.you-have-sent-gifts') }}</dt>
-            <dd>{{ $gifts_sent }}</dd>
+            <dd>{{ $sentGifts }}</dd>
         </div>
     </section>
 @endsection

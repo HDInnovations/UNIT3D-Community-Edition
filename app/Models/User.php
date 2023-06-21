@@ -575,6 +575,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Has many sent gifts.
+     */
+    public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'sender')->where('name', '=', 'gift');
+    }
+
+    /**
+     * Has many received gifts.
+     */
+    public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'receiver')->where('name', '=', 'gift');
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool

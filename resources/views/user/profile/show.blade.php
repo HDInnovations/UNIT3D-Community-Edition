@@ -619,32 +619,32 @@
                                 <form
                                     class="dialog__form"
                                     method="POST"
-                                    action="{{ route('gifts.store', ['username' => auth()->user()->username]) }}"
+                                    action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
                                     x-on:click.outside="open = false; $refs.dialog.close();"
                                 >
                                     @csrf
-                                    <input type="hidden" name="to_username" value="{{ $user->username }}"/>
+                                    <input type="hidden" name="receiver_username" value="{{ $user->username }}" />
                                     <p class="form__group">
                                         <input
-                                            id="bonus_points"
+                                            id="cost"
                                             class="form__text"
-                                            name="bonus_points"
+                                            name="cost"
                                             type="text"
                                             pattern="[0-9]*"
                                             inputmode="numeric"
                                             placeholder=" "
                                         />
-                                        <label class="form__label form__label--floating">
+                                        <label class="form__label form__label--floating" for="cost">
                                             {{ __('bon.amount') }}
                                         </label>
                                     <p class="form__group">
                                         <textarea
-                                            id="bonus_message"
+                                            id="comment"
                                             class="form__textarea"
-                                            name="bonus_message"
+                                            name="comment"
                                             placeholder=" "
                                         ></textarea>
-                                        <label class="form__label form__label--floating" for="bonus__message">
+                                        <label class="form__label form__label--floating" for="comment">
                                             {{ __('pm.message') }}
                                         </label>
                                     </p>

@@ -410,6 +410,13 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\FollowingController::class, 'index'])->name('index');
         });
 
+        // Gifts
+        Route::prefix('gifts')->name('gifts.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
+        });
+
         // General settings
         Route::prefix('general-settings')->name('general_settings.')->group(function (): void {
             Route::get('/edit', [App\Http\Controllers\User\GeneralSettingController::class, 'edit'])->name('edit');
@@ -502,13 +509,6 @@ Route::middleware('language')->group(function (): void {
         // Earnings
         Route::prefix('users/{username}/earnings')->name('earnings.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
-        });
-
-        // Gifts
-        Route::prefix('users/{username}/gifts')->name('gifts.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\GiftController::class, 'index'])->name('index');
-            Route::get('/create', [App\Http\Controllers\User\GiftController::class, 'create'])->name('create');
-            Route::post('/', [App\Http\Controllers\User\GiftController::class, 'store'])->name('store');
         });
 
         // Invites
