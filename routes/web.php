@@ -37,7 +37,7 @@ Route::middleware('language')->group(function (): void {
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('guest')->group(['before' => 'auth',], function (): void {
+    Route::middleware('guest')->group(function (): void {
         // Activation
         Route::get('/activate/{token}', [App\Http\Controllers\Auth\ActivationController::class, 'activate'])->name('activate');
 
@@ -69,7 +69,7 @@ Route::middleware('language')->group(function (): void {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('auth', 'twostep', 'banned')->group(function (): void {
+    Route::middleware(['auth', 'twostep', 'banned'])->group(function (): void {
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
@@ -286,7 +286,7 @@ Route::middleware('language')->group(function (): void {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::prefix('mediahub')->middleware('auth', 'twostep', 'banned')->group(function (): void {
+    Route::prefix('mediahub')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
         // MediaHub Home
         Route::get('/', [App\Http\Controllers\MediaHub\HomeController::class, 'index'])->name('mediahub.index');
 
@@ -326,7 +326,7 @@ Route::middleware('language')->group(function (): void {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('forums')->middleware('auth', 'twostep', 'banned')->group(function (): void {
+    Route::prefix('forums')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
         // Forum System
         Route::name('forums.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
@@ -386,7 +386,7 @@ Route::middleware('language')->group(function (): void {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::prefix('users/{user:username}')->name('users.')->middleware('auth', 'twostep', 'banned')->group(function (): void {
+    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
         // Achievements
         Route::prefix('achievements')->name('achievements.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
@@ -604,7 +604,7 @@ Route::middleware('language')->group(function (): void {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('dashboard')->middleware('auth', 'twostep', 'modo', 'banned')->group(function (): void {
+    Route::prefix('dashboard')->middleware(['auth', 'twostep', 'modo', 'banned'])->group(function (): void {
         // Staff Dashboard
         Route::name('staff.dashboard.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
