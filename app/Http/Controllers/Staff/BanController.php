@@ -51,7 +51,7 @@ class BanController extends Controller
         $staff = $request->user();
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        // \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $staff->id === $user->id, 403);
 
         $user->update([
             'group_id'     => $bannedGroup[0],
@@ -70,9 +70,9 @@ class BanController extends Controller
         ]);
 
         cache()->forget('user:'.$user->passkey);
+
         Unit3dAnnounce::addUser($user);
 
-        // Send Notifications
         $user->notify(new UserBan($ban));
 
         return to_route('users.show', ['username' => $username])
@@ -107,9 +107,9 @@ class BanController extends Controller
         ]);
 
         cache()->forget('user:'.$user->passkey);
+
         Unit3dAnnounce::addUser($user);
 
-        // Send Notifications
         $user->notify(new UserBanExpire());
 
         return to_route('users.show', ['username' => $user->username])

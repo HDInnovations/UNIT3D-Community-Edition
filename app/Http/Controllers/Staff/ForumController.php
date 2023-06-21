@@ -167,28 +167,19 @@ class ForumController extends Controller
 
         if ($forum->parent_id == 0) {
             $category = $forum;
-            Permission::where('forum_id', '=', $category->id)->delete();
 
             foreach ($category->getForumsInCategory() as $forum) {
                 Permission::where('forum_id', '=', $forum->id)->delete();
 
-                foreach ($forum->topics as $topic) {
-                    $topic->posts()->delete();
-                    $topic->delete();
-                }
-
+                $forum->posts()->delete();
+                $forum->topics()->delete();
                 $forum->delete();
             }
 
             $category->delete();
         } else {
-            Permission::where('forum_id', '=', $forum->id)->delete();
-
-            foreach ($forum->topics as $topic) {
-                $topic->posts()->delete();
-                $topic->delete();
-            }
-
+            $forum->posts()->delete();
+            $forum->topics()->delete();
             $forum->delete();
         }
 

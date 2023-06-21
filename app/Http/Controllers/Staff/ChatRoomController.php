@@ -90,16 +90,11 @@ class ChatRoomController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $chatroom = Chatroom::findOrFail($id);
-        $users = User::where('chatroom_id', '=', $id)->get();
         $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->pluck('id');
 
-        foreach ($users as $user) {
-            $user->chatroom_id = $default[0];
-            $user->save();
-        }
+        User::where('chatroom_id', '=', $id)->update(['chatroom_id' => $default[0]]);
 
-        $chatroom->delete();
+        Chatroom::findOrFail($id)->delete();
 
         return to_route('staff.rooms.index')
             ->withSuccess('Chatroom Successfully Deleted');

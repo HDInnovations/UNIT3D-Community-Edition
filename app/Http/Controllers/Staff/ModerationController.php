@@ -53,13 +53,13 @@ class ModerationController extends Controller
     {
         $torrent = Torrent::withAnyStatus()->with('user')->findOrFail($id);
 
-        if ((int) $request->old_status !== $torrent->status) {
+        if ($request->integer('old_status') !== $torrent->status) {
             return to_route('torrent', ['id' => $id])
                 ->withInput()
                 ->withErrors('Torrent has already been moderated since this page was loaded.');
         }
 
-        if ((int) $request->status === $torrent->status) {
+        if ($request->integer('status') === $torrent->status) {
             return to_route('torrent', ['id' => $id])
                 ->withInput()
                 ->withErrors(
@@ -77,16 +77,14 @@ class ModerationController extends Controller
 
         switch ($request->status) {
             case 1: // Approve
-                $appurl = config('app.url');
-
                 // Announce To Shoutbox
                 if ($torrent->anon === 0) {
                     $this->chatRepository->systemMessage(
-                        sprintf('User [url=%s/users/', $appurl).$torrent->user->username.']'.$torrent->user->username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                        sprintf('User [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                        sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                     );
                 }
 

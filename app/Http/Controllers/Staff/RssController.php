@@ -32,10 +32,9 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      */
-    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.rss.index', [
-            'hash'       => $hash,
             'public_rss' => Rss::where('is_private', '=', 0)->oldest('position')->get(),
         ]);
     }

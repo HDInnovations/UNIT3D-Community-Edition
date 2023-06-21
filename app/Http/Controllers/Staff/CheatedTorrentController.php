@@ -66,7 +66,9 @@ class CheatedTorrentController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        Torrent::findOrFail($id)->update(['balance_offset' => DB::raw('balance * -1')]);
+        Torrent::findOrFail($id)->update([
+            'balance_offset' => DB::raw('balance * -1'),
+        ]);
 
         return to_route('staff.cheated_torrents.index')
             ->withSuccess('Balance successfully reset');
@@ -77,7 +79,9 @@ class CheatedTorrentController extends Controller
      */
     public function massDestroy(): \Illuminate\Http\RedirectResponse
     {
-        Torrent::query()->update(['balance_offset' => DB::raw('balance * -1')]);
+        Torrent::query()->update([
+            'balance_offset' => DB::raw('balance * -1'),
+        ]);
 
         return to_route('staff.cheated_torrents.index')
             ->withSuccess('All balances successfully reset');

@@ -74,9 +74,9 @@ class ChatBotController extends Controller
      */
     public function disable(int $id): \Illuminate\Http\RedirectResponse
     {
-        $bot = Bot::findOrFail($id);
-        $bot->active = 0;
-        $bot->save();
+        Bot::findOrFail($id)->update([
+            'active' => 0,
+        ]);
 
         return to_route('staff.bots.index')
             ->withSuccess('The Bot Has Been Disabled');
@@ -87,9 +87,9 @@ class ChatBotController extends Controller
      */
     public function enable(int $id): \Illuminate\Http\RedirectResponse
     {
-        $bot = Bot::findOrFail($id);
-        $bot->active = 1;
-        $bot->save();
+        Bot::findOrFail($id)->update([
+            'active' => 1,
+        ]);
 
         return to_route('staff.bots.index')
             ->withSuccess('The Bot Has Been Enabled');

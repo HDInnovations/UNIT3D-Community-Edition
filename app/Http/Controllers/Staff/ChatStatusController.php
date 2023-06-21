@@ -66,9 +66,9 @@ class ChatStatusController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatstatus = ChatStatus::findOrFail($id);
-
-        return view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
+        return view('Staff.chat.status.edit', [
+            'chatstatus' => ChatStatus::findOrFail($id),
+        ]);
     }
 
     /**
