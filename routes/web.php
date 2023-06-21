@@ -393,11 +393,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
         });
 
-        // Bans
-        Route::prefix('bans')->name('bans.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\BanController::class, 'index'])->name('index');
-        });
-
         // History
         Route::prefix('torrents')->name('history.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
