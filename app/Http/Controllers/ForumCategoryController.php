@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
-use App\Models\Topic;
 
 /**
  * @see \Tests\Feature\Http\Controllers\ForumCategoryControllerTest
