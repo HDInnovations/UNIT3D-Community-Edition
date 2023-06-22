@@ -103,7 +103,7 @@
             <form
                 class="dialog__form"
                 method="POST"
-                action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
+                action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
                 x-on:click.outside="$refs.dialog.close()"
             >
                 @csrf

@@ -29,57 +29,55 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.tips') }}</h2>
-        <table class="table table-condensed table-striped">
-            <thead>
-            <tr>
-                <th>{{ __('bon.sender') }}</th>
-                <th>{{ __('bon.receiver') }}</th>
-                <th>{{ __('bon.points') }}</th>
-                <th>{{ __('bon.date') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($bontransactions as $bonTransaction)
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
                 <tr>
-                    <td>
-                        <a href="{{ route('users.show', ['username' => $bonTransaction->senderObj->username]) }}">
-                            <span class="badge-user text-bold">{{ $bonTransaction->senderObj->username }}</span>
-                        </a>
-                    </td>
-                    <td>
-                        @if($bonTransaction->whereNotNull('torrent_id'))
-                            @php $torrent = App\Models\Torrent::select(['anon'])->find($bonTransaction->torrent_id) @endphp
-                        @endif
-                        @if(isset($torrent) && $torrent->anon === 1 && $bonTransaction->receiver !== $user->id)
-                            <span class="badge-user text-bold">{{ __('common.anonymous') }}</span>
-                        @else
-                            <a href="{{ route('users.show', ['username' => $bonTransaction->receiverObj->username]) }}">
-                                <span class="badge-user text-bold">{{ $bonTransaction->receiverObj->username }}</span>
-                            </a>
-                        @endif
-                    </td>
-                    <td>{{ $bonTransaction->cost }}</td>
-                    <td>{{ $bonTransaction->date_actioned }}</td>
+                    <th>{{ __('bon.sender') }}</th>
+                    <th>{{ __('bon.receiver') }}</th>
+                    <th>{{ __('bon.points') }}</th>
+                    <th>{{ __('bon.date') }}</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
-        {{ $bontransactions->links('partials.pagination') }}
+                </thead>
+                <tbody>
+                @foreach($tips as $tip)
+                    <tr>
+                        <td>
+                            <x-user_tag :user="$tip->receiverObj" :anon="false" />
+                        </td>
+                        <td>
+                            @switch(true)
+                                @case($tip->torrent_id !== null)
+                                    <x-user_tag :user="$tip->receiverObj" :anon="$tip->torrent->anon" />
+                                    @break
+                                @case($tip->post_id !== null)
+                                    <x-user_tag :user="$tip->receiverObj" :anon="false" />
+                                    @break
+                            @endswitch
+                        </td>
+                        <td>{{ $tip->cost }}</td>
+                        <td>{{ $tip->date_actioned }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        {{ $tips->links('partials.pagination') }}
     </section>
 @endsection
 
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.your-points') }}</h2>
-        <div class="panel__body">{{ $userbon }}</div>
+        <div class="panel__body">{{ $bon }}</div>
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.total-tips') }}</h2>
         <dl class="key-value">
             <dt>{{ __('bon.you-have-received-tips') }}</dt>
-            <dd>{{ $tips_received }}</dd>
+            <dd>{{ $receivedTips }}</dd>
             <dt>{{ __('bon.you-have-sent-tips') }}</dt>
-            <dd>{{ $tips_sent }}</dd>
+            <dd>{{ $sentTips }}</dd>
         </div>
     </section>
 @endsection

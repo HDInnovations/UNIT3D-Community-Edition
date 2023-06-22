@@ -498,6 +498,12 @@ Route::middleware('language')->group(function (): void {
             });
         }
 
+        // Tips
+        Route::prefix('tips')->name('tips.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
+        });
+
         // Topics
         Route::prefix('topics')->name('topics.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\TopicController::class, 'index'])->name('index');
@@ -563,12 +569,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
-        });
-
-        // Tips
-        Route::prefix('users/{username}/tips')->name('tips.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
-            Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
         });
 
         // Transactions
