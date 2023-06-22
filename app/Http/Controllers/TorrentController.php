@@ -81,9 +81,11 @@ class TorrentController extends Controller
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+
         $torrent = Torrent::withAnyStatus()
             ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
-            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $request->user()->id)])
+            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->findOrFail($id);
 
         $meta = null;
