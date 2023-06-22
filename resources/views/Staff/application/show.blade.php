@@ -100,9 +100,9 @@
         @else
             <h2 class="panel__heading">{{ __('common.action') }}</h2>
             <div class="panel__body">
-                    <div>
+                    <div x-data>
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled" x-on:click.stop="$refs.dialog.showModal()">
+                            <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                                 <i class="{{ config('other.font-awesome') }} fa-check"></i>
                                 {{ __('request.approve') }}
                             </button>
@@ -127,7 +127,7 @@
                                     value="{{ $application->email }}"
                                 >
                                 <p class="form__group">
-                                    <textarea id="approve" class="form__textarea" name="approve" placeholder="">Application Approved!</textarea>
+                                    <textarea id="approve" class="form__textarea" name="approve" placeholder=" ">Application Approved!</textarea>
                                     <label class="form__label form__label--floating" for="approve">Invitation Message</label>
                                 </p>
                                 <p class="form__group">
@@ -143,7 +143,7 @@
                     </div>
                     <div x-data>
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled" x-on:click.stop="$refs.dialog.showModal()">
+                            <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                                 <i class="{{ config('other.font-awesome') }} fa-times"></i>
                                 {{ __('request.reject') }}
                             </button>

@@ -31,9 +31,18 @@ class UpdateModerationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'old_status' => 'required|in:0,1,2,3',
-            'status'     => 'required|in:1,2,3',
-            'message'    => 'required_if:status,2,3|string'
+            'old_status' => [
+                'required',
+                'in:0,1,2,3',
+            ],
+            'status' => [
+                'required',
+                'in:1,2,3',
+            ],
+            'message' => [
+                'required_if:status,2,3',
+                'string',
+            ],
         ];
     }
 }

@@ -30,6 +30,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use Exception;
+use Illuminate\Support\Facades\Redis;
 
 class AnnounceController extends Controller
 {
@@ -176,7 +177,7 @@ class AnnounceController extends Controller
         ), new TrackerException(121));
 
         // Block Blacklisted Clients
-        $clientBlacklist = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::all()->pluck('name')->toArray());
+        $clientBlacklist = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('name')->toArray());
         throw_if(
             \in_array($userAgent, $clientBlacklist),
             new TrackerException(128, [':ua' => $request->header('User-Agent')])
@@ -349,8 +350,7 @@ class AnnounceController extends Controller
         $group = cache()->remember('group:'.$user->group_id, 300, function () use ($user) {
             return Group::query()
                 ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
-                ->where('id', '=', $user->group_id)
-                ->first();
+                ->find($user->group_id);
         });
 
         // If User Account Is Unactivated/Validating Return Error to Client
@@ -382,16 +382,27 @@ class AnnounceController extends Controller
      */
     protected function checkTorrent($infoHash): object
     {
+        $cacheKey = config('cache.prefix').'torrents:infohash2id';
         // Check Info Hash Against Torrents Table
+        $torrentId = Redis::connection('cache')->command('HGET', [$cacheKey, hex2bin($infoHash)]);
+
         $torrent = Torrent::withAnyStatus()
             ->with([
                 'peers' => fn ($query) => $query
-                    ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port'])
+                    ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])
                     ->selectRaw('INET6_NTOA(ip) as ip')
             ])
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
-            ->where('info_hash', '=', $infoHash)
+            ->when(
+                $torrentId === null,
+                fn ($query) => $query->where('info_hash', '=', hex2bin($infoHash)),
+                fn ($query) => $query->where('id', '=', $torrentId),
+            )
             ->first();
+
+        if ($torrentId === null && $torrent !== null) {
+            Redis::connection('cache')->command('HSET', [$cacheKey, hex2bin($infoHash), $torrent->id]);
+        }
 
         // If Torrent Doesn't Exsist Return Error to Client
         throw_if($torrent === null, new TrackerException(150));

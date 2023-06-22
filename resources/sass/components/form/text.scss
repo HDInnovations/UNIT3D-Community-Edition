@@ -20,7 +20,7 @@
     height: 40px;
     max-width: 100%;
     outline: none;
-    padding: 12px;
+    padding: var(--input-text-padding);
     width: 100%;
 
     @media screen and (prefers-reduced-motion: no-preference) {
@@ -29,14 +29,16 @@
 
     &:hover {
         border: var(--input-text-border-hover);
+        padding: var(--input-text-padding-hover);
     }
 
     &:focus,
     &:focus:hover {
         border: var(--input-text-border-active);
+        padding: var(--input-text-padding-active);
 
         & + .form__label--floating {
-            top: -3px;
+            top: -5px;
             font-size: 11px;
             color: var(--label-fg-active);
             border-radius: 0;
@@ -45,9 +47,10 @@
     }
 
     &:valid:not(:placeholder-shown),
-    &:focus:placeholder-shown {
+    &:focus:placeholder-shown,
+    &:read-only {
         & + .form__label--floating {
-            top: -3px;
+            top: -5px;
             font-size: 11px;
             border-radius: 0;
             padding: 0 4px;

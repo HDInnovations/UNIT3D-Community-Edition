@@ -26,7 +26,7 @@
                             class="form__text"
                             type="text"
                             wire:model="search"
-                            placeholder=""
+                            placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         Message
@@ -76,7 +76,7 @@
                                     <button
                                             x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this note: {{ $note->message }}?',
+                                                    text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,

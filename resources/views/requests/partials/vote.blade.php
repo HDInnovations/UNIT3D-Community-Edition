@@ -1,4 +1,4 @@
-<div class="form__group form__group--short-horizontal" x-data>
+<li class="form__group form__group--short-horizontal" x-data>
     <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
         {{ __('request.vote') }}
     </button>
@@ -9,7 +9,7 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("add_votes", ['id' => $torrentRequest->id]) }}"
+            action="{{ route("requests.bounties.store", ['id' => $torrentRequest->id]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
@@ -21,7 +21,7 @@
                     inputmode="numeric"
                     name="bonus_value"
                     pattern="[0-9]*?[1-9][0-9]{2,}"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
                 <label for="bonus_value" class="form__label form__label--floating">
@@ -57,4 +57,4 @@
             </p>
         </form>
     </dialog>
-</div>
+</li>

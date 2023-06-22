@@ -30,6 +30,7 @@ use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 
 class TorrentHelper
@@ -40,7 +41,7 @@ class TorrentHelper
         $appname = config('app.name');
 
         Torrent::approve($id);
-        $torrent = Torrent::with('user')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::with('user')->withAnyStatus()->find($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
@@ -78,7 +79,7 @@ class TorrentHelper
 
         if ($anon == 0) {
             // Achievements
-            $user->unlock(new UserMadeUpload(), 1);
+            $user->unlock(new UserMadeUpload());
             $user->addProgress(new UserMade25Uploads(), 1);
             $user->addProgress(new UserMade50Uploads(), 1);
             $user->addProgress(new UserMade100Uploads(), 1);
@@ -105,5 +106,7 @@ class TorrentHelper
             }
             $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
+
+        Unit3dAnnounce::addTorrent($torrent);
     }
 }

@@ -112,15 +112,17 @@ if (! \function_exists('modal_style')) {
 if (! \function_exists('rating_color')) {
     function rating_color($number)
     {
-        if ($number > 0 && $number <= 3.9) {
+        $rating = round((float) $number);
+
+        if ($rating > 0 && $rating <= 4) {
             return 'text-danger';
         }
 
-        if ($number >= 4 && $number <= 6.9) {
+        if ($rating >= 4 && $rating <= 7) {
             return 'text-warning';
         }
 
-        if ($number >= 7 && $number <= 10) {
+        if ($rating >= 7 && $rating <= 10) {
             return 'text-success';
         }
     }
@@ -133,33 +135,37 @@ if (! \function_exists('language_flag')) {
             'English', 'English (US)' => 'us',
             'English (GB)' => 'gb',
             'English (CA)' => 'can',
-            'Albanian'     => 'al',
+            'English (AU)' => 'au',
+            'Albanian', 'Albanian (AL)' => 'al',
             'Arabic', 'Arabic (001)' => 'ae',
             'Belarusian' => 'by',
             'Bengali'    => 'bd',
-            'Bosnian'    => 'ba',
+            'Bosnian', 'Bosnian (BA)' => 'ba',
             'Bulgarian', 'Bulgarian (BG)' => 'bg',
-            'Catalan' => 'ca',
-            'Chinese', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)' => 'cn',
+            'Chinese', 'Mandarin', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)', 'Chinese (Simplified)' => 'cn',
             'Chinese (HK)', 'Chinese-Hant-HK' => 'hk',
+            'Chinese (Taiwan)' => 'tw',
             'Croatian', 'Croatian (HR)' => 'hr',
             'Czech', 'Czech (CZ)' => 'cz',
             'Danish', 'Danish (DK)' => 'dk',
             'Dutch', 'Dutch (NL)' => 'nl',
+            'Dutch (BE)' => 'be',
             'Estonian', 'Estonian (EE)' => 'ee',
             'Finnish', 'Finnish (FI)' => 'fi',
             'French', 'French (FR)' => 'fr',
             'French (CA)' => 'can-qc',
             'Georgian'    => 'ge',
             'German', 'German (DE)' => 'de',
+            'German (CH)' => 'ch',
             'Greek', 'Greek (GR)' => 'gr',
             'Hebrew', 'Hebrew (IL)' => 'il',
-            'Hindi', 'Tamil', 'Telugu', 'Hindi (IN)', 'Tamil (IN)', 'Telugu (IN)' => 'in',
+            'Hindi', 'Tamil', 'Telugu', 'Hindi (IN)', 'Tamil (IN)', 'Telugu (IN)', 'Kannada', 'Kannada (IN)', 'Malayalam', 'Malayalam (IN)' => 'in',
             'Hungarian', 'Hungarian (HU)' => 'hu',
             'Icelandic', 'Icelandic (IS)' => 'is',
             'Indonesian', 'Indonesian (ID)' => 'id',
             'Italian', 'Italian (IT)' => 'it',
             'Japanese', 'Japanese (JP)' => 'jp',
+            'Kazakh', 'Kazakh (KZ)' => 'kz',
             'Korean', 'Korean (KR)' => 'kr',
             'Latvian', 'Latvian (LV)' => 'lv',
             'Lithuanian', 'Lithuanian (LT)' => 'lt',
@@ -172,17 +178,21 @@ if (! \function_exists('language_flag')) {
             'Portuguese (BR)' => 'br',
             'Romanian', 'Romanian (RO)' => 'ro',
             'Russian', 'Russian (RU)' => 'ru',
-            'Serbian', 'Serbian-Latn-RS' => 'rs',
+            'Serbian', 'Serbian-Latn-RS', 'Serbian (RS)' => 'rs',
             'Slovak', 'Slovak (SK)' => 'sk',
             'Slovenian', 'Slovenian (SI)' => 'si',
-            'Spanish', 'Spanish (ES)' => 'es',
-            'Spanish (Latin America)' => 'mx',
+            'Spanish', 'Spanish (ES)', 'Spanish (CA)', 'Spanish (EU)' => 'es',
+            'Spanish (Latin America)', 'Spanish (LA)' => 'mx',
+            'Basque', 'Basque (ES)' => 'es-pv',
+            'Catalan', 'Catalan (ES)' => 'es-ct',
+            'Galician', 'Galician (ES)' => 'es-ga',
             'Swedish', 'Swedish (SE)' => 'se',
             'Tagalog', 'fil', 'fil (PH)' => 'ph',
             'Thai', 'Thai (TH)' => 'th',
             'Turkish', 'Turkish (TR)' => 'tr',
             'Ukrainian', 'Ukrainian (UA)' => 'ua',
             'Vietnamese', 'Vietnamese (VN)' => 'vn',
+            'Welsh' => 'gb-wls',
             default => null,
         };
 

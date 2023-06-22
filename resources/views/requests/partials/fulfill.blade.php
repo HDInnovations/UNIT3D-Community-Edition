@@ -1,5 +1,5 @@
-<div class="form__group form__group--short-horizontal" x-data>
-    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
+<li class="form__group form__group--short-horizontal" x-data>
+    <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
         {{ __('request.fulfill') }}
     </button>
     <dialog class="dialog" x-ref="dialog">
@@ -9,7 +9,7 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("fill_request", ['id' => $torrentRequest->id]) }}"
+            action="{{ route("requests.fill", ['id' => $torrentRequest->id]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
@@ -19,7 +19,7 @@
                     id="torrent_id"
                     class="form__text"
                     name="torrent_id"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
                 <label for="torrent_id" class="form__label form__label--floating">
@@ -49,4 +49,4 @@
             </p>
         </form>
     </dialog>
-</div>
+</li>

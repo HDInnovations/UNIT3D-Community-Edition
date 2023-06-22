@@ -19,6 +19,8 @@ use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Str;
 
 /**
@@ -31,9 +33,9 @@ class GroupController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $groups = Group::all()->sortBy('position');
-
-        return view('Staff.group.index', ['groups' => $groups]);
+        return view('Staff.group.index', [
+            'groups' => Group::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -51,7 +53,7 @@ class GroupController extends Controller
     {
         $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
 
-        foreach (Forum::all()->pluck('id') as $collection) {
+        foreach (Forum::pluck('id') as $collection) {
             $permission = new Permission();
             $permission->forum_id = $collection;
             $permission->group_id = $group->id;
@@ -71,9 +73,9 @@ class GroupController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $group = Group::findOrFail($id);
-
-        return view('Staff.group.edit', ['group' => $group]);
+        return view('Staff.group.edit', [
+            'group' => Group::findOrFail($id),
+        ]);
     }
 
     /**
@@ -81,9 +83,13 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Group::where('id', '=', $id)->update(['slug' => Str::slug($request->name)] + $request->validated());
+        Group::findOrFail($id)->update(['slug' => Str::slug($request->name)] + $request->validated());
 
         cache()->forget('group:'.$id);
+
+        foreach (User::where('group_id', '=', $id)->get() as $user) {
+            Unit3dAnnounce::addUser($user);
+        }
 
         return to_route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');

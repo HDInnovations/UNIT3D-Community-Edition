@@ -103,7 +103,7 @@ class ProcessAnnounce implements ShouldQueue
             $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
         }
 
-        if ($history->updated_at->timestamp > now()->subHours(2)->timestamp && $history->seeder && $this->queries['left'] == 0) {
+        if ($history->updated_at !== null && $history->updated_at->timestamp > now()->subHours(2)->timestamp && $history->seeder && $this->queries['left'] == 0) {
             $oldUpdate = $history->updated_at->timestamp;
         } else {
             $oldUpdate = now()->timestamp;
@@ -199,7 +199,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
 
                 // Torrent Completed Update
-                $this->torrent->increment('times_completed');
+                $this->torrent->times_completed += 1;
                 break;
 
             case 'stopped':
@@ -270,8 +270,8 @@ class ProcessAnnounce implements ShouldQueue
             ->where('peer_id', '!=', $peerId)
             ->count();
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0);
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0);
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && strtolower($this->queries['event']) !== 'stopped');
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && strtolower($this->queries['event']) !== 'stopped');
 
         $this->torrent->save();
     }

@@ -47,11 +47,6 @@ class UserResurrections extends Component
         $this->user = User::find($userId);
     }
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');

@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Graveyard;
+use App\Models\History;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 use Exception;
@@ -24,51 +25,45 @@ use Exception;
 class GraveyardController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('graveyard.index');
-    }
-
-    /**
      * Resurrect A Torrent.
      */
-    public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $torrent = Torrent::findOrFail($id);
-        $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
+        $torrent = Torrent::findOrFail($request->torrent_id);
 
-        if ($resurrected) {
-            return to_route('graveyard.index')
+        if ($user->id === $torrent->user_id) {
+            return to_route('torrent', ['id' => $torrent->id])
+                ->withErrors(trans('graveyard.resurrect-failed-own'));
+        }
+
+        if ($torrent->seeders !== 0) {
+            return to_route('torrent', ['id' => $torrent->id])
+                ->withErrors('This torrent is not dead.');
+        }
+
+        if ($torrent->created_at->gt(now()->subDays(30))) {
+            return to_route('torrent', ['id' => $torrent->id])
+                ->withErrors('This torrent is not older than 30 days.');
+        }
+
+        $isPending = Graveyard::where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists();
+
+        if ($isPending) {
+            return to_route('torrent', ['id' => $torrent->id])
                 ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
 
-        if ($user->id === $torrent->user_id) {
-            return to_route('graveyard.index')
-                ->withErrors(trans('graveyard.resurrect-failed-own'));
-        }
+        $history = History::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->first();
+        $seedtime = config('graveyard.time') + $history?->seedtime ?? 0;
 
         $graveyard = new Graveyard();
         $graveyard->user_id = $user->id;
         $graveyard->torrent_id = $torrent->id;
-        $graveyard->seedtime = $request->input('seedtime');
-
-        $v = validator($graveyard->toArray(), [
-            'user_id'    => 'required',
-            'torrent_id' => 'required',
-            'seedtime'   => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return to_route('graveyard.index')
-                ->withErrors($v->errors());
-        }
-
+        $graveyard->seedtime = $seedtime;
         $graveyard->save();
 
-        return to_route('graveyard.index')
+        return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess(trans('graveyard.resurrect-complete'));
     }
 
@@ -86,7 +81,7 @@ class GraveyardController extends Controller
         abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
-        return to_route('graveyard.index')
+        return to_route('users.resurrections.index', ['user' => $user])
             ->withSuccess(trans('graveyard.resurrect-canceled'));
     }
 }

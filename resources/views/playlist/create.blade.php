@@ -38,26 +38,16 @@
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         required
                         value="{{ old('name') }}"
                     >
                     <label class="form__label form__label--floating" for="name">
                         {{ __('playlist.title') }}
-                    <label>
+                    </label>
                 </p>
                 <p class="form__group">
-                    <textarea
-                        id="description"
-                        class="form__textarea"
-                        type="text"
-                        name="description"
-                        placeholder=""
-                        required
-                    >{{ old('description') }}</textarea>
-                    <label class="form__label form__label--floating" for="description">
-                        {{ __('playlist.desc') }}
-                    </label>
+                    @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                 </p>
                 <p class="form__group">
                     <label for="cover_image" class="form__label">

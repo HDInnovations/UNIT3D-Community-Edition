@@ -37,15 +37,13 @@ class WishController extends Controller
      */
     public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
+        $user = User::with('wishes')->where('username', '=', $username)->sole();
 
         abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
-        $wishes = $user->wishes()->latest()->paginate(25);
-
         return view('user.wish.index', [
             'user'   => $user,
-            'wishes' => $wishes,
+            'wishes' => $user->wishes()->latest()->paginate(25),
             'route'  => 'wish',
         ]);
     }
@@ -96,11 +94,9 @@ class WishController extends Controller
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         $this->wish->delete($id);
 
-        return to_route('wishes.index', ['username' => $user->username])
+        return to_route('wishes.index', ['username' => $request->user()->username])
             ->withSuccess('Wish Successfully Removed!');
     }
 }

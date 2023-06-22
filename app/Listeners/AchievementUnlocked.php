@@ -33,8 +33,11 @@ class AchievementUnlocked
     public function handle(Unlocked $unlocked): void
     {
         // There's an AchievementProgress instance located on $event->progress
-        $user = User::where('id', '=', $unlocked->progress->achiever_id)->first();
-        Session::flash('achievement', $unlocked->progress->details->name);
+        $user = User::find($unlocked->progress->achiever_id);
+
+        if (auth()->id() === $user->id) {
+            Session::flash('achievement', $unlocked->progress->details->name);
+        }
 
         if ($user->private_profile == 0) {
             $profileUrl = href_profile($user);

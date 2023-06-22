@@ -21,7 +21,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forum_topic', ['id' => $topic->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('topics.show', ['id' => $topic->id]) }}" class="breadcrumb__link">
             {{ $topic->name }}
         </a>
     </li>
@@ -40,8 +40,9 @@
             {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}: {{ $forum->name }}
         </h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('forum_post_edit', ['id' => $topic->id, 'postId' => $post->id]) }}">
+            <form class="form" method="POST" action="{{ route('posts.update', ['id' => $post->id]) }}">
                 @csrf
+                @method('PATCH')
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'content' => $post->content])
                 <button class="form__button form__button--filled">
                     {{ __('common.submit') }}

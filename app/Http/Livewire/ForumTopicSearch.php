@@ -14,6 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Forum;
+use App\Models\Subscription;
 use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,10 +30,12 @@ class ForumTopicSearch extends Component
     public String $state = '';
     public String $subscribed = '';
     public Forum $forum;
+    public ?Subscription $subscription;
 
     final public function mount(Forum $forum): void
     {
         $this->forum = $forum;
+        $this->subscription = Subscription::where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
     }
 
     final public function updatingSearch(): void
@@ -44,9 +47,9 @@ class ForumTopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group')
+            ->with('user', 'user.group', 'forum:id,name')
             ->where('topics.forum_id', '=', $this->forum->id)
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
+            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))

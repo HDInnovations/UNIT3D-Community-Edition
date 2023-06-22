@@ -27,12 +27,17 @@ use App\Models\TorrentFile;
 use App\Models\Tv;
 use App\Models\Warning;
 use Livewire\Component;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
-    public $categoryId;
+    public Category $category;
+
+    public Movie|Tv|Game $work;
 
     public $tmdbId;
+
+    public $igdbId;
 
     public $reason;
 
@@ -71,27 +76,43 @@ class SimilarTorrent extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
-        $category = Category::findOrFail($this->categoryId);
+        $user = auth()->user();
 
-        $query = Torrent::query();
-        $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments']);
-        if ($category->movie_meta) {
-            $query = $query->whereHas('category', function ($q): void {
-                $q->where('movie_meta', '=', true);
-            });
-        }
-
-        if ($category->tv_meta) {
-            $query = $query->whereHas('category', function ($q): void {
-                $q->where('tv_meta', '=', true);
-            });
-        }
-
-        $query = $query->where('tmdb', '=', $this->tmdbId);
-        $query = $query->orderBy($this->sortField, $this->sortDirection);
-
-        return $query->get();
+        return Torrent::query()
+            ->with('user:id,username,group_id', 'category', 'type', 'resolution')
+            ->withCount(['thanks', 'comments'])
+            ->withExists([
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
+            ])
+            ->when(
+                $this->category->movie_meta,
+                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),
+            )
+            ->when(
+                $this->category->tv_meta,
+                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('tv_meta', '=', 1)),
+            )
+            ->when(
+                $this->category->tv_meta || $this->category->movie_meta,
+                fn ($query) => $query->where('tmdb', '=', $this->tmdbId),
+                fn ($query) => $query->where('igdb', '=', $this->igdbId),
+            )
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
     }
 
     final public function sortBy($field): void
@@ -122,39 +143,18 @@ class SimilarTorrent extends Component
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
-        $titleids = [];
-        $titles = [];
+        $title = match (1) {
+            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->name.' ('.$movie->release_date.')',
+            $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
+            $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
+            default                     => $torrents->pluck('name')->join(', '),
+        };
+
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
                 if (! \in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
-                }
-            }
-
-            if (! \in_array($torrent->tmdb, $titleids)) {
-                $titleids[] = $torrent->tmdb;
-                $title = null;
-                $cat = $torrent->category;
-                $meta = 'none';
-
-                if ($cat->tv_meta === 1) {
-                    $meta = 'tv';
-                } elseif ($cat->movie_meta === 1) {
-                    $meta = 'movie';
-                }
-
-                switch ($meta) {
-                    case 'movie':
-                        $title = Movie::find($torrent->tmdb);
-                        $titles[] = $title->title.' ('.substr($title->release_date, 0, 4).')';
-                        break;
-                    case 'tv':
-                        $title = Tv::find($torrent->tmdb);
-                        $titles[] = $title->name.' ('.substr($title->first_air_date, 0, 4).')';
-                        break;
-                    default:
-                        break;
                 }
             }
 
@@ -183,11 +183,12 @@ class SimilarTorrent extends Component
             $torrent->delete();
         }
 
+
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();
             $pmuser->sender_id = 1;
             $pmuser->receiver_id = $user;
-            $pmuser->subject = 'Bulk Torrents Deleted - '.implode(', ', $titles).'! ';
+            $pmuser->subject = 'Bulk Torrents Deleted - '.$title.'! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
             [list]
                 [*]'.implode(' [*]', $names).'

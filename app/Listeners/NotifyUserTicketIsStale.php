@@ -19,13 +19,6 @@ use App\Notifications\UserTicketStale;
 class NotifyUserTicketIsStale
 {
     /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Handle the event.
      */
     public function handle(TicketWentStale $event): void

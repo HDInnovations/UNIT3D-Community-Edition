@@ -24,7 +24,7 @@
         <h2 class="panel__heading">{{ __('common.genres') }}</h2>
         <div class="panel__body blocks">
             @foreach ($genres as $genre)
-                <a href="{{ route('grouped', ['genres' => [$genre->id]]) }}" style="padding: 0 2px;">
+                <a href="{{ route('torrents', ['view' => 'group', 'genres' => [$genre->id]]) }}" style="padding: 0 2px;">
                     <div class="people media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                         <h2 class="text-bold"> {{ $genre->name }}</h2>
                         <span style="background-color: #317aaf;"></span>

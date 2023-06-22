@@ -31,10 +31,8 @@ class CollectionController extends Controller
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $collection = Collection::with(['movie' => fn ($query) => $query->has('torrents'), 'comments'])->findOrFail($id);
-
         return view('mediahub.collection.show', [
-            'collection' => $collection,
+            'collection' => Collection::with(['movie' => fn ($query) => $query->has('torrents'), 'comments'])->findOrFail($id),
         ]);
     }
 }

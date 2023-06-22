@@ -19,4 +19,5 @@
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: center;
 }

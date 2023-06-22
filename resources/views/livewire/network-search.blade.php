@@ -6,7 +6,7 @@
                 <div class="form__group">
                     <input
                         class="form__text"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         wire:model.debounce.250ms="search"
                     />
@@ -20,7 +20,7 @@
     {{ $networks->links('partials.pagination') }}
     <div class="panel__body blocks">
         @forelse ($networks as $network)
-            <a href="{{ route('grouped', ['networkId' => $network->id]) }}" style="padding: 0 2px;">
+            <a href="{{ route('torrents', ['view' => 'group', 'networkId' => $network->id]) }}" style="padding: 0 2px;">
                 <div class="general media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
                     <h2 class="text-bold">
                         @if(isset($network->logo))

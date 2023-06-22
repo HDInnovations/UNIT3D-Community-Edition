@@ -1,76 +1,95 @@
 <li>
-    <article class="comment">
-        <header class="comment__header">
-            <img
-                    class="comment__avatar"
-                    src="{{ url((!$comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
-                    alt=""
-            >
-            <address class="comment__author">
-                <x-user_tag :anon="$comment->anon" :user="$comment->user"/>
-            </address>
+    <article class="post" @if($comment->isChild()) style="margin-left: 155px;" @endif>
+        <header class="post__header">
             <time
-                    class="comment__timestamp"
+                    class="post__datetime"
                     datetime="{{ $comment->created_at }}"
                     title="{{ $comment->created_at }}"
             >
-                {{ $comment->created_at->diffForHumans() }}
+                {{ $comment->created_at?->diffForHumans() }}
             </time>
-            <menu class="comment__actions">
+            <menu class="post__toolbar">
                 @if ($comment->isParent())
-                    <button wire:click="$toggle('isReplying')" class="comment__reply">
-                        <abbr class="comment__reply-abbr" title="Reply to this comment">
-                            <i class="{{ config('other.font-awesome') }} fa-reply"></i>
-                            <span class="sr-only">__('pm.reply')</span>
-                        </abbr>
-                    </button>
+                    <li class="post__toolbar-item">
+                        <button wire:click="$toggle('isReplying')" class="post__permalink">
+                            <abbr class="comment__reply-abbr" title="Reply to this comment">
+                                <i class="{{ config('other.font-awesome') }} fa-reply"></i>
+                                <span class="sr-only">__('pm.reply')</span>
+                            </abbr>
+                        </button>
+                    </li>
                 @endif
-                @if ($comment->user_id === auth()->id() || auth()->user()->group->is_modo)
-                    <button wire:click="$toggle('isEditing')" class="comment__edit">
-                        <abbr class="comment__edit-abbr" title="{{ __('common.edit-your-comment') }}">
-                            <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                            <span class="sr-only">__('common.edit')</span>
-                        </abbr>
-                    </button>
-                    <button
-                            class="comment__delete"
-                            x-on:click="confirmCommentDeletion"
-                            x-data="{
-                            confirmCommentDeletion () {
-                                if (window.confirm('You sure?')) {
-                                @this.call('deleteComment')
-                                }
-                            }
-                        }"
-                    >
-                        <abbr class="comment__delete-abbr" title="{{ __('common.delete-your-comment') }}">
-                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                            <span class="sr-only">__('common.delete')</span>
-                        </abbr>
-                    </button>
+                @if ($comment->user_id === auth()->user()->id || auth()->user()->group->is_modo)
+                    <li class="post__toolbar-item">
+                        <button wire:click="$toggle('isEditing')" class="post__edit">
+                            <abbr class="comment__edit-abbr" title="{{ __('common.edit-your-comment') }}">
+                                <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
+                                <span class="sr-only">__('common.edit')</span>
+                            </abbr>
+                        </button>
+                    </li>
+                    <li class="post__toolbar-item">
+                        <button
+                                class="post__delete-button"
+                                x-on:click="confirmCommentDeletion"
+                                x-data="{
+                                       confirmCommentDeletion () {
+                                           if (window.confirm('You sure?')) {
+                                                @this.call('deleteComment')
+                                           }
+                                       }
+                                   }"
+                        >
+                            <abbr class="comment__delete-abbr" title="{{ __('common.delete-your-comment') }}">
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                <span class="sr-only">__('common.delete')</span>
+                            </abbr>
+                        </button>
+                    </li>
                 @endif
             </menu>
         </header>
+        <aside class="post__aside">
+            <figure class="post__figure" style="text-align: center;">
+                <img
+                        class="post__avatar"
+                        style="width: 50%;"
+                        src="{{ url((! $comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
+                        alt=""
+                >
+            </figure>
+            <x-user_tag
+                    class="post__author"
+                    :anon="$comment->anon"
+                    :user="$comment->user"
+            >
+            </x-user_tag>
+            @if (! $comment->anon && ! empty($comment->user->title))
+                <p class="post__author-title">
+                    {{ $comment->user->title }}
+                </p>
+            @endif
+        </aside>
         @if ($isEditing)
             <form wire:submit.prevent="editComment" class="form edit-comment">
                 <p class="form__group">
-                    <textarea
-                            name="comment"
-                            id="edit-comment"
-                            class="form__textarea"
-                            aria-describedby="edit-comment__textarea-hint"
-                            wire:model.defer="editState.content"
-                            required
-                    ></textarea>
+                        <textarea
+                                name="comment"
+                                id="edit-comment"
+                                class="form__textarea"
+                                aria-describedby="edit-comment__textarea-hint"
+                                wire:model.defer="editState.content"
+                                required
+                        ></textarea>
                     <label for="edit-comment" class="form__label form__label--floating">
                         @error('editState.content')
-                        <strong>{{ __('common.error') }}: </strong>
+                            <strong>{{ __('common.error') }}: </strong>
                         @enderror
                         Edit your comment...
                     </label>
                     @error('editState.content')
-                    <span class="form__hint" id="edit-comment__textarea-hint">{{ $message }}</p>
-                @enderror
+                        <span class="form__hint" id="edit-comment__textarea-hint">{{ $message }}</p>
+                    @enderror
                 </p>
                 <p class="form__group">
                     <button type="submit" class="form__button form__button--filled">
@@ -82,14 +101,14 @@
                 </p>
             </form>
         @else
-            <div class="comment__content bbcode-rendered">
+            <div class="post__content bbcode-rendered">
                 @joypixels($comment->getContentHtml())
             </div>
         @endif
     </article>
 
     @if ($comment->isParent())
-        <section class="comment__replies">
+        <section>
             <h5 class="sr-only">Replies</h5>
             @if ($isReplying)
                 <form wire:submit.prevent="postReply" class="form reply-comment">
@@ -104,13 +123,13 @@
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
                             @error('editState.content')
-                            <strong>{{ __('common.error') }}: </strong>
+                                <strong>{{ __('common.error') }}: </strong>
                             @enderror
                             Reply to parent comment...
                         </label>
                         @error('replyState.content')
-                        <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</p>
-                    @enderror
+                            <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</p>
+                        @enderror
                     </p>
                     <p class="form__group">
                         <input type="checkbox" id="reply-anon" class="form__checkbox" wire:model="anon">
@@ -126,7 +145,7 @@
                         </button>
                     </p>
                 </form>
-            @endif
+           @endif
             @if ($comment->children->count() > 0)
                 <ul class="comment__reply-list">
                     @foreach ($comment->children as $child)

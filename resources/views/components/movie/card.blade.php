@@ -18,14 +18,14 @@
             </a>
         </h2>
         <address class="torrent-search--grouped__directors">
-            @if(!empty($media->directors))
+            @if($media->directors->isNotEmpty())
                 <span class="torrent-search-grouped__directors-by">by</span>
                 @foreach($media->directors as $director)
                     <a
-                        href="{{ route('mediahub.persons.show', ['id' => $director['id']]) }}"
+                        href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}"
                         class="torrent-search--grouped__director"
                     >
-                        {{ $director['name'] }}
+                        {{ $director->name }}
                     </a>
                     @if (! $loop->last)
                         ,
@@ -36,7 +36,7 @@
         <div class="torrent-search--grouped__genres">
             @foreach ($media->genres->take(3) as $genre)
                 <a
-                    href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}"
+                    href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}"
                     class="torrent-search--grouped__genre"
                 >
                     {{ $genre->name }}

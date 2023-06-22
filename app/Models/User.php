@@ -150,6 +150,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Belongs to many connectable seeding torrents.
+     */
+    public function connectableSeedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'peers')
+            ->wherePivot('seeder', '=', 1)
+            ->wherePivot('connectable', '=', 1);
+    }
+
+    /**
      * Belongs to many followees.
      */
     public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -189,6 +199,14 @@ class User extends Authenticatable
     public function notification(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(UserNotification::class);
+    }
+
+    /**
+     * Has One Watchlist Object.
+     */
+    public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Watchlist::class);
     }
 
     /**
@@ -488,6 +506,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Subscribed topics.
+     */
+    public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Forum::class, 'subscriptions');
+    }
+
+    /**
+     * Has Many Subscribed topics.
+     */
+    public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Topic::class, 'subscriptions');
+    }
+
+    /**
      * Has many free leech tokens.
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -517,6 +551,22 @@ class User extends Authenticatable
     public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PersonalFreeleech::class);
+    }
+
+    /**
+     * Has many failed logins.
+     */
+    public function failedLogins(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FailedLoginAttempt::class);
+    }
+
+    /**
+     * Has many upload snatches.
+     */
+    public function uploadSnatches(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(History::class, Torrent::class)->whereNotNull('completed_at');
     }
 
     /**
@@ -749,6 +799,6 @@ class User extends Authenticatable
      */
     public function getSeedbonus(): string
     {
-        return number_format($this->seedbonus, 0, '.', ',');
+        return number_format($this->seedbonus, 0, null, "\u{202F}");
     }
 }

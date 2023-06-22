@@ -57,6 +57,7 @@ class TMDBScraper implements ShouldQueue
                 'first_air_date'     => $tmdb->ifExists('first_air_date', $tv),
                 'homepage'           => $tv['homepage'],
                 'imdb_id'            => substr($tv['external_ids']['imdb_id'] ?? '', 2),
+                'tvdb_id'            => $tv['external_ids']['tvdb_id'] ?? '',
                 'in_production'      => $tv['in_production'],
                 'last_air_date'      => $tmdb->ifExists('last_air_date', $tv),
                 'name'               => Str::limit($tv['name'], 200),

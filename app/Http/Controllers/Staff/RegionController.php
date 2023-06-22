@@ -28,9 +28,9 @@ class RegionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $regions = Region::all()->sortBy('position');
-
-        return view('Staff.region.index', ['regions' => $regions]);
+        return view('Staff.region.index', [
+            'regions' => Region::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -57,9 +57,9 @@ class RegionController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $region = Region::findOrFail($id);
-
-        return view('Staff.region.edit', ['region' => $region]);
+        return view('Staff.region.edit', [
+            'region' => Region::findOrFail($id),
+        ]);
     }
 
     /**
@@ -67,7 +67,7 @@ class RegionController extends Controller
      */
     public function update(UpdateRegionRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Region::where('id', '=', $id)->update($request->validated());
+        Region::findOrFail($id)->update($request->validated());
 
         return to_route('staff.regions.index')
             ->withSuccess('Region Successfully Modified');

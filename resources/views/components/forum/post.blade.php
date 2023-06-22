@@ -7,10 +7,10 @@
         >
             {{ $post->created_at?->diffForHumans() }}
         </time>
-        @if (! Route::is('forum_topic'))
+        @if (! Route::is('topics.show'))
             <span class="post__topic">
                 {{ __('forum.in') }}
-                <a href="{{ route('forum_topic', ['id' => $post->topic->id]) }}">{{ $post->topic->name }}</a>
+                <a href="{{ route('topics.show', ['id' => $post->topic->id]) }}">{{ $post->topic->name }}</a>
             </span>
         @endif
         @if($post->tips_sum_cost > 0)
@@ -55,15 +55,15 @@
                 </form>
             </li>
             <li class="post__toolbar-item">
-                @livewire('like-button', ['post' => $post], key('like-'.$post->id))
+                @livewire('like-button', ['post' => $post, 'likesCount' => $post->likes_count], key('like-'.$post->id))
             </li>
             <li class="post__toolbar-item">
-                @livewire('dislike-button', ['post' => $post], key('dislike-'.$post->id))
+                @livewire('dislike-button', ['post' => $post, 'dislikesCount' => $post->dislikes_count], key('dislike-'.$post->id))
             </li>
             <li class="post__toolbar-item">
                 <a
                     class="post__permalink"
-                    href="{{ route('forum_topic', ['id' => $post->topic->id]) }}?page={{ $post->getPageNumber() }}#post-{{ $post->id }}"
+                    href="{{ route('topics.show', ['id' => $post->topic_id]) }}?page={{ $post->getPageNumber() }}#post-{{ $post->id }}"
                     title="{{ __('forum.permalink') }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-link"></i>
@@ -87,24 +87,22 @@
                     </button>
                 </li>
             @endif
-            @if (auth()->user()->group->is_modo || $post->user->id === auth()->user()->id)
+            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->user()->id && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <a
                         class="post__edit"
-                        href="{{ route('forum_post_edit_form', ['id' => $post->topic->id, 'postId' => $post->id]) }}"
+                        href="{{ route('posts.edit', ['id' => $post->id]) }}"
                         title="{{ __('common.edit') }}"
                     >
                         <i class="{{ \config('other.font-awesome') }} fa-pencil"></i>
                     </a>
                 </li>
-            @endif
-            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->user()->id && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <form
                         class="post__delete"
                         role="form"
                         method="POST"
-                        action="{{ route('forum_post_delete', ['id' => $post->topic->id, 'postId' => $post->id]) }}"
+                        action="{{ route('posts.destroy', ['id' => $post->id]) }}"
                     >
                         @csrf
                         @method('DELETE')

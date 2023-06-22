@@ -37,9 +37,9 @@ class PollController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $polls = Poll::latest()->paginate(25);
-
-        return view('Staff.poll.index', ['polls' => $polls]);
+        return view('Staff.poll.index', [
+            'polls' => Poll::latest()->paginate(25),
+        ]);
     }
 
     /**
@@ -47,9 +47,9 @@ class PollController extends Controller
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::where('id', '=', $id)->firstOrFail();
-
-        return view('Staff.poll.show', ['poll' => $poll]);
+        return view('Staff.poll.show', [
+            'poll' => Poll::findOrFail($id),
+        ]);
     }
 
     /**
@@ -87,9 +87,9 @@ class PollController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::findOrFail($id);
-
-        return view('Staff.poll.edit', ['poll' => $poll]);
+        return view('Staff.poll.edit', [
+            'poll' => Poll::findOrFail($id),
+        ]);
     }
 
     /**

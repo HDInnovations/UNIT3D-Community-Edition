@@ -23,24 +23,8 @@ class GenreController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $genres = Genre::withCount(['tv', 'movie'])->orderBy('name')->get();
-
-        return view('mediahub.genre.index', ['genres' => $genres]);
-    }
-
-    /**
-     * Show A Genre.
-     */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $genre = Genre::withCount(['tv', 'movie'])->findOrFail($id);
-        $shows = $genre->tv()->has('torrents')->oldest('name')->paginate(25, ['*'], 'showsPage');
-        $movies = $genre->movie()->has('torrents')->oldest('title')->paginate(25, ['*'], 'moviesPage');
-
-        return view('mediahub.genre.show', [
-            'genre'  => $genre,
-            'shows'  => $shows,
-            'movies' => $movies,
+        return view('mediahub.genre.index', [
+            'genres' => Genre::withCount(['tv', 'movie'])->orderBy('name')->get(),
         ]);
     }
 }

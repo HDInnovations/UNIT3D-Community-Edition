@@ -50,7 +50,7 @@ class CasinoBot
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
-        $bot = Bot::where('id', '=', '3')->firstOrFail();
+        $bot = Bot::findOrFail(3);
         $this->bot = $bot;
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();

@@ -50,7 +50,7 @@
                             class="form__text"
                             type="email"
                             name="email"
-                            placeholder=""
+                            placeholder=" "
                         >
                         <label class="form__label form__label--floating" for="email">{{ __('common.email') }}</label>
                     </p>

@@ -121,9 +121,7 @@ class SystemInformation
             return 'Unkown';
         }
 
-        $results = DB::select(DB::raw('select version()'));
-
-        return $results[0]->{'version()'};
+        return DB::select('select version()')[0]->{'version()'};
     }
 
     /**

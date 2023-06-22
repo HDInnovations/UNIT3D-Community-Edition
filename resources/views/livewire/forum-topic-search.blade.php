@@ -8,7 +8,7 @@
                         <div class="panel__action">
                             <div class="form__group">
                                 <a
-                                    href="{{ route('forum_new_topic_form', ['id' => $forum->id]) }}"
+                                    href="{{ route('topics.create', ['id' => $forum->id]) }}"
                                     class="panel__action form__button form__button--text"
                                 >
                                     {{ __('forum.create-new-topic') }}
@@ -18,28 +18,29 @@
                     @endif
                     <div class="panel__action">
                         <div class="form__group">
-                            @if (auth()->user()->subscriptions()->ofForum($forum->id)->exists())
+                            @if ($subscription === null)
                                 <form
                                     class="panel__action"
-                                    action="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
+                                    action="{{ route('subscriptions.store') }}"
+                                    method="POST"
+                                >
+                                    @csrf
+                                    <input type="hidden" name="forum_id" value="{{ $forum->id }}" />
+                                    <button class="panel__action form__button form__button--text">
+                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i>
+                                        {{ __('forum.subscribe') }}
+                                    </button>
+                                </form>
+                            @else
+                                <form
+                                    class="panel__action"
+                                    action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}"
                                     method="POST"
                                 >
                                     @csrf
                                     <button class="panel__action form__button form__button--text">
                                         <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
                                         {{ __('forum.unsubscribe') }}
-                                    </button>
-                                </form>
-                            @else
-                                <form
-                                    class="panel__action"
-                                    action="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}"
-                                    method="POST"
-                                >
-                                    @csrf
-                                    <button class="panel__action form__button form__button--text">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i>
-                                        {{ __('forum.subscribe') }}
                                     </button>
                                 </form>
                             @endif
@@ -68,14 +69,14 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
             <div class="panel__body">
-                <form class="form">
+                <form class="form" x-data x-on:submit.prevent>
                     <p class="form__group">
                         <input
                             id="search"
                             class="form__text"
                             type="text"
                             wire:model="search"
-                            placeholder=""
+                            placeholder=" "
                         />
                         <label for="search" class="form__label form__label--floating">
                             {{ __('common.search') }}

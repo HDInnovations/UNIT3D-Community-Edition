@@ -18,6 +18,7 @@ use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -92,41 +93,33 @@ class TorrentBuffController extends Controller
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
-        $torrentFlAmount = $request->input('freeleech');
 
-        $v = validator($request->input(), [
-            'freeleech' => 'numeric|not_in:0',
+        $request->validate([
+            'freeleech' => 'numeric|min:0|max:100',
+            'fl_until'  => 'nullable|numeric'
         ]);
 
-        if ($v->fails()) {
-            return to_route('torrent', ['id' => $torrent->id])
-                ->withErrors($v->errors());
-        }
-
-        if ($torrent->free == 0) {
-            $torrent->free = $torrentFlAmount;
-            $fl_until = $request->input('fl_until');
-            if ($fl_until !== null) {
-                $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
+        if ($request->freeleech != 0) {
+            if ($request->fl_until !== null) {
+                $torrent->fl_until = Carbon::now()->addDays($request->fl_until);
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:', $torrentUrl, $torrent->name, $torrentFlAmount)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days. :stopwatch:', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $torrentFlAmount)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             }
-        } else {
-            // Get amount of FL before revoking for chat announcement
-            $torrentFlAmount = $torrent->free;
-            $torrent->free = '0';
-
+        } elseif ($torrent->free != 0) {
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech! :poop:', $torrentUrl, $torrent->name, $torrentFlAmount)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech! :poop:', $torrentUrl, $torrent->name, $torrent->free)
             );
         }
 
+        $torrent->free = $request->freeleech;
         $torrent->save();
+
+        Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
@@ -147,6 +140,8 @@ class TorrentBuffController extends Controller
             $torrent->doubleup = '1';
             $torrent->featured = '1';
             $torrent->save();
+
+            Unit3dAnnounce::addTorrent($torrent);
 
             $featured = new FeaturedTorrent();
             $featured->user_id = $user->id;
@@ -176,22 +171,21 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo, 403);
 
-        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
+        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent->free = '0';
+        $torrent->doubleup = '0';
+        $torrent->featured = '0';
+        $torrent->save();
 
-        if (isset($torrent)) {
-            $torrent->free = '0';
-            $torrent->doubleup = '0';
-            $torrent->featured = '0';
-            $torrent->save();
+        Unit3dAnnounce::addTorrent($torrent);
 
-            $appurl = config('app.url');
+        $appurl = config('app.url');
 
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
-            );
-        }
+        $this->chatRepository->systemMessage(
+            sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+        );
 
         $featured_torrent->delete();
 
@@ -232,6 +226,8 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
+        Unit3dAnnounce::addTorrent($torrent);
+
         return to_route('torrent', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
@@ -252,6 +248,8 @@ class TorrentBuffController extends Controller
             $freeleechToken->torrent_id = $torrent->id;
             $freeleechToken->save();
 
+            Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
+
             $user->fl_tokens -= '1';
             $user->save();
 
@@ -263,5 +261,36 @@ class TorrentBuffController extends Controller
 
         return to_route('torrent', ['id' => $torrent->id])
             ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
+    }
+
+    /**
+     * Set Torrents Refudable Status.
+     */
+    public function setRefundable(Request $request, $id)
+    {
+        $user = $request->user();
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent_url = href_torrent($torrent);
+
+        if ($torrent->refundable == 0) {
+            $torrent->refundable = 1;
+
+            $this->chatRepository->systemMessage(
+                sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
+            );
+        } else {
+            $torrent->refundable = 0;
+
+            $this->chatRepository->systemMessage(
+                sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable! :poop:', $torrent_url, $torrent->name)
+            );
+        }
+
+        $torrent->save();
+
+        return to_route('torrent', ['id' => $torrent->id])
+            ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');
     }
 }

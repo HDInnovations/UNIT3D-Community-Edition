@@ -133,16 +133,17 @@ class NotificationSettingController extends Controller
     {
         abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::query()
-            ->where('is_modo', '=', '0')
-            ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING)
-            ->where('id', '!=', UserGroups::PRUNED)
-            ->where('id', '!=', UserGroups::BANNED)
-            ->where('id', '!=', UserGroups::DISABLED)
-            ->latest('level')
-            ->get();
-
-        return view('user.notification_setting.edit', ['user' => $user, 'groups' => $groups]);
+        return view('user.notification_setting.edit', [
+            'user'   => $user,
+            'groups' => Group::query()
+                ->where('is_modo', '=', '0')
+                ->where('is_admin', '=', '0')
+                ->where('id', '!=', UserGroups::VALIDATING)
+                ->where('id', '!=', UserGroups::PRUNED)
+                ->where('id', '!=', UserGroups::BANNED)
+                ->where('id', '!=', UserGroups::DISABLED)
+                ->latest('level')
+                ->get(),
+        ]);
     }
 }

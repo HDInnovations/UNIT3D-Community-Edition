@@ -44,7 +44,7 @@
                     <label class="form__label form__label--floating" for="name">Title</label>
                 </p>
                 <p class="form__group">
-                    <textarea id="description" class="form__textarea" name="description" placeholder=""></textarea>
+                    <textarea id="description" class="form__textarea" name="description" placeholder=" "></textarea>
                     <label class="form__label form__label--floating" for="description">Description</label>
                 </p>
                 <p class="form__group">
@@ -65,7 +65,7 @@
                         inputmode="numeric"
                         name="position"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                     >
                     <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>

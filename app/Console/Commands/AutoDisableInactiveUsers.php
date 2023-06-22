@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Jobs\SendDisableUserMail;
 use App\Models\Group;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -58,7 +59,7 @@ class AutoDisableInactiveUsers extends Command
                 ->all();
 
             foreach ($users as $user) {
-                if ($user->seedingTorrents()->count() === 0) {
+                if ($user->seedingTorrents()->doesntExist()) {
                     $user->group_id = $disabledGroup[0];
                     $user->can_upload = 0;
                     $user->can_download = 0;
@@ -70,6 +71,7 @@ class AutoDisableInactiveUsers extends Command
                     $user->save();
 
                     cache()->forget('user:'.$user->passkey);
+                    Unit3dAnnounce::addUser($user);
 
                     // Send Email
                     dispatch(new SendDisableUserMail($user));

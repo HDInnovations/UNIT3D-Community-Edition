@@ -35,6 +35,13 @@ class BonTransactions extends Model
     protected $dateFormat = 'U';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A Sender.
      */
     // Bad name to not conflict with sender (not sender_id)

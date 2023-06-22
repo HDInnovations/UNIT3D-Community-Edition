@@ -11,7 +11,7 @@
                     class="quick-search__radio"
                     name="quicksearchRadio"
                     value="movies"
-                    wire:model="quicksearchRadio"
+                    wire:model.debounce.0="quicksearchRadio"
                     x-on:click="$nextTick(() => $refs.quickSearch.focus());"
                 />
                 <i
@@ -25,7 +25,7 @@
                     class="quick-search__radio"
                     name="quicksearchRadio"
                     value="series"
-                    wire:model="quicksearchRadio"
+                    wire:model.debounce.0="quicksearchRadio"
                     x-on:click="$nextTick(() => $refs.quickSearch.focus());"
                 />
                 <i
@@ -39,7 +39,7 @@
                     class="quick-search__radio"
                     name="quicksearchRadio"
                     value="persons"
-                    wire:model="quicksearchRadio"
+                    wire:model.debounce.0="quicksearchRadio"
                     x-on:click="$nextTick(() => $refs.quickSearch.focus());"
                 />
                 <i
@@ -73,8 +73,8 @@
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ $search_result->poster }}"
-                                        alt="{{ __('torrent.poster') }}"
+                                        src="{{ isset($search_result->poster) ? \tmdb_image('poster_small', $search_result->poster) : 'https://via.placeholder.com/90x135' }}"
+                                        alt=""
                                     />
                                     <h2 class="quick-search__result-text">
                                         {{ $search_result->title }}
@@ -86,7 +86,7 @@
                                         </time>
                                     </h2>
                                 </a>
-                            @break
+                                @break
                             @case ("series")
                                 <a
                                     class="quick-search__result-link"
@@ -94,8 +94,8 @@
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ $search_result->poster }}"
-                                        alt="{{ __('torrent.poster') }}"
+                                        src="{{ isset($search_result->poster) ? \tmdb_image('poster_small', $search_result->poster) : 'https://via.placeholder.com/90x135' }}"
+                                        alt=""
                                     />
                                     <h2 class="quick-search__result-text">
                                         {{ $search_result->name }}
@@ -107,7 +107,7 @@
                                         </time>
                                     </h2>
                                 </a>
-                            @break
+                                @break
                             @case ("persons")
                                 <a
                                     class="quick-search__result-link"
@@ -115,14 +115,14 @@
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ $search_result->still }}"
-                                        alt="{{ __('torrent.poster') }}"
+                                        src="{{ isset($search_result->still) ? \tmdb_image('poster_small', $search_result->still) : 'https://via.placeholder.com/90x135' }}"
+                                        alt=""
                                     />
                                     <h2 class="quick-search__result-text">
                                         {{ $search_result->name }}
                                     </h2>
                                 </a>
-                            @break
+                                @break
                         @endswitch
                     </article>
                 @empty
@@ -139,24 +139,24 @@
             </div>
         @endif
     </div>
-</div>
-<script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-    function quickSearchKeyboardNavigation() {
-        return {
-            quickSearchArrowDown(el) {
-                if (el.nextElementSibling == null) {
-                    el.parentNode?.firstElementChild?.firstElementChild?.focus()
-                } else {
-                    el.nextElementSibling?.firstElementChild?.focus()
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        function quickSearchKeyboardNavigation() {
+            return {
+                quickSearchArrowDown(el) {
+                    if (el.nextElementSibling == null) {
+                        el.parentNode?.firstElementChild?.firstElementChild?.focus()
+                    } else {
+                        el.nextElementSibling?.firstElementChild?.focus()
+                    }
+                },
+                quickSearchArrowUp(el) {
+                    if (el.previousElementSibling == null) {
+                        document.querySelector(`.quick-search__input:not([style='display: none;'])`)?.focus()
+                    } else {
+                        el.previousElementSibling?.firstElementChild?.focus()
+                    }
                 }
-            },
-            quickSearchArrowUp(el) {
-                if (el.previousElementSibling == null) {
-                    document.querySelector(`.quick-search__input:not([style='display: none;'])`)?.focus()
-                } else {
-                    el.previousElementSibling?.firstElementChild?.focus()
-                }        
             }
         }
-    }
-</script>
+    </script>
+</div>

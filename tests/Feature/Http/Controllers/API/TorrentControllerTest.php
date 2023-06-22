@@ -31,20 +31,17 @@ class TorrentControllerTest extends TestCase
             ->assertJson([
                 'data'  => [],
                 'links' => [
-                    'first' => sprintf('%s/api/torrents/filter?page=1', appurl()),
-                    'last'  => sprintf('%s/api/torrents/filter?page=1', appurl()),
+                    'first' => null,
+                    'last'  => null,
                     'prev'  => null,
                     'next'  => null,
                     'self'  => sprintf('%s/api/torrents', appurl()),
                 ],
                 'meta' => [
-                    'current_page' => 1,
-                    'from'         => null,
-                    'last_page'    => 1,
-                    'path'         => sprintf('%s/api/torrents/filter', appurl()),
-                    'per_page'     => 25,
-                    'to'           => null,
-                    'total'        => 0,
+                    'path'        => sprintf('%s/api/torrents/filter', appurl()),
+                    'per_page'    => 25,
+                    'next_cursor' => null,
+                    'prev_cursor' => null,
                 ],
             ]);
     }

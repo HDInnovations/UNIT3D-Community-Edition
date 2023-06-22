@@ -45,7 +45,7 @@ class PostSearch extends Component
                     ->whereRelation(
                         'forumPermissions',
                         fn ($query) => $query
-                            ->where('group_id', '=', auth()->user()->group->id)
+                            ->where('group_id', '=', auth()->user()->group_id)
                             ->where(
                                 fn ($query) => $query
                                     ->where('show_forum', '!=', 1)

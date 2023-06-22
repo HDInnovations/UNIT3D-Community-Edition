@@ -23,13 +23,13 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel verification-exceeded-panel">
-                    <div class="panel-heading text-center">
+                    <div class="panel__heading text-center">
                         <i class="glyphicon glyphicon-lock locked-icon text-danger" aria-hidden="true"></i>
                         <h3>
                             {{ __('auth.exceededTitle') }}
                         </h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel__body">
                         <h4 class="text-center text-danger">
                             <em>
                                 {{ __('auth.lockedUntil') }}
@@ -44,7 +44,7 @@
                             </small>
                         </h4>
                         <p class="text-center">
-                            <a class="btn btn-info" href="{{ route('logout') }}"
+                            <a class="form__button form__button--filled" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                tabindex="6">
                                 <i class="glyphicon glyphicon-home" aria-hidden="true"></i> {{ __('auth.returnButton') }}

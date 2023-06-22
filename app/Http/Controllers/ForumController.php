@@ -24,59 +24,22 @@ use Illuminate\Http\Request;
 class ForumController extends Controller
 {
     /**
-     * Search For Subscribed Forums & Topics.
-     */
-    public function subscriptions(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = $request->user();
-
-        return view('forum.subscriptions', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
-     * Latest Topics.
-     */
-    public function latestTopics(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('forum.topic.index');
-    }
-
-    /**
-     * Latest Posts.
-     */
-    public function latestPosts(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('forum.post.index');
-    }
-
-    /**
      * Show All Forums.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Forum::query()
-            ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
-            ])
-            ->where('parent_id', '=', 0)
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group->id]])
-            ->orderBy('position')
-            ->get();
-
-        // Total Forums Count
-        $numForums = Forum::count();
-        // Total Posts Count
-        $numPosts = Post::count();
-        // Total Topics Count
-        $numTopics = Topic::count();
-
         return view('forum.index', [
-            'categories' => $categories,
-            'num_posts'  => $numPosts,
-            'num_forums' => $numForums,
-            'num_topics' => $numTopics,
+            'categories' => Forum::query()
+                ->with(['forums' => fn ($query) => $query
+                    ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
+                ])
+                ->where('parent_id', '=', 0)
+                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
+                ->orderBy('position')
+                ->get(),
+            'num_posts'  => Post::count(),
+            'num_forums' => Forum::count(),
+            'num_topics' => Topic::count(),
         ]);
     }
 

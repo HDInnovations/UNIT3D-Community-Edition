@@ -51,7 +51,7 @@
                     inputmode="numeric"
                     name="position"
                     pattern="[0-9]*"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
                 <label class="form__label form__label--floating" for="position">
@@ -63,7 +63,7 @@
                     id="search"
                     class="form__text"
                     name="search"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
                 <label class="form__label form__label--floating" for="search">
@@ -76,7 +76,7 @@
                     type="text"
                     class="form__text"
                     name="description"
-                    placeholder=""
+                    placeholder=" "
                 >
                 <label class="form__label form__label--floating" for="description">
                     {{ __('torrent.torrent') }} {{ __('torrent.description') }}
@@ -88,7 +88,7 @@
                     type="text"
                     class="form__text"
                     name="uploader"
-                    placeholder=""
+                    placeholder=" "
                 >
                 <label class="form__label form__label--floating" for="uploader">
                     {{ __('torrent.torrent') }} {{ __('torrent.uploader') }}
@@ -102,7 +102,7 @@
                         inputmode="numeric"
                         name="tmdb"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                     >
                     <label class="form__label form__label--floating" for="tmdb">
@@ -116,7 +116,7 @@
                         inputmode="numeric"
                         name="imdb"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                     >
                     <label class="form__label form__label--floating" for="imdb">
@@ -130,7 +130,7 @@
                         inputmode="numeric"
                         name="tvdb"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                     >
                     <label class="form__label form__label--floating" for="tvdb">
@@ -145,7 +145,7 @@
                         inputmode="numeric"
                         name="mal"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                     >
                     <label class="form__label form__label--floating" for="mal">

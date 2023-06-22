@@ -13,18 +13,14 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents') }}">
-            List
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
-            Cards
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
-            Grouped
+        <a class="nav-tab__link" 
+            href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                default => 'list'
+            }]) }}"
+        >
+            {{ __('torrent.search') }}
         </a>
     </li>
     <li class="nav-tabV2">
@@ -239,7 +235,7 @@
                                             <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this private RSS feed: {{ $rss->name }}?',
+                                                    text: `Are you sure you want to delete this private RSS feed: ${atob('{{ base64_encode($rss->name) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,

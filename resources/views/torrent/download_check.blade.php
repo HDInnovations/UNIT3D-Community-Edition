@@ -24,7 +24,7 @@
     <div class="container">
         <div class="block">
             <div class="panel panel-info">
-                <div class="panel-heading">
+                <div class="panel__heading">
                     <div class="text-center">
                         <h2>{{ $user->username }}</h2>
                         @if ($user->getRatio() < config('other.ratio') || $user->can_download == 0)
@@ -37,7 +37,7 @@
             </div>
 
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div class="panel__heading">
                     <h4 class="text-center">{{ __('torrent.info') }}</h4>
                 </div>
                 <div class="text-center">
@@ -108,9 +108,8 @@
                     <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
                 @else
                     <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button"
-                       class="btn btn-labeled btn-primary">
-                            <span class='btn-label'><i
-                                        class='{{ config('other.font-awesome') }} fa-download'></i></span>{{ __('common.download') }}
+                       class="form__button form__button--filled">
+                        <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('common.download') }}
                     </a>
                 @endif
             </div>

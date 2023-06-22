@@ -42,7 +42,7 @@
             <p class="subforum-listing__latest-heading">
                 <a
                     class="subforum-listing__latest-link"
-                    href="{{ route('forum_topic', ['id' => $subforum->last_topic_id ?? 1]) }}"
+                    href="{{ route('topics.show', ['id' => $subforum->last_topic_id ?? 1]) }}"
                 >
                     {{ $subforum->last_topic_name }}
                 </a>

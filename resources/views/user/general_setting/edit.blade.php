@@ -67,7 +67,7 @@
                             id="custom_css"
                             class="form__text"
                             name="custom_css"
-                            placeholder=""
+                            placeholder=" "
                             type="url"
                             value="{{ $user->custom_css }}"
                         >
@@ -80,7 +80,7 @@
                             id="standalone_css"
                             class="form__text"
                             name="standalone_css"
-                            placeholder=""
+                            placeholder=" "
                             type="url"
                             value="{{ $user->standalone_css }}"
                         >
@@ -123,6 +123,8 @@
                     <p class="form__group">
                         <select id="show_poster" class="form__select" name="torrent_layout" required>
                             <option class="form__option" value="0" @selected($user->torrent_layout === 0)>Torrent list</option>
+                            <option class="form__option" value="1" @selected($user->torrent_layout === 1)>Torrent cards</option>
+                            <option class="form__option" value="2" @selected($user->torrent_layout === 2)>Torrent groupings</option>
                         </select>
                         <label class="form__label form__label--floating" for="torrent_layout">
                             Default torrent layout

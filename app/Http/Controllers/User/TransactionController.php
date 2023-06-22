@@ -21,6 +21,7 @@ use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -45,15 +46,11 @@ class TransactionController extends Controller
 
         abort_unless($request->user()->id === $user->id, 403);
 
-        $userbon = $user->getSeedbonus();
-        $activefl = $user->personalFreeleeches()->exists();
-        $items = BonExchange::all();
-
         return view('user.transaction.create', [
             'user'     => $user,
-            'userbon'  => $userbon,
-            'activefl' => $activefl,
-            'items'    => $items,
+            'userbon'  => $user->getSeedbonus(),
+            'activefl' => $user->personalFreeleeches()->exists(),
+            'items'    => BonExchange::all(),
         ]);
     }
 
@@ -81,6 +78,7 @@ class TransactionController extends Controller
                 $personalFreeleech->user_id = $user->id;
                 $personalFreeleech->save();
                 cache()->put('personal_freeleech:'.$user->id, true);
+                Unit3dAnnounce::addPersonalFreeleech($user->id);
 
                 // Send Private Message
                 $privateMessage = new PrivateMessage();
@@ -107,7 +105,7 @@ class TransactionController extends Controller
 
         $user->decrement('seedbonus', $item->cost);
 
-        return to_route('transactions.create', ['username' => $user->username])
+        return to_route('transactions.create', ['username' => $username])
             ->withSuccess(trans('bon.success'));
     }
 }

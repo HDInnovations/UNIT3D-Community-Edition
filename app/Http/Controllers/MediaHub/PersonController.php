@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\MediaHub;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Person;
 
 class PersonController extends Controller
@@ -31,13 +32,15 @@ class PersonController extends Controller
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $person = Person::with([
-            'tv' => fn ($query) => $query->has('torrents'),
-            'tv.genres',
-            'movie' => fn ($query) => $query->has('torrents'),
-            'movie.genres'
-        ])->findOrFail($id);
-
-        return view('mediahub.person.show', ['person' => $person]);
+        return view('mediahub.person.show', [
+            'person' => Person::with([
+                'tv' => fn ($query) => $query->has('torrents'),
+                'tv.genres',
+                'movie' => fn ($query) => $query->has('torrents'),
+                'movie.genres'
+            ])->findOrFail($id),
+            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'tvCategoryIds'    => Category::where('tv_meta', '=', 1)->pluck('id')->toArray()
+        ]);
     }
 }

@@ -110,6 +110,7 @@ return [
     'follower-help'             => 'Control the sharing of specific follower related information with groups that are allowed to access to your profile.
     These settings are overridden if you do not allow any groups to access your followers or if you <strong>Go Private</strong>',
     'followers'                     => 'Followers',
+    'following'                     => 'Following',
     'following-notification'        => 'Followed User Notification Settings',
     'following-notification-upload' => 'Receive a notification when a followed user uploads a torrent',
     'following-notification-help'   => 'Control which notifications are sent concerning followed user site actions.
@@ -145,6 +146,7 @@ return [
     'invited-by'                           => 'Invited By',
     'invite-already-sent'                  => 'The email address your trying to send a invite to has already been sent one.',
     'invite-already-used'                  => 'The invite you are trying to resend has already been used.',
+    'invite-expired'                       => 'The invite you are trying to resend has expired.',
     'invite-friend'                        => 'Invite your friend (Email + Message Required)',
     'invite-resent-success'                => 'Invite was resent successfully!',
     'invite-sent-success'                  => 'Invite was sent successfully!',
@@ -160,6 +162,7 @@ return [
     'invites-send'                         => 'Invites Send',
     'judge'                                => 'Judge',
     'last-login'                           => 'Last Login',
+    'last-action'                          => 'Last Action',
     'locked'                               => 'Locked',
     'locked-achievements'                  => 'Locked Achievements',
     'member-since'                         => 'Member Since',
@@ -370,6 +373,7 @@ return [
     'unsatisfieds'                => 'Unsatisfieds',
     'upload-bon'                  => 'Upload Added from BON Store',
     'upload-recorded'             => 'Recorded Upload',
+    'upload-snatches'             => 'Upload Snatches',
     'upload-true'                 => 'True Upload',
     'uploads'                     => 'Uploads',
     'uploads-table'               => 'Uploads Table',

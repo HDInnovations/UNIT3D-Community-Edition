@@ -21,6 +21,6 @@ return [
     'high'                   => 'Vysoký',
     'low'                    => 'Nízký',
     'priority'               => 'Přednost',
-    'priority-description'   => 'Zvolte jen velmi vysokou hodnotu, pokud je chyba opravdu problémem pro používání webu.',
-    'very-high'              => 'Velmi vysoko',
+    'priority-description'   => 'Zvolte velmi vysokou hodnotu, pokud je chyba opravdu problémem pro používání webu.',
+    'very-high'              => 'Velmi vysoká',
 ];

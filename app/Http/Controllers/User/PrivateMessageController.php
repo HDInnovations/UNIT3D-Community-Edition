@@ -29,12 +29,14 @@ class PrivateMessageController extends Controller
      */
     public function searchPMInbox(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->where([
-            ['subject', 'like', '%'.$request->input('subject').'%'],
-        ])->latest()->paginate(20);
-
-        return view('user.pm.index', ['pms' => $pms, 'user' => $user]);
+        return view('user.pm.index', [
+            'user' => $request->user(),
+            'pms'  => $request->user()
+                ->pm_receiver()
+                ->where('subject', 'like', '%'.$request->string('subject').'%')
+                ->latest()
+                ->paginate(20),
+        ]);
     }
 
     /**
@@ -42,12 +44,14 @@ class PrivateMessageController extends Controller
      */
     public function searchPMOutbox(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $pms = PrivateMessage::where('sender_id', '=', $user->id)->where([
-            ['subject', 'like', '%'.$request->input('subject').'%'],
-        ])->latest()->paginate(20);
-
-        return view('user.pm.outbox', ['pms' => $pms, 'user' => $user]);
+        return view('user.pm.outbox', [
+            'user' => $request->user(),
+            'pms'  => $request->user()
+                ->pm_sender()
+                ->where('subject', 'like', '%'.$request->string('subject').'%')
+                ->latest()
+                ->paginate(20),
+        ]);
     }
 
     /**
@@ -55,10 +59,10 @@ class PrivateMessageController extends Controller
      */
     public function getPrivateMessages(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->latest()->paginate(25);
-
-        return view('user.pm.index', ['pms' => $pms, 'user' => $user]);
+        return view('user.pm.index', [
+            'user' => $request->user(),
+            'pms'  => $request->user()->pm_receiver()->latest()->paginate(25),
+        ]);
     }
 
     /**
@@ -66,10 +70,10 @@ class PrivateMessageController extends Controller
      */
     public function getPrivateMessagesSent(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $pms = PrivateMessage::where('sender_id', '=', $user->id)->latest()->paginate(20);
-
-        return view('user.pm.outbox', ['pms' => $pms, 'user' => $user]);
+        return view('user.pm.outbox', [
+            'user' => $request->user(),
+            'pms'  => $request->user()->pm_sender()->latest()->paginate(25),
+        ]);
     }
 
     /**
@@ -86,7 +90,10 @@ class PrivateMessageController extends Controller
                 $pm->save();
             }
 
-            return view('user.pm.show', ['pm' => $pm, 'user' => $user]);
+            return view('user.pm.show', [
+                'pm'   => $pm,
+                'user' => $user
+            ]);
         }
 
         return to_route('inbox')
@@ -98,9 +105,11 @@ class PrivateMessageController extends Controller
      */
     public function makePrivateMessage(Request $request, string $receiverId = '', string $username = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        return view('user.pm.create', ['user' => $user, 'receiver_id' => $receiverId, 'username' => $username]);
+        return view('user.pm.create', [
+            'user'        => $request->user(),
+            'receiver_id' => $receiverId,
+            'username'    => $username
+        ]);
     }
 
     /**
@@ -117,10 +126,10 @@ class PrivateMessageController extends Controller
         }
 
         if ($request->has('receiver_id')) {
-            $recipient = User::where('username', '=', $request->input('receiver_id'))->firstOrFail();
+            $recipient = User::where('username', '=', $request->input('receiver_id'))->sole();
         } else {
             return to_route('create', ['username' => $request->user()->username, 'id' => $request->user()->id])
-                ->withErrors($v->errors());
+                ->withErrors("The recipient doesn't exist");
         }
 
         $privateMessage = new PrivateMessage();
@@ -165,7 +174,7 @@ class PrivateMessageController extends Controller
     {
         $user = $request->user();
 
-        $message = PrivateMessage::where('id', '=', $id)->firstOrFail();
+        $message = PrivateMessage::findOrFail($id);
 
         $privateMessage = new PrivateMessage();
         $privateMessage->sender_id = $user->id;
@@ -203,7 +212,7 @@ class PrivateMessageController extends Controller
     public function deletePrivateMessage(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
+        $pm = PrivateMessage::findOrFail($id);
 
         $dest = 'default';
         if ($request->has('dest') && $request->input('dest') == 'outbox') {

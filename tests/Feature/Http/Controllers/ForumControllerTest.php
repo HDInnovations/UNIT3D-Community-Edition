@@ -42,7 +42,7 @@ class ForumControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $this->actingAs($user)->get(route('forum_latest_posts'))
+        $this->actingAs($user)->get(route('posts.index'))
             ->assertOk()
             ->assertViewIs('forum.post.index')
             ->assertSeeLivewire(PostSearch::class);
@@ -56,7 +56,7 @@ class ForumControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $this->actingAs($user)->get(route('forum_latest_topics'))
+        $this->actingAs($user)->get(route('topics.index'))
             ->assertOk()
             ->assertViewIs('forum.topic.index')
             ->assertSeeLivewire(TopicSearch::class);
@@ -96,7 +96,7 @@ class ForumControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $this->actingAs($user)->get(route('forum_subscriptions'))
+        $this->actingAs($user)->get(route('subscriptions.index'))
             ->assertOk()
             ->assertViewIs('forum.subscriptions')
             ->assertSeeLivewire(SubscribedForum::class);

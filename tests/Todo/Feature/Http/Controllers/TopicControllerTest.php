@@ -24,7 +24,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_new_topic_form', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.create', ['id' => $topic->id]));
 
         $response->assertRedirect(withErrors('You Cannot Start A New Topic Here!'));
 
@@ -41,7 +41,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_close', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.close', ['id' => $topic->id]));
 
         $response->assertRedirect(withSuccess('This Topic Is Now Closed!'));
 
@@ -58,7 +58,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_delete_topic', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.delete', ['id' => $topic->id]));
 
         $response->assertRedirect(withSuccess('This Topic Is Now Deleted!'));
 
@@ -75,7 +75,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_edit_topic_form', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.edit', ['id' => $topic->id]));
 
         $response->assertOk();
         $response->assertViewIs('forum.topic.edit');
@@ -95,7 +95,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('forum_edit_topic', ['id' => $topic->id]), [
+        $response = $this->actingAs($user)->post(route('topics.update', ['id' => $topic->id]), [
             // TODO: send request data
         ]);
 
@@ -114,7 +114,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('forum_new_topic', ['id' => $topic->id]), [
+        $response = $this->actingAs($user)->post(route('topics.store', ['id' => $topic->id]), [
             // TODO: send request data
         ]);
 
@@ -133,7 +133,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_open', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.open', ['id' => $topic->id]));
 
         $response->assertRedirect(withSuccess('This Topic Is Now Open!'));
 
@@ -150,7 +150,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_pin_topic', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.pin', ['id' => $topic->id]));
 
         $response->assertRedirect(withSuccess('This Topic Is Now Pinned!'));
 
@@ -167,7 +167,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_topic', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.show', ['id' => $topic->id]));
 
         $response->assertRedirect(withErrors('You Do Not Have Access To Read This Topic!'));
 
@@ -184,7 +184,7 @@ class TopicControllerTest extends TestCase
         $topic = Topic::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('forum_unpin_topic', ['id' => $topic->id]));
+        $response = $this->actingAs($user)->get(route('topics.unpin', ['id' => $topic->id]));
 
         $response->assertRedirect(withSuccess('This Topic Is Now Unpinned!'));
 

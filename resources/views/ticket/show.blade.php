@@ -20,9 +20,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
-        <div class="panel__body">
-            {{ $ticket->body }}
-        </div>
+        <div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>
     </section>
     <livewire:comments :model="$ticket"/>
 @endsection
@@ -77,7 +75,7 @@
                         <select name="user_id" class="form__select" x-on:change="$root.submit()">
                             <option hidden disabled selected value=""></option>
                             @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
-                                <option value="{{ $user->id }}" @selected($user->id = $ticket->staff_id)>
+                                <option value="{{ $user->id }}" @selected($user->id === $ticket->staff_id)>
                                     {{ $user->username }}
                                 </option>
                             @endforeach

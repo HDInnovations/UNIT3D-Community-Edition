@@ -39,7 +39,7 @@
                         class="form__text"
                         type="text"
                         wire:model="search"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         {{ __('user.search') }}
@@ -73,6 +73,10 @@
                     {{ __('user.last-login') }}
                     @include('livewire.includes._sort-icon', ['field' => 'last_login'])
                 </th>
+                <th wire:click="sortBy('last_action')" role="columnheader button">
+                    {{ __('user.last-action') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'last_action'])
+                </th>
                 <th>{{ __('common.action') }}</th>
             </tr>
             @forelse ($users as $user)
@@ -93,6 +97,9 @@
                     </td>
                     <td>
                         <time datetime="{{ $user->last_login }}">{{ $user->last_login ?? 'Never' }}</time>
+                    </td>
+                    <td>
+                        <time datetime="{{ $user->last_action }}">{{ $user->last_action ?? 'Never' }}</time>
                     </td>
                     <td>
                         <menu class="data-table__actions">
