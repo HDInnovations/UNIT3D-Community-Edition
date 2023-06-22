@@ -1,21 +1,17 @@
 :root {
     --message-bubble-bg: white;
     --message-bubble-fg: currentColor;
-    --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
-    --button-filled-fg: white;
-    --button-text-bg: inherit;
-    --button-text-fg: currentColor;
-    --textarea-border: #555;
-    --textarea-border-hover: #999;
-    --textarea-border-active: #2196f3;
 
     --achievement-fg: inherit;
     --achievement-bg: #e7e7e7;
+    --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --achievement-progress-bg: #8fbcbb;
 
     --article-card-bg: #e7e7e7;
     --article-card-fg: inherit;
     --article-card-head-fg: inherit;
     --article-card-time-fg: inherit;
+    --article-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
     --bbcode-input-header-bg: #e2e2e2;
     --bbcode-input-body-bg: white;
@@ -36,6 +32,11 @@
     --bbcode-rendered-danger-fg: #ff141ccc;
     --bbcode-rendered-quote-bg: #6662;
     --bbcode-rendered-quote-border: #707070;
+
+    --breadcrumb-fg: #777;
+    --breadcrumb-active-fg: #aaa;
+    --breadcrumb-hover-fg: #ddd;
+    --breadcrumb-inactive-text-decoration: none;
 
     --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
     --button-filled-border: none;
@@ -72,6 +73,11 @@
     --dialog-head-bg: #373d43;
     --dialog-head-fg: #fff;
 
+    --fieldset-bg: inherit;
+    --fieldset-fg: #444;
+    --fieldset-border-radius: 5px;
+    --fieldset-border: 1px solid #555;
+
     --icon-button-bg: inherit;
     --icon-button-border: none;
     --icon-button-border-radius: 9999px;
@@ -101,6 +107,11 @@
     --label-fg-active: #2195f3;
     --label-fg-error: #ba1b1b;
     --label-fg-hover: #999;
+
+    --legend-fg: #555;
+    --legend-bg: transparent;
+    --legend-border: none;
+    --legend-border-radius: 0;
 
     --meta-backdrop-filter:  brightness(150%) contrast(30%);
     --meta-dropdown-backdrop-filter:  brightness(130%) blur(10px);
@@ -161,7 +172,38 @@
     --post-aside-fg: #696969;
     --post-footer-fg: var(--panel-fg);
 
+    --quick-search-bg: #444;
+    --quick-search-fg: #b6b6b6;
+    --quick-search-border: 1px solid transparent;
+    --quick-search-border-radius: 16px;
+    --quick-search-box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
+    --quick-search-selector-fg: #b6b6b6;
+    --quick-search-selector-hover-bg: #4b4b4b;
+    --quick-search-selector-hover-fg: #ddd;
+    --quick-search-selector-selected-bg: #555;
+    --quick-search-selector-selected-fg: #ddd;
+    --quick-search-result-bg: #444;
+    --quick-search-result-fg: #ccc;
+    --quick-search-result-hover-bg: #555;
+    --quick-search-result-hover-fg: #ccc;
+    --quick-search-result-image-border-radius: 5px;
+    --quick-search-result-year-fg: #888;
+    --quick-search-result-border: none;
+
     --scrollbar-color: #0004;
+
+    --secondary-nav-bg: #292929;
+    --secondary-nav-tab-fg: #aaa;
+    --secondary-nav-tab-bg: inherit;
+    --secondary-nav-tab-active-text-decoration: underline #777 2px;
+    --secondary-nav-tab-hover-fg: #ddd;
+    --secondary-nav-tab-hover-bg: transparent;
+    --secondary-nav-tab-hover-text-decoration: underline #777 2px;
+    --secondary-nav-tab-menu-bg: #333;
+    --secondary-nav-tab-menu-fg: inherit;
+    --secondary-nav-tab-menu-border: none;
+    --secondary-nav-tab-menu-border-radius: 6px;
+    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
 
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
@@ -176,6 +218,7 @@
 
     --subforum-listing-odd-bg: #ddd;
     --subforum-listing-even-bg: transparent;
+    --subforum-listing-border: none;
 
     --textarea-border: 1px solid #555;
     --textarea-border-active: 2px solid #2196f3;
@@ -186,6 +229,32 @@
     --textarea-padding: 12px;
     --textarea-padding-active: 11px;
     --textarea-padding-hover: 11px;
+
+    --top-nav-bg: #363636;
+    --top-nav-box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-fg: #bbb;
+    --top-nav-dropdown-hover-fg: #eee;
+    --top-nav-dropdown-hover-bg: #404040;
+    --top-nav-dropdown-hover-text-decoration: none;
+    --top-nav-dropdown-menu-bg: #3c3c3c;
+    --top-nav-dropdown-menu-border: none;
+    --top-nav-dropdown-menu-border-radius: 6px;
+    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-menu-item-fg: #bbb;
+    --top-nav-dropdown-menu-item-bg: transparent;
+    --top-nav-dropdown-menu-item-hover-fg: inherit;
+    --top-nav-dropdown-menu-item-hover-bg: #424242;
+    --top-nav-dropdown-menu-item-hover-text-decoration: none;
+    --top-nav-dropdown-menu-item-icon-fg: #ccc;
+    --top-nav-dropdown-menu-item-icon-bg: #484848;
+    --top-nav-ratio-bar-fg: #ddd;
+    --top-nav-icon-bar-icon-bg: #424242;
+    --top-nav-icon-bar-icon-fg: #bbb;
+    --top-nav-icon-bar-icon-border-radius: 50%;
+    --top-nav-icon-bar-icon-hover-bg: #424242;
+    --top-nav-icon-bar-icon-hover-fg: #b6b6b6;
+    --top-nav-stats-fg: #999;
+    --top-nav-toggle-fg: #999;
 
     --torrent-card-bg: #e2e2e2;
     --torrent-card-fg: inherit;
