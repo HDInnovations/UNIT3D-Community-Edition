@@ -127,7 +127,7 @@
                                 ->whereNull('closed_at')->whereNull('staff_id')
                                 ->orwhere(function($query) {
                                     $query
-                                        ->where('staff_id', '=', auth()->user()->id)
+                                        ->where('staff_id', '=', auth()->id())
                                         ->Where('staff_read', '=', '0');
                                 })
                                 ->exists()
@@ -139,7 +139,7 @@
                     @else
                         @php
                             $ticket_unread = DB::table('tickets')
-                                ->where('user_id', '=', auth()->user()->id)
+                                ->where('user_id', '=', auth()->id())
                                 ->where('user_read', '=', '0')
                                 ->exists()
                         @endphp
@@ -327,7 +327,7 @@
             <li>
                 @php
                     $pm = DB::table('private_messages')
-                        ->where('receiver_id', '=', auth()->user()->id)
+                        ->where('receiver_id', '=', auth()->id())
                         ->where('read', '=', '0')
                         ->exists()
                 @endphp

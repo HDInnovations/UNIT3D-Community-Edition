@@ -53,7 +53,7 @@
                                         {{ __('common.download') }}
                                     </a>
                                 </li>
-                                @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user_id)
+                                @if(auth()->user()->group->is_modo || auth()->id() == $subtitle->user_id)
                                     <li class="data-table__action">
                                         <span x-data>
                                             <button

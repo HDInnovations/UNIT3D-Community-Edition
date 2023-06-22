@@ -63,7 +63,7 @@
                             <td class="text-red">{{ \App\Helpers\StringHelper::formatBytes($peer->downloaded, 2) }}</td>
                             <td>{{ \App\Helpers\StringHelper::formatBytes($peer->left, 2) }}</td>
                             <td>{{ $peer->agent }}</td>
-                            @if (auth()->user()->group->is_modo || auth()->user()->id == $peer->user_id)
+                            @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
                                 <td>{{ $peer->ip }}</td>
                                 <td>{{ $peer->port }}</td>
                             @else

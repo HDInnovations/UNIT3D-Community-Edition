@@ -88,7 +88,7 @@ class SimilarTorrentController extends Controller
                 break;
         }
 
-        $personalFreeleech = cache()->get('personal_freeleech:'.auth()->user()->id);
+        $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());
 
         return view('torrent.similar', [
             'meta'               => $meta,

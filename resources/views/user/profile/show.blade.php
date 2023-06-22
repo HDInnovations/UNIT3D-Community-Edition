@@ -70,7 +70,7 @@
                             </form>
                         </div>
                     @endif
-                    @if (auth()->user()->id !== $user->id)
+                    @if (auth()->id() !== $user->id)
                         <div class="panel__action" x-data>
                             <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal();">
                                 Report
@@ -171,9 +171,9 @@
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">{{ __('user.recent-followers') }}</h2>
-                    @if (auth()->user()->id !== $user->id)
+                    @if (auth()->id() !== $user->id)
                         <div class="panel__actions">
-                            @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
+                            @if ($user->followers()->where('users.id', '=', auth()->id())->exists())
                                 <form
                                     action="{{ route('users.followers.destroy', ['user' => $user]) }}"
                                     method="POST"

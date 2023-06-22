@@ -214,7 +214,7 @@
                             @endif
                         </td>
                         <td>
-                            @if(auth()->user()->id == $rss->user_id)
+                            @if(auth()->id() == $rss->user_id)
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a

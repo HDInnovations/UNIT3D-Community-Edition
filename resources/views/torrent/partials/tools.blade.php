@@ -4,7 +4,7 @@
     </h2>
     <div class="panel__body">
         <menu style="display: flex; justify-content: space-between; padding: 0; margin: 0; list-style-type: none; flex-wrap: wrap">
-            @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+            @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <li>
                     <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; flex-wrap: wrap;">
                         <li>
@@ -13,7 +13,7 @@
                                 <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> {{ __('common.edit') }}
                             </a>
                         </li>
-                        @if (auth()->user()->group->is_modo || ( auth()->user()->id === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
+                        @if (auth()->user()->group->is_modo || ( auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
                             <li x-data>
                                 <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ __('common.delete') }}

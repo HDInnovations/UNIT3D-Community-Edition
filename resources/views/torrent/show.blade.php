@@ -41,7 +41,7 @@
       @include('torrent.partials.buttons')
 
       {{-- Tools Block --}}
-      @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id || auth()->user()->group->is_internal)
+      @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id || auth()->user()->group->is_internal)
           @include('torrent.partials.tools')
       @endif
 

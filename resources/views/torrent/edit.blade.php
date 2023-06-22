@@ -351,7 +351,7 @@
                     </label>
                 </p>
 
-                @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                     <p class="form__group">
                         <input type="hidden" name="anonymous" value="0">
                         <input
@@ -407,7 +407,7 @@
                 @else
                     <input type="hidden" name="internal" value="{{ $torrent->internal }}">
                 @endif
-                @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                     <p class="form__group">
                         <input type="hidden" name="personal_release" value="0">
                         <input

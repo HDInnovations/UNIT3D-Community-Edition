@@ -98,7 +98,7 @@
                             @php
                                 $myTicketUnread = DB::table('tickets')
                                     ->where('id', '=', $ticket->id)
-                                    ->where('staff_id', '=', auth()->user()->id)
+                                    ->where('staff_id', '=', auth()->id())
                                     ->where('staff_read', '=', 0)
                                     ->count();
 
@@ -112,7 +112,7 @@
                             @php
                                 $myTicketUnread = DB::table('tickets')
                                     ->where('id', '=', $ticket->id)
-                                    ->where('user_id', '=', auth()->user()->id)
+                                    ->where('user_id', '=', auth()->id())
                                     ->where('user_read', '=', 0)
                                     ->count();
 

@@ -87,7 +87,7 @@
                     </button>
                 </li>
             @endif
-            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->user()->id && $post->topic->state === 'open'))
+            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->id() && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <a
                         class="post__edit"

@@ -11,7 +11,7 @@
     </li>
 @endsection
 
-@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+@if(auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
@@ -157,7 +157,7 @@
                 @endphp
                 <div class="playlist__torrent-container">
                     <x-torrent.card :meta="$meta" :torrent="$playlistTorrent->torrent" />
-                    @if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+                    @if(auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
                         <form
                             action="{{ route('playlists.detach', ['id' => $playlistTorrent->id]) }}"
                             method="POST"
