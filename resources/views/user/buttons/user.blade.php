@@ -321,7 +321,7 @@
 @endif
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('wishes.*', 'seedboxes.*', 'invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('wishes.*', 'seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('common.other') }}
         </span>
         <ul class="nav-tab-menu__items">
@@ -342,22 +342,12 @@
                         {{ __('user.seedboxes') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('invites.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.invites.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('invites.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('invites.index', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.invites.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.invites.index', ['user' => $user]) }}"
                     >
                         {{ __('user.invites') }}
-                    </a>
-                </li>
-            @endif
-            @if ($isProfileOwner)
-                <li class="{{ Route::is('invites.create') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                    <a
-                        class="{{ Route::is('invites.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('invites.create') }}"
-                    >
-                        {{ __('user.send-invite') }}
                     </a>
                 </li>
             @endif

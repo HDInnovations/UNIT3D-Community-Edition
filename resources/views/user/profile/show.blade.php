@@ -595,7 +595,7 @@
                         @endif
                     </dd>
                     <dt>
-                        <a href="{{ route('invites.index', ['username' => $user->username]) }}">
+                        <a href="{{ route('users.invites.index', ['user' => $user]) }}">
                             {{ __('user.invites') }}
                         </a>
                     </dt>

@@ -387,7 +387,7 @@ Route::middleware('language')->group(function (): void {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'twostep', 'banned'])->scopeBindings()->group(function (): void {
         // Achievements
         Route::prefix('achievements')->name('achievements.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
@@ -421,6 +421,15 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('general-settings')->name('general_settings.')->group(function (): void {
             Route::get('/edit', [App\Http\Controllers\User\GeneralSettingController::class, 'edit'])->name('edit');
             Route::patch('/', [App\Http\Controllers\User\GeneralSettingController::class, 'update'])->name('update');
+        });
+
+        // Invites
+        Route::prefix('invites')->name('invites.')->group(function (): void {
+            Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
+            Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
+            Route::post('/{invite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
+            Route::delete('/{invite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy');
+            Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
 
         // Privacy settings
@@ -509,15 +518,6 @@ Route::middleware('language')->group(function (): void {
         // Earnings
         Route::prefix('users/{username}/earnings')->name('earnings.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
-        });
-
-        // Invites
-        Route::prefix('invites')->name('invites.')->group(function (): void {
-            Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
-            Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
-            Route::post('/{id}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
-            Route::delete('/{id}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy');
-            Route::get('/{username}', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
 
         // Notifications

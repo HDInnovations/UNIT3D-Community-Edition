@@ -40,7 +40,7 @@
             <div class="panel__body">
                 <form
                     class="form"
-                    action="{{ route('invites.store') }}"
+                    action="{{ route('users.invites.store', ['user' => $user]) }}"
                     method="post"
                 >
                     @csrf
