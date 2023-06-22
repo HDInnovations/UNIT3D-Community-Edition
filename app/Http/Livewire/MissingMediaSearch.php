@@ -54,7 +54,7 @@ class MissingMediaSearch extends Component
     {
         return view('livewire.missing-media-search', [
             'medias' => $this->medias,
-            'types' => $this->types
+            'types'  => $this->types
         ]);
     }
 }

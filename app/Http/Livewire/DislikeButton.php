@@ -20,7 +20,7 @@ use Livewire\Component;
 class DislikeButton extends Component
 {
     public Post $post;
-    
+
     public int $dislikesCount;
 
     final public function mount(Post $post, int $dislikesCount): void

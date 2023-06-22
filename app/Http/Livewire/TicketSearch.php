@@ -20,7 +20,7 @@ use Livewire\WithPagination;
 class TicketSearch extends Component
 {
     use WithPagination;
-    
+
     public bool $show = false;
 
     public int $perPage = 25;

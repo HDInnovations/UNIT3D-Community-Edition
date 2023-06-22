@@ -20,7 +20,7 @@ use Livewire\WithPagination;
 class UserUploads extends Component
 {
     use WithPagination;
-    
+
     public int $perPage = 25;
 
     public string $name = '';

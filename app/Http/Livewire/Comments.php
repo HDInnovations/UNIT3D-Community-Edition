@@ -39,7 +39,7 @@ class Comments extends Component
     use WithPagination;
 
     protected ChatRepository $chatRepository;
-    
+
     public $model;
 
     public $anon = false;
