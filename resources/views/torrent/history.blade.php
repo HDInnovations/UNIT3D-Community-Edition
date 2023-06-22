@@ -46,6 +46,7 @@
                         <th>{{ __('torrent.completed') }}</th>
                         <th>{{ __('common.upload') }}</th>
                         <th>{{ __('common.download') }}</th>
+                        <th>{{ __('common.refunded-download') }}</th>
                         <th>{{ __('common.added') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('torrent.completed_at') }}</th>
@@ -87,6 +88,11 @@
                                     <span class="text-orange" title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">
                                         ({{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }})
                                     </span>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="text-orange" title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">
+                                    ({{ App\Helpers\StringHelper::formatBytes($history->refunded_download, 2) }})
                                 </span>
                             </td>
                             <td>

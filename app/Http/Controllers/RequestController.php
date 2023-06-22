@@ -77,8 +77,7 @@ class RequestController extends Controller
                 'networks',
                 'seasons'
             ])
-                ->where('id', '=', $torrentRequest->tmdb)
-                ->first();
+                ->find($torrentRequest->tmdb);
         }
 
         if ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) {
@@ -88,8 +87,7 @@ class RequestController extends Controller
                 'companies',
                 'collection'
             ])
-                ->where('id', '=', $torrentRequest->tmdb)
-                ->first();
+                ->find($torrentRequest->tmdb);
         }
 
         if ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) {
@@ -119,13 +117,11 @@ class RequestController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
         return view('requests.create', [
-            'categories'  => Category::all()->sortBy('position'),
-            'types'       => Type::all()->sortBy('position'),
-            'resolutions' => Resolution::all()->sortBy('position'),
-            'user'        => $user,
+            'categories'  => Category::orderBy('position')->get(),
+            'types'       => Type::orderBy('position')->get(),
+            'resolutions' => Resolution::orderBy('position')->get(),
+            'user'        => $request->user(),
             'category_id' => $request->category_id,
             'title'       => urldecode($request->title),
             'imdb'        => $request->imdb,
@@ -227,15 +223,13 @@ class RequestController extends Controller
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
-
         return view('requests.edit', [
-            'categories'     => Category::all()->sortBy('position'),
-            'types'          => Type::all()->sortBy('position'),
-            'resolutions'    => Resolution::all()->sortBy('position'),
-            'user'           => $user,
-            'torrentRequest' => $torrentRequest, ]);
+            'categories'     => Category::orderBy('position')->get(),
+            'types'          => Type::orderBy('position')->get(),
+            'resolutions'    => Resolution::orderBy('position')->get(),
+            'user'           => $request->user(),
+            'torrentRequest' => TorrentRequest::findOrFail($id),
+        ]);
     }
 
     /**
@@ -304,7 +298,7 @@ class RequestController extends Controller
         ]);
 
         $torrent_id = basename($request->torrent_id);
-        $torrent = Torrent::withAnyStatus()->where('id', '=', $torrent_id)->first();
+        $torrent = Torrent::withAnyStatus()->find($torrent_id);
 
         if ($torrent->isApproved() === false) {
             return to_route('requests.show', ['id' => $request->input('request_id')])
@@ -366,10 +360,12 @@ class RequestController extends Controller
         $filler->increment('seedbonus', $fillAmount);
 
         // Achievements
-        $filler->addProgress(new UserFilled25Requests(), 1);
-        $filler->addProgress(new UserFilled50Requests(), 1);
-        $filler->addProgress(new UserFilled75Requests(), 1);
-        $filler->addProgress(new UserFilled100Requests(), 1);
+        if (! $tr->filled_anon) {
+            $filler->addProgress(new UserFilled25Requests(), 1);
+            $filler->addProgress(new UserFilled50Requests(), 1);
+            $filler->addProgress(new UserFilled75Requests(), 1);
+            $filler->addProgress(new UserFilled100Requests(), 1);
+        }
 
         $requestUrl = href_request($tr);
         $userUrl = href_profile($filler);
@@ -452,9 +448,7 @@ class RequestController extends Controller
      */
     public function reset(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        abort_unless($user->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
         TorrentRequest::whereKey($id)->update([
             'filled_by'     => null,

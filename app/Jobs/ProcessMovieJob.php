@@ -128,7 +128,7 @@ class ProcessMovieJob implements ShouldQueue
 
         if (isset($this->movie['recommendations'])) {
             foreach ($this->movie['recommendations']['results'] as $recommendation) {
-                if (Movie::where('id', '=', $recommendation['id'])->count() !== 0) {
+                if (Movie::where('id', '=', $recommendation['id'])->exists()) {
                     Recommendation::updateOrCreate(
                         ['recommendation_movie_id' => $recommendation['id'], 'movie_id' => $this->movie['id']],
                         ['title' => $recommendation['title'], 'vote_average' => $recommendation['vote_average'], 'poster' => $tmdb->image('poster', $recommendation), 'release_date' => $recommendation['release_date']]

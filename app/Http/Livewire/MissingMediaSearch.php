@@ -27,11 +27,6 @@ class MissingMediaSearch extends Component
         'perPage'       => ['except' => ''],
     ];
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function getMediasProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])

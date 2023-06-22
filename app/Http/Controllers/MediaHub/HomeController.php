@@ -30,25 +30,15 @@ class HomeController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $tv = Tv::count();
-        $movies = Movie::count();
-        $collections = Collection::count();
-        $persons = Person::whereNotNull('still')->count();
-        $genres = Genre::count();
-        $networks = Network::count();
-        $companies = Company::count();
-
-        $movieCategoryIds = Category::where('movie_meta', '=', 1)->pluck('id')->toArray();
-
         return view('mediahub.index', [
-            'tv'               => $tv,
-            'movies'           => $movies,
-            'movieCategoryIds' => $movieCategoryIds,
-            'collections'      => $collections,
-            'persons'          => $persons,
-            'genres'           => $genres,
-            'networks'         => $networks,
-            'companies'        => $companies,
+            'tv'               => Tv::count(),
+            'movies'           => Movie::count(),
+            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'collections'      => Collection::count(),
+            'persons'          => Person::whereNotNull('still')->count(),
+            'genres'           => Genre::count(),
+            'networks'         => Network::count(),
+            'companies'        => Company::count(),
         ]);
     }
 }

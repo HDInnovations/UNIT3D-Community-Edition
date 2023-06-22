@@ -26,9 +26,9 @@ class ResolutionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $resolutions = Resolution::all()->sortBy('position');
-
-        return view('Staff.resolution.index', ['resolutions' => $resolutions]);
+        return view('Staff.resolution.index', [
+            'resolutions' => Resolution::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -55,9 +55,9 @@ class ResolutionController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $resolution = Resolution::findOrFail($id);
-
-        return view('Staff.resolution.edit', ['resolution' => $resolution]);
+        return view('Staff.resolution.edit', [
+            'resolution' => Resolution::findOrFail($id),
+        ]);
     }
 
     /**
@@ -65,7 +65,7 @@ class ResolutionController extends Controller
      */
     public function update(UpdateResolutionRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Resolution::where('id', '=', $id)->update($request->validated());
+        Resolution::findOrFail($id)->update($request->validated());
 
         return to_route('staff.resolutions.index')
             ->withSuccess('Resolution Successfully Modified');

@@ -149,8 +149,8 @@
             @foreach($torrents as $playlistTorrent)
                 @php
                     $meta = match(1) {
-                        $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
-                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->where('id', '=', $playlistTorrent->torrent->tmdb ?? 0)->first(),
+                        $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->find($playlistTorrent->torrent->tmdb ?? 0),
+                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->find($playlistTorrent->torrent->tmdb ?? 0),
                         $playlistTorrent->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
                         default => null,
                     };

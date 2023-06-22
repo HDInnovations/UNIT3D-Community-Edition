@@ -58,11 +58,11 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <div class="form__group">
-                        @php $regions = cache()->remember('regions', 3_600, fn () => App\Models\Region::all()->sortBy('position')) @endphp
+                        @php $regions = cache()->remember('regions', 3_600, fn () => App\Models\Region::orderBy('position')->get()) @endphp
                         <div id="regions" wire:ignore></div>
                     </div>
                     <div class="form__group">
-                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::all()->sortBy('position')) @endphp
+                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::orderBy('position')->get()) @endphp
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
@@ -97,7 +97,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.category') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::all()->sortBy('position')) @endphp
+                                @php $categories = cache()->remember('categories', 3_600, fn () => App\Models\Category::orderBy('position')->get()) @endphp
                                 @foreach ($categories as $category)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -118,7 +118,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.type') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::all()->sortBy('position')) @endphp
+                                @php $types = cache()->remember('types', 3_600, fn () => App\Models\Type::orderBy('position')->get()) @endphp
                                 @foreach ($types as $type)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -139,7 +139,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.resolution') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::all()->sortBy('position')) @endphp
+                                @php $resolutions = cache()->remember('resolutions', 3_600, fn () => App\Models\Resolution::orderBy('position')->get()) @endphp
                                 @foreach ($resolutions as $resolution)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -160,7 +160,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.genre') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php $genres = cache()->remember('genres', 3_600, fn () => App\Models\Genre::all()->sortBy('name')) @endphp
+                                @php $genres = cache()->remember('genres', 3_600, fn () => App\Models\Genre::orderBy('name')->get()) @endphp
                                 @foreach ($genres as $genre)
                                     <p class="form__group">
                                         <label class="form__label">

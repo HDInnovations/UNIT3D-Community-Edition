@@ -46,7 +46,7 @@ class SystemBot
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
-        $bot = Bot::where('is_systembot', '=', '1')->firstOrFail();
+        $bot = Bot::where('is_systembot', '=', '1')->sole();
         $this->bot = $bot;
     }
 

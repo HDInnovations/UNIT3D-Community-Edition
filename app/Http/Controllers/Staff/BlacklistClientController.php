@@ -29,9 +29,9 @@ class BlacklistClientController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = BlacklistClient::latest()->get();
-
-        return view('Staff.blacklist.clients.index', ['clients' => $clients]);
+        return view('Staff.blacklist.clients.index', [
+            'clients' => BlacklistClient::latest()->get(),
+        ]);
     }
 
     /**
@@ -39,9 +39,9 @@ class BlacklistClientController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $client = BlacklistClient::findOrFail($id);
-
-        return view('Staff.blacklist.clients.edit', ['client' => $client]);
+        return view('Staff.blacklist.clients.edit', [
+            'client' => BlacklistClient::findOrFail($id),
+        ]);
     }
 
     /**

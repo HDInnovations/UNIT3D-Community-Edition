@@ -1,8 +1,8 @@
 .form__fieldset {
-    background-color: inherit;
-    border: var(--input-text-border);
-    border-radius: 5px;
-    color: var(--input-text-fg);
+    background-color: var(--fieldset-bg);
+    border: var(--fieldset-border);
+    border-radius: var(--fieldset-border-radius);
+    color: var(--fieldset-fg);
     font-size: 14px;
     font-weight: normal;
     max-width: 100%;

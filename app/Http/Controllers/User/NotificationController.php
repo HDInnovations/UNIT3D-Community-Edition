@@ -48,7 +48,7 @@ class NotificationController extends Controller
      */
     public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
     {
-        $notification = $request->user()->notifications()->where('id', '=', $id)->first();
+        $notification = $request->user()->notifications()->findOrFail($id);
 
         if (! $notification) {
             return to_route('notifications.index')

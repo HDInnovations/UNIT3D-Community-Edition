@@ -33,9 +33,9 @@ class GroupController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $groups = Group::all()->sortBy('position');
-
-        return view('Staff.group.index', ['groups' => $groups]);
+        return view('Staff.group.index', [
+            'groups' => Group::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -73,9 +73,9 @@ class GroupController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $group = Group::findOrFail($id);
-
-        return view('Staff.group.edit', ['group' => $group]);
+        return view('Staff.group.edit', [
+            'group' => Group::findOrFail($id),
+        ]);
     }
 
     /**
@@ -83,7 +83,7 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Group::where('id', '=', $id)->update(['slug' => Str::slug($request->name)] + $request->validated());
+        Group::findOrFail($id)->update(['slug' => Str::slug($request->name)] + $request->validated());
 
         cache()->forget('group:'.$id);
 

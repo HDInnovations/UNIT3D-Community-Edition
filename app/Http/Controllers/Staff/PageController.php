@@ -29,9 +29,9 @@ class PageController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $pages = Page::all();
-
-        return view('Staff.page.index', ['pages' => $pages]);
+        return view('Staff.page.index', [
+            'pages' => Page::all(),
+        ]);
     }
 
     /**
@@ -58,9 +58,9 @@ class PageController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $page = Page::findOrFail($id);
-
-        return view('Staff.page.edit', ['page' => $page]);
+        return view('Staff.page.edit', [
+            'page' => Page::findOrFail($id),
+        ]);
     }
 
     /**
@@ -68,7 +68,7 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        Page::where('id', '=', $id)->update($request->validated());
+        Page::findOrFail($id)->update($request->validated());
 
         return to_route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');

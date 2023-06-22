@@ -28,7 +28,7 @@ return new class () extends Migration {
         });
 
         foreach (Torrent::all() as $torrent) {
-            $type_id = Type::where('name', '=', $torrent->type)->firstOrFail()->id;
+            $type_id = Type::where('name', '=', $torrent->type)->sole()->id;
             $torrent->type_id = $type_id;
             $torrent->save();
         }

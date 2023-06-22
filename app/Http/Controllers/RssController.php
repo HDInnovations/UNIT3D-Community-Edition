@@ -34,16 +34,11 @@ class RssController extends Controller
      */
     public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
-        $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
-
         return view('rss.index', [
             'hash'        => $hash,
-            'public_rss'  => $publicRss,
-            'private_rss' => $privateRss,
-            'user'        => $user,
+            'public_rss'  => Rss::where('is_private', '=', 0)->oldest('position')->get(),
+            'private_rss' => Rss::where('is_private', '=', 1)->where('user_id', '=', $request->user()->id)->latest()->get(),
+            'user'        => $request->user(),
         ]);
     }
 
@@ -52,14 +47,12 @@ class RssController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
         return view('rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $request->user(),
         ]);
     }
 
@@ -68,8 +61,6 @@ class RssController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $user = $request->user();
-
         $v = validator($request->all(), [
             'name'          => 'required|min:3|max:255',
             'search'        => 'max:255',
@@ -113,13 +104,12 @@ class RssController extends Controller
             'dead',
         ]);
 
-        $error = null;
         $success = null;
 
         if ($v->passes()) {
             $rss = new Rss();
             $rss->name = $request->input('name');
-            $rss->user_id = $user->id;
+            $rss->user_id = $request->user()->id;
             $expected = $rss->expected_fields;
             $rss->json_torrent = array_merge($expected, $params);
             $rss->is_private = 1;
@@ -148,7 +138,7 @@ class RssController extends Controller
      */
     public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
-        $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+        $user = User::where('rsskey', '=', $rsskey)->sole();
 
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
@@ -156,13 +146,12 @@ class RssController extends Controller
         abort_if($user->group->id == $bannedGroup[0] || $user->group->id == $disabledGroup[0] || ! $user->active, 404);
 
         $rss = Rss::query()
-            ->where('id', '=', $id)
             ->where(
                 fn ($query) => $query
                     ->where('user_id', '=', $user->id)
                     ->orWhere('is_private', '=', 0)
             )
-            ->firstOrFail();
+            ->findOrFail($id);
 
         $search = $rss->object_torrent;
 
@@ -213,13 +202,14 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
         return view('rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
             'user'        => $user,
             'rss'         => $rss,
         ]);
@@ -273,9 +263,8 @@ class RssController extends Controller
             'dead',
         ]);
 
-        $error = null;
         $success = null;
-        $redirect = null;
+
         if ($v->passes()) {
             $expected = $rss->expected_fields;
             $push = array_merge($expected, $params);

@@ -21,13 +21,6 @@ use Illuminate\Support\Facades\Notification;
 class NotifyStaffTicketWasAssigned
 {
     /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Handle the event.
      */
     public function handle(TicketAssigned $event): void

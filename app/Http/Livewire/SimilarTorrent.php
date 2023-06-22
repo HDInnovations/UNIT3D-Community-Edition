@@ -76,10 +76,28 @@ class SimilarTorrent extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
+        $user = auth()->user();
+
         return Torrent::query()
             ->with('user:id,username,group_id', 'category', 'type', 'resolution')
             ->withCount(['thanks', 'comments'])
-            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', auth()->id())])
+            ->withExists([
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
+            ])
             ->when(
                 $this->category->movie_meta,
                 fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),

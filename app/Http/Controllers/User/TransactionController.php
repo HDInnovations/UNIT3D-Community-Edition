@@ -46,15 +46,11 @@ class TransactionController extends Controller
 
         abort_unless($request->user()->id === $user->id, 403);
 
-        $userbon = $user->getSeedbonus();
-        $activefl = $user->personalFreeleeches()->exists();
-        $items = BonExchange::all();
-
         return view('user.transaction.create', [
             'user'     => $user,
-            'userbon'  => $userbon,
-            'activefl' => $activefl,
-            'items'    => $items,
+            'userbon'  => $user->getSeedbonus(),
+            'activefl' => $user->personalFreeleeches()->exists(),
+            'items'    => BonExchange::all(),
         ]);
     }
 
@@ -109,7 +105,7 @@ class TransactionController extends Controller
 
         $user->decrement('seedbonus', $item->cost);
 
-        return to_route('transactions.create', ['username' => $user->username])
+        return to_route('transactions.create', ['username' => $username])
             ->withSuccess(trans('bon.success'));
     }
 }

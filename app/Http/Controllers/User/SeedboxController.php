@@ -30,13 +30,14 @@ class SeedboxController extends Controller
      */
     public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
-        $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
-
-        return view('user.seedbox.index', ['user' => $user, 'seedboxes' => $seedboxes]);
+        return view('user.seedbox.index', [
+            'user'      => $user,
+            'seedboxes' => Seedbox::where('user_id', '=', $user->id)->paginate(25),
+        ]);
     }
 
     /**

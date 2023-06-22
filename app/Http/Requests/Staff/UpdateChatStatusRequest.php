@@ -31,9 +31,15 @@ class UpdateChatStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => 'required',
-            'color' => 'required',
-            'icon'  => 'required',
+            'name' => [
+                'required',
+            ],
+            'color' => [
+                'required',
+            ],
+            'icon' => [
+                'required',
+            ],
         ];
     }
 }

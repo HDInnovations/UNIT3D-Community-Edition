@@ -32,9 +32,9 @@ class ForumController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Forum::where('parent_id', '=', 0)->get()->sortBy('position');
-
-        return view('Staff.forum.index', ['categories' => $categories]);
+        return view('Staff.forum.index', [
+            'categories' => Forum::orderBy('position')->where('parent_id', '=', 0)->get(),
+        ]);
     }
 
     /**
@@ -42,10 +42,10 @@ class ForumController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
-
-        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
+        return view('Staff.forum.create', [
+            'categories' => Forum::where('parent_id', '=', 0)->get(),
+            'groups'     => Group::all(),
+        ]);
     }
 
     /**
@@ -68,7 +68,7 @@ class ForumController extends Controller
         );
 
         // Permissions
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             $perm = Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $group->id)->first();
             if ($perm == null) {
                 $perm = new Permission();
@@ -100,14 +100,10 @@ class ForumController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $forum = Forum::findOrFail($id);
-        $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
-
         return view('Staff.forum.edit', [
-            'categories' => $categories,
-            'groups'     => $groups,
-            'forum'      => $forum,
+            'categories' => Forum::where('parent_id', '=', 0)->get(),
+            'groups'     => Group::all(),
+            'forum'      => Forum::findOrFail($id),
         ]);
     }
 
@@ -118,7 +114,7 @@ class ForumController extends Controller
     {
         $groups = Group::all();
 
-        Forum::where('id', '=', $id)->update(
+        Forum::findOrFail($id)->update(
             [
                 'slug'      => Str::slug($request->title),
                 'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,
@@ -127,7 +123,7 @@ class ForumController extends Controller
         );
 
         // Permissions
-        foreach ($groups as $k => $group) {
+        foreach ($groups as $group) {
             $perm = Permission::where('forum_id', '=', $id)->where('group_id', '=', $group->id)->first();
             if ($perm == null) {
                 $perm = new Permission();

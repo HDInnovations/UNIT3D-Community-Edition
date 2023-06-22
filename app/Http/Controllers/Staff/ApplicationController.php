@@ -35,12 +35,12 @@ class ApplicationController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $applications = Application::withAnyStatus()
-            ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
-            ->latest()
-            ->paginate(25);
-
-        return view('Staff.application.index', ['applications' => $applications]);
+        return view('Staff.application.index', [
+            'applications' => Application::withAnyStatus()
+                ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
+                ->latest()
+                ->paginate(25),
+        ]);
     }
 
     /**
@@ -48,9 +48,9 @@ class ApplicationController extends Controller
      */
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
-
-        return view('Staff.application.show', ['application' => $application]);
+        return view('Staff.application.show', [
+            'application' => Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
+        ]);
     }
 
     /**

@@ -13,7 +13,7 @@
 .form__text {
     background-color: inherit;
     border: var(--input-text-border);
-    border-radius: 5px;
+    border-radius: var(--input-text-border-radius);
     color: var(--input-text-fg);
     font-size: 14px;
     font-weight: normal;

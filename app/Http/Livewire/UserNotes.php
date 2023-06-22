@@ -32,11 +32,6 @@ class UserNotes extends Component
 
     public string $sortDirection = 'desc';
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
@@ -71,7 +66,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Note::where('id', '=', $id)->delete();
+        Note::findOrFail($id)->delete();
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
     }

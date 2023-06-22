@@ -114,7 +114,7 @@ class ChatController extends Controller
     public function botMessages($botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $runbot = null;
-        $bot = Bot::where('id', '=', $botId)->firstOrFail();
+        $bot = Bot::findOrFail($botId);
         if ($bot->is_systembot) {
             $runbot = new SystemBot($this->chatRepository);
         } elseif ($bot->is_nerdbot) {
@@ -168,7 +168,7 @@ class ChatController extends Controller
             $which = 'skip';
             $command = @explode(' ', (string) $message);
             if (\array_key_exists(1, $command)) {
-                $receiverId = User::where('username', 'like', $command[1])->firstOrFail()->id;
+                $receiverId = User::where('username', 'like', $command[1])->sole()->id;
                 $clone = $command;
                 array_shift($clone);
                 array_shift($clone);
@@ -249,7 +249,7 @@ class ChatController extends Controller
             }
 
             $senderListening = false;
-            foreach ($senderEchoes as $se => $senderEcho) {
+            foreach ($senderEchoes as $senderEcho) {
                 if ($senderEcho['target_id'] == $receiverId) {
                     $senderListening = true;
                 }
@@ -265,7 +265,7 @@ class ChatController extends Controller
             }
 
             $receiverListening = false;
-            foreach ($receiverEchoes as $se => $receiverEcho) {
+            foreach ($receiverEchoes as $receiverEcho) {
                 if ($receiverEcho['target_id'] == $userId) {
                     $receiverListening = true;
                 }
@@ -305,7 +305,7 @@ class ChatController extends Controller
             }
 
             $senderListening = false;
-            foreach ($senderAudibles as $se => $senderEcho) {
+            foreach ($senderAudibles as $senderEcho) {
                 if ($senderEcho['target_id'] == $receiverId) {
                     $senderListening = true;
                 }
@@ -322,7 +322,7 @@ class ChatController extends Controller
             }
 
             $receiverListening = false;
-            foreach ($receiverAudibles as $se => $receiverEcho) {
+            foreach ($receiverAudibles as $receiverEcho) {
                 if ($receiverEcho['target_id'] == $userId) {
                     $receiverListening = true;
                 }
@@ -381,7 +381,7 @@ class ChatController extends Controller
 
     public function deleteRoomEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserEcho::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->firstOrFail();
+        $echo = UserEcho::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->sole();
         $echo->delete();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($userId);
@@ -403,7 +403,7 @@ class ChatController extends Controller
 
     public function deleteTargetEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserEcho::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->firstOrFail();
+        $echo = UserEcho::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->sole();
         $echo->delete();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($userId);
@@ -418,7 +418,7 @@ class ChatController extends Controller
 
     public function deleteBotEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserEcho::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->firstOrFail();
+        $echo = UserEcho::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->sole();
         $echo->delete();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($userId);
@@ -433,7 +433,7 @@ class ChatController extends Controller
 
     public function toggleRoomAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserAudible::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->firstOrFail();
+        $echo = UserAudible::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->sole();
         $echo->status = ($echo->status == 1 ? 0 : 1);
         $echo->save();
 
@@ -449,7 +449,7 @@ class ChatController extends Controller
 
     public function toggleTargetAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserAudible::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->firstOrFail();
+        $echo = UserAudible::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->sole();
         $echo->status = ($echo->status == 1 ? 0 : 1);
         $echo->save();
 
@@ -465,7 +465,7 @@ class ChatController extends Controller
 
     public function toggleBotAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $echo = UserAudible::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->firstOrFail();
+        $echo = UserAudible::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->sole();
         $echo->status = ($echo->status == 1 ? 0 : 1);
         $echo->save();
 
@@ -482,7 +482,7 @@ class ChatController extends Controller
     /* USERS */
     public function updateUserChatStatus(Request $request, $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $systemUser = User::where('username', 'System')->firstOrFail();
+        $systemUser = User::where('username', 'System')->sole();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
         $status = $this->chatRepository->statusFindOrFail($request->input('status_id'));
@@ -516,7 +516,7 @@ class ChatController extends Controller
         }
 
         $senderListening = false;
-        foreach ($senderEchoes as $se => $senderEcho) {
+        foreach ($senderEchoes as $senderEcho) {
             if ($senderEcho['room_id'] == $room->id) {
                 $senderListening = true;
             }

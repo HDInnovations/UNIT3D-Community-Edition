@@ -27,9 +27,9 @@ class SeedboxController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $seedboxes = Seedbox::with('user')->latest()->paginate(50);
-
-        return view('Staff.seedbox.index', ['seedboxes' => $seedboxes]);
+        return view('Staff.seedbox.index', [
+            'seedboxes' => Seedbox::with('user')->latest()->paginate(50),
+        ]);
     }
 
     /**

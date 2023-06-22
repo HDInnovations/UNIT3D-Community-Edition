@@ -39,35 +39,27 @@ class GiftController extends Controller
 
         abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
 
-        $userbon = $user->getSeedbonus();
-
-        $gifttransactions = BonTransactions::query()
-            ->with(['senderObj', 'receiverObj'])
-            ->where(
-                fn ($query) => $query
-                    ->where('sender', '=', $user->id)
-                    ->orwhere('receiver', '=', $user->id)
-            )
-            ->where('name', '=', 'gift')
-            ->latest('date_actioned')
-            ->paginate(25);
-
-        $giftsSent = BonTransactions::query()
-            ->where('sender', '=', $user->id)
-            ->where('name', '=', 'gift')
-            ->sum('cost');
-
-        $giftsReceived = BonTransactions::query()
-            ->where('receiver', '=', $user->id)
-            ->where('name', '=', 'gift')
-            ->sum('cost');
-
         return view('user.gift.index', [
             'user'             => $user,
-            'gifttransactions' => $gifttransactions,
-            'userbon'          => $userbon,
-            'gifts_sent'       => $giftsSent,
-            'gifts_received'   => $giftsReceived,
+            'gifttransactions' => BonTransactions::query()
+                ->with(['senderObj', 'receiverObj'])
+                ->where(
+                    fn ($query) => $query
+                        ->where('sender', '=', $user->id)
+                        ->orwhere('receiver', '=', $user->id)
+                )
+                ->where('name', '=', 'gift')
+                ->latest('date_actioned')
+                ->paginate(25),
+            'userbon'    => $user->getSeedbonus(),
+            'gifts_sent' => BonTransactions::query()
+                ->where('sender', '=', $user->id)
+                ->where('name', '=', 'gift')
+                ->sum('cost'),
+            'gifts_received' => BonTransactions::query()
+                ->where('receiver', '=', $user->id)
+                ->where('name', '=', 'gift')
+                ->sum('cost'),
         ]);
     }
 
@@ -80,11 +72,9 @@ class GiftController extends Controller
 
         abort_unless($request->user()->id === $user->id, 403);
 
-        $userbon = $user->getSeedbonus();
-
         return view('user.gift.create', [
             'user'    => $user,
-            'userbon' => $userbon,
+            'userbon' => $user->getSeedbonus(),
         ]);
     }
 

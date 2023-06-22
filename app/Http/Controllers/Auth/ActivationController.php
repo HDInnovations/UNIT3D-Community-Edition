@@ -28,7 +28,7 @@ class ActivationController extends Controller
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $memberGroup = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
 
-        $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
+        $activation = UserActivation::with('user')->where('token', '=', $token)->sole();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup[0]) {
             $activation->user->active = 1;
             $activation->user->can_upload = 1;

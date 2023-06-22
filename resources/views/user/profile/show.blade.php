@@ -493,6 +493,8 @@
                     <dd>{{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}</dd>
                     <dt>{{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.credited') }})</dt>
                     <dd>{{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}</dd>
+                    <dt>{{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.refunded') }})</dt>
+                    <dd>{{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}</dd>
                     <dt>{{ __('bon.bon') }} {{ __('common.upload') }}</dt>
                     <dd>{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</dd>
                 </dl>
@@ -690,7 +692,9 @@
                     <dt>{{ __('user.thanks-received') }}</dt>
                     <dd>{{ $user->thanksReceived()->count() }}</dd>
                     <dt>{{ __('user.thanks-given') }}</dt>
-                    <dd> {{ $user->thanksGiven()->count() }}</dd>
+                    <dd>{{ $user->thanksGiven()->count() }}</dd>
+                    <dt>{{ __('user.upload-snatches') }}</dt>
+                    <dd>{{ $user->uploadSnatches()->count() }}</dd>
                 </dl>
             </section>
         @endif

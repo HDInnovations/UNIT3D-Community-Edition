@@ -2,7 +2,7 @@
     padding: 18px;
     border-radius: 5px;
     background-color: var(--article-card-bg);
-    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: var(--article-box-shadow);
 }
 
 .article-preview__header {
