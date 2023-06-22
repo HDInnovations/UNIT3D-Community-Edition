@@ -115,6 +115,16 @@ class UserController extends Controller
 
         abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 
+        $user->can_upload = 0;
+        $user->can_download = 0;
+        $user->can_comment = 0;
+        $user->can_invite = 0;
+        $user->can_request = 0;
+        $user->can_chat = 0;
+        $user->group_id = UserGroups::PRUNED;
+        $user->deleted_by = auth()->user()->id;
+        $user->save();
+
         // Removes UserID from Torrents if any and replaces with System UserID (1)
         foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
             $tor->user_id = 1;
