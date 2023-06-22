@@ -41,8 +41,6 @@ class Comment extends Component
 
     public $anon = false;
 
-    public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
-
     protected $listeners = [
         'refresh' => '$refresh',
     ];
@@ -68,11 +66,6 @@ class Comment extends Component
         $this->chatRepository = $chatRepository;
     }
 
-    final public function mount(): void
-    {
-        $this->user = auth()->user();
-    }
-
     final public function taggedUsers(): array
     {
         preg_match_all('/@([\w\-]+)/', implode('', $this->editState), $matches);
@@ -93,28 +86,28 @@ class Comment extends Component
 
     final public function editComment(): void
     {
-        if (auth()->user()->id == $this->comment->user_id || auth()->user()->group->is_modo) {
+        if (auth()->user()->id === $this->comment->user_id || auth()->user()->group->is_modo) {
             $this->comment->update((new AntiXSS())->xss_clean($this->editState));
             $this->isEditing = false;
         } else {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('Permission Denied!')]);
         }
     }
 
     final public function deleteComment(): void
     {
-        if (auth()->user()->id == $this->comment->user_id || auth()->user()->group->is_modo) {
+        if (auth()->user()->id === $this->comment->user_id || auth()->user()->group->is_modo) {
             $this->comment->delete();
             $this->emitUp('refresh');
         } else {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('Permission Denied!')]);
         }
     }
 
     final public function postReply(): void
     {
         if (auth()->user()->can_comment === 0) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('comment.rights-revoked')]);
 
             return;
         }
@@ -141,15 +134,15 @@ class Comment extends Component
             case 'ticket':
                 $ticket = $this->comment->commentable;
 
-                if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
+                if (auth()->user()->id !== $ticket->staff_id && $ticket->staff_id !== null) {
                     User::find($ticket->staff_id)->notify(new NewComment($modelName, $reply));
                 }
 
-                if ($this->user->id !== $ticket->user_id) {
+                if (auth()->user()->id !== $ticket->user_id) {
                     User::find($ticket->user_id)->notify(new NewComment($modelName, $reply));
                 }
 
-                if (! \in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
+                if (! \in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, auth()->user()->id])) {
                     User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
                 }
 
@@ -159,7 +152,7 @@ class Comment extends Component
             case 'playlist':
             case 'torrent request':
             case 'torrent':
-                if ($this->user->id !== $this->comment->user_id) {
+                if (auth()->user()->id !== $this->comment->user_id) {
                     User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
                 }
 
@@ -171,7 +164,7 @@ class Comment extends Component
         Notification::sendNow($users, new NewCommentTag($modelName, $reply));
 
         // Auto Shout
-        $profileUrl = href_profile($this->user);
+        $profileUrl = href_profile(auth()->user());
 
         $modelUrl = match ($modelName) {
             'article'         => href_article($this->comment->commentable),
@@ -188,7 +181,7 @@ class Comment extends Component
                     sprintf(
                         '[url=%s]%s[/url] has left a comment on '.$modelName.' [url=%s]%s[/url]',
                         $profileUrl,
-                        $this->user->username,
+                        auth()->user()->username,
                         $modelUrl,
                         $this->comment->commentable->name ?? $this->comment->commentable->title
                     )
@@ -206,18 +199,18 @@ class Comment extends Component
 
         // Achievements
         if ($reply->anon == 0 && $modelName !== 'ticket') {
-            $this->user->unlock(new UserMadeComment());
-            $this->user->addProgress(new UserMadeTenComments(), 1);
-            $this->user->addProgress(new UserMade50Comments(), 1);
-            $this->user->addProgress(new UserMade100Comments(), 1);
-            $this->user->addProgress(new UserMade200Comments(), 1);
-            $this->user->addProgress(new UserMade300Comments(), 1);
-            $this->user->addProgress(new UserMade400Comments(), 1);
-            $this->user->addProgress(new UserMade500Comments(), 1);
-            $this->user->addProgress(new UserMade600Comments(), 1);
-            $this->user->addProgress(new UserMade700Comments(), 1);
-            $this->user->addProgress(new UserMade800Comments(), 1);
-            $this->user->addProgress(new UserMade900Comments(), 1);
+            auth()->user()->unlock(new UserMadeComment());
+            auth()->user()->addProgress(new UserMadeTenComments(), 1);
+            auth()->user()->addProgress(new UserMade50Comments(), 1);
+            auth()->user()->addProgress(new UserMade100Comments(), 1);
+            auth()->user()->addProgress(new UserMade200Comments(), 1);
+            auth()->user()->addProgress(new UserMade300Comments(), 1);
+            auth()->user()->addProgress(new UserMade400Comments(), 1);
+            auth()->user()->addProgress(new UserMade500Comments(), 1);
+            auth()->user()->addProgress(new UserMade600Comments(), 1);
+            auth()->user()->addProgress(new UserMade700Comments(), 1);
+            auth()->user()->addProgress(new UserMade800Comments(), 1);
+            auth()->user()->addProgress(new UserMade900Comments(), 1);
         }
 
         $this->replyState = [

@@ -150,11 +150,6 @@ class BackupPanel extends Component
         dispatch(new ProcessBackup($option));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('livewire.backup-panel');
-    }
-
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -199,5 +194,10 @@ class BackupPanel extends Component
 
             throw $e;
         }
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('livewire.backup-panel');
     }
 }

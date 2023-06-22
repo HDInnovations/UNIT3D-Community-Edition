@@ -22,5 +22,5 @@
 @section('page', 'page__user-resurrections--index')
 
 @section('content')
-    @livewire('user-resurrections', ['userId' => $user->id])
+    @livewire('user-resurrections')
 @endsection

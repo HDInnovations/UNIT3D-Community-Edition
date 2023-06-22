@@ -21,8 +21,6 @@ class WatchlistSearch extends Component
 {
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
     public int $perPage = 25;
 
     public string $search = '';
@@ -30,11 +28,6 @@ class WatchlistSearch extends Component
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    final public function mount(): void
-    {
-        $this->user = auth()->user();
-    }
 
     final public function updatedPage(): void
     {

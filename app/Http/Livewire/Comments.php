@@ -39,9 +39,7 @@ class Comments extends Component
     use WithPagination;
 
     protected ChatRepository $chatRepository;
-
-    public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
-
+    
     public $model;
 
     public $anon = false;
@@ -65,11 +63,6 @@ class Comments extends Component
         $this->chatRepository = $chatRepository;
     }
 
-    final public function mount(): void
-    {
-        $this->user = auth()->user();
-    }
-
     final public function taggedUsers(): array
     {
         preg_match_all('/@([\w\-]+)/', implode('', $this->newCommentState), $matches);
@@ -84,14 +77,14 @@ class Comments extends Component
 
     final public function postComment(): void
     {
-        if ($this->user->can_comment === 0) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+        if (auth()->user()->can_comment === 0) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('comment.rights-revoked')]);
 
             return;
         }
 
         if (strtolower(class_basename($this->model)) === 'torrent' && ! $this->model->isApproved()) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.torrent-status')]);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('comment.torrent-status')]);
 
             return;
         }
@@ -101,7 +94,7 @@ class Comments extends Component
         ]);
 
         $comment = $this->model->comments()->make((new AntiXSS())->xss_clean($this->newCommentState));
-        $comment->user()->associate($this->user);
+        $comment->user()->associate(auth()->user());
         $comment->anon = $this->anon;
         $comment->save();
 
@@ -113,11 +106,11 @@ class Comments extends Component
             case 'ticket':
                 $ticket = $this->model;
 
-                if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
+                if (auth()->user()->id !== $ticket->staff_id && $ticket->staff_id !== null) {
                     User::find($ticket->staff_id)->notify(new NewComment($modelName, $comment));
                 }
 
-                if ($this->user->id !== $ticket->user_id) {
+                if (auth()->user()->id !== $ticket->user_id) {
                     User::find($ticket->user_id)->notify(new NewComment($modelName, $comment));
                 }
 
@@ -127,7 +120,7 @@ class Comments extends Component
             case 'playlist':
             case 'torrent request':
             case 'torrent':
-                if ($this->user->id !== $this->model->user_id) {
+                if (auth()->user()->id !== $this->model->user_id) {
                     User::find($this->model->user_id)->notify(new NewComment($modelName, $comment));
                 }
 
@@ -139,7 +132,7 @@ class Comments extends Component
         Notification::sendNow($users, new NewCommentTag($modelName, $comment));
 
         // Auto Shout
-        $profileUrl = href_profile($this->user);
+        $profileUrl = href_profile(auth()->user());
 
         $modelUrl = match ($modelName) {
             'article'         => href_article($this->model),
@@ -156,7 +149,7 @@ class Comments extends Component
                     sprintf(
                         '[url=%s]%s[/url] has left a comment on '.$modelName.' [url=%s]%s[/url]',
                         $profileUrl,
-                        $this->user->username,
+                        auth()->user()->username,
                         $modelUrl,
                         $this->model->name ?? $this->model->title
                     )
@@ -174,18 +167,18 @@ class Comments extends Component
 
         // Achievements
         if ($comment->anon == 0 && $modelName !== 'ticket') {
-            $this->user->unlock(new UserMadeComment());
-            $this->user->addProgress(new UserMadeTenComments(), 1);
-            $this->user->addProgress(new UserMade50Comments(), 1);
-            $this->user->addProgress(new UserMade100Comments(), 1);
-            $this->user->addProgress(new UserMade200Comments(), 1);
-            $this->user->addProgress(new UserMade300Comments(), 1);
-            $this->user->addProgress(new UserMade400Comments(), 1);
-            $this->user->addProgress(new UserMade500Comments(), 1);
-            $this->user->addProgress(new UserMade600Comments(), 1);
-            $this->user->addProgress(new UserMade700Comments(), 1);
-            $this->user->addProgress(new UserMade800Comments(), 1);
-            $this->user->addProgress(new UserMade900Comments(), 1);
+            auth()->user()->unlock(new UserMadeComment());
+            auth()->user()->addProgress(new UserMadeTenComments(), 1);
+            auth()->user()->addProgress(new UserMade50Comments(), 1);
+            auth()->user()->addProgress(new UserMade100Comments(), 1);
+            auth()->user()->addProgress(new UserMade200Comments(), 1);
+            auth()->user()->addProgress(new UserMade300Comments(), 1);
+            auth()->user()->addProgress(new UserMade400Comments(), 1);
+            auth()->user()->addProgress(new UserMade500Comments(), 1);
+            auth()->user()->addProgress(new UserMade600Comments(), 1);
+            auth()->user()->addProgress(new UserMade700Comments(), 1);
+            auth()->user()->addProgress(new UserMade800Comments(), 1);
+            auth()->user()->addProgress(new UserMade900Comments(), 1);
         }
 
         $this->newCommentState = [

@@ -14,15 +14,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Peer;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserActive extends Component
 {
     use WithPagination;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     public int $perPage = 25;
 
@@ -53,11 +50,6 @@ class UserActive extends Component
         'sortDirection'     => ['except' => 'desc'],
         'showMorePrecision' => ['except' => false],
     ];
-
-    final public function mount($userId): void
-    {
-        $this->user = User::find($userId);
-    }
 
     final public function updatedPage(): void
     {
@@ -93,7 +85,7 @@ class UserActive extends Component
             )
             ->selectRaw('INET6_NTOA(ip) as ip')
             ->selectRaw('(1 - (peers.left / NULLIF(torrents.size, 0))) AS progress')
-            ->where('peers.user_id', '=', $this->user->id)
+            ->where('peers.user_id', '=', auth()->user()->id)
             ->when(
                 $this->name,
                 fn ($query) => $query

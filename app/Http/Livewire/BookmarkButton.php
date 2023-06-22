@@ -14,33 +14,32 @@
 namespace App\Http\Livewire;
 
 use App\Models\Torrent;
-use App\Models\User;
 use Livewire\Component;
 
 class BookmarkButton extends Component
 {
     public Torrent $torrent;
-    public User $user;
+    
     public bool $isBookmarked;
 
     final public function store(): void
     {
-        if ($this->user->bookmarks()->where('torrent_id', '=', $this->torrent->id)->exists()) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Torrent Has Already Been Bookmarked!']);
+        if (auth()->user()->bookmarks()->where('torrent_id', '=', $this->torrent->id)->exists()) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('Torrent Has Already Been Bookmarked!')]);
 
             return;
         }
 
-        $this->user->bookmarks()->attach($this->torrent->id);
+        auth()->user()->bookmarks()->attach($this->torrent->id);
         $this->isBookmarked = true;
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Bookmarked Successfully!']);
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => __('Torrent Has Been Bookmarked Successfully!')]);
     }
 
     final public function destroy(): void
     {
-        $this->user->bookmarks()->detach($this->torrent->id);
+        auth()->user()->bookmarks()->detach($this->torrent->id);
         $this->isBookmarked = false;
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => __('Torrent Has Been Unbookmarked Successfully!')]);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

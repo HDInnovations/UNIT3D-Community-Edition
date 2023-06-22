@@ -20,27 +20,24 @@ use Livewire\Component;
 class DislikeButton extends Component
 {
     public Post $post;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
+    
     public int $dislikesCount;
 
     final public function mount(Post $post, int $dislikesCount): void
     {
-        $this->user = auth()->user();
         $this->post = $post;
         $this->dislikesCount = $dislikesCount;
     }
 
     final public function store(): void
     {
-        if ($this->user->id === $this->post->user_id) {
+        if (auth()->user()->id === $this->post->user_id) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Dislike Your Own Post!']);
 
             return;
         }
 
-        $exist = Like::where('user_id', '=', $this->user->id)->where('post_id', '=', $this->post->id)->first();
+        $exist = Like::where('user_id', '=', auth()->user()->id)->where('post_id', '=', $this->post->id)->first();
         if ($exist) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Liked Or Disliked This Post!']);
 
@@ -48,7 +45,7 @@ class DislikeButton extends Component
         }
 
         $new = new Like();
-        $new->user_id = $this->user->id;
+        $new->user_id = auth()->user()->id;
         $new->post_id = $this->post->id;
         $new->dislike = 1;
         $new->save();

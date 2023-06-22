@@ -22,7 +22,7 @@
 @endsection
 
 @section('main')
-    @livewire('user-active', ['userId' => $user->id])
+    @livewire('user-active')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.statistics') }}</h2>
         <dl class="key-value">

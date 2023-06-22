@@ -14,16 +14,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\Torrent;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserUploads extends Component
 {
     use WithPagination;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
+    
     public int $perPage = 25;
 
     public string $name = '';
@@ -47,11 +44,6 @@ class UserUploads extends Component
         'status'          => ['except' => []],
     ];
 
-    final public function mount($userId): void
-    {
-        $this->user = User::find($userId);
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -68,8 +60,8 @@ class UserUploads extends Component
             ->withCount('thanks')
             ->withSum('tips', 'cost')
             ->withAnyStatus()
-            ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
-            ->where('user_id', '=', $this->user->id)
+            ->where('created_at', '>=', auth()->user()->created_at) // Unneeded, but increases performances
+            ->where('user_id', '=', auth()->user()->id)
             ->when(
                 $this->name,
                 fn ($query) => $query

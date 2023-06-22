@@ -20,9 +20,7 @@ use Livewire\WithPagination;
 class TicketSearch extends Component
 {
     use WithPagination;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
+    
     public bool $show = false;
 
     public int $perPage = 25;
@@ -37,11 +35,6 @@ class TicketSearch extends Component
         'search' => ['except' => ''],
         'show'   => ['except' => false],
     ];
-
-    final public function mount(): void
-    {
-        $this->user = auth()->user();
-    }
 
     final public function updatedPage(): void
     {
@@ -67,7 +60,7 @@ class TicketSearch extends Component
 
     final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        if ($this->user->group->is_modo) {
+        if (auth()->user()->group->is_modo) {
             return Ticket::query()
                 ->with(['user', 'category', 'priority'])
                 ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
@@ -79,7 +72,7 @@ class TicketSearch extends Component
 
         return Ticket::query()
             ->with(['user', 'category', 'priority'])
-            ->where('user_id', '=', $this->user->id)
+            ->where('user_id', '=', auth()->user()->id)
             ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
             ->when($this->show, fn ($query) => $query->whereNotNull('closed_at'))
             ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))

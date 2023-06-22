@@ -21,41 +21,38 @@ class LikeButton extends Component
 {
     public Post $post;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
     public int $likesCount;
 
     final public function mount(Post $post, int $likesCount): void
     {
-        $this->user = auth()->user();
         $this->post = $post;
         $this->likesCount = $likesCount;
     }
 
     final public function store(): void
     {
-        if ($this->user->id === $this->post->user_id) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Like Your Own Post!']);
+        if (auth()->user()->id === $this->post->user_id) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('You Cannot Like Your Own Post!')]);
 
             return;
         }
 
-        $exist = Like::where('user_id', '=', $this->user->id)->where('post_id', '=', $this->post->id)->first();
+        $exist = Like::where('user_id', '=', auth()->user()->id)->where('post_id', '=', $this->post->id)->first();
         if ($exist) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Liked Or Disliked This Post!']);
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => __('You Have Already Liked Or Disliked This Post!')]);
 
             return;
         }
 
         $new = new Like();
-        $new->user_id = $this->user->id;
+        $new->user_id = auth()->user()->id;
         $new->post_id = $this->post->id;
         $new->like = 1;
         $new->save();
 
         $this->likesCount += 1;
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Like Was Successfully Applied!']);
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => __('Your Like Was Successfully Applied!')]);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

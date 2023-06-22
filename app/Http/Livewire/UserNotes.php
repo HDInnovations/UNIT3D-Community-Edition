@@ -40,13 +40,6 @@ class UserNotes extends Component
             ->paginate($this->perPage);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('livewire.user-notes', [
-            'notes' => $this->notes,
-        ]);
-    }
-
     final public function store(): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
@@ -69,5 +62,12 @@ class UserNotes extends Component
         Note::findOrFail($id)->delete();
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('livewire.user-notes', [
+            'notes' => $this->notes,
+        ]);
     }
 }

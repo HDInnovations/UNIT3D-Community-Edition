@@ -23,11 +23,17 @@ class TopicSearch extends Component
     use WithPagination;
 
     public String $search = '';
+
     public String $sortField = 'last_reply_at';
+
     public String $sortDirection = 'desc';
+
     public String $label = '';
+
     public String $state = '';
+
     public String $subscribed = '';
+
     public String $forumId = '';
 
     final public function updatingSearch(): void

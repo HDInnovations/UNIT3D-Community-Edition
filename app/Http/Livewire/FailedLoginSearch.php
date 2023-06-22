@@ -24,6 +24,7 @@ class FailedLoginSearch extends Component
     public string $username = '';
 
     public string $userId = '';
+
     public string $ipAddress = '';
 
     public int $perPage = 25;

@@ -23,11 +23,17 @@ class ForumCategoryTopicSearch extends Component
     use WithPagination;
 
     public String $search = '';
+
     public String $sortField = 'last_reply_at';
+
     public String $sortDirection = 'desc';
+
     public String $label = '';
+
     public String $state = '';
+
     public String $subscribed = '';
+
     public Forum $category;
 
     final public function mount(Forum $category): void

@@ -14,15 +14,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Graveyard;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserResurrections extends Component
 {
     use WithPagination;
-
-    public ?User $user = null;
 
     public int $perPage = 25;
 
@@ -41,11 +38,6 @@ class UserResurrections extends Component
         'sortField'     => ['except' => 'created_at'],
         'sortDirection' => ['except' => 'desc'],
     ];
-
-    final public function mount($userId): void
-    {
-        $this->user = User::find($userId);
-    }
 
     final public function updatedPage(): void
     {
@@ -69,7 +61,7 @@ class UserResurrections extends Component
             ])
             ->with(['torrent', 'user'])
             ->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id')
-            ->where('graveyard.user_id', '=', $this->user->id)
+            ->where('graveyard.user_id', '=', auth()->user()->id)
             ->when($this->rewarded === 'include', fn ($query) => $query->where('rewarded', '=', 1))
             ->when($this->rewarded === 'exclude', fn ($query) => $query->where('rewarded', '=', 0))
             ->when($this->name, fn ($query) => $query->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%'))
@@ -81,13 +73,6 @@ class UserResurrections extends Component
             ->paginate($this->perPage);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('livewire.user-resurrections', [
-            'resurrections' => $this->resurrections,
-        ]);
-    }
-
     final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
@@ -97,5 +82,12 @@ class UserResurrections extends Component
         }
 
         $this->sortField = $field;
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('livewire.user-resurrections', [
+            'resurrections' => $this->resurrections,
+        ]);
     }
 }

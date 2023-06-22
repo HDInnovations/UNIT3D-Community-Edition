@@ -14,16 +14,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\History;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserTorrents extends Component
 {
     use WithPagination;
-
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
+    
     public int $perPage = 25;
 
     public string $name = '';
@@ -69,11 +66,6 @@ class UserTorrents extends Component
         'showMorePrecision' => ['except' => false],
     ];
 
-    final public function mount($userId): void
-    {
-        $this->user = User::find($userId);
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -91,7 +83,7 @@ class UserTorrents extends Component
                 'torrents',
                 fn ($join) => $join
                     ->on('history.torrent_id', '=', 'torrents.id')
-                    ->where('history.user_id', '=', $this->user->id)
+                    ->where('history.user_id', '=', auth()->user()->id)
             )
             ->select(
                 'history.torrent_id',
@@ -116,7 +108,7 @@ class UserTorrents extends Component
                 'torrents.user_id',
                 'torrents.status',
             )
-            ->selectRaw('IF(torrents.user_id = ?, 1, 0) AS uploader', [$this->user->id])
+            ->selectRaw('IF(torrents.user_id = ?, 1, 0) AS uploader', [auth()->user()->id])
             ->selectRaw('history.active AND history.seeder AS seeding')
             ->selectRaw('history.active AND NOT history.seeder AS leeching')
             ->selectRaw('TIMESTAMPDIFF(SECOND, history.created_at, history.completed_at) AS leechtime')
@@ -154,20 +146,13 @@ class UserTorrents extends Component
             ->when($this->hitrun === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('hitrun', '=', 0)->orWhereNull('hitrun')))
             ->when($this->immune === 'include', fn ($query) => $query->where('immune', '=', 1))
             ->when($this->immune === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('immune', '=', 0)->orWhereNull('immune')))
-            ->when($this->uploaded === 'include', fn ($query) => $query->where('torrents.user_id', '=', $this->user->id))
-            ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
+            ->when($this->uploaded === 'include', fn ($query) => $query->where('torrents.user_id', '=', auth()->user()->id))
+            ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', auth()->user()->id))
             ->when($this->downloaded === 'include', fn ($query) => $query->where('history.actual_downloaded', '>', 0))
             ->when($this->downloaded === 'exclude', fn ($query) => $query->where('history.actual_downloaded', '=', 0))
             ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('livewire.user-torrents', [
-            'histories' => $this->history,
-        ]);
     }
 
     final public function sortBy($field): void
@@ -179,5 +164,12 @@ class UserTorrents extends Component
         }
 
         $this->sortField = $field;
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('livewire.user-torrents', [
+            'histories' => $this->history,
+        ]);
     }
 }

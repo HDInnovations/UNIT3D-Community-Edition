@@ -22,8 +22,6 @@ class AttachmentUpload extends Component
 {
     use WithFileUploads;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
-
     public ?int $ticket = null;
 
     public $attachment;
@@ -32,7 +30,6 @@ class AttachmentUpload extends Component
 
     final public function mount(int $id): void
     {
-        $this->user = auth()->user();
         $this->ticket = $id;
     }
 
@@ -47,7 +44,7 @@ class AttachmentUpload extends Component
         $this->attachment->storeAs('attachments', $fileName, 'attachments');
 
         $attachment = new TicketAttachment();
-        $attachment->user_id = $this->user->id;
+        $attachment->user_id = auth()->user()->id;
         $attachment->ticket_id = $this->ticket;
         $attachment->file_name = $fileName;
         $attachment->file_size = $this->attachment->getSize();
