@@ -32,7 +32,7 @@ class TorrentZipController extends Controller
         set_time_limit(1200);
 
         // Authorized User
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         // Define Dir For Zip
         $zipPath = getcwd().'/files/tmp_zip/';

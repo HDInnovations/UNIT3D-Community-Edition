@@ -26,7 +26,7 @@ class GeneralSettingController extends Controller
      */
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $request->validate([
             'censor'         => 'required|boolean',
@@ -61,7 +61,7 @@ class GeneralSettingController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.general_setting.edit', ['user' => $user]);
     }

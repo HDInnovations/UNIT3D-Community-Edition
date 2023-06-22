@@ -110,11 +110,11 @@ class UserController extends Controller
     /**
      * Delete A User.
      */
-    protected function destroy(string $username): \Illuminate\Http\RedirectResponse
+    protected function destroy(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
             'can_upload'   => false,

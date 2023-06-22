@@ -26,7 +26,7 @@ class PeerController extends Controller
      */
     public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->is($user), 403);
 
         return view('user.peer.index', [
             'user'    => $user,
@@ -46,7 +46,7 @@ class PeerController extends Controller
      */
     public function massDestroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         // Check if User can flush
         if ($request->user()->own_flushes == 0) {

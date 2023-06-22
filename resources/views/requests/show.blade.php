@@ -41,8 +41,8 @@
                     @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.unclaim')
                     @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.fulfill')
                     @include('requests.partials.report')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.edit')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.delete')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
                     @break
                 {{-- Pending --}}
                 @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
@@ -56,8 +56,8 @@
                     @include('requests.partials.claim')
                     @include('requests.partials.fulfill')
                     @include('requests.partials.report')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.edit')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.delete')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
                     @break
                 {{-- Filled --}}
                 @default

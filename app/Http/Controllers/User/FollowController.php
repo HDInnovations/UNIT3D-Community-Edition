@@ -40,7 +40,7 @@ class FollowController extends Controller
      */
     public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        if ($request->user()->id === $user->id) {
+        if ($request->user()->is($user)) {
             return to_route('users.show', ['username' => $user->username])
                 ->withErrors(trans('user.follow-yourself'));
         }

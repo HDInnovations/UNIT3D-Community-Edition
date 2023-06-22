@@ -25,7 +25,7 @@
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('user.user') }} {{ __('user.information') }}</h2>
                 <div class="panel__actions">
-                    @if (auth()->user()->id === $user->id)
+                    @if (auth()->user()->is($user))
                         <div class="panel__action">
                             <a
                                 href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}"
@@ -215,7 +215,7 @@
                 </div>
             </section>
         @endif
-        @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+        @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.client-list') }}</h2>
                 <div class="data-table-wrapper">
@@ -500,7 +500,7 @@
                 </dl>
             </section>
         @endif
-        @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+        @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
                 <h2 class="panel__heading">
                     {{ __('user.id-permissions') }}

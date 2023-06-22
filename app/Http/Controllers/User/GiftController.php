@@ -35,7 +35,7 @@ class GiftController extends Controller
      */
     public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.gift.index', [
             'user'  => $user,
@@ -56,7 +56,7 @@ class GiftController extends Controller
      */
     public function create(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.gift.create', [
             'user' => $user,

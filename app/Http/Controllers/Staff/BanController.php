@@ -51,7 +51,7 @@ class BanController extends Controller
         $staff = $request->user();
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        abort_if($user->group->is_modo || $staff->id === $user->id, 403);
+        abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
             'group_id'     => $bannedGroup[0],
@@ -87,7 +87,7 @@ class BanController extends Controller
         $user = User::where('username', '=', $username)->sole();
         $staff = $request->user();
 
-        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
             'group_id'     => $request->group_id,

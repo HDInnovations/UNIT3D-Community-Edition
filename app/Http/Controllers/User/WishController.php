@@ -39,7 +39,7 @@ class WishController extends Controller
     {
         $user = User::with('wishes')->where('username', '=', $username)->sole();
 
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        abort_unless(($request->user()->group->is_modo || $request->user()->is($user)), 403);
 
         return view('user.wish.index', [
             'user'   => $user,

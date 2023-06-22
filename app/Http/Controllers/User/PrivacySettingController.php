@@ -28,7 +28,7 @@ class PrivacySettingController extends Controller
      */
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $privacy = $user->privacy;
 
@@ -146,7 +146,7 @@ class PrivacySettingController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.privacy_setting.edit', [
             'user'   => $user,

@@ -44,7 +44,7 @@ class TransactionController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.transaction.create', [
             'user'     => $user,
@@ -61,7 +61,7 @@ class TransactionController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $request = (object) $request->validated();
         $item = BonExchange::findOrFail($request->exchange);

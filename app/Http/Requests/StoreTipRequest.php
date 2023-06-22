@@ -45,7 +45,7 @@ class StoreTipRequest extends FormRequest
                 'required_without:post',
                 'exists:torrents,id',
                 function ($attribute, $value, $fail) use ($user): void {
-                    if (Torrent::find($value)->user->id === $user->id) {
+                    if (Torrent::find($value)->user->is($user)) {
                         $fail(trans('bon.failed-yourself'));
                     }
                 },
@@ -56,7 +56,7 @@ class StoreTipRequest extends FormRequest
                 'required_without:torrent',
                 'exists:posts,id',
                 function ($attribute, $value, $fail) use ($user): void {
-                    if (Post::find($value)->user->id === $user->id) {
+                    if (Post::find($value)->user->is($user)) {
                         $fail(trans('bon.failed-yourself'));
                     }
                 },

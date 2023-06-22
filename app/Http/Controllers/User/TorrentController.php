@@ -25,7 +25,7 @@ class TorrentController extends Controller
      */
     public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->is($user), 403);
 
         return view('user.torrent.index', [
             'user'    => $user,

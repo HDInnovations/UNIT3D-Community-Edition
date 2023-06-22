@@ -39,7 +39,7 @@ class EarningController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         $userbon = $user->getSeedbonus();
 

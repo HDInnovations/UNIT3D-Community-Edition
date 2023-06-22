@@ -1,6 +1,6 @@
 @php
     $isModo = auth()->user()->group->is_modo;
-    $isProfileOwner = auth()->user()->id === $user->id
+    $isProfileOwner = auth()->user()->is($user)
 @endphp
 
 <li class="nav-tab-menu">

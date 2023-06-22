@@ -35,7 +35,7 @@ class TipController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.tip.index', [
             'user'            => $user,
@@ -68,7 +68,7 @@ class TipController extends Controller
     {
         $sender = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id === $sender->id, 403);
+        abort_unless($request->user()->is($sender), 403);
 
         $request = $request->safe()->collect();
         $tipable = match (true) {

@@ -111,7 +111,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.profile.edit', [
             'user' => $user,
@@ -125,7 +125,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->sole();
 
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         // Avatar
         $maxUpload = config('image.max_upload_size');

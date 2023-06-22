@@ -15,7 +15,7 @@
 ])
 
 @if ($anon)
-    @if (auth()->user()->id === $user->id || auth()->user()->group->is_modo)
+    @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
         <span
             {{ $attributes->class('user-tag fas fa-eye-slash') }}
             {{ $attributes->merge(['style' => 'background-image: '.$user->group->effect.';'.$style]) }}
