@@ -276,16 +276,16 @@
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-            href="{{ route('earnings.index', ['username' => $user->username]) }}"
+            class="{{ Route::is('users.earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            href="{{ route('users.earnings.index', ['user' => $user]) }}"
         >
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
         <ul class="nav-tab-menu__items">
-            <li class="{{ Route::is('earnings.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.earnings.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('earnings.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('earnings.index', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.earnings.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.earnings.index', ['user' => $user]) }}"
                 >
                     {{ __('bon.earnings') }}
                 </a>

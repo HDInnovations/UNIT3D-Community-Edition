@@ -663,7 +663,7 @@
                 </header>
                 <dl class="key-value">
                     <dt>
-                        <a href="{{ route('earnings.index', ['username' => $user->username]) }}">
+                        <a href="{{ route('users.earnings.index', ['user' => $user]) }}">
                             {{ __('bon.bon') }}
                         </a>
                     </dt>

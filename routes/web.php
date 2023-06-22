@@ -393,6 +393,11 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
         });
 
+        // Earnings
+        Route::prefix('earnings')->name('earnings.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
+        });
+
         // History
         Route::prefix('torrents')->name('history.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\HistoryController::class, 'index'])->name('index');
@@ -527,11 +532,6 @@ Route::middleware('language')->group(function (): void {
     });
 
     Route::middleware('auth', 'twostep', 'banned')->group(function (): void {
-        // Earnings
-        Route::prefix('users/{username}/earnings')->name('earnings.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
-        });
-
         // Notifications
         Route::prefix('notifications')->name('notifications.')->group(function (): void {
             Route::get('/filter', [App\Http\Controllers\User\NotificationController::class, 'faceted']);
