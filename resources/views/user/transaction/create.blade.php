@@ -25,45 +25,47 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.exchange') }}</h2>
-        <table class="table table-condensed table-striped">
-            <thead>
-            <tr>
-                <th>{{ __('bon.item') }}</th>
-                <th>{{ __('bon.points') }}</th>
-                <th>{{ __('bon.exchange') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-                @foreach ($items as $item)
-                    <tr>
-                        <td>{{ $item->description }}</td>
-                        <td>{{ $item->cost }}</td>
-                        <td>
-                            @if ($item->personal_freeleech && $activefl)
-                                <button disabled class="form__button form__button--filled">
-                                    {{ __('bon.activated') }}!
-                                </button>
-                            @else
-                                <form method="POST" action="{{ route('transactions.store', ['username' => $user->username]) }}">
-                                    @csrf
-                                    <button class="form__button form__button--filled">
-                                        {{ __('bon.exchange') }}
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>{{ __('bon.item') }}</th>
+                    <th>Cost</th>
+                    <th>{{ __('bon.exchange') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach ($items as $item)
+                        <tr>
+                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->cost }}</td>
+                            <td>
+                                @if ($item->personal_freeleech && $activefl)
+                                    <button disabled class="form__button form__button--filled">
+                                        {{ __('bon.activated') }}!
                                     </button>
-                                    <input type="hidden" name="exchange" value="{{ $item->id }}">
-                                </form>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                                @else
+                                    <form method="POST" action="{{ route('users.transactions.store', ['user' => $user]) }}">
+                                        @csrf
+                                        <button class="form__button form__button--filled">
+                                            {{ __('bon.exchange') }}
+                                        </button>
+                                        <input type="hidden" name="exchange" value="{{ $item->id }}">
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </section>
 @endsection
 
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.your-points') }}</h2>
-        <div class="panel__body">{{ $userbon }}</div>
+        <div class="panel__body">{{ $bon }}</div>
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.no-refund') }}</h2>

@@ -28,4 +28,6 @@ class PersonalFreeleech extends Model
      * @var string
      */
     protected $table = 'personal_freeleech';
+
+    protected $guarded = [];
 }

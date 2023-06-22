@@ -518,6 +518,12 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('uploads')->name('torrents.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\TorrentController::class, 'index'])->name('index');
         });
+
+        // Transactions
+        Route::prefix('transactions')->name('transactions.')->group(function (): void {
+            Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
+        });
     });
 
     Route::middleware('auth', 'twostep', 'banned')->group(function (): void {
@@ -569,12 +575,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
             Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
             Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
-        });
-
-        // Transactions
-        Route::prefix('users/{username}/transactions')->name('transactions.')->group(function (): void {
-            Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
-            Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
         });
 
         // Warnings

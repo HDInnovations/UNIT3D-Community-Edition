@@ -20,7 +20,6 @@ use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\User;
-use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -33,22 +32,20 @@ class TransactionController extends Controller
     /**
      * BonusController Constructor.
      */
-    public function __construct(protected \App\Interfaces\ByteUnitsInterface $byteUnits, private readonly ChatRepository $chatRepository)
+    public function __construct(protected \App\Interfaces\ByteUnitsInterface $byteUnits)
     {
     }
 
     /**
      * Show Bonus Store System.
      */
-    public function create(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
         abort_unless($request->user()->is($user), 403);
 
         return view('user.transaction.create', [
             'user'     => $user,
-            'userbon'  => $user->getSeedbonus(),
+            'bon'      => $user->getSeedbonus(),
             'activefl' => $user->personalFreeleeches()->exists(),
             'items'    => BonExchange::all(),
         ]);
@@ -57,10 +54,8 @@ class TransactionController extends Controller
     /**
      * Exchange Points For A Item.
      */
-    public function store(StoreTransactionRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(StoreTransactionRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
-
         abort_unless($request->user()->is($user), 403);
 
         $request = (object) $request->validated();
@@ -76,20 +71,19 @@ class TransactionController extends Controller
 
                 break;
             case $item->personal_freeleech:
-                $personalFreeleech = new PersonalFreeleech();
-                $personalFreeleech->user_id = $user->id;
-                $personalFreeleech->save();
+                PersonalFreeleech::create(['user_id' => $user->id]);
+
                 cache()->put('personal_freeleech:'.$user->id, true);
+
                 Unit3dAnnounce::addPersonalFreeleech($user->id);
 
-                // Send Private Message
-                $privateMessage = new PrivateMessage();
-                $privateMessage->sender_id = 1;
-                $privateMessage->receiver_id = $user->id;
-                $privateMessage->subject = trans('bon.pm-subject');
-                $privateMessage->message = sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
-                [color=red][b]'.trans('common.system-message').'[/b][/color]';
-                $privateMessage->save();
+                PrivateMessage::create([
+                    'sender_id'   => 1,
+                    'receiver_id' => $user->id,
+                    'subject'     => trans('bon.pm-subject'),
+                    'message'     => sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                    [color=red][b]'.trans('common.system-message').'[/b][/color]',
+                ]);
 
                 break;
             case $item->invite:
@@ -98,18 +92,18 @@ class TransactionController extends Controller
                 break;
         }
 
-        $bonTransaction = new BonTransactions();
-        $bonTransaction->itemID = $item->id;
-        $bonTransaction->name = $item->description;
-        $bonTransaction->cost = $item->value;
-        $bonTransaction->sender = $user->id;
-        $bonTransaction->comment = $item->description;
-        $bonTransaction->torrent_id = null;
-        $bonTransaction->save();
+        BonTransactions::create([
+            'itemID'     => $item->id,
+            'name'       => $item->description,
+            'cost'       => $item->value,
+            'sender'     => $user->id,
+            'comment'    => $item->description,
+            'torrent_id' => null,
+        ]);
 
         $user->decrement('seedbonus', $item->cost);
 
-        return to_route('transactions.create', ['username' => $username])
+        return to_route('users.transactions.create', ['user' => $user])
             ->withSuccess(trans('bon.success'));
     }
 }
