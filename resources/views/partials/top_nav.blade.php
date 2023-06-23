@@ -339,7 +339,7 @@
                 </a>
             </li>
             <li>
-                <a class="top-nav--right__icon-link" href="{{ route('notifications.index') }}" title="{{ __('user.notifications') }}">
+                <a class="top-nav--right__icon-link" href="{{ route('users.notifications.index', ['user' => auth()->user()]) }}" title="{{ __('user.notifications') }}">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                     @if (auth()->user()->unreadNotifications()->exists())
                         <x-animation.notification />

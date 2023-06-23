@@ -437,6 +437,16 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
 
+        // Notifications
+        Route::prefix('notifications')->name('notifications.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
+            Route::patch('/mass-update', [App\Http\Controllers\User\NotificationController::class, 'massUpdate'])->name('mass_update');
+            Route::patch('/{notification}', [App\Http\Controllers\User\NotificationController::class, 'update'])->name('update');
+            Route::delete('/mass-destroy', [App\Http\Controllers\User\NotificationController::class, 'massDestroy'])->name('mass_destroy');
+            Route::delete('/{notification}', [App\Http\Controllers\User\NotificationController::class, 'destroy'])->name('destroy');
+            Route::get('/{notification}', [App\Http\Controllers\User\NotificationController::class, 'show'])->name('show');
+        });
+
         // Privacy settings
         Route::prefix('privacy-settings')->name('privacy_settings.')->group(function (): void {
             Route::get('/edit', [App\Http\Controllers\User\PrivacySettingController::class, 'edit'])->name('edit');
@@ -546,17 +556,6 @@ Route::middleware('language')->group(function (): void {
     });
 
     Route::middleware('auth', 'twostep', 'banned')->group(function (): void {
-        // Notifications
-        Route::prefix('notifications')->name('notifications.')->group(function (): void {
-            Route::get('/filter', [App\Http\Controllers\User\NotificationController::class, 'faceted']);
-            Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
-            Route::post('/{id}/update', [App\Http\Controllers\User\NotificationController::class, 'update'])->name('update');
-            Route::post('/updateall', [App\Http\Controllers\User\NotificationController::class, 'updateAll'])->name('updateall');
-            Route::delete('/{id}/destroy', [App\Http\Controllers\User\NotificationController::class, 'destroy'])->name('destroy');
-            Route::delete('/destroyall', [App\Http\Controllers\User\NotificationController::class, 'destroyAll'])->name('destroyall');
-            Route::get('/{id}', [App\Http\Controllers\User\NotificationController::class, 'show'])->name('show');
-        });
-
         // Private Messages
         Route::prefix('mail')->group(function (): void {
             Route::get('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
