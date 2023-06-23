@@ -547,6 +547,13 @@ Route::middleware('language')->group(function (): void {
             Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
         });
 
+        // Warnings
+        Route::prefix('warnings')->name('warnings.')->group(function (): void {
+            Route::delete('/{warning}', [App\Http\Controllers\User\WarningController::class, 'destroy'])->name('destroy');
+            Route::delete('/mass-delete', [App\Http\Controllers\User\WarningController::class, 'massDestroy'])->name('mass_destroy');
+            Route::patch('/{warning}', [App\Http\Controllers\User\WarningController::class, 'update'])->name('update')->withTrashed();
+        });
+
         // Wishlist
         Route::prefix('wishes')->name('wishes.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
@@ -581,16 +588,6 @@ Route::middleware('language')->group(function (): void {
         // Rules
         Route::prefix('users')->group(function (): void {
             Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
-        });
-
-        // Warnings
-        Route::prefix('warnings')->group(function (): void {
-            Route::post('/{id}/deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivate'])->name('deactivateWarning');
-            Route::post('/{username}/mass-deactivate', [App\Http\Controllers\User\WarningController::class, 'deactivateAllWarnings'])->name('massDeactivateWarnings');
-            Route::delete('/{id}', [App\Http\Controllers\User\WarningController::class, 'deleteWarning'])->name('deleteWarning');
-            Route::delete('/{username}/mass-delete', [App\Http\Controllers\User\WarningController::class, 'deleteAllWarnings'])->name('massDeleteWarnings');
-            Route::post('/{id}/restore', [App\Http\Controllers\User\WarningController::class, 'restoreWarning'])->name('restoreWarning');
-            Route::get('/{username}', [App\Http\Controllers\User\WarningController::class, 'show'])->name('warnings.show');
         });
     });
 

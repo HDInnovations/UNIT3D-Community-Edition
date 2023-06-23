@@ -39,7 +39,7 @@
             </div>
             <form
                 class="panel__action"
-                action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}"
+                action="{{ route('users.warnings.mass_destroy', ['user' => $user]) }}"
                 method="POST"
                 x-data
             >
@@ -140,7 +140,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('deleteWarning', ['id' => $warning->id]) }}"
+                                        action="{{ route('users.warnings.destroy', ['user' => $user, 'warning' => $warning]) }}"
                                         method="POST"
                                         x-data
                                     >
@@ -290,11 +290,12 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('restoreWarning', ['id' => $warning->id]) }}"
+                                        action="{{ route('users.warnings.update', ['user' => $user, 'warning' => $warning]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
+                                        @method('PATCH')
                                         <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
