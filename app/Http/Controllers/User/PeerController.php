@@ -49,7 +49,7 @@ class PeerController extends Controller
         abort_unless($request->user()->is($user), 403);
 
         // Check if User can flush
-        if ($request->user()->own_flushes == 0) {
+        if ($request->user()->own_flushes <= 0) {
             return redirect()->back()->withErrors('You can only flush twice a day!');
         }
 
@@ -68,7 +68,7 @@ class PeerController extends Controller
                 'updated_at' => DB::raw('updated_at'),
             ]);
 
-        $user->own_flushes--;
+        $user->decrement('own_flushes');
 
         return redirect()->back()->withSuccess('All peers last announced from the client over 70 minutes ago have been flushed successfully!');
     }
