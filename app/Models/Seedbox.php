@@ -38,6 +38,8 @@ class Seedbox extends Model
         'ip',
     ];
 
+    protected $guarded = [];
+
     /**
      * Belongs To A User.
      */

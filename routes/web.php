@@ -465,6 +465,13 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\ResurrectionController::class, 'index'])->name('index');
         });
 
+        // Seedboxes
+        Route::prefix('seedboxes')->name('seedboxes.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('store');
+            Route::delete('/{seedbox}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('destroy');
+        });
+
         // Email
         Route::prefix('email')->name('email.')->group(function (): void {
             Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit');
@@ -568,13 +575,6 @@ Route::middleware('language')->group(function (): void {
         // Rules
         Route::prefix('users')->group(function (): void {
             Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
-        });
-
-        // Seedboxes
-        Route::prefix('users')->group(function (): void {
-            Route::get('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('seedboxes.index');
-            Route::post('/{username}/seedboxes', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('seedboxes.store');
-            Route::delete('/seedboxes/{id}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('seedboxes.destroy');
         });
 
         // Warnings

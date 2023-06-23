@@ -321,7 +321,7 @@
 @endif
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('wishes.*', 'seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('common.other') }}
         </span>
         <ul class="nav-tab-menu__items">
@@ -334,10 +334,10 @@
                         {{ __('user.wishlist') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('seedboxes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('seedboxes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('seedboxes.index', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.seedboxes.index', ['user' => $user]) }}"
                     >
                         {{ __('user.seedboxes') }}
                     </a>
