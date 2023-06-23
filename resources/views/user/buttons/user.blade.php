@@ -321,15 +321,15 @@
 @endif
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('common.other') }}
         </span>
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li class="{{ Route::is('wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('wishes.index', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.wishes.index', ['user' => $user]) }}"
                     >
                         {{ __('user.wishlist') }}
                     </a>

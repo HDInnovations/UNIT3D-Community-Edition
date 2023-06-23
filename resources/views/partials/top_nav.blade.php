@@ -417,7 +417,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('wishes.index', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.wishes.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
                             {{ __('user.my-wishlist') }}
                         </a>

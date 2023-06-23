@@ -16,13 +16,11 @@ namespace App\Providers;
 use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
-use App\Interfaces\WishInterface;
 use App\Models\Page;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Observers\TorrentObserver;
 use App\Observers\UserObserver;
-use App\Repositories\WishRepository;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
@@ -38,9 +36,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Wish System
-        $this->app->bind(WishInterface::class, WishRepository::class);
-
         // Hidden Captcha
         $this->app->bind('hiddencaptcha', HiddenCaptcha::class);
 

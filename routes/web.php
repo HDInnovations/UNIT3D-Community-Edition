@@ -536,6 +536,13 @@ Route::middleware('language')->group(function (): void {
             Route::get('/create', [App\Http\Controllers\User\TransactionController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
         });
+
+        // Wishlist
+        Route::prefix('wishes')->name('wishes.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
+            Route::delete('/{wish}', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
+        });
     });
 
     Route::middleware('auth', 'twostep', 'banned')->group(function (): void {
@@ -585,13 +592,6 @@ Route::middleware('language')->group(function (): void {
             Route::delete('/{username}/mass-delete', [App\Http\Controllers\User\WarningController::class, 'deleteAllWarnings'])->name('massDeleteWarnings');
             Route::post('/{id}/restore', [App\Http\Controllers\User\WarningController::class, 'restoreWarning'])->name('restoreWarning');
             Route::get('/{username}', [App\Http\Controllers\User\WarningController::class, 'show'])->name('warnings.show');
-        });
-
-        // Wishlist
-        Route::prefix('wishes')->name('wishes.')->group(function (): void {
-            Route::get('/{username}', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
-            Route::post('/store', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
-            Route::delete('/{id}/destroy', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
         });
     });
 

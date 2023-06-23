@@ -26,7 +26,7 @@
             <div class="panel__actions">
                 <form
                     class="form form--horizontal panel__action"
-                    action="{{ route('wishes.store') }}"
+                    action="{{ route('users.wishes.store', ['user' => $user]) }}"
                     method="POST"
                 >
                     @csrf
@@ -84,7 +84,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
+                                            action="{{ route('users.wishes.destroy', ['user' => $user, 'wish' => $wish]) }}"
                                             method="POST"
                                             x-data
                                         >
