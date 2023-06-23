@@ -32,8 +32,9 @@ class ApikeyController extends Controller
 
         abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level < $user->group->level, 403);
 
-        $user->api_token = Str::random(100);
-        $user->save();
+        $user->update([
+            'api_token' => Str::random(100),
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([

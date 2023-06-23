@@ -35,8 +35,9 @@ class TwoStepController extends Controller
             'twostep' => 'required|boolean',
         ]);
 
-        $user->twostep = $request->twostep;
-        $user->save();
+        $user->update([
+            'twostep' => $request->twostep,
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([

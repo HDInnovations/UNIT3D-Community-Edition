@@ -41,16 +41,17 @@ class GeneralSettingController extends Controller
         ]);
 
         // General Settings
-        $user->censor = $request->censor;
-        $user->chat_hidden = $request->chat_hidden;
-        $user->locale = $request->input('locale');
-        $user->style = $request->style;
-        $user->custom_css = $request->custom_css;
-        $user->standalone_css = $request->standalone_css;
-        $user->torrent_layout = $request->torrent_layout;
-        $user->show_poster = $request->show_poster;
-        $user->ratings = $request->ratings;
-        $user->save();
+        $user->update([
+            'censor'         => $request->censor,
+            'chat_hidden'    => $request->chat_hidden,
+            'locale'         => $request->input('locale'),
+            'style'          => $request->style,
+            'custom_css'     => $request->custom_css,
+            'standalone_css' => $request->standalone_css,
+            'torrent_layout' => $request->torrent_layout,
+            'show_poster'    => $request->show_poster,
+            'ratings'        => $request->ratings,
+        ]);
 
         return to_route('users.general_settings.edit', ['user' => $user])
             ->withSuccess('Your general settings have been successfully saved.');

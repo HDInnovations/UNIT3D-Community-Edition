@@ -32,8 +32,9 @@ class PasskeyController extends Controller
 
         abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level < $user->group->level, 403);
 
-        $user->passkey = md5(random_bytes(60).$user->password);
-        $user->save();
+        $user->update([
+            'passkey' => md5(random_bytes(60).$user->password)
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([

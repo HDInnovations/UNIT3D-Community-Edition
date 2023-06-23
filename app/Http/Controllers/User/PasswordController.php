@@ -46,8 +46,9 @@ class PasswordController extends Controller
             ],
         ]);
 
-        $user->password = Hash::make($request->new_password);
-        $user->save();
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([

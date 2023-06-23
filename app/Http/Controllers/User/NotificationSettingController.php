@@ -119,8 +119,9 @@ class NotificationSettingController extends Controller
         $notification->json_mention_groups = array_map('intval', $request->json_mention_groups ?? []);
         $notification->save();
 
-        $user->block_notifications = $request->block_notifications;
-        $user->save();
+        $user->update([
+            'block_notifications' => $request->block_notifications,
+        ]);
 
         return to_route('users.notification_settings.edit', ['user' => $user])
             ->withSuccess('Your notification settings have been successfully saved.');
