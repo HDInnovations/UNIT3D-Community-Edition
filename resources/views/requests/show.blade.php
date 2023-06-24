@@ -38,8 +38,8 @@
             @switch(true)
                 {{-- Claimed --}}
                 @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
-                    @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.unclaim')
-                    @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.fulfill')
+                    @includeWhen($user->group->is_modo || $torrentRequestClaim->user->is($user), 'requests.partials.unclaim')
+                    @includeWhen($user->group->is_modo || $torrentRequestClaim->user->is($user), 'requests.partials.fulfill')
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
@@ -133,11 +133,11 @@
                     <dd>
                         @if ($torrentRequestClaim->anon)
                             {{ strtoupper(__('common.anonymous')) }}
-                            @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                            @if ($user->group->is_modo || $torrentRequestClaim->user->is($user))
                                 ({{ $torrentRequestClaim->username }})
                             @endif
                         @else
-                            <a href="{{ route('users.show', ['username' => $torrentRequestClaim->username]) }}">
+                            <a href="{{ route('users.show', ['user' => $torrentRequestClaim->user]) }}">
                                 {{ $torrentRequestClaim->username }}
                             </a>
                         @endif

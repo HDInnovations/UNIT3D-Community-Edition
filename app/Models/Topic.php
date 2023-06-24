@@ -98,6 +98,14 @@ class Topic extends Model
     }
 
     /**
+     * Latest poster.
+     */
+    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_post_user_id');
+    }
+
+    /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      */
     public function notifySubscribers($poster, $topic, $post): void

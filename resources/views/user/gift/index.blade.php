@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -51,12 +51,12 @@
             @foreach($gifts as $gift)
                 <tr>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $gift->senderObj->username]) }}">
+                        <a href="{{ route('users.show', ['user' => $gift->senderObj]) }}">
                             <span class="badge-user text-bold">{{ $gift->senderObj->username }}</span>
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $gift->receiverObj->username]) }}">
+                        <a href="{{ route('users.show', ['user' => $gift->receiverObj]) }}">
                             <span class="badge-user text-bold">{{ $gift->receiverObj->username }}</span>
                         </a>
                     </td>

@@ -388,6 +388,11 @@ Route::middleware('language')->group(function (): void {
     |-------------------------------------------------------------------------------
     */
     Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'twostep', 'banned'])->scopeBindings()->group(function (): void {
+        Route::get('/', [App\Http\Controllers\User\UserController::class, 'show'])->name('show')->withTrashed();
+        Route::get('/edit', [App\Http\Controllers\User\UserController::class, 'edit'])->name('edit');
+        Route::patch('/', [App\Http\Controllers\User\UserController::class, 'update'])->name('update');
+        Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
+
         // Achievements
         Route::prefix('achievements')->name('achievements.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
@@ -576,18 +581,6 @@ Route::middleware('language')->group(function (): void {
             Route::post('/send', [App\Http\Controllers\User\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
             Route::post('/{id}/reply', [App\Http\Controllers\User\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
             Route::post('/{id}/destroy', [App\Http\Controllers\User\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
-        });
-
-        // Profile
-        Route::prefix('users')->group(function (): void {
-            Route::get('/{username}', [App\Http\Controllers\User\UserController::class, 'show'])->name('users.show');
-            Route::get('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfileForm'])->name('user_edit_profile_form');
-            Route::post('/{username}/edit', [App\Http\Controllers\User\UserController::class, 'editProfile'])->name('user_edit_profile');
-        });
-
-        // Rules
-        Route::prefix('users')->group(function (): void {
-            Route::post('/accept-rules', [App\Http\Controllers\User\UserController::class, 'acceptRules'])->name('accept.rules');
         });
     });
 

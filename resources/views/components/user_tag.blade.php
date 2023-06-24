@@ -23,7 +23,7 @@
             (
             <a
                 class="user-tag__link user-tag__link--anonymous {{ $user->group->icon }}"
-                href="{{ route('users.show', ['username' => $user->username]) }}"
+                href="{{ route('users.show', ['user' => $user]) }}"
                 style="color: {{ $user->group->color }}"
                 title="{{ $user->group->name }}"
             >
@@ -46,7 +46,7 @@
     >
         <a
             class="user-tag__link {{ $user->group->icon }}"
-            href="{{ route('users.show', ['username' => $user->username]) }}"
+            href="{{ route('users.show', ['user' => $user]) }}"
             style="color: {{ $user->group->color }}"
             title="{{ $user->group->name }}"
         >

@@ -11,7 +11,7 @@
             <h2 class="footer__section-title">{{ __('common.account') }}</h2>
             <ul class="footer__section-list">
                 <li>
-                    <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">{{ __('user.my-profile') }}</a>
+                    <a href="{{ route('users.show', ['user' => auth()->user()]) }}">{{ __('user.my-profile') }}</a>
                 </li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display: contents;">

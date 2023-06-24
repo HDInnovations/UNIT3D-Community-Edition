@@ -75,7 +75,7 @@ class BanController extends Controller
 
         $user->notify(new UserBan($ban));
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('User Is Now Banned!');
     }
 
@@ -112,7 +112,7 @@ class BanController extends Controller
 
         $user->notify(new UserBanExpire());
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

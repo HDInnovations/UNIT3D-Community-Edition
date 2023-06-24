@@ -85,6 +85,14 @@ class Forum extends Model
     }
 
     /**
+     * Latest poster.
+     */
+    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_post_user_id');
+    }
+
+    /**
      * Has Many Subscriptions.
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany

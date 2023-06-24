@@ -57,7 +57,7 @@
         <dl class="key-value">
             <dt>{{ __('forum.author') }}</dt>
             <dd>
-                <a href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">
+                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
                     {{ $topic->first_post_user_username }}
                 </a>
             </dd>

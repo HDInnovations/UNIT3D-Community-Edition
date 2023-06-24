@@ -28,7 +28,7 @@
                     @if (auth()->user()->is($user))
                         <div class="panel__action">
                             <a
-                                href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}"
+                                href="{{ route('users.edit', ['user' => $user]) }}"
                                 class="form__button form__button--text"
                             >
                                 {{ __('common.edit') }}
@@ -200,7 +200,7 @@
                 </header>
                 <div class="panel__body">
                     @forelse ($followers as $follower)
-                        <a href="{{ route('users.show', ['username' => $follower->username]) }}">
+                        <a href="{{ route('users.show', ['user' => $follower]) }}">
                             <img
                                 class="user-search__avatar"
                                 alt="{{ $follower->username }}"

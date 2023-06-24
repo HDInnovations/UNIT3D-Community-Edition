@@ -47,7 +47,7 @@ class ForumTopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'forum:id,name')
+            ->with('user', 'user.group', 'latestPoster', 'forum:id,name')
             ->where('topics.forum_id', '=', $this->forum->id)
             ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

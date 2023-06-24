@@ -50,7 +50,7 @@ class WarningController extends Controller
 
         $warning->delete();
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Warning Was Successfully Deleted');
     }
 
@@ -76,7 +76,7 @@ class WarningController extends Controller
             'message'     => $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('All Warnings Were Successfully Deleted');
     }
 
@@ -89,7 +89,7 @@ class WarningController extends Controller
 
         $warning->restore();
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Warning Was Successfully Restored');
     }
 }

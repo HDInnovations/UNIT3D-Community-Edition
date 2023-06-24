@@ -30,8 +30,10 @@ class ForumController extends Controller
     {
         return view('forum.index', [
             'categories' => Forum::query()
-                ->with(['forums' => fn ($query) => $query
-                    ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
+                ->with([
+                    'forums' => fn ($query) => $query
+                        ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]]),
+                    'forums.latestPoster',
                 ])
                 ->where('parent_id', '=', 0)
                 ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])

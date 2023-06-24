@@ -74,6 +74,7 @@ class HomeController extends Controller
                 'user-groups',
                 $expiresAt,
                 fn () => Group::select([
+                    'id',
                     'name',
                     'color',
                     'effect',
@@ -404,7 +405,7 @@ class HomeController extends Controller
             'topics' => cache()->remember(
                 'latest_topics',
                 $expiresAt,
-                fn () => Topic::with('forum')->latest()->take(5)->get()
+                fn () => Topic::with('forum', 'user', 'latestPoster')->latest()->take(5)->get()
             ),
             'posts' => cache()->remember(
                 'latest_posts',

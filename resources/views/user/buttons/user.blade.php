@@ -5,8 +5,8 @@
 
 <li class="nav-tab-menu">
     <a
-        class="{{ Route::is('users.show', 'user_edit_profile_form') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('users.show', ['username' => $user->username]) }}"
+        class="{{ Route::is('users.show', 'users.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('users.show', ['user' => $user]) }}"
     >
         {{ __('user.profile') }}
     </a>
@@ -14,16 +14,16 @@
         <li class="{{ Route::is('users.show') ? 'nav-tab--active' : 'nav-tavV2' }}">
             <a
                 class="{{ Route::is('users.show') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                href="{{ route('users.show', ['username' => $user->username]) }}"
+                href="{{ route('users.show', ['user' => $user]) }}"
             >
                 {{ __('user.profile') }}
             </a>
         </li>
         @if ($isProfileOwner)
-            <li class="{{ Route::is('user_edit_profile_form') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_edit_profile_form') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.edit', ['user' => $user]) }}"
                 >
                     {{ __('user.edit-profile') }}
                 </a>

@@ -65,7 +65,7 @@ class RequestController extends Controller
     {
         $torrentRequest = TorrentRequest::with('category')->findOrFail($id);
         $user = $request->user();
-        $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
+        $torrentRequestClaim = TorrentRequestClaim::with('user')->where('request_id', '=', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
         $carbon = Carbon::now()->addDay();
 

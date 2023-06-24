@@ -126,7 +126,7 @@
                     <td>{{ $audit->model_name }}</td>
                     <td>{{ $audit->model_entry_id }}</td>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $audit->user->username]) }}">
+                        <a href="{{ route('users.show', ['user' => $audit->user]) }}">
                             {{ $audit->user->username }}
                         </a>
                     </td>

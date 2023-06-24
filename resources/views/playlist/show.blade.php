@@ -127,7 +127,7 @@
         @php $tmdb_backdrop = isset($meta->backdrop) ? tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350' @endphp
         <div class="playlist__backdrop" style="background-image: url('{{ $tmdb_backdrop }}')">
             <div class="playlist__backdrop-filter">
-                <a class="playlist__author-link" href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
+                <a class="playlist__author-link" href="{{ route('users.show', ['user' => $playlist->user]) }}">
                     <img
                         class="playlist__author-avatar"
                         src="{{ url($playlist->user->image ? 'files/img/'.$playlist->user->image : 'img/profile.png') }}"

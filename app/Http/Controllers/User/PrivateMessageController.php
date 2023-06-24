@@ -150,7 +150,7 @@ class PrivateMessageController extends Controller
 
         if ($v->fails()) {
             if ($dest == 'profile') {
-                return to_route('users.show', ['username' => $recipient->username])
+                return to_route('users.show', ['user' => $recipient])
                     ->withErrors($v->errors());
             }
 
@@ -161,7 +161,7 @@ class PrivateMessageController extends Controller
         $privateMessage->save();
 
         if ($dest == 'profile') {
-            return to_route('users.show', ['username' => $recipient->username])
+            return to_route('users.show', ['user' => $recipient])
                 ->withSuccess(trans('pm.sent-success'));
         }
 

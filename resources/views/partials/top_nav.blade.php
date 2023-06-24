@@ -287,13 +287,13 @@
                 </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
-                <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     {{ auth()->user()->fl_tokens }}
                 </a>
             </li>
         </ul> 
-        <a class="top-nav__username--highresolution" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+        <a class="top-nav__username--highresolution" href="{{ route('users.show', ['user' => auth()->user()]) }}">
             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                 <i class="{{ auth()->user()->group->icon }}"></i>
                 {{ auth()->user()->username }}
@@ -347,7 +347,7 @@
                 </a>
             </li>
             <li class="top-nav__dropdown">
-                <a class="top-nav__dropdown--nontouch" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                <a class="top-nav__dropdown--nontouch" href="{{ route('users.show', ['user' => auth()->user()]) }}">
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/'.auth()->user()->image : 'img/profile.png')}}"
                         alt="{{ auth()->user()->username }}"
@@ -363,7 +363,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a class="top-nav__username" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                        <a class="top-nav__username" href="{{ route('users.show', ['user' => auth()->user()]) }}">
                             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                                 <i class="{{ auth()->user()->group->icon }}"></i>
                                 {{ auth()->user()->username }}
@@ -375,7 +375,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i>
                             {{ __('user.my-profile') }}
                         </a>

@@ -110,7 +110,7 @@ class ReportController extends Controller
         ]);
 
         if ($v->fails()) {
-            return to_route('users.show', ['username' => $username])
+            return to_route('users.show', ['user' => $reportedBy])
                 ->withErrors($v->errors());
         }
 
@@ -125,7 +125,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $reportedBy])
             ->withSuccess(trans('user.report-sent'));
     }
 }

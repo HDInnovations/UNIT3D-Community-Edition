@@ -49,7 +49,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('users.show', ['username' => $article->user->username]) }}">
+                            <a href="{{ route('users.show', ['user' => $article->user]) }}">
                                 {{ $article->user->username }}
                             </a>
                         </td>

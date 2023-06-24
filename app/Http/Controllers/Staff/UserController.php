@@ -79,7 +79,7 @@ class UserController extends Controller
 
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
@@ -103,7 +103,7 @@ class UserController extends Controller
 
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
@@ -216,7 +216,7 @@ class UserController extends Controller
             'message'     => 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
         ]);
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Warning issued successfully!');
     }
 }

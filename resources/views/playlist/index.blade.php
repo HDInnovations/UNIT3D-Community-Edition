@@ -41,7 +41,7 @@
                     <div class="playlists__playlist-author">
                         <a
                             class="playlists__playlist-author-link" 
-                            href="{{ route('users.show', ['username' => $playlist->user->username]) }}"
+                            href="{{ route('users.show', ['user' => $playlist->user]) }}"
                         >
                             <img
                                 class="playlists__playlist-avatar"
