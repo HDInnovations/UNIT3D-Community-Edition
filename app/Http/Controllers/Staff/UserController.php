@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Enums\UserGroups;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateUserRequest;
 use App\Models\Comment;
