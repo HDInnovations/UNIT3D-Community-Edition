@@ -331,7 +331,7 @@
                         ->where('read', '=', '0')
                         ->exists()
                 @endphp
-                <a class="top-nav--right__icon-link" href="{{ route('inbox') }}" title="{{ __('pm.inbox') }}">
+                <a class="top-nav--right__icon-link" href="{{ route('users.received_messages.index', ['user' => auth()->user()]) }}" title="{{ __('pm.inbox') }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
                     @if ($pm)
                         <x-animation.notification />

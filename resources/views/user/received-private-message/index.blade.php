@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('inbox') }}" class="breadcrumb__link">
+        <a href="{{ route('users.received_messages.index', ['user' => $user]) }}" class="breadcrumb__link">
             {{ __('pm.messages') }}
         </a>
     </li>
@@ -24,14 +24,14 @@
             <div class="panel__actions">
                 <form
                     class="panel__action"
-                    action="{{ route('searchPMInbox') }}"
+                    action="{{ route('users.received_messages.index', ['user' => $user]) }}"
                 >
                     <p class="form__group">
                         <input
                             id="search"
                             class="form__text"
                             name="subject"
-                            required
+                            value="{{ $subject }}"
                         />
                         <label class="form__label form__label--floating" for="search">
                             {{ __('pm.search') }}
@@ -58,7 +58,7 @@
                                 <x-user_tag :user="$pm->sender" :anon="false" />
                             </td>
                             <td>
-                                <a href="{{ route('message', ['id' => $pm->id]) }}">
+                                <a href="{{ route('users.received_messages.show', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}">
                                     {{ $pm->subject }}
                                 </a>
                             </td>
@@ -78,7 +78,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('delete-pm', ['id' => $pm->id]) }}"
+                                            action="{{ route('users.received_messages.destroy', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}"
                                             method="POST"
                                             x-data
                                         >
@@ -105,7 +105,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
-            <form action="{{ route('mark-all-read') }}" method="POST">
+            <form action="{{ route('users.received_messages.mass_update', ['user' => $user]) }}" method="POST">
                 <p class="form__group form__group--horizontal">
                     @csrf
                     <button class="form__button form__button--filled form__button--centered">
@@ -114,13 +114,7 @@
                     </button>
                 </p>
             </form>
-            <p class="form__group form__group--horizontal">
-                <a href="{{ route('inbox') }}" class="form__button form__button--filled form__button--centered">
-                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                    {{ __('pm.refresh') }}
-                </a>
-            </p>
-            <form method="POST" action="{{ route('empty-inbox') }}" x-data>
+            <form method="POST" action="{{ route('users.received_messages.mass_destroy', ['user' => $user]) }}" x-data>
                 @csrf
                 @method('DELETE')
                 <p class="form__group form__group--horizontal">

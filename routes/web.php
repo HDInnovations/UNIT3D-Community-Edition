@@ -433,6 +433,25 @@ Route::middleware('language')->group(function (): void {
             Route::patch('/', [App\Http\Controllers\User\GeneralSettingController::class, 'update'])->name('update');
         });
 
+        // Inbox
+        Route::prefix('inbox')->name('received_messages.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'index'])->name('index');
+            Route::get('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'show'])->name('show');
+            Route::patch('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'update'])->name('update');
+            Route::delete('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'destroy'])->name('destroy');
+            Route::post('/mass-update', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
+            Route::delete('/mass-delete', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
+        });
+
+        // Outbox
+        Route::prefix('outbox')->name('sent_messages.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\SentPrivateMessageController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\User\SentPrivateMessageController::class, 'create'])->name('create');
+            Route::get('/{sentPrivateMessage}', [App\Http\Controllers\User\SentPrivateMessageController::class, 'show'])->name('show');
+            Route::post('/', [App\Http\Controllers\User\SentPrivateMessageController::class, 'store'])->name('store');
+            Route::patch('/{sentPrivateMessage}', [App\Http\Controllers\User\SentPrivateMessageController::class, 'update'])->name('update');
+        });
+
         // Invites
         Route::prefix('invites')->name('invites.')->group(function (): void {
             Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
@@ -564,23 +583,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\WishController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\User\WishController::class, 'store'])->name('store');
             Route::delete('/{wish}', [App\Http\Controllers\User\WishController::class, 'destroy'])->name('destroy');
-        });
-    });
-
-    Route::middleware('auth', 'twostep', 'banned')->group(function (): void {
-        // Private Messages
-        Route::prefix('mail')->group(function (): void {
-            Route::get('/searchPMInbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMInbox'])->name('searchPMInbox');
-            Route::get('/searchPMOutbox', [App\Http\Controllers\User\PrivateMessageController::class, 'searchPMOutbox'])->name('searchPMOutbox');
-            Route::get('/inbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessages'])->name('inbox');
-            Route::get('/message/{id}', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessageById'])->name('message');
-            Route::get('/outbox', [App\Http\Controllers\User\PrivateMessageController::class, 'getPrivateMessagesSent'])->name('outbox');
-            Route::get('/create', [App\Http\Controllers\User\PrivateMessageController::class, 'makePrivateMessage'])->name('create');
-            Route::post('/mark-all-read', [App\Http\Controllers\User\PrivateMessageController::class, 'markAllAsRead'])->name('mark-all-read');
-            Route::delete('/empty-inbox', [App\Http\Controllers\User\PrivateMessageController::class, 'emptyInbox'])->name('empty-inbox');
-            Route::post('/send', [App\Http\Controllers\User\PrivateMessageController::class, 'sendPrivateMessage'])->name('send-pm');
-            Route::post('/{id}/reply', [App\Http\Controllers\User\PrivateMessageController::class, 'replyPrivateMessage'])->name('reply-pm');
-            Route::post('/{id}/destroy', [App\Http\Controllers\User\PrivateMessageController::class, 'deletePrivateMessage'])->name('delete-pm');
         });
     });
 

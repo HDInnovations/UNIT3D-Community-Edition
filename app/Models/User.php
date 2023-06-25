@@ -289,7 +289,7 @@ class User extends Authenticatable
     /**
      * Has Many Sent PM's.
      */
-    public function pm_sender(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PrivateMessage::class, 'sender_id');
     }
@@ -297,7 +297,7 @@ class User extends Authenticatable
     /**
      * Has Many Received PM's.
      */
-    public function pm_receiver(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PrivateMessage::class, 'receiver_id');
     }
