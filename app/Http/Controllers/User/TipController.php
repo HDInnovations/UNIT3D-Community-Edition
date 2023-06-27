@@ -49,7 +49,7 @@ class TipController extends Controller
                 ->where('name', '=', 'tip')
                 ->latest('date_actioned')
                 ->paginate(25),
-            'userbon'   => $user->getSeedbonus,
+            'userbon'   => $user->getSeedbonus(),
             'tips_sent' => BonTransactions::query()
                 ->where('sender', '=', $user->id)
                 ->where('name', '=', 'tip')

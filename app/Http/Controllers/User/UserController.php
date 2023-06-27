@@ -68,13 +68,13 @@ class UserController extends Controller
             'warnings' => $user
                 ->userwarning()
                 ->latest()
-                ->paginate(2, ['*'], 'warningsPage'),
+                ->paginate(10, ['*'], 'warningsPage'),
             'softDeletedWarnings' => $user
                 ->userwarning()
                 ->with(['torrenttitle', 'warneduser'])
                 ->latest('created_at')
                 ->onlyTrashed()
-                ->paginate(2, ['*'], 'deletedWarningsPage'),
+                ->paginate(10, ['*'], 'deletedWarningsPage'),
             'boughtUpload' => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
             // 'boughtDownload'        => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
