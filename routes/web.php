@@ -718,14 +718,14 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Chat Statuses System
-        Route::prefix('chat')->group(function (): void {
+        Route::prefix('chat-statuses')->group(function (): void {
             Route::name('staff.statuses.')->group(function (): void {
-                Route::get('/statuses', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
-                Route::get('/statuses/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
-                Route::post('/statuses/store', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
-                Route::get('/statuses/{id}/edit', [App\Http\Controllers\Staff\ChatStatusController::class, 'edit'])->name('edit');
-                Route::post('/statuses/{id}/update', [App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
-                Route::delete('/statuses/{id}/destroy', [App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
+                Route::get('/', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
+                Route::get('/{chatStatus}/edit', [App\Http\Controllers\Staff\ChatStatusController::class, 'edit'])->name('edit');
+                Route::post('/{chatStatus}', [App\Http\Controllers\Staff\ChatStatusController::class, 'update'])->name('update');
+                Route::delete('/{chatStatus}', [App\Http\Controllers\Staff\ChatStatusController::class, 'destroy'])->name('destroy');
             });
         });
 

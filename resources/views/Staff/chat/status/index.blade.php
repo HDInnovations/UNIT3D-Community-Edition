@@ -64,7 +64,7 @@
                     <tr>
                         <td>{{ $chatstatus->id }}</td>
                         <td>
-                            <a href="{{ route('staff.statuses.edit', ['id' => $chatstatus->id]) }}">
+                            <a href="{{ route('staff.statuses.edit', ['chatStatus' => $chatstatus]) }}">
                                 {{ $chatstatus->name }}
                             </a>
                         </td>
@@ -84,7 +84,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.statuses.edit', ['id' => $chatstatus->id]) }}"
+                                        href="{{ route('staff.statuses.edit', ['chatStatus' => $chatstatus]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -92,7 +92,7 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.statuses.destroy', ['id' => $chatstatus->id]) }}"
+                                        action="{{ route('staff.statuses.destroy', ['chatStatus' => $chatstatus]) }}"
                                         x-data
                                     >
                                         @csrf
