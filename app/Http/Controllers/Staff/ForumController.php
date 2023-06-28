@@ -100,23 +100,23 @@ class ForumController extends Controller
     /**
      * Forum Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Forum $forum): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.forum.edit', [
             'categories' => Forum::where('parent_id', '=', 0)->get(),
             'groups'     => Group::all(),
-            'forum'      => Forum::findOrFail($id),
+            'forum'      => $forum,
         ]);
     }
 
     /**
      * Edit A Forum.
      */
-    public function update(UpdateForumRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateForumRequest $request, Forum $forum): \Illuminate\Http\RedirectResponse
     {
         $groups = Group::all();
 
-        Forum::findOrFail($id)->update(
+        $forum->update(
             [
                 'slug'      => Str::slug($request->title),
                 'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,
@@ -126,14 +126,10 @@ class ForumController extends Controller
 
         // Permissions
         foreach ($groups as $group) {
-            $permission = Permission::where('forum_id', '=', $id)->where('group_id', '=', $group->id)->first();
-
-            if ($permission == null) {
-                $permission = new Permission();
-            }
-
-            $permission->forum_id = $id;
-            $permission->group_id = $group->id;
+            $permission = Permission::whereBelongsTo($forum)->whereBelongsTo($group)->firstOrNew([
+                'forum_id' => $forum->id,
+                'group_id' => $group->id,
+            ]);
 
             if (\array_key_exists($group->id, $request->input('permissions'))) {
                 $permission->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
@@ -159,18 +155,15 @@ class ForumController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Forum $forum): \Illuminate\Http\RedirectResponse
     {
-        $forum = Forum::findOrFail($id);
-
-        Permission::where('forum_id', '=', $forum->id)->delete();
+        $forum->permissions()->delete();
 
         if ($forum->parent_id == 0) {
             $category = $forum;
 
             foreach ($category->getForumsInCategory() as $forum) {
-                Permission::where('forum_id', '=', $forum->id)->delete();
-
+                $forum->permissions()->delete();
                 $forum->posts()->delete();
                 $forum->topics()->delete();
                 $forum->delete();

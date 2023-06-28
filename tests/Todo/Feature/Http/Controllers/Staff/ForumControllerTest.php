@@ -43,7 +43,7 @@ class ForumControllerTest extends TestCase
         $forum = Forum::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.forums.destroy', ['id' => $forum->id]));
+        $response = $this->actingAs($user)->delete(route('staff.forums.destroy', ['forum' => $forum]));
 
         $response->assertRedirect(withSuccess('Forum has been deleted successfully'));
         $this->assertModelMissing($staff);
@@ -61,7 +61,7 @@ class ForumControllerTest extends TestCase
         $forum = Forum::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.forums.edit', ['id' => $forum->id]));
+        $response = $this->actingAs($user)->get(route('staff.forums.edit', ['forum' => $forum]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.forum.edit');
@@ -118,7 +118,7 @@ class ForumControllerTest extends TestCase
         $forum = Forum::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.forums.update', ['id' => $forum->id]), [
+        $response = $this->actingAs($user)->post(route('staff.forums.update', ['forum' => $forum]), [
             // TODO: send request data
         ]);
 

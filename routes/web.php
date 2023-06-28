@@ -790,10 +790,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.forums.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\ForumController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ForumController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ForumController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
+                Route::get('/{forum}/edit', [App\Http\Controllers\Staff\ForumController::class, 'edit'])->name('edit');
+                Route::patch('/{forum}', [App\Http\Controllers\Staff\ForumController::class, 'update'])->name('update');
+                Route::delete('/{forum}', [App\Http\Controllers\Staff\ForumController::class, 'destroy'])->name('destroy');
             });
         });
 
