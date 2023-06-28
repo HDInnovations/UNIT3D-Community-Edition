@@ -658,14 +658,14 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Blacklist System
-        Route::prefix('blacklists')->group(function (): void {
-            Route::name('staff.blacklists.clients.')->group(function (): void {
-                Route::get('/clients', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
-                Route::get('/clients/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
-                Route::post('/clients/store', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
-                Route::get('/clients/{id}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
-                Route::patch('/clients/{id}/update', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
-                Route::delete('/clients/{id}/destroy', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
+        Route::prefix('blacklisted-clients')->group(function (): void {
+            Route::name('staff.blacklisted_clients.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
+                Route::get('/{blacklistClient}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
+                Route::patch('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
+                Route::delete('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
             });
         });
 
