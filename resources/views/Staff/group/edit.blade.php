@@ -25,8 +25,9 @@
     <section class="panelV2">
         <h2 class="panel__heading">Edit Group: {{ $group->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.groups.update', ['group' => $group->name, 'id' => $group->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.groups.update', ['group' => $group]) }}">
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         class="form__text"

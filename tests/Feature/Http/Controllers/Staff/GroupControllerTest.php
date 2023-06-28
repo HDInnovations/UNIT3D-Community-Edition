@@ -53,7 +53,7 @@ class GroupControllerTest extends TestCase
         $user = $this->createStaffUser();
         $group = Group::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.groups.edit', ['id' => $group->id]));
+        $response = $this->actingAs($user)->get(route('staff.groups.edit', ['group' => $group]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.group.edit');
@@ -121,7 +121,7 @@ class GroupControllerTest extends TestCase
         $user = $this->createStaffUser();
         $group = Group::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.groups.update', ['id' => $group->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.groups.update', ['group' => $group]), [
             'name'             => $group->name,
             'slug'             => $group->slug,
             'position'         => $group->position,

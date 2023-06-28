@@ -802,9 +802,9 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.groups.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\GroupController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\GroupController::class, 'update'])->name('update');
+                Route::post('/', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
+                Route::get('/{group}/edit', [App\Http\Controllers\Staff\GroupController::class, 'edit'])->name('edit');
+                Route::patch('/{group}', [App\Http\Controllers\Staff\GroupController::class, 'update'])->name('update');
             });
         });
 

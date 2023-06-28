@@ -71,23 +71,23 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Group $group): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.group.edit', [
-            'group' => Group::findOrFail($id),
+            'group' => $group,
         ]);
     }
 
     /**
      * Edit A Group.
      */
-    public function update(UpdateGroupRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateGroupRequest $request, Group $group): \Illuminate\Http\RedirectResponse
     {
-        Group::findOrFail($id)->update(['slug' => Str::slug($request->name)] + $request->validated());
+        $group->update(['slug' => Str::slug($request->name)] + $request->validated());
 
-        cache()->forget('group:'.$id);
+        cache()->forget('group:'.$group->id);
 
-        foreach (User::where('group_id', '=', $id)->get() as $user) {
+        foreach (User::whereBelongsTo($group)->get() as $user) {
             Unit3dAnnounce::addUser($user);
         }
 
