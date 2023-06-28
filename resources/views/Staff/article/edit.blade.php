@@ -33,7 +33,7 @@
                 class="form"
                 method="POST"
                 enctype="multipart/form-data"
-                action="{{ route('staff.articles.update', ['id' => $article->id]) }}"
+                action="{{ route('staff.articles.update', ['article' => $article]) }}"
             >
                 @csrf
                 <p class="form__group">

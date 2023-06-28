@@ -603,9 +603,9 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
+                Route::get('/{article}/edit', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
+                Route::post('/{article}/update', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
+                Route::delete('/{article}/destroy', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
             });
         });
 
