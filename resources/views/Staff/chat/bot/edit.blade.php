@@ -47,7 +47,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bot.edit-bot') }}: {{ $bot->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.bots.update', ['id' => $bot->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.bots.update', ['bot' => $bot]) }}">
                 @csrf
                 @method('PATCH')
                 <p class="form__group">

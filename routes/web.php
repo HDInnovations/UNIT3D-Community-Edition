@@ -694,14 +694,14 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Chat Bots System
-        Route::prefix('chat')->group(function (): void {
+        Route::prefix('bots')->group(function (): void {
             Route::name('staff.bots.')->group(function (): void {
-                Route::get('/bots', [App\Http\Controllers\Staff\ChatBotController::class, 'index'])->name('index');
-                Route::get('/bots/{id}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
-                Route::patch('/bots/{id}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
-                Route::delete('/bots/{id}/destroy', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
-                Route::post('/bots/{id}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
-                Route::post('/bots/{id}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
+                Route::get('/', [App\Http\Controllers\Staff\ChatBotController::class, 'index'])->name('index');
+                Route::get('/{bot}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
+                Route::patch('/{bot}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
+                Route::delete('/{bot}/destroy', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
+                Route::post('/{bot}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
+                Route::post('/{bot}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
             });
         });
 

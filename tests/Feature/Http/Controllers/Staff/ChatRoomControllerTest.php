@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
+use Database\Seeders\ChatroomTableSeeder;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
@@ -35,6 +36,7 @@ class ChatRoomControllerTest extends TestCase
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
+        $this->seed(ChatroomTableSeeder::class);
 
         $user = $this->createStaffUser();
         $chatroom = Chatroom::factory()->create();
