@@ -623,7 +623,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('audits')->group(function (): void {
             Route::name('staff.audits.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\AuditController::class, 'index'])->name('index');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
+                Route::delete('/{audit}/destroy', [App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
             });
         });
 
