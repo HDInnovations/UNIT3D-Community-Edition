@@ -645,8 +645,15 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('bans')->group(function (): void {
             Route::name('staff.bans.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BanController::class, 'index'])->name('index');
-                Route::post('/{username}/store', [App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
-                Route::post('/{username}/update', [App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
+                Route::post('/', [App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
+                Route::patch('/{ban}', [App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
+            });
+        });
+
+        // Unban System
+        Route::prefix('unbans')->group(function (): void {
+            Route::name('staff.unbans.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\Staff\UnbanController::class, 'store'])->name('store');
             });
         });
 

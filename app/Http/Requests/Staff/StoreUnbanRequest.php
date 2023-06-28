@@ -14,8 +14,9 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateBanRequest extends FormRequest
+class StoreUnbanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,6 +32,9 @@ class UpdateBanRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'owned_by' => [
+                Rule::exists('users', 'id'),
+            ],
             'unban_reason' => [
                 'required',
                 'string',

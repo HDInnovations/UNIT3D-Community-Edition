@@ -15,14 +15,11 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreBanRequest;
-use App\Http\Requests\Staff\UpdateBanRequest;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBan;
-use App\Notifications\UserBanExpire;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Carbon;
 use Exception;
 
 /**
@@ -45,9 +42,9 @@ class BanController extends Controller
      *
      * @throws Exception
      */
-    public function store(StoreBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(StoreBanRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
+        $user = User::findOrFail($request->string('owned_by'));
         $staff = $request->user();
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
@@ -63,11 +60,7 @@ class BanController extends Controller
             'can_chat'     => 0,
         ]);
 
-        $ban = Ban::create([
-            'owned_by'   => $user->id,
-            'created_by' => $staff->id,
-            'ban_reason' => $request->ban_reason,
-        ]);
+        $ban = Ban::create(['created_by' => $staff->id] + $request->validated());
 
         cache()->forget('user:'.$user->passkey);
 
@@ -77,42 +70,5 @@ class BanController extends Controller
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('User Is Now Banned!');
-    }
-
-    /**
-     * Unban A User (banned -> new_group).
-     */
-    public function update(UpdateBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->sole();
-        $staff = $request->user();
-
-        abort_if($user->group->is_modo || $request->user()->is($user), 403);
-
-        $user->update([
-            'group_id'     => $request->group_id,
-            'can_upload'   => 1,
-            'can_download' => 1,
-            'can_comment'  => 1,
-            'can_invite'   => 1,
-            'can_request'  => 1,
-            'can_chat'     => 1,
-        ]);
-
-        Ban::create([
-            'owned_by'     => $user->id,
-            'created_by'   => $staff->id,
-            'unban_reason' => $request->unban_reason,
-            'removed_at'   => Carbon::now(),
-        ]);
-
-        cache()->forget('user:'.$user->passkey);
-
-        Unit3dAnnounce::addUser($user);
-
-        $user->notify(new UserBanExpire());
-
-        return to_route('users.show', ['user' => $user])
-            ->withSuccess('User Is Now Relieved Of His Ban!');
     }
 }

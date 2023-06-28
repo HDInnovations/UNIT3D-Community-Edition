@@ -14,6 +14,7 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreBanRequest extends FormRequest
 {
@@ -31,6 +32,9 @@ class StoreBanRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'owned_by' => [
+                Rule::exists('users', 'id')
+            ],
             'ban_reason' => [
                 'required',
                 'string',

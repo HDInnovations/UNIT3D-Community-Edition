@@ -14,10 +14,11 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('staff.bans.update', ['username' => $user->username]) }}"
+                            action="{{ route('staff.unbans.store') }}"
                             x-on:click.outside="open = false; $refs.dialog.close();"
                         >
                             @csrf
+                            <input type="hidden" name="owned_by" value="{{ $user->id }}" />
                             <p class="form__group">
                                 <textarea
                                     id="unban_reason"
@@ -64,10 +65,11 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('staff.bans.store', ['username' => $user->username]) }}"
+                            action="{{ route('staff.bans.store') }}"
                             x-on:click.outside="open = false; $refs.dialog.close();"
                         >
                             @csrf
+                            <input type="hidden" name="owned_by" value="{{ $user->id }}" />
                             <p class="form__group">
                                 <textarea
                                     id="ban_reason"
