@@ -117,7 +117,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.cheated_torrents.destroy', ['id' => $torrent->id]) }}"
+                                            action="{{ route('staff.cheated_torrents.destroy', ['cheatedTorrent' => $torrent]) }}"
                                             method="POST"
                                         >
                                             @csrf

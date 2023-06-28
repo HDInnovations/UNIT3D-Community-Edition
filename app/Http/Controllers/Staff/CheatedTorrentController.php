@@ -64,9 +64,9 @@ class CheatedTorrentController extends Controller
     /**
      * Reset the balance of a cheated torrent.
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Torrent $cheatedTorrent): \Illuminate\Http\RedirectResponse
     {
-        Torrent::findOrFail($id)->update([
+        $cheatedTorrent->update([
             'balance_offset' => DB::raw('balance * -1'),
         ]);
 

@@ -733,7 +733,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('cheated-torrents')->group(function (): void {
             Route::name('staff.cheated_torrents.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'index'])->name('index');
-                Route::delete('/{id}', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'destroy'])->name('destroy');
+                Route::delete('/{cheatedTorrent}', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'destroy'])->name('destroy');
                 Route::delete('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'massDestroy'])->name('massDestroy');
             });
         });
