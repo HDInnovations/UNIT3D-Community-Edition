@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.categories.update', ['id' => $category->id]) }}"
+                action="{{ route('staff.categories.update', ['category' => $category]) }}"
                 enctype="multipart/form-data"
             >
                 @method('PATCH')

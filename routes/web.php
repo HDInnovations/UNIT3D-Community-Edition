@@ -686,10 +686,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.categories.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CategoryController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\CategoryController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\CategoryController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\CategoryController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\CategoryController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\CategoryController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\CategoryController::class, 'store'])->name('store');
+                Route::get('/{category}/edit', [App\Http\Controllers\Staff\CategoryController::class, 'edit'])->name('edit');
+                Route::patch('/{category}', [App\Http\Controllers\Staff\CategoryController::class, 'update'])->name('update');
+                Route::delete('/{category}', [App\Http\Controllers\Staff\CategoryController::class, 'destroy'])->name('destroy');
             });
         });
 
