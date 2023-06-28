@@ -58,28 +58,28 @@ class ChatRoomController extends Controller
     {
         Chatroom::create($request->validated());
 
-        return to_route('staff.rooms.index')
+        return to_route('staff.chatrooms.index')
             ->withSuccess('Chatroom Successfully Added');
     }
 
     /**
      * Chatroom Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Chatroom $chatroom): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.chat.room.edit', [
-            'chatroom' => Chatroom::findOrFail($id),
+            'chatroom' => $chatroom,
         ]);
     }
 
     /**
      * Update A Chatroom.
      */
-    public function update(UpdateChatRoomRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateChatRoomRequest $request, Chatroom $chatroom): \Illuminate\Http\RedirectResponse
     {
-        Chatroom::findOrFail($id)->update($request->validated());
+        $chatroom->update($request->validated());
 
-        return to_route('staff.rooms.index')
+        return to_route('staff.chatrooms.index')
             ->withSuccess('Chatroom Successfully Modified');
     }
 
@@ -88,15 +88,15 @@ class ChatRoomController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Chatroom $chatroom): \Illuminate\Http\RedirectResponse
     {
-        $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->pluck('id');
+        $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->sole()->id;
 
-        User::where('chatroom_id', '=', $id)->update(['chatroom_id' => $default[0]]);
+        User::whereBelongsTo($chatroom)->update(['chatroom_id' => $default]);
 
-        Chatroom::findOrFail($id)->delete();
+        $chatroom->delete();
 
-        return to_route('staff.rooms.index')
+        return to_route('staff.chatrooms.index')
             ->withSuccess('Chatroom Successfully Deleted');
     }
 }

@@ -30,7 +30,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.rooms.index') }}">
+        <a class="nav-tab__link" href="{{ route('staff.chatrooms.index') }}">
             {{ __('staff.rooms') }}
         </a>
     </li>

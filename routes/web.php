@@ -706,14 +706,14 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Chat Rooms System
-        Route::prefix('chat')->group(function (): void {
-            Route::name('staff.rooms.')->group(function (): void {
-                Route::get('/rooms', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
-                Route::get('/rooms/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
-                Route::post('/rooms/store', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
-                Route::get('/rooms/{id}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
-                Route::post('/rooms/{id}/update', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
-                Route::delete('/rooms/{id}/destroy', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
+        Route::prefix('chatrooms')->group(function (): void {
+            Route::name('staff.chatrooms.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
+                Route::get('/{chatroom}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
+                Route::post('/{chatroom}/', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
+                Route::delete('/{chatroom}/', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
             });
         });
 
