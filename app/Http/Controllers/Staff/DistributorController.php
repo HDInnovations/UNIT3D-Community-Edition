@@ -54,19 +54,19 @@ class DistributorController extends Controller
     /**
      * Distributor Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.distributor.edit', [
-            'distributor' => Distributor::findOrFail($id),
+            'distributor' => $distributor,
         ]);
     }
 
     /**
      * Edit A Distributor.
      */
-    public function update(UpdateDistributorRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        Distributor::findOrFail($id)->update($request->validated());
+        $distributor->update($request->validated());
 
         return to_route('staff.distributors.index')
             ->withSuccess('Distributor Successfully Modified');
@@ -75,11 +75,11 @@ class DistributorController extends Controller
     /**
      * Delete Edit Form.
      */
-    public function delete(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function delete(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.distributor.delete', [
             'distributors' => Distributor::orderBy('position')->get(),
-            'distributor'  => Distributor::findOrFail($id),
+            'distributor'  => $distributor,
         ]);
     }
 
@@ -88,9 +88,8 @@ class DistributorController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(DestroyDistributorRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(DestroyDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        $distributor = Distributor::findOrFail($id);
         $distributor->torrents()->update($request->validated());
         $distributor->delete();
 

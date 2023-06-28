@@ -13,6 +13,7 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Distributor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -21,12 +22,12 @@ class DestroyDistributorRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(int $id): array
+    public function rules(Distributor $distributor): array
     {
         return [
             'distributor_id' => [
                 'required',
-                Rule::exists('distributors', 'id')->whereNot('id', $id),
+                Rule::exists('distributors', 'id')->whereNot('id', $distributor->id),
             ],
         ];
     }

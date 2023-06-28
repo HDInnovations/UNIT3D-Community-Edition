@@ -769,11 +769,11 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.distributors.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\DistributorController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\DistributorController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\DistributorController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\DistributorController::class, 'update'])->name('update');
-                Route::get('/{id}/delete', [App\Http\Controllers\Staff\DistributorController::class, 'delete'])->name('delete');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\DistributorController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
+                Route::get('/{distributor}/edit', [App\Http\Controllers\Staff\DistributorController::class, 'edit'])->name('edit');
+                Route::patch('/{distributor}', [App\Http\Controllers\Staff\DistributorController::class, 'update'])->name('update');
+                Route::get('/{distributor}/delete', [App\Http\Controllers\Staff\DistributorController::class, 'delete'])->name('delete');
+                Route::delete('/{distributor}', [App\Http\Controllers\Staff\DistributorController::class, 'destroy'])->name('destroy');
             });
         });
 
