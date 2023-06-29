@@ -946,8 +946,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('notes')->group(function (): void {
             Route::name('staff.notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
-                Route::post('/{username}/store', [App\Http\Controllers\Staff\NoteController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
+                Route::delete('/{note}', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
             });
         });
 
