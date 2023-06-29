@@ -456,7 +456,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('invites')->name('invites.')->group(function (): void {
             Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
             Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
-            Route::post('/{invite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->where('id', '[0-9]+')->name('send');
+            Route::post('/{invite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
             Route::delete('/{invite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy');
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
@@ -592,27 +592,27 @@ Route::middleware('language')->group(function (): void {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('dashboard')->middleware(['auth', 'twostep', 'modo', 'banned'])->group(function (): void {
+    Route::prefix('dashboard')->middleware(['auth', 'twostep', 'modo', 'banned'])->name('staff.')->group(function (): void {
         // Staff Dashboard
-        Route::name('staff.dashboard.')->group(function (): void {
+        Route::name('dashboard.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
         });
 
         // Articles System
         Route::prefix('articles')->group(function (): void {
-            Route::name('staff.articles.')->group(function (): void {
+            Route::name('articles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
-                Route::get('/{article}/edit', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
-                Route::post('/{article}/update', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
-                Route::delete('/{article}/destroy', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
+                Route::get('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
+                Route::post('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
+                Route::delete('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Applications System
         Route::prefix('applications')->group(function (): void {
-            Route::name('staff.applications.')->group(function (): void {
+            Route::name('applications.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ApplicationController::class, 'index'])->name('index');
                 Route::get('/{id}', [App\Http\Controllers\Staff\ApplicationController::class, 'show'])->where('id', '[0-9]+')->name('show');
                 Route::post('/{id}/approve', [App\Http\Controllers\Staff\ApplicationController::class, 'approve'])->name('approve');
@@ -622,29 +622,29 @@ Route::middleware('language')->group(function (): void {
 
         // Audit Log
         Route::prefix('audits')->group(function (): void {
-            Route::name('staff.audits.')->group(function (): void {
+            Route::name('audits.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\AuditController::class, 'index'])->name('index');
-                Route::delete('/{audit}/destroy', [App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
+                Route::delete('/{audit}', [App\Http\Controllers\Staff\AuditController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Authentications Log
         Route::prefix('authentications')->group(function (): void {
-            Route::name('staff.authentications.')->group(function (): void {
+            Route::name('authentications.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\AuthenticationController::class, 'index'])->name('index');
             });
         });
 
         // Backup System
         Route::prefix('backups')->middleware('owner')->group(function (): void {
-            Route::name('staff.backups.')->group(function (): void {
+            Route::name('backups.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
             });
         });
 
         // Ban System
         Route::prefix('bans')->group(function (): void {
-            Route::name('staff.bans.')->group(function (): void {
+            Route::name('bans.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BanController::class, 'index'])->name('index');
                 Route::post('/', [App\Http\Controllers\Staff\BanController::class, 'store'])->name('store');
                 Route::patch('/{ban}', [App\Http\Controllers\Staff\BanController::class, 'update'])->name('update');
@@ -653,14 +653,14 @@ Route::middleware('language')->group(function (): void {
 
         // Unban System
         Route::prefix('unbans')->group(function (): void {
-            Route::name('staff.unbans.')->group(function (): void {
+            Route::name('unbans.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\Staff\UnbanController::class, 'store'])->name('store');
             });
         });
 
         // Blacklist System
         Route::prefix('blacklisted-clients')->group(function (): void {
-            Route::name('staff.blacklisted_clients.')->group(function (): void {
+            Route::name('blacklisted_clients.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
@@ -672,7 +672,7 @@ Route::middleware('language')->group(function (): void {
 
         // Bon Exchanges
         Route::prefix('bon-exchanges')->group(function (): void {
-            Route::name('staff.bon_exchanges.')->group(function (): void {
+            Route::name('bon_exchanges.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\BonExchangeController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\BonExchangeController::class, 'store'])->name('store');
@@ -684,7 +684,7 @@ Route::middleware('language')->group(function (): void {
 
         // Categories System
         Route::prefix('categories')->group(function (): void {
-            Route::name('staff.categories.')->group(function (): void {
+            Route::name('categories.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CategoryController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\CategoryController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\CategoryController::class, 'store'])->name('store');
@@ -696,11 +696,11 @@ Route::middleware('language')->group(function (): void {
 
         // Chat Bots System
         Route::prefix('bots')->group(function (): void {
-            Route::name('staff.bots.')->group(function (): void {
+            Route::name('bots.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ChatBotController::class, 'index'])->name('index');
                 Route::get('/{bot}/edit', [App\Http\Controllers\Staff\ChatBotController::class, 'edit'])->name('edit');
-                Route::patch('/{bot}/update', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
-                Route::delete('/{bot}/destroy', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
+                Route::patch('/{bot}', [App\Http\Controllers\Staff\ChatBotController::class, 'update'])->name('update');
+                Route::delete('/{bot}', [App\Http\Controllers\Staff\ChatBotController::class, 'destroy'])->name('destroy');
                 Route::post('/{bot}/disable', [App\Http\Controllers\Staff\ChatBotController::class, 'disable'])->name('disable');
                 Route::post('/{bot}/enable', [App\Http\Controllers\Staff\ChatBotController::class, 'enable'])->name('enable');
             });
@@ -708,19 +708,19 @@ Route::middleware('language')->group(function (): void {
 
         // Chat Rooms System
         Route::prefix('chatrooms')->group(function (): void {
-            Route::name('staff.chatrooms.')->group(function (): void {
+            Route::name('chatrooms.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ChatRoomController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ChatRoomController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ChatRoomController::class, 'store'])->name('store');
                 Route::get('/{chatroom}/edit', [App\Http\Controllers\Staff\ChatRoomController::class, 'edit'])->name('edit');
-                Route::post('/{chatroom}/', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
-                Route::delete('/{chatroom}/', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
+                Route::post('/{chatroom}', [App\Http\Controllers\Staff\ChatRoomController::class, 'update'])->name('update');
+                Route::delete('/{chatroom}', [App\Http\Controllers\Staff\ChatRoomController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Chat Statuses System
         Route::prefix('chat-statuses')->group(function (): void {
-            Route::name('staff.statuses.')->group(function (): void {
+            Route::name('statuses.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ChatStatusController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ChatStatusController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ChatStatusController::class, 'store'])->name('store');
@@ -732,7 +732,7 @@ Route::middleware('language')->group(function (): void {
 
         // Cheated Torrents
         Route::prefix('cheated-torrents')->group(function (): void {
-            Route::name('staff.cheated_torrents.')->group(function (): void {
+            Route::name('cheated_torrents.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'index'])->name('index');
                 Route::delete('/{cheatedTorrent}', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'destroy'])->name('destroy');
                 Route::delete('/', [App\Http\Controllers\Staff\CheatedTorrentController::class, 'massDestroy'])->name('massDestroy');
@@ -741,7 +741,7 @@ Route::middleware('language')->group(function (): void {
 
         // Cheaters
         Route::prefix('cheaters')->group(function (): void {
-            Route::name('staff.cheaters.')->group(function (): void {
+            Route::name('cheaters.')->group(function (): void {
                 Route::get('/ghost-leechers', [App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
             });
         });
@@ -753,7 +753,7 @@ Route::middleware('language')->group(function (): void {
 
         // Commands
         Route::prefix('commands')->middleware('owner')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('staff.commands.index');
+            Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('commands.index');
             Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
             Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
             Route::post('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
@@ -767,7 +767,7 @@ Route::middleware('language')->group(function (): void {
 
         // Distributors
         Route::prefix('distributors')->group(function (): void {
-            Route::name('staff.distributors.')->group(function (): void {
+            Route::name('distributors.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\DistributorController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\DistributorController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\DistributorController::class, 'store'])->name('store');
@@ -780,7 +780,7 @@ Route::middleware('language')->group(function (): void {
 
         // Flush System
         Route::prefix('flush')->group(function (): void {
-            Route::name('staff.flush.')->group(function (): void {
+            Route::name('flush.')->group(function (): void {
                 Route::post('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
                 Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
             });
@@ -788,7 +788,7 @@ Route::middleware('language')->group(function (): void {
 
         // Forums System
         Route::prefix('forums')->middleware('admin')->group(function (): void {
-            Route::name('staff.forums.')->group(function (): void {
+            Route::name('forums.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
@@ -800,7 +800,7 @@ Route::middleware('language')->group(function (): void {
 
         // Groups System
         Route::prefix('groups')->middleware('admin')->group(function (): void {
-            Route::name('staff.groups.')->group(function (): void {
+            Route::name('groups.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
@@ -811,24 +811,24 @@ Route::middleware('language')->group(function (): void {
 
         // Invites Log
         Route::prefix('invites')->group(function (): void {
-            Route::name('staff.invites.')->group(function (): void {
+            Route::name('invites.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\InviteController::class, 'index'])->name('index');
             });
         });
 
         // Laravel Log Viewer
-        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('staff.laravellog.index');
+        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('laravellog.index');
 
         // Mass Actions
         Route::prefix('mass-actions')->group(function (): void {
-            Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('staff.mass-actions.validate');
-            Route::get('/mass-pm', [App\Http\Controllers\Staff\MassActionController::class, 'create'])->name('staff.mass-pm.create');
-            Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('staff.mass-pm.store');
+            Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
+            Route::get('/mass-pm', [App\Http\Controllers\Staff\MassActionController::class, 'create'])->name('mass-pm.create');
+            Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('mass-pm.store');
         });
 
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
         Route::prefix('media-languages')->group(function (): void {
-            Route::name('staff.media_languages.')->group(function (): void {
+            Route::name('media_languages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\MediaLanguageController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'store'])->name('store');
@@ -840,7 +840,7 @@ Route::middleware('language')->group(function (): void {
 
         // Moderation System
         Route::prefix('moderation')->group(function (): void {
-            Route::name('staff.moderation.')->group(function (): void {
+            Route::name('moderation.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
                 Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update');
             });
@@ -848,10 +848,10 @@ Route::middleware('language')->group(function (): void {
 
         //Pages System
         Route::prefix('pages')->group(function (): void {
-            Route::name('staff.pages.')->group(function (): void {
+            Route::name('pages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\PageController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\PageController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\PageController::class, 'store'])->name('store');
                 Route::get('/{page}/edit', [App\Http\Controllers\Staff\PageController::class, 'edit'])->name('edit');
                 Route::patch('/{page}', [App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
                 Route::delete('/{page}', [App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
@@ -860,14 +860,14 @@ Route::middleware('language')->group(function (): void {
 
         // Peers
         Route::prefix('peers')->group(function (): void {
-            Route::name('staff.peers.')->group(function (): void {
+            Route::name('peers.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PeerController::class, 'index'])->name('index');
             });
         });
 
         // Polls System
         Route::prefix('polls')->group(function (): void {
-            Route::name('staff.polls.')->group(function (): void {
+            Route::name('polls.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PollController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\PollController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\PollController::class, 'store'])->name('store');
@@ -880,7 +880,7 @@ Route::middleware('language')->group(function (): void {
 
         // Regions
         Route::prefix('regions')->group(function (): void {
-            Route::name('staff.regions.')->group(function (): void {
+            Route::name('regions.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
@@ -892,24 +892,24 @@ Route::middleware('language')->group(function (): void {
 
         // Registered Seedboxes
         Route::prefix('seedboxes')->group(function (): void {
-            Route::name('staff.seedboxes.')->group(function (): void {
+            Route::name('seedboxes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
-                Route::delete('/{seedbox}/destroy', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
+                Route::delete('/{seedbox}', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
             });
         });
 
         // Reports
         Route::prefix('reports')->group(function (): void {
-            Route::name('staff.reports.')->group(function (): void {
+            Route::name('reports.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
-                Route::get('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
+                Route::get('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->name('show');
                 Route::patch('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
             });
         });
 
         // Resolutions
         Route::prefix('resolutions')->group(function (): void {
-            Route::name('staff.resolutions.')->group(function (): void {
+            Route::name('resolutions.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ResolutionController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ResolutionController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ResolutionController::class, 'store'])->name('store');
@@ -921,7 +921,7 @@ Route::middleware('language')->group(function (): void {
 
         // RSS System
         Route::prefix('rss')->group(function (): void {
-            Route::name('staff.rss.')->group(function (): void {
+            Route::name('rss.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\RssController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\RssController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\RssController::class, 'store'])->name('store');
@@ -933,7 +933,7 @@ Route::middleware('language')->group(function (): void {
 
         // Types
         Route::prefix('types')->group(function (): void {
-            Route::name('staff.types.')->group(function (): void {
+            Route::name('types.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\TypeController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\TypeController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\TypeController::class, 'store'])->name('store');
@@ -945,14 +945,14 @@ Route::middleware('language')->group(function (): void {
 
         // User Staff Notes
         Route::prefix('notes')->group(function (): void {
-            Route::name('staff.notes.')->group(function (): void {
+            Route::name('notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
                 Route::delete('/{note}', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
             });
         });
 
         // User Tools TODO: Leaving since we will be refactoring users and roles
-        Route::prefix('users')->name('staff.users.')->group(function (): void {
+        Route::prefix('users')->name('users.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\UserController::class, 'index'])->name('index');
             Route::patch('/{user:username}', [App\Http\Controllers\Staff\UserController::class, 'update'])->name('update')->withTrashed();
             Route::get('/{user:username}/edit', [App\Http\Controllers\Staff\UserController::class, 'edit'])->name('edit');
@@ -962,14 +962,14 @@ Route::middleware('language')->group(function (): void {
 
         // Warnings Log
         Route::prefix('warnings')->group(function (): void {
-            Route::name('staff.warnings.')->group(function (): void {
+            Route::name('warnings.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WarningController::class, 'index'])->name('index');
             });
         });
 
         // Internals System
         Route::prefix('internals')->group(function (): void {
-            Route::name('staff.internals.')->group(function (): void {
+            Route::name('internals.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\InternalController::class, 'index'])->name('index');
                 Route::get('/{internal}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
                 Route::patch('/{internal}', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
@@ -981,7 +981,7 @@ Route::middleware('language')->group(function (): void {
 
         // Watchlist
         Route::prefix('watchlist')->group(function (): void {
-            Route::name('staff.watchlist.')->group(function (): void {
+            Route::name('watchlist.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WatchlistController::class, 'index'])->name('index');
                 Route::post('/', [App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
                 Route::delete('/{watchlist}', [App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');
