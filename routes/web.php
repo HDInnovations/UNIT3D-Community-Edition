@@ -923,10 +923,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.rss.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\RssController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\RssController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\RssController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\RssController::class, 'store'])->name('store');
+                Route::get('/{rss}/edit', [App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
+                Route::patch('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
+                Route::delete('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
             });
         });
 
