@@ -54,7 +54,7 @@ class PageControllerTest extends TestCase
         $user = $this->createStaffUser();
         $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.pages.destroy', ['id' => $page->id]));
+        $response = $this->actingAs($user)->delete(route('staff.pages.destroy', ['page' => $page]));
 
         $response->assertRedirect(route('staff.pages.index'));
     }
@@ -69,7 +69,7 @@ class PageControllerTest extends TestCase
         $user = $this->createStaffUser();
         $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.pages.edit', ['id' => $page->id]));
+        $response = $this->actingAs($user)->get(route('staff.pages.edit', ['page' => $page]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.page.edit');
@@ -120,7 +120,7 @@ class PageControllerTest extends TestCase
         $user = $this->createStaffUser();
         $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.pages.update', ['id' => $page->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.pages.update', ['page' => $page]), [
             'name'    => $page->name,
             'content' => $page->content,
         ]);

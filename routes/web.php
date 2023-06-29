@@ -851,9 +851,9 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\PageController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\PageController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\PageController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
+                Route::get('/{page}/edit', [App\Http\Controllers\Staff\PageController::class, 'edit'])->name('edit');
+                Route::patch('/{page}', [App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
+                Route::delete('/{page}', [App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
             });
         });
 
