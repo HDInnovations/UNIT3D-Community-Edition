@@ -76,9 +76,10 @@
                 <form
                     class="form"
                     method="POST"
-                    action="{{ route('staff.reports.update', ['id' => $report->id]) }}"
+                    action="{{ route('staff.reports.update', ['report' => $report]) }}"
                 >
                     @csrf
+                    @method('PATCH')
                     @livewire('bbcode-input', ['name' => 'verdict', 'label' => 'Verdict', 'required' => true])
                     <p class="form__group">
                         <button class="form__button form__button--filled">

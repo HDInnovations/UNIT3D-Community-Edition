@@ -901,8 +901,8 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('reports')->group(function (): void {
             Route::name('staff.reports.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::post('/{id}/solve', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
+                Route::get('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->where('id', '[0-9]+')->name('show');
+                Route::patch('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
             });
         });
 
