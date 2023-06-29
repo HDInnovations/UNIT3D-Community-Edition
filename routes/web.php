@@ -893,7 +893,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('seedboxes')->group(function (): void {
             Route::name('staff.seedboxes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
+                Route::delete('/{seedbox}/destroy', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
             });
         });
 
