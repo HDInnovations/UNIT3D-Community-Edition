@@ -972,11 +972,11 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('internals')->group(function (): void {
             Route::name('staff.internals.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\InternalController::class, 'index'])->name('index');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
+                Route::get('/{internal}/edit', [App\Http\Controllers\Staff\InternalController::class, 'edit'])->name('edit');
+                Route::patch('/{internal}', [App\Http\Controllers\Staff\InternalController::class, 'update'])->name('update');
                 Route::get('/create', [App\Http\Controllers\Staff\InternalController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\InternalController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\InternalController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\InternalController::class, 'store'])->name('store');
+                Route::delete('/{internal}', [App\Http\Controllers\Staff\InternalController::class, 'destroy'])->name('destroy');
             });
         });
 
