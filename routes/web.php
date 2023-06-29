@@ -882,10 +882,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.regions.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\RegionController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\RegionController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\RegionController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\RegionController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\RegionController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\RegionController::class, 'store'])->name('store');
+                Route::get('/{region}/edit', [App\Http\Controllers\Staff\RegionController::class, 'edit'])->name('edit');
+                Route::patch('/{region}', [App\Http\Controllers\Staff\RegionController::class, 'update'])->name('update');
+                Route::delete('/{region}', [App\Http\Controllers\Staff\RegionController::class, 'destroy'])->name('destroy');
             });
         });
 
