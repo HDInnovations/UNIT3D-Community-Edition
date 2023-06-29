@@ -911,10 +911,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.resolutions.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ResolutionController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ResolutionController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ResolutionController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\ResolutionController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\ResolutionController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\ResolutionController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\ResolutionController::class, 'store'])->name('store');
+                Route::get('/{resolution}/edit', [App\Http\Controllers\Staff\ResolutionController::class, 'edit'])->name('edit');
+                Route::patch('/{resolution}', [App\Http\Controllers\Staff\ResolutionController::class, 'update'])->name('update');
+                Route::delete('/{resolution}', [App\Http\Controllers\Staff\ResolutionController::class, 'destroy'])->name('destroy');
             });
         });
 
