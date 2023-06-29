@@ -29,10 +29,11 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.polls.update', ['id' => $poll->id]) }}"
+                action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
                 x-data='{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }''
             >
                 @csrf
+            @method('PATCH')
                 <p class="form__group">
                     <input
                         id="title"
@@ -78,6 +79,7 @@
                         class="form__checkbox"
                         type="checkbox"
                         name="multiple_choice"
+                        value="1"
                         @checked($poll->multiple_choice)
                     >
                     <label class="form__label" for="multiple_choice">

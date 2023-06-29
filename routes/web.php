@@ -868,12 +868,12 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('polls')->group(function (): void {
             Route::name('staff.polls.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PollController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\Staff\PollController::class, 'show'])->where('id', '[0-9]+')->name('show');
                 Route::get('/create', [App\Http\Controllers\Staff\PollController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\PollController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\PollController::class, 'store'])->name('store');
+                Route::get('/{poll}', [App\Http\Controllers\Staff\PollController::class, 'show'])->name('show');
+                Route::get('/{poll}/edit', [App\Http\Controllers\Staff\PollController::class, 'edit'])->name('edit');
+                Route::patch('/{poll}', [App\Http\Controllers\Staff\PollController::class, 'update'])->name('update');
+                Route::delete('/{poll}', [App\Http\Controllers\Staff\PollController::class, 'destroy'])->name('destroy');
             });
         });
 

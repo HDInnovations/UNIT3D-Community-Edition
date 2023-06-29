@@ -38,7 +38,7 @@
                 @foreach ($polls as $poll)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">
+                            <a href="{{ route('staff.polls.show', ['poll' => $poll]) }}">
                                 {{ $poll->title }}
                             </a>
                         </td>
@@ -59,7 +59,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
+                                        href="{{ route('staff.polls.edit', ['poll' => $poll]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -67,7 +67,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}"
+                                        action="{{ route('staff.polls.destroy', ['poll' => $poll]) }}"
                                         method="POST"
                                         x-data
                                     >
