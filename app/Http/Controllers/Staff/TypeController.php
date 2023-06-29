@@ -30,7 +30,7 @@ class TypeController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.type.index', [
-            'types' => $types = Type::orderBy('position')->get(),
+            'types' => Type::orderBy('position')->get(),
         ]);
     }
 
@@ -56,19 +56,19 @@ class TypeController extends Controller
     /**
      * Type Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Type $type): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.type.edit', [
-            'type' => Type::findOrFail($id),
+            'type' => $type,
         ]);
     }
 
     /**
      * Edit A Type.
      */
-    public function update(UpdateTypeRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTypeRequest $request, Type $type): \Illuminate\Http\RedirectResponse
     {
-        Type::findOrFail($id)->update($request->validated());
+        $type->update($request->validated());
 
         return to_route('staff.types.index')
             ->withSuccess('Type Successfully Modified');
@@ -79,9 +79,9 @@ class TypeController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Type $type): \Illuminate\Http\RedirectResponse
     {
-        Type::findOrFail($id)->delete();
+        $type->delete();
 
         return to_route('staff.types.index')
             ->withSuccess('Type Successfully Deleted');

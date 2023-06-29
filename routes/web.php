@@ -935,10 +935,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.types.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\TypeController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\TypeController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\TypeController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\TypeController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\Staff\TypeController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\TypeController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\TypeController::class, 'store'])->name('store');
+                Route::get('/{type}/edit', [App\Http\Controllers\Staff\TypeController::class, 'edit'])->name('edit');
+                Route::patch('/{type}', [App\Http\Controllers\Staff\TypeController::class, 'update'])->name('update');
+                Route::delete('/{type}', [App\Http\Controllers\Staff\TypeController::class, 'destroy'])->name('destroy');
             });
         });
 
