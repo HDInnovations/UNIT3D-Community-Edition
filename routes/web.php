@@ -830,10 +830,10 @@ Route::middleware('language')->group(function (): void {
             Route::name('staff.media_languages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\MediaLanguageController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\MediaLanguageController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\Staff\MediaLanguageController::class, 'edit'])->name('edit');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\MediaLanguageController::class, 'update'])->name('update');
-                Route::delete('/{id}/delete', [App\Http\Controllers\Staff\MediaLanguageController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'store'])->name('store');
+                Route::get('/{mediaLanguage}/edit', [App\Http\Controllers\Staff\MediaLanguageController::class, 'edit'])->name('edit');
+                Route::patch('/{mediaLanguage}', [App\Http\Controllers\Staff\MediaLanguageController::class, 'update'])->name('update');
+                Route::delete('/{mediaLanguage}', [App\Http\Controllers\Staff\MediaLanguageController::class, 'destroy'])->name('destroy');
             });
         });
 
