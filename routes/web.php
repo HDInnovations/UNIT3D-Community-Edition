@@ -984,8 +984,8 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('watchlist')->group(function (): void {
             Route::name('staff.watchlist.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WatchlistController::class, 'index'])->name('index');
-                Route::post('/{id}/store', [App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
+                Route::delete('/{watchlist}', [App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');
             });
         });
     });

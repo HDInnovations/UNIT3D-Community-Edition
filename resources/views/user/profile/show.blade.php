@@ -302,10 +302,11 @@
                                     <form
                                         class="dialog__form"
                                         method="POST"
-                                        action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}"
+                                        action="{{ route('staff.watchlist.store') }}"
                                         x-on:click.outside="open = false; $refs.dialog.close();"
                                     >
                                         @csrf
+                                        <input type="hidden" name="user_id" value="{{ $user->id }}" />
                                         <p class="form__group">
                                             <textarea
                                                 id="watchlist_reason"
@@ -329,7 +330,7 @@
                         @else
                             <form
                                 class="panel__action"
-                                action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
+                                action="{{ route('staff.watchlist.destroy', ['watchlist' => $watch]) }}"
                                 method="POST"
                             >
                                 @csrf
@@ -369,7 +370,7 @@
                                         <menu class="data-table__actions">
                                             <li class="data-table__action">
                                                 <form
-                                                    action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
+                                                    action="{{ route('staff.watchlist.destroy', ['watchlist' => $watch]) }}"
                                                     method="POST"
                                                     x-data
                                                 >
