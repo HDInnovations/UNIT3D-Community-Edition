@@ -32,10 +32,8 @@ use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Models\Warning;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -53,10 +51,10 @@ class UserController extends Controller
     /**
      * User Edit Form.
      */
-    public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.user.edit', [
-            'user'      => User::withTrashed()->where('username', '=', $username)->sole(),
+            'user'      => $user,
             'groups'    => Group::all(),
             'internals' => Internal::all(),
         ]);
@@ -65,9 +63,9 @@ class UserController extends Controller
     /**
      * Edit A User.
      */
-    public function edit(UpdateUserRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::with('group')->where('username', '=', $username)->sole();
+        $user->load('group');
         $staff = $request->user();
         $group = Group::findOrFail($request->group_id);
 
@@ -86,10 +84,8 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions.
      */
-    public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function permissions(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
-
         $user->update([
             'can_upload'   => $request->boolean('can_upload'),
             'can_download' => $request->boolean('can_download'),
@@ -110,10 +106,8 @@ class UserController extends Controller
     /**
      * Delete A User.
      */
-    protected function destroy(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    protected function destroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
-
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
@@ -191,32 +185,5 @@ class UserController extends Controller
 
         return to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
-    }
-
-    /**
-     * Manually warn a user.
-     */
-    protected function warnUser(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->sole();
-
-        Warning::create([
-            'user_id'    => $user->id,
-            'warned_by'  => $request->user()->id,
-            'torrent'    => null,
-            'reason'     => $request->string('message'),
-            'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
-            'active'     => '1',
-        ]);
-
-        PrivateMessage::create([
-            'sender_id'   => User::SYSTEM_USER_ID,
-            'receiver_id' => $user->id,
-            'subject'     => 'Received warning',
-            'message'     => 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
-        ]);
-
-        return to_route('users.show', ['user' => $user])
-            ->withSuccess('Warning issued successfully!');
     }
 }

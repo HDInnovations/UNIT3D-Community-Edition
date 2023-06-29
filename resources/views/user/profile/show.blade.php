@@ -37,7 +37,7 @@
                     @elseif(auth()->user()->group->is_modo)
                         <div class="panel__action">
                             <a
-                                href="{{ route('user_setting', ['username' => $user->username]) }}"
+                                href="{{ route('staff.users.edit', ['user' => $user]) }}"
                                 class="form__button form__button--text"
                             >
                                 {{ __('common.edit') }}
@@ -45,7 +45,7 @@
                         </div>
                         <div class="panel__action">
                             <form
-                                action="{{ route('user_delete', ['username' => $user->username]) }}"
+                                action="{{ route('staff.users.destroy', ['user' => $user]) }}"
                                 method="POST"
                                 x-data
                             >

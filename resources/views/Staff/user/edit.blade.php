@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('user_search') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.users.index') }}" class="breadcrumb__link">
             {{ __('common.users') }}
         </a>
     </li>
@@ -39,9 +39,10 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('user_edit', ['username' => $user->username]) }}"
+                action="{{ route('staff.users.update', ['user' => $user]) }}"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="username"
@@ -202,9 +203,10 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('user_permissions', ['username' => $user->username]) }}"
+                action="{{ route('staff.users.update_permissions', ['user' => $user]) }}"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input type="hidden" name="can_upload" value="0">
                     <input

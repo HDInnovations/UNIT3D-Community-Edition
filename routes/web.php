@@ -573,6 +573,7 @@ Route::middleware('language')->group(function (): void {
 
         // Warnings
         Route::prefix('warnings')->name('warnings.')->group(function (): void {
+            Route::post('/', [App\Http\Controllers\User\WarningController::class, 'store'])->name('store');
             Route::delete('/{warning}', [App\Http\Controllers\User\WarningController::class, 'destroy'])->name('destroy');
             Route::delete('/mass-delete', [App\Http\Controllers\User\WarningController::class, 'massDestroy'])->name('mass_destroy');
             Route::patch('/{warning}', [App\Http\Controllers\User\WarningController::class, 'update'])->name('update')->withTrashed();
@@ -951,14 +952,12 @@ Route::middleware('language')->group(function (): void {
         });
 
         // User Tools TODO: Leaving since we will be refactoring users and roles
-        Route::prefix('users')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\Staff\UserController::class, 'index'])->name('user_search');
-            Route::post('/{username}/edit', [App\Http\Controllers\Staff\UserController::class, 'edit'])->name('user_edit');
-            Route::get('/{username}/settings', [App\Http\Controllers\Staff\UserController::class, 'settings'])->name('user_setting');
-            Route::post('/{username}/permissions', [App\Http\Controllers\Staff\UserController::class, 'permissions'])->name('user_permissions');
-            Route::post('/{username}/password', [App\Http\Controllers\Staff\UserController::class, 'password'])->name('user_password');
-            Route::delete('/{username}/destroy', [App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('user_delete');
-            Route::post('/{username}/warn', [App\Http\Controllers\Staff\UserController::class, 'warnUser'])->name('user_warn');
+        Route::prefix('users')->name('staff.users.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\Staff\UserController::class, 'index'])->name('index');
+            Route::patch('/{user:username}', [App\Http\Controllers\Staff\UserController::class, 'update'])->name('update')->withTrashed();
+            Route::get('/{user:username}/edit', [App\Http\Controllers\Staff\UserController::class, 'edit'])->name('edit');
+            Route::patch('/{user:username}/permissions', [App\Http\Controllers\Staff\UserController::class, 'permissions'])->name('update_permissions');
+            Route::delete('/{user:username}', [App\Http\Controllers\Staff\UserController::class, 'destroy'])->name('destroy');
         });
 
         // Warnings Log

@@ -19,12 +19,40 @@ use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
  */
 class WarningController extends Controller
 {
+    /**
+     * Manually warn a user.
+     */
+    protected function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless($request->user()->group->is_modo, 403);
+
+        Warning::create([
+            'user_id'    => $user->id,
+            'warned_by'  => $request->user()->id,
+            'torrent'    => null,
+            'reason'     => $request->string('message'),
+            'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
+            'active'     => '1',
+        ]);
+
+        PrivateMessage::create([
+            'sender_id'   => User::SYSTEM_USER_ID,
+            'receiver_id' => $user->id,
+            'subject'     => 'Received warning',
+            'message'     => 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
+        ]);
+
+        return to_route('users.show', ['user' => $user])
+            ->withSuccess('Warning issued successfully!');
+    }
+
     /**
      * Delete A Warning.
      *

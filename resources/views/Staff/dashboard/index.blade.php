@@ -252,7 +252,7 @@
                     </a>
                 </li>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('user_search') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
                     </a>

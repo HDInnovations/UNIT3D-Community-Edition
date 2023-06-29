@@ -13,7 +13,7 @@
                     <form
                         class="dialog__form"
                         method="POST"
-                        action="{{ route('user_warn', ['username' => $user->username]) }}"
+                        action="{{ route('users.warnings.store', ['user' => $user]) }}"
                         x-on:click.outside="open = false; $refs.dialog.close();"
                     >
                         @csrf
