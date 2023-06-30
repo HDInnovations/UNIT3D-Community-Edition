@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <a href="{{ route('requests.show', ['id' => $request->id]) }}">
+                                <a href="{{ route('requests.show', ['torrentRequest' => $request]) }}">
                                     {{ $request->name }}
                                 </a>
                             </td>

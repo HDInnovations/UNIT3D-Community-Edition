@@ -40,14 +40,9 @@ class ReportController extends Controller
         $reportedBy = $request->user();
         $reportedUser = $torrentRequest->user;
 
-        $v = validator($request->all(), [
+        $request->validate([
             'message' => 'required',
         ]);
-
-        if ($v->fails()) {
-            return to_route('requests.show', ['id' => $id])
-                ->withErrors($v->errors());
-        }
 
         $this->report->create([
             'type'          => 'Request',
@@ -73,14 +68,9 @@ class ReportController extends Controller
         $reportedBy = $request->user();
         $reportedUser = $torrent->user;
 
-        $v = validator($request->all(), [
+        $request->validate([
             'message' => 'required',
         ]);
-
-        if ($v->fails()) {
-            return to_route('torrent', ['id' => $id])
-                ->withErrors($v->errors());
-        }
 
         $this->report->create([
             'type'          => 'Torrent',
@@ -105,14 +95,9 @@ class ReportController extends Controller
         $reportedUser = User::where('username', '=', $username)->sole();
         $reportedBy = $request->user();
 
-        $v = validator($request->all(), [
+        $request->validate([
             'message' => 'required',
         ]);
-
-        if ($v->fails()) {
-            return to_route('users.show', ['user' => $reportedBy])
-                ->withErrors($v->errors());
-        }
 
         $this->report->create([
             'type'          => 'User',

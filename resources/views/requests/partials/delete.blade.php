@@ -1,6 +1,6 @@
 <li class="form__group form__group--short-horizontal">
     <form
-        action="{{ route("requests.destroy", ['id' => $torrentRequest->id]) }}"
+        action="{{ route("requests.destroy", ['torrentRequest' => $torrentRequest]) }}"
         method="POST"
         x-data
         style="display: contents"

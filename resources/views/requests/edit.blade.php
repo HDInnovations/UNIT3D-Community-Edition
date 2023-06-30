@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('requests.show', ['id' => $torrentRequest->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}" class="breadcrumb__link">
             {{ $torrentRequest->name }}
         </a>
     </li>
@@ -35,7 +35,7 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('request.edit-request') }}</h2>
             <div class="panel__body">
-                <form class="form" method="POST" action="{{ route('requests.update', ['id' => $torrentRequest->id]) }}">
+                <form class="form" method="POST" action="{{ route('requests.update', ['torrentRequest' => $torrentRequest]) }}">
                     @csrf
                     @method('PATCH')
                     <p class="form__group">

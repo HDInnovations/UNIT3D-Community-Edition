@@ -154,25 +154,31 @@ Route::middleware('language')->group(function (): void {
         // Requests System
         Route::prefix('requests')->name('requests.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\RequestController::class, 'index'])->name('index');
-            Route::get('/add', [App\Http\Controllers\RequestController::class, 'create'])->name('create');
+            Route::get('/create', [App\Http\Controllers\RequestController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\RequestController::class, 'store'])->name('store');
-            Route::get('/{id}/edit', [App\Http\Controllers\RequestController::class, 'edit'])->name('edit');
-            Route::patch('/{id}', [App\Http\Controllers\RequestController::class, 'update'])->name('update');
-            Route::get('/{id}', [App\Http\Controllers\RequestController::class, 'show'])->name('show');
-            Route::delete('/{id}', [App\Http\Controllers\RequestController::class, 'destroy'])->name('destroy');
-            Route::post('/{id}/accept', [App\Http\Controllers\RequestController::class, 'approve'])->name('approve');
-            Route::post('/{id}/fill', [App\Http\Controllers\RequestController::class, 'fill'])->name('fill');
-            Route::post('/{id}/reject', [App\Http\Controllers\RequestController::class, 'reject'])->name('reject');
-            Route::post('/{id}/reset', [App\Http\Controllers\RequestController::class, 'reset'])->name('reset')->middleware('modo');
+            Route::get('/{torrentRequest}/edit', [App\Http\Controllers\RequestController::class, 'edit'])->name('edit');
+            Route::patch('/{torrentRequest}', [App\Http\Controllers\RequestController::class, 'update'])->name('update');
+            Route::get('/{torrentRequest}', [App\Http\Controllers\RequestController::class, 'show'])->name('show');
+            Route::delete('/{torrentRequest}', [App\Http\Controllers\RequestController::class, 'destroy'])->name('destroy');
 
-            Route::prefix('bounties')->name('bounties.')->group(function (): void {
-                Route::post('/{id}', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+            Route::prefix('{torrentRequest}/fills')->name('fills.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\RequestFillController::class, 'store'])->name('store');
+                Route::delete('/', [App\Http\Controllers\RequestFillController::class, 'destroy'])->name('destroy')->middleware('modo');
             });
 
-            Route::prefix('claims')->name('claims.')->group(function (): void {
-                Route::post('/{id}', [App\Http\Controllers\ClaimController::class, 'store'])->name('store');
-                Route::delete('/{id}', [App\Http\Controllers\ClaimController::class, 'destroy'])->name('destroy');
+            Route::prefix('{torrentRequest}/approved-fills')->name('approved_fills.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\ApprovedRequestFillController::class, 'store'])->name('store');
+                Route::delete('/', [App\Http\Controllers\ApprovedRequestFillController::class, 'destroy'])->name('destroy')->middleware('modo');
             });
+
+            Route::prefix('{torrentRequest}/bounties')->name('bounties.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+            });
+
+            Route::prefix('{torrentRequest}/claims')->name('claims.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\ClaimController::class, 'store'])->name('store');
+                Route::delete('/{claim}', [App\Http\Controllers\ClaimController::class, 'destroy'])->name('destroy');
+            })->scopeBindings();
         });
 
         // Top 10 System
