@@ -14,11 +14,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
-class VoteOnPoll extends FormRequest
+class StorePollVoteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,13 +33,21 @@ class VoteOnPoll extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
+        $poll = $request->route('poll');
+
         return [
-            'option' => [
+            'options' => [
                 'required',
+                'array',
+                Rule::when(! $poll->multiple_choice, 'max:1'),
                 'min:1',
             ],
+            'options.*' => [
+                'integer',
+                Rule::exists('options', 'id')->where('poll_id', $poll->id),
+            ]
         ];
     }
 
@@ -47,7 +57,7 @@ class VoteOnPoll extends FormRequest
     public function messages(): array
     {
         return [
-            'option.required' => 'You must select an answer',
+            'options.required' => 'You must select an answer',
         ];
     }
 }

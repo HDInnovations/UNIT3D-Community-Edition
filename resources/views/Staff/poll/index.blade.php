@@ -51,7 +51,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('poll', ['id' => $poll->id]) }}"
+                                        href="{{ route('polls.show', ['poll' => $poll]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.view') }}

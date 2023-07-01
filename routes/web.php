@@ -220,11 +220,13 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Poll System
-        Route::prefix('polls')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('polls');
-            Route::post('/vote', [App\Http\Controllers\PollController::class, 'vote']);
-            Route::get('/{id}', [App\Http\Controllers\PollController::class, 'show'])->where('id', '[0-9]+')->name('poll');
-            Route::get('/{id}/result', [App\Http\Controllers\PollController::class, 'result'])->name('poll_results');
+        Route::prefix('polls')->name('polls.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('index');
+            Route::get('/{poll}', [App\Http\Controllers\PollController::class, 'show'])->name('show');
+            Route::prefix('{poll}/votes')->name('votes.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\PollVoteController::class, 'store'])->name('store');
+                Route::get('/', [App\Http\Controllers\PollVoteController::class, 'index'])->name('index');
+            });
         });
 
         // Graveyard System

@@ -89,7 +89,7 @@
                     </a>
                 </li>
                 <li>
-                    <a  href="{{ route('polls') }}">
+                    <a  href="{{ route('polls.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i>
                         {{ __('poll.polls') }}
                     </a>

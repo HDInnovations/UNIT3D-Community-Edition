@@ -20,7 +20,7 @@
                 @foreach ($polls as $poll)
                     <tr>
                         <td>
-                            <a href="{{ route('poll', ['id' => $poll->id]) }}">
+                            <a href="{{ route('polls.show', ['poll' => $poll]) }}">
                                 <i class="{{ config('other.font-awesome') }} fa-pie-chart"></i>
                                 {{ $poll->title }}
                             </a>
