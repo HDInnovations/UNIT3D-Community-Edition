@@ -341,7 +341,7 @@
                 <form
                     class="dialog__form"
                     method="POST"
-                    action="{{ route('graveyard.store') }}"
+                    action="{{ route('users.resurrections.store', ['user' => auth()->user()]) }}"
                     x-on:click.outside="$refs.dialog.close()"
                 >
                     @csrf

@@ -229,14 +229,6 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        // Graveyard System
-        Route::prefix('graveyard')->group(function (): void {
-            Route::name('graveyard.')->group(function (): void {
-                Route::post('/', [App\Http\Controllers\GraveyardController::class, 'store'])->name('store');
-                Route::delete('/{id}', [App\Http\Controllers\GraveyardController::class, 'destroy'])->name('destroy');
-            });
-        });
-
         // Playlist System
         Route::prefix('playlists')->group(function (): void {
             Route::name('playlists.')->group(function (): void {
@@ -505,7 +497,9 @@ Route::middleware('language')->group(function (): void {
         // Resurrections
         Route::prefix('resurrections')->name('resurrections.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\ResurrectionController::class, 'index'])->name('index');
-        });
+            Route::post('/', [App\Http\Controllers\User\ResurrectionController::class, 'store'])->name('store');
+            Route::delete('/{resurrection}', [App\Http\Controllers\User\ResurrectionController::class, 'destroy'])->name('destroy');
+        })->scopeBindings();
 
         // Seedboxes
         Route::prefix('seedboxes')->name('seedboxes.')->group(function (): void {
