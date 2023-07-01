@@ -185,7 +185,7 @@
             @endif
             @if($isProfileOwner)
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('torrents', ['bookmarked' => '1']) }}">
+                    <a class="nav-tab__link" href="{{ route('torrents.index', ['bookmarked' => '1']) }}">
                         {{ __('user.bookmarks') }}
                     </a>
                 </li>

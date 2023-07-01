@@ -284,9 +284,9 @@ class PlaylistController extends Controller
 
                 // Set link to torrent as the comment
                 if (config('torrent.comment')) {
-                    $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $torrent->id]);
+                    $dict['comment'] = config('torrent.comment').'. '.route('torrents.show', ['id' => $torrent->id]);
                 } else {
-                    $dict['comment'] = route('torrent', ['id' => $torrent->id]);
+                    $dict['comment'] = route('torrents.show', ['id' => $torrent->id]);
                 }
 
                 $fileToDownload = Bencode::bencode($dict);

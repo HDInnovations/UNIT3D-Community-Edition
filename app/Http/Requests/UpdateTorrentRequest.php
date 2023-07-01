@@ -1,0 +1,155 @@
+<?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     Roardom <roardom@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+namespace App\Http\Requests;
+
+use App\Models\Category;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use voku\helper\AntiXSS;
+
+class UpdateTorrentRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     */
+    public function rules(Request $request): array
+    {
+        $this->sanitize();
+
+        $category = Category::findOrFail($request->integer('category_id'));
+
+        return [
+            'name' => [
+                'required',
+                'unique:torrents',
+                'max:255',
+            ],
+            'description' => [
+                'required',
+                'max:4294967296'
+            ],
+            'mediainfo' => [
+                'nullable',
+                'sometimes',
+                'max:4294967296',
+            ],
+            'bdinfo' => [
+                'nullable',
+                'sometimes',
+                'max:4294967296',
+            ],
+            'category_id' => [
+                'required',
+                'exists:categories,id',
+            ],
+            'type_id' => [
+                'required',
+                'exists:types,id',
+            ],
+            'resolution_id' => [
+                Rule::when($category->movie_meta || $category->tv_meta, 'required'),
+                Rule::when(! $category->movie_meta && ! $category->tv_meta, 'nullable'),
+                'exists:resolutions,id',
+            ],
+            'region_id' => [
+                'nullable',
+                'exists:regions,id',
+            ],
+            'distributor_id' => [
+                'nullable',
+                'exists:distributors,id',
+            ],
+            'imdb' => [
+                'required',
+                'numeric',
+            ],
+            'tvdb' => [
+                'required',
+                'numeric',
+            ],
+            'tmdb' => [
+                'required',
+                'numeric',
+            ],
+            'mal' => [
+                'required',
+                'numeric',
+            ],
+            'igdb' => [
+                'required',
+                'numeric',
+            ],
+            'season_number' => [
+                Rule::when($category->tv_meta, 'required'),
+                Rule::when(! $category->tv_meta, 'nullable'),
+                'numeric',
+            ],
+            'episode_number' => [
+                Rule::when($category->tv_meta, 'required'),
+                Rule::when(! $category->tv_meta, 'nullable'),
+                'numeric',
+            ],
+            'anon' => [
+                'required',
+                'boolean',
+                Rule::when($request->route('torrent')->user_id !== $request->user()->id && ! $request->user()->group->is_modo, 'exclude'),
+            ],
+            'stream' => [
+                'required',
+                'boolean',
+            ],
+            'sd' => [
+                'required',
+                'boolean',
+            ],
+            'personal_release' => [
+                'required',
+                'boolean',
+            ],
+            'internal' => [
+                'sometimes',
+                'boolean',
+                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+            ],
+            'free' => [
+                'sometimes',
+                'between:0,100',
+                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+            ],
+            'refundable' => [
+                'sometimes',
+                'boolean',
+                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+            ],
+        ];
+    }
+
+    private function sanitize(): void
+    {
+        $input = $this->all();
+
+        $input['description'] = htmlspecialchars((new AntiXSS())->xss_clean($input['description']), ENT_NOQUOTES);
+
+        $this->replace($input);
+    }
+}

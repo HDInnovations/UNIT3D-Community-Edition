@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="movie-bottom">
-                    <a href="{{ route('torrents', ['collectionId' => $collection->id]) }}" role="button"
+                    <a href="{{ route('torrents.index', ['collectionId' => $collection->id]) }}" role="button"
                        class="form__button form__button--filled">
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i> Collection Torrents List
                     </a>

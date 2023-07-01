@@ -1,33 +1,33 @@
 <ul class="torrent__tags">
     <li class="torrent__category">
-        <a class="torrent__category-link" href="{{ route('torrents', ['categories' => [$torrent->category->id]]) }}">
+        <a class="torrent__category-link" href="{{ route('torrents.index', ['categories' => [$torrent->category->id]]) }}">
             {{ $torrent->category->name }}
         </a>
     </li>
     @if($torrent->resolution)
         <li class="torrent__resolution">
-            <a class="torrent__resolution-link" href="{{ route('torrents', ['resolutions' => [$torrent->category->id]]) }}">
+            <a class="torrent__resolution-link" href="{{ route('torrents.index', ['resolutions' => [$torrent->category->id]]) }}">
                 {{ $torrent->resolution->name }}
             </a>
         </li>
     @endif
     @isset($torrent->region)
         <li class="torrent__region">
-            <a class="torrent__region-link" href="{{ route('torrents', ['regions' => [$torrent->region->id]]) }}">
+            <a class="torrent__region-link" href="{{ route('torrents.index', ['regions' => [$torrent->region->id]]) }}">
                 {{ $torrent->region->name }}
             </a>
         </li>
     @endisset
     @isset($torrent->type)
         <li class="torrent__type">
-            <a class="torrent__type-link" href="{{ route('torrents', ['types' => [$torrent->type->id]]) }}">
+            <a class="torrent__type-link" href="{{ route('torrents.index', ['types' => [$torrent->type->id]]) }}">
                 {{ $torrent->type->name }}
             </a>
         </li>
     @endisset
     @isset($torrent->distributor)
         <li class="torrent__distributor">
-            <a class="torrent__distributor-link" href="{{ route('torrents', ['distributors' => [$torrent->distributor->id]]) }}">
+            <a class="torrent__distributor-link" href="{{ route('torrents.index', ['distributors' => [$torrent->distributor->id]]) }}">
                 {{ $torrent->distributor->name }}
             </a>
         </li>

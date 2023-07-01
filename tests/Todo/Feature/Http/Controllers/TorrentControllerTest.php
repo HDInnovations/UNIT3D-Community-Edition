@@ -37,7 +37,7 @@ class TorrentControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('delete'), [
+        $response = $this->actingAs($user)->delete(route('torrents.destroy', ['id' => $torrent->id]), [
             // TODO: send request data
         ]);
 
@@ -93,7 +93,7 @@ class TorrentControllerTest extends TestCase
         $torrent = Torrent::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('edit', ['id' => $torrent->id]), [
+        $response = $this->actingAs($user)->post(route('torrents.update', ['id' => $torrent->id]), [
             // TODO: send request data
         ]);
 
@@ -112,7 +112,7 @@ class TorrentControllerTest extends TestCase
         $torrent = Torrent::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('edit_form', ['id' => $torrent->id]));
+        $response = $this->actingAs($user)->get(route('torrents.edit', ['id' => $torrent->id]));
 
         $response->assertOk();
         $response->assertViewIs('torrent.edit');
@@ -331,7 +331,7 @@ class TorrentControllerTest extends TestCase
         $torrent = Torrent::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('torrent', ['id' => $torrent->id]));
+        $response = $this->actingAs($user)->get(route('torrents.show', ['id' => $torrent->id]));
 
         $response->assertOk();
         $response->assertViewIs('torrent.show');
@@ -371,7 +371,7 @@ class TorrentControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('torrents'));
+        $response = $this->actingAs($user)->get(route('torrents.index'));
 
         $response->assertOk();
         $response->assertViewIs('torrent.index');
@@ -396,7 +396,7 @@ class TorrentControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('upload'), [
+        $response = $this->actingAs($user)->post(route('torrents.store'), [
             // TODO: send request data
         ]);
 
@@ -414,7 +414,7 @@ class TorrentControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('upload_form'));
+        $response = $this->actingAs($user)->get(route('torrents.create'));
 
         $response->assertOk();
         $response->assertViewIs('torrent.create');

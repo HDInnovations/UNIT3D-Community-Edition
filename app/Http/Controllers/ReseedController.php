@@ -51,11 +51,11 @@ class ReseedController extends Controller
                 sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out :question:', $torrentUrl, $torrent->name)
             );
 
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
         }
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withErrors('This torrent doesnt meet the rules for a reseed request.');
     }
 }

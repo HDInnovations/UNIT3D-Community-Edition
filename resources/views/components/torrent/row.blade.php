@@ -103,7 +103,7 @@
     </td>
     <td class="torrent-search--list__overview">
         <div>
-            <a class="torrent-search--list__name" href="{{ route('torrent', ['id' => $torrent->id]) }}">
+            <a class="torrent-search--list__name" href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 {{ $torrent->name }}
             </a>
             <x-user_tag class="torrent-search--list__uploader" :user="$torrent->user" :anon="$torrent->anon" />
@@ -115,7 +115,7 @@
             @if(auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <a
                     class="torrent-search--list__edit form__standard-icon-button"
-                    href="{{ route('edit_form', ['id' => $torrent->id]) }}"
+                    href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                     title="{{ __('common.edit') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>

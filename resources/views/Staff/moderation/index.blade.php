@@ -43,7 +43,7 @@
                             </time>
                         </td>
                         <td>
-                            <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                            <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                                 {{ $torrent->name }}
                             </a>
                         </td>
@@ -115,7 +115,7 @@
                             </time>
                         </td>
                         <td>
-                            <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+                            <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                         </td>
                         <td>
                             <i
@@ -150,7 +150,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('edit', ['id' => $torrent->id]) }}"
+                                        href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                         class="form__button form__button--filled"
                                     >
                                         <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
@@ -196,7 +196,7 @@
                             </time>
                         </td>
                         <td>
-                            <a href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+                            <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                         </td>
                         <td>
                             <i
@@ -232,7 +232,7 @@
                                 @include('Staff.moderation.partials._postpone_dialog', ['torrent' => $torrent])
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('edit', ['id' => $torrent->id]) }}"
+                                        href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                         class="form__button form__button--filled"
                                     >
                                         <i class="{{ config('other.font-awesome') }} fa-pencil"></i>

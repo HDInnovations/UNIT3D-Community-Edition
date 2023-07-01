@@ -19,7 +19,7 @@
         </a>
         <ul class="meta__dropdown">
             <li>
-                <a href="{{ route('upload_form', [
+                <a href="{{ route('torrents.create', [
                     'category_id' => $category->id,
                     'title'       => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
                     'imdb'        => $torrent->imdb ?? '',
@@ -156,7 +156,7 @@
             @endisset
             @if ($meta?->genres?->isNotEmpty())
                 <article class="meta__genres">
-                    <a class="meta-chip" href="{{ route('torrents', ['view' => 'group', 'genres' => $meta->genres->pluck('id')->toArray()]) }}">
+                    <a class="meta-chip" href="{{ route('torrents.index', ['view' => 'group', 'genres' => $meta->genres->pluck('id')->toArray()]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"></i>
                         <h2 class="meta-chip__name">Genres</h2>
                         <h3 class="meta-chip__value">{{ $meta->genres->pluck('name')->join(' / ') }}</h3>
@@ -165,7 +165,7 @@
             @endif
             @foreach ($meta?->companies ?? [] as $company)
                 <article class="meta__company">
-                    <a class="meta-chip" href="{{ route('torrents', ['view' => 'group', 'companyId' => $company->id]) }}">
+                    <a class="meta-chip" href="{{ route('torrents.index', ['view' => 'group', 'companyId' => $company->id]) }}">
                         @if ($company->logo)
                             <img class="meta-chip__image" style="object-fit: scale-down" src="{{ tmdb_image('logo_small', $company->logo) }}" alt="logo" />
                         @else
@@ -178,7 +178,7 @@
             @endforeach
             @if (isset($torrent) && $torrent?->keywords?->isNotEmpty())
                 <article class="meta__keywords">
-                    <a class="meta-chip" href="{{ route('torrents', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}">
+                    <a class="meta-chip" href="{{ route('torrents.index', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
                         <h2 class="meta-chip__name">Keywords</h2>
                         <h3 class="meta-chip__value">{{ $torrent->keywords->pluck('name')->join(', ') }}</h3>

@@ -79,7 +79,7 @@
                     @forelse ($torrents as $torrent)
                         <tr>
                             <td>
-                                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                                     {{ $torrent->name }}
                                 </a>
                             </td>

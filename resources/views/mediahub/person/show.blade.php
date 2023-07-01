@@ -30,7 +30,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('torrents', ['view' => 'group', 'tmdbId' => $movie->id, 'categories' => $movieCategoryIds]) }}">{{ $movie->title }}</a><br>
+                                        href="{{ route('torrents.index', ['view' => 'group', 'tmdbId' => $movie->id, 'categories' => $movieCategoryIds]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
                                     @if ($movie->genres)
@@ -70,7 +70,7 @@
                             </td>
                             <td class="col-sm-5">
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('torrents', ['view' => 'group', 'tmdbId' => $show->id, 'id' => $show->id, 'categories' => $tvCategoryIds]) }}">{{ $show->name }}</a><br>
+                                        href="{{ route('torrents.index', ['view' => 'group', 'tmdbId' => $show->id, 'id' => $show->id, 'categories' => $tvCategoryIds]) }}">{{ $show->name }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
                                     @if ($show->genres)
@@ -116,13 +116,13 @@
             <dd>{{ $person->movie->count() ?? '0' }}</dd>
             <dt>{{ __('mediahub.first-seen') }} </dt>
             <dd>
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->movie->first()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->movie->first()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
                     {{ $person->movie->first()->title ?? 'N/A'}}
                 </a>
             </dd>
             <dt>{{ __('mediahub.latest-project') }}</dt>
             <dd>
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->movie->last()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->movie->last()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
                     {{ $person->movie->last()->title ?? 'N/A' }}
                 </a>
             </dd>
@@ -131,14 +131,14 @@
             <dt>{{ __('mediahub.first-seen') }}</dt>
             <dd>
                 In
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->tv->first()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->tv->first()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
                     {{ $person->tv->first()->name ?? 'N/A'}}
                 </a>
             </dd>
             <dt>{{ __('mediahub.latest-project') }}</dt>
             <dd>
                 Last in
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->tv->last()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->tv->last()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
                     {{ $person->tv->last()->name ?? 'N/A' }}
                 </a>
             </dd>

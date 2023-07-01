@@ -10,12 +10,12 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}" class="breadcrumb__link">
             {{ $torrent->name }}
         </a>
     </li>

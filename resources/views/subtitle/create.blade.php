@@ -103,7 +103,7 @@
         <h2 class="panel__heading">{{ __('torrent.torrent') }}</label>
         <div class="panel__body">
             <a
-                href="{{ route('torrent', ['id' => $torrent->id]) }}"
+                href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
                 title="{{ $torrent->name }}"
             >
                 {{ $torrent->name }}

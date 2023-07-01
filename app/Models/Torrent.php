@@ -56,6 +56,11 @@ class Torrent extends Model
         'info_hash',
     ];
 
+    public const PENDING = 0;
+    public const APPROVED = 1;
+    public const REJECTED = 2;
+    public const POSTPONED = 3;
+
     /**
      * Belongs To A User.
      */
@@ -233,6 +238,14 @@ class Torrent extends Model
     public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Bookmark::class);
+    }
+
+    /**
+     * Bookmarks.
+     */
+    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Graveyard::class);
     }
 
     /**

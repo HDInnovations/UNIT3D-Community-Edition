@@ -10,7 +10,7 @@
         <li class="top-nav--left__list-item top-nav__dropdown">
             <a
                 class="top-nav__dropdown--nontouch"
-                href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+                href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
                     1       => 'card',
                     2       => 'group',
                     default => 'list'
@@ -28,7 +28,7 @@
             <ul>
                 <li>
                     <a
-                        href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+                        href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
                             1       => 'card',
                             2       => 'group',
                             default => 'list'
@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('upload_form', ['category_id' => 1]) }}">
+                    <a href="{{ route('torrents.create', ['category_id' => 1]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                         {{ __('common.upload') }}
                     </a>
@@ -411,7 +411,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('torrents', ['bookmarked' => 1]) }}">
+                        <a href="{{ route('torrents.index', ['bookmarked' => 1]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
                             {{ __('user.my-bookmarks') }}
                         </a>

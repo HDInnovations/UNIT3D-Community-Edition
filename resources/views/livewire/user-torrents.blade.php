@@ -247,7 +247,7 @@
                 @foreach ($histories as $history)
                     <tr>
                         <td>
-                            <a class="user-torrents__name" href="{{ route('torrent', ['id' => $history->torrent_id]) }}">
+                            <a class="user-torrents__name" href="{{ route('torrents.show', ['id' => $history->torrent_id]) }}">
                                 {{ $history->name }}
                             </a>
                         </td>

@@ -69,7 +69,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('torrents', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
+                                <a href="{{ route('torrents.index', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
                                     Torrents
                                 </a>
                             </td>

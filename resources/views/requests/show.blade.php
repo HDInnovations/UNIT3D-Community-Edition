@@ -150,7 +150,7 @@
                 </dl>
             </section>
         @endif
-        @if ($torrentRequest->torrent_id !== null)
+        @if ($torrentRequest->filled_by !== null)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.filled') }}</h2>
                 <dl class="key-value">
@@ -166,11 +166,15 @@
                     </dd>
                     <dt>{{ __('request.filled') }} with</dt>
                     <dd>
-                        <a
-                            href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}"
-                        >
-                            {{ $torrentRequest->torrent->name }}
-                        </a>
+                        @if ($torrentRequest->torrent_id === null)
+                            Filled torrent has been deleted
+                        @else
+                            <a
+                                href="{{ route('torrents.show', ['id' => $torrentRequest->torrent->id]) }}"
+                            >
+                                {{ $torrentRequest->torrent->name }}
+                            </a>
+                        @endif
                     </dd>
                 </dl>
                 @if ($torrentRequest->approved_by === null && ($torrentRequest->user_id == $user->id || auth()->user()->group->is_modo))

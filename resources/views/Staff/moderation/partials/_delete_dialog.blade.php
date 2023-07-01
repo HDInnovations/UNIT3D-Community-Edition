@@ -10,10 +10,11 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route('delete') }}"
+            action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
+            @method('DELETE')
             <p class="form__group">
                 <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}">
                 <input id="id" type="hidden" name="id" value="{{ $torrent->id }}">

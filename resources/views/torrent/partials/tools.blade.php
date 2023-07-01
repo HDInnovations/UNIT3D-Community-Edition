@@ -8,7 +8,7 @@
                 <li>
                     <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; flex-wrap: wrap;">
                         <li>
-                            <a class="form__button form__button--outlined" href="{{ route('edit_form', ['id' => $torrent->id]) }}"
+                            <a class="form__button form__button--outlined" href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                 role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> {{ __('common.edit') }}
                             </a>
@@ -25,10 +25,11 @@
                                     <form
                                         class="dialog__form"
                                         method="POST"
-                                        action="{{ route('delete') }}"
+                                        action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
                                         x-on:click.outside="$refs.dialog.close()"
                                     >
                                         @csrf
+                                        @method('DELETE')
                                         <input id="type" name="type" type="hidden" value="Torrent">
                                         <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
                                         <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">

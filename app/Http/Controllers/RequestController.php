@@ -56,7 +56,7 @@ class RequestController extends Controller
     public function show(Request $request, TorrentRequest $torrentRequest): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('requests.show', [
-            'torrentRequest' => $torrentRequest->load(['category', 'claim' => ['user'], 'bounties']),
+            'torrentRequest' => $torrentRequest->load(['category', 'claim' => ['user'], 'bounties', 'torrent']),
             'user'           => $request->user(),
             'meta'           => match (true) {
                 ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) => Tv::with([

@@ -72,7 +72,7 @@
                     @foreach ($resurrections as $resurrection)
                         <tr>
                             <td class="user-resurrections__name">
-                                <a href="{{ route('torrent', ['id' => $resurrection->torrent->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $resurrection->torrent->id]) }}">
                                     {{ $resurrection->torrent->name }}
                                 </a>
                             </td>

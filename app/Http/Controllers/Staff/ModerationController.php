@@ -54,13 +54,13 @@ class ModerationController extends Controller
         $torrent = Torrent::withAnyStatus()->with('user')->findOrFail($id);
 
         if ($request->integer('old_status') !== $torrent->status) {
-            return to_route('torrent', ['id' => $id])
+            return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors('Torrent has already been moderated since this page was loaded.');
         }
 
         if ($request->integer('status') === $torrent->status) {
-            return to_route('torrent', ['id' => $id])
+            return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors(
                     match ($torrent->status) {
@@ -124,7 +124,7 @@ class ModerationController extends Controller
                     ->withSuccess('Torrent Postponed');
 
             default: // Undefined status
-                return to_route('torrent', ['id' => $id])
+                return to_route('torrents.show', ['id' => $id])
                     ->withErrors('Invalid moderation status.');
         }
     }

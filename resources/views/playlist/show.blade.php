@@ -109,7 +109,7 @@
                 </p>
                 <p class="form__group form__group--horizontal">
                     <a
-                        href="{{ route('torrents', ['playlistId' => $playlist->id]) }}"
+                        href="{{ route('torrents.index', ['playlistId' => $playlist->id]) }}"
                         class="form__button form__button--filled form__button--centered"
                     >
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i>

@@ -131,7 +131,7 @@
                 </td>
                 <td>
                     @isset($warning->torrent)
-                        <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
+                        <a href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}">
                             {{ $warning->torrenttitle->name }}
                         </a>
                     @else

@@ -13,7 +13,7 @@
 @section('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link"
-            href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+            href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
                 1       => 'card',
                 2       => 'group',
                 default => 'list'
@@ -33,7 +33,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+        <a class="nav-tab__link" href="{{ route('torrents.create', ['category_id' => 1]) }}">
             {{ __('common.upload') }}
         </a>
     </li>

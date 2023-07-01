@@ -56,7 +56,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['id' => $subtitle->torrent->id]) }}">
+                                    <a href="{{ route('torrents.show', ['id' => $subtitle->torrent->id]) }}">
                                         {{ $subtitle->torrent->name }}
                                     </a>
                                 </td>

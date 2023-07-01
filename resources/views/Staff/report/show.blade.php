@@ -30,7 +30,7 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.title') }}</h2>
             <div class="panel__body">
-                <a href="{{ route('torrent', ['id' => $report->torrent->id]) }}">
+                <a href="{{ route('torrents.show', ['id' => $report->torrent->id]) }}">
                     {{ $report->title }}
                 </a>
             </div>
