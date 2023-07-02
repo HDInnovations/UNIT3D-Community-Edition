@@ -259,11 +259,11 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('subtitles')->group(function (): void {
             Route::name('subtitles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\SubtitleController::class, 'index'])->name('index');
-                Route::get('/create/{torrent_id}', [App\Http\Controllers\SubtitleController::class, 'create'])->where('id', '[0-9]+')->name('create');
-                Route::post('/store', [App\Http\Controllers\SubtitleController::class, 'store'])->name('store');
-                Route::post('/{id}/update', [App\Http\Controllers\SubtitleController::class, 'update'])->name('update');
-                Route::delete('/{id}/delete', [App\Http\Controllers\SubtitleController::class, 'destroy'])->name('destroy');
-                Route::get('/{id}/download', [App\Http\Controllers\SubtitleController::class, 'download'])->name('download');
+                Route::get('/create', [App\Http\Controllers\SubtitleController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\SubtitleController::class, 'store'])->name('store');
+                Route::patch('/{subtitle}', [App\Http\Controllers\SubtitleController::class, 'update'])->name('update');
+                Route::delete('/{subtitle}', [App\Http\Controllers\SubtitleController::class, 'destroy'])->name('destroy');
+                Route::get('/{subtitle}/download', [App\Http\Controllers\SubtitleController::class, 'download'])->name('download');
             });
         });
 

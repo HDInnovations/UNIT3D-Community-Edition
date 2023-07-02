@@ -80,7 +80,7 @@
                                         <li class="data-table__action">
                                             <a
                                                 class="form__button form__button--text"
-                                                href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                                                href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                             >
                                                 {{ __('common.download') }}
                                             </a>
