@@ -15,9 +15,9 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class PlaylistTorrent extends Model
+class PlaylistTorrent extends Pivot
 {
     use Auditable;
     use HasFactory;
@@ -28,6 +28,17 @@ class PlaylistTorrent extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    protected $guarded = [];
+
+    protected $table = 'playlist_torrents';
 
     /**
      * Belongs To A Torrent.

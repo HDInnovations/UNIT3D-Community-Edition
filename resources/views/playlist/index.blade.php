@@ -22,7 +22,7 @@
                     @if(isset($playlist->cover_image))
                         <a
                             class="playlists__playlist-image-link" 
-                            href="{{ route('playlists.show', ['id' => $playlist->id]) }}"
+                            href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
                         >
                             <img
                                 class="playlists__playlist-image"
@@ -33,7 +33,7 @@
                     @else
                         <a
                             class="playlists__playlist-image-link--none" 
-                            href="{{ route('playlists.show', ['id' => $playlist->id]) }}"
+                            href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
                         >
                             <div class="playlists__playlist-image--none "></div>
                         </a>
@@ -53,7 +53,7 @@
                     </div>
                     <a
                         class="playlists__playlist-link" 
-                        href="{{ route('playlists.show', ['id' => $playlist->id]) }}"
+                        href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
                     >
                         <h3 class="playlists__playlist-name">
                             {{ $playlist->name }}
@@ -61,7 +61,7 @@
                     </a>
                     <a
                         class="playlists__playlist-link-titles" 
-                        href="{{ route('playlists.show', ['id' => $playlist->id]) }}"
+                        href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
                     >
                         <p class="playlists__playlist-titles">
                             {{ $playlist->torrents_count }} {{ __('playlist.titles') }}

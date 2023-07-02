@@ -24,7 +24,7 @@
         'type'       => (object) [
             'name' => '',
         ],
-        'uploader'   => (object) [
+        'user'   => (object) [
             'id'       => '',
             'group'    => (object) [
                 'icon'   => '',

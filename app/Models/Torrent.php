@@ -115,9 +115,9 @@ class Torrent extends Model
     /**
      * Belongs To A Playlist.
      */
-    public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(PlaylistTorrent::class);
+        return $this->belongsToMany(Playlist::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
     }
 
     /**

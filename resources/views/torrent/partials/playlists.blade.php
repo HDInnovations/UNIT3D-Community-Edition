@@ -2,28 +2,28 @@
     <section class="playlists" style="height: 210px;">
         <div class="scroller" style="padding-bottom: 10px;">
             <div class="row">
-                @forelse($torrent->playlists as $base)
+                @forelse($torrent->playlists as $playlist)
                     <div class="col-md-2">
-                        <a href="{{ route('playlists.show', ['id' => $base->playlist->id]) }}">
+                        <a href="{{ route('playlists.show', ['playlist' => $playlist]) }}">
                             <div class="item-playlist-container-playlist"
                                  style="margin-bottom: 0 !important; min-height: 0 !important;">
-                                @if(isset($base->playlist->cover_image))
-                                    <img src="{{ url('files/img/' . $base->playlist->cover_image) }}" alt="Cover Image">
+                                @if(isset($playlist->cover_image))
+                                    <img src="{{ url('files/img/' . $playlist->cover_image) }}" alt="Cover Image">
                                 @else
                                     <div class="no_image_holder w273_and_h153 playlist"></div>
                                 @endif
                                 <div class="item-playlist-text-playlist">
-                                    @if ($base->playlist->user->image != null)
-                                        <img src="{{ url('files/img/' . $base->playlist->user->image) }}"
-                                             alt="{{ $base->playlist->user->username }}">
+                                    @if ($playlist->user->image != null)
+                                        <img src="{{ url('files/img/' . $playlist->user->image) }}"
+                                             alt="{{ $playlist->user->username }}">
                                     @else
                                         <img src="{{ url('img/profile.png') }}"
-                                             alt="{{ $base->playlist->user->username }}">
+                                             alt="{{ $playlist->user->username }}">
                                     @endif
                                     <h3 class="text-bold"
-                                        style="margin: 0; color: #cccccc;">{{ $base->playlist->name }}</h3>
+                                        style="margin: 0; color: #cccccc;">{{ $playlist->name }}</h3>
                                     <h5>
-                                        {{ __('playlist.added-by') }} <b>{{ $base->playlist->user->username }}</b>
+                                        {{ __('playlist.added-by') }} <b>{{ $playlist->user->username }}</b>
                                     </h5>
                                 </div>
                             </div>

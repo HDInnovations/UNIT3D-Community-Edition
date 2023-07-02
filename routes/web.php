@@ -234,14 +234,24 @@ Route::middleware('language')->group(function (): void {
             Route::name('playlists.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\PlaylistController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\PlaylistController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\PlaylistController::class, 'store'])->name('store');
-                Route::get('/{id}', [App\Http\Controllers\PlaylistController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::get('/{id}/edit', [App\Http\Controllers\PlaylistController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\PlaylistController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\PlaylistController::class, 'destroy'])->name('destroy');
-                Route::post('/attach', [App\Http\Controllers\PlaylistTorrentController::class, 'store'])->name('attach');
-                Route::delete('/{id}/detach', [App\Http\Controllers\PlaylistTorrentController::class, 'destroy'])->name('detach');
-                Route::get('/{id}/download', [App\Http\Controllers\PlaylistController::class, 'downloadPlaylist'])->name('download');
+                Route::post('/', [App\Http\Controllers\PlaylistController::class, 'store'])->name('store');
+                Route::get('/{playlist}', [App\Http\Controllers\PlaylistController::class, 'show'])->name('show');
+                Route::get('/{playlist}/edit', [App\Http\Controllers\PlaylistController::class, 'edit'])->name('edit');
+                Route::patch('/{playlist}', [App\Http\Controllers\PlaylistController::class, 'update'])->name('update');
+                Route::delete('/{playlist}', [App\Http\Controllers\PlaylistController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        Route::prefix('playlist-torrents')->group(function (): void {
+            Route::name('playlist_torrents.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\PlaylistTorrentController::class, 'store'])->name('store');
+                Route::delete('/{playlistTorrent}', [App\Http\Controllers\PlaylistTorrentController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        Route::prefix('playlist-zips')->group(function (): void {
+            Route::name('playlist_zips.')->group(function (): void {
+                Route::get('/{playlist}', [App\Http\Controllers\PlaylistZipController::class, 'show'])->name('show');
             });
         });
 

@@ -288,7 +288,7 @@ class TorrentController extends Controller
         $torrent->history()->delete();
         $torrent->hitrun()->delete();
         $torrent->files()->delete();
-        $torrent->playlists()->delete();
+        $torrent->playlists()->detach();
         $torrent->subtitles()->delete();
         $torrent->resurrections()->delete();
         $torrent->featured()->delete();

@@ -280,7 +280,7 @@
                 <form
                     class="dialog__form"
                     method="POST"
-                    action="{{ route('playlists.attach') }}"
+                    action="{{ route('playlist_torrents.store') }}"
                     x-on:click.outside="$refs.dialog.close()"
                 >
                     @csrf
