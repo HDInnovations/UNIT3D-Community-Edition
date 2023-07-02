@@ -25,13 +25,6 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     /**
-     * ReportController Constructor.
-     */
-    public function __construct(private readonly Report $report)
-    {
-    }
-
-    /**
      * Create A Request Report.
      */
     public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
@@ -41,17 +34,20 @@ class ReportController extends Controller
         $reportedUser = $torrentRequest->user;
 
         $request->validate([
-            'message' => 'required',
+            'message' => [
+                'required',
+                'max:65535',
+            ],
         ]);
 
-        $this->report->create([
+        Report::create([
             'type'          => 'Request',
             'request_id'    => $torrentRequest->id,
             'torrent_id'    => 0,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $torrentRequest->name,
-            'message'       => $request->get('message'),
+            'message'       => $request->string('message'),
             'solved'        => 0,
         ]);
 
@@ -69,17 +65,20 @@ class ReportController extends Controller
         $reportedUser = $torrent->user;
 
         $request->validate([
-            'message' => 'required',
+            'message' => [
+                'required',
+                'max:65535',
+            ],
         ]);
 
-        $this->report->create([
+        Report::create([
             'type'          => 'Torrent',
             'torrent_id'    => $torrent->id,
             'request_id'    => 0,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $torrent->name,
-            'message'       => $request->get('message'),
+            'message'       => $request->string('message'),
             'solved'        => 0,
         ]);
 
@@ -96,17 +95,20 @@ class ReportController extends Controller
         $reportedBy = $request->user();
 
         $request->validate([
-            'message' => 'required',
+            'message' => [
+                'required',
+                'max:65535',
+            ],
         ]);
 
-        $this->report->create([
+        Report::create([
             'type'          => 'User',
             'torrent_id'    => 0,
             'request_id'    => 0,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $reportedUser->username,
-            'message'       => $request->get('message'),
+            'message'       => $request->string('message'),
             'solved'        => 0,
         ]);
 
