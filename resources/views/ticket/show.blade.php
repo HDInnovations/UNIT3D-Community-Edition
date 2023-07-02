@@ -66,7 +66,7 @@
             @if($user->group->is_modo)
                 <form
                     class="form form--horizontal"
-                    action="{{ route('tickets.assign', ['id' => $ticket->id]) }}"
+                    action="{{ route('tickets.assignee.store', ['ticket' => $ticket]) }}"
                     method="POST"
                     x-data
                 >
@@ -85,10 +85,11 @@
                 </form>
                 @if(! empty($ticket->staff_id))
                     <form
-                        action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}"
+                        action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
                         method="POST"
                     >
                         @csrf
+                        @method('DELETE')
                         <p class="form__group form__group--horizontal">
                             <button class="form__button form__button--filled form__button--centered">
                                 {{ __('ticket.unassign') }}
@@ -97,7 +98,7 @@
                     </form>
                 @endif
                 <form
-                    action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}"
+                    action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}"
                     method="POST"
                 >
                     @csrf
@@ -111,7 +112,7 @@
             @endif
             @if(empty($ticket->closed_at))
                 <form
-                    action="{{ route('tickets.close', ['id' => $ticket->id]) }}"
+                    action="{{ route('tickets.close', ['ticket' => $ticket]) }}"
                     method="POST"
                 >
                     <p class="form__group form__group--horizontal">

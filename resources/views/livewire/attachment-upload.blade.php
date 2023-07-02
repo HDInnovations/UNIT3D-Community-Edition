@@ -35,7 +35,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('tickets.attachment.download', $attachment) }}"
+                                        action="{{ route('tickets.attachment.download', ['ticket' => $ticket, 'attachment' => $attachment]) }}"
                                         method="POST"
                                     >
                                         @csrf

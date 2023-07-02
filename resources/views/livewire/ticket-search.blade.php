@@ -93,7 +93,7 @@
                         {{ $ticket->id }}
                     </td>
                     <td>
-                        <a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
+                        <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">{{ $ticket->subject }}</a>
                         @if (auth()->user()->group->is_modo)
                             @php
                                 $myTicketUnread = DB::table('tickets')
@@ -164,7 +164,7 @@
                     <td>
                         <menu class="data-table__actions">
                             <li class="data-table__action">
-                                <form method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
+                                <form method="POST" action="{{ route('tickets.close', ['ticket' => $ticket]) }}">
                                     @csrf
                                     <button class="form__button form__button--text">
                                         {{ __('ticket.close') }}

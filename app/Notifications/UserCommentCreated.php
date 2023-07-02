@@ -45,7 +45,7 @@ class UserCommentCreated extends Notification
         return (new MailMessage())
             ->subject('A comment was added (User)')
             ->line('A comment was added')
-            ->action('View Ticket', route('tickets.show', ['id' => $this->comment->ticket->id]));
+            ->action('View Ticket', route('tickets.show', ['ticket' => $this->comment->ticket]));
     }
 
     /**

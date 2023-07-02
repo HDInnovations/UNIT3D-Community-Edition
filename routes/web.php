@@ -272,16 +272,14 @@ Route::middleware('language')->group(function (): void {
             Route::name('tickets.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\TicketController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\TicketController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\TicketController::class, 'store'])->name('store');
-                Route::get('/{id}', [App\Http\Controllers\TicketController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::get('/{id}/edit', [App\Http\Controllers\TicketController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\TicketController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\TicketController::class, 'destroy'])->name('destroy');
-                Route::post('/{id}/assign', [App\Http\Controllers\TicketController::class, 'assign'])->name('assign');
-                Route::post('/{id}/unassign', [App\Http\Controllers\TicketController::class, 'unassign'])->name('unassign');
-                Route::post('/{id}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('close');
-                Route::post('/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
-            });
+                Route::post('/', [App\Http\Controllers\TicketController::class, 'store'])->name('store');
+                Route::get('/{ticket}', [App\Http\Controllers\TicketController::class, 'show'])->name('show');
+                Route::delete('/{ticket}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('destroy');
+                Route::post('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'store'])->name('assignee.store');
+                Route::delete('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'destroy'])->name('assignee.destroy');
+                Route::post('/{ticket}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('close');
+                Route::post('/{ticket}/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
+            })->scopeBindings();
         });
 
         // Missing System
