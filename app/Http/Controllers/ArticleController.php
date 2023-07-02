@@ -33,10 +33,10 @@ class ArticleController extends Controller
     /**
      * Show A Article.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Article $article): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('article.show', [
-            'article' => Article::with(['user', 'comments'])->findOrFail($id),
+            'article' => $article->load(['user', 'comments']),
         ]);
     }
 }

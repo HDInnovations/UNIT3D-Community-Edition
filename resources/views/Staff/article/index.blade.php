@@ -64,7 +64,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('articles.show', ['id' => $article->id]) }}"
+                                        href="{{ route('articles.show', ['article' => $article]) }}"
                                     >
                                         {{ __('common.view') }}
                                     </a>

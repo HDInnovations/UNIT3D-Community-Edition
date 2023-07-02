@@ -79,7 +79,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('articles')->group(function (): void {
             Route::name('articles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
+                Route::get('/{article}', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
             });
         });
 
