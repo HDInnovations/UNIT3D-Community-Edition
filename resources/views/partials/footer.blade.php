@@ -40,7 +40,7 @@
                 <ul class="footer__section-list">
                     @foreach ($footer_pages as $page)
                         <li>
-                            <a href="{{ route('pages.show', ['id' => $page->id]) }}">
+                            <a href="{{ route('pages.show', ['page' => $page]) }}">
                                 {{ $page->name }}
                             </a>
                         </li>

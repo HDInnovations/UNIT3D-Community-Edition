@@ -124,7 +124,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
             Route::get('/blacklist/clients', [App\Http\Controllers\PageController::class, 'clientblacklist'])->name('client_blacklist');
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
-            Route::get('/{id}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
+            Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });
 
         // Extra-Stats System

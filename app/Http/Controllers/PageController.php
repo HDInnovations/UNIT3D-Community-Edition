@@ -36,10 +36,10 @@ class PageController extends Controller
     /**
      * Show A Page.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Page $page): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('page.page', [
-            'page' => Page::findOrFail($id),
+            'page' => $page,
         ]);
     }
 

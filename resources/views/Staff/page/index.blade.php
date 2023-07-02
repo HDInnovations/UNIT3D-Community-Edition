@@ -49,7 +49,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('pages.show', ['id' => $page->id]) }}"
+                                        href="{{ route('pages.show', ['page' => $page]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.view') }}
