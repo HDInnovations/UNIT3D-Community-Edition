@@ -89,6 +89,8 @@ class Peer extends Model
                 if (\is_resource($con)) {
                     fclose($con);
                 }
+            } else {
+                $this->connectable = false;
             }
         }
     }
