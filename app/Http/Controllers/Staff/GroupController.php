@@ -57,10 +57,10 @@ class GroupController extends Controller
             $permission = new Permission();
             $permission->forum_id = $collection;
             $permission->group_id = $group->id;
-            $permission->show_forum = 1;
-            $permission->read_topic = 1;
-            $permission->reply_topic = 1;
-            $permission->start_topic = 1;
+            $permission->show_forum = 0;
+            $permission->read_topic = 0;
+            $permission->reply_topic = 0;
+            $permission->start_topic = 0;
             $permission->save();
         }
 
