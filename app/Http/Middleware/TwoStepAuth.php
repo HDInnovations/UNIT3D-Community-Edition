@@ -36,6 +36,8 @@ class TwoStepAuth
 
         switch ($uri) {
             case 'twostep/needed':
+            case 'twostep/verify':
+            case 'twostep/resend':
             case 'password/reset':
             case 'register':
             case 'logout':
