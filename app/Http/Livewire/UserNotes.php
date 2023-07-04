@@ -32,11 +32,6 @@ class UserNotes extends Component
 
     public string $sortDirection = 'desc';
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
@@ -64,15 +59,15 @@ class UserNotes extends Component
 
         $this->message = '';
 
-        session()->flash('success', 'Note has successfully been posted');
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been posted!']);
     }
 
     final public function destroy(int $id): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Note::where('id', '=', $id)->delete();
+        Note::findOrFail($id)->delete();
 
-        session()->flash('success', 'Note has successfully been deleted');
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
     }
 }

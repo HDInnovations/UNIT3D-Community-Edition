@@ -24,31 +24,29 @@ class PostController extends Controller
      */
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $posts = $user->posts()
-            ->with('user', 'user.group', 'topic:id,name')
-            ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
-            ->withSum('tips', 'cost')
-            ->whereNotIn(
-                'topic_id',
-                Topic::query()
-                    ->whereRelation(
-                        'forumPermissions',
-                        fn ($query) => $query
-                            ->where('group_id', '=', auth()->user()->group_id)
-                            ->where(
-                                fn ($query) => $query
-                                    ->where('show_forum', '!=', 1)
-                                    ->orWhere('read_topic', '!=', 1)
-                            )
-                    )
-                    ->select('id')
-            )
-            ->latest()
-            ->paginate(25);
-
         return view('user.post.index', [
-            'posts' => $posts,
             'user'  => $user,
+            'posts' => $user->posts()
+                ->with('user', 'user.group', 'topic:id,name')
+                ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                ->withSum('tips', 'cost')
+                ->whereNotIn(
+                    'topic_id',
+                    Topic::query()
+                        ->whereRelation(
+                            'forumPermissions',
+                            fn ($query) => $query
+                                ->where('group_id', '=', auth()->user()->group_id)
+                                ->where(
+                                    fn ($query) => $query
+                                        ->where('show_forum', '!=', 1)
+                                        ->orWhere('read_topic', '!=', 1)
+                                )
+                        )
+                        ->select('id')
+                )
+                ->latest()
+                ->paginate(25),
         ]);
     }
 }

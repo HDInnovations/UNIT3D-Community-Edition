@@ -260,6 +260,16 @@
                     </a>
                 </li>
             @endif
+            @if (auth()->user()->group->is_modo || auth()->id() === $user->id)
+                <li class="{{ Route::is('users.following.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                    <a
+                        class="{{ Route::is('users.following.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.following.index', ['user' => $user]) }}"
+                    >
+                        {{ __('user.following') }}
+                    </a>
+                </li>
+            @endif
         </ul>
     </li>
 @endif

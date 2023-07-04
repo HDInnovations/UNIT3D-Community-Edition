@@ -31,8 +31,16 @@ class StoreMassActionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:65536',
+            'subject' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'message' => [
+                'required',
+                'string',
+                'max:65536',
+            ],
         ];
     }
 }

@@ -37,9 +37,9 @@ class PollController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $polls = Poll::latest()->paginate(15);
-
-        return view('poll.latest', ['polls' => $polls]);
+        return view('poll.latest', [
+            'polls' => Poll::latest()->paginate(15),
+        ]);
     }
 
     /**
@@ -48,8 +48,7 @@ class PollController extends Controller
     public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
-        $user = $request->user();
-        $userHasVoted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
+        $userHasVoted = $poll->voters->where('user_id', '=', $request->user()->id)->isNotEmpty();
 
         if ($userHasVoted) {
             return to_route('poll_results', ['id' => $poll->id])
@@ -102,11 +101,10 @@ class PollController extends Controller
     public function result(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
-        $map = [
+
+        return view('poll.result', [
             'poll'        => $poll,
             'total_votes' => $poll->totalVotes(),
-        ];
-
-        return view('poll.result', $map);
+        ]);
     }
 }

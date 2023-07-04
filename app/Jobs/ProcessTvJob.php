@@ -185,7 +185,7 @@ class ProcessTvJob implements ShouldQueue
 
         if (isset($this->tv['recommendations'])) {
             foreach ($this->tv['recommendations']['results'] as $recommendation) {
-                if (Tv::where('id', '=', $recommendation['id'])->count() !== 0) {
+                if (Tv::where('id', '=', $recommendation['id'])->exists()) {
                     Recommendation::updateOrCreate(
                         ['recommendation_tv_id' => $recommendation['id'], 'tv_id' => $this->tv['id']],
                         ['title' => $recommendation['name'], 'vote_average' => $recommendation['vote_average'], 'poster' => $tmdb->image('poster', $recommendation), 'first_air_date' => $recommendation['first_air_date']]

@@ -34,11 +34,9 @@ class RssController extends Controller
      */
     public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
-
         return view('Staff.rss.index', [
             'hash'       => $hash,
-            'public_rss' => $publicRss,
+            'public_rss' => Rss::where('is_private', '=', 0)->oldest('position')->get(),
         ]);
     }
 
@@ -47,14 +45,12 @@ class RssController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
         return view('Staff.rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $request->user(),
         ]);
     }
 
@@ -63,11 +59,9 @@ class RssController extends Controller
      */
     public function store(StoreRssRequest $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $user = $request->user();
-
         $rss = new Rss();
         $rss->name = $request->name;
-        $rss->user_id = $user->id;
+        $rss->user_id = $request->user()->id;
         $rss->json_torrent = array_merge($rss->expected_fields, $request->validated());
         $rss->is_private = 0;
         $rss->position = $request->position;
@@ -82,16 +76,13 @@ class RssController extends Controller
      */
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
-
         return view('Staff.rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
-            'rss'         => $rss,
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $request->user(),
+            'rss'         => Rss::where('is_private', '=', 0)->findOrFail($id),
         ]);
     }
 

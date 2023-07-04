@@ -1,10 +1,10 @@
 <section class="meta">
-    @if (file_exists($path = public_path().'/files/img/torrent-banner_'.$torrent->id.'.jpg'))
-        <img class="meta__backdrop" src="{{ url($file) }}" alt="Backdrop">
+    @if (file_exists(public_path().'/files/img/torrent-banner_'.$torrent->id.'.jpg'))
+        <img class="meta__backdrop" src="{{ url('/files/img/torrent-banner_'.$torrent->id.'.jpg') }}" alt="Backdrop">
     @endif
     <span class="meta__poster-link">
         <img
-            src="{{ file_exists($path = public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg') ? url($path) : 'https://via.placeholder.com/400x600' }}"
+            src="{{ file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg') ? url('/files/img/torrent-cover_'.$torrent->id.'.jpg') : 'https://via.placeholder.com/400x600' }}"
             class="meta__poster"
         >
     </span>

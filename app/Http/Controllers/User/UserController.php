@@ -50,69 +50,49 @@ class UserController extends Controller
             ->when(auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
             ->sole();
 
-        $followers = $user->followers()->latest()->limit(25)->get();
-
-        $warnings = $user
-            ->userwarning()
-            ->latest()
-            ->paginate(2, ['*'], 'warningsPage');
-
-        $softDeletedWarnings = $user
-            ->userwarning()
-            ->with(['torrenttitle', 'warneduser'])
-            ->latest('created_at')
-            ->onlyTrashed()
-            ->paginate(2, ['*'], 'deletedWarningsPage');
-
-        $watch = $user->watchlist;
-
-        $boughtUpload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        //$boughtDownload = BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost');
-
-        $history = DB::table('history')
-            ->where('user_id', '=', $user->id)
-            ->where('created_at', '>', $user->created_at)
-            ->selectRaw('SUM(actual_uploaded) as upload_sum')
-            ->selectRaw('SUM(uploaded) as credited_upload_sum')
-            ->selectRaw('SUM(actual_downloaded) as download_sum')
-            ->selectRaw('SUM(downloaded) as credited_download_sum')
-            ->selectRaw('SUM(seedtime) as seedtime_sum')
-            ->selectRaw('SUM(actual_downloaded > 0) as download_count')
-            ->selectRaw('COUNT(*) as count')
-            ->first();
-
-        $peers = Peer::query()
-            ->selectRaw('SUM(seeder = 0) as leeching')
-            ->selectRaw('SUM(seeder = 1) as seeding')
-            ->where('user_id', '=', $user->id)
-            ->first();
-
-        $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
-
-        $clients = $user->peers()
-            ->select('agent', 'port')
-            ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
-            ->groupBy(['ip', 'port', 'agent'])
-            ->get();
-
-        $achievements = AchievementProgress::with('details')
-            ->where('achiever_id', '=', $user->id)
-            ->whereNotNull('unlocked_at')
-            ->get();
-
         return view('user.profile.show', [
-            'user'                => $user,
-            'followers'           => $followers,
-            'history'             => $history,
-            'warnings'            => $warnings,
-            'softDeletedWarnings' => $softDeletedWarnings,
-            'boughtUpload'        => $boughtUpload,
-            // 'boughtDownload'        => $boughtDownload,
-            'invitedBy'    => $invitedBy,
-            'clients'      => $clients,
-            'achievements' => $achievements,
-            'peers'        => $peers,
-            'watch'        => $watch,
+            'user'      => $user,
+            'followers' => $user->followers()->latest()->limit(25)->get(),
+            'history'   => DB::table('history')
+                ->where('user_id', '=', $user->id)
+                ->where('created_at', '>', $user->created_at)
+                ->selectRaw('SUM(actual_uploaded) as upload_sum')
+                ->selectRaw('SUM(uploaded) as credited_upload_sum')
+                ->selectRaw('SUM(actual_downloaded) as download_sum')
+                ->selectRaw('SUM(downloaded) as credited_download_sum')
+                ->selectRaw('SUM(refunded_download) as refunded_download_sum')
+                ->selectRaw('SUM(seedtime) as seedtime_sum')
+                ->selectRaw('SUM(actual_downloaded > 0) as download_count')
+                ->selectRaw('COUNT(*) as count')
+                ->first(),
+            'warnings' => $user
+                ->userwarning()
+                ->latest()
+                ->paginate(10, ['*'], 'warningsPage'),
+            'softDeletedWarnings' => $user
+                ->userwarning()
+                ->with(['torrenttitle', 'warneduser'])
+                ->latest('created_at')
+                ->onlyTrashed()
+                ->paginate(10, ['*'], 'deletedWarningsPage'),
+            'boughtUpload' => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
+            // 'boughtDownload'        => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
+            'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
+            'clients'   => $user->peers()
+                ->select('agent', 'port')
+                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
+                ->groupBy(['ip', 'port', 'agent'])
+                ->get(),
+            'achievements' => AchievementProgress::with('details')
+                ->where('achiever_id', '=', $user->id)
+                ->whereNotNull('unlocked_at')
+                ->get(),
+            'peers' => Peer::query()
+                ->selectRaw('SUM(seeder = 0) as leeching')
+                ->selectRaw('SUM(seeder = 1) as seeding')
+                ->where('user_id', '=', $user->id)
+                ->first(),
+            'watch' => $user->watchlist,
         ]);
     }
 
@@ -121,11 +101,13 @@ class UserController extends Controller
      */
     public function editProfileForm(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         abort_unless($request->user()->id == $user->id, 403);
 
-        return view('user.profile.edit', ['user' => $user, 'route' => 'edit']);
+        return view('user.profile.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -133,7 +115,7 @@ class UserController extends Controller
      */
     public function editProfile(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         abort_unless($request->user()->id == $user->id, 403);
 
@@ -180,7 +162,7 @@ class UserController extends Controller
         $user->signature = $request->input('signature');
         $user->save();
 
-        return to_route('user_edit_profile_form', ['username' => $user->username])
+        return to_route('user_edit_profile_form', ['username' => $username])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 

@@ -133,22 +133,6 @@ class Comment extends Component
         $reply->anon = $this->anon;
         $reply->save();
 
-        // Achievements
-        if ($reply->anon == 0) {
-            $this->user->unlock(new UserMadeComment());
-            $this->user->addProgress(new UserMadeTenComments(), 1);
-            $this->user->addProgress(new UserMade50Comments(), 1);
-            $this->user->addProgress(new UserMade100Comments(), 1);
-            $this->user->addProgress(new UserMade200Comments(), 1);
-            $this->user->addProgress(new UserMade300Comments(), 1);
-            $this->user->addProgress(new UserMade400Comments(), 1);
-            $this->user->addProgress(new UserMade500Comments(), 1);
-            $this->user->addProgress(new UserMade600Comments(), 1);
-            $this->user->addProgress(new UserMade700Comments(), 1);
-            $this->user->addProgress(new UserMade800Comments(), 1);
-            $this->user->addProgress(new UserMade900Comments(), 1);
-        }
-
         // Set Polymorphic Model Name
         $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
@@ -218,6 +202,22 @@ class Comment extends Component
                     )
                 );
             }
+        }
+
+        // Achievements
+        if ($reply->anon == 0 && $modelName !== 'ticket') {
+            $this->user->unlock(new UserMadeComment());
+            $this->user->addProgress(new UserMadeTenComments(), 1);
+            $this->user->addProgress(new UserMade50Comments(), 1);
+            $this->user->addProgress(new UserMade100Comments(), 1);
+            $this->user->addProgress(new UserMade200Comments(), 1);
+            $this->user->addProgress(new UserMade300Comments(), 1);
+            $this->user->addProgress(new UserMade400Comments(), 1);
+            $this->user->addProgress(new UserMade500Comments(), 1);
+            $this->user->addProgress(new UserMade600Comments(), 1);
+            $this->user->addProgress(new UserMade700Comments(), 1);
+            $this->user->addProgress(new UserMade800Comments(), 1);
+            $this->user->addProgress(new UserMade900Comments(), 1);
         }
 
         $this->replyState = [

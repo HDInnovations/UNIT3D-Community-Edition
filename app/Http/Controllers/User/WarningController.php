@@ -57,7 +57,7 @@ class WarningController extends Controller
     {
         abort_unless($request->user()->group->is_modo, 403);
         $staff = $request->user();
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         foreach (Warning::where('user_id', '=', $user->id)->get() as $warning) {
             $warning->expires_on = Carbon::now();
@@ -114,7 +114,7 @@ class WarningController extends Controller
         abort_unless($request->user()->group->is_modo, 403);
 
         $staff = $request->user();
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
 
         foreach (Warning::where('user_id', '=', $user->id)->get() as $warning) {
             $warning->deleted_by = $staff->id;

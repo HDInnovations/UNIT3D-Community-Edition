@@ -35,9 +35,9 @@ class BanController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bans = Ban::latest()->paginate(25);
-
-        return view('Staff.ban.index', ['bans' => $bans]);
+        return view('Staff.ban.index', [
+            'bans' => Ban::latest()->paginate(25),
+        ]);
     }
 
     /**
@@ -47,7 +47,7 @@ class BanController extends Controller
      */
     public function store(StoreBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
         $staff = $request->user();
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
@@ -75,7 +75,7 @@ class BanController extends Controller
         // Send Notifications
         $user->notify(new UserBan($ban));
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['username' => $username])
             ->withSuccess('User Is Now Banned!');
     }
 
@@ -84,7 +84,7 @@ class BanController extends Controller
      */
     public function update(UpdateBanRequest $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->firstOrFail();
+        $user = User::where('username', '=', $username)->sole();
         $staff = $request->user();
 
         abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);

@@ -28,9 +28,9 @@ class ReportController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $reports = Report::orderBy('solved')->latest()->paginate(25);
-
-        return view('Staff.report.index', ['reports' => $reports]);
+        return view('Staff.report.index', [
+            'reports' => Report::orderBy('solved')->latest()->paginate(25)
+        ]);
     }
 
     /**

@@ -350,8 +350,7 @@ class AnnounceController extends Controller
         $group = cache()->remember('group:'.$user->group_id, 300, function () use ($user) {
             return Group::query()
                 ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
-                ->where('id', '=', $user->group_id)
-                ->first();
+                ->find($user->group_id);
         });
 
         // If User Account Is Unactivated/Validating Return Error to Client

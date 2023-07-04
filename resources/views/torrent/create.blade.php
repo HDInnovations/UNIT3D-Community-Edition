@@ -436,6 +436,22 @@
                     @endif
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <p class="form__group">
+                            <input type="hidden" name="refundable" value="0">
+                            <input
+                                    type="checkbox"
+                                    class="form__checkbox"
+                                    id="refundable"
+                                    name="refundable"
+                                    value="1"
+                                    @checked(old('refundable'))
+                            >
+                            <label class="form__label" for="refundable">{{ __('torrent.refundable') }}?</label>
+                        </p>
+                    @else
+                        <input type="hidden" name="refundable" value="0">
+                    @endif
+                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                        <p class="form__group">
                             <select name="free" id="free" class="form__select">
                                 <option value="0" @selected(old('free') === '0' || old('free') === null)>{{ __('common.no') }}</option>
                                 <option value="25" @selected(old('free') === '25')>25%</option>

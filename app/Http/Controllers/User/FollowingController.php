@@ -15,22 +15,17 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 
-class BanController extends Controller
+class FollowingController extends Controller
 {
     /**
-     * Show user bans.
+     * User Followers.
      */
-    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->group->is_modo, 403);
-
-        $bans = $user->userban()->latest()->get();
-
-        return view('user.ban.index', [
-            'bans' => $bans,
-            'user' => $user,
+        return view('user.following.index', [
+            'followings' => $user->following()->orderByPivot('created_at', 'desc')->paginate(25),
+            'user'       => $user,
         ]);
     }
 }

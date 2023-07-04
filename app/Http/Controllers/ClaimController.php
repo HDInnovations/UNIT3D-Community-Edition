@@ -17,7 +17,6 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Notifications\NewRequestClaim;
 use App\Notifications\NewRequestUnclaim;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -26,13 +25,6 @@ use Exception;
  */
 class ClaimController extends Controller
 {
-    /**
-     * RequestController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Claim A Torrent Request.
      */
@@ -80,7 +72,7 @@ class ClaimController extends Controller
         abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
 
         if ($torrentRequest->claimed == 1) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
+            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->sole();
             $isAnon = $requestClaim->anon;
             $requestClaim->delete();
 

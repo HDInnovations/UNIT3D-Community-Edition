@@ -37,34 +37,27 @@ class TipController extends Controller
 
         abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
 
-        $userbon = $user->getSeedbonus();
-        $bontransactions = BonTransactions::query()
-            ->with(['senderObj', 'receiverObj'])
-            ->where(
-                fn ($query) => $query
-                    ->where('sender', '=', $user->id)
-                    ->orwhere('receiver', '=', $user->id)
-            )
-            ->where('name', '=', 'tip')
-            ->latest('date_actioned')
-            ->paginate(25);
-
-        $tipsSent = BonTransactions::query()
-            ->where('sender', '=', $user->id)
-            ->where('name', '=', 'tip')
-            ->sum('cost');
-
-        $tipsReceived = BonTransactions::query()
-            ->where('receiver', '=', $user->id)
-            ->where('name', '=', 'tip')
-            ->sum('cost');
-
         return view('user.tip.index', [
             'user'            => $user,
-            'bontransactions' => $bontransactions,
-            'userbon'         => $userbon,
-            'tips_sent'       => $tipsSent,
-            'tips_received'   => $tipsReceived,
+            'bontransactions' => BonTransactions::query()
+                ->with(['senderObj', 'receiverObj'])
+                ->where(
+                    fn ($query) => $query
+                        ->where('sender', '=', $user->id)
+                        ->orwhere('receiver', '=', $user->id)
+                )
+                ->where('name', '=', 'tip')
+                ->latest('date_actioned')
+                ->paginate(25),
+            'userbon'   => $user->getSeedbonus(),
+            'tips_sent' => BonTransactions::query()
+                ->where('sender', '=', $user->id)
+                ->where('name', '=', 'tip')
+                ->sum('cost'),
+            'tips_received' => BonTransactions::query()
+                ->where('receiver', '=', $user->id)
+                ->where('name', '=', 'tip')
+                ->sum('cost'),
         ]);
     }
 

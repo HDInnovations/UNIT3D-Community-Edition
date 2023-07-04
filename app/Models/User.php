@@ -554,6 +554,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Has many failed logins.
+     */
+    public function failedLogins(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(FailedLoginAttempt::class);
+    }
+
+    /**
+     * Has many upload snatches.
+     */
+    public function uploadSnatches(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(History::class, Torrent::class)->whereNotNull('completed_at');
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool

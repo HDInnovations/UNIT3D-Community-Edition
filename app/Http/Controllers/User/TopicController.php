@@ -23,14 +23,12 @@ class TopicController extends Controller
      */
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $topics = $user->topics()
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
-            ->latest()
-            ->paginate(25);
-
         return view('user.topic.index', [
-            'topics' => $topics,
             'user'   => $user,
+            'topics' => $user->topics()
+                ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                ->latest()
+                ->paginate(25),
         ]);
     }
 }

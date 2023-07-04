@@ -65,11 +65,6 @@ class NotificationSearch extends Component
 
     public string $sortDirection = 'desc';
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');

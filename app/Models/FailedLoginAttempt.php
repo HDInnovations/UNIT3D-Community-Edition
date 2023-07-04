@@ -34,9 +34,17 @@ class FailedLoginAttempt extends Model
     public static function record($user, $username, $ip): mixed
     {
         return static::create([
-            'user_id'    => null === $user ? null : $user->id,
+            'user_id'    => $user?->id,
             'username'   => $username,
             'ip_address' => $ip,
         ]);
+    }
+
+    /**
+     * Belongs To A User.
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

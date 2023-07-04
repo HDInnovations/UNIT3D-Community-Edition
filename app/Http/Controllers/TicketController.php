@@ -34,12 +34,9 @@ class TicketController extends Controller
      */
     final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $categories = TicketCategory::all()->sortBy('position');
-        $priorities = TicketPriority::all()->sortBy('position');
-
         return view('ticket.create', [
-            'categories' => $categories,
-            'priorities' => $priorities,
+            'categories' => TicketCategory::orderBy('position')->get(),
+            'priorities' => TicketPriority::orderBy('position')->get(),
         ]);
     }
 
@@ -199,7 +196,7 @@ class TicketController extends Controller
         $ticket->closed_at = now();
         $ticket->save();
 
-        return to_route('tickets.show', ['id' => $ticket->id])
+        return to_route('tickets.index')
             ->withSuccess(trans('ticket.closed-success'));
     }
 }

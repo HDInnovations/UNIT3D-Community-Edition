@@ -102,7 +102,7 @@ class ReportController extends Controller
      */
     public function user(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $reportedUser = User::where('username', '=', $username)->firstOrFail();
+        $reportedUser = User::where('username', '=', $username)->sole();
         $reportedBy = $request->user();
 
         $v = validator($request->all(), [

@@ -26,9 +26,9 @@ class BonExchangeController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bonExchanges = BonExchange::all()->sortBy('position');
-
-        return view('Staff.bon_exchange.index', ['bonExchanges' => $bonExchanges]);
+        return view('Staff.bon_exchange.index', [
+            'bonExchanges' => BonExchange::all(),
+        ]);
     }
 
     /**
@@ -61,9 +61,9 @@ class BonExchangeController extends Controller
      */
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bonExchange = BonExchange::findOrFail($id);
-
-        return view('Staff.bon_exchange.edit', ['bonExchange' => $bonExchange]);
+        return view('Staff.bon_exchange.edit', [
+            'bonExchange' => BonExchange::findOrFail($id),
+        ]);
     }
 
     /**
@@ -71,7 +71,7 @@ class BonExchangeController extends Controller
      */
     public function update(UpdateBonExchangeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::where('id', '=', $id)->update([
+        BonExchange::findOrFail($id)->update([
             'upload'             => $request->type === 'upload',
             'download'           => $request->type === 'download',
             'personal_freeleech' => $request->type === 'personal_freeleech',
