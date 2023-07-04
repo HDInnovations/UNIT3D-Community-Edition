@@ -41,6 +41,8 @@ class UserController extends Controller
                 'filledRequests' => fn ($query) => $query->whereNotNull('approved_by'),
                 'requests',
                 'userwarning as active_warnings_count'       => fn ($query) => $query->where('active', '=', 1),
+                'userwarning as auto_warnings_count'         => fn ($query) => $query->whereNotNull('torrent'),
+                'userwarning as manual_warnings_count'       => fn ($query) => $query->whereNull('torrent'),
                 'userwarning as soft_deleted_warnings_count' => fn ($query) => $query->onlyTrashed(),
             ])
             ->with([
@@ -65,15 +67,21 @@ class UserController extends Controller
                 ->selectRaw('SUM(actual_downloaded > 0) as download_count')
                 ->selectRaw('COUNT(*) as count')
                 ->first(),
-            'warnings' => $user
+            'manualWarnings' => $user
                 ->userwarning()
+                ->whereNull('torrent')
                 ->latest()
-                ->paginate(10, ['*'], 'warningsPage'),
+                ->paginate(10, ['*'], 'manualWarningsPage'),
+            'autoWarnings' => $user
+                ->userwarning()
+                ->whereNotNull('torrent')
+                ->latest()
+                ->paginate(10, ['*'], 'autoWarningsPage'),
             'softDeletedWarnings' => $user
                 ->userwarning()
+                ->onlyTrashed()
                 ->with(['torrenttitle', 'warneduser'])
                 ->latest('created_at')
-                ->onlyTrashed()
                 ->paginate(10, ['*'], 'deletedWarningsPage'),
             'boughtUpload' => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
             // 'boughtDownload'        => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
