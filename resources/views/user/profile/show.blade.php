@@ -285,7 +285,7 @@
         @if (auth()->user()->group->is_modo)
             @livewire('user-notes', ['user' => $user])
             @include('user.profile.partials.bans', ['bans' => $user->userban])
-            @include('user.profile.partials.warnings', ['warnings' => $warnings])
+            @include('user.profile.partials.warnings')
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">Watchlist</h2>
