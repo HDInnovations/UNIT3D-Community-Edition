@@ -28,11 +28,13 @@ class Message extends Model
      * @var string[]
      */
     protected $fillable = [
+        'id',
         'message',
         'user_id',
         'chatroom_id',
         'receiver_id',
         'bot_id',
+        'created_at',
     ];
 
     /**

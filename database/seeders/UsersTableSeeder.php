@@ -41,6 +41,7 @@ class UsersTableSeeder extends Seeder
     {
         return [
             [
+                'id'        => 1,
                 'username'  => 'System',
                 'email'     => config('unit3d.default-owner-email'),
                 'group_id'  => 9,

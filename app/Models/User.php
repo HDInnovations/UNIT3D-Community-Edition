@@ -72,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]
      */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
 
     /**
      * ID of the system user.

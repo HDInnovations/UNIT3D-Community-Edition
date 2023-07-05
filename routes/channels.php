@@ -12,6 +12,7 @@
  */
 
 use App\Models\User;
+use App\Models\UserEcho;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -25,16 +26,51 @@ use Illuminate\Support\Facades\Broadcast;
  * |
  */
 
-Broadcast::channel('chatroom.{id}', function ($user, $id) {
-    return User::select([
-        'id',
-        'username',
-        'group_id',
-        'image',
-        'chatroom_id',
-        'chat_status_id'
-    ])
-        ->with(['chatStatus:id,color', 'chatroom:id,name', 'group:id,color,effect,icon'])
-        ->find($user->id);
+Broadcast::channel('messages.room.{chatroomId}', function (User $user, int $chatroomId) {
+    if (
+        UserEcho::query()
+            ->where('user_id', '=', $user->id)
+            ->where('room_id', '=', $chatroomId)
+            ->exists()
+    ) {
+        return User::select([
+            'id',
+            'username',
+            'group_id',
+            'image',
+            'chatroom_id',
+            'chat_status_id'
+        ])
+            ->with(['chatStatus:id,color,name', 'chatroom:id,name', 'group:id,name,color,effect,icon'])
+            ->find($user->id);
+    }
+
+    return false;
 });
-Broadcast::channel('chatter.{id}', fn ($user, $id) => $user->id == $id);
+Broadcast::channel('messages.pm.{user1Id}-{user2Id}', function (User $user, int $user1Id, int $user2Id) {
+    if (!($user->id === $user1Id || $user->id === $user2Id)) {
+        return false;
+    }
+
+    $exists = UserEcho::query()
+        ->where(fn ($query) => $query->where('user_id', '=', $user1Id)->where('target_id', '=', $user2Id))
+        ->orWhere(fn ($query) => $query->where('user_id', '=', $user2Id)->where('target_id', '=', $user1Id))
+        ->exists();
+
+    if ($exists) {
+        return User::select([
+            'id',
+            'username',
+            'group_id',
+            'image',
+            'chatroom_id',
+            'chat_status_id'
+        ])
+            ->with(['chatStatus:id,color,name', 'chatroom:id,name', 'group:id,name,color,effect,icon'])
+            ->find($user->id);
+    }
+
+    return false;
+});
+
+Broadcast::channel('messages.new-chat.{userId}', fn (User $user, int $userId) => $user->id === $userId);

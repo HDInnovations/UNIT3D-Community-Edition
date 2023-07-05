@@ -87,28 +87,6 @@
                 </p>
                 <p class="form__group">
                     <input
-                        id="info"
-                        class="form__text"
-                        name="info"
-                        placeholder=" "
-                        type="text"
-                        value="{{ $bot->info }}"
-                    >
-                    <label class="form__label form__label--floating" for="info">{{ __('bot.info') }}</label>
-                </p>
-                <p class="form__group">
-                    <input
-                        id="about"
-                        class="form__text"
-                        name="about"
-                        placeholder=" "
-                        type="text"
-                        value="{{ $bot->about }}"
-                    >
-                    <label class="form__label form__label--floating" for="about">{{ __('bot.about') }}</label>
-                </p>
-                <p class="form__group">
-                    <input
                         id="emoji"
                         class="form__text"
                         name="emoji"

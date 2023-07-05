@@ -115,16 +115,8 @@ test('update returns an ok response', function (): void {
         'help'         => $bot->help,
         'active'       => true,
         'is_protected' => $bot->is_protected,
-        'is_triviabot' => $bot->is_triviabot,
         'is_nerdbot'   => $bot->is_nerdbot,
         'is_systembot' => $bot->is_systembot,
-        'is_casinobot' => $bot->is_casinobot,
-        'is_betbot'    => $bot->is_betbot,
-        'uploaded'     => $bot->uploaded,
-        'downloaded'   => $bot->downloaded,
-        'fl_tokens'    => $bot->fl_tokens,
-        'seedbonus'    => $bot->seedbonus,
-        'invites'      => $bot->invites,
     ]);
     $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Updated');
 });

@@ -54,13 +54,5 @@ test('rules', function (): void {
             'sometimes',
             'max:9999',
         ],
-        'info' => [
-            'sometimes',
-            'max:9999',
-        ],
-        'about' => [
-            'sometimes',
-            'max:9999',
-        ],
     ], $actual);
 });

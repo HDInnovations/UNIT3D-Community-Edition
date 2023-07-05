@@ -35,6 +35,13 @@ class UserEcho extends Model
     protected $table = 'user_echoes';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
+
+    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>

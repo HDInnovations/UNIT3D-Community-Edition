@@ -18,7 +18,7 @@ mix.options({
     /*
      * Sourced asset dependencies via node_modules and JS bootstrapping
      */
-    .js('resources/js/app.js', 'public/js').vue({ version: 2 })
+    .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .purgeCss()
 
