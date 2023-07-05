@@ -86,7 +86,7 @@
                     >
                         <option hidden selected disabled value=""></option>
                         <option class="form__option" value="movie">
-                            Movie metdata
+                            Movie metadata
                         </option>
                         <option class="form__option" value="tv">
                             TV metadata
@@ -95,7 +95,7 @@
                             Game metadata
                         </option>
                         <option class="form__option" value="music">
-                            Music metdata
+                            Music metadata
                         </option>
                         <option class="form__option" value="no">
                             No metadata
