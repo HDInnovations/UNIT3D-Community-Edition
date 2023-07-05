@@ -34,7 +34,6 @@ test('rules', function (): void {
         ],
         'command' => [
             'required',
-            'alpha_dash',
             'min:1',
             'max:255',
         ],
@@ -51,14 +50,6 @@ test('rules', function (): void {
             'required',
         ],
         'help' => [
-            'sometimes',
-            'max:9999',
-        ],
-        'info' => [
-            'sometimes',
-            'max:9999',
-        ],
-        'about' => [
             'sometimes',
             'max:9999',
         ],

@@ -26,33 +26,32 @@ class MessageDeleted implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    /**
-     * Message details.
-     *
-     * @var Message
-     */
-    public $message;
+    public int $messageId;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(Message $message)
+    public function __construct(private readonly Message $message)
     {
-        $this->message = Message::find($message->id);
+        $this->messageId = $message->id;
     }
 
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): PresenceChannel
+    public function broadcastOn(): ?PresenceChannel
     {
-        // $this->dontBroadcastToCurrentUser();
+        if ($this->message->user_id !== null && $this->message->receiver_id !== null) {
+            $ids = [$this->message->user_id, $this->message->receiver_id];
+            asort($ids);
 
-        return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
-    }
+            return new PresenceChannel('messages.pm.'.implode('-', $ids));
+        }
 
-    public function broadcastAs(): string
-    {
-        return 'delete.message';
+        if ($this->message->chatroom_id !== null) {
+            return new PresenceChannel('messages.room.'.$this->message->chatroom_id);
+        }
+
+        return null;
     }
 }

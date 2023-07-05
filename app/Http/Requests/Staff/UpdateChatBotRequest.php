@@ -40,7 +40,6 @@ class UpdateChatBotRequest extends FormRequest
             ],
             'command' => [
                 'required',
-                'alpha_dash',
                 'min:1',
                 'max:255',
             ],
@@ -57,14 +56,6 @@ class UpdateChatBotRequest extends FormRequest
                 'required',
             ],
             'help' => [
-                'sometimes',
-                'max:9999',
-            ],
-            'info' => [
-                'sometimes',
-                'max:9999',
-            ],
-            'about' => [
                 'sometimes',
                 'max:9999',
             ],

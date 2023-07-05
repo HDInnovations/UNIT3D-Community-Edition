@@ -8,7 +8,7 @@
             <ul
                 class="featured-carousel"
                 x-ref="featured"
-                 x-init="setInterval(function () {$el.parentNode.matches(':hover') ? null : (($el.scrollLeft == $el.scrollWidth - $el.offsetWidth - 16) ? $el.scrollLeft = 0 : $el.scrollLeft += (($el.children[0].offsetWidth + 16) / 2 + 2)) }, 5000)"
+{{--                 x-init="setInterval(function () {$el.parentNode.matches(':hover') ? null : (($el.scrollLeft == $el.scrollWidth - $el.offsetWidth - 16) ? $el.scrollLeft = 0 : $el.scrollLeft += (($el.children[0].offsetWidth + 16) / 2 + 2)) }, 5000)"--}}
             >
                 @foreach ($featured as $feature)
                     @if ($feature->torrent === null || $feature->torrent->status !== \App\Models\Torrent::APPROVED)

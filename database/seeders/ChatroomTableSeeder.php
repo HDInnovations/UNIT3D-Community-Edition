@@ -41,9 +41,6 @@ class ChatroomTableSeeder extends Seeder
             [
                 'name' => 'General',
             ],
-            [
-                'name' => 'Trivia',
-            ],
         ];
     }
 }
