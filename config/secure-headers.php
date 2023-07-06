@@ -476,7 +476,9 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/child-src
         'child-src' => [
-
+            'allow' => [
+                'https://www.youtube-nocookie.com/embed/'
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/connect-src
