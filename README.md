@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.postimg.cc/GpMQ3bj2/68747470733a2f2f692e706f7374696d672e63632f765a623674706e772f53637265656e2d53686f742d323032312d31302d.png" alt="UNIT3D-Community-Edition Cover Image">
+    <img src="https://i.postimg.cc/FKP2H5p4/Screen-Shot-2023-07-03-at-2-23-52-PM.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 
 <p align="center">
@@ -11,12 +11,6 @@
 <a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </p>
-
-<a href=https://github.com/sponsors/HDVinnie>
-<p align="center">
-    <img src="https://i.postimg.cc/QMRRNgmV/support.png" alt="UNIT3D-Community-Edition Support Image">
-</p>
-</a>
 
 <p align="center">
     🎉<b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="https://github.com/sponsors/HDVinnie">Sponsors</a></b>🎉
@@ -126,6 +120,12 @@ Demo is reset every 72 hours!
 URL: https://discord.gg/J8dsx7F5yT
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
+
+<a href=https://github.com/sponsors/HDVinnie>
+<p>
+    <img src="https://i.postimg.cc/QMRRNgmV/support.png" alt="UNIT3D-Community-Edition Support Image">
+</p>
+</a>
 
 You can support my work if you are enjoying UNIT3D or need support via Discord. 
 
