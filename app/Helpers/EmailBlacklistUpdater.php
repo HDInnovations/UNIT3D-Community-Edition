@@ -15,6 +15,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
+use Exception;
 
 class EmailBlacklistUpdater
 {
@@ -30,10 +31,19 @@ class EmailBlacklistUpdater
         $key = config('email-blacklist.cache-key');
         $duration = Carbon::now()->addMonth();
 
-        $domains = Http::get($url)->json();
+        if (cache()->get($key) === null) {
+            try {
+                $domains = Http::get($url)->json();
+            } catch (Exception $e) {
+                $domains = [];
+            }
+        } else {
+            $domains = Http::get($url)->json();
+        }
+
         $count = is_countable($domains) ? \count($domains) : 0;
 
-        // Retrieve blacklisted domains
+        // Store blacklisted domains
         cache()->put($key, $domains, $duration);
 
         return $count;
