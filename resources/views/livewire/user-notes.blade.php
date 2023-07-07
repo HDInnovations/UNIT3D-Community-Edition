@@ -16,8 +16,6 @@
                     <form
                         class="dialog__form"
                         x-on:click.outside="$refs.dialog.close()"
-                        wire:submit.prevent="store"
-                        x-on:submit="$refs.dialog.close()"
                     >
                         <p class="form__group">
                             <textarea
@@ -32,7 +30,11 @@
                             </label>
                         </p>
                         <p class="form__group">
-                            <button class="form__button form__button--filled">
+                            <button
+                                class="form__button form__button--filled"
+                                wire:click="store"
+                                x-on:click="$refs.dialog.close()"
+                            >
                                 {{ __('common.save') }}
                             </button>
                             <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
