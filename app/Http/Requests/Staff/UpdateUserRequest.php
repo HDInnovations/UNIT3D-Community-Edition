@@ -64,7 +64,7 @@ class UpdateUserRequest extends FormRequest
             ],
             'seedbonus' => [
                 'required',
-                'integer',
+                'decimal:0,2',
                 'min:0',
             ],
             'invites' => [
