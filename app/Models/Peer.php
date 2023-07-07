@@ -83,6 +83,8 @@ class Peer extends Model
                 if (\is_resource($con)) {
                     fclose($con);
                 }
+            } else {
+                $this->connectable = $cache === null ? 0 : unserialize($cache);
             }
         }
     }
