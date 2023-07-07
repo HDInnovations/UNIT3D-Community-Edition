@@ -48,6 +48,7 @@
                         id="username"
                         class="form__text"
                         name="username"
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $user->username }}"
@@ -62,7 +63,8 @@
                         class="form__text"
                         inputmode="numeric"
                         name="uploaded"
-                        pattern="[0-9]*"
+                        pattern="[0-9]{1,}"
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $user->uploaded }}"
@@ -77,7 +79,8 @@
                         class="form__text"
                         inputmode="numeric"
                         name="downloaded"
-                        pattern="[0-9]*"
+                        pattern="[0-9]{1,}"
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $user->downloaded }}"
@@ -147,7 +150,8 @@
                         class="form__text"
                         inputmode="numeric"
                         name="seedbonus"
-                        pattern="[0-9]*"
+                        pattern="[0-9]{1,}(?:.[0-9]{1,2})?"
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $user->seedbonus }}"
@@ -162,7 +166,8 @@
                         class="form__text"
                         inputmode="numeric"
                         name="fl_tokens"
-                        pattern="[0-9]*"
+                        pattern="[0-9]{1,}"
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $user->fl_tokens }}"
@@ -177,7 +182,8 @@
                         class="form__text"
                         inputmode="numeric"
                         name="invites"
-                        pattern="[0-9]*"
+                        pattern="[0-9]{1,}"
+                        placeholder=" "
                         required
                         type="text"
                         value="{{ $user->invites }}"
