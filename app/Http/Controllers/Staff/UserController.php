@@ -51,11 +51,13 @@ class UserController extends Controller
     /**
      * User Edit Form.
      */
-    public function edit(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $group = $request->user()->group;
+
         return view('Staff.user.edit', [
             'user'      => $user,
-            'groups'    => Group::all(),
+            'groups'    => Group::when(! $group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->get(),
             'internals' => Internal::all(),
         ]);
     }
