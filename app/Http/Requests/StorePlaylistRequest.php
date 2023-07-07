@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
@@ -18,7 +18,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
-class VoteOnPoll extends FormRequest
+class StorePlaylistRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,20 +34,18 @@ class VoteOnPoll extends FormRequest
     public function rules(): array
     {
         return [
-            'option' => [
+            'name' => [
                 'required',
-                'min:1',
+                'max:255',
             ],
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     */
-    public function messages(): array
-    {
-        return [
-            'option.required' => 'You must select an answer',
+            'description' => [
+                'required',
+                'max:65535',
+            ],
+            'is_private' => [
+                'required',
+                'boolean',
+            ],
         ];
     }
 }

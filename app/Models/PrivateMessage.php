@@ -53,6 +53,22 @@ class PrivateMessage extends Model
     }
 
     /**
+     * Has a reply.
+     */
+    public function reply(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->HasOne(PrivateMessage::class, 'related_to');
+    }
+
+    /**
+     * Has a reply.
+     */
+    public function replyRecursive(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->reply()->with('replyRecursive');
+    }
+
+    /**
      * Set The PM Message After Its Been Purified.
      */
     public function setMessageAttribute(string $value): void

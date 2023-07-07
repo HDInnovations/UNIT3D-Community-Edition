@@ -1,23 +1,23 @@
-<li class="{{ Route::is('inbox') ? 'nav-tab--active' : 'nav-tabV2' }}">
+<li class="{{ Route::is('users.received_messages.index') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
-        class="{{ Route::is('inbox') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('inbox') }}"
+        class="{{ Route::is('users.received_messages.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('users.received_messages.index', ['user' => $user]) }}"
     >
         {{ __('pm.inbox') }}
     </a>
 </li>
-<li class="{{ Route::is('outbox') ? 'nav-tab--active' : 'nav-tabV2' }}">
+<li class="{{ Route::is('users.sent_messages.index') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
-        class="{{ Route::is('outbox') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('outbox') }}"
+        class="{{ Route::is('users.sent_messages.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('users.sent_messages.index', ['user' => $user]) }}"
     >
         {{ __('pm.outbox') }}
     </a>
 </li>
-<li class="{{ Route::is('create') ? 'nav-tab--active' : 'nav-tabV2' }}">
+<li class="{{ Route::is('users.sent_messages.create') ? 'nav-tab--active' : 'nav-tabV2' }}">
     <a
-        class="{{ Route::is('create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('create') }}"
+        class="{{ Route::is('users.sent_messages.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('users.sent_messages.create', ['user' => $user]) }}"
     >
         {{ __('pm.new') }}
     </a>

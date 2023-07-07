@@ -2,12 +2,12 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}" class="breadcrumb__link">
             {{ $torrent->name }}
         </a>
     </li>
@@ -31,10 +31,11 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('edit', ['id' => $torrent->id]) }}"
+                action="{{ route('torrents.update', ['id' => $torrent->id]) }}"
                 enctype="multipart/form-data"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group" x-show="cats[cat].type === 'no'">
                     <label class="form__label" for="torrent-cover">
                         Cover {{ __('torrent.file') }} ({{ __('torrent.optional') }})
@@ -351,7 +352,7 @@
                     </label>
                 </p>
 
-                @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                     <p class="form__group">
                         <input type="hidden" name="anonymous" value="0">
                         <input
@@ -407,7 +408,7 @@
                 @else
                     <input type="hidden" name="internal" value="{{ $torrent->internal }}">
                 @endif
-                @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+                @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                     <p class="form__group">
                         <input type="hidden" name="personal_release" value="0">
                         <input

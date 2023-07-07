@@ -56,9 +56,11 @@ class SystemBot
     public function replaceVars($output): array|string
     {
         $output = str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
+
         if (str_contains((string) $output, '{bots}')) {
             $botHelp = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
+
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
@@ -88,6 +90,7 @@ class SystemBot
             'amount'   => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'     => 'required|string',
         ]);
+
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $receiver)->first();
 
@@ -147,6 +150,7 @@ class SystemBot
         }
 
         $command = @explode(' ', (string) $message);
+
         if (\array_key_exists($x, $command)) {
             if ($command[$x] === 'gift' && \array_key_exists($y, $command) && \array_key_exists($z, $command) && \array_key_exists($z + 1, $command)) {
                 $clone = $command;
@@ -184,11 +188,13 @@ class SystemBot
         if ($type == 'message' || $type == 'private') {
             $receiverDirty = 0;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
+
             if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
 
             $receiverListening = false;
+
             foreach ($receiverEchoes as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
@@ -212,11 +218,13 @@ class SystemBot
 
             $receiverDirty = 0;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
+
             if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
 
             $receiverListening = false;
+
             foreach ($receiverAudibles as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;

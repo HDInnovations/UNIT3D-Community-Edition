@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -40,7 +40,7 @@
             <div class="panel__body">
                 <form
                     class="form"
-                    action="{{ route('invites.store') }}"
+                    action="{{ route('users.invites.store', ['user' => $user]) }}"
                     method="post"
                 >
                     @csrf

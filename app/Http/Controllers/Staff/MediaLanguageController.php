@@ -53,19 +53,19 @@ class MediaLanguageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(MediaLanguage $mediaLanguage): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.media_language.edit', [
-            'media_language' => MediaLanguage::findOrFail($id),
+            'media_language' => $mediaLanguage,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediaLanguageRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateMediaLanguageRequest $request, MediaLanguage $mediaLanguage): \Illuminate\Http\RedirectResponse
     {
-        MediaLanguage::findOrFail($id)->update($request->validated());
+        $mediaLanguage->update($request->validated());
 
         return to_route('staff.media_languages.index')
             ->withSuccess('Media Language Successfully Updated');
@@ -76,9 +76,8 @@ class MediaLanguageController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(MediaLanguage $mediaLanguage): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage = MediaLanguage::findOrFail($id);
         $mediaLanguage->delete();
 
         return to_route('staff.media_languages.index')

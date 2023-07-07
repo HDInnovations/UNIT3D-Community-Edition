@@ -57,7 +57,7 @@
         <dl class="key-value">
             <dt>{{ __('forum.author') }}</dt>
             <dd>
-                <a href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">
+                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
                     {{ $topic->first_post_user_username }}
                 </a>
             </dd>
@@ -93,7 +93,7 @@
             @endif
         </div>
     </section>
-    @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
+    @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->id())
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('forum.topic') }} {{ __('user.settings') }}</h2>
             <div class="panel__body">

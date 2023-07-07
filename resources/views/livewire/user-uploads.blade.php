@@ -128,7 +128,7 @@
                             @if ($torrent->internal)
                                 <i class="{{ config('other.font-awesome') }} fa-magic" style="color: #baaf92;"></i>
                             @endif
-                            <a class="user-uploads__name" href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                            <a class="user-uploads__name" href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                                 {{ $torrent->name }}
                             </a>
                         </td>

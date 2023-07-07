@@ -21,6 +21,8 @@ class Subtitle extends Model
 {
     use Auditable;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A User.
      */

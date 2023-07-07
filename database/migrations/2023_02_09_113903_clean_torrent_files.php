@@ -29,6 +29,7 @@ return new class () extends Migration {
                     $dict['announce'] = config('app.url').'/announce/PID';
 
                     $comment = config('torrent.comment', null);
+
                     if ($comment !== null) {
                         $result['comment'] = $comment;
                     }

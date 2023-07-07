@@ -29,6 +29,8 @@ class Permission extends Model
      */
     public $timestamps = false;
 
+    public $guarded = [];
+
     /**
      * Belongs To A Group.
      */

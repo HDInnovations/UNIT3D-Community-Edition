@@ -33,5 +33,4 @@ return [
     'search'              => 'Søg efter torrent',
     'uploaded'            => 'Uploaded',
     'uploader'            => 'Uploader',
-
 ];

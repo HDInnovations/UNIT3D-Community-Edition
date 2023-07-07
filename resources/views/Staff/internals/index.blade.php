@@ -42,7 +42,7 @@
                     <tr>
                         <td>{{ $internal->id }}</td>
                         <td>
-                            <a href="{{ route('staff.internals.edit', ['id' => $internal->id]) }}">
+                            <a href="{{ route('staff.internals.edit', ['internal' => $internal]) }}">
                                 {{ $internal->name }}
                             </a>
                         </td>
@@ -52,7 +52,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.internals.edit', ['id' => $internal->id]) }}"
+                                        href="{{ route('staff.internals.edit', ['internal' => $internal]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -61,7 +61,7 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.internals.destroy', ['id' => $internal->id]) }}"
+                                        action="{{ route('staff.internals.destroy', ['internal' => $internal]) }}"
                                         x-data
                                     >
                                         @csrf

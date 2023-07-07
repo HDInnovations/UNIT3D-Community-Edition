@@ -24,7 +24,7 @@
         'type'       => (object) [
             'name' => '',
         ],
-        'uploader'   => (object) [
+        'user'   => (object) [
             'id'       => '',
             'group'    => (object) [
                 'icon'   => '',
@@ -91,7 +91,7 @@
     </aside>
     <div class="torrent-card__body">
         <h2 class="torrent-card__title">
-            <a class="torrent-card__link" href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+            <a class="torrent-card__link" href="{{ route('torrents.show', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
         </h2>
         <div class="torrent-card__rating-and-genres">
             <span
@@ -105,7 +105,7 @@
             <ul class="torrent-card__genres">
                 @foreach($meta->genres as $genre)
                     <li class="torrent-card__genre-item">
-                        <a class="torrent-card__genre" href="{{ route('torrents', ['view' => 'group', 'genres' => [$genre->id]]) }}">
+                        <a class="torrent-card__genre" href="{{ route('torrents.index', ['view' => 'group', 'genres' => [$genre->id]]) }}">
                             {{ $genre->name }}
                         </a>
                     </li>

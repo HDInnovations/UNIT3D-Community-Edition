@@ -29,8 +29,10 @@ trait TwoStep
     private function twoStepVerification(): bool
     {
         $user = auth()->user();
+
         if ($user !== null) {
             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
+
             if ($twoStepAuthStatus->authStatus !== true) {
                 return false;
             }
@@ -185,6 +187,7 @@ trait TwoStep
     protected function sendVerificationCodeNotification($twoStepAuth, $deliveryMethod = null): void
     {
         $user = auth()->user();
+
         if ($deliveryMethod === null) {
             $user->notify(new TwoStepAuthCode($user, $twoStepAuth->authCode));
         }

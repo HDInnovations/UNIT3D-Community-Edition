@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('outbox') }}" class="breadcrumb__link">
+        <a href="{{ route('users.sent_messages.index', ['user' => $user]) }}" class="breadcrumb__link">
             {{ __('pm.messages') }}
         </a>
     </li>
@@ -24,14 +24,14 @@
             <div class="panel__actions">
                 <form
                     class="panel__action"
-                    action="{{ route('searchPMOutbox') }}"
+                    action="{{ route('users.sent_messages.index', ['user' => $user]) }}"
                 >
                     <p class="form__group">
                         <input
                             id="search"
                             class="form__text"
                             name="subject"
-                            required
+                            value="{{ $subject }}"
                         />
                         <label class="form__label form__label--floating" for="search">
                             {{ __('pm.search') }}
@@ -56,7 +56,7 @@
                                 <x-user_tag :user="$pm->receiver" :anon="false" />
                             </td>
                             <td>
-                                <a href="{{ route('message', ['id' => $pm->id]) }}">
+                                <a href="{{ route('users.sent_messages.show', ['user' => $user, 'sentPrivateMessage' => $pm]) }}">
                                     {{ $pm->subject }}
                                 </a>
                             </td>

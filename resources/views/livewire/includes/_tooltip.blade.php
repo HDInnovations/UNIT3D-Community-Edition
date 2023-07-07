@@ -27,7 +27,7 @@
             </div>
             <div class="body_description">
                 <h3 class="description_title">
-                    <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                    <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                         @if ($torrent->category->movie_meta)
                             {{ $meta->title ?? 'Unknown' }}
                         @endif

@@ -31,44 +31,31 @@ class TipController extends Controller
     /**
      * Show previous tip history.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.tip.index', [
-            'user'            => $user,
-            'bontransactions' => BonTransactions::query()
-                ->with(['senderObj', 'receiverObj'])
-                ->where(
-                    fn ($query) => $query
-                        ->where('sender', '=', $user->id)
-                        ->orwhere('receiver', '=', $user->id)
-                )
+            'user' => $user,
+            'tips' => BonTransactions::with(['senderObj', 'receiverObj', 'torrent'])
+                ->where(fn ($query) => $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id))
                 ->where('name', '=', 'tip')
                 ->latest('date_actioned')
                 ->paginate(25),
-            'userbon'   => $user->getSeedbonus(),
-            'tips_sent' => BonTransactions::query()
-                ->where('sender', '=', $user->id)
-                ->where('name', '=', 'tip')
-                ->sum('cost'),
-            'tips_received' => BonTransactions::query()
-                ->where('receiver', '=', $user->id)
-                ->where('name', '=', 'tip')
-                ->sum('cost'),
+            'bon'          => $user->getSeedbonus(),
+            'sentTips'     => $user->sentTips()->sum('cost'),
+            'receivedTips' => $user->receivedTips()->sum('cost'),
         ]);
     }
 
     /**
      * Tip Points To A User.
+     *
+     * @param User $user The tipping user.
      */
-    public function store(StoreTipRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(StoreTipRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $sender = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id === $sender->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $request = $request->safe()->collect();
         $tipable = match (true) {
@@ -79,25 +66,25 @@ class TipController extends Controller
         $tipAmount = $request->get('tip');
 
         $recipient->increment('seedbonus', $tipAmount);
-        $sender->decrement('seedbonus', $tipAmount);
+        $user->decrement('seedbonus', $tipAmount);
 
-        $bonTransactions = new BonTransactions();
-        $bonTransactions->itemID = 0;
-        $bonTransactions->name = 'tip';
-        $bonTransactions->cost = $tipAmount;
-        $bonTransactions->sender = $sender->id;
-        $bonTransactions->receiver = $recipient->id;
-        $bonTransactions->comment = 'tip';
-        $bonTransactions->post_id = $request->has('post') ? $tipable->id : null;
-        $bonTransactions->torrent_id = $request->has('torrent') ? $tipable->id : null;
-        $bonTransactions->save();
+        BonTransactions::create([
+            'itemID'     => 0,
+            'name'       => 'tip',
+            'cost'       => $tipAmount,
+            'sender'     => $user->id,
+            'receiver'   => $recipient->id,
+            'comment'    => 'tip',
+            'post_id'    => $request->has('post') ? $tipable->id : null,
+            'torrent_id' => $request->has('torrent') ? $tipable->id : null,
+        ]);
 
         if ($request->has('torrent')) {
-            if ($recipient->acceptsNotification($sender, $recipient, 'torrent', 'show_torrent_tip')) {
-                $recipient->notify(new NewUploadTip('torrent', $sender->username, $tipAmount, $tipable));
+            if ($recipient->acceptsNotification($user, $recipient, 'torrent', 'show_torrent_tip')) {
+                $recipient->notify(new NewUploadTip('torrent', $user->username, $tipAmount, $tipable));
             }
         } elseif ($request->has('post')) {
-            $recipient->notify(new NewPostTip('forum', $sender->username, $tipAmount, $tipable));
+            $recipient->notify(new NewPostTip('forum', $user->username, $tipAmount, $tipable));
         }
 
         return redirect()->back()->withSuccess(trans('bon.success-tip'));

@@ -13,7 +13,7 @@
                     <form
                         class="dialog__form"
                         method="POST"
-                        action="{{ route('user_warn', ['username' => $user->username]) }}"
+                        action="{{ route('users.warnings.store', ['user' => $user]) }}"
                         x-on:click.outside="open = false; $refs.dialog.close();"
                     >
                         @csrf
@@ -39,7 +39,7 @@
             </div>
             <form
                 class="panel__action"
-                action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}"
+                action="{{ route('users.warnings.mass_destroy', ['user' => $user]) }}"
                 method="POST"
                 x-data
             >
@@ -111,7 +111,7 @@
                         </td>
                         <td>
                             @isset($warning->torrenttitle)
-                                <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}">
                                     {{ $warning->torrenttitle->name }}
                                 </a>
                             @else
@@ -140,7 +140,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('deleteWarning', ['id' => $warning->id]) }}"
+                                        action="{{ route('users.warnings.destroy', ['user' => $user, 'warning' => $warning]) }}"
                                         method="POST"
                                         x-data
                                     >
@@ -273,7 +273,7 @@
                         </td>
                         <td>
                             @isset($warning->torrenttitle)
-                                <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}">
                                     {{ $warning->torrenttitle->name }}
                                 </a>
                             @else
@@ -290,11 +290,12 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('restoreWarning', ['id' => $warning->id]) }}"
+                                        action="{{ route('users.warnings.update', ['user' => $user, 'warning' => $warning]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
+                                        @method('PATCH')
                                         <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',

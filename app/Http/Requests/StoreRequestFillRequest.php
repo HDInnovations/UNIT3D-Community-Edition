@@ -11,11 +11,12 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Requests\Staff;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class UpdateBanRequest extends FormRequest
+class StoreRequestFillRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,18 +29,15 @@ class UpdateBanRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
-            'unban_reason' => [
+            'torrent_id' => [
                 'required',
-                'string',
-                'max:65536',
             ],
-            'group_id' => [
+            'filled_anon' => [
                 'required',
-                'integer',
-                'exists:groups,id',
+                'boolean',
             ],
         ];
     }

@@ -40,7 +40,7 @@
                     <tr>
                         <td>{{ $resolution->position }}</td>
                         <td>
-                            <a href="{{ route('staff.resolutions.edit', ['id' => $resolution->id]) }}">
+                            <a href="{{ route('staff.resolutions.edit', ['resolution' => $resolution]) }}">
                                 {{ $resolution->name }}
                             </a>
                         </td>
@@ -48,7 +48,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.resolutions.edit', ['id' => $resolution->id]) }}"
+                                        href="{{ route('staff.resolutions.edit', ['resolution' => $resolution]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -56,7 +56,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.resolutions.destroy', ['id' => $resolution->id]) }}"
+                                        action="{{ route('staff.resolutions.destroy', ['resolution' => $resolution]) }}"
                                         method="POST"
                                         x-data
                                     >

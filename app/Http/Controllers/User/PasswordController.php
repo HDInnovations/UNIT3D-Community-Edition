@@ -28,9 +28,9 @@ class PasswordController extends Controller
      */
     protected function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        $changedByStaff = $request->user()->id !== $user->id;
+        $changedByStaff = $request->user()->isNot($user);
 
         abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level < $user->group->level, 403);
 
@@ -46,8 +46,9 @@ class PasswordController extends Controller
             ],
         ]);
 
-        $user->password = Hash::make($request->new_password);
-        $user->save();
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([
@@ -67,7 +68,7 @@ class PasswordController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.password.edit', ['user' => $user]);
     }

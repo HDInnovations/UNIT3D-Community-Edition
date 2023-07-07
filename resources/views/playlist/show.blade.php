@@ -11,7 +11,7 @@
     </li>
 @endsection
 
-@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+@if(auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
@@ -28,7 +28,7 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('playlists.attach') }}"
+                            action="{{ route('playlist_torrents.store') }}"
                             x-on:click.outside="$refs.dialog.close()"
                         >
                             @csrf
@@ -58,7 +58,7 @@
                 </div>
                 <p class="form__group form__group--horizontal">
                     <a
-                        href="{{ route('playlists.edit', ['id' => $playlist->id]) }}"
+                        href="{{ route('playlists.edit', ['playlist' => $playlist]) }}"
                         class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-edit"></i>
@@ -66,7 +66,7 @@
                     </a>
                 </p>
                 <form
-                    action="{{ route('playlists.destroy', ['id' => $playlist->id]) }}"
+                    action="{{ route('playlists.destroy', ['playlist' => $playlist]) }}"
                     method="POST"
                     x-data
                 >
@@ -99,7 +99,7 @@
             <div class="panel__body">
                 <p class="form__group form__group--horizontal">
                     <a
-                        href="{{ route('playlists.download', ['id' => $playlist->id]) }}"
+                        href="{{ route('playlist_zips.show', ['playlist' => $playlist]) }}"
                         class="form__button form__button--filled form__button--centered"
                         download
                     >
@@ -109,7 +109,7 @@
                 </p>
                 <p class="form__group form__group--horizontal">
                     <a
-                        href="{{ route('torrents', ['playlistId' => $playlist->id]) }}"
+                        href="{{ route('torrents.index', ['playlistId' => $playlist->id]) }}"
                         class="form__button form__button--filled form__button--centered"
                     >
                         <i class='{{ config('other.font-awesome') }} fa-eye'></i>
@@ -127,7 +127,7 @@
         @php $tmdb_backdrop = isset($meta->backdrop) ? tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350' @endphp
         <div class="playlist__backdrop" style="background-image: url('{{ $tmdb_backdrop }}')">
             <div class="playlist__backdrop-filter">
-                <a class="playlist__author-link" href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
+                <a class="playlist__author-link" href="{{ route('users.show', ['user' => $playlist->user]) }}">
                     <img
                         class="playlist__author-avatar"
                         src="{{ url($playlist->user->image ? 'files/img/'.$playlist->user->image : 'img/profile.png') }}"
@@ -146,20 +146,20 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
         <div class="panel__body playlist__torrents">
-            @foreach($torrents as $playlistTorrent)
+            @foreach($torrents as $torrent)
                 @php
                     $meta = match(1) {
-                        $playlistTorrent->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->find($playlistTorrent->torrent->tmdb ?? 0),
-                        $playlistTorrent->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->find($playlistTorrent->torrent->tmdb ?? 0),
-                        $playlistTorrent->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
+                        $torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->find($torrent->tmdb ?? 0),
+                        $torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->find($torrent->tmdb ?? 0),
+                        $torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
                         default => null,
                     };
                 @endphp
                 <div class="playlist__torrent-container">
-                    <x-torrent.card :meta="$meta" :torrent="$playlistTorrent->torrent" />
-                    @if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+                    <x-torrent.card :meta="$meta" :torrent="$torrent" />
+                    @if(auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
                         <form
-                            action="{{ route('playlists.detach', ['id' => $playlistTorrent->id]) }}"
+                            action="{{ route('playlist_torrents.destroy', ['playlistTorrent' => $torrent->pivot]) }}"
                             method="POST"
                         >
                             @csrf

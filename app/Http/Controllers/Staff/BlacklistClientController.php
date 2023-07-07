@@ -37,29 +37,27 @@ class BlacklistClientController extends Controller
     /**
      * Blacklisted Client Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(BlacklistClient $blacklistClient): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.blacklist.clients.edit', [
-            'client' => BlacklistClient::findOrFail($id),
+            'client' => $blacklistClient,
         ]);
     }
 
     /**
      * Edit A Blacklisted Client.
      */
-    public function update(UpdateBlacklistClientRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateBlacklistClientRequest $request, BlacklistClient $blacklistClient): \Illuminate\Http\RedirectResponse
     {
-        $client = BlacklistClient::findOrFail($id);
+        Unit3dAnnounce::removeBlacklistedAgent($blacklistClient);
 
-        Unit3dAnnounce::removeBlacklistedAgent($client);
+        $blacklistClient->update($request->validated());
 
-        $client->update($request->validated());
-
-        Unit3dAnnounce::addBlacklistedAgent($client);
+        Unit3dAnnounce::addBlacklistedAgent($blacklistClient);
 
         cache()->forget('client_blacklist');
 
-        return to_route('staff.blacklists.clients.index')
+        return to_route('staff.blacklisted_clients.index')
             ->withSuccess('Blacklisted Client Was Updated Successfully!');
     }
 
@@ -82,23 +80,22 @@ class BlacklistClientController extends Controller
 
         cache()->forget('client_blacklist');
 
-        return to_route('staff.blacklists.clients.index')
+        return to_route('staff.blacklisted_clients.index')
             ->withSuccess('Blacklisted Client Stored Successfully!');
     }
 
     /**
      * Delete A Blacklisted Client.
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(BlacklistClient $blacklistClient): \Illuminate\Http\RedirectResponse
     {
-        $client = BlacklistClient::findOrFail($id);
+        Unit3dAnnounce::removeBlacklistedAgent($blacklistClient);
 
-        Unit3dAnnounce::removeBlacklistedAgent($client);
-        $client->delete();
+        $blacklistClient->delete();
 
         cache()->forget('client_blacklist');
 
-        return to_route('staff.blacklists.clients.index')
+        return to_route('staff.blacklisted_clients.index')
             ->withSuccess('Blacklisted Client Destroyed Successfully!');
     }
 }

@@ -41,7 +41,7 @@ class ChatBotControllerTest extends TestCase
             'is_protected' => false,
         ]);
 
-        $response = $this->actingAs($user)->delete(route('staff.bots.destroy', ['id' => $bot->id]));
+        $response = $this->actingAs($user)->delete(route('staff.bots.destroy', ['bot' => $bot]));
         $response->assertRedirect(route('staff.bots.index'));
     }
 
@@ -55,7 +55,7 @@ class ChatBotControllerTest extends TestCase
         $user = $this->createStaffUser();
         $bot = Bot::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.bots.disable', ['id' => $bot->id]));
+        $response = $this->actingAs($user)->post(route('staff.bots.disable', ['bot' => $bot]));
         $response->assertRedirect(route('staff.bots.index'));
     }
 
@@ -69,7 +69,7 @@ class ChatBotControllerTest extends TestCase
         $user = $this->createStaffUser();
         $bot = Bot::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.bots.edit', ['id' => $bot->id]));
+        $response = $this->actingAs($user)->get(route('staff.bots.edit', ['bot' => $bot]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.chat.bot.edit');
@@ -86,7 +86,7 @@ class ChatBotControllerTest extends TestCase
         $user = $this->createStaffUser();
         $bot = Bot::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.bots.enable', ['id' => $bot->id]));
+        $response = $this->actingAs($user)->post(route('staff.bots.enable', ['bot' => $bot]));
         $response->assertRedirect(route('staff.bots.index'));
     }
 
@@ -116,7 +116,7 @@ class ChatBotControllerTest extends TestCase
         $user = $this->createStaffUser();
         $bot = Bot::factory()->create();
 
-        $response = $this->actingAs($user)->patch(route('staff.bots.update', ['id' => $bot->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.bots.update', ['bot' => $bot]), [
             'position'     => $bot->position,
             'name'         => $bot->name,
             'command'      => $bot->command,
@@ -140,6 +140,6 @@ class ChatBotControllerTest extends TestCase
             'invites'      => $bot->invites,
         ]);
 
-        $response->assertRedirect(route('staff.bots.edit', ['id' => $bot->id]));
+        $response->assertRedirect(route('staff.bots.index'));
     }
 }

@@ -35,6 +35,8 @@ class Torrent extends Model
     use Moderatable;
     use TorrentFilter;
 
+    protected $guarded = [];
+
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
@@ -53,6 +55,11 @@ class Torrent extends Model
     protected $discarded = [
         'info_hash',
     ];
+
+    public const PENDING = 0;
+    public const APPROVED = 1;
+    public const REJECTED = 2;
+    public const POSTPONED = 3;
 
     /**
      * Belongs To A User.
@@ -108,9 +115,9 @@ class Torrent extends Model
     /**
      * Belongs To A Playlist.
      */
-    public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(PlaylistTorrent::class);
+        return $this->belongsToMany(Playlist::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
     }
 
     /**
@@ -234,6 +241,14 @@ class Torrent extends Model
     }
 
     /**
+     * Bookmarks.
+     */
+    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Graveyard::class);
+    }
+
+    /**
      * Set The Torrents Description After Its Been Purified.
      */
     public function setDescriptionAttribute(?string $value): void
@@ -283,6 +298,7 @@ class Torrent extends Model
     public function notifyUploader($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
+
         if ($type == 'thank') {
             if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));

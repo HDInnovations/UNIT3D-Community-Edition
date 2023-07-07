@@ -38,33 +38,21 @@ class StoreGiftRequest extends FormRequest
         $user = $request->user();
 
         return [
-            'to_username' => [
+            'receiver_username' => [
                 'required',
-                'exists:users,username',
-                Rule::notIn([$user->username]),
+                Rule::exists('users', 'username')->whereNot('username', $user->username),
             ],
-            'bonus_points' => [
+            'cost' => [
                 'required',
                 'numeric',
                 'min:1',
                 'max:'.$user->seedbonus,
             ],
-            'bonus_message' => [
+            'comment' => [
                 'required',
                 'string',
+                'max:255'
             ],
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     */
-    public function messages(): array
-    {
-        return [
-            'to_username.exists'           => trans('bon.failed-user-not-found'),
-            'to_username.not_in'           => 'You cannot gift yourself',
-            'bonus_points.numeric|min|max' => trans('bon.failed-amount-message'),
         ];
     }
 }

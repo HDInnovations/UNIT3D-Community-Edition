@@ -103,7 +103,7 @@
             <form
                 class="dialog__form"
                 method="POST"
-                action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
+                action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
                 x-on:click.outside="$refs.dialog.close()"
             >
                 @csrf
@@ -280,7 +280,7 @@
                 <form
                     class="dialog__form"
                     method="POST"
-                    action="{{ route('playlists.attach') }}"
+                    action="{{ route('playlist_torrents.store') }}"
                     x-on:click.outside="$refs.dialog.close()"
                 >
                     @csrf
@@ -341,7 +341,7 @@
                 <form
                     class="dialog__form"
                     method="POST"
-                    action="{{ route('graveyard.store') }}"
+                    action="{{ route('users.resurrections.store', ['user' => auth()->user()]) }}"
                     x-on:click.outside="$refs.dialog.close()"
                 >
                     @csrf

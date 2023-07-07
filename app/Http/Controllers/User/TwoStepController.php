@@ -25,9 +25,9 @@ class TwoStepController extends Controller
      */
     protected function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        $changedByStaff = $request->user()->id !== $user->id;
+        $changedByStaff = $request->user()->isNot($user);
 
         abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level < $user->group->level, 403);
 
@@ -35,8 +35,9 @@ class TwoStepController extends Controller
             'twostep' => 'required|boolean',
         ]);
 
-        $user->twostep = $request->twostep;
-        $user->save();
+        $user->update([
+            'twostep' => $request->twostep,
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([
@@ -56,7 +57,7 @@ class TwoStepController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.two_step.edit', ['user' => $user]);
     }

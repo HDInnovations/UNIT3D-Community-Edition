@@ -25,7 +25,7 @@
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
+                    action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
                 >
                     @csrf
                     <input type="hidden" name="recipient" value="{{ $post->user->id }}">
@@ -87,7 +87,7 @@
                     </button>
                 </li>
             @endif
-            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->user()->id && $post->topic->state === 'open'))
+            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->id() && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <a
                         class="post__edit"
@@ -137,7 +137,7 @@
                 @else
                     <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="Offline"></i>
                 @endif
-                <a href="{{ route('create', ['receiver_id' => $post->user->id, 'username' => $post->user->username]) }}">
+                <a href="{{ route('users.sent_messages.create', ['user' => $post->user, 'username' => $post->user->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
             </x-slot>

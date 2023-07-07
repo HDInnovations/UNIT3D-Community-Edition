@@ -1,7 +1,7 @@
-<li class="{{ Route::is('user_search') ? 'nav-tab--active' : 'nav-tavV2' }}">
+<li class="{{ Route::is('staff.users.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
     <a
-        class="{{ Route::is('user_search') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('user_search') }}"
+        class="{{ Route::is('staff.users.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('staff.users.index') }}"
     >
         {{ __('common.users') }}
     </a>

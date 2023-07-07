@@ -52,7 +52,8 @@
                         <input
                             x-bind:id="'option' + option"
                             class="form__text"
-                            name="options[]"
+                            x-bind:name="'options[' + option + '][name]'"
+                            required
                             type="text"
                             placeholder=" "
                         >
@@ -76,6 +77,7 @@
                     </button>
                 </p>
                 <p class="form__group">
+                    <input type="hidden" name="multiple_choice" value="0" />
                     <input
                         id="multiple_choice"
                         class="form__checkbox"

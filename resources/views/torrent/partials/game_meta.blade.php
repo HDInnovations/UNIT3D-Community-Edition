@@ -19,7 +19,7 @@
         </a>
         <ul class="meta__dropdown">
             <li>
-                <a href="{{ route('upload_form', [
+                <a href="{{ route('torrents.create', [
                     'category_id' => $category->id,
                     'title'       => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
                     'imdb'        => $torrent->imdb ?? '',

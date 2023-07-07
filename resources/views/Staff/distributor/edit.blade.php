@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.distributors.update', ['id' => $distributor->id]) }}"
+                action="{{ route('staff.distributors.update', ['distributor' => $distributor]) }}"
             >
                 @method('PATCH')
                 @csrf

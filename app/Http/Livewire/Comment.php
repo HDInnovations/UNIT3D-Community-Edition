@@ -93,7 +93,7 @@ class Comment extends Component
 
     final public function editComment(): void
     {
-        if (auth()->user()->id == $this->comment->user_id || auth()->user()->group->is_modo) {
+        if (auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) {
             $this->comment->update((new AntiXSS())->xss_clean($this->editState));
             $this->isEditing = false;
         } else {
@@ -103,7 +103,7 @@ class Comment extends Component
 
     final public function deleteComment(): void
     {
-        if (auth()->user()->id == $this->comment->user_id || auth()->user()->group->is_modo) {
+        if (auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) {
             $this->comment->delete();
             $this->emitUp('refresh');
         } else {
@@ -154,7 +154,6 @@ class Comment extends Component
                 }
 
                 break;
-
             case 'article':
             case 'playlist':
             case 'torrent request':

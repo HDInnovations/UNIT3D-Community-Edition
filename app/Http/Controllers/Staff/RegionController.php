@@ -14,11 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\DestroyRegionRequest;
 use App\Http\Requests\Staff\StoreRegionRequest;
 use App\Http\Requests\Staff\UpdateRegionRequest;
 use App\Models\Region;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Exception;
 
 class RegionController extends Controller
@@ -55,19 +54,19 @@ class RegionController extends Controller
     /**
      * Region Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Region $region): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.region.edit', [
-            'region' => Region::findOrFail($id),
+            'region' => $region,
         ]);
     }
 
     /**
      * Edit A Region.
      */
-    public function update(UpdateRegionRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateRegionRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        Region::findOrFail($id)->update($request->validated());
+        $region->update($request->validated());
 
         return to_route('staff.regions.index')
             ->withSuccess('Region Successfully Modified');
@@ -78,18 +77,9 @@ class RegionController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(DestroyRegionRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        $region = Region::findOrFail($id);
-
-        $validated = $request->validate([
-            'region_id' => [
-                'required',
-                'exists:regions,id',
-                Rule::notIn([$region->id]),
-            ],
-        ]);
-        $region->torrents()->update($validated);
+        $region->torrents()->update($request->validated());
         $region->delete();
 
         return to_route('staff.regions.index')

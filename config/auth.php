@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -131,5 +130,4 @@ return [
     'TwoStepVerifiedLifetimeMinutes' => 6 * 60,
 
     'TwoStepTimeResetBufferSeconds' => 6 * 60,
-
 ];

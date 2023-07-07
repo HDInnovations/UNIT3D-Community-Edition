@@ -79,7 +79,7 @@ class RequestControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('requests.claims.store', ['id' => $id]), [
+        $response = $this->actingAs($user)->post(route('requests.claims.store', ['torrentRequest' => $torrentRequest]), [
             // TODO: send request data
         ]);
 
@@ -115,7 +115,7 @@ class RequestControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('requests.edit', ['id' => $id]));
+        $response = $this->actingAs($user)->get(route('requests.edit', ['torrentRequest' => $torrentRequest]));
 
         $response->assertOk();
         $response->assertViewIs('requests.edit');
@@ -153,7 +153,7 @@ class RequestControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('requests.fill', ['id' => $id]), [
+        $response = $this->actingAs($user)->post(route('requests.fills.store', ['torrentRequest' => $torrentRequest]), [
             // TODO: send request data
         ]);
 
@@ -187,7 +187,7 @@ class RequestControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('request.show', ['id' => $id]));
+        $response = $this->actingAs($user)->get(route('request.show', ['torrrentRequest' => $torrentRequest]));
 
         $response->assertOk();
         $response->assertViewIs('requests.show');
@@ -237,7 +237,7 @@ class RequestControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('requests.reset', ['id' => $id]));
+        $response = $this->actingAs($user)->get(route('requests.fills.destroy', ['torrentRequest' => $torrentRequest]));
 
         $response->assertRedirect(withSuccess('The request has been reset!'));
 

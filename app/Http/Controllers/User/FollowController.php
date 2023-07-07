@@ -40,8 +40,8 @@ class FollowController extends Controller
      */
     public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        if ($request->user()->id === $user->id) {
-            return to_route('users.show', ['username' => $user->username])
+        if ($request->user()->is($user)) {
+            return to_route('users.show', ['user' => $user])
                 ->withErrors(trans('user.follow-yourself'));
         }
 
@@ -51,7 +51,7 @@ class FollowController extends Controller
             $user->notify(new NewFollow('user', $request->user()));
         }
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess(sprintf(trans('user.follow-user'), $user->username));
     }
 
@@ -66,7 +66,7 @@ class FollowController extends Controller
             $user->notify(new NewUnfollow('user', $request->user()));
         }
 
-        return to_route('users.show', ['username' => $user->username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess(sprintf(trans('user.follow-revoked'), $user->username));
     }
 }

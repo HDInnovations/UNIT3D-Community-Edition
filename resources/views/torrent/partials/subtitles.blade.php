@@ -45,7 +45,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                                        href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                         class="form__button form__button--text"
                                         title="{{ __('common.download') }}"
                                         download
@@ -53,7 +53,7 @@
                                         {{ __('common.download') }}
                                     </a>
                                 </li>
-                                @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
+                                @if(auth()->user()->group->is_modo || auth()->id() == $subtitle->user_id)
                                     <li class="data-table__action">
                                         <span x-data>
                                             <button
@@ -70,10 +70,11 @@
                                                 <form
                                                     class="dialog__form"
                                                     method="POST"
-                                                    action="{{ route('subtitles.update', ['id' => $subtitle->id]) }}"
+                                                    action="{{ route('subtitles.update', ['subtitle' => $subtitle]) }}"
                                                     x-on:click.outside="$refs.dialog.close()"
                                                 >
                                                     @csrf
+                                                    @method('PATCH')
                                                     <input id="torrent_id" name="torrent_id" type="hidden" value="{{ $torrent->id }}">
                                                     <p class="form__group">
                                                         <select class="form__select" id="language_id" name="language_id" required>
@@ -86,7 +87,7 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        <label class="form__label form__label--floating" for="torrent_id">{{ __('common.language') }}</label>
+                                                        <label class="form__label form__label--floating" for="language_id">{{ __('common.language') }}</label>
                                                     </p>
                                                     <p class="form__group">
                                                         <input
@@ -98,6 +99,18 @@
                                                             required
                                                         >
                                                         <label class="form__label form__label--floating" for="note">{{ __('subtitle.note') }}</label>
+                                                    </p>
+                                                    <p class="form__group">
+                                                        <input type="hidden" name="anon" value="0">
+                                                        <input
+                                                            id="anon"
+                                                            class="form__checkbox"
+                                                            name="anon"
+                                                            type="checkbox"
+                                                            value="1"
+                                                            @checked($subtitle->anon)
+                                                        >
+                                                        <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                                                     </p>
                                                     <p class="form__group">
                                                         <button class="form__button form__button--filled">
@@ -114,7 +127,7 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('subtitles.destroy', ['id' => $subtitle->id]) }}"
+                                            action="{{ route('subtitles.destroy', ['subtitle' => $subtitle]) }}"
                                             x-data
                                             style="display: inline"
                                         >

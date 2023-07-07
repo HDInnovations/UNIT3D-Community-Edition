@@ -14,13 +14,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\ApproveApplicationRequest;
+use App\Http\Requests\Staff\RejectApplicationRequest;
 use App\Mail\DenyApplication;
 use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
-use App\Rules\EmailBlacklist;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 use Exception;
@@ -58,80 +57,37 @@ class ApplicationController extends Controller
      *
      * @throws Exception
      */
-    public function approve(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function approve(ApproveApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 
-        if ($application->status !== 1) {
-            $carbon = new Carbon();
-            $user = $request->user();
+        $invite = Invite::create([
+            'user_id'    => $request->user()->id,
+            'email'      => $application->email,
+            'code'       => Uuid::uuid4()->toString(),
+            'expires_on' => now()->addDays(config('other.invite_expire')),
+            'custom'     => $request->string('approve'),
+        ]);
 
-            $code = Uuid::uuid4()->toString();
-            $invite = new Invite();
-            $invite->user_id = $user->id;
-            $invite->email = $application->email;
-            $invite->code = $code;
-            $invite->expires_on = $carbon->copy()->addDays(config('other.invite_expire'));
-            $invite->custom = $request->input('approve');
+        Mail::to($application->email)->send(new InviteUser($invite));
 
-            if (config('email-blacklist.enabled')) {
-                $v = validator($request->all(), [
-                    'email' => [
-                        'required',
-                        'string',
-                        'email',
-                        'max:70',
-                        'unique:invites',
-                        'unique:users',
-                        new EmailBlacklist(),
-                    ],
-                    'approve' => 'required',
-                ]);
-            } else {
-                $v = validator($request->all(), [
-                    'email'   => 'required|string|email|max:70|unique:users|unique:invites',
-                    'approve' => 'required',
-                ]);
-            }
-
-            if ($v->fails()) {
-                return to_route('staff.applications.index')
-                    ->withErrors($v->errors());
-            }
-
-            Mail::to($application->email)->send(new InviteUser($invite));
-            $invite->save();
-            $application->markApproved();
-
-            return to_route('staff.applications.index')
-                ->withSuccess('Application Approved');
-        }
+        $application->markApproved();
 
         return to_route('staff.applications.index')
-            ->withErrors('Application Already Approved');
+            ->withSuccess('Application Approved');
     }
 
     /**
      * Reject A Application.
      */
-    public function reject(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function reject(RejectApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withAnyStatus()->findOrFail($id);
+        $application->markRejected();
 
-        if ($application->status !== 2) {
-            $deniedMessage = $request->input('deny');
-            $v = validator($request->all(), [
-                'deny' => 'required',
-            ]);
-
-            $application->markRejected();
-            Mail::to($application->email)->send(new DenyApplication($deniedMessage));
-
-            return to_route('staff.applications.index')
-                ->withSuccess('Application Rejected');
-        }
+        Mail::to($application->email)->send(new DenyApplication($request->deny));
 
         return to_route('staff.applications.index')
-            ->withErrors('Application Already Rejected');
+            ->withSuccess('Application Rejected');
     }
 }

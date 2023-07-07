@@ -86,6 +86,7 @@ class GitUpdater extends Command
 
         if (! $this->io->confirm('Would you like to proceed', true)) {
             $this->line('<fg=red>Aborted ...</>');
+
             exit();
         }
 
@@ -131,6 +132,7 @@ class GitUpdater extends Command
                 $this->restore($paths);
 
                 $conflicts = array_intersect($updating, $paths);
+
                 if ($conflicts !== []) {
                     $this->red('There are some files that was not updated because because of conflicts.');
                     $this->red('We will walk you through updating these files now.');
@@ -168,6 +170,7 @@ class GitUpdater extends Command
                 $this->call('up');
             } else {
                 $this->alertDanger('Aborted Update');
+
                 exit();
             }
         } else {
@@ -347,6 +350,7 @@ class GitUpdater extends Command
             }
         } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname($path);
+
             if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! mkdir($concurrentDirectory = storage_path(sprintf(
                 'gitupdate/%s',
                 $path

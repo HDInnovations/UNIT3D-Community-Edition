@@ -36,13 +36,20 @@ class StorePoll extends FormRequest
         return [
             'title' => [
                 'required',
-                'min:10',
+                'min:10'
             ],
-            'options.*' => [
-                'filled',
+            'multiple_choice' => [
+                'required',
+                'boolean'
+            ],
+            'options.*.name' => [
+                'required',
+                'max:255'
             ],
             'options' => [
+                'array',
                 'min:2',
+                'max:20'
             ],
         ];
     }
@@ -53,7 +60,7 @@ class StorePoll extends FormRequest
     public function messages(): array
     {
         return [
-            'options.*.filled' => 'You must fill in all options fields',
+            'options.*.required' => 'You must fill in all options fields',
         ];
     }
 }

@@ -16,6 +16,8 @@ class Ticket extends Model
         'reminded_at' => 'datetime',
     ];
 
+    protected $guarded = [];
+
     public function scopeStatus($query, $status)
     {
         if ($status === 'all') {

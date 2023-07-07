@@ -53,7 +53,7 @@ class TorrentControllerTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user, 'api')->getJson(route('torrents.index'));
+        $response = $this->actingAs($user, 'api')->getJson(route('api.torrents.index'));
 
         $response->assertOk()
             ->assertJson([

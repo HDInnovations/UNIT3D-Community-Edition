@@ -41,7 +41,6 @@ class TwoStepAuth
             case 'logout':
             case 'login':
                 break;
-
             default:
                 session(['nextUri' => $nextUri]);
 

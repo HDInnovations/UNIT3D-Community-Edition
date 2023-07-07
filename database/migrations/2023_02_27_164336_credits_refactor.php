@@ -26,7 +26,6 @@ return new class () extends Migration {
         Schema::drop('person_season');
         Schema::drop('person_tv');
 
-
         Schema::create('occupations', function (Blueprint $table): void {
             $table->smallIncrements('id');
             $table->smallInteger('position');

@@ -62,9 +62,11 @@ class CasinoBot
     public function replaceVars($output): array|string
     {
         $output = str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
+
         if (str_contains((string) $output, '{bots}')) {
             $botHelp = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
+
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
@@ -89,6 +91,7 @@ class CasinoBot
             'amount' => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'   => 'required|string',
         ]);
+
         if ($v->passes()) {
             $value = $amount;
             $this->bot->seedbonus += $value;
@@ -124,6 +127,7 @@ class CasinoBot
     public function getDonations(string $duration = 'default'): string
     {
         $donations = cache()->get('casinobot-donations');
+
         if (! $donations) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             cache()->put('casinobot-donations', $donations, $this->expiresAt);
@@ -131,6 +135,7 @@ class CasinoBot
 
         $donationDump = '';
         $i = 1;
+
         foreach ($donations as $donation) {
             $donationDump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->cost.' '.$donation->forHumans().' with note: '.$donation->comment.".\n";
             $i++;
@@ -155,6 +160,7 @@ class CasinoBot
     public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {
         $this->target = $user;
+
         if ($type == 'message') {
             $x = 0;
             $y = 1;
@@ -216,11 +222,13 @@ class CasinoBot
         if ($type == 'message' || $type == 'private') {
             $receiverDirty = 0;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
+
             if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
 
             $receiverListening = false;
+
             foreach ($receiverEchoes as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;
@@ -244,11 +252,13 @@ class CasinoBot
 
             $receiverDirty = 0;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
+
             if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
 
             $receiverListening = false;
+
             foreach ($receiverAudibles as $se => $receiverEcho) {
                 if ($receiverEcho['bot_id'] == $this->bot->id) {
                     $receiverListening = true;

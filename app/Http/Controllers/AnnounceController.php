@@ -79,7 +79,6 @@ class AnnounceController extends Controller
         'Pragma'        => 'no-cache',
         'Expires'       => 0,
         'Connection'    => 'close'
-
     ];
 
     /**
@@ -223,6 +222,7 @@ class AnnounceController extends Controller
         // Part.1 Extract required announce fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $request->query->get($item);
+
             if (null !== $itemData) {
                 $queries[$item] = $itemData;
             } else {

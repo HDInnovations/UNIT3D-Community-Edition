@@ -29,6 +29,8 @@ class Graveyard extends Model
      */
     protected $table = 'graveyard';
 
+    protected $guarded = [];
+
     /**
      * Belongs To A User.
      */

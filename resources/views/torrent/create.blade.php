@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
@@ -18,7 +18,7 @@
 @section('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link"
-            href="{{ route('torrents', ['view' => match(auth()->user()->torrent_layout) {
+            href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
                 1       => 'card',
                 2       => 'group',
                 default => 'list'
@@ -38,7 +38,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+        <a class="nav-tab--active__link" href="{{ route('torrents.create', ['category_id' => 1]) }}">
             {{ __('common.upload') }}
         </a>
     </li>
@@ -71,7 +71,7 @@
                     class="upload-form form"
                     id="upload-form"
                     method="POST"
-                    action="{{ route('upload') }}"
+                    action="{{ route('torrents.store') }}"
                     enctype="multipart/form-data"
                 >
                     @csrf
@@ -357,16 +357,16 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <input type="hidden" name="anonymous" value="0">
+                        <input type="hidden" name="anon" value="0">
                         <input
                             type="checkbox"
                             class="form__checkbox"
-                            id="anonymous"
-                            name="anonymous"
+                            id="anon"
+                            name="anon"
                             value="1"
-                            @checked(old('anonymous'))
+                            @checked(old('anon'))
                         >
-                        <label class="form__label" for="anonymous">{{ __('common.anonymous') }}?</label>
+                        <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
                         <input type="hidden" name="stream" value="0">

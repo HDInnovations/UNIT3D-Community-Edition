@@ -257,7 +257,6 @@ class GroupsTableSeeder extends Seeder
                 'can_upload' => 0,
                 'level'      => 0,
             ],
-
         ];
     }
 }

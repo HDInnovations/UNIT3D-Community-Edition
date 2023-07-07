@@ -31,10 +31,13 @@ class UserController extends Controller
     /**
      * Show A User.
      */
-    public function show(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with(['privacy'])
-            ->withCount([
+        $user->load([
+            'privacy',
+            'userban' => ['banneduser', 'staffuser'],
+        ])
+            ->loadCount([
                 'torrents',
                 'topics',
                 'posts',
@@ -44,13 +47,7 @@ class UserController extends Controller
                 'userwarning as auto_warnings_count'         => fn ($query) => $query->whereNotNull('torrent'),
                 'userwarning as manual_warnings_count'       => fn ($query) => $query->whereNull('torrent'),
                 'userwarning as soft_deleted_warnings_count' => fn ($query) => $query->onlyTrashed(),
-            ])
-            ->with([
-                'userban' => ['banneduser', 'staffuser'],
-            ])
-            ->where('username', '=', $username)
-            ->when(auth()->user()->group->is_modo == true, fn ($query) => $query->withTrashed())
-            ->sole();
+            ]);
 
         return view('user.profile.show', [
             'user'      => $user,
@@ -107,11 +104,9 @@ class UserController extends Controller
     /**
      * Edit Profile Form.
      */
-    public function editProfileForm(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.profile.edit', [
             'user' => $user,
@@ -121,47 +116,42 @@ class UserController extends Controller
     /**
      * Edit User Profile.
      */
-    public function editProfile(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
+        abort_unless($request->user()->is($user), 403);
 
-        abort_unless($request->user()->id == $user->id, 403);
-
-        // Avatar
-        $maxUpload = config('image.max_upload_size');
         if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
-            if (\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', (string) $image->getMimeType())) {
-                if ($maxUpload >= $image->getSize()) {
-                    $filename = $user->username.'.'.$image->getClientOriginalExtension();
-                    $path = public_path('/files/img/'.$filename);
-                    if ($image->getClientOriginalExtension() !== 'gif') {
-                        Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
-                    } else {
-                        $v = validator($request->all(), [
-                            'image' => 'dimensions:ratio=1/1',
-                        ]);
-                        if ($v->passes()) {
-                            $image->move(public_path('/files/img/'), $filename);
-                        } else {
-                            return to_route('users.show', ['username' => $user->username])
-                                ->withErrors('Because you are uploading a GIF, your avatar must be square!');
-                        }
-                    }
 
-                    $user->image = $user->username.'.'.$image->getClientOriginalExtension();
-                } else {
-                    return to_route('users.show', ['username' => $user->username])
-                        ->withErrors('Your avatar is too large, max file size: '.($maxUpload / 1_000_000).' MB');
-                }
+            if (! \in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
+                return to_route('users.show', ['user' => $user])
+                    ->withErrors('Only .jpg, .bmp, .png, .tiff, and .gif are allowed.');
             }
-        }
 
-        // Prevent User from abusing BBCODE Font Size (max. 99)
-        $aboutTemp = $request->input('about');
-        if (str_contains((string) $aboutTemp, '[size=') && preg_match('/\[size=[0-9]{3,}\]/', (string) $aboutTemp)) {
-            return to_route('users.show', ['username' => $user->username])
-                ->withErrors('Font size is too big!');
+            if (! preg_match('#image/*#', (string) $image->getMimeType())) {
+                return to_route('users.show', ['user' => $user])
+                    ->withErrors('Incorrect mime type.');
+            }
+
+            if ($image->getSize() > config('image.max_upload_size')) {
+                return to_route('users.show', ['user' => $user])
+                    ->withErrors('Your avatar is too large, max file size: '.(config('image.max_upload_size') / 1_000_000).' MB');
+            }
+
+            $filename = $user->username.'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
+
+            if ($image->getClientOriginalExtension() !== 'gif') {
+                Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
+            } else {
+                $request->validate([
+                    'image' => 'dimensions:ratio=1/1',
+                ]);
+
+                $image->move(public_path('/files/img/'), $filename);
+            }
+
+            $user->image = $user->username.'.'.$image->getClientOriginalExtension();
         }
 
         // Define data
@@ -170,17 +160,19 @@ class UserController extends Controller
         $user->signature = $request->input('signature');
         $user->save();
 
-        return to_route('user_edit_profile_form', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Your Account Was Updated Successfully!');
     }
 
     /**
      * Accept Site Rules.
      */
-    public function acceptRules(Request $request): void
+    public function acceptRules(Request $request, User $user): void
     {
-        $user = $request->user();
-        $user->read_rules = 1;
-        $user->save();
+        abort_unless($request->user()->is($user), 403);
+
+        $user->update([
+            'read_rules' => true,
+        ]);
     }
 }

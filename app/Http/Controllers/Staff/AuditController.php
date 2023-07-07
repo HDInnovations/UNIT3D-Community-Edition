@@ -35,9 +35,9 @@ class AuditController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Audit $audit): \Illuminate\Http\RedirectResponse
     {
-        Audit::findOrFail($id)->delete();
+        $audit->delete();
 
         return to_route('staff.audits.index')
             ->withSuccess('Audit Record Has Successfully Been Deleted');

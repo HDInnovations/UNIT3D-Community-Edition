@@ -72,6 +72,7 @@ class ProcessMovieJob implements ShouldQueue
         if (isset($this->movie['belongs_to_collection']['id'])) {
             $client = new Client\Collection($this->movie['belongs_to_collection']['id']);
             $belongsToCollection = $client->getData();
+
             if (isset($belongsToCollection['name'])) {
                 $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
 

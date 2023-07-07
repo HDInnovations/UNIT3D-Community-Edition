@@ -65,7 +65,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.rooms.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.chatrooms.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i>
                         {{ __('staff.rooms') }}
                     </a>
@@ -139,7 +139,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.blacklists.clients.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.blacklisted_clients.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
                         {{ __('common.blacklist') }}
                     </a>
@@ -252,7 +252,7 @@
                     </a>
                 </li>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('user_search') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
                     </a>

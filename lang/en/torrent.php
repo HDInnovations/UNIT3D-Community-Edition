@@ -240,5 +240,4 @@ return [
     'view-trailer'             => 'View Trailer',
     'votes'                    => 'Votes',
     'year-range'               => 'Year Range',
-
 ];

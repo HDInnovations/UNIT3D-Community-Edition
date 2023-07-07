@@ -60,11 +60,12 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::whereRelation('forumPermissions', [
-            ['show_forum', '=', 1],
-            ['read_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
+        $topic = Topic::with('user')
+            ->whereRelation('forumPermissions', [
+                ['show_forum', '=', 1],
+                ['read_topic', '=', 1],
+                ['group_id', '=', $user->group_id],
+            ])
             ->findOrFail($id);
 
         $forum = $topic->forum;
@@ -277,7 +278,6 @@ class TopicController extends Controller
                 'updated_at'              => $latestPost->created_at,
             ]);
         }
-
 
         return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');

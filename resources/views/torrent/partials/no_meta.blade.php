@@ -14,7 +14,7 @@
         </a>
         <ul class="meta__dropdown">
             <li>
-                <a href="{{ route('upload_form', ['category_id' => $category->id, 'title' => rawurlencode($meta->title ?? '') ?? 'Unknown', 'imdb' => $torrent?->imdb ?? '', 'tmdb' => $meta?->id ?? '']) }}">
+                <a href="{{ route('torrents.create', ['category_id' => $category->id, 'title' => rawurlencode($meta->title ?? '') ?? 'Unknown', 'imdb' => $torrent?->imdb ?? '', 'tmdb' => $meta?->id ?? '']) }}">
                     {{ __('common.upload') }}
                 </a>
             </li>
@@ -79,7 +79,7 @@
         <section class="meta__chip-container">
             @if (isset($torrent->keywords) && $torrent->keywords->isNotEmpty())
                 <article class="meta__keywords">
-                    <a class="meta-chip" href="{{ route('torrents', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}">
+                    <a class="meta-chip" href="{{ route('torrents.index', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
                         <h2 class="meta-chip__name">Keywords</h2>
                         <h3 class="meta-chip__value">{{ $torrent->keywords->pluck('name')->join(', ') }}</h3>

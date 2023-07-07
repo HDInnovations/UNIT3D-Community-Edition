@@ -55,6 +55,7 @@ class ForgotUsernameController extends Controller
         }
 
         $user = User::where('email', '=', $email)->first();
+
         if (empty($user)) {
             return to_route('username.request')
                 ->withErrors(trans('email.no-email-found'));

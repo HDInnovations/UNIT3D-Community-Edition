@@ -21,7 +21,7 @@ class SeedboxControllerTest extends TestCase
         $seedbox = Seedbox::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.seedboxes.destroy', ['id' => $seedbox->id]));
+        $response = $this->actingAs($user)->delete(route('staff.seedboxes.destroy', ['seedbox' => $seedbox]));
 
         $response->assertRedirect(withSuccess('Seedbox Record Has Successfully Been Deleted'));
         $this->assertModelMissing($staff);

@@ -119,7 +119,7 @@
                 @foreach ($actives as $active)
                     <tr>
                         <td>
-                            <a class="user-active__name" href="{{ route('torrent', ['id' => $active->torrent_id]) }}">
+                            <a class="user-active__name" href="{{ route('torrents.show', ['id' => $active->torrent_id]) }}">
                                 {{ $active->name }}
                             </a>
                         </td>

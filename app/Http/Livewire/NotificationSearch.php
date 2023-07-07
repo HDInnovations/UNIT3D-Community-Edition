@@ -152,7 +152,7 @@ class NotificationSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.notification-search', [
-            'user'          => User::with(['group'])->findOrFail(auth()->user()->id),
+            'user'          => User::with(['group'])->findOrFail(auth()->id()),
             'notifications' => $this->notifications,
         ]);
     }

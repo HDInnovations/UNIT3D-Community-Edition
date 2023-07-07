@@ -182,7 +182,7 @@
                             @endif
                             @if ($groupBy === 'none')
                                 <td>
-                                    <a href="{{ route('torrent', ['id' => $peer->torrent_id]) }}">
+                                    <a href="{{ route('torrents.show', ['id' => $peer->torrent_id]) }}">
                                         {{ $peer->torrent->name ?? '' }}
                                     </a>
                                 </td>

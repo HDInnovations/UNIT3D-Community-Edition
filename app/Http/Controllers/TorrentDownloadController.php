@@ -38,6 +38,7 @@ class TorrentDownloadController extends Controller
     public function store(Request $request, int $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
         $user = $request->user();
+
         if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->sole();
         }
@@ -45,25 +46,25 @@ class TorrentDownloadController extends Controller
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0 && ! ($torrent->user_id === $user->id || $hasHistory)) {
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 
         // Torrent Status Is Rejected
         if ($torrent->isRejected()) {
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('This Torrent Has Been Rejected By Staff');
         }
 
         // The torrent file exist ?
         if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
 
@@ -86,9 +87,9 @@ class TorrentDownloadController extends Controller
 
                 // Set link to torrent as the comment
                 if (config('torrent.comment')) {
-                    $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $id]);
+                    $dict['comment'] = config('torrent.comment').'. '.route('torrents.show', ['id' => $id]);
                 } else {
-                    $dict['comment'] = route('torrent', ['id' => $id]);
+                    $dict['comment'] = route('torrents.show', ['id' => $id]);
                 }
 
                 echo Bencode::bencode($dict);

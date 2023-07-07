@@ -137,7 +137,6 @@ class PostController extends Controller
             Notification::send($users, new NewPostTag($post));
         }
 
-
         return redirect()->to($realUrl)
             ->withSuccess(trans('forum.reply-topic-success'));
     }

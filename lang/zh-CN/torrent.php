@@ -219,5 +219,4 @@ return [
     'view-trailer'             => '观看预告片',
     'votes'                    => '评分',
     'year-range'               => '年份范围',
-
 ];

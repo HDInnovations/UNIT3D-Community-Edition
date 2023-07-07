@@ -33,90 +33,70 @@ class GiftController extends Controller
     /**
      * Show previous gift history.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.gift.index', [
-            'user'             => $user,
-            'gifttransactions' => BonTransactions::query()
+            'user'  => $user,
+            'gifts' => BonTransactions::query()
                 ->with(['senderObj', 'receiverObj'])
-                ->where(
-                    fn ($query) => $query
-                        ->where('sender', '=', $user->id)
-                        ->orwhere('receiver', '=', $user->id)
-                )
+                ->where(fn ($query) => $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id))
                 ->where('name', '=', 'gift')
                 ->latest('date_actioned')
                 ->paginate(25),
-            'userbon'    => $user->getSeedbonus(),
-            'gifts_sent' => BonTransactions::query()
-                ->where('sender', '=', $user->id)
-                ->where('name', '=', 'gift')
-                ->sum('cost'),
-            'gifts_received' => BonTransactions::query()
-                ->where('receiver', '=', $user->id)
-                ->where('name', '=', 'gift')
-                ->sum('cost'),
+            'bon'           => $user->getSeedbonus(),
+            'sentGifts'     => $user->sentGifts()->sum('cost'),
+            'receivedGifts' => $user->receivedGifts()->sum('cost'),
         ]);
     }
 
     /**
      * Show gift form.
      */
-    public function create(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.gift.create', [
-            'user'    => $user,
-            'userbon' => $user->getSeedbonus(),
+            'user' => $user,
+            'bon'  => $user->getSeedbonus(),
         ]);
     }
 
     /**
      * Gift points to a user.
      */
-    public function store(StoreGiftRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(StoreGiftRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
+        $sender = $request->user();
+        $receiver = User::where('username', '=', $request->receiver_username)->sole();
 
-        abort_unless($request->user()->id === $user->id, 403);
+        $receiver->increment('seedbonus', $request->cost);
+        $sender->decrement('seedbonus', $request->cost);
 
-        $request = (object) $request->validated();
-        $recipient = User::where('username', '=', $request->to_username)->sole();
+        $bonTransactions = BonTransactions::create([
+            'itemID'     => 0,
+            'name'       => 'gift',
+            'cost'       => $request->cost,
+            'sender'     => $sender->id,
+            'receiver'   => $receiver->id,
+            'comment'    => $request->comment,
+            'torrent_id' => null,
+        ]);
 
-        $value = $request->bonus_points;
-
-        $recipient->increment('seedbonus', $value);
-        $user->decrement('seedbonus', $value);
-
-        $bonTransactions = new BonTransactions();
-        $bonTransactions->itemID = 0;
-        $bonTransactions->name = 'gift';
-        $bonTransactions->cost = $value;
-        $bonTransactions->sender = $user->id;
-        $bonTransactions->receiver = $recipient->id;
-        $bonTransactions->comment = $request->bonus_message;
-        $bonTransactions->torrent_id = null;
-        $bonTransactions->save();
-
-        if ($recipient->acceptsNotification($user, $recipient, 'bon', 'show_bon_gift')) {
-            $recipient->notify(new NewBon('gift', $user->username, $bonTransactions));
+        if ($receiver->acceptsNotification($sender, $receiver, 'bon', 'show_bon_gift')) {
+            $receiver->notify(new NewBon('gift', $sender->username, $bonTransactions));
         }
 
         $this->chatRepository->systemMessage(
             sprintf(
                 '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
-                href_profile($user),
-                $user->username,
-                $value,
-                href_profile($recipient),
-                $recipient->username
+                href_profile($sender),
+                $sender->username,
+                $request->bon,
+                href_profile($receiver),
+                $receiver->username
             )
         );
 

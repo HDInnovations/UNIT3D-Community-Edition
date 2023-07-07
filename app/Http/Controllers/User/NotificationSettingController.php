@@ -28,7 +28,7 @@ class NotificationSettingController extends Controller
      */
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $notification = $user->notification;
 
@@ -119,8 +119,9 @@ class NotificationSettingController extends Controller
         $notification->json_mention_groups = array_map('intval', $request->json_mention_groups ?? []);
         $notification->save();
 
-        $user->block_notifications = $request->block_notifications;
-        $user->save();
+        $user->update([
+            'block_notifications' => $request->block_notifications,
+        ]);
 
         return to_route('users.notification_settings.edit', ['user' => $user])
             ->withSuccess('Your notification settings have been successfully saved.');
@@ -131,7 +132,7 @@ class NotificationSettingController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.notification_setting.edit', [
             'user'   => $user,

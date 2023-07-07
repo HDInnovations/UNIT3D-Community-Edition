@@ -25,6 +25,8 @@ class Warning extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A Torrent.
      */

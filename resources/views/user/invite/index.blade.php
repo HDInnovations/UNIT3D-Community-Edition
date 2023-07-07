@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -24,7 +24,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.invites') }}</h2>
             <div class="panel__actions">
-                <form class="panel__action" action="{{ route('invites.create') }}">
+                <form class="panel__action" action="{{ route('users.invites.create', ['user' => $user]) }}">
                     <button class="form__button form__button--text">
                         {{ __('user.send-invite') }}
                     </button>
@@ -75,7 +75,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('invites.send', ['id' => $invite->id]) }}"
+                                            action="{{ route('users.invites.send', ['user' => $user, 'invite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >
@@ -101,7 +101,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('invites.destroy', ['id' => $invite->id]) }}"
+                                            action="{{ route('users.invites.destroy', ['user' => $user, 'invite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >

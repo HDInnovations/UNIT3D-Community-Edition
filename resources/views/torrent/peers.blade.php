@@ -10,12 +10,12 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}" class="breadcrumb__link">
             {{ $torrent->name }}
         </a>
     </li>
@@ -63,7 +63,7 @@
                             <td class="text-red">{{ \App\Helpers\StringHelper::formatBytes($peer->downloaded, 2) }}</td>
                             <td>{{ \App\Helpers\StringHelper::formatBytes($peer->left, 2) }}</td>
                             <td>{{ $peer->agent }}</td>
-                            @if (auth()->user()->group->is_modo || auth()->user()->id == $peer->user_id)
+                            @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
                                 <td>{{ $peer->ip }}</td>
                                 <td>{{ $peer->port }}</td>
                             @else
