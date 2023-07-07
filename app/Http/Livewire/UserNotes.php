@@ -24,13 +24,20 @@ class UserNotes extends Component
 
     public User $user;
 
-    public string $message;
+    public string $message = '';
 
     public int $perPage = 25;
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
+
+    protected $rules = [
+        'message' => [
+            'required',
+            'filled',
+        ],
+    ];
 
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
@@ -50,6 +57,8 @@ class UserNotes extends Component
     final public function store(): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
+
+        $this->validate();
 
         Note::create([
             'user_id'  => $this->user->id,
