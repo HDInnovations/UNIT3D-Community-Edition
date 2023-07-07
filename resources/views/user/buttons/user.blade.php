@@ -137,7 +137,7 @@
                 {{ __('torrent.torrents') }}
             </a>
         @else
-            <span class="nav-tab__link">
+            <span tabindex="-1" class="nav-tab__link">
                 {{ __('torrent.torrents') }}
             </span>
         @endif
@@ -216,7 +216,7 @@
     || auth()->user()->isAllowed($user, 'follower', 'show_follower')
 )
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span tabindex="-1" class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
@@ -321,7 +321,7 @@
 @endif
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span tabindex="-1" class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('common.other') }}
         </span>
         <ul class="nav-tab-menu__items">
