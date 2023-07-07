@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreUnbanRequest;
 use App\Models\Ban;
-use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBanExpire;
 use App\Services\Unit3dAnnounce;

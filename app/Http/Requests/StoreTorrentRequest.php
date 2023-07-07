@@ -17,7 +17,6 @@ use App\Helpers\Bencode;
 use App\Helpers\TorrentTools;
 use App\Models\Category;
 use App\Models\Torrent;
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
