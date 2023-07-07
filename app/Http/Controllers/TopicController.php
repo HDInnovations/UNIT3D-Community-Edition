@@ -254,7 +254,7 @@ class TopicController extends Controller
             $latestPost = $lastRepliedTopic->latestPost;
             $latestPoster = $latestPost->user;
 
-            $newForum->update([
+            $oldForum->update([
                 'num_topic'               => $oldForum->topics()->count(),
                 'num_post'                => $oldForum->posts()->count(),
                 'last_topic_id'           => $lastRepliedTopic->id,
