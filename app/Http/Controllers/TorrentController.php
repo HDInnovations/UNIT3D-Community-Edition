@@ -238,7 +238,7 @@ class TorrentController extends Controller
             }
         }
 
-        return to_route('torrents.show', ['torrent' => $torrent])
+        return to_route('torrents.show', ['id' => $id])
             ->withSuccess('Successfully Edited!');
     }
 
