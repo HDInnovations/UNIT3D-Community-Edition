@@ -33,7 +33,7 @@
         </li>
     @endisset
     <li class="torrent__size">
-        <span class="torrent__size-link">
+        <span class="torrent__size-link" title="{{ $torrent->size }}&#x202F;B">
             {{ $torrent->getSize() }}
         </span>
     </li>
