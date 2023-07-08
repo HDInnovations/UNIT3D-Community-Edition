@@ -222,7 +222,7 @@ class TorrentController extends Controller
             Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
         }
 
-        $category = $torrent->category();
+        $category = $torrent->category;
 
         // TMDB Meta
         if ($torrent->tmdb != 0) {
