@@ -387,7 +387,7 @@
                             class="form__checkbox"
                             id="sd"
                             name="sd"
-                            x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'""
+                            x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'"
                             @checked(old('sd'))
                         >
                         <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>
@@ -405,8 +405,6 @@
                             >
                             <label class="form__label" for="internal">{{ __('torrent.internal') }}?</label>
                         </p>
-                    @else
-                        <input type="hidden" name="internal" value="0">
                     @endif
                     <p class="form__group">
                         <input type="hidden" name="personal_release" value="0">
@@ -447,8 +445,6 @@
                             >
                             <label class="form__label" for="refundable">{{ __('torrent.refundable') }}?</label>
                         </p>
-                    @else
-                        <input type="hidden" name="refundable" value="0">
                     @endif
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <p class="form__group">
@@ -463,8 +459,6 @@
                                 {{ __('torrent.freeleech') }}
                             </label>
                         </p>
-                    @else
-                        <input type="hidden" name="free" value="0" />
                     @endif
                     <p class="form__group">
                         <button type="submit" class="form__button form__button--filled" name="post" value="true" id="post">
