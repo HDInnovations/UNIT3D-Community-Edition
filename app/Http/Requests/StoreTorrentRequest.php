@@ -121,7 +121,6 @@ class StoreTorrentRequest extends FormRequest
             ],
             'imdb' => [
                 'required',
-                'integer',
                 'numeric',
             ],
             'tvdb' => [
