@@ -354,16 +354,16 @@
 
                 @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                     <p class="form__group">
-                        <input type="hidden" name="anonymous" value="0">
+                        <input type="hidden" name="anon" value="0">
                         <input
                             type="checkbox"
                             class="form__checkbox"
-                            id="anonymous"
-                            name="anonymous"
+                            id="anon"
+                            name="anon"
                             value="1"
-                            @checked(old('anonymous') ?? $torrent->anon)
+                            @checked(old('anon') ?? $torrent->anon)
                         >
-                        <label class="form__label" for="anonymous">{{ __('common.anonymous') }}?</label>
+                        <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                 @else
                     <input type="hidden" name="anonymous" value={{ $torrent->anon }}>
