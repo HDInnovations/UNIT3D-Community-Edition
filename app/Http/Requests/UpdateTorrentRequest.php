@@ -14,6 +14,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Category;
+use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -41,7 +42,7 @@ class UpdateTorrentRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique:torrents',
+                Rule::unique('torrents')->whereNot('id', $request->route('id')),
                 'max:255',
             ],
             'description' => [
@@ -112,7 +113,7 @@ class UpdateTorrentRequest extends FormRequest
             'anon' => [
                 'required',
                 'boolean',
-                Rule::when($request->route('torrent')->user_id !== $request->user()->id && ! $request->user()->group->is_modo, 'exclude'),
+                Rule::when(Torrent::find($request->route('id'))->user_id !== $request->user()->id && ! $request->user()->group->is_modo, 'exclude'),
             ],
             'stream' => [
                 'required',

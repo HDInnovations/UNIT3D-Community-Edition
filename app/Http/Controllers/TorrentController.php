@@ -215,14 +215,14 @@ class TorrentController extends Controller
         $keywords = [];
 
         foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
-            $keyword[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
+            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
         foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
             Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
         }
 
-        $category = $torrent->category();
+        $category = $torrent->category;
 
         // TMDB Meta
         if ($torrent->tmdb != 0) {
@@ -238,7 +238,7 @@ class TorrentController extends Controller
             }
         }
 
-        return to_route('torrents.show', ['torrent' => $torrent])
+        return to_route('torrents.show', ['id' => $id])
             ->withSuccess('Successfully Edited!');
     }
 
