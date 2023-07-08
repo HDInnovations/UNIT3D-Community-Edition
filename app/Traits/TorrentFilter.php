@@ -56,7 +56,10 @@ trait TorrentFilter
     {
         return $query
             ->whereIn('user_id', User::select('id')->where('username', '=', $username))
-            ->where('anon', '=', 0);
+            ->when(
+                ! auth()->user()->group->is_modo,
+                fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', 0)->orWhere('user_id', '=', auth()->id()))
+            );
     }
 
     public function scopeOfKeyword(Builder $query, array $keywords): Builder
