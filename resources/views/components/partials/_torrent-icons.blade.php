@@ -15,7 +15,9 @@
         <i class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks">{{ $torrent->thanks_count }}</i>
     @endisset
     @isset($torrent->comments_count)
-        <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments">{{ $torrent->comments_count }}</i>
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
+            <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments">{{ $torrent->comments_count }}</i>
+        </a>
     @endisset
     @if ($torrent->internal)
         <i
