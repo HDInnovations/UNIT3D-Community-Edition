@@ -387,7 +387,7 @@
                             class="form__checkbox"
                             id="sd"
                             name="sd"
-                            x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'""
+                            x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'"
                             @checked(old('sd'))
                         >
                         <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>
