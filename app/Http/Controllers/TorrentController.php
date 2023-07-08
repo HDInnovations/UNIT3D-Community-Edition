@@ -215,7 +215,7 @@ class TorrentController extends Controller
         $keywords = [];
 
         foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
-            $keyword[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
+            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
         foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
