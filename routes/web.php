@@ -245,6 +245,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('playlist-torrents')->group(function (): void {
             Route::name('playlist_torrents.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\PlaylistTorrentController::class, 'store'])->name('store');
+                Route::put('/', [App\Http\Controllers\PlaylistTorrentController::class, 'massUpsert'])->name('massUpsert');
                 Route::delete('/{playlistTorrent}', [App\Http\Controllers\PlaylistTorrentController::class, 'destroy'])->name('destroy');
             });
         });

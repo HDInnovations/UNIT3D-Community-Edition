@@ -28,22 +28,23 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('playlist_torrents.store') }}"
+                            action="{{ route('playlist_torrents.massUpsert') }}"
                             x-on:click.outside="$refs.dialog.close()"
                         >
                             @csrf
+                            @method('PUT')
                             <p class="form__group">
                                 <input id="playlist_id" name="playlist_id" type="hidden" value="{{ $playlist->id }}">
                             </p>
                             <p class="form__group">
-                                <input
-                                    id="torrent_id"
-                                    class="form__text"
-                                    name="torrent_id"
+                                <textarea
+                                    id="torrent_urls"
+                                    class="form__textarea"
+                                    name="torrent_urls"
                                     type="text"
                                     required
-                                >
-                                <label class="form__label form__label--floating" for="torrent_id">Torrent ID</label>
+                                >{{ old('torrent_urls') }}</textarea>
+                                <label class="form__label form__label--floating" for="torrent_urls">Torrent IDs/URLs (One per line)</label>
                             </p>
                             <p class="form__group">
                                 <button class="form__button form__button--filled">
