@@ -183,7 +183,7 @@
                                 x-model="distributor"
                                 x-bind:class="distributor === '' ? 'form__select--default' : ''"
                             >
-                                <option hidden="" disabled selected value=""></option>
+                                <option selected value=""></option>
                                 @foreach ($distributors as $distributor)
                                     <option value="{{ $distributor->id }}" @selected(old('distributor_id')==$distributor->id)>
                                         {{ $distributor->name }}
@@ -203,7 +203,7 @@
                                 x-model="region"
                                 x-bind:class="region === '' ? 'form__select--default' : ''"
                             >
-                                <option hidden disabled selected value=""></option>
+                                <option selected value=""></option>
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}" @selected(old('region_id')==$region->id)>
                                         {{ $region->name }}
