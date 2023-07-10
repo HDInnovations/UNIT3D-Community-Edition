@@ -23,6 +23,7 @@ use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
