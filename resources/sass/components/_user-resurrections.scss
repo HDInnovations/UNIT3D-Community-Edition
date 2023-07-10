@@ -1,6 +1,7 @@
 .user-resurrections {
     margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
-    max-width: max-content;
+    width: max-content;
+    max-width: 100vw;
     align-self: center;
 }
 
