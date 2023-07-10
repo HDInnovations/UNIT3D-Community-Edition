@@ -60,7 +60,7 @@ class UserFactoryTest extends TestCase
         $this->assertArrayHasKey('twostep', $user);
         $this->assertArrayHasKey('remember_token', $user);
         $this->assertArrayHasKey('api_token', $user);
-        //$this->assertArrayHasKey('last_login', $user);
+        $this->assertArrayHasKey('last_login', $user);
         $this->assertArrayHasKey('last_action', $user);
         //$this->assertArrayHasKey('disabled_at', $user);
         //$this->assertArrayHasKey('deleted_by', $user);
