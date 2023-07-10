@@ -137,7 +137,7 @@ One-time Custom Amount:
 
 https://github.com/sponsors/HDVinnie?frequency=one-time&sponsor=HDVinnie
 
-Some folks have asked me if it's possible to do a one-time donation via Crypto Currency or CashApp. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
+Some folks have asked me if it's possible to do a donation via Crypto. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
 
 Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
@@ -166,4 +166,3 @@ DOGE - DJ78fQspiu879y3adLbTZVSFABKhKqHE7B
 <a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
 <a href="https://laravel-livewire.com"><img src="https://i.postimg.cc/jjsNyBbh/Livewire.png" height="50px;"></a>
 <a href="https://alpinejs.dev"><img src="https://i.postimg.cc/28pWk0M1/alpinejs-logo.png" height="50px;"></a>
-<a href="https://styleci.io"><img src="https://i.postimg.cc/0y4XN4yW/og.png" height="50px;"></a>
