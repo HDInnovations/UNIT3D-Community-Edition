@@ -13,11 +13,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MassUpsertPlaylistTorrentRequest;
 use App\Http\Requests\StorePlaylistTorrentRequest;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistTorrentControllerTest
@@ -34,6 +37,34 @@ class PlaylistTorrentController extends Controller
         abort_unless($request->user()->id === $playlist->user_id, 403);
 
         PlaylistTorrent::create($request->validated());
+
+        return to_route('playlists.show', ['playlist' => $playlist])
+            ->withSuccess(trans('playlist.attached-success'));
+    }
+
+    /**
+     * Attach Torrents To A Playlist.
+     */
+    public function massUpsert(MassUpsertPlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $playlist = Playlist::findOrFail($request->integer('playlist_id'));
+
+        abort_unless($request->user()->id === $playlist->user_id, 403);
+
+        $playlistTorrents = $request->string('torrent_urls')
+            ->explode("\n")
+            ->map(fn ($url) => basename($url))
+            ->unique()
+            ->map(fn ($id) => ['playlist_id' => $playlist->id, 'torrent_id' => $id, 'tmdb_id' => 0])
+            ->toArray();
+
+        Validator::make($playlistTorrents, [
+            '*.torrent_id' => Rule::exists('torrents', 'id'),
+        ], [
+            '*.torrent_id.exists' => 'The torrent ID/URL ":input" entered was not found on site.'
+        ])->validate();
+
+        PlaylistTorrent::upsert($playlistTorrents, ['playlist_id', 'torrent_id', 'tmdb_id']);
 
         return to_route('playlists.show', ['playlist' => $playlist])
             ->withSuccess(trans('playlist.attached-success'));
