@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\PageController
  */
-class PageControllerTest extends TestCase
+final class PageControllerTest extends TestCase
 {
     #[Test]
     public function about_returns_an_ok_response(): void

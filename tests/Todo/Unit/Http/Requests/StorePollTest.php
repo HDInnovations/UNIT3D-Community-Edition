@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Requests\StorePoll
  */
-class StorePollTest extends TestCase
+final class StorePollTest extends TestCase
 {
     private \App\Http\Requests\StorePoll $subject;
 

@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\TopicLabelController
  */
-class TopicLabelControllerTest extends TestCase
+final class TopicLabelControllerTest extends TestCase
 {
     use RefreshDatabase;
 

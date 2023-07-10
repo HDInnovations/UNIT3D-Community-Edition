@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\AuthenticationController
  */
-class AuthenticationControllerTest extends TestCase
+final class AuthenticationControllerTest extends TestCase
 {
     #[Test]
     public function index_returns_an_ok_response(): void

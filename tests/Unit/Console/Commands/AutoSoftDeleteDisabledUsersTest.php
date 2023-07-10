@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoSoftDeleteDisabledUsers
  */
-class AutoSoftDeleteDisabledUsersTest extends TestCase
+final class AutoSoftDeleteDisabledUsersTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\BookmarkController
  */
-class BookmarkControllerTest extends TestCase
+final class BookmarkControllerTest extends TestCase
 {
     protected function setUp(): void
     {

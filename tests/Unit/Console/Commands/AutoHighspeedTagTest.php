@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoHighspeedTag
  */
-class AutoHighspeedTagTest extends TestCase
+final class AutoHighspeedTagTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\PostController
  */
-class PostControllerTest extends TestCase
+final class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
 

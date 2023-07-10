@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoGroup
  */
-class AutoGroupTest extends TestCase
+final class AutoGroupTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

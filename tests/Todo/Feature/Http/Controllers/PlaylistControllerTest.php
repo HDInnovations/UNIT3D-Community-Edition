@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\PlaylistController
  */
-class PlaylistControllerTest extends TestCase
+final class PlaylistControllerTest extends TestCase
 {
     use RefreshDatabase;
 

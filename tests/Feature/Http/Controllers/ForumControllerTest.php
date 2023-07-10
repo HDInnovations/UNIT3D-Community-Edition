@@ -16,7 +16,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\ForumController
  */
-class ForumControllerTest extends TestCase
+final class ForumControllerTest extends TestCase
 {
     #[Test]
     public function index_returns_an_ok_response(): void

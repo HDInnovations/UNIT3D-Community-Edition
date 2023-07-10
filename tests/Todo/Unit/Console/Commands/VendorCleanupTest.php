@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\VendorCleanup
  */
-class VendorCleanupTest extends TestCase
+final class VendorCleanupTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

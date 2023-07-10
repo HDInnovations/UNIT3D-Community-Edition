@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoNerdStat
  */
-class AutoNerdStatTest extends TestCase
+final class AutoNerdStatTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\PollController
  */
-class PollControllerTest extends TestCase
+final class PollControllerTest extends TestCase
 {
     #[Test]
     public function create_returns_an_ok_response(): void

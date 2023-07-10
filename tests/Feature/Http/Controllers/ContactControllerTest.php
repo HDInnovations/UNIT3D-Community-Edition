@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\ContactController
  */
-class ContactControllerTest extends TestCase
+final class ContactControllerTest extends TestCase
 {
     #[Test]
     public function index_returns_an_ok_response(): void

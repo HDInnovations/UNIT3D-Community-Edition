@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\SyncPeers
  */
-class SyncPeersTest extends TestCase
+final class SyncPeersTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

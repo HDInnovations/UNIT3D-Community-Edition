@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\ClearCache
  */
-class ClearCacheTest extends TestCase
+final class ClearCacheTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

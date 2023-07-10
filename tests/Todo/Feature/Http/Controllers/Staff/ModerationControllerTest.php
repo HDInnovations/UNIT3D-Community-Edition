@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ModerationController
  */
-class ModerationControllerTest extends TestCase
+final class ModerationControllerTest extends TestCase
 {
     #[Test]
     public function approve_returns_an_ok_response(): void

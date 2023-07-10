@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\FlushController
  */
-class FlushControllerTest extends TestCase
+final class FlushControllerTest extends TestCase
 {
     #[Test]
     public function chat_returns_an_ok_response(): void

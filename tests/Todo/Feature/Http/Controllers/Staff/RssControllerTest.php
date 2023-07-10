@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\RssController
  */
-class RssControllerTest extends TestCase
+final class RssControllerTest extends TestCase
 {
     use RefreshDatabase;
 

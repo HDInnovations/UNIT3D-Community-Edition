@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\FetchReleaseYears
  */
-class FetchReleaseYearsTest extends TestCase
+final class FetchReleaseYearsTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

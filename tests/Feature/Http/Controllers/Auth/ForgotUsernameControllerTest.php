@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Auth\ForgotUsernameController
  */
-class ForgotUsernameControllerTest extends TestCase
+final class ForgotUsernameControllerTest extends TestCase
 {
     #[Test]
     public function send_username_reminder_returns_an_ok_response(): void

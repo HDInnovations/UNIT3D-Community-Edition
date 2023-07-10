@@ -13,7 +13,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\ForumCategoryController
  */
-class ForumCategoryControllerTest extends TestCase
+final class ForumCategoryControllerTest extends TestCase
 {
     #[Test]
     public function show_category_returns_an_ok_response(): void

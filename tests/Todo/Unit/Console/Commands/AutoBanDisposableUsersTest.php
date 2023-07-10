@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoBanDisposableUsers
  */
-class AutoBanDisposableUsersTest extends TestCase
+final class AutoBanDisposableUsersTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

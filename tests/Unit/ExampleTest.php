@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+final class ExampleTest extends TestCase
 {
     /**
      * A basic test example.

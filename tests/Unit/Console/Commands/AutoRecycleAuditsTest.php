@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoRecycleAudits
  */
-class AutoRecycleAuditsTest extends TestCase
+final class AutoRecycleAuditsTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

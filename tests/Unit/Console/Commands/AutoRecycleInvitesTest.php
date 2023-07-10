@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoRecycleInvites
  */
-class AutoRecycleInvitesTest extends TestCase
+final class AutoRecycleInvitesTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

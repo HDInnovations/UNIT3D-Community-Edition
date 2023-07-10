@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\WishController
  */
-class WishControllerTest extends TestCase
+final class WishControllerTest extends TestCase
 {
     #[Test]
     public function destroy_returns_an_ok_response(): void

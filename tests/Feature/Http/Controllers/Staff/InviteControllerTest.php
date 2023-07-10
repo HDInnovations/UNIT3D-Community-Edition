@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\InviteController
  */
-class InviteControllerTest extends TestCase
+final class InviteControllerTest extends TestCase
 {
     protected function setUp(): void
     {

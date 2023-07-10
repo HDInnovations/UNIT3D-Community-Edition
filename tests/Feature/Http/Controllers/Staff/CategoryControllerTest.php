@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\CategoryController
  */
-class CategoryControllerTest extends TestCase
+final class CategoryControllerTest extends TestCase
 {
     protected function setUp(): void
     {

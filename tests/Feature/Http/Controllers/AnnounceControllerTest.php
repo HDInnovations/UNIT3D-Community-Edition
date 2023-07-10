@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\AnnounceController
  */
-class AnnounceControllerTest extends TestCase
+final class AnnounceControllerTest extends TestCase
 {
     #[Test]
     public function announce_returns_an_ok_response(): void

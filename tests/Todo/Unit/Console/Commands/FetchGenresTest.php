@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\FetchGenres
  */
-class FetchGenresTest extends TestCase
+final class FetchGenresTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

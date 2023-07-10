@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoRecycleFailedLogins
  */
-class AutoRecycleFailedLoginsTest extends TestCase
+final class AutoRecycleFailedLoginsTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

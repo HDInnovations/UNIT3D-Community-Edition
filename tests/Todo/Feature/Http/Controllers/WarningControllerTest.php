@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\WarningController
  */
-class WarningControllerTest extends TestCase
+final class WarningControllerTest extends TestCase
 {
     use RefreshDatabase;
 

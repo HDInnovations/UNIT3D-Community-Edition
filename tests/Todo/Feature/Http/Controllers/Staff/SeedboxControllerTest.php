@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\SeedboxController
  */
-class SeedboxControllerTest extends TestCase
+final class SeedboxControllerTest extends TestCase
 {
     #[Test]
     public function destroy_returns_an_ok_response(): void

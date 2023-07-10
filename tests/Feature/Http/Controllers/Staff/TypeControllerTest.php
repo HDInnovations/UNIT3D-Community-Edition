@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\TypeController
  */
-class TypeControllerTest extends TestCase
+final class TypeControllerTest extends TestCase
 {
     protected function setUp(): void
     {

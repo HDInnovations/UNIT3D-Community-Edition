@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\UserController
  */
-class UserControllerTest extends TestCase
+final class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 

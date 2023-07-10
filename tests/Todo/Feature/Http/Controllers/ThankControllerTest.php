@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\ThankController
  */
-class ThankControllerTest extends TestCase
+final class ThankControllerTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\GitUpdater
  */
-class GitUpdaterTest extends TestCase
+final class GitUpdaterTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

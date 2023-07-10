@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ForumController
  */
-class ForumControllerTest extends TestCase
+final class ForumControllerTest extends TestCase
 {
     use RefreshDatabase;
 

@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Auth\ApplicationController
  */
-class ApplicationControllerTest extends TestCase
+final class ApplicationControllerTest extends TestCase
 {
     #[Test]
     public function create_returns_an_ok_response(): void

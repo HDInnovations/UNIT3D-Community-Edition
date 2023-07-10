@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\TestMailSettings
  */
-class TestMailSettingsTest extends TestCase
+final class TestMailSettingsTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

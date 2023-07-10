@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\MassActionController
  */
-class MassActionControllerTest extends TestCase
+final class MassActionControllerTest extends TestCase
 {
     protected function setUp(): void
     {

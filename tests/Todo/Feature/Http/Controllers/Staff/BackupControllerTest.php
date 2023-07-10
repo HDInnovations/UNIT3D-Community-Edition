@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\BackupController
  */
-class BackupControllerTest extends TestCase
+final class BackupControllerTest extends TestCase
 {
     #[Test]
     public function create_returns_an_ok_response(): void

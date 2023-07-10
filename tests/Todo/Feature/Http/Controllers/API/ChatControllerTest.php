@@ -18,7 +18,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\API\ChatController
  */
-class ChatControllerTest extends TestCase
+final class ChatControllerTest extends TestCase
 {
     use RefreshDatabase;
 

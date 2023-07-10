@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\AuditController
  */
-class AuditControllerTest extends TestCase
+final class AuditControllerTest extends TestCase
 {
     #[Test]
     public function destroy_returns_an_ok_response(): void

@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Auth\TwoStepController
  */
-class TwoStepControllerTest extends TestCase
+final class TwoStepControllerTest extends TestCase
 {
     #[Test]
     public function resend_returns_an_ok_response(): void

@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\StatsController
  */
-class StatsControllerTest extends TestCase
+final class StatsControllerTest extends TestCase
 {
     #[Test]
     public function bankers_returns_an_ok_response(): void

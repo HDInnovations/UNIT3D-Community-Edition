@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\CheaterController
  */
-class CheaterControllerTest extends TestCase
+final class CheaterControllerTest extends TestCase
 {
     protected function setUp(): void
     {

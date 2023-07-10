@@ -13,7 +13,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\SubscriptionController
  */
-class SubscriptionControllerTest extends TestCase
+final class SubscriptionControllerTest extends TestCase
 {
     use RefreshDatabase;
 

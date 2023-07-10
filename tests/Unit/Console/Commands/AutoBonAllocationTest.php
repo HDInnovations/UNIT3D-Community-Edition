@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoBonAllocation
  */
-class AutoBonAllocationTest extends TestCase
+final class AutoBonAllocationTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

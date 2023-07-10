@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoDeactivateWarning
  */
-class AutoDeactivateWarningTest extends TestCase
+final class AutoDeactivateWarningTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

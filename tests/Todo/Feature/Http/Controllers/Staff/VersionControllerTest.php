@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\VersionController
  */
-class VersionControllerTest extends TestCase
+final class VersionControllerTest extends TestCase
 {
     #[Test]
     public function check_version_returns_an_ok_response(): void

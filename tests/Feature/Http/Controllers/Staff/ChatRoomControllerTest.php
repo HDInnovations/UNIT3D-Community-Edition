@@ -13,7 +13,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ChatRoomController
  */
-class ChatRoomControllerTest extends TestCase
+final class ChatRoomControllerTest extends TestCase
 {
     protected function setUp(): void
     {

@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\GroupController
  */
-class GroupControllerTest extends TestCase
+final class GroupControllerTest extends TestCase
 {
     protected function setUp(): void
     {

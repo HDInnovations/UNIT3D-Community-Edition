@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ChatBotController
  */
-class ChatBotControllerTest extends TestCase
+final class ChatBotControllerTest extends TestCase
 {
     protected function setUp(): void
     {

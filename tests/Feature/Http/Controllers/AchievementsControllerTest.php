@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\AchievementsController
  */
-class AchievementsControllerTest extends TestCase
+final class AchievementsControllerTest extends TestCase
 {
     #[Test]
     public function index_returns_an_ok_response(): void

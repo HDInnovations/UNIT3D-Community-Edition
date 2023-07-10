@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\PrivateMessageController
  */
-class PrivateMessageControllerTest extends TestCase
+final class PrivateMessageControllerTest extends TestCase
 {
     #[Test]
     public function delete_private_message_returns_an_ok_response(): void

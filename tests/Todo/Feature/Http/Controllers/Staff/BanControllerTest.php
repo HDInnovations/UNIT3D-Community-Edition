@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\BanController
  */
-class BanControllerTest extends TestCase
+final class BanControllerTest extends TestCase
 {
     use RefreshDatabase;
 

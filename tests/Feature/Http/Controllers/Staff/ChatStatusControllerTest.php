@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ChatStatusController
  */
-class ChatStatusControllerTest extends TestCase
+final class ChatStatusControllerTest extends TestCase
 {
     protected function setUp(): void
     {

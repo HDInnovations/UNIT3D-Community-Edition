@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\GraveyardController
  */
-class GraveyardControllerTest extends TestCase
+final class GraveyardControllerTest extends TestCase
 {
     use RefreshDatabase;
 

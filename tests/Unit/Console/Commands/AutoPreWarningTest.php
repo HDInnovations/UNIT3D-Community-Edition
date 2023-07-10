@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoPreWarning
  */
-class AutoPreWarningTest extends TestCase
+final class AutoPreWarningTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

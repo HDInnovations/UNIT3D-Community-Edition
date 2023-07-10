@@ -9,7 +9,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\HomeController
  */
-class HomeControllerTest extends TestCase
+final class HomeControllerTest extends TestCase
 {
     #[Test]
     public function index_returns_an_ok_response(): void

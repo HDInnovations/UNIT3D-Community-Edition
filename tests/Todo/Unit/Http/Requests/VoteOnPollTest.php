@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Requests\VoteOnPoll
  */
-class VoteOnPollTest extends TestCase
+final class VoteOnPollTest extends TestCase
 {
     private \App\Http\Requests\VoteOnPoll $subject;
 

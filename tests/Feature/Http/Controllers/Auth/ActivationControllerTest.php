@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Auth\ActivationController
  */
-class ActivationControllerTest extends TestCase
+final class ActivationControllerTest extends TestCase
 {
     #[Test]
     public function activate_returns_an_ok_response(): void

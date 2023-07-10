@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\FollowController
  */
-class FollowControllerTest extends TestCase
+final class FollowControllerTest extends TestCase
 {
     #[Test]
     public function destroy_returns_an_ok_response(): void

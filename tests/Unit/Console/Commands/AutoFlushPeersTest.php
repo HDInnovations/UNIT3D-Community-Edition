@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoFlushPeers
  */
-class AutoFlushPeersTest extends TestCase
+final class AutoFlushPeersTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

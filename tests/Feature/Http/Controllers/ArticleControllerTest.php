@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\ArticleController
  */
-class ArticleControllerTest extends TestCase
+final class ArticleControllerTest extends TestCase
 {
     #[Test]
     public function index_returns_an_ok_response(): void

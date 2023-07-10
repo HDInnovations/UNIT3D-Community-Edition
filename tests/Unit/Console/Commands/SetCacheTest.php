@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\SetCache
  */
-class SetCacheTest extends TestCase
+final class SetCacheTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

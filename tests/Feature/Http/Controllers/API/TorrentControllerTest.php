@@ -17,7 +17,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\API\TorrentController
  */
-class TorrentControllerTest extends TestCase
+final class TorrentControllerTest extends TestCase
 {
     #[Test]
     public function filter_returns_an_ok_response(): void

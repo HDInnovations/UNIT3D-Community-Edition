@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\SeedboxController
  */
-class SeedboxControllerTest extends TestCase
+final class SeedboxControllerTest extends TestCase
 {
     use RefreshDatabase;
 

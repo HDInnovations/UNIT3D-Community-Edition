@@ -13,7 +13,7 @@ use function route;
 /**
  * @see \App\Http\Controllers\Staff\CommandController
  */
-class CommandControllerTest extends TestCase
+final class CommandControllerTest extends TestCase
 {
     protected function setUp(): void
     {

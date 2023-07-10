@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Console\Commands\AutoCorrectHistory
  */
-class AutoCorrectHistoryTest extends TestCase
+final class AutoCorrectHistoryTest extends TestCase
 {
     #[Test]
     public function it_runs_successfully(): void

@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\LanguageController
  */
-class LanguageControllerTest extends TestCase
+final class LanguageControllerTest extends TestCase
 {
     use RefreshDatabase;
 

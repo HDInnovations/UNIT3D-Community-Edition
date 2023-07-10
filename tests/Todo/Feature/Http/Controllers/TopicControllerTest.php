@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\TopicController
  */
-class TopicControllerTest extends TestCase
+final class TopicControllerTest extends TestCase
 {
     use RefreshDatabase;
 

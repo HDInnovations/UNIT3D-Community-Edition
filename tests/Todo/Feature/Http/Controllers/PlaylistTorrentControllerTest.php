@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\PlaylistTorrentController
  */
-class PlaylistTorrentControllerTest extends TestCase
+final class PlaylistTorrentControllerTest extends TestCase
 {
     #[Test]
     public function destroy_returns_an_ok_response(): void

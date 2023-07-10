@@ -8,7 +8,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\CommentController
  */
-class CommentControllerTest extends TestCase
+final class CommentControllerTest extends TestCase
 {
     #[Test]
     public function store_comment_returns_an_ok_response(): void
