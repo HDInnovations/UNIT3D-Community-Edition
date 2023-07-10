@@ -20,13 +20,9 @@
     <env name="REDIS_PORT" value="6379" />
     -->
   </php>
-  <coverage/>
   <source>
     <include>
       <directory suffix=".php">./app</directory>
     </include>
-    <report>
-      <clover outputFile="clover.xml" />
-    </report>
   </source>
 </phpunit>
