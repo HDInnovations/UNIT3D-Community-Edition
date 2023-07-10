@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subtitle extends Model
 {
     use Auditable;
+    use HasFactory;
 
     public const APPROVED = 1;
 
