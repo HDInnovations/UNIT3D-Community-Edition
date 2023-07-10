@@ -29,8 +29,9 @@ class TwoStepAuthFactory extends Factory
     public function definition(): array
     {
         return [
-            'userId'      => $this->faker->randomNumber(),
-            'authCode'    => sprintf('%s%s%s%s',
+            'userId'   => $this->faker->randomNumber(),
+            'authCode' => sprintf(
+                '%s%s%s%s',
                 $this->faker->numberBetween(0, 9),
                 $this->faker->numberBetween(0, 9),
                 $this->faker->numberBetween(0, 9),

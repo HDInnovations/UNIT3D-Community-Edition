@@ -82,9 +82,9 @@ class UserFactory extends Factory
             'last_action'         => $this->faker->dateTime(),
             //'disabled_at'         => $this->faker->dateTime(),
             //'deleted_by'          => \App\Models\User::factory(),
-            'locale'              => $this->faker->locale(),
-            'chat_status_id'      => ChatStatus::factory(),
-            'own_flushes'         => $this->faker->boolean(),
+            'locale'         => $this->faker->locale(),
+            'chat_status_id' => ChatStatus::factory(),
+            'own_flushes'    => $this->faker->boolean(),
         ];
     }
 }
