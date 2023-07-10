@@ -43,7 +43,7 @@ class ReportController extends Controller
         Report::create([
             'type'          => 'Request',
             'request_id'    => $torrentRequest->id,
-            'torrent_id'    => 0,
+            'torrent_id'    => null,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $torrentRequest->name,
@@ -74,7 +74,7 @@ class ReportController extends Controller
         Report::create([
             'type'          => 'Torrent',
             'torrent_id'    => $torrent->id,
-            'request_id'    => 0,
+            'request_id'    => null,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $torrent->name,
@@ -103,8 +103,8 @@ class ReportController extends Controller
 
         Report::create([
             'type'          => 'User',
-            'torrent_id'    => 0,
-            'request_id'    => 0,
+            'torrent_id'    => null,
+            'request_id'    => null,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $reportedUser->username,

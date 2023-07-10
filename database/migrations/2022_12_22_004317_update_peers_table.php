@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Peer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +11,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Peer::truncate();
+        DB::table('peers')->truncate();
 
         Schema::disableForeignKeyConstraints();
 
