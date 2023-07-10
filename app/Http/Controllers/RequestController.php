@@ -94,11 +94,24 @@ class RequestController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('requests.create', [
-            'categories'  => Category::orderBy('position')->get(),
+            'categories' => Category::orderBy('position')
+                ->get()
+                ->mapWithKeys(fn ($category) => [$category->id => [
+                    'name' => $category->name,
+                    'type' => match (1) {
+                        $category->movie_meta => 'movie',
+                        $category->tv_meta    => 'tv',
+                        $category->game_meta  => 'game',
+                        $category->music_meta => 'music',
+                        $category->no_meta    => 'no',
+                        default               => 'no',
+                    },
+                ]])
+                ->toArray(),
             'types'       => Type::orderBy('position')->get(),
             'resolutions' => Resolution::orderBy('position')->get(),
             'user'        => $request->user(),
-            'category_id' => $request->category_id,
+            'category_id' => $request->category_id ?? Category::first('id')->id,
             'title'       => urldecode($request->title),
             'imdb'        => $request->imdb,
             'tmdb'        => $request->tmdb,
