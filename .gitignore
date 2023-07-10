@@ -35,7 +35,7 @@ laravel-echo-server.lock
 /.idea
 /.vscode
 /nbproject
-.phpunit.result.cache
+/.phpunit.cache
 .ftpconfig
 
 # Vim
