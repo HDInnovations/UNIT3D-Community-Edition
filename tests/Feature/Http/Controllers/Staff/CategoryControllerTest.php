@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\User;
@@ -29,9 +30,7 @@ class CategoryControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -44,9 +43,7 @@ class CategoryControllerTest extends TestCase
         $response->assertViewIs('Staff.category.create');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -59,9 +56,7 @@ class CategoryControllerTest extends TestCase
         $response->assertRedirect(route('staff.categories.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -76,9 +71,7 @@ class CategoryControllerTest extends TestCase
         $response->assertViewHas('category');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -92,9 +85,7 @@ class CategoryControllerTest extends TestCase
         $response->assertViewHas('categories');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -114,9 +105,7 @@ class CategoryControllerTest extends TestCase
         $response->assertRedirect(route('staff.categories.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

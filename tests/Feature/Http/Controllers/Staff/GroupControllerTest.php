@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -28,9 +29,7 @@ class GroupControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -43,9 +42,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewIs('Staff.group.create');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -60,9 +57,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewHas('group');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -76,9 +71,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewHas('groups');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -111,9 +104,7 @@ class GroupControllerTest extends TestCase
         $response->assertRedirect(route('staff.groups.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

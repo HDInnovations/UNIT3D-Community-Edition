@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Application;
 use Tests\TestCase;
 
@@ -10,9 +11,7 @@ use Tests\TestCase;
  */
 class ApplicationControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->get(route('application.create'))
@@ -20,9 +19,7 @@ class ApplicationControllerTest extends TestCase
             ->assertViewIs('auth.application.create');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         config(['captcha.enabled' => false]);

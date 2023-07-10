@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
@@ -12,7 +13,7 @@ use Tests\TestCase;
  */
 class ContactControllerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -26,7 +27,7 @@ class ContactControllerTest extends TestCase
             ->assertViewIs('contact.index');
     }
 
-    /** @test */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\TwoStepAuth;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -12,9 +13,7 @@ use Tests\TestCase;
  */
 class TwoStepControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function resend_returns_an_ok_response(): void
     {
         config(['auth.TwoStepEnabled' => true]);
@@ -33,9 +32,7 @@ class TwoStepControllerTest extends TestCase
             ->assertRedirect(route('verificationNeeded'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function show_verification_returns_an_ok_response(): void
     {
         config(['auth.TwoStepEnabled' => true]);
@@ -55,9 +52,7 @@ class TwoStepControllerTest extends TestCase
             ->assertViewIs('auth.twostep-verification');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function verify_returns_an_ok_response(): void
     {
         config(['auth.TwoStepEnabled' => true]);

@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers\API;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
@@ -26,7 +27,7 @@ class ChatControllerTest extends TestCase
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function audibles_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -43,7 +44,7 @@ class ChatControllerTest extends TestCase
             ]]]);
     }
 
-    /** @test */
+    #[Test]
     public function bot_messages_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -79,7 +80,7 @@ class ChatControllerTest extends TestCase
             ]]]);
     }
 
-    /** @test */
+    #[Test]
     public function bots_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -130,7 +131,7 @@ class ChatControllerTest extends TestCase
             ]]);
     }
 
-    /** @test */
+    #[Test]
     public function config_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -147,7 +148,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function create_message_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -177,7 +178,7 @@ class ChatControllerTest extends TestCase
             ]]);
     }
 
-    /** @test */
+    #[Test]
     public function delete_bot_echo_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -200,7 +201,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function delete_message_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -215,7 +216,7 @@ class ChatControllerTest extends TestCase
             ->assertSee('success');
     }
 
-    /** @test */
+    #[Test]
     public function delete_room_echo_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -237,7 +238,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function delete_target_echo_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -259,7 +260,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function echoes_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -278,7 +279,7 @@ class ChatControllerTest extends TestCase
             ]]]);
     }
 
-    /** @test */
+    #[Test]
     public function messages_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -299,7 +300,7 @@ class ChatControllerTest extends TestCase
             ]]]);
     }
 
-    /** @test */
+    #[Test]
     public function private_messages_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -322,7 +323,7 @@ class ChatControllerTest extends TestCase
             ]]]);
     }
 
-    /** @test */
+    #[Test]
     public function rooms_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -340,7 +341,7 @@ class ChatControllerTest extends TestCase
             ]]]);
     }
 
-    /** @test */
+    #[Test]
     public function statuses_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -360,7 +361,7 @@ class ChatControllerTest extends TestCase
             ]]);
     }
 
-    /** @test */
+    #[Test]
     public function toggle_bot_audible_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -382,7 +383,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function toggle_room_audible_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -404,7 +405,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function toggle_target_audible_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -426,7 +427,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function update_user_chat_status_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -446,7 +447,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function update_user_room_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');
@@ -464,7 +465,7 @@ class ChatControllerTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function update_user_target_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete');

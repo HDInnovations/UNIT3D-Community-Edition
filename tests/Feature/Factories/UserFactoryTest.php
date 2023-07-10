@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Factories;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -12,7 +13,7 @@ class UserFactoryTest extends TestCase
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function factoryReturnsCorrectValuesWhenCreated(): void
     {
         $user = User::factory()->create();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Torrent;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -12,9 +13,7 @@ use Tests\TestCase;
  */
 class AnnounceControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function announce_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Console\Commands;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
@@ -9,9 +10,7 @@ use Tests\TestCase;
  */
 class AutoRemoveFeaturedTorrentTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:remove_featured_torrent')

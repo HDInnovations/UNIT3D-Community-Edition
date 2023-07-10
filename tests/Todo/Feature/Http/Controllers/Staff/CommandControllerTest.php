@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -30,9 +31,7 @@ class CommandControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function clear_all_cache_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -46,9 +45,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function clear_cache_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -62,9 +59,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function clear_config_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -78,9 +73,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function clear_route_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -94,9 +87,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function clear_view_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -110,9 +101,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -127,9 +116,7 @@ class CommandControllerTest extends TestCase
         $response->assertViewIs('Staff.command.index');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function maintance_disable_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -143,9 +130,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function set_all_cache_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');
@@ -159,9 +144,7 @@ class CommandControllerTest extends TestCase
         $response->assertRedirect(route('staff.commands.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_email_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete.');

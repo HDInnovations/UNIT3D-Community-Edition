@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
@@ -18,7 +19,7 @@ class HomeControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
     }
 
-    /** @test */
+    #[Test]
     public function whenNotAuthenticatedHomepageRedirectsToLogin(): void
     {
         $response = $this->get('/');
@@ -26,7 +27,7 @@ class HomeControllerTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    /** @test */
+    #[Test]
     public function whenAuthenticatedHomepageReturns200(): void
     {
         $user = User::factory()->create();
@@ -55,7 +56,7 @@ class HomeControllerTest extends TestCase
             ->assertViewHas('bookmarks');
     }
 
-    /** @test */
+    #[Test]
     public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep(): void
     {
         $user = User::factory()->create([
