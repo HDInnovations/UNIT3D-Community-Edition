@@ -13,8 +13,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreTorrentRequestRequest extends FormRequest
 {
@@ -31,30 +33,61 @@ class StoreTorrentRequestRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
+        $category = Category::findOrFail($request->integer('category_id'));
+
         return [
             'name' => [
                 'required',
                 'max:180',
             ],
             'imdb' => [
-                'required',
-                'numeric',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'numeric',
+                ]),
+                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'tvdb' => [
-                'required',
-                'numeric',
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! $category->tv_meta, [
+                    Rule::in([0]),
+                ]),
             ],
             'tmdb' => [
-                'required',
-                'numeric',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'mal' => [
-                'required',
-                'numeric',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'igdb' => [
-                'required',
-                'numeric',
+                Rule::when($category->game_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! $category->game_meta, [
+                    Rule::in([0]),
+                ]),
             ],
             'category_id' => [
                 'required',
@@ -82,6 +115,17 @@ class StoreTorrentRequestRequest extends FormRequest
                 'boolean',
                 'required',
             ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'igdb.in' => 'The IGBB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not requesting a game.',
+            'tmdb.in' => 'The TMDB ID must be 0 if the media doesn\'t exist on TMDB or you\'re not requesting a tv show or movie.',
+            'imdb.in' => 'The IMDB ID must be 0 if the media doesn\'t exist on IMDB or you\'re not requesting a tv show or movie.',
+            'tvdb.in' => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not requesting a tv show.',
+            'mal.in'  => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not requesting a tv or movie.',
         ];
     }
 }

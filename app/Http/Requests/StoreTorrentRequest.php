@@ -120,42 +120,69 @@ class StoreTorrentRequest extends FormRequest
                 'exists:distributors,id',
             ],
             'imdb' => [
-                'required',
-                'numeric',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'numeric',
+                ]),
+                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'tvdb' => [
-                'required',
-                'integer',
-                'numeric',
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! $category->tv_meta, [
+                    Rule::in([0]),
+                ]),
             ],
             'tmdb' => [
-                'required',
-                'integer',
-                'numeric',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'mal' => [
-                'required',
-                'integer',
-                'numeric',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'igdb' => [
-                'required',
-                'integer',
-                'numeric',
+                Rule::when($category->game_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::when(! $category->game_meta, [
+                    Rule::in([0]),
+                ]),
             ],
             'season_number' => [
-                Rule::when($category->tv_meta, 'required'),
-                Rule::when(! $category->tv_meta, 'nullable'),
-                'sometimes',
-                'integer',
-                'numeric',
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::prohibitedIf(! $category->tv_meta),
             ],
             'episode_number' => [
-                Rule::when($category->tv_meta, 'required'),
-                Rule::when(! $category->tv_meta, 'nullable'),
-                'sometimes',
-                'integer',
-                'numeric',
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::prohibitedIf(! $category->tv_meta),
             ],
             'anon' => [
                 'required',
@@ -190,6 +217,17 @@ class StoreTorrentRequest extends FormRequest
                 'boolean',
                 Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
             ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'igdb.in' => 'The IGBB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not uploading a game.',
+            'tmdb.in' => 'The TMDB ID must be 0 if the media doesn\'t exist on TMDB or you\'re not uploading a tv show or movie.',
+            'imdb.in' => 'The IMDB ID must be 0 if the media doesn\'t exist on IMDB or you\'re not uploading a tv show or movie.',
+            'tvdb.in' => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not uploading a tv show.',
+            'mal.in'  => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not uploading a tv or movie.',
         ];
     }
 }
