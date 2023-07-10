@@ -31,18 +31,4 @@ class UserMadeTenComments extends Achievement
      * The amount of "points" this user need to obtain in order to complete this achievement
      */
     public $points = 10;
-
-    /*
-     * Triggers whenever an Achiever makes progress on this achievement
-     */
-    public function whenProgress($progress): void
-    {
-    }
-
-    /*
-     * Triggers whenever an Achiever unlocks this achievement
-     */
-    public function whenUnlocked($progress): void
-    {
-    }
 }
