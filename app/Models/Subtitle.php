@@ -14,6 +14,7 @@
 namespace App\Models;
 
 use App\Helpers\StringHelper;
+use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,7 +22,18 @@ class Subtitle extends Model
 {
     use Auditable;
 
+    public const APPROVED = 1;
+
     protected $guarded = [];
+
+    protected $casts = [
+        'moderated_at' => 'datetime',
+    ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ApprovedScope());
+    }
 
     /**
      * Belongs To A User.

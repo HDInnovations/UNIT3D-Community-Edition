@@ -316,7 +316,7 @@
                     <a class="top-nav--right__icon-link" href="{{ route('staff.moderation.index') }}" title="{{ __('staff.torrent-moderation') }}">
                         <i class="{{ config('other.font-awesome') }} fa-tasks"></i>
                         @php
-                            $torrents_unmoderated = DB::table('torrents')->where('status', '=', '0')->exists()
+                            $torrents_unmoderated = DB::table('torrents')->where('status', '=', \App\Models\Torrent::PENDING)->exists()
                         @endphp
                         @if ($torrents_unmoderated)
                             <x-animation.notification />

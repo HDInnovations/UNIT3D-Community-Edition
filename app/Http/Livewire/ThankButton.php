@@ -26,7 +26,7 @@ class ThankButton extends Component
     final public function mount($torrent): void
     {
         $this->user = auth()->user();
-        $this->torrent = Torrent::withAnyStatus()->findOrFail($torrent);
+        $this->torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($torrent);
     }
 
     final public function store(): void

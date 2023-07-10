@@ -207,7 +207,6 @@ return [
          */
         Assada\Achievements\AchievementsServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
-        Hootlex\Moderation\ModerationServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*

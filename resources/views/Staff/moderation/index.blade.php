@@ -68,7 +68,7 @@
                                     >
                                         @csrf
                                         <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                        <input type="hidden" name="status" value="1">
+                                        <input type="hidden" name="status" value="{{ \App\Models\Torrent::APPROVED }}">
                                         <button class="form__button form__button--filled">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                             {{ __('common.moderation-approve') }}
@@ -141,7 +141,7 @@
                                     >
                                         @csrf
                                         <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                        <input type="hidden" name="status" value="1">
+                                        <input type="hidden" name="status" value="{{ \App\Models\Torrent::APPROVED }}">
                                         <button class="form__button form__button--filled">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                             {{ __('common.moderation-approve') }}
@@ -222,7 +222,7 @@
                                     >
                                         @csrf
                                         <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                        <input type="hidden" name="status" value="1">
+                                        <input type="hidden" name="status" value="{{ \App\Models\Torrent::APPROVED }}">
                                         <button class="form__button form__button--filled">
                                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
                                             {{ __('common.moderation-approve') }}

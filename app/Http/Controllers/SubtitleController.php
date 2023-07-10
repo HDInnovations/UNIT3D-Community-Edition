@@ -29,8 +29,10 @@ use App\Achievements\UserUploadedFirstSubtitle;
 use App\Http\Requests\StoreSubtitleRequest;
 use App\Http\Requests\UpdateSubtitleRequest;
 use App\Models\MediaLanguage;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Subtitle;
 use App\Models\Torrent;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -59,7 +61,7 @@ class SubtitleController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('subtitle.create', [
-            'torrent'         => Torrent::withAnyStatus()->findOrFail($request->integer('torrent_id')),
+            'torrent'         => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id')),
             'media_languages' => MediaLanguage::orderBy('name')->get(),
         ]);
     }
@@ -81,9 +83,9 @@ class SubtitleController extends Controller
             'downloads'    => 0,
             'verified'     => 0,
             'user_id'      => $user->id,
-            'status'       => 1,
+            'status'       => Subtitle::APPROVED,
             'moderated_at' => now(),
-            'moderated_by' => 1,
+            'moderated_by' => User::SYSTEM_USER_ID,
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle

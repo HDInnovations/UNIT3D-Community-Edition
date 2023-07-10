@@ -91,10 +91,10 @@
                             {{ strtoupper(__('torrent.passed')) }}</span>
                 @endif
                 <strong>{{ __('torrent.moderation') }}: </strong>
-                @if ($torrent->isRejected())<span class="badge-extra text-red"><i
+                @if ($torrent->status === \App\Models\Torrent::REJECTED)<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.rejected')) }}</span>
-                @elseif ($torrent->isPending())<span class="badge-extra text-orange"><i
+                @elseif ($torrent->status === \App\Models\Torrent::PENDING)<span class="badge-extra text-orange"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.pending')) }}</span>
                 @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>

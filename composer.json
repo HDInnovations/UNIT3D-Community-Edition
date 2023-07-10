@@ -22,7 +22,6 @@
         "hdvinnie/laravel-html-purifier": "^2.0.0",
         "hdvinnie/laravel-joypixel-emojis": "^2.0.0",
         "hdvinnie/laravel-security-headers": "^2.0.0",
-        "hootlex/laravel-moderation": "^1.1",
         "intervention/image": "^2.7.2",
         "joypixels/assets": "^6.6",
         "laravel/framework": "^10.14.1",

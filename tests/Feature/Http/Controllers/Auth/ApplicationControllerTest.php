@@ -29,7 +29,11 @@ class ApplicationControllerTest extends TestCase
 
         $application = Application::factory()->make();
 
-        $this->post(route('application.store'), $application->toArray())
+        $this->post(route('application.store'), [
+            'type'     => $application->type,
+            'email'    => $application->email,
+            'referrer' => $application->referrer,
+        ])
             ->assertRedirect(route('login'))
             ->assertSessionHas('success', trans('auth.application-submitted'));
     }

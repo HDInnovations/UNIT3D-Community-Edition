@@ -13,6 +13,7 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Application;
 use App\Rules\EmailBlacklist;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,7 @@ class ApproveApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 1,
+            'status' => Rule::in(Application::APPROVED),
             'email'  => [
                 'required',
                 'string',

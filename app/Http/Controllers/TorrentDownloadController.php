@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Bencode;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\TorrentDownload;
 use App\Models\User;
@@ -27,7 +28,7 @@ class TorrentDownloadController extends Controller
     public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('torrent.download_check', [
-            'torrent' => Torrent::withAnyStatus()->findOrFail($id),
+            'torrent' => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
             'user'    => $request->user(),
         ]);
     }
@@ -42,7 +43,7 @@ class TorrentDownloadController extends Controller
         if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->sole();
         }
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
@@ -57,7 +58,7 @@ class TorrentDownloadController extends Controller
         }
 
         // Torrent Status Is Rejected
-        if ($torrent->isRejected()) {
+        if ($torrent->status === Torrent::REJECTED) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('This Torrent Has Been Rejected By Staff');
         }

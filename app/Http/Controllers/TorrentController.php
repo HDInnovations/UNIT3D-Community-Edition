@@ -30,6 +30,7 @@ use App\Models\Movie;
 use App\Models\PrivateMessage;
 use App\Models\Region;
 use App\Models\Resolution;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\Tv;
@@ -80,7 +81,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        $torrent = Torrent::withAnyStatus()
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
             ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->findOrFail($id);
@@ -151,7 +152,7 @@ class TorrentController extends Controller
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
@@ -187,7 +188,7 @@ class TorrentController extends Controller
     public function update(UpdateTorrentRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
 
@@ -258,7 +259,7 @@ class TorrentController extends Controller
         ]);
 
         $user = $request->user();
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay())), 403);
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c23e74900b14ae67d0c67324de3dc0f7",
+    "content-hash": "befa43336eff547c72d8f8957b47cd30",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -1759,64 +1759,6 @@
                 "source": "https://github.com/HDVinnie/laravel-security-headers/tree/v2.0.0"
             },
             "time": "2023-02-15T00:45:31+00:00"
-        },
-        {
-            "name": "hootlex/laravel-moderation",
-            "version": "v1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hootlex/laravel-moderation.git",
-                "reference": "1ae3aa8ae2ee3d16ecb8325c99d15614901d4d7b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hootlex/laravel-moderation/zipball/1ae3aa8ae2ee3d16ecb8325c99d15614901d4d7b",
-                "reference": "1ae3aa8ae2ee3d16ecb8325c99d15614901d4d7b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "laravel/laravel": "5.*",
-                "nunomaduro/collision": "^2.0",
-                "phpunit/phpunit": "7.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Hootlex\\Moderation\\ModerationServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Hootlex\\Moderation\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alex Kyriakidis",
-                    "email": "hootlex@icloud.com"
-                }
-            ],
-            "description": "A simple Content Moderation System for Laravel 5.* that allows you to Approve or Reject resources like posts, comments, users, etc.",
-            "keywords": [
-                "content-moderation",
-                "laravel",
-                "moderation",
-                "moderation-system"
-            ],
-            "support": {
-                "issues": "https://github.com/hootlex/laravel-moderation/issues",
-                "source": "https://github.com/hootlex/laravel-moderation/tree/master"
-            },
-            "time": "2018-06-08T08:18:26+00:00"
         },
         {
             "name": "intervention/image",
