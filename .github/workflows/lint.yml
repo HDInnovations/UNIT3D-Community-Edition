@@ -2,7 +2,7 @@ name: PHP Linting (Pint)
 on: [push, pull_request]
 jobs:
   phplint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Code Checkout
         uses: actions/checkout@v3

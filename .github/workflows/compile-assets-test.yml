@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build-assets:
     name: Build JS/CSS Assets
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v1
       - name: Start NPM

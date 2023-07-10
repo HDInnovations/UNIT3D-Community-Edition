@@ -7,7 +7,6 @@
 !.gitkeep
 
 /public/css
-/public/files
 /public/fonts
 /public/img
 /public/js
@@ -44,3 +43,4 @@ laravel-echo-server.lock
 _ide_helper.php
 
 supervisor.ini
+/.phpunit.cache/
