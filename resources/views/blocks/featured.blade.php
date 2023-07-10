@@ -8,7 +8,7 @@
             <ul
                 class="featured-carousel"
                 x-ref="featured"
-                {{-- x-init="setInterval(function () {$el.parentNode.matches(':hover') ? null : (($el.scrollLeft == $el.scrollWidth - $el.offsetWidth - 16) ? $el.scrollLeft = 0 : $el.scrollLeft += (($el.children[0].offsetWidth + 16) / 2 + 1)) }, 5000)" --}}
+                 x-init="setInterval(function () {$el.parentNode.matches(':hover') ? null : (($el.scrollLeft == $el.scrollWidth - $el.offsetWidth - 16) ? $el.scrollLeft = 0 : $el.scrollLeft += (($el.children[0].offsetWidth + 16) / 2 + 2)) }, 5000)"
             >
                 @foreach ($featured as $feature)
                     @if ($feature->torrent === null || ! $feature->torrent->isApproved())
@@ -40,10 +40,10 @@
                 @endforeach
             </ul>
             <nav class="featured-carousel__nav">
-                <button class="featured-carousel__previous" x-on:click="$refs.featured.scrollLeft == 0 ? $refs.featured.scrollLeft = $refs.featured.scrollWidth : $refs.featured.scrollLeft -= (($refs.featured.children[0].offsetWidth + 16) / 2 + 1)">
+                <button class="featured-carousel__previous" x-on:click="$refs.featured.scrollLeft == 16 ? $refs.featured.scrollLeft = $refs.featured.scrollWidth : $refs.featured.scrollLeft -= (($refs.featured.children[0].offsetWidth + 16) / 2 + 2)">
                     <i class="{{ \config('other.font-awesome') }} fa-angle-left"></i>
                 </button>
-                <button class="featured-carousel__next" x-on:click="$refs.featured.scrollLeft == ($refs.featured.scrollWidth - $refs.featured.offsetWidth) ? $refs.featured.scrollLeft = 0 : $refs.featured.scrollLeft += (($refs.featured.children[0].offsetWidth + 16) / 2 + 1)">
+                <button class="featured-carousel__next" x-on:click="$refs.featured.scrollLeft == ($refs.featured.scrollWidth - $refs.featured.offsetWidth - 16) ? $refs.featured.scrollLeft = 0 : $refs.featured.scrollLeft += (($refs.featured.children[0].offsetWidth + 16) / 2 + 2)">
                     <i class="{{ \config('other.font-awesome') }} fa-angle-right"></i>
                 </button>
             </nav>
