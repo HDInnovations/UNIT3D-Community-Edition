@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
@@ -10,9 +11,9 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\FollowController
  */
-class FollowControllerTest extends TestCase
+final class FollowControllerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -33,7 +34,7 @@ class FollowControllerTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\PrivateMessage;
 use App\Models\User;
@@ -11,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\MassActionController
  */
-class MassActionControllerTest extends TestCase
+final class MassActionControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -29,9 +30,7 @@ class MassActionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -44,9 +43,7 @@ class MassActionControllerTest extends TestCase
         $response->assertViewIs('Staff.masspm.index');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -66,9 +63,7 @@ class MassActionControllerTest extends TestCase
         $response->assertRedirect(route('staff.mass-pm.create'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

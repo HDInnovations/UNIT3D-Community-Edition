@@ -2,6 +2,7 @@
 
 namespace Tests\Todo\Feature\Http\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Bookmark;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -10,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\BookmarkController
  */
-class BookmarkControllerTest extends TestCase
+final class BookmarkControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -19,7 +20,7 @@ class BookmarkControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
     }
 
-    /** @test */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
@@ -36,7 +37,7 @@ class BookmarkControllerTest extends TestCase
             ->assertSessionHas('success', 'Torrent Has Been Unbookmarked Successfully!');
     }
 
-    /** @test */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');
@@ -54,7 +55,7 @@ class BookmarkControllerTest extends TestCase
             ->assertViewHas('user');
     }
 
-    /** @test */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->markTestIncomplete('This test is incomplete. Needs too be converted to Livewire test.');

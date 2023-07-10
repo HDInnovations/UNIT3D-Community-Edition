@@ -2,17 +2,18 @@
 
 namespace Tests\Feature\Factories;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Tests\TestCase;
 
-class UserFactoryTest extends TestCase
+final class UserFactoryTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
     }
 
-    /** @test */
+    #[Test]
     public function factoryReturnsCorrectValuesWhenCreated(): void
     {
         $user = User::factory()->create();

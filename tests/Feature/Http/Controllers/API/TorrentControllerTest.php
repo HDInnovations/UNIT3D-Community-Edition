@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\API;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Torrent;
@@ -16,11 +17,9 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\API\TorrentController
  */
-class TorrentControllerTest extends TestCase
+final class TorrentControllerTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function filter_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
@@ -46,9 +45,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
@@ -77,9 +74,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function show_returns_an_ok_response(): void
     {
         $user = User::factory()->create();
@@ -98,9 +93,7 @@ class TorrentControllerTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

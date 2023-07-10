@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -10,7 +11,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\CheaterController
  */
-class CheaterControllerTest extends TestCase
+final class CheaterControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -28,9 +29,7 @@ class CheaterControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

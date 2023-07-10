@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Console\Commands;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
  * @see \App\Console\Commands\SyncPeers
  */
-class SyncPeersTest extends TestCase
+final class SyncPeersTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:sync_peers')

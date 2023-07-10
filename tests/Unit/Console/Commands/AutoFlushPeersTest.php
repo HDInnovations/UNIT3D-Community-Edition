@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Console\Commands;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
  * @see \App\Console\Commands\AutoFlushPeers
  */
-class AutoFlushPeersTest extends TestCase
+final class AutoFlushPeersTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:flush_peers')

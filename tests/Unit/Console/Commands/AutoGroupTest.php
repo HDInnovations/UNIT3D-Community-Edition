@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Console\Commands;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
  * @see \App\Console\Commands\AutoGroup
  */
-class AutoGroupTest extends TestCase
+final class AutoGroupTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:group')

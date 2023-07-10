@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Bot;
 use App\Models\Group;
 use App\Models\User;
@@ -11,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ChatBotController
  */
-class ChatBotControllerTest extends TestCase
+final class ChatBotControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -29,9 +30,7 @@ class ChatBotControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -45,9 +44,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertRedirect(route('staff.bots.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function disable_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -59,9 +56,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertRedirect(route('staff.bots.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -76,9 +71,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertViewHas('bot');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function enable_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -90,9 +83,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertRedirect(route('staff.bots.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -106,9 +97,7 @@ class ChatBotControllerTest extends TestCase
         $response->assertViewHas('bots');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

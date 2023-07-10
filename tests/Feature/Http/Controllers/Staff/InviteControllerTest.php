@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Http\Livewire\InviteLogSearch;
 use App\Models\Group;
 use App\Models\User;
@@ -11,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\InviteController
  */
-class InviteControllerTest extends TestCase
+final class InviteControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -29,9 +30,7 @@ class InviteControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

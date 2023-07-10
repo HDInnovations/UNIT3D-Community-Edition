@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Http\Livewire\PostSearch;
 use App\Http\Livewire\SubscribedForum;
 use App\Http\Livewire\TopicSearch;
@@ -15,9 +16,9 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\ForumController
  */
-class ForumControllerTest extends TestCase
+final class ForumControllerTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -34,7 +35,7 @@ class ForumControllerTest extends TestCase
             ->assertViewHas('num_topics');
     }
 
-    /** @test */
+    #[Test]
     public function latest_posts_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -48,7 +49,7 @@ class ForumControllerTest extends TestCase
             ->assertSeeLivewire(PostSearch::class);
     }
 
-    /** @test */
+    #[Test]
     public function latest_topics_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -62,7 +63,7 @@ class ForumControllerTest extends TestCase
             ->assertSeeLivewire(TopicSearch::class);
     }
 
-    /** @test */
+    #[Test]
     public function show_forum_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);
@@ -88,7 +89,7 @@ class ForumControllerTest extends TestCase
             ->assertRedirect(route('forums.categories.show', ['id' => $forum->id]));
     }
 
-    /** @test */
+    #[Test]
     public function subscriptions_returns_an_ok_response(): void
     {
         $this->seed(UsersTableSeeder::class);

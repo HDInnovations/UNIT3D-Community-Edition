@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Console\Commands;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
  * @see \App\Console\Commands\AutoRecycleClaimedTorrentRequests
  */
-class AutoRecycleClaimedTorrentRequestsTest extends TestCase
+final class AutoRecycleClaimedTorrentRequestsTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function it_runs_successfully(): void
     {
         $this->artisan('auto:recycle_claimed_torrent_requests')

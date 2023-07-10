@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
@@ -12,7 +13,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ChatRoomController
  */
-class ChatRoomControllerTest extends TestCase
+final class ChatRoomControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -30,9 +31,7 @@ class ChatRoomControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -46,9 +45,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertRedirect(route('staff.chatrooms.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -62,9 +59,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertViewHas('chatrooms');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -79,9 +74,7 @@ class ChatRoomControllerTest extends TestCase
         $response->assertRedirect(route('staff.chatrooms.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

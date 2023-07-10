@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Article;
 use App\Models\Group;
 use App\Models\User;
@@ -11,7 +12,7 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ArticleController
  */
-class ArticleControllerTest extends TestCase
+final class ArticleControllerTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -29,9 +30,7 @@ class ArticleControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -44,9 +43,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewIs('Staff.article.create');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -58,9 +55,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect(route('staff.articles.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -75,9 +70,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewHas('article');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -91,9 +84,7 @@ class ArticleControllerTest extends TestCase
         $response->assertViewHas('articles');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -110,9 +101,7 @@ class ArticleControllerTest extends TestCase
         $response->assertRedirect(route('staff.articles.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
