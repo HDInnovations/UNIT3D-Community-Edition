@@ -390,7 +390,7 @@ class TorrentController extends Controller
 
         // Can't insert them all at once since some torrents have more files than mysql supports placeholders.
         // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
-        foreach (collect($files)->chunk(65_000 / 3) as $files) {
+        foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
             TorrentFile::insert($files->toArray());
         }
 

@@ -36,6 +36,7 @@ class TorrentRequest extends Model
     protected $casts = [
         'filled_when'   => 'datetime',
         'approved_when' => 'datetime',
+        'igdb'          => 'integer',
     ];
 
     /**

@@ -57,6 +57,7 @@ class Torrent extends Model
         'sd'           => 'boolean',
         'sticky'       => 'boolean',
         'stream'       => 'boolean',
+        'igdb'         => 'integer',
     ];
 
     /**
