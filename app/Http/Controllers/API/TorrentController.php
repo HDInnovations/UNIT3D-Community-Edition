@@ -124,13 +124,13 @@ class TorrentController extends BaseController
         $torrent->igdb = $request->input('igdb');
         $torrent->season_number = $request->input('season_number');
         $torrent->episode_number = $request->input('episode_number');
-        $torrent->anon = $request->input('anonymous');
-        $torrent->stream = $request->input('stream');
-        $torrent->sd = $request->input('sd');
+        $torrent->anon = $request->boolean('anonymous');
+        $torrent->stream = $request->boolean('stream');
+        $torrent->sd = $request->boolean('sd');
         $torrent->personal_release = $request->input('personal_release') ?? 0;
-        $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
-        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
-        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
+        $torrent->internal = ($user->group->is_modo || $user->group->is_internal) && $request->boolean('internal');
+        $torrent->featured = ($user->group->is_modo || $user->group->is_internal) && $request->boolean('featured');
+        $torrent->doubleup = ($user->group->is_modo || $user->group->is_internal) && $request->boolean('doubleup');
         $du_until = $request->input('du_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
@@ -142,14 +142,14 @@ class TorrentController extends BaseController
         if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
         }
-        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? $request->input('sticky') : 0;
+        $torrent->sticky = ($user->group->is_modo || $user->group->is_internal) && $request->boolean('sticky');
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
         // Set freeleech and doubleup if featured
-        if ($torrent->featured == 1) {
-            $torrent->free = '100';
-            $torrent->doubleup = '1';
+        if ($torrent->featured) {
+            $torrent->free = 100;
+            $torrent->doubleup = true;
         }
 
         $resolutionRule = 'nullable|exists:resolutions,id';
@@ -214,7 +214,7 @@ class TorrentController extends BaseController
         // Save The Torrent
         $torrent->save();
         // Set torrent to featured
-        if ($torrent->featured == 1) {
+        if ($torrent->featured) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -263,7 +263,7 @@ class TorrentController extends BaseController
             $doubleup = $torrent->doubleup;
 
             // Announce To Shoutbox
-            if ($anon == 0) {
+            if (! $anon) {
                 $this->chatRepository->systemMessage(
                     sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
                 );

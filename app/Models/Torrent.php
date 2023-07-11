@@ -48,6 +48,15 @@ class Torrent extends Model
         'fl_until'     => 'datetime',
         'du_until'     => 'datetime',
         'moderated_at' => 'datetime',
+        'anon'         => 'boolean',
+        'doubleup'     => 'boolean',
+        'featured'     => 'boolean',
+        'highspeed'    => 'boolean',
+        'internal'     => 'boolean',
+        'refundable'   => 'boolean',
+        'sd'           => 'boolean',
+        'sticky'       => 'boolean',
+        'stream'       => 'boolean',
     ];
 
     /**

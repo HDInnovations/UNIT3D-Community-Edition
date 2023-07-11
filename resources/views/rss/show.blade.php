@@ -60,7 +60,7 @@
                                 MAL Link:<a href="https://anon.to?https://myanimelist.net/anime/{{ $data->mal }}"
                                              target="_blank">{{ $data->mal }}</a><br>
                             @endif
-                            @if ($data->internal == 1)
+                            @if ($data->internal)
                                 <comments>This is a high quality internal release!</comments>
                             @endif
                         </p>]]>

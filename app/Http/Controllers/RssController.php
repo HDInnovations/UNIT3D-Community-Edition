@@ -112,7 +112,7 @@ class RssController extends Controller
             $rss->user_id = $request->user()->id;
             $expected = $rss->expected_fields;
             $rss->json_torrent = array_merge($expected, $params);
-            $rss->is_private = 1;
+            $rss->is_private = true;
             $rss->save();
             $success = trans('rss.created');
         }
@@ -270,7 +270,7 @@ class RssController extends Controller
             $expected = $rss->expected_fields;
             $push = array_merge($expected, $params);
             $rss->json_torrent = array_merge($rss->json_torrent, $push);
-            $rss->is_private = 1;
+            $rss->is_private = true;
             $rss->save();
             $success = trans('rss.updated');
         }

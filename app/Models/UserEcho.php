@@ -27,6 +27,10 @@ class UserEcho extends Model
      */
     public $timestamps = true;
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     /**
      * The Database Table Used By The Model.
      *

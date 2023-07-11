@@ -55,7 +55,7 @@
                                     $peer->user->hidden == 1
                                     || $peer->user->peer_hidden == 1
                                     || $peer->user->privacy?->show_peer === 0
-                                    || ($peer->user->id == $torrent->user->id && $torrent->anon == 1)
+                                    || ($peer->user->id == $torrent->user->id && $torrent->anon)
                                 " />
                             </td>
                             <td>{{ $peer->progress }}%</td>

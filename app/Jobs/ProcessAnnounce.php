@@ -134,7 +134,7 @@ class ProcessAnnounce implements ShouldQueue
             $modDownloaded = $downloaded;
         }
 
-        if ($this->torrent->doubleup == 1 ||
+        if ($this->torrent->doubleup ||
             $this->group->is_double_upload == 1 ||
             config('other.doubleup') == 1) {
             $modUploaded = $uploaded * 2;

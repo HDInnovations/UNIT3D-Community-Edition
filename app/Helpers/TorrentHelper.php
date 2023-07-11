@@ -69,7 +69,7 @@ class TorrentHelper
             }
         }
 
-        if ($torrent->anon == 0) {
+        if (! $torrent->anon) {
             foreach ($uploader->followers()->get() as $follower) {
                 if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
                     $follower->notify(new NewUpload('follower', $torrent));
@@ -81,7 +81,7 @@ class TorrentHelper
         $username = $user->username;
         $anon = $torrent->anon;
 
-        if ($anon == 0) {
+        if (! $anon) {
             // Achievements
             $user->unlock(new UserMadeUpload());
             $user->addProgress(new UserMade25Uploads(), 1);

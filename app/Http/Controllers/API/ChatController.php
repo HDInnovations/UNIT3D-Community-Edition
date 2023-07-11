@@ -74,7 +74,7 @@ class ChatController extends Controller
             $userAudible = new UserAudible();
             $userAudible->user_id = $this->authFactory->user()->id;
             $userAudible->room_id = 1;
-            $userAudible->status = 1;
+            $userAudible->status = true;
             $userAudible->save();
         }
 
@@ -326,7 +326,7 @@ class ChatController extends Controller
                 $senderPort = new UserAudible();
                 $senderPort->user_id = $userId;
                 $senderPort->target_id = $receiverId;
-                $senderPort->status = 0;
+                $senderPort->status = false;
                 $senderPort->save();
                 $senderAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
                 $senderDirty = 1;
@@ -344,7 +344,7 @@ class ChatController extends Controller
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $receiverId;
                 $receiverPort->target_id = $userId;
-                $receiverPort->status = 0;
+                $receiverPort->status = false;
                 $receiverPort->save();
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiverId])->get();
                 $receiverDirty = 1;
@@ -443,7 +443,7 @@ class ChatController extends Controller
     public function toggleRoomAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $echo = UserAudible::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->sole();
-        $echo->status = ($echo->status == 1 ? 0 : 1);
+        $echo->status = ! $echo->status;
         $echo->save();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'audibles', 'audibles'])->findOrFail($userId);
@@ -459,7 +459,7 @@ class ChatController extends Controller
     public function toggleTargetAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $echo = UserAudible::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->sole();
-        $echo->status = ($echo->status == 1 ? 0 : 1);
+        $echo->status = ! $echo->status;
         $echo->save();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'audibles', 'audibles'])->findOrFail($userId);
@@ -475,7 +475,7 @@ class ChatController extends Controller
     public function toggleBotAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $echo = UserAudible::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->sole();
-        $echo->status = ($echo->status == 1 ? 0 : 1);
+        $echo->status = ! $echo->status;
         $echo->save();
 
         $user = User::with(['chatStatus', 'chatroom', 'group', 'audibles', 'audibles'])->findOrFail($userId);

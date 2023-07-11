@@ -71,7 +71,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
         foreach ($duTorrents as $torrent) {
             if (isset($torrent)) {
-                $torrent->doubleup = 0;
+                $torrent->doubleup = false;
                 $torrent->du_until = null;
                 $torrent->save();
 

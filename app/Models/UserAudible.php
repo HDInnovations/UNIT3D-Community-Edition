@@ -27,6 +27,10 @@ class UserAudible extends Model
      */
     public $timestamps = true;
 
+    protected $casts = [
+        'status' => 'boolean',
+    ];
+
     /**
      * Belongs To A User.
      */

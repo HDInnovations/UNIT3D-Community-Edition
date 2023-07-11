@@ -346,7 +346,7 @@ class TopicController extends Controller
     public function pin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = 1;
+        $topic->pinned = true;
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
@@ -359,7 +359,7 @@ class TopicController extends Controller
     public function unpin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = 0;
+        $topic->pinned = false;
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])

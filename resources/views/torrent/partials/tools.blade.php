@@ -158,7 +158,7 @@
                         </dialog>
                     </li>
                     <li>
-                        @if ($torrent->refundable == 0)
+                        @if (! $torrent->refundable)
                             <form action="{{ route('refundable', ['id' => $torrent->id]) }}"
                                   method="POST"
                                   style="display: inline;">
@@ -216,7 +216,7 @@
                         </form>
                     </li>
                     <li>
-                        @if ($torrent->featured == 0)
+                        @if (! $torrent->featured)
                             <form
                                 method="POST"
                                 action="{{ route('torrent_feature', ['id' => $torrent->id]) }}"

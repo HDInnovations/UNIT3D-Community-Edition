@@ -25,6 +25,14 @@ class Topic extends Model
 
     protected $casts = [
         'last_reply_at' => 'datetime',
+        'approved'      => 'boolean',
+        'bug'           => 'boolean',
+        'denied'        => 'boolean',
+        'implemented'   => 'boolean',
+        'invalid'       => 'boolean',
+        'pinned'        => 'boolean',
+        'solved'        => 'boolean',
+        'suggestion'    => 'boolean',
     ];
 
     protected $fillable = [

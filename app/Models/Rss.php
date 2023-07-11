@@ -48,6 +48,7 @@ class Rss extends Model
         'name'            => 'string',
         'json_torrent'    => 'array',
         'expected_fields' => 'array',
+        'is_private'      => 'boolean',
     ];
 
     /**
