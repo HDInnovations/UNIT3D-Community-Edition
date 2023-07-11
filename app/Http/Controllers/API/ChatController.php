@@ -99,19 +99,19 @@ class ChatController extends Controller
     }
 
     /* MESSAGES */
-    public function messages($roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function messages(int $roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->messages($roomId));
     }
 
     /* MESSAGES */
-    public function privateMessages($targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function privateMessages(int $targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->privateMessages($this->authFactory->user()->id, $targetId));
     }
 
     /* MESSAGES */
-    public function botMessages($botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function botMessages(int $botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $runbot = null;
         $bot = Bot::findOrFail($botId);
@@ -384,14 +384,14 @@ class ChatController extends Controller
         return response('success');
     }
 
-    public function deleteMessage($id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteMessage(int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $this->chatRepository->deleteMessage($id);
 
         return response('success');
     }
 
-    public function deleteRoomEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteRoomEcho(Request $request, int $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         UserEcho::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->delete();
 
@@ -412,7 +412,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function deleteTargetEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteTargetEcho(Request $request, int $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         UserEcho::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->delete();
 
@@ -426,7 +426,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function deleteBotEcho(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteBotEcho(Request $request, int $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         UserEcho::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->delete();
 
@@ -440,7 +440,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function toggleRoomAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function toggleRoomAudible(Request $request, int $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $echo = UserAudible::where('user_id', '=', $userId)->where('room_id', '=', $request->input('room_id'))->sole();
         $echo->status = ! $echo->status;
@@ -456,7 +456,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function toggleTargetAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function toggleTargetAudible(Request $request, int $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $echo = UserAudible::where('user_id', '=', $userId)->where('target_id', '=', $request->input('target_id'))->sole();
         $echo->status = ! $echo->status;
@@ -472,7 +472,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function toggleBotAudible(Request $request, $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function toggleBotAudible(Request $request, int $userId): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $echo = UserAudible::where('user_id', '=', $userId)->where('bot_id', '=', $request->input('bot_id'))->sole();
         $echo->status = ! $echo->status;
@@ -489,7 +489,7 @@ class ChatController extends Controller
     }
 
     /* USERS */
-    public function updateUserChatStatus(Request $request, $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateUserChatStatus(Request $request, int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $systemUser = User::where('username', 'System')->sole();
 
@@ -508,7 +508,7 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function updateUserRoom(Request $request, $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateUserRoom(Request $request, int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
         $room = $this->chatRepository->roomFindOrFail($request->input('room_id'));
@@ -551,14 +551,14 @@ class ChatController extends Controller
         return response($user);
     }
 
-    public function updateUserTarget($id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateUserTarget(int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
         return response($user);
     }
 
-    public function updateBotTarget($id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateBotTarget(int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 

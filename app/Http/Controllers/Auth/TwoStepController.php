@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\TwoStepAuth;
 use App\Traits\TwoStep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -26,13 +27,13 @@ class TwoStepController extends Controller
 {
     use TwoStep;
 
-    private $authCount;
+    private int $authCount;
 
-    private $authStatus;
+    private bool $authStatus;
 
-    private $twoStepAuth;
+    private TwoStepAuth $twoStepAuth;
 
-    private $remainingAttempts;
+    private int $remainingAttempts;
 
     private ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 

@@ -32,10 +32,9 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      */
-    public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('rss.index', [
-            'hash'        => $hash,
             'public_rss'  => Rss::where('is_private', '=', 0)->oldest('position')->get(),
             'private_rss' => Rss::where('is_private', '=', 1)->where('user_id', '=', $request->user()->id)->latest()->get(),
             'user'        => $request->user(),
@@ -126,7 +125,7 @@ class RssController extends Controller
      *
      * @throws Exception
      */
-    public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
+    public function show(int $id, string $rsskey): \Illuminate\Http\Response
     {
         $user = User::where('rsskey', '=', $rsskey)->sole();
 

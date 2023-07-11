@@ -190,7 +190,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkPasskey($passkey): void
+    protected function checkPasskey(?string $passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
         throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
@@ -306,7 +306,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkUser($passkey, $queries): object
+    protected function checkUser(string $passkey, array $queries): object
     {
         // Check Passkey Against Users Table
         $user = cache()->remember('user:'.$passkey, 300, function () use ($passkey) {
@@ -337,7 +337,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkGroup($user): object
+    protected function checkGroup(User $user): object
     {
         $deniedGroups = cache()->remember('denied_groups', 300, function () {
             return DB::table('groups')
@@ -381,7 +381,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkTorrent($infoHash): object
+    protected function checkTorrent(string $infoHash): object
     {
         $cacheKey = config('cache.prefix').'torrents:infohash2id';
         // Check Info Hash Against Torrents Table
@@ -435,7 +435,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkPeer($torrent, $queries, $user): void
+    private function checkPeer(Torrent $torrent, array $queries, User $user): void
     {
         throw_if(
             strtolower($queries['event']) === 'completed'
@@ -454,7 +454,7 @@ class AnnounceController extends Controller
      * @throws Exception
      * @throws Throwable
      */
-    private function checkMinInterval($torrent, $queries, $user): void
+    private function checkMinInterval(Torrent $torrent, array $queries, User $user): void
     {
         $prevAnnounce = $torrent->peers
             ->where('peer_id', '=', base64_decode($queries['peer_id']))
@@ -475,7 +475,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkMaxConnections($torrent, $user): void
+    private function checkMaxConnections(Torrent $torrent, User $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = $torrent->peers
@@ -495,7 +495,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkDownloadSlots($queries, $user, $group): void
+    private function checkDownloadSlots(array $queries, User $user, Group $group): void
     {
         $max = $group->download_slots;
 
@@ -518,7 +518,7 @@ class AnnounceController extends Controller
      *
      * @throws Exception
      */
-    private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
+    private function generateSuccessAnnounceResponse(array $queries, Torrent $torrent, User $user): array
     {
         // Build Response For Bittorrent Client
         $repDict = [
@@ -560,7 +560,7 @@ class AnnounceController extends Controller
     /**
      * Process Announce Database Queries.
      */
-    private function processAnnounceJob($queries, $user, $group, $torrent): void
+    private function processAnnounceJob(array $queries, User $user, Group $group, Torrent $torrent): void
     {
         ProcessAnnounce::dispatch($queries, $user, $group, $torrent);
     }
@@ -576,7 +576,7 @@ class AnnounceController extends Controller
     /**
      * Send Final Announce Response.
      */
-    protected function sendFinalAnnounceResponse($repDict): Response
+    protected function sendFinalAnnounceResponse(array $repDict): Response
     {
         return response(Bencode::bencode($repDict), headers: self::HEADERS);
     }
