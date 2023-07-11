@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\PrivateMessage;
@@ -19,7 +21,7 @@ final class MassActionControllerTest extends TestCase
         parent::setUp();
     }
 
-    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+    protected function createStaffUser(): Collection|Model
     {
         return User::factory()->create([
             'group_id' => fn () => Group::factory()->create([

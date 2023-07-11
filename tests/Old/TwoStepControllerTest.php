@@ -1,0 +1,78 @@
+<?php
+
+namespace Tests\Old;
+
+use App\Models\TwoStepAuth;
+use App\Models\User;
+use Database\Seeders\GroupsTableSeeder;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
+
+/**
+ * @see \App\Http\Controllers\Auth\TwoStepController
+ */
+final class TwoStepControllerTest extends TestCase
+{
+    #[Test]
+    public function resend_returns_an_ok_response(): void
+    {
+        config(['auth.TwoStepEnabled' => true]);
+
+        $this->seed(GroupsTableSeeder::class);
+
+        $user = User::factory()->create([
+            'twostep' => true,
+        ]);
+
+        TwoStepAuth::factory()->create([
+            'userId' => $user->id,
+        ]);
+
+        $this->actingAs($user)->post(route('resend'))
+            ->assertRedirect(route('verificationNeeded'));
+    }
+
+    #[Test]
+    public function show_verification_returns_an_ok_response(): void
+    {
+        config(['auth.TwoStepEnabled' => true]);
+
+        $this->seed(GroupsTableSeeder::class);
+
+        $user = User::factory()->create([
+            'twostep' => true,
+        ]);
+
+        TwoStepAuth::factory()->create([
+            'userId' => $user->id,
+        ]);
+
+        $this->actingAs($user)->get(route('verificationNeeded'))
+            ->assertOk()
+            ->assertViewIs('auth.twostep-verification');
+    }
+
+    #[Test]
+    public function verify_returns_an_ok_response(): void
+    {
+        config(['auth.TwoStepEnabled' => true]);
+
+        $this->seed(GroupsTableSeeder::class);
+
+        $user = User::factory()->create([
+            'twostep' => true,
+        ]);
+
+        $twoStep = TwoStepAuth::factory()->create([
+            'userId' => $user->id,
+        ]);
+
+        $this->actingAs($user)->postJson(route('verify'), [
+            'v_input_1' => $twoStep->authCode[0],
+            'v_input_2' => $twoStep->authCode[1],
+            'v_input_3' => $twoStep->authCode[2],
+            'v_input_4' => $twoStep->authCode[3],
+        ], ['HTTP_X-Requested-With' => 'XMLHttpRequest'])
+            ->assertOk();
+    }
+}

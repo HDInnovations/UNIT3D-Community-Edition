@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers;
+namespace Tests\Old;
 
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**
