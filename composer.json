@@ -52,7 +52,9 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "pestphp/pest-plugin-livewire": "^2.0",
         "phpunit/phpunit": "10.2.3",
-        "spatie/laravel-ignition": "^2.2"
+        "spatie/laravel-ignition": "^2.2",
+        "jasonmccreary/laravel-test-assertions": "^2.3",
+        "laravel-shift/factory-generator": "dev-master"
     },
     "config": {
         "preferred-install": "dist",
