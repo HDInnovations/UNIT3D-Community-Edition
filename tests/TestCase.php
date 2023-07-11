@@ -10,7 +10,8 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, AdditionalAssertions;
+    use AdditionalAssertions;
+    use CreatesApplication;
     use RefreshDatabase;
 
     /**
