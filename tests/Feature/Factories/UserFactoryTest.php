@@ -13,7 +13,7 @@
 
 use App\Models\User;
 
-test('user factory returns correct values when created', function () {
+test('user factory returns correct values when created', function (): void {
     $user = User::factory()->create();
 
     $this->assertInstanceOf(User::class, $user);
