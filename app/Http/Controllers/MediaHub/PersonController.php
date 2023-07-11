@@ -39,8 +39,8 @@ class PersonController extends Controller
                 'movie' => fn ($query) => $query->has('torrents'),
                 'movie.genres'
             ])->findOrFail($id),
-            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
-            'tvCategoryIds'    => Category::where('tv_meta', '=', 1)->pluck('id')->toArray()
+            'movieCategoryIds' => Category::where('movie_meta', '=', true)->pluck('id')->toArray(),
+            'tvCategoryIds'    => Category::where('tv_meta', '=', true)->pluck('id')->toArray()
         ]);
     }
 }

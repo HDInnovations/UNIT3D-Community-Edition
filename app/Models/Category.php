@@ -36,6 +36,14 @@ class Category extends Model
      */
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'movie_meta' => 'boolean',
+        'tv_meta'    => 'boolean',
+        'game_meta'  => 'boolean',
+        'music_meta' => 'boolean',
+        'no_meta'    => 'boolean',
+    ];
+
     /**
      * Has Many Torrents.
      */

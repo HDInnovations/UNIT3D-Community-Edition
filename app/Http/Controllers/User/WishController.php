@@ -71,7 +71,7 @@ class WishController extends Controller
 
         $torrent = Torrent::query()
             ->where('tmdb', '=', $request->tmdb)
-            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
             ->where('seeders', '>', 0)
             ->where('status', '=', 1)
             ->first();

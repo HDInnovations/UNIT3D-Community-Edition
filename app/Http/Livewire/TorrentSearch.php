@@ -406,12 +406,12 @@ class TorrentSearch extends Component
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
                             ->whereIntegerInRaw('tmdb', $movieIds)
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
                             ->whereIntegerInRaw('tmdb', $tvIds)
                     )
             )

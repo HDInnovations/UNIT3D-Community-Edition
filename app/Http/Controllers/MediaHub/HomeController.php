@@ -33,7 +33,7 @@ class HomeController extends Controller
         return view('mediahub.index', [
             'tv'               => Tv::count(),
             'movies'           => Movie::count(),
-            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'movieCategoryIds' => Category::where('movie_meta', '=', true)->pluck('id')->toArray(),
             'collections'      => Collection::count(),
             'persons'          => Person::whereNotNull('still')->count(),
             'genres'           => Genre::count(),

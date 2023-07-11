@@ -236,11 +236,11 @@ class TorrentController extends BaseController
 
         $tmdbScraper = new TMDBScraper();
 
-        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
             $tmdbScraper->tv($torrent->tmdb);
         }
 
-        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
             $tmdbScraper->movie($torrent->tmdb);
         }
 

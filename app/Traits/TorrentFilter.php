@@ -99,12 +99,12 @@ trait TorrentFilter
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
                             ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
                             ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
                     )
             );
@@ -148,7 +148,7 @@ trait TorrentFilter
     public function scopeOfCollection(Builder $query, int $collectionId): Builder
     {
         return $query
-            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
             ->whereIn('tmdb', DB::table('collection_movie')->select('movie_id')->where('collection_id', '=', $collectionId));
     }
 
@@ -159,12 +159,12 @@ trait TorrentFilter
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
                             ->whereIn('tmdb', DB::table('company_movie')->select('movie_id')->where('company_id', '=', $companyId))
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
                             ->whereIn('tmdb', DB::table('company_tv')->select('tv_id')->where('company_id', '=', $companyId))
                     )
             );
@@ -173,7 +173,7 @@ trait TorrentFilter
     public function scopeOfNetwork(Builder $query, int $networkId): Builder
     {
         return $query
-            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
             ->whereIn('tmdb', DB::table('network_tv')->select('tv_id')->where('network_id', '=', $networkId));
     }
 

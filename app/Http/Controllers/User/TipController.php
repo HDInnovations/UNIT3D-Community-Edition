@@ -62,6 +62,7 @@ class TipController extends Controller
         $tipable = match (true) {
             $request->has('torrent') => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->get('torrent')),
             $request->has('post')    => Post::findOrFail($request->get('post')),
+            default                  => abort(403),
         };
         $recipient = $tipable->user;
         $tipAmount = $request->get('tip');

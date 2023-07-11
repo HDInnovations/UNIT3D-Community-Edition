@@ -84,8 +84,6 @@ class SimilarTorrentController extends Controller
                 break;
             default:
                 abort(404, 'No Similar Torrents Found');
-
-                break;
         }
 
         $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());

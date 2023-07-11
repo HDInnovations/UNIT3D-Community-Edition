@@ -104,8 +104,6 @@ class RssController extends Controller
             'dead',
         ]);
 
-        $success = null;
-
         if ($v->passes()) {
             $rss = new Rss();
             $rss->name = $request->input('name');
@@ -114,22 +112,13 @@ class RssController extends Controller
             $rss->json_torrent = array_merge($expected, $params);
             $rss->is_private = true;
             $rss->save();
-            $success = trans('rss.created');
+
+            return to_route('rss.index', ['hash' => 'private'])
+                ->withSuccess(trans('rss.created'));
         }
 
-        if ($success === null) {
-            $error = trans('rss.error');
-
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return to_route('rss.create')
-                ->withErrors($error);
-        }
-
-        return to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess($success);
+        return to_route('rss.create')
+            ->withErrors($v->errors());
     }
 
     /**
@@ -264,30 +253,19 @@ class RssController extends Controller
             'dead',
         ]);
 
-        $success = null;
-
         if ($v->passes()) {
             $expected = $rss->expected_fields;
             $push = array_merge($expected, $params);
             $rss->json_torrent = array_merge($rss->json_torrent, $push);
             $rss->is_private = true;
             $rss->save();
-            $success = trans('rss.updated');
+
+            return to_route('rss.index', ['hash' => 'private'])
+                ->withSuccess(trans('rss.updated'));
         }
 
-        if ($success === null) {
-            $error = trans('rss.error');
-
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return to_route('rss.edit', ['id' => $id])
-                ->withErrors($error);
-        }
-
-        return to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess($success);
+        return to_route('rss.edit', ['id' => $id])
+            ->withErrors($v->errors());
     }
 
     /**
