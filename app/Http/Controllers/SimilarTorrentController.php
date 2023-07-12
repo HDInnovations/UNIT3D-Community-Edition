@@ -17,6 +17,7 @@ use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
+use App\Services\Tmdb\TMDBScraper;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
@@ -99,5 +100,26 @@ class SimilarTorrentController extends Controller
             'tmdb'               => $tmdb ?? null,
             'igdb'               => $igdb ?? null,
         ]);
+    }
+
+    public function update(Category $category, int $tmdbId)
+    {
+        if ($tmdbId !== 0) {
+            $tmdbScraper = new TMDBScraper();
+
+            switch (true) {
+                case $category->movie_meta:
+                    $tmdbScraper->movie($tmdbId);
+
+                    break;
+                case $category->tv_meta:
+                    $tmdbScraper->tv($tmdbId);
+
+                    break;
+            }
+        }
+
+        return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
+            ->withSuccess('Metadata update queued successfully');
     }
 }
