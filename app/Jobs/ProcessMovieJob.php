@@ -147,6 +147,7 @@ class ProcessMovieJob implements ShouldQueue
         }
 
         Person::upsert($people, 'id');
+        Credit::where('movie_id', '=', $this->movie['id'])->delete();
         Credit::upsert($credits, ['person_id', 'movie_id', 'tv_id', 'occupation_id', 'character']);
 
         // Recommendations
