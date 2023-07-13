@@ -173,6 +173,7 @@ class ProcessTvJob implements ShouldQueue
         }
 
         Person::upsert($people, 'id');
+        Credit::where('tv_id', '=', $this->tv['id'])->delete();
         Credit::upsert($credits, ['person_id', 'movie_id', 'tv_id', 'occupation_id', 'character']);
 
         // Seasons and episodes
