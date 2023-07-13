@@ -44,6 +44,18 @@
                     Request similar
                 </a>
             </li>
+            @if ($meta?->id && auth()->user()->group->is_modo)
+                <li>
+                    <form
+                        action="{{ route('torrents.similar.update', ['category' => $category, 'tmdbId' => $meta->id]) }}"
+                        method="post"
+                    >
+                        @csrf
+                        @method('PATCH')
+                        <button>Update Metadata</button>
+                    </form>
+                </li>
+            @endif
         </ul>
     </div>
     <ul class="meta__ids">
