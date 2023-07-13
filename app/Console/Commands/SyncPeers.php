@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

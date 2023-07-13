@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Movie;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Tv;
 use Illuminate\Console\Command;
