@@ -111,7 +111,7 @@
             </header>
             <div class="panel__body">
                 <article class="profileV2">
-                    <x-user_tag :user=$user :anon="false" class="profile__username">
+                    <x-user_tag :user="$user" :anon="false" class="profile__username">
                         <x-slot:appendedIcons>
                             @if ($user->isOnline())
                                 <i class="{{ config('other.font-awesome') }} fa-circle text-green" title="{{ __('user.online') }}"></i>
@@ -324,7 +324,9 @@
         @endif
         @if (auth()->user()->group->is_modo)
             @include('user.profile.partials.bans', ['bans' => $user->userban])
-            @include('user.profile.partials.warnings')
+        @endif
+        <livewire:user-warnings :user="$user" />
+        @if (auth()->user()->group->is_modo)
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">Watchlist</h2>
