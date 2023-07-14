@@ -14,6 +14,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Category;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
@@ -113,7 +114,7 @@ class UpdateTorrentRequest extends FormRequest
             'anon' => [
                 'required',
                 'boolean',
-                Rule::when(Torrent::find($request->route('id'))->user_id !== $request->user()->id && ! $request->user()->group->is_modo, 'exclude'),
+                Rule::when(Torrent::withoutGlobalScope(ApprovedScope::class)->find($request->route('id'))->user_id !== $request->user()->id && ! $request->user()->group->is_modo, 'exclude'),
             ],
             'stream' => [
                 'required',
