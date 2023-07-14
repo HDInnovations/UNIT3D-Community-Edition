@@ -212,7 +212,7 @@ class ProcessTvJob implements ShouldQueue
             }
         }
 
-        Season::upsert($seasons, ['tv_id', 'season_number']);
+        Season::upsert($seasons, 'id');
         Episode::upsert($episodes, 'id');
 
         // Recommendations
