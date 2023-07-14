@@ -88,8 +88,8 @@ class InviteController extends Controller
 
         $request->validate([
             'bail',
-            'custom' => 'required',
-            'email'  => [
+            'message' => 'required',
+            'email'   => [
                 'required',
                 'string',
                 'email',
@@ -113,7 +113,7 @@ class InviteController extends Controller
 
         Mail::to($request->input('email'))->send(new InviteUser($invite));
 
-        return to_route('users.invites.create')
+        return to_route('users.invites.create', ['user' => $user])
             ->withSuccess(trans('user.invite-sent-success'));
     }
 
