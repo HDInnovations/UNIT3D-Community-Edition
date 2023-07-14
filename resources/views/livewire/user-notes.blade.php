@@ -16,6 +16,7 @@
                     <form
                         class="dialog__form"
                         x-on:click.outside="$refs.dialog.close()"
+                        x-on:submit.prevent
                     >
                         <p class="form__group">
                             <textarea
