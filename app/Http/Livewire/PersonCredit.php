@@ -118,14 +118,18 @@ class PersonCredit extends Component
             ->with('genres', 'directors')
             ->wherePivot('occupation_id', '=', $this->occupation)
             ->orderBy('release_date')
-            ->get();
+            ->get()
+            // Since the credits table unique index has nullable columns, we get duplicate credits, which means duplicate movies
+            ->unique();
         $tv = $this->person
             ->tv()
             ->whereHas('torrents')
             ->with('genres', 'creators')
             ->wherePivot('occupation_id', '=', $this->occupation)
             ->orderBy('first_air_date')
-            ->get();
+            ->get()
+            // Since the credits table unique index has nullable columns, we get duplicate credits, which means duplicate tv
+            ->unique();
 
         $movieIds = $movies->pluck('id');
         $tvIds = $tv->pluck('id');
