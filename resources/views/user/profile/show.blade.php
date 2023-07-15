@@ -118,7 +118,7 @@
                             @else
                                 <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="{{ __('user.offline') }}"></i>
                             @endif
-                            <a href="{{ route('users.sent_messages.create', ['user' => $user, 'username' => $user->username]) }}">
+                            <a href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $user->username]) }}">
                                 <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                             </a>
                             @if ($user->warnings()->active()->exists())
