@@ -253,7 +253,6 @@ class TorrentController extends Controller
         $request->validate([
             'message' => [
                 'required',
-                'alpha_dash',
                 'min:1',
             ],
         ]);
