@@ -122,7 +122,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('users.resurrections.destroy', ['user' => auth()->user(), '$resurrection' => $resurrection]) }}"
+                                            action="{{ route('users.resurrections.destroy', ['user' => auth()->user(), 'resurrection' => $resurrection]) }}"
                                             method="POST"
                                             x-data
                                         >
