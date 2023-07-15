@@ -83,6 +83,7 @@
                                             x-data
                                         >
                                             @csrf
+                                            @method('DELETE')
                                             <button
                                                 class="form__button form__button--text"
                                             >
