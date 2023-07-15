@@ -45,7 +45,6 @@ class StoreTorrentRequest extends FormRequest
                 'required',
                 'file',
                 'mimes:torrent',
-                'mimetypes:application/x-bittorrent',
                 function (string $attribute, mixed $value, Closure $fail): void {
                     $decodedTorrent = TorrentTools::normalizeTorrent($value);
 
