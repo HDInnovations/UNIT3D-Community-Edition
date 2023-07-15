@@ -192,7 +192,7 @@ class PeerSearch extends Component
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
             ->when($this->torrent !== '', fn ($query) => $query->whereIn(
-                'torrents.name',
+                'peers.torrent_id',
                 Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
             ))
             ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', 1))
