@@ -25,6 +25,8 @@ class Playlist extends Model
     use Auditable;
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A User.
      */
@@ -39,9 +41,9 @@ class Playlist extends Model
     /**
      * Has Many Torrents.
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(PlaylistTorrent::class);
+        return $this->belongsToMany(Torrent::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
     }
 
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany

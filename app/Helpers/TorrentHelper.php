@@ -27,6 +27,7 @@ use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
 use App\Models\PrivateMessage;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
@@ -40,15 +41,18 @@ class TorrentHelper
         $appurl = config('app.url');
         $appname = config('app.name');
 
-        Torrent::approve($id);
-        $torrent = Torrent::with('user')->withAnyStatus()->where('id', '=', $id)->first();
+        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->find($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
+        $torrent->status = Torrent::APPROVED;
+        $torrent->moderated_at = now();
+        $torrent->moderated_by = auth()->id();
         $torrent->save();
 
         $uploader = $torrent->user;
 
         $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
+
         if ($wishes) {
             foreach ($wishes as $wish) {
                 $wish->source = sprintf('%s/torrents/%s', $appurl, $torrent->id);
@@ -97,6 +101,7 @@ class TorrentHelper
         if (config('irc-bot.enabled')) {
             $appname = config('app.name');
             $ircAnnounceBot = new IRCAnnounceBot();
+
             if ($anon == 0) {
                 $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
                 $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');

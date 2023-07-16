@@ -17,86 +17,7 @@
 @endsection
 
 @section('main')
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('mediahub.movies') }} ({{ $person->movie->count() }})</h2>
-        <div class="panel__body">
-            <table class="table table-striped clearfix">
-                <tbody>
-                    @forelse($person->movie as $movie)
-                        <tr>
-                            <td class="col-sm-1">
-                                <img src="{{ isset($movie->poster) ? tmdb_image('poster_small', $movie->poster) : 'https://via.placeholder.com/90x135' }}"
-                                    alt="{{ $movie->name }}" class="img-responsive">
-                            </td>
-                            <td class="col-sm-5">
-                                <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('torrents', ['view' => 'group', 'tmdbId' => $movie->id, 'categories' => $movieCategoryIds]) }}">{{ $movie->title }}</a><br>
-                                <i class="fa fa-tags text-red" aria-hidden="true"></i>
-                                <strong>
-                                    @if ($movie->genres)
-                                        @foreach ($movie->genres as $genre)
-                                            {{ $genre->name }}
-                                        @endforeach
-                                    @endif
-                                </strong>
-                                <br>
-                                <i class="fa fa-calendar text-blue" aria-hidden="true"></i>
-                                <strong>{{ __('mediahub.release-date') }} </strong>{{ $movie->release_date }}<br>
-                            </td>
-                            <td class="col-xs-pull-6"><i class="fa fa-book text-gold" aria-hidden="true"></i>
-                                <strong>{{ __('mediahub.plot') }} </strong>
-                                {{ $movie->overview }}
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3">{{ __('mediahub.no-data') }}</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </section>
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('mediahub.shows') }} ({{ $person->tv->count() }})</h2>
-        <div class="panel__body">
-            <table class="table table-striped">
-                <tbody>
-                    @forelse($person->tv as $show)
-                        <tr>
-                            <td class="col-sm-1">
-                                <img src="{{ isset($show->poster) ? tmdb_image('poster_small', $show->poster) : 'https://via.placeholder.com/90x135' }}"
-                                    alt="{{ $show->name }}" class="img-responsive">
-                            </td>
-                            <td class="col-sm-5">
-                                <i class="fa fa-eye text-green" aria-hidden="true"></i> <a
-                                        href="{{ route('torrents', ['view' => 'group', 'tmdbId' => $show->id, 'id' => $show->id, 'categories' => $tvCategoryIds]) }}">{{ $show->name }}</a><br>
-                                <i class="fa fa-tags text-red" aria-hidden="true"></i>
-                                <strong>
-                                    @if ($show->genres)
-                                        @foreach ($show->genres as $genre)
-                                            {{ $genre->name }}
-                                        @endforeach
-                                    @endif
-                                </strong>
-                                <br>
-                                <i class="fa fa-calendar text-blue" aria-hidden="true"></i>
-                                <strong>{{ __('mediahub.release-date') }} </strong>{{ $show->first_air_date }}<br>
-                            </td>
-                            <td class="col-xs-pull-6"><i class="fa fa-book text-gold" aria-hidden="true"></i>
-                                <strong>{{ __('mediahub.plot') }} </strong>
-                                {{ $show->overview }}
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3">{{ __('mediahub.no-data') }}</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </section>
+    @livewire('person-credit', ['person' => $person])
 @endsection
 
 @section('sidebar')
@@ -105,6 +26,7 @@
         <img
             src="{{ isset($person->still) ? tmdb_image('cast_big', $person->still) : 'https://via.placeholder.com/300x450' }}"
             alt="{{ $person->name }}"
+            style="max-width: 100%;"
         >
         <div class="panel__body">{{ $person->biography ?? 'No biography' }}</div>
         <dl class="key-value">
@@ -116,13 +38,13 @@
             <dd>{{ $person->movie->count() ?? '0' }}</dd>
             <dt>{{ __('mediahub.first-seen') }} </dt>
             <dd>
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->movie->first()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->movie->first()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
                     {{ $person->movie->first()->title ?? 'N/A'}}
                 </a>
             </dd>
             <dt>{{ __('mediahub.latest-project') }}</dt>
             <dd>
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->movie->last()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->movie->last()->id ?? '0', 'categories' => $movieCategoryIds]) }}">
                     {{ $person->movie->last()->title ?? 'N/A' }}
                 </a>
             </dd>
@@ -131,14 +53,14 @@
             <dt>{{ __('mediahub.first-seen') }}</dt>
             <dd>
                 In
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->tv->first()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->tv->first()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
                     {{ $person->tv->first()->name ?? 'N/A'}}
                 </a>
             </dd>
             <dt>{{ __('mediahub.latest-project') }}</dt>
             <dd>
                 Last in
-                <a href="{{ route('torrents', ['view' => 'group', 'tmdb' => $person->tv->last()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
+                <a href="{{ route('torrents.index', ['view' => 'group', 'tmdb' => $person->tv->last()->id ?? '0', 'categories' => $tvCategoryIds]) }}">
                     {{ $person->tv->last()->name ?? 'N/A' }}
                 </a>
             </dd>

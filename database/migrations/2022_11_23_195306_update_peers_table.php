@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Peer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +23,7 @@ return new class () extends Migration {
             ->get();
 
         foreach ($duplicates as $duplicate) {
-            $records = Peer::query()
+            $records = DB::table('peers')
                 ->where('torrent_id', '=', $duplicate->torrent_id)
                 ->where('user_id', '=', $duplicate->user_id)
                 ->where('peer_id', '=', $duplicate->peer_id)

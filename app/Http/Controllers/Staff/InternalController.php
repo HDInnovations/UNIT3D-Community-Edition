@@ -28,27 +28,27 @@ class InternalController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internals = Internal::all()->sortBy('name');
-
-        return view('Staff.internals.index', ['internals' => $internals]);
+        return view('Staff.internals.index', [
+            'internals' => Internal::orderBy('name')->get(),
+        ]);
     }
 
     /**
      * Edit A group.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(Internal $internal): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $internal = Internal::findOrFail($id);
-
-        return view('Staff.internals.edit', ['internal' => $internal]);
+        return view('Staff.internals.edit', [
+            'internal' => $internal,
+        ]);
     }
 
     /**
      * Save a group change.
      */
-    public function update(UpdateInternalRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateInternalRequest $request, Internal $internal): \Illuminate\Http\RedirectResponse
     {
-        Internal::where('id', '=', $id)->update($request->validated());
+        $internal->update($request->validated());
 
         return to_route('staff.internals.index')
             ->withSuccess('Internal Group Was Updated Successfully!');
@@ -76,9 +76,8 @@ class InternalController extends Controller
     /**
      * Delete A Internal Group.
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Internal $internal): \Illuminate\Http\RedirectResponse
     {
-        $internal = Internal::findOrFail($id);
         $internal->delete();
 
         return to_route('staff.internals.index')

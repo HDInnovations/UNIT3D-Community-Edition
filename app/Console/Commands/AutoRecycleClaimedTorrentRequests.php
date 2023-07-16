@@ -65,6 +65,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
             $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
                 ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
                 ->first();
+
             if ($requestClaim) {
                 $trUrl = href_request($torrentRequest);
                 $this->chatRepository->systemMessage(

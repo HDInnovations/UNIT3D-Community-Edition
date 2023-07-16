@@ -18,6 +18,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmailController extends Controller
 {
@@ -26,31 +27,26 @@ class EmailController extends Controller
      */
     protected function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        $changedByStaff = $request->user()->id !== $user->id;
+        $changedByStaff = $request->user()->isNot($user);
 
         abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level < $user->group->level, 403);
 
-        if (config('email-blacklist.enabled')) {
-            $request->validate([
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:70',
-                    'unique:users',
-                    new EmailBlacklist(),
-                ],
-            ]);
-        } else {
-            $request->validate([
-                'email' => 'required|string|email|max:70|unique:users',
-            ]);
-        }
+        $request->validate([
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:70',
+                'unique:users',
+                Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist()),
+            ],
+        ]);
 
-        $user->email = $request->email;
-        $user->save();
+        $user->update([
+            'email' => $request->email,
+        ]);
 
         if ($changedByStaff) {
             PrivateMessage::create([
@@ -70,7 +66,7 @@ class EmailController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.email.edit', ['user' => $user]);
     }

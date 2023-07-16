@@ -57,7 +57,7 @@
                         @forelse($torrentRequests as $torrentRequest)
                             <tr>
                                 <td>
-                                    <a href="{{ route('requests.show', ['id' => $torrentRequest->id]) }}">
+                                    <a href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}">
                                         {{ $torrentRequest->name }}
                                     </a>
                                 </td>
@@ -153,7 +153,7 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('torrent.category') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @foreach (App\Models\Category::select(['id', 'name', 'position'])->get()->sortBy('position') as $category)
+                                    @foreach (App\Models\Category::select(['id', 'name', 'position'])->orderBy('position')->get() as $category)
                                         <p class="form__group">
                                             <label class="form__label">
                                                 <input
@@ -173,7 +173,7 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.type') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @foreach (App\Models\Type::select(['id', 'name', 'position'])->get()->sortBy('position') as $type)
+                                    @foreach (App\Models\Type::select(['id', 'name', 'position'])->orderBy('position')->get() as $type)
                                         <p class="form__group">
                                             <label class="form__label">
                                                 <input
@@ -193,7 +193,7 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.resolution') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @foreach (App\Models\Resolution::select(['id', 'name', 'position'])->get()->sortBy('position') as $resolution)
+                                    @foreach (App\Models\Resolution::select(['id', 'name', 'position'])->orderBy('position')->get() as $resolution)
                                         <p class="form__group">
                                             <label class="form__label">
                                                 <input

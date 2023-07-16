@@ -31,7 +31,10 @@ class UpdateReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'verdict' => 'required|min:3'
+            'verdict' => [
+                'required',
+                'min:3',
+            ],
         ];
     }
 }

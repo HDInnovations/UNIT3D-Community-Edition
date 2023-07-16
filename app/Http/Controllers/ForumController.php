@@ -28,29 +28,20 @@ class ForumController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        $categories = Forum::query()
-            ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $user->group_id]])
-            ])
-            ->where('parent_id', '=', 0)
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $user->group_id]])
-            ->orderBy('position')
-            ->get();
-
-        // Total Forums Count
-        $numForums = Forum::count();
-        // Total Posts Count
-        $numPosts = Post::count();
-        // Total Topics Count
-        $numTopics = Topic::count();
-
         return view('forum.index', [
-            'categories' => $categories,
-            'num_posts'  => $numPosts,
-            'num_forums' => $numForums,
-            'num_topics' => $numTopics,
+            'categories' => Forum::query()
+                ->with([
+                    'forums' => fn ($query) => $query
+                        ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]]),
+                    'forums.latestPoster',
+                ])
+                ->where('parent_id', '=', 0)
+                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
+                ->orderBy('position')
+                ->get(),
+            'num_posts'  => Post::count(),
+            'num_forums' => Forum::count(),
+            'num_topics' => Topic::count(),
         ]);
     }
 

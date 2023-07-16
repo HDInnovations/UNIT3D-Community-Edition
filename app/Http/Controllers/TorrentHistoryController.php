@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 
 class TorrentHistoryController extends Controller
@@ -23,9 +24,9 @@ class TorrentHistoryController extends Controller
      */
     public function index(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::with(['user'])->where('torrent_id', '=', $id)->latest()->get();
-
-        return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
+        return view('torrent.history', [
+            'torrent'   => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
+            'histories' => History::with(['user'])->where('torrent_id', '=', $id)->latest()->get(),
+        ]);
     }
 }

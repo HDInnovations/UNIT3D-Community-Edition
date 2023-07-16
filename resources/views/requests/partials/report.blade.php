@@ -4,7 +4,7 @@
     </button>
     <dialog class="dialog" x-ref="dialog">
         <h3 class="dialog__heading">
-            {{ __('request.report') }}: {{ $torrentRequest->name }}</h4>
+            {{ __('request.report') }}: {{ $torrentRequest->name }}
         </h3>
         <form
             class="dialog__form"

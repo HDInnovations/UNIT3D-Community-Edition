@@ -21,7 +21,7 @@ class AuditControllerTest extends TestCase
         $audit = Audit::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.audits.destroy', ['id' => $audit->id]));
+        $response = $this->actingAs($user)->delete(route('staff.audits.destroy', ['audit' => $audit]));
 
         $response->assertRedirect(withSuccess('Audit Record Has Successfully Been Deleted'));
         $this->assertModelMissing($staff);

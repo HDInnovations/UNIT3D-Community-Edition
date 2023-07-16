@@ -60,6 +60,7 @@ class EmailBlacklist implements Rule
     protected function appendCustomDomains(): void
     {
         $appendList = config('email-blacklist.append');
+
         if ($appendList === null) {
             return;
         }

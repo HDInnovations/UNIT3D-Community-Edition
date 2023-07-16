@@ -26,20 +26,18 @@ class PeerController extends Controller
      */
     public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
-
-        $history = DB::table('history')
-            ->where('user_id', '=', $user->id)
-            ->where('created_at', '>', $user->created_at)
-            ->selectRaw('sum(actual_uploaded) as upload')
-            ->selectRaw('sum(uploaded) as credited_upload')
-            ->selectRaw('sum(actual_downloaded) as download')
-            ->selectRaw('sum(downloaded) as credited_download')
-            ->first();
+        abort_unless($request->user()->group->is_modo || $request->user()->is($user), 403);
 
         return view('user.peer.index', [
             'user'    => $user,
-            'history' => $history,
+            'history' => DB::table('history')
+                ->where('user_id', '=', $user->id)
+                ->where('created_at', '>', $user->created_at)
+                ->selectRaw('sum(actual_uploaded) as upload')
+                ->selectRaw('sum(uploaded) as credited_upload')
+                ->selectRaw('sum(actual_downloaded) as download')
+                ->selectRaw('sum(downloaded) as credited_download')
+                ->first(),
         ]);
     }
 
@@ -48,10 +46,10 @@ class PeerController extends Controller
      */
     public function massDestroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         // Check if User can flush
-        if ($request->user()->own_flushes == 0) {
+        if ($request->user()->own_flushes <= 0) {
             return redirect()->back()->withErrors('You can only flush twice a day!');
         }
 
@@ -70,7 +68,7 @@ class PeerController extends Controller
                 'updated_at' => DB::raw('updated_at'),
             ]);
 
-        $user->own_flushes--;
+        $user->decrement('own_flushes');
 
         return redirect()->back()->withSuccess('All peers last announced from the client over 70 minutes ago have been flushed successfully!');
     }

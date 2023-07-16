@@ -14,6 +14,7 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreWatchedUserRequest extends FormRequest
 {
@@ -31,7 +32,15 @@ class StoreWatchedUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => 'required|string|min:3',
+            'message' => [
+                'required',
+                'string',
+                'min:3',
+            ],
+            'user_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ]
         ];
     }
 }

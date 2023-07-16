@@ -46,6 +46,7 @@ class FlushController extends Controller
 
         foreach ($peers as $peer) {
             $history = History::where('torrent_id', '=', $peer->torrent_id)->where('user_id', '=', $peer->user_id)->first();
+
             if ($history) {
                 $history->active = false;
                 $history->timestamps = false;

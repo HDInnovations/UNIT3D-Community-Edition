@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.categories.update', ['id' => $category->id]) }}"
+                action="{{ route('staff.categories.update', ['category' => $category]) }}"
                 enctype="multipart/form-data"
             >
                 @method('PATCH')
@@ -87,7 +87,7 @@
                         required
                     >
                         <option class="form__option" value="movie" @selected($category->movie_meta)>
-                            Movie metdata
+                            Movie metadata
                         </option>
                         <option class="form__option" value="tv" @selected($category->tv_meta)>
                             TV metadata
@@ -96,7 +96,7 @@
                             Game metadata
                         </option>
                         <option class="form__option" value="music" @selected($category->music_meta)>
-                            Music metdata
+                            Music metadata
                         </option>
                         <option class="form__option" value="no" @selected($category->no_meta)>
                             No metadata

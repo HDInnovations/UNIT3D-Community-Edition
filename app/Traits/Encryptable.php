@@ -27,6 +27,7 @@ trait Encryptable
             } catch (\Illuminate\Contracts\Encryption\DecryptException $decryptException) {
                 $decryptedValue = 'The value could not be decrypted.';
             }
+
             return $decryptedValue;
         }
 

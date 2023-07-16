@@ -1,55 +1,5 @@
 <?php
 
-use App\Models\Application;
-use App\Models\Article;
-use App\Models\Audit;
-use App\Models\Ban;
-use App\Models\BonTransactions;
-use App\Models\Bookmark;
-use App\Models\BotTransaction;
-use App\Models\Comment;
-use App\Models\FailedLoginAttempt;
-use App\Models\FeaturedTorrent;
-use App\Models\Forum;
-use App\Models\FreeleechToken;
-use App\Models\Graveyard;
-use App\Models\History;
-use App\Models\Invite;
-use App\Models\Like;
-use App\Models\Message;
-use App\Models\Note;
-use App\Models\Notification;
-use App\Models\Peer;
-use App\Models\PersonalFreeleech;
-use App\Models\Playlist;
-use App\Models\Poll;
-use App\Models\Post;
-use App\Models\PrivateMessage;
-use App\Models\Report;
-use App\Models\Rss;
-use App\Models\Seedbox;
-use App\Models\Subscription;
-use App\Models\Subtitle;
-use App\Models\Thank;
-use App\Models\Ticket;
-use App\Models\TicketAttachment;
-use App\Models\Topic;
-use App\Models\Torrent;
-use App\Models\TorrentDownload;
-use App\Models\TorrentRequest;
-use App\Models\TorrentRequestBounty;
-use App\Models\TwoStepAuth;
-use App\Models\User;
-use App\Models\UserActivation;
-use App\Models\UserAudible;
-use App\Models\UserEcho;
-use App\Models\UserNotification;
-use App\Models\UserPrivacy;
-use App\Models\Voter;
-use App\Models\Warning;
-use App\Models\Watchlist;
-use App\Models\Wish;
-use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -61,79 +11,70 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        // Update user_id columns that are using 0 instead of null
-        Schema::table('bon_transactions', function (Blueprint $table): void {
-            $table->unsignedInteger('sender')->nullable()->default(null)->change();
-            $table->unsignedInteger('receiver')->nullable()->default(null)->change();
-        });
-
-        BonTransactions::withoutGlobalScopes()->where('sender', '=', 0)->update(['sender' => null]);
-        BonTransactions::withoutGlobalScopes()->where('receiver', '=', 0)->update(['receiver' => null]);
-
-        $userIds = User::withoutGlobalScopes()->pluck('id');
+        $userIds = DB::table('users')->pluck('id');
 
         // 1 is ID of the System account
-        User::withoutGlobalScopes()
+        DB::table('users')
             ->whereIntegerNotInRaw('deleted_by', $userIds)
             ->whereNotNull('deleted_by')
             ->update(['deleted_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        AchievementProgress::withoutGlobalScopes()
+        DB::table('achievement_progress')
             ->whereIntegerNotInRaw('achiever_id', $userIds)
             ->whereNotNull('achiever_id')
             ->update(['achiever_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Application::withoutGlobalScopes()
+        DB::table('applications')
             ->whereIntegerNotInRaw('moderated_by', $userIds)
             ->whereNotNull('moderated_by')
             ->update(['moderated_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Application::withoutGlobalScopes()
+        DB::table('applications')
             ->whereIntegerNotInRaw('accepted_by', $userIds)
             ->whereNotNull('accepted_by')
             ->update(['accepted_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Article::withoutGlobalScopes()
+        DB::table('articles')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Audit::withoutGlobalScopes()
+        DB::table('audits')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Ban::withoutGlobalScopes()
+        DB::table('bans')
             ->whereIntegerNotInRaw('owned_by', $userIds)
             ->whereNotNull('owned_by')
             ->update(['owned_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Ban::withoutGlobalScopes()
+        DB::table('bans')
             ->whereIntegerNotInRaw('created_by', $userIds)
             ->whereNotNull('created_by')
             ->update(['created_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        BonTransactions::withoutGlobalScopes()
+        DB::table('bon_transactions')
             ->whereIntegerNotInRaw('sender', $userIds)
             ->whereNotNull('sender')
             ->update(['sender' => 1]);
-        BonTransactions::withoutGlobalScopes()
+        DB::table('bon_transactions')
             ->whereIntegerNotInRaw('receiver', $userIds)
             ->whereNotNull('receiver')
             ->update(['receiver' => 1]);
-        Bookmark::withoutGlobalScopes()
+        DB::table('bookmarks')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        BotTransaction::withoutGlobalScopes()
+        DB::table('bot_transactions')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Seedbox::withoutGlobalScopes()
+        DB::table('clients')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Comment::withoutGlobalScopes()
+        DB::table('comments')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        FailedLoginAttempt::withoutGlobalScopes()
+        DB::table('failed_login_attempts')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        FeaturedTorrent::withoutGlobalScopes()
+        DB::table('featured_torrents')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
@@ -145,219 +86,219 @@ return new class () extends Migration {
             ->whereIntegerNotInRaw('target_id', $userIds)
             ->whereNotNull('target_id')
             ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Forum::withoutGlobalScopes()
+        DB::table('forums')
             ->whereIntegerNotInRaw('last_post_user_id', $userIds)
             ->whereNotNull('last_post_user_id')
             ->update(['last_post_user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        FreeleechToken::withoutGlobalScopes()
+        DB::table('freeleech_tokens')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Graveyard::withoutGlobalScopes()
+        DB::table('graveyard')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        History::withoutGlobalScopes()
+        DB::table('history')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Invite::withoutGlobalScopes()
+        DB::table('invites')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Invite::withoutGlobalScopes()
+        DB::table('invites')
             ->whereIntegerNotInRaw('accepted_by', $userIds)
             ->whereNotNull('accepted_by')
             ->update(['accepted_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Like::withoutGlobalScopes()
+        DB::table('likes')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Message::withoutGlobalScopes()
+        DB::table('messages')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Message::withoutGlobalScopes()
+        DB::table('messages')
             ->whereIntegerNotInRaw('receiver_id', $userIds)
             ->whereNotNull('receiver_id')
             ->update(['receiver_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Notification::withoutGlobalScopes()
+        DB::table('notifications')
             ->whereIntegerNotInRaw('notifiable_id', $userIds)
             ->whereNotNull('notifiable_id')
             ->update(['notifiable_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Peer::withoutGlobalScopes()
+        DB::table('peers')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        PersonalFreeleech::withoutGlobalScopes()
+        DB::table('personal_freeleech')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Playlist::withoutGlobalScopes()
+        DB::table('playlists')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Poll::withoutGlobalScopes()
+        DB::table('polls')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Post::withoutGlobalScopes()
+        DB::table('posts')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        PrivateMessage::withoutGlobalScopes()
+        DB::table('private_messages')
             ->whereIntegerNotInRaw('sender_id', $userIds)
             ->whereNotNull('sender_id')
             ->update(['sender_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        PrivateMessage::withoutGlobalScopes()
+        DB::table('private_messages')
             ->whereIntegerNotInRaw('receiver_id', $userIds)
             ->whereNotNull('receiver_id')
             ->update(['receiver_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Report::withoutGlobalScopes()
+        DB::table('reports')
             ->whereIntegerNotInRaw('reporter_id', $userIds)
             ->whereNotNull('reporter_id')
             ->update(['reporter_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Report::withoutGlobalScopes()
+        DB::table('reports')
             ->whereIntegerNotInRaw('staff_id', $userIds)
             ->whereNotNull('staff_id')
             ->update(['staff_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Report::withoutGlobalScopes()
+        DB::table('reports')
             ->whereIntegerNotInRaw('reported_user', $userIds)
             ->whereNotNull('reported_user')
             ->update(['reported_user' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TorrentRequestBounty::withoutGlobalScopes()
+        DB::table('request_bounty')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TorrentRequest::withoutGlobalScopes()
+        DB::table('requests')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TorrentRequest::withoutGlobalScopes()
+        DB::table('requests')
             ->whereIntegerNotInRaw('filled_by', $userIds)
             ->whereNotNull('filled_by')
             ->update(['filled_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TorrentRequest::withoutGlobalScopes()
+        DB::table('requests')
             ->whereIntegerNotInRaw('approved_by', $userIds)
             ->whereNotNull('approved_by')
             ->update(['approved_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Rss::withoutGlobalScopes()
+        DB::table('rss')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Rss::withoutGlobalScopes()
+        DB::table('rss')
             ->whereIntegerNotInRaw('staff_id', $userIds)
             ->whereNotNull('staff_id')
             ->update(['staff_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Subscription::withoutGlobalScopes()
+        DB::table('subscriptions')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Subtitle::withoutGlobalScopes()
+        DB::table('subtitles')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Subtitle::withoutGlobalScopes()
+        DB::table('subtitles')
             ->whereIntegerNotInRaw('moderated_by', $userIds)
             ->whereNotNull('moderated_by')
             ->update(['moderated_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Thank::withoutGlobalScopes()
+        DB::table('thanks')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TicketAttachment::withoutGlobalScopes()
+        DB::table('ticket_attachments')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Ticket::withoutGlobalScopes()
+        DB::table('tickets')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Ticket::withoutGlobalScopes()
+        DB::table('tickets')
             ->whereIntegerNotInRaw('staff_id', $userIds)
             ->whereNotNull('staff_id')
             ->update(['staff_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Topic::withoutGlobalScopes()
+        DB::table('topics')
             ->whereIntegerNotInRaw('first_post_user_id', $userIds)
             ->whereNotNull('first_post_user_id')
             ->update(['first_post_user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Topic::withoutGlobalScopes()
+        DB::table('topics')
             ->whereIntegerNotInRaw('last_post_user_id', $userIds)
             ->whereNotNull('last_post_user_id')
             ->update(['last_post_user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TorrentDownload::withoutGlobalScopes()
+        DB::table('torrent_downloads')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Torrent::withoutGlobalScopes()
+        DB::table('torrents')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        TwoStepAuth::withoutGlobalScopes()
+        DB::table('twostep_auth')
             ->whereIntegerNotInRaw('userId', $userIds)
             ->whereNotNull('userId')
             ->update(['userId' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserActivation::withoutGlobalScopes()
+        DB::table('user_activations')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserAudible::withoutGlobalScopes()
+        DB::table('user_audibles')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserAudible::withoutGlobalScopes()
+        DB::table('user_audibles')
             ->whereIntegerNotInRaw('target_id', $userIds)
             ->whereNotNull('target_id')
             ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserEcho::withoutGlobalScopes()
+        DB::table('user_echoes')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserEcho::withoutGlobalScopes()
+        DB::table('user_echoes')
             ->whereIntegerNotInRaw('target_id', $userIds)
             ->whereNotNull('target_id')
             ->update(['target_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Note::withoutGlobalScopes()
+        DB::table('user_notes')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Note::withoutGlobalScopes()
+        DB::table('user_notes')
             ->whereIntegerNotInRaw('staff_id', $userIds)
             ->whereNotNull('staff_id')
             ->update(['staff_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        UserNotification::withoutGlobalScopes()
+        DB::table('user_notifications')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1]);
-        UserPrivacy::withoutGlobalScopes()
+        DB::table('user_privacy')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1]);
-        Voter::withoutGlobalScopes()
+        DB::table('voters')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Warning::withoutGlobalScopes()
+        DB::table('warnings')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Warning::withoutGlobalScopes()
+        DB::table('warnings')
             ->whereIntegerNotInRaw('warned_by', $userIds)
             ->whereNotNull('warned_by')
             ->update(['warned_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Warning::withoutGlobalScopes()
+        DB::table('warnings')
             ->whereIntegerNotInRaw('deleted_by', $userIds)
             ->whereNotNull('deleted_by')
             ->update(['deleted_by' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Watchlist::withoutGlobalScopes()
+        DB::table('watchlists')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Watchlist::withoutGlobalScopes()
+        DB::table('watchlists')
             ->whereIntegerNotInRaw('staff_id', $userIds)
             ->whereNotNull('staff_id')
             ->update(['staff_id' => 1, 'updated_at' => DB::raw('updated_at')]);
-        Wish::withoutGlobalScopes()
+        DB::table('wishes')
             ->whereIntegerNotInRaw('user_id', $userIds)
             ->whereNotNull('user_id')
             ->update(['user_id' => 1, 'updated_at' => DB::raw('updated_at')]);

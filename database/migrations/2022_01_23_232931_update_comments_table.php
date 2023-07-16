@@ -19,6 +19,7 @@ return new class () extends Migration {
         });
 
         $comments = Comment::all();
+
         foreach ($comments as $comment) {
             if ($comment->torrent_id !== null) {
                 $comment->commentable_id = $comment->torrent_id;

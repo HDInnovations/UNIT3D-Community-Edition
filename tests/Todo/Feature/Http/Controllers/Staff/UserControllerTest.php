@@ -23,7 +23,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('user_edit', ['username' => $user->username]), [
+        $response = $this->actingAs($user)->post(route('staff.users.update', ['user' => $user]), [
             // TODO: send request data
         ]);
 
@@ -41,7 +41,7 @@ class UserControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('user_search'));
+        $response = $this->actingAs($user)->get(route('staff.users.index'));
 
         $response->assertOk();
         $response->assertViewIs('Staff.user.user_search');
@@ -64,7 +64,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('user_permissions', ['username' => $user->username]), [
+        $response = $this->actingAs($user)->post(route('staff.users.update_permissions', ['user' => $user]), [
             // TODO: send request data
         ]);
 
@@ -101,7 +101,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('user_setting', ['username' => $user->username]));
+        $response = $this->actingAs($user)->get(route('staff.users.edit', ['user' => $user]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.user.user_edit');

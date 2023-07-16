@@ -6,12 +6,12 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}" class="breadcrumb__link">
             {{ $torrent->name }}
         </a>
     </li>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="text-center">
                     <h3 class="movie-title">
-                        <a href="{{ route('torrent', ['id' => $torrent->id]) }}"
+                        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
                            title="{{ $torrent->name }}">{{ $torrent->name }}</a>
                     </h3>
                     <ul class="list-inline">
@@ -91,10 +91,10 @@
                             {{ strtoupper(__('torrent.passed')) }}</span>
                 @endif
                 <strong>{{ __('torrent.moderation') }}: </strong>
-                @if ($torrent->isRejected())<span class="badge-extra text-red"><i
+                @if ($torrent->status === \App\Models\Torrent::REJECTED)<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.rejected')) }}</span>
-                @elseif ($torrent->isPending())<span class="badge-extra text-orange"><i
+                @elseif ($torrent->status === \App\Models\Torrent::PENDING)<span class="badge-extra text-orange"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.pending')) }}</span>
                 @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>

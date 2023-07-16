@@ -42,8 +42,10 @@ class MediaInfo
         $lines = preg_split("/\r\n|\n|\r/", $string);
 
         $output = [];
+
         foreach ($lines as $line) {
             $line = trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
+
             if (preg_match(self::REGEX_SECTION, $line)) {
                 $section = $line;
                 $output[$section] = [];
@@ -64,8 +66,10 @@ class MediaInfo
     private function parseSections(array $sections): array
     {
         $output = [];
+
         foreach ($sections as $key => $section) {
             $keySection = strtolower(explode(' ', $key)[0]);
+
             if (! empty($section)) {
                 if ($keySection === 'general') {
                     $output[$keySection] = $this->parseProperty($section, $keySection);
@@ -81,10 +85,12 @@ class MediaInfo
     private function parseProperty($sections, $section): array
     {
         $output = [];
+
         foreach ($sections as $info) {
             $property = null;
             $value = null;
             $info = explode(':', $info, 2);
+
             if (\count($info) >= 2) {
                 $property = strtolower(trim($info[0]));
                 $value = trim($info[1]);
@@ -120,7 +126,6 @@ class MediaInfo
                         }
 
                         break;
-
                     case 'video':
                         switch ($property) {
                             case 'format':
@@ -169,6 +174,7 @@ class MediaInfo
                             case 'display aspect ratio':
                             case 'displayaspectratio':
                                 $output['aspect_ratio'] = str_replace('/', ':', $value); // mediainfo sometimes uses / instead of :
+
                                 break;
                             case 'bit rate':
                             case 'bitrate':
@@ -230,7 +236,6 @@ class MediaInfo
                         }
 
                         break;
-
                     case 'audio':
                         switch ($property) {
                             case 'codec id':
@@ -272,7 +277,6 @@ class MediaInfo
                         }
 
                         break;
-
                     case 'text':
                         switch ($property) {
                             case 'codec id':
@@ -322,6 +326,7 @@ class MediaInfo
     {
         $number = (float) str_replace(' ', '', $string);
         preg_match('/[KMGTPEZ]/i', $string, $size);
+
         if (! empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }

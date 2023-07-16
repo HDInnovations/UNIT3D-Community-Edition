@@ -24,6 +24,7 @@ class SubscribedForum extends Component
     final public function getForumsProperty()
     {
         return Forum::query()
+            ->with('latestPoster')
             ->where('parent_id', '!=', 0)
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])

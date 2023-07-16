@@ -16,7 +16,7 @@
 
 @section('nav-tabs')
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('torrents') }}">
+        <a class="nav-tab--active__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.search') }}
         </a>
     </li>
@@ -31,7 +31,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+        <a class="nav-tab__link" href="{{ route('torrents.create', ['category_id' => 1]) }}">
             {{ __('common.upload') }}
         </a>
     </li>

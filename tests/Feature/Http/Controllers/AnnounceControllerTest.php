@@ -28,7 +28,7 @@ class AnnounceControllerTest extends TestCase
 
         Torrent::factory()->create([
             'info_hash' => $info_hash,
-            'status'    => 1, // Approved
+            'status'    => Torrent::APPROVED,
         ]);
 
         $headers = [

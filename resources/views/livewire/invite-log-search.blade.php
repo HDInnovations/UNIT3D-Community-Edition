@@ -80,16 +80,40 @@
     <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>{{ __('user.sender') }}</th>
-                <th>{{ __('common.email') }}</th>
-                <th>Code</th>
-                <th>{{ __('user.created-on') }}</th>
-                <th>{{ __('user.expires-on') }}</th>
-                <th>{{ __('user.accepted-by') }}</th>
-                <th>{{ __('user.accepted-at') }}</th>
-            </tr>
+                <tr>
+                    <th wire:click="sortBy('id')" role="columnheader button">
+                        ID
+                        @include('livewire.includes._sort-icon', ['field' => 'id'])
+                    </th>
+                    <th wire:click="sortBy('user_id')" role="columnheader button">
+                        {{ __('user.sender') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                    </th>
+                    <th wire:click="sortBy('email')" role="columnheader button">
+                        {{ __('common.email') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'email'])
+                    </th>
+                    <th wire:click="sortBy('code')" role="columnheader button">
+                        Code
+                        @include('livewire.includes._sort-icon', ['field' => 'code'])
+                    </th>
+                    <th wire:click="sortBy('created_at')" role="columnheader button">
+                        {{ __('user.created-on') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    </th>
+                    <th wire:click="sortBy('expires_on')" role="columnheader button">
+                        {{ __('user.expires-on') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'expires_on'])
+                    </th>
+                    <th wire:click="sortBy('accepted_by')" role="columnheader button">
+                        {{ __('user.accepted-by') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'accepted_by'])
+                    </th>
+                    <th wire:click="sortBy('accepted_at')" role="columnheader button">
+                        {{ __('user.accepted-at') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'accepted_at'])
+                    </th>
+                </tr>
             </thead>
             <tbody>
             @forelse ($invites as $invite)
@@ -120,6 +144,11 @@
                     <td>
                         <time datetime="{{ $invite->accepted_at ?? '' }}">
                             {{ $invite->accepted_at ?? 'N/A' }}
+                        </time>
+                    </td>
+                    <td>
+                        <time datetime="{{ $invite->deleted_at ?? '' }}">
+                            {{ $invite->deleted_at ?? 'N/A' }}
                         </time>
                     </td>
                 </tr>

@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -26,7 +26,7 @@
             <div class="panel__actions">
                 <form
                     class="form form--horizontal panel__action"
-                    action="{{ route('wishes.store') }}"
+                    action="{{ route('users.wishes.store', ['user' => $user]) }}"
                     method="POST"
                 >
                     @csrf
@@ -69,7 +69,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('torrents', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
+                                <a href="{{ route('torrents.index', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
                                     Torrents
                                 </a>
                             </td>
@@ -84,7 +84,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('wishes.destroy', ['id' => $wish->id]) }}"
+                                            action="{{ route('users.wishes.destroy', ['user' => $user, 'wish' => $wish]) }}"
                                             method="POST"
                                             x-data
                                         >

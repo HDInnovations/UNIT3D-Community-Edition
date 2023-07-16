@@ -73,6 +73,10 @@
                     {{ __('user.last-login') }}
                     @include('livewire.includes._sort-icon', ['field' => 'last_login'])
                 </th>
+                <th wire:click="sortBy('last_action')" role="columnheader button">
+                    {{ __('user.last-action') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'last_action'])
+                </th>
                 <th>{{ __('common.action') }}</th>
             </tr>
             @forelse ($users as $user)
@@ -95,11 +99,14 @@
                         <time datetime="{{ $user->last_login }}">{{ $user->last_login ?? 'Never' }}</time>
                     </td>
                     <td>
+                        <time datetime="{{ $user->last_action }}">{{ $user->last_action ?? 'Never' }}</time>
+                    </td>
+                    <td>
                         <menu class="data-table__actions">
                             <li class="data-table__action">
                                 <a
                                     class="form__button form__button--text"
-                                    href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                    href="{{ route('staff.users.edit', ['user' => $user]) }}"
                                 >
                                     {{ __('common.edit') }}
                                 </a>

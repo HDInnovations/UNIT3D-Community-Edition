@@ -21,7 +21,7 @@ class PlaylistTorrentControllerTest extends TestCase
         $playlist_torrent = PlaylistTorrent::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('playlists.detach', ['id' => $playlist_torrent->id]));
+        $response = $this->actingAs($user)->delete(route('playlist_torrents.destroy', ['playlistTorrent' => $playlist_torrent]));
 
         $response->assertRedirect(withSuccess('Torrent Has Successfully Been Detached From Your Playlist.'));
         $this->assertModelMissing($playlists);
@@ -38,7 +38,7 @@ class PlaylistTorrentControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('playlists.attach'), [
+        $response = $this->actingAs($user)->post(route('playlist_torrents.store'), [
             // TODO: send request data
         ]);
 

@@ -29,9 +29,9 @@ class PageController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $pages = Page::all();
-
-        return view('Staff.page.index', ['pages' => $pages]);
+        return view('Staff.page.index', [
+            'pages' => Page::all(),
+        ]);
     }
 
     /**
@@ -56,19 +56,19 @@ class PageController extends Controller
     /**
      * Page Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Page $page): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $page = Page::findOrFail($id);
-
-        return view('Staff.page.edit', ['page' => $page]);
+        return view('Staff.page.edit', [
+            'page' => $page,
+        ]);
     }
 
     /**
      * Edit A Page.
      */
-    public function update(UpdatePageRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdatePageRequest $request, Page $page): \Illuminate\Http\RedirectResponse
     {
-        Page::where('id', '=', $id)->update($request->validated());
+        $page->update($request->validated());
 
         return to_route('staff.pages.index')
             ->withSuccess('Page has been edited successfully');
@@ -79,9 +79,9 @@ class PageController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Page $page): \Illuminate\Http\RedirectResponse
     {
-        Page::findOrFail($id)->delete();
+        $page->delete();
 
         return to_route('staff.pages.index')
             ->withSuccess('Page has been deleted successfully');

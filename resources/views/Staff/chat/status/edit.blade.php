@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.statuses.update', ['id' => $chatstatus->id]) }}"
+                action="{{ route('staff.statuses.update', ['chatStatus' => $chatstatus]) }}"
                 enctype="multipart/form-data"
             >
                 @csrf

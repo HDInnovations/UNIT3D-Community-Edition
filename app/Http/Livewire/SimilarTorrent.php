@@ -14,18 +14,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use App\Models\FeaturedTorrent;
-use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Movie;
-use App\Models\Peer;
-use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
-use App\Models\Subtitle;
 use App\Models\Torrent;
-use App\Models\TorrentFile;
 use App\Models\Tv;
-use App\Models\Warning;
+use App\Services\Unit3dAnnounce;
+use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -76,10 +71,28 @@ class SimilarTorrent extends Component
 
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
+        $user = auth()->user();
+
         return Torrent::query()
             ->with('user:id,username,group_id', 'category', 'type', 'resolution')
             ->withCount(['thanks', 'comments'])
-            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', auth()->id())])
+            ->withExists([
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
+            ])
             ->when(
                 $this->category->movie_meta,
                 fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),
@@ -134,6 +147,7 @@ class SimilarTorrent extends Component
 
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
+
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
                 if (! \in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
@@ -142,29 +156,37 @@ class SimilarTorrent extends Component
 
             // Reset Requests
             $torrent->requests()->update([
-                'filled_by'     => null,
-                'filled_when'   => null,
-                'torrent_id'    => null,
-                'approved_by'   => null,
-                'approved_when' => null,
+                'torrent_id' => null,
             ]);
 
             //Remove Torrent related info
             cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
-            Peer::where('torrent_id', '=', $torrent->id)->delete();
-            History::where('torrent_id', '=', $torrent->id)->delete();
-            Warning::where('torrent', '=', $torrent->id)->delete();
-            TorrentFile::where('torrent_id', '=', $torrent->id)->delete();
-            PlaylistTorrent::where('torrent_id', '=', $torrent->id)->delete();
-            Subtitle::where('torrent_id', '=', $torrent->id)->delete();
-            Graveyard::where('torrent_id', '=', $torrent->id)->delete();
-            if ($torrent->featured === 1) {
-                FeaturedTorrent::where('torrent_id', '=', $torrent->id)->delete();
+
+            $torrent->comments()->delete();
+            $torrent->peers()->delete();
+            $torrent->history()->delete();
+            $torrent->hitrun()->delete();
+            $torrent->files()->delete();
+            $torrent->playlists()->detach();
+            $torrent->subtitles()->delete();
+            $torrent->resurrections()->delete();
+            $torrent->featured()->delete();
+
+            $freeleechTokens = $torrent->freeleechTokens();
+
+            foreach ($freeleechTokens->get() as $freeleechToken) {
+                cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
             }
+
+            $freeleechTokens->delete();
+
+            $cacheKey = config('cache.prefix').'torrents:infohash2id';
+            Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+
+            Unit3dAnnounce::removeTorrent($torrent);
 
             $torrent->delete();
         }
-
 
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();
@@ -192,22 +214,9 @@ class SimilarTorrent extends Component
         ]);
     }
 
-    final public function deleteSingleRecord($torrentId): void
-    {
-        $torrent = Torrent::findOrFail($torrentId);
-        $torrent->delete();
-        $this->checked = array_diff($this->checked, [$torrentId]);
-
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type'    => 'success',
-            'message' => 'Torrent Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded this torrent.',
-        ]);
-    }
-
     final public function getPersonalFreeleechProperty()
     {
-        return cache()->get('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->id());
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

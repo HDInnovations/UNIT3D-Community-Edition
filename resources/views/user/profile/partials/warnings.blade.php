@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: 'undeleted'}"">
+<section class="panelV2" x-data="{ tab: 'automated'}">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('user.warnings') }}</h2>
         <div class="panel__actions">
@@ -13,7 +13,7 @@
                     <form
                         class="dialog__form"
                         method="POST"
-                        action="{{ route('user_warn', ['username' => $user->username]) }}"
+                        action="{{ route('users.warnings.store', ['user' => $user]) }}"
                         x-on:click.outside="open = false; $refs.dialog.close();"
                     >
                         @csrf
@@ -39,7 +39,7 @@
             </div>
             <form
                 class="panel__action"
-                action="{{ route('massDeleteWarnings', ['username' => $user->username]) }}"
+                action="{{ route('users.warnings.mass_destroy', ['user' => $user]) }}"
                 method="POST"
                 x-data
             >
@@ -68,10 +68,18 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === 'undeleted' && 'panel__tab--active'"
-            x-on:click="tab = 'undeleted'"
+            x-bind:class="tab === 'automated' && 'panel__tab--active'"
+            x-on:click="tab = 'automated'"
         >
-            {{ __('user.warnings') }} ({{ $user->active_warnings_count ?? 0 }})
+            Automated ({{ $user->auto_warnings_count ?? 0 }})
+        </li>
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === 'manual' && 'panel__tab--active'"
+            x-on:click="tab = 'manual'"
+        >
+            Manual ({{ $user->manual_warnings_count ?? 0 }})
         </li>
         <li
             class="panel__tab"
@@ -79,10 +87,10 @@
             x-bind:class="tab === 'deleted' && 'panel__tab--active'"
             x-on:click="tab = 'deleted'"
         >
-            {{ __('user.soft-deleted-warnings') }} ({{ $user->soft_deleted_warnings_count ?? 0 }})
+            Soft Deleted ({{ $user->soft_deleted_warnings_count ?? 0 }})
         </li>
     </menu>
-    <div class="data-table-wrapper" x-show="tab === 'undeleted'">
+    <div class="data-table-wrapper" x-show="tab === 'automated'">
         <table class="data-table">
             <thead>
                 <tr>
@@ -96,14 +104,14 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($warnings as $warning)
+                @forelse ($autoWarnings as $warning)
                     <tr>
                         <td>
                             <x-user_tag :user="$warning->staffuser" :anon="false" />
                         </td>
                         <td>
                             @isset($warning->torrenttitle)
-                                <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}">
                                     {{ $warning->torrenttitle->name }}
                                 </a>
                             @else
@@ -132,7 +140,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('deleteWarning', ['id' => $warning->id]) }}"
+                                        action="{{ route('users.warnings.destroy', ['user' => $user, 'warning' => $warning]) }}"
                                         method="POST"
                                         x-data
                                     >
@@ -166,8 +174,84 @@
                 @endforelse
             </tbody>
         </table>
-        {{ $warnings->links('partials.pagination') }}
+        {{ $autoWarnings->links('partials.pagination') }}
     </div>
+    <div class="data-table-wrapper" x-show="tab === 'manual'">
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>{{ __('user.warned-by') }}</th>
+                <th>{{ __('common.reason') }}</th>
+                <th>{{ __('user.created-on') }}</th>
+                <th>{{ __('user.expires-on') }}</th>
+                <th>{{ __('user.active') }}</th>
+                <th>{{ __('common.actions') }}</th>
+            </tr>
+            </thead>
+        <tbody>
+        @forelse ($manualWarnings as $warning)
+            <tr>
+                <td>
+                    <x-user_tag :user="$warning->staffuser" :anon="false" />
+                </td>
+                <td>{{ $warning->reason }}</td>
+                <td>
+                    <time datetime="{{ $warning->created_at }}" title="{{ $warning->created_at }}">
+                        {{ $warning->created_at }}
+                    </time>
+                </td>
+                <td>
+                    <time datetime="{{ $warning->expires_on }}" title="{{ $warning->expires_on }}">
+                        {{ $warning->expires_on }}
+                    </time>
+                </td>
+                <td>
+                    @if ($warning->active)
+                        <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                    @else
+                        <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                    @endif
+                </td>
+                <td>
+                    <menu class="data-table__actions">
+                        <li class="data-table__action">
+                            <form
+                                    action="{{ route('deleteWarning', ['id' => $warning->id]) }}"
+                                    method="POST"
+                                    x-data
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                        x-on:click.prevent="Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: `Are you sure you want to delete this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
+                                                icon: 'warning',
+                                                showConfirmButton: true,
+                                                showCancelButton: true,
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $root.submit();
+                                                }
+                                            })"
+                                        class="form__button form__button--text"
+                                >
+                                    {{ __('common.delete') }}
+                                </button>
+                            </form>
+                        </li>
+                    </menu>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="7">{{ __('user.no-warning') }}</td>
+            </tr>
+        @endforelse
+        </tbody>
+    </table>
+    {{ $manualWarnings->links('partials.pagination') }}
+</div>
     <div class="data-table-wrapper" x-show="tab === 'deleted'" x-cloak>
         <table class="data-table">
             <thead>
@@ -189,7 +273,7 @@
                         </td>
                         <td>
                             @isset($warning->torrenttitle)
-                                <a href="{{ route('torrent', ['id' => $warning->torrenttitle->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}">
                                     {{ $warning->torrenttitle->name }}
                                 </a>
                             @else
@@ -206,11 +290,12 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('restoreWarning', ['id' => $warning->id]) }}"
+                                        action="{{ route('users.warnings.update', ['user' => $user, 'warning' => $warning]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
+                                        @method('PATCH')
                                         <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',

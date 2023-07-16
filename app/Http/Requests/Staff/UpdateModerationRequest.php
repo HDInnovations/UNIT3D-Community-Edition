@@ -13,7 +13,10 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateModerationRequest extends FormRequest
 {
@@ -28,12 +31,20 @@ class UpdateModerationRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
-            'old_status' => 'required|in:0,1,2,3',
-            'status'     => 'required|in:1,2,3',
-            'message'    => 'required_if:status,2,3|string'
+            'old_status' => [
+                'required',
+                Rule::in(Torrent::PENDING, Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED),
+            ],
+            'status' => [
+                'required',
+                Rule::in(Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED),
+            ],
+            'message' => [
+                Rule::requiredIf(\in_array($request->integer('status'), [Torrent::REJECTED, Torrent::POSTPONED])),
+            ]
         ];
     }
 }

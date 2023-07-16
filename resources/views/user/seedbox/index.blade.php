@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -37,7 +37,7 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('seedboxes.store', ['username' => $user->username]) }}"
+                            action="{{ route('users.seedboxes.store', ['user' => $user]) }}"
                             x-on:click.outside="$refs.dialog.close()"
                         >
                             @csrf
@@ -101,7 +101,7 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('seedboxes.destroy', ['id' => $seedbox->id]) }}"
+                                        action="{{ route('users.seedboxes.destroy', ['user' => $user, 'seedbox' => $seedbox]) }}"
                                         x-data
                                     >
                                         @csrf

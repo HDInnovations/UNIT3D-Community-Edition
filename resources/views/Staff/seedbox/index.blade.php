@@ -52,7 +52,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}"
+                                        action="{{ route('staff.seedboxes.destroy', ['seedbox' => $seedbox]) }}"
                                         method="POST"
                                         x-data
                                     >

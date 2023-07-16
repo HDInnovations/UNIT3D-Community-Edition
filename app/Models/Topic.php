@@ -98,6 +98,14 @@ class Topic extends Model
     }
 
     /**
+     * Latest poster.
+     */
+    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_post_user_id');
+    }
+
+    /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      */
     public function notifySubscribers($poster, $topic, $post): void
@@ -150,6 +158,7 @@ class Topic extends Model
     public function notifyStarter($poster, $topic, $post): bool
     {
         $user = User::find($topic->first_post_user_id);
+
         if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
             $user->notify(new NewPost('topic', $poster, $post));
         }
@@ -163,8 +172,10 @@ class Topic extends Model
     public function postNumberFromId($searchId): int
     {
         $count = 0;
+
         foreach ($this->posts as $post) {
             $count++;
+
             if ($searchId == $post->id) {
                 break;
             }

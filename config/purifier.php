@@ -101,5 +101,4 @@ return [
             ['u', 'Inline', 'Inline', 'Common'],
         ],
     ],
-
 ];

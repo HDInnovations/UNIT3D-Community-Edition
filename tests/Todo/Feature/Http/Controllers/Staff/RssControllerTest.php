@@ -45,7 +45,7 @@ class RssControllerTest extends TestCase
         $rss = Rss::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.rss.destroy', ['id' => $rss->id]));
+        $response = $this->actingAs($user)->delete(route('staff.rss.destroy', ['rss' => $rss]));
 
         $response->assertRedirect(withSuccess('RSS Feed Deleted!'));
         $this->assertModelMissing($staff);
@@ -63,7 +63,7 @@ class RssControllerTest extends TestCase
         $rss = Rss::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.rss.edit', ['id' => $rss->id]));
+        $response = $this->actingAs($user)->get(route('staff.rss.edit', ['rss' => $rss]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.rss.edit');
@@ -123,7 +123,7 @@ class RssControllerTest extends TestCase
         $rss = Rss::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->patch(route('staff.rss.update', ['id' => $rss->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.rss.update', ['rss' => $rss]), [
             // TODO: send request data
         ]);
 

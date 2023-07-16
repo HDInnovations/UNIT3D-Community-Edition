@@ -13,6 +13,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Livewire\Component;
@@ -52,11 +53,6 @@ class UserUploads extends Component
         $this->user = User::find($userId);
     }
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -72,7 +68,7 @@ class UserUploads extends Component
         return Torrent::query()
             ->withCount('thanks')
             ->withSum('tips', 'cost')
-            ->withAnyStatus()
+            ->withoutGlobalScope(ApprovedScope::class)
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)
             ->when(

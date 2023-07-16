@@ -14,11 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\DestroyDistributorRequest;
 use App\Http\Requests\Staff\StoreDistributorRequest;
 use App\Http\Requests\Staff\UpdateDistributorRequest;
 use App\Models\Distributor;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Exception;
 
 class DistributorController extends Controller
@@ -28,9 +27,9 @@ class DistributorController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributors = Distributor::all()->sortBy('position');
-
-        return view('Staff.distributor.index', ['distributors' => $distributors]);
+        return view('Staff.distributor.index', [
+            'distributors' => Distributor::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -55,19 +54,19 @@ class DistributorController extends Controller
     /**
      * Distributor Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributor = Distributor::findOrFail($id);
-
-        return view('Staff.distributor.edit', ['distributor' => $distributor]);
+        return view('Staff.distributor.edit', [
+            'distributor' => $distributor,
+        ]);
     }
 
     /**
      * Edit A Distributor.
      */
-    public function update(UpdateDistributorRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        Distributor::where('id', '=', $id)->update($request->validated());
+        $distributor->update($request->validated());
 
         return to_route('staff.distributors.index')
             ->withSuccess('Distributor Successfully Modified');
@@ -76,12 +75,12 @@ class DistributorController extends Controller
     /**
      * Delete Edit Form.
      */
-    public function delete(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function delete(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributors = Distributor::all()->sortBy('position');
-        $distributor = Distributor::findOrFail($id);
-
-        return view('Staff.distributor.delete', ['distributors' => $distributors, 'distributor' => $distributor]);
+        return view('Staff.distributor.delete', [
+            'distributors' => Distributor::orderBy('position')->get(),
+            'distributor'  => $distributor,
+        ]);
     }
 
     /**
@@ -89,18 +88,9 @@ class DistributorController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(DestroyDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        $distributor = Distributor::findOrFail($id);
-
-        $validated = $request->validate([
-            'distributor_id' => [
-                'required',
-                'exists:distributors,id',
-                Rule::notIn([$distributor->id]),
-            ],
-        ]);
-        $distributor->torrents()->update($validated);
+        $distributor->torrents()->update($request->validated());
         $distributor->delete();
 
         return to_route('staff.distributors.index')

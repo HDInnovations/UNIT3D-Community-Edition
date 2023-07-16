@@ -166,14 +166,12 @@ class ProcessAnnounce implements ShouldQueue
 
         switch ($event) {
             case 'started':
-
                 $history->active = 1;
                 $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
                 $history->save();
+
                 break;
-
             case 'completed':
-
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -200,10 +198,9 @@ class ProcessAnnounce implements ShouldQueue
 
                 // Torrent Completed Update
                 $this->torrent->times_completed += 1;
+
                 break;
-
             case 'stopped':
-
                 $history->active = 0;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -229,9 +226,7 @@ class ProcessAnnounce implements ShouldQueue
                 }
                 // End User Update
                 break;
-
             default:
-
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;

@@ -25,10 +25,10 @@
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('user.user') }} {{ __('user.information') }}</h2>
                 <div class="panel__actions">
-                    @if (auth()->user()->id === $user->id)
+                    @if (auth()->user()->is($user))
                         <div class="panel__action">
                             <a
-                                href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}"
+                                href="{{ route('users.edit', ['user' => $user]) }}"
                                 class="form__button form__button--text"
                             >
                                 {{ __('common.edit') }}
@@ -37,7 +37,7 @@
                     @elseif(auth()->user()->group->is_modo)
                         <div class="panel__action">
                             <a
-                                href="{{ route('user_setting', ['username' => $user->username]) }}"
+                                href="{{ route('staff.users.edit', ['user' => $user]) }}"
                                 class="form__button form__button--text"
                             >
                                 {{ __('common.edit') }}
@@ -45,7 +45,7 @@
                         </div>
                         <div class="panel__action">
                             <form
-                                action="{{ route('user_delete', ['username' => $user->username]) }}"
+                                action="{{ route('staff.users.destroy', ['user' => $user]) }}"
                                 method="POST"
                                 x-data
                             >
@@ -70,7 +70,7 @@
                             </form>
                         </div>
                     @endif
-                    @if (auth()->user()->id !== $user->id)
+                    @if (auth()->id() !== $user->id)
                         <div class="panel__action" x-data>
                             <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal();">
                                 Report
@@ -118,7 +118,7 @@
                             @else
                                 <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="{{ __('user.offline') }}"></i>
                             @endif
-                            <a href="{{ route('create', ['receiver_id' => $user->id, 'username' => $user->username]) }}">
+                            <a href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $user->username]) }}">
                                 <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                             </a>
                             @if ($user->warnings()->active()->exists())
@@ -171,9 +171,9 @@
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">{{ __('user.recent-followers') }}</h2>
-                    @if (auth()->user()->id !== $user->id)
+                    @if (auth()->id() !== $user->id)
                         <div class="panel__actions">
-                            @if ($user->followers()->where('users.id', '=', auth()->user()->id)->exists())
+                            @if ($user->followers()->where('users.id', '=', auth()->id())->exists())
                                 <form
                                     action="{{ route('users.followers.destroy', ['user' => $user]) }}"
                                     method="POST"
@@ -200,7 +200,7 @@
                 </header>
                 <div class="panel__body">
                     @forelse ($followers as $follower)
-                        <a href="{{ route('users.show', ['username' => $follower->username]) }}">
+                        <a href="{{ route('users.show', ['user' => $follower]) }}">
                             <img
                                 class="user-search__avatar"
                                 alt="{{ $follower->username }}"
@@ -215,7 +215,7 @@
                 </div>
             </section>
         @endif
-        @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+        @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.client-list') }}</h2>
                 <div class="data-table-wrapper">
@@ -285,7 +285,7 @@
         @if (auth()->user()->group->is_modo)
             @livewire('user-notes', ['user' => $user])
             @include('user.profile.partials.bans', ['bans' => $user->userban])
-            @include('user.profile.partials.warnings', ['warnings' => $warnings])
+            @include('user.profile.partials.warnings')
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">Watchlist</h2>
@@ -302,10 +302,11 @@
                                     <form
                                         class="dialog__form"
                                         method="POST"
-                                        action="{{ route('staff.watchlist.store', ['id' => $user->id]) }}"
+                                        action="{{ route('staff.watchlist.store') }}"
                                         x-on:click.outside="open = false; $refs.dialog.close();"
                                     >
                                         @csrf
+                                        <input type="hidden" name="user_id" value="{{ $user->id }}" />
                                         <p class="form__group">
                                             <textarea
                                                 id="watchlist_reason"
@@ -329,7 +330,7 @@
                         @else
                             <form
                                 class="panel__action"
-                                action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
+                                action="{{ route('staff.watchlist.destroy', ['watchlist' => $watch]) }}"
                                 method="POST"
                             >
                                 @csrf
@@ -369,7 +370,7 @@
                                         <menu class="data-table__actions">
                                             <li class="data-table__action">
                                                 <form
-                                                    action="{{ route('staff.watchlist.destroy', ['id' => $watch->id]) }}"
+                                                    action="{{ route('staff.watchlist.destroy', ['watchlist' => $watch]) }}"
                                                     method="POST"
                                                     x-data
                                                 >
@@ -493,12 +494,14 @@
                     <dd>{{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}</dd>
                     <dt>{{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.credited') }})</dt>
                     <dd>{{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}</dd>
+                    <dt>{{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.refunded') }})</dt>
+                    <dd>{{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}</dd>
                     <dt>{{ __('bon.bon') }} {{ __('common.upload') }}</dt>
                     <dd>{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</dd>
                 </dl>
             </section>
         @endif
-        @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+        @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
                 <h2 class="panel__heading">
                     {{ __('user.id-permissions') }}
@@ -593,7 +596,7 @@
                         @endif
                     </dd>
                     <dt>
-                        <a href="{{ route('invites.index', ['username' => $user->username]) }}">
+                        <a href="{{ route('users.invites.index', ['user' => $user]) }}">
                             {{ __('user.invites') }}
                         </a>
                     </dt>
@@ -617,32 +620,32 @@
                                 <form
                                     class="dialog__form"
                                     method="POST"
-                                    action="{{ route('gifts.store', ['username' => auth()->user()->username]) }}"
+                                    action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
                                     x-on:click.outside="open = false; $refs.dialog.close();"
                                 >
                                     @csrf
-                                    <input type="hidden" name="to_username" value="{{ $user->username }}"/>
+                                    <input type="hidden" name="receiver_username" value="{{ $user->username }}" />
                                     <p class="form__group">
                                         <input
-                                            id="bonus_points"
+                                            id="cost"
                                             class="form__text"
-                                            name="bonus_points"
+                                            name="cost"
                                             type="text"
                                             pattern="[0-9]*"
                                             inputmode="numeric"
                                             placeholder=" "
                                         />
-                                        <label class="form__label form__label--floating">
+                                        <label class="form__label form__label--floating" for="cost">
                                             {{ __('bon.amount') }}
                                         </label>
                                     <p class="form__group">
                                         <textarea
-                                            id="bonus_message"
+                                            id="comment"
                                             class="form__textarea"
-                                            name="bonus_message"
+                                            name="comment"
                                             placeholder=" "
                                         ></textarea>
-                                        <label class="form__label form__label--floating" for="bonus__message">
+                                        <label class="form__label form__label--floating" for="comment">
                                             {{ __('pm.message') }}
                                         </label>
                                     </p>
@@ -661,7 +664,7 @@
                 </header>
                 <dl class="key-value">
                     <dt>
-                        <a href="{{ route('earnings.index', ['username' => $user->username]) }}">
+                        <a href="{{ route('users.earnings.index', ['user' => $user]) }}">
                             {{ __('bon.bon') }}
                         </a>
                     </dt>
@@ -690,7 +693,9 @@
                     <dt>{{ __('user.thanks-received') }}</dt>
                     <dd>{{ $user->thanksReceived()->count() }}</dd>
                     <dt>{{ __('user.thanks-given') }}</dt>
-                    <dd> {{ $user->thanksGiven()->count() }}</dd>
+                    <dd>{{ $user->thanksGiven()->count() }}</dd>
+                    <dt>{{ __('user.upload-snatches') }}</dt>
+                    <dd>{{ $user->uploadSnatches()->count() }}</dd>
                 </dl>
             </section>
         @endif

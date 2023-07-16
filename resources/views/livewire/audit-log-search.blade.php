@@ -126,7 +126,7 @@
                     <td>{{ $audit->model_name }}</td>
                     <td>{{ $audit->model_entry_id }}</td>
                     <td>
-                        <a href="{{ route('users.show', ['username' => $audit->user->username]) }}">
+                        <a href="{{ route('users.show', ['user' => $audit->user]) }}">
                             {{ $audit->user->username }}
                         </a>
                     </td>
@@ -163,7 +163,7 @@
                             <li class="data-table__action">
                                 <form
                                         method="POST"
-                                        action="{{ route('staff.audits.destroy', ['id' => $audit->id]) }}"
+                                        action="{{ route('staff.audits.destroy', ['audit' => $audit]) }}"
                                         x-data
                                 >
                                     @csrf

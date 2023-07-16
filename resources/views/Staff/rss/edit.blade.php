@@ -29,7 +29,7 @@
         <form
             class="form"
             method="POST"
-            action="{{ route('staff.rss.update', ['id' => $rss->id]) }}"
+            action="{{ route('staff.rss.update', ['rss' => $rss]) }}"
         >
             @csrf
             @method('PATCH')

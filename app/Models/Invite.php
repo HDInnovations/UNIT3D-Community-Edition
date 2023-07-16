@@ -16,11 +16,15 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invite extends Model
 {
     use Auditable;
     use HasFactory;
+    use SoftDeletes;
+
+    protected $guarded = [];
 
     /**
      * Belongs To A User.

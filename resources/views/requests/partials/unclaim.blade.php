@@ -1,7 +1,7 @@
 <li class="form__group form__group--short-horizontal">
     <form
         method="POST"
-        action="{{ route('requests.claims.destroy', ['id' => $torrentRequest->id]) }}"
+        action="{{ route('requests.claims.destroy', ['torrentRequest' => $torrentRequest, 'claim' => $torrentRequest->claim]) }}"
         style="display: contents"
     >
         @csrf

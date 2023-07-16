@@ -13,7 +13,7 @@
 .form__textarea {
     background-color: inherit;
     border: var(--textarea-border);
-    border-radius: 5px;
+    border-radius: var(--textarea-border-radius);
     color: var(--textarea-fg);
     font-size: 14px;
     font-weight: normal;

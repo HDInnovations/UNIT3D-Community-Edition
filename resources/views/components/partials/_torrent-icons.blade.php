@@ -1,9 +1,23 @@
 <span class="torrent-icons">
+    @if ($torrent->seeding)
+        <i class="{{ config('other.font-awesome') }} fa-arrow-circle-up text-success torrent-icons" title="{{ __('torrent.currently-seeding') }}"></i>
+    @endif
+    @if ($torrent->leeching)
+        <i class="{{ config('other.font-awesome') }} fa-arrow-circle-down text-danger torrent-icons" title="{{ __('torrent.currently-leeching') }}"></i>
+    @endif
+    @if ($torrent->not_completed)
+        <i class="{{ config('other.font-awesome') }} fa-do-not-enter text-info torrent-icons" title="{{ __('torrent.not-completed') }}"></i>
+    @endif
+    @if ($torrent->not_seeding)
+        <i class="{{ config('other.font-awesome') }} fa-thumbs-down text-warning torrent-icons" title="{{ __('torrent.completed-not-seeding') }}"></i>
+    @endif
     @isset($torrent->thanks_count)
         <i class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks">{{ $torrent->thanks_count }}</i>
     @endisset
     @isset($torrent->comments_count)
-        <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments">{{ $torrent->comments_count }}</i>
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
+            <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments">{{ $torrent->comments_count }}</i>
+        </a>
     @endisset
     @if ($torrent->internal)
         <i
@@ -48,6 +62,11 @@
             class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
             title="@if(config('other.doubleup')){{ __('torrent.global-double-upload') }}&NewLine;@endif&ZeroWidthSpace;@if(auth()->user()->group->is_double_upload){{ __('torrent.special-double_upload') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->doubleup > 0)100% {{ __('torrent.double-upload') }}@if($torrent->du_until !== null) (expires {{ $torrent->du_until->diffForHumans() }})@endif&ZeroWidthSpace;@endif"
         ></i>
+    @endif
+    @if ($torrent->refundable || auth()->user()->group->is_refundable)
+        <i class="{{ config('other.font-awesome') }} fa-percentage"
+           title='{{ __('torrent.refundable') }}'>
+        </i>
     @endif
     @if ($torrent->sticky)
         <i

@@ -17,23 +17,27 @@ use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
+use App\Models\Scopes\ApprovedScope;
 use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
 use App\Traits\GroupedLastScope;
 use App\Traits\TorrentFilter;
-use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * @method \Illuminate\Database\Eloquent\Builder<static> scopeWithAnyStatus(\Illuminate\Database\Eloquent\Builder $builder)
+ */
 class Torrent extends Model
 {
     use Auditable;
     use GroupedLastScope;
     use HasFactory;
-    use Moderatable;
     use TorrentFilter;
+
+    protected $guarded = [];
 
     /**
      * The Attributes That Should Be Mutated To Dates.
@@ -41,8 +45,9 @@ class Torrent extends Model
      * @var array
      */
     protected $casts = [
-        'fl_until' => 'datetime',
-        'du_until' => 'datetime',
+        'fl_until'     => 'datetime',
+        'du_until'     => 'datetime',
+        'moderated_at' => 'datetime',
     ];
 
     /**
@@ -53,6 +58,16 @@ class Torrent extends Model
     protected $discarded = [
         'info_hash',
     ];
+
+    public const PENDING = 0;
+    public const APPROVED = 1;
+    public const REJECTED = 2;
+    public const POSTPONED = 3;
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ApprovedScope());
+    }
 
     /**
      * Belongs To A User.
@@ -108,9 +123,9 @@ class Torrent extends Model
     /**
      * Belongs To A Playlist.
      */
-    public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(PlaylistTorrent::class);
+        return $this->belongsToMany(Playlist::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
     }
 
     /**
@@ -234,6 +249,14 @@ class Torrent extends Model
     }
 
     /**
+     * Bookmarks.
+     */
+    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Graveyard::class);
+    }
+
+    /**
      * Set The Torrents Description After Its Been Purified.
      */
     public function setDescriptionAttribute(?string $value): void
@@ -283,6 +306,7 @@ class Torrent extends Model
     public function notifyUploader($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
+
         if ($type == 'thank') {
             if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));

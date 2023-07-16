@@ -44,6 +44,7 @@ class Forum extends Model
     public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         $children = $this->forums->pluck('id')->toArray();
+
         if (\is_array($children)) {
             return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
         }
@@ -81,6 +82,14 @@ class Forum extends Model
     public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Topic::class)->ofMany('last_reply_at', 'max');
+    }
+
+    /**
+     * Latest poster.
+     */
+    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_post_user_id');
     }
 
     /**

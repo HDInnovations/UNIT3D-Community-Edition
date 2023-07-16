@@ -14,6 +14,8 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateMediaLanguageRequest extends FormRequest
 {
@@ -28,11 +30,19 @@ class UpdateMediaLanguageRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
-            'name' => 'required|string|unique:media_languages',
-            'code' => 'required|string|unique:media_languages',
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('media_languages')->ignore($request->route('mediaLanguage')),
+            ],
+            'code' => [
+                'required',
+                'string',
+                Rule::unique('media_languages')->ignore($request->route('mediaLanguage')),
+            ],
         ];
     }
 }

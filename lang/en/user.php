@@ -110,6 +110,7 @@ return [
     'follower-help'             => 'Control the sharing of specific follower related information with groups that are allowed to access to your profile.
     These settings are overridden if you do not allow any groups to access your followers or if you <strong>Go Private</strong>',
     'followers'                     => 'Followers',
+    'following'                     => 'Following',
     'following-notification'        => 'Followed User Notification Settings',
     'following-notification-upload' => 'Receive a notification when a followed user uploads a torrent',
     'following-notification-help'   => 'Control which notifications are sent concerning followed user site actions.
@@ -161,6 +162,7 @@ return [
     'invites-send'                         => 'Invites Send',
     'judge'                                => 'Judge',
     'last-login'                           => 'Last Login',
+    'last-action'                          => 'Last Action',
     'locked'                               => 'Locked',
     'locked-achievements'                  => 'Locked Achievements',
     'member-since'                         => 'Member Since',
@@ -371,6 +373,7 @@ return [
     'unsatisfieds'                => 'Unsatisfieds',
     'upload-bon'                  => 'Upload Added from BON Store',
     'upload-recorded'             => 'Recorded Upload',
+    'upload-snatches'             => 'Upload Snatches',
     'upload-true'                 => 'True Upload',
     'uploads'                     => 'Uploads',
     'uploads-table'               => 'Uploads Table',

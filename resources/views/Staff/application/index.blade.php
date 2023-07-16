@@ -64,13 +64,19 @@
                                 </time>
                             </td>
                             <td>
-                                @if ($application->status == 0)
-                                    <span class="application--pending">Pending</span>
-                                @elseif ($application->status == 1)
-                                    <span class="application--approved">Approved</span>
-                                @else
-                                    <span class="application--rejected">Rejected</span>
-                                @endif
+                                @switch($application->status)
+                                    @case(\App\Models\Application::PENDING)
+                                        <span class="application--pending">Pending</span>
+                                        @break
+                                    @case(\App\Models\Application::APPROVED)
+                                        <span class="application--approved">Approved</span>
+                                        @break
+                                    @case(\App\Models\Application::REJECTED)
+                                        <span class="application--rejected">Rejected</span>
+                                        @break
+                                    @default
+                                        <span class="application--unknown">Unknown</span>
+                                @endswitch
                             </td>
                             <td>
                                 @if ($application->moderated === null)

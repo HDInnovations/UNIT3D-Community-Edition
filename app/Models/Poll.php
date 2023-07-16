@@ -22,15 +22,7 @@ class Poll extends Model
     use Auditable;
     use HasFactory;
 
-    /**
-     * The Attributes That Are Mass Assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'title',
-        'multiple_choice',
-    ];
+    protected $guarded = [];
 
     /**
      * Belongs To A User.
@@ -73,6 +65,7 @@ class Poll extends Model
     public function totalVotes(): int
     {
         $result = 0;
+
         foreach ($this->options as $option) {
             $result += $option->votes;
         }

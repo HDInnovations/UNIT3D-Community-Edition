@@ -158,11 +158,6 @@ class TorrentSearch extends Component
         'view'            => ['except' => 'list'],
     ];
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -180,7 +175,7 @@ class TorrentSearch extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return cache()->get('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->id());
     }
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -196,8 +191,22 @@ class TorrentSearch extends Component
         $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->when($this->view === 'list', fn ($query) => $query->withCount(['thanks', 'comments']))
             ->withExists([
-                'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
-                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
             ])
             ->selectRaw("
                 CASE
@@ -346,9 +355,24 @@ class TorrentSearch extends Component
         $tv = Tv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
         $torrents = Torrent::query()
-            ->with('type:id,name,position', 'resolution:id,name,position')
+            ->with(['type:id,name,position', 'resolution:id,name,position'])
             ->withExists([
-                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1)
+                    ->whereNotNull('completed_at'),
             ])
             ->select([
                 'id',
@@ -553,13 +577,14 @@ class TorrentSearch extends Component
                     $media->meta = 'movie';
                     $media->torrents = $torrents['movie'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
-                    break;
 
+                    break;
                 case 'tv':
                     $media = $tv[$group->tmdb] ?? collect();
                     $media->meta = 'tv';
                     $media->torrents = $torrents['tv'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
+
                     break;
             }
 
@@ -583,7 +608,7 @@ class TorrentSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.torrent-search', [
-            'user'              => User::with(['group'])->findOrFail(auth()->user()->id),
+            'user'              => User::with(['group'])->findOrFail(auth()->id()),
             'personalFreeleech' => $this->personalFreeleech,
             'torrents'          => $this->view === 'group' ? $this->groupedTorrents : $this->torrents,
         ]);

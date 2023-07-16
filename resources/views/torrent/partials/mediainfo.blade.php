@@ -1,12 +1,26 @@
 <div class="panelV2" x-data="{ show: false }">
-    <h2 class="panel__heading" style="cursor: pointer;" @click="show = !show">
-        <i class="{{ config("other.font-awesome") }} fa-info-square"></i> MediaInfo
-        <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" x-show="!show"></i>
-        <i class="{{ config("other.font-awesome") }} fa-minus-circle fa-pull-right" x-show="show" x-cloak></i>
-    </h2>
+    <header class="panel__header" style="cursor: pointer;" @click="show = !show">
+        <h2 class="panel__heading">
+            <i class="{{ config("other.font-awesome") }} fa-info-square"></i>
+            <i class="{{ config("other.font-awesome") }} fa-plus-circle fa-pull-right" x-show="!show"></i>
+            <i class="{{ config("other.font-awesome") }} fa-minus-circle fa-pull-right" x-show="show" x-cloak></i>
+            MediaInfo
+        </h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <button
+                    class="form__button form__button--text"
+                    x-data
+                    x-on:click.stop="navigator.clipboard.writeText($refs.mediainfo.textContent)"
+                >
+                    Copy
+                </button>
+            </div>
+        </div>
+    </header>
     <div class="panel__body">
         <div class="torrent-mediainfo-dump bbcode-rendered" x-cloak x-show="show">
-            <pre><code>{{ $torrent->mediainfo }}</code></pre>
+            <pre><code x-ref="mediainfo">{{ $torrent->mediainfo }}</code></pre>
         </div>
         <section class="mediainfo">
             <section class="mediainfo__filename">

@@ -69,15 +69,17 @@ class MassActionController extends Controller
     {
         $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
         $memberGroup = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+
         foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
-            $user->group_id = $memberGroup[0];
-            $user->active = 1;
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_request = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->save();
+            $user->update([
+                'group_id'     => $memberGroup[0],
+                'active'       => 1,
+                'can_upload'   => 1,
+                'can_download' => 1,
+                'can_request'  => 1,
+                'can_comment'  => 1,
+                'can_invite'   => 1,
+            ]);
 
             Unit3dAnnounce::addUser($user);
         }

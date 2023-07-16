@@ -27,11 +27,11 @@ class TorrentResource extends JsonResource
         $meta = null;
 
         if ($this->category->tv_meta && ($this->tmdb !== 0)) {
-            $meta = Tv::with(['genres:name'])->where('id', '=', $this->tmdb)->first();
+            $meta = Tv::with(['genres:name'])->find($this->tmdb);
         }
 
         if ($this->category->movie_meta && ($this->tmdb !== 0)) {
-            $meta = Movie::with(['genres:name'])->where('id', '=', $this->tmdb)->first();
+            $meta = Movie::with(['genres:name'])->find($this->tmdb);
         }
 
         return [
@@ -75,7 +75,7 @@ class TorrentResource extends JsonResource
                 'created_at'      => $this->created_at,
                 'download_link'   => route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]),
                 'magnet_link'     => $this->when(config('torrent.magnet') === true, 'magnet:?dn='.$this->name.'&xt=urn:btih:'.bin2hex($this->info_hash).'&as='.route('torrent.download.rsskey', ['id' => $this->id, 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$this->size),
-                'details_link'    => route('torrent', ['id' => $this->id]),
+                'details_link'    => route('torrents.show', ['id' => $this->id]),
             ],
         ];
     }

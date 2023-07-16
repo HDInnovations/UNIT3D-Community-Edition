@@ -26,5 +26,4 @@ return [
     'vote'            => 'Stem',
     'vote-now'        => 'Stem nu!',
     'votes'           => 'Stemmer',
-
 ];

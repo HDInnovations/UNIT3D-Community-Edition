@@ -38,7 +38,7 @@ class ArticleControllerTest extends TestCase
         $article = Article::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('articles.show', ['id' => $article->id]));
+        $response = $this->actingAs($user)->get(route('articles.show', ['article' => $article]));
 
         $response->assertOk();
         $response->assertViewIs('article.show');

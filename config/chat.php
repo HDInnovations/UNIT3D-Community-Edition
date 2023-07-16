@@ -12,7 +12,6 @@
  */
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Which chatroom should system messages be routed to ?
@@ -47,5 +46,4 @@ return [
     */
 
     'nerd_bot' => true,
-
 ];

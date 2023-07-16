@@ -121,6 +121,7 @@ class ChatRepository
     public function botMessage($botId, $roomId, $message, $receiver = null): void
     {
         $user = $this->user->find($receiver);
+
         if ($user->censor) {
             $message = $this->censorMessage($message);
         }
@@ -214,7 +215,7 @@ class ChatRepository
 
     public function botMessages($senderId, $botId): \Illuminate\Support\Collection
     {
-        $systemUserId = User::where('username', 'System')->firstOrFail()->id;
+        $systemUserId = User::where('username', 'System')->sole()->id;
 
         return $this->message->with([
             'bot',
@@ -315,6 +316,7 @@ class ChatRepository
     public function status($user)
     {
         $status = null;
+
         if ($user instanceof User) {
             $status = $this->chatStatus->where('user_id', '=', $user->id)->first();
         }

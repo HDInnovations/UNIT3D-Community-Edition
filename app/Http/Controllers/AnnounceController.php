@@ -23,6 +23,7 @@ use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -79,7 +80,6 @@ class AnnounceController extends Controller
         'Pragma'        => 'no-cache',
         'Expires'       => 0,
         'Connection'    => 'close'
-
     ];
 
     /**
@@ -223,6 +223,7 @@ class AnnounceController extends Controller
         // Part.1 Extract required announce fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $request->query->get($item);
+
             if (null !== $itemData) {
                 $queries[$item] = $itemData;
             } else {
@@ -350,8 +351,7 @@ class AnnounceController extends Controller
         $group = cache()->remember('group:'.$user->group_id, 300, function () use ($user) {
             return Group::query()
                 ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
-                ->where('id', '=', $user->group_id)
-                ->first();
+                ->find($user->group_id);
         });
 
         // If User Account Is Unactivated/Validating Return Error to Client
@@ -387,7 +387,7 @@ class AnnounceController extends Controller
         // Check Info Hash Against Torrents Table
         $torrentId = Redis::connection('cache')->command('HGET', [$cacheKey, hex2bin($infoHash)]);
 
-        $torrent = Torrent::withAnyStatus()
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with([
                 'peers' => fn ($query) => $query
                     ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])

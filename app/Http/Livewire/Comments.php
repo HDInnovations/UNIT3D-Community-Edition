@@ -25,6 +25,7 @@ use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
+use App\Models\Torrent;
 use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
@@ -90,7 +91,7 @@ class Comments extends Component
             return;
         }
 
-        if (strtolower(class_basename($this->model)) === 'torrent' && ! $this->model->isApproved()) {
+        if (strtolower(class_basename($this->model)) === 'torrent' && $this->model->status !== Torrent::APPROVED) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.torrent-status')]);
 
             return;
@@ -122,7 +123,6 @@ class Comments extends Component
                 }
 
                 break;
-
             case 'article':
             case 'playlist':
             case 'torrent request':
@@ -199,7 +199,7 @@ class Comments extends Component
     {
         return $this->model
             ->comments()
-            ->with(['user:id,username,group_id,image', 'user.group', 'children.user:id,username,group_id,image', 'children.user.group'])
+            ->with(['user:id,username,group_id,image,title', 'user.group', 'children.user:id,username,group_id,image,title', 'children.user.group'])
             ->parent()
             ->latest()
             ->paginate($this->perPage);

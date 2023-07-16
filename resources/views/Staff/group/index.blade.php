@@ -46,6 +46,7 @@
                     <th>Immune</th>
                     <th>Freeleech</th>
                     <th>Double Upload</th>
+                    <th>Refundable</th>
                     <th>Incognito</th>
                     <th>Upload</th>
                     <th>Autogroup</th>
@@ -56,7 +57,7 @@
                     <tr>
                         <td>{{ $group->id }}</td>
                         <td>
-                            <a href="{{ route('staff.groups.edit', ['id' => $group->id]) }}">
+                            <a href="{{ route('staff.groups.edit', ['group' => $group]) }}">
                                 {{ $group->name }}
                             </a>
                         </td>
@@ -129,6 +130,13 @@
                         </td>
                         <td>
                             @if ($group->is_double_upload)
+                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                            @else
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($group->is_refundable)
                                 <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                             @else
                                 <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

@@ -51,11 +51,6 @@ class PeerSearch extends Component
         'sortDirection'    => ['except' => 'desc'],
     ];
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -197,7 +192,7 @@ class PeerSearch extends Component
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
             ->when($this->torrent !== '', fn ($query) => $query->whereIn(
-                'torrents.name',
+                'peers.torrent_id',
                 Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
             ))
             ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', 1))

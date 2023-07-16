@@ -56,7 +56,7 @@ class PollControllerTest extends TestCase
         $poll = Poll::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.polls.show', ['id' => $poll->id]));
+        $response = $this->actingAs($user)->get(route('staff.polls.show', ['poll' => $poll]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.poll.show');

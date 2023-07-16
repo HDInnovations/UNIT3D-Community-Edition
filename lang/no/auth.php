@@ -68,5 +68,4 @@ return [
     'veteran'               => 'Erfaring med private trackere',
     'welcome'               => 'Velkommen tilbake!',
     'welcome-restore'       => 'Velkommen tilbake! Kontoen er ikke lenger deaktivert!',
-
 ];

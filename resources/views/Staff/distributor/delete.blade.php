@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.distributors.destroy', ['id' => $distributor->id]) }}"
+                action="{{ route('staff.distributors.destroy', ['distributor' => $distributor]) }}"
                 x-data
             >
                 @csrf

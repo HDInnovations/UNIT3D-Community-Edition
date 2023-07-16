@@ -30,6 +30,7 @@ class ChatMessageResource extends JsonResource
 
         $logger = null;
         $bbcode = new Bbcode();
+
         if ($this->user_id == 1) {
             $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.$this->message.'</div></div>');
             $logger = $emojiOne->toImage($logger);

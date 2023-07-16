@@ -25,8 +25,9 @@
     <section class="panelV2">
         <h2 class="panel__heading">Edit Group: {{ $group->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.groups.update', ['group' => $group->name, 'id' => $group->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.groups.update', ['group' => $group]) }}">
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         class="form__text"
@@ -221,6 +222,20 @@
                     >
                     <label class="form__label" for="is_double_upload">
                         Double Upload
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="is_refundable" type="hidden" value="0">
+                    <input
+                            id="is_refundable"
+                            class="form__checkbox"
+                            name="is_refundable"
+                            type="checkbox"
+                            value="1"
+                            @checked($group->is_refundable)
+                    >
+                    <label class="form__label" for="is_refundable">
+                        Refundable Download
                     </label>
                 </p>
                 <p class="form__group">

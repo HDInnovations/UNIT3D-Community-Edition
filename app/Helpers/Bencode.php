@@ -20,6 +20,7 @@ class Bencode
     public static function parse_integer($s, &$pos)
     {
         $len = \strlen((string) $s);
+
         if ($len === 0 || $s[$pos] != 'i') {
             return;
         }
@@ -27,6 +28,7 @@ class Bencode
         $pos++;
 
         $result = '';
+
         while ($pos < $len && $s[$pos] != 'e') {
             if (is_numeric($s[$pos]) || $s[$pos] = '-') {
                 $result .= $s[$pos];
@@ -72,12 +74,14 @@ class Bencode
         }
 
         $pos++;
+
         if (! safe_int($lengthStr)) {
             return;
         }
 
         $length = (int) $lengthStr;
         $result = '';
+
         while ($pos < $len && $length > 0) {
             $result .= $s[$pos];
             $length--;
@@ -95,11 +99,13 @@ class Bencode
     public static function bdecode($s, &$pos = 0)
     {
         $len = \strlen((string) $s);
+
         if ($pos >= $len) {
             return;
         }
 
         $c = $s[$pos];
+
         if ($c == 'i') {
             return self::parse_integer($s, $pos);
         }
@@ -111,9 +117,11 @@ class Bencode
         if ($c == 'd') {
             $dict = [];
             $pos++;
+
             while ($pos < $len && $s[$pos] != 'e') {
                 $key = self::bdecode($s, $pos);
                 $value = self::bdecode($s, $pos);
+
                 if (null === $key || null === $value) {
                     return;
                 }
@@ -134,8 +142,10 @@ class Bencode
         if ($c == 'l') {
             $list = [];
             $pos++;
+
             while ($pos < $len && $s[$pos] != 'e') {
                 $next = self::bdecode($s, $pos);
+
                 if (null !== $next) {
                     $list[] = $next;
                 } else {
@@ -159,6 +169,7 @@ class Bencode
         if (\is_array($d)) {
             $ret = 'l';
             $isDict = false;
+
             if (! isset($d['isDct'])) {
                 foreach (array_keys($d) as $key) {
                     if (! \is_int($key)) {

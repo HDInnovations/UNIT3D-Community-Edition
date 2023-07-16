@@ -1,8 +1,8 @@
 <td class="torrent-search--grouped__overview">
     <div>
-        @if(auth()->user()->group->is_modo || auth()->user()->id === $torrent->user_id)
+        @if(auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
             <a
-                href="{{ route('edit_form', ['id' => $torrent->id]) }}"
+                href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                 title="{{ __('common.edit') }}"
                 class="torrent-search--grouped__edit"
             >
@@ -10,7 +10,7 @@
             </a>
         @endif
         <h3 class="torrent-search--grouped__name">
-            <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+            <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 @switch ($media->meta)
                     @case('movie')
                         {{ \preg_replace('/^.*( '.(substr($media->release_date ?? '0', 0, 4) - 1).' | '.substr($media->release_date ?? '0', 0, 4).' | '.(substr($media->release_date ?? '0', 0, 4) + 1).' )/i', '', $torrent->name) }}

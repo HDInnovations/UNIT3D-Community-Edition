@@ -66,7 +66,7 @@ class BookmarkControllerTest extends TestCase
         ]);
 
         $this->actingAs($user)->post(route('bookmarks.store', ['id' => $bookmark->torrent_id]))
-            ->assertRedirect(route('torrent', ['id' => $bookmark->torrent_id]))
+            ->assertRedirect(route('torrents.show', ['id' => $bookmark->torrent_id]))
             ->assertSessionHas('success', 'Torrent Has Been Bookmarked Successfully!');
     }
 }

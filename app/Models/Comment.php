@@ -61,6 +61,11 @@ class Comment extends Model
         return null === $this->parent_id;
     }
 
+    public function isChild(): bool
+    {
+        return null !== $this->parent_id;
+    }
+
     public function scopeParent(Builder $builder): void
     {
         $builder->whereNull('parent_id');

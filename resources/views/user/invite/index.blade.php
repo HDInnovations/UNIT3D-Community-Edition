@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -24,7 +24,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.invites') }}</h2>
             <div class="panel__actions">
-                <form class="panel__action" action="{{ route('invites.create') }}">
+                <form class="panel__action" action="{{ route('users.invites.create', ['user' => $user]) }}">
                     <button class="form__button form__button--text">
                         {{ __('user.send-invite') }}
                     </button>
@@ -37,11 +37,15 @@
                     <tr>
                         <th>{{ __('user.sender') }}</th>
                         <th>{{ __('common.email') }}</th>
-                        <th>{{ __('user.code') }}</th>
+                        @if ($user->group->is_modo)
+                            <th>{{ __('user.code') }}</th>
+                            <th>{{ __('common.message') }}</th>
+                        @endif
                         <th>{{ __('user.created-on') }}</th>
                         <th>{{ __('user.expires-on') }}</th>
                         <th>{{ __('user.accepted-by') }}</th>
                         <th>{{ __('user.accepted-at') }}</th>
+                        <th>{{ __('user.deleted-on') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
                 </thead>
@@ -52,7 +56,10 @@
                                 <x-user_tag :user="$invite->sender" :anon="false" />
                             </td>
                             <td>{{ $invite->email }}</td>
-                            <td>{{ $invite->code }}</td>
+                            @if ($user->group->is_modo)
+                                <td>{{ $invite->code }}</td>
+                                <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
+                            @endif
                             <td>{{ $invite->created_at }}</td>
                             <td>{{ $invite->expires_on }}</td>
                             <td>
@@ -63,11 +70,12 @@
                                 @endif
                             </td>
                             <td>{{ $invite->accepted_at ?? 'N/A' }}</td>
+                            <td>{{ $invite->deleted_at ?? 'N/A' }}</td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('invites.send', ['id' => $invite->id]) }}"
+                                            action="{{ route('users.invites.send', ['user' => $user, 'invite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >
@@ -88,6 +96,33 @@
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now())
                                             >
                                                 {{ __('common.resend') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('users.invites.destroy', ['user' => $user, 'invite' => $invite]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="Swal.fire({
+                                                    title: 'Are you sure?',
+                                                    text: `Are you sure you want to retract the invite to: ${atob('{{ base64_encode($invite->email) }}')}? This will forfeit the invite.`,
+                                                    icon: 'warning',
+                                                    showConfirmButton: true,
+                                                    showCancelButton: true,
+                                                }).then((result) => {
+                                                    if (result.isConfirmed) {
+                                                        $root.submit();
+                                                    }
+                                                })"
+                                                class="form__button form__button--text"
+                                                @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
+                                            >
+                                                {{ __('common.delete') }}
                                             </button>
                                         </form>
                                     </li>

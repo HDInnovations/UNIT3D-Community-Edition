@@ -227,5 +227,4 @@ return [
     'yes'                  => 'Ja',
     'your'                 => 'Din',
     'your-comment'         => 'Din kommentar',
-
 ];

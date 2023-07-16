@@ -9,11 +9,10 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("requests.fill", ['id' => $torrentRequest->id]) }}"
+            action="{{ route('requests.fills.store', ['torrentRequest' => $torrentRequest]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
-            <input id="type" type="hidden" name="request_id" value="{{ $torrentRequest->id }}">
             <p class="form__group">
                 <input
                     id="torrent_id"

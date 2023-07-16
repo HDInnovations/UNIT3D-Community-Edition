@@ -41,9 +41,9 @@
                 @csrf
                 <p class="form__group">
                     <select
-                        id="category"
+                        id="category_id"
                         class="form__text"
-                        name="category"
+                        name="category_id"
                         required
                     >
                         <option hidden disabled selected value=""></option>
@@ -57,8 +57,8 @@
                 </p>
                 <p class="form__group">
                     <select
-                        name="priority"
-                        id="priority"
+                        name="priority_id"
+                        id="priority_id"
                         class="form__select"
                         required
                     >

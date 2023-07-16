@@ -1,4 +1,4 @@
-<section class="panelV2">
+<section class="panelV2" id="comments">
     <h4 class="panel__heading">
         <i class="{{ config('other.font-awesome') }} fa-comment"></i>
         {{ __('common.comments') }}
@@ -37,16 +37,16 @@
                 </button>
             </p>
         </form>
-        <ul class="comments">
+        <ol class="topic-posts">
             @forelse($comments as $comment)
                 <livewire:comment :comment="$comment" :key="$comment->id"/>
             @empty
                 <li>
                     <i class="{{ config('other.font-awesome') }} fa-frown"></i>
                     {{ __('common.no-comments') }}!
-                </li>                        
+                </li>
             @endforelse
-        </ul>
+        </ol>
         @if ($comments->hasMorePages())
             <div class="text-center">
                 <button class="form__button form__button--filled" wire:click.prevent="loadMore">Load More Comments</button>

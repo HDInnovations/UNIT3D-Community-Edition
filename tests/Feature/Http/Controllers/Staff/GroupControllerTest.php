@@ -53,7 +53,7 @@ class GroupControllerTest extends TestCase
         $user = $this->createStaffUser();
         $group = Group::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.groups.edit', ['id' => $group->id]));
+        $response = $this->actingAs($user)->get(route('staff.groups.edit', ['group' => $group]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.group.edit');
@@ -102,6 +102,7 @@ class GroupControllerTest extends TestCase
             'is_immune'        => $group->is_immune,
             'is_freeleech'     => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
+            'is_refundable'    => $group->is_refundable,
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
@@ -120,7 +121,7 @@ class GroupControllerTest extends TestCase
         $user = $this->createStaffUser();
         $group = Group::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.groups.update', ['id' => $group->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.groups.update', ['group' => $group]), [
             'name'             => $group->name,
             'slug'             => $group->slug,
             'position'         => $group->position,
@@ -136,6 +137,7 @@ class GroupControllerTest extends TestCase
             'is_immune'        => $group->is_immune,
             'is_freeleech'     => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
+            'is_refundable'    => $group->is_refundable,
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
