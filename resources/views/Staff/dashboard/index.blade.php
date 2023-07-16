@@ -245,8 +245,8 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.applications.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-list"></i>
-                        {{ __('staff.applications') }} ({{ $apps->pending }})
-                        @if ($apps->pending > 0)
+                        {{ __('staff.applications') }} ({{ $pendingApplicationsCount }})
+                        @if ($pendingApplicationsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -365,8 +365,8 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.reports.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
-                        {{ __('staff.reports-log') }} ({{ $reports->unsolved }})
-                        @if ($reports->unsolved > 0)
+                        {{ __('staff.reports-log') }} ({{ $unsolvedReportsCount }})
+                        @if ($unsolvedReportsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>

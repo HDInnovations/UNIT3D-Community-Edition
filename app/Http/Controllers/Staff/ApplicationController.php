@@ -37,7 +37,7 @@ class ApplicationController extends Controller
     {
         return view('Staff.application.index', [
             'applications' => Application::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
+                ->with(['user.group', 'moderated.group', 'imageProofs', 'urlProofs'])
                 ->latest()
                 ->paginate(25),
         ]);

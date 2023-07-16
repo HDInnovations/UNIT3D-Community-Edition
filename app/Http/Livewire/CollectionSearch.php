@@ -21,7 +21,7 @@ class CollectionSearch extends Component
 {
     use WithPagination;
 
-    public $search;
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -37,7 +37,7 @@ class CollectionSearch extends Component
     {
         return Collection::withCount('movie')
             ->with('movie')
-            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
             ->paginate(25);
     }

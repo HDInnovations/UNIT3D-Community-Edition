@@ -58,7 +58,7 @@
                                 {{ $article->created_at }}
                             </time>
                         </td>
-                        <td>{{ $article->comments->count() }}</td>
+                        <td>{{ $article->comments_count }}</td>
                         <td>
                             <menu class="data-table__actions">
                                 <li class="data-table__action">

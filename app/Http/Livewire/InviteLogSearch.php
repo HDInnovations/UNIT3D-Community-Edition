@@ -53,7 +53,7 @@ class InviteLogSearch extends Component
     final public function getInvitesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
-            ->with(['sender', 'receiver'])
+            ->with(['sender.group', 'receiver.group'])
             ->when($this->sender, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->sender)))
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))

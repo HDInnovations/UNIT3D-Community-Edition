@@ -38,7 +38,7 @@ class TipController extends Controller
 
         return view('user.tip.index', [
             'user' => $user,
-            'tips' => BonTransactions::with(['senderObj', 'receiverObj', 'torrent'])
+            'tips' => BonTransactions::with(['senderObj.group', 'receiverObj.group', 'torrent'])
                 ->where(fn ($query) => $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id))
                 ->where('name', '=', 'tip')
                 ->latest('date_actioned')

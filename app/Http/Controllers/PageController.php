@@ -50,7 +50,7 @@ class PageController extends Controller
     {
         return view('page.staff', [
             'staff' => Group::query()
-                ->with('users:id,username,group_id,title')
+                ->with('users.group')
                 ->where('is_modo', '=', 1)
                 ->orWhere('is_admin', '=', 1)
                 ->get()
@@ -65,7 +65,7 @@ class PageController extends Controller
     {
         return view('page.internal', [
             'internals' => Internal::query()
-                ->with('users')
+                ->with('users.group')
                 ->orderBy('name')
                 ->get(),
         ]);
