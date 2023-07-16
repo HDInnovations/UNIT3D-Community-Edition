@@ -135,22 +135,4 @@ class Post extends Model
 
         return $trimmedText;
     }
-
-    /**
-     * Get A Post From A ID.
-     */
-    public function getPostNumber(): string
-    {
-        return $this->topic->postNumberFromId($this->id);
-    }
-
-    /**
-     * Get A Posts Page Number.
-     */
-    public function getPageNumber(): float
-    {
-        $result = ($this->getPostNumber() - 1) / 25 + 1;
-
-        return floor($result);
-    }
 }
