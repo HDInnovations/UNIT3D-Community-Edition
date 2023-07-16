@@ -216,7 +216,7 @@
                     <menu class="data-table__actions">
                         <li class="data-table__action">
                             <form
-                                    action="{{ route('deleteWarning', ['id' => $warning->id]) }}"
+                                    action="{{ route('users.warnings.destroy', ['user' => $user, 'warning' => $warning]) }}"
                                     method="POST"
                                     x-data
                             >
