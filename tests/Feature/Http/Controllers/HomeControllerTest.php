@@ -11,17 +11,6 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Models\Article;
-use App\Models\Bookmark;
-use App\Models\FeaturedTorrent;
-use App\Models\FreeleechToken;
-use App\Models\Group;
-use App\Models\Movie;
-use App\Models\Poll;
-use App\Models\Post;
-use App\Models\Topic;
-use App\Models\Torrent;
-use App\Models\Tv;
 use App\Models\User;
 
 test('index returns an ok response', function (): void {

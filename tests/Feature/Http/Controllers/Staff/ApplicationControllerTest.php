@@ -19,7 +19,7 @@ use App\Models\Group;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\User;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->staffUser = User::factory()->create([
         'group_id' => fn () => Group::factory()->create([
             'is_owner' => true,
@@ -45,7 +45,7 @@ test('approve returns an ok response', function (): void {
     ]);
 
     $response = $this->actingAs($this->staffUser)->post(route('staff.applications.approve', ['id' => $application->id]), [
-        'status' => Application::APPROVED,
+        'status'       => Application::APPROVED,
         'moderated_by' => $this->staffUser->id,
         'moderated_at' => now(),
     ]);

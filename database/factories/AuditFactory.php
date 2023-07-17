@@ -16,6 +16,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Audit;
+use JsonException;
 
 class AuditFactory extends Factory
 {
@@ -27,7 +28,7 @@ class AuditFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function definition(): array
     {
@@ -37,7 +38,6 @@ class AuditFactory extends Factory
             'model_entry_id' => $this->faker->randomDigitNotNull(),
             'action'         => $this->faker->word(),
             'record'         => json_encode(["key" => "value"], JSON_THROW_ON_ERROR),
-
         ];
     }
 }

@@ -16,7 +16,7 @@ use App\Models\Audit;
 use App\Models\Group;
 use App\Models\User;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->staffUser = User::factory()->create([
         'group_id' => fn () => Group::factory()->create([
             'is_owner' => true,

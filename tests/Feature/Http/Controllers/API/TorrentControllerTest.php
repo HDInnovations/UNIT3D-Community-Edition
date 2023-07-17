@@ -23,7 +23,6 @@ test('filter returns an ok response', function (): void {
     $response = $this->actingAs($user, 'api')->getJson('api/torrents/filter');
     $response->assertOk();
     $response->assertJsonStructure([
-
     ]);
 });
 
