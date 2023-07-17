@@ -36,6 +36,7 @@ class UserController extends Controller
         $user->load([
             'privacy',
             'userban' => ['banneduser', 'staffuser'],
+            'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
         ])
             ->loadCount([
                 'torrents',
