@@ -1,129 +1,104 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
-namespace Tests\Feature\Http\Controllers\Staff;
-
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use PHPUnit\Framework\Attributes\Test;
+use App\Http\Controllers\Staff\CategoryController;
+use App\Http\Requests\Staff\StoreCategoryRequest;
+use App\Http\Requests\Staff\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\Staff\CategoryController
- */
-final class CategoryControllerTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
+beforeEach(function () {
+    $this->staffUser = User::factory()->create([
+        'group_id' => fn () => Group::factory()->create([
+            'is_owner' => true,
+            'is_admin' => true,
+            'is_modo'  => true,
+        ])->id,
+    ]);
+});
 
-    protected function createStaffUser(): Collection|Model
-    {
-        return User::factory()->create([
-            'group_id' => fn () => Group::factory()->create([
-                'is_owner' => true,
-                'is_admin' => true,
-                'is_modo'  => true,
-            ])->id,
-        ]);
-    }
+test('create returns an ok response', function (): void {
+    $response = $this->actingAs($this->staffUser)->get(route('staff.categories.create'));
+    $response->assertOk();
+    $response->assertViewIs('Staff.category.create');
+});
 
-    #[Test]
-    public function create_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('destroy returns an ok response', function (): void {
+    $category = Category::factory()->create();
 
-        $user = $this->createStaffUser();
+    $response = $this->actingAs($this->staffUser)->delete(route('staff.categories.destroy', [$category]));
+    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category Successfully Deleted');
 
-        $response = $this->actingAs($user)->get(route('staff.categories.create'));
+    $this->assertModelMissing($category);
+});
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.category.create');
-    }
+test('edit returns an ok response', function (): void {
+    $category = Category::factory()->create();
 
-    #[Test]
-    public function destroy_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+    $response = $this->actingAs($this->staffUser)->get(route('staff.categories.edit', [$category]));
+    $response->assertOk();
+    $response->assertViewIs('Staff.category.edit');
+    $response->assertViewHas('category', $category);
+});
 
-        $category = Category::factory()->create();
-        $user = $this->createStaffUser();
+test('index returns an ok response', function (): void {
+    $response = $this->actingAs($this->staffUser)->get(route('staff.categories.index'));
+    $response->assertOk();
+    $response->assertViewIs('Staff.category.index');
+    $response->assertViewHas('categories');
+});
 
-        $response = $this->actingAs($user)->delete(route('staff.categories.destroy', ['category' => $category]));
+test('store validates with a form request', function (): void {
+    $this->assertActionUsesFormRequest(
+        CategoryController::class,
+        'store',
+        StoreCategoryRequest::class
+    );
+});
 
-        $response->assertRedirect(route('staff.categories.index'));
-    }
+test('store returns an ok response', function (): void {
+    $category = Category::factory()->make();
+    $meta = ['movie', 'tv', 'game', 'music', 'no'];
 
-    #[Test]
-    public function edit_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+    $response = $this->actingAs($this->staffUser)->post(route('staff.categories.store'), [
+        'name'     => $category->name,
+        'position' => $category->position,
+        'image'    => $category->image,
+        'icon'     => $category->icon,
+        'meta'     => $meta[array_rand($meta)],
+    ]);
+    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category Successfully Added');
+});
 
-        $user = $this->createStaffUser();
-        $category = Category::factory()->create();
+test('update validates with a form request', function (): void {
+    $this->assertActionUsesFormRequest(
+        CategoryController::class,
+        'update',
+        UpdateCategoryRequest::class
+    );
+});
 
-        $response = $this->actingAs($user)->get(route('staff.categories.edit', ['category' => $category]));
+test('update returns an ok response', function (): void {
+    $category = Category::factory()->create();
+    $meta = ['movie', 'tv', 'game', 'music', 'no'];
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.category.edit');
-        $response->assertViewHas('category');
-    }
-
-    #[Test]
-    public function index_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = $this->createStaffUser();
-
-        $response = $this->actingAs($user)->get(route('staff.categories.index'));
-
-        $response->assertOk();
-        $response->assertViewIs('Staff.category.index');
-        $response->assertViewHas('categories');
-    }
-
-    #[Test]
-    public function store_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = $this->createStaffUser();
-        $category = Category::factory()->make();
-        $meta = ['movie', 'tv', 'game', 'music', 'no'];
-
-        $response = $this->actingAs($user)->post(route('staff.categories.store'), [
-            'name'     => $category->name,
-            'position' => $category->position,
-            'image'    => $category->image,
-            'icon'     => $category->icon,
-            'meta'     => $meta[array_rand($meta)],
-        ]);
-
-        $response->assertRedirect(route('staff.categories.index'));
-    }
-
-    #[Test]
-    public function update_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $category = Category::factory()->create();
-        $user = $this->createStaffUser();
-        $meta = ['movie', 'tv', 'game', 'music', 'no'];
-
-        $response = $this->actingAs($user)->patch(route('staff.categories.update', ['category' => $category]), [
-            'name'     => $category->name,
-            'position' => $category->position,
-            'image'    => $category->image,
-            'icon'     => $category->icon,
-            'meta'     => $meta[array_rand($meta)],
-        ]);
-
-        $response->assertRedirect(route('staff.categories.index'));
-    }
-}
+    $response = $this->actingAs($this->staffUser)->patch(route('staff.categories.update', [$category]), [
+        'name'     => $category->name,
+        'position' => $category->position,
+        'image'    => $category->image,
+        'icon'     => $category->icon,
+        'meta'     => $meta[array_rand($meta)],
+    ]);
+    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category Successfully Modified');
+});

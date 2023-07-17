@@ -37,7 +37,6 @@ class ApplicationFactory extends Factory
             'moderated_at' => $this->faker->dateTime(),
             'moderated_by' => User::factory(),
             'accepted_by'  => User::factory(),
-            'user_id'      => User::factory(),
         ];
     }
 }
