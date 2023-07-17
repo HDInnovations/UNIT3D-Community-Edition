@@ -48,7 +48,7 @@ class FailedLoginSearch extends Component
     final public function getFailedLoginsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return FailedLoginAttempt::query()
-            ->with('user')
+            ->with('user.group')
             ->when($this->username, fn ($query) => $query->where('username', 'LIKE', $this->username.'%'))
             ->when($this->userId, fn ($query) => $query->where('user_id', '=', $this->userId))
             ->when($this->ipAddress, fn ($query) => $query->where('ip_address', 'LIKE', $this->ipAddress.'%'))

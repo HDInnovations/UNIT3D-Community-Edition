@@ -49,7 +49,7 @@ class WatchlistSearch extends Component
     final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Watchlist::query()
-            ->with(['user', 'author'])
+            ->with(['user.group', 'author.group'])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

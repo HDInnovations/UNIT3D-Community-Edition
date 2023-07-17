@@ -35,6 +35,8 @@ class ReceivedPrivateMessageController extends Controller
             'user' => $user,
             'pms'  => $user
                 ->receivedPrivateMessages()
+                ->select('id', 'sender_id', 'subject', 'created_at')
+                ->with('sender.group')
                 ->when(
                     $request->has('subject'),
                     fn ($query) => $query->where('subject', 'like', '%'.$request->string('subject').'%')

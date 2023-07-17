@@ -30,7 +30,7 @@ class FollowController extends Controller
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('user.follower.index', [
-            'followers' => $user->followers()->orderByPivot('created_at', 'desc')->paginate(25),
+            'followers' => $user->followers()->with('group')->orderByPivot('created_at', 'desc')->paginate(25),
             'user'      => $user,
         ]);
     }

@@ -94,32 +94,14 @@
                     </td>
                     <td>
                         <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">{{ $ticket->subject }}</a>
-                        @if (auth()->user()->group->is_modo)
-                            @php
-                                $myTicketUnread = DB::table('tickets')
-                                    ->where('id', '=', $ticket->id)
-                                    ->where('staff_id', '=', auth()->id())
-                                    ->where('staff_read', '=', 0)
-                                    ->count();
-
-                                $unasignedTicketUnread = DB::table('tickets')
-                                    ->where('id', '=', $ticket->id)
-                                    ->whereNull('staff_id')
-                                    ->whereNull('closed_at')
-                                    ->count()
-                            @endphp
-                        @else
-                            @php
-                                $myTicketUnread = DB::table('tickets')
-                                    ->where('id', '=', $ticket->id)
-                                    ->where('user_id', '=', auth()->id())
-                                    ->where('user_read', '=', 0)
-                                    ->count();
-
-                                $unasignedTicketUnread = 0
-                            @endphp
-                        @endif
-                        @if ($myTicketUnread > 0 || $unasignedTicketUnread > 0)
+                        @if (
+                            auth()->user()->group->is_modo
+                            && (
+                                ($ticket->staff_id === auth()->id() && $ticket->staff_read === 0) ||
+                                ($ticket->staff_id === null && $ticket->closed_at === null)
+                            )
+                            || ($ticket->user_id === auth()->id() && $ticket->user_read === 0)
+                        )
                             <i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
                         @endif
                     </td>

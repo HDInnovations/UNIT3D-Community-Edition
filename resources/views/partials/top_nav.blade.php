@@ -250,22 +250,28 @@
                 </a>
             </li>
             @php
-                $peer_counts = Cache::remember(
-                    'users:'.auth()->id().':peer_counts',
+                // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
+                $peer_count = Cache::remember(
+                    'users:'.auth()->id().':peer_count',
                     60,
-                    fn () => DB::table('peers')->selectRaw('SUM(seeder = 0) as leeching, SUM(seeder = 1) as seeding')->where('user_id', '=', auth()->id())->first()
+                    fn () => DB::table('peers')->where('user_id', '=', auth()->id())->count() ?? 0
+                );
+                $leech_count = Cache::remember(
+                    'users:'.auth()->id().':leech_count',
+                    60,
+                    fn () => DB::table('peers')->where('seeder', '=', false)->where('user_id', '=', auth()->id())->count() ?? 0
                 )
             @endphp
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ $peer_counts->seeding ?? 0 }}
+                    {{ $peer_count - $leech_count }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ $peer_counts->leeching ?? 0 }}
+                    {{ $leech_count }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
