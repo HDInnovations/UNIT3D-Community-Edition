@@ -270,8 +270,8 @@ class TorrentController extends Controller
                 'receiver_id' => $user_id,
                 'subject'     => 'Torrent Deleted! - '.$torrent->name,
                 'message'     => '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message."\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at'  => now(),
+                'updated_at'  => now(),
             ];
         }
 
