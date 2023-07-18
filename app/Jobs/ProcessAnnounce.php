@@ -25,6 +25,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class ProcessAnnounce implements ShouldQueue
 {
@@ -168,7 +169,6 @@ class ProcessAnnounce implements ShouldQueue
             case 'started':
                 $history->active = 1;
                 $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
-                $history->save();
 
                 break;
             case 'completed':
@@ -185,7 +185,6 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
-                $history->save();
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -213,7 +212,6 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
-                $history->save();
 
                 $peer->delete();
 
@@ -240,8 +238,6 @@ class ProcessAnnounce implements ShouldQueue
                     $history->seedtime += $diff;
                 }
 
-                $history->save();
-
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
@@ -251,6 +247,26 @@ class ProcessAnnounce implements ShouldQueue
                 }
                 // End User Update
         }
+
+        Redis::connection('announce')->command('LPUSH', [
+            config('cache.prefix').':histories:batch',
+            serialize($history->only([
+                'user_id',
+                'torrent_id',
+                'agent',
+                'uploaded',
+                'actual_uploaded',
+                'client_uploaded',
+                'downloaded',
+                'actual_downloaded',
+                'client_downloaded',
+                'seeder',
+                'active',
+                'seedtime',
+                'immune',
+                'completed_at',
+            ]))
+        ]);
 
         $otherSeeders = $this
             ->torrent
