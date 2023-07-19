@@ -29,9 +29,7 @@ class UpdateLastAction
             return $next($request);
         }
 
-        if ($user->last_action->addMinute()->isPast()) {
-            Redis::command('LPUSH', [config('cache.prefix').':user-last-actions:batch', $user->id]);
-        }
+        Redis::command('LPUSH', [config('cache.prefix').':user-last-actions:batch', $user->id]);
 
         return $next($request);
     }
