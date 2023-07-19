@@ -21,7 +21,7 @@ class PersonSearch extends Component
 {
     use WithPagination;
 
-    public $search;
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -36,7 +36,8 @@ class PersonSearch extends Component
     final public function getPersonsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Person::select(['id', 'still', 'name'])
-            ->whereNotNull('still')->where('name', 'LIKE', '%'.$this->search.'%')
+            ->whereNotNull('still')
+            ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
             ->paginate(30);
     }

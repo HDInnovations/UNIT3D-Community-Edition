@@ -345,7 +345,8 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TopicController::class, 'index'])->name('index');
             Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
             Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
-            Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
+            Route::get('/{topicId}/posts/{postId}', [App\Http\Controllers\TopicController::class, 'permalink'])->name('permalink');
+            Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
             Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');
             Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->middleware('modo');
@@ -431,8 +432,8 @@ Route::middleware('language')->group(function (): void {
             Route::get('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'show'])->name('show');
             Route::patch('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'update'])->name('update');
             Route::delete('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'destroy'])->name('destroy');
-            Route::post('/mass-update', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
-            Route::delete('/mass-delete', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
+            Route::patch('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
+            Route::delete('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
         });
 
         // Outbox

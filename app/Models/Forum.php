@@ -152,14 +152,6 @@ class Forum extends Model
     }
 
     /**
-     * Returns A Table With The Forums In The Category.
-     */
-    public function getForumsInCategory()
-    {
-        return self::where('parent_id', '=', $this->id)->get();
-    }
-
-    /**
      * Returns The Permission Field.
      */
     public function getPermission(): object

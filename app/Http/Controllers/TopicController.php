@@ -365,4 +365,18 @@ class TopicController extends Controller
         return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Unpinned!');
     }
+
+    /**
+     * Redirect to the appropriate topic page.
+     */
+    public function permalink(int $topicId, int $postId): \Illuminate\Http\RedirectResponse
+    {
+        $index = Post::where('topic_id', '=', $topicId)->where('id', '<', $postId)->count();
+
+        return to_route('topics.show', [
+            'id'   => $topicId,
+            'page' => intdiv($index, 25) + 1
+        ])
+            ->withFragment('post-'.$postId);
+    }
 }

@@ -139,7 +139,7 @@ class SimilarTorrent extends Component
         $names = [];
         $users = [];
         $title = match (1) {
-            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->name.' ('.$movie->release_date.')',
+            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date.')',
             $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
             $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
             default                     => $torrents->pluck('name')->join(', '),

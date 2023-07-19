@@ -38,7 +38,7 @@ class InviteController extends Controller
 
         return view('user.invite.index', [
             'user'    => $user,
-            'invites' => $user->sentInvite()->withTrashed()->with(['sender', 'receiver'])->latest()->paginate(25),
+            'invites' => $user->sentInvite()->withTrashed()->with(['sender.group', 'receiver.group'])->latest()->paginate(25),
         ]);
     }
 

@@ -44,11 +44,11 @@
     "require-dev": {
         "brianium/paratest": "^6.10",
         "fakerphp/faker": "^1.23",
-        "laravel/pint": "^1.10.3",
-        "laravel/sail": "^1.23",
+        "laravel/pint": "^1.10.5",
+        "laravel/sail": "^1.23.1",
         "mockery/mockery": "^1.6.2",
         "nunomaduro/collision": "^6.4",
-        "phpunit/phpunit": "^9.6.9",
+        "phpunit/phpunit": "^9.6.10",
         "spatie/laravel-ignition": "^2.2"
     },
     "config": {

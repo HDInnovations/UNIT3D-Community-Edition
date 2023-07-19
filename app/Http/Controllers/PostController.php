@@ -100,8 +100,8 @@ class PostController extends Controller
 
         // Post To Chatbox and Notify Subscribers
         $appUrl = config('app.url');
-        $postUrl = sprintf('%s/forums/topics/%s?page=%s#post-%s', $appUrl, $topic->id, $post->getPageNumber(), $post->id);
-        $realUrl = sprintf('/forums/topics/%s?page=%s#post-%s', $topic->id, $post->getPageNumber(), $post->id);
+        $postUrl = sprintf('%s/forums/topics/%s/posts/%s', $appUrl, $topic->id, $post->id);
+        $realUrl = sprintf('/forums/topics/%s/posts/%s', $topic->id, $post->id);
         $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
@@ -184,7 +184,7 @@ class PostController extends Controller
         $user = $request->user();
 
         $post = Post::findOrFail($id);
-        $postUrl = sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $id);
+        $postUrl = sprintf('forums/topics/%s/posts/%s', $post->topic->id, $id);
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 

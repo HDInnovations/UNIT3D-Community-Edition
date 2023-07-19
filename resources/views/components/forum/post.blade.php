@@ -63,7 +63,7 @@
             <li class="post__toolbar-item">
                 <a
                     class="post__permalink"
-                    href="{{ route('topics.show', ['id' => $post->topic_id]) }}?page={{ $post->getPageNumber() }}#post-{{ $post->id }}"
+                    href="{{ route('topics.permalink', ['topicId' => $post->topic_id, 'postId' => $post->id]) }}"
                     title="{{ __('forum.permalink') }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-link"></i>

@@ -165,22 +165,4 @@ class Topic extends Model
 
         return true;
     }
-
-    /**
-     * Get Post Number From ID.
-     */
-    public function postNumberFromId($searchId): int
-    {
-        $count = 0;
-
-        foreach ($this->posts as $post) {
-            $count++;
-
-            if ($searchId == $post->id) {
-                break;
-            }
-        }
-
-        return $count;
-    }
 }
