@@ -65,7 +65,6 @@ class FortifyServiceProvider extends ServiceProvider
 
                 return redirect()->intended()
                     ->withSuccess(trans('auth.welcome'));
-
             }
         });
 
@@ -96,6 +95,7 @@ class FortifyServiceProvider extends ServiceProvider
                 $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
 
                 $activation = UserActivation::with('user')->where('token', '=', $request->token)->firstOrFail();
+
                 if ($activation->user->id && $activation->user->group->id != $bannedGroup[0]) {
                     $activation->user->active = 1;
                     $activation->user->can_upload = 1;

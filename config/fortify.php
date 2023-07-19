@@ -4,7 +4,6 @@ use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Fortify Guard
@@ -143,5 +142,4 @@ return [
             // 'window' => 0,
         ]),
     ],
-
 ];
