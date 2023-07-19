@@ -145,9 +145,10 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
 
             $user = User::query()->where('username', $request->username)->first();
+
             if ($user && Hash::check($request->password, $user->password)) {
                 // Check if user is activated
-                $validatingGroup = cache()->rememberForever('validating_group', fn() => Group::query()->where('slug', '=', 'validating')->pluck('id'));
+                $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
                 if ($user->active == 0 || $user->group_id == $validatingGroup[0]) {
                     $request->session()->invalidate();
@@ -159,7 +160,7 @@ class FortifyServiceProvider extends ServiceProvider
 
                 // Check if user is banned
 
-                $bannedGroup = cache()->rememberForever('banned_group', fn() => Group::query()->where('slug', '=', 'banned')->pluck('id'));
+                $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
 
                 if ($user->group_id == $bannedGroup[0]) {
                     $request->session()->invalidate();
@@ -168,8 +169,10 @@ class FortifyServiceProvider extends ServiceProvider
                         Fortify::username() => trans('auth.banned'),
                     ]);
                 }
+
                 return $user;
             }
+
             return false;
         });
 
