@@ -35,7 +35,7 @@ class ReceivedPrivateMessageController extends Controller
             'user' => $user,
             'pms'  => $user
                 ->receivedPrivateMessages()
-                ->select('id', 'sender_id', 'subject', 'created_at')
+                ->select('id', 'sender_id', 'subject', 'read', 'created_at')
                 ->with('sender.group')
                 ->when(
                     $request->has('subject'),
