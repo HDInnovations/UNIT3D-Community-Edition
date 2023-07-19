@@ -26,10 +26,14 @@
     @if (Session::has('achievement'))
         @include('partials.achievement_modal')
     @endif
-    @if ($errors->any())
+    @if (Session::has('errors'))
         <div id="ERROR_COPY" style="display: none;">
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
+            @foreach ($errors->getBags() as $bag)
+                    @foreach ($bag->getMessages() as $errors)
+                        @foreach ($errors as $error)
+                            {{ $error }}<br>
+                        @endforeach
+                    @endforeach
             @endforeach
         </div>
     @endif
