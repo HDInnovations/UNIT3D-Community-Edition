@@ -12,6 +12,7 @@ use App\Models\UserActivation;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rule;
@@ -33,7 +34,6 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request): \Illuminate\Http\RedirectResponse
             {
                 $user = $request->user();
-
                 // Check if user is disabled
 
                 $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::query()->where('slug', '=', 'disabled')->pluck('id'));
@@ -137,40 +137,40 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::authenticateUsing(function (Request $request): User|\Illuminate\Database\Eloquent\ModelNotFoundException {
+        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model | bool {
             $request->validate([
                 'username' => 'required|string',
                 'password' => 'required|string',
                 'captcha'  => Rule::when(config('captcha.enabled'), 'hiddencaptcha')
             ]);
 
-            $user = User::query()->where('username', $request->username)->sole();
+            $user = User::query()->where('username', $request->username)->first();
+            if ($user && Hash::check($request->password, $user->password)) {
+                // Check if user is activated
+                $validatingGroup = cache()->rememberForever('validating_group', fn() => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
-            // Check if user is activated
+                if ($user->active == 0 || $user->group_id == $validatingGroup[0]) {
+                    $request->session()->invalidate();
 
-            $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
+                    throw ValidationException::withMessages([
+                        Fortify::username() => trans('auth.not-activated'),
+                    ]);
+                }
 
-            if ($user->active == 0 || $user->group_id == $validatingGroup[0]) {
-                $request->session()->invalidate();
+                // Check if user is banned
 
-                throw ValidationException::withMessages([
-                    Fortify::username() => trans('auth.not-activated'),
-                ]);
+                $bannedGroup = cache()->rememberForever('banned_group', fn() => Group::query()->where('slug', '=', 'banned')->pluck('id'));
+
+                if ($user->group_id == $bannedGroup[0]) {
+                    $request->session()->invalidate();
+
+                    throw ValidationException::withMessages([
+                        Fortify::username() => trans('auth.banned'),
+                    ]);
+                }
+                return $user;
             }
-
-            // Check if user is banned
-
-            $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
-
-            if ($user->group_id == $bannedGroup[0]) {
-                $request->session()->invalidate();
-
-                throw ValidationException::withMessages([
-                    Fortify::username() => trans('auth.banned'),
-                ]);
-            }
-
-            return $user;
+            return false;
         });
 
         RateLimiter::for('login', function (Request $request) {
