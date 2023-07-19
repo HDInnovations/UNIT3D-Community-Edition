@@ -366,6 +366,17 @@ return [
     'total-seedtime'              => 'Total Seedtime',
     'total-upload'                => 'Total Upload',
     'total-uploads'               => 'Total Uploads',
+    'two-step-auth'               => [
+        'title'                   => 'Two-Step Authentication',
+        'totp'                    => 'Time-based One-time Password(TOTP) Authentication',
+        'email'                   => 'Email Authentication',
+        'totp-is-enabled'         => 'TOTP Authentication is currently enabled. To disable it, please click the \'Disable\' button below.',
+        'totp-is-disabled'        => 'TOTP Authentication is currently disabled. To enable it, please click the \'Enable\' button below.',
+        'password-confirm'        => 'Requires password confirmation',
+        'upon-enabling'           => 'Upon enabling, you will be required to enter a valid two factor authentication code.',
+        'complete-setup'          => 'To finish enabling TOTP Authentication, please scan the barcode below with you Authentication App (Google Authenticator, Authy, BitWarden, etc.) and enter the TOTP code in the form below.',
+        'confirm-code'            => 'Confirm TOTP Code'
+    ],
     'unban'                       => 'Unban User',
     'unfollow'                    => 'Unfollow',
     'unlocked'                    => 'Unlocked',

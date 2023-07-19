@@ -34,3 +34,10 @@
 .profile__about {
     grid-area: about;
 }
+.twoStep__qrCode {
+    width: fit-content;
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: var(--panel-box-shadow);
+}

@@ -102,7 +102,7 @@
                         class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.two_step.edit', ['user' => $user]) }}"
                     >
-                        Two-Step Authentication
+                        {{ __('user.two-step-auth.title') }}
                     </a>
                 </li>
             @endif
