@@ -40,7 +40,7 @@ class GiftController extends Controller
         return view('user.gift.index', [
             'user'  => $user,
             'gifts' => BonTransactions::query()
-                ->with(['senderObj', 'receiverObj'])
+                ->with(['senderObj.group', 'receiverObj.group'])
                 ->where(fn ($query) => $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id))
                 ->where('name', '=', 'gift')
                 ->latest('date_actioned')
