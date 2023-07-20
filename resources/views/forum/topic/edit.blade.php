@@ -53,9 +53,13 @@
                 <p class="form__group">
                     <select id="forum_id" name="forum_id" class="form__select">
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" @selected($topic->forum_id === $category->id )>
-                                {{ $category->name }}
-                            </option>
+                            <optgroup label="{{ $category->name }}">
+                                @foreach ($category->forums as $forum)
+                                    <option value="{{ $forum->id }}" @selected($topic->forum_id === $forum->id )>
+                                        {{ $forum->name }}
+                                    </option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                     <label class="form__label form__label--floating" for="forum_id">{{ __('forum.forum') }}</label>
