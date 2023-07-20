@@ -30,6 +30,11 @@ class TopicSearch extends Component
     public String $subscribed = '';
     public String $forumId = '';
 
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();
