@@ -45,9 +45,11 @@ class AutoUpdateUserLastActions extends Command
         $userIdCount = Redis::command('LLEN', [$key]);
         $userIds = Redis::command('LPOP', [$key, $userIdCount]);
 
-        User::whereIntegerInRaw('id', $userIds)->update([
-            'last_action' => now(),
-        ]);
+        if ($userIds !== null) {
+            User::whereIntegerInRaw('id', $userIds)->update([
+                'last_action' => now(),
+            ]);
+        }
 
         $this->comment('Automated upsert histories command complete');
     }
