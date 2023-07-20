@@ -603,7 +603,7 @@
           let myRegions = [
               @foreach($regions as $region)
               {
-                  label: "{{ $region->name }}", value: "{{ $region->id }}"
+                  label: "{{ $region->name }} ({{ __('regions.'.$region->name) }})", value: "{{ $region->id }}"
               },
               @endforeach
           ]
