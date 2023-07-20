@@ -37,7 +37,7 @@
                     <tr>
                         <th>{{ __('user.sender') }}</th>
                         <th>{{ __('common.email') }}</th>
-                        @if ($user->group->is_modo)
+                        @if (auth()->user()->group->is_modo)
                             <th>{{ __('user.code') }}</th>
                             <th>{{ __('common.message') }}</th>
                         @endif
@@ -56,7 +56,7 @@
                                 <x-user_tag :user="$invite->sender" :anon="false" />
                             </td>
                             <td>{{ $invite->email }}</td>
-                            @if ($user->group->is_modo)
+                            @if (auth()->user()->group->is_modo)
                                 <td>{{ $invite->code }}</td>
                                 <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
                             @endif
