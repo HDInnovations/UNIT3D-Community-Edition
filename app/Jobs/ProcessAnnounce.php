@@ -172,7 +172,7 @@ class ProcessAnnounce implements ShouldQueue
         switch ($event) {
             case 'started':
                 $history->active = 1;
-                $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
+                $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
 
                 break;
             case 'completed':
