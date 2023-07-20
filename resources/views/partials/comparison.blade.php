@@ -33,7 +33,7 @@
                     x-on:keydown.window="if (isFinite($event.key) && 1 <= $event.key && $event.key <= {{ \count($comparates) }}) { screen = $event.key }"
                     x-on:keydown.left.window.prevent.stop="screen = screen == 1 ? {{ \count($comparates) }} : screen - 1"
                     x-on:keydown.right.window.prevent.stop="screen = screen == {{ \count($comparates) }} ? 1 : screen + 1"
-                    x-on:mousemove.window="screen = Math.ceil($event.clientX * {{ \count($comparates) }} / window.screen.width)"
+                    x-on:mousemove.window="screen = Math.ceil($event.clientX * {{ \count($comparates) }} / window.innerWidth)"
                 >
                     @foreach($row as $url)
                         <li
