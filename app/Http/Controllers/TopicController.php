@@ -198,7 +198,13 @@ class TopicController extends Controller
             ['show_forum', '=', 1],
             ['start_topic', '=', 1],
         ])
-            ->where('parent_id', '!=', 0)
+            ->where('parent_id', '=', 0)
+            ->with([
+                'forums' => fn ($query) => $query->whereRelation('permissions', [
+                    ['show_forum', '=', 1],
+                    ['start_topic', '=', 1],
+                ])
+            ])
             ->get();
 
         return view('forum.topic.edit', [
