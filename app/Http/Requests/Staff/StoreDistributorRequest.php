@@ -35,9 +35,6 @@ class StoreDistributorRequest extends FormRequest
                 'required',
                 'unique:distributors,name',
             ],
-            'position' => [
-                'required',
-            ],
         ];
     }
 }

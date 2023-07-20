@@ -28,7 +28,7 @@ class DistributorController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.distributor.index', [
-            'distributors' => Distributor::orderBy('position')->get(),
+            'distributors' => Distributor::orderBy('name')->get(),
         ]);
     }
 
@@ -78,7 +78,7 @@ class DistributorController extends Controller
     public function delete(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.distributor.delete', [
-            'distributors' => Distributor::orderBy('position')->get(),
+            'distributors' => Distributor::orderBy('name')->get(),
             'distributor'  => $distributor,
         ]);
     }

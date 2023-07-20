@@ -62,7 +62,7 @@
                         <div id="regions" wire:ignore></div>
                     </div>
                     <div class="form__group">
-                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::orderBy('position')->get()) @endphp
+                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::orderBy('name')->get()) @endphp
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
