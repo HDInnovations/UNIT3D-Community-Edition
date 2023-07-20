@@ -190,7 +190,7 @@ class ProcessTvJob implements ShouldQueue
                 'poster'        => $tmdb->image('poster', $season),
                 'name'          => $tmdb->ifExists('name', $season),
                 'overview'      => $tmdb->ifExists('overview', $season),
-                'season_number' => $tmdb->ifExists('season_number', $season),
+                'season_number' => $season['season_number'],
                 'tv_id'         => $this->id,
             ];
 
