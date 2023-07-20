@@ -38,7 +38,7 @@ class InviteController extends Controller
 
         return view('user.invite.index', [
             'user'    => $user,
-            'invites' => $user->sentInvite()->withTrashed()->with(['sender.group', 'receiver.group'])->latest()->paginate(25),
+            'invites' => $user->sentInvites()->withTrashed()->with(['sender.group', 'receiver.group'])->latest()->paginate(25),
         ]);
     }
 
@@ -82,7 +82,7 @@ class InviteController extends Controller
         }
 
         if ($user->invites <= 0) {
-            return to_route('users.invites.create')
+            return to_route('users.invites.create', ['user' => $user])
                 ->withErrors(trans('user.not-enough-invites'));
         }
 
@@ -120,21 +120,21 @@ class InviteController extends Controller
     /**
      * Retract a sent invite.
      */
-    public function destroy(Request $request, User $user, Invite $invite): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, User $user, Invite $sentInvite): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo || ($request->user()->is($user) && $user->can_invite), 403);
 
-        if ($invite->accepted_by !== null) {
+        if ($sentInvite->accepted_by !== null) {
             return to_route('users.invites.index', ['user' => $user])
                 ->withErrors(trans('user.invite-already-used'));
         }
 
-        if ($invite->expires_on < now()) {
+        if ($sentInvite->expires_on < now()) {
             return to_route('users.invites.index', ['user' => $user])
                 ->withErrors(trans('user.invite-expired'));
         }
 
-        $invite->delete();
+        $sentInvite->delete();
 
         return to_route('users.invites.index', ['user' => $user])
             ->withSuccess('Invite deleted successfully.');
@@ -143,21 +143,21 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      */
-    public function send(Request $request, User $user, Invite $invite): \Illuminate\Http\RedirectResponse
+    public function send(Request $request, User $user, Invite $sentInvite): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo || ($request->user()->is($user) && $user->can_invite), 403);
 
-        if ($invite->accepted_by !== null) {
+        if ($sentInvite->accepted_by !== null) {
             return to_route('users.invites.index', ['user' => $user])
                 ->withErrors(trans('user.invite-already-used'));
         }
 
-        if ($invite->expires_on < now()) {
+        if ($sentInvite->expires_on < now()) {
             return to_route('users.invites.index', ['user' => $user])
                 ->withErrors(trans('user.invite-expired'));
         }
 
-        Mail::to($invite->email)->send(new InviteUser($invite));
+        Mail::to($sentInvite->email)->send(new InviteUser($sentInvite));
 
         return to_route('users.invites.index', ['user' => $user])
             ->withSuccess(trans('user.invite-resent-success'));

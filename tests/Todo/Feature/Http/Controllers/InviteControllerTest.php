@@ -58,7 +58,7 @@ class InviteControllerTest extends TestCase
         $user = User::factory()->create();
         $invite = Invite::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->actingAs($user)->post(route('users.invites.send', ['user' => $user, 'invite' => $invite->id]), [
+        $response = $this->actingAs($user)->post(route('users.invites.send', ['user' => $user, 'sentInvite' => $invite->id]), [
             // TODO: send request data
         ]);
 

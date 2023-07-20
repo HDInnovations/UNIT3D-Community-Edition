@@ -457,7 +457,7 @@ class User extends Authenticatable
     /**
      * Has Given Many Invites.
      */
-    public function sentInvite(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Invite::class, 'user_id');
     }
@@ -465,7 +465,7 @@ class User extends Authenticatable
     /**
      * Has Received Many Invites.
      */
-    public function receivedInvite(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Invite::class, 'accepted_by');
     }

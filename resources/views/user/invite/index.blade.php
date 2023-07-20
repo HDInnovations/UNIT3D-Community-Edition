@@ -75,7 +75,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('users.invites.send', ['user' => $user, 'invite' => $invite]) }}"
+                                            action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >
@@ -101,7 +101,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('users.invites.destroy', ['user' => $user, 'invite' => $invite]) }}"
+                                            action="{{ route('users.invites.destroy', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >
