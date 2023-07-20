@@ -85,15 +85,21 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Get history information
-        $history = History::query()
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->where('user_id', '=', $this->user->id)
-            ->first();
-
-        // If no History record found then create one
-        if ($history === null) {
-            $history = new History();
-        }
+        $history = History::firstOrNew(
+            [
+                'torrent_id' => $this->torrent->id,
+                'user_id'    => $this->user->id,
+            ],
+            [
+                'uploaded'          => 0,
+                'actual_uploaded'   => 0,
+                'downloaded'        => 0,
+                'actual_downloaded' => 0,
+                'seedtime'          => 0,
+                'immune'            => 0,
+                'completed_at'      => null,
+            ]
+        );
 
         // Check Ghost Flag
         if ($ghost) {
@@ -158,8 +164,6 @@ class ProcessAnnounce implements ShouldQueue
         $peer->updated_at = now();
         $peer->save();
 
-        $history->user_id = $this->user->id;
-        $history->torrent_id = $this->torrent->id;
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
         $history->client_uploaded = $realUploaded;

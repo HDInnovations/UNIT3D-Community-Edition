@@ -33,9 +33,7 @@ class History extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-    ];
+    protected $guarded = [];
 
     /**
      * The Attributes That Should Be Mutated To Dates.
