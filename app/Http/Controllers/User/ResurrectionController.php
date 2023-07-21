@@ -63,7 +63,7 @@ class ResurrectionController extends Controller
                 ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
 
-        $history = History::whereBelongsTo($torrent)->whereBelongsTo($user)->sole();
+        $history = History::whereBelongsTo($torrent)->whereBelongsTo($user)->first();
 
         Graveyard::create([
             'user_id'    => $user->id,
