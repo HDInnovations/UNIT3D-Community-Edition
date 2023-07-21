@@ -104,7 +104,12 @@
             datetime="{{ $topic->last_reply_at ?? '' }}"
             title="{{ $topic->last_reply_at ?? '' }}"
         >
-            {{ $topic->last_reply_at?->diffForHumans() ?? __('common.unknown') }}
+            <a
+                class="topic-listing__latest-post-link"
+                href="{{ route('topics.latestPermalink', ['id' => $topic->id]) }}"
+            >
+                {{ $topic->last_reply_at?->diffForHumans() ?? __('common.unknown') }}
+            </a>
         </time>
     </article>
 </article>

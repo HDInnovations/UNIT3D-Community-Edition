@@ -53,7 +53,16 @@
             datetime="{{ $subforum->updated_at }}"
             title="{{ $subforum->updated_at }}"
         >
-            {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+            @if ($subforum->last_topic_id === null)
+                {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+            @else
+                <a
+                    class="subforum-listing__latest-post-link"
+                    href="{{ route('topics.latestPermalink', ['id' => $subforum->last_topic_id]) }}"
+                >
+                    {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+                </a>
+            @endif
         </time>
         @if ($subforum->last_topic_id !== null && $subforum->last_post_user_username !== null)
             <address class="subforum-listing__latest-author">
