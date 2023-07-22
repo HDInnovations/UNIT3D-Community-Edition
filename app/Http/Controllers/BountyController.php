@@ -50,11 +50,11 @@ class BountyController extends Controller
         $torrentRequest->save();
 
         BonTransactions::create([
-            'itemID'  => 0,
-            'name'    => 'request',
-            'cost'    => $request->float('seedbonus'),
-            'sender'  => $user->id,
-            'comment' => sprintf('adding bonus to %s', $torrentRequest->name),
+            'bon_exchange_id' => 0,
+            'name'            => 'request',
+            'cost'            => $request->float('seedbonus'),
+            'sender_id'       => $user->id,
+            'comment'         => sprintf('adding bonus to %s', $torrentRequest->name),
         ]);
 
         $user->decrement('seedbonus', $request->float('seedbonus'));

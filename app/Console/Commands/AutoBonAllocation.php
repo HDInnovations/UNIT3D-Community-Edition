@@ -250,10 +250,10 @@ class AutoBonAllocation extends Command
         //Move data from array to BonTransactions table
         /*foreach ($array as $key => $value) {
             $log = new BonTransactions();
-            $log->itemID = 0;
+            $log->bon_exchange_id = 0;
             $log->name = "Seeding Award";
             $log->cost = $value;
-            $log->receiver = $key;
+            $log->receiver_id = $key;
             $log->comment = "Seeding Award";
             $log->save();
         }*/
