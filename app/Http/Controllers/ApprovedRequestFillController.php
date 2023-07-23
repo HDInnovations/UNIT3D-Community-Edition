@@ -53,11 +53,11 @@ class ApprovedRequestFillController extends Controller
         ]);
 
         BonTransactions::create([
-            'itemID'   => 0,
-            'name'     => 'request',
-            'cost'     => $torrentRequest->bounty,
-            'receiver' => $torrentRequest->filled_by,
-            'comment'  => sprintf('%s has filled %s and has been awarded %s BONUS.', $filler->username, $torrentRequest->name, $torrentRequest->bounty),
+            'bon_exchange_id' => 0,
+            'name'            => 'request',
+            'cost'            => $torrentRequest->bounty,
+            'receiver_id'     => $torrentRequest->filled_by,
+            'comment'         => sprintf('%s has filled %s and has been awarded %s BONUS.', $filler->username, $torrentRequest->name, $torrentRequest->bounty),
         ]);
 
         $filler->increment('seedbonus', $torrentRequest->bounty);
@@ -107,11 +107,11 @@ class ApprovedRequestFillController extends Controller
         $refunded = min($torrentRequest->bounty, $filler->seedbonus);
 
         BonTransactions::create([
-            'itemID'  => 0,
-            'name'    => 'request',
-            'cost'    => $refunded,
-            'sender'  => $torrentRequest->filled_by,
-            'comment' => sprintf('%s has had %s unfilled and has forfeited %s BONUS.', $filler->username, $torrentRequest->name, $refunded),
+            'bon_exchange_id' => 0,
+            'name'            => 'request',
+            'cost'            => $refunded,
+            'sender_id'       => $torrentRequest->filled_by,
+            'comment'         => sprintf('%s has had %s unfilled and has forfeited %s BONUS.', $filler->username, $torrentRequest->name, $refunded),
         ]);
 
         $filler->decrement('seedbonus', $refunded);

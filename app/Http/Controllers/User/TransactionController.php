@@ -59,18 +59,18 @@ class TransactionController extends Controller
         abort_unless($request->user()->is($user), 403);
 
         $request = (object) $request->validated();
-        $item = BonExchange::findOrFail($request->exchange);
+        $bonExchange = BonExchange::findOrFail($request->exchange);
 
         switch (true) {
-            case $item->upload:
-                $user->increment('uploaded', $item->value);
+            case $bonExchange->upload:
+                $user->increment('uploaded', $bonExchange->value);
 
                 break;
-            case $item->download:
-                $user->decrement('downloaded', $item->value);
+            case $bonExchange->download:
+                $user->decrement('downloaded', $bonExchange->value);
 
                 break;
-            case $item->personal_freeleech:
+            case $bonExchange->personal_freeleech:
                 PersonalFreeleech::create(['user_id' => $user->id]);
 
                 cache()->put('personal_freeleech:'.$user->id, true);
@@ -86,22 +86,22 @@ class TransactionController extends Controller
                 ]);
 
                 break;
-            case $item->invite:
-                $user->increment('invites', $item->value);
+            case $bonExchange->invite:
+                $user->increment('invites', $bonExchange->value);
 
                 break;
         }
 
         BonTransactions::create([
-            'itemID'     => $item->id,
-            'name'       => $item->description,
-            'cost'       => $item->value,
-            'sender'     => $user->id,
-            'comment'    => $item->description,
-            'torrent_id' => null,
+            'bon_exchange_id' => $bonExchange->id,
+            'name'            => $bonExchange->description,
+            'cost'            => $bonExchange->value,
+            'sender_id'       => $user->id,
+            'comment'         => $bonExchange->description,
+            'torrent_id'      => null,
         ]);
 
-        $user->decrement('seedbonus', $item->cost);
+        $user->decrement('seedbonus', $bonExchange->cost);
 
         return to_route('users.transactions.create', ['user' => $user])
             ->withSuccess(trans('bon.success'));

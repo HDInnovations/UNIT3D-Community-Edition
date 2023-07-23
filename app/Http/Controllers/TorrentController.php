@@ -137,7 +137,7 @@ class TorrentController extends Controller
             'trailer'            => $trailer,
             'platforms'          => $platforms,
             'total_tips'         => BonTransactions::where('torrent_id', '=', $id)->sum('cost'),
-            'user_tips'          => BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost'),
+            'user_tips'          => BonTransactions::where('torrent_id', '=', $id)->where('sender_id', '=', $user->id)->sum('cost'),
             'featured'           => $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null,
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
             'last_seed_activity' => History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first(),

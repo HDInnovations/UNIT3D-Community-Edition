@@ -138,11 +138,11 @@ class RequestController extends Controller
         ]);
 
         BonTransactions::create([
-            'itemID'  => 0,
-            'name'    => 'request',
-            'cost'    => $request->bounty,
-            'sender'  => $user->id,
-            'comment' => sprintf('new request - %s', $request->name),
+            'bon_exchange_id' => 0,
+            'name'            => 'request',
+            'cost'            => $request->bounty,
+            'sender_id'       => $user->id,
+            'comment'         => sprintf('new request - %s', $request->name),
         ]);
 
         $user->decrement('seedbonus', $request->bounty);

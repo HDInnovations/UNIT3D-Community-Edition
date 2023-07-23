@@ -106,11 +106,11 @@ class SystemBot
             $this->target->save();
 
             $bonTransactions = new BonTransactions();
-            $bonTransactions->itemID = 0;
+            $bonTransactions->bon_exchange_id = 0;
             $bonTransactions->name = 'gift';
             $bonTransactions->cost = $value;
-            $bonTransactions->sender = $this->target->id;
-            $bonTransactions->receiver = $recipient->id;
+            $bonTransactions->sender_id = $this->target->id;
+            $bonTransactions->receiver_id = $recipient->id;
             $bonTransactions->comment = $output;
             $bonTransactions->torrent_id = null;
             $bonTransactions->save();

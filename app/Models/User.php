@@ -491,7 +491,7 @@ class User extends Authenticatable
      */
     public function bonGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender');
+        return $this->hasMany(BonTransactions::class, 'sender_id');
     }
 
     /**
@@ -499,7 +499,7 @@ class User extends Authenticatable
      */
     public function bonReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver');
+        return $this->hasMany(BonTransactions::class, 'receiver_id');
     }
 
     /**
@@ -579,7 +579,7 @@ class User extends Authenticatable
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender')->where('name', '=', 'gift');
+        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'gift');
     }
 
     /**
@@ -587,7 +587,7 @@ class User extends Authenticatable
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver')->where('name', '=', 'gift');
+        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'gift');
     }
 
     /**
@@ -595,7 +595,7 @@ class User extends Authenticatable
      */
     public function sentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender')->where('name', '=', 'tip');
+        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'tip');
     }
 
     /**
@@ -603,7 +603,7 @@ class User extends Authenticatable
      */
     public function receivedTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver')->where('name', '=', 'tip');
+        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'tip');
     }
 
     /**
