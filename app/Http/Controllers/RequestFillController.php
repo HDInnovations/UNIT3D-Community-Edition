@@ -62,9 +62,7 @@ class RequestFillController extends Controller
      */
     public function destroy(Request $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        abort_unless($request->user()->group->is_modo, 403);
+        abort_unless($request->user()->id === $torrentRequest->user_id || $request->user()->group->is_modo, 403);
 
         $torrentRequest->update([
             'filled_by'   => null,
