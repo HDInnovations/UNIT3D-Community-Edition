@@ -15,33 +15,33 @@
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
 @if (auth()->user()->standalone_css === null)
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
+    @vite('resources/css/app.css')
     @if (auth()->user()->style == 1)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
     @elseif (auth()->user()->style == 2)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-blue.css')
     @elseif (auth()->user()->style == 3)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-green.css')
     @elseif (auth()->user()->style == 4)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-pink.css')
     @elseif (auth()->user()->style == 5)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-purple.css')
     @elseif (auth()->user()->style == 6)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-red.css')
     @elseif (auth()->user()->style == 7)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-teal.css')
     @elseif (auth()->user()->style == 8)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/dark-yellow.css')
     @elseif (auth()->user()->style == 9)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/cosmic-void.css') }}" crossorigin="anonymous">
+        @vite('resources/css/themes/galactic.css')
+        @vite('resources/css/themes/cosmic-void.css')
     @endif
 
     @if (isset(auth()->user()->custom_css))

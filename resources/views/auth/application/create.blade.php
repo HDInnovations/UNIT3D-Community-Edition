@@ -20,7 +20,7 @@
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
+    @vite('resources/css/app.css')
 </head>
 
 <body>
@@ -137,8 +137,8 @@
                         </form>
                     </div>
                 </div>
-                <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
-                <script src="{{ mix('js/alpine.js') }}" crossorigin="anonymous" defer></script>
+                @vite('resources/js/app.js')
+                @vite('resources/js/alpine.js')
                 @foreach (['warning', 'success', 'info'] as $key)
                     @if (Session::has($key))
                         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
