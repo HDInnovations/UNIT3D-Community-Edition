@@ -162,7 +162,6 @@ class ProcessAnnounce implements ShouldQueue
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
-        $peer->save();
 
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
@@ -173,6 +172,8 @@ class ProcessAnnounce implements ShouldQueue
             case 'started':
                 $history->active = 1;
                 $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
+
+                $peer->active = 0;
 
                 break;
             case 'completed':
@@ -189,6 +190,8 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
+
+                $peer->active = 1;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -217,7 +220,7 @@ class ProcessAnnounce implements ShouldQueue
                     $history->seedtime += $diff;
                 }
 
-                $peer->delete();
+                $peer->active = 0;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -241,6 +244,8 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
+
+                $peer->active = 1;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -271,6 +276,8 @@ class ProcessAnnounce implements ShouldQueue
                 'completed_at',
             ]))
         ]);
+
+        $peer->save();
 
         $otherSeeders = $this
             ->torrent

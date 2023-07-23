@@ -173,10 +173,14 @@
                             </td>
                         @endif
                         <td class="user-active__seeding">
-                            @if ($active->seeder === 1)
-                                <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.seeding') }}"></i>
+                            @if ($active->active)
+                                @if ($active->seeder === 1)
+                                    <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.seeding') }}"></i>
+                                @else
+                                    <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.seeding') }}"></i>
+                                @endif
                             @else
-                                <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.seeding') }}"></i>
+                                <i class="{{ config('other.font-awesome') }} text-blue circle-stop" title="Stopped {{ __('torrent.seeding') }}"></i>
                             @endif
                         </td>
                         <td class="user-active__size">
