@@ -114,7 +114,7 @@
             <h2 class="meta__heading">Cast</h2>
             @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupations::ACTOR->value)?->sortBy('order') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
-                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id]) }}" class="meta-chip">
+                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}" class="meta-chip">
                         @if ($credit->person->still)
                             <img
                                 class="meta-chip__image"
@@ -134,7 +134,7 @@
             <h2 class="meta__heading">Crew</h2>
             @foreach($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupations::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
-                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id]) }}" class="meta-chip">
+                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}" class="meta-chip">
                         @if ($credit->person->still)
                             <img
                                 class="meta-chip__image"

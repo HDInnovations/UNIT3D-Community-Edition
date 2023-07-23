@@ -24,21 +24,25 @@ class PersonCredit extends Component
 {
     public Person $person;
 
-    public ?Occupations $occupation = null;
+    public ?int $occupationId = null;
+
+    public $queryString = [
+        'occupationId',
+    ];
 
     final public function mount(): void
     {
-        $this->occupation = match (true) {
-            0 < $this->createdCount            => Occupations::CREATOR,
-            0 < $this->directedCount           => Occupations::DIRECTOR,
-            0 < $this->writtenCount            => Occupations::WRITER,
-            0 < $this->producedCount           => Occupations::PRODUCER,
-            0 < $this->composedCount           => Occupations::COMPOSER,
-            0 < $this->cinematographedCount    => Occupations::CINEMATOGRAPHER,
-            0 < $this->editedCount             => Occupations::EDITOR,
-            0 < $this->productionDesignedCount => Occupations::PRODUCTION_DESIGNER,
-            0 < $this->artDirectedCount        => Occupations::ART_DIRECTOR,
-            0 < $this->actedCount              => Occupations::ACTOR,
+        $this->occupationId ??= match (true) {
+            0 < $this->createdCount            => Occupations::CREATOR->value,
+            0 < $this->directedCount           => Occupations::DIRECTOR->value,
+            0 < $this->writtenCount            => Occupations::WRITER->value,
+            0 < $this->producedCount           => Occupations::PRODUCER->value,
+            0 < $this->composedCount           => Occupations::COMPOSER->value,
+            0 < $this->cinematographedCount    => Occupations::CINEMATOGRAPHER->value,
+            0 < $this->editedCount             => Occupations::EDITOR->value,
+            0 < $this->productionDesignedCount => Occupations::PRODUCTION_DESIGNER->value,
+            0 < $this->artDirectedCount        => Occupations::ART_DIRECTOR->value,
+            0 < $this->actedCount              => Occupations::ACTOR->value,
             default                            => null,
         };
     }
@@ -108,7 +112,7 @@ class PersonCredit extends Component
 
     final public function getMediasProperty(): \Illuminate\Support\Collection
     {
-        if ($this->occupation === null) {
+        if ($this->occupationId === null) {
             return collect();
         }
 
@@ -116,7 +120,7 @@ class PersonCredit extends Component
             ->movie()
             ->whereHas('torrents')
             ->with('genres', 'directors')
-            ->wherePivot('occupation_id', '=', $this->occupation)
+            ->wherePivot('occupation_id', '=', $this->occupationId)
             ->orderBy('release_date')
             ->get()
             // Since the credits table unique index has nullable columns, we get duplicate credits, which means duplicate movies
@@ -125,7 +129,7 @@ class PersonCredit extends Component
             ->tv()
             ->whereHas('torrents')
             ->with('genres', 'creators')
-            ->wherePivot('occupation_id', '=', $this->occupation)
+            ->wherePivot('occupation_id', '=', $this->occupationId)
             ->orderBy('first_air_date')
             ->get()
             // Since the credits table unique index has nullable columns, we get duplicate credits, which means duplicate tv
