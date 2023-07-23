@@ -44,3 +44,5 @@ laravel-echo-server.lock
 _ide_helper.php
 
 supervisor.ini
+
+/public/build
