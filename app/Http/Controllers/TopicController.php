@@ -385,4 +385,22 @@ class TopicController extends Controller
         ])
             ->withFragment('post-'.$postId);
     }
+
+    /**
+     * Redirect to the appropriate topic page for the latest post.
+     */
+    public function latestPermalink(int $id): \Illuminate\Http\RedirectResponse
+    {
+        $post = Post::query()
+            ->selectRaw('MAX(id) as id')
+            ->selectRaw('count(*) as post_count')
+            ->where('topic_id', '=', $id)
+            ->first();
+
+        return to_route('topics.show', [
+            'id'   => $id,
+            'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
+        ])
+            ->withFragment('post-'.($post?->id ?? 0));
+    }
 }
