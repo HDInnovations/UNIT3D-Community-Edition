@@ -161,24 +161,6 @@ class ProcessAnnounce implements ShouldQueue
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
-        $peer->updated_at = now();
-
-        Redis::connection('announce')->command('LPUSH', [
-            config('cache.prefix').':peers:batch',
-            serialize($peer->only([
-                'peer_id',
-                'ip',
-                'port',
-                'agent',
-                'uploaded',
-                'downloaded',
-                'left',
-                'seeder',
-                'torrent_id',
-                'user_id',
-                'connectable'
-            ]))
-        ]);
 
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
@@ -187,13 +169,15 @@ class ProcessAnnounce implements ShouldQueue
 
         switch ($event) {
             case 'started':
+                $peer->active = 1;
+
                 $history->active = 1;
                 $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
 
-                $peer->active = 0;
-
                 break;
             case 'completed':
+                $peer->active = 1;
+
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -207,8 +191,6 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
-
-                $peer->active = 1;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -224,6 +206,8 @@ class ProcessAnnounce implements ShouldQueue
 
                 break;
             case 'stopped':
+                $peer->active = 0;
+
                 $history->active = 0;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -237,8 +221,6 @@ class ProcessAnnounce implements ShouldQueue
                     $history->seedtime += $diff;
                 }
 
-                $peer->active = 0;
-
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
@@ -249,6 +231,8 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
                 break;
             default:
+                $peer->active = 1;
+
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -262,8 +246,6 @@ class ProcessAnnounce implements ShouldQueue
                     $history->seedtime += $diff;
                 }
 
-                $peer->active = 1;
-
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
@@ -273,6 +255,24 @@ class ProcessAnnounce implements ShouldQueue
                 }
                 // End User Update
         }
+
+        Redis::connection('announce')->command('LPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize($peer->only([
+                'peer_id',
+                'ip',
+                'port',
+                'agent',
+                'uploaded',
+                'downloaded',
+                'left',
+                'seeder',
+                'torrent_id',
+                'user_id',
+                'connectable',
+                'active'
+            ]))
+        ]);
 
         Redis::connection('announce')->command('LPUSH', [
             config('cache.prefix').':histories:batch',
@@ -293,8 +293,6 @@ class ProcessAnnounce implements ShouldQueue
                 'completed_at',
             ]))
         ]);
-
-        $peer->save();
 
         $otherSeeders = $this
             ->torrent
