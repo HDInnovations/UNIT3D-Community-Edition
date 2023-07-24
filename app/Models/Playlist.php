@@ -66,6 +66,6 @@ class Playlist extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse(htmlspecialchars_decode($this->description)));
+        return (new Linkify())->linky($bbcode->parse($this->description));
     }
 }

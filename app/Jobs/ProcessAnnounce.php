@@ -163,6 +163,23 @@ class ProcessAnnounce implements ShouldQueue
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
 
+        Redis::connection('announce')->command('LPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize($peer->only([
+                'peer_id',
+                'ip',
+                'port',
+                'agent',
+                'uploaded',
+                'downloaded',
+                'left',
+                'seeder',
+                'torrent_id',
+                'user_id',
+                'connectable'
+            ]))
+        ]);
+
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
         $history->client_uploaded = $realUploaded;

@@ -1,16 +1,6 @@
-<section class="panelV2" x-data="{ tab: @entangle('occupation') }">
+<section class="panelV2" x-data="{ tab: @entangle('occupationId') }">
     <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
     <menu class="panel__tabs">
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::DIRECTOR->value }} && 'panel__tab--active'"
-            x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::DIRECTOR->value }}"
-            x-show="{{ $directedCount }} > 0"
-        >
-            Director ({{ $directedCount }})
-        </li>
         <li
             class="panel__tab"
             role="tab"
@@ -20,6 +10,16 @@
             x-show="{{ $createdCount }} > 0"
         >
             Creator ({{ $createdCount }})
+        </li>
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === {{ App\Enums\Occupations::DIRECTOR->value }} && 'panel__tab--active'"
+            x-cloak
+            x-on:click="tab = {{ App\Enums\Occupations::DIRECTOR->value }}"
+            x-show="{{ $directedCount }} > 0"
+        >
+            Director ({{ $directedCount }})
         </li>
         <li
             class="panel__tab"

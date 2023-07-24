@@ -1,4 +1,4 @@
-<article class="post" id="post-{{ $post->id }}">
+<article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
         <time
             class="post__datetime"
@@ -74,11 +74,16 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-data
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}] {{ \str_replace(["\n", "\r"], ["\\n", "\\r"], \htmlspecialchars($post->content)) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]';
+                            input.value += (() => {
+                                var text = document.createElement('textarea');
+                                text.innerHTML = atob($refs.content.dataset.base64Bbcode);
+                                return text.value;
+                            })();
+                            input.value += '[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
@@ -178,7 +183,8 @@
     </aside>
     <div
         class="post__content bbcode-rendered"
-        data-bbcode="{{ $post->content }}"
+        x-ref="content"
+        data-base64-bbcode="{{ base64_encode($post->content) }}"
     >
         @joypixels($post->getContentHtml())
     </div>

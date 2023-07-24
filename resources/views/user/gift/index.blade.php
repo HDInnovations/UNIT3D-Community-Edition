@@ -52,16 +52,16 @@
                 @foreach($gifts as $gift)
                     <tr>
                         <td>
-                            <x-user_tag :user="$gift->senderObj" :anon="false" />
+                            <x-user_tag :user="$gift->sender" :anon="false" />
                         </td>
                         <td>
-                            <x-user_tag :user="$gift->receiverObj" :anon="false" />
+                            <x-user_tag :user="$gift->receiver" :anon="false" />
                         </td>
                         <td>
                             {{ $gift->cost }}
                         </td>
                         <td>
-                            {{ $gift->date_actioned }}
+                            {{ $gift->created_at }}
                         </td>
                     </tr>
                 @endforeach

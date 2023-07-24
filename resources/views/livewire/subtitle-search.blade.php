@@ -153,6 +153,18 @@
                         </fieldset>
                     </div>
                     <p class="form__group">
+                        <input
+                            id="username"
+                            wire:model="username"
+                            type="search"
+                            class="form__text"
+                            placeholder=" "
+                        >
+                        <label for="username" class="form__label form__label--floating">
+                            {{ __('subtitle.uploader') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
                         <select
                             id="quantity"
                             class="form__select"

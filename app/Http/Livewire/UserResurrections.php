@@ -13,7 +13,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Graveyard;
+use App\Models\Resurrection;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -59,23 +59,23 @@ class UserResurrections extends Component
 
     final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Graveyard::query()
+        return Resurrection::query()
             ->select([
-                'graveyard.id',
-                'graveyard.created_at',
-                'graveyard.seedtime',
-                'graveyard.rewarded',
-                'graveyard.torrent_id'
+                'resurrections.id',
+                'resurrections.created_at',
+                'resurrections.seedtime',
+                'resurrections.rewarded',
+                'resurrections.torrent_id'
             ])
             ->with(['torrent', 'user'])
-            ->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id')
-            ->where('graveyard.user_id', '=', $this->user->id)
+            ->leftJoin('torrents', 'torrents.id', '=', 'resurrections.torrent_id')
+            ->where('resurrections.user_id', '=', $this->user->id)
             ->when($this->rewarded === 'include', fn ($query) => $query->where('rewarded', '=', 1))
             ->when($this->rewarded === 'exclude', fn ($query) => $query->where('rewarded', '=', 0))
             ->when($this->name, fn ($query) => $query->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%'))
             ->when(
                 \in_array($this->sortField, ['created_at', 'seedtime', 'rewarded']),
-                fn ($query) => $query->orderBy('graveyard.'.$this->sortField, $this->sortDirection),
+                fn ($query) => $query->orderBy('resurrections.'.$this->sortField, $this->sortDirection),
                 fn ($query) => $query->orderBy('torrents.'.$this->sortField, $this->sortDirection)
             )
             ->paginate($this->perPage);

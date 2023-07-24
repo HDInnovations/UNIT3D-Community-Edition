@@ -364,6 +364,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
             Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
             Route::get('/{topicId}/posts/{postId}', [App\Http\Controllers\TopicController::class, 'permalink'])->name('permalink');
+            Route::get('/{id}/latest', [App\Http\Controllers\TopicController::class, 'latestPermalink'])->name('latestPermalink');
             Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
             Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');

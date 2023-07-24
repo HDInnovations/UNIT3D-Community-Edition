@@ -32,7 +32,6 @@ class BotTransaction extends Model
     /**
      * Belongs To A User.
      */
-    // Bad name to not conflict with sender (not sender_id)
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
@@ -44,7 +43,6 @@ class BotTransaction extends Model
     /**
      * Belongs To A Bot.
      */
-    // Bad name to not conflict with sender (not sender_id)
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bot::class)->withDefault([

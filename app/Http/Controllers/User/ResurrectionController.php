@@ -14,7 +14,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Graveyard;
+use App\Models\Resurrection;
 use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
@@ -56,16 +56,16 @@ class ResurrectionController extends Controller
                 ->withErrors('This torrent is not older than 30 days.');
         }
 
-        $isPending = Graveyard::whereBelongsTo($torrent)->where('rewarded', '=', 0)->exists();
+        $isPending = Resurrection::whereBelongsTo($torrent)->where('rewarded', '=', 0)->exists();
 
         if ($isPending) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
 
-        $history = History::whereBelongsTo($torrent)->whereBelongsTo($user)->sole();
+        $history = History::whereBelongsTo($torrent)->whereBelongsTo($user)->first();
 
-        Graveyard::create([
+        Resurrection::create([
             'user_id'    => $user->id,
             'torrent_id' => $torrent->id,
             'seedtime'   => config('graveyard.time') + $history?->seedtime ?? 0,
@@ -78,7 +78,7 @@ class ResurrectionController extends Controller
     /**
      * Cancel A Ressurection.
      */
-    public function destroy(Request $request, User $user, Graveyard $resurrection): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, User $user, Resurrection $resurrection): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo || $request->user()->is($user), 403);
 

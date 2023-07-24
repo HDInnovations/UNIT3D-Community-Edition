@@ -105,7 +105,7 @@ class Post extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse(htmlspecialchars_decode($this->content)));
+        return (new Linkify())->linky($bbcode->parse($this->content));
     }
 
     /**

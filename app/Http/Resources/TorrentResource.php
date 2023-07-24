@@ -13,8 +13,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Movie;
-use App\Models\Tv;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TorrentResource extends JsonResource
@@ -24,15 +22,7 @@ class TorrentResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $meta = null;
-
-        if ($this->category->tv_meta && ($this->tmdb !== 0)) {
-            $meta = Tv::with(['genres:name'])->find($this->tmdb);
-        }
-
-        if ($this->category->movie_meta && ($this->tmdb !== 0)) {
-            $meta = Movie::with(['genres:name'])->find($this->tmdb);
-        }
+        $meta = $this->movie ?? $this->tv;
 
         return [
             'type'       => 'torrent',
