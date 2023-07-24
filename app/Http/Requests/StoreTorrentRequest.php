@@ -41,6 +41,180 @@ class StoreTorrentRequest extends FormRequest
         $category = Category::findOrFail($request->integer('category_id'));
 
         return [
+            'decoded_torrent' => [
+                'required',
+            ],
+            'decoded_torrent.comment' => [
+                'sometimes',
+                'max:255',
+            ],
+            'decoded_torrent.encoding' => [
+                'sometimes',
+                'max:255',
+            ],
+            'decoded_torrent.info' => [
+                'required',
+                'array',
+                'required_array_keys:piece length,pieces',
+                function (string $attributes, mixed $value, Closure $fail): void {
+                    if (\is_array($value)) {
+                        if(\array_key_exists('files', $value) && \is_array($value['files'])) {
+                            $totalLength = 0;
+
+                            foreach ($value['files'] as $file) {
+                                if (\is_array($file) && \array_key_exists('length', $file) && \is_int($file['length'])) {
+                                    $totalLength += $file['length'];
+                                }
+                            }
+
+                            if (
+                                \array_key_exists('piece length', $value)
+                                && \is_int($value['piece length'])
+                                && \array_key_exists('pieces', $value)
+                                && \is_string($value['pieces'])
+                                && (int) ceil($totalLength / $value['piece length']) * 20 !== \strlen($value['pieces'])
+                            ) {
+                                $fail('This torrent is corrupt: there are not enough hashes for all pieces. You currently have '(\strlen($value['pieces']) / 20).' hashes of pieces with size '.$value['piece length'].' but that doesn\'t total the provided '.$totalLength.' total filesize.');
+                            }
+                        } elseif (
+                            \array_key_exists('piece length', $value)
+                            && \is_int($value['piece length'])
+                            && \array_key_exists('pieces', $value)
+                            && \is_string($value['pieces'])
+                            && \array_key_exists('length', $value)
+                            && \is_int($value['length'])
+                            && (int) ceil($value['length'] / $value['piece length']) * 20 !== \strlen($value['pieces'])
+                        ) {
+                            $fail('This torrent is corrupt: there are not enough hashes for all pieces.');
+                        }
+                    }
+
+                    // Make sure there are an appropriate number of pieces in the torrent.
+                    // 1000-2000 is optimal between performance of having to deal with less hashing
+                    // balanced with potential of losing data due to network conditions. Other factors
+                    // include the default 2 MiB PHP maximum file upload limit on seedboxes and older
+                    // clients (namely utorrent) not supporting pieces sizes above 16 MiB (but also not
+                    // supporting torrent sizes larger than 1 TiB).
+                    if (
+                        \array_key_exists('piece length', $value)
+                        && \is_int($value['piece length'])
+                        && \array_key_exists('pieces', $value)
+                        && \is_string($value['pieces'])
+                    ) {
+                        $pieceCount = \strlen($value['pieces']) / 20;
+
+                        switch ($value['piece length']) {
+                            case 2 ** 14: // 16 KiB
+                            case 2 ** 15: // 32 KiB
+                            case 2 ** 16: // 64 KiB
+                                if ($pieceCount > 1500) {
+                                    $fail('A piece size of '.$value['piece length'].' must be less than 1500 pieces. You have '.$pieceCount.' pieces. Consider raising or lowering the piece size.');
+                                }
+
+                                break;
+                            case 2 ** 17: // 128 KiB
+                            case 2 ** 18: // 256 KiB
+                            case 2 ** 19: // 512 KiB
+                            case 2 ** 20: // 1 MiB
+                            case 2 ** 21: // 2 MiB
+                            case 2 ** 22: // 4 MiB
+                            case 2 ** 23: // 8 MiB
+                                if ($pieceCount < 500 || 3000 < $pieceCount) {
+                                    $fail('A piece size of '.$value['piece length'].' must be between 500 and 3000 pieces. You have '.$pieceCount.' pieces. Consider raising or lowering the piece size.');
+                                }
+
+                                break;
+                            case 2 ** 24: // 16 MiB
+                                if ($pieceCount < 500 || 5000 < $pieceCount) {
+                                    $fail('A piece size of '.$value['piece length'].' must be between 500 and 5000 pieces. You have '.$pieceCount.' pieces. Consider raising or lowering the piece size.');
+                                }
+
+                                break;
+                            case 2 ** 25: // 32 MiB
+                            case 2 ** 26: // 64 MiB
+                            case 2 ** 27: // 128 MiB
+                            case 2 ** 28: // 256 MiB
+                                if ($pieceCount < 10000 || 20000 < $pieceCount) {
+                                    $fail('A piece size of '.$value['piece length'].' must be between 10000 and 50000 pieces. You have '.$pieceCount.' pieces. Consider raising or lowering the piece size.');
+                                }
+
+                                break;
+                        }
+                    }
+                },
+                'exclude',
+            ],
+            'decoded_torrent.info.files.*.length' => [
+                'required_without:decoded_torrent.info.length',
+                'integer'
+            ],
+            'decoded_torrent.info.files.*.path.*' => [
+                'required_without:decoded_torrent.info.length',
+                'string',
+                function (string $attribute, mixed $value, Closure $fail): void {
+                    if (! TorrentTools::isValidFilename($value)) {
+                        $fail('Invalid filename in torrent files: :input');
+                    }
+                },
+            ],
+            'decoded_torrent.info.length' => [
+                'integer',
+                'required_without:decoded_torrent.info.files',
+            ],
+            'decoded_torrent.info.name' => [
+                'string',
+                'required_without:decoded_torrent.info.files',
+            ],
+            'decoded_torrent.info.piece length' => [
+                'bail',
+                'required',
+                'integer',
+                function (string $attribute, mixed $value, Closure $fail): void {
+                    $value = (int) $value;
+
+                    if (($value & ($value - 1)) !== 0) {
+                        $fail('This torrent is corrupt: the piece size must be a power of 2. Your piece size is currently :input.');
+                    }
+
+                    if ($value < 2 ** 14) {
+                        $fail('This torrent is corrupt: the piece size must be greater than or equal to 16 KiB.');
+                    }
+
+                    if ($value > 2 ** 28) {
+                        $fail('The piece size must be less than or equal to 256 MiB.');
+                    }
+                },
+            ],
+            'decoded_torrent.info.pieces' => [
+                'required',
+                'string',
+                function (string $attributes, mixed $value, Closure $fail): void {
+                    if (\strlen($value) % 20 !== 0) {
+                        $fail('This torrent is corrupt: the pieces are not a multiple of 20.');
+                    }
+                },
+            ],
+            'folder' => [
+                'nullable',
+                'sometimes',
+                'max:255',
+            ],
+            'info_hash' => [
+                'required',
+                function (string $attributes, mixed $value, Closure $fail): void {
+                    $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', $value)->first();
+
+                    if ($torrent !== null) {
+                        match ($torrent->status) {
+                            Torrent::PENDING   => $fail('A torrent with the same :attribute has already been uploaded and is pending moderation.'),
+                            Torrent::APPROVED  => $fail('A torrent with the same :attribute has already been uploaded and has been approved.'),
+                            Torrent::REJECTED  => $fail('A torrent with the same :attribute has already been uploaded and has been rejected.'),
+                            Torrent::POSTPONED => $fail('A torrent with the same :attribute has already been uploaded and is currently postponed.'),
+                            default            => null,
+                        };
+                    }
+                },
+            ],
             'torrent' => [
                 'required',
                 'file',
@@ -48,39 +222,7 @@ class StoreTorrentRequest extends FormRequest
                     if ($value->getClientOriginalExtension() !== 'torrent') {
                         $fail('The torrent file uploaded does not have a ".torrent" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
-
-                    $decodedTorrent = TorrentTools::normalizeTorrent($value);
-
-                    $v2 = Bencode::is_v2_or_hybrid($decodedTorrent);
-
-                    if ($v2) {
-                        $fail('BitTorrent v2 (BEP 52) is not supported!');
-                    }
-
-                    try {
-                        $meta = Bencode::get_meta($decodedTorrent);
-                    } catch (\Exception) {
-                        $fail('You Must Provide A Valid Torrent File For Upload!');
-                    }
-
-                    foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
-                        if (! TorrentTools::isValidFilename($name)) {
-                            $fail('Invalid Filenames In Torrent Files!');
-                        }
-                    }
-
-                    $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
-
-                    if ($torrent !== null) {
-                        match ($torrent->status) {
-                            Torrent::PENDING   => $fail('A torrent with the same info_hash has already been uploaded and is pending moderation.'),
-                            Torrent::APPROVED  => $fail('A torrent with the same info_hash has already been uploaded and has been approved.'),
-                            Torrent::REJECTED  => $fail('A torrent with the same info_hash has already been uploaded and has been rejected.'),
-                            Torrent::POSTPONED => $fail('A torrent with the same info_hash has already been uploaded and is currently postponed.'),
-                            default            => null,
-                        };
-                    }
-                }
+                },
             ],
             'nfo' => [
                 'nullable',
@@ -242,5 +384,20 @@ class StoreTorrentRequest extends FormRequest
             'tvdb.in' => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not uploading a tv show.',
             'mal.in'  => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not uploading a tv or movie.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $decodedTorrent = Bencode::bdecode_file($this->torrent);
+
+        $this->merge([
+            'torrent'         => $this->torrent,
+            'decoded_torrent' => $decodedTorrent,
+            'folder'          => Bencode::get_name($decodedTorrent),
+            'info_hash'       => TorrentTools::getTorrentHash($decodedTorrent),
+        ]);
     }
 }

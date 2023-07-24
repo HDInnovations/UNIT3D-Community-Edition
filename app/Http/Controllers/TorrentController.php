@@ -356,25 +356,22 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
-
-        $meta = Bencode::get_meta($decodedTorrent);
+        $validated = $request->validated();
+        $meta = Bencode::get_meta($validated['decoded_torrent']);
 
         $fileName = uniqid('', true).'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($validated['decoded_torrent']));
 
         $torrent = Torrent::create([
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->input('mediainfo')),
-            'info_hash'    => Bencode::get_infohash($decodedTorrent),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->validated('mediainfo')),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],
-            'folder'       => Bencode::get_name($decodedTorrent),
             'size'         => $meta['size'],
             'nfo'          => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
             'user_id'      => $user->id,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except(['torrent']));
+        ] + $request->safe()->except(['torrent', 'decoded_torrent']));
 
         // Count and save the torrent number in this category
         $category = Category::findOrFail($request->integer('category_id'));
@@ -382,7 +379,7 @@ class TorrentController extends Controller
         $category->save();
 
         // Backup the files contained in the torrent
-        $files = TorrentTools::getTorrentFiles($decodedTorrent);
+        $files = TorrentTools::getTorrentFiles($validated['decoded_torrent']);
 
         foreach($files as &$file) {
             $file['torrent_id'] = $torrent->id;

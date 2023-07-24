@@ -158,9 +158,13 @@ class TorrentTools
     /**
      * Returns the sha1 (hash) of the torrent.
      */
-    public static function getTorrentHash($decodedTorrent): string
+    public static function getTorrentHash($decodedTorrent): ?string
     {
-        return sha1(Bencode::bencode($decodedTorrent['info']));
+        if (\array_key_exists('info', $decodedTorrent ?? [])) {
+            return sha1(Bencode::bencode($decodedTorrent['info']), true);
+        }
+
+        return null;
     }
 
     /**
