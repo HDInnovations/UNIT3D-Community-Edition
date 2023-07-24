@@ -1,0 +1,1851 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
+			count: 2
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Parameter \\#1 \\$amount of method App\\\\Bots\\\\CasinoBot\\:\\:putDonate\\(\\) expects int, string\\|null given\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, string given\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Parameter \\#2 \\$note of method App\\\\Bots\\\\CasinoBot\\:\\:putDonate\\(\\) expects string, array\\<int, string\\>\\|null given\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Property App\\\\Bots\\\\CasinoBot\\:\\:\\$chat is unused\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Property App\\\\Bots\\\\CasinoBot\\:\\:\\$current is never read, only written\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Result of method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Property App\\\\Bots\\\\IRCAnnounceBot\\:\\:\\$channel is never read, only written\\.$#"
+			count: 1
+			path: app/Bots/IRCAnnounceBot.php
+
+		-
+			message: "#^Property App\\\\Bots\\\\IRCAnnounceBot\\:\\:\\$registered is never read, only written\\.$#"
+			count: 1
+			path: app/Bots/IRCAnnounceBot.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
+			count: 2
+			path: app/Bots/NerdBot.php
+
+		-
+			message: "#^Property App\\\\Bots\\\\NerdBot\\:\\:\\$chat is unused\\.$#"
+			count: 1
+			path: app/Bots/NerdBot.php
+
+		-
+			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Bots/NerdBot.php
+
+		-
+			message: "#^Result of method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: app/Bots/NerdBot.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
+			count: 2
+			path: app/Bots/SystemBot.php
+
+		-
+			message: "#^Property App\\\\Bots\\\\SystemBot\\:\\:\\$chat is unused\\.$#"
+			count: 1
+			path: app/Bots/SystemBot.php
+
+		-
+			message: "#^Result of method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: app/Bots/SystemBot.php
+
+		-
+			message: "#^Instantiated class App\\\\Mail\\\\BanUser not found\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Parameter \\#1 \\$mailable of method Illuminate\\\\Mail\\\\PendingMail\\:\\:send\\(\\) expects Illuminate\\\\Contracts\\\\Mail\\\\Mailable, App\\\\Mail\\\\BanUser given\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Warning\\:\\:\\$active \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDeactivateWarning.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between bool and 0 will always evaluate to false\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDeactivateWarning.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_chat \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDisableInactiveUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_comment \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDisableInactiveUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDisableInactiveUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_invite \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDisableInactiveUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_request \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDisableInactiveUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_upload \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoDisableInactiveUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_invite \\(bool\\) does not accept int\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_request \\(bool\\) does not accept int\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoHighspeedTag.php
+
+		-
+			message: "#^Property App\\\\Models\\\\History\\:\\:\\$prewarn \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoPreWarning.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoRemoveTimedTorrentBuffs.php
+
+		-
+			message: "#^Variable \\$torrent in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoRemoveTimedTorrentBuffs.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Resurrection\\:\\:\\$rewarded \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoRewardResurrection.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_chat \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_comment \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_invite \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_request \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_upload \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
+
+		-
+			message: "#^Property App\\\\Models\\\\History\\:\\:\\$hitrun \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoWarning.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Warning\\:\\:\\$active \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoWarning.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Warning\\:\\:\\$warned_by \\(int\\) does not accept string\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoWarning.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between bool and 1 will always evaluate to false\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoWarning.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+			count: 2
+			path: app/Console/Commands/DemoSeed.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: app/Console/Commands/DemoSeed.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: app/Console/Commands/FetchReleaseYears.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Console/Commands/GitUpdater.php
+
+		-
+			message: "#^Property Illuminate\\\\Console\\\\Command\\:\\:\\$output \\(Illuminate\\\\Console\\\\OutputStyle\\) does not accept Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput\\.$#"
+			count: 1
+			path: app/Console/Commands/GitUpdater.php
+
+		-
+			message: "#^Parameter \\#1 \\$matches of method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:prepareWord\\(\\) expects string, array\\<int\\|string, string\\> given\\.$#"
+			count: 1
+			path: app/Console/Commands/VendorCleanup.php
+
+		-
+			message: "#^Property App\\\\Events\\\\MessageEdited\\:\\:\\$message \\(App\\\\Models\\\\Message\\) does not accept App\\\\Http\\\\Resources\\\\ChatMessageResource\\.$#"
+			count: 1
+			path: app/Events/MessageEdited.php
+
+		-
+			message: "#^Property App\\\\Events\\\\MessageSent\\:\\:\\$message \\(App\\\\Models\\\\Message\\) does not accept App\\\\Http\\\\Resources\\\\ChatMessageResource\\.$#"
+			count: 1
+			path: app/Events/MessageSent.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash\\.$#"
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontReport is not covariant with PHPDoc type array\\<int, class\\-string\\<Throwable\\>\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontReport\\.$#"
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_DEFAULT with type string is incompatible with value 257\\.$#"
+			count: 1
+			path: app/Helpers/BackupEncryption.php
+
+		-
+			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_WINZIP_AES_128 with type string is incompatible with value 257\\.$#"
+			count: 1
+			path: app/Helpers/BackupEncryption.php
+
+		-
+			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_WINZIP_AES_192 with type string is incompatible with value 258\\.$#"
+			count: 1
+			path: app/Helpers/BackupEncryption.php
+
+		-
+			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_WINZIP_AES_256 with type string is incompatible with value 259\\.$#"
+			count: 1
+			path: app/Helpers/BackupEncryption.php
+
+		-
+			message: "#^Method App\\\\Helpers\\\\BackupPassword\\:\\:__construct\\(\\) with return type void returns string but should not return anything\\.$#"
+			count: 1
+			path: app/Helpers/BackupPassword.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 1
+			path: app/Helpers/Bencode.php
+
+		-
+			message: "#^Method App\\\\Helpers\\\\HiddenCaptcha\\:\\:getToken\\(\\) never returns string so it can be removed from the return type\\.$#"
+			count: 1
+			path: app/Helpers/HiddenCaptcha.php
+
+		-
+			message: "#^Variable \\$token in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: app/Helpers/HiddenCaptcha.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Helpers/LanguageCensor.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: app/Helpers/Markdown.php
+
+		-
+			message: "#^Variable \\$text might not be defined\\.$#"
+			count: 2
+			path: app/Helpers/Markdown.php
+
+		-
+			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, null given\\.$#"
+			count: 1
+			path: app/Helpers/MediaInfo.php
+
+		-
+			message: "#^PHPDoc tag @method has invalid value \\(timeElapsed\\)\\: Unexpected token \"\\\\n     \", expected '\\(' at offset 30$#"
+			count: 1
+			path: app/Helpers/StringHelper.php
+
+		-
+			message: "#^PHPDoc tag @method has invalid value \\(timeRemaining\\)\\: Unexpected token \"\\\\n     \", expected '\\(' at offset 32$#"
+			count: 1
+			path: app/Helpers/StringHelper.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
+			count: 2
+			path: app/Helpers/SystemInformation.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Helpers/SystemInformation.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: app/Helpers/TorrentHelper.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$can_chat\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 9
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
+			count: 6
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\CasinoBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\NerdBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(bool\\) does not accept int\\.$#"
+			count: 6
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$free \\(int\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$authStatus\\.$#"
+			count: 1
+			path: app/Http/Controllers/Auth/TwoStepController.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:addMinutes\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Controllers/Auth/TwoStepController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
+			count: 10
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: "#^Match arm comparison between 1 and bool\\|null is always false\\.$#"
+			count: 2
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$forum\\.$#"
+			count: 1
+			path: app/Http/Controllers/PostController.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$latestPost\\.$#"
+			count: 1
+			path: app/Http/Controllers/PostController.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:posts\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Controllers/PostController.php
+
+		-
+			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
+			count: 5
+			path: app/Http/Controllers/RequestController.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method MarcReichel\\\\IGDBLaravel\\\\Builder\\:\\:find\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: app/Http/Controllers/RequestController.php
+
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 2
+			path: app/Http/Controllers/RequestController.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\User, App\\\\Models\\\\TorrentRequest\\>\\:\\:\\$username\\.$#"
+			count: 1
+			path: app/Http/Controllers/RequestFillController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(bool\\) does not accept int\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/Http/Controllers/SimilarTorrentController.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of static method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\User\\>\\:\\:whereIntegerNotInRaw\\(\\) expects array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), mixed\\>, array\\{mixed, mixed, mixed, mixed\\} given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/MassActionController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/RssController.php
+
+		-
+			message: "#^Offset 0 does not exist on Illuminate\\\\Http\\\\Client\\\\Response\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/VersionController.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\User\\>\\:\\:whereIntegerNotInRaw\\(\\) expects array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), mixed\\>, array\\{mixed, mixed, mixed, mixed\\} given\\.$#"
+			count: 3
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of static method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\User\\>\\:\\:whereIntegerNotInRaw\\(\\) expects array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), mixed\\>, array\\{mixed, mixed, mixed, mixed\\} given\\.$#"
+			count: 1
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicController.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$pinned \\(bool\\) does not accept int\\.$#"
+			count: 2
+			path: app/Http/Controllers/TopicController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$approved \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$bug \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$denied \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$implemented \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$invalid \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$solved \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$suggestion \\(bool\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TopicLabelController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept string\\.$#"
+			count: 4
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(bool\\) does not accept string\\.$#"
+			count: 2
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$free \\(int\\) does not accept string\\.$#"
+			count: 2
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$sticky \\(int\\) does not accept string\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
+			count: 2
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
+			count: 10
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Match expression does not handle remaining value\\: 1$#"
+			count: 1
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method MarcReichel\\\\IGDBLaravel\\\\Builder\\:\\:find\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$size of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:chunk\\(\\) expects int, float given\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: app/Http/Controllers/User/ResurrectionController.php
+
+		-
+			message: "#^Match expression does not handle remaining value\\: true$#"
+			count: 1
+			path: app/Http/Controllers/User/TipController.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middleware is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middleware\\.$#"
+			count: 1
+			path: app/Http/Kernel.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middlewareAliases is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middlewareAliases\\.$#"
+			count: 1
+			path: app/Http/Kernel.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middlewareGroups is not covariant with PHPDoc type array\\<string, array\\<int, string\\>\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middlewareGroups\\.$#"
+			count: 1
+			path: app/Http/Kernel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
+			count: 1
+			path: app/Http/Livewire/AttachmentUpload.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Livewire/AttachmentUpload.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$audits\\.$#"
+			count: 1
+			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$modelNames\\.$#"
+			count: 1
+			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$activeDisk\\.$#"
+			count: 4
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$backupStatuses\\.$#"
+			count: 3
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$backups\\.$#"
+			count: 1
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: "#^Call to an undefined method Spatie\\\\Backup\\\\BackupDestination\\\\Backup\\:\\:size\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"
+			count: 1
+			path: app/Http/Livewire/CollectionSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Http/Livewire/Comment.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
+			count: 1
+			path: app/Http/Livewire/Comment.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between bool and 0 will always evaluate to false\\.$#"
+			count: 1
+			path: app/Http/Livewire/Comment.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Comments\\:\\:\\$comments\\.$#"
+			count: 1
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$can_comment\\.$#"
+			count: 1
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 3
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
+			count: 1
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:\\$companies\\.$#"
+			count: 1
+			path: app/Http/Livewire/CompanySearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 3
+			path: app/Http/Livewire/DislikeButton.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$dislike \\(bool\\|null\\) does not accept int\\.$#"
+			count: 1
+			path: app/Http/Livewire/DislikeButton.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLogins\\.$#"
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Http/Livewire/ForumCategoryTopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Http/Livewire/ForumTopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:\\$invites\\.$#"
+			count: 1
+			path: app/Http/Livewire/InviteLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$entries\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$logFiles\\.$#"
+			count: 2
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 3
+			path: app/Http/Livewire/LikeButton.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$like \\(bool\\|null\\) does not accept int\\.$#"
+			count: 1
+			path: app/Http/Livewire/LikeButton.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$medias\\.$#"
+			count: 1
+			path: app/Http/Livewire/MissingMediaSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$types\\.$#"
+			count: 1
+			path: app/Http/Livewire/MissingMediaSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:\\$networks\\.$#"
+			count: 1
+			path: app/Http/Livewire/NetworkSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:\\$notes\\.$#"
+			count: 1
+			path: app/Http/Livewire/NoteSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:\\$notifications\\.$#"
+			count: 1
+			path: app/Http/Livewire/NotificationSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:\\$peers\\.$#"
+			count: 1
+			path: app/Http/Livewire/PeerSearch.php
+
+		-
+			message: "#^Array has 2 duplicate keys with value 'perPage' \\('perPage', 'perPage'\\)\\.$#"
+			count: 1
+			path: app/Http/Livewire/PeerSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$actedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$artDirectedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$cinematographedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$composedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$createdCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$directedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$editedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$medias\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$producedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$productionDesignedCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$writtenCount\\.$#"
+			count: 2
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Match expression does not handle remaining values\\: \\(int\\|string\\)$#"
+			count: 3
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Movie\\:\\:\\$torrents is not writable\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Tv\\:\\:\\$torrents is not writable\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:\\$persons\\.$#"
+			count: 1
+			path: app/Http/Livewire/PersonSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:\\$posts\\.$#"
+			count: 1
+			path: app/Http/Livewire/PostSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
+			count: 3
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
+			count: 2
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
+			count: 3
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:\\$forums\\.$#"
+			count: 1
+			path: app/Http/Livewire/SubscribedForum.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedTopic\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Http/Livewire/SubscribedTopic.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:\\$subtitles\\.$#"
+			count: 1
+			path: app/Http/Livewire/SubtitleSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Http/Livewire/ThankButton.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:\\$tickets\\.$#"
+			count: 1
+			path: app/Http/Livewire/TicketSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$group\\.$#"
+			count: 1
+			path: app/Http/Livewire/TicketSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Livewire/TicketSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Http/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsAll\\.$#"
+			count: 1
+			path: app/Http/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsDay\\.$#"
+			count: 1
+			path: app/Http/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsMonth\\.$#"
+			count: 1
+			path: app/Http/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsWeek\\.$#"
+			count: 1
+			path: app/Http/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsYear\\.$#"
+			count: 1
+			path: app/Http/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:\\$posts\\.$#"
+			count: 1
+			path: app/Http/Livewire/TopicPostSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$forumCategories\\.$#"
+			count: 1
+			path: app/Http/Livewire/TopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Http/Livewire/TopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestBountyStat\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestStat\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequests\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedTorrents\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$torrents\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Match expression does not handle remaining value\\: mixed$#"
+			count: 3
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Variable \\$games on left side of \\?\\? is never defined\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
+			count: 1
+			path: app/Http/Livewire/TvSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$active\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$notes\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserNotes.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$resurrections\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserResurrections.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:\\$users\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$history\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserTorrents.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Http/Livewire/UserTorrents.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$uploads\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserUploads.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserUploads.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserUploads.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:\\$warnings\\.$#"
+			count: 1
+			path: app/Http/Livewire/WarningLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:\\$users\\.$#"
+			count: 1
+			path: app/Http/Livewire/WatchlistSearch.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\EncryptCookies\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Cookie\\\\Middleware\\\\EncryptCookies\\:\\:\\$except\\.$#"
+			count: 1
+			path: app/Http/Middleware/EncryptCookies.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\\:\\:\\$except\\.$#"
+			count: 1
+			path: app/Http/Middleware/PreventRequestsDuringMaintenance.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\TrimStrings\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\\:\\:\\$except\\.$#"
+			count: 1
+			path: app/Http/Middleware/TrimStrings.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\TrustProxies\\:\\:\\$proxies is not covariant with PHPDoc type array\\<int, string\\>\\|string\\|null of overridden property Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\\:\\:\\$proxies\\.$#"
+			count: 1
+			path: app/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Middleware\\\\TrustProxies\\:\\:\\$proxies \\(array\\) does not accept default value of type string\\.$#"
+			count: 1
+			path: app/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$authStatus\\.$#"
+			count: 1
+			path: app/Http/Middleware/TwoStepAuth.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:addMinutes\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Middleware/TwoStepAuth.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\VerifyCsrfToken\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\VerifyCsrfToken\\:\\:\\$except\\.$#"
+			count: 1
+			path: app/Http/Middleware/VerifyCsrfToken.php
+
+		-
+			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
+			count: 1
+			path: app/Http/Requests/Staff/ApproveApplicationRequest.php
+
+		-
+			message: "#^Parameter \\#2 \\$value of method Illuminate\\\\Validation\\\\Rules\\\\Exists\\:\\:whereNot\\(\\) expects array\\|BackedEnum\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
+			count: 1
+			path: app/Http/Requests/Staff/DestroyDistributorRequest.php
+
+		-
+			message: "#^Cannot access property \\$id on object\\|string\\.$#"
+			count: 1
+			path: app/Http/Requests/Staff/DestroyRegionRequest.php
+
+		-
+			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
+			count: 1
+			path: app/Http/Requests/Staff/RejectApplicationRequest.php
+
+		-
+			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
+			count: 2
+			path: app/Http/Requests/Staff/UpdateModerationRequest.php
+
+		-
+			message: "#^Cannot access property \\$id on object\\|string\\.$#"
+			count: 1
+			path: app/Http/Requests/StorePollVoteRequest.php
+
+		-
+			message: "#^Cannot access property \\$multiple_choice on object\\|string\\.$#"
+			count: 1
+			path: app/Http/Requests/StorePollVoteRequest.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatMessageResource\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatMessageResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatMessageResource\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatMessageResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatMessageResource\\:\\:\\$message\\.$#"
+			count: 2
+			path: app/Http/Resources/ChatMessageResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatMessageResource\\:\\:\\$updated_at\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatMessageResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatMessageResource\\:\\:\\$user_id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatMessageResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatRoomResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatRoomResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatRoomResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:\\$updated_at\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatRoomResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$chat_status_id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$chatroom_id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$group_id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$image\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$title\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$username\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$anon\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$bdinfo\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$category\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$description\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$distributor_id\\.$#"
+			count: 2
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$doubleup\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$free\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$igdb\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$imdb\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$info_hash\\.$#"
+			count: 2
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$internal\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$leechers\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$mal\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$mediainfo\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$name\\.$#"
+			count: 2
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$num_file\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$region_id\\.$#"
+			count: 2
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$release_year\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$resolution_id\\.$#"
+			count: 2
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$seeders\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$size\\.$#"
+			count: 2
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$times_completed\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tmdb\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tv\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tvdb\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$type\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$type_id\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$user\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$bot\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$room\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$status\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$target\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$user\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:\\$user_id\\.$#"
+			count: 1
+			path: app/Http/Resources/UserAudibleResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$bot\\.$#"
+			count: 1
+			path: app/Http/Resources/UserEchoResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Resources/UserEchoResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$room\\.$#"
+			count: 1
+			path: app/Http/Resources/UserEchoResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$target\\.$#"
+			count: 1
+			path: app/Http/Resources/UserEchoResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$user\\.$#"
+			count: 1
+			path: app/Http/Resources/UserEchoResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$user_id\\.$#"
+			count: 1
+			path: app/Http/Resources/UserEchoResource.php
+
+		-
+			message: "#^Property App\\\\Models\\\\History\\:\\:\\$active \\(bool\\) does not accept int\\.$#"
+			count: 4
+			path: app/Jobs/ProcessAnnounce.php
+
+		-
+			message: "#^Property App\\\\Models\\\\History\\:\\:\\$immune \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Jobs/ProcessAnnounce.php
+
+		-
+			message: "#^Property App\\\\Models\\\\History\\:\\:\\$seeder \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Jobs/ProcessAnnounce.php
+
+		-
+			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: app/Jobs/ProcessMovieJob.php
+
+		-
+			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: app/Jobs/ProcessTvJob.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
+			count: 1
+			path: app/Listeners/FailedLoginListener.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
+			count: 1
+			path: app/Listeners/FailedLoginListener.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\ApplicationImageProof\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/ApplicationImageProof.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\ApplicationUrlProof\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/ApplicationUrlProof.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Audit\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Audit.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\BonExchange\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/BonExchange.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Bot\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/Bot.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Chatroom\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Chatroom.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
+			count: 1
+			path: app/Models/Comment.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$is_modo\\.$#"
+			count: 1
+			path: app/Models/Comment.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\FailedLoginAttempt\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/FailedLoginAttempt.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/Models/Forum.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\History\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/History.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\History\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
+			count: 1
+			path: app/Models/History.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Keyword\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Keyword.php
+
+		-
+			message: "#^Call to an undefined static method static\\(App\\\\Models\\\\Language\\)\\:\\:created\\(\\)\\.$#"
+			count: 1
+			path: app/Models/Language.php
+
+		-
+			message: "#^Call to an undefined static method static\\(App\\\\Models\\\\Language\\)\\:\\:deleted\\(\\)\\.$#"
+			count: 1
+			path: app/Models/Language.php
+
+		-
+			message: "#^Call to an undefined static method static\\(App\\\\Models\\\\Language\\)\\:\\:updated\\(\\)\\.$#"
+			count: 1
+			path: app/Models/Language.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Message\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Message.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Option\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Option.php
+
+		-
+			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
+			count: 1
+			path: app/Models/Peer.php
+
+		-
+			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			count: 1
+			path: app/Models/Peer.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Peer\\:\\:\\$connectable \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Models/Peer.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string\\|false and null will always evaluate to false\\.$#"
+			count: 1
+			path: app/Models/Peer.php
+
+		-
+			message: "#^Variable \\$cache in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: app/Models/Peer.php
+
+		-
+			message: "#^PHPDoc type string of property App\\\\Models\\\\Resurrection\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
+			count: 1
+			path: app/Models/Resurrection.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Resurrection\\:\\:\\$guarded \\(string\\) does not accept default value of type array\\.$#"
+			count: 1
+			path: app/Models/Resurrection.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Rss\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/Rss.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\TicketAttachment\\:\\:\\$disk_path\\.$#"
+			count: 1
+			path: app/Models/TicketAttachment.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$mediaInfo\\.$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$group\\.$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Torrent\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$group\\.$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\TorrentRequest\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\TwoStepAuth\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/TwoStepAuth.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\TwoStepAuth\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/TwoStepAuth.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\TwoStepAuth\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
+			count: 1
+			path: app/Models/TwoStepAuth.php
+
+		-
+			message: "#^Class App\\\\Models\\\\UserChat not found\\.$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^Comparison operation \"\\=\\=\" between non\\-empty\\-array and 1 results in an error\\.$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^PHPDoc tag @method has invalid value \\(getSeedbonus\\)\\: Unexpected token \"\\\\n     \\*\", expected '\\(' at offset 31$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\User\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\User\\:\\:\\$hidden is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$hidden\\.$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: app/Models/User.php
+
+		-
+			message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\UserPrivacy\\. Use \\-\\> instead\\.$#"
+			count: 2
+			path: app/Models/User.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\UserNotification\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\UserPrivacy\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Models\\\\Wish\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
+			count: 1
+			path: app/Models/Wish.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
+			count: 1
+			path: app/Notifications/StaffCommentCreated.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
+			count: 1
+			path: app/Notifications/UserCommentCreated.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$usernamme\\.$#"
+			count: 1
+			path: app/Notifications/UserManualWarningExpire.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
+			count: 5
+			path: app/Observers/TorrentObserver.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Providers\\\\AuthServiceProvider\\:\\:\\$policies is not covariant with PHPDoc type array\\<class\\-string, class\\-string\\> of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\AuthServiceProvider\\:\\:\\$policies\\.$#"
+			count: 1
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
+			count: 1
+			path: app/Providers/CacheUserProvider.php
+
+		-
+			message: "#^PHPDoc type array of property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen is not covariant with PHPDoc type array\\<string, array\\<int, string\\>\\> of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen\\.$#"
+			count: 1
+			path: app/Providers/EventServiceProvider.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Job class App\\\\Jobs\\\\ProcessMovieJob constructor invoked with 2 parameters in App\\\\Jobs\\\\ProcessMovieJob\\:\\:dispatch\\(\\), 1 required\\.$#"
+			count: 1
+			path: app/Services/Tmdb/TMDBScraper.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
+			count: 2
+			path: app/Services/Unit3dAnnounce.php
+
+		-
+			message: "#^Undefined variable\\: \\$this$#"
+			count: 1
+			path: routes/console.php
