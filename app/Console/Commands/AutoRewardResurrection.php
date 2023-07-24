@@ -13,7 +13,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Graveyard;
+use App\Models\Resurrection;
 use App\Models\History;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
@@ -25,10 +25,10 @@ use Illuminate\Support\Carbon;
 /**
  * @see \Tests\Unit\Console\Commands\AutoGraveyardTest
  */
-class AutoGraveyard extends Command
+class AutoRewardResurrection extends Command
 {
     /**
-     * AutoGraveyards Constructor.
+     * AutoRewardResurrection's Constructor.
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
@@ -40,35 +40,35 @@ class AutoGraveyard extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:graveyard';
+    protected $signature = 'auto:reward_resurrection';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Checks Graveyard Records For Succesful Ressurections';
+    protected $description = 'Automatically Hands Out Rewards For Successful Resurrections';
 
     /**
      * Execute the console command.
      */
     public function handle(): void
     {
-        foreach (Graveyard::where('rewarded', '!=', 1)->oldest()->get() as $reward) {
-            $user = User::find($reward->user_id);
+        foreach (Resurrection::where('rewarded', '!=', 1)->oldest()->get() as $resurrection) {
+            $user = User::find($resurrection->user_id);
 
-            $torrent = Torrent::find($reward->torrent_id);
+            $torrent = Torrent::find($resurrection->torrent_id);
 
             if (isset($user, $torrent)) {
                 $history = History::where('torrent_id', '=', $torrent->id)
                     ->where('user_id', '=', $user->id)
-                    ->where('seedtime', '>=', $reward->seedtime)
+                    ->where('seedtime', '>=', $resurrection->seedtime)
                     ->first();
             }
 
             if (isset($history)) {
-                $reward->rewarded = 1;
-                $reward->save();
+                $resurrection->rewarded = 1;
+                $resurrection->save();
 
                 $user->fl_tokens += config('graveyard.reward');
                 $user->save();
@@ -101,6 +101,6 @@ class AutoGraveyard extends Command
             }
         }
 
-        $this->comment('Automated Graveyard Rewards Command Complete');
+        $this->comment('Automated Reward Resurrections Command Complete');
     }
 }

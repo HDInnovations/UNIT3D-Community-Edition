@@ -8,7 +8,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class GraveyardFactory extends Factory
+class ResurrectionFactory extends Factory
 {
     /**
      * Define the model's default state.
