@@ -162,14 +162,27 @@ class ProcessAnnounce implements ShouldQueue
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
-        Redis::connection('peer')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer->only(['peer_id', 'ip', 'port', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'torrent_id', 'user_id', 'connectable']))]);
-        //$peer->save();
+        Redis::connection('announce')->command('LPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize($peer->only([
+                'peer_id',
+                'ip',
+                'port',
+                'agent',
+                'uploaded',
+                'downloaded',
+                'left',
+                'seeder',
+                'torrent_id',
+                'user_id',
+                'connectable'
+            ]))
+        ]);
 
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
         $history->client_uploaded = $realUploaded;
         $history->client_downloaded = $realDownloaded;
-        $history->updated_at = now();
 
         switch ($event) {
             case 'started':
