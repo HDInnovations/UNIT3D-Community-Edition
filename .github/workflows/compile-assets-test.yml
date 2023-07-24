@@ -1,4 +1,4 @@
-name: Compile Assets Tests (Mix)
+name: Compile Assets (Mix)
 on: [push, pull_request]
 jobs:
   build-assets:
@@ -6,7 +6,7 @@ jobs:
       matrix:
         operating-system:
           - ubuntu-22.04
-    name: Run NPM on ${{ matrix.operating-system }}
+    name: ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     steps:
       - uses: actions/checkout@v1
