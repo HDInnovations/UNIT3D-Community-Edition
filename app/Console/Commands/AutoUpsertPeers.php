@@ -21,21 +21,21 @@ use Exception;
 /**
  * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
  */
-class AutoInsertPeers extends Command
+class AutoUpsertPeers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:insert_peers';
+    protected $signature = 'auto:upsert_peers';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Inserts peers in batches';
+    protected $description = 'Upserts peers in batches';
 
     /**
      * Execute the console command.
@@ -46,10 +46,10 @@ class AutoInsertPeers extends Command
     {
         /**
          * MySql can handle a max of 65k placeholders per query,
-         * and there are 14 fields on each peer that are updated.
-         * (`agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
+         * and there are 15 fields on each peer that are updated.
+         * (`active`, `agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
          */
-        $peerPerCycle = intdiv(65_000, 14);
+        $peerPerCycle = intdiv(65_000, 15);
 
         $key = config('cache.prefix').':peers:batch';
         $peerCount = Redis::connection('announce')->command('LLEN', [$key]);
@@ -72,7 +72,8 @@ class AutoInsertPeers extends Command
                     'seeder',
                     'torrent_id',
                     'user_id',
-                    'connectable'
+                    'connectable',
+                    'active'
                 ],
             );
         }
