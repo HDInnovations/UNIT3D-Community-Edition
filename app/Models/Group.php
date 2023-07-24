@@ -53,16 +53,6 @@ class Group extends Model
     }
 
     /**
-     * Returns The Requested Row From The Permissions Table.
-     */
-    public function getPermissionsByForum($forum): ?object
-    {
-        return Permission::where('forum_id', '=', $forum->id)
-            ->where('group_id', '=', $this->id)
-            ->first();
-    }
-
-    /**
      * Get the Group allowed answer as bool.
      */
     public function isAllowed($object, int $groupId): bool

@@ -44,10 +44,9 @@ class BonTransactions extends Model
     /**
      * Belongs To A Sender.
      */
-    // Bad name to not conflict with sender (not sender_id)
-    public function senderObj(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
@@ -56,10 +55,9 @@ class BonTransactions extends Model
     /**
      * Belongs To A Receiver.
      */
-    // Bad name to not conflict with sender (not sender_id)
-    public function receiverObj(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'receiver', 'id')->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
@@ -70,9 +68,25 @@ class BonTransactions extends Model
      */
     public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([
+        return $this->belongsTo(BonExchange::class)->withDefault([
             'value' => 0,
             'cost'  => 0,
         ]);
+    }
+
+    /**
+     * Belongs to Torrent.
+     */
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs to Post.
+     */
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Post::class);
     }
 }

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Enums\UserGroups;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateUserRequest;
 use App\Models\Comment;
@@ -27,14 +28,13 @@ use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Models\Warning;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -52,11 +52,13 @@ class UserController extends Controller
     /**
      * User Edit Form.
      */
-    public function settings(string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $group = $request->user()->group;
+
         return view('Staff.user.edit', [
-            'user'      => User::withTrashed()->where('username', '=', $username)->sole(),
-            'groups'    => Group::all(),
+            'user'      => $user,
+            'groups'    => Group::when(! $group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->get(),
             'internals' => Internal::all(),
         ]);
     }
@@ -64,9 +66,9 @@ class UserController extends Controller
     /**
      * Edit A User.
      */
-    public function edit(UpdateUserRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function update(UpdateUserRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::with('group')->where('username', '=', $username)->sole();
+        $user->load('group');
         $staff = $request->user();
         $group = Group::findOrFail($request->group_id);
 
@@ -75,129 +77,99 @@ class UserController extends Controller
         $user->update($request->validated());
 
         cache()->forget('user:'.$user->passkey);
+
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Account Was Updated Successfully!');
     }
 
     /**
      * Edit A Users Permissions.
      */
-    public function permissions(Request $request, string $username): \Illuminate\Http\RedirectResponse
+    public function permissions(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
-        $user->can_upload = $request->input('can_upload');
-        $user->can_download = $request->input('can_download');
-        $user->can_comment = $request->input('can_comment');
-        $user->can_invite = $request->input('can_invite');
-        $user->can_request = $request->input('can_request');
-        $user->can_chat = $request->input('can_chat');
-        $user->save();
+        $user->update([
+            'can_upload'   => $request->boolean('can_upload'),
+            'can_download' => $request->boolean('can_download'),
+            'can_comment'  => $request->boolean('can_comment'),
+            'can_invite'   => $request->boolean('can_invite'),
+            'can_request'  => $request->boolean('can_request'),
+            'can_chat'     => $request->boolean('can_chat'),
+        ]);
 
         cache()->forget('user:'.$user->passkey);
+
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.show', ['username' => $username])
+        return to_route('users.show', ['user' => $user])
             ->withSuccess('Account Permissions Successfully Edited');
     }
 
     /**
      * Delete A User.
      */
-    protected function destroy(string $username): \Illuminate\Http\RedirectResponse
+    protected function destroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = User::where('username', '=', $username)->sole();
+        abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        $user->update([
+            'can_upload'   => false,
+            'can_download' => false,
+            'can_comment'  => false,
+            'can_invite'   => false,
+            'can_request'  => false,
+            'can_chat'     => false,
+            'group_id'     => UserGroups::PRUNED,
+            'deleted_by'   => auth()->id(),
+        ]);
 
-        // Removes UserID from Torrents if any and replaces with System UserID (1)
-        foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
-            $tor->user_id = 1;
-            $tor->save();
-        }
+        Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Comments if any and replaces with System UserID (1)
-        foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-            $com->user_id = 1;
-            $com->save();
-        }
+        Comment::where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Posts if any and replaces with System UserID (1)
-        foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-            $post->user_id = 1;
-            $post->save();
-        }
+        Post::where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Topic Creators if any and replaces with System UserID (1)
-        foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->first_post_user_id = 1;
-            $topic->save();
-        }
+        Topic::where('first_post_user_id', '=', $user->id)->update([
+            'first_post_user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from Topic if any and replaces with System UserID (1)
-        foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->last_post_user_id = 1;
-            $topic->save();
-        }
+        Topic::where('last_post_user_id', '=', $user->id)->update([
+            'last_post_user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from PM if any and replaces with System UserID (1)
-        foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-            $sent->sender_id = 1;
-            $sent->save();
-        }
+        PrivateMessage::where('sender_id', '=', $user->id)->update([
+            'sender_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes UserID from PM if any and replaces with System UserID (1)
-        foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
-            $received->receiver_id = 1;
-            $received->save();
-        }
+        PrivateMessage::where('receiver_id', '=', $user->id)->update([
+            'receiver_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes all Posts made by User from the shoutbox
-        foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
-            $shout->delete();
-        }
+        Invite::where('user_id', '=', $user->id)->update([
+            'user_id' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes all notes for user
-        foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-            $note->delete();
-        }
+        Invite::where('accepted_by', '=', $user->id)->update([
+            'accepted_by' => User::SYSTEM_USER_ID,
+        ]);
 
-        // Removes all likes for user
-        foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
-            $like->delete();
-        }
-
-        // Removes all thanks for user
-        foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
-            $thank->delete();
-        }
+        Message::where('user_id', '=', $user->id)->delete();
+        Note::where('user_id', '=', $user->id)->delete();
+        Like::where('user_id', '=', $user->id)->delete();
+        Thank::where('user_id', '=', $user->id)->delete();
+        Peer::where('user_id', '=', $user->id)->delete();
+        History::where('user_id', '=', $user->id)->delete();
 
         // Removes all follows for user
         $user->followers()->detach();
         $user->following()->detach();
-
-        // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-        foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
-            $sentInvite->user_id = 1;
-            $sentInvite->save();
-        }
-
-        // Removes UserID from Received Invite if any and replaces with System UserID (1)
-        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
-            $receivedInvite->accepted_by = 1;
-            $receivedInvite->save();
-        }
-
-        // Removes all Peers for user
-        foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
-            $peer->delete();
-        }
-
-        // Remove all History records for user
-        foreach (History::where('user_id', '=', $user->id)->get() as $history) {
-            $history->delete();
-        }
 
         // Removes all FL Tokens for user
         foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
@@ -206,42 +178,15 @@ class UserController extends Controller
         }
 
         if ($user->delete()) {
+            cache()->forget('user:'.$user->passkey);
+
+            Unit3dAnnounce::removeUser($user);
+
             return to_route('staff.dashboard.index')
                 ->withSuccess('Account Has Been Removed');
         }
 
-        cache()->forget('user:'.$user->passkey);
-        Unit3dAnnounce::removeUser($user);
-
         return to_route('staff.dashboard.index')
             ->withErrors('Something Went Wrong!');
-    }
-
-    /**
-     * Manually warn a user.
-     */
-    protected function warnUser(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $user = User::where('username', '=', $username)->sole();
-        $carbon = new Carbon();
-        $warning = new Warning();
-        $warning->user_id = $user->id;
-        $warning->warned_by = $request->user()->id;
-        $warning->torrent = null;
-        $warning->reason = $request->input('message');
-        $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
-        $warning->active = '1';
-        $warning->save();
-
-        // Send Private Message
-        $pm = new PrivateMessage();
-        $pm->sender_id = 1;
-        $pm->receiver_id = $user->id;
-        $pm->subject = 'Received warning';
-        $pm->message = 'You have received a [b]warning[/b]. Reason: '.$request->input('message');
-        $pm->save();
-
-        return to_route('users.show', ['username' => $username])
-            ->withSuccess('Warning issued successfully!');
     }
 }

@@ -85,15 +85,21 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Get history information
-        $history = History::query()
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->where('user_id', '=', $this->user->id)
-            ->first();
-
-        // If no History record found then create one
-        if ($history === null) {
-            $history = new History();
-        }
+        $history = History::firstOrNew(
+            [
+                'torrent_id' => $this->torrent->id,
+                'user_id'    => $this->user->id,
+            ],
+            [
+                'uploaded'          => 0,
+                'actual_uploaded'   => 0,
+                'downloaded'        => 0,
+                'actual_downloaded' => 0,
+                'seedtime'          => 0,
+                'immune'            => 0,
+                'completed_at'      => null,
+            ]
+        );
 
         // Check Ghost Flag
         if ($ghost) {
@@ -159,8 +165,6 @@ class ProcessAnnounce implements ShouldQueue
         Redis::connection('peer')->command('LPUSH', [config('cache.prefix').':peers:batch', serialize($peer->only(['peer_id', 'ip', 'port', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'torrent_id', 'user_id', 'connectable']))]);
         //$peer->save();
 
-        $history->user_id = $this->user->id;
-        $history->torrent_id = $this->torrent->id;
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
         $history->client_uploaded = $realUploaded;
@@ -169,14 +173,11 @@ class ProcessAnnounce implements ShouldQueue
 
         switch ($event) {
             case 'started':
-
                 $history->active = 1;
-                $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
-                $history->save();
+                $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
+
                 break;
-
             case 'completed':
-
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -190,7 +191,6 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
-                $history->save();
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -203,10 +203,9 @@ class ProcessAnnounce implements ShouldQueue
 
                 // Torrent Completed Update
                 $this->torrent->times_completed += 1;
+
                 break;
-
             case 'stopped':
-
                 $history->active = 0;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -219,7 +218,6 @@ class ProcessAnnounce implements ShouldQueue
                     $diff = $newUpdate - $oldUpdate;
                     $history->seedtime += $diff;
                 }
-                $history->save();
 
                 $peer->delete();
 
@@ -232,9 +230,7 @@ class ProcessAnnounce implements ShouldQueue
                 }
                 // End User Update
                 break;
-
             default:
-
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -248,8 +244,6 @@ class ProcessAnnounce implements ShouldQueue
                     $history->seedtime += $diff;
                 }
 
-                $history->save();
-
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
@@ -259,6 +253,26 @@ class ProcessAnnounce implements ShouldQueue
                 }
                 // End User Update
         }
+
+        Redis::connection('announce')->command('LPUSH', [
+            config('cache.prefix').':histories:batch',
+            serialize($history->only([
+                'user_id',
+                'torrent_id',
+                'agent',
+                'uploaded',
+                'actual_uploaded',
+                'client_uploaded',
+                'downloaded',
+                'actual_downloaded',
+                'client_downloaded',
+                'seeder',
+                'active',
+                'seedtime',
+                'immune',
+                'completed_at',
+            ]))
+        ]);
 
         $otherSeeders = $this
             ->torrent

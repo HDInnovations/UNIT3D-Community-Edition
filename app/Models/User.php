@@ -64,6 +64,11 @@ class User extends Authenticatable
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * ID of the system user.
+     */
+    public const SYSTEM_USER_ID = 1;
+
+    /**
      * Belongs To A Group.
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -284,7 +289,7 @@ class User extends Authenticatable
     /**
      * Has Many Sent PM's.
      */
-    public function pm_sender(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PrivateMessage::class, 'sender_id');
     }
@@ -292,7 +297,7 @@ class User extends Authenticatable
     /**
      * Has Many Received PM's.
      */
-    public function pm_receiver(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(PrivateMessage::class, 'receiver_id');
     }
@@ -452,7 +457,7 @@ class User extends Authenticatable
     /**
      * Has Given Many Invites.
      */
-    public function sentInvite(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Invite::class, 'user_id');
     }
@@ -460,7 +465,7 @@ class User extends Authenticatable
     /**
      * Has Received Many Invites.
      */
-    public function receivedInvite(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Invite::class, 'accepted_by');
     }
@@ -486,7 +491,7 @@ class User extends Authenticatable
      */
     public function bonGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender');
+        return $this->hasMany(BonTransactions::class, 'sender_id');
     }
 
     /**
@@ -494,7 +499,7 @@ class User extends Authenticatable
      */
     public function bonReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver');
+        return $this->hasMany(BonTransactions::class, 'receiver_id');
     }
 
     /**
@@ -503,6 +508,14 @@ class User extends Authenticatable
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Has Many Resurrections.
+     */
+    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Resurrection::class);
     }
 
     /**
@@ -570,11 +583,52 @@ class User extends Authenticatable
     }
 
     /**
+     * Has many sent gifts.
+     */
+    public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'gift');
+    }
+
+    /**
+     * Has many received gifts.
+     */
+    public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'gift');
+    }
+
+    /**
+     * Has many sent tips.
+     */
+    public function sentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'tip');
+    }
+
+    /**
+     * Has many received tips.
+     */
+    public function receivedTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'tip');
+    }
+
+    /**
+     * Has many seedboxes.
+     */
+    public function seedboxes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Seedbox::class);
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
+
         if ($sender->id === $target->id) {
             return false;
         }
@@ -605,6 +659,7 @@ class User extends Authenticatable
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = auth()->user();
+
         if ($sender->id == $target->id) {
             return true;
         }
@@ -635,6 +690,7 @@ class User extends Authenticatable
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = auth()->user();
+
         if ($sender->id == $target->id) {
             return true;
         }
@@ -701,6 +757,7 @@ class User extends Authenticatable
     public function getRatioString(): string
     {
         $ratio = $this->getRatio();
+
         if (is_infinite($ratio)) {
             return '∞';
         }
@@ -730,6 +787,7 @@ class User extends Authenticatable
         }
 
         $ratio = $this->ratioAfterSize($size);
+
         if (is_infinite($ratio)) {
             return '∞';
         }

@@ -41,7 +41,7 @@ class PlaylistControllerTest extends TestCase
         $playlist = Playlist::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('playlists.destroy', ['id' => $playlist->id]));
+        $response = $this->actingAs($user)->delete(route('playlists.destroy', ['playlist' => $playlist]));
 
         $response->assertRedirect(withSuccess('Playlist Deleted!'));
         $this->assertModelMissing($playlists);
@@ -59,7 +59,7 @@ class PlaylistControllerTest extends TestCase
         $playlist = Playlist::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('playlists.edit', ['id' => $playlist->id]));
+        $response = $this->actingAs($user)->get(route('playlists.edit', ['playlist' => $playlist]));
 
         $response->assertOk();
         $response->assertViewIs('playlist.edit');
@@ -96,7 +96,7 @@ class PlaylistControllerTest extends TestCase
         $playlist = Playlist::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('playlists.show', ['id' => $playlist->id]));
+        $response = $this->actingAs($user)->get(route('playlists.show', ['playlist' => $playlist]));
 
         $response->assertOk();
         $response->assertViewIs('playlist.show');
@@ -135,7 +135,7 @@ class PlaylistControllerTest extends TestCase
         $playlist = Playlist::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->patch(route('playlists.update', ['id' => $playlist->id]), [
+        $response = $this->actingAs($user)->patch(route('playlists.update', ['playlist' => $playlist]), [
             // TODO: send request data
         ]);
 

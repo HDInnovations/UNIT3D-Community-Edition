@@ -9,22 +9,22 @@
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("requests.bounties.store", ['id' => $torrentRequest->id]) }}"
+            action="{{ route("requests.bounties.store", ['torrentRequest' => $torrentRequest]) }}"
             x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
             <input id="type" type="hidden" name="request_id" value="{{ $torrentRequest->id }}">
             <p class="form__group">
                 <input
-                    id="bonus_value"
+                    id="seedbonus"
                     class="form__text"
                     inputmode="numeric"
-                    name="bonus_value"
+                    name="seedbonus"
                     pattern="[0-9]*?[1-9][0-9]{2,}"
                     placeholder=" "
                     type="text"
                 >
-                <label for="bonus_value" class="form__label form__label--floating">
+                <label for="seedbonus" class="form__label form__label--floating">
                     {{ __('request.enter-bp') }}
                 </label>
             </p>

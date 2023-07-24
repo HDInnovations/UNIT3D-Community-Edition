@@ -13,6 +13,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Torrent;
 use Livewire\Component;
@@ -26,7 +27,7 @@ class ThankButton extends Component
     final public function mount($torrent): void
     {
         $this->user = auth()->user();
-        $this->torrent = Torrent::withAnyStatus()->findOrFail($torrent);
+        $this->torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($torrent);
     }
 
     final public function store(): void
@@ -38,6 +39,7 @@ class ThankButton extends Component
         }
 
         $thank = Thank::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
+
         if ($thank) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Thanked!']);
 

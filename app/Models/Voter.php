@@ -22,6 +22,8 @@ class Voter extends Model
     use Auditable;
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A Poll.
      */

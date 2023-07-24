@@ -14,8 +14,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Notifications\DatabaseNotification;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Exception;
 
 /**
@@ -26,17 +27,20 @@ class NotificationController extends Controller
     /**
      * Show All Notifications.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        abort_unless($request->user()->is($user), 403);
+
         return view('user.notification.index');
     }
 
     /**
      * Show A Notification And Mark As Read.
      */
-    public function show(Request $request, string $id): \Illuminate\Http\RedirectResponse
+    public function show(Request $request, User $user, DatabaseNotification $notification): \Illuminate\Http\RedirectResponse
     {
-        $notification = $request->user()->notifications()->findOrFail($id);
+        abort_unless($request->user()->is($user), 403);
+
         $notification->markAsRead();
 
         return redirect()->to($notification->data['url'])
@@ -46,23 +50,13 @@ class NotificationController extends Controller
     /**
      * Set A Notification To Read.
      */
-    public function update(Request $request, string $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, User $user, DatabaseNotification $notification): \Illuminate\Http\RedirectResponse
     {
-        $notification = $request->user()->notifications()->findOrFail($id);
-
-        if (! $notification) {
-            return to_route('notifications.index')
-                ->withErrors(trans('notification.not-existent'));
-        }
-
-        if ($notification->read_at != null) {
-            return to_route('notifications.index')
-                ->withErrors(trans('notification.already-marked-read'));
-        }
+        abort_unless($request->user()->is($user), 403);
 
         $notification->markAsRead();
 
-        return to_route('notifications.index')
+        return to_route('users.notifications.index', ['user' => $user])
             ->withSuccess(trans('notification.marked-read'));
     }
 
@@ -71,34 +65,39 @@ class NotificationController extends Controller
      *
      * @throws Exception
      */
-    public function updateAll(Request $request): \Illuminate\Http\RedirectResponse
+    public function massUpdate(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $carbon = new Carbon();
-        $request->user()->unreadNotifications()->update(['read_at' => $carbon]);
+        abort_unless($request->user()->is($user), 403);
 
-        return to_route('notifications.index')
+        $user->unreadNotifications()->update(['read_at' => now()]);
+
+        return to_route('users.notifications.index', ['user' => $user])
             ->withSuccess(trans('notification.all-marked-read'));
     }
 
     /**
      * Delete A Notification.
      */
-    public function destroy(Request $request, string $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, User $user, DatabaseNotification $notification): \Illuminate\Http\RedirectResponse
     {
-        $request->user()->notifications()->findOrFail($id)->delete();
+        abort_unless($request->user()->is($user), 403);
 
-        return to_route('notifications.index')
+        $notification->delete();
+
+        return to_route('users.notifications.index', ['user' => $user])
             ->withSuccess(trans('notification.deleted'));
     }
 
     /**
      * Mass Delete All Notification's.
      */
-    public function destroyAll(Request $request): \Illuminate\Http\RedirectResponse
+    public function massDestroy(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $request->user()->notifications()->delete();
+        abort_unless($request->user()->is($user), 403);
 
-        return to_route('notifications.index')
+        $user->notifications()->delete();
+
+        return to_route('users.notifications.index', ['user' => $user])
             ->withSuccess(trans('notification.all-deleted'));
     }
 }

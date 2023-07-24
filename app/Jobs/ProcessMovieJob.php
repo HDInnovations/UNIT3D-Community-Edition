@@ -16,6 +16,7 @@ namespace App\Jobs;
 use App\Enums\Occupations;
 use App\Models\Collection;
 use App\Models\Company;
+use App\Models\Credit;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Person;
@@ -45,47 +46,69 @@ class ProcessMovieJob implements ShouldQueue
     public function handle(): void
     {
         $tmdb = new TMDB();
+        $movie = Movie::find((int) $this->movie['id']);
+
+        // Genres
+
+        $genres = [];
+        $genre_ids = [];
 
         foreach ($this->movie['genres'] as $genre) {
-            if (isset($genre['name'])) {
-                Genre::updateOrCreate(['id' => $genre['id']], $genre)->movie()->syncWithoutDetaching([$this->movie['id']]);
-            }
+            $genre_ids[] = $genre['id'];
+            $genres[] = [
+                'id'   => $genre['id'],
+                'name' => $genre['name']
+            ];
         }
 
-        foreach ($this->movie['production_companies'] as $productionCompany) {
-            $client = new Client\Company($productionCompany['id']);
-            $productionCompany = $client->getData();
+        Genre::upsert($genres, 'id');
+        $movie->genres()->sync(array_unique($genre_ids));
 
-            if (isset($productionCompany['name'])) {
-                $productionCompanyArray = [
-                    'description'    => $productionCompany['description'] ?? null,
-                    'headquarters'   => $productionCompany['headquarters'] ?? null,
-                    'homepage'       => $productionCompany['homepage'] ?? null,
-                    'logo'           => $tmdb->image('logo', $productionCompany),
-                    'name'           => $productionCompany['name'] ?? null,
-                    'origin_country' => $productionCompany['origin_country'],
-                ];
-                Company::updateOrCreate(['id' => $productionCompany['id']], $productionCompanyArray)->movie()->syncWithoutDetaching([$this->movie['id']]);
-            }
+        // Companies
+
+        $companies = [];
+        $company_ids = [];
+
+        foreach ($this->movie['production_companies'] ?? [] as $company) {
+            $company = (new Client\Company($company['id']))->getData();
+
+            $company_ids[] = $company['id'];
+            $companies[] = [
+                'id'             => $company['id'],
+                'description'    => $company['description'] ?? null,
+                'headquarters'   => $company['headquarters'] ?? null,
+                'homepage'       => $company['homepage'] ?? null,
+                'logo'           => $tmdb->image('logo', $company),
+                'name'           => $company['name'] ?? null,
+                'origin_country' => $company['origin_country'],
+            ];
         }
+
+        Company::upsert($companies, 'id');
+        $movie->companies()->sync(array_unique($company_ids));
+
+        // Collection
 
         if (isset($this->movie['belongs_to_collection']['id'])) {
-            $client = new Client\Collection($this->movie['belongs_to_collection']['id']);
-            $belongsToCollection = $client->getData();
-            if (isset($belongsToCollection['name'])) {
-                $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $belongsToCollection['name']));
+            $collection = (new Client\Collection($this->movie['belongs_to_collection']['id']))->getData();
 
-                $belongsToCollectionArray = [
-                    'name'      => $belongsToCollection['name'] ?? null,
-                    'name_sort' => $titleSort,
-                    'parts'     => is_countable($belongsToCollection['parts']) ? \count($belongsToCollection['parts']) : 0,
-                    'overview'  => $belongsToCollection['overview'] ?? null,
-                    'poster'    => $tmdb->image('poster', $belongsToCollection),
-                    'backdrop'  => $tmdb->image('backdrop', $belongsToCollection),
-                ];
-                Collection::updateOrCreate(['id' => $belongsToCollection['id']], $belongsToCollectionArray)->movie()->syncWithoutDetaching([$this->movie['id']]);
-            }
+            $titleSort = addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $collection['name']));
+
+            $collection = [
+                'id'        => $collection['id'],
+                'name'      => $collection['name'] ?? null,
+                'name_sort' => $titleSort,
+                'parts'     => is_countable($collection['parts']) ? \count($collection['parts']) : 0,
+                'overview'  => $collection['overview'] ?? null,
+                'poster'    => $tmdb->image('poster', $collection),
+                'backdrop'  => $tmdb->image('backdrop', $collection),
+            ];
+
+            Collection::upsert($collection, 'id');
+            $movie->collection()->sync([$collection['id']]);
         }
+
+        // People
 
         $people_ids = [];
         $credits = [];
@@ -109,6 +132,7 @@ class ProcessMovieJob implements ShouldQueue
                     'movie_id'      => $this->movie['id'],
                     'person_id'     => $person['id'],
                     'occupation_id' => $job->value,
+                    'character'     => null,
                     'order'         => null
                 ];
                 $people_ids[] = $person['id'];
@@ -118,23 +142,32 @@ class ProcessMovieJob implements ShouldQueue
         $people = [];
 
         foreach (array_unique($people_ids) as $person_id) {
-            $client = new Client\Person($person_id);
-            $person = $client->getData();
+            $person = (new Client\Person($person_id))->getData();
             $people[] = $tmdb->person_array($person);
         }
 
         Person::upsert($people, 'id');
-        Movie::find($this->movie['id'])->people()->sync($credits);
+        Credit::where('movie_id', '=', $this->movie['id'])->delete();
+        Credit::upsert($credits, ['person_id', 'movie_id', 'tv_id', 'occupation_id', 'character']);
 
-        if (isset($this->movie['recommendations'])) {
-            foreach ($this->movie['recommendations']['results'] as $recommendation) {
-                if (Movie::where('id', '=', $recommendation['id'])->exists()) {
-                    Recommendation::updateOrCreate(
-                        ['recommendation_movie_id' => $recommendation['id'], 'movie_id' => $this->movie['id']],
-                        ['title' => $recommendation['title'], 'vote_average' => $recommendation['vote_average'], 'poster' => $tmdb->image('poster', $recommendation), 'release_date' => $recommendation['release_date']]
-                    );
-                }
+        // Recommendations
+
+        $movie_ids = Movie::select('id')->findMany(array_column($this->movie['recommendations']['results'] ?? [], 'id'))->pluck('id');
+        $recommendations = [];
+
+        foreach ($this->movie['recommendations']['results'] ?? [] as $recommendation) {
+            if ($movie_ids->contains($recommendation['id'])) {
+                $recommendations[] = [
+                    'recommendation_movie_id' => $recommendation['id'],
+                    'movie_id'                => $this->movie['id'],
+                    'title'                   => $recommendation['title'],
+                    'vote_average'            => $recommendation['vote_average'],
+                    'poster'                  => $tmdb->image('poster', $recommendation),
+                    'release_date'            => $recommendation['release_date'],
+                ];
             }
         }
+
+        Recommendation::upsert($recommendations, ['recommendation_movie_id', 'movie_id']);
     }
 }

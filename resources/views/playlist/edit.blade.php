@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('playlists.edit', ['playlist' => $playlist]) }}" class="breadcrumb__link">
             {{ $playlist->name }}
         </a>
     </li>
@@ -33,7 +33,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('playlists.update', ['id' => $playlist->id]) }}"
+                action="{{ route('playlists.update', ['playlist' => $playlist]) }}"
                 enctype="multipart/form-data"
             >
                 @csrf

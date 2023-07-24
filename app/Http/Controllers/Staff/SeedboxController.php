@@ -28,7 +28,7 @@ class SeedboxController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.seedbox.index', [
-            'seedboxes' => Seedbox::with('user')->latest()->paginate(50),
+            'seedboxes' => Seedbox::with('user.group')->latest()->paginate(50),
         ]);
     }
 
@@ -37,9 +37,9 @@ class SeedboxController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Seedbox $seedbox): \Illuminate\Http\RedirectResponse
     {
-        Seedbox::findOrFail($id)->delete();
+        $seedbox->delete();
 
         return to_route('staff.seedboxes.index')
             ->withSuccess('Seedbox Record Has Successfully Been Deleted');

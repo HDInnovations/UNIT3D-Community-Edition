@@ -24,6 +24,7 @@ use App\Models\Message;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
@@ -86,7 +87,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 Unit3dAnnounce::addUser($user);
 
                 // Removes UserID from Torrents if any and replaces with System UserID (1)
-                foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
+                foreach (Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->get() as $tor) {
                     $tor->user_id = 1;
                     $tor->save();
                 }

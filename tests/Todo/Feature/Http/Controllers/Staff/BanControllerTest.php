@@ -42,7 +42,8 @@ class BanControllerTest extends TestCase
         $ban = Ban::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.bans.store', ['username' => $ban->username]), [
+        $response = $this->actingAs($user)->post(route('staff.bans.store'), [
+            'owned_by' => $user->id,
             // TODO: send request data
         ]);
 
@@ -61,7 +62,7 @@ class BanControllerTest extends TestCase
         $ban = Ban::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.bans.update', ['username' => $ban->username]), [
+        $response = $this->actingAs($user)->post(route('staff.unbans.store'), [
             // TODO: send request data
         ]);
 

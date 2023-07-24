@@ -54,7 +54,7 @@ class CategoryControllerTest extends TestCase
         $category = Category::factory()->create();
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->delete(route('staff.categories.destroy', ['id' => $category->id]));
+        $response = $this->actingAs($user)->delete(route('staff.categories.destroy', ['category' => $category]));
 
         $response->assertRedirect(route('staff.categories.index'));
     }
@@ -69,7 +69,7 @@ class CategoryControllerTest extends TestCase
         $user = $this->createStaffUser();
         $category = Category::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.categories.edit', ['id' => $category->id]));
+        $response = $this->actingAs($user)->get(route('staff.categories.edit', ['category' => $category]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.category.edit');
@@ -125,7 +125,7 @@ class CategoryControllerTest extends TestCase
         $user = $this->createStaffUser();
         $meta = ['movie', 'tv', 'game', 'music', 'no'];
 
-        $response = $this->actingAs($user)->patch(route('staff.categories.update', ['id' => $category->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.categories.update', ['category' => $category]), [
             'name'     => $category->name,
             'position' => $category->position,
             'image'    => $category->image,

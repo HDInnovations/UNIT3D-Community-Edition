@@ -1,4 +1,4 @@
-<article class="post" id="post-{{ $post->id }}">
+<article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
         <time
             class="post__datetime"
@@ -25,7 +25,7 @@
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
+                    action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
                 >
                     @csrf
                     <input type="hidden" name="recipient" value="{{ $post->user->id }}">
@@ -63,7 +63,7 @@
             <li class="post__toolbar-item">
                 <a
                     class="post__permalink"
-                    href="{{ route('topics.show', ['id' => $post->topic_id]) }}?page={{ $post->getPageNumber() }}#post-{{ $post->id }}"
+                    href="{{ route('topics.permalink', ['topicId' => $post->topic_id, 'postId' => $post->id]) }}"
                     title="{{ __('forum.permalink') }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-link"></i>
@@ -74,11 +74,16 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-data
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}] {{ \str_replace(["\n", "\r"], ["\\n", "\\r"], \htmlspecialchars($post->content)) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]';
+                            input.value += (() => {
+                                var text = document.createElement('textarea');
+                                text.innerHTML = atob($refs.content.dataset.base64Bbcode);
+                                return text.value;
+                            })();
+                            input.value += '[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
@@ -87,7 +92,7 @@
                     </button>
                 </li>
             @endif
-            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->user()->id && $post->topic->state === 'open'))
+            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->id() && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <a
                         class="post__edit"
@@ -137,7 +142,7 @@
                 @else
                     <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="Offline"></i>
                 @endif
-                <a href="{{ route('create', ['receiver_id' => $post->user->id, 'username' => $post->user->username]) }}">
+                <a href="{{ route('users.sent_messages.create', ['user' => $post->user, 'username' => $post->user->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
             </x-slot>
@@ -178,7 +183,8 @@
     </aside>
     <div
         class="post__content bbcode-rendered"
-        data-bbcode="{{ $post->content }}"
+        x-ref="content"
+        data-base64-bbcode="{{ base64_encode($post->content) }}"
     >
         @joypixels($post->getContentHtml())
     </div>

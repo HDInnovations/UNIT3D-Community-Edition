@@ -41,6 +41,7 @@ class DislikeButton extends Component
         }
 
         $exist = Like::where('user_id', '=', $this->user->id)->where('post_id', '=', $this->post->id)->first();
+
         if ($exist) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Liked Or Disliked This Post!']);
 

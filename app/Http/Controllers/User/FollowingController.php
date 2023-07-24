@@ -24,7 +24,7 @@ class FollowingController extends Controller
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('user.following.index', [
-            'followings' => $user->following()->orderByPivot('created_at', 'desc')->paginate(25),
+            'followings' => $user->following()->with('group')->orderByPivot('created_at', 'desc')->paginate(25),
             'user'       => $user,
         ]);
     }

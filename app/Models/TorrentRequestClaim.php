@@ -16,6 +16,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TorrentRequestClaim extends Model
 {
@@ -35,4 +36,14 @@ class TorrentRequestClaim extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'username', 'username');
+    }
+
+    public function request(): BelongsTo
+    {
+        return $this->belongsTo(TorrentRequest::class);
+    }
 }

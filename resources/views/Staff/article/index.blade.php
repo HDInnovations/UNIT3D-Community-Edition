@@ -44,12 +44,12 @@
                 @foreach ($articles as $article)
                     <tr class="articles-table__article">
                         <td>
-                            <a href="{{ route('staff.articles.edit', ['id' => $article->id]) }}">
+                            <a href="{{ route('staff.articles.edit', ['article' => $article]) }}">
                                 {{ $article->title }}
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('users.show', ['username' => $article->user->username]) }}">
+                            <a href="{{ route('users.show', ['user' => $article->user]) }}">
                                 {{ $article->user->username }}
                             </a>
                         </td>
@@ -58,13 +58,13 @@
                                 {{ $article->created_at }}
                             </time>
                         </td>
-                        <td>{{ $article->comments->count() }}</td>
+                        <td>{{ $article->comments_count }}</td>
                         <td>
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('articles.show', ['id' => $article->id]) }}"
+                                        href="{{ route('articles.show', ['article' => $article]) }}"
                                     >
                                         {{ __('common.view') }}
                                     </a>
@@ -72,14 +72,14 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.articles.edit', ['id' => $article->id]) }}"
+                                        href="{{ route('staff.articles.edit', ['article' => $article]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.articles.destroy', ['id' => $article->id]) }}"
+                                        action="{{ route('staff.articles.destroy', ['article' => $article]) }}"
                                         method="POST"
                                         x-data
                                     >

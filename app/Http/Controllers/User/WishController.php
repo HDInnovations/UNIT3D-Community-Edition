@@ -14,10 +14,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\WishInterface;
+use App\Models\Category;
+use App\Models\Torrent;
 use App\Models\User;
+use App\Models\Wish;
 use App\Services\Tmdb\Client\Movie;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use JsonException;
 
 /**
@@ -26,20 +30,11 @@ use JsonException;
 class WishController extends Controller
 {
     /**
-     * WishController Constructor.
-     */
-    public function __construct(private readonly WishInterface $wish)
-    {
-    }
-
-    /**
      * Get A Users Wishlist.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::with('wishes')->where('username', '=', $username)->sole();
-
-        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->is($user), 403);
 
         return view('user.wish.index', [
             'user'   => $user,
@@ -53,50 +48,56 @@ class WishController extends Controller
      *
      * @throws JsonException
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        if ($request->get('tmdb') === 0) {
-            return to_route('wishes.index', ['username' => $user->username])
-                ->withErrors('TMDB ID Required');
-        }
+        abort_unless($request->user()->is($user), 403);
 
-        $tmdb = $request->get('tmdb');
+        $request->validate([
+            'tmdb' => [
+                'required',
+                'integer',
+                'not_in:0',
+                Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),
+            ],
+            ''
+        ]);
 
-        if ($this->wish->exists($user->id, $tmdb)) {
-            return to_route('wishes.index', ['username' => $user->username])
-                ->withErrors('Wish already exists!');
-        }
-
-        $meta = (new Movie($tmdb))->getData();
+        $meta = (new Movie($request->tmdb))->getData();
 
         if ($meta === null || $meta === false) {
-            return to_route('wishes.index', ['username' => $user->username])
+            return to_route('users.wishes.index', ['user' => $user])
                 ->withErrors('TMDM Bad Request!');
         }
 
-        $source = $this->wish->getSource($tmdb);
+        $torrent = Torrent::query()
+            ->where('tmdb', '=', $request->tmdb)
+            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+            ->where('seeders', '>', 0)
+            ->where('status', '=', 1)
+            ->first();
 
-        $this->wish->create([
+        Wish::create([
             'title'   => $meta['title'].' ('.$meta['release_date'].')',
             'type'    => 'Movie',
-            'tmdb'    => $tmdb,
-            'source'  => $source,
+            'tmdb'    => $request->tmdb,
+            'source'  => $torrent === null ? Wish::find($request->tmdb)?->source : route('torrents.show', $torrent->id),
             'user_id' => $user->id,
         ]);
 
-        return to_route('wishes.index', ['username' => $user->username])
+        return to_route('users.wishes.index', ['user' => $user])
             ->withSuccess('Wish Successfully Added!');
     }
 
     /**
      * Delete A Wish.
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, User $user, Wish $wish): \Illuminate\Http\RedirectResponse
     {
-        $this->wish->delete($id);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        return to_route('wishes.index', ['username' => $request->user()->username])
+        $wish->delete();
+
+        return to_route('users.wishes.index', ['user' => $user])
             ->withSuccess('Wish Successfully Removed!');
     }
 }

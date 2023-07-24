@@ -2,17 +2,17 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('earnings.index', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.earnings.index', ['user' => $user]) }}" class="breadcrumb__link">
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('gifts.index', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.gifts.index', ['user' => $user]) }}" class="breadcrumb__link">
             {{ __('bon.gifts') }}
         </a>
     </li>
@@ -31,45 +31,45 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.gift-to') }}</h2>
         <div class="panel__body">
-            <form id="send_bonus" class="form" method="POST" action="{{ route('gifts.store', ['username' => $user->username]) }}">
+            <form id="send_bonus" class="form" method="POST" action="{{ route('users.gifts.store', ['user' => $user]) }}">
                 @csrf
                 <p class="form__group">
                     <input
-                        id="users"
+                        id="receiver_username"
                         class="form__text"
-                        name="to_username"
+                        name="receiver_username"
                         placeholder=" "
                         required
                         type="text"
                     >
-                    <label class="form__label form__label--floating" for="users">
+                    <label class="form__label form__label--floating" for="receiver_username">
                         {{ __('pm.select') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <input
-                        id="bonus_points"
+                        id="cost"
                         class="form__text"
                         inputmode="numeric"
-                        name="bonus_points"
+                        name="cost"
                         pattern="[0-9]*"
                         placeholder=" "
                         required
                         type="text"
                     >
-                    <label class="form__label form__label--floating" for="bonus_points">
+                    <label class="form__label form__label--floating" for="cost">
                         {{ __('bon.amount') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <textarea
-                        id="bonus_message"
+                        id="comment"
                         class="form__textarea"
-                        name="bonus_message"
+                        name="comment"
                         placeholder=" "
                         required
                     ></textarea>
-                    <label class="form__label form__label--floating" for="bonus_message">
+                    <label class="form__label form__label--floating" for="comment">
                         {{ __('pm.message') }}
                     </label>
                 </p>
@@ -86,7 +86,7 @@
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.your-points') }}</h2>
-        <div class="panel__body">{{ $userbon }}</h2>
+        <div class="panel__body">{{ $bon }}</div>
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.no-refund') }}</h2>

@@ -27,7 +27,7 @@ class BonExchangeController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.bon_exchange.index', [
-            'bonExchanges' => BonExchange::orderBy('position')->get(),
+            'bonExchanges' => BonExchange::all(),
         ]);
     }
 
@@ -90,8 +90,7 @@ class BonExchangeController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $bonExchange = BonExchange::findOrFail($id);
-        $bonExchange->delete();
+        BonExchange::findOrFail($id)->delete();
 
         return to_route('staff.bon_exchanges.index')
             ->withSuccess('Bon Exchange Successfully Deleted');

@@ -17,7 +17,7 @@
             <input type="hidden" name="type" value="{{ __('torrent.torrent') }}">
             <input type="hidden" name="id" value="{{ $torrent->id }}">
             <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-            <input type="hidden" name="status" value="3">
+            <input type="hidden" name="status" value="{{ \App\Models\Torrent::POSTPONED }}">
             <p class="form__group">
                 <textarea class="form__textarea" name="message" id="message">{{ old('message') }}</textarea>
                 <label class="form__label form__label--floating" for="message">Postpone Message</label>

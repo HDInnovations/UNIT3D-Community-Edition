@@ -10,12 +10,12 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('torrent', ['id' => $torrent->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}" class="breadcrumb__link">
             {{ $torrent->name }}
         </a>
     </li>
@@ -30,10 +30,10 @@
             <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.history') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    Total Up: {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_uploaded'), 2) }}
+                    Total Up: {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_uploaded'), 2) }}
                 </div>
                 <div class="panel__action">
-                    Total Down: {{ App\Helpers\StringHelper::formatBytes($history->sum('actual_downloaded'), 2) }}
+                    Total Down: {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_downloaded'), 2) }}
                 </div>
             </div>
         </header>
@@ -46,7 +46,7 @@
                         <th>{{ __('torrent.completed') }}</th>
                         <th>{{ __('common.upload') }}</th>
                         <th>{{ __('common.download') }}</th>
-                        <th>{{ __('common.refunded-download') }}</th>
+                        <th>{{ __('torrent.refunded') }}</th>
                         <th>{{ __('common.added') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('torrent.completed_at') }}</th>
@@ -54,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($history as $history)
+                    @foreach ($histories as $history)
                         <tr>
                             <td>
                                 <x-user_tag :user="$history->user" :anon="
@@ -91,7 +91,7 @@
                                 </span>
                             </td>
                             <td>
-                                <span class="text-orange" title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}">
+                                <span class="text-info" title="{{ __('torrent.refunded') }} {{ strtolower(__('common.download')) }}">
                                     ({{ App\Helpers\StringHelper::formatBytes($history->refunded_download, 2) }})
                                 </span>
                             </td>

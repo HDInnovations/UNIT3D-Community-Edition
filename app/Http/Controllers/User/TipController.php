@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTipRequest;
 use App\Models\BonTransactions;
 use App\Models\Post;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Notifications\NewPostTip;
@@ -31,73 +32,60 @@ class TipController extends Controller
     /**
      * Show previous tip history.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id === $user->id || $request->user()->group->is_modo, 403);
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.tip.index', [
-            'user'            => $user,
-            'bontransactions' => BonTransactions::query()
-                ->with(['senderObj', 'receiverObj'])
-                ->where(
-                    fn ($query) => $query
-                        ->where('sender', '=', $user->id)
-                        ->orwhere('receiver', '=', $user->id)
-                )
+            'user' => $user,
+            'tips' => BonTransactions::with(['sender.group', 'receiver.group', 'torrent'])
+                ->where(fn ($query) => $query->where('sender_id', '=', $user->id)->orwhere('receiver_id', '=', $user->id))
                 ->where('name', '=', 'tip')
-                ->latest('date_actioned')
+                ->latest()
                 ->paginate(25),
-            'userbon'   => $user->getSeedbonus,
-            'tips_sent' => BonTransactions::query()
-                ->where('sender', '=', $user->id)
-                ->where('name', '=', 'tip')
-                ->sum('cost'),
-            'tips_received' => BonTransactions::query()
-                ->where('receiver', '=', $user->id)
-                ->where('name', '=', 'tip')
-                ->sum('cost'),
+            'bon'          => $user->getSeedbonus(),
+            'sentTips'     => $user->sentTips()->sum('cost'),
+            'receivedTips' => $user->receivedTips()->sum('cost'),
         ]);
     }
 
     /**
      * Tip Points To A User.
+     *
+     * @param User $user The tipping user.
      */
-    public function store(StoreTipRequest $request, string $username): \Illuminate\Http\RedirectResponse
+    public function store(StoreTipRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        $sender = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id === $sender->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $request = $request->safe()->collect();
         $tipable = match (true) {
-            $request->has('torrent') => Torrent::withAnyStatus()->findOrFail($request->get('torrent')),
+            $request->has('torrent') => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->get('torrent')),
             $request->has('post')    => Post::findOrFail($request->get('post')),
         };
         $recipient = $tipable->user;
         $tipAmount = $request->get('tip');
 
         $recipient->increment('seedbonus', $tipAmount);
-        $sender->decrement('seedbonus', $tipAmount);
+        $user->decrement('seedbonus', $tipAmount);
 
-        $bonTransactions = new BonTransactions();
-        $bonTransactions->itemID = 0;
-        $bonTransactions->name = 'tip';
-        $bonTransactions->cost = $tipAmount;
-        $bonTransactions->sender = $sender->id;
-        $bonTransactions->receiver = $recipient->id;
-        $bonTransactions->comment = 'tip';
-        $bonTransactions->post_id = $request->has('post') ? $tipable->id : null;
-        $bonTransactions->torrent_id = $request->has('torrent') ? $tipable->id : null;
-        $bonTransactions->save();
+        BonTransactions::create([
+            'bon_exchange_id' => 0,
+            'name'            => 'tip',
+            'cost'            => $tipAmount,
+            'sender_id'       => $user->id,
+            'receiver_id'     => $recipient->id,
+            'comment'         => 'tip',
+            'post_id'         => $request->has('post') ? $tipable->id : null,
+            'torrent_id'      => $request->has('torrent') ? $tipable->id : null,
+        ]);
 
         if ($request->has('torrent')) {
-            if ($recipient->acceptsNotification($sender, $recipient, 'torrent', 'show_torrent_tip')) {
-                $recipient->notify(new NewUploadTip('torrent', $sender->username, $tipAmount, $tipable));
+            if ($recipient->acceptsNotification($user, $recipient, 'torrent', 'show_torrent_tip')) {
+                $recipient->notify(new NewUploadTip('torrent', $user->username, $tipAmount, $tipable));
             }
         } elseif ($request->has('post')) {
-            $recipient->notify(new NewPostTip('forum', $sender->username, $tipAmount, $tipable));
+            $recipient->notify(new NewPostTip('forum', $user->username, $tipAmount, $tipable));
         }
 
         return redirect()->back()->withSuccess(trans('bon.success-tip'));

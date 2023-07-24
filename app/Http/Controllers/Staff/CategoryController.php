@@ -71,17 +71,17 @@ class CategoryController extends Controller
     /**
      * Category Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Category $category): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.category.edit', [
-            'category' => Category::findOrFail($id),
+            'category' => $category,
         ]);
     }
 
     /**
      * Update A Category.
      */
-    public function update(UpdateCategoryRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateCategoryRequest $request, Category $category): \Illuminate\Http\RedirectResponse
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -90,7 +90,7 @@ class CategoryController extends Controller
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
-        Category::findOrFail($id)->update([
+        $category->update([
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
@@ -108,9 +108,8 @@ class CategoryController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Category $category): \Illuminate\Http\RedirectResponse
     {
-        $category = Category::findOrFail($id);
         $category->delete();
 
         return to_route('staff.categories.index')

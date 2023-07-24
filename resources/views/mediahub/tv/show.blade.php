@@ -83,7 +83,7 @@
                                             @foreach($season->torrents->where('season_number', '=', $season->season_number)->sortByDesc('created_at') as $torrent)
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('torrent', ['id' => $torrent->id]) }}"
+                                                        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
                                                             style="color: #8fa8e0;">{{ $torrent->name }}</a>
                                                     </td>
                                                     <td>{{ $torrent->getSize() }}</td>
@@ -120,14 +120,14 @@
             <dt>Networks</dt>
             <dd>
                 @foreach($show->networks as $network)
-                    <a href="{{ route('torrents', ['view' => 'group', 'networkId' => $network->id]) }}">{{ $network->name }}</a>
+                    <a href="{{ route('torrents.index', ['view' => 'group', 'networkId' => $network->id]) }}">{{ $network->name }}</a>
                     @if (! $loop->last), @endif
                 @endforeach
             </dd>
             <dt>Companies</dt>
             <dd>
                 @foreach($show->companies as $company)
-                    <a href="{{ route('torrents', ['view' => 'group', 'companyId' => $company->id]) }}">{{ $company->name }}</a>
+                    <a href="{{ route('torrents.index', ['view' => 'group', 'companyId' => $company->id]) }}">{{ $company->name }}</a>
                     @if (! $loop->last), @endif
                 @endforeach
             </dd>
@@ -138,7 +138,7 @@
             <dt>Genres</dt>
             <dd>
                 @foreach($show->genres as $genre)
-                    <a href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}">{{ $genre->name }}</a>
+                    <a href="{{ route('torrents.index', ['view' => 'group', 'genres' => $genre->id]) }}">{{ $genre->name }}</a>
                     @if (! $loop->last), @endif
                 @endforeach
             </dd>

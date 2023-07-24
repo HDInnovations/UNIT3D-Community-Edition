@@ -32,7 +32,7 @@ class TorrentZipController extends Controller
         set_time_limit(1200);
 
         // Authorized User
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         // Define Dir For Zip
         $zipPath = getcwd().'/files/tmp_zip/';
@@ -63,9 +63,9 @@ class TorrentZipController extends Controller
 
                     // Set link to torrent as the comment
                     if (config('torrent.comment')) {
-                        $dict['comment'] = config('torrent.comment').'. '.route('torrent', ['id' => $torrent->id]);
+                        $dict['comment'] = config('torrent.comment').'. '.route('torrents.show', ['id' => $torrent->id]);
                     } else {
-                        $dict['comment'] = route('torrent', ['id' => $torrent->id]);
+                        $dict['comment'] = route('torrents.show', ['id' => $torrent->id]);
                     }
 
                     $fileToDownload = Bencode::bencode($dict);

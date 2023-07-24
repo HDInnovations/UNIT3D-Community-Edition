@@ -88,18 +88,22 @@ class UpdateRssRequest extends FormRequest
             ],
             'imdb' => [
                 'sometimes',
+                'nullable',
                 'integer',
             ],
             'tvdb' => [
                 'sometimes',
+                'nullable',
                 'integer',
             ],
             'tmdb' => [
                 'sometimes',
+                'nullable',
                 'integer',
             ],
             'mal' => [
                 'sometimes',
+                'nullable',
                 'integer',
             ],
             'freeleech' => [

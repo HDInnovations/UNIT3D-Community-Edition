@@ -156,6 +156,7 @@ return [
     'recent-bumped'            => 'Recently Bumped',
     'recommendations'          => 'Recommendations',
     'refundable'               => 'Refundable',
+    'refunded'                 => 'Refunded',
     'rejected'                 => 'Rejected',
     'region'                   => 'Region',
     'released'                 => 'Released',
@@ -239,5 +240,4 @@ return [
     'view-trailer'             => 'View Trailer',
     'votes'                    => 'Votes',
     'year-range'               => 'Year Range',
-
 ];

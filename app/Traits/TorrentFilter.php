@@ -52,11 +52,20 @@ trait TorrentFilter
         );
     }
 
-    public function scopeOfUploader(Builder $query, string $username): Builder
+    public function scopeOfUploader(Builder $query, string $username, \Illuminate\Contracts\Auth\Authenticatable $authenticatedUser = null): Builder
     {
+        $authenticatedUser ??= auth()->user();
+
         return $query
             ->whereIn('user_id', User::select('id')->where('username', '=', $username))
-            ->where('anon', '=', 0);
+            ->when(
+                $authenticatedUser === null,
+                fn ($query) => $query->where('anon', '=', false),
+                fn ($query) => $query->when(
+                    ! $authenticatedUser->group->is_modo,
+                    fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', false)->orWhere('user_id', '=', $authenticatedUser->id))
+                )
+            );
     }
 
     public function scopeOfKeyword(Builder $query, array $keywords): Builder

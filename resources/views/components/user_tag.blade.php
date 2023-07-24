@@ -15,7 +15,7 @@
 ])
 
 @if ($anon)
-    @if (auth()->user()->id === $user->id || auth()->user()->group->is_modo)
+    @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
         <span
             {{ $attributes->class('user-tag fas fa-eye-slash') }}
             {{ $attributes->merge(['style' => 'background-image: '.$user->group->effect.';'.$style]) }}
@@ -23,7 +23,7 @@
             (
             <a
                 class="user-tag__link user-tag__link--anonymous {{ $user->group->icon }}"
-                href="{{ route('users.show', ['username' => $user->username]) }}"
+                href="{{ route('users.show', ['user' => $user]) }}"
                 style="color: {{ $user->group->color }}"
                 title="{{ $user->group->name }}"
             >
@@ -46,7 +46,7 @@
     >
         <a
             class="user-tag__link {{ $user->group->icon }}"
-            href="{{ route('users.show', ['username' => $user->username]) }}"
+            href="{{ route('users.show', ['user' => $user]) }}"
             style="color: {{ $user->group->color }}"
             title="{{ $user->group->name }}"
         >

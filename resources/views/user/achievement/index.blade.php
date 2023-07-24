@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -25,7 +25,7 @@
     @section('main')
         <section class="panelV2 achievements__unlocked">
             <h2 class="panel__heading">{{ __('user.unlocked-achievements') }}</h2>
-            @foreach($achievements as $achievement)
+            @foreach($achievements->load('details') as $achievement)
                 <article class="achievement" title="{{ $achievement->points }}/{{ $achievement->details->points }}">
                     <figure class="achievement__badge">
                         <img
@@ -48,7 +48,7 @@
         </section>
         <section class="panelV2 achievements__pending">
             <h2 class="panel__heading">{{ __('user.pending-achievements') }}</h2>
-            @foreach($pending as $achievement)
+            @foreach($pending->load('details') as $achievement)
                 <article class="achievement" title="{{ $achievement->points }}/{{ $achievement->details->points }}">
                     <figure class="achievement__badge">
                         <img

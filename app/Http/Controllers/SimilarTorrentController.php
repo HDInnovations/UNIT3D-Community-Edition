@@ -17,6 +17,7 @@ use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
+use App\Services\Tmdb\TMDBScraper;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
@@ -43,6 +44,7 @@ class SimilarTorrentController extends Controller
                     ->find($tmdbId);
                 $trailer = ( new \App\Services\Tmdb\Client\Movie($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
+
                 break;
             case $category->tv_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb', '=', $tmdbId)->exists();
@@ -58,6 +60,7 @@ class SimilarTorrentController extends Controller
                     ->find($tmdbId);
                 $trailer = ( new \App\Services\Tmdb\Client\TV($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
+
                 break;
             case $category->game_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('igdb', '=', $tmdbId)->exists();
@@ -78,13 +81,15 @@ class SimilarTorrentController extends Controller
                 $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
                 $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
                 $igdb = $tmdbId;
+
                 break;
             default:
                 abort(404, 'No Similar Torrents Found');
+
                 break;
         }
 
-        $personalFreeleech = cache()->get('personal_freeleech:'.auth()->user()->id);
+        $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());
 
         return view('torrent.similar', [
             'meta'               => $meta,
@@ -95,5 +100,26 @@ class SimilarTorrentController extends Controller
             'tmdb'               => $tmdb ?? null,
             'igdb'               => $igdb ?? null,
         ]);
+    }
+
+    public function update(Category $category, int $tmdbId)
+    {
+        if ($tmdbId !== 0) {
+            $tmdbScraper = new TMDBScraper();
+
+            switch (true) {
+                case $category->movie_meta:
+                    $tmdbScraper->movie($tmdbId);
+
+                    break;
+                case $category->tv_meta:
+                    $tmdbScraper->tv($tmdbId);
+
+                    break;
+            }
+        }
+
+        return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
+            ->withSuccess('Metadata update queued successfully');
     }
 }

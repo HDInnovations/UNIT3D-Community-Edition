@@ -30,9 +30,10 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.pages.update', ['id' => $page->id]) }}"
+                action="{{ route('staff.pages.update', ['page' => $page]) }}"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"

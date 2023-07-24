@@ -17,7 +17,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreChatStatusRequest;
 use App\Http\Requests\Staff\UpdateChatStatusRequest;
 use App\Models\ChatStatus;
-use App\Repositories\ChatRepository;
 use Exception;
 
 /**
@@ -26,19 +25,12 @@ use Exception;
 class ChatStatusController extends Controller
 {
     /**
-     * ChatController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
-    /**
      * Chat Management.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.chat.status.index', [
-            'chatstatuses' => $this->chatRepository->statuses(),
+            'chatstatuses' => ChatStatus::all(),
         ]);
     }
 
@@ -64,19 +56,19 @@ class ChatStatusController extends Controller
     /**
      * Chat Status Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(ChatStatus $chatStatus): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $chatstatus = ChatStatus::findOrFail($id);
-
-        return view('Staff.chat.status.edit', ['chatstatus' => $chatstatus]);
+        return view('Staff.chat.status.edit', [
+            'chatstatus' => $chatStatus,
+        ]);
     }
 
     /**
      * Update A Chat Status.
      */
-    public function update(UpdateChatStatusRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateChatStatusRequest $request, ChatStatus $chatStatus): \Illuminate\Http\RedirectResponse
     {
-        ChatStatus::findOrFail($id)->update($request->validated());
+        $chatStatus->update($request->validated());
 
         return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Modified');
@@ -87,10 +79,9 @@ class ChatStatusController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(ChatStatus $chatStatus): \Illuminate\Http\RedirectResponse
     {
-        $chatstatus = ChatStatus::findOrFail($id);
-        $chatstatus->delete();
+        $chatStatus->delete();
 
         return to_route('staff.statuses.index')
             ->withSuccess('Chat Status Successfully Deleted');

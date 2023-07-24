@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.postimg.cc/GpMQ3bj2/68747470733a2f2f692e706f7374696d672e63632f765a623674706e772f53637265656e2d53686f742d323032312d31302d.png" alt="UNIT3D-Community-Edition Cover Image">
+    <img src="https://i.postimg.cc/FKP2H5p4/Screen-Shot-2023-07-03-at-2-23-52-PM.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 
 <p align="center">
@@ -11,12 +11,6 @@
 <a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
 <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
 </p>
-
-<a href=https://github.com/sponsors/HDVinnie>
-<p align="center">
-    <img src="https://i.postimg.cc/QMRRNgmV/support.png" alt="UNIT3D-Community-Edition Support Image">
-</p>
-</a>
 
 <p align="center">
     🎉<b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="https://github.com/sponsors/HDVinnie">Sponsors</a></b>🎉
@@ -127,6 +121,12 @@ URL: https://discord.gg/J8dsx7F5yT
 
 ## <a name="sponsor"></a> ✨ Sponsor UNIT3D (HDInnovations / HDVinnie)
 
+<a href=https://github.com/sponsors/HDVinnie>
+<p>
+    <img src="https://i.postimg.cc/QMRRNgmV/support.png" alt="UNIT3D-Community-Edition Support Image">
+</p>
+</a>
+
 You can support my work if you are enjoying UNIT3D or need support via Discord. 
 
 Monthy Recurring:
@@ -137,9 +137,9 @@ One-time Custom Amount:
 
 https://github.com/sponsors/HDVinnie?frequency=one-time&sponsor=HDVinnie
 
-Some folks have asked me if it's possible to do a one-time donation via Crypto Currency or CashApp. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
+Some folks have asked me if it's possible to do a donation via Crypto. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
 
-CashApp - $hdvinnie
+Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
 
@@ -166,4 +166,3 @@ DOGE - DJ78fQspiu879y3adLbTZVSFABKhKqHE7B
 <a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
 <a href="https://laravel-livewire.com"><img src="https://i.postimg.cc/jjsNyBbh/Livewire.png" height="50px;"></a>
 <a href="https://alpinejs.dev"><img src="https://i.postimg.cc/28pWk0M1/alpinejs-logo.png" height="50px;"></a>
-<a href="https://styleci.io"><img src="https://i.postimg.cc/0y4XN4yW/og.png" height="50px;"></a>

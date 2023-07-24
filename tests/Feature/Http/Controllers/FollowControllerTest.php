@@ -24,7 +24,7 @@ class FollowControllerTest extends TestCase
 
         $response = $this->actingAs($user)->delete(route('users.followers.destroy', ['user' => $userToFollow]));
 
-        $response->assertRedirect(route('users.show', ['username' => $userToFollow->username]))
+        $response->assertRedirect(route('users.show', ['user' => $userToFollow]))
             ->assertSessionHas('success', sprintf('You are no longer following %s', $userToFollow->username));
 
         $this->assertDatabaseMissing('follows', [
@@ -45,7 +45,7 @@ class FollowControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('users.followers.store', ['user' => $userToFollow]));
 
-        $response->assertRedirect(route('users.show', ['username' => $userToFollow->username]))
+        $response->assertRedirect(route('users.show', ['user' => $userToFollow]))
             ->assertSessionHas('success', sprintf('You are now following %s', $userToFollow->username));
     }
 }

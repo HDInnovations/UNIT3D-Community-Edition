@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 
@@ -37,7 +38,7 @@ class SyncTorrentSeasonEpisode extends Command
      */
     public function handle(): void
     {
-        foreach (Torrent::withAnyStatus()->with(['category'])->whereNull('season_number')->orWhereNull('episode_number')->get() as $torrent) {
+        foreach (Torrent::withoutGlobalScope(ApprovedScope::class)->with(['category'])->whereNull('season_number')->orWhereNull('episode_number')->get() as $torrent) {
             // Skip if not TV
             if (! $torrent->category->tv_meta) {
                 continue;

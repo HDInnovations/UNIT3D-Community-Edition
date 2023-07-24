@@ -1,8 +1,6 @@
 <?php
 
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -33,7 +31,6 @@ return [
     */
 
     'connections' => [
-
         'sqlite' => [
             'driver'                  => 'sqlite',
             'url'                     => env('DATABASE_URL'),
@@ -97,7 +94,6 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-
     ],
 
     /*
@@ -125,7 +121,6 @@ return [
     */
 
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'predis'),
 
         'default' => [
@@ -178,7 +173,7 @@ return [
             'read_write_timeout' => -1,
         ],
 
-        'peer' => [
+        'announce' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
             'username'           => env('REDIS_USERNAME'),
@@ -190,5 +185,4 @@ return [
     ],
 
     'pristine-db-file' => env('PRISTINE_DB_FILE'),
-
 ];

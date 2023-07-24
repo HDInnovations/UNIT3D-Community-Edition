@@ -56,7 +56,7 @@
             @endif
         </ul>
         <address class="topic-listing__author">
-            <a href="{{ route('users.show', ['username' => $topic->first_post_user_username]) }}">
+            <a href="{{ route('users.show', ['user' => $topic->user]) }}">
                 {{ $topic->first_post_user_username }}
             </a>
         </address>
@@ -94,7 +94,7 @@
         <address class="topic-listing__latest-author">
             <a
                 class="topic-listing__latest-author-link"
-                href="{{ route('users.show', ['username' => $topic->last_post_user_username]) }}"
+                href="{{ route('users.show', ['user' => $topic->latestPoster]) }}"
             >
                 {{ $topic->last_post_user_username }}
             </a>
@@ -104,7 +104,12 @@
             datetime="{{ $topic->last_reply_at ?? '' }}"
             title="{{ $topic->last_reply_at ?? '' }}"
         >
-            {{ $topic->last_reply_at?->diffForHumans() ?? __('common.unknown') }}
+            <a
+                class="topic-listing__latest-post-link"
+                href="{{ route('topics.latestPermalink', ['id' => $topic->id]) }}"
+            >
+                {{ $topic->last_reply_at?->diffForHumans() ?? __('common.unknown') }}
+            </a>
         </time>
     </article>
 </article>

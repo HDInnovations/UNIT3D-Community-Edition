@@ -23,18 +23,16 @@
         <hr>
         <ul style="display: flex; flex-wrap: wrap; column-gap: 1rem; list-style-type: none; padding: 0; justify-content: center">
             @foreach ($groups as $group)
-                <x-user_tag
-                    :user="(object) [
-                        'username' => $group->name,
-                        'group'    => (object) [
-                            'icon'   => $group->icon,
-                            'color'  => $group->color,
-                            'effect' => $group->effect,
-                            'name'   => $group->name,
-                        ]
-                    ]"
-                    :anon="false"
-                />
+                <span class="user-tag" style="background-image: {{ $group->effect }};">
+                    <a
+                        class="user-tag__link {{ $group->icon }}"
+                        href="{{ route('group', ['id' => $group->id]) }}"
+                        style="color: {{ $group->color }}"
+                        title="{{ $group->name }}"
+                    >
+                        {{ $group->name }}
+                    </a>
+                </span>
             @endforeach
         </ul>
     </div>

@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -24,7 +24,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.invites') }}</h2>
             <div class="panel__actions">
-                <form class="panel__action" action="{{ route('invites.create') }}">
+                <form class="panel__action" action="{{ route('users.invites.create', ['user' => $user]) }}">
                     <button class="form__button form__button--text">
                         {{ __('user.send-invite') }}
                     </button>
@@ -37,7 +37,7 @@
                     <tr>
                         <th>{{ __('user.sender') }}</th>
                         <th>{{ __('common.email') }}</th>
-                        @if ($user->group->is_modo)
+                        @if (auth()->user()->group->is_modo)
                             <th>{{ __('user.code') }}</th>
                             <th>{{ __('common.message') }}</th>
                         @endif
@@ -56,7 +56,7 @@
                                 <x-user_tag :user="$invite->sender" :anon="false" />
                             </td>
                             <td>{{ $invite->email }}</td>
-                            @if ($user->group->is_modo)
+                            @if (auth()->user()->group->is_modo)
                                 <td>{{ $invite->code }}</td>
                                 <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
                             @endif
@@ -75,7 +75,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('invites.send', ['id' => $invite->id]) }}"
+                                            action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >
@@ -101,7 +101,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('invites.destroy', ['id' => $invite->id]) }}"
+                                            action="{{ route('users.invites.destroy', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
                                             x-data
                                         >

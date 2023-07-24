@@ -4,16 +4,16 @@
     </h2>
     <div class="panel__body">
         <menu style="display: flex; justify-content: space-between; padding: 0; margin: 0; list-style-type: none; flex-wrap: wrap">
-            @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user->id)
+            @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <li>
                     <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; flex-wrap: wrap;">
                         <li>
-                            <a class="form__button form__button--outlined" href="{{ route('edit_form', ['id' => $torrent->id]) }}"
+                            <a class="form__button form__button--outlined" href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                 role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> {{ __('common.edit') }}
                             </a>
                         </li>
-                        @if (auth()->user()->group->is_modo || ( auth()->user()->id === $torrent->user->id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
+                        @if (auth()->user()->group->is_modo || ( auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
                             <li x-data>
                                 <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ __('common.delete') }}
@@ -25,10 +25,11 @@
                                     <form
                                         class="dialog__form"
                                         method="POST"
-                                        action="{{ route('delete') }}"
+                                        action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
                                         x-on:click.outside="$refs.dialog.close()"
                                     >
                                         @csrf
+                                        @method('DELETE')
                                         <input id="type" name="type" type="hidden" value="Torrent">
                                         <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
                                         <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
@@ -243,21 +244,21 @@
             @endif
             @if (auth()->user()->group->is_modo)
                 <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; align-items: center; flex-wrap: wrap;">
-                    @if (! $torrent->isApproved())
+                    @if ($torrent->status !== \App\Models\Torrent::APPROVED)
                         <li>
                             <form role="form" method="POST"
                                     action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
                                     style="display: inline-block;">
                                 @csrf
                                 <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                <input type="hidden" name="status" value="1">
-                                <button class="form__button form__button--outlined" @disabled($torrent->isApproved())>
+                                <input type="hidden" name="status" value="{{ \App\Models\Torrent::APPROVED }}">
+                                <button class="form__button form__button--outlined">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> {{ __('common.moderation-approve') }}
                                 </button>
                             </form>
                         </li>
                     @endif
-                    @if (! $torrent->isPostponed())
+                    @if ($torrent->status !== \App\Models\Torrent::POSTPONED)
                         <li x-data>
                             <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
                                 <i class="{{ config('other.font-awesome') }} fa-pause"></i> {{ __('common.moderation-postpone') }}
@@ -276,7 +277,7 @@
                                     <input id="type" name="type" type="hidden" value="{{ __('torrent.torrent') }}">
                                     <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
                                     <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                    <input type="hidden" name="status" value="3">
+                                    <input type="hidden" name="status" value="{{ \App\Models\Torrent::POSTPONED }}">
                                     <p class="form__group">
                                         <textarea
                                             id="message"
@@ -300,7 +301,7 @@
                             </dialog>
                         </li>
                     @endif
-                    @if (! $torrent->isRejected())
+                    @if ($torrent->status !== \App\Models\Torrent::REJECTED)
                         <li x-data>
                             <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
                                 <i class="{{ config('other.font-awesome') }} fa-fw fa-thumbs-down"></i> {{ __('common.moderation-reject') }}
@@ -319,7 +320,7 @@
                                     <input id="type" name="type" type="hidden" value="{{ __('torrent.torrent') }}">
                                     <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
                                     <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                    <input type="hidden" name="status" value="2">
+                                    <input type="hidden" name="status" value="{{ \App\Models\Torrent::REJECTED }}">
                                     <p class="form__group">
                                         <textarea
                                             id="message"
@@ -344,15 +345,19 @@
                         </li>
                     @endif
                     <li>
-                        @if ($torrent->isApproved())
-                            Approved By: <x-user_tag :user="$torrent->moderated" :anon="false" />
-                        @elseif ($torrent->isPostponed())
-                            Postponed By: <x-user_tag :user="$torrent->moderated" :anon="false" />
-                        @elseif ($torrent->isRejected())
-                            Rejected By: <x-user_tag :user="$torrent->moderated" :anon="false" />
-                        @else
-                            Unmoderated
-                        @endif
+                        @switch ($torrent->status)
+                            @case(\App\Models\Torrent::APPROVED)
+                                Approved By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                @break
+                            @case(\App\Models\Torrent::POSTPONED)
+                                Postponed By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                @break
+                            @case(\App\Models\Torrent::REJECTED)
+                                Rejected By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                @break
+                            @default
+                                Unmoderated
+                        @endswitch
                     </li>
                 </menu>
             @endif

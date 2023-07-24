@@ -54,7 +54,7 @@ class TypeControllerTest extends TestCase
         $user = $this->createStaffUser();
         $type = Type::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.types.destroy', ['id' => $type->id]));
+        $response = $this->actingAs($user)->delete(route('staff.types.destroy', ['type' => $type]));
 
         $response->assertRedirect(route('staff.types.index'));
     }
@@ -69,7 +69,7 @@ class TypeControllerTest extends TestCase
         $user = $this->createStaffUser();
         $type = Type::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.types.edit', ['id' => $type->id]));
+        $response = $this->actingAs($user)->get(route('staff.types.edit', ['type' => $type]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.type.edit');
@@ -120,7 +120,7 @@ class TypeControllerTest extends TestCase
         $user = $this->createStaffUser();
         $type = Type::factory()->create();
 
-        $response = $this->actingAs($user)->patch(route('staff.types.update', ['id' => $type->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.types.update', ['type' => $type]), [
             'name'     => $type->name,
             'position' => $type->position,
         ]);

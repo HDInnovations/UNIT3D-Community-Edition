@@ -15,6 +15,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DateTimeInterface;
 
 class History extends Model
 {
@@ -32,9 +33,7 @@ class History extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'user_id',
-    ];
+    protected $guarded = [];
 
     /**
      * The Attributes That Should Be Mutated To Dates.
@@ -62,5 +61,13 @@ class History extends Model
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     */
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 }

@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Bots\IRCAnnounceBot;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
@@ -42,7 +43,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
 
@@ -63,7 +64,7 @@ class TorrentBuffController extends Controller
             $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s]', $torrentUrl));
         }
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
     }
 
@@ -75,11 +76,11 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
         $torrent->save();
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
     }
 
@@ -91,7 +92,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
         $request->validate([
@@ -121,7 +122,7 @@ class TorrentBuffController extends Controller
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
     }
 
@@ -133,7 +134,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         if ($torrent->featured == 0) {
             $torrent->free = '100';
@@ -154,11 +155,11 @@ class TorrentBuffController extends Controller
                 sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
 
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withSuccess('Torrent Is Now Featured!');
         }
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withErrors('Torrent Is Already Featured!');
     }
 
@@ -173,7 +174,7 @@ class TorrentBuffController extends Controller
 
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->free = '0';
         $torrent->doubleup = '0';
         $torrent->featured = '0';
@@ -189,7 +190,7 @@ class TorrentBuffController extends Controller
 
         $featured_torrent->delete();
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Revoked featured from Torrent!');
     }
 
@@ -201,12 +202,13 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
         if ($torrent->doubleup == 0) {
             $torrent->doubleup = '1';
             $du_until = $request->input('du_until');
+
             if ($du_until !== null) {
                 $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
                 $this->chatRepository->systemMessage(
@@ -228,7 +230,7 @@ class TorrentBuffController extends Controller
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
     }
 
@@ -238,7 +240,7 @@ class TorrentBuffController extends Controller
     public function freeleechToken(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
 
@@ -255,11 +257,11 @@ class TorrentBuffController extends Controller
 
             cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);
 
-            return to_route('torrent', ['id' => $torrent->id])
+            return to_route('torrents.show', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         }
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }
 
@@ -271,7 +273,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
 
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);
 
         if ($torrent->refundable == 0) {
@@ -290,7 +292,7 @@ class TorrentBuffController extends Controller
 
         $torrent->save();
 
-        return to_route('torrent', ['id' => $torrent->id])
+        return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');
     }
 }

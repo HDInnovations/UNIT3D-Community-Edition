@@ -24,9 +24,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('auto:insert_peers')->everyMinute();
+        $schedule->command('auto:upsert_histories')->everyFiveSeconds();
+        $schedule->command('auto:update_user_last_actions')->everyFiveSeconds();
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
-        $schedule->command('auto:graveyard')->daily();
+        $schedule->command('auto:reward_resurrection')->daily();
         $schedule->command('auto:highspeed_tag')->hourly();
         $schedule->command('auto:prewarning')->hourly();
         $schedule->command('auto:warning')->daily();

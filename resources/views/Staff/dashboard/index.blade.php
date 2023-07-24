@@ -65,7 +65,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.rooms.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.chatrooms.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i>
                         {{ __('staff.rooms') }}
                     </a>
@@ -139,7 +139,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.blacklists.clients.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.blacklisted_clients.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
                         {{ __('common.blacklist') }}
                     </a>
@@ -245,14 +245,14 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.applications.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-list"></i>
-                        {{ __('staff.applications') }} ({{ $apps->pending }})
-                        @if ($apps->pending > 0)
+                        {{ __('staff.applications') }} ({{ $pendingApplicationsCount }})
+                        @if ($pendingApplicationsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>
                 </li>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('user_search') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
                     </a>
@@ -365,8 +365,8 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.reports.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
-                        {{ __('staff.reports-log') }} ({{ $reports->unsolved }})
-                        @if ($reports->unsolved > 0)
+                        {{ __('staff.reports-log') }} ({{ $unsolvedReportsCount }})
+                        @if ($unsolvedReportsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>

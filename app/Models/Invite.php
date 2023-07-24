@@ -24,6 +24,8 @@ class Invite extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A User.
      */

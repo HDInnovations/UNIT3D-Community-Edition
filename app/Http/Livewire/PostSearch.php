@@ -24,6 +24,11 @@ class PostSearch extends Component
 
     public String $search = '';
 
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();

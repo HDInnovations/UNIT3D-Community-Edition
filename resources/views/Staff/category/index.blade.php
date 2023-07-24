@@ -46,7 +46,7 @@
                         <tr>
                             <td>{{ $category->position }}</td>
                             <td>
-                                <a href="{{ route('staff.categories.edit', ['id' => $category->id]) }}">
+                                <a href="{{ route('staff.categories.edit', ['category' => $category]) }}">
                                     {{ $category->name }}
                                 </a>
                             </td>
@@ -100,14 +100,14 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.categories.edit', ['id' => $category->id]) }}"
+                                            href="{{ route('staff.categories.edit', ['category' => $category]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.categories.destroy', ['id' => $category->id]) }}"
+                                            action="{{ route('staff.categories.destroy', ['category' => $category]) }}"
                                             method="POST"
                                             x-data
                                         >

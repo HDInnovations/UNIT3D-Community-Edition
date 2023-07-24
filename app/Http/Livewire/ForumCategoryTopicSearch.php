@@ -35,6 +35,11 @@ class ForumCategoryTopicSearch extends Component
         $this->category = $category;
     }
 
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();
@@ -44,7 +49,7 @@ class ForumCategoryTopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group')
+            ->with('user', 'user.group', 'latestPoster')
             ->whereIn('forum_id', Forum::where('parent_id', '=', $this->category->id)->select('id'))
             ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

@@ -119,6 +119,7 @@ class RssController extends Controller
 
         if ($success === null) {
             $error = trans('rss.error');
+
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -143,7 +144,7 @@ class RssController extends Controller
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-        abort_if($user->group->id == $bannedGroup[0] || $user->group->id == $disabledGroup[0] || ! $user->active, 404);
+        abort_if($user->group_id == $bannedGroup[0] || $user->group_id == $disabledGroup[0] || ! $user->active, 404);
 
         $rss = Rss::query()
             ->where(
@@ -161,7 +162,7 @@ class RssController extends Controller
             return Torrent::with('user', 'category', 'type', 'resolution')
                 ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
                 ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
-                ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader))
+                ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader, $user))
                 ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
                 ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
                 ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
@@ -276,6 +277,7 @@ class RssController extends Controller
 
         if ($success === null) {
             $error = trans('rss.error');
+
             if ($v->errors()) {
                 $error = $v->errors();
             }
@@ -295,8 +297,7 @@ class RssController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        $rss->delete();
+        Rss::where('is_private', '=', 1)->findOrFail($id)->delete();
 
         return to_route('rss.index', ['hash' => 'private'])
             ->withSuccess(trans('rss.deleted'));

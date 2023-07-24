@@ -28,9 +28,10 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.internals.update', ['name' => $internal->name, 'id' => $internal->id]) }}"
+                action="{{ route('staff.internals.update', ['internal' => $internal]) }}"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"

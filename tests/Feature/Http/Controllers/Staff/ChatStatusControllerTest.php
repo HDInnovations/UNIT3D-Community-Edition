@@ -39,7 +39,7 @@ class ChatStatusControllerTest extends TestCase
         $user = $this->createStaffUser();
         $chat_status = ChatStatus::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.statuses.destroy', ['id' => $chat_status->id]));
+        $response = $this->actingAs($user)->delete(route('staff.statuses.destroy', ['chatStatus' => $chat_status]));
         $response->assertRedirect(route('staff.statuses.index'));
     }
 
@@ -88,7 +88,7 @@ class ChatStatusControllerTest extends TestCase
         $user = $this->createStaffUser();
         $chat_status = ChatStatus::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.statuses.update', ['id' => $chat_status->id]), [
+        $response = $this->actingAs($user)->post(route('staff.statuses.update', ['chatStatus' => $chat_status]), [
             'name'  => $chat_status->name,
             'color' => $chat_status->color,
             'icon'  => $chat_status->icon,

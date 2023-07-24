@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
 class TMDBScraper implements ShouldQueue
 {
     use SerializesModels;
+
     /**
      * @var mixed|array|string|null
      */
@@ -50,6 +51,7 @@ class TMDBScraper implements ShouldQueue
 
         $tmdb = new TMDB();
         $tv = (new Client\TV($id))->getData();
+
         if (isset($tv['id'])) {
             $array = [
                 'backdrop'           => $tmdb->image('backdrop', $tv),

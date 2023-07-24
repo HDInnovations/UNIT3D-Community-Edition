@@ -66,7 +66,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A User.
      */
-    public function approveUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function approver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
@@ -77,7 +77,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A User.
      */
-    public function FillUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function filler(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
@@ -125,9 +125,17 @@ class TorrentRequest extends Model
     /**
      * Has Many BON Bounties.
      */
-    public function requestBounty(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function bounties(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequestBounty::class, 'requests_id', 'id');
+    }
+
+    /**
+     * Has One Torrent Request Claim.
+     */
+    public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(TorrentRequestClaim::class, 'request_id');
     }
 
     /**
@@ -154,6 +162,7 @@ class TorrentRequest extends Model
     public function notifyRequester($type, $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
+
         if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
             $user->notify(new NewComment('request', $payload));
 

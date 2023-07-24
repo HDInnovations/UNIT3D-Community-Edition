@@ -38,16 +38,15 @@
             @switch(true)
                 {{-- Claimed --}}
                 @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
-                    @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.unclaim')
-                    @includeWhen($user->group->is_modo || $torrentRequestClaim->username == $user->username, 'requests.partials.fulfill')
+                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.unclaim')
+                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.fulfill')
                     @include('requests.partials.report')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.edit')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.delete')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
                     @break
                 {{-- Pending --}}
                 @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
                     @include('requests.partials.report')
-                    @includeWhen($user->group->is_modo, 'requests.partials.reset')
                     @includeWhen($user->group->is_modo, 'requests.partials.edit')
                     @includeWhen($user->group->is_modo, 'requests.partials.delete')
                     @break
@@ -56,8 +55,8 @@
                     @include('requests.partials.claim')
                     @include('requests.partials.fulfill')
                     @include('requests.partials.report')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.edit')
-                    @includeWhen($user->group->is_modo || $torrentRequest->user->id == $user->id, 'requests.partials.delete')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
                     @break
                 {{-- Filled --}}
                 @default
@@ -95,7 +94,7 @@
             <li>
                 <span>
                     @switch(true)
-                        @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
+                        @case ($torrentRequest->claim !== null && $torrentRequest->torrent_id === null)
                             <i class="fas fa-circle text-blue"></i>
                             {{ __('request.claimed') }}
                             @break
@@ -125,39 +124,39 @@
                 @joypixels($torrentRequest->getDescriptionHtml())
             </div>
         </section>
-        @if ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
+        @if ($torrentRequest->claim !== null && $torrentRequest->torrent_id === null)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.claimed') }}</h2>
                 <dl class="key-value">
                     <dt>{{ __('request.claimed') }} by</dt>
                     <dd>
-                        @if ($torrentRequestClaim->anon)
+                        @if ($torrentRequest->claim->anon)
                             {{ strtoupper(__('common.anonymous')) }}
-                            @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
-                                ({{ $torrentRequestClaim->username }})
+                            @if ($user->group->is_modo || $torrentRequest->claim->user->is($user))
+                                ({{ $torrentRequest->claim->username }})
                             @endif
                         @else
-                            <a href="{{ route('users.show', ['username' => $torrentRequestClaim->username]) }}">
-                                {{ $torrentRequestClaim->username }}
+                            <a href="{{ route('users.show', ['user' => $torrentRequest->claim->user]) }}">
+                                {{ $torrentRequest->claim->username }}
                             </a>
                         @endif
                     </dd>
                     <dt>{{ __('request.claimed') }} at</dt>
                     <dd>
-                        <time datetime="{{ $torrentRequestClaim->created_at }}" title="{{ $torrentRequestClaim->created_at }}">
-                            {{ $torrentRequestClaim->created_at->diffForHumans() }}
+                        <time datetime="{{ $torrentRequest->claim->created_at }}" title="{{ $torrentRequest->claim->created_at }}">
+                            {{ $torrentRequest->claim->created_at->diffForHumans() }}
                         </time>
                     </dd>
                 </dl>
             </section>
         @endif
-        @if ($torrentRequest->torrent_id !== null)
+        @if ($torrentRequest->filled_by !== null)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.filled') }}</h2>
                 <dl class="key-value">
                     <dt>{{ __('request.filled') }} by</dt>
                     <dd>
-                        <x-user_tag :user="$torrentRequest->FillUser" :anon="$torrentRequest->filled_anon" />
+                        <x-user_tag :user="$torrentRequest->filler" :anon="$torrentRequest->filled_anon" />
                     </dd>
                     <dt>{{ __('request.filled') }} at</dt>
                     <dd>
@@ -167,11 +166,15 @@
                     </dd>
                     <dt>{{ __('request.filled') }} with</dt>
                     <dd>
-                        <a
-                            href="{{ route('torrent', ['id' => $torrentRequest->torrent->id]) }}"
-                        >
-                            {{ $torrentRequest->torrent->name }}
-                        </a>
+                        @if ($torrentRequest->torrent_id === null)
+                            Filled torrent has been deleted
+                        @else
+                            <a
+                                href="{{ route('torrents.show', ['id' => $torrentRequest->torrent->id]) }}"
+                            >
+                                {{ $torrentRequest->torrent->name }}
+                            </a>
+                        @endif
                     </dd>
                 </dl>
                 @if ($torrentRequest->approved_by === null && ($torrentRequest->user_id == $user->id || auth()->user()->group->is_modo))
@@ -179,7 +182,7 @@
                         <div class="form__group">
                             <form
                                 method="POST"
-                                action="{{ route('requests.approve', ['id' => $torrentRequest->id]) }}"
+                                action="{{ route('requests.approved_fills.store', ['torrentRequest' => $torrentRequest]) }}"
                                 style="display: contents"
                             >
                                 @csrf
@@ -189,10 +192,11 @@
                             </form>
                             <form
                                 method="POST"
-                                action="{{ route('requests.reject', ['id' => $torrentRequest->id]) }}"
+                                action="{{ route('requests.fills.destroy', ['torrentRequest' => $torrentRequest]) }}"
                                 style="display: contents"
                             >
                                 @csrf
+                                @method('DELETE')
                                 <button class="form__button form__button--filled form__button--centered">
                                     {{ __('request.reject') }}
                                 </button>
@@ -216,20 +220,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($voters as $voter)
+                        @foreach ($torrentRequest->bounties as $bounty)
                             <tr>
                                 <td>
-                                    <x-user_tag :user="$voter->user" :anon="$voter->anon" />
+                                    <x-user_tag :user="$bounty->user" :anon="$bounty->anon" />
                                 </td>
-                                <td>{{ $voter->seedbonus }}</td>
+                                <td>{{ $bounty->seedbonus }}</td>
                                 <td>
-                                    <time datetime="{{ $voter->created_at }}" title="{{ $voter->created_at }}">
-                                        {{ $voter->created_at->diffForHumans() }}
+                                    <time datetime="{{ $bounty->created_at }}" title="{{ $bounty->created_at }}">
+                                        {{ $bounty->created_at->diffForHumans() }}
                                     </time>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </section>

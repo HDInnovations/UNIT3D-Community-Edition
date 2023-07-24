@@ -51,6 +51,7 @@ class TestMailSettings extends Command
         } catch (\Exception) {
             $this->error('Failed!');
             $this->alert('Email failed to send. Please review your mail configs in the .env file.');
+
             exit(1);
         }
 

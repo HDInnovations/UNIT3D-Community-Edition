@@ -42,7 +42,7 @@ class ReportControllerTest extends TestCase
         $report = Report::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.reports.show', ['id' => $report->id]));
+        $response = $this->actingAs($user)->get(route('staff.reports.show', ['report' => $report]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.report.show');
@@ -62,7 +62,7 @@ class ReportControllerTest extends TestCase
         $report = Report::factory()->create();
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.reports.update', ['id' => $report->id]), [
+        $response = $this->actingAs($user)->post(route('staff.reports.update', ['report' => $report]), [
             // TODO: send request data
         ]);
 

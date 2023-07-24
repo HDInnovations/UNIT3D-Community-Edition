@@ -28,7 +28,7 @@ class PrivacySettingController extends Controller
      */
     public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id === $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         $privacy = $user->privacy;
 
@@ -133,9 +133,10 @@ class PrivacySettingController extends Controller
         $privacy->json_other_groups = array_map('intval', $request->json_other_groups ?? []);
         $privacy->save();
 
-        $user->private_profile = $request->private_profile;
-        $user->hidden = $request->hidden;
-        $user->save();
+        $user->update([
+            'private_profile' => $request->private_profile,
+            'hidden'          => $request->hidden,
+        ]);
 
         return to_route('users.privacy_settings.edit', ['user' => $user])
             ->withSuccess('Your privacy settings have been successfully saved.');
@@ -146,7 +147,7 @@ class PrivacySettingController extends Controller
      */
     public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->id == $user->id, 403);
+        abort_unless($request->user()->is($user), 403);
 
         return view('user.privacy_setting.edit', [
             'user'   => $user,

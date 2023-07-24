@@ -56,7 +56,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['id' => $subtitle->torrent->id]) }}">
+                                    <a href="{{ route('torrents.show', ['id' => $subtitle->torrent->id]) }}">
                                         {{ $subtitle->torrent->name }}
                                     </a>
                                 </td>
@@ -80,7 +80,7 @@
                                         <li class="data-table__action">
                                             <a
                                                 class="form__button form__button--text"
-                                                href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                                                href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                             >
                                                 {{ __('common.download') }}
                                             </a>
@@ -152,6 +152,18 @@
                             </div>
                         </fieldset>
                     </div>
+                    <p class="form__group">
+                        <input
+                            id="username"
+                            wire:model="username"
+                            type="search"
+                            class="form__text"
+                            placeholder=" "
+                        >
+                        <label for="username" class="form__label form__label--floating">
+                            {{ __('subtitle.uploader') }}
+                        </label>
+                    </p>
                     <p class="form__group">
                         <select
                             id="quantity"

@@ -10,7 +10,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('torrents') }}" class="breadcrumb__link">
+        <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
@@ -41,7 +41,7 @@
       @include('torrent.partials.buttons')
 
       {{-- Tools Block --}}
-      @if (auth()->user()->group->is_modo || auth()->user()->id === $torrent->user->id || auth()->user()->group->is_internal)
+      @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id || auth()->user()->group->is_internal)
           @include('torrent.partials.tools')
       @endif
 

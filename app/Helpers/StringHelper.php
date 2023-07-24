@@ -38,6 +38,7 @@ class StringHelper
     public static function generateRandomString($length = 20): string
     {
         $string = '';
+
         for ($i = 0; $i < $length; $i++) {
             $string .= self::CHARACTERS[random_int(0, \strlen(self::CHARACTERS) - 1)];
         }
@@ -48,6 +49,7 @@ class StringHelper
     public static function formatBytes($bytes = 0, $precision = 2): string
     {
         $minus = false;
+
         if ($bytes < 0) {
             $minus = true;
             $bytes *= -1;
@@ -55,6 +57,7 @@ class StringHelper
 
         $suffix = 'B';
         $value = $bytes;
+
         if ($bytes >= self::PIB) {
             $suffix = 'PiB';
             $value = $bytes / self::PIB;
@@ -73,6 +76,7 @@ class StringHelper
         }
 
         $result = round($value, $precision);
+
         if ($minus) {
             $result *= -1;
         }

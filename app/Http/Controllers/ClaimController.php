@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTorrentRequestClaimRequest;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Notifications\NewRequestClaim;
@@ -28,69 +29,53 @@ class ClaimController extends Controller
     /**
      * Claim A Torrent Request.
      */
-    public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentRequestClaimRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        $torrentRequest = TorrentRequest::with('user')->findOrFail($id);
-
-        if ($torrentRequest->claimed == null) {
-            $torrentRequestClaim = new TorrentRequestClaim();
-            $torrentRequestClaim->request_id = $id;
-            $torrentRequestClaim->username = $user->username;
-            $torrentRequestClaim->anon = $request->input('anon');
-            $torrentRequestClaim->save();
-
-            $torrentRequest->claimed = 1;
-            $torrentRequest->save();
-
-            $sender = $request->input('anon') == 1 ? 'Anonymous' : $user->username;
-
-            $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
-                $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
-            }
-
-            return to_route('requests.show', ['id' => $id])
-                ->withSuccess(trans('request.claimed-success'));
+        if ($torrentRequest->claimed !== null) {
+            return to_route('requests.show', ['torrentRequest' => $torrentRequest])
+                ->withErrors(trans('request.already-claimed'));
         }
 
-        return to_route('requests.show', ['id' => $id])
-            ->withErrors(trans('request.already-claimed'));
+        $torrentRequest->claim()->create(['username' => $request->user()->username] + $request->validated());
+
+        $torrentRequest->update([
+            'claimed' => true,
+        ]);
+
+        $claimer = $request->boolean('anon') ? 'Anonymous' : $request->user()->username;
+        $requester = $torrentRequest->user;
+
+        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
+            $requester->notify(new NewRequestClaim('torrent', $claimer, $torrentRequest));
+        }
+
+        return to_route('requests.show', ['torrentRequest' => $torrentRequest])
+            ->withSuccess(trans('request.claimed-success'));
     }
 
     /**
-     * Uncliam A Torrent Request.
+     * Unclaim A Torrent Request.
      *
      * @throws Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, TorrentRequest $torrentRequest, TorrentRequestClaim $claim): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
-        $claimer = TorrentRequestClaim::where('request_id', '=', $id)->first();
+        abort_unless($request->user()->group->is_modo || $request->user()->username == $claim->username, 403);
 
-        abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
+        $claim->delete();
 
-        if ($torrentRequest->claimed == 1) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->sole();
-            $isAnon = $requestClaim->anon;
-            $requestClaim->delete();
+        $torrentRequest->update([
+            'claimed' => null,
+        ]);
 
-            $torrentRequest->claimed = null;
-            $torrentRequest->save();
+        $claimer = $claim->anon ? 'Anonymous' : $request->user()->username;
+        $requester = $torrentRequest->user;
 
-            $sender = $isAnon == 1 ? 'Anonymous' : $user->username;
-
-            $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
-                $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
-            }
-
-            return to_route('requests.show', ['id' => $id])
-                ->withSuccess(trans('request.unclaimed-success'));
+        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
+            $requester->notify(new NewRequestUnclaim('torrent', $claimer, $torrentRequest));
         }
 
-        return to_route('requests.show', ['id' => $id])
-            ->withErrors(trans('request.unclaim-error'));
+        return to_route('requests.show', ['torrentRequest' => $torrentRequest])
+            ->withSuccess(trans('request.unclaimed-success'));
     }
 }

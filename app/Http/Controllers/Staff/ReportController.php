@@ -29,17 +29,18 @@ class ReportController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.report.index', [
-            'reports' => Report::orderBy('solved')->latest()->paginate(25)
+            'reports' => Report::orderBy('solved')
+                ->with('reported.group', 'reporter.group', 'staff.group')
+                ->latest()
+                ->paginate(25)
         ]);
     }
 
     /**
      * Show A Report.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Report $report): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $report = Report::findOrFail($id);
-
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', (string) $report->message, $match);
 
         return view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
@@ -48,10 +49,9 @@ class ReportController extends Controller
     /**
      * Update A Report.
      */
-    public function update(UpdateReportRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateReportRequest $request, Report $report): \Illuminate\Http\RedirectResponse
     {
         $staff = auth()->user();
-        $report = Report::findOrFail($id);
 
         if ($report->solved == 1) {
             return to_route('staff.reports.index')

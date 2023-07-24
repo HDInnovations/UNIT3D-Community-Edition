@@ -30,7 +30,7 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.title') }}</h2>
             <div class="panel__body">
-                <a href="{{ route('torrent', ['id' => $report->torrent->id]) }}">
+                <a href="{{ route('torrents.show', ['id' => $report->torrent->id]) }}">
                     {{ $report->title }}
                 </a>
             </div>
@@ -40,7 +40,7 @@
         <section class="panelV2">
             <h2>{{ __('torrent.torrent-request') }} {{ __('request.title') }}</h2>
             <div class="panel__body">
-                <a href="{{ route('requests.show', ['id' => $report->request->id]) }}">
+                <a href="{{ route('requests.show', ['torrentRequest' => $report->request]) }}">
                     {{ $report->title }}
                 </a>
             </div>
@@ -76,9 +76,10 @@
                 <form
                     class="form"
                     method="POST"
-                    action="{{ route('staff.reports.update', ['id' => $report->id]) }}"
+                    action="{{ route('staff.reports.update', ['report' => $report]) }}"
                 >
                     @csrf
+                    @method('PATCH')
                     @livewire('bbcode-input', ['name' => 'verdict', 'label' => 'Verdict', 'required' => true])
                     <p class="form__group">
                         <button class="form__button form__button--filled">
@@ -100,7 +101,7 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.reporter') }}</h2>
-        <div class="panel__body"
+        <div class="panel__body">
             <x-user_tag :anon="false" :user="$report->reporter" />
         </div>
     </section>

@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.show', ['username' => $user->username]) }}" class="breadcrumb__link">
+        <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
@@ -25,11 +25,12 @@
         <div class="panel__body">
             <form
                 method="POST"
-                action="{{ route('user_edit_profile', ['username' => $user->username]) }}"
+                action="{{ route('users.update', ['user' => $user]) }}"
                 enctype="multipart/form-data"
                 class="form"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <label for="image" class="form__label">{{ __('user.avatar') }}</label>
                     <input

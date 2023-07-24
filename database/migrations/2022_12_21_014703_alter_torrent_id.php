@@ -1,21 +1,5 @@
 <?php
 
-use App\Models\BonTransactions;
-use App\Models\Bookmark;
-use App\Models\FeaturedTorrent;
-use App\Models\FreeleechToken;
-use App\Models\Graveyard;
-use App\Models\History;
-use App\Models\Keyword;
-use App\Models\Peer;
-use App\Models\PlaylistTorrent;
-use App\Models\Report;
-use App\Models\Subtitle;
-use App\Models\Thank;
-use App\Models\Torrent;
-use App\Models\TorrentDownload;
-use App\Models\TorrentFile;
-use App\Models\Warning;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -27,29 +11,29 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        $torrentIds = Torrent::withoutGlobalScopes()->pluck('id');
+        $torrentIds = DB::table('torrents')->pluck('id');
 
-        BonTransactions::withoutGlobalScopes()
+        DB::table('bon_transactions')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Bookmark::withoutGlobalScopes()
+        DB::table('bookmarks')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        FeaturedTorrent::withoutGlobalScopes()
+        DB::table('featured_torrents')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        TorrentFile::withoutGlobalScopes()
+        DB::table('files')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        FreeleechToken::withoutGlobalScopes()
+        DB::table('freeleech_tokens')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
@@ -59,52 +43,52 @@ return new class () extends Migration {
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Graveyard::withoutGlobalScopes()
+        DB::table('graveyard')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        History::withoutGlobalScopes()
+        DB::table('history')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Keyword::withoutGlobalScopes()
+        DB::table('keywords')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Peer::withoutGlobalScopes()
+        DB::table('peers')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        PlaylistTorrent::withoutGlobalScopes()
+        DB::table('playlist_torrents')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Report::withoutGlobalScopes()
+        DB::table('reports')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Subtitle::withoutGlobalScopes()
+        DB::table('subtitles')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Thank::withoutGlobalScopes()
+        DB::table('thanks')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        TorrentDownload::withoutGlobalScopes()
+        DB::table('torrent_downloads')
             ->whereIntegerNotInRaw('torrent_id', $torrentIds)
             ->whereNotNull('torrent_id')
             ->delete();
 
-        Warning::withoutGlobalScopes()
+        DB::table('warnings')
             ->whereIntegerNotInRaw('torrent', $torrentIds)
             ->whereNotNull('torrent')
             ->delete();

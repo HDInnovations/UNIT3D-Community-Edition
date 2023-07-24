@@ -93,33 +93,15 @@
                         {{ $ticket->id }}
                     </td>
                     <td>
-                        <a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
-                        @if (auth()->user()->group->is_modo)
-                            @php
-                                $myTicketUnread = DB::table('tickets')
-                                    ->where('id', '=', $ticket->id)
-                                    ->where('staff_id', '=', auth()->user()->id)
-                                    ->where('staff_read', '=', 0)
-                                    ->count();
-
-                                $unasignedTicketUnread = DB::table('tickets')
-                                    ->where('id', '=', $ticket->id)
-                                    ->whereNull('staff_id')
-                                    ->whereNull('closed_at')
-                                    ->count()
-                            @endphp
-                        @else
-                            @php
-                                $myTicketUnread = DB::table('tickets')
-                                    ->where('id', '=', $ticket->id)
-                                    ->where('user_id', '=', auth()->user()->id)
-                                    ->where('user_read', '=', 0)
-                                    ->count();
-
-                                $unasignedTicketUnread = 0
-                            @endphp
-                        @endif
-                        @if ($myTicketUnread > 0 || $unasignedTicketUnread > 0)
+                        <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">{{ $ticket->subject }}</a>
+                        @if (
+                            auth()->user()->group->is_modo
+                            && (
+                                ($ticket->staff_id === auth()->id() && $ticket->staff_read === 0) ||
+                                ($ticket->staff_id === null && $ticket->closed_at === null)
+                            )
+                            || ($ticket->user_id === auth()->id() && $ticket->user_read === 0)
+                        )
                             <i style="color: #0dffff;vertical-align: 1px;" class="fas fa-circle fa-xs"></i>
                         @endif
                     </td>
@@ -164,7 +146,7 @@
                     <td>
                         <menu class="data-table__actions">
                             <li class="data-table__action">
-                                <form method="POST" action="{{ route('tickets.close', ['id' => $ticket->id]) }}">
+                                <form method="POST" action="{{ route('tickets.close', ['ticket' => $ticket]) }}">
                                     @csrf
                                     <button class="form__button form__button--text">
                                         {{ __('ticket.close') }}

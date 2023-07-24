@@ -35,13 +35,9 @@ class EarningController extends Controller
     /**
      * Show Bonus Earnings System.
      */
-    public function index(Request $request, string $username): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = User::where('username', '=', $username)->sole();
-
-        abort_unless($request->user()->id == $user->id || $request->user()->group->is_modo, 403);
-
-        $userbon = $user->getSeedbonus();
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         // These two partially-built queries are used for constructing all the other queries
         $distinctSeeds = Peer::query()
@@ -151,7 +147,7 @@ class EarningController extends Controller
 
         return view('user.earning.index', [
             'user'        => $user,
-            'userbon'     => $userbon,
+            'bon'         => $user->getSeedbonus(),
             'dying'       => $dying,
             'legendary'   => $legendary,
             'old'         => $old,
@@ -164,7 +160,6 @@ class EarningController extends Controller
             'mvp'         => $mvp,
             'legend'      => $legend,
             'total'       => $total,
-            'username'    => $username,
         ]);
     }
 }

@@ -36,19 +36,19 @@ class InternalController extends Controller
     /**
      * Edit A group.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function edit(Internal $internal): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.internals.edit', [
-            'internal' => Internal::findOrFail($id),
+            'internal' => $internal,
         ]);
     }
 
     /**
      * Save a group change.
      */
-    public function update(UpdateInternalRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateInternalRequest $request, Internal $internal): \Illuminate\Http\RedirectResponse
     {
-        Internal::findOrFail($id)->update($request->validated());
+        $internal->update($request->validated());
 
         return to_route('staff.internals.index')
             ->withSuccess('Internal Group Was Updated Successfully!');
@@ -76,9 +76,8 @@ class InternalController extends Controller
     /**
      * Delete A Internal Group.
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Internal $internal): \Illuminate\Http\RedirectResponse
     {
-        $internal = Internal::findOrFail($id);
         $internal->delete();
 
         return to_route('staff.internals.index')

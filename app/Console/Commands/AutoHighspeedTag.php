@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Seedbox;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
@@ -47,7 +48,7 @@ class AutoHighspeedTag extends Command
             ->pluck('ip')
             ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
-        Torrent::withAnyStatus()
+        Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
                 Peer::where('seeder', '=', 1)
                     ->distinct()

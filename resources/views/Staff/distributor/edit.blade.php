@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.distributors.update', ['id' => $distributor->id]) }}"
+                action="{{ route('staff.distributors.update', ['distributor' => $distributor]) }}"
             >
                 @method('PATCH')
                 @csrf
@@ -45,21 +45,6 @@
                     >
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
-                    </label>
-                </p>
-                <p class="form__group">
-                    <input
-                        id="position"
-                        class="form__text"
-                        inputmode="numeric"
-                        name="position"
-                        pattern="[0-9]*"
-                        required
-                        type="text"
-                        value="{{ $distributor->position }}"
-                    >
-                    <label class="form__label form__label--floating" for="name">
-                        {{ __('common.position') }}
                     </label>
                 </p>
                 <p class="form__group">

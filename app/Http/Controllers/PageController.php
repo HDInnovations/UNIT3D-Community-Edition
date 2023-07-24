@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
@@ -35,10 +36,10 @@ class PageController extends Controller
     /**
      * Show A Page.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Page $page): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('page.page', [
-            'page' => Page::findOrFail($id),
+            'page' => $page,
         ]);
     }
 
@@ -49,7 +50,7 @@ class PageController extends Controller
     {
         return view('page.staff', [
             'staff' => Group::query()
-                ->with('users:id,username,group_id,title')
+                ->with('users.group')
                 ->where('is_modo', '=', 1)
                 ->orWhere('is_admin', '=', 1)
                 ->get()
@@ -64,7 +65,7 @@ class PageController extends Controller
     {
         return view('page.internal', [
             'internals' => Internal::query()
-                ->with('users')
+                ->with('users.group')
                 ->orderBy('name')
                 ->get(),
         ]);

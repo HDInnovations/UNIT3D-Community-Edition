@@ -36,5 +36,4 @@ return [
     'staff-group'           => 'Gruppe',
     'staff-title'           => 'Titel',
     'whitelist-emaildomain' => 'Tilladt email-domæne',
-
 ];

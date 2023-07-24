@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\History;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +22,7 @@ return new class () extends Migration {
             ->get();
 
         foreach ($duplicates as $duplicate) {
-            $records = History::query()
+            $records = DB::table('history')
                 ->where('torrent_id', '=', $duplicate->torrent_id)
                 ->where('user_id', '=', $duplicate->user_id)
                 ->get();

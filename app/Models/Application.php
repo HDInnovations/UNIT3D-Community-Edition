@@ -13,8 +13,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
-use Hootlex\Moderation\Moderatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +22,19 @@ class Application extends Model
 {
     use Auditable;
     use HasFactory;
-    use Moderatable;
+
+    public const PENDING = 0;
+    public const APPROVED = 1;
+    public const REJECTED = 2;
+
+    protected $casts = [
+        'moderated_at' => 'datetime',
+    ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new ApprovedScope());
+    }
 
     /**
      * Belongs To A User.

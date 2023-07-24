@@ -175,7 +175,7 @@ class TorrentSearch extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return cache()->get('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->id());
     }
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -577,13 +577,14 @@ class TorrentSearch extends Component
                     $media->meta = 'movie';
                     $media->torrents = $torrents['movie'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
-                    break;
 
+                    break;
                 case 'tv':
                     $media = $tv[$group->tmdb] ?? collect();
                     $media->meta = 'tv';
                     $media->torrents = $torrents['tv'][$group->tmdb] ?? collect();
                     $media->category_id = $media->torrents->pop();
+
                     break;
             }
 
@@ -607,7 +608,7 @@ class TorrentSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.torrent-search', [
-            'user'              => User::with(['group'])->findOrFail(auth()->user()->id),
+            'user'              => User::with(['group'])->findOrFail(auth()->id()),
             'personalFreeleech' => $this->personalFreeleech,
             'torrents'          => $this->view === 'group' ? $this->groupedTorrents : $this->torrents,
         ]);

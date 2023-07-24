@@ -19,7 +19,7 @@
                         </button>
                     </li>
                 @endif
-                @if ($comment->user_id === auth()->user()->id || auth()->user()->group->is_modo)
+                @if ($comment->user_id === auth()->id() || auth()->user()->group->is_modo)
                     <li class="post__toolbar-item">
                         <button wire:click="$toggle('isEditing')" class="post__edit">
                             <abbr class="comment__edit-abbr" title="{{ __('common.edit-your-comment') }}">

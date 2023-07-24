@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\Staff;
 use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
+use Database\Seeders\ChatroomTableSeeder;
 use Database\Seeders\GroupsTableSeeder;
 use Tests\TestCase;
 
@@ -35,13 +36,14 @@ class ChatRoomControllerTest extends TestCase
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
+        $this->seed(ChatroomTableSeeder::class);
 
         $user = $this->createStaffUser();
         $chatroom = Chatroom::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.rooms.destroy', ['id' => $chatroom->id]));
+        $response = $this->actingAs($user)->delete(route('staff.chatrooms.destroy', ['chatroom' => $chatroom]));
 
-        $response->assertRedirect(route('staff.rooms.index'));
+        $response->assertRedirect(route('staff.chatrooms.index'));
     }
 
     /**
@@ -53,7 +55,7 @@ class ChatRoomControllerTest extends TestCase
 
         $user = $this->createStaffUser();
 
-        $response = $this->actingAs($user)->get(route('staff.rooms.index'));
+        $response = $this->actingAs($user)->get(route('staff.chatrooms.index'));
 
         $response->assertOk();
         $response->assertViewIs('Staff.chat.room.index');
@@ -70,11 +72,11 @@ class ChatRoomControllerTest extends TestCase
         $user = $this->createStaffUser();
         $chatroom = Chatroom::factory()->make();
 
-        $response = $this->actingAs($user)->post(route('staff.rooms.store'), [
+        $response = $this->actingAs($user)->post(route('staff.chatrooms.store'), [
             'name' => $chatroom->name,
         ]);
 
-        $response->assertRedirect(route('staff.rooms.index'));
+        $response->assertRedirect(route('staff.chatrooms.index'));
     }
 
     /**
@@ -87,10 +89,10 @@ class ChatRoomControllerTest extends TestCase
         $user = $this->createStaffUser();
         $chatroom = Chatroom::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.rooms.update', ['id' => $chatroom->id]), [
+        $response = $this->actingAs($user)->post(route('staff.chatrooms.update', ['chatroom' => $chatroom]), [
             'name' => $chatroom->name,
         ]);
 
-        $response->assertRedirect(route('staff.rooms.index'));
+        $response->assertRedirect(route('staff.chatrooms.index'));
     }
 }

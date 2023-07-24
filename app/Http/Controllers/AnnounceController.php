@@ -23,6 +23,7 @@ use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
 use App\Models\Group;
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -79,7 +80,6 @@ class AnnounceController extends Controller
         'Pragma'        => 'no-cache',
         'Expires'       => 0,
         'Connection'    => 'close'
-
     ];
 
     /**
@@ -223,6 +223,7 @@ class AnnounceController extends Controller
         // Part.1 Extract required announce fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $request->query->get($item);
+
             if (null !== $itemData) {
                 $queries[$item] = $itemData;
             } else {
@@ -386,12 +387,7 @@ class AnnounceController extends Controller
         // Check Info Hash Against Torrents Table
         $torrentId = Redis::connection('cache')->command('HGET', [$cacheKey, hex2bin($infoHash)]);
 
-        $torrent = Torrent::withAnyStatus()
-            ->with([
-                'peers' => fn ($query) => $query
-                    ->select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])
-                    ->selectRaw('INET6_NTOA(ip) as ip')
-            ])
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
             ->when(
                 $torrentId === null,
@@ -423,6 +419,16 @@ class AnnounceController extends Controller
         throw_if(
             $torrent->status === self::POSTPONED,
             new TrackerException(151, [':status' => 'POSTPONED In Moderation'])
+        );
+
+        // Don't use eager loading so that we can make use of mysql prepared statement caching.
+        // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
+        $torrent->setRelation(
+            'peers',
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])
+                ->selectRaw('INET6_NTOA(ip) as ip')
+                ->where('torrent_id', '=', $torrent->id)
+                ->get()
         );
 
         return $torrent;

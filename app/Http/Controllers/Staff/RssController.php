@@ -32,10 +32,9 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      */
-    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.rss.index', [
-            'hash'       => $hash,
             'public_rss' => Rss::where('is_private', '=', 0)->oldest('position')->get(),
         ]);
     }
@@ -74,24 +73,26 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Rss $rss): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        abort_if($rss->is_private, 403);
+
         return view('Staff.rss.edit', [
             'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
             'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
             'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
             'genres'      => Genre::orderBy('name')->get(),
             'user'        => $request->user(),
-            'rss'         => Rss::where('is_private', '=', 0)->findOrFail($id),
+            'rss'         => $rss,
         ]);
     }
 
     /**
      * Update the specified RSS resource in storage.
      */
-    public function update(UpdateRssRequest $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(UpdateRssRequest $request, Rss $rss): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        abort_if($rss->is_private, 403);
 
         $rss->update([
             'json_torrent' => array_merge($rss->json_torrent, $rss->expected_fields, $request->validated()),
@@ -108,9 +109,10 @@ class RssController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function destroy(Rss $rss): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        abort_if($rss->is_private, 403);
+
         $rss->delete();
 
         return to_route('staff.rss.index')

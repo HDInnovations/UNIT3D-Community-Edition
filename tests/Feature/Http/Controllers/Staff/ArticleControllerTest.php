@@ -54,7 +54,7 @@ class ArticleControllerTest extends TestCase
         $user = $this->createStaffUser();
         $article = Article::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.articles.destroy', ['id' => $article->id]));
+        $response = $this->actingAs($user)->delete(route('staff.articles.destroy', ['article' => $article]));
         $response->assertRedirect(route('staff.articles.index'));
     }
 
@@ -68,7 +68,7 @@ class ArticleControllerTest extends TestCase
         $user = $this->createStaffUser();
         $article = Article::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.articles.edit', ['id' => $article->id]));
+        $response = $this->actingAs($user)->get(route('staff.articles.edit', ['article' => $article]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.article.edit');
@@ -120,7 +120,7 @@ class ArticleControllerTest extends TestCase
         $user = $this->createStaffUser();
         $article = Article::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.articles.update', ['id' => $article->id]), [
+        $response = $this->actingAs($user)->post(route('staff.articles.update', ['article' => $article]), [
             'title'   => $article->title,
             'content' => $article->content,
             'user_id' => $user->id,

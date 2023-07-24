@@ -60,11 +60,12 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::whereRelation('forumPermissions', [
-            ['show_forum', '=', 1],
-            ['read_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
+        $topic = Topic::with('user')
+            ->whereRelation('forumPermissions', [
+                ['show_forum', '=', 1],
+                ['read_topic', '=', 1],
+                ['group_id', '=', $user->group_id],
+            ])
             ->findOrFail($id);
 
         $forum = $topic->forum;
@@ -197,7 +198,13 @@ class TopicController extends Controller
             ['show_forum', '=', 1],
             ['start_topic', '=', 1],
         ])
-            ->where('parent_id', '!=', 0)
+            ->where('parent_id', '=', 0)
+            ->with([
+                'forums' => fn ($query) => $query->whereRelation('permissions', [
+                    ['show_forum', '=', 1],
+                    ['start_topic', '=', 1],
+                ])
+            ])
             ->get();
 
         return view('forum.topic.edit', [
@@ -253,7 +260,7 @@ class TopicController extends Controller
             $latestPost = $lastRepliedTopic->latestPost;
             $latestPoster = $latestPost->user;
 
-            $newForum->update([
+            $oldForum->update([
                 'num_topic'               => $oldForum->topics()->count(),
                 'num_post'                => $oldForum->posts()->count(),
                 'last_topic_id'           => $lastRepliedTopic->id,
@@ -277,7 +284,6 @@ class TopicController extends Controller
                 'updated_at'              => $latestPost->created_at,
             ]);
         }
-
 
         return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');
@@ -364,5 +370,37 @@ class TopicController extends Controller
 
         return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Unpinned!');
+    }
+
+    /**
+     * Redirect to the appropriate topic page.
+     */
+    public function permalink(int $topicId, int $postId): \Illuminate\Http\RedirectResponse
+    {
+        $index = Post::where('topic_id', '=', $topicId)->where('id', '<', $postId)->count();
+
+        return to_route('topics.show', [
+            'id'   => $topicId,
+            'page' => intdiv($index, 25) + 1
+        ])
+            ->withFragment('post-'.$postId);
+    }
+
+    /**
+     * Redirect to the appropriate topic page for the latest post.
+     */
+    public function latestPermalink(int $id): \Illuminate\Http\RedirectResponse
+    {
+        $post = Post::query()
+            ->selectRaw('MAX(id) as id')
+            ->selectRaw('count(*) as post_count')
+            ->where('topic_id', '=', $id)
+            ->first();
+
+        return to_route('topics.show', [
+            'id'   => $id,
+            'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
+        ])
+            ->withFragment('post-'.($post?->id ?? 0));
     }
 }

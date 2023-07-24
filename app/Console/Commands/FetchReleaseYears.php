@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Movie;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Tv;
 use Illuminate\Console\Command;
@@ -44,17 +45,17 @@ class FetchReleaseYears extends Command
     {
         $appurl = config('app.url');
 
-        $torrents = Torrent::withAnyStatus()
+        $torrents = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['category'])
             ->select(['id', 'name', 'category_id', 'tmdb', 'release_year'])
             ->whereNull('release_year')
             ->get();
 
-        $withyear = Torrent::withAnyStatus()
+        $withyear = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->whereNotNull('release_year')
             ->count();
 
-        $withoutyear = Torrent::withAnyStatus()
+        $withoutyear = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->whereNull('release_year')
             ->count();
 
@@ -63,8 +64,10 @@ class FetchReleaseYears extends Command
 
         foreach ($torrents as $torrent) {
             $meta = null;
+
             if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Tv::find($torrent->tmdb);
+
                 if (isset($meta->first_air_date) && substr($meta->first_air_date, 0, 4) > '1900') {
                     $torrent->release_year = substr($meta->first_air_date, 0, 4);
                     $torrent->save();
@@ -76,6 +79,7 @@ class FetchReleaseYears extends Command
 
             if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Movie::find($torrent->tmdb);
+
                 if (isset($meta->release_date) && substr($meta->release_date, 0, 4) > '1900') {
                     $torrent->release_year = substr($meta->release_date, 0, 4);
                     $torrent->save();

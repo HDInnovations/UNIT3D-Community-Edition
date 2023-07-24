@@ -25,11 +25,16 @@ class SubscribedTopic extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group')
+            ->with('user', 'user.group', 'latestPoster')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('last_reply_at')
             ->paginate(25, ['*'], 'subscribedTopicsPage');
+    }
+
+    final public function updatedSubscribedTopicsPage(): void
+    {
+        $this->emit('paginationChanged');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

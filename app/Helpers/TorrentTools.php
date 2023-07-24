@@ -34,12 +34,10 @@ class TorrentTools
 
         // Whitelisted keys
         $result = array_intersect_key($result, [
-            'announce'   => '',
             'comment'    => '',
             'created by' => '',
             'encoding'   => '',
             'info'       => '',
-
         ]);
         $result['info'] = array_intersect_key($result['info'], [
             'files'        => '',
@@ -47,8 +45,6 @@ class TorrentTools
             'name'         => '',
             'piece length' => '',
             'pieces'       => '',
-            'private'      => '',
-            'source'       => '',
         ]);
 
         // The PID will be set if an user downloads the torrent, but for
@@ -64,7 +60,8 @@ class TorrentTools
             $result['created by'] = config('torrent.created_by', '');
         }
 
-        $comment = config('torrent.comment', null);
+        $comment = config('torrent.comment');
+
         if ($comment !== null) {
             $result['comment'] = $comment;
         }
@@ -91,6 +88,7 @@ class TorrentTools
     public static function getTorrentSize($decodedTorrent): mixed
     {
         $size = 0;
+
         if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $file) {
                 $dir = '';
@@ -111,10 +109,12 @@ class TorrentTools
     public static function getTorrentFiles($decodedTorrent): array
     {
         $files = [];
+
         if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $count = is_countable($file['path']) ? \count($file['path']) : 0;
+
                 for ($i = 0; $i < $count; $i++) {
                     if ($i + 1 === $count) {
                         $fname = $dir.$file['path'][$i];
@@ -145,6 +145,7 @@ class TorrentTools
         if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
             foreach ($decodedTorrent['info']['files'] as $file) {
                 $count = is_countable($file['path']) ? \count($file['path']) : 0;
+
                 for ($i = 0; $i < $count; $i++) {
                     if (! \in_array($file['path'][$i], $filenames)) {
                         $filenames[] = $file['path'][$i];
@@ -185,6 +186,7 @@ class TorrentTools
     {
         $fileName = uniqid('', true).'.nfo';
         $inputFile->move(getcwd().'/files/tmp/', $fileName);
+
         if (file_exists(getcwd().'/files/tmp/'.$fileName)) {
             $fileContent = file_get_contents(getcwd().'/files/tmp/'.$fileName);
             unlink(getcwd().'/files/tmp/'.$fileName);
@@ -201,6 +203,7 @@ class TorrentTools
     public static function isValidFilename($filename): bool
     {
         $result = true;
+
         if (\strlen((string) $filename) > 255 ||
             preg_match('#[/?<>\\:*|"\x00-\x1f]#', (string) $filename) ||
             preg_match('#(^\.+|[\. ]+)$#', (string) $filename) ||
@@ -221,8 +224,10 @@ class TorrentTools
         }
 
         $completeNameI = strpos($mediainfo, 'Complete name');
+
         if ($completeNameI !== false) {
             $pathI = strpos($mediainfo, ': ', $completeNameI);
+
             if ($pathI !== false) {
                 $pathI += 2;
                 $endI = strpos($mediainfo, "\n", $pathI);

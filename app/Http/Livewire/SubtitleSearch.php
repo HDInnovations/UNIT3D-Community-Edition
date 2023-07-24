@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Subtitle;
 use App\Models\Torrent;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -29,6 +30,8 @@ class SubtitleSearch extends Component
     public array $categories = [];
 
     public string $language = '';
+
+    public string $username = '';
 
     public string $sortField = 'created_at';
 
@@ -46,7 +49,7 @@ class SubtitleSearch extends Component
 
     final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Subtitle::with(['user', 'torrent', 'language'])
+        return Subtitle::with(['user.group', 'torrent.category', 'language'])
             ->when($this->search, fn ($query) => $query->where('title', 'like', '%'.$this->search.'%'))
             ->when($this->categories, function ($query) {
                 $torrents = Torrent::whereIntegerInRaw('category_id', $this->categories)->pluck('id');
@@ -54,6 +57,15 @@ class SubtitleSearch extends Component
                 return $query->whereIntegerInRaw('torrent_id', $torrents);
             })
             ->when($this->language, fn ($query) => $query->where('language_id', '=', $this->language))
+            ->when(
+                $this->username,
+                fn ($query) => $query
+                    ->whereIn('user_id', User::select('id')->where('username', '=', $this->username))
+                    ->when(
+                        ! auth()->user()->group->is_modo,
+                        fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', false)->orWhere('user_id', '=', auth()->id()))
+                    )
+            )
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

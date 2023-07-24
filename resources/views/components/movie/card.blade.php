@@ -22,7 +22,7 @@
                 <span class="torrent-search-grouped__directors-by">by</span>
                 @foreach($media->directors as $director)
                     <a
-                        href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}"
+                        href="{{ route('mediahub.persons.show', ['id' => $director->id, 'occupationId' => App\Enums\Occupations::DIRECTOR->value]) }}"
                         class="torrent-search--grouped__director"
                     >
                         {{ $director->name }}
@@ -36,7 +36,7 @@
         <div class="torrent-search--grouped__genres">
             @foreach ($media->genres->take(3) as $genre)
                 <a
-                    href="{{ route('torrents', ['view' => 'group', 'genres' => $genre->id]) }}"
+                    href="{{ route('torrents.index', ['view' => 'group', 'genres' => $genre->id]) }}"
                     class="torrent-search--grouped__genre"
                 >
                     {{ $genre->name }}

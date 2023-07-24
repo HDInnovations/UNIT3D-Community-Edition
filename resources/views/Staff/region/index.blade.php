@@ -40,7 +40,7 @@
                     <tr>
                         <td>{{ $region->position }}</td>
                         <td>
-                            <a href="{{ route('staff.regions.edit', ['id' => $region->id]) }}">
+                            <a href="{{ route('staff.regions.edit', ['region' => $region]) }}">
                                 {{ $region->name }}
                             </a>
                         </td>
@@ -48,7 +48,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.regions.edit', ['id' => $region->id]) }}"
+                                        href="{{ route('staff.regions.edit', ['region' => $region]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -65,7 +65,7 @@
                                         <form
                                             class="dialog__form"
                                             method="POST"
-                                            action="{{ route('staff.regions.destroy', ['id' => $region->id]) }}"
+                                            action="{{ route('staff.regions.destroy', ['region' => $region]) }}"
                                             x-on:click.outside="$refs.dialog.close()"
                                         >
                                             @csrf

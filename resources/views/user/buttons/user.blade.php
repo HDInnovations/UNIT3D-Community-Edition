@@ -1,12 +1,12 @@
 @php
     $isModo = auth()->user()->group->is_modo;
-    $isProfileOwner = auth()->user()->id === $user->id
+    $isProfileOwner = auth()->user()->is($user)
 @endphp
 
 <li class="nav-tab-menu">
     <a
-        class="{{ Route::is('users.show', 'user_edit_profile_form') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        href="{{ route('users.show', ['username' => $user->username]) }}"
+        class="{{ Route::is('users.show', 'users.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('users.show', ['user' => $user]) }}"
     >
         {{ __('user.profile') }}
     </a>
@@ -14,16 +14,16 @@
         <li class="{{ Route::is('users.show') ? 'nav-tab--active' : 'nav-tavV2' }}">
             <a
                 class="{{ Route::is('users.show') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                href="{{ route('users.show', ['username' => $user->username]) }}"
+                href="{{ route('users.show', ['user' => $user]) }}"
             >
                 {{ __('user.profile') }}
             </a>
         </li>
         @if ($isProfileOwner)
-            <li class="{{ Route::is('user_edit_profile_form') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('user_edit_profile_form') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('user_edit_profile_form', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.edit', ['user' => $user]) }}"
                 >
                     {{ __('user.edit-profile') }}
                 </a>
@@ -137,7 +137,7 @@
                 {{ __('torrent.torrents') }}
             </a>
         @else
-            <span class="nav-tab__link">
+            <span tabindex="-1" class="nav-tab__link">
                 {{ __('torrent.torrents') }}
             </span>
         @endif
@@ -185,7 +185,7 @@
             @endif
             @if($isProfileOwner)
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('torrents', ['bookmarked' => '1']) }}">
+                    <a class="nav-tab__link" href="{{ route('torrents.index', ['bookmarked' => '1']) }}">
                         {{ __('user.bookmarks') }}
                     </a>
                 </li>
@@ -216,7 +216,7 @@
     || auth()->user()->isAllowed($user, 'follower', 'show_follower')
 )
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span tabindex="-1" class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
@@ -276,42 +276,42 @@
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('earnings.index', 'transactions.create', 'gifts.index', 'gifts.create', 'tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-            href="{{ route('earnings.index', ['username' => $user->username]) }}"
+            class="{{ Route::is('users.earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            href="{{ route('users.earnings.index', ['user' => $user]) }}"
         >
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
         <ul class="nav-tab-menu__items">
-            <li class="{{ Route::is('earnings.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.earnings.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('earnings.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('earnings.index', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.earnings.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.earnings.index', ['user' => $user]) }}"
                 >
                     {{ __('bon.earnings') }}
                 </a>
             </li>
             @if ($isProfileOwner)
-                <li class="{{ Route::is('transactions.create') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.transactions.create') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('transactions.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('transactions.create', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.transactions.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.transactions.create', ['user' => $user]) }}"
                     >
                         {{ __('bon.store') }}
                     </a>
                 </li>
             @endif
-            <li class="{{ Route::is('gifts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.gifts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('gifts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('gifts.index', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.gifts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.gifts.index', ['user' => $user]) }}"
                 >
                     {{ __('bon.gifts') }}
                 </a>
             </li>
-            <li class="{{ Route::is('tips.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.tips.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('tips.index', ['username' => $user->username]) }}"
+                    class="{{ Route::is('users.tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.tips.index', ['user' => $user]) }}"
                 >
                     {{ __('bon.tips') }}
                 </a>
@@ -321,43 +321,33 @@
 @endif
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
-        <span class="{{ Route::is('wishes.*', 'seedboxes.*', 'invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span tabindex="-1" class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
             {{ __('common.other') }}
         </span>
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li class="{{ Route::is('wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('wishes.index', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.wishes.index', ['user' => $user]) }}"
                     >
                         {{ __('user.wishlist') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('seedboxes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('seedboxes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('seedboxes.index', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.seedboxes.index', ['user' => $user]) }}"
                     >
                         {{ __('user.seedboxes') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('invites.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li class="{{ Route::is('users.invites.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
-                        class="{{ Route::is('invites.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('invites.index', ['username' => $user->username]) }}"
+                        class="{{ Route::is('users.invites.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.invites.index', ['user' => $user]) }}"
                     >
                         {{ __('user.invites') }}
-                    </a>
-                </li>
-            @endif
-            @if ($isProfileOwner)
-                <li class="{{ Route::is('invites.create') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                    <a
-                        class="{{ Route::is('invites.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('invites.create') }}"
-                    >
-                        {{ __('user.send-invite') }}
                     </a>
                 </li>
             @endif

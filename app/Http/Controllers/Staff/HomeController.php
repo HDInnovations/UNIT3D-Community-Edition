@@ -70,19 +70,15 @@ class HomeController extends Controller
                     ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
                     ->first();
             }),
-            'reports' => DB::table('reports')
-                ->selectRaw('count(case when solved = 0 then 1 end) as unsolved')
-                ->first(),
-            'apps' => DB::table('applications')
-                ->selectRaw('count(case when status = 0 then 1 end) as pending')
-                ->first(),
-            'certificate'      => $certificate,
-            'uptime'           => $systemInformation->uptime(),
-            'ram'              => $systemInformation->memory(),
-            'disk'             => $systemInformation->disk(),
-            'avg'              => $systemInformation->avg(),
-            'basic'            => $systemInformation->basic(),
-            'file_permissions' => $systemInformation->directoryPermissions(),
+            'unsolvedReportsCount'     => DB::table('reports')->where('solved', '=', false)->count(),
+            'pendingApplicationsCount' => DB::table('applications')->where('status', '=', 0)->count(),
+            'certificate'              => $certificate,
+            'uptime'                   => $systemInformation->uptime(),
+            'ram'                      => $systemInformation->memory(),
+            'disk'                     => $systemInformation->disk(),
+            'avg'                      => $systemInformation->avg(),
+            'basic'                    => $systemInformation->basic(),
+            'file_permissions'         => $systemInformation->directoryPermissions(),
         ]);
     }
 }
