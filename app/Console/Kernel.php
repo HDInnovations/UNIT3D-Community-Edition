@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('auto:insert_peers')->everyMinute();
         $schedule->command('auto:upsert_histories')->everyFiveSeconds();
         $schedule->command('auto:update_user_last_actions')->everyFiveSeconds();
         $schedule->command('auto:group ')->daily();
@@ -52,7 +53,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:torrent_balance')->hourly();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
-        //$schedule->command('backup:run')->daily();
+        //$schedule->command('backup:run --only-db')->daily();
     }
 
     /**
