@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         operating-system:
-          - ubuntu-20.04
+          - ubuntu-22.04
         php-version:
           - '8.2'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
