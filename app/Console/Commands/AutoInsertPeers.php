@@ -52,10 +52,10 @@ class AutoInsertPeers extends Command
         $peerPerCycle = intdiv(65_000, 14);
 
         $key = config('cache.prefix').':peers:batch';
-        $peerCount = Redis::connection('peer')->command('LLEN', [$key]);
+        $peerCount = Redis::connection('announce')->command('LLEN', [$key]);
 
         for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= $peerPerCycle) {
-            $peers = Redis::connection('peer')->command('LPOP', [$key, $peerPerCycle]);
+            $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
             $peers = array_map('unserialize', $peers);
 
             Peer::upsert(
