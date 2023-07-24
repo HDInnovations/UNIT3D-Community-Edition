@@ -1,7 +1,7 @@
 name: PHPUnit Test
 on: [push, pull_request]
 jobs:
-  test:
+  tests:
     strategy:
       matrix:
         operating-system:
