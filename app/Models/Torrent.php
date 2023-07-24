@@ -253,7 +253,7 @@ class Torrent extends Model
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Graveyard::class);
+        return $this->hasMany(Resurrection::class);
     }
 
     /**

@@ -511,6 +511,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Resurrections.
+     */
+    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Resurrection::class);
+    }
+
+    /**
      * Has Many Subscribed topics.
      */
     public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

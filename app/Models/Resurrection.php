@@ -17,7 +17,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Graveyard extends Model
+class Resurrection extends Model
 {
     use Auditable;
     use HasFactory;
@@ -27,8 +27,6 @@ class Graveyard extends Model
      *
      * @var string
      */
-    protected $table = 'graveyard';
-
     protected $guarded = [];
 
     /**

@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:update_user_last_actions')->everyFiveSeconds();
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
-        $schedule->command('auto:graveyard')->daily();
+        $schedule->command('auto:reward_resurrection')->daily();
         $schedule->command('auto:highspeed_tag')->hourly();
         $schedule->command('auto:prewarning')->hourly();
         $schedule->command('auto:warning')->daily();
