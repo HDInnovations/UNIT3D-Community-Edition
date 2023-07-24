@@ -44,7 +44,6 @@ class StoreTorrentRequest extends FormRequest
             'torrent' => [
                 'required',
                 'file',
-                'mimes:torrent',
                 function (string $attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'torrent') {
                         $fail('The torrent file uploaded does not have a ".torrent" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
