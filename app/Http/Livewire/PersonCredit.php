@@ -118,7 +118,6 @@ class PersonCredit extends Component
 
         $movies = $this->person
             ->movie()
-            ->whereHas('torrents')
             ->with('genres', 'directors')
             ->wherePivot('occupation_id', '=', $this->occupationId)
             ->orderBy('release_date')
@@ -127,7 +126,6 @@ class PersonCredit extends Component
             ->unique();
         $tv = $this->person
             ->tv()
-            ->whereHas('torrents')
             ->with('genres', 'creators')
             ->wherePivot('occupation_id', '=', $this->occupationId)
             ->orderBy('first_air_date')
@@ -306,19 +304,23 @@ class PersonCredit extends Component
         $medias = collect();
 
         foreach ($movies as $movie) {
-            $media = $movie;
-            $media->meta = 'movie';
-            $media->torrents = $torrents['movie'][$movie->id];
-            $media->category_id = $media->torrents->pop();
-            $medias->add($media);
+            if ($torrents->has('movie') && $torrents['movie']->has($movie->id)) {
+                $media = $movie;
+                $media->meta = 'movie';
+                $media->torrents = $torrents['movie'][$movie->id];
+                $media->category_id = $media->torrents->pop();
+                $medias->add($media);
+            }
         }
 
         foreach ($tv as $show) {
-            $media = $show;
-            $media->meta = 'tv';
-            $media->torrents = $torrents['tv'][$show->id];
-            $media->category_id = $media->torrents->pop();
-            $medias->add($media);
+            if ($torrents->has('tv') && $torrents['tv']->has($show->id)) {
+                $media = $show;
+                $media->meta = 'tv';
+                $media->torrents = $torrents['tv'][$show->id];
+                $media->category_id = $media->torrents->pop();
+                $medias->add($media);
+            }
         }
 
         return $medias;
