@@ -25,7 +25,7 @@ class AuditLogSearch extends Component
     public string $username = '';
 
     public string $modelName = '';
-    
+
     public string $modelId = '';
 
     public string $action = '';
