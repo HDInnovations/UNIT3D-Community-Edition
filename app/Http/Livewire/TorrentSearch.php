@@ -175,7 +175,7 @@ class TorrentSearch extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->has('personal_freeleech:'.auth()->id());
     }
 
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
