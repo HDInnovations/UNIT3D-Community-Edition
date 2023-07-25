@@ -15,44 +15,44 @@
         <div class="panel__body" style="padding: 5px;">
             <div class="form__group--horizontal">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder=" " autofocus>
+                    <input wire:model.live="name" class="form__text" placeholder=" " autofocus>
                     <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
                 </p>
             </div>
             <form class="form" x-cloak x-show="open">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="description" class="form__text" placeholder=" ">
+                        <input wire:model.live="description" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.description') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="mediainfo" class="form__text" placeholder=" ">
+                        <input wire:model.live="mediainfo" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.media-info') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="keywords" class="form__text" placeholder=" ">
+                        <input wire:model.live="keywords" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.keywords') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="uploader" class="form__text" placeholder=" ">
+                        <input wire:model.live="uploader" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.uploader') }}</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="startYear" class="form__text" placeholder=" ">
+                        <input wire:model.live="startYear" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.start-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="endYear" class="form__text" placeholder=" ">
+                        <input wire:model.live="endYear" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.end-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="playlistId" class="form__text" placeholder=" ">
+                        <input wire:model.live="playlistId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Playlist ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="collectionId" class="form__text" placeholder=" ">
+                        <input wire:model.live="collectionId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Collection ID</label>
                     </p>
                 </div>
@@ -66,29 +66,29 @@
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
-                        <input wire:model="companyId" class="form__text" placeholder=" ">
+                        <input wire:model.live="companyId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Company ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="networkId" class="form__text" placeholder=" ">
+                        <input wire:model.live="networkId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Network ID</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="tmdbId" class="form__text" placeholder=" ">
+                        <input wire:model.live="tmdbId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">TMDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="imdbId" class="form__text" placeholder=" ">
+                        <input wire:model.live="imdbId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">IMDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="tvdbId" class="form__text" placeholder=" ">
+                        <input wire:model.live="tvdbId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">TVDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="malId" class="form__text" placeholder=" ">
+                        <input wire:model.live="malId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">MAL ID</label>
                     </p>
                 </div>
@@ -105,7 +105,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                wire:model="categories"
+                                                wire:model.live="categories"
                                             >
                                             {{ $category->name }}
                                         </label>
@@ -126,7 +126,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $type->id }}"
-                                                wire:model="types"
+                                                wire:model.live="types"
                                             >
                                             {{ $type->name }}
                                         </label>
@@ -147,7 +147,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $resolution->id }}"
-                                                wire:model="resolutions"
+                                                wire:model.live="resolutions"
                                             >
                                             {{ $resolution->name }}
                                         </label>
@@ -168,7 +168,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $genre->id }}"
-                                                wire:model="genres"
+                                                wire:model.live="genres"
                                             >
                                             {{ $genre->name }}
                                         </label>
@@ -187,7 +187,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="0"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         >
                                         0% Freeleech
                                     </label>
@@ -198,7 +198,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="25"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         >
                                         25% Freeleech
                                     </label>
@@ -209,7 +209,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="50"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         >
                                         50% Freeleech
                                     </label>
@@ -220,7 +220,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="75"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         >
                                         75% Freeleech
                                     </label>
@@ -231,7 +231,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="100"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         >
                                         100% Freeleech
                                     </label>
@@ -242,7 +242,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="doubleup"
+                                            wire:model.live="doubleup"
                                         >
                                         Double Upload
                                     </label>
@@ -253,7 +253,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="featured"
+                                            wire:model.live="featured"
                                         >
                                         Featured
                                     </label>
@@ -271,7 +271,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="internal"
+                                            wire:model.live="internal"
                                         >
                                         {{ __('torrent.internal') }}
                                     </label>
@@ -282,7 +282,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="personalRelease"
+                                            wire:model.live="personalRelease"
                                         >
                                         {{ __('torrent.personal-release') }}
                                     </label>
@@ -293,7 +293,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="stream"
+                                            wire:model.live="stream"
                                         >
                                         {{ __('torrent.stream-optimized') }}
                                     </label>
@@ -304,7 +304,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="sd"
+                                            wire:model.live="sd"
                                         >
                                         {{ __('torrent.sd-content') }}
                                     </label>
@@ -315,7 +315,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="highspeed"
+                                            wire:model.live="highspeed"
                                         >
                                         {{ __('common.high-speeds') }}
                                     </label>
@@ -333,7 +333,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="alive"
+                                            wire:model.live="alive"
                                         >
                                         {{ __('torrent.alive') }}
                                     </label>
@@ -344,7 +344,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="dying"
+                                            wire:model.live="dying"
                                         >
                                         Dying
                                     </label>
@@ -355,7 +355,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="dead"
+                                            wire:model.live="dead"
                                         >
                                         Dead
                                     </label>
@@ -366,7 +366,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="graveyard"
+                                            wire:model.live="graveyard"
                                         >
                                         {{ __('graveyard.graveyard') }}
                                     </label>
@@ -384,7 +384,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="notDownloaded"
+                                            wire:model.live="notDownloaded"
                                         >
                                         Not Downloaded
                                     </label>
@@ -395,7 +395,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="downloaded"
+                                            wire:model.live="downloaded"
                                         >
                                         Downloaded
                                     </label>
@@ -406,7 +406,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="seeding"
+                                            wire:model.live="seeding"
                                         >
                                         Seeding
                                     </label>
@@ -417,7 +417,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="leeching"
+                                            wire:model.live="leeching"
                                         >
                                         Leeching
                                     </label>
@@ -428,7 +428,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="incomplete"
+                                            wire:model.live="incomplete"
                                         >
                                         Incomplete
                                     </label>
@@ -448,7 +448,7 @@
                     <div class="form__group">
                         <select
                             class="form__select"
-                            wire:model="view"
+                            wire:model.live="view"
                             required
                         >
                             <option value="list">{{ __('torrent.list') }}</option>
@@ -464,7 +464,7 @@
                     <div class="form__group">
                         <select
                             class="form__select"
-                            wire:model="perPage"
+                            wire:model.live="perPage"
                             required
                         >
                             @if ($view === 'card')
@@ -599,7 +599,7 @@
         {{ $torrents->links('partials.pagination') }}
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        document.addEventListener('livewire:load', function () {
+        document.addEventListener('livewire:init', function () {
           let myRegions = [
               @foreach($regions as $region)
               {

@@ -7,23 +7,23 @@
             <form class="form">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="torrent" class="form__text" placeholder=" ">
+                        <input wire:model.live="torrent" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Torrent Name</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="ip" class="form__text" placeholder=" ">
+                        <input wire:model.live="ip" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">IP Address</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="port" class="form__text" placeholder=" ">
+                        <input wire:model.live="port" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Port</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="agent" class="form__text" placeholder=" ">
+                        <input wire:model.live="agent" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Agent</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="connectivity" class="form__select" placeholder=" ">
+                        <select wire:model.live="connectivity" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="connectable">Connectable</option>
                             <option value="unconnectable">Unconnectable</option>
@@ -31,7 +31,7 @@
                         <label class="form__label form__label--floating">Connectivity</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="groupBy" class="form__select" placeholder=" ">
+                        <select wire:model.live="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_session">User Session</option>
                             <option value="user_ip">User IP</option>
@@ -41,13 +41,13 @@
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input wire:model="duplicateIpsOnly" type="checkbox" class="form__checkbox">
+                            <input wire:model.live="duplicateIpsOnly" type="checkbox" class="form__checkbox">
                             Duplicate Ips Only
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input wire:model="includeSeedsize" type="checkbox" class="form__checkbox">
+                            <input wire:model.live="includeSeedsize" type="checkbox" class="form__checkbox">
                             Include Seedsize
                         </label>
                     </p>

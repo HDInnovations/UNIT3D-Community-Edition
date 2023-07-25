@@ -25,9 +25,9 @@
     }"
 >
     <p class="bbcode-input__tabs">
-        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model="isPreviewEnabled" />
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model.live="isPreviewEnabled" />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">Write</label>
-        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model="isPreviewEnabled" />
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model.live="isPreviewEnabled" />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-enabled">{{ __('common.preview') }}</label>
     </p>
     <p class="bbcode-input__icon-bar-toggle">
@@ -192,7 +192,7 @@
             <div class="bbcode-input__preview bbcode-rendered">
                 @joypixels($contentHtml)
             </div>
-            <input type="hidden" name="{{ $name }}" wire:model.defer="contentBbcode">
+            <input type="hidden" name="{{ $name }}" wire:model="contentBbcode">
         @else
             <p class="form__group">
                 <textarea
@@ -201,7 +201,7 @@
                     class="form__textarea bbcode-input__input"
                     placeholder=" "
                     x-ref="bbcode"
-                    wire:model.defer="contentBbcode"
+                    wire:model="contentBbcode"
                     @if ($isRequired)
                         required
                     @endif

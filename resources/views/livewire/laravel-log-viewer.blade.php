@@ -112,7 +112,7 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Entries</h2>
-        <select multiple wire:model="logs" style="height: 320px; padding: 8px; border-radius: 4px; width: 100%">
+        <select multiple wire:model.live="logs" style="height: 320px; padding: 8px; border-radius: 4px; width: 100%">
             @foreach($files as $file)
                 <option value="{{ $loop->index }}" style="padding: 6px; border-radius: 4px; cursor: pointer;">
                     {{ $file->getFilename() }}

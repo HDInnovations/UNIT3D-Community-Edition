@@ -20,7 +20,7 @@
                     <select
                         id="quantity"
                         class="form__select"
-                        wire:model="perPage"
+                        wire:model.live="perPage"
                         required
                     >
                         <option>25</option>
@@ -38,7 +38,7 @@
                         id="search"
                         class="form__text"
                         type="text"
-                        wire:model="search"
+                        wire:model.live="search"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating">

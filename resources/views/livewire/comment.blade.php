@@ -71,14 +71,14 @@
             @endif
         </aside>
         @if ($isEditing)
-            <form wire:submit.prevent="editComment" class="form edit-comment">
+            <form wire:submit="editComment" class="form edit-comment">
                 <p class="form__group">
                         <textarea
                                 name="comment"
                                 id="edit-comment"
                                 class="form__textarea"
                                 aria-describedby="edit-comment__textarea-hint"
-                                wire:model.defer="editState.content"
+                                wire:model="editState.content"
                                 required
                         ></textarea>
                     <label for="edit-comment" class="form__label form__label--floating">
@@ -111,14 +111,14 @@
         <section>
             <h5 class="sr-only">Replies</h5>
             @if ($isReplying)
-                <form wire:submit.prevent="postReply" class="form reply-comment">
+                <form wire:submit="postReply" class="form reply-comment">
                     <p class="form__group">
                         <textarea
                                 name="comment"
                                 id="reply-comment"
                                 class="form__textarea"
                                 aria-describedby="reply-comment__textarea-hint"
-                                wire:model.defer="replyState.content"
+                                wire:model="replyState.content"
                                 required
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
@@ -132,7 +132,7 @@
                         @enderror
                     </p>
                     <p class="form__group">
-                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:model="anon">
+                        <input type="checkbox" id="reply-anon" class="form__checkbox" wire:model.live="anon">
                         <label for="reply-anon" class="form__label">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group">

@@ -8,7 +8,7 @@
                         id="search"
                         class="form__text"
                         type="text"
-                        wire:model="search"
+                        wire:model.live="search"
                         placeholder=" "
                     />
                     <label for="search" class="form__label form__label--floating">

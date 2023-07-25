@@ -116,7 +116,7 @@
                         <p class="form__group">
                             <input
                                 id="name"
-                                wire:model="name"
+                                wire:model.live="name"
                                 type="search"
                                 class="form__text"
                                 placeholder=" "
@@ -126,25 +126,25 @@
                             </label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="requestor" class="form__text" placeholder=" ">
+                            <input wire:model.live="requestor" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">{{ __('common.author') }}</label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
-                            <input wire:model="tmdbId" class="form__text" placeholder=" ">
+                            <input wire:model.live="tmdbId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">TMDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="imdbId" class="form__text" placeholder=" ">
+                            <input wire:model.live="imdbId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">IMDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="tvdbId" class="form__text" placeholder=" ">
+                            <input wire:model.live="tvdbId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">TVDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="malId" class="form__text" placeholder=" ">
+                            <input wire:model.live="malId" class="form__text" placeholder=" ">
                             <label class="form__label form__label--floating">MAL ID</label>
                         </p>
                     </div>
@@ -160,7 +160,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $category->id }}"
-                                                    wire:model="categories"
+                                                    wire:model.live="categories"
                                                 >
                                                 {{ $category->name }}
                                             </label>
@@ -180,7 +180,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $type->id }}"
-                                                    wire:model="types"
+                                                    wire:model.live="types"
                                                 >
                                                 {{ $type->name }}
                                             </label>
@@ -200,7 +200,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $resolution->id }}"
-                                                    wire:model="resolutions"
+                                                    wire:model.live="resolutions"
                                                 >
                                                 {{ $resolution->name }}
                                             </label>
@@ -219,7 +219,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="unfilled"
+                                                wire:model.live="unfilled"
                                             >
                                             {{ __('request.unfilled') }}
                                         </label>
@@ -230,7 +230,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="claimed"
+                                                wire:model.live="claimed"
                                             >
                                             {{ __('request.claimed') }}
                                         </label>
@@ -241,7 +241,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="pending"
+                                                wire:model.live="pending"
                                             >
                                             {{ __('request.pending') }}
                                         </label>
@@ -252,7 +252,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="filled"
+                                                wire:model.live="filled"
                                             >
                                             {{ __('request.filled') }}
                                         </label>
@@ -270,7 +270,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="myRequests"
+                                                wire:model.live="myRequests"
                                             >
                                             {{ __('request.my-requests') }}
                                         </label>
@@ -281,7 +281,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="myClaims"
+                                                wire:model.live="myClaims"
                                             >
                                             {{ __('request.my-claims') }}
                                         </label>
@@ -292,7 +292,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="myVoted"
+                                                wire:model.live="myVoted"
                                             >
                                             {{ __('request.my-voted') }}
                                         </label>
@@ -303,7 +303,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="myFilled"
+                                                wire:model.live="myFilled"
                                             >
                                             {{ __('request.my-filled') }}
                                         </label>

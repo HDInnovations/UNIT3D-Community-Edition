@@ -4,14 +4,14 @@
         {{ __('common.comments') }}
     </h4>
     <div class="panel__body">
-        <form wire:submit.prevent="postComment" class="form new-comment">
+        <form wire:submit="postComment" class="form new-comment">
             <p class="form__group">
                 <textarea
                     name="comment"
                     id="new-comment__textarea"
                     class="form__textarea"
                     aria-describedby="new-comment__textarea-hint"
-                    wire:model.defer="newCommentState.content"
+                    wire:model="newCommentState.content"
                     required
                 ></textarea>
                 <label for="new-comment__textarea" class="form__label form__label--floating">
@@ -25,7 +25,7 @@
                 @enderror
             </p>
             <p class="form__group">
-                <input type="checkbox" id="anon" class="form__checkbox" wire:model="anon">
+                <input type="checkbox" id="anon" class="form__checkbox" wire:model.live="anon">
                 <label for="anon" class="form__label">{{ __('common.anonymous') }}?</label>
             </p>
             <p class="form__group">
