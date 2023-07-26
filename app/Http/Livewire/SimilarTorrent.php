@@ -216,7 +216,7 @@ class SimilarTorrent extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->has('personal_freeleech:'.auth()->id());
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
