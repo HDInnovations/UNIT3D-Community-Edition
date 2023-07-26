@@ -323,7 +323,7 @@
             </form>
         </li>
     @endif
-    @if (DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
+    @if (DB::table('resurrections')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
         <li class="form__group form__group--short-horizontal">
             <button class="form__button form__button--outlined form__button--centered" disabled>
                 {{ strtolower(__('graveyard.pending')) }}
