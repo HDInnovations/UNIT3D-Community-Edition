@@ -15,14 +15,17 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
+use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
+use App\Models\Torrent;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
@@ -31,13 +34,19 @@ class ProcessAnnounce implements ShouldQueue
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
-    use SerializesModels;
+
+    private Torrent $torrent;
+    private User $user;
+    private Group $group;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(protected $queries, protected $user, protected $group, protected $torrent)
+    public function __construct(protected array $queries, string $user, string $group, string $torrent)
     {
+        $this->torrent = unserialize($torrent, ['allowed_classes' => [Torrent::class, Collection::class, Peer::class]]);
+        $this->user = unserialize($user, ['allowed_classes' => [User::class]]);
+        $this->group = unserialize($group, ['allowed_classes' => [Group::class]]);
     }
 
     /**
@@ -152,7 +161,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->agent = $this->queries['user-agent'];
         $peer->uploaded = $realUploaded;
         $peer->downloaded = $realDownloaded;
-        $peer->seeder = (int) ($this->queries['left'] == 0);
+        $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
@@ -166,14 +175,14 @@ class ProcessAnnounce implements ShouldQueue
 
         switch ($event) {
             case 'started':
-                $peer->active = 1;
+                $peer->active = true;
 
                 $history->active = 1;
                 $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
 
                 break;
             case 'completed':
-                $peer->active = 1;
+                $peer->active = true;
 
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
@@ -203,7 +212,7 @@ class ProcessAnnounce implements ShouldQueue
 
                 break;
             case 'stopped':
-                $peer->active = 0;
+                $peer->active = false;
 
                 $history->active = 0;
                 $history->uploaded += $modUploaded;
@@ -228,7 +237,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
                 break;
             default:
-                $peer->active = 1;
+                $peer->active = true;
 
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
