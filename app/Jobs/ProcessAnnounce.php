@@ -161,6 +161,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
+        $peer->updated_at = now();
 
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
