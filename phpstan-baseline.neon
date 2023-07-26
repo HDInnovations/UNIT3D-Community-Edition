@@ -1526,21 +1526,6 @@ parameters:
 			path: app/Http/Resources/UserEchoResource.php
 
 		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$active \\(bool\\) does not accept int\\.$#"
-			count: 4
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$immune \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$seeder \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Jobs/ProcessMovieJob.php
@@ -1609,16 +1594,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Models/Forum.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\History\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/History.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\History\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
-			count: 1
-			path: app/Models/History.php
 
 		-
 			message: "#^PHPDoc type array of property App\\\\Models\\\\Keyword\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
