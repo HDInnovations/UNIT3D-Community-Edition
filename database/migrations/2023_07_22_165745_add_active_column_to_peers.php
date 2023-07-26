@@ -11,5 +11,9 @@ return new class () extends Migration {
             $table->boolean('active');
             $table->index(['active']);
         });
+
+        DB::table('peers')->update([
+            'active' => 1,
+        ]);
     }
 };

@@ -126,10 +126,7 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
-        $personalFreeleech = cache()->get('personal_freeleech:'.$this->user->id) ??
-            PersonalFreeleech::query()
-                ->where('user_id', '=', $this->user->id)
-                ->exists();
+        $personalFreeleech = cache()->has('personal_freeleech:'.$this->user->id);
         $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
             FreeleechToken::query()
                 ->where('user_id', '=', $this->user->id)
@@ -170,6 +167,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
+        $peer->updated_at = now();
 
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);

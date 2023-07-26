@@ -83,13 +83,14 @@ class TransactionController extends Controller
 
                     break;
                 case $bonExchange->personal_freeleech:
-                    if (cache()->get('personal_freeleech:'.$user->id)) {
+                    if (cache()->has('personal_freeleech:'.$user->id)) {
                         return back()->withErrors('Your previous personal freeleech is still active.');
                     }
 
                     PersonalFreeleech::create(['user_id' => $user->id]);
 
-                    cache()->put('personal_freeleech:'.$user->id, true);
+                    // Allow the user 25 hours since the AutoRemovePersonalFreeleech command is only run every hour.
+                    cache()->put('personal_freeleech:'.$user->id, true, now()->addHours(25));
 
                     Unit3dAnnounce::addPersonalFreeleech($user->id);
 
