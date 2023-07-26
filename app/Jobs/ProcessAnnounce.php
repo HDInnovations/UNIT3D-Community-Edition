@@ -165,7 +165,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->agent = $this->queries['user-agent'];
         $peer->uploaded = $realUploaded;
         $peer->downloaded = $realDownloaded;
-        $peer->seeder = (int) ($this->queries['left'] == 0);
+        $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
@@ -178,14 +178,14 @@ class ProcessAnnounce implements ShouldQueue
 
         switch ($event) {
             case 'started':
-                $peer->active = 1;
+                $peer->active = true;
 
                 $history->active = 1;
                 $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
 
                 break;
             case 'completed':
-                $peer->active = 1;
+                $peer->active = true;
 
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
@@ -215,7 +215,7 @@ class ProcessAnnounce implements ShouldQueue
 
                 break;
             case 'stopped':
-                $peer->active = 0;
+                $peer->active = false;
 
                 $history->active = 0;
                 $history->uploaded += $modUploaded;
@@ -240,7 +240,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
                 break;
             default:
-                $peer->active = 1;
+                $peer->active = true;
 
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
