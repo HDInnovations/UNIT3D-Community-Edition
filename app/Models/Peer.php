@@ -105,6 +105,8 @@ class Peer extends Model
             } else {
                 $this->connectable = $cache === null ? 0 : unserialize($cache);
             }
+        } else {
+            $this->connectable = 0;
         }
     }
 }
