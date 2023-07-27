@@ -42,6 +42,6 @@ class AutoDeleteStoppedPeers extends Command
     {
         Peer::where('active', '=', 0)->delete();
 
-        $this->comment('Automated upsert histories command complete');
+        $this->comment('Automated delete stopped peers command complete');
     }
 }
