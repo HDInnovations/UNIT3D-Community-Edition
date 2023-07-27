@@ -481,11 +481,6 @@ parameters:
 			path: app/Http/Controllers/RequestController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\User, App\\\\Models\\\\TorrentRequest\\>\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Controllers/RequestFillController.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: app/Http/Controllers/RssController.php

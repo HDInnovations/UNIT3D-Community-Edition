@@ -64,17 +64,18 @@ class RequestFillController extends Controller
     {
         abort_unless($request->user()->id === $torrentRequest->user_id || $request->user()->group->is_modo, 403);
 
+        $filler = $torrentRequest->filler;
+        $requester = $torrentRequest->user;
+        $approver = $request->user();
+
         $torrentRequest->update([
             'filled_by'   => null,
             'filled_when' => null,
             'torrent_id'  => null,
         ]);
 
-        $sender = $torrentRequest->filled_anon ? 'Anonymous' : $torrentRequest->user()->username;
-        $filler = $torrentRequest->user;
-
-        if ($filler->acceptsNotification($request->user(), $filler, 'request', 'show_request_fill_reject')) {
-            $filler->notify(new NewRequestFillReject('torrent', $sender, $torrentRequest));
+        if ($filler->acceptsNotification($approver, $filler, 'request', 'show_request_fill_reject')) {
+            $filler->notify(new NewRequestFillReject('torrent', $approver->is($requester) ? ($torrentRequest->anon ? 'Anonymous' : $requester->username) : $approver->username, $torrentRequest));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
