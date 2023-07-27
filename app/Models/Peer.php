@@ -29,8 +29,9 @@ class Peer extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'active' => 'boolean',
-        'seeder' => 'boolean',
+        'active'      => 'boolean',
+        'seeder'      => 'boolean',
+        'connectable' => 'boolean',
     ];
 
     /**
@@ -95,7 +96,7 @@ class Peer extends Model
 
             if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
-                $this->connectable = (int) \is_resource($con);
+                $this->connectable = \is_resource($con);
                 Redis::connection('cache')->set($key, serialize($this->connectable));
                 Redis::connection('cache')->expire($key, config('announce.connectable_check_interval') + 3600);
 
@@ -103,10 +104,10 @@ class Peer extends Model
                     fclose($con);
                 }
             } else {
-                $this->connectable = $cache === null ? 0 : unserialize($cache);
+                $this->connectable = $cache === null ? false : unserialize($cache);
             }
         } else {
-            $this->connectable = 0;
+            $this->connectable = false;
         }
     }
 }

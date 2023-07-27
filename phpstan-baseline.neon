@@ -1661,11 +1661,6 @@ parameters:
 			path: app/Models/Peer.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Peer\\:\\:\\$connectable \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between string\\|false and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/Models/Peer.php
