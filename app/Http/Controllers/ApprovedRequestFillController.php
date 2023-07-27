@@ -86,7 +86,7 @@ class ApprovedRequestFillController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(sprintf(trans('request.approved-user'), $torrentRequest->filled_anon ? 'Anonymous' : $torrentRequest->name, $filler->username));
+            ->withSuccess(sprintf(trans('request.approved-user'), $torrentRequest->name, $torrentRequest->filled_anon ? 'Anonymous' : $filler->username));
     }
 
     /**
