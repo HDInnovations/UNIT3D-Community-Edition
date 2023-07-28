@@ -15,16 +15,14 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
-use App\Models\Torrent;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
@@ -33,17 +31,13 @@ class ProcessAnnounce implements ShouldQueue
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(
-        private readonly array $queries,
-        private readonly array $userArray,
-        private readonly array $groupArray,
-        private readonly array $torrentArray,
-        private readonly array $peersArray
-    ) {
+    public function __construct(protected $queries, protected $user, protected $group, protected $torrent)
+    {
     }
 
     /**
@@ -51,7 +45,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->userArray['id'].':'.$this->torrentArray['id']))->releaseAfter(30)];
+        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(30)];
     }
 
     /**
@@ -63,14 +57,6 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function handle(): void
     {
-        // We can't pass the models directly into the constructor, otherwise laravel will serialize them
-        // and upon deserialization will fetch the models from the database again, causing extra unneeded queries.
-        $torrent = new Torrent($this->torrentArray);
-        $user = new User($this->userArray);
-        $group = new Group($this->groupArray);
-
-        $peers = collect(array_map(fn ($peer) => new Peer($peer), $this->peersArray));
-
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
 
@@ -82,9 +68,10 @@ class ProcessAnnounce implements ShouldQueue
         $ipAddress = base64_decode($this->queries['ip-address']);
 
         // Get The Current Peer
-        $peer = $peers
+        $peer = $this->torrent->peers
             ->where('peer_id', '=', $peerId)
-            ->firstWhere('user_id', '=', $user->id);
+            ->where('user_id', '=', $this->user->id)
+            ->first();
 
         // If no Peer record found then create one
         if ($peer === null) {
@@ -99,8 +86,8 @@ class ProcessAnnounce implements ShouldQueue
         // Get history information
         $history = History::firstOrNew(
             [
-                'torrent_id' => $torrent->id,
-                'user_id'    => $user->id,
+                'torrent_id' => $this->torrent->id,
+                'user_id'    => $this->user->id,
             ],
             [
                 'uploaded'          => 0,
@@ -129,29 +116,29 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
-        $personalFreeleech = cache()->has('personal_freeleech:'.$user->id);
-        $freeleechToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id) ??
+        $personalFreeleech = cache()->has('personal_freeleech:'.$this->user->id);
+        $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
             FreeleechToken::query()
-                ->where('user_id', '=', $user->id)
-                ->where('torrent_id', '=', $torrent->id)
+                ->where('user_id', '=', $this->user->id)
+                ->where('torrent_id', '=', $this->torrent->id)
                 ->exists();
 
         if ($personalFreeleech ||
-            $group->is_freeleech == 1 ||
+            $this->group->is_freeleech == 1 ||
             $freeleechToken ||
             config('other.freeleech') == 1) {
             $modDownloaded = 0;
-        } elseif ($torrent->free >= 1) {
+        } elseif ($this->torrent->free >= 1) {
             // FL value in DB are from 0% to 100%.
             // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $downloaded * $torrent->free / 100;
+            $fl_discount = $downloaded * $this->torrent->free / 100;
             $modDownloaded = $downloaded - $fl_discount;
         } else {
             $modDownloaded = $downloaded;
         }
 
-        if ($torrent->doubleup == 1 ||
-            $group->is_double_upload == 1 ||
+        if ($this->torrent->doubleup == 1 ||
+            $this->group->is_double_upload == 1 ||
             config('other.doubleup') == 1) {
             $modUploaded = $uploaded * 2;
         } else {
@@ -167,8 +154,8 @@ class ProcessAnnounce implements ShouldQueue
         $peer->downloaded = $realDownloaded;
         $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
-        $peer->torrent_id = $torrent->id;
-        $peer->user_id = $user->id;
+        $peer->torrent_id = $this->torrent->id;
+        $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
 
@@ -182,7 +169,7 @@ class ProcessAnnounce implements ShouldQueue
                 $peer->active = true;
 
                 $history->active = 1;
-                $history->immune = (int) ($history->exists ? $history->immune && $group->is_immune : $group->is_immune);
+                $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
 
                 break;
             case 'completed':
@@ -204,7 +191,7 @@ class ProcessAnnounce implements ShouldQueue
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
-                    User::whereKey($user->id)->update([
+                    $this->user->update([
                         'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
                         'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
@@ -212,7 +199,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
 
                 // Torrent Completed Update
-                $torrent->times_completed += 1;
+                $this->torrent->times_completed += 1;
 
                 break;
             case 'stopped':
@@ -233,7 +220,7 @@ class ProcessAnnounce implements ShouldQueue
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
-                    User::whereKey($user->id)->update([
+                    $this->user->update([
                         'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
                         'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
@@ -258,7 +245,7 @@ class ProcessAnnounce implements ShouldQueue
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
-                    User::whereKey($user->id)->update([
+                    $this->user->update([
                         'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
                         'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
@@ -304,24 +291,22 @@ class ProcessAnnounce implements ShouldQueue
             ]))
         ]);
 
-        $otherSeeders = $peers
+        $otherSeeders = $this
+            ->torrent
+            ->peers
             ->where('left', '=', 0)
             ->where('peer_id', '!=', $peerId)
             ->count();
-        $otherLeechers = $peers
+        $otherLeechers = $this
+            ->torrent
+            ->peers
             ->where('left', '>', 0)
             ->where('peer_id', '!=', $peerId)
             ->count();
 
-        $newSeeders = $otherSeeders + (int) ($this->queries['left'] == 0 && strtolower($this->queries['event']) !== 'stopped');
-        $newLeechers = $otherLeechers + (int) ($this->queries['left'] > 0 && strtolower($this->queries['event']) !== 'stopped');
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && strtolower($this->queries['event']) !== 'stopped');
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && strtolower($this->queries['event']) !== 'stopped');
 
-        if ($torrent->seeders !== $newSeeders || $torrent->leechers !== $newLeechers || $event === 'completed') {
-            Torrent::whereKey($torrent->id)->update([
-                'seeders'         => $newSeeders,
-                'leechers'        => $newLeechers,
-                'times_completed' => DB::raw('times_completed + '.(int) ($event === 'completed')),
-            ]);
-        }
+        $this->torrent->save();
     }
 }
