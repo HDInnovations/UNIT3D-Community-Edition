@@ -567,7 +567,7 @@ class AnnounceController extends Controller
      */
     private function processAnnounceJob($queries, $user, $group, $torrent): void
     {
-        ProcessAnnounce::dispatch($queries, serialize($user), serialize($group), serialize($torrent));
+        ProcessAnnounce::dispatch($queries, $user, $group, $torrent);
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array

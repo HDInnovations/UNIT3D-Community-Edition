@@ -15,17 +15,14 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
-use App\Models\Torrent;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
@@ -34,19 +31,13 @@ class ProcessAnnounce implements ShouldQueue
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
-
-    private Torrent $torrent;
-    private User $user;
-    private Group $group;
+    use SerializesModels;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(protected array $queries, string $user, string $group, string $torrent)
+    public function __construct(protected $queries, protected $user, protected $group, protected $torrent)
     {
-        $this->torrent = unserialize($torrent, ['allowed_classes' => [Torrent::class, Collection::class, Peer::class]]);
-        $this->user = unserialize($user, ['allowed_classes' => [User::class]]);
-        $this->group = unserialize($group, ['allowed_classes' => [Group::class]]);
     }
 
     /**
