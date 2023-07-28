@@ -49,7 +49,7 @@ class PersonCredit extends Component
 
     final public function getPersonalFreeleechProperty()
     {
-        return cache()->has('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->user()->id);
     }
 
     /*
