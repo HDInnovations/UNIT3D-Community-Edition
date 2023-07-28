@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Exception;
 
@@ -75,20 +76,18 @@ class AutoUpsertHistories extends Command
                 $histories,
                 ['user_id', 'torrent_id'],
                 [
-                    'user_id',
-                    'torrent_id',
                     'agent',
-                    'uploaded',
-                    'actual_uploaded',
+                    'uploaded'        => DB::raw('uploaded + VALUES(uploaded)'),
+                    'actual_uploaded' => DB::raw('actual_uploaded + VALUES(actual_uploaded)'),
                     'client_uploaded',
-                    'downloaded',
-                    'actual_downloaded',
+                    'downloaded'        => DB::raw('downloaded + VALUES(downloaded)'),
+                    'actual_downloaded' => DB::raw('actual_downloaded + VALUES(actual_downloaded)'),
                     'client_downloaded',
                     'seeder',
                     'active',
-                    'seedtime',
-                    'immune',
-                    'completed_at',
+                    'seedtime'     => DB::raw('IF(DATE_ADD(updated_at, INTERVAL 3600 SECOND) > VALUES(updated_at) AND seeder = 1 AND VALUES(seeder) = 1, seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)), seedtime)'),
+                    'immune'       => DB::raw('immune AND VALUES(immune)'),
+                    'completed_at' => DB::raw('COALESCE(completed_at, VALUES(completed_at))'),
                 ],
             );
         }
