@@ -61,7 +61,7 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected $guarded = [];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * ID of the system user.

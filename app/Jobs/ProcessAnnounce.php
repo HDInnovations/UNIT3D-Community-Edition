@@ -22,6 +22,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
@@ -38,19 +39,14 @@ class ProcessAnnounce implements ShouldQueue
     private User $user;
     private Group $group;
 
-    /** @var \Illuminate\Support\Collection<int, Peer> */
-    private \Illuminate\Support\Collection $peers;
-
     /**
      * Create a new job instance.
      */
-    public function __construct(
-        protected array $queries,
-        protected array $userArray,
-        protected array $groupArray,
-        protected array $torrentArray,
-        protected array $peersArray
-    ) {
+    public function __construct(protected array $queries, string $user, string $group, string $torrent)
+    {
+        $this->torrent = unserialize($torrent, ['allowed_classes' => [Torrent::class, Collection::class, Peer::class]]);
+        $this->user = unserialize($user, ['allowed_classes' => [User::class]]);
+        $this->group = unserialize($group, ['allowed_classes' => [Group::class]]);
     }
 
     /**
@@ -58,7 +54,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->userArray['id'].':'.$this->torrentArray['id']))->releaseAfter(30)];
+        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(30)];
     }
 
     /**
@@ -67,19 +63,9 @@ class ProcessAnnounce implements ShouldQueue
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Psr\SimpleCache\InvalidArgumentException
-     *
-     * @property \Illuminate\Support\Collection<int, \App\Models\Peer> $peers
      */
     public function handle(): void
     {
-        // We can't pass the models directly into the constructor, otherwise laravel will serialize them
-        // and upon deserialization will fetch the models from the database again, causing extra unneeded queries.
-        $this->torrent = new Torrent($this->torrentArray);
-        $this->user = new User($this->userArray);
-        $this->group = new Group($this->groupArray);
-
-        $this->peers = collect(array_map(fn ($peer) => new Peer($peer), $this->peersArray));
-
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
 
@@ -91,7 +77,7 @@ class ProcessAnnounce implements ShouldQueue
         $ipAddress = base64_decode($this->queries['ip-address']);
 
         // Get The Current Peer
-        $peer = $this->peers
+        $peer = $this->torrent->peers
             ->where('peer_id', '=', $peerId)
             ->where('user_id', '=', $this->user->id)
             ->first();
@@ -314,11 +300,15 @@ class ProcessAnnounce implements ShouldQueue
             ]))
         ]);
 
-        $otherSeeders = $this->peers
+        $otherSeeders = $this
+            ->torrent
+            ->peers
             ->where('left', '=', 0)
             ->where('peer_id', '!=', $peerId)
             ->count();
-        $otherLeechers = $this->peers
+        $otherLeechers = $this
+            ->torrent
+            ->peers
             ->where('left', '>', 0)
             ->where('peer_id', '!=', $peerId)
             ->count();
