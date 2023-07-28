@@ -123,11 +123,14 @@ class ProcessAnnounce implements ShouldQueue
                 ->where('user_id', '=', $this->user->id)
                 ->exists()
         );
-        $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
-            FreeleechToken::query()
+
+        $freeleechToken = cache()->rememberForever(
+            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
+            fn () => FreeleechToken::query()
                 ->where('user_id', '=', $this->user->id)
                 ->where('torrent_id', '=', $this->torrent->id)
-                ->exists();
+                ->exists(),
+        );
 
         if ($personalFreeleech ||
             $this->group->is_freeleech == 1 ||
