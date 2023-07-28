@@ -13,6 +13,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\BlacklistClient;
+use App\Models\Scopes\ApprovedScope;
+use App\Models\Torrent;
 use Illuminate\Console\Command;
 
 /**
@@ -43,5 +46,22 @@ class SetCache extends Command
         $this->call('view:cache');
         $this->call('route:cache');
         $this->call('config:cache');
+
+        cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('name')->toArray());
+
+        $this->info("Client blacklist cached successfully.");
+
+        Torrent::withoutGlobalScope(ApprovedScope::class)
+            ->select(['id', 'info_hash', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
+            ->lazyById()
+            ->each(function (Torrent $torrent): void {
+                cache()->remember(
+                    'announce-torrents:by-infohash:'.$torrent->info_hash,
+                    8 * 3600,
+                    fn () => $torrent
+                );
+            });
+
+        $this->info("Torrent infohashes cached successfully.");
     }
 }
