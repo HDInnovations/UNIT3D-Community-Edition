@@ -57,7 +57,7 @@ class HomeController extends Controller
 
         return view('home.index', [
             'user'               => $user,
-            'personal_freeleech' => cache()->has('personal_freeleech:'.$user->id),
+            'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'users'              => cache()->remember(
                 'online_users',
                 $expiresAt,

@@ -17,6 +17,7 @@ namespace App\Jobs;
 use App\Models\FreeleechToken;
 use App\Models\History;
 use App\Models\Peer;
+use App\Models\PersonalFreeleech;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -116,7 +117,10 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
-        $personalFreeleech = cache()->has('personal_freeleech:'.$this->user->id);
+        $personalFreeleech = cache()->get('personal_freeleech:'.$this->user->id) ??
+            PersonalFreeleech::query()
+                ->where('user_id', '=', $this->user->id)
+                ->exists();
         $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
             FreeleechToken::query()
                 ->where('user_id', '=', $this->user->id)

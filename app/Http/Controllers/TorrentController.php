@@ -131,7 +131,7 @@ class TorrentController extends Controller
         return view('torrent.show', [
             'torrent'            => $torrent,
             'user'               => $user,
-            'personal_freeleech' => cache()->has('personal_freeleech:'.$user->id),
+            'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'freeleech_token'    => cache()->get('freeleech_token:'.$user->id.':'.$torrent->id),
             'meta'               => $meta,
             'trailer'            => $trailer,
