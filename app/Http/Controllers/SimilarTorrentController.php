@@ -18,6 +18,8 @@ use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Services\Tmdb\TMDBScraper;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
@@ -102,24 +104,45 @@ class SimilarTorrentController extends Controller
         ]);
     }
 
-    public function update(Category $category, int $tmdbId)
+    public function update(Request $request, Category $category, int $tmdbId): \Illuminate\Http\RedirectResponse
     {
-        if ($tmdbId !== 0) {
-            $tmdbScraper = new TMDBScraper();
+        if ($tmdbId === 0 || Torrent::where('category_id', '=', $category->id)->where('tmdb', '=', $tmdbId)->doesntExist()) {
+            return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
+                ->withErrors('There exists no torrent with this tmdb.');
+        }
 
-            switch (true) {
-                case $category->movie_meta:
-                    $tmdbScraper->movie($tmdbId);
+        $tmdbScraper = new TMDBScraper();
 
-                    break;
-                case $category->tv_meta:
-                    $tmdbScraper->tv($tmdbId);
+        switch (true) {
+            case $category->movie_meta:
+                $cacheKey = 'tmdb-movie-scraper:'.$tmdbId;
 
-                    break;
-            }
+                /** @var Carbon $lastUpdated */
+                $lastUpdated = cache()->get($cacheKey);
+
+                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && ! $request->user()->group->is_modo, 403);
+
+                cache()->put($cacheKey, now(), now()->addDay());
+
+                $tmdbScraper->movie($tmdbId);
+
+                break;
+            case $category->tv_meta:
+                $cacheKey = 'tmdb-tv-scraper:'.$tmdbId;
+
+                /** @var Carbon $lastUpdated */
+                $lastUpdated = cache()->get($cacheKey);
+
+                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && ! $request->user()->group->is_modo, 403);
+
+                cache()->put($cacheKey, now(), now()->addDay());
+
+                $tmdbScraper->tv($tmdbId);
+
+                break;
         }
 
         return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
-            ->withSuccess('Metadata update queued successfully');
+            ->withSuccess('Metadata update queued successfully.');
     }
 }
