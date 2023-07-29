@@ -89,7 +89,7 @@
                                     {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}
                                 </time>
                             </td>
-                            <td class="{{ $peer->seeder ? 'text-green' : 'text-red' }}">
+                            <td class="{{ $peer->active ? ($peer->seeder ? 'text-green' : 'text-red') : 'text-orange' }}">
                                 @if ($peer->active)
                                     @if ($peer->seeder == 0)
                                         {{ __('torrent.leecher') }}

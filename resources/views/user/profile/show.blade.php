@@ -508,6 +508,12 @@
                         </a>
                     </dt>
                     <dd>{{ $peers->leeching ?? 0 }}</dd>
+                    <dt>
+                        <a href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}">
+                            Total Inactive Peers
+                        </a>
+                    </dt>
+                    <dd>{{ $peers->inactive ?? 0 }}</dd>
                 </dl>
             </section>
         @endif

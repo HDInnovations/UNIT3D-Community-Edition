@@ -88,14 +88,16 @@ class UserController extends Controller
                 ->select('agent', 'port')
                 ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
                 ->groupBy(['ip', 'port', 'agent'])
+                ->where('active', '=', true)
                 ->get(),
             'achievements' => AchievementProgress::with('details')
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')
                 ->get(),
             'peers' => Peer::query()
-                ->selectRaw('SUM(seeder = 0) as leeching')
-                ->selectRaw('SUM(seeder = 1) as seeding')
+                ->selectRaw('SUM(seeder = 0 AND active = 1) as leeching')
+                ->selectRaw('SUM(seeder = 1 AND active = 1) as seeding')
+                ->selectRaw('SUM(active = 0) as inactive')
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch' => $user->watchlist,

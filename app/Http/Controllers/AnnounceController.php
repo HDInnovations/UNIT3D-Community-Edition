@@ -425,7 +425,7 @@ class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'active', 'port', 'updated_at'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
@@ -485,6 +485,7 @@ class AnnounceController extends Controller
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = $torrent->peers
             ->where('user_id', '=', $user->id)
+            ->where('active', '=', true)
             ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
@@ -509,6 +510,7 @@ class AnnounceController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->where('peer_id', '!=', base64_decode($queries['peer_id']))
                 ->where('seeder', '=', 0)
+                ->where('active', '=', true)
                 ->count();
 
             throw_if(
@@ -546,6 +548,7 @@ class AnnounceController extends Controller
             $peers = $torrent->peers
                 ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
+                ->where('active', '=', true)
                 ->take($limit)
                 ->map
                 ->only(['ip', 'port'])
