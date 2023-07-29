@@ -66,6 +66,7 @@
         <div class="panel__body">
             <form action="{{ route('users.received_messages.destroy', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}" method="POST">
                 @csrf
+                @method('DELETE')
                 <p class="form__group form__group--horizontal">
                     <button class="form__button form__button--filled form__button--centered">
                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>
