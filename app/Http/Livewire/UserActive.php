@@ -18,6 +18,9 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $actives
+ */
 class UserActive extends Component
 {
     use WithPagination;
