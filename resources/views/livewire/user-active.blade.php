@@ -82,9 +82,9 @@
                         <i class="{{ config('other.font-awesome') }} fa-wifi" title="Connectable"></i>
                     </th>
                 @endif
-                <th class="user-active__seeding-header" wire:click="sortBy('size')" role="columnheader button" title="{{ __('torrent.seeding') }}">
+                <th class="user-active__seeding-header" wire:click="sortBy('seeder')" role="columnheader button" title="{{ __('torrent.seeding') }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    @include('livewire.includes._sort-icon', ['field' => 'seeding'])
+                    @include('livewire.includes._sort-icon', ['field' => 'seeder'])
                 </th>
                 <th class="user-active__size-header" wire:click="sortBy('size')" role="columnheader button">
                     {{ __('torrent.size') }}
