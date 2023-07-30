@@ -114,7 +114,6 @@ class CreateNewUser implements CreatesNewUsers
             'message'     => config('welcomepm.message'),
         ]);
 
-        return to_route('login')
-            ->withSuccess(trans('auth.register-thanks'));
+        return $user;
     }
 }

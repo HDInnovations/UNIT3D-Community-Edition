@@ -543,3 +543,55 @@ input[type='email']::placeholder {
     height: 100px;
     max-width: 800px;
 }
+.reg-logo {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.25rem;
+    background-color: transparent;
+    background-image: linear-gradient(#f2385aaa, #f2385aff);
+    border-radius: 0.50rem;
+    width: fit-content;
+    position: relative;
+    z-index: 0;
+    height: 115px;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -2;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: 50% 50%, 50% 50%;
+        background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+        background-image: linear-gradient(#56d9cdcc, #56d9cdff),
+        linear-gradient(#56d9cdff, #56d9cdcc),
+        linear-gradient(#56d9cdcc, #56d9cdff),
+        linear-gradient(#56d9cdff, #56d9cdcc);
+        animation: rotate 2s linear infinite;
+
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        left: 6px;
+        top: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        background: #FFFFFF;
+        border-radius: 5px;
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(1turn);
+    }
+}

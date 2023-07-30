@@ -36,19 +36,6 @@
             {{ __('auth.need-invite') }}
         </div>
     @endif
-    <svg viewBox="0 0 800 100" class="sitebanner">
-        <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="50%" dy=".35em">
-                {{ config('other.title') }}
-            </text>
-        </symbol>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-    </svg>
-
     <div id="formContent">
         <a href="{{ route('login') }}">
             <h2 class="inactive underlineHover">{{ __('auth.login') }} </h2>
@@ -57,18 +44,56 @@
             <h2 class="active">{{ __('auth.signup') }} </h2>
         </a>
 
-        <div class="fadeIn first">
-            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ __('auth.user-icon') }}"/>
+        <div class="fadeIn first reg-logo">
+            <svg viewBox="0 0 500 140" class="sitebanner">
+                <symbol id="s-text">
+                    <text text-anchor="middle" x="50%" y="18%" dy=".6em">
+                        {{ config('other.title') }}
+                    </text>
+                    <text text-anchor="middle" x="50%" y="18%" dy="1.6em">
+                        {{ __('auth.registration') }}
+                    </text>
+                </symbol>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+            </svg>
         </div>
 
         <form role="form" method="POST" action="{{ route('register', ['code' => request()->query('code')]) }}">
             @csrf
-            <label for="username"></label><input type="text" id="username" class="fadeIn second" name="username"
-                                                 placeholder="{{ __('auth.username') }}" required autofocus>
-            <label for="email"></label><input type="email" id="email" class="fadeIn third" name="email"
-                                              placeholder="{{ __('auth.email') }}" required>
-            <label for="password"></label><input type="password" id="password" class="fadeIn third" name="password"
-                                                 placeholder="{{ __('auth.password') }}" required>
+            <div>
+                <label for="username" class="col-md-4 control-label">{{ __('auth.username') }}</label>
+                <div class="col-md-6">
+                    <input id="username" type="text" class="form-control" name="username"
+                           value="{{ old('username') }}" required autofocus>
+                </div>
+            </div>
+
+            <div>
+                <label for="email" class="col-md-4 control-label">{{ __('auth.email') }}</label>
+                <div class="col-md-6">
+                    <input id="email" type="text" class="form-control" name="email"
+                           value="{{ old('email') }}" required autofocus>
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="col-md-4 control-label">{{ __('auth.password') }}</label>
+                <div class="col-md-6">
+                    <input id="password" type="password" class="form-control" name="password" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="col-md-4 control-label">{{ __('auth.password-confirmation') }}</label>
+                <div class="col-md-6">
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
+                </div>
+            </div>
+
             @if (config('captcha.enabled') == true)
                 @hiddencaptcha
             @endif

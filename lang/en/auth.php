@@ -46,6 +46,7 @@ return [
     'not-a-member'          => 'Not yet a member ? Signup in less than 30s.',
     'not-activated'         => 'This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.',
     'password'              => 'Password',
+    'password-confirmation' => 'Password Confirmation',
     'password-confirm'      => [
         'title'       => 'Password Confirmation Required',
         'breadcrumb'  => 'Password Confirmation',
@@ -59,6 +60,7 @@ return [
     'proof-profile-title' => 'Links to your profiles',
     'proof-min'           => '(Minimum 2, Recommended 3)',
     'recover-my-password' => 'Recover My Password',
+    'registration'        => 'Registration',
     'register-thanks'     => 'Thanks for signing up! Please check your email to Validate your account',
     'remember-me'         => 'Remember Me',
     'require-rules'       => 'Please Read And Accept Our Rules By Scrolling To Bottom Of Page.',
