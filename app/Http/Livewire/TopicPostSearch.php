@@ -26,6 +26,10 @@ class TopicPostSearch extends Component
 
     public Topic $topic;
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+    ];
+
     final public function mount(Topic $topic): void
     {
         $this->topic = $topic;
