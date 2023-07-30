@@ -60,6 +60,20 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
+                    <input
+                        id="code"
+                        class="form__text"
+                        type="text"
+                        wire:model="custom"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating">
+                        {{ __('common.message') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
                     <select
                             id="quantity"
                             class="form__select"
@@ -97,6 +111,10 @@
                         Code
                         @include('livewire.includes._sort-icon', ['field' => 'code'])
                     </th>
+                    <th wire:click="sortBy('custom')" role="columnheader button">
+                        {{ __('common.message') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'custom'])
+                    </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('user.created-on') }}
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
@@ -113,6 +131,10 @@
                         {{ __('user.accepted-at') }}
                         @include('livewire.includes._sort-icon', ['field' => 'accepted_at'])
                     </th>
+                    <th wire:click="sortBy('deleted_at')" role="columnheader button">
+                        {{ __('user.deleted-on') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'deleted_at'])
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -124,6 +146,7 @@
                     </td>
                     <td>{{ $invite->email }}</td>
                     <td>{{ $invite->code }}</td>
+                    <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
                     <td>
                         <time datetime="{{ $invite->created_at }}">
                             {{ $invite->created_at }}
