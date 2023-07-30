@@ -9,6 +9,8 @@ html {
 body {
     font-family: 'Poppins', sans-serif;
     height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -33,8 +35,7 @@ h2 {
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    min-height: 100%;
-    padding: 20px;
+    min-height: 100vh;
 }
 
 #formContent {
@@ -555,6 +556,7 @@ input[type='email']::placeholder {
     z-index: 0;
     height: 115px;
     overflow: hidden;
+    user-select: none;
 
     &::before {
         content: '';
