@@ -150,13 +150,17 @@
             <i class='{{ config("other.font-awesome") }} fa-file'></i> {{ __('torrent.show-files') }}
         </button>
         <dialog class="dialog dialog--auto-width" x-ref="dialog">
-            <h4 class="dialog__heading">
-                {{ __('common.files') }}
-                <span class="float: right;" title="{{ $torrent->size }}">
-                    ({{ $torrent->files->count() }})
-                    {{ App\Helpers\StringHelper::formatBytes($torrent->size, 2) }}
-                </span>
-            </h4>
+            <header class="dialog__header">
+                <h4 class="dialog__heading">
+                    {{ __('common.files') }}
+                </h4>
+                <div class="dialog__actions">
+                    <div class="dialog__action">
+                        {{ __('torrent.info-hash') }}:
+                        {{ bin2hex($torrent->info_hash) }}
+                    </div>
+                </div>
+            </header>
             <div x-on:click.outside="$refs.dialog.close()">
                 <menu class="panel__tabs">
                     <li
