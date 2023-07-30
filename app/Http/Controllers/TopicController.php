@@ -68,7 +68,7 @@ class TopicController extends Controller
             ])
             ->findOrFail($id);
 
-        $forum = $topic->forum;
+        $forum = $topic->forum->load('category');
 
         $subscription = Subscription::where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
 
@@ -89,11 +89,12 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $forum = Forum::whereRelation('permissions', [
-            ['show_forum', '=', 1],
-            ['start_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
+        $forum = Forum::with('category')
+            ->whereRelation('permissions', [
+                ['show_forum', '=', 1],
+                ['start_topic', '=', 1],
+                ['group_id', '=', $user->group_id],
+            ])
             ->findOrFail($id);
 
         return view('forum.forum_topic.create', [
@@ -184,11 +185,12 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::whereRelation('forumPermissions', [
-            ['show_forum', '=', 1],
-            ['read_topic', '=', 1],
-            ['group_id', '=', $user->group_id]
-        ])
+        $topic = Topic::with('forum.category')
+            ->whereRelation('forumPermissions', [
+                ['show_forum', '=', 1],
+                ['read_topic', '=', 1],
+                ['group_id', '=', $user->group_id]
+            ])
             ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
@@ -198,7 +200,13 @@ class TopicController extends Controller
             ['show_forum', '=', 1],
             ['start_topic', '=', 1],
         ])
-            ->where('parent_id', '!=', 0)
+            ->where('parent_id', '=', 0)
+            ->with([
+                'forums' => fn ($query) => $query->whereRelation('permissions', [
+                    ['show_forum', '=', 1],
+                    ['start_topic', '=', 1],
+                ])
+            ])
             ->get();
 
         return view('forum.topic.edit', [
@@ -378,5 +386,23 @@ class TopicController extends Controller
             'page' => intdiv($index, 25) + 1
         ])
             ->withFragment('post-'.$postId);
+    }
+
+    /**
+     * Redirect to the appropriate topic page for the latest post.
+     */
+    public function latestPermalink(int $id): \Illuminate\Http\RedirectResponse
+    {
+        $post = Post::query()
+            ->selectRaw('MAX(id) as id')
+            ->selectRaw('count(*) as post_count')
+            ->where('topic_id', '=', $id)
+            ->first();
+
+        return to_route('topics.show', [
+            'id'   => $id,
+            'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
+        ])
+            ->withFragment('post-'.($post?->id ?? 0));
     }
 }

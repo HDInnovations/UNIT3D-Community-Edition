@@ -165,7 +165,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Torrent::class, 'peers')
             ->wherePivot('seeder', '=', 1)
-            ->wherePivot('connectable', '=', 1);
+            ->wherePivot('connectable', '=', true);
     }
 
     /**
@@ -461,7 +461,7 @@ class User extends Authenticatable
     /**
      * Has Given Many Invites.
      */
-    public function sentInvite(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Invite::class, 'user_id');
     }
@@ -469,7 +469,7 @@ class User extends Authenticatable
     /**
      * Has Received Many Invites.
      */
-    public function receivedInvite(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Invite::class, 'accepted_by');
     }
@@ -495,7 +495,7 @@ class User extends Authenticatable
      */
     public function bonGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender');
+        return $this->hasMany(BonTransactions::class, 'sender_id');
     }
 
     /**
@@ -503,7 +503,7 @@ class User extends Authenticatable
      */
     public function bonReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver');
+        return $this->hasMany(BonTransactions::class, 'receiver_id');
     }
 
     /**
@@ -512,6 +512,14 @@ class User extends Authenticatable
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Has Many Resurrections.
+     */
+    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Resurrection::class);
     }
 
     /**
@@ -583,7 +591,7 @@ class User extends Authenticatable
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender')->where('name', '=', 'gift');
+        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'gift');
     }
 
     /**
@@ -591,7 +599,7 @@ class User extends Authenticatable
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver')->where('name', '=', 'gift');
+        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'gift');
     }
 
     /**
@@ -599,7 +607,7 @@ class User extends Authenticatable
      */
     public function sentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender')->where('name', '=', 'tip');
+        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'tip');
     }
 
     /**
@@ -607,7 +615,7 @@ class User extends Authenticatable
      */
     public function receivedTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver')->where('name', '=', 'tip');
+        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'tip');
     }
 
     /**

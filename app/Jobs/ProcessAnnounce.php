@@ -85,15 +85,21 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Get history information
-        $history = History::query()
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->where('user_id', '=', $this->user->id)
-            ->first();
-
-        // If no History record found then create one
-        if ($history === null) {
-            $history = new History();
-        }
+        $history = History::firstOrNew(
+            [
+                'torrent_id' => $this->torrent->id,
+                'user_id'    => $this->user->id,
+            ],
+            [
+                'uploaded'          => 0,
+                'actual_uploaded'   => 0,
+                'downloaded'        => 0,
+                'actual_downloaded' => 0,
+                'seedtime'          => 0,
+                'immune'            => 0,
+                'completed_at'      => null,
+            ]
+        );
 
         // Check Ghost Flag
         if ($ghost) {
@@ -111,15 +117,20 @@ class ProcessAnnounce implements ShouldQueue
         }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
-        $personalFreeleech = cache()->get('personal_freeleech:'.$this->user->id) ??
-            PersonalFreeleech::query()
+        $personalFreeleech = cache()->rememberForever(
+            'personal_freeleech:'.$this->user->id,
+            fn () => PersonalFreeleech::query()
                 ->where('user_id', '=', $this->user->id)
-                ->exists();
-        $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
-            FreeleechToken::query()
+                ->exists()
+        );
+
+        $freeleechToken = cache()->rememberForever(
+            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
+            fn () => FreeleechToken::query()
                 ->where('user_id', '=', $this->user->id)
                 ->where('torrent_id', '=', $this->torrent->id)
-                ->exists();
+                ->exists(),
+        );
 
         if ($personalFreeleech ||
             $this->group->is_freeleech == 1 ||
@@ -150,16 +161,13 @@ class ProcessAnnounce implements ShouldQueue
         $peer->agent = $this->queries['user-agent'];
         $peer->uploaded = $realUploaded;
         $peer->downloaded = $realDownloaded;
-        $peer->seeder = (int) ($this->queries['left'] == 0);
+        $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
-        $peer->save();
 
-        $history->user_id = $this->user->id;
-        $history->torrent_id = $this->torrent->id;
         $history->agent = $this->queries['user-agent'];
         $history->seeder = (int) ($this->queries['left'] == 0);
         $history->client_uploaded = $realUploaded;
@@ -167,11 +175,15 @@ class ProcessAnnounce implements ShouldQueue
 
         switch ($event) {
             case 'started':
+                $peer->active = true;
+
                 $history->active = 1;
-                $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
+                $history->immune = (int) ($history->exists ? $history->immune && $this->group->is_immune : $this->group->is_immune);
 
                 break;
             case 'completed':
+                $peer->active = true;
+
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -200,6 +212,8 @@ class ProcessAnnounce implements ShouldQueue
 
                 break;
             case 'stopped':
+                $peer->active = false;
+
                 $history->active = 0;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -213,8 +227,6 @@ class ProcessAnnounce implements ShouldQueue
                     $history->seedtime += $diff;
                 }
 
-                $peer->delete();
-
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
                     $this->user->update([
@@ -225,6 +237,8 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
                 break;
             default:
+                $peer->active = true;
+
                 $history->active = 1;
                 $history->uploaded += $modUploaded;
                 $history->actual_uploaded += $uploaded;
@@ -247,6 +261,24 @@ class ProcessAnnounce implements ShouldQueue
                 }
                 // End User Update
         }
+
+        Redis::connection('announce')->command('LPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize($peer->only([
+                'peer_id',
+                'ip',
+                'port',
+                'agent',
+                'uploaded',
+                'downloaded',
+                'left',
+                'seeder',
+                'torrent_id',
+                'user_id',
+                'connectable',
+                'active'
+            ]))
+        ]);
 
         Redis::connection('announce')->command('LPUSH', [
             config('cache.prefix').':histories:batch',

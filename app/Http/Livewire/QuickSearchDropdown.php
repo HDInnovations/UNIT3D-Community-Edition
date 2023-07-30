@@ -22,7 +22,16 @@ class QuickSearchDropdown extends Component
                 'movies' => Movie::query()
                     ->select(['id', 'poster', 'title', 'release_date'])
                     ->selectRaw("concat(title, ' ', release_date) as title_and_year")
-                    ->having('title_and_year', 'LIKE', $search)
+                    ->when(
+                        preg_match('/^\d+$/', $this->quicksearchText),
+                        fn ($query) => $query->where('id', '=', $this->quicksearchText),
+                        fn ($query) => $query
+                            ->when(
+                                preg_match('/tt0*(?=(\d{7,}))/', $this->quicksearchText, $matches),
+                                fn ($query) => $query->where('imdb_id', '=', $matches[1]),
+                                fn ($query) => $query->having('title_and_year', 'LIKE', $search),
+                            )
+                    )
                     ->has('torrents')
                     ->oldest('title')
                     ->take(10)
@@ -30,7 +39,16 @@ class QuickSearchDropdown extends Component
                 'series' => Tv::query()
                     ->select(['id', 'poster', 'name', 'first_air_date'])
                     ->selectRaw("concat(name, ' ', first_air_date) as title_and_year")
-                    ->having('title_and_year', 'LIKE', $search)
+                    ->when(
+                        preg_match('/^\d+$/', $this->quicksearchText),
+                        fn ($query) => $query->where('id', '=', $this->quicksearchText),
+                        fn ($query) => $query
+                            ->when(
+                                preg_match('/tt0*(?=(\d{7,}))/', $this->quicksearchText, $matches),
+                                fn ($query) => $query->where('imdb_id', '=', $matches[1]),
+                                fn ($query) => $query->having('title_and_year', 'LIKE', $search),
+                            )
+                    )
                     ->has('torrents')
                     ->oldest('name')
                     ->take(10)

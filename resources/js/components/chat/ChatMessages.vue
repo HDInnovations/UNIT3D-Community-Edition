@@ -43,6 +43,7 @@
                         <i
                             v-if="message.user.id != 1 && canMod(message)"
                             @click="deleteMessage(message.id)"
+                            title="Delete message"
                             class="fa fa-times text-red"
                         >
                         </i>
@@ -50,12 +51,14 @@
           <a
               v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
               @click.prevent="$parent.forceMessage(message.user.username)"
+              title="Send chat PM (/msg <username> <message>)"
           >
             <i class="fas fa-envelope pointee"></i>
           </a>
           <a
               v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
               @click.prevent="$parent.forceGift(message.user.username)"
+              title="Gift user bon (/gift <username> <amount> <message>)"
           >
             <i class="fas fa-gift pointee"></i>
           </a>

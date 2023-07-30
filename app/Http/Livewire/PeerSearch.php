@@ -195,8 +195,8 @@ class PeerSearch extends Component
                 'peers.torrent_id',
                 Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
             ))
-            ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', 1))
-            ->when($this->connectivity === 'unconnectable', fn ($query) => $query->where('connectable', '=', 0))
+            ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', true))
+            ->when($this->connectivity === 'unconnectable', fn ($query) => $query->where('connectable', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

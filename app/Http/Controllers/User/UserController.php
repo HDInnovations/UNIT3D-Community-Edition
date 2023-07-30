@@ -36,6 +36,7 @@ class UserController extends Controller
         $user->load([
             'privacy',
             'userban' => ['banneduser', 'staffuser'],
+            'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
         ])
             ->loadCount([
                 'torrents',
@@ -80,8 +81,8 @@ class UserController extends Controller
                 ->with(['torrenttitle', 'warneduser'])
                 ->latest('created_at')
                 ->paginate(10, ['*'], 'deletedWarningsPage'),
-            'boughtUpload' => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
-            // 'boughtDownload'        => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
+            'boughtUpload' => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
+            // 'boughtDownload'        => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->select('agent', 'port')

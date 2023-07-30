@@ -90,12 +90,16 @@
                                 </time>
                             </td>
                             <td class="{{ $peer->seeder ? 'text-green' : 'text-red' }}">
-                                @if ($peer->seeder == 0)
-                                    {{ __('torrent.leecher') }}
-                                @elseif ($peer->seeder == 1)
-                                    {{ __('torrent.seeder') }}
+                                @if ($peer->active)
+                                    @if ($peer->seeder == 0)
+                                        {{ __('torrent.leecher') }}
+                                    @elseif ($peer->seeder == 1)
+                                        {{ __('torrent.seeder') }}
+                                    @else
+                                        {{ __('common.error') }}
+                                    @endif
                                 @else
-                                    {{ __('common.error') }}
+                                    Inactive
                                 @endif
                             </td>
                         </tr>

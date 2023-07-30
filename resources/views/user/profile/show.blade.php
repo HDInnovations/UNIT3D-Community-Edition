@@ -284,6 +284,45 @@
         @endif
         @if (auth()->user()->group->is_modo)
             @livewire('user-notes', ['user' => $user])
+        @endif
+        @if (auth()->user()->group->is_modo || auth()->user()->is($user))
+            <section class="panelV2">
+                <h2 class="panel__heading">{{  __('ticket.helpdesk') }}</h2>
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>{{ __('ticket.subject') }}</th>
+                                <th>{{ __('common.status') }}</th>
+                                <th>{{ __('ticket.created') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($user->tickets as $ticket)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
+                                            {{ $ticket->subject }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @if ($ticket->closed_at)
+                                            <i class="fas fa-circle text-danger"></i>
+                                            Closed
+                                        @else
+                                            <i class="fas fa-circle text-success"></i>
+                                            Open
+                                        @endif
+                                    </td>
+                                    <td>{{ $ticket->created_at }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        @endif
+        @if (auth()->user()->group->is_modo)
             @include('user.profile.partials.bans', ['bans' => $user->userban])
             @include('user.profile.partials.warnings')
             <section class="panelV2">

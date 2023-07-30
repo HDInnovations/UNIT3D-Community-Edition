@@ -62,7 +62,7 @@
                         <div id="regions" wire:ignore></div>
                     </div>
                     <div class="form__group">
-                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::orderBy('position')->get()) @endphp
+                        @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::orderBy('name')->get()) @endphp
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
@@ -603,7 +603,7 @@
           let myRegions = [
               @foreach($regions as $region)
               {
-                  label: "{{ $region->name }}", value: "{{ $region->id }}"
+                  label: "{{ $region->name }} ({{ __('regions.'.$region->name) }})", value: "{{ $region->id }}"
               },
               @endforeach
           ]

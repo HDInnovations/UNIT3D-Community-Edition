@@ -32,6 +32,11 @@ class SubscribedTopic extends Component
             ->paginate(25, ['*'], 'subscribedTopicsPage');
     }
 
+    final public function updatedSubscribedTopicsPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.subscribed-topic', [

@@ -15,6 +15,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
+        <a href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}" class="breadcrumb__link">
+            {{ $forum->category->name }}
+        </a>
+    </li>
+    <li class="breadcrumbV2">
         <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
             {{ $forum->name }}
         </a>

@@ -24,6 +24,14 @@ class PostSearch extends Component
 
     public String $search = '';
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+    ];
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function updatingSearch(): void
     {
         $this->resetPage();

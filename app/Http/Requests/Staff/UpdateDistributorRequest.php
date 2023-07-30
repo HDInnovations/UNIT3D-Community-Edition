@@ -34,9 +34,6 @@ class UpdateDistributorRequest extends FormRequest
             'name' => [
                 'required',
             ],
-            'position' => [
-                'required',
-            ],
         ];
     }
 }

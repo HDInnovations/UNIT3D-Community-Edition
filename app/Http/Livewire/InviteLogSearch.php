@@ -30,6 +30,8 @@ class InviteLogSearch extends Component
 
     public string $receiver = '';
 
+    public string $custom = '';
+
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
@@ -58,6 +60,7 @@ class InviteLogSearch extends Component
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))
             ->when($this->receiver, fn ($query) => $query->whereIn('accepted_by', User::select('id')->where('username', '=', $this->receiver)))
+            ->when($this->custom, fn ($query) => $query->where('custom', 'LIKE', '%'.$this->custom.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

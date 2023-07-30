@@ -42,6 +42,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.user') }}</th>
+                        <th>{{ __('torrent.agent') }}</th>
                         <th>{{ __('common.connected') }}</th>
                         <th>{{ __('torrent.completed') }}</th>
                         <th>{{ __('common.upload') }}</th>
@@ -64,6 +65,11 @@
                                     || ($history->user->id == $torrent->user->id && $torrent->anon == 1)
                                 " />
                             </td>
+                            @if (auth()->user()->group->is_modo || auth()->id() === $history->user_id)
+                                <td>{{ $history->agent }}</td>
+                            @else
+                                <td>---</td>
+                            @endif
                             @if ($history->active)
                                 <td class="text-green">{{ strtolower(__('common.yes')) }}</td>
                             @else

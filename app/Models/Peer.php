@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis;
@@ -21,6 +22,25 @@ use Exception;
 class Peer extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'active'      => 'boolean',
+        'seeder'      => 'boolean',
+        'connectable' => 'boolean',
+    ];
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     */
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     /**
      * Belongs To A User.
@@ -76,7 +96,7 @@ class Peer extends Model
 
             if ($ttl < config('announce.connectable_check_interval')) {
                 $con = @fsockopen($tmp_ip, $this->port, $_, $_, 1);
-                $this->connectable = (int) \is_resource($con);
+                $this->connectable = \is_resource($con);
                 Redis::connection('cache')->set($key, serialize($this->connectable));
                 Redis::connection('cache')->expire($key, config('announce.connectable_check_interval') + 3600);
 
@@ -84,8 +104,10 @@ class Peer extends Model
                     fclose($con);
                 }
             } else {
-                $this->connectable = $cache === null ? 0 : unserialize($cache);
+                $this->connectable = $cache === null ? false : unserialize($cache);
             }
+        } else {
+            $this->connectable = false;
         }
     }
 }

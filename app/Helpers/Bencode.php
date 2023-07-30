@@ -252,6 +252,23 @@ class Bencode
         return $result;
     }
 
+    public static function get_name($t): ?string
+    {
+        $name = null;
+
+        if (
+            \array_key_exists('info', $t)
+            && \is_array($t['info'])
+            && \array_key_exists('name', $t['info'])
+            && \is_string($t['info']['name'])
+            && \array_key_exists('files', $t['info'])
+        ) {
+            $name = $t['info']['name'];
+        }
+
+        return $name;
+    }
+
     public static function is_v2_or_hybrid($t): bool
     {
         return isset($t['piece layers']);

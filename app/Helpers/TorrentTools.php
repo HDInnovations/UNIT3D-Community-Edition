@@ -34,7 +34,6 @@ class TorrentTools
 
         // Whitelisted keys
         $result = array_intersect_key($result, [
-            'announce'   => '',
             'comment'    => '',
             'created by' => '',
             'encoding'   => '',
@@ -46,8 +45,6 @@ class TorrentTools
             'name'         => '',
             'piece length' => '',
             'pieces'       => '',
-            'private'      => '',
-            'source'       => '',
         ]);
 
         // The PID will be set if an user downloads the torrent, but for
@@ -63,7 +60,7 @@ class TorrentTools
             $result['created by'] = config('torrent.created_by', '');
         }
 
-        $comment = config('torrent.comment', null);
+        $comment = config('torrent.comment');
 
         if ($comment !== null) {
             $result['comment'] = $comment;

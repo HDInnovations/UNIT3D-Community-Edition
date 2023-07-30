@@ -58,7 +58,7 @@ class AutoRemovePersonalFreeleech extends Command
             // Delete The Record From DB
             $pfl->delete();
 
-            cache()->forget('personal_freeleech:'.$pfl->user_id);
+            cache()->put('personal_freeleech:'.$pfl->user_id, false);
             Unit3dAnnounce::removePersonalFreeleech($pfl->user_id);
         }
 

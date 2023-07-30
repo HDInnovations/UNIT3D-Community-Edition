@@ -1,11 +1,11 @@
-name: PHPUnit Test
+name: UNIT3D Test (PHPUnit)
 on: [push, pull_request]
 jobs:
-  test:
+  tests:
     strategy:
       matrix:
         operating-system:
-          - ubuntu-20.04
+          - ubuntu-22.04
         php-version:
           - '8.2'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}

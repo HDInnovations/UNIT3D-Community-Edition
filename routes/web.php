@@ -155,6 +155,7 @@ Route::middleware('language')->group(function (): void {
 
             Route::prefix('{torrentRequest}/bounties')->name('bounties.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+                Route::patch('/{torrentRequestBounty}', [App\Http\Controllers\BountyController::class, 'update'])->name('update');
             });
 
             Route::prefix('{torrentRequest}/claims')->name('claims.')->group(function (): void {
@@ -188,7 +189,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download');
             Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
-            Route::patch('/similar/{category}.{tmdbId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update')->middleware('modo');
+            Route::patch('/similar/{category}.{tmdbId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update');
         });
 
         Route::prefix('torrent')->group(function (): void {
@@ -346,6 +347,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
             Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
             Route::get('/{topicId}/posts/{postId}', [App\Http\Controllers\TopicController::class, 'permalink'])->name('permalink');
+            Route::get('/{id}/latest', [App\Http\Controllers\TopicController::class, 'latestPermalink'])->name('latestPermalink');
             Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
             Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');
@@ -449,8 +451,8 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('invites')->name('invites.')->group(function (): void {
             Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
             Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
-            Route::post('/{invite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
-            Route::delete('/{invite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy');
+            Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
+            Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
 
@@ -801,6 +803,13 @@ Route::middleware('language')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
                 Route::get('/{group}/edit', [App\Http\Controllers\Staff\GroupController::class, 'edit'])->name('edit');
                 Route::patch('/{group}', [App\Http\Controllers\Staff\GroupController::class, 'update'])->name('update');
+            });
+        });
+
+        // Gifts Log
+        Route::prefix('gifts')->group(function (): void {
+            Route::name('gifts.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
             });
         });
 
