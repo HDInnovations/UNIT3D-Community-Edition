@@ -36,7 +36,7 @@ class NoteController extends Controller
     {
         $note->delete();
 
-        return to_route('Staff.note.index')
+        return to_route('staff.notes.index')
             ->withSuccess('Note Has Successfully Been Deleted');
     }
 }
