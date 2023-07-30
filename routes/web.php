@@ -173,6 +173,7 @@ Route::middleware('language')->group(function (): void {
 
             Route::prefix('{torrentRequest}/bounties')->name('bounties.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+                Route::patch('/{torrentRequestBounty}', [App\Http\Controllers\BountyController::class, 'update'])->name('update');
             });
 
             Route::prefix('{torrentRequest}/claims')->name('claims.')->group(function (): void {
