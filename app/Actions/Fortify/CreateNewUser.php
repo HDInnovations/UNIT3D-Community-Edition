@@ -8,10 +8,13 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
+use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
@@ -26,8 +29,10 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      *
      * @param array<string, string> $input
+     * @throws ValidationException
+     * @throws Exception
      */
-    public function create(array $input): User
+    public function create(array $input): RedirectResponse | User
     {
         Validator::make($input, [
             'username' => 'required|alpha_dash|string|between:3,25|unique:users',
