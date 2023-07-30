@@ -70,7 +70,10 @@ return [
     'veteran'               => 'Experienced With Private Trackers',
     'welcome'               => 'Welcome Back!',
     'welcome-restore'       => 'Welcome Back! Your Account Is No Longer Disabled!',
-
+    'totp' => [
+            'title' => 'Enter 2FA Code',
+            'input' => '2FA Code'
+    ],
     /*
     |--------------------------------------------------------------------------
     | Two Step Authentication Language Lines

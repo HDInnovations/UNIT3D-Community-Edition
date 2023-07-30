@@ -1,102 +1,114 @@
-@extends('layout.default')
+<!DOCTYPE html>
+<html lang="{{ config('app.locale') }}">
 
-@section('title')
-    <title>{{ __('auth.title') }} - {{ config('other.title') }}</title>
-@endsection
+<head>
+    <meta charset="UTF-8">
+    <title>{{ __('auth.login') }} - {{ config('other.title') }}</title>
+    @section('meta')
+        <meta name="description"
+              content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:title" content="{{ __('auth.login') }}">
+        <meta property="og:site_name" content="{{ config('other.title') }}">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="{{ url('/img/og.png') }}">
+        <meta property="og:description" content="{{ config('unit3d.powered-by') }}">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:locale" content="{{ config('app.locale') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    @show
+    <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
+</head>
 
-@section('meta')
-    <meta name="description" content="{{ __('auth.title') }} - {{ config('other.title') }}">
-@endsection
+<body>
+<!-- Dont Not Change! For Jackett Support -->
+<div class="Jackett" style="display:none;">{{ config('unit3d.powered-by') }}</div>
+<!-- Dont Not Change! For Jackett Support -->
 
-@section('stylesheets')
-    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" crossorigin="anonymous">
-@endsection
+@if ($errors->any())
+    <div id="ERROR_COPY" style="display: none;">
+        @foreach ($errors->all() as $error)
+            {{ $error }}<br>
+        @endforeach
+    </div>
+@endif
+<div class="wrapper fadeInDown">
+    <svg viewBox="0 0 800 100" class="sitebanner">
+        <symbol id="s-text">
+            <text text-anchor="middle" x="50%" y="50%" dy=".35em">
+                {{ config('other.title') }}
+            </text>
+        </symbol>
+        <use xlink:href="#s-text" class="text"></use>
+        <use xlink:href="#s-text" class="text"></use>
+        <use xlink:href="#s-text" class="text"></use>
+        <use xlink:href="#s-text" class="text"></use>
+        <use xlink:href="#s-text" class="text"></use>
+    </svg>
 
-@section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('auth.title') }}
-    </li>
-@endsection
+    <div id="formContent">
+        <div>
+            <h2 class="active">{{ __('auth.totp.title') }} </h2>
+        </div>
 
-@php
-    switch ($remainingAttempts) {
-        case 0:
-        case 1:
-            $remainingAttemptsClass = 'danger';
-            break;
+        <div class="fadeIn first">
+            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ __('auth.user-icon') }}"/>
+        </div>
 
-        case 2:
-            $remainingAttemptsClass = 'warning';
-            break;
-
-        case 3:
-            $remainingAttemptsClass = 'info';
-            break;
-
-        default:
-            $remainingAttemptsClass = 'success';
-            break;
-    }
-@endphp
-
-@section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel verification-form-panel">
-                    <div class="panel__heading text-center" id="verification_status_title">
-                        <h3>
-                            {{ __('auth.title') }}
-                        </h3>
-                        <p class="text-center">
-                            <em>
-                                {{ __('auth.subtitle') }}
-                            </em>
-                        </p>
-                    </div>
-                    <div class="panel__body">
-                        <form
-                            class="form"
-                            action="{{ route('two-factor.login') }}"
-                            method="POST"
-                        >
-                            @csrf
-                            <p class="form__group">
-                                <input
-                                    id="code"
-                                    class="form__text"
-                                    autofocus
-                                    name="code"
-                                    type="text"
-                                />
-                                <label class="form__label form__label--floating">
-                                    {{ __('auth.code') }}
-                                </label>
-                                @error('error')
-                                    <span class="form__hint">{{ $error }}</span>
-                                @enderror
-                            </p>
-                            <p class="form__group">
-                                <input
-                                    id="code"
-                                    class="form__text"
-                                    autofocus
-                                    name="receover_code"
-                                    type="text"
-                                />
-                                <label class="form__label form__label--floating">
-                                    {{ __('auth.recovery-code') }}
-                                </label>
-                            </p>
-                            <p class="form__group">
-                                <button class="form__button form__button--filled">
-                                    {{ __('common.submit') }}
-                                </button>
-                            </p>
-                        </form>
-                    </div>
+        <form role="form" method="POST" action="{{ route('two-factor.login') }}">
+            @csrf
+            <div>
+                <label for="username" class="col-md-4 control-label">{{ __('auth.totp.input') }}</label>
+                <div class="col-md-6">
+                    <input id="code" type="text" class="form-control" name="code"
+                           required autofocus>
                 </div>
             </div>
+            <button type="submit" class="fadeIn fourth" id="login-button">{{ __('auth.login') }}</button>
+        </form>
+
+        <div id="formFooter">
+            <a href="{{ route('password.request') }}">
+                <h2 class="inactive underlineHover">{{ __('auth.lost-password') }} </h2>
+            </a>
         </div>
     </div>
-@endsection
+</div>
+
+<script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
+@foreach (['warning', 'success', 'info'] as $key)
+    @if (Session::has($key))
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            })
+
+            Toast.fire({
+                icon: '{{ $key }}',
+                title: '{{ Session::get($key) }}'
+            })
+
+        </script>
+    @endif
+@endforeach
+
+@if (Session::has('errors'))
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        Swal.fire({
+            title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
+            icon: 'error',
+            html: document.getElementById('ERROR_COPY').innerHTML,
+            showCloseButton: true,
+        })
+
+    </script>
+@endif
+
+</body>
+
+</html>
