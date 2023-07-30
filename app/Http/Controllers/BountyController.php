@@ -14,8 +14,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTorrentRequestBountyRequest;
+use App\Http\Requests\UpdateTorrentRequestBountyRequest;
 use App\Models\BonTransactions;
 use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
 use App\Notifications\NewRequestBounty;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
@@ -90,5 +92,14 @@ class BountyController extends Controller
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->withSuccess(trans('request.added-bonus'));
+    }
+
+    public function update(UpdateTorrentRequestBountyRequest $request, TorrentRequest $torrentRequest, TorrentRequestBounty $torrentRequestBounty): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless($request->user()->group->is_modo || $request->user()->id === $torrentRequestBounty->user_id, 403);
+
+        $torrentRequestBounty->update($request->validated());
+
+        return back();
     }
 }
