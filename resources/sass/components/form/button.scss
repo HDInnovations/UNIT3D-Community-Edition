@@ -12,7 +12,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5ch;
-
+    user-select: none;
     &:hover {
         filter: brightness(1.1);
     }

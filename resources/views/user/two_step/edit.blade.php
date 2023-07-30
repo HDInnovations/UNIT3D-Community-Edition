@@ -25,25 +25,57 @@
 @endsection
 
 @section('main')
-    @if (session('status') == 'two-factor-authentication-confirmed' || auth()->user()->hasEnabledTwoFactorAuthentication())
+    @if (session('status') == 'two-factor-authentication-confirmed' || request()->user()->hasEnabledTwoFactorAuthentication())
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.two-step-auth.totp') }}</h2>
             <div class="panel__body">
                 <p>{{ __('user.two-step-auth.totp-is-enabled') }}</p>
-                <form
-                    class="form"
-                    action="{{ route('two-factor.disable') }}"
-                    method="POST"
-                >
-                    @csrf
-                    @method('DELETE')
-                    <p>{{ __('user.two-step-auth.password-confirm') }}</p>
-                    <p class="form__group">
-                        <button class="form__button form__button--filled">
-                            {{ __('common.disable') }}
-                        </button>
+                <div>
+                    <div>
+                        <form
+                                class="form"
+                                action="{{ route('two-factor.disable') }}"
+                                method="POST"
+                        >
+                            @csrf
+                            @method('DELETE')
+                            <p>{{ __('user.two-step-auth.password-confirm') }}</p>
+                            <p class="form__group">
+                                <button class="form__button form__button--filled">
+                                    {{ __('common.disable') }}
+                                </button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="panelV2" x-data="{show: false}">
+            <h2 class="panel__heading">{{ __('user.two-step-auth.recovery-code') }}</h2>
+            <div class="panel__body">
+                <p>{{ __('user.two-step-auth.recovery-code-description') }}</p>
+                <div>
+                    <div>
+                        <form method="POST" action="{{route('two-factor.recovery-codes')}}" class="form__group">
+                            @csrf
+                            <button type="submit" class="form__button form__button--filled">
+                                {{ __('user.two-step-auth.recovery-code-reset') }}
+                            </button>
+                            <div class="form__button form__button--filled" @click="show = !show">
+                                {{ __('user.two-step-auth.recovery-code-reveal') }}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="twoStep__recoveryCodes" x-cloak x-show="show" >
+                    <p>Recovery Codes:</p>
+                    <p style="font-family: monospace;">
+                    @foreach(auth()->user()->recoveryCodes() as $code)
+                            {{ $code }}<br/>
+                    @endforeach
                     </p>
-                </form>
+                </div>
             </div>
         </section>
     @elseif (session('status') == 'two-factor-authentication-enabled')
