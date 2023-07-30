@@ -344,6 +344,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.gifts.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-file"></i>
+                        {{ __('staff.gifts-log') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.invites.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
                         {{ __('staff.invites-log') }}

@@ -823,6 +823,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Gifts Log
+        Route::prefix('gifts')->group(function (): void {
+            Route::name('gifts.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
+            });
+        });
+
         // Invites Log
         Route::prefix('invites')->group(function (): void {
             Route::name('invites.')->group(function (): void {
