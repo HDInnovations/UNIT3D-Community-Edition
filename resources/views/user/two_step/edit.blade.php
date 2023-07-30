@@ -25,7 +25,7 @@
 @endsection
 
 @section('main')
-    @if (session('status') == 'two-factor-authentication-confirmed')
+    @if (session('status') == 'two-factor-authentication-confirmed' || auth()->user()->hasEnabledTwoFactorAuthentication())
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.two-step-auth.totp') }}</h2>
             <div class="panel__body">
