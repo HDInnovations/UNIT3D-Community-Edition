@@ -177,6 +177,27 @@
                     </li>
                 </menu>
                 <div class="dialog__form" x-show="tab === 'hierarchy'">
+                    @if ($torrent->folder !== null)
+                        <span style="display: grid; grid-template-areas: 'icon folder count . size'; grid-template-columns: 24px auto auto 1fr auto; align-items: center; padding-bottom: 8px;">
+                            <i
+                                class="{{ config('other.font-awesome') }} fa-folder"
+                                style="grid-area: icon; padding-right: 4px"
+                            ></i>
+                            <span style="padding-right: 4px; word-break: break-all">
+                                {{ $torrent->folder  }}
+                            </span>
+                            <span style="grid-area: count; padding-right: 4px;">
+                                ({{ $torrent->files()->count() }})
+                            </span>
+                            <span
+                                class="text-info"
+                                style="grid-area: size; white-space: nowrap; text-align: right;"
+                                title="{{ $torrent->size }}&nbsp;B"
+                            >
+                                {{ App\Helpers\StringHelper::formatBytes($torrent->size, 2) }}
+                            </span>
+                        </span>
+                    @endif
                     @foreach ($files = $torrent->files->sortBy('name')->values()->sortBy(fn ($f) => dirname($f->name)."/~~~", SORT_NATURAL)->values() as $file)
                         @php $prevNodes = explode("/", $files[$loop->index - 1]->name ?? " ") @endphp
                         @foreach ($nodes = explode("/", $file->name) as $node)
