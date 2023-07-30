@@ -103,7 +103,7 @@ class Comment extends Component
 
     final public function deleteComment(): void
     {
-        if (auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) {
+        if ((auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) && $this->comment->children()->doesntExist()) {
             $this->comment->delete();
             $this->emitUp('refresh');
         } else {
