@@ -2,11 +2,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('auth.exceededTitle') }} - {{ config('other.title') }}</title>
+    <title>{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('auth.exceededTitle') }} - {{ config('other.title') }}">
+    <meta name="description" content="{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}">
 @endsection
 
 @section('stylesheets')
@@ -15,13 +15,13 @@
 
 @section('breadcrumbs')
     <li class="breadcrumb--active">
-        {{ __('auth.exceededTitle') }}
+        {{ __('auth.password-confirm.breadcrumb') }}
     </li>
 @endsection
 
 @section('content')
 <section class="panelV2">
-    <h2 class="panel__heading">Password Confirmation</h2>
+    <h2 class="panel__heading">{{ __('auth.password-confirm.title') }}</h2>
     <div class="panel__body">
         <form
             class="form"
@@ -29,22 +29,23 @@
             method="POST"
         >
             @csrf
-            <p>Please confirm your password before continuing.</p>
+            <p>{{ __('auth.password-confirm.description') }}</p>
             <p class="form__group">
                 <input
                     type="password"
                     class="form__text"
                     id="password"
                     name="password"
+                    required
                 >
-                <label class="form__label" for="password">Password</label>
+                <label class="form__label form__label--floating" for="password">{{ __('auth.password-confirm.input') }}</label>
                 @error('error')
                     <span class="form__hint">{{ $error }}</span>
                 @enderror
             </p>
             <p class="form__group">
                 <button class="form__button form__button--filled">
-                    {{ __('common.confirm') }}
+                    {{ __('auth.password-confirm.button') }}
                 </button>
             </p>
         </form>

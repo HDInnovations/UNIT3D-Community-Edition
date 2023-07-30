@@ -46,6 +46,13 @@ return [
     'not-a-member'          => 'Not yet a member ? Signup in less than 30s.',
     'not-activated'         => 'This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.',
     'password'              => 'Password',
+    'password-confirm'      => [
+        'title'=>'Password Confirmation Required',
+        'breadcrumb'=> 'Password Confirmation',
+        'description' => 'Please confirm your password before continuing.',
+        'input' => 'Password',
+        'button' => 'Confirm'
+    ],
     'proof-image'           => 'Proof Image URL',
     'proof-image-title'     => 'Links to profile screenshots',
     'proof-profile'         => 'Profile Link URL',
