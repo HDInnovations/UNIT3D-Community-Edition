@@ -8,7 +8,6 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\Group;
 use App\Models\User;
-use App\Models\UserActivation;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -93,9 +92,9 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
                 $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
-                
+
                 $user = $request->user();
-                
+
                 if ($user->id && $user->group->id != $bannedGroup[0]) {
                     $user->active = 1;
                     $user->can_upload = 1;
@@ -111,6 +110,7 @@ class FortifyServiceProvider extends ServiceProvider
                     return to_route('login')
                         ->withSuccess(trans('auth.activation-success'));
                 }
+
                 return to_route('login')
                     ->withErrors(trans('auth.activation-error'));
             }
