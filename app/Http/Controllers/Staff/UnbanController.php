@@ -41,7 +41,6 @@ class UnbanController extends Controller
             'can_download' => 1,
             'can_invite'   => 1,
             'can_request'  => 1,
-            'can_chat'     => 1,
         ]);
 
         Ban::create([

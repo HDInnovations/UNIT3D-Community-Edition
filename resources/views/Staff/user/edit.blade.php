@@ -211,6 +211,7 @@
                 x-data="{
                     override_can_upload: @json($user->can_upload !== null),
                     override_can_comment: @json($user->can_comment !== null),
+                    override_can_chat: @json($user->can_chat !== null),
                 }"
             >
                 @csrf
@@ -313,15 +314,33 @@
                 <p class="form__group">
                     <input type="hidden" name="can_chat" value="0" />
                     <input
-                        type="checkbox"
+                        id="override_can_chat"
                         class="form__checkbox"
-                        id="can_chat"
-                        name="can_chat"
-                        value="1"
-                        @checked($user->can_chat)
+                        type="checkbox"
+                        x-bind:checked="override_can_chat"
+                        x-model="override_can_chat"
                     />
-                    <label for="can_chat">{{ __('user.can-chat') }}?</label>
+                    <label for="override_can_chat">Override Group Can Chat</label>
                 </p>
+                <div class="form__group" x-show="override_can_chat" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_chat"
+                            x-bind:value="override_can_chat ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_chat"
+                            name="can_chat"
+                            value="1"
+                            x-bind:checked="override_can_chat && $el.checked"
+                            @checked($user->can_chat)
+                        />
+                        <label for="can_chat">{{ __('user.can-comment') }}?</label>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}

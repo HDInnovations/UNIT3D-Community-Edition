@@ -71,7 +71,6 @@ class AutoBanDisposableUsers extends Command
                     $user->can_download = 0;
                     $user->can_invite = 0;
                     $user->can_request = 0;
-                    $user->can_chat = 0;
                     $user->save();
 
                     // Log The Ban To Ban Log

@@ -94,7 +94,7 @@ class UserController extends Controller
             'can_comment'  => $request->filled('can_comment') ? $request->boolean('can_comment') : null,
             'can_invite'   => $request->boolean('can_invite'),
             'can_request'  => $request->boolean('can_request'),
-            'can_chat'     => $request->boolean('can_chat'),
+            'can_chat'     => $request->filled('can_chat') ? $request->boolean('can_chat') : null,
         ]);
 
         cache()->forget('user:'.$user->passkey);
@@ -116,7 +116,6 @@ class UserController extends Controller
             'can_download' => false,
             'can_invite'   => false,
             'can_request'  => false,
-            'can_chat'     => false,
             'group_id'     => UserGroup::PRUNED->value,
             'deleted_by'   => auth()->id(),
         ]);

@@ -72,7 +72,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                     'can_download' => false,
                     'can_invite'   => false,
                     'can_request'  => false,
-                    'can_chat'     => false,
                     'group_id'     => UserGroup::PRUNED->value,
                     'deleted_by'   => User::SYSTEM_USER_ID,
                 ]);

@@ -140,7 +140,7 @@ class ChatController extends Controller
         $targeted = $request->input('targeted');
         $save = $request->get('save');
 
-        if ($user->can_chat === false) {
+        if (! ($user->can_chat ?? $user->group->can_chat)) {
             return response('error', 401);
         }
 

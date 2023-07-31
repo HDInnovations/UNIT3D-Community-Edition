@@ -55,7 +55,6 @@ class BanController extends Controller
             'can_download' => 0,
             'can_invite'   => 0,
             'can_request'  => 0,
-            'can_chat'     => 0,
         ]);
 
         $ban = Ban::create(['created_by' => $staff->id] + $request->validated());

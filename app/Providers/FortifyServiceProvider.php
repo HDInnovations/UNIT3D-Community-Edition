@@ -48,7 +48,6 @@ class FortifyServiceProvider extends ServiceProvider
                     $user->can_download = 1;
                     $user->can_invite = 1;
                     $user->can_request = 1;
-                    $user->can_chat = 1;
                     $user->disabled_at = null;
                     $user->save();
 

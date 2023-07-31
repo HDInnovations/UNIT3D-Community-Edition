@@ -9,15 +9,18 @@ return new class () extends Migration {
     {
         Schema::table('users', function (Blueprint $table): void {
             $table->boolean('can_upload')->nullable()->change();
+            $table->boolean('can_chat')->nullable()->change();
             $table->boolean('can_comment')->nullable()->change();
         });
 
         Schema::table('groups', function (Blueprint $table): void {
-            $table->boolean('can_comment')->after('is_refundable');
+            $table->boolean('can_chat')->after('is_refundable');
+            $table->boolean('can_comment')->after('can_chat');
         });
 
         DB::table('users')->update([
             'can_upload'  => null,
+            'can_chat'    => null,
             'can_comment' => null,
         ]);
 
@@ -33,6 +36,7 @@ return new class () extends Migration {
             ])
             ->update([
                 'can_comment' => true,
+                'can_chat'    => true,
             ]);
     }
 };

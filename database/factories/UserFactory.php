@@ -66,7 +66,7 @@ class UserFactory extends Factory
             'standalone_css'      => $this->faker->word(),
             'ratings'             => $this->faker->boolean(),
             'read_rules'          => $this->faker->boolean(),
-            'can_chat'            => $this->faker->boolean(),
+            'can_chat'            => $this->faker->optional()->boolean(),
             'can_comment'         => $this->faker->optional()->boolean(),
             'can_download'        => $this->faker->boolean(),
             'can_request'         => $this->faker->boolean(),

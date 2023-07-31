@@ -927,7 +927,7 @@
                     </dd>
                     <dt>{{ __('user.can-chat') }}</dt>
                     <dd>
-                        @if ($user->can_chat == 1)
+                        @if ($user->can_chat ?? $user->group->can_chat)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

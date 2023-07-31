@@ -43,6 +43,7 @@ class Group extends Model
      */
     protected $casts = [
         'can_upload'  => 'boolean',
+        'can_chat'    => 'boolean',
         'can_comment' => 'boolean',
     ];
 

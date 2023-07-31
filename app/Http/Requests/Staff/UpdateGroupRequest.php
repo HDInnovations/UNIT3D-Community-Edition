@@ -95,6 +95,10 @@ class UpdateGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'can_chat' => [
+                'required',
+                'boolean',
+            ],
             'can_comment' => [
                 'required',
                 'boolean',
