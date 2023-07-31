@@ -208,21 +208,41 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.users.update_permissions', ['user' => $user]) }}"
+                x-data="{
+                    override_can_upload: @json($user->can_upload !== null),
+                }"
             >
                 @csrf
                 @method('PATCH')
                 <p class="form__group">
-                    <input type="hidden" name="can_upload" value="0" />
                     <input
-                        type="checkbox"
+                        id="override_can_upload"
                         class="form__checkbox"
-                        id="can_upload"
-                        name="can_upload"
-                        value="1"
-                        @checked($user->can_upload)
+                        type="checkbox"
+                        x-bind:checked="override_can_upload"
+                        x-model="override_can_upload"
                     />
-                    <label for="can_upload">{{ __('user.can-upload') }}?</label>
+                    <label for="override_can_upload">Override Group Can Upload</label>
                 </p>
+                <div class="form__group" x-show="override_can_upload" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_upload"
+                            x-bind:value="override_can_upload ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_upload"
+                            name="can_upload"
+                            value="1"
+                            x-bind:checked="override_can_upload && $el.checked"
+                            @checked($user->can_upload)
+                        />
+                        <label for="can_upload">{{ __('user.can-upload') }}?</label>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input type="hidden" name="can_download" value="0" />
                     <input

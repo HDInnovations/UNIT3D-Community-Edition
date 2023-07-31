@@ -71,7 +71,7 @@ class UserFactory extends Factory
             'can_download'        => $this->faker->boolean(),
             'can_request'         => $this->faker->boolean(),
             'can_invite'          => $this->faker->boolean(),
-            'can_upload'          => $this->faker->boolean(),
+            'can_upload'          => $this->faker->optional()->boolean(),
             'show_poster'         => $this->faker->boolean(),
             'peer_hidden'         => $this->faker->boolean(),
             'private_profile'     => $this->faker->boolean(),

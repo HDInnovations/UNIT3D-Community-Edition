@@ -354,11 +354,13 @@ class TorrentController extends Controller
      */
     public function store(StoreTorrentRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         abort_if(\is_array($request->file('torrent')), 400);
 
         abort_if(\is_array($request->file('nfo')), 400);
+
+        $user = $request->user();
+
+        abort_unless($user->can_upload ?? $user->group->can_upload, 403);
 
         $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
 

@@ -895,7 +895,7 @@
                     </dd>
                     <dt>{{ __('user.can-upload') }}</dt>
                     <dd>
-                        @if ($user->can_upload == 1)
+                        @if ($user->can_upload ?? $user->group->can_upload)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

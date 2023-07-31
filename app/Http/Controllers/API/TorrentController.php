@@ -97,7 +97,7 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
 
-        abort_unless($user->can_upload, 403);
+        abort_unless($user->can_upload ?? $user->group->can_upload, 403);
 
         $requestFile = $request->file('torrent');
 

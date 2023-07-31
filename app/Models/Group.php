@@ -37,6 +37,15 @@ class Group extends Model
     public $timestamps = false;
 
     /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'can_upload' => 'boolean',
+    ];
+
+    /**
      * Has Many Users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>

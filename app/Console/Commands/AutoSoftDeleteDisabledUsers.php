@@ -69,7 +69,6 @@ class AutoSoftDeleteDisabledUsers extends Command
 
             foreach ($users as $user) {
                 $user->update([
-                    'can_upload'   => false,
                     'can_download' => false,
                     'can_comment'  => false,
                     'can_invite'   => false,
