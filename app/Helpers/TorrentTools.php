@@ -47,10 +47,6 @@ class TorrentTools
             'pieces'       => '',
         ]);
 
-        // The PID will be set if an user downloads the torrent, but for
-        // security purposes it's better to overwrite the user-provided
-        // announce URL.
-        $result['announce'] = config('app.url').'/announce/PID';
         $result['info']['source'] = config('torrent.source');
         $result['info']['private'] = 1;
 
