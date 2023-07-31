@@ -21,38 +21,40 @@
 </head>
 <body>
 <div class="wrapper fadeInDown">
-    <svg viewBox="0 0 800 100" class="sitebanner">
-        <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="50%" dy=".35em">
-                {{ config('other.title') }}
-            </text>
-        </symbol>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-    </svg>
     <div id="formContent">
-        <a href="{{ route('login') }}">
-            <h2 class="inactive underlineHover">{{ __('auth.login') }} </h2>
-        </a>
-        <a href="{{ route('register', ['code' => request()->query('code')]) }}">
-            <h2 class="active">{{ __('auth.signup') }} </h2>
-        </a>
         <div class="fadeIn first">
-            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ __('auth.user-icon') }}"/>
+            <svg viewBox="0 0 400 140" class="sitebanner" style="width: 100%">
+                <symbol id="s-text">
+                    <text text-anchor="middle" x="50%" y="28%" dy=".6em">
+                        {{ config('other.title') }}
+                    </text>
+                </symbol>
+                <symbol id="s-text-sm">
+                    <text text-anchor="middle" x="50%" y="50%" dy="1.6em">
+                        {{ __('auth.verify-email') }}
+                    </text>
+                </symbol>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+            </svg>
         </div>
         <p>
             Almost done...
             <br>
             We'll send you an email shortly. Open it up to activate your account.
         </p>
-        <div id="formFooter">
-            <a href="{{ route('verification.send') }}">
-                <h2 class="active">Resend confirmation email</h2>
-            </a>
-        </div>
+        <form  method="post" action="{{ route('verification.send') }}">
+            @csrf
+            <button type="submit" class="fadeIn fourth">{{ __('auth.verify-email-button') }}</button>
+        </form>
     </div>
 </div>
 </body>

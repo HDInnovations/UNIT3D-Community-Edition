@@ -93,27 +93,24 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
                 $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
+                
+                $user = $request->user();
+                
+                if ($user->id && $user->group->id != $bannedGroup[0]) {
+                    $user->active = 1;
+                    $user->can_upload = 1;
+                    $user->can_download = 1;
+                    $user->can_request = 1;
+                    $user->can_comment = 1;
+                    $user->can_invite = 1;
+                    $user->group_id = $memberGroup[0];
+                    $user->save();
 
-                $activation = UserActivation::with('user')->where('token', '=', $request->token)->firstOrFail();
-
-                if ($activation->user->id && $activation->user->group->id != $bannedGroup[0]) {
-                    $activation->user->active = 1;
-                    $activation->user->can_upload = 1;
-                    $activation->user->can_download = 1;
-                    $activation->user->can_request = 1;
-                    $activation->user->can_comment = 1;
-                    $activation->user->can_invite = 1;
-                    $activation->user->group_id = $memberGroup[0];
-                    $activation->user->save();
-
-                    $activation->delete();
-
-                    Unit3dAnnounce::addUser($activation->user);
+                    Unit3dAnnounce::addUser($user);
 
                     return to_route('login')
                         ->withSuccess(trans('auth.activation-success'));
                 }
-
                 return to_route('login')
                     ->withErrors(trans('auth.activation-error'));
             }

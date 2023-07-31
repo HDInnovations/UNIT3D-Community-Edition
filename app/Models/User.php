@@ -18,7 +18,7 @@ use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
-use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,11 +26,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use voku\helper\AntiXSS;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Achiever;
     use HasFactory;
-    use MustVerifyEmail;
     use Notifiable;
     use SoftDeletes;
     use TwoFactorAuthenticatable;

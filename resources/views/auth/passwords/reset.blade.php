@@ -31,63 +31,57 @@
     </div>
 @endif
 <div class="wrapper fadeInDown">
-    <svg viewBox="0 0 800 100" class="sitebanner">
-        <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="50%" dy=".35em">
-                {{ config('other.title') }}
-            </text>
-        </symbol>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-    </svg>
-
     <div id="formContent">
-        <a href="{{ route('login') }}">
-            <h2 class="inactive underlineHover">{{ __('auth.login') }} </h2>
-        </a>
-        <a href="{{ route('register') }}">
-            <h2 class="inactive underlineHover">{{ __('auth.signup') }} </h2>
-        </a>
-
         <div class="fadeIn first">
-            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ __('auth.user-icon') }}"/>
+            <svg viewBox="0 0 400 140" class="sitebanner" style="width: 100%">
+                <symbol id="s-text">
+                    <text text-anchor="middle" x="50%" y="28%" dy=".6em">
+                        {{ config('other.title') }}
+                    </text>
+                </symbol>
+                <symbol id="s-text-sm">
+                    <text text-anchor="middle" x="50%" y="50%" dy="1.6em">
+                        {{ __('auth.reset-password') }}
+                    </text>
+                </symbol>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text" class="text"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+                <use xlink:href="#s-text-sm" class="text-sm"></use>
+            </svg>
         </div>
-
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('password.request') }}">
+        <form class="form-horizontal" role="form" method="POST" action="{{ route('password.update') }}">
             @csrf
             <input type="hidden" name="token" value="{{ request()->route('token') }}">
-            <div class="row">
-                <div class="form-group">
-                    <label for="email"></label><input type="email" id="email" class="fadeIn third" name="email"
-                                                      placeholder="{{ __('common.email') }}" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="password"></label><input type="password" id="password" name="password"
-                                                         class="form-control" placeholder="{{ __('common.password') }}"
-                                                         required>
-                </div>
-                <div class="form-group">
-                    <label for="password-confirm"></label><input type="password" id="password-confirm"
-                                                                 name="password_confirmation" class="form-control"
-                                                                 placeholder="{{ __('common.password') }} confirmation"
-                                                                 required>
-                </div>
-                <div class="col s6">
-                    <button type="submit" class="form__button form__button--filled">
-                        {{ __('common.submit') }}
-                    </button>
+            <div>
+                <label for="email" class="col-md-4 control-label">{{ __('auth.email') }}</label>
+                <div class="col-md-6">
+                    <input id="email" type="text" class="form-control" name="email"
+                           value="{{ old('email') }}" required autofocus>
                 </div>
             </div>
-        </form>
 
-        <div id="formFooter">
-            <a href="{{ route('password.request') }}">
-                <h2 class="active">{{ __('auth.lost-password') }} </h2>
-            </a>
-        </div>
+            <div>
+                <label for="password" class="col-md-4 control-label">{{ __('auth.password') }}</label>
+                <div class="col-md-6">
+                    <input id="password" type="password" class="form-control" name="password" required>
+                </div>
+            </div>
+
+            <div>
+                <label for="password" class="col-md-4 control-label">{{ __('auth.password-confirmation') }}</label>
+                <div class="col-md-6">
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
+                </div>
+            </div>
+            <button type="submit" class="fadeIn fourth">{{ __('common.submit') }}</button>
+        </form>
     </div>
 </div>
 
