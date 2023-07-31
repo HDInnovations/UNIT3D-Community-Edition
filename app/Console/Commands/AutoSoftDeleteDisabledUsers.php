@@ -70,7 +70,6 @@ class AutoSoftDeleteDisabledUsers extends Command
             foreach ($users as $user) {
                 $user->update([
                     'can_download' => false,
-                    'can_invite'   => false,
                     'group_id'     => UserGroup::PRUNED->value,
                     'deleted_by'   => User::SYSTEM_USER_ID,
                 ]);

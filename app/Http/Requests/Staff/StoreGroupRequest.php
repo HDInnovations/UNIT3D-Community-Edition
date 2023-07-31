@@ -108,6 +108,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'can_invite' => [
+                'required',
+                'boolean',
+            ],
             'can_upload' => [
                 'required',
                 'boolean',

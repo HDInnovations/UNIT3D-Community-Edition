@@ -12,12 +12,14 @@ return new class () extends Migration {
             $table->boolean('can_chat')->nullable()->change();
             $table->boolean('can_comment')->nullable()->change();
             $table->boolean('can_request')->nullable()->change();
+            $table->boolean('can_invite')->nullable()->change();
         });
 
         Schema::table('groups', function (Blueprint $table): void {
             $table->boolean('can_chat')->after('is_refundable');
             $table->boolean('can_comment')->after('can_chat');
             $table->boolean('can_request')->after('can_comment');
+            $table->boolean('can_invite')->after('can_request');
         });
 
         DB::table('users')->update([
@@ -25,6 +27,7 @@ return new class () extends Migration {
             'can_chat'    => null,
             'can_comment' => null,
             'can_request' => null,
+            'can_invite'  => null,
         ]);
 
         DB::table('groups')
@@ -41,6 +44,7 @@ return new class () extends Migration {
                 'can_comment' => true,
                 'can_chat'    => true,
                 'can_request' => true,
+                'can_invite'  => true,
             ]);
     }
 };

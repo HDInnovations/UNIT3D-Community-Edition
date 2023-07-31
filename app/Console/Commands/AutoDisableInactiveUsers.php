@@ -62,7 +62,6 @@ class AutoDisableInactiveUsers extends Command
                 if ($user->seedingTorrents()->doesntExist()) {
                     $user->group_id = $disabledGroup[0];
                     $user->can_download = false;
-                    $user->can_invite = false;
                     $user->disabled_at = Carbon::now();
                     $user->save();
 

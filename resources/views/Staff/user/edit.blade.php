@@ -213,6 +213,7 @@
                     override_can_comment: @json($user->can_comment !== null),
                     override_can_chat: @json($user->can_chat !== null),
                     override_can_request: @json($user->can_request !== null),
+                    override_can_invite: @json($user->can_invite !== null),
                 }"
             >
                 @csrf
@@ -289,17 +290,34 @@
                     </fieldset>
                 </div>
                 <p class="form__group">
-                    <input type="hidden" name="can_invite" value="0" />
                     <input
-                        type="checkbox"
+                        id="override_can_invite"
                         class="form__checkbox"
-                        id="can_invite"
-                        name="can_invite"
-                        value="1"
-                        @checked($user->can_invite)
+                        type="checkbox"
+                        x-bind:checked="override_can_invite"
+                        x-model="override_can_invite"
                     />
-                    <label for="can_invite">{{ __('user.can-invite') }}?</label>
+                    <label for="override_can_invite">Override Group Can Invite</label>
                 </p>
+                <div class="form__group" x-show="override_can_invite" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_invite"
+                            x-bind:value="override_can_invite ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_invite"
+                            name="can_invite"
+                            value="1"
+                            x-bind:checked="override_can_invite && $el.checked"
+                            @checked($user->can_invite)
+                        />
+                        <label for="can_invite">{{ __('user.can-invite') }}?</label>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input
                         id="override_can_request"

@@ -51,6 +51,7 @@
                         <th>Chat</th>
                         <th>Comment</th>
                         <th>Request</th>
+                        <th>Invite</th>
                         <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
@@ -223,6 +224,17 @@
                             </td>
                             <td>
                                 @if ($group->can_request)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->can_invite)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

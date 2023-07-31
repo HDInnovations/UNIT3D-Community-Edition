@@ -227,6 +227,17 @@
                     <label class="form__label" for="can_request">Request</label>
                 </p>
                 <p class="form__group">
+                    <input name="can_invite" type="hidden" value="0" />
+                    <input
+                        id="can_invite"
+                        class="form__checkbox"
+                        name="can_invite"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_invite">Invite</label>
+                </p>
+                <p class="form__group">
                     <input name="can_upload" type="hidden" value="0" />
                     <input
                         id="can_upload"

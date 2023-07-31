@@ -46,7 +46,6 @@ class FortifyServiceProvider extends ServiceProvider
                 if ($user->group_id == $disabledGroup[0]) {
                     $user->group_id = $memberGroup[0];
                     $user->can_download = 1;
-                    $user->can_invite = 1;
                     $user->disabled_at = null;
                     $user->save();
 
@@ -97,7 +96,6 @@ class FortifyServiceProvider extends ServiceProvider
                 if ($user->id && $user->group->id != $bannedGroup[0]) {
                     $user->active = 1;
                     $user->can_download = 1;
-                    $user->can_invite = 1;
                     $user->group_id = $memberGroup[0];
                     $user->save();
 

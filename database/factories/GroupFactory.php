@@ -50,6 +50,7 @@ class GroupFactory extends Factory
             'can_chat'         => $this->faker->boolean(),
             'can_comment'      => $this->faker->boolean(),
             'can_request'      => $this->faker->boolean(),
+            'can_invite'       => $this->faker->boolean(),
             'can_upload'       => $this->faker->boolean(),
             'is_incognito'     => $this->faker->boolean(),
             'autogroup'        => $this->faker->boolean(),

@@ -70,7 +70,7 @@ class UserFactory extends Factory
             'can_comment'         => $this->faker->optional()->boolean(),
             'can_download'        => $this->faker->boolean(),
             'can_request'         => $this->faker->optional()->boolean(),
-            'can_invite'          => $this->faker->boolean(),
+            'can_invite'          => $this->faker->optional()->boolean(),
             'can_upload'          => $this->faker->optional()->boolean(),
             'show_poster'         => $this->faker->boolean(),
             'peer_hidden'         => $this->faker->boolean(),

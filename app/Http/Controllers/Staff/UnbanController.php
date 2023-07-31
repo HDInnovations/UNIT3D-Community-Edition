@@ -39,7 +39,6 @@ class UnbanController extends Controller
         $user->update([
             'group_id'     => $request->group_id,
             'can_download' => 1,
-            'can_invite'   => 1,
         ]);
 
         Ban::create([
