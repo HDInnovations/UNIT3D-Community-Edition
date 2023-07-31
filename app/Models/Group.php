@@ -45,6 +45,7 @@ class Group extends Model
         'can_upload'  => 'boolean',
         'can_chat'    => 'boolean',
         'can_comment' => 'boolean',
+        'can_request' => 'boolean',
     ];
 
     /**

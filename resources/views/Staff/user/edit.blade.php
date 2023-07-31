@@ -212,6 +212,7 @@
                     override_can_upload: @json($user->can_upload !== null),
                     override_can_comment: @json($user->can_comment !== null),
                     override_can_chat: @json($user->can_chat !== null),
+                    override_can_request: @json($user->can_request !== null),
                 }"
             >
                 @csrf
@@ -300,17 +301,34 @@
                     <label for="can_invite">{{ __('user.can-invite') }}?</label>
                 </p>
                 <p class="form__group">
-                    <input type="hidden" name="can_request" value="0" />
                     <input
-                        type="checkbox"
+                        id="override_can_request"
                         class="form__checkbox"
-                        id="can_request"
-                        name="can_request"
-                        value="1"
-                        @checked($user->can_request)
+                        type="checkbox"
+                        x-bind:checked="override_can_request"
+                        x-model="override_can_request"
                     />
-                    <label for="can_request">{{ __('user.can-request') }}?</label>
+                    <label for="override_can_request">Override Group Can Request</label>
                 </p>
+                <div class="form__group" x-show="override_can_request" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_request"
+                            x-bind:value="override_can_request ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_request"
+                            name="can_request"
+                            value="1"
+                            x-bind:checked="override_can_request && $el.checked"
+                            @checked($user->can_request)
+                        />
+                        <label for="can_request">{{ __('user.can-request') }}?</label>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input type="hidden" name="can_chat" value="0" />
                     <input

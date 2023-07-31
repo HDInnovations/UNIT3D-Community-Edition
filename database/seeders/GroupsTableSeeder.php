@@ -39,6 +39,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 0,
                 'can_chat'     => 0,
                 'can_comment'  => 0,
+                'can_request'  => 0,
                 'level'        => 0,
             ],
             [
@@ -59,6 +60,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 0,
                 'can_chat'     => 0,
                 'can_comment'  => 0,
+                'can_request'  => 0,
                 'level'        => 10,
             ],
             [
@@ -79,6 +81,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 30,
             ],
             [
@@ -99,6 +102,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 5000,
             ],
             [
@@ -119,6 +123,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 0,
                 'can_chat'     => 0,
                 'can_comment'  => 0,
+                'can_request'  => 0,
                 'level'        => 0,
             ],
             [
@@ -139,6 +144,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 2500,
             ],
             [
@@ -159,6 +165,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 250,
             ],
             [
@@ -179,6 +186,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 1000,
             ],
             [
@@ -199,6 +207,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 0,
             ],
             [
@@ -219,6 +228,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 9999,
             ],
             [
@@ -239,6 +249,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 40,
             ],
             [
@@ -259,6 +270,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 50,
             ],
             [
@@ -279,6 +291,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 60,
             ],
             [
@@ -299,6 +312,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 70,
             ],
             [
@@ -319,6 +333,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 20,
             ],
             [
@@ -339,6 +354,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 100,
             ],
             [
@@ -359,6 +375,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 80,
             ],
             [
@@ -379,6 +396,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 90,
             ],
             [
@@ -399,6 +417,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 1,
                 'can_chat'     => 1,
                 'can_comment'  => 1,
+                'can_request'  => 1,
                 'level'        => 500,
             ],
             [
@@ -419,6 +438,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 0,
                 'can_chat'     => 0,
                 'can_comment'  => 0,
+                'can_request'  => 0,
                 'level'        => 0,
             ],
             [
@@ -439,6 +459,7 @@ class GroupsTableSeeder extends Seeder
                 'can_upload'   => 0,
                 'can_chat'     => 0,
                 'can_comment'  => 0,
+                'can_request'  => 0,
                 'level'        => 0,
             ],
         ], ['slug']);

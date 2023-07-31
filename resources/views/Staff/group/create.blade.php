@@ -216,6 +216,17 @@
                     <label class="form__label" for="can_comment">Comment</label>
                 </p>
                 <p class="form__group">
+                    <input name="can_request" type="hidden" value="0" />
+                    <input
+                        id="can_request"
+                        class="form__checkbox"
+                        name="can_request"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_request">Request</label>
+                </p>
+                <p class="form__group">
                     <input name="can_upload" type="hidden" value="0" />
                     <input
                         id="can_upload"

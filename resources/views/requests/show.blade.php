@@ -18,7 +18,7 @@
 @section('page', 'page__request--show')
 
 @section('main')
-    @if ($user->can_request)
+    @if ($user->can_request ?? $user->group->can_request)
         @switch(true)
             @case($torrentRequest->category->movie_meta)
                 @include('torrent.partials.movie_meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'tmdb' => $torrentRequest->tmdb])

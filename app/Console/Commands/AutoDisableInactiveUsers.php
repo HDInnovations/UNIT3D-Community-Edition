@@ -63,7 +63,6 @@ class AutoDisableInactiveUsers extends Command
                     $user->group_id = $disabledGroup[0];
                     $user->can_download = false;
                     $user->can_invite = false;
-                    $user->can_request = false;
                     $user->disabled_at = Carbon::now();
                     $user->save();
 

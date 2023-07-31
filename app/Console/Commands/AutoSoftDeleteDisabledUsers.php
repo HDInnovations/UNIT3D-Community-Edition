@@ -71,7 +71,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->update([
                     'can_download' => false,
                     'can_invite'   => false,
-                    'can_request'  => false,
                     'group_id'     => UserGroup::PRUNED->value,
                     'deleted_by'   => User::SYSTEM_USER_ID,
                 ]);

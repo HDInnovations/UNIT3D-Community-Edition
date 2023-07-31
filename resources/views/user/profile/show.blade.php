@@ -919,7 +919,7 @@
                     </dd>
                     <dt>{{ __('user.can-request') }}</dt>
                     <dd>
-                        @if ($user->can_request == 1)
+                        @if ($user->can_request ?? $user->group->can_request)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

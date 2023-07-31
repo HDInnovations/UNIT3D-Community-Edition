@@ -70,7 +70,6 @@ class AutoBanDisposableUsers extends Command
                     $user->group_id = $bannedGroup[0];
                     $user->can_download = 0;
                     $user->can_invite = 0;
-                    $user->can_request = 0;
                     $user->save();
 
                     // Log The Ban To Ban Log

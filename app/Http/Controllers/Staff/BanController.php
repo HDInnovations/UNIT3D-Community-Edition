@@ -54,7 +54,6 @@ class BanController extends Controller
             'group_id'     => $bannedGroup[0],
             'can_download' => 0,
             'can_invite'   => 0,
-            'can_request'  => 0,
         ]);
 
         $ban = Ban::create(['created_by' => $staff->id] + $request->validated());
