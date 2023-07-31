@@ -62,7 +62,6 @@ class AutoDisableInactiveUsers extends Command
                 if ($user->seedingTorrents()->doesntExist()) {
                     $user->group_id = $disabledGroup[0];
                     $user->can_download = false;
-                    $user->can_comment = false;
                     $user->can_invite = false;
                     $user->can_request = false;
                     $user->can_chat = false;

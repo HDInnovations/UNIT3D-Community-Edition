@@ -89,7 +89,7 @@ class Comments extends Component
         // Set Polymorhic Model Name
         $modelName = str()->snake(class_basename($this->model), ' ');
 
-        if ($modelName !== 'ticket' && $this->user->can_comment === false) {
+        if ($modelName !== 'ticket' && !($this->user->can_comment ?? $this->user->group->can_comment)) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;

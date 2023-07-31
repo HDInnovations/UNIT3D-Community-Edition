@@ -911,7 +911,7 @@
                     </dd>
                     <dt>{{ __('user.can-comment') }}</dt>
                     <dd>
-                        @if ($user->can_comment == 1)
+                        @if ($user->can_comment ?? $user->group->can_comment)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

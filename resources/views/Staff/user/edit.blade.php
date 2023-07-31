@@ -210,6 +210,7 @@
                 action="{{ route('staff.users.update_permissions', ['user' => $user]) }}"
                 x-data="{
                     override_can_upload: @json($user->can_upload !== null),
+                    override_can_comment: @json($user->can_comment !== null),
                 }"
             >
                 @csrf
@@ -258,15 +259,33 @@
                 <p class="form__group">
                     <input type="hidden" name="can_comment" value="0" />
                     <input
-                        type="checkbox"
+                        id="override_can_comment"
                         class="form__checkbox"
-                        id="can_comment"
-                        name="can_comment"
-                        value="1"
-                        @checked($user->can_comment)
+                        type="checkbox"
+                        x-bind:checked="override_can_comment"
+                        x-model="override_can_comment"
                     />
-                    <label for="can_comment">{{ __('user.can-comment') }}?</label>
+                    <label for="override_can_comment">Override Group Can Comment</label>
                 </p>
+                <div class="form__group" x-show="override_can_comment" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_comment"
+                            x-bind:value="override_can_comment ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_comment"
+                            name="can_comment"
+                            value="1"
+                            x-bind:checked="override_can_comment && $el.checked"
+                            @checked($user->can_comment)
+                        />
+                        <label for="can_comment">{{ __('user.can-comment') }}?</label>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input type="hidden" name="can_invite" value="0" />
                     <input

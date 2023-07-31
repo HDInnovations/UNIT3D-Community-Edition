@@ -76,7 +76,6 @@ class MassActionController extends Controller
                 'active'            => 1,
                 'can_download'      => 1,
                 'can_request'       => 1,
-                'can_comment'       => 1,
                 'can_invite'        => 1,
                 'email_verified_at' => now(),
             ]);

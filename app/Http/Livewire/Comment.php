@@ -116,7 +116,7 @@ class Comment extends Component
         // Set Polymorphic Model Name
         $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
-        if ($modelName !== 'ticket' && auth()->user()->can_comment === false) {
+        if ($modelName !== 'ticket' && !(auth()->user()->can_comment ?? auth()->user()->group->can_comment)) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;

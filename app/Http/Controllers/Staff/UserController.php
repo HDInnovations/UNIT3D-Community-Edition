@@ -91,7 +91,7 @@ class UserController extends Controller
         $user->update([
             'can_upload'   => $request->filled('can_upload') ? $request->boolean('can_upload') : null,
             'can_download' => $request->boolean('can_download'),
-            'can_comment'  => $request->boolean('can_comment'),
+            'can_comment'  => $request->filled('can_comment') ? $request->boolean('can_comment') : null,
             'can_invite'   => $request->boolean('can_invite'),
             'can_request'  => $request->boolean('can_request'),
             'can_chat'     => $request->boolean('can_chat'),
@@ -114,7 +114,6 @@ class UserController extends Controller
 
         $user->update([
             'can_download' => false,
-            'can_comment'  => false,
             'can_invite'   => false,
             'can_request'  => false,
             'can_chat'     => false,
