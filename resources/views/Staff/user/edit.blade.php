@@ -211,6 +211,7 @@
                 x-data="{
                     override_can_upload: @json($user->can_upload !== null),
                     override_can_comment: @json($user->can_comment !== null),
+                    override_can_download: @json($user->can_download !== null),
                     override_can_chat: @json($user->can_chat !== null),
                     override_can_request: @json($user->can_request !== null),
                     override_can_invite: @json($user->can_invite !== null),
@@ -248,18 +249,6 @@
                     </fieldset>
                 </div>
                 <p class="form__group">
-                    <input type="hidden" name="can_download" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_download"
-                        name="can_download"
-                        value="1"
-                        @checked($user->can_download)
-                    />
-                    <label for="can_download">{{ __('user.can-download') }}?</label>
-                </p>
-                <p class="form__group">
                     <input type="hidden" name="can_comment" value="0" />
                     <input
                         id="override_can_comment"
@@ -287,6 +276,35 @@
                             @checked($user->can_comment)
                         />
                         <label for="can_comment">{{ __('user.can-comment') }}?</label>
+                    </fieldset>
+                </div>
+                <p class="form__group">
+                    <input
+                        id="override_can_download"
+                        class="form__checkbox"
+                        type="checkbox"
+                        x-bind:checked="override_can_download"
+                        x-model="override_can_download"
+                    />
+                    <label for="override_can_download">Override Group Can Download</label>
+                </p>
+                <div class="form__group" x-show="override_can_download" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_download"
+                            x-bind:value="override_can_download ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_download"
+                            name="can_download"
+                            value="1"
+                            x-bind:checked="override_can_download && $el.checked"
+                            @checked($user->can_download)
+                        />
+                        <label for="can_download">{{ __('user.can-download') }}?</label>
                     </fieldset>
                 </div>
                 <p class="form__group">

@@ -68,7 +68,6 @@ class AutoBanDisposableUsers extends Command
                 if ($v->fails()) {
                     // If User Is Using A Disposable Email Set The Users Group To Banned
                     $user->group_id = $bannedGroup[0];
-                    $user->can_download = 0;
                     $user->save();
 
                     // Log The Ban To Ban Log

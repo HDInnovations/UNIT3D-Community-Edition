@@ -903,7 +903,7 @@
                     </dd>
                     <dt>{{ __('user.can-download') }}</dt>
                     <dd>
-                        @if ($user->can_download == 1 && ! $user->has_reached_warning_limit)
+                        @if (($user->can_download ?? $user->group->can_download) && ! $user->has_reached_warning_limit)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

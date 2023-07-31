@@ -104,6 +104,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'can_download' => [
+                'required',
+                'boolean',
+            ],
             'can_request' => [
                 'required',
                 'boolean',

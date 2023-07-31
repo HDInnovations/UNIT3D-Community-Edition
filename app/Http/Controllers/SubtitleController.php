@@ -178,7 +178,7 @@ class SubtitleController extends Controller
         $user = $request->user();
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && $subtitle->user_id != $user->id) {
+        if (!($user->can_download ?? $user->group->can_download) && $subtitle->user_id != $user->id) {
             return to_route('torrents.show', ['id' => $subtitle->torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }

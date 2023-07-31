@@ -74,7 +74,6 @@ class MassActionController extends Controller
             $user->update([
                 'group_id'          => $memberGroup[0],
                 'active'            => 1,
-                'can_download'      => 1,
                 'email_verified_at' => now(),
             ]);
 

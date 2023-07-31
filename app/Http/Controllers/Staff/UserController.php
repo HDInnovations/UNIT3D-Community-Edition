@@ -90,7 +90,7 @@ class UserController extends Controller
     {
         $user->update([
             'can_upload'   => $request->filled('can_upload') ? $request->boolean('can_upload') : null,
-            'can_download' => $request->boolean('can_download'),
+            'can_download' => $request->filled('can_download') ? $request->boolean('can_download') : null,
             'can_comment'  => $request->filled('can_comment') ? $request->boolean('can_comment') : null,
             'can_invite'   => $request->filled('can_invite') ? $request->boolean('can_invite') : null,
             'can_request'  => $request->filled('can_request') ? $request->boolean('can_request') : null,
@@ -113,9 +113,8 @@ class UserController extends Controller
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
-            'can_download' => false,
-            'group_id'     => UserGroup::PRUNED->value,
-            'deleted_by'   => auth()->id(),
+            'group_id'   => UserGroup::PRUNED->value,
+            'deleted_by' => auth()->id(),
         ]);
 
         Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([

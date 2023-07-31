@@ -42,11 +42,12 @@ class Group extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'can_upload'  => 'boolean',
-        'can_chat'    => 'boolean',
-        'can_comment' => 'boolean',
-        'can_request' => 'boolean',
-        'can_invite'  => 'boolean',
+        'can_upload'   => 'boolean',
+        'can_chat'     => 'boolean',
+        'can_comment'  => 'boolean',
+        'can_download' => 'boolean',
+        'can_request'  => 'boolean',
+        'can_invite'   => 'boolean',
     ];
 
     /**

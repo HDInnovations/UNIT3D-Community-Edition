@@ -62,6 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'last_login'   => 'datetime',
         'last_action'  => 'datetime',
         'hidden'       => 'boolean',
+        'can_chat'     => 'boolean',
         'can_comment'  => 'boolean',
         'can_download' => 'boolean',
         'can_request'  => 'boolean',

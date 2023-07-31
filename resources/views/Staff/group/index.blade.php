@@ -50,6 +50,7 @@
                         <th>Incognito</th>
                         <th>Chat</th>
                         <th>Comment</th>
+                        <th>Download</th>
                         <th>Request</th>
                         <th>Invite</th>
                         <th>Upload</th>
@@ -213,6 +214,17 @@
                             </td>
                             <td>
                                 @if ($group->can_comment)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->can_download)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

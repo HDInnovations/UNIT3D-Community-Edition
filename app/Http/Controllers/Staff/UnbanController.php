@@ -37,8 +37,7 @@ class UnbanController extends Controller
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
-            'group_id'     => $request->group_id,
-            'can_download' => 1,
+            'group_id' => $request->group_id,
         ]);
 
         Ban::create([

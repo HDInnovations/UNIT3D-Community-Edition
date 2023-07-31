@@ -334,6 +334,8 @@ final class AnnounceController extends Controller
             ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
             ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
             ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
+            ->selectRaw("min(case when slug = 'pruned' then id end) as pruned_id")
+            ->selectRaw("min(case when slug = 'leech' then id end) as leech_id")
             ->first());
 
         // Get The Users Group
@@ -354,6 +356,16 @@ final class AnnounceController extends Controller
         // If User Is Disabled Return Error to Client
         if ($user->group_id === $deniedGroups->disabled_id) {
             throw new TrackerException(141, [':status' => 'Disabled']);
+        }
+
+        // If User Is Pruned Return Error to Client
+        if ($user->group_id === $deniedGroups->pruned_id) {
+            throw new TrackerException(141, [':status' => 'Pruned']);
+        }
+
+        // If User Is Leech Return Error to Client
+        if ($user->group_id === $deniedGroups->leech_id) {
+            throw new TrackerException(141, [':status' => 'Leech']);
         }
 
         return $group;

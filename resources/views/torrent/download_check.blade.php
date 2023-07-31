@@ -59,7 +59,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.download-check') }}</h2>
         <div class="panel__body">
-            @if ($user->ratio < config('other.ratio') || $user->can_download == 0 || $user->has_reached_warning_limit)
+            @if ($user->ratio < config('other.ratio') || ! ($user->can_download ?? $user->group->can_download) || $user->has_reached_warning_limit)
                 <h4>{{ __('torrent.no-privileges') }}</h4>
             @else
                 <h4>{{ __('torrent.ready') }}</h4>
@@ -85,7 +85,7 @@
             </dd>
             <dt>{{ __('torrent.download-rights-active') }}</dt>
             <dd>
-                @if (($user->can_download == 0 || $user->has_reached_warning_limit) && $torrent->user_id != $user->id)
+                @if ((! ($user->can_download ?? $user->group->can_download) || $user->has_reached_warning_limit) && $torrent->user_id != $user->id)
                     <span class="text-red">
                         <i class="{{ config('other.font-awesome') }} fa-times"></i>
                         {{ strtoupper(__('torrent.failed')) }}
@@ -119,7 +119,7 @@
         </dl>
         <div class="panel__body">
             @if ($user->ratio < config('other.ratio') ||
-                (($user->can_download == 0 || $user->has_reached_warning_limit) &&
+                ((! ($user->can_download ?? $user->group->can_download) || $user->has_reached_warning_limit) &&
                     $torrent->user_id != $user->id))
                 <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
             @else
