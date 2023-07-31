@@ -22,7 +22,7 @@ class AnnounceControllerTest extends TestCase
         $user = User::factory()->create([
             'can_download' => true,
         ]);
-
+        $user->markEmailAsVerified();
         $info_hash = '16679042096019090177'; // 20 bytes
         $peer_id = '19045931013802080695'; // 20 bytes
 

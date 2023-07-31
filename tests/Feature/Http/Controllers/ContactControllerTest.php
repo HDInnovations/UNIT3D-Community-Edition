@@ -19,7 +19,7 @@ class ContactControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $response = $this->actingAs($user)->get(route('contact.index'));
 
         $response->assertOk()
@@ -33,7 +33,7 @@ class ContactControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $response = $this->actingAs($user)->post(route('contact.store'), [
             'email'        => 'foo@bar.com',
             'contact-name' => 'Foo Bar',

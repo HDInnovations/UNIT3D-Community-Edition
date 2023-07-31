@@ -20,7 +20,7 @@ class ArticleControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $response = $this->actingAs($user)->get(route('articles.index'));
 
         $response->assertOk();
@@ -37,7 +37,7 @@ class ArticleControllerTest extends TestCase
 
         $article = Article::factory()->create();
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $response = $this->actingAs($user)->get(route('articles.show', ['article' => $article]));
 
         $response->assertOk();

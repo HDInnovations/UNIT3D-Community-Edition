@@ -19,7 +19,7 @@ class FollowControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $userToFollow = User::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('users.followers.destroy', ['user' => $userToFollow]));
@@ -40,7 +40,7 @@ class FollowControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $userToFollow = User::factory()->create();
 
         $response = $this->actingAs($user)->post(route('users.followers.store', ['user' => $userToFollow]));

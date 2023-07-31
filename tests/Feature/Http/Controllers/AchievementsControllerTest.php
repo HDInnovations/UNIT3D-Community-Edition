@@ -19,7 +19,7 @@ class AchievementsControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $response = $this->actingAs($user)->get(route('users.achievements.index', ['user' => $user]));
 
         $response->assertOk()

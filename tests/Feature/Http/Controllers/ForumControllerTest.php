@@ -24,7 +24,7 @@ class ForumControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $this->actingAs($user)->get(route('forums.index'))
             ->assertOk()
             ->assertViewIs('forum.index')
@@ -41,7 +41,7 @@ class ForumControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $this->actingAs($user)->get(route('posts.index'))
             ->assertOk()
             ->assertViewIs('forum.post.index')
@@ -55,7 +55,7 @@ class ForumControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $this->actingAs($user)->get(route('topics.index'))
             ->assertOk()
             ->assertViewIs('forum.topic.index')
@@ -69,7 +69,7 @@ class ForumControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         // This Forum does not have a parent, which makes it a proper Forum
         // (and not a "Forum Category").
 
@@ -95,7 +95,7 @@ class ForumControllerTest extends TestCase
         $this->seed(GroupsTableSeeder::class);
 
         $user = User::factory()->create();
-
+        $user->markEmailAsVerified();
         $this->actingAs($user)->get(route('subscriptions.index'))
             ->assertOk()
             ->assertViewIs('forum.subscriptions')

@@ -30,6 +30,7 @@ class HomeControllerTest extends TestCase
     public function whenAuthenticatedHomepageReturns200(): void
     {
         $user = User::factory()->create();
+        $user->markEmailAsVerified();
 
         $this->actingAs($user)
             ->get(route('home.index'))
@@ -61,7 +62,7 @@ class HomeControllerTest extends TestCase
         $user = User::factory()->create([
             'twostep' => true,
         ]);
-
+        $user->markEmailAsVerified();
         $this->actingAs($user)
             ->get(route('home.index'))
             ->assertRedirect(route('verificationNeeded'));
