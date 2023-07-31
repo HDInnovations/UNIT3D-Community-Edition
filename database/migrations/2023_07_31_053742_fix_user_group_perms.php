@@ -13,6 +13,7 @@ return new class () extends Migration {
             $table->boolean('can_comment')->nullable()->change();
             $table->boolean('can_request')->nullable()->change();
             $table->boolean('can_invite')->nullable()->change();
+            $table->boolean('has_reached_warning_limit')->after('can_upload');
         });
 
         Schema::table('groups', function (Blueprint $table): void {
@@ -21,6 +22,10 @@ return new class () extends Migration {
             $table->boolean('can_request')->after('can_comment');
             $table->boolean('can_invite')->after('can_request');
         });
+
+        DB::table('users')->update([
+            'has_reached_warning_limit' => DB::raw('can_download'),
+        ]);
 
         DB::table('users')->update([
             'can_upload'  => null,

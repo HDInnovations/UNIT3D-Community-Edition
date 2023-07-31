@@ -73,8 +73,8 @@ class AutoDeactivateWarning extends Command
             ->get();
 
         foreach ($warnings as $warning) {
-            if ($warning->warneduser->can_download === false) {
-                $warning->warneduser->can_download = 1;
+            if ($warning->warneduser->has_reached_warning_limit) {
+                $warning->warneduser->has_reached_warning_limit = false;
                 $warning->warneduser->save();
 
                 cache()->forget('user:'.$warning->warneduser->passkey);

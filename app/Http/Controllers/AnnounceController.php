@@ -305,7 +305,7 @@ final class AnnounceController extends Controller
     {
         // Check Passkey Against Users Table
         $user = cache()->remember('user:'.$passkey, 8 * 3600, fn () => User::query()
-            ->select(['id', 'group_id', 'can_download'])
+            ->select(['id', 'group_id', 'can_download', 'has_reached_warning_limit'])
             ->where('passkey', '=', $passkey)
             ->first());
 
@@ -315,7 +315,7 @@ final class AnnounceController extends Controller
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === false && $queries['left'] !== 0) {
+        if (($user->can_download === false || $user->has_reached_warning_limit) && $queries['left'] !== 0) {
             throw new TrackerException(142);
         }
 

@@ -5,7 +5,8 @@ use App\Models\User;
 
 test('index returns an ok response', function (): void {
     $user = User::factory()->create([
-        'can_download' => true,
+        'can_download'              => true,
+        'has_reached_warning_limit' => false,
     ]);
 
     $info_hash = '16679042096019090177'; // 20 bytes

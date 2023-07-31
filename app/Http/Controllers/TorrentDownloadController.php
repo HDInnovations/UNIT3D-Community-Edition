@@ -53,7 +53,7 @@ class TorrentDownloadController extends Controller
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && !($torrent->user_id === $user->id || $hasHistory)) {
+        if (($user->can_download == 0 || $user->has_reached_warning_limit) && !($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
