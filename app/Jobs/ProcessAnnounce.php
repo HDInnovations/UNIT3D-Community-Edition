@@ -60,7 +60,7 @@ class ProcessAnnounce implements ShouldQueue
         // Set Variables
         $realUploaded = $this->queries['uploaded'];
         $realDownloaded = $this->queries['downloaded'];
-        $event = strtolower($this->queries['event']);
+        $event = $this->queries['event'];
         $peerId = base64_decode($this->queries['peer_id']);
         $ipAddress = base64_decode($this->queries['ip-address']);
 
@@ -233,8 +233,8 @@ class ProcessAnnounce implements ShouldQueue
             ->where('peer_id', '!=', $peerId)
             ->count();
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && strtolower($this->queries['event']) !== 'stopped');
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && strtolower($this->queries['event']) !== 'stopped');
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && $this->queries['event'] !== 'stopped');
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && $this->queries['event'] !== 'stopped');
 
         $this->torrent->save();
     }
