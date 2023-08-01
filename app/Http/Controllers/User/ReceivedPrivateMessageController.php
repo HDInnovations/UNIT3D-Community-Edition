@@ -42,7 +42,8 @@ class ReceivedPrivateMessageController extends Controller
                     fn ($query) => $query->where('subject', 'like', '%'.$request->string('subject').'%')
                 )
                 ->latest()
-                ->paginate(20),
+                ->paginate(20)
+                ->withQueryString(),
             'subject' => $request->subject ?? '',
         ]);
     }

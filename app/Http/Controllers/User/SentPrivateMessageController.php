@@ -42,7 +42,8 @@ class SentPrivateMessageController extends Controller
                     fn ($query) => $query->where('subject', 'like', '%'.$request->string('subject').'%')
                 )
                 ->latest()
-                ->paginate(25),
+                ->paginate(25)
+                ->withQueryString(),
             'subject' => $request->subject ?? '',
         ]);
     }
