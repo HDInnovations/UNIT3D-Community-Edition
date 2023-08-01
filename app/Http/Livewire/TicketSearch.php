@@ -14,16 +14,20 @@
 namespace App\Http\Livewire;
 
 use App\Models\Ticket;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $tickets
+ */
 class TicketSearch extends Component
 {
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
-    public bool $show = false;
+    public string $tab = 'open';
 
     public int $perPage = 25;
 
@@ -35,7 +39,7 @@ class TicketSearch extends Component
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'show'   => ['except' => false],
+        'tab'    => ['except' => 'open'],
     ];
 
     final public function mount(): void
@@ -53,35 +57,21 @@ class TicketSearch extends Component
         $this->resetPage();
     }
 
-    final public function updatingShow(): void
+    final public function updatingTab(): void
     {
         $this->resetPage();
     }
 
-    final public function toggleProperties($property): void
-    {
-        if ($property === 'show') {
-            $this->show = ! $this->show;
-        }
-    }
-
     final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        if ($this->user->group->is_modo) {
-            return Ticket::query()
-                ->with(['user.group', 'staff.group', 'category', 'priority'])
-                ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
-                ->when($this->show, fn ($query) => $query->whereNotNull('closed_at'))
-                ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage);
-        }
-
         return Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])
-            ->where('user_id', '=', $this->user->id)
-            ->when($this->show === false, fn ($query) => $query->whereNull('closed_at'))
-            ->when($this->show, fn ($query) => $query->whereNotNull('closed_at'))
+            ->when(! $this->user->group->is_modo, fn ($query) => $query->where('user_id', '=', $this->user->id))
+            ->when(
+                $this->tab === 'open',
+                fn ($query) => $query->whereNull('closed_at'),
+                fn ($query) => $query->whereNotNull('closed_at')
+            )
             ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

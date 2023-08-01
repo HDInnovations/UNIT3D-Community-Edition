@@ -961,21 +961,6 @@ parameters:
 			path: app/Http/Livewire/ThankButton.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:\\$tickets\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$group\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$personalFreeleech\\.$#"
 			count: 1
 			path: app/Http/Livewire/Top10.php
