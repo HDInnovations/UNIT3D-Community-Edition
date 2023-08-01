@@ -403,15 +403,41 @@ class HomeController extends Controller
                 }
             ),
             'topics' => cache()->remember(
-                'latest_topics',
+                'latest_topics:by-group:'.auth()->user()->group_id,
                 $expiresAt,
-                fn () => Topic::with('forum', 'user', 'latestPoster')->latest()->take(5)->get()
+                fn () => Topic::query()
+                    ->with('user', 'user.group', 'latestPoster')
+                    ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                    ->latest()
+                    ->take(5)
+                    ->get()
             ),
             'posts' => cache()->remember(
-                'latest_posts',
+                'latest_posts:by-group:'.auth()->user()->group_id,
                 $expiresAt,
-                fn () => Post::with('topic', 'user')
+                fn () => Post::query()
+                    ->with('user', 'user.group', 'topic:id,name')
                     ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                    ->withSum('tips', 'cost')
+                    ->withExists([
+                        'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                        'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                    ])
+                    ->whereNotIn(
+                        'topic_id',
+                        Topic::query()
+                            ->whereRelation(
+                                'forumPermissions',
+                                fn ($query) => $query
+                                    ->where('group_id', '=', auth()->user()->group_id)
+                                    ->where(
+                                        fn ($query) => $query
+                                            ->where('show_forum', '!=', 1)
+                                            ->orWhere('read_topic', '!=', 1)
+                                    )
+                            )
+                            ->select('id')
+                    )
                     ->latest()
                     ->take(5)
                     ->get()
