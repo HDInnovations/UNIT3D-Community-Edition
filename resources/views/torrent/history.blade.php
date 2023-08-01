@@ -24,6 +24,19 @@
     </li>
 @endsection
 
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('peers', ['id' => $torrent]) }}">
+            {{ __('torrent.peers') }}
+        </a>
+    </li>
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('history', ['id' => $torrent]) }}">
+            {{ __('torrent.history') }}
+        </a>
+    </li>
+@endsection
+
 @section('content')
     <section class="panelV2">
         <header class="panel__header">
