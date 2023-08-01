@@ -431,6 +431,7 @@ class HomeController extends Controller
             'poll'      => cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first()),
             'uploaders' => cache()->remember('top_uploaders', $expiresAt, fn () => Torrent::with(['user', 'user.group'])
                 ->select(DB::raw('user_id, count(*) as value'))
+                ->where('anon', '=', false)
                 ->groupBy('user_id')
                 ->latest('value')
                 ->take(10)
@@ -438,6 +439,7 @@ class HomeController extends Controller
             'past_uploaders' => cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with(['user', 'user.group'])
                 ->where('created_at', '>', now()->subDays(30)->toDateTimeString())
                 ->select(DB::raw('user_id, count(*) as value'))
+                ->where('anon', '=', false)
                 ->groupBy('user_id')
                 ->latest('value')
                 ->take(10)
