@@ -24,6 +24,9 @@ class PostSearch extends Component
 
     public String $search = '';
 
+    protected $queryString = [
+        'search' => ['except' => ''],
+    ];
     final public function updatedPage(): void
     {
         $this->dispatch('paginationChanged');

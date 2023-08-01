@@ -21,7 +21,7 @@
                     Add a comment...
                 </label>
                 @error('newCommentState.content')
-                    <span class="form__hint" id="new-comment__textarea-hint">{{ $message }}</p>
+                    <span class="form__hint" id="new-comment__textarea-hint">{{ $message }}</span>
                 @enderror
             </p>
             <p class="form__group">
@@ -37,7 +37,7 @@
                 </button>
             </p>
         </form>
-        <ol class="topic-posts">
+        <ol class="comment-list">
             @forelse($comments as $comment)
                 <livewire:comment :comment="$comment" :key="$comment->id"/>
             @empty

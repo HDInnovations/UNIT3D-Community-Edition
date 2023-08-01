@@ -43,7 +43,7 @@
                 @foreach($tips as $tip)
                     <tr>
                         <td>
-                            <x-user_tag :user="$tip->receiver" :anon="false" />
+                            <x-user_tag :user="$tip->sender" :anon="false" />
                         </td>
                         <td>
                             @switch(true)

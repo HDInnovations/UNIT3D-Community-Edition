@@ -40,8 +40,8 @@ class AutoDeleteStoppedPeers extends Command
      */
     public function handle(): void
     {
-        Peer::where('active', '=', 0)->delete();
+        Peer::where('active', '=', 0)->where('updated_at', '>', now()->subHours(2))->delete();
 
-        $this->comment('Automated upsert histories command complete');
+        $this->comment('Automated delete stopped peers command complete');
     }
 }

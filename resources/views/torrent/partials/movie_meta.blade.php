@@ -44,7 +44,7 @@
                     Request similar
                 </a>
             </li>
-            @if ($meta?->id && auth()->user()->group->is_modo)
+            @if ($meta?->id)
                 <li>
                     <form
                         action="{{ route('torrents.similar.update', ['category' => $category, 'tmdbId' => $meta->id]) }}"
@@ -52,7 +52,15 @@
                     >
                         @csrf
                         @method('PATCH')
-                        <button>Update Metadata</button>
+
+                        <button
+                            @if (cache()->has('tmdb-tv-scraper:'.$meta->id) && ! auth()->user()->group->is_modo)
+                                disabled
+                                title="This item was recently updated. Try again tomorrow."
+                            @endif
+                        >
+                            Update Metadata
+                        </button>
                     </form>
                 </li>
             @endif

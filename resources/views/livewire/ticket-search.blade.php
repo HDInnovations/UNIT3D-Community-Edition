@@ -1,20 +1,7 @@
-<section class="panelV2">
+<section class="panelV2" x-data="{ tab: @entangle('tab') }">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('ticket.helpdesk') }}</h2>
         <div class="panel__actions">
-            <div class="panel__action">
-                <div class="form__group">
-                    <input
-                        id="show"
-                        class="form__checkbox"
-                        type="checkbox"
-                        wire:click="toggleProperties('show')"
-                    >
-                    <label class="form__label" for="show">
-                        Show Closed Tickets
-                    </label>
-                </div>
-            </div>
             <div class="panel__action">
                 <div class="form__group">
                     <select
@@ -27,7 +14,7 @@
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="quantity">
                         {{ __('common.quantity') }}
                     </label>
                 </div>
@@ -41,7 +28,7 @@
                         wire:model.live="search"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="search">
                         {{ __('ticket.subject') }}
                     </label>
                 </div>
@@ -53,6 +40,26 @@
             </div>
         </div>
     </header>
+    <menu class="panel__tabs panel__tabs--centered">
+        <li
+            class="panel__tab panel__tab--full-width"
+            role="tab"
+            x-bind:class="tab === 'open' && 'panel__tab--active'"
+            x-cloak
+            x-on:click="tab = 'open'"
+        >
+            Open
+        </li>
+        <li
+            class="panel__tab panel__tab--full-width"
+            role="tab"
+            x-bind:class="tab === 'closed' && 'panel__tab--active'"
+            x-cloak
+            x-on:click="tab = 'closed'"
+        >
+            Closed
+        </li>
+    </menu>
     <div class="data-table-wrapper">
         <table class="data-table">
             <tbody>
@@ -73,10 +80,6 @@
                     {{ __('common.username') }}
                     @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                 </th>
-                <th wire:click="sortBy('closed_at')" role="columnheader button">
-                    {{ __('common.status') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'closed_at'])
-                </th>
                 <th wire:click="sortBy('staff_id')" role="columnheader button">
                     {{ __('ticket.assigned-staff') }}
                     @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
@@ -84,6 +87,14 @@
                 <th wire:click="sortBy('created_at')" role="columnheader button">
                     {{ __('ticket.created') }}
                     @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                </th>
+                <th wire:click="sortBy('updated_at')" role="columnheader button">
+                    {{ __('torrent.updated') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                </th>
+                <th wire:click="sortBy('closed_at')" role="columnheader button">
+                    {{ __('ticket.closed') }}
+                    @include('livewire.includes._sort-icon', ['field' => 'closed_at'])
                 </th>
                 <th>{{ __('common.action') }}</th>
             </tr>
@@ -123,15 +134,6 @@
                         <x-user_tag :user="$ticket->user" :anon="false" />
                     </td>
                     <td>
-                        @if($ticket->closed_at)
-                            <i class="fas fa-circle text-danger"></i>
-                            Closed
-                        @else
-                            <i class="fas fa-circle text-success"></i>
-                            Open
-                        @endif
-                    </td>
-                    <td>
                         @if ($ticket->staff)
                             <x-user_tag :user="$ticket->staff" :anon="false" />
                         @else
@@ -141,6 +143,16 @@
                     <td>
 						<time datetime="{{ $ticket->created_at }}" title="{{ $ticket->created_at }}">
 							{{ $ticket->created_at->diffForHumans() }}
+                        </time>
+                    </td>
+                    <td>
+                        <time datetime="{{ $ticket->updated_at }}" title="{{ $ticket->updated_at }}">
+                            {{ $ticket->updated_at->diffForHumans() }}
+                        </time>
+                    </td>
+                    <td>
+                        <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
+                            {{ $ticket->closed_at?->diffForHumans() ?? 'N/A' }}
                         </time>
                     </td>
                     <td>

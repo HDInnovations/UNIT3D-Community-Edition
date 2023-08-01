@@ -36,6 +36,16 @@ class TopicSearch extends Component
 
     public String $forumId = '';
 
+    protected $queryString = [
+        'search'        => ['except' => ''],
+        'sortField'     => ['except' => 'last_reply_at'],
+        'sortDirection' => ['except' => 'desc'],
+        'label'         => ['except' => ''],
+        'state'         => ['except' => ''],
+        'subscribed'    => ['except' => ''],
+        'forumId'       => ['except' => ''],
+    ];
+
     final public function updatedPage(): void
     {
         $this->dispatch('paginationChanged');

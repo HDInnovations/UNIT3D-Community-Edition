@@ -481,11 +481,6 @@ parameters:
 			path: app/Http/Controllers/RequestController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\User, App\\\\Models\\\\TorrentRequest\\>\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Controllers/RequestFillController.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: app/Http/Controllers/RssController.php
@@ -966,21 +961,6 @@ parameters:
 			path: app/Http/Livewire/ThankButton.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:\\$tickets\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$group\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$personalFreeleech\\.$#"
 			count: 1
 			path: app/Http/Livewire/Top10.php
@@ -1089,11 +1069,6 @@ parameters:
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
 			count: 1
 			path: app/Http/Livewire/TvSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$active\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
 
 		-
 			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
@@ -1526,21 +1501,6 @@ parameters:
 			path: app/Http/Resources/UserEchoResource.php
 
 		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$active \\(bool\\) does not accept int\\.$#"
-			count: 4
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$immune \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$seeder \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Jobs/ProcessMovieJob.php
@@ -1657,11 +1617,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Peer\\:\\:\\$connectable \\(bool\\) does not accept int\\.$#"
 			count: 1
 			path: app/Models/Peer.php
 

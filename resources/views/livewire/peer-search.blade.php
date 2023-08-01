@@ -31,7 +31,15 @@
                         <label class="form__label form__label--floating">Connectivity</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model.live="groupBy" class="form__select" placeholder=" ">
+                        <select wire:model="active" class="form__select" placeholder=" ">
+                            <option value="any">Any</option>
+                            <option value="exclude">Inactive</option>
+                            <option value="include">Active</option>
+                        </select>
+                        <label class="form__label form__label--floating">Active</label>
+                    </p>
+                    <p class="form__group">
+                        <select wire:model="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_session">User Session</option>
                             <option value="user_ip">User IP</option>
@@ -159,6 +167,21 @@
                                 </th>
                             @endif
                         @endif
+                        @if ($groupBy === 'none')
+                            <th wire:click="sortBy('active')" role="columnheader button" style="text-align: right">
+                                Connectable
+                                @include('livewire.includes._sort-icon', ['field' => 'active'])
+                            </th>
+                        @else
+                            <th wire:click="sortBy('active_count')" role="columnheader button" style="text-align: right">
+                                Connectable {{ __('torrent.peers') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'active_count'])
+                            </th>
+                            <th wire:click="sortBy('inactive_count')" role="columnheader button" style="text-align: right">
+                                Unconnectable {{ __('torrent.peers') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
+                            </th>
+                        @endif
                         <th wire:click="sortBy('created_at')" role="columnheader button" style="text-align: right">
                             Started
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
@@ -245,6 +268,18 @@
                                     <td style="text-align: right">{{ $peer->connectable_count }}</td>
                                     <td style="text-align: right">{{ $peer->unconnectable_count }}</td>
                                 @endif
+                            @endif
+                            @if ($groupBy === 'none')
+                                <td style="text-align: right">
+                                    @if ($peer->active)
+                                        <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Active"></i>
+                                    @else
+                                        <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Inactive"></i>
+                                    @endif
+                                </td>
+                            @else
+                                <td style="text-align: right">{{ $peer->active_count }}</td>
+                                <td style="text-align: right">{{ $peer->inactive_count }}</td>
                             @endif
                             <td style="text-align: right">{{ $peer->created_at?->diffForHumans() ?? 'N/A' }}</td>
                             <td style="text-align: right">{{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}</td>

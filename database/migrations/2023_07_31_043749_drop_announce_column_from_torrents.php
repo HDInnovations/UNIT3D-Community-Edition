@@ -7,13 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::table('peers', function (Blueprint $table): void {
-            $table->boolean('active');
-            $table->index(['active']);
+        Schema::table('torrents', function (Blueprint $table): void {
+            $table->dropColumn('announce');
         });
-
-        DB::table('peers')->update([
-            'active' => 1,
-        ]);
     }
 };

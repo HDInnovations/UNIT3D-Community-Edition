@@ -263,9 +263,11 @@ class AnnounceController extends Controller
             );
         }
 
+        $queries['event'] = strtolower($queries['event']);
+
         throw_if(
-            ! \in_array(strtolower($queries['event']), ['started', 'completed', 'stopped', 'paused', '']),
-            new TrackerException(136, [':event' => strtolower($queries['event'])])
+            ! \in_array($queries['event'], ['started', 'completed', 'stopped', 'paused', '']),
+            new TrackerException(136, [':event' => $queries['event']])
         );
 
         // Part.3 check Port is Valid and Allowed
@@ -274,8 +276,8 @@ class AnnounceController extends Controller
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
         throw_if(
-            $queries['port'] === 0 && strtolower($queries['event']) !== 'stopped',
-            new TrackerException(137, [':event' => strtolower($queries['event'])])
+            $queries['port'] === 0 && $queries['event'] !== 'stopped',
+            new TrackerException(137, [':event' => $queries['event']])
         );
 
         throw_if(! is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
@@ -425,7 +427,7 @@ class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'port', 'updated_at'])
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'active', 'port', 'updated_at'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
@@ -443,7 +445,7 @@ class AnnounceController extends Controller
     private function checkPeer($torrent, $queries, $user): void
     {
         throw_if(
-            strtolower($queries['event']) === 'completed'
+            $queries['event'] === 'completed'
             && $torrent->peers
                 ->where('peer_id', '=', base64_decode($queries['peer_id']))
                 ->where('user_id', '=', $user->id)
@@ -469,7 +471,7 @@ class AnnounceController extends Controller
         $randomMinInterval = random_int($setMin, $setMin * 2);
         throw_if(
             $prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
-            && strtolower($queries['event']) !== 'completed' && strtolower($queries['event']) !== 'stopped',
+            && $queries['event'] !== 'completed' && $queries['event'] !== 'stopped',
             new TrackerException(162, [':min' => $randomMinInterval])
         );
     }
@@ -485,6 +487,7 @@ class AnnounceController extends Controller
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = $torrent->peers
             ->where('user_id', '=', $user->id)
+            ->where('active', '=', true)
             ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
@@ -509,6 +512,7 @@ class AnnounceController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->where('peer_id', '!=', base64_decode($queries['peer_id']))
                 ->where('seeder', '=', 0)
+                ->where('active', '=', true)
                 ->count();
 
             throw_if(
@@ -539,13 +543,14 @@ class AnnounceController extends Controller
          * For non `stopped` event only
          * We query peers from database and send peerlist, otherwise just quick return.
          */
-        if (strtolower($queries['event']) !== 'stopped') {
+        if ($queries['event'] !== 'stopped') {
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
             $peers = $torrent->peers
                 ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
                 ->where('user_id', '!=', $user->id)
+                ->where('active', '=', true)
                 ->take($limit)
                 ->map
                 ->only(['ip', 'port'])

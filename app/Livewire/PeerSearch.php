@@ -39,6 +39,8 @@ class PeerSearch extends Component
 
     public string $connectivity = 'any';
 
+    public string $active = 'any';
+
     public string $groupBy = 'none';
 
     public string $sortField = 'created_at';
@@ -56,6 +58,7 @@ class PeerSearch extends Component
         'agent',
         'torrent',
         'connectivity',
+        'active',
         'groupBy',
         'sortField',
         'sortDirection',
@@ -110,6 +113,7 @@ class PeerSearch extends Component
                         'peers.created_at',
                         'peers.updated_at',
                         'peers.seeder',
+                        'peers.active',
                         'peers.connectable',
                     ])
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
@@ -129,6 +133,8 @@ class PeerSearch extends Component
                     ->selectRaw('COUNT(DISTINCT(peers.id)) as peer_count')
                     ->selectRaw('SUM(peers.connectable = 1) as connectable_count')
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
+                    ->selectRaw('SUM(peers.active = 1) as active_count')
+                    ->selectRaw('SUM(peers.active = 0) as inactive_count')
                     ->groupBy(['peers.user_id', 'peers.agent', 'peers.ip', 'peers.port'])
                     ->with(['user', 'user.group'])
             )
@@ -148,6 +154,8 @@ class PeerSearch extends Component
                     ->selectRaw('COUNT(*) as peer_count')
                     ->selectRaw('SUM(peers.connectable = 1) as connectable_count')
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
+                    ->selectRaw('SUM(peers.active = 1) as active_count')
+                    ->selectRaw('SUM(peers.active = 0) as inactive_count')
                     ->groupBy(['peers.user_id', 'peers.ip'])
                     ->with(['user', 'user.group'])
             )
@@ -167,6 +175,8 @@ class PeerSearch extends Component
                     ->selectRaw('COUNT(*) as peer_count')
                     ->selectRaw('SUM(peers.connectable = 1) as connectable_count')
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
+                    ->selectRaw('SUM(peers.active = 1) as active_count')
+                    ->selectRaw('SUM(peers.active = 0) as inactive_count')
                     ->groupBy(['peers.user_id'])
                     ->with(['user', 'user.group'])
             )
@@ -205,8 +215,10 @@ class PeerSearch extends Component
                 'peers.torrent_id',
                 Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
             ))
-            ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', 1))
-            ->when($this->connectivity === 'unconnectable', fn ($query) => $query->where('connectable', '=', 0))
+            ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', true))
+            ->when($this->connectivity === 'unconnectable', fn ($query) => $query->where('connectable', '=', false))
+            ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
+            ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

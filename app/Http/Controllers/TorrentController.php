@@ -368,7 +368,7 @@ class TorrentController extends Controller
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],
-            'announce'     => $decodedTorrent['announce'],
+            'folder'       => Bencode::get_name($decodedTorrent),
             'size'         => $meta['size'],
             'nfo'          => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
             'user_id'      => $user->id,

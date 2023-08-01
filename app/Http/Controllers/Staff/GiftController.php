@@ -7,36 +7,23 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Note;
 
-/**
- * @see \Tests\Feature\Http\Controllers\Staff\NoteControllerTest
- */
-class NoteController extends Controller
+class GiftController extends Controller
 {
     /**
-     * Display All User Notes.
+     * Gifts Log.
+     *
+     * @see \app\Http\Livewire\GiftLogSearch
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('Staff.note.index');
-    }
-
-    /**
-     * Delete A User Note.
-     */
-    public function destroy(Note $note): \Illuminate\Http\RedirectResponse
-    {
-        $note->delete();
-
-        return to_route('staff.notes.index')
-            ->withSuccess('Note Has Successfully Been Deleted');
+        return view('Staff.gift.index');
     }
 }

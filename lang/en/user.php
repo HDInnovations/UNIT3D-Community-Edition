@@ -266,6 +266,7 @@ return [
     'profile-privacy-help'          => 'Control which statistics and pieces of information appear on your profile.
     These settings are overridden if you do not allow any groups to access your profile or if you <strong>Go Private</strong>',
     'public-info'         => 'Public Info',
+    'reactivate'          => 'Reactivate',
     'reason-ban'          => 'Ban Reason',
     'reason-unban'        => 'Unban Reason',
     'recent-achievements' => 'Recent Achievements',

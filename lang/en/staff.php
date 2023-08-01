@@ -34,6 +34,7 @@ return [
     'frontend'                 => 'Frontend',
     'general-tools'            => 'General Tools',
     'groups'                   => 'Groups',
+    'gifts-log'                => 'Gifts Log',
     'invites-log'              => 'Invites Log',
     'laravel-log'              => 'Laravel Log',
     'link'                     => 'Link',

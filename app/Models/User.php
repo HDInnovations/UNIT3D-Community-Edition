@@ -161,7 +161,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Torrent::class, 'peers')
             ->wherePivot('seeder', '=', 1)
-            ->wherePivot('connectable', '=', 1);
+            ->wherePivot('connectable', '=', true);
     }
 
     /**

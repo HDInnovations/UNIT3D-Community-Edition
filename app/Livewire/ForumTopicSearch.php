@@ -39,6 +39,15 @@ class ForumTopicSearch extends Component
 
     public ?Subscription $subscription;
 
+    protected $queryString = [
+        'search'        => ['except' => ''],
+        'sortField'     => ['except' => 'last_reply_at'],
+        'sortDirection' => ['except' => 'desc'],
+        'label'         => ['except' => ''],
+        'state'         => ['except' => ''],
+        'subscribed'    => ['except' => ''],
+    ];
+
     final public function mount(Forum $forum): void
     {
         $this->forum = $forum;

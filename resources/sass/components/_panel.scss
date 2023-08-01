@@ -100,6 +100,10 @@
     background-color: var(--data-table-th-bg);
 }
 
+.panel__tabs--centered {
+    justify-content: space-around;
+}
+
 .panel__tab {
     background-color: var(--data-table-th-fg);
     padding: 8px 16px 6px 16px;
@@ -107,6 +111,11 @@
     border-bottom: 2px solid var(--data-table-th-fg);
     cursor: pointer;
     white-space: nowrap;
+}
+
+.panel__tab--full-width {
+    flex: 1;
+    text-align: center;
 }
 
 .panel__tab--active {

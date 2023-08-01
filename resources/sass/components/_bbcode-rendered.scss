@@ -486,6 +486,9 @@
   tt {
     padding: 0.2em 0.4em;
     margin: 0;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    white-space: normal;
     font-size: 13px;
     background-color: var(--bbcode-rendered-neutral-muted);
     border-radius: 6px;

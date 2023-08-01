@@ -1,17 +1,17 @@
 <li>
-    <article class="post" @if($comment->isChild()) style="margin-left: 155px;" @endif>
-        <header class="post__header">
+    <article class="comment">
+        <header class="comment__header">
             <time
-                    class="post__datetime"
-                    datetime="{{ $comment->created_at }}"
-                    title="{{ $comment->created_at }}"
+                class="comment__datetime"
+                datetime="{{ $comment->created_at }}"
+                title="{{ $comment->created_at }}"
             >
                 {{ $comment->created_at?->diffForHumans() }}
             </time>
-            <menu class="post__toolbar">
+            <menu class="comment__toolbar">
                 @if ($comment->isParent())
-                    <li class="post__toolbar-item">
-                        <button wire:click="$toggle('isReplying')" class="post__permalink">
+                    <li class="comment__toolbar-item">
+                        <button wire:click="$toggle('isReplying')" class="comment__reply">
                             <abbr class="comment__reply-abbr" title="Reply to this comment">
                                 <i class="{{ config('other.font-awesome') }} fa-reply"></i>
                                 <span class="sr-only">__('pm.reply')</span>
@@ -20,25 +20,25 @@
                     </li>
                 @endif
                 @if ($comment->user_id === auth()->id() || auth()->user()->group->is_modo)
-                    <li class="post__toolbar-item">
-                        <button wire:click="$toggle('isEditing')" class="post__edit">
+                    <li class="comment__toolbar-item">
+                        <button wire:click="$toggle('isEditing')" class="comment__edit">
                             <abbr class="comment__edit-abbr" title="{{ __('common.edit-your-comment') }}">
                                 <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
                                 <span class="sr-only">__('common.edit')</span>
                             </abbr>
                         </button>
                     </li>
-                    <li class="post__toolbar-item">
+                    <li class="comment__toolbar-item">
                         <button
-                                class="post__delete-button"
-                                x-on:click="confirmCommentDeletion"
-                                x-data="{
-                                       confirmCommentDeletion () {
-                                           if (window.confirm('You sure?')) {
-                                                @this.call('deleteComment')
-                                           }
-                                       }
-                                   }"
+                            class="comment__delete-button"
+                            x-on:click="confirmCommentDeletion"
+                            x-data="{
+                               confirmCommentDeletion () {
+                                   if (window.confirm('You sure?')) {
+                                        @this.call('deleteComment')
+                                   }
+                               }
+                           }"
                         >
                             <abbr class="comment__delete-abbr" title="{{ __('common.delete-your-comment') }}">
                                 <i class="{{ config('other.font-awesome') }} fa-trash"></i>
@@ -49,23 +49,23 @@
                 @endif
             </menu>
         </header>
-        <aside class="post__aside">
-            <figure class="post__figure" style="text-align: center;">
+        <aside class="comment__aside">
+            <figure class="comment__figure" style="text-align: center;">
                 <img
-                        class="post__avatar"
-                        style="width: 50%;"
-                        src="{{ url((! $comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
-                        alt=""
+                    class="comment__avatar"
+                    style="width: 50%;"
+                    src="{{ url((! $comment->anon && $comment->user->image !== null) ? 'files/img/'.$comment->user->image : '/img/profile.png') }}"
+                    alt=""
                 >
             </figure>
             <x-user_tag
-                    class="post__author"
-                    :anon="$comment->anon"
-                    :user="$comment->user"
+                class="comment__author"
+                :anon="$comment->anon"
+                :user="$comment->user"
             >
             </x-user_tag>
             @if (! $comment->anon && ! empty($comment->user->title))
-                <p class="post__author-title">
+                <p class="comment__author-title">
                     {{ $comment->user->title }}
                 </p>
             @endif
@@ -73,14 +73,14 @@
         @if ($isEditing)
             <form wire:submit="editComment" class="form edit-comment">
                 <p class="form__group">
-                        <textarea
-                                name="comment"
-                                id="edit-comment"
-                                class="form__textarea"
-                                aria-describedby="edit-comment__textarea-hint"
-                                wire:model="editState.content"
-                                required
-                        ></textarea>
+                    <textarea
+                        name="comment"
+                        id="edit-comment"
+                        class="form__textarea"
+                        aria-describedby="edit-comment__textarea-hint"
+                        wire:model.defer="editState.content"
+                        required
+                    ></textarea>
                     <label for="edit-comment" class="form__label form__label--floating">
                         @error('editState.content')
                             <strong>{{ __('common.error') }}: </strong>
@@ -88,7 +88,7 @@
                         Edit your comment...
                     </label>
                     @error('editState.content')
-                        <span class="form__hint" id="edit-comment__textarea-hint">{{ $message }}</p>
+                        <span class="form__hint" id="edit-comment__textarea-hint">{{ $message }}</span>
                     @enderror
                 </p>
                 <p class="form__group">
@@ -101,7 +101,7 @@
                 </p>
             </form>
         @else
-            <div class="post__content bbcode-rendered">
+            <div class="comment__content bbcode-rendered">
                 @joypixels($comment->getContentHtml())
             </div>
         @endif
@@ -114,12 +114,12 @@
                 <form wire:submit="postReply" class="form reply-comment">
                     <p class="form__group">
                         <textarea
-                                name="comment"
-                                id="reply-comment"
-                                class="form__textarea"
-                                aria-describedby="reply-comment__textarea-hint"
-                                wire:model="replyState.content"
-                                required
+                            name="comment"
+                            id="reply-comment"
+                            class="form__textarea"
+                            aria-describedby="reply-comment__textarea-hint"
+                            wire:model.defer="replyState.content"
+                            required
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
                             @error('editState.content')
@@ -128,7 +128,7 @@
                             Reply to parent comment...
                         </label>
                         @error('replyState.content')
-                            <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</p>
+                            <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</span>
                         @enderror
                     </p>
                     <p class="form__group">

@@ -150,13 +150,17 @@
             <i class='{{ config("other.font-awesome") }} fa-file'></i> {{ __('torrent.show-files') }}
         </button>
         <dialog class="dialog dialog--auto-width" x-ref="dialog">
-            <h4 class="dialog__heading">
-                {{ __('common.files') }}
-                <span class="float: right;" title="{{ $torrent->size }}">
-                    ({{ $torrent->files->count() }})
-                    {{ App\Helpers\StringHelper::formatBytes($torrent->size, 2) }}
-                </span>
-            </h4>
+            <header class="dialog__header">
+                <h4 class="dialog__heading">
+                    {{ __('common.files') }}
+                </h4>
+                <div class="dialog__actions">
+                    <div class="dialog__action">
+                        {{ __('torrent.info-hash') }}:
+                        {{ bin2hex($torrent->info_hash) }}
+                    </div>
+                </div>
+            </header>
             <div x-on:click.outside="$refs.dialog.close()">
                 <menu class="panel__tabs">
                     <li
@@ -177,6 +181,27 @@
                     </li>
                 </menu>
                 <div class="dialog__form" x-show="tab === 'hierarchy'">
+                    @if ($torrent->folder !== null)
+                        <span style="display: grid; grid-template-areas: 'icon folder count . size'; grid-template-columns: 24px auto auto 1fr auto; align-items: center; padding-bottom: 8px;">
+                            <i
+                                class="{{ config('other.font-awesome') }} fa-folder"
+                                style="grid-area: icon; padding-right: 4px"
+                            ></i>
+                            <span style="padding-right: 4px; word-break: break-all">
+                                {{ $torrent->folder  }}
+                            </span>
+                            <span style="grid-area: count; padding-right: 4px;">
+                                ({{ $torrent->files()->count() }})
+                            </span>
+                            <span
+                                class="text-info"
+                                style="grid-area: size; white-space: nowrap; text-align: right;"
+                                title="{{ $torrent->size }}&nbsp;B"
+                            >
+                                {{ App\Helpers\StringHelper::formatBytes($torrent->size, 2) }}
+                            </span>
+                        </span>
+                    @endif
                     @foreach ($files = $torrent->files->sortBy('name')->values()->sortBy(fn ($f) => dirname($f->name)."/~~~", SORT_NATURAL)->values() as $file)
                         @php $prevNodes = explode("/", $files[$loop->index - 1]->name ?? " ") @endphp
                         @foreach ($nodes = explode("/", $file->name) as $node)
@@ -323,7 +348,7 @@
             </form>
         </li>
     @endif
-    @if (DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
+    @if (DB::table('resurrections')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
         <li class="form__group form__group--short-horizontal">
             <button class="form__button form__button--outlined form__button--centered" disabled>
                 {{ strtolower(__('graveyard.pending')) }}
