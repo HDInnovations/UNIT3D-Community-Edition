@@ -105,7 +105,7 @@ class UserWarnings extends Component
             'message'     => 'You have received a [b]warning[/b]. Reason: '.$this->message,
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning issued successfully!']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'Warning issued successfully!']);
     }
 
     /**
@@ -129,7 +129,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to deactivate your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deactivated']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deactivated']);
     }
 
     /**
@@ -144,7 +144,7 @@ class UserWarnings extends Component
             'active'     => true,
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Reactivated']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'Warning Was Successfully Reactivated']);
     }
 
     /**
@@ -171,7 +171,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to deactivate all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deactivated']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deactivated']);
     }
 
     /**
@@ -196,7 +196,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deleted']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deleted']);
     }
 
     /**
@@ -221,7 +221,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deleted']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deleted']);
     }
 
     /**
@@ -233,7 +233,7 @@ class UserWarnings extends Component
 
         Warning::withTrashed()->findOrFail($id)->restore();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Restored']);
+        $this->dispatch('success', ['type' => 'success', 'message' => 'Warning Was Successfully Restored']);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
