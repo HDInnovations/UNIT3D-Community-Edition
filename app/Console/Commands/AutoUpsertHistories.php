@@ -85,7 +85,8 @@ class AutoUpsertHistories extends Command
                     'client_downloaded',
                     'seeder',
                     'active',
-                    'seedtime'     => DB::raw('IF(DATE_ADD(updated_at, INTERVAL 3600 SECOND) > VALUES(updated_at) AND seeder = 1 AND VALUES(seeder) = 1, seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)), seedtime)'),
+                    // 5400 is the max announce interval defined in the announce controller
+                    'seedtime'     => DB::raw('IF(DATE_ADD(updated_at, INTERVAL 5400 SECOND) > VALUES(updated_at) AND seeder = 1 AND VALUES(seeder) = 1, seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)), seedtime)'),
                     'immune'       => DB::raw('immune AND VALUES(immune)'),
                     'completed_at' => DB::raw('COALESCE(completed_at, VALUES(completed_at))'),
                 ],
