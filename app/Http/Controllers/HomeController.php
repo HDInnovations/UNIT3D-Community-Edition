@@ -59,7 +59,7 @@ class HomeController extends Controller
             'user'               => $user,
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'users'              => cache()->remember(
-                'online_users',
+                'online_users:by-group:'.auth()->user()->group_id,
                 $expiresAt,
                 fn () => User::with('group', 'privacy')
                     ->withCount([
@@ -67,8 +67,10 @@ class HomeController extends Controller
                             $query->whereNotNull('torrent')->where('active', '1');
                         },
                     ])
-                    ->where('last_action', '>', now()->subMinutes(5))
+                    ->where('last_action', '>', now()->subDays(19))
+                    ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
                     ->get()
+                    ->sortBy(fn ($user) => $user->hidden || ! $user->isVisible($user, 'other', 'show_online'))
             ),
             'groups' => cache()->remember(
                 'user-groups',
