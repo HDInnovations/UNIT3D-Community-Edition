@@ -24,7 +24,7 @@
         "hdvinnie/laravel-security-headers": "^2.0.0",
         "intervention/image": "^2.7.2",
         "joypixels/assets": "^v7.0.1",
-        "laravel/framework": "^10.15",
+        "laravel/framework": "^10.17",
         "laravel/tinker": "^2.8.1",
         "laravel/ui": "^4.2.2",
         "league/flysystem-sftp-v3": "^3.15",
@@ -42,14 +42,14 @@
         "vstelmakh/url-highlight": "^3.0.2"
     },
     "require-dev": {
-        "brianium/paratest": "^v7.2.3",
+        "brianium/paratest": "^6.10",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.10.5",
         "laravel/sail": "^1.23.1",
         "mockery/mockery": "^1.6.4",
-        "nunomaduro/collision": "^v7.7.0",
-        "nunomaduro/larastan": "^2.6.3",
-        "phpunit/phpunit": "^10.2.6",
+        "nunomaduro/collision": "^6.4",
+        "nunomaduro/larastan": "^2.6.4",
+        "phpunit/phpunit": "^9.6.10",
         "spatie/laravel-ignition": "^2.2"
     },
     "config": {

@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\PrivateMessage;
 use App\Models\User;
@@ -20,12 +20,6 @@ use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $warnings
- * @property int                                                   $automatedWarningsCount
- * @property int                                                   $manualWarningsCount
- * @property int                                                   $deletedWarningsCount
- */
 class UserWarnings extends Component
 {
     use WithPagination;
@@ -43,7 +37,7 @@ class UserWarnings extends Component
     public string $sortDirection = 'desc';
 
     protected $queryString = [
-        'warningTab' => ['except' => 'automated'],
+        'warningTab',
     ];
 
     protected $rules = [

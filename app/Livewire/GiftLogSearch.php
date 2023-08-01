@@ -11,16 +11,13 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\BonTransactions;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $gifts
- */
 class GiftLogSearch extends Component
 {
     use WithPagination;
@@ -38,10 +35,10 @@ class GiftLogSearch extends Component
     public int $perPage = 25;
 
     protected $queryString = [
-        'sender'   => ['except' => ''],
-        'receiver' => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
+        'sender',
+        'receiver',
+        'page',
+        'perPage',
     ];
 
     final public function updatedPage(): void
