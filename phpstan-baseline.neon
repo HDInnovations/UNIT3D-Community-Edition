@@ -1086,11 +1086,6 @@ parameters:
 			path: app/Http/Livewire/TvSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$active\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
 			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
@@ -1519,21 +1514,6 @@ parameters:
 			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:\\$user_id\\.$#"
 			count: 1
 			path: app/Http/Resources/UserEchoResource.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$active \\(bool\\) does not accept int\\.$#"
-			count: 4
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$immune \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$seeder \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
 
 		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"

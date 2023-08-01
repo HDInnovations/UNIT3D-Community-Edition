@@ -33,8 +33,8 @@ class TorrentPeerController extends Controller
                 ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'port', 'agent', 'created_at', 'updated_at', 'seeder', 'active'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $id)
-                ->where('active', '=', 1)
-                ->latest('seeder')
+                ->orderByDesc('active')
+                ->orderByDesc('seeder')
                 ->get()
                 ->map(function ($peer) use ($torrent) {
                     $progress = 100 * (1 - $peer->left / $torrent->size);

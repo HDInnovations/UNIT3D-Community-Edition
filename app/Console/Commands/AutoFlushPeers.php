@@ -46,7 +46,10 @@ class AutoFlushPeers extends Command
     public function handle(): void
     {
         $carbon = new Carbon();
-        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
+        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])
+            ->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())
+            ->where('active', '=', 1)
+            ->get();
 
         foreach ($peers as $peer) {
             $history = History::where('torrent_id', '=', $peer->torrent_id)->where('user_id', '=', $peer->user_id)->first();
@@ -57,8 +60,15 @@ class AutoFlushPeers extends Command
                 $history->save();
             }
 
-            $peer->delete();
+            $peer->active = false;
+            $peer->timestamps = false;
+            $peer->save();
         }
+
+        // Keep peers that stopped being announced without a `stopped` event
+        // in case a user has internet issues and comes back online within the
+        // next 2 days
+        Peer::where('updated_at', '<', $carbon->copy()->subDays(2))->where('active', '=', 0)->delete();
 
         $this->comment('Automated Flush Ghost Peers Command Complete');
     }

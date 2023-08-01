@@ -54,8 +54,8 @@ class StatsController extends Controller
         $numSd = cache()->remember('num_sd', $this->carbon, fn () => Torrent::where('sd', '=', 1)->count());
 
         // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
-        $leecherCount = cache()->remember('peer_seeder_count', $this->carbon, fn () => Peer::where('seeder', '=', false)->count());
-        $peerCount = cache()->remember('peer_count', $this->carbon, fn () => Peer::count());
+        $leecherCount = cache()->remember('peer_seeder_count', $this->carbon, fn () => Peer::where('seeder', '=', false)->where('active', '=', true)->count());
+        $peerCount = cache()->remember('peer_count', $this->carbon, fn () => Peer::where('active', '=', true)->count());
 
         $historyStats = cache()->remember(
             'history_stats',
