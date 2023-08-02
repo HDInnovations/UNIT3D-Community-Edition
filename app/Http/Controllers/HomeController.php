@@ -67,7 +67,7 @@ class HomeController extends Controller
                             $query->whereNotNull('torrent')->where('active', '1');
                         },
                     ])
-                    ->where('last_action', '>', now()->subDays(19))
+                    ->where('last_action', '>', now()->subMinutes(5))
                     ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
                     ->get()
                     ->sortBy(fn ($user) => $user->hidden || ! $user->isVisible($user, 'other', 'show_online'))
