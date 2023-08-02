@@ -325,7 +325,9 @@
         @if (auth()->user()->group->is_modo)
             @include('user.profile.partials.bans', ['bans' => $user->userban])
         @endif
-        <livewire:user-warnings :user="$user" />
+        @if (auth()->user()->group->is_modo || auth()->user()->is($user))
+            <livewire:user-warnings :user="$user" />
+        @endif
         @if (auth()->user()->group->is_modo)
             <section class="panelV2">
                 <header class="panel__header">
