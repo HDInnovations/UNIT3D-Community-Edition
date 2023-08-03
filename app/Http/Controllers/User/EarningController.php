@@ -44,6 +44,7 @@ class EarningController extends Controller
             ->select(['user_id', 'torrent_id', 'seeder'])
             ->where('user_id', '=', $user->id)
             ->where('seeder', '=', 1)
+            ->where('active', '=', 1)
             ->distinct();
 
         $history = History::query()

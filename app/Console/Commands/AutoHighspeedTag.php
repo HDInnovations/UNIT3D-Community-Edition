@@ -51,6 +51,7 @@ class AutoHighspeedTag extends Command
         Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
                 Peer::where('seeder', '=', 1)
+                    ->where('active', '=', 1)
                     ->distinct()
                     ->select('torrent_id')
                     ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
