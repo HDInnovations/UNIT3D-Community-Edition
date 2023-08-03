@@ -831,6 +831,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // History
+        Route::prefix('histories')->group(function (): void {
+            Route::name('histories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\HistoryController::class, 'index'])->name('index');
+            });
+        });
+
         // Invites Log
         Route::prefix('invites')->group(function (): void {
             Route::name('invites.')->group(function (): void {
