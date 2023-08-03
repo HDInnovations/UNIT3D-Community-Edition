@@ -254,12 +254,12 @@
                 $peer_count = Cache::remember(
                     'users:'.auth()->id().':peer_count',
                     60,
-                    fn () => DB::table('peers')->where('user_id', '=', auth()->id())->count() ?? 0
+                    fn () => DB::table('peers')->where('user_id', '=', auth()->id())->where('active', '=', 1)->count() ?? 0
                 );
                 $leech_count = Cache::remember(
                     'users:'.auth()->id().':leech_count',
                     60,
-                    fn () => DB::table('peers')->where('seeder', '=', false)->where('user_id', '=', auth()->id())->count() ?? 0
+                    fn () => DB::table('peers')->where('seeder', '=', false)->where('user_id', '=', auth()->id())->where('active', '=', 1)->count() ?? 0
                 )
             @endphp
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">

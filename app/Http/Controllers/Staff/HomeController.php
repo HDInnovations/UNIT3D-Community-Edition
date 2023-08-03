@@ -66,8 +66,8 @@ class HomeController extends Controller
             'peers' => cache()->remember('dashboard_peers', 300, function () {
                 return DB::table('peers')
                     ->selectRaw('count(*) as total')
-                    ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
-                    ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
+                    ->selectRaw('count(seeder = 0 AND active = 1) as leechers')
+                    ->selectRaw('count(seeder = 1 AND active = 1) as seeders')
                     ->first();
             }),
             'unsolvedReportsCount'     => DB::table('reports')->where('solved', '=', false)->count(),
