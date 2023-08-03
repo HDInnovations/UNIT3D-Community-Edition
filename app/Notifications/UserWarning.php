@@ -47,7 +47,7 @@ class UserWarning extends Notification
     public function toArray(mixed $notifiable): array
     {
         return [
-            'title' => $this->torrent->name.' Warning Recieved',
+            'title' => $this->torrent->name.' Warning Received',
             'body'  => 'You have received an automated WARNING from the system because you failed to follow the Hit and Run rules in relation to Torrent '.$this->torrent->name,
             'url'   => \sprintf('/torrents/%s', $this->torrent->id),
         ];
