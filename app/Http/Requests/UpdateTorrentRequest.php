@@ -19,7 +19,6 @@ use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use voku\helper\AntiXSS;
 
 class UpdateTorrentRequest extends FormRequest
 {
@@ -36,8 +35,6 @@ class UpdateTorrentRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
-        $this->sanitize();
-
         $category = Category::findOrFail($request->integer('category_id'));
 
         return [
@@ -144,14 +141,5 @@ class UpdateTorrentRequest extends FormRequest
                 Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
             ],
         ];
-    }
-
-    private function sanitize(): void
-    {
-        $input = $this->all();
-
-        $input['description'] = htmlspecialchars((new AntiXSS())->xss_clean($input['description']), ENT_NOQUOTES);
-
-        $this->replace($input);
     }
 }

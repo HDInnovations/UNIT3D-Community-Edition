@@ -15,7 +15,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use voku\helper\AntiXSS;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
@@ -35,8 +34,6 @@ class UpdatePlaylistRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
-        $this->sanitize();
-
         return [
             'name' => [
                 'required',
@@ -51,14 +48,5 @@ class UpdatePlaylistRequest extends FormRequest
                 'boolean',
             ],
         ];
-    }
-
-    private function sanitize(): void
-    {
-        $input = $this->all();
-
-        $input['description'] = htmlspecialchars((new AntiXSS())->xss_clean($input['description']), ENT_NOQUOTES);
-
-        $this->replace($input);
     }
 }
