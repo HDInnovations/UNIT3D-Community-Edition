@@ -191,6 +191,8 @@ class UserWarnings extends Component
 
         $warning->update([
             'deleted_by' => $staff->id,
+            'active'     => false,
+            'expires_on' => now(),
         ]);
 
         $warning->delete();
@@ -216,6 +218,8 @@ class UserWarnings extends Component
 
         $this->user->warnings()->update([
             'deleted_by' => $staff->id,
+            'active'     => false,
+            'expires_on' => now(),
         ]);
 
         $this->user->warnings()->delete();
