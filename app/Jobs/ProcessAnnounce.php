@@ -71,7 +71,7 @@ class ProcessAnnounce implements ShouldQueue
             ->first();
 
         $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
-        $downloaded = max($realDownloaded >= ($peer?->downloaded ?? 0), 0);
+        $downloaded = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
 
         // If no Peer record found then create one
         if ($peer === null) {
