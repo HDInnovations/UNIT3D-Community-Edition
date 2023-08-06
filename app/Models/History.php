@@ -38,7 +38,7 @@ class History extends Model
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'completed_at' => 'datetime',

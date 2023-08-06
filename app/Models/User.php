@@ -49,7 +49,7 @@ class User extends Authenticatable
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'last_login'  => 'datetime',
