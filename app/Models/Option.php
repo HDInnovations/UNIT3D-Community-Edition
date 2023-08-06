@@ -24,7 +24,7 @@ class Option extends Model
 
     /** The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',

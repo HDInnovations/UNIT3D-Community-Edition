@@ -30,7 +30,7 @@ class UserNotification extends Model
     /**
      * The Attributes That Should Be Cast To Native Values.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'json_account_groups'      => 'array',

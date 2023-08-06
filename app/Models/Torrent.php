@@ -42,7 +42,7 @@ class Torrent extends Model
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'fl_until'     => 'datetime',

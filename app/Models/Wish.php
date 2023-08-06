@@ -25,7 +25,7 @@ class Wish extends Model
     /**
      * The Attributes That Aren't Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $guarded = [];
 
