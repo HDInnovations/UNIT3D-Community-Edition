@@ -37,7 +37,7 @@ class BonExchange extends Model
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'upload'             => 'boolean',
