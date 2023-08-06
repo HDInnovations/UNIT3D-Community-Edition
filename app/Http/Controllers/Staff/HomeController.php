@@ -59,6 +59,7 @@ class HomeController extends Controller
                 return DB::table('torrents')
                     ->selectRaw('count(*) as total')
                     ->selectRaw('count(case when status = 0 then 1 end) as pending')
+                    ->selectRaw('count(case when status = 1 then 1 end) as approved')
                     ->selectRaw('count(case when status = 2 then 1 end) as rejected')
                     ->selectRaw('count(case when status = 3 then 1 end) as postponed')
                     ->first();
@@ -66,8 +67,10 @@ class HomeController extends Controller
             'peers' => cache()->remember('dashboard_peers', 300, function () {
                 return DB::table('peers')
                     ->selectRaw('count(*) as total')
-                    ->selectRaw('count(seeder = 0 AND active = 1) as leechers')
-                    ->selectRaw('count(seeder = 1 AND active = 1) as seeders')
+                    ->selectRaw('sum(active = 1) as active')
+                    ->selectRaw('sum(active = 0) as inactive')
+                    ->selectRaw('sum(seeder = 0 AND active = 1) as leechers')
+                    ->selectRaw('sum(seeder = 1 AND active = 1) as seeders')
                     ->first();
             }),
             'unsolvedReportsCount'     => DB::table('reports')->where('solved', '=', false)->count(),
