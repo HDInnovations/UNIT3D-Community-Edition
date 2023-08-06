@@ -304,12 +304,14 @@ class ProcessAnnounce implements ShouldQueue
             ->torrent
             ->peers
             ->where('left', '=', 0)
+            ->where('active', '=', true)
             ->where('peer_id', '!=', $peerId)
             ->count();
         $otherLeechers = $this
             ->torrent
             ->peers
             ->where('left', '>', 0)
+            ->where('active', '=', true)
             ->where('peer_id', '!=', $peerId)
             ->count();
 
