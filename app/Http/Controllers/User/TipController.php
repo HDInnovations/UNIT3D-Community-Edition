@@ -43,7 +43,7 @@ class TipController extends Controller
                 ->where('name', '=', 'tip')
                 ->latest()
                 ->paginate(25),
-            'bon'          => $user->getSeedbonus(),
+            'bon'          => $user->formatted_seedbonus,
             'sentTips'     => $user->sentTips()->sum('cost'),
             'receivedTips' => $user->receivedTips()->sum('cost'),
         ]);

@@ -225,28 +225,28 @@
         <ul class="top-nav__stats" x-bind:class="expanded && 'mobile'">
             <li class="top-nav__stats-up" title="{{ __('common.upload') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                {{ auth()->user()->getUploaded() }}
+                {{ auth()->user()->formatted_uploaded }}
             </li>
             <li class="top-nav__stats-down" title="{{ __('common.download') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                {{ auth()->user()->getDownloaded() }}
+                {{ auth()->user()->formatted_downloaded }}
             </li>
             <li class="top-nav__stats-ratio" title="{{ __('common.ratio') }}">
                 <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                {{ auth()->user()->getRatioString() }}
+                {{ auth()->user()->formatted_ratio }}
             </li>
         </ul> 
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
                 <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    {{ auth()->user()->getUploaded() }}
+                    {{ auth()->user()->formatted_uploaded }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                    {{ auth()->user()->getDownloaded() }}
+                    {{ auth()->user()->formatted_downloaded }}
                 </a>
             </li>
             @php
@@ -277,19 +277,19 @@
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
-                    {{ auth()->user()->untilRatio(config('other.ratio')) }}
+                    {{ auth()->user()->formatted_buffer }}
                 </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
                 <a href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-coins" ></i>
-                    {{ auth()->user()->getSeedbonus() }}
+                    {{ auth()->user()->formatted_seedbonus }}
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                    {{ auth()->user()->getRatioString() }}
+                    {{ auth()->user()->formatted_ratio }}
                 </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">

@@ -148,7 +148,7 @@ class EarningController extends Controller
 
         return view('user.earning.index', [
             'user'        => $user,
-            'bon'         => $user->getSeedbonus(),
+            'bon'         => $user->formatted_seedbonus,
             'dying'       => $dying,
             'legendary'   => $legendary,
             'old'         => $old,

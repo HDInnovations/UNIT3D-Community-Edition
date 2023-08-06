@@ -203,7 +203,7 @@
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                {!! $post->user->getSignature() !!}
+                {!! $post->user->signature_html !!}
             </p>
         </footer>
     @endif
