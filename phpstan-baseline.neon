@@ -1726,11 +1726,6 @@ parameters:
 			path: app/Models/User.php
 
 		-
-			message: "#^PHPDoc tag @method has invalid value \\(getSeedbonus\\)\\: Unexpected token \"\\\\n     \\*\", expected '\\(' at offset 31$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
 			message: "#^PHPDoc type array of property App\\\\Models\\\\User\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/User.php
