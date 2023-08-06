@@ -23,7 +23,7 @@ class FailedLoginAttempt extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'user_id',

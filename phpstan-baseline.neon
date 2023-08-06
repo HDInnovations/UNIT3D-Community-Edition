@@ -1536,21 +1536,6 @@ parameters:
 			path: app/Listeners/FailedLoginListener.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\ApplicationImageProof\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\ApplicationUrlProof\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Audit\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/Audit.php
-
-		-
 			message: "#^PHPDoc type array of property App\\\\Models\\\\BonExchange\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/BonExchange.php
@@ -1559,11 +1544,6 @@ parameters:
 			message: "#^PHPDoc type array of property App\\\\Models\\\\Bot\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Bot.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Chatroom\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
@@ -1576,11 +1556,6 @@ parameters:
 			path: app/Models/Comment.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\FailedLoginAttempt\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/FailedLoginAttempt.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Models/Forum.php
@@ -1589,11 +1564,6 @@ parameters:
 			message: "#^PHPDoc type array of property App\\\\Models\\\\History\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/History.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Keyword\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/Keyword.php
 
 		-
 			message: "#^Call to an undefined static method static\\(App\\\\Models\\\\Language\\)\\:\\:created\\(\\)\\.$#"
@@ -1609,16 +1579,6 @@ parameters:
 			message: "#^Call to an undefined static method static\\(App\\\\Models\\\\Language\\)\\:\\:updated\\(\\)\\.$#"
 			count: 1
 			path: app/Models/Language.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Message\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/Message.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Option\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
-			count: 1
-			path: app/Models/Option.php
 
 		-
 			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
@@ -1687,11 +1647,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc type array of property App\\\\Models\\\\TwoStepAuth\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/TwoStepAuth.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\TwoStepAuth\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
 			count: 1
 			path: app/Models/TwoStepAuth.php
 
