@@ -1591,11 +1591,6 @@ parameters:
 			path: app/Models/History.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\History\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
-			count: 1
-			path: app/Models/History.php
-
-		-
 			message: "#^PHPDoc type array of property App\\\\Models\\\\Keyword\\:\\:\\$fillable is not covariant with PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
 			count: 1
 			path: app/Models/Keyword.php
@@ -1644,16 +1639,6 @@ parameters:
 			message: "#^Variable \\$cache in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: app/Models/Peer.php
-
-		-
-			message: "#^PHPDoc type string of property App\\\\Models\\\\Resurrection\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Resurrection\\:\\:\\$guarded \\(string\\) does not accept default value of type array\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
 
 		-
 			message: "#^PHPDoc type array of property App\\\\Models\\\\Rss\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
@@ -1711,11 +1696,6 @@ parameters:
 			path: app/Models/TwoStepAuth.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\TwoStepAuth\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
-			count: 1
-			path: app/Models/TwoStepAuth.php
-
-		-
 			message: "#^Class App\\\\Models\\\\UserChat not found\\.$#"
 			count: 1
 			path: app/Models/User.php
@@ -1759,11 +1739,6 @@ parameters:
 			message: "#^PHPDoc type array of property App\\\\Models\\\\UserPrivacy\\:\\:\\$casts is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/UserPrivacy.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\Wish\\:\\:\\$guarded is not covariant with PHPDoc type array\\<string\\>\\|bool of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$guarded\\.$#"
-			count: 1
-			path: app/Models/Wish.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"

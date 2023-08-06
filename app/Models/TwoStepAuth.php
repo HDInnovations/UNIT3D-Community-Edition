@@ -37,7 +37,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Are Not Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $guarded = [
         'id',

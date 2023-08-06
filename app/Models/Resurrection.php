@@ -23,9 +23,9 @@ class Resurrection extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
+     * The attributes that aren't mass assignable.
      *
-     * @var string
+     * @var string[]
      */
     protected $guarded = [];
 
