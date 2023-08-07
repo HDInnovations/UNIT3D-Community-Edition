@@ -130,16 +130,7 @@
                 <dl class="key-value">
                     <dt>{{ __('request.claimed') }} by</dt>
                     <dd>
-                        @if ($torrentRequest->claim->anon)
-                            {{ strtoupper(__('common.anonymous')) }}
-                            @if ($user->group->is_modo || $torrentRequest->claim->user->is($user))
-                                ({{ $torrentRequest->claim->username }})
-                            @endif
-                        @else
-                            <a href="{{ route('users.show', ['user' => $torrentRequest->claim->user]) }}">
-                                {{ $torrentRequest->claim->username }}
-                            </a>
-                        @endif
+                        <x-user_tag :user="$torrentRequest->claim->user" :anon="$torrentRequest->claim->anon" />
                     </dd>
                     <dt>{{ __('request.claimed') }} at</dt>
                     <dd>
