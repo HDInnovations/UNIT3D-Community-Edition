@@ -182,7 +182,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
         }
 
-        Redis::connection('announce')->command('LPUSH', [
+        Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize($peer->only([
                 'peer_id',
@@ -200,7 +200,7 @@ class ProcessAnnounce implements ShouldQueue
             ]))
         ]);
 
-        Redis::connection('announce')->command('LPUSH', [
+        Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':histories:batch',
             serialize([
                 'user_id'           => $this->user->id,
