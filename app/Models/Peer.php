@@ -74,8 +74,6 @@ class Peer extends Model
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws Exception
-     *
-     * @return resource
      */
     public function updateConnectableStateIfNeeded(): void
     {

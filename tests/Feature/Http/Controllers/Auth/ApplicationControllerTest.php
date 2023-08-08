@@ -15,6 +15,8 @@ class ApplicationControllerTest extends TestCase
      */
     public function create_returns_an_ok_response(): void
     {
+        config(['other.application_signups' => true]);
+
         $this->get(route('application.create'))
             ->assertOk()
             ->assertViewIs('auth.application.create');
@@ -26,6 +28,7 @@ class ApplicationControllerTest extends TestCase
     public function store_returns_an_ok_response(): void
     {
         config(['captcha.enabled' => false]);
+        config(['other.application_signups' => true]);
 
         $application = Application::factory()->make();
 
