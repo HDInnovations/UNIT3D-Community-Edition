@@ -46,7 +46,7 @@ class TransactionController extends Controller
 
         return view('user.transaction.create', [
             'user'     => $user,
-            'bon'      => $user->getSeedbonus(),
+            'bon'      => $user->formatted_seedbonus,
             'activefl' => $user->personalFreeleeches()->exists(),
             'items'    => BonExchange::all(),
         ]);

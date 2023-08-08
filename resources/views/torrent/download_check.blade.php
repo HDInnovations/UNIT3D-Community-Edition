@@ -27,7 +27,7 @@
                 <div class="panel__heading">
                     <div class="text-center">
                         <h2>{{ $user->username }}</h2>
-                        @if ($user->getRatio() < config('other.ratio') || $user->can_download == 0)
+                        @if ($user->ratio < config('other.ratio') || $user->can_download == 0)
                             <h4>{{ __('torrent.no-privileges') }}</h4>
                         @else
                             <h4>{{ __('torrent.ready') }}</h4>
@@ -77,7 +77,7 @@
             <div class="text-center">
                 <strong>{{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }} {{ config('other.ratio') }}
                     : </strong>
-                @if ($user->getRatio() < config('other.ratio'))<span class="badge-extra text-red"><i
+                @if ($user->ratio < config('other.ratio'))<span class="badge-extra text-red"><i
                             class="{{ config('other.font-awesome') }} fa-times"></i>
                         {{ strtoupper(__('torrent.failed')) }}</span>
                 @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
@@ -103,7 +103,7 @@
             </div>
             <br>
             <div class="text-center">
-                @if ($user->getRatio() < config('other.ratio') || ($user->can_download == 0 && $torrent->user_id !=
+                @if ($user->ratio < config('other.ratio') || ($user->can_download == 0 && $torrent->user_id !=
                         $user->id))
                     <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
                 @else

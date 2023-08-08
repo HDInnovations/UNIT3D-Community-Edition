@@ -186,7 +186,7 @@
                         @endif
                         <td class="user-active__seeding">
                             @if ($active->active)
-                                @if ($active->seeder === 1)
+                                @if ($active->seeder)
                                     <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.seeding') }}"></i>
                                 @else
                                     <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.seeding') }}"></i>

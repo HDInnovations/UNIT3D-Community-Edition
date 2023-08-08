@@ -45,7 +45,7 @@ class GiftController extends Controller
                 ->where('name', '=', 'gift')
                 ->latest()
                 ->paginate(25),
-            'bon'           => $user->getSeedbonus(),
+            'bon'           => $user->formatted_seedbonus,
             'sentGifts'     => $user->sentGifts()->sum('cost'),
             'receivedGifts' => $user->receivedGifts()->sum('cost'),
         ]);
@@ -60,7 +60,7 @@ class GiftController extends Controller
 
         return view('user.gift.create', [
             'user' => $user,
-            'bon'  => $user->getSeedbonus(),
+            'bon'  => $user->formatted_seedbonus,
         ]);
     }
 

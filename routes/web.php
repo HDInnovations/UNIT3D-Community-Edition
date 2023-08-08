@@ -163,7 +163,7 @@ Route::middleware('language')->group(function (): void {
 
             Route::prefix('{torrentRequest}/fills')->name('fills.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\RequestFillController::class, 'store'])->name('store');
-                Route::delete('/', [App\Http\Controllers\RequestFillController::class, 'destroy'])->name('destroy')->middleware('modo');
+                Route::delete('/', [App\Http\Controllers\RequestFillController::class, 'destroy'])->name('destroy');
             });
 
             Route::prefix('{torrentRequest}/approved-fills')->name('approved_fills.')->group(function (): void {
@@ -828,6 +828,13 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('gifts')->group(function (): void {
             Route::name('gifts.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
+            });
+        });
+
+        // History
+        Route::prefix('histories')->group(function (): void {
+            Route::name('histories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\HistoryController::class, 'index'])->name('index');
             });
         });
 

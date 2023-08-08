@@ -49,7 +49,7 @@ class User extends Authenticatable
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'last_login'  => 'datetime',
@@ -717,7 +717,7 @@ class User extends Authenticatable
     /**
      * Return Upload In Human Format.
      */
-    public function getUploaded(): string
+    public function getFormattedUploadedAttribute(): string
     {
         $bytes = $this->uploaded;
 
@@ -731,7 +731,7 @@ class User extends Authenticatable
     /**
      * Return Download In Human Format.
      */
-    public function getDownloaded(): string
+    public function getFormattedDownloadedAttribute(): string
     {
         $bytes = $this->downloaded;
 
@@ -745,7 +745,7 @@ class User extends Authenticatable
     /**
      * Return The Ratio.
      */
-    public function getRatio(): float
+    public function getRatioAttribute(): float
     {
         if ($this->downloaded === 0) {
             return INF;
@@ -754,9 +754,9 @@ class User extends Authenticatable
         return round($this->uploaded / $this->downloaded, 2);
     }
 
-    public function getRatioString(): string
+    public function getFormattedRatioAttribute(): string
     {
-        $ratio = $this->getRatio();
+        $ratio = $this->ratio;
 
         if (is_infinite($ratio)) {
             return '∞';
@@ -766,52 +766,22 @@ class User extends Authenticatable
     }
 
     /**
-     * Return the ratio after $size bytes would be downloaded.
-     */
-    public function ratioAfterSize($size): float
-    {
-        if ($this->downloaded + $size == 0) {
-            return INF;
-        }
-
-        return round($this->uploaded / ($this->downloaded + $size), 2);
-    }
-
-    /**
-     * Return the ratio after $size bytes would be downloaded, pretty formatted as string.
-     */
-    public function ratioAfterSizeString($size, bool $freeleech = false): string
-    {
-        if ($freeleech) {
-            return $this->getRatioString().' ('.trans('torrent.freeleech').')';
-        }
-
-        $ratio = $this->ratioAfterSize($size);
-
-        if (is_infinite($ratio)) {
-            return '∞';
-        }
-
-        return (string) $ratio;
-    }
-
-    /**
-     * Return the size (pretty formated) which can be safely downloaded
+     * Return the size (pretty formatted) which can be safely downloaded
      * without falling under the minimum ratio.
      */
-    public function untilRatio($ratio): string
+    public function getFormattedBufferAttribute(): string
     {
-        if ($ratio == 0.0) {
+        if (config('other.ratio') === 0) {
             return '∞';
         }
 
-        $bytes = round(($this->uploaded / $ratio) - $this->downloaded);
+        $bytes = round(($this->uploaded / config('other.ratio')) - $this->downloaded);
 
         return StringHelper::formatBytes($bytes);
     }
 
     /**
-     * Set The Users Signature After Its Been Purified.
+     * Set The Users Signature After It's Been Purified.
      */
     public function setSignatureAttribute(?string $value): void
     {
@@ -821,7 +791,7 @@ class User extends Authenticatable
     /**
      * Returns the HTML of the user's signature.
      */
-    public function getSignature(): string
+    public function getSignatureHtmlAttribute(): string
     {
         $bbcode = new Bbcode();
 
@@ -829,7 +799,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Set The Users About Me After Its Been Purified.
+     * Set The Users About Me After It's Been Purified.
      */
     public function setAboutAttribute(?string $value): void
     {
@@ -839,7 +809,7 @@ class User extends Authenticatable
     /**
      * Parse About Me And Return Valid HTML.
      */
-    public function getAboutHtml(): string
+    public function getAboutHtmlAttribute(): string
     {
         if (empty($this->about)) {
             return 'N/A';
@@ -851,11 +821,9 @@ class User extends Authenticatable
     }
 
     /**
-     * @method getSeedbonus
-     *
-     * Formats the seebonus of the User
+     * Formats the seed bonus points of the User.
      */
-    public function getSeedbonus(): string
+    public function getFormattedSeedbonusAttribute(): string
     {
         return number_format($this->seedbonus, 0, null, "\u{202F}");
     }

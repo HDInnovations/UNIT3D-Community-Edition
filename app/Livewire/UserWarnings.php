@@ -96,14 +96,14 @@ class UserWarnings extends Component
             'active'     => '1',
         ]);
 
-        $this->message = '';
-
         PrivateMessage::create([
             'sender_id'   => User::SYSTEM_USER_ID,
             'receiver_id' => $this->user->id,
             'subject'     => 'Received warning',
             'message'     => 'You have received a [b]warning[/b]. Reason: '.$this->message,
         ]);
+
+        $this->message = '';
 
         $this->dispatch('success', ['type' => 'success', 'message' => 'Warning issued successfully!']);
     }
@@ -185,6 +185,8 @@ class UserWarnings extends Component
 
         $warning->update([
             'deleted_by' => $staff->id,
+            'active'     => false,
+            'expires_on' => now(),
         ]);
 
         $warning->delete();
@@ -210,6 +212,8 @@ class UserWarnings extends Component
 
         $this->user->warnings()->update([
             'deleted_by' => $staff->id,
+            'active'     => false,
+            'expires_on' => now(),
         ]);
 
         $this->user->warnings()->delete();

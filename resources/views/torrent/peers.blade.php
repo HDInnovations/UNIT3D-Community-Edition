@@ -104,12 +104,10 @@
                             </td>
                             <td class="{{ $peer->active ? ($peer->seeder ? 'text-green' : 'text-red') : 'text-orange' }}">
                                 @if ($peer->active)
-                                    @if ($peer->seeder == 0)
-                                        {{ __('torrent.leecher') }}
-                                    @elseif ($peer->seeder == 1)
+                                    @if ($peer->seeder)
                                         {{ __('torrent.seeder') }}
                                     @else
-                                        {{ __('common.error') }}
+                                        {{ __('torrent.leecher') }}
                                     @endif
                                 @else
                                     Inactive

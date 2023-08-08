@@ -195,6 +195,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.histories.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Histories
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.rss.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('staff.rss') }}
@@ -436,6 +442,10 @@
                 <dd>{{ $torrents->total }}</dd>
                 <dt>Pending</dt>
                 <dd>{{ $torrents->pending }}</dd>
+                <dt>Approved</dt>
+                <dd>{{ $torrents->approved }}</dd>
+                <dt>Postponed</dt>
+                <dd>{{ $torrents->postponed }}</dd>
                 <dt>Rejected</dt>
                 <dd>{{ $torrents->rejected }}</dd>
             </dl>
@@ -445,6 +455,10 @@
             <dl class="key-value">
                 <dt>Total</dt>
                 <dd>{{ $peers->total }}</dd>
+                <dt>Active</dt>
+                <dd>{{ $peers->active }}</dd>
+                <dt>Inactive</dt>
+                <dd>{{ $peers->inactive }}</dd>
                 <dt>Seeds</dt>
                 <dd>{{ $peers->seeders }}</dd>
                 <dt>Leeches</dt>

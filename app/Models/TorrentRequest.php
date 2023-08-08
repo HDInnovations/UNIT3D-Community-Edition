@@ -31,7 +31,7 @@ class TorrentRequest extends Model
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'filled_when'   => 'datetime',

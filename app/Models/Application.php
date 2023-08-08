@@ -27,6 +27,17 @@ class Application extends Model
     public const APPROVED = 1;
     public const REJECTED = 2;
 
+    /**
+     * The Attributes That Are Mass Assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'status',
+        'moderated_by',
+        'moderated_at',
+    ];
+
     protected $casts = [
         'moderated_at' => 'datetime',
     ];

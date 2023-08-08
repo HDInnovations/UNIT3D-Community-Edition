@@ -200,7 +200,7 @@ class NerdBot
         $peers = cache()->get('nerdbot-peers');
 
         if (! $peers) {
-            $peers = Peer::count();
+            $peers = Peer::where('active', '=', 1)->count();
             cache()->put('nerdbot-peers', $peers, $this->expiresAt);
         }
 

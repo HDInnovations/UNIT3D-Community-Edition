@@ -31,14 +31,14 @@ class History extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $guarded = [];
 
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'completed_at' => 'datetime',

@@ -44,7 +44,7 @@
                             </td>
                             <td>{{ \App\Helpers\StringHelper::formatBytes($user->uploaded, 2) }}</td>
                             <td>{{ \App\Helpers\StringHelper::formatBytes($user->downloaded, 2) }}</td>
-                            <td>{{ $user->getRatio() }}</td>
+                            <td>{{ $user->ratio }}</td>
                         </tr>
                     @endforeach
                 </tbody>
