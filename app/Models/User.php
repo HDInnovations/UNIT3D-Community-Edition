@@ -35,7 +35,7 @@ class User extends Authenticatable
     /**
      * The Attributes Excluded From The Model's JSON Form.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $hidden = [
         'email',
@@ -188,14 +188,6 @@ class User extends Authenticatable
     public function privacy(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(UserPrivacy::class);
-    }
-
-    /**
-     * Has One Chat Object.
-     */
-    public function chat(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(UserChat::class);
     }
 
     /**

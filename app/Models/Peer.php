@@ -75,7 +75,7 @@ class Peer extends Model
      * @throws \Psr\SimpleCache\InvalidArgumentException
      * @throws Exception
      *
-     * @var resource
+     * @return resource
      */
     public function updateConnectableStateIfNeeded(): void
     {
@@ -90,7 +90,7 @@ class Peer extends Model
             $cache = Redis::connection('cache')->get($key);
             $ttl = 0;
 
-            if (isset($cache)) {
+            if ($cache) {
                 $ttl = Redis::connection('cache')->command('TTL', [$key]);
             }
 
@@ -104,7 +104,7 @@ class Peer extends Model
                     fclose($con);
                 }
             } else {
-                $this->connectable = $cache === null ? false : unserialize($cache);
+                $this->connectable = $cache ? false : unserialize($cache);
             }
         } else {
             $this->connectable = false;
