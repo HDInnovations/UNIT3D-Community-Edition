@@ -19,10 +19,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
-use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
+use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\Peer;
+use App\Models\PersonalFreeleech;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
@@ -287,17 +288,14 @@ class AnnounceController extends Controller
                 true
             ), new TrackerException(135, [':port' => $queries['port']]));
 
-        // Part.4 base64_encode binary ip for job
-        $queries['ip-address'] = base64_encode(inet_pton($request->getClientIp()));
+        // Part.4 Pack the human-readable ip into binary
+        $queries['ip-address'] = inet_pton($request->getClientIp());
 
         // Part.5 Get Users Agent
         $queries['user-agent'] = $request->headers->get('user-agent');
 
         // Part.6 bin2hex info_hash
         $queries['info_hash'] = bin2hex($queries['info_hash']);
-
-        // Part.7 base64_encode binary peer_id for job
-        $queries['peer_id'] = base64_encode($queries['peer_id']);
 
         return $queries;
     }
@@ -447,7 +445,7 @@ class AnnounceController extends Controller
         throw_if(
             $queries['event'] === 'completed'
             && $torrent->peers
-                ->where('peer_id', '=', base64_decode($queries['peer_id']))
+                ->where('peer_id', '=', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
                 ->isEmpty(),
             new TrackerException(152)
@@ -464,7 +462,7 @@ class AnnounceController extends Controller
     private function checkMinInterval($torrent, $queries, $user): void
     {
         $prevAnnounce = $torrent->peers
-            ->where('peer_id', '=', base64_decode($queries['peer_id']))
+            ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
         $setMin = config('announce.min_interval.interval') ?? self::MIN;
@@ -510,7 +508,7 @@ class AnnounceController extends Controller
         if ($max !== null && $max >= 0 && $queries['left'] != 0) {
             $count = Peer::query()
                 ->where('user_id', '=', $user->id)
-                ->where('peer_id', '!=', base64_decode($queries['peer_id']))
+                ->where('peer_id', '!=', $queries['peer_id'])
                 ->where('seeder', '=', 0)
                 ->where('active', '=', true)
                 ->count();
@@ -572,7 +570,195 @@ class AnnounceController extends Controller
      */
     private function processAnnounceJob($queries, $user, $group, $torrent): void
     {
-        ProcessAnnounce::dispatch($queries, $user, $group, $torrent);
+        // Set Variables
+        $event = $queries['event'];
+
+        // Get The Current Peer
+        $peer = $torrent->peers
+            ->where('peer_id', '=', $queries['peer_id'])
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        $isNewPeer = $peer === null;
+
+        // Calculate the change in upload/download compared to the last announce
+        $uploadedDelta = max($queries['uploaded'] - ($peer?->uploaded ?? 0), 0);
+        $downloadedDelta = max($queries['downloaded'] - ($peer?->downloaded ?? 0), 0);
+
+        // If no peer record found then set deltas to 0 and change to `started` event
+        if ($isNewPeer) {
+            if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                $event = 'started';
+                $uploadedDelta = 0;
+                $downloadedDelta = 0;
+            }
+        }
+
+        // Check if user currently has a personal freeleech
+        $personalFreeleech = cache()->rememberForever(
+            'personal_freeleech:'.$user->id,
+            fn () => PersonalFreeleech::query()
+                ->where('user_id', '=', $user->id)
+                ->exists()
+        );
+
+        // Check if user has a freeleech token on this torrent
+        $freeleechToken = cache()->rememberForever(
+            'freeleech_token:'.$user->id.':'.$torrent->id,
+            fn () => FreeleechToken::query()
+                ->where('user_id', '=', $user->id)
+                ->where('torrent_id', '=', $torrent->id)
+                ->exists(),
+        );
+
+        // Calculate credited Download
+        if (
+            $personalFreeleech
+            || $group->is_freeleech
+            || $freeleechToken
+            || config('other.freeleech')
+        ) {
+            $creditedDownloadedDelta = 0;
+        } elseif ($torrent->free >= 1) {
+            // FL value in DB are from 0% to 100% where 100 means 0 bytes are counted.
+            $creditedDownloadedDelta = $downloadedDelta * (100 - max(100, $torrent->free)) / 100;
+        } else {
+            $creditedDownloadedDelta = $downloadedDelta;
+        }
+
+        // Calculate credited upload
+        if (
+            $torrent->doubleup
+            || $group->is_double_upload
+            || config('other.doubleup')
+        ) {
+            $creditedUploadedDelta = $uploadedDelta * 2;
+        } else {
+            $creditedUploadedDelta = $uploadedDelta;
+        }
+
+        // Check if peer is connectable
+
+        $connectable = false;
+
+        if (config('announce.connectable_check')) {
+            $tmp_ip = inet_ntop(pack('A'.\strlen($queries['ip-address']), $queries['ip-address']));
+
+            // IPv6 Check
+            if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $tmp_ip = '['.$tmp_ip.']';
+            }
+
+            $key = $tmp_ip.'-'.$queries['port'].'-'.$queries['agent'];
+
+            if (cache()->has(':peers:connectable-timer:'.$key)) {
+                $connectable = cache()->get(':peers:connectable:'.$key) === true;
+            } else {
+                $connection = @fsockopen($tmp_ip, $queries['port'], $_, $_, 1);
+
+                if ($connectable = \is_resource($connection)) {
+                    fclose($connection);
+                }
+
+                // 60 is some leeway.
+                cache()->put(':peers:connectable:'.$key, $connectable, self::MAX + 60 + config('announce.connectable_check_interval'));
+                cache()->remember(':peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
+            }
+        }
+
+        /**
+         * Peer batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertPeers
+         */
+        Redis::connection('announce')->command('RPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize([
+                'peer_id'     => $queries['peer_id'],
+                'ip'          => $queries['ip-address'],
+                'port'        => $queries['port'],
+                'agent'       => $queries['user-agent'],
+                'uploaded'    => $queries['uploaded'],
+                'downloaded'  => $queries['downloaded'],
+                'left'        => $queries['left'],
+                'seeder'      => $queries['left'] == 0,
+                'torrent_id'  => $torrent->id,
+                'user_id'     => $user->id,
+                'connectable' => $connectable,
+                'active'      => $event !== 'stopped',
+            ])
+        ]);
+
+        /**
+         * History batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertHistories
+         */
+        Redis::connection('announce')->command('RPUSH', [
+            config('cache.prefix').':histories:batch',
+            serialize([
+                'user_id'           => $user->id,
+                'torrent_id'        => $torrent->id,
+                'agent'             => $queries['user-agent'],
+                'uploaded'          => $event === 'started' ? 0 : $creditedUploadedDelta,
+                'actual_uploaded'   => $event === 'started' ? 0 : $uploadedDelta,
+                'client_uploaded'   => $queries['uploaded'],
+                'downloaded'        => $event === 'started' ? 0 : $creditedDownloadedDelta,
+                'actual_downloaded' => $event === 'started' ? 0 : $downloadedDelta,
+                'client_downloaded' => $queries['downloaded'],
+                'seeder'            => $queries['left'] == 0,
+                'active'            => $event !== 'stopped',
+                'seedtime'          => 0,
+                'immune'            => $group->is_immune,
+                'completed_at'      => $event === 'completed' ? now() : null,
+            ])
+        ]);
+
+        // User updates
+        if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'started') {
+            DB::table('users')
+                ->where('id', '=', $user->id)
+                ->update([
+                    'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
+                    'downloaded' => DB::raw('downloaded + '.(int) $creditedDownloadedDelta),
+                ]);
+        }
+
+        // Torrent updates
+
+        $torrentUpdates = [];
+
+        if ($event === 'completed') {
+            $torrentUpdates['times_completed'] = DB::raw('times_completed + 1');
+        }
+
+        $isDeadPeer = $event === 'stopped';
+        $isSeeder = $queries['left'] == 0;
+
+        $newSeed = $isNewPeer && ! $isDeadPeer && $isSeeder;
+        $newLeech = $isNewPeer && ! $isDeadPeer && $isSeeder;
+        $stoppedSeed = ! $isNewPeer && $isDeadPeer && $isSeeder;
+        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
+        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+
+        if ($newLeech || $seedBecomesLeech) {
+            $torrentUpdates['leechers'] = DB::raw('leechers + 1');
+        } elseif ($stoppedLeech || $leechBecomesSeed) {
+            $torrentUpdates['leechers'] = DB::raw('leechers - 1');
+        }
+
+        if ($newSeed || $leechBecomesSeed) {
+            $torrentUpdates['seeders'] = DB::raw('seeders + 1');
+        } elseif ($stoppedSeed || $seedBecomesLeech) {
+            $torrentUpdates['seeders'] = DB::raw('seeders - 1');
+        }
+
+        if ($torrentUpdates !== []) {
+            DB::table('torrents')
+                ->where('id', '=', $torrent->id)
+                ->update($torrentUpdates);
+        }
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
