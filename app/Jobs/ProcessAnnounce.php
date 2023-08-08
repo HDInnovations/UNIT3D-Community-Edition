@@ -70,11 +70,13 @@ class ProcessAnnounce implements ShouldQueue
             ->where('user_id', '=', $this->user->id)
             ->first();
 
+        $isNewPeer = $peer === null;
+
         $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
         $downloaded = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
 
         // If no Peer record found then create one
-        if ($peer === null) {
+        if ($isNewPeer) {
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $event = 'started';
                 $uploaded = 0;
@@ -135,52 +137,7 @@ class ProcessAnnounce implements ShouldQueue
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
-
-        switch ($event) {
-            case 'started':
-                $peer->active = true;
-
-                break;
-            case 'completed':
-                $peer->active = true;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
-
-                // Torrent Completed Update
-                $this->torrent->times_completed += 1;
-
-                break;
-            case 'stopped':
-                $peer->active = false;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
-                break;
-            default:
-                $peer->active = true;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
-        }
+        $peer->active = $event !== 'stopped';
 
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
@@ -220,24 +177,51 @@ class ProcessAnnounce implements ShouldQueue
             ])
         ]);
 
-        $otherSeeders = $this
-            ->torrent
-            ->peers
-            ->where('left', '=', 0)
-            ->where('active', '=', true)
-            ->where('peer_id', '!=', $peerId)
-            ->count();
-        $otherLeechers = $this
-            ->torrent
-            ->peers
-            ->where('left', '>', 0)
-            ->where('active', '=', true)
-            ->where('peer_id', '!=', $peerId)
-            ->count();
+        // User updates
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && $this->queries['event'] !== 'stopped');
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && $this->queries['event'] !== 'stopped');
+        if (($modUploaded > 0 || $modDownloaded > 0) && $event !== 'started') {
+            DB::table('users')
+                ->where('id', '=', $this->user->id)
+                ->update([
+                    'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
+                    'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
+                ]);
+        }
 
-        $this->torrent->save();
+        // Torrent updates
+
+        $torrentUpdates = [];
+
+        if ($event === 'completed') {
+            $torrentUpdates['times_completed'] = DB::raw('times_completed + 1');
+        }
+
+        $isDeadPeer = $this->queries['event'] === 'stopped';
+        $isSeeder = $this->queries['left'] == 0;
+
+        $newSeed = $isNewPeer && ! $isDeadPeer && $isSeeder;
+        $newLeech = $isNewPeer && ! $isDeadPeer && $isSeeder;
+        $stoppedSeed = ! $isNewPeer && $isDeadPeer && $isSeeder;
+        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
+        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+
+        if ($newLeech || $seedBecomesLeech) {
+            $torrentUpdates['leechers'] = DB::raw('leechers + 1');
+        } elseif ($stoppedLeech || $leechBecomesSeed) {
+            $torrentUpdates['leechers'] = DB::raw('leechers - 1');
+        }
+
+        if ($newSeed || $leechBecomesSeed) {
+            $torrentUpdates['seeders'] = DB::raw('seeders + 1');
+        } elseif ($stoppedSeed || $seedBecomesLeech) {
+            $torrentUpdates['seeders'] = DB::raw('seeders - 1');
+        }
+
+        if ($torrentUpdates !== []) {
+            DB::table('torrents')
+                ->where('id', '=', $this->torrent->id)
+                ->update($torrentUpdates);
+        }
     }
 }
