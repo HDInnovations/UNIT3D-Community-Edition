@@ -396,12 +396,12 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\CasinoBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\NerdBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\NerdBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\SystemBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -644,486 +644,6 @@ parameters:
 			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middlewareGroups is not covariant with PHPDoc type array\\<string, array\\<int, string\\>\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middlewareGroups\\.$#"
 			count: 1
 			path: app/Http/Kernel.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
-			count: 1
-			path: app/Http/Livewire/AttachmentUpload.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Livewire/AttachmentUpload.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$audits\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$modelNames\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$activeDisk\\.$#"
-			count: 4
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$backupStatuses\\.$#"
-			count: 3
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$backups\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Call to an undefined method Spatie\\\\Backup\\\\BackupDestination\\\\Backup\\:\\:size\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 4
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between bool and 0 will always evaluate to false\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Comments\\:\\:\\$comments\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$can_comment\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:\\$companies\\.$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Livewire/DislikeButton.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$dislike \\(bool\\|null\\) does not accept int\\.$#"
-			count: 1
-			path: app/Http/Livewire/DislikeButton.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLogins\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:\\$invites\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$entries\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$logFiles\\.$#"
-			count: 2
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Livewire/LikeButton.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$like \\(bool\\|null\\) does not accept int\\.$#"
-			count: 1
-			path: app/Http/Livewire/LikeButton.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$medias\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:\\$networks\\.$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:\\$notes\\.$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:\\$notifications\\.$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:\\$peers\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: "#^Array has 2 duplicate keys with value 'perPage' \\('perPage', 'perPage'\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$actedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$artDirectedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$cinematographedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$composedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$createdCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$directedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$editedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$medias\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$personalFreeleech\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$producedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$productionDesignedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$writtenCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Match expression does not handle remaining values\\: \\(int\\|string\\)$#"
-			count: 3
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Movie\\:\\:\\$torrents is not writable\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Tv\\:\\:\\$torrents is not writable\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:\\$persons\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:\\$posts\\.$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$personalFreeleech\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
-			count: 3
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
-			count: 3
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:\\$forums\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedTopic\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:\\$subtitles\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 4
-			path: app/Http/Livewire/ThankButton.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$personalFreeleech\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsAll\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsDay\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsMonth\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsWeek\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$torrentsYear\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:\\$posts\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$forumCategories\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestBountyStat\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestStat\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequests\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedTorrents\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$personalFreeleech\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$torrents\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Match expression does not handle remaining value\\: mixed$#"
-			count: 3
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Variable \\$games on left side of \\?\\? is never defined\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
-			count: 1
-			path: app/Http/Livewire/TvSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$notes\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserNotes.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$resurrections\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:\\$users\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$history\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 4
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$uploads\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$created_at\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:\\$warnings\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:\\$users\\.$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\EncryptCookies\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Cookie\\\\Middleware\\\\EncryptCookies\\:\\:\\$except\\.$#"
@@ -1521,6 +1041,516 @@ parameters:
 			path: app/Listeners/FailedLoginListener.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
+			count: 1
+			path: app/Livewire/AttachmentUpload.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Livewire/AttachmentUpload.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\AuditLogSearch\\:\\:\\$audits\\.$#"
+			count: 1
+			path: app/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\AuditLogSearch\\:\\:\\$modelNames\\.$#"
+			count: 1
+			path: app/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\BackupPanel\\:\\:\\$activeDisk\\.$#"
+			count: 4
+			path: app/Livewire/BackupPanel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\BackupPanel\\:\\:\\$backupStatuses\\.$#"
+			count: 3
+			path: app/Livewire/BackupPanel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\BackupPanel\\:\\:\\$backups\\.$#"
+			count: 1
+			path: app/Livewire/BackupPanel.php
+
+		-
+			message: "#^Call to an undefined method Spatie\\\\Backup\\\\BackupDestination\\\\Backup\\:\\:size\\(\\)\\.$#"
+			count: 1
+			path: app/Livewire/BackupPanel.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"
+			count: 1
+			path: app/Livewire/CollectionSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Livewire/Comment.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
+			count: 1
+			path: app/Livewire/Comment.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between bool and 0 will always evaluate to false\\.$#"
+			count: 1
+			path: app/Livewire/Comment.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Comments\\:\\:\\$comments\\.$#"
+			count: 1
+			path: app/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$can_comment\\.$#"
+			count: 1
+			path: app/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 3
+			path: app/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
+			count: 1
+			path: app/Livewire/Comments.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\CompanySearch\\:\\:\\$companies\\.$#"
+			count: 1
+			path: app/Livewire/CompanySearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 3
+			path: app/Livewire/DislikeButton.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$dislike \\(bool\\|null\\) does not accept int\\.$#"
+			count: 1
+			path: app/Livewire/DislikeButton.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLogins\\.$#"
+			count: 1
+			path: app/Livewire/FailedLoginSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Livewire/ForumCategoryTopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Livewire/ForumTopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\GiftLogSearch\\:\\:\\$gifts\\.$#"
+			count: 1
+			path: app/Livewire/GiftLogSearch.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Livewire\\\\GiftLogSearch\\:\\:emit\\(\\)\\.$#"
+			count: 1
+			path: app/Livewire/GiftLogSearch.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:emit\\(\\)\\.$#"
+			count: 1
+			path: app/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\InviteLogSearch\\:\\:\\$invites\\.$#"
+			count: 1
+			path: app/Livewire/InviteLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$entries\\.$#"
+			count: 1
+			path: app/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$logFiles\\.$#"
+			count: 2
+			path: app/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 3
+			path: app/Livewire/LikeButton.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$like \\(bool\\|null\\) does not accept int\\.$#"
+			count: 1
+			path: app/Livewire/LikeButton.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$medias\\.$#"
+			count: 1
+			path: app/Livewire/MissingMediaSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$types\\.$#"
+			count: 1
+			path: app/Livewire/MissingMediaSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\NetworkSearch\\:\\:\\$networks\\.$#"
+			count: 1
+			path: app/Livewire/NetworkSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\NoteSearch\\:\\:\\$notes\\.$#"
+			count: 1
+			path: app/Livewire/NoteSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\NotificationSearch\\:\\:\\$notifications\\.$#"
+			count: 1
+			path: app/Livewire/NotificationSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PeerSearch\\:\\:\\$peers\\.$#"
+			count: 1
+			path: app/Livewire/PeerSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$actedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$artDirectedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$cinematographedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$composedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$createdCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$directedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$editedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$medias\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$producedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$productionDesignedCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonCredit\\:\\:\\$writtenCount\\.$#"
+			count: 2
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Match expression does not handle remaining values\\: \\(int\\|string\\)$#"
+			count: 3
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Movie\\:\\:\\$torrents is not writable\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Tv\\:\\:\\$torrents is not writable\\.$#"
+			count: 1
+			path: app/Livewire/PersonCredit.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PersonSearch\\:\\:\\$persons\\.$#"
+			count: 1
+			path: app/Livewire/PersonSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\PostSearch\\:\\:\\$posts\\.$#"
+			count: 1
+			path: app/Livewire/PostSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\SimilarTorrent\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
+			count: 3
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
+			count: 2
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
+			count: 3
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\SubscribedForum\\:\\:\\$forums\\.$#"
+			count: 1
+			path: app/Livewire/SubscribedForum.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\SubscribedTopic\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Livewire/SubscribedTopic.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\SubtitleSearch\\:\\:\\$subtitles\\.$#"
+			count: 1
+			path: app/Livewire/SubtitleSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Livewire/ThankButton.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$torrentsAll\\.$#"
+			count: 1
+			path: app/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$torrentsDay\\.$#"
+			count: 1
+			path: app/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$torrentsMonth\\.$#"
+			count: 1
+			path: app/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$torrentsWeek\\.$#"
+			count: 1
+			path: app/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$torrentsYear\\.$#"
+			count: 1
+			path: app/Livewire/Top10.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TopicPostSearch\\:\\:\\$posts\\.$#"
+			count: 1
+			path: app/Livewire/TopicPostSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TopicSearch\\:\\:\\$forumCategories\\.$#"
+			count: 1
+			path: app/Livewire/TopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TopicSearch\\:\\:\\$topics\\.$#"
+			count: 1
+			path: app/Livewire/TopicSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestBountyStat\\.$#"
+			count: 1
+			path: app/Livewire/TorrentRequestSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestStat\\.$#"
+			count: 1
+			path: app/Livewire/TorrentRequestSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequests\\.$#"
+			count: 1
+			path: app/Livewire/TorrentRequestSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedTorrents\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TorrentSearch\\:\\:\\$personalFreeleech\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TorrentSearch\\:\\:\\$torrents\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Match expression does not handle remaining value\\: mixed$#"
+			count: 3
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Variable \\$games on left side of \\?\\? is never defined\\.$#"
+			count: 1
+			path: app/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
+			count: 1
+			path: app/Livewire/TvSearch.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserNotes\\:\\:\\$notes\\.$#"
+			count: 1
+			path: app/Livewire/UserNotes.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserResurrections\\:\\:\\$resurrections\\.$#"
+			count: 1
+			path: app/Livewire/UserResurrections.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserSearch\\:\\:\\$users\\.$#"
+			count: 1
+			path: app/Livewire/UserSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserTorrents\\:\\:\\$history\\.$#"
+			count: 1
+			path: app/Livewire/UserTorrents.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 4
+			path: app/Livewire/UserTorrents.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserUploads\\:\\:\\$uploads\\.$#"
+			count: 1
+			path: app/Livewire/UserUploads.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Livewire/UserUploads.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Livewire/UserUploads.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserWarnings\\:\\:\\$automatedWarningsCount\\.$#"
+			count: 1
+			path: app/Livewire/UserWarnings.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserWarnings\\:\\:\\$deletedWarningsCount\\.$#"
+			count: 1
+			path: app/Livewire/UserWarnings.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserWarnings\\:\\:\\$manualWarningsCount\\.$#"
+			count: 1
+			path: app/Livewire/UserWarnings.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\UserWarnings\\:\\:\\$warnings\\.$#"
+			count: 1
+			path: app/Livewire/UserWarnings.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\WarningLogSearch\\:\\:\\$warnings\\.$#"
+			count: 1
+			path: app/Livewire/WarningLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\WatchlistSearch\\:\\:\\$users\\.$#"
+			count: 1
+			path: app/Livewire/WatchlistSearch.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
 			count: 1
 			path: app/Models/Comment.php
@@ -1551,26 +1581,6 @@ parameters:
 			path: app/Models/Language.php
 
 		-
-			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string\\|false and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^Variable \\$cache in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\TicketAttachment\\:\\:\\$disk_path\\.$#"
 			count: 1
 			path: app/Models/TicketAttachment.php
@@ -1599,31 +1609,6 @@ parameters:
 			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Class App\\\\Models\\\\UserChat not found\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Comparison operation \"\\=\\=\" between non\\-empty\\-array and 1 results in an error\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\User\\:\\:\\$hidden is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$hidden\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/Models/User.php
-
-		-
-			message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\UserPrivacy\\. Use \\-\\> instead\\.$#"
-			count: 2
-			path: app/Models/User.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"

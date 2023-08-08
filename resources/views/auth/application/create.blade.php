@@ -21,6 +21,7 @@
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
+    @livewireStyles
 </head>
 
 <body>
@@ -177,4 +178,5 @@
         </article>
     </main>
 </body>
+@livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
 </html>
