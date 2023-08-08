@@ -82,8 +82,6 @@ class ProcessAnnounce implements ShouldQueue
                 $uploaded = 0;
                 $downloaded = 0;
             }
-
-            $peer = new Peer();
         }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
@@ -124,37 +122,51 @@ class ProcessAnnounce implements ShouldQueue
             $modUploaded = $uploaded;
         }
 
-        // Common Parts Extracted From Switch
-        $peer->peer_id = $peerId;
-        $peer->ip = $ipAddress;
-        $peer->port = $this->queries['port'];
-        $peer->agent = $this->queries['user-agent'];
-        $peer->uploaded = $realUploaded;
-        $peer->downloaded = $realDownloaded;
-        $peer->seeder = $this->queries['left'] == 0;
-        $peer->left = $this->queries['left'];
-        $peer->torrent_id = $this->torrent->id;
-        $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
-        $peer->updated_at = now();
-        $peer->active = $event !== 'stopped';
+        // Check if peer is connectable
+
+        $connectable = false;
+
+        if (config('announce.connectable_check')) {
+            $tmp_ip = inet_ntop(pack('A'.\strlen($ipAddress), $ipAddress));
+
+            // IPv6 Check
+            if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $tmp_ip = '['.$tmp_ip.']';
+            }
+
+            $key = $tmp_ip.'-'.$this->queries['port'].'-'.$this->queries['agent'];
+
+            if (cache()->has(':peers:connectable-timer:'.$key)) {
+                $connectable = cache()->get(':peers:connectable:'.$key) === true;
+            } else {
+                $connection = @fsockopen($tmp_ip, $this->queries['port'], $_, $_, 1);
+
+                if ($connectable = \is_resource($connection)) {
+                    fclose($connection);
+                }
+
+                // 5400 is the maximum announce interval. 60 is some leeway.
+                cache()->put(':peers:connectable:'.$key, $connectable, 5400 + 60 + config('announce.connectable_check_interval'));
+                cache()->remember(':peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
+            }
+        }
 
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
-            serialize($peer->only([
-                'peer_id',
-                'ip',
-                'port',
-                'agent',
-                'uploaded',
-                'downloaded',
-                'left',
-                'seeder',
-                'torrent_id',
-                'user_id',
-                'connectable',
-                'active'
-            ]))
+            serialize([
+                'peer_id'     => $peerId,
+                'ip'          => $ipAddress,
+                'port'        => $this->queries['port'],
+                'agent'       => $this->queries['user-agent'],
+                'uploaded'    => $realUploaded,
+                'downloaded'  => $realDownloaded,
+                'left'        => $this->queries['left'],
+                'seeder'      => $this->queries['left'] == 0,
+                'torrent_id'  => $this->torrent->id,
+                'user_id'     => $this->user->id,
+                'connectable' => $connectable,
+                'active'      => $event !== 'stopped',
+            ])
         ]);
 
         Redis::connection('announce')->command('RPUSH', [
