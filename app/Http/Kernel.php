@@ -32,10 +32,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
-
-        // Extra
-        \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
-        \App\Http\Middleware\Http2ServerPush::class,
     ];
 
     /**
@@ -53,6 +49,8 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\UpdateLastAction::class,
+            \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
+            \App\Http\Middleware\Http2ServerPush::class,
             //'throttle:web',
         ],
         'api' => [
