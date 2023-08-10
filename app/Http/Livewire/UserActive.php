@@ -101,7 +101,6 @@ class UserActive extends Component
             ->selectRaw('INET6_NTOA(ip) as ip')
             ->selectRaw('(1 - (peers.left / NULLIF(torrents.size, 0))) AS progress')
             ->where('peers.user_id', '=', $this->user->id)
-            ->where('active', '=', 1)
             ->when(
                 $this->name,
                 fn ($query) => $query
