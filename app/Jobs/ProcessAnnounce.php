@@ -135,53 +135,16 @@ class ProcessAnnounce implements ShouldQueue
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
+        $peer->active = $event !== 'stopped';
 
-        switch ($event) {
-            case 'started':
-                $peer->active = true;
-
-                break;
-            case 'completed':
-                $peer->active = true;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
-
-                // Torrent Completed Update
-                $this->torrent->times_completed += 1;
-
-                break;
-            case 'stopped':
-                $peer->active = false;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-
-                // End User Update
-                break;
-            default:
-                $peer->active = true;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
+        if (($modUploaded > 0 || $modDownloaded > 0) && $event !== 'stopped') {
+            $this->user->update([
+                'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
+                'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
+            ]);
         }
+
+        $this->torrent->times_completed += (int) ($event === 'completed');
 
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
