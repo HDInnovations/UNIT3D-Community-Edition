@@ -71,11 +71,13 @@ class ProcessAnnounce implements ShouldQueue
             ->where('user_id', '=', $this->userId)
             ->first();
 
+        $isNewPeer = $peer === null;
+
         $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
         $downloaded = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
 
         // If no Peer record found then create one
-        if ($peer === null) {
+        if ($isNewPeer) {
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $event = 'started';
                 $uploaded = 0;
@@ -145,8 +147,6 @@ class ProcessAnnounce implements ShouldQueue
             ]);
         }
 
-        $this->torrent->times_completed += (int) ($event === 'completed');
-
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize($peer->only([
@@ -185,24 +185,19 @@ class ProcessAnnounce implements ShouldQueue
             ])
         ]);
 
-        $otherSeeders = $this
-            ->torrent
-            ->peers
-            ->where('left', '=', 0)
-            ->where('active', '=', true)
-            ->where('peer_id', '!=', $peerId)
-            ->count();
-        $otherLeechers = $this
-            ->torrent
-            ->peers
-            ->where('left', '>', 0)
-            ->where('active', '=', true)
-            ->where('peer_id', '!=', $peerId)
-            ->count();
+        $isDeadPeer = $event === 'stopped';
+        $isSeeder = $this->queries['left'] == 0;
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && $this->queries['event'] !== 'stopped');
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && $this->queries['event'] !== 'stopped');
+        $newSeed = $isNewPeer && ! $isDeadPeer && $isSeeder;
+        $newLeech = $isNewPeer && ! $isDeadPeer && ! $isSeeder;
+        $stoppedSeed = ! $isNewPeer && $isDeadPeer && $isSeeder;
+        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
+        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
 
+        $this->torrent->times_completed += (int) ($event === 'completed');
+        $this->torrent->seeders += ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
+        $this->torrent->leechers += ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
         $this->torrent->save();
     }
 }
