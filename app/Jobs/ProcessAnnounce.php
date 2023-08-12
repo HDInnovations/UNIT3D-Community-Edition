@@ -36,9 +36,19 @@ class ProcessAnnounce implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @param array{
+     *     is_freeleech: boolean,
+     *     is_double_upload: boolean,
+     *     is_immune: boolean
+     * } $group
      */
-    public function __construct(protected $queries, protected $userId, protected $group, protected $torrent)
-    {
+    public function __construct(
+        protected $queries,
+        protected $userId,
+        protected array $group,
+        protected $torrent
+    ) {
     }
 
     /**
@@ -105,7 +115,7 @@ class ProcessAnnounce implements ShouldQueue
 
         if (
             $personalFreeleech
-            || $this->group->is_freeleech
+            || $this->group['is_freeleech']
             || $freeleechToken
             || config('other.freeleech')
         ) {
@@ -121,7 +131,7 @@ class ProcessAnnounce implements ShouldQueue
 
         if (
             $this->torrent->doubleup
-            || $this->group->is_double_upload
+            || $this->group['is_double_upload']
             || config('other.doubleup')
         ) {
             $creditedUploadedDelta = $uploadedDelta * 2;
@@ -184,7 +194,7 @@ class ProcessAnnounce implements ShouldQueue
                 'seeder'            => $this->queries['left'] == 0,
                 'active'            => $event !== 'stopped',
                 'seedtime'          => 0,
-                'immune'            => $this->group->is_immune,
+                'immune'            => $this->group['is_immune'],
                 'completed_at'      => $event === 'completed' ? now() : null,
             ])
         ]);
