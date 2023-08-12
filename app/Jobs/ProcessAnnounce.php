@@ -17,6 +17,7 @@ namespace App\Jobs;
 use App\Models\FreeleechToken;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -36,7 +37,7 @@ class ProcessAnnounce implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected $queries, protected $user, protected $group, protected $torrent)
+    public function __construct(protected $queries, protected $userId, protected $group, protected $torrent)
     {
     }
 
@@ -45,7 +46,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(30)];
+        return [(new WithoutOverlapping($this->userId.':'.$this->torrent->id))->releaseAfter(30)];
     }
 
     /**
@@ -67,7 +68,7 @@ class ProcessAnnounce implements ShouldQueue
         // Get The Current Peer
         $peer = $this->torrent->peers
             ->where('peer_id', '=', $peerId)
-            ->where('user_id', '=', $this->user->id)
+            ->where('user_id', '=', $this->userId)
             ->first();
 
         $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
@@ -86,16 +87,16 @@ class ProcessAnnounce implements ShouldQueue
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
         $personalFreeleech = cache()->rememberForever(
-            'personal_freeleech:'.$this->user->id,
+            'personal_freeleech:'.$this->userId,
             fn () => PersonalFreeleech::query()
-                ->where('user_id', '=', $this->user->id)
+                ->where('user_id', '=', $this->userId)
                 ->exists()
         );
 
         $freeleechToken = cache()->rememberForever(
-            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
+            'freeleech_token:'.$this->userId.':'.$this->torrent->id,
             fn () => FreeleechToken::query()
-                ->where('user_id', '=', $this->user->id)
+                ->where('user_id', '=', $this->userId)
                 ->where('torrent_id', '=', $this->torrent->id)
                 ->exists(),
         );
@@ -132,13 +133,13 @@ class ProcessAnnounce implements ShouldQueue
         $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
-        $peer->user_id = $this->user->id;
+        $peer->user_id = $this->userId;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
         $peer->active = $event !== 'stopped';
 
         if (($modUploaded > 0 || $modDownloaded > 0) && $event !== 'stopped') {
-            $this->user->update([
+            User::whereKey($this->userId)->update([
                 'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
                 'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
             ]);
@@ -167,7 +168,7 @@ class ProcessAnnounce implements ShouldQueue
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':histories:batch',
             serialize([
-                'user_id'           => $this->user->id,
+                'user_id'           => $this->userId,
                 'torrent_id'        => $this->torrent->id,
                 'agent'             => $this->queries['user-agent'],
                 'uploaded'          => $event === 'started' ? 0 : $modUploaded,
