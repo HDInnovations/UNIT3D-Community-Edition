@@ -113,10 +113,13 @@ class ProcessAnnounce implements ShouldQueue
         ) {
             $creditedDownloadedDelta = 0;
         } elseif ($this->torrent->free >= 1) {
-            // FL value in DB are from 0% to 100%.
-            // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $downloadedDelta * $this->torrent->free / 100;
-            $creditedDownloadedDelta = $downloadedDelta - $fl_discount;
+            // Freeleech values in the database are from 0 to 100
+            // 0 means 0% of the bytes are freeleech, i.e. 100% of the bytes are counted.
+            // 100 means 100% of the bytes are freeleech, i.e. 0% of the bytes are counted.
+            // This means we have to subtract the value stored in the database from 100 before multiplying.
+            // Also make sure that 100% is the highest value of freeleech possible
+            // in order to not subtract download from an account.
+            $creditedDownloadedDelta = $downloadedDelta * (100 - min(100, $this->torrent->free)) / 100;
         } else {
             $creditedDownloadedDelta = $downloadedDelta;
         }
