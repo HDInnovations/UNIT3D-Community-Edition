@@ -103,10 +103,12 @@ class ProcessAnnounce implements ShouldQueue
                 ->exists(),
         );
 
-        if ($personalFreeleech ||
-            $this->group->is_freeleech == 1 ||
-            $freeleechToken ||
-            config('other.freeleech') == 1) {
+        if (
+            $personalFreeleech
+            || $this->group->is_freeleech
+            || $freeleechToken
+            || config('other.freeleech')
+        ) {
             $modDownloaded = 0;
         } elseif ($this->torrent->free >= 1) {
             // FL value in DB are from 0% to 100%.
@@ -117,9 +119,11 @@ class ProcessAnnounce implements ShouldQueue
             $modDownloaded = $downloaded;
         }
 
-        if ($this->torrent->doubleup == 1 ||
-            $this->group->is_double_upload == 1 ||
-            config('other.doubleup') == 1) {
+        if (
+            $this->torrent->doubleup
+            || $this->group->is_double_upload
+            || config('other.doubleup')
+        ) {
             $modUploaded = $uploaded * 2;
         } else {
             $modUploaded = $uploaded;
