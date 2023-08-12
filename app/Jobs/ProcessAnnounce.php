@@ -15,7 +15,6 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
-use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -93,8 +92,6 @@ class ProcessAnnounce implements ShouldQueue
                 $uploadedDelta = 0;
                 $downloadedDelta = 0;
             }
-
-            $peer = new Peer();
         }
 
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
@@ -139,13 +136,47 @@ class ProcessAnnounce implements ShouldQueue
             $creditedUploadedDelta = $uploadedDelta;
         }
 
-        $peer->updateConnectableStateIfNeeded();
-
         if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
             User::whereKey($this->userId)->update([
                 'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
                 'downloaded' => DB::raw('downloaded + '.(int) $creditedDownloadedDelta),
             ]);
+        }
+
+        // Check if peer is connectable
+
+        $connectable = false;
+
+        if (config('announce.connectable_check')) {
+            $tmp_ip = inet_ntop(pack('A'.\strlen($ipAddress), $ipAddress));
+
+            // IPv6 Check
+            if (filter_var($tmp_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $tmp_ip = '['.$tmp_ip.']';
+            }
+
+            $key = $tmp_ip.'-'.$this->queries['port'].'-'.$this->queries['agent'];
+
+            if (cache()->has(':peers:connectable-timer:'.$key)) {
+                $connectable = cache()->get(':peers:connectable:'.$key) === true;
+            } else {
+                // This connection has to be made asynchronously from the
+                // announce route due to the timeout, as it extends the
+                // request's processing time significantly, and we don't want
+                // to block other announces from being processed. Since this
+                // job is processed via the queue, the queue may get backed up,
+                // but that won't cause any issues besides maybe needing to
+                // increase the worker count.
+                $connection = @fsockopen($tmp_ip, $this->queries['port'], $_, $_, 1);
+
+                if ($connectable = \is_resource($connection)) {
+                    fclose($connection);
+                }
+
+                // 5400 is the maximum announce interval. 60 is some leeway.
+                cache()->put(':peers:connectable:'.$key, $connectable, 5400 + 60 + config('announce.connectable_check_interval'));
+                cache()->remember(':peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
+            }
         }
 
         Redis::connection('announce')->command('RPUSH', [
@@ -161,7 +192,7 @@ class ProcessAnnounce implements ShouldQueue
                 'seeder'      => $this->queries['left'] == 0,
                 'torrent_id'  => $this->torrent->id,
                 'user_id'     => $this->userId,
-                'connectable' => $peer->connectable,
+                'connectable' => $connectable,
                 'active'      => $event !== 'stopped',
             ])
         ]);
