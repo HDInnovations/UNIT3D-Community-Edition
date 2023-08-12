@@ -72,10 +72,11 @@ class ProcessAnnounce implements ShouldQueue
 
         $isNewPeer = $peer === null;
 
+        // Calculate the change in upload/download compared to the last announce
         $uploadedDelta = max($realUploaded - ($peer?->uploaded ?? 0), 0);
         $downloadedDelta = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
 
-        // If no Peer record found then create one
+        // If no peer record found then set deltas to 0 and change to `started` event
         if ($isNewPeer) {
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $event = 'started';
@@ -86,7 +87,7 @@ class ProcessAnnounce implements ShouldQueue
             $peer = new Peer();
         }
 
-        // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
+        // Check if user currently has a personal freeleech
         $personalFreeleech = cache()->rememberForever(
             'personal_freeleech:'.$this->user->id,
             fn () => PersonalFreeleech::query()
@@ -94,6 +95,7 @@ class ProcessAnnounce implements ShouldQueue
                 ->exists()
         );
 
+        // Check if user has a freeleech token on this torrent
         $freeleechToken = cache()->rememberForever(
             'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
             fn () => FreeleechToken::query()
@@ -102,6 +104,7 @@ class ProcessAnnounce implements ShouldQueue
                 ->exists(),
         );
 
+        // Calculate credited Download
         if (
             $personalFreeleech
             || $this->group->is_freeleech
@@ -118,6 +121,7 @@ class ProcessAnnounce implements ShouldQueue
             $creditedDownloadedDelta = $downloadedDelta;
         }
 
+        // Calculate credited upload
         if (
             $this->torrent->doubleup
             || $this->group->is_double_upload
@@ -130,6 +134,7 @@ class ProcessAnnounce implements ShouldQueue
 
         $peer->updateConnectableStateIfNeeded();
 
+        // User Updates
         if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
             $this->user->update([
                 'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
@@ -137,6 +142,11 @@ class ProcessAnnounce implements ShouldQueue
             ]);
         }
 
+        /**
+         * Peer batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertPeers
+         */
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize([
@@ -155,6 +165,11 @@ class ProcessAnnounce implements ShouldQueue
             ])
         ]);
 
+        /**
+         * History batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertHistories
+         */
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':histories:batch',
             serialize([
@@ -174,6 +189,8 @@ class ProcessAnnounce implements ShouldQueue
                 'completed_at'      => $event === 'completed' ? now() : null,
             ])
         ]);
+
+        // Torrent updates
 
         $isDeadPeer = $event === 'stopped';
         $isSeeder = $this->queries['left'] == 0;
