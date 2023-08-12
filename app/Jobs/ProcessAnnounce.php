@@ -128,19 +128,7 @@ class ProcessAnnounce implements ShouldQueue
             $creditedUploadedDelta = $uploadedDelta;
         }
 
-        // Common Parts Extracted From Switch
-        $peer->peer_id = $peerId;
-        $peer->ip = $ipAddress;
-        $peer->port = $this->queries['port'];
-        $peer->agent = $this->queries['user-agent'];
-        $peer->uploaded = $realUploaded;
-        $peer->downloaded = $realDownloaded;
-        $peer->seeder = $this->queries['left'] == 0;
-        $peer->left = $this->queries['left'];
-        $peer->torrent_id = $this->torrent->id;
-        $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
-        $peer->active = $event !== 'stopped';
 
         if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
             $this->user->update([
@@ -151,20 +139,20 @@ class ProcessAnnounce implements ShouldQueue
 
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
-            serialize($peer->only([
-                'peer_id',
-                'ip',
-                'port',
-                'agent',
-                'uploaded',
-                'downloaded',
-                'left',
-                'seeder',
-                'torrent_id',
-                'user_id',
-                'connectable',
-                'active'
-            ]))
+            serialize([
+                'peer_id'     => $peerId,
+                'ip'          => $ipAddress,
+                'port'        => $this->queries['port'],
+                'agent'       => $this->queries['user-agent'],
+                'uploaded'    => $realUploaded,
+                'downloaded'  => $realDownloaded,
+                'left'        => $this->queries['left'],
+                'seeder'      => $this->queries['left'] == 0,
+                'torrent_id'  => $this->torrent->id,
+                'user_id'     => $this->userId,
+                'connectable' => $peer->connectable,
+                'active'      => $event !== 'stopped',
+            ])
         ]);
 
         Redis::connection('announce')->command('RPUSH', [
