@@ -72,15 +72,15 @@ class ProcessAnnounce implements ShouldQueue
 
         $isNewPeer = $peer === null;
 
-        $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
-        $downloaded = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
+        $uploadedDelta = max($realUploaded - ($peer?->uploaded ?? 0), 0);
+        $downloadedDelta = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
 
         // If no Peer record found then create one
         if ($isNewPeer) {
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
                 $event = 'started';
-                $uploaded = 0;
-                $downloaded = 0;
+                $uploadedDelta = 0;
+                $downloadedDelta = 0;
             }
 
             $peer = new Peer();
@@ -108,14 +108,14 @@ class ProcessAnnounce implements ShouldQueue
             || $freeleechToken
             || config('other.freeleech')
         ) {
-            $modDownloaded = 0;
+            $creditedDownloadedDelta = 0;
         } elseif ($this->torrent->free >= 1) {
             // FL value in DB are from 0% to 100%.
             // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $downloaded * $this->torrent->free / 100;
-            $modDownloaded = $downloaded - $fl_discount;
+            $fl_discount = $downloadedDelta * $this->torrent->free / 100;
+            $creditedDownloadedDelta = $downloadedDelta - $fl_discount;
         } else {
-            $modDownloaded = $downloaded;
+            $creditedDownloadedDelta = $downloadedDelta;
         }
 
         if (
@@ -123,9 +123,9 @@ class ProcessAnnounce implements ShouldQueue
             || $this->group->is_double_upload
             || config('other.doubleup')
         ) {
-            $modUploaded = $uploaded * 2;
+            $creditedUploadedDelta = $uploadedDelta * 2;
         } else {
-            $modUploaded = $uploaded;
+            $creditedUploadedDelta = $uploadedDelta;
         }
 
         // Common Parts Extracted From Switch
@@ -143,10 +143,10 @@ class ProcessAnnounce implements ShouldQueue
         $peer->updated_at = now();
         $peer->active = $event !== 'stopped';
 
-        if (($modUploaded > 0 || $modDownloaded > 0) && $event !== 'stopped') {
+        if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
             $this->user->update([
-                'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
+                'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
+                'downloaded' => DB::raw('downloaded + '.(int) $creditedDownloadedDelta),
             ]);
         }
 
@@ -174,11 +174,11 @@ class ProcessAnnounce implements ShouldQueue
                 'user_id'           => $this->user->id,
                 'torrent_id'        => $this->torrent->id,
                 'agent'             => $this->queries['user-agent'],
-                'uploaded'          => $event === 'started' ? 0 : $modUploaded,
-                'actual_uploaded'   => $event === 'started' ? 0 : $uploaded,
+                'uploaded'          => $event === 'started' ? 0 : $creditedUploadedDelta,
+                'actual_uploaded'   => $event === 'started' ? 0 : $uploadedDelta,
                 'client_uploaded'   => $realUploaded,
-                'downloaded'        => $event === 'started' ? 0 : $modDownloaded,
-                'actual_downloaded' => $event === 'started' ? 0 : $downloaded,
+                'downloaded'        => $event === 'started' ? 0 : $creditedDownloadedDelta,
+                'actual_downloaded' => $event === 'started' ? 0 : $downloadedDelta,
                 'client_downloaded' => $realDownloaded,
                 'seeder'            => $this->queries['left'] == 0,
                 'active'            => $event !== 'stopped',
