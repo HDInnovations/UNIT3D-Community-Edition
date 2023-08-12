@@ -58,8 +58,6 @@ class ProcessAnnounce implements ShouldQueue
     public function handle(): void
     {
         // Set Variables
-        $realUploaded = $this->queries['uploaded'];
-        $realDownloaded = $this->queries['downloaded'];
         $event = $this->queries['event'];
         $peerId = base64_decode($this->queries['peer_id']);
         $ipAddress = base64_decode($this->queries['ip-address']);
@@ -73,8 +71,8 @@ class ProcessAnnounce implements ShouldQueue
         $isNewPeer = $peer === null;
 
         // Calculate the change in upload/download compared to the last announce
-        $uploadedDelta = max($realUploaded - ($peer?->uploaded ?? 0), 0);
-        $downloadedDelta = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
+        $uploadedDelta = max($this->queries['uploaded'] - ($this->peer?->uploaded ?? 0), 0);
+        $downloadedDelta = max($this->queries['downloaded'] - ($this->peer?->downloaded ?? 0), 0);
 
         // If no peer record found then set deltas to 0 and change to `started` event
         if ($isNewPeer) {
@@ -153,12 +151,12 @@ class ProcessAnnounce implements ShouldQueue
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize([
-                'peer_id'     => $peerId,
+                'peer_id'     => base64_decode($this->queries['peer_id']),
                 'ip'          => $ipAddress,
                 'port'        => $this->queries['port'],
                 'agent'       => $this->queries['user-agent'],
-                'uploaded'    => $realUploaded,
-                'downloaded'  => $realDownloaded,
+                'uploaded'    => $this->queries['uploaded'],
+                'downloaded'  => $this->queries['downloaded'],
                 'left'        => $this->queries['left'],
                 'seeder'      => $this->queries['left'] == 0,
                 'torrent_id'  => $this->torrent->id,
@@ -181,10 +179,10 @@ class ProcessAnnounce implements ShouldQueue
                 'agent'             => $this->queries['user-agent'],
                 'uploaded'          => $event === 'started' ? 0 : $creditedUploadedDelta,
                 'actual_uploaded'   => $event === 'started' ? 0 : $uploadedDelta,
-                'client_uploaded'   => $realUploaded,
+                'client_uploaded'   => $this->queries['uploaded'],
                 'downloaded'        => $event === 'started' ? 0 : $creditedDownloadedDelta,
                 'actual_downloaded' => $event === 'started' ? 0 : $downloadedDelta,
-                'client_downloaded' => $realDownloaded,
+                'client_downloaded' => $this->queries['downloaded'],
                 'seeder'            => $this->queries['left'] == 0,
                 'active'            => $event !== 'stopped',
                 'seedtime'          => 0,
