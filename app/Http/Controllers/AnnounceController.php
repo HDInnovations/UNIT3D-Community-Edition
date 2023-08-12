@@ -586,11 +586,19 @@ class AnnounceController extends Controller
      */
     private function processAnnounceJob($queries, $user, $group, $torrent): void
     {
+        $peer = $torrent
+            ->peers
+            ->where('peer_id', '=', base64_decode($queries['peer_id']))
+            ->where('user_id', '=', $user->id)
+            ->first()
+            ?->only(['uploaded', 'downloaded', 'left']);
+
         ProcessAnnounce::dispatch(
             $queries,
             $user->id,
             $group->only(['is_freeleech', 'is_double_upload', 'is_immune']),
-            $torrent
+            $torrent,
+            $peer
         );
     }
 

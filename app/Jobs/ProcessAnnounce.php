@@ -41,12 +41,18 @@ class ProcessAnnounce implements ShouldQueue
      *     is_double_upload: boolean,
      *     is_immune: boolean
      * } $group
+     * @param ?array{
+     *     uploaded: int,
+     *     downloaded: int,
+     *     left: int,
+     * } $peer
      */
     public function __construct(
         protected $queries,
         protected $userId,
         protected array $group,
-        protected $torrent
+        protected $torrent,
+        protected ?array $peer,
     ) {
     }
 
@@ -74,16 +80,10 @@ class ProcessAnnounce implements ShouldQueue
         $peerId = base64_decode($this->queries['peer_id']);
         $ipAddress = base64_decode($this->queries['ip-address']);
 
-        // Get The Current Peer
-        $peer = $this->torrent->peers
-            ->where('peer_id', '=', $peerId)
-            ->where('user_id', '=', $this->userId)
-            ->first();
+        $isNewPeer = $this->peer === null;
 
-        $isNewPeer = $peer === null;
-
-        $uploadedDelta = max($realUploaded - ($peer?->uploaded ?? 0), 0);
-        $downloadedDelta = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
+        $uploadedDelta = max($realUploaded - ($this->peer['uploaded'] ?? 0), 0);
+        $downloadedDelta = max($realDownloaded - ($this->peer['downloaded'] ?? 0), 0);
 
         // If no Peer record found then create one
         if ($isNewPeer) {
@@ -224,8 +224,8 @@ class ProcessAnnounce implements ShouldQueue
         $newLeech = $isNewPeer && ! $isDeadPeer && ! $isSeeder;
         $stoppedSeed = ! $isNewPeer && $isDeadPeer && $isSeeder;
         $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
-        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
-        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $this->peer['left'] > 0;
+        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $this->peer['left'] === 0;
 
         $this->torrent->times_completed += (int) ($event === 'completed');
         $this->torrent->seeders += ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
