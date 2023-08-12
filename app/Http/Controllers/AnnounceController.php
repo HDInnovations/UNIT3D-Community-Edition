@@ -597,7 +597,7 @@ class AnnounceController extends Controller
             $queries,
             $user->id,
             $group->only(['is_freeleech', 'is_double_upload', 'is_immune']),
-            $torrent,
+            $torrent->only('id', 'free', 'doubleup'),
             $peer
         );
     }

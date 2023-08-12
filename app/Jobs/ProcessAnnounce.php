@@ -16,6 +16,7 @@ namespace App\Jobs;
 
 use App\Models\FreeleechToken;
 use App\Models\PersonalFreeleech;
+use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,6 +42,11 @@ class ProcessAnnounce implements ShouldQueue
      *     is_double_upload: boolean,
      *     is_immune: boolean
      * } $group
+     * @param array{
+     *     id: int,
+     *     free: int,
+     *     doubleup: bool,
+     * } $torrent
      * @param ?array{
      *     uploaded: int,
      *     downloaded: int,
@@ -51,7 +57,7 @@ class ProcessAnnounce implements ShouldQueue
         protected $queries,
         protected $userId,
         protected array $group,
-        protected $torrent,
+        protected array $torrent,
         protected ?array $peer,
     ) {
     }
@@ -61,7 +67,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->userId.':'.$this->torrent->id))->releaseAfter(30)];
+        return [(new WithoutOverlapping($this->userId.':'.$this->torrent['id']))->releaseAfter(30)];
     }
 
     /**
@@ -103,10 +109,10 @@ class ProcessAnnounce implements ShouldQueue
         );
 
         $freeleechToken = cache()->rememberForever(
-            'freeleech_token:'.$this->userId.':'.$this->torrent->id,
+            'freeleech_token:'.$this->userId.':'.$this->torrent['id'],
             fn () => FreeleechToken::query()
                 ->where('user_id', '=', $this->userId)
-                ->where('torrent_id', '=', $this->torrent->id)
+                ->where('torrent_id', '=', $this->torrent['id'])
                 ->exists(),
         );
 
@@ -117,17 +123,17 @@ class ProcessAnnounce implements ShouldQueue
             || config('other.freeleech')
         ) {
             $creditedDownloadedDelta = 0;
-        } elseif ($this->torrent->free >= 1) {
+        } elseif ($this->torrent['free'] >= 1) {
             // FL value in DB are from 0% to 100%.
             // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $downloadedDelta * $this->torrent->free / 100;
+            $fl_discount = $downloadedDelta * $this->torrent['free'] / 100;
             $creditedDownloadedDelta = $downloadedDelta - $fl_discount;
         } else {
             $creditedDownloadedDelta = $downloadedDelta;
         }
 
         if (
-            $this->torrent->doubleup
+            $this->torrent['doubleup']
             || $this->group['is_double_upload']
             || config('other.doubleup')
         ) {
@@ -190,7 +196,7 @@ class ProcessAnnounce implements ShouldQueue
                 'downloaded'  => $realDownloaded,
                 'left'        => $this->queries['left'],
                 'seeder'      => $this->queries['left'] == 0,
-                'torrent_id'  => $this->torrent->id,
+                'torrent_id'  => $this->torrent['id'],
                 'user_id'     => $this->userId,
                 'connectable' => $connectable,
                 'active'      => $event !== 'stopped',
@@ -201,7 +207,7 @@ class ProcessAnnounce implements ShouldQueue
             config('cache.prefix').':histories:batch',
             serialize([
                 'user_id'           => $this->userId,
-                'torrent_id'        => $this->torrent->id,
+                'torrent_id'        => $this->torrent['id'],
                 'agent'             => $this->queries['user-agent'],
                 'uploaded'          => $event === 'started' ? 0 : $creditedUploadedDelta,
                 'actual_uploaded'   => $event === 'started' ? 0 : $uploadedDelta,
@@ -227,9 +233,16 @@ class ProcessAnnounce implements ShouldQueue
         $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $this->peer['left'] > 0;
         $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $this->peer['left'] === 0;
 
-        $this->torrent->times_completed += (int) ($event === 'completed');
-        $this->torrent->seeders += ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
-        $this->torrent->leechers += ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
-        $this->torrent->save();
+        $seederCountDelta = ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
+        $leecherCountDelta = ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
+        $completedCountDelta = (int) ($event === 'completed');
+
+        if ($seederCountDelta !== 0 || $leecherCountDelta !== 0 || $completedCountDelta !== 0) {
+            Torrent::whereKey($this->torrent['id'])->update([
+                'seeders'         => DB::raw('seeders + '.$seederCountDelta),
+                'leechers'        => DB::raw('leechers + '.$leecherCountDelta),
+                'times_completed' => DB::raw('times_completed + '.$completedCountDelta),
+            ]);
+        }
     }
 }
