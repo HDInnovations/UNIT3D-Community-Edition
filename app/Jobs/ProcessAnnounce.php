@@ -151,7 +151,6 @@ class ProcessAnnounce implements ShouldQueue
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->userId;
         $peer->updateConnectableStateIfNeeded();
-        $peer->updated_at = now();
         $peer->active = $event !== 'stopped';
 
         if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
