@@ -124,7 +124,7 @@ class AnnounceController extends Controller
 
             // Check Download Slots.
             if (config('announce.slots_system.enabled')) {
-                $this->checkDownloadSlots($queries, $user, $group);
+                $this->checkDownloadSlots($queries, $torrent, $user, $group);
             }
 
             // Generate A Response For The Torrent Client.
@@ -503,22 +503,36 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkDownloadSlots($queries, $user, $group): void
+    private function checkDownloadSlots($queries, $torrent, $user, $group): void
     {
         $max = $group->download_slots;
 
-        if ($max !== null && $max >= 0 && $queries['left'] != 0) {
-            $count = Peer::query()
-                ->where('user_id', '=', $user->id)
-                ->where('peer_id', '!=', base64_decode($queries['peer_id']))
-                ->where('seeder', '=', 0)
-                ->where('active', '=', true)
-                ->count();
+        $peer = $torrent->peers
+            ->where('peer_id', '=', base64_decode($queries['peer_id']))
+            ->where('user_id', '=', $user->id)
+            ->first();
 
-            throw_if(
-                $count >= $max,
-                new TrackerException(164, [':max' => $max])
-            );
+        $cacheKey = 'user-leeching-count:'.$user->id;
+
+        $count = cache()->get($cacheKey, 0);
+
+        $isNewPeer = $peer === null;
+        $isDeadPeer = $queries['event'] === 'stopped';
+        $isSeeder = $queries['left'] == 0;
+
+        $newLeech = $isNewPeer && ! $isDeadPeer && ! $isSeeder;
+        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
+        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+
+        if ($max !== null && $max >= 0 && ($newLeech || $seedBecomesLeech) && $count >= $max) {
+            throw new TrackerException(164, [':max' => $max]);
+        }
+
+        if ($newLeech || $seedBecomesLeech) {
+            cache()->increment($cacheKey);
+        } elseif ($stoppedLeech || $leechBecomesSeed) {
+            cache()->decrement($cacheKey);
         }
     }
 

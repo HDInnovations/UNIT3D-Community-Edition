@@ -68,7 +68,16 @@ class AutoFlushPeers extends Command
         // Keep peers that stopped being announced without a `stopped` event
         // in case a user has internet issues and comes back online within the
         // next 2 days
-        Peer::where('updated_at', '<', $carbon->copy()->subDays(2))->where('active', '=', 0)->delete();
+        Peer::select(['id', 'user_id'])
+            ->where('updated_at', '<', $carbon->copy()->subDays(2))
+            ->where('active', '=', 0)
+            ->get();
+
+        foreach ($peers as $peer) {
+            cache()->decrement('user-leeching-count:'.$peer->user_id);
+
+            $peer->delete();
+        }
 
         $this->comment('Automated Flush Ghost Peers Command Complete');
     }
