@@ -1,4 +1,4 @@
-<li>
+<li class="comment__list-item">
     <article class="comment">
         <header class="comment__header">
             <time
@@ -9,7 +9,7 @@
                 {{ $comment->created_at?->diffForHumans() }}
             </time>
             <menu class="comment__toolbar">
-                @if ($comment->isParent())
+                @if ($comment->isParent() && $comment->children()->doesntExist())
                     <li class="comment__toolbar-item">
                         <button wire:click="$toggle('isReplying')" class="comment__reply">
                             <abbr class="comment__reply-abbr" title="Reply to this comment">
@@ -108,10 +108,17 @@
     </article>
 
     @if ($comment->isParent())
-        <section>
+        <section class="comment__replies">
             <h5 class="sr-only">Replies</h5>
-            @if ($isReplying)
-                <form wire:submit.prevent="postReply" class="form reply-comment">
+            @if ($comment->children()->exists())
+                <ul class="comment__reply-list">
+                    @foreach ($comment->children as $child)
+                        <livewire:comment :comment="$child" :key="$child->id"/>
+                    @endforeach
+                </ul>
+            @endif
+            @if ($isReplying || $comment->children()->exists())
+                <form wire:submit.prevent="postReply" class="form reply-comment" x-data="{ open: false }">
                     <p class="form__group">
                         <textarea
                             name="comment"
@@ -120,6 +127,7 @@
                             aria-describedby="reply-comment__textarea-hint"
                             wire:model.defer="replyState.content"
                             required
+                            x-on:focus="open = true"
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
                             @error('editState.content')
@@ -131,11 +139,11 @@
                             <span class="form__hint" id="reply-comment__textarea-hint">{{ $message }}</span>
                         @enderror
                     </p>
-                    <p class="form__group">
+                    <p class="form__group" x-show="open" x-cloak>
                         <input type="checkbox" id="reply-anon" class="form__checkbox" wire:model="anon">
                         <label for="reply-anon" class="form__label">{{ __('common.anonymous') }}?</label>
                     </p>
-                    <p class="form__group">
+                    <p class="form__group" x-show="open" x-cloak>
                         <button type="submit" class="form__button form__button--filled">
                             {{ __('common.comment') }}
                         </button>
@@ -145,13 +153,6 @@
                         </button>
                     </p>
                 </form>
-           @endif
-            @if ($comment->children->count() > 0)
-                <ul class="comment__reply-list">
-                    @foreach ($comment->children as $child)
-                        <livewire:comment :comment="$child" :key="$child->id"/>
-                    @endforeach
-                </ul>
             @endif
         </section>
     @endif

@@ -5,15 +5,20 @@
     display: flex;
     flex-direction: column;
     row-gap: 18px;
+    background-color: inherit;
 }
 
 .comment__reply-list {
     list-style-type: none;
-    margin: 20px 0 20px 155px;
+    margin: 20px 0 0 155px;
     padding: 0;
     display: flex;
     flex-direction: column;
     row-gap: 18px;
+}
+
+.comment__list-item {
+    background-color: inherit;
 }
 
 .comment {
@@ -139,4 +144,17 @@
 
 .edit-comment {
     margin: 0 12px;
+}
+
+.new-comment {
+    padding-bottom: 12px;
+}
+
+.reply-comment {
+    margin-left: 155px;
+    background-color: inherit;
+}
+
+.comment__replies {
+    background-color: inherit;
 }
