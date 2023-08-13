@@ -38,7 +38,7 @@
     @endif
     @if ($report->request)
         <section class="panelV2">
-            <h2>{{ __('torrent.torrent-request') }} {{ __('request.title') }}</h2>
+            <h2 class="panel__heading">{{ __('torrent.torrent-request') }} {{ __('request.title') }}</h2>
             <div class="panel__body">
                 <a href="{{ route('requests.show', ['torrentRequest' => $report->request]) }}">
                     {{ $report->title }}
