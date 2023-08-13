@@ -155,8 +155,25 @@ class TorrentSearch extends Component
         'incomplete'      => ['except' => false],
         'page'            => ['except' => 1],
         'perPage'         => ['except' => ''],
+        'sortField'       => ['except' => 'bumped_at'],
+        'sortDirection'   => ['except' => 'desc'],
         'view'            => ['except' => 'list'],
     ];
+
+    final public function booted(): void
+    {
+        if (! \in_array($this->sortField, [
+            'name',
+            'size',
+            'seeders',
+            'leechers',
+            'times_completed',
+            'created_at',
+            'bumped_at'
+        ])) {
+            $this->reset('sortField');
+        }
+    }
 
     final public function updatedPage(): void
     {
