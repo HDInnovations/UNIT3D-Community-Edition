@@ -190,6 +190,22 @@
                 </abbr>
             </button>
         </li>
+        <li>
+            <button
+                type="button"
+                class="form__standard-icon-button"
+                x-on:click="Swal.fire({
+                    title: 'Emoji Picker',
+                    html: 'If using MacOS, press Ctrl + Cmd + Space bar<br>If using Windows or Linux, press Windows logo key + .',
+                    icon: 'info',
+                    showConfirmButton: true,
+                })"
+            >
+                <abbr title="If using MacOS, press Ctrl + Cmd + Space bar&NewLine;If using Windows or Linux, press Windows logo key + .">
+                    <i class="{{ config('other.font-awesome') }} fa-face-smile"></i>
+                </abbr>
+            </button>
+        </li>
     </menu>
     <div class="bbcode-input__tab-pane">
         <div class="bbcode-input__preview bbcode-rendered" x-show="isPreviewEnabled">
