@@ -45,4 +45,11 @@ class NoteSearch extends Component
             'notes' => $this->notes,
         ]);
     }
+
+    final public function destroy(Note $note): void
+    {
+        $note->delete();
+
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
+    }
 }

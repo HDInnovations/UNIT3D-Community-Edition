@@ -66,26 +66,20 @@
                     <td>
                         <menu class="data-table__actions">
                             <li class="data-table__action">
-                                <form
-                                        action="{{ route('staff.notes.destroy', ['note' => $note]) }}"
-                                        method="POST"
-                                        x-data
-                                >
-                                    @csrf
-                                    @method('DELETE')
+                                <form x-data>
                                     <button
-                                            x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
-                                            class="form__button form__button--text"
+                                        x-on:click.prevent="Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
+                                            icon: 'warning',
+                                            showConfirmButton: true,
+                                            showCancelButton: true,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                @this.destroy({{ $note->id }})
+                                            }
+                                        })"
+                                        class="form__button form__button--text"
                                     >
                                         {{ __('common.delete') }}
                                     </button>
