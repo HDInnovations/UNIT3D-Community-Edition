@@ -976,7 +976,6 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('notes')->group(function (): void {
             Route::name('notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
-                Route::delete('/{note}', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
             });
         });
 
