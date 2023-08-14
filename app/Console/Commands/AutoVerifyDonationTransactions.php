@@ -48,7 +48,7 @@ class AutoVerifyDonationTransactions extends Command
 
         foreach ($unconfirmedTransactions as $transaction) {
             // Get array of payment status and details by invoice_id
-            $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&dateFrom=" . Carbon::now()->format('Y-m-d') . "&invoiceId=" . $transaction->invoice_id;
+            $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&dateFrom=".Carbon::now()->format('Y-m-d')."&invoiceId=".$transaction->invoice_id;
             $paymentStatus = Nowpayments::getListOfPayments($data);
 
             // Verify we filtered for the correct Payment from the API
@@ -59,8 +59,8 @@ class AutoVerifyDonationTransactions extends Command
             // Check if Payment was successfully
             if ($paymentStatus['data'][0]['payment_status'] == "finished") {
                 $transaction->update([
-                    'payment_id'    => $paymentStatus['data'][0]['payment_id'],
-                    'confirmed'     => 1,
+                    'payment_id' => $paymentStatus['data'][0]['payment_id'],
+                    'confirmed'  => 1,
                 ]);
 
                 // Add User to donation_subscription table
@@ -69,19 +69,18 @@ class AutoVerifyDonationTransactions extends Command
                 // Set start date accordingly
                 if ($activeSubscriptionsEndDate != null) {
                     $startDate = $activeSubscriptionsEndDate;
-                }
-                else {
+                } else {
                     $startDate = $curDate;
                 }
 
                 $donationItem = DonationItem::find($transaction->item_id);
                 $subscription = DonationSubscription::create([
-                    'user_id'       => $transaction->user_id,
-                    'item_id'       => $transaction->item_id,
-                    'is_active'     => 0,
-                    'is_gifted'     => 0,
-                    'start_at'      => $startDate,
-                    'end_at'        => Carbon::parse($startDate)->addDays($donationItem->days_active)->toDateString(),
+                    'user_id'   => $transaction->user_id,
+                    'item_id'   => $transaction->item_id,
+                    'is_active' => 0,
+                    'is_gifted' => 0,
+                    'start_at'  => $startDate,
+                    'end_at'    => Carbon::parse($startDate)->addDays($donationItem->days_active)->toDateString(),
                 ]);
             }
         }
