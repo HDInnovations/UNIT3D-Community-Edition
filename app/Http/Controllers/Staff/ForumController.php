@@ -34,7 +34,7 @@ class ForumController extends Controller
     {
         return view('Staff.forum.index', [
             'categories' => Forum::orderBy('position')
-                ->where('parent_id', '=', 0)
+                ->whereNull('parent_id')
                 ->with(['forums' => fn ($query) => $query->orderBy('position')])
                 ->get(),
         ]);
@@ -46,7 +46,7 @@ class ForumController extends Controller
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.forum.create', [
-            'categories' => Forum::where('parent_id', '=', 0)->get(),
+            'categories' => Forum::whereNull('parent_id')->get(),
             'groups'     => Group::all(),
         ]);
     }
@@ -106,7 +106,7 @@ class ForumController extends Controller
     public function edit(Forum $forum): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.forum.edit', [
-            'categories' => Forum::where('parent_id', '=', 0)->get(),
+            'categories' => Forum::whereNull('parent_id')->get(),
             'groups'     => Group::all(),
             'forum'      => $forum->load('permissions'),
         ]);
@@ -122,7 +122,7 @@ class ForumController extends Controller
         $forum->update(
             [
                 'slug'      => Str::slug($request->title),
-                'parent_id' => $request->forum_type === 'category' ? 0 : $request->parent_id,
+                'parent_id' => $request->forum_type === 'category' ? null : $request->parent_id,
             ]
             + $request->safe()->only(['name', 'position', 'description'])
         );
@@ -162,7 +162,7 @@ class ForumController extends Controller
     {
         $forum->permissions()->delete();
 
-        if ($forum->parent_id == 0) {
+        if ($forum->parent_id === null) {
             $category = $forum;
 
             foreach ($category->forums as $forum) {

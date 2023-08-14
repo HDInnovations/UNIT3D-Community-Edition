@@ -49,7 +49,7 @@
                 </p>
                 <p class="form__group">
                     <select id="parent_id" class="form__select" name="parent_id" required>
-                        <option value="0">New Category</option>
+                        <option value="">New Category</option>
                         @foreach ($categories as $category)
                             <option class="form__option" value="{{ $category->id }}">
                                 New Forum In {{ $category->name }} Category
