@@ -22,7 +22,7 @@ class PaymentController extends Controller
 {
     /**
      * Collect Order data and create Payment.
-     * @return Url
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function createCryptoPayment(Request $request)
     {

@@ -72,7 +72,7 @@ class VIPController extends Controller
      * @param \Illuminate\Http\Request         $request
      * @param \App\Models\DonationSubscription $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\View\View
      */
     public function edit(Request $request, $id)
     {
