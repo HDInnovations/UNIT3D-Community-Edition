@@ -67,19 +67,18 @@ class AutoVIP extends Command
         foreach ($vips_demote as $vip) {
             // Find The User
             $user = User::findOrFail($vip->user_id);
-            
+
             // Default User or uploader
             if ($user->group_id == $vipul_group->id) {
                 $user->update([
-                    'group_id'  => $defaultul_group->id,
+                    'group_id' => $defaultul_group->id,
                 ]);
-            }
-            else {
+            } else {
                 $user->update([
-                    'group_id'  => $default_group->id,
+                    'group_id' => $default_group->id,
                 ]);
             }
-            
+
             $vip->is_active = 0;
             $vip->save();
 
@@ -108,34 +107,36 @@ class AutoVIP extends Command
         foreach ($vips_promote as $vip) {
             // Find The User
             $user = User::findOrFail($vip->user_id);
-                
+
             // Default User or uploader
             if ($user->group_id == $defaultul_group->id) {
                 $user->update([
-                    'group_id'  => $vipul_group->id,
+                    'group_id' => $vipul_group->id,
                 ]);
-            }
-            else {
+            } else {
                 $user->update([
-                    'group_id'  => $vip_group->id,
+                    'group_id' => $vip_group->id,
                 ]);
             }
 
             // Add Gifts
             $donationItem = DonationItem::find($vip->item_id);
+
             if ($donationItem->bon_bonus) {
                 $user->seedbonus += $donationItem->bon_bonus;
             }
+
             if ($donationItem->ul_bonus) {
                 $user->uploaded += $donationItem->ul_bonus;
             }
+
             if ($donationItem->invite_bonus) {
                 $user->invites += $donationItem->invite_bonus;
             }
-            if ($donationItem->days_active >= 180 ) {
+
+            if ($donationItem->days_active >= 180) {
                 $s4me = true;
-            }
-            else {
+            } else {
                 $s4me = false;
             }
 
@@ -154,7 +155,7 @@ class AutoVIP extends Command
                             [b]Thank you for supporting Aither![/b]
                             Your VIP access has been activated and is valid through: '.$vip->end_at.' (YYYY-MM-DD)
                             A total of '.$donationItem->bon_bonus.' BON points have been added to your account. '.
-                            ($s4me == true ? 'Your Seedit4Me discount code is: ACC10':'')
+                            ($s4me == true ? 'Your Seedit4Me discount code is: ACC10' : '')
                             .'
                             
                             ~ Your Aither Staff 
