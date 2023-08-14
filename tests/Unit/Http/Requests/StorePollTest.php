@@ -20,7 +20,7 @@ beforeEach(function (): void {
 test('authorize', function (): void {
     $actual = $this->subject->authorize();
 
-    $this->assertTrue($actual);
+    expect($actual)->toBeTrue();
 });
 
 test('rules', function (): void {
@@ -50,7 +50,7 @@ test('rules', function (): void {
 test('messages', function (): void {
     $actual = $this->subject->messages();
 
-    $this->assertEquals([
+    expect($actual)->toEqual([
         'options.*.required' => 'You must fill in all options fields',
-    ], $actual);
+    ]);
 });

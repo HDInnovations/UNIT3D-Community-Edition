@@ -31,7 +31,7 @@ class ArticleController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.article.index', [
-            'articles' => $articles = Article::latest()->paginate(25),
+            'articles' => Article::latest()->paginate(25),
         ]);
     }
 

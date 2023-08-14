@@ -32,7 +32,7 @@ test('rules', function (): void {
 test('messages', function (): void {
     $actual = $this->subject->messages();
 
-    $this->assertEquals([
+    expect($actual)->toEqual([
         'options.*.required' => 'You must fill in all options fields',
-    ], $actual);
+    ]);
 });

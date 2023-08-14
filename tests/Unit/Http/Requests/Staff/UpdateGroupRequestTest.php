@@ -22,7 +22,7 @@ test('authorize', function (): void {
 
     $actual = $this->subject->authorize();
 
-    $this->assertTrue($actual);
+    expect($actual)->toBeTrue();
 });
 
 test('rules', function (): void {
