@@ -53,7 +53,7 @@ class AutoVIP extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): void
     {
         $curDate = Carbon::now();
         $vip_group = Group::select(['id'])->where('slug', '=', 'vip')->first();
