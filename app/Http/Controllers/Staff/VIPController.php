@@ -15,11 +15,9 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\DonationSubscription;
-use App\Models\Group;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -60,19 +58,19 @@ class VIPController extends Controller
             ->toArray();
 
         return view('Staff.vips.index', [
-            'vips_active'       => $vips_active,
-            'vips_upcoming'     => $vips_upcoming,
-            'vips_inactive'     => $vips_inactive,
-            'vips_active_arr'   => $vips_active_arr,
-            'curdate'           => $curDate
+            'vips_active'     => $vips_active,
+            'vips_upcoming'   => $vips_upcoming,
+            'vips_inactive'   => $vips_inactive,
+            'vips_active_arr' => $vips_active_arr,
+            'curdate'         => $curDate
         ]);
     }
 
     /**
      * Edit A VIP Subscription.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\DonationSubscription     $id
+     * @param \Illuminate\Http\Request         $request
+     * @param \App\Models\DonationSubscription $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -85,17 +83,17 @@ class VIPController extends Controller
         $vip_sub = DonationSubscription::findOrFail($id);
 
         return view('Staff.vips.edit', [
-            'vip_sub'   => $vip_sub,
-            'curdate'   => $curDate,
-            'date'      => $curDate
+            'vip_sub' => $vip_sub,
+            'curdate' => $curDate,
+            'date'    => $curDate
         ]);
     }
 
     /**
      * Save a VIP Subscription change.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\DonationSubscription     $id
+     * @param \Illuminate\Http\Request         $request
+     * @param \App\Models\DonationSubscription $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -113,8 +111,8 @@ class VIPController extends Controller
         $vip_sub->end_at = $request->input('end_at');
 
         $v = validator($vip_sub->toArray(), [
-            'start_at'  => 'required|date',
-            'end_at'    => 'required|date|after:start_at',
+            'start_at' => 'required|date',
+            'end_at'   => 'required|date|after:start_at',
         ]);
 
         if ($v->fails()) {
@@ -163,9 +161,9 @@ class VIPController extends Controller
         $vip->is_active = 0;
 
         $v = validator($vip->toArray(), [
-            'user_id'   => 'required',
-            'start_at'  => 'required|date',
-            'end_at'    => 'required|date',
+            'user_id'  => 'required',
+            'start_at' => 'required|date',
+            'end_at'   => 'required|date',
         ]);
 
         if ($v->fails()) {
