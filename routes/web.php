@@ -99,6 +99,11 @@ Route::middleware('language')->group(function (): void {
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
             Route::get('/blacklist/clients', [App\Http\Controllers\PageController::class, 'clientblacklist'])->name('client_blacklist');
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
+            Route::name('donate.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\PageController::class, 'donate'])->name('donate');
+                Route::post('/createpayment', [App\Http\Controllers\PaymentController::class, 'createCryptoPayment'])->name('create_payment');
+                //Route::get('/evaluatepayment', [App\Http\Controllers\PaymentController::class, 'evaluatePayment'])->name('evaluate_payment');
+            });
             Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });
 
