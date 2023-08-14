@@ -55,7 +55,7 @@ class DonationSubscription extends Model
         'start_at',
         'end_at',
     ];
-    
+
     /**
      * Belongs To A User.
      */

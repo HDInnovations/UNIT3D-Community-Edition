@@ -57,7 +57,7 @@ class DonationTransaction extends Model
         'currency',
         'confirmed',
     ];
-    
+
     /**
      * Belongs To A User.
      */
