@@ -49,6 +49,7 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
+        $torrent->syncToMeilisearch();
 
         // Announce To Chat
         $torrentUrl = href_torrent($torrent);
@@ -82,6 +83,7 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->sticky = !$torrent->sticky;
         $torrent->save();
+        $torrent->syncToMeilisearch();
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
@@ -126,6 +128,7 @@ class TorrentBuffController extends Controller
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
+        $torrent->syncToMeilisearch();
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent FL Has Been Adjusted!');
@@ -144,6 +147,7 @@ class TorrentBuffController extends Controller
         if ($torrent->featured === false) {
             $torrent->featured = true;
             $torrent->save();
+            $torrent->syncToMeilisearch();
 
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
 
@@ -182,6 +186,7 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->featured = false;
         $torrent->save();
+        $torrent->syncToMeilisearch();
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
@@ -236,6 +241,7 @@ class TorrentBuffController extends Controller
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
+        $torrent->syncToMeilisearch();
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
@@ -298,6 +304,7 @@ class TorrentBuffController extends Controller
         }
 
         $torrent->save();
+        $torrent->syncToMeilisearch();
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');

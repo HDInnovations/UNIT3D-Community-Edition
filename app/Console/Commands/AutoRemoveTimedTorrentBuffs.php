@@ -55,6 +55,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
             cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
             Unit3dAnnounce::addTorrent($torrent);
+            $torrent->syncToMeilisearch();
         }
 
         $duTorrents = Torrent::whereNotNull('du_until')->where('du_until', '<', Carbon::now()->toDateTimeString())->get();
@@ -66,6 +67,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
             cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
             Unit3dAnnounce::addTorrent($torrent);
+            $torrent->syncToMeilisearch();
         }
 
         $this->comment('Automated Removal Of Expired Torrent Buffs Command Complete');

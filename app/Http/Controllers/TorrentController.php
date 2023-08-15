@@ -124,7 +124,8 @@ class TorrentController extends Controller
                 'videos'   => ['video_id', 'name'],
                 'involved_companies.company',
                 'involved_companies.company.logo',
-                'platforms', ])
+                'platforms',
+            ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
             $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
@@ -202,14 +203,14 @@ class TorrentController extends Controller
 
         abort_unless(
             $user->group->is_editor
-            || $user->group->is_modo
-            || (
-                $user->id === $torrent->user_id
-                && (
-                    $torrent->status !== Torrent::APPROVED
-                    || now()->isBefore($torrent->created_at->addDay())
-                )
-            ),
+                || $user->group->is_modo
+                || (
+                    $user->id === $torrent->user_id
+                    && (
+                        $torrent->status !== Torrent::APPROVED
+                        || now()->isBefore($torrent->created_at->addDay())
+                    )
+                ),
             403
         );
 
@@ -265,6 +266,8 @@ class TorrentController extends Controller
                     break;
             }
         }
+
+        $torrent->syncToMeilisearch();
 
         return to_route('torrents.show', ['id' => $id])
             ->withSuccess('Successfully Edited!');
@@ -420,7 +423,7 @@ class TorrentController extends Controller
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 
-        foreach($files as &$file) {
+        foreach ($files as &$file) {
             $file['torrent_id'] = $torrent->id;
         }
 

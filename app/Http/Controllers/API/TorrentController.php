@@ -37,6 +37,7 @@ use App\Traits\TorrentMeta;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use MarcReichel\IGDBLaravel\Models\Game;
@@ -322,6 +323,7 @@ class TorrentController extends BaseController
         $torrent->refresh();
 
         Unit3dAnnounce::addTorrent($torrent);
+        $torrent->syncToMeilisearch();
 
         if ($torrent->getAttribute('featured')) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
@@ -489,24 +491,47 @@ class TorrentController extends BaseController
     public function filter(Request $request): TorrentsResource|\Illuminate\Http\JsonResponse
     {
         $user = auth()->user();
-        $isRegexAllowed = $user->group->is_modo;
+        $isSqlAllowed = $user->group->is_modo && $request->string('driver')->exactly('sql');
+        $isRegexAllowed = $isSqlAllowed && $user->group->is_modo;
 
-        // Caching
-        $url = $request->url();
-        $queryParams = $request->query();
+        $filters = (new TorrentSearchFiltersDTO(
+            name: $request->filled('name') ? $request->string('name')->toString() : '',
+            description: $request->filled('description') ? $request->string('description')->toString() : '',
+            mediainfo: $request->filled('mediainfo') ? $request->string('mediainfo')->toString() : '',
+            uploader: $request->filled('uploader') ? $request->string('uploader')->toString() : '',
+            keywords: $request->filled('keywords') ? array_map('trim', explode(',', $request->string('keywords')->toString())) : [],
+            startYear: $request->filled('startYear') ? $request->integer('startYear') : null,
+            endYear: $request->filled('endYear') ? $request->integer('endYear') : null,
+            categoryIds: $request->filled('categories') ? array_map('intval', $request->categories) : [],
+            typeIds: $request->filled('types') ? array_map('intval', $request->types) : [],
+            resolutionIds: $request->filled('resolutions') ? array_map('intval', $request->resolutions) : [],
+            genreIds: $request->filled('genres') ? array_map('intval', $request->genres) : [],
+            tmdbId: $request->filled('tmdbId') ? $request->integer('tmdbId') : null,
+            imdbId: $request->filled('imdbId') ? $request->integer('imdbId') : null,
+            tvdbId: $request->filled('tvdbId') ? $request->integer('tvdbId') : null,
+            malId: $request->filled('malId') ? $request->integer('malId') : null,
+            playlistId: $request->filled('playlistId') ? $request->integer('playlistId') : null,
+            collectionId: $request->filled('collectionId') ? $request->integer('collectionId') : null,
+            primaryLanguageNames: $request->filled('primaryLanguages') ? array_map('str', $request->primaryLanguages) : [],
+            adult: $request->filled('adult') ? $request->boolean('adult') : null,
+            free: $request->filled('free') ? array_map('intval', (array) $request->free) : [],
+            doubleup: $request->filled('doubleup'),
+            refundable: $request->filled('refundable'),
+            featured: $request->filled('featured'),
+            stream: $request->filled('stream'),
+            sd: $request->filled('sd'),
+            highspeed: $request->filled('highspeed'),
+            internal: $request->filled('internal'),
+            personalRelease: $request->filled('personalRelease'),
+            alive: $request->filled('alive'),
+            dying: $request->filled('dying'),
+            dead: $request->filled('dead'),
+            filename: $request->filled('file_name') ? $request->string('file_name')->toString() : '',
+            seasonNumber: $request->filled('seasonNumber') ? $request->integer('seasonNumber') : null,
+            episodeNumber: $request->filled('episodeNumber') ? $request->integer('episodeNumber') : null,
+        ));
 
-        // Don't cache the api_token so that multiple users can share the cache
-        unset($queryParams['api_token']);
-        $queryParams['isRegexAllowed'] = $isRegexAllowed;
-
-        // Sorting query params by key (acts by reference)
-        ksort($queryParams);
-
-        // Transforming the query array to query string
-        $queryString = http_build_query($queryParams);
-        $cacheKey = $url.'?'.$queryString;
-
-        $torrents = cache()->remember($cacheKey, 300, function () use ($request) {
+        if ($isSqlAllowed) {
             $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region', 'files'])
                 ->select('*')
                 ->selectRaw("
@@ -518,42 +543,7 @@ class TorrentController extends BaseController
                         WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
                     END as meta
                 ")
-                ->where((new TorrentSearchFiltersDTO(
-                    name: $request->filled('name') ? $request->string('name')->toString() : '',
-                    description: $request->filled('description') ? $request->string('description')->toString() : '',
-                    mediainfo: $request->filled('mediainfo') ? $request->string('mediainfo')->toString() : '',
-                    uploader: $request->filled('uploader') ? $request->string('uploader')->toString() : '',
-                    keywords: $request->filled('keywords') ? array_map('trim', explode(',', $request->string('keywords')->toString())) : [],
-                    startYear: $request->filled('startYear') ? $request->integer('startYear') : null,
-                    endYear: $request->filled('endYear') ? $request->integer('endYear') : null,
-                    categoryIds: $request->filled('categories') ? array_map('intval', $request->categories) : [],
-                    typeIds: $request->filled('types') ? array_map('intval', $request->types) : [],
-                    resolutionIds: $request->filled('resolutions') ? array_map('intval', $request->resolutions) : [],
-                    genreIds: $request->filled('genres') ? array_map('intval', $request->genres) : [],
-                    tmdbId: $request->filled('tmdbId') ? $request->integer('tmdbId') : null,
-                    imdbId: $request->filled('imdbId') ? $request->integer('imdbId') : null,
-                    tvdbId: $request->filled('tvdbId') ? $request->integer('tvdbId') : null,
-                    malId: $request->filled('malId') ? $request->integer('malId') : null,
-                    playlistId: $request->filled('playlistId') ? $request->integer('playlistId') : null,
-                    collectionId: $request->filled('collectionId') ? $request->integer('collectionId') : null,
-                    primaryLanguageNames: $request->filled('primaryLanguages') ? array_map('str', $request->primaryLanguages) : [],
-                    adult: $request->filled('adult') ? $request->boolean('adult') : null,
-                    free: $request->filled('free') ? array_map('intval', (array) $request->free) : [],
-                    doubleup: $request->filled('doubleup'),
-                    refundable: $request->filled('refundable'),
-                    featured: $request->filled('featured'),
-                    stream: $request->filled('stream'),
-                    sd: $request->filled('sd'),
-                    highspeed: $request->filled('highspeed'),
-                    internal: $request->filled('internal'),
-                    personalRelease: $request->filled('personalRelease'),
-                    alive: $request->filled('alive'),
-                    dying: $request->filled('dying'),
-                    dead: $request->filled('dead'),
-                    filename: $request->filled('file_name') ? $request->string('file_name')->toString() : '',
-                    seasonNumber: $request->filled('seasonNumber') ? $request->integer('seasonNumber') : null,
-                    episodeNumber: $request->filled('episodeNumber') ? $request->integer('episodeNumber') : null,
-                ))->toSqlQueryBuilder())
+                ->where($filters->toSqlQueryBuilder())
                 ->latest('sticky')
                 ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
                 ->cursorPaginate(min($request->input('perPage') ?? $this->perPage, 100));
@@ -561,11 +551,114 @@ class TorrentController extends BaseController
             // See app/Traits/TorrentMeta.php
             $this->scopeMeta($torrents);
 
-            return $torrents;
-        });
+            if ($torrents->isNotEmpty()) {
+                return new TorrentsResource($torrents);
+            }
 
-        if ($torrents !== null) {
-            return new TorrentsResource($torrents);
+            return $this->sendResponse('404', 'No Torrents Found');
+        }
+        $sort = match ($request->string('sortField')->toString()) {
+            'name'            => 'name',
+            'size'            => 'size',
+            'seeders'         => 'seeders',
+            'leechers'        => 'leechers',
+            'times_completed' => 'times_completed',
+            'bumped_at'       => 'bumped_at',
+            default           => 'created_at',
+        };
+
+        $sort .= match ($request->string('sortDirection')->toString()) {
+            'asc'   => ':asc',
+            default => ':desc',
+        };
+
+        $results = Http::acceptJson()
+            ->withToken(config('meilisearch.key'))
+            ->post(config('meilisearch.host').'/indexes/torrents/search', [
+                'q'      => json_encode($request->string('name')),
+                'offset' => $request->integer('perPage') ?: 25 * ($request->integer('page') ?: 1 - 1),
+                // is limited by `maxTotalHits` config which maxes out at 1000 documents returned
+                'limit'       => $request->integer('perPage') ?: 25,
+                'hitsPerPage' => $request->integer('perPage') ?: 25,
+                'page'        => $request->integer('page') ?: 1,
+                'sort'        => [$sort],
+                'filter'      => $filters,
+            ])
+            ->json();
+
+        $torrents = [];
+
+        foreach ($results['hits'] ?? [] as $hit) {
+            $meta = $hit['movie'] ?? $hit['tv'] ?? [];
+            $torrents[] = [
+                'type'       => 'torrent',
+                'id'         => (string) $hit['id'],
+                'attributes' => [
+                    'meta' => [
+                        'poster' => \array_key_exists('poster', $meta) ? tmdb_image('poster_small', $meta['poster']) : null,
+                        'genres' => \array_key_exists('genres', $meta) ? implode(', ', array_column($meta['genres'], 'name')) : [],
+                    ],
+                    'name'             => $hit['name'],
+                    'release_year'     => $hit['release_year'],
+                    'category'         => $hit['category']['name'],
+                    'type'             => $hit['type']['name'],
+                    'resolution'       => $hit['resolution']['name'],
+                    'media_info'       => $hit['mediainfo'],
+                    'bd_info'          => $hit['bdinfo'],
+                    'description'      => $hit['description'],
+                    'info_hash'        => $hit['info_hash'],
+                    'size'             => $hit['size'],
+                    'num_file'         => $hit['num_file'],
+                    'files'            => $hit['files'],
+                    'freeleech'        => $hit['free'].'%',
+                    'double_upload'    => (bool) $hit['doubleup'],
+                    'refundable'       => (bool) $hit['refundable'],
+                    'internal'         => (bool) $hit['internal'],
+                    'featured'         => (bool) $hit['featured'],
+                    'personal_release' => (bool) $hit['personal_release'],
+                    'uploader'         => $hit['anon'] ? 'Anonymous' : $hit['user']['username'],
+                    'seeders'          => $hit['seeders'],
+                    'leechers'         => $hit['leechers'],
+                    'times_completed'  => $hit['times_completed'],
+                    'tmdb_id'          => $hit['tmdb'],
+                    'imdb_id'          => $hit['imdb'],
+                    'tvdb_id'          => $hit['tvdb'],
+                    'mal_id'           => $hit['mal'],
+                    'igdb_id'          => $hit['igdb'],
+                    'category_id'      => $hit['category']['id'],
+                    'type_id'          => $hit['type']['id'],
+                    'resolution_id'    => $hit['resolution']['id'],
+                    'created_at'       => date('Y-m-d\TH:i:s.Z\Z', $hit['created_at']),
+                    'download_link'    => route('torrent.download.rsskey', ['id' => $hit['id'], 'rsskey' => auth('api')->user()->rsskey]),
+                    'magnet_link'      => config('torrent.magnet') === true ? 'magnet:?dn='.$hit['name'].'&xt=urn:btih:'.$hit['info_hash'].'&as='.route('torrent.download.rsskey', ['id' => $hit['id'], 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$hit['size'] : null,
+                    'details_link'     => route('torrents.show', ['id' => $hit['id']]),
+                ]
+            ];
+        }
+
+        $page = $request->integer('page') ?: 1;
+        $perPage = min(100, $request->integer('perPage') ?: 25);
+
+        $response = [
+            'data'  => $torrents,
+            'links' => [
+                'first' => $request->fullUrlWithoutQuery(['page' => 1]),
+                'last'  => null,
+                'prev'  => $page === 1 ? null : $request->fullUrlWithQuery(['page' => $page - 1]),
+                'next'  => $request->fullUrlWithQuery(['page' => $page + 1]),
+                'self'  => $request->fullUrl(),
+            ],
+            'meta' => [
+                'current_page' => $page,
+                'per_page'     => $perPage,
+                'from'         => ($page - 1) * $perPage + 1,
+                'to'           => ($page - 1) * $perPage + \count($torrents),
+                'total'        => $results['estimatedTotalHits'] ?? 0,
+            ],
+        ];
+
+        if ($torrents !== []) {
+            return response()->json($response)->setEncodingOptions(JSON_UNESCAPED_SLASHES);
         }
 
         return $this->sendResponse('404', 'No Torrents Found');

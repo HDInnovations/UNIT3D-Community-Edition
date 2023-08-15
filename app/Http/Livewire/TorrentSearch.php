@@ -29,13 +29,14 @@ use App\Models\Type;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Closure;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class TorrentSearch extends Component
 {
@@ -217,6 +218,9 @@ class TorrentSearch extends Component
     #[Url(history: true)]
     public bool $incomplete = false;
 
+    #[Url(history: true, except: 'meilisearch')]
+    public ?string $driver = 'meilisearch';
+
     #[Url(history: true)]
     public int $perPage = 25;
 
@@ -333,10 +337,7 @@ class TorrentSearch extends Component
             ->pluck('original_language');
     }
 
-    /**
-     * @return Closure(Builder<Torrent>): Builder<Torrent>
-     */
-    final public function filters(): Closure
+    final public function filters(): TorrentSearchFiltersDTO
     {
         return (new TorrentSearchFiltersDTO(
             name: $this->name,
@@ -400,7 +401,7 @@ class TorrentSearch extends Component
                 $this->leeching => true,
                 default         => null,
             },
-        ))->toSqlQueryBuilder();
+        ));
     }
 
     /**
@@ -424,52 +425,194 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
-            ->withCount([
-                'thanks',
-                'comments',
-                'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-                'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-            ])
-            ->withExists([
-                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
-                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 1)
-                    ->where('seeder', '=', 1),
-                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 1)
-                    ->where('seeder', '=', 0),
-                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 0)
-                    ->where('seeder', '=', 0)
-                    ->whereNull('completed_at'),
-                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 0)
-                    ->where(
-                        fn ($query) => $query
-                            ->where('seeder', '=', 1)
-                            ->orWhereNotNull('completed_at')
-                    ),
-            ])
-            ->selectRaw("
-                CASE
-                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                END as meta
-            ")
-            ->where($this->filters())
-            ->latest('sticky')
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(min($this->perPage, 100));
+        $isSqlAllowed = $user->group->is_modo && $this->driver === 'sql';
+        $isRegexAllowed = $isSqlAllowed && $isSqlAllowed;
 
-        // See app/Traits/TorrentMeta.php
-        $this->scopeMeta($torrents);
+        if ($isSqlAllowed) {
+            $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+                ->withCount([
+                    'thanks',
+                    'comments',
+                    'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                    'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                ])
+                ->withExists([
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 1)
+                        ->where('seeder', '=', 1),
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 1)
+                        ->where('seeder', '=', 0),
+                    'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 0)
+                        ->where('seeder', '=', 0)
+                        ->whereNull('completed_at'),
+                    'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 0)
+                        ->where(
+                            fn ($query) => $query
+                                ->where('seeder', '=', 1)
+                                ->orWhereNotNull('completed_at')
+                        ),
+                ])
+                ->selectRaw("
+                    CASE
+                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                    END as meta
+                ")
+                ->where($this->filters()->toSqlQueryBuilder())
+                ->latest('sticky')
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(min($this->perPage, 100));
 
-        return $torrents;
+            // See app/Traits/TorrentMeta.php
+            $this->scopeMeta($torrents);
+        } else {
+            $sort = match ($this->sortField) {
+                'name'            => 'name',
+                'size'            => 'size',
+                'seeders'         => 'seeders',
+                'leechers'        => 'leechers',
+                'times_completed' => 'times_completed',
+                'bumped_at'       => 'bumped_at',
+                default           => 'created_at',
+            };
+
+            $sort .= match ($this->sortDirection) {
+                'asc'   => ':asc',
+                default => ':desc',
+            };
+
+            $results = Http::acceptJson()
+                ->withToken(config('meilisearch.key'))
+                ->post(config('meilisearch.host').'/indexes/torrents/search', [
+                    'q'      => json_encode($this->name),
+                    'offset' => $this->perPage ?: 25 * ($this->getPage() ?: 1 - 1),
+                    // is limited by `maxTotalHits` config which maxes out at 1000 documents returned
+                    'limit'       => $this->perPage ?: 25,
+                    'hitsPerPage' => $this->perPage ?: 25,
+                    'page'        => $this->getPage() ?: 1,
+                    'sort'        => [$sort],
+                    'filter'      => $this->filters()->toMeilisearchFilter(),
+                ])
+                ->json();
+
+            $torrents = [];
+
+            foreach ($results['hits'] ?? [] as $hit) {
+                $torrents[] = [
+                    'id'               => $hit['id'],
+                    'name'             => $hit['name'],
+                    'description'      => $hit['description'],
+                    'mediainfo'        => $hit['mediainfo'],
+                    'bdinfo'           => $hit['bdinfo'],
+                    'num_file'         => $hit['num_file'],
+                    'folder'           => $hit['folder'],
+                    'size'             => $hit['size'],
+                    'leechers'         => $hit['leechers'],
+                    'seeders'          => $hit['seeders'],
+                    'times_completed'  => $hit['times_completed'],
+                    'created_at'       => Carbon::createFromTimestamp($hit['created_at']),
+                    'bumped_at'        => Carbon::createFromTimestamp($hit['bumped_at']),
+                    'fl_until'         => Carbon::createFromTimestamp($hit['fl_until']),
+                    'du_until'         => Carbon::createFromTimestamp($hit['du_until']),
+                    'user_id'          => $hit['user_id'],
+                    'imdb'             => $hit['imdb'],
+                    'tvdb'             => $hit['tvdb'],
+                    'tmdb'             => $hit['tmdb'],
+                    'mal'              => $hit['mal'],
+                    'igdb'             => $hit['igdb'],
+                    'season_number'    => $hit['season_number'],
+                    'episode_number'   => $hit['episode_number'],
+                    'stream'           => $hit['stream'],
+                    'free'             => $hit['free'],
+                    'doubleup'         => $hit['doubleup'],
+                    'refundable'       => $hit['refundable'],
+                    'highspeed'        => $hit['highspeed'],
+                    'featured'         => $hit['featured'],
+                    'status'           => $hit['status'],
+                    'anon'             => $hit['anon'],
+                    'sticky'           => $hit['sticky'],
+                    'sd'               => $hit['sd'],
+                    'internal'         => $hit['internal'],
+                    'release_year'     => $hit['release_year'],
+                    'deleted_at'       => Carbon::createFromTimestamp($hit['deleted_at']),
+                    'distributor_id'   => $hit['distributor_id'],
+                    'region_id'        => $hit['region_id'],
+                    'personal_release' => $hit['personal_release'],
+                    'info_hash'        => hex2bin($hit['info_hash']),
+                    'user'             => [
+                        'id'       => $hit['user']['id'],
+                        'username' => $hit['user']['username'],
+                        'group'    => [
+                            'name'   => $hit['user']['group']['name'],
+                            'color'  => $hit['user']['group']['color'],
+                            'icon'   => $hit['user']['group']['icon'],
+                            'effect' => $hit['user']['group']['effect'],
+                        ],
+                    ],
+                    'category_id' => $hit['category']['id'],
+                    'category'    => [
+                        'id'         => $hit['category']['id'],
+                        'name'       => $hit['category']['name'],
+                        'image'      => $hit['category']['image'],
+                        'icon'       => $hit['category']['icon'],
+                        'no_meta'    => $hit['category']['no_meta'],
+                        'music_meta' => $hit['category']['music_meta'],
+                        'game_meta'  => $hit['category']['game_meta'],
+                        'tv_meta'    => $hit['category']['tv_meta'],
+                        'movie_meta' => $hit['category']['movie_meta']
+                    ],
+                    'type_id' => $hit['type']['id'],
+                    'type'    => [
+                        'id'   => $hit['type']['id'],
+                        'name' => $hit['type']['name'],
+                    ],
+                    'resolution_id' => $hit['resolution']['id'],
+                    'resolution'    => [
+                        'id'   => $hit['resolution']['id'],
+                        'name' => $hit['resolution']['name'],
+                    ],
+                    'thanks_count'            => 0,
+                    'comments_count'          => 0,
+                    'seeds_count'             => $hit['seeders'],
+                    'leeches_count'           => $hit['leechers'],
+                    'bookmarks_exists'        => \in_array($user->id, $hit['bookmark_user_ids'] ?? []),
+                    'freeleech_tokens_exists' => \in_array($user->id, $hit['freeleech_token_user_ids'] ?? []),
+                    'seeding'                 => \in_array($user->id, $hit['history_active_user_ids'] ?? []) && \in_array($user->id, $hit['history_seeder_user_ids'] ?? []),
+                    'leeching'                => \in_array($user->id, $hit['history_active_user_ids'] ?? []) && \in_array($user->id, $hit['history_leecher_user_ids'] ?? []),
+                    'not_completed'           => \in_array($user->id, $hit['history_incompleted_user_ids'] ?? []),
+                    'not_seeding'             => \in_array($user->id, $hit['history_completed_user_ids'] ?? []),
+                    'meta'                    => match (true) {
+                        $hit['movie'] !== null => [
+                            'id'                => $hit['movie']['id'],
+                            'title'             => $hit['movie']['name'],
+                            'release_date'      => $hit['movie']['year'],
+                            'poster'            => $hit['movie']['poster'],
+                            'original_language' => $hit['movie']['original_language'],
+                            'adult'             => $hit['movie']['adult'],
+                            'genres'            => $hit['movie']['genres'],
+                        ],
+                        $hit['tv'] !== null => [
+                            'id'                => $hit['tv']['id'],
+                            'name'              => $hit['tv']['name'],
+                            'first_air_date'    => $hit['tv']['year'],
+                            'poster'            => $hit['tv']['poster'],
+                            'original_language' => $hit['tv']['original_language'],
+                            'genres'            => $hit['tv']['genres'],
+                        ]
+                    }
+                ];
+            }
+
+            return new LengthAwarePaginator($torrents, $results['estimatedTotalHits'] ?? 0, $this->perPage);
+        }
     }
 
     /**
@@ -496,7 +639,7 @@ class TorrentSearch extends Component
             ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
             ->havingNotNull('meta')
             ->where('tmdb', '!=', 0)
-            ->where($this->filters())
+            ->where($this->filters()->toSqlQueryBuilder())
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
@@ -577,7 +720,7 @@ class TorrentSearch extends Component
                             ->whereIntegerInRaw('tmdb', $tvIds)
                     )
             )
-            ->where($this->filters())
+            ->where($this->filters()->toSqlQueryBuilder())
             ->get()
             ->groupBy('meta')
             ->map(fn ($movieOrTv, $key) => match ($key) {
@@ -753,7 +896,7 @@ class TorrentSearch extends Component
             ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
             ->havingNotNull('meta')
             ->where('tmdb', '!=', 0)
-            ->where($this->filters())
+            ->where($this->filters()->toSqlQueryBuilder())
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)

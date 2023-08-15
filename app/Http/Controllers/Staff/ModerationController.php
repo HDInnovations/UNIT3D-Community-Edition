@@ -128,6 +128,8 @@ class ModerationController extends Controller
 
                 Unit3dAnnounce::addTorrent($torrent);
 
+                $torrent->syncToMeilisearch();
+
                 return to_route('staff.moderation.index')
                     ->withSuccess('Torrent Rejected');
 
@@ -151,6 +153,8 @@ class ModerationController extends Controller
                 cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
                 Unit3dAnnounce::addTorrent($torrent);
+
+                $torrent->syncToMeilisearch();
 
                 return to_route('staff.moderation.index')
                     ->withSuccess('Torrent Postponed');

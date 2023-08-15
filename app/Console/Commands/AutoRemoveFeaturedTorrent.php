@@ -75,6 +75,7 @@ class AutoRemoveFeaturedTorrent extends Command
                 );
 
                 Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
+                $torrent->syncToMeilisearch();
             }
 
             // Delete The Record From DB

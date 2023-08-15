@@ -28,6 +28,17 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      meilisearch:
+        image: 'getmeili/meilisearch:v1.9'
+        ports:
+          - '7700:7700'
+        env:
+          MEILI_NO_ANALYTICS: false
+        options: >-
+          --health-cmd "wget --no-verbose --spider http://127.0.0.1:7700/health"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 4
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout

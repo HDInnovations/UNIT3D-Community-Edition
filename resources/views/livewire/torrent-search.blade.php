@@ -21,7 +21,7 @@
                 <p class="form__group">
                     <input
                         id="name"
-                        wire:model.live="name"
+                        wire:model.live.0ms="name"
                         class="form__text"
                         placeholder=" "
                         @if (auth()->user()->settings?->torrent_search_autofocus)
@@ -860,7 +860,7 @@
                         <tbody>
                             @forelse ($torrents as $torrent)
                                 <x-torrent.row
-                                    :meta="$torrent->meta"
+                                    :meta="$torrent['meta']"
                                     :torrent="$torrent"
                                     :personalFreeleech="$personalFreeleech"
                                 />

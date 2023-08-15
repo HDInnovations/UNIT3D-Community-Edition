@@ -50,7 +50,7 @@
         </div>
         <input
             class="quick-search__input"
-            wire:model.live.debounce.100ms="quicksearchText"
+            wire:model.live.debounce.0ms="quicksearchText"
             type="text"
             placeholder="{{ $quicksearchRadio }}"
             x-ref="quickSearch"
@@ -80,10 +80,10 @@
                                         {{ $search_result['title'] }}
                                         <time
                                             class="quick-search__result-year"
-                                            datetime="{{ $search_result['release_date'] }}"
-                                            title="{{ $search_result['release_date'] }}"
+                                            datetime="{{ $search_result['year'] }}"
+                                            title="{{ $search_result['year'] }}"
                                         >
-                                            {{ substr($search_result['release_date'], 0, 4) }}
+                                            {{ $search_result['year'] }}
                                         </time>
                                     </h2>
                                 </a>
@@ -103,10 +103,10 @@
                                         {{ $search_result['name'] }}
                                         <time
                                             class="quick-search__result-year"
-                                            datetime="{{ $search_result['first_air_date'] }}"
-                                            title="{{ $search_result['first_air_date'] }}"
+                                            datetime="{{ $search_result['year'] }}"
+                                            title="{{ $search_result['year'] }}"
                                         >
-                                            {{ substr($search_result['first_air_date'], 0, 4) }}
+                                            {{ $search_result['year'] }}
                                         </time>
                                     </h2>
                                 </a>

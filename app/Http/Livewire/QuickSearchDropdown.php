@@ -16,10 +16,8 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
-use App\Models\Movie;
 use App\Models\Person;
-use App\Models\Torrent;
-use App\Models\Tv;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class QuickSearchDropdown extends Component
@@ -32,80 +30,94 @@ class QuickSearchDropdown extends Component
     {
         $search = '%'.str_replace(' ', '%', $this->quicksearchText).'%';
 
+        $idSearch = '';
+
+        if (preg_match('/^(\d+)$/', $this->quicksearchText, $matches)) {
+            $idSearch = ' AND tmdb = '.$matches[1];
+        }
+
+        if (preg_match('/tt0*(?=(\d{7,}))/', $this->quicksearchText, $matches)) {
+            $idSearch = ' AND imdb = '.$matches[1];
+        }
+
         $searchResults = [];
 
         switch ($this->quicksearchRadio) {
             case 'movies':
-                $query = Movie::query()
-                    ->select(['id', 'poster', 'title', 'release_date'])
-                    ->selectSub(
-                        Torrent::query()
-                            ->select('category_id')
-                            ->whereColumn('torrents.tmdb', '=', 'movies.id')
-                            ->whereRelation('category', 'movie_meta', '=', true)
-                            ->limit(1),
-                        'category_id'
-                    )
-                    ->selectRaw("concat(title, ' ', release_date) as title_and_year")
-                    ->when(
-                        preg_match('/^\d+$/', $this->quicksearchText),
-                        fn ($query) => $query->where('id', '=', $this->quicksearchText),
-                        fn ($query) => $query
-                            ->when(
-                                preg_match('/tt0*(?=(\d{7,}))/', $this->quicksearchText, $matches),
-                                fn ($query) => $query->where('imdb_id', '=', $matches[1]),
-                                fn ($query) => $query->having('title_and_year', 'LIKE', $search),
-                            )
-                    )
-                    ->havingNotNull('category_id')
-                    ->oldest('title')
-                    ->take(10);
+                $query = [
+                    'hitsPerPage' => 20,
+                    'page'        => 1,
+                    'distinct'    => 'movie.id',
+                    'filter'      => 'deleted_at IS NULL AND category.movie_meta = 1 AND movie.name IS NOT NULL'.$idSearch,
+                ];
+
+                if ($idSearch === '') {
+                    $query['q'] = json_encode($this->quicksearchText);
+                }
+
+                $results = Http::acceptJson()
+                    ->withToken(config('meilisearch.key'))
+                    ->post(config('meilisearch.host').'/indexes/torrents/search', $query)
+                    ->json();
+
+                foreach ($results['hits'] ?? [] as $hit) {
+                    $searchResults[] = [
+                        'id'          => $hit['tmdb'],
+                        'poster'      => isset($hit['movie']['poster']) ? tmdb_image('poster_small', $hit['movie']['poster']) : null,
+                        'title'       => $hit['movie']['name'] ?? '',
+                        'year'        => $hit['movie']['year'] ?? 0,
+                        'category_id' => $hit['category']['id'] ?? 0,
+                    ];
+                }
 
                 break;
             case 'series':
-                $query = Tv::query()
-                    ->select(['id', 'poster', 'name', 'first_air_date'])
-                    ->selectSub(
-                        Torrent::query()
-                            ->select('category_id')
-                            ->whereColumn('torrents.tmdb', '=', 'tv.id')
-                            ->whereRelation('category', 'tv_meta', '=', true)
-                            ->limit(1),
-                        'category_id'
-                    )
-                    ->selectRaw("concat(name, ' ', first_air_date) as title_and_year")
-                    ->when(
-                        preg_match('/^\d+$/', $this->quicksearchText),
-                        fn ($query) => $query->where('id', '=', $this->quicksearchText),
-                        fn ($query) => $query
-                            ->when(
-                                preg_match('/tt0*(?=(\d{7,}))/', $this->quicksearchText, $matches),
-                                fn ($query) => $query->where('imdb_id', '=', $matches[1]),
-                                fn ($query) => $query->having('title_and_year', 'LIKE', $search),
-                            )
-                    )
-                    ->havingNotNull('category_id')
-                    ->oldest('name')
-                    ->take(10);
+                $query = [
+                    'hitsPerPage' => 20,
+                    'page'        => 1,
+                    'distinct'    => 'tv.id',
+                    'filter'      => 'deleted_at IS NULL AND category.tv_meta = 1 AND tv.name IS NOT NULL'.$idSearch,
+                ];
+
+                if ($idSearch === '') {
+                    $query['q'] = json_encode($this->quicksearchText);
+                }
+
+                $results = Http::acceptJson()
+                    ->withToken(config('meilisearch.key'))
+                    ->post(config('meilisearch.host').'/indexes/torrents/search', $query)
+                    ->json();
+
+                foreach ($results['hits'] ?? [] as $hit) {
+                    $searchResults[] = [
+                        'id'          => $hit['tmdb'],
+                        'poster'      => isset($hit['tv']['poster']) ? tmdb_image('poster_small', $hit['tv']['poster']) : null,
+                        'name'        => $hit['tv']['name'] ?? '',
+                        'year'        => $hit['tv']['year'] ?? 0,
+                        'category_id' => $hit['category']['id'] ?? 0,
+                    ];
+                }
 
                 break;
             case 'persons':
-                $query = Person::query()
+                $searchResults = Person::query()
                     ->select(['id', 'still', 'name'])
                     ->where('name', 'LIKE', $search)
                     ->oldest('name')
-                    ->take(10);
+                    ->take(10)
+                    ->get()
+                    ->toArray();
         }
 
-        if (isset($query)) {
-            // 56 characters whitelisted, 3 characters long, 3 search categories, ~3000 byte response each
-            // Cache should fill 56 ^ 3 * 3000 = ~526 MB
-            if (preg_match("/^[a-zA-Z0-9-_ .'@:\\[\\]+&\\/,!#()?\"]{0,3}$/", $this->quicksearchText)) {
-                $searchResults = cache()->remember('quicksearch:'.$this->quicksearchRadio.':'.strtolower($search), 3600 * 24, fn () => $query->get()->toArray());
-            } else {
-                $searchResults = $query->get()->toArray();
-            }
-        }
+        // if (isset($query)) {
+        //     // 56 characters whitelisted, 3 characters long, 3 search categories, ~3000 byte response each
+        //     // Cache should fill 56 ^ 3 * 3000 = ~526 MB
+        //     if (preg_match("/^[a-zA-Z0-9-_ .'@:\\[\\]+&\\/,!#()?\"]{0,3}$/", $this->quicksearchText)) {
+        //         $searchResults = cache()->remember('quicksearch:'.$this->quicksearchRadio.':'.strtolower($search), 3600 * 24, fn () => $query->get()->toArray());
+        //     } else {
+        //         $searchResults = $query->get()->toArray();
+        //     }
+        // }
 
         return view('livewire.quick-search-dropdown', [
             'search_results' => $searchResults,
