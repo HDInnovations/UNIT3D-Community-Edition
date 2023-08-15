@@ -64,6 +64,277 @@ class Torrent extends Model
     public const REJECTED = 2;
     public const POSTPONED = 3;
 
+    /**
+     * This query is to be added to a raw select from the torrents table.
+     *
+     * The fields it returns are used by Meilisearch to power the advanced
+     * torrent search, RSS, and the API.
+     */
+    public const SEARCHABLE = "
+            JSON_ARRAYAGG(
+                JSON_OBJECT(
+                    'id', torrents.id,
+                    'name', torrents.name,
+                    'description', torrents.description,
+                    'mediainfo', torrents.mediainfo,
+                    'bdinfo', torrents.bdinfo,
+                    'folder', torrents.folder,
+                    'size', torrents.size,
+                    'leechers', torrents.leechers,
+                    'seeders', torrents.seeders,
+                    'times_completed', torrents.times_completed,
+                    'created_at', torrents.created_at,
+                    'bumped_at', torrents.bumped_at,
+                    'fl_until', torrents.fl_until,
+                    'du_until', torrents.du_until,
+                    'category_id', torrents.category_id,
+                    'user_id', torrents.user_id,
+                    'imdb', torrents.imdb,
+                    'tvdb', torrents.tvdb,
+                    'tmdb', torrents.tmdb,
+                    'mal', torrents.mal,
+                    'igdb', torrents.igdb,
+                    'season_number', torrents.season_number,
+                    'episode_number', torrents.episode_number,
+                    'stream', torrents.stream,
+                    'free', torrents.free,
+                    'doubleup', torrents.doubleup,
+                    'refundable', torrents.refundable,
+                    'highspeed', torrents.highspeed,
+                    'featured', torrents.featured,
+                    'status', torrents.status,
+                    'anon', torrents.anon,
+                    'sticky', torrents.sticky,
+                    'sd', torrents.sd,
+                    'internal', torrents.internal,
+                    'release_year', torrents.release_year,
+                    'deleted_at', torrents.deleted_at,
+                    'type_id', torrents.type_id,
+                    'resolution_id', torrents.resolution_id,
+                    'distributor_id', torrents.distributor_id,
+                    'region_id', torrents.region_id,
+                    'personal_release', torrents.personal_release,
+                    'info_hash', HEX(torrents.info_hash),
+                    'history',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(
+                                JSON_OBJECT(
+                                    'user_id', history.user_id,
+                                    'seeder', history.seeder,
+                                    'active', history.active,
+                                    'completed_at', history.completed_at
+                                )
+                            )
+                        FROM
+                            history
+                        WHERE
+                            torrents.id = history.torrent_id
+                    ),
+                    'user',
+                    (
+                        SELECT
+                            JSON_OBJECT(
+                                'id', users.id,
+                                'username', users.username,
+                                'group',
+                                (
+                                    SELECT
+                                        JSON_OBJECT(
+                                            'name', `groups`.name,
+                                            'color', `groups`.color,
+                                            'icon', `groups`.icon,
+                                            'effect', `groups`.effect
+                                        )
+                                    FROM
+                                        `groups`
+                                    WHERE
+                                        `groups`.id = users.id
+                                    LIMIT
+                                        1
+                                )
+                            )
+                        FROM
+                            users
+                        WHERE
+                            torrents.user_id = users.id
+                        LIMIT
+                            1
+                    ),
+                    'category',
+                    (
+                        SELECT
+                            JSON_OBJECT(
+                                'id', categories.id,
+                                'name', categories.name,
+                                'image', categories.image,
+                                'icon', categories.icon,
+                                'no_meta', categories.no_meta,
+                                'music_meta', categories.music_meta,
+                                'game_meta', categories.game_meta,
+                                'tv_meta', categories.tv_meta,
+                                'movie_meta', categories.movie_meta
+                            )
+                        FROM
+                            categories
+                        WHERE
+                            torrents.category_id = categories.id
+                        LIMIT
+                            1
+                    ),
+                    'type',
+                    (
+                        SELECT
+                            JSON_OBJECT(
+                                'id', types.id,
+                                'name', types.name
+                            )
+                        FROM
+                            types
+                        WHERE
+                            torrents.type_id = types.id
+                        LIMIT
+                            1
+                    ),
+                    'resolution',
+                    (
+                        SELECT
+                            JSON_OBJECT(
+                                'id', resolutions.id,
+                                'name', resolutions.name
+                            )
+                        FROM
+                            resolutions
+                        WHERE
+                            torrents.resolution_id = resolutions.id
+                        LIMIT
+                            1
+                    ),
+                    'movie',
+                    (
+                        SELECT
+                            JSON_OBJECT(
+                                'id', movie.id,
+                                'name', movie.title,
+                                'year', YEAR(movie.release_date),
+                                'genres',
+                                (
+                                    SELECT
+                                        JSON_ARRAYAGG(
+                                            JSON_OBJECT(
+                                                'id', genres.id,
+                                                'name', genres.name
+                                            )
+                                        )
+                                    FROM
+                                        genres
+                                    WHERE
+                                        genres.id IN (SELECT genre_id FROM genre_movie WHERE genre_movie.movie_id = torrents.tmdb)
+                                )
+                            )
+                        FROM
+                            movie
+                        WHERE
+                            torrents.tmdb = movie.id
+                            AND torrents.category_id in (SELECT id FROM categories WHERE movie_meta = 1)
+                        LIMIT
+                            1
+                    ),
+                    'tv',
+                    (
+                        SELECT
+                            JSON_OBJECT(
+                                'id', tv.id,
+                                'name', tv.name,
+                                'year', YEAR(tv.first_air_date),
+                                'genres',
+                                (
+                                    SELECT
+                                        JSON_ARRAYAGG(
+                                            JSON_OBJECT(
+                                                'id', genres.id,
+                                                'name', genres.name
+                                            )
+                                        )
+                                    FROM
+                                        genres
+                                    WHERE
+                                        genres.id IN (SELECT genre_id FROM genre_tv WHERE genre_tv.tv_id = torrents.tmdb)
+                                )
+                            )
+                        FROM
+                            tv
+                        WHERE
+                            torrents.tmdb = tv.id
+                            AND torrents.category_id in (SELECT id FROM categories WHERE tv_meta = 1)
+                        LIMIT
+                            1
+                    ),
+                    'playlist_ids',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(playlist_torrents.playlist_id)
+                        FROM
+                            playlist_torrents
+                        WHERE
+                            torrents.id = playlist_torrents.playlist_id
+                    ),
+                    'collection_ids',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(collection_movie.collection_id)
+                        FROM
+                            collection_movie
+                        WHERE
+                            torrents.tmdb = collection_movie.movie_id
+                            AND torrents.category_id IN (SELECT id FROM categories WHERE movie_meta = 1)
+                    ),
+                    'network_ids',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(network_tv.network_id)
+                        FROM
+                            network_tv
+                        WHERE
+                            torrents.tmdb = network_tv.tv_id
+                            AND torrents.category_id IN (SELECT id FROM categories WHERE tv_meta = 1)
+                    ),
+                    'bookmark_user_ids',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(bookmarks.user_id)
+                        FROM
+                            bookmarks
+                        WHERE
+                            torrents.id = bookmarks.torrent_id
+                    ),
+                    'filenames',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(
+                                JSON_OBJECT(
+                                    'name', IF(torrents.folder IS NULL, files.name, CONCAT(torrents.folder, '/', files.name)),
+                                    'size', files.size
+                                )
+                            )
+                        FROM
+                            files
+                        WHERE
+                            torrents.id = files.torrent_id
+                    ),
+                    'keywords',
+                    (
+                        SELECT
+                            JSON_ARRAYAGG(keywords.name)
+                        FROM
+                            keywords
+                        WHERE
+                            torrents.id = keywords.torrent_id
+                    )
+                )
+            ) as searchable
+    ";
+
     protected static function booted(): void
     {
         static::addGlobalScope(new ApprovedScope());
