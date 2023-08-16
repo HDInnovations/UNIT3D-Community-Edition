@@ -25,9 +25,7 @@ class DonationItem extends Model
      *
      * @var string[]
      */
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that are mass assignable.
