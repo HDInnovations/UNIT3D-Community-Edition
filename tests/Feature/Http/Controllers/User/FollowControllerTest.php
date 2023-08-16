@@ -35,7 +35,7 @@ test('destroy returns an ok response', function (): void {
 test('index returns an ok response', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($authUser)->get(route('users.followers.index', [$user]));
+    $response = $this->actingAs($user)->get(route('users.followers.index', [$user]));
     $response->assertOk();
     $response->assertViewIs('user.follower.index');
     $response->assertViewHas('followers');
