@@ -28,14 +28,14 @@ class AutoVIP extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:vip';
+    protected $signature = 'auto:donation-subscriptions';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Remove VIP rank for users.';
+    protected $description = 'Add/Remove donor status for users.';
 
     /**
      * Execute the console command.
@@ -45,11 +45,11 @@ class AutoVIP extends Command
     public function handle(): void
     {
         $curDate = Carbon::now();
-        $vips_demote = DonationSubscription::where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
-        $vips_promote = DonationSubscription::where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
+        $vipsDemote = DonationSubscription::where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
+        $vipsPromote = DonationSubscription::where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
 
         // Demote VIP User
-        foreach ($vips_demote as $vip) {
+        foreach ($vipsDemote as $vip) {
             // Find The User
             $user = User::findOrFail($vip->user_id);
 
@@ -76,7 +76,7 @@ class AutoVIP extends Command
         }
 
         // Promote VIP User
-        foreach ($vips_promote as $vip) {
+        foreach ($vipsPromote as $vip) {
             // Find The User
             $user = User::findOrFail($vip->user_id);
 
