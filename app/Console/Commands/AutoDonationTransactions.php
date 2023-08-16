@@ -21,7 +21,7 @@ use Illuminate\Support\Carbon;
 use PrevailExcel\Nowpayments\Facades\Nowpayments;
 use Symfony\Component\Console\Exception\RuntimeException;
 
-class AutoVerifyDonationTransactions extends Command
+class AutoDonationTransactions extends Command
 {
     /**
      * The name and signature of the console command.

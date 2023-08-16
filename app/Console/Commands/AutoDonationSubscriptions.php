@@ -20,7 +20,7 @@ use App\Models\User;
 use App\Models\PrivateMessage;
 use Carbon\Carbon;
 
-class AutoVIP extends Command
+class AutoDonationSubscriptions extends Command
 {
     /**
      * The name and signature of the console command.
