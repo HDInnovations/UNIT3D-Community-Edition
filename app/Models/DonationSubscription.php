@@ -24,7 +24,7 @@ class DonationSubscription extends Model
         'is_active' => 'boolean',
         'is_gifted' => 'boolean',
         'start_at'  => 'datetime',
-        'end_at'  => 'datetime',
+        'end_at'    => 'datetime',
     ];
 
     /**
