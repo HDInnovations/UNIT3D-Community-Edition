@@ -52,10 +52,10 @@ class AutoDonationSubscriptions extends Command
             // Find The User
             $user = User::findOrFail($vip->user_id);
 
-            $user->is_donor = 0;
+            $user->is_donor = false;
             $user->save();
 
-            $vip->is_active = 0;
+            $vip->is_active = false;
             $vip->save();
 
             // Send Private Message
@@ -86,12 +86,12 @@ class AutoDonationSubscriptions extends Command
             $user->invites += $donationItem->invites ?? 0;
 
             // Set user as donor
-            $user->is_donor = 1;
+            $user->is_donor = true;
             $user->save();
 
             // Update donation subscription table
-            $vip->is_active = 1;
-            $vip->is_gifted = 1;
+            $vip->is_active = true;
+            $vip->is_gifted = true;
             $vip->save();
 
             // Send Private Message
