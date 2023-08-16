@@ -99,5 +99,4 @@ class PageController extends Controller
             'items' => DonationItem::all()->sortBy('id'),
         ]);
     }
-
 }

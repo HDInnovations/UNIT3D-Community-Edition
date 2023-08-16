@@ -75,12 +75,12 @@ class AutoVerifyDonationTransactions extends Command
 
                 $donationItem = DonationItem::find($transaction->donation_item_id);
                 $subscription = DonationSubscription::create([
-                    'user_id'           => $transaction->user_id,
-                    'donation_item_id'  => $transaction->donation_item_id,
-                    'is_active'         => 0,
-                    'is_gifted'         => 0,
-                    'start_at'          => $startDate,
-                    'end_at'            => Carbon::parse($startDate)->addDays($donationItem->days_active)->toDateString(),
+                    'user_id'          => $transaction->user_id,
+                    'donation_item_id' => $transaction->donation_item_id,
+                    'is_active'        => 0,
+                    'is_gifted'        => 0,
+                    'start_at'         => $startDate,
+                    'end_at'           => Carbon::parse($startDate)->addDays($donationItem->days_active)->toDateString(),
                 ]);
             }
         }
