@@ -91,11 +91,9 @@ class AutoVIP extends Command
                             
                             Your VIP subscription has ended recently. Your Rank has been reset and your VIP advantages disabled. 
                             The system will move you to the appropriate group within the next hours. 
-                            If you consider extending your VIP membership, pls take a look at [url=/pages/donate]https://aither.cc/pages/donate[/url].
-                            Thank you for supporting Aither.cc!
-                            
-                            ~ Your Aither Staff 
-                            
+
+                            Thank you for your support!
+
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             $pm->save();
         }
@@ -152,13 +150,9 @@ class AutoVIP extends Command
             $pm->subject = 'VIP Subscription';
             $pm->message = 'Hi,
                             
-                            [b]Thank you for supporting Aither![/b]
+                            [b]Thank you for supporting '.config('app.name').'![/b]
                             Your VIP access has been activated and is valid through: '.$vip->end_at.' (YYYY-MM-DD)
-                            A total of '.$donationItem->bon_bonus.' BON points have been added to your account. '.
-                            ($s4me == true ? 'Your Seedit4Me discount code is: ACC10' : '')
-                            .'
-                            
-                            ~ Your Aither Staff 
+                            A total of '.$donationItem->bon_bonus.' BON points have been added to your account. 
                             
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             $pm->save();
