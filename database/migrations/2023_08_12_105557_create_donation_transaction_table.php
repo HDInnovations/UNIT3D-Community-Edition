@@ -32,8 +32,7 @@ return new class () extends Migration {
             $table->boolean('is_gifted')->default(0);
             $table->date('start_at');
             $table->date('end_at');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('donation_items', function (Blueprint $table): void {
@@ -46,6 +45,7 @@ return new class () extends Migration {
             $table->bigInteger('invites')->nullable();
             $table->integer('days_active')->nullable();
             $table->decimal('price_usd', 6, 2);
+            $table->timestamps();
         });
 
         Schema::table('donation_transactions', function (Blueprint $table): void {
