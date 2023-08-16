@@ -27,7 +27,7 @@ class AutoVIP extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:donation-subscriptions';
+    protected $signature = 'auto:donation_subscriptions';
 
     /**
      * The console command description.

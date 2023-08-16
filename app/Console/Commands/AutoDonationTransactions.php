@@ -28,7 +28,7 @@ class AutoVerifyDonationTransactions extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:donation-transactions';
+    protected $signature = 'auto:donation_transactions';
 
     /**
      * The console command description.
