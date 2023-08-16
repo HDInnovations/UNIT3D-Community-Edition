@@ -103,7 +103,9 @@ class AutoDonationSubscriptions extends Command
                             
                             [b]Thank you for supporting '.config('app.name').'![/b]
                             Your VIP access has been activated and is valid through: '.$vip->end_at.' (YYYY-MM-DD)
-                            A total of '.$donationItem->bon_bonus.' BON points have been added to your account. 
+                            A total of '.$donationItem->seedbonus.' BON points, '
+                            .$donationItem->uploaded.' upload and '
+                            .$donationItem->invites.' invites have been added to your account. 
                             
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             $pm->save();
