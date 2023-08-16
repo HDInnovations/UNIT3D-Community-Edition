@@ -19,7 +19,6 @@ use App\Models\DonationSubscription;
 use App\Models\User;
 use App\Models\PrivateMessage;
 use Carbon\Carbon;
-use DB;
 
 class AutoVIP extends Command
 {
@@ -85,7 +84,7 @@ class AutoVIP extends Command
             $user->seedbonus += $donationItem->seedbonus ?? 0;
             $user->uploaded += $donationItem->uploaded ?? 0;
             $user->invites += $donationItem->invites ?? 0;
-            
+
             // Set user as donor
             $user->is_donor = 1;
             $user->save();
