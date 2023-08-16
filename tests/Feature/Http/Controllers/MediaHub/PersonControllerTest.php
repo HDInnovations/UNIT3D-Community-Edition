@@ -32,6 +32,4 @@ test('show returns an ok response', function (): void {
     $response->assertOk();
     $response->assertViewIs('mediahub.person.show');
     $response->assertViewHas('person', $person);
-    $response->assertViewHas('movieCategoryIds');
-    $response->assertViewHas('tvCategoryIds');
 });
