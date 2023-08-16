@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlacklistClient;
+use App\Models\DonationItem;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
@@ -88,4 +89,15 @@ class PageController extends Controller
     {
         return view('page.aboutus');
     }
+
+    /**
+     * Show Donation Page.
+     */
+    public function donate()
+    {
+        return view('page.donate', [
+            'items' => DonationItem::all()->sortBy('id'),
+        ]);
+    }
+
 }
