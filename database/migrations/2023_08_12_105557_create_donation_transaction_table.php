@@ -38,13 +38,13 @@ return new class () extends Migration {
 
         Schema::create('donation_items', function (Blueprint $table): void {
             $table->id();
-            $table->char('type', 10);
-            $table->char('name', 20);
-            $table->text('description')->nullable()->default(null);
-            $table->bigInteger('bon_bonus')->nullable()->default(null);
-            $table->bigInteger('ul_bonus')->nullable()->default(null);
-            $table->bigInteger('invite_bonus')->nullable()->default(null);
-            $table->integer('days_active')->nullable()->default(null);
+            $table->string('type', 20);
+            $table->string('name', 40);
+            $table->string('description')->nullable();
+            $table->bigInteger('seedbonus')->nullable();
+            $table->bigInteger('uploaded')->nullable();
+            $table->bigInteger('invites')->nullable();
+            $table->integer('days_active')->nullable();
             $table->decimal('price_usd', 6, 2);
         });
 
