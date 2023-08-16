@@ -21,20 +21,6 @@ class DonationSubscription extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-    protected $table = 'donation_subscriptions';
-
-    /**
-     * Indicates If The Model Should Be Timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = true;
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
