@@ -305,7 +305,7 @@ final class AnnounceController extends Controller
     {
         // Check Passkey Against Users Table
         $user = cache()->remember('user:'.$passkey, 8 * 3600, fn () => User::query()
-            ->select(['id', 'group_id', 'can_download'])
+            ->select(['id', 'group_id', 'can_download', 'is_donor'])
             ->where('passkey', '=', $passkey)
             ->first());
 
