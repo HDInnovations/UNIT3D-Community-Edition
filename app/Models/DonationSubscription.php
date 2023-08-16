@@ -20,6 +20,13 @@ class DonationSubscription extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'is_active' => 'boolean',
+        'is_gifted' => 'boolean',
+        'start_at'  => 'datetime',
+        'end_at'  => 'datetime',
+    ];
+
     /**
      * The attributes that aren't mass assignable.
      *

@@ -20,6 +20,10 @@ class DonationTransaction extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'confirmed' => 'boolean',
+    ];
+
     /**
      * The attributes that aren't mass assignable.
      *
