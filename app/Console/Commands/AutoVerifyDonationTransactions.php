@@ -44,7 +44,7 @@ class AutoVerifyDonationTransactions extends Command
     {
         $curDate = Carbon::now()->toDateString();
 
-        $unconfirmedTransactions = DonationTransaction::where('confirmed', '=', 0)->whereDate('created_at', $curDate)->get();
+        $unconfirmedTransactions = DonationTransaction::where('confirmed', '=', 0)->whereDate('created_at', '<=', $curDate)->get();
 
         foreach ($unconfirmedTransactions as $transaction) {
             // Get array of payment status and details by invoice_id
@@ -57,7 +57,7 @@ class AutoVerifyDonationTransactions extends Command
             }
 
             // Check if Payment was successfully
-            if ($paymentStatus['data'][0]['payment_status'] == "finished") {
+            if ($paymentStatus['data'][0]['payment_status'] === "finished") {
                 $transaction->update([
                     'payment_id' => $paymentStatus['data'][0]['payment_id'],
                     'confirmed'  => 1,
@@ -67,7 +67,7 @@ class AutoVerifyDonationTransactions extends Command
                 // Check if user has active or upcoming subscriptions
                 $activeSubscriptionsEndDate = DonationSubscription::where('user_id', '=', $transaction->user_id)->where('donation_item_id', '>=', 4)->orderBy('end_at', 'DESC')->value('end_at');
                 // Set start date accordingly
-                if ($activeSubscriptionsEndDate != null) {
+                if ($activeSubscriptionsEndDate !== null) {
                     $startDate = $activeSubscriptionsEndDate;
                 } else {
                     $startDate = $curDate;
