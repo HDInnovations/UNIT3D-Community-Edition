@@ -30,8 +30,5 @@ test('rules', function (): void {
         'name' => [
             'required',
         ],
-        'position' => [
-            'required',
-        ],
     ], $actual);
 });

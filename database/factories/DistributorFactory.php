@@ -30,7 +30,6 @@ class DistributorFactory extends Factory
     {
         return [
             'name'     => $this->faker->name(),
-            'position' => $this->faker->randomNumber(),
         ];
     }
 }

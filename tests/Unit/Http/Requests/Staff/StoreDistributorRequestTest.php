@@ -31,8 +31,5 @@ test('rules', function (): void {
             'required',
             'unique:distributors,name',
         ],
-        'position' => [
-            'required',
-        ],
     ], $actual);
 });
