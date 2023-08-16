@@ -16,7 +16,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\DonationItem;
 use App\Models\DonationSubscription;
-use App\Models\Group;
 use App\Models\User;
 use App\Models\PrivateMessage;
 use Carbon\Carbon;
@@ -39,16 +38,6 @@ class AutoVIP extends Command
     protected $description = 'Remove VIP rank for users.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return int
@@ -56,35 +45,23 @@ class AutoVIP extends Command
     public function handle(): void
     {
         $curDate = Carbon::now();
-        $vip_group = Group::select(['id'])->where('slug', '=', 'vip')->first();
-        $vipul_group = Group::select(['id'])->where('slug', '=', 'vip-ul')->first();
-        $default_group = DB::table('groups')->select('id')->where('slug', '=', 'phobos')->first();
-        $defaultul_group = DB::table('groups')->select('id')->where('slug', '=', 'uploader')->first();
-        $vips_demote = DonationSubscription::where('end_at', '=', $curDate->toDateString())->where('is_active', '=', 1)->get();
-        $vips_promote = DonationSubscription::where('start_at', '=', $curDate->toDateString())->where('is_active', '=', 0)->get();
+        $vips_demote = DonationSubscription::where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
+        $vips_promote = DonationSubscription::where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
 
         // Demote VIP User
         foreach ($vips_demote as $vip) {
             // Find The User
             $user = User::findOrFail($vip->user_id);
 
-            // Default User or uploader
-            if ($user->group_id == $vipul_group->id) {
-                $user->update([
-                    'group_id' => $defaultul_group->id,
-                ]);
-            } else {
-                $user->update([
-                    'group_id' => $default_group->id,
-                ]);
-            }
+            $user->is_donor = 0;
+            $user->save();
 
             $vip->is_active = 0;
             $vip->save();
 
             // Send Private Message
             $pm = new PrivateMessage();
-            $pm->sender_id = 1;
+            $pm->sender_id = User::SYSTEM_USER_ID;
             $pm->receiver_id = $user->id;
             $pm->subject = 'VIP Subscription ended';
             $pm->message = 'Hi,
@@ -98,54 +75,29 @@ class AutoVIP extends Command
             $pm->save();
         }
 
-        // Sleep in between sending those messages
-        sleep(2);
-
         // Promote VIP User
         foreach ($vips_promote as $vip) {
             // Find The User
             $user = User::findOrFail($vip->user_id);
 
-            // Default User or uploader
-            if ($user->group_id == $defaultul_group->id) {
-                $user->update([
-                    'group_id' => $vipul_group->id,
-                ]);
-            } else {
-                $user->update([
-                    'group_id' => $vip_group->id,
-                ]);
-            }
-
             // Add Gifts
             $donationItem = DonationItem::find($vip->donation_item_id);
-
-            if ($donationItem->bon_bonus) {
-                $user->seedbonus += $donationItem->bon_bonus;
-            }
-
-            if ($donationItem->ul_bonus) {
-                $user->uploaded += $donationItem->ul_bonus;
-            }
-
-            if ($donationItem->invite_bonus) {
-                $user->invites += $donationItem->invite_bonus;
-            }
-
-            if ($donationItem->days_active >= 180) {
-                $s4me = true;
-            } else {
-                $s4me = false;
-            }
-
-            $vip->is_gifted = 1;
-            $vip->is_active = 1;
-            $vip->save();
+            $user->seedbonus += $donationItem->seedbonus ?? 0;
+            $user->uploaded += $donationItem->uploaded ?? 0;
+            $user->invites += $donationItem->invites ?? 0;
+            
+            // Set user as donor
+            $user->is_donor = 1;
             $user->save();
+
+            // Update donation subscription table
+            $vip->is_active = 1;
+            $vip->is_gifted = 1;
+            $vip->save();
 
             // Send Private Message
             $pm = new PrivateMessage();
-            $pm->sender_id = 1;
+            $pm->sender_id = User::SYSTEM_USER_ID;
             $pm->receiver_id = $user->id;
             $pm->subject = 'VIP Subscription';
             $pm->message = 'Hi,
