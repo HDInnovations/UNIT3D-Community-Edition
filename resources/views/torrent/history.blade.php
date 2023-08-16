@@ -24,6 +24,19 @@
     </li>
 @endsection
 
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('peers', ['id' => $torrent]) }}">
+            {{ __('torrent.peers') }}
+        </a>
+    </li>
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('history', ['id' => $torrent]) }}">
+            {{ __('torrent.history') }}
+        </a>
+    </li>
+@endsection
+
 @section('content')
     <section class="panelV2">
         <header class="panel__header">
@@ -42,6 +55,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.user') }}</th>
+                        <th>{{ __('torrent.agent') }}</th>
                         <th>{{ __('common.connected') }}</th>
                         <th>{{ __('torrent.completed') }}</th>
                         <th>{{ __('common.upload') }}</th>
@@ -64,6 +78,11 @@
                                     || ($history->user->id == $torrent->user->id && $torrent->anon == 1)
                                 " />
                             </td>
+                            @if (auth()->user()->group->is_modo || auth()->id() === $history->user_id)
+                                <td>{{ $history->agent }}</td>
+                            @else
+                                <td>---</td>
+                            @endif
                             @if ($history->active)
                                 <td class="text-green">{{ strtolower(__('common.yes')) }}</td>
                             @else

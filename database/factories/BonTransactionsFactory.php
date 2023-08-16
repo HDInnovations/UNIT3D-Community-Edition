@@ -33,15 +33,15 @@ class BonTransactionsFactory extends Factory
     public function definition(): array
     {
         return [
-            'itemID'        => BonExchange::factory(),
-            'name'          => $this->faker->name(),
-            'cost'          => $this->faker->randomFloat(),
-            'sender'        => User::factory(),
-            'receiver'      => User::factory(),
-            'torrent_id'    => Torrent::factory(),
-            'post_id'       => Post::factory(),
-            'comment'       => $this->faker->text(),
-            'date_actioned' => $this->faker->dateTime(),
+            'bon_exchange_id' => BonExchange::factory(),
+            'name'            => $this->faker->name(),
+            'cost'            => $this->faker->randomFloat(),
+            'sender_id'       => User::factory(),
+            'receiver_id'     => User::factory(),
+            'torrent_id'      => Torrent::factory(),
+            'post_id'         => Post::factory(),
+            'comment'         => $this->faker->text(),
+            'created_at'      => $this->faker->dateTime(),
         ];
     }
 }

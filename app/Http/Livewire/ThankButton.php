@@ -13,6 +13,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Torrent;
 use Livewire\Component;

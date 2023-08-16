@@ -38,38 +38,36 @@
                 </div>
             </div>
         </header>
-        <table class="table table-condensed table-striped">
-            <thead>
-            <tr>
-                <th>{{ __('bon.sender') }}</th>
-                <th>{{ __('bon.receiver') }}</th>
-                <th>{{ __('bon.points') }}</th>
-                <th>{{ __('bon.date') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($gifts as $gift)
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
                 <tr>
-                    <td>
-                        <a href="{{ route('users.show', ['user' => $gift->senderObj]) }}">
-                            <span class="badge-user text-bold">{{ $gift->senderObj->username }}</span>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ route('users.show', ['user' => $gift->receiverObj]) }}">
-                            <span class="badge-user text-bold">{{ $gift->receiverObj->username }}</span>
-                        </a>
-                    </td>
-                    <td>
-                        {{ $gift->cost }}
-                    </td>
-                    <td>
-                        {{ $gift->date_actioned }}
-                    </td>
+                    <th>{{ __('bon.sender') }}</th>
+                    <th>{{ __('bon.receiver') }}</th>
+                    <th>{{ __('bon.points') }}</th>
+                    <th>{{ __('bon.date') }}</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach($gifts as $gift)
+                    <tr>
+                        <td>
+                            <x-user_tag :user="$gift->sender" :anon="false" />
+                        </td>
+                        <td>
+                            <x-user_tag :user="$gift->receiver" :anon="false" />
+                        </td>
+                        <td>
+                            {{ $gift->cost }}
+                        </td>
+                        <td>
+                            {{ $gift->created_at }}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
         {{ $gifts->links('partials.pagination') }}
     </section>
 @endsection

@@ -23,6 +23,7 @@ use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
@@ -45,7 +46,7 @@ class TransactionController extends Controller
 
         return view('user.transaction.create', [
             'user'     => $user,
-            'bon'      => $user->getSeedbonus(),
+            'bon'      => $user->formatted_seedbonus,
             'activefl' => $user->personalFreeleeches()->exists(),
             'items'    => BonExchange::all(),
         ]);
@@ -59,51 +60,70 @@ class TransactionController extends Controller
         abort_unless($request->user()->is($user), 403);
 
         $request = (object) $request->validated();
-        $item = BonExchange::findOrFail($request->exchange);
 
-        switch (true) {
-            case $item->upload:
-                $user->increment('uploaded', $item->value);
+        return DB::transaction(function () use ($request, $user) {
+            $user->refresh();
+            $bonExchange = BonExchange::findOrFail($request->exchange);
 
-                break;
-            case $item->download:
-                $user->decrement('downloaded', $item->value);
+            if ($bonExchange->cost > $user->seedbonus) {
+                return back()->withErrors('Not enough BON.');
+            }
 
-                break;
-            case $item->personal_freeleech:
-                PersonalFreeleech::create(['user_id' => $user->id]);
+            switch (true) {
+                case $bonExchange->upload:
+                    $user->increment('uploaded', $bonExchange->value);
 
-                cache()->put('personal_freeleech:'.$user->id, true);
+                    break;
+                case $bonExchange->download:
+                    if ($user->downloaded < $bonExchange->value) {
+                        return back()->withErrors('Not enough download.');
+                    }
 
-                Unit3dAnnounce::addPersonalFreeleech($user->id);
+                    $user->decrement('downloaded', $bonExchange->value);
 
-                PrivateMessage::create([
-                    'sender_id'   => 1,
-                    'receiver_id' => $user->id,
-                    'subject'     => trans('bon.pm-subject'),
-                    'message'     => sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                    break;
+                case $bonExchange->personal_freeleech:
+                    if (cache()->get('personal_freeleech:'.$user->id)) {
+                        return back()->withErrors('Your previous personal freeleech is still active.');
+                    }
+
+                    PersonalFreeleech::create(['user_id' => $user->id]);
+
+                    cache()->put('personal_freeleech:'.$user->id, true);
+
+                    Unit3dAnnounce::addPersonalFreeleech($user->id);
+
+                    PrivateMessage::create([
+                        'sender_id'   => 1,
+                        'receiver_id' => $user->id,
+                        'subject'     => trans('bon.pm-subject'),
+                        'message'     => sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
                     [color=red][b]'.trans('common.system-message').'[/b][/color]',
-                ]);
+                    ]);
 
-                break;
-            case $item->invite:
-                $user->increment('invites', $item->value);
+                    break;
+                case $bonExchange->invite:
+                    if ($user->invites >= config('other.max_unused_user_invites', 1)) {
+                        return back()->withErrors('You already have the maximum amount of unused invites allowed per user.');
+                    }
 
-                break;
-        }
+                    $user->increment('invites', $bonExchange->value);
 
-        BonTransactions::create([
-            'itemID'     => $item->id,
-            'name'       => $item->description,
-            'cost'       => $item->value,
-            'sender'     => $user->id,
-            'comment'    => $item->description,
-            'torrent_id' => null,
-        ]);
+                    break;
+            }
 
-        $user->decrement('seedbonus', $item->cost);
+            BonTransactions::create([
+                'bon_exchange_id' => $bonExchange->id,
+                'name'            => $bonExchange->description,
+                'cost'            => $bonExchange->value,
+                'sender_id'       => $user->id,
+                'comment'         => $bonExchange->description,
+                'torrent_id'      => null,
+            ]);
 
-        return to_route('users.transactions.create', ['user' => $user])
-            ->withSuccess(trans('bon.success'));
+            $user->decrement('seedbonus', $bonExchange->cost);
+
+            return back()->withSuccess(trans('bon.success'));
+        }, 5);
     }
 }

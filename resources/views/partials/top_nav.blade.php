@@ -225,65 +225,71 @@
         <ul class="top-nav__stats" x-bind:class="expanded && 'mobile'">
             <li class="top-nav__stats-up" title="{{ __('common.upload') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                {{ auth()->user()->getUploaded() }}
+                {{ auth()->user()->formatted_uploaded }}
             </li>
             <li class="top-nav__stats-down" title="{{ __('common.download') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                {{ auth()->user()->getDownloaded() }}
+                {{ auth()->user()->formatted_downloaded }}
             </li>
             <li class="top-nav__stats-ratio" title="{{ __('common.ratio') }}">
                 <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                {{ auth()->user()->getRatioString() }}
+                {{ auth()->user()->formatted_ratio }}
             </li>
         </ul> 
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
                 <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    {{ auth()->user()->getUploaded() }}
+                    {{ auth()->user()->formatted_uploaded }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                    {{ auth()->user()->getDownloaded() }}
+                    {{ auth()->user()->formatted_downloaded }}
                 </a>
             </li>
             @php
-                $peer_counts = Cache::remember(
-                    'users:'.auth()->id().':peer_counts',
+                // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
+                $peer_count = Cache::remember(
+                    'users:'.auth()->id().':peer_count',
                     60,
-                    fn () => DB::table('peers')->selectRaw('SUM(seeder = 0) as leeching, SUM(seeder = 1) as seeding')->where('user_id', '=', auth()->id())->first()
+                    fn () => DB::table('peers')->where('user_id', '=', auth()->id())->where('active', '=', 1)->count() ?? 0
+                );
+                $leech_count = Cache::remember(
+                    'users:'.auth()->id().':leech_count',
+                    60,
+                    fn () => DB::table('peers')->where('seeder', '=', false)->where('user_id', '=', auth()->id())->where('active', '=', 1)->count() ?? 0
                 )
             @endphp
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ $peer_counts->seeding ?? 0 }}
+                    {{ $peer_count - $leech_count }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ $peer_counts->leeching ?? 0 }}
+                    {{ $leech_count }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
-                    {{ auth()->user()->untilRatio(config('other.ratio')) }}
+                    {{ auth()->user()->formatted_buffer }}
                 </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
                 <a href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-coins" ></i>
-                    {{ auth()->user()->getSeedbonus() }}
+                    {{ auth()->user()->formatted_seedbonus }}
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                    {{ auth()->user()->getRatioString() }}
+                    {{ auth()->user()->formatted_ratio }}
                 </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">

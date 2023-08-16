@@ -177,6 +177,13 @@ class Bbcode
             'closeHtml'   => '</pre>',
             'block'       => true,
         ],
+        'pre' => [
+            'openBbcode'  => '/^\[pre\]/i',
+            'closeBbcode' => '[/pre]',
+            'openHtml'    => '<code>',
+            'closeHtml'   => '</code>',
+            'block'       => false,
+        ],
         'alert' => [
             'openBbcode'  => '/^\[alert\]/i',
             'closeBbcode' => '[/alert]',

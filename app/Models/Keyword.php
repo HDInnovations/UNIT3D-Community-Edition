@@ -23,7 +23,7 @@ class Keyword extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',

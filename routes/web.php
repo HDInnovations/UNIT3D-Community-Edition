@@ -163,7 +163,7 @@ Route::middleware('language')->group(function (): void {
 
             Route::prefix('{torrentRequest}/fills')->name('fills.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\RequestFillController::class, 'store'])->name('store');
-                Route::delete('/', [App\Http\Controllers\RequestFillController::class, 'destroy'])->name('destroy')->middleware('modo');
+                Route::delete('/', [App\Http\Controllers\RequestFillController::class, 'destroy'])->name('destroy');
             });
 
             Route::prefix('{torrentRequest}/approved-fills')->name('approved_fills.')->group(function (): void {
@@ -173,6 +173,7 @@ Route::middleware('language')->group(function (): void {
 
             Route::prefix('{torrentRequest}/bounties')->name('bounties.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\BountyController::class, 'store'])->name('store');
+                Route::patch('/{torrentRequestBounty}', [App\Http\Controllers\BountyController::class, 'update'])->name('update');
             });
 
             Route::prefix('{torrentRequest}/claims')->name('claims.')->group(function (): void {
@@ -206,6 +207,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download');
             Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
+            Route::patch('/similar/{category}.{tmdbId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update');
         });
 
         Route::prefix('torrent')->group(function (): void {
@@ -362,7 +364,9 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TopicController::class, 'index'])->name('index');
             Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
             Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
-            Route::get('/{id}{page?}{post?}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
+            Route::get('/{topicId}/posts/{postId}', [App\Http\Controllers\TopicController::class, 'permalink'])->name('permalink');
+            Route::get('/{id}/latest', [App\Http\Controllers\TopicController::class, 'latestPermalink'])->name('latestPermalink');
+            Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
             Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
             Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');
             Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->middleware('modo');
@@ -448,8 +452,8 @@ Route::middleware('language')->group(function (): void {
             Route::get('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'show'])->name('show');
             Route::patch('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'update'])->name('update');
             Route::delete('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'destroy'])->name('destroy');
-            Route::post('/mass-update', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
-            Route::delete('/mass-delete', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
+            Route::patch('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
+            Route::delete('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
         });
 
         // Outbox
@@ -465,8 +469,8 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('invites')->name('invites.')->group(function (): void {
             Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
             Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
-            Route::post('/{invite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
-            Route::delete('/{invite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy');
+            Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
+            Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
         });
 
@@ -820,6 +824,20 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Gifts Log
+        Route::prefix('gifts')->group(function (): void {
+            Route::name('gifts.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\GiftController::class, 'index'])->name('index');
+            });
+        });
+
+        // History
+        Route::prefix('histories')->group(function (): void {
+            Route::name('histories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\HistoryController::class, 'index'])->name('index');
+            });
+        });
+
         // Invites Log
         Route::prefix('invites')->group(function (): void {
             Route::name('invites.')->group(function (): void {
@@ -958,7 +976,6 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('notes')->group(function (): void {
             Route::name('notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
-                Route::delete('/{note}', [App\Http\Controllers\Staff\NoteController::class, 'destroy'])->name('destroy');
             });
         });
 

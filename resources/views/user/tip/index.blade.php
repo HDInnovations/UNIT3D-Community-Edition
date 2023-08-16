@@ -43,20 +43,20 @@
                 @foreach($tips as $tip)
                     <tr>
                         <td>
-                            <x-user_tag :user="$tip->receiverObj" :anon="false" />
+                            <x-user_tag :user="$tip->sender" :anon="false" />
                         </td>
                         <td>
                             @switch(true)
                                 @case($tip->torrent_id !== null)
-                                    <x-user_tag :user="$tip->receiverObj" :anon="$tip->torrent->anon" />
+                                    <x-user_tag :user="$tip->receiver" :anon="$tip->torrent->anon" />
                                     @break
                                 @case($tip->post_id !== null)
-                                    <x-user_tag :user="$tip->receiverObj" :anon="false" />
+                                    <x-user_tag :user="$tip->receiver" :anon="false" />
                                     @break
                             @endswitch
                         </td>
                         <td>{{ $tip->cost }}</td>
-                        <td>{{ $tip->date_actioned }}</td>
+                        <td>{{ $tip->created_at }}</td>
                     </tr>
                 @endforeach
                 </tbody>

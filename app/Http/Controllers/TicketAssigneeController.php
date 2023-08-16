@@ -13,17 +13,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTicketAssigneeRequest;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class TicketAssigneeController extends Controller
 {
-    final public function store(Request $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
+    final public function store(StoreTicketAssigneeRequest $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo, 403);
 
         $ticket->update([
-            'staff_id'   => $request->user()->id,
+            'staff_id'   => $request->staff_id,
             'staff_read' => 0,
         ]);
 

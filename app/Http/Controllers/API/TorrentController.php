@@ -21,13 +21,16 @@ use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
+use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
+use App\Models\Tv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -53,10 +56,40 @@ class TorrentController extends BaseController
      */
     public function index(): TorrentsResource
     {
-        return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor'])
+            ->select('*')
+            ->selectRaw("
+                    CASE
+                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                    END as meta
+                ")
             ->latest('sticky')
             ->latest('bumped_at')
-            ->paginate(25));
+            ->paginate(25);
+
+        $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
+        $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
+
+        $movies = Movie::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+        $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+
+        $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
+            switch ($torrent->meta) {
+                case 'movie':
+                    $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
+
+                    break;
+                case 'tv':
+                    $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
+
+                    break;
+            }
+
+            return $torrent;
+        });
+
+        return new TorrentsResource($torrents);
     }
 
     /**
@@ -108,7 +141,7 @@ class TorrentController extends BaseController
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
         $torrent->num_file = $meta['count'];
-        $torrent->announce = $decodedTorrent['announce'];
+        $torrent->folder = Bencode::get_name($decodedTorrent);
         $torrent->size = $meta['size'];
         $torrent->nfo = ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '';
         $torrent->category_id = $category->id;
@@ -177,7 +210,6 @@ class TorrentController extends BaseController
             'info_hash'        => 'required|unique:torrents',
             'file_name'        => 'required',
             'num_file'         => 'required|numeric',
-            'announce'         => 'required',
             'size'             => 'required',
             'category_id'      => 'required|exists:categories,id',
             'type_id'          => 'required|exists:types,id',
@@ -366,7 +398,14 @@ class TorrentController extends BaseController
         $cacheKey = $url.'?'.$queryString;
 
         $torrents = cache()->remember($cacheKey, 300, function () use ($request, $isRegex) {
-            return Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+            $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region'])
+                ->select('*')
+                ->selectRaw("
+                    CASE
+                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                    END as meta
+                ")
                 ->when($request->filled('name'), fn ($query) => $query->ofName($request->name, $isRegex($request->name)))
                 ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->description)))
                 ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->mediainfo)))
@@ -401,6 +440,29 @@ class TorrentController extends BaseController
                 ->latest('sticky')
                 ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
                 ->cursorPaginate($request->input('perPage') ?? $this->perPage);
+
+            $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
+            $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
+
+            $movies = Movie::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+            $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+
+            $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
+                switch ($torrent->meta) {
+                    case 'movie':
+                        $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
+
+                        break;
+                    case 'tv':
+                        $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
+
+                        break;
+                }
+
+                return $torrent;
+            });
+
+            return $torrents;
         });
 
         if ($torrents !== null) {

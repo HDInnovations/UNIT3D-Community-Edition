@@ -24,6 +24,19 @@
     </li>
 @endsection
 
+@section('nav-tabs')
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('peers', ['id' => $torrent]) }}">
+            {{ __('torrent.peers') }}
+        </a>
+    </li>
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('history', ['id' => $torrent]) }}">
+            {{ __('torrent.history') }}
+        </a>
+    </li>
+@endsection
+
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.peers') }}</h2>
@@ -89,13 +102,15 @@
                                     {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}
                                 </time>
                             </td>
-                            <td class="{{ $peer->seeder ? 'text-green' : 'text-red' }}">
-                                @if ($peer->seeder == 0)
-                                    {{ __('torrent.leecher') }}
-                                @elseif ($peer->seeder == 1)
-                                    {{ __('torrent.seeder') }}
+                            <td class="{{ $peer->active ? ($peer->seeder ? 'text-green' : 'text-red') : 'text-orange' }}">
+                                @if ($peer->active)
+                                    @if ($peer->seeder)
+                                        {{ __('torrent.seeder') }}
+                                    @else
+                                        {{ __('torrent.leecher') }}
+                                    @endif
                                 @else
-                                    {{ __('common.error') }}
+                                    Inactive
                                 @endif
                             </td>
                         </tr>

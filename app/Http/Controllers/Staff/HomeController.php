@@ -59,6 +59,7 @@ class HomeController extends Controller
                 return DB::table('torrents')
                     ->selectRaw('count(*) as total')
                     ->selectRaw('count(case when status = 0 then 1 end) as pending')
+                    ->selectRaw('count(case when status = 1 then 1 end) as approved')
                     ->selectRaw('count(case when status = 2 then 1 end) as rejected')
                     ->selectRaw('count(case when status = 3 then 1 end) as postponed')
                     ->first();
@@ -66,23 +67,21 @@ class HomeController extends Controller
             'peers' => cache()->remember('dashboard_peers', 300, function () {
                 return DB::table('peers')
                     ->selectRaw('count(*) as total')
-                    ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
-                    ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
+                    ->selectRaw('sum(active = 1) as active')
+                    ->selectRaw('sum(active = 0) as inactive')
+                    ->selectRaw('sum(seeder = 0 AND active = 1) as leechers')
+                    ->selectRaw('sum(seeder = 1 AND active = 1) as seeders')
                     ->first();
             }),
-            'reports' => DB::table('reports')
-                ->selectRaw('count(case when solved = 0 then 1 end) as unsolved')
-                ->first(),
-            'apps' => DB::table('applications')
-                ->selectRaw('count(case when status = 0 then 1 end) as pending')
-                ->first(),
-            'certificate'      => $certificate,
-            'uptime'           => $systemInformation->uptime(),
-            'ram'              => $systemInformation->memory(),
-            'disk'             => $systemInformation->disk(),
-            'avg'              => $systemInformation->avg(),
-            'basic'            => $systemInformation->basic(),
-            'file_permissions' => $systemInformation->directoryPermissions(),
+            'unsolvedReportsCount'     => DB::table('reports')->where('solved', '=', false)->count(),
+            'pendingApplicationsCount' => DB::table('applications')->where('status', '=', 0)->count(),
+            'certificate'              => $certificate,
+            'uptime'                   => $systemInformation->uptime(),
+            'ram'                      => $systemInformation->memory(),
+            'disk'                     => $systemInformation->disk(),
+            'avg'                      => $systemInformation->avg(),
+            'basic'                    => $systemInformation->basic(),
+            'file_permissions'         => $systemInformation->directoryPermissions(),
         ]);
     }
 }

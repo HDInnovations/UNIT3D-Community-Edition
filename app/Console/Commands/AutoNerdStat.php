@@ -98,7 +98,7 @@ class AutoNerdStat extends Command
             $du = Torrent::where('doubleup', '=', 1)->count();
 
             // Peers Count
-            $peers = Peer::count();
+            $peers = Peer::where('active', '=', 1)->count();
 
             // New User Bans Count Last 24hours
             $bans = Ban::whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', Carbon::now()->subDay())->count();

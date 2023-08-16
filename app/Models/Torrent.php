@@ -42,7 +42,7 @@ class Torrent extends Model
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'fl_until'     => 'datetime',
@@ -126,14 +126,6 @@ class Torrent extends Model
     public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Playlist::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
-    }
-
-    /**
-     * Has Many Genres.
-     */
-    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Genre::class, 'genre_torrent', 'torrent_id', 'genre_id', 'id', 'id');
     }
 
     /**
@@ -253,7 +245,7 @@ class Torrent extends Model
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Graveyard::class);
+        return $this->hasMany(Resurrection::class);
     }
 
     /**

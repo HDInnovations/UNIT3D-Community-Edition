@@ -82,7 +82,7 @@
                                 @if ($application->moderated === null)
                                     N/A
                                 @else
-                                    <x-user_tag :anon="false" :user="$application->user" />
+                                    <x-user_tag :anon="false" :user="$application->moderated" />
                                 @endif
                             </td>
                             <td>

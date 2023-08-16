@@ -37,7 +37,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Are Not Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $guarded = [
         'id',
@@ -52,7 +52,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'userId',
@@ -66,7 +66,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'requestDate' => 'datetime',

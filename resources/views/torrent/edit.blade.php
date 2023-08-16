@@ -405,8 +405,6 @@
                         >
                         <label class="form__label" for="internal">{{ __('torrent.internal') }}?</label>
                     </p>
-                @else
-                    <input type="hidden" name="internal" value="{{ $torrent->internal }}">
                 @endif
                 @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                     <p class="form__group">

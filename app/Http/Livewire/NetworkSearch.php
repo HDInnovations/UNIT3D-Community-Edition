@@ -21,7 +21,7 @@ class NetworkSearch extends Component
 {
     use WithPagination;
 
-    public $search;
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -36,7 +36,7 @@ class NetworkSearch extends Component
     final public function getNetworksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Network::withCount('tv')
-            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
             ->paginate(30);
     }

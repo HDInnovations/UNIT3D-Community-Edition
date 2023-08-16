@@ -86,7 +86,7 @@
                             </menu>
                         </td>
                     </tr>
-                    @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
+                    @foreach ($category->forums as $forum)
                         <tr>
                             <td style="padding-left: 50px">
                                 <a href="{{ route('staff.forums.edit', ['forum' => $forum]) }}">{{ $forum->name }}</a>

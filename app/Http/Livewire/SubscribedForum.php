@@ -32,6 +32,11 @@ class SubscribedForum extends Component
             ->paginate(25, ['*'], 'subscribedForumsPage');
     }
 
+    final public function updatedSubscribedForumsPage(): void
+    {
+        $this->emit('paginationChanged');
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.subscribed-forum', [

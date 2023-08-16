@@ -53,23 +53,20 @@ class StatsController extends Controller
         // Total SD Count
         $numSd = cache()->remember('num_sd', $this->carbon, fn () => Torrent::where('sd', '=', 1)->count());
 
-        // Total Seeders
-        $numSeeders = cache()->remember('num_seeders', $this->carbon, fn () => Peer::where('seeder', '=', 1)->count());
+        // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
+        $leecherCount = cache()->remember('peer_seeder_count', $this->carbon, fn () => Peer::where('seeder', '=', false)->where('active', '=', true)->count());
+        $peerCount = cache()->remember('peer_count', $this->carbon, fn () => Peer::where('active', '=', true)->count());
 
-        // Total Leechers
-        $numLeechers = cache()->remember('num_leechers', $this->carbon, fn () => Peer::where('seeder', '=', 0)->count());
-
-        //Total Upload Traffic Without Double Upload
-        $actualUpload = cache()->remember('actual_upload', $this->carbon, fn () => History::sum('actual_uploaded'));
-
-        //Total Upload Traffic With Double Upload
-        $creditedUpload = cache()->remember('credited_upload', $this->carbon, fn () => History::sum('uploaded'));
-
-        //Total Download Traffic Without Freeleech
-        $actualDownload = cache()->remember('actual_download', $this->carbon, fn () => History::sum('actual_downloaded'));
-
-        //Total Download Traffic With Freeleech
-        $creditedDownload = cache()->remember('credited_download', $this->carbon, fn () => History::sum('downloaded'));
+        $historyStats = cache()->remember(
+            'history_stats',
+            $this->carbon,
+            fn () => History::query()
+                ->selectRaw('SUM(actual_uploaded) as actual_upload')
+                ->selectRaw('SUM(uploaded) as credited_upload')
+                ->selectRaw('SUM(actual_downloaded) as actual_download')
+                ->selectRaw('SUM(downloaded) as credited_download')
+                ->first()
+        );
 
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
@@ -107,15 +104,15 @@ class StatsController extends Controller
             'num_hd'            => $numTorrent - $numSd,
             'num_sd'            => $numSd,
             'torrent_size'      => cache()->remember('torrent_size', $this->carbon, fn () => Torrent::sum('size')),
-            'num_seeders'       => $numSeeders,
-            'num_leechers'      => $numLeechers,
-            'num_peers'         => $numSeeders + $numLeechers,
-            'actual_upload'     => $actualUpload,
-            'actual_download'   => $actualDownload,
-            'actual_up_down'    => $actualUpload + $actualDownload,
-            'credited_upload'   => $creditedUpload,
-            'credited_download' => $creditedDownload,
-            'credited_up_down'  => $creditedUpload + $creditedDownload,
+            'num_seeders'       => $peerCount - $leecherCount,
+            'num_leechers'      => $leecherCount,
+            'num_peers'         => $peerCount,
+            'actual_upload'     => $historyStats->actual_upload,
+            'actual_download'   => $historyStats->actual_download,
+            'actual_up_down'    => $historyStats->actual_upload + $historyStats->actual_download,
+            'credited_upload'   => $historyStats->credited_upload,
+            'credited_download' => $historyStats->credited_download,
+            'credited_up_down'  => $historyStats->credited_upload + $historyStats->credited_download,
         ]);
     }
 
@@ -168,6 +165,7 @@ class StatsController extends Controller
             'seeders' => Peer::with('user')
                 ->select(DB::raw('user_id, count(distinct torrent_id) as value'))
                 ->where('seeder', '=', 1)
+                ->where('active', '=', 1)
                 ->groupBy('user_id')
                 ->orderByDesc('value')
                 ->take(100)
@@ -184,6 +182,7 @@ class StatsController extends Controller
             'leechers' => Peer::with('user')
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->where('seeder', '=', 0)
+                ->where('active', '=', 1)
                 ->groupBy('user_id')
                 ->orderByDesc('value')
                 ->take(100)

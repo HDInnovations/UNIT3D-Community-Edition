@@ -18,7 +18,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Graveyard;
 
-class GraveyardFactory extends Factory
+class ResurrectionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.

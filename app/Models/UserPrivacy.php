@@ -37,7 +37,7 @@ class UserPrivacy extends Model
     /**
      * The Attributes That Should Be Cast To Native Values.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'json_profile_groups'     => 'array',

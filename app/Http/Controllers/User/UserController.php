@@ -36,6 +36,7 @@ class UserController extends Controller
         $user->load([
             'privacy',
             'userban' => ['banneduser', 'staffuser'],
+            'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
         ])
             ->loadCount([
                 'torrents',
@@ -80,21 +81,23 @@ class UserController extends Controller
                 ->with(['torrenttitle', 'warneduser'])
                 ->latest('created_at')
                 ->paginate(10, ['*'], 'deletedWarningsPage'),
-            'boughtUpload' => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
-            // 'boughtDownload'        => BonTransactions::where('sender', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
+            'boughtUpload' => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
+            // 'boughtDownload'        => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->select('agent', 'port')
                 ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
                 ->groupBy(['ip', 'port', 'agent'])
+                ->where('active', '=', true)
                 ->get(),
             'achievements' => AchievementProgress::with('details')
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')
                 ->get(),
             'peers' => Peer::query()
-                ->selectRaw('SUM(seeder = 0) as leeching')
-                ->selectRaw('SUM(seeder = 1) as seeding')
+                ->selectRaw('SUM(seeder = 0 AND active = 1) as leeching')
+                ->selectRaw('SUM(seeder = 1 AND active = 1) as seeding')
+                ->selectRaw('SUM(active = 0) as inactive')
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch' => $user->watchlist,
@@ -155,6 +158,11 @@ class UserController extends Controller
         }
 
         // Define data
+        $request->validate([
+            'title'     => 'nullable|max:255',
+            'about'     => 'nullable|max:1000',
+            'signature' => 'nullable|max:1000'
+        ]);
         $user->title = $request->input('title');
         $user->about = $request->input('about');
         $user->signature = $request->input('signature');

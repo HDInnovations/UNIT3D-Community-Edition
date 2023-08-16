@@ -1,4 +1,4 @@
-<article class="post" id="post-{{ $post->id }}">
+<article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
         <time
             class="post__datetime"
@@ -63,7 +63,7 @@
             <li class="post__toolbar-item">
                 <a
                     class="post__permalink"
-                    href="{{ route('topics.show', ['id' => $post->topic_id]) }}?page={{ $post->getPageNumber() }}#post-{{ $post->id }}"
+                    href="{{ route('topics.permalink', ['topicId' => $post->topic_id, 'postId' => $post->id]) }}"
                     title="{{ __('forum.permalink') }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-link"></i>
@@ -74,11 +74,16 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-data
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}] {{ \str_replace(["\n", "\r"], ["\\n", "\\r"], \htmlspecialchars($post->content)) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]';
+                            input.value += (() => {
+                                var text = document.createElement('textarea');
+                                text.innerHTML = decodeURIComponent(atob($refs.content.dataset.base64Bbcode).split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                                return text.value;
+                            })();
+                            input.value += '[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
@@ -103,6 +108,7 @@
                         role="form"
                         method="POST"
                         action="{{ route('posts.destroy', ['id' => $post->id]) }}"
+                        x-data
                     >
                         @csrf
                         @method('DELETE')
@@ -110,6 +116,17 @@
                             class="post__delete-button"
                             type="submit"
                             title="{{ __('common.delete') }}"
+                            x-on:click.prevent="Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'Are you sure you want to delete this post?',
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $root.submit();
+                                    }
+                                })"
                         >
                             <i class="{{ \config('other.font-awesome') }} fa-trash"></i>
                         </button>
@@ -178,14 +195,15 @@
     </aside>
     <div
         class="post__content bbcode-rendered"
-        data-bbcode="{{ $post->content }}"
+        x-ref="content"
+        data-base64-bbcode="{{ base64_encode($post->content) }}"
     >
         @joypixels($post->getContentHtml())
     </div>
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                {!! $post->user->getSignature() !!}
+                {!! $post->user->signature_html !!}
             </p>
         </footer>
     @endif

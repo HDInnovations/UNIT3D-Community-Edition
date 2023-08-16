@@ -35,12 +35,15 @@ class ReceivedPrivateMessageController extends Controller
             'user' => $user,
             'pms'  => $user
                 ->receivedPrivateMessages()
+                ->select('id', 'sender_id', 'subject', 'read', 'created_at')
+                ->with('sender.group')
                 ->when(
                     $request->has('subject'),
                     fn ($query) => $query->where('subject', 'like', '%'.$request->string('subject').'%')
                 )
                 ->latest()
-                ->paginate(20),
+                ->paginate(20)
+                ->withQueryString(),
             'subject' => $request->subject ?? '',
         ]);
     }

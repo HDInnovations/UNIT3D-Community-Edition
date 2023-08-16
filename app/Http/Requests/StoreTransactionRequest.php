@@ -13,7 +13,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\BonExchange;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
@@ -37,32 +36,8 @@ class StoreTransactionRequest extends FormRequest
     {
         return [
             'exchange' => [
-                'bail',
                 'required',
                 'exists:bon_exchange,id',
-                function ($attribute, $value, $fail) use ($request): void {
-                    $user = $request->user();
-                    $item = BonExchange::findOrFail($value);
-
-                    switch (true) {
-                        case $item->cost > $user->seedbonus:
-                            $fail('Not enough BON.');
-
-                            break;
-                        case $item->download && $user->downloaded < $item->value:
-                            $fail('Not enough download.');
-
-                            break;
-                        case $item->personal_freeleech && cache()->get('personal_freeleech:'.$user->id):
-                            $fail('Your previous personal freeleech is still active.');
-
-                            break;
-                        case $item->invite && $user->invites >= config('other.max_unused_user_invites', 1):
-                            $fail('You already have the maximum amount of unused invites allowed per user.');
-
-                            break;
-                    }
-                },
             ],
         ];
     }

@@ -23,7 +23,7 @@ class Audit extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'user_id', 'model_name', 'model_entry_id', 'action', 'record',

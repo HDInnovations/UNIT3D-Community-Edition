@@ -64,7 +64,7 @@ class WarningLogSearch extends Component
     final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Warning::query()
-            ->with(['warneduser', 'staffuser', 'torrenttitle'])
+            ->with(['warneduser.group', 'staffuser.group', 'torrenttitle'])
             ->when($this->sender, fn ($query) => $query->whereIn('warned_by', User::select('id')->where('username', '=', $this->sender)))
             ->when($this->receiver, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->receiver)))
             ->when($this->torrent, fn ($query) => $query->whereIn('torrent', Torrent::select('id')->where('name', 'LIKE', '%'.$this->torrent.'%')))

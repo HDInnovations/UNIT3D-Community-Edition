@@ -17,18 +17,16 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Graveyard extends Model
+class Resurrection extends Model
 {
     use Auditable;
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
+     * The attributes that aren't mass assignable.
      *
-     * @var string
+     * @var string[]
      */
-    protected $table = 'graveyard';
-
     protected $guarded = [];
 
     /**

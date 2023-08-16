@@ -44,6 +44,7 @@ class EarningController extends Controller
             ->select(['user_id', 'torrent_id', 'seeder'])
             ->where('user_id', '=', $user->id)
             ->where('seeder', '=', 1)
+            ->where('active', '=', 1)
             ->distinct();
 
         $history = History::query()
@@ -147,7 +148,7 @@ class EarningController extends Controller
 
         return view('user.earning.index', [
             'user'        => $user,
-            'bon'         => $user->getSeedbonus(),
+            'bon'         => $user->formatted_seedbonus,
             'dying'       => $dying,
             'legendary'   => $legendary,
             'old'         => $old,

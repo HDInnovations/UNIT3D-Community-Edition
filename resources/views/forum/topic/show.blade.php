@@ -11,6 +11,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
+        <a href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}" class="breadcrumb__link">
+            {{ $forum->category->name }}
+        </a>
+    </li>
+    <li class="breadcrumbV2">
         <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
             {{ $forum->name }}
         </a>
@@ -127,11 +132,24 @@
                     </p>
                 </div>
                 @if (auth()->user()->group->is_modo)
-                    <form class="form" action="{{ route('topics.destroy', ['id' => $topic->id]) }}" method="POST">
+                    <form class="form" action="{{ route('topics.destroy', ['id' => $topic->id]) }}" method="POST" x-data>
                         @csrf
                         @method('DELETE')
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled form__button--centered">
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                                x-on:click.prevent="Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: `Are you sure you want to delete this topic: ${atob('{{ base64_encode($topic->name) }}')}?`,
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $root.submit();
+                                    }
+                                })"
+                            >
                                 {{ __('common.delete') }}
                             </button>
                         </p>

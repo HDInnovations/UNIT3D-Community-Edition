@@ -33,7 +33,7 @@ class BanController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.ban.index', [
-            'bans' => Ban::latest()->paginate(25),
+            'bans' => Ban::latest()->with('banneduser.group', 'staffuser.group')->paginate(25),
         ]);
     }
 

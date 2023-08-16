@@ -44,6 +44,25 @@
                     Request similar
                 </a>
             </li>
+            @if ($meta?->id)
+                <li>
+                    <form
+                        action="{{ route('torrents.similar.update', ['category' => $category, 'tmdbId' => $meta->id]) }}"
+                        method="post"
+                    >
+                        @csrf
+                        @method('PATCH')
+                        <button
+                            @if (cache()->has('tmdb-tv-scraper:'.$meta->id) && ! auth()->user()->group->is_modo)
+                                disabled
+                                title="This item was recently updated. Try again tomorrow."
+                            @endif
+                        >
+                            Update Metadata
+                        </button>
+                    </form>
+                </li>
+            @endif
         </ul>
     </div>
     <ul class="meta__ids">
@@ -102,7 +121,7 @@
             <h2 class="meta__heading">Cast</h2>
             @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupations::ACTOR->value)?->sortBy('order') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
-                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id]) }}" class="meta-chip">
+                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}" class="meta-chip">
                         @if ($credit->person->still)
                             <img
                                 class="meta-chip__image"
@@ -122,7 +141,7 @@
             <h2 class="meta__heading">Crew</h2>
             @foreach($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupations::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
-                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id]) }}" class="meta-chip">
+                    <a href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}" class="meta-chip">
                         @if ($credit->person->still)
                             <img
                                 class="meta-chip__image"

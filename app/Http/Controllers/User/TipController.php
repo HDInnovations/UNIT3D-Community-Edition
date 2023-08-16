@@ -38,12 +38,12 @@ class TipController extends Controller
 
         return view('user.tip.index', [
             'user' => $user,
-            'tips' => BonTransactions::with(['senderObj', 'receiverObj', 'torrent'])
-                ->where(fn ($query) => $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id))
+            'tips' => BonTransactions::with(['sender.group', 'receiver.group', 'torrent'])
+                ->where(fn ($query) => $query->where('sender_id', '=', $user->id)->orwhere('receiver_id', '=', $user->id))
                 ->where('name', '=', 'tip')
-                ->latest('date_actioned')
+                ->latest()
                 ->paginate(25),
-            'bon'          => $user->getSeedbonus(),
+            'bon'          => $user->formatted_seedbonus,
             'sentTips'     => $user->sentTips()->sum('cost'),
             'receivedTips' => $user->receivedTips()->sum('cost'),
         ]);
@@ -70,14 +70,14 @@ class TipController extends Controller
         $user->decrement('seedbonus', $tipAmount);
 
         BonTransactions::create([
-            'itemID'     => 0,
-            'name'       => 'tip',
-            'cost'       => $tipAmount,
-            'sender'     => $user->id,
-            'receiver'   => $recipient->id,
-            'comment'    => 'tip',
-            'post_id'    => $request->has('post') ? $tipable->id : null,
-            'torrent_id' => $request->has('torrent') ? $tipable->id : null,
+            'bon_exchange_id' => 0,
+            'name'            => 'tip',
+            'cost'            => $tipAmount,
+            'sender_id'       => $user->id,
+            'receiver_id'     => $recipient->id,
+            'comment'         => 'tip',
+            'post_id'         => $request->has('post') ? $tipable->id : null,
+            'torrent_id'      => $request->has('torrent') ? $tipable->id : null,
         ]);
 
         if ($request->has('torrent')) {

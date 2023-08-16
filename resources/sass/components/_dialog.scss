@@ -37,6 +37,15 @@
     gap: 16px;
 }
 
+.dialog__header {
+    background-color: var(--dialog-head-bg);
+    color: var(--dialog-head-fg);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .dialog__heading,
 .dialog__buttons {
     background-color: var(--dialog-head-bg);
@@ -58,6 +67,24 @@
     display: flex;
     justify-content: end;
     column-gap: 9px;
+}
+
+.dialog__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    padding: 4px 12px;
+    color: var(--dialog-head-fg);
+    background-color: var(--dialog-head-bg);
+}
+
+.dialog__action {
+    flex-shrink: 0;
+    color: var(--dialog-head-fg);
+    font-size: 14px;
+    background-color: var(--dialog-head-bg);
 }
 
 .dialog__body {

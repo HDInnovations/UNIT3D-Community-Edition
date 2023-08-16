@@ -34,7 +34,6 @@ class TorrentTools
 
         // Whitelisted keys
         $result = array_intersect_key($result, [
-            'announce'   => '',
             'comment'    => '',
             'created by' => '',
             'encoding'   => '',
@@ -46,14 +45,8 @@ class TorrentTools
             'name'         => '',
             'piece length' => '',
             'pieces'       => '',
-            'private'      => '',
-            'source'       => '',
         ]);
 
-        // The PID will be set if an user downloads the torrent, but for
-        // security purposes it's better to overwrite the user-provided
-        // announce URL.
-        $result['announce'] = config('app.url').'/announce/PID';
         $result['info']['source'] = config('torrent.source');
         $result['info']['private'] = 1;
 
@@ -63,7 +56,7 @@ class TorrentTools
             $result['created by'] = config('torrent.created_by', '');
         }
 
-        $comment = config('torrent.comment', null);
+        $comment = config('torrent.comment');
 
         if ($comment !== null) {
             $result['comment'] = $comment;
@@ -203,18 +196,21 @@ class TorrentTools
     /**
      * Check if the filename is valid or not.
      */
-    public static function isValidFilename($filename): bool
+    public static function isValidFilename(string $filename): bool
     {
-        $result = true;
-
-        if (\strlen((string) $filename) > 255 ||
-            preg_match('#[/?<>\\:*|"\x00-\x1f]#', (string) $filename) ||
-            preg_match('#(^\.+|[\. ]+)$#', (string) $filename) ||
-            preg_match('#^(con|prn|aux|nul|com\d|lpt\d)(\..*)?$#i', (string) $filename)) {
-            $result = false;
-        }
-
-        return $result;
+        return !(
+            \strlen($filename) > 255
+            // nodes containing: `\`, `/`, `?`, `<`, `>`, `:`, `8`, `|`, and ascii characters from 0 through 31
+            || preg_match('/[\\\\\\/?<>:*|"\x00-\x1f]/', $filename)
+            // nodes only containing one or many: `.`; or only containing one or many `.`, ` `.
+            || preg_match('/(^\\.+|[. ]+)$/', $filename)
+            // Special windows filenames.
+            || preg_match('/^(con|prn|aux|nul|com\d|lpt\d)(\\..*)?$/i', $filename)
+            // BitComet padding files
+            || preg_match('/^\.?____padding.*$/i', $filename)
+            // BEP 47 torrent padding files that many clients aren't able to handle
+            || str_starts_with($filename, '.pad')
+        );
     }
 
     /**

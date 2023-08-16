@@ -30,9 +30,23 @@ class ForumCategoryTopicSearch extends Component
     public String $subscribed = '';
     public Forum $category;
 
+    protected $queryString = [
+        'search'        => ['except' => ''],
+        'sortField'     => ['except' => 'last_reply_at'],
+        'sortDirection' => ['except' => 'desc'],
+        'label'         => ['except' => ''],
+        'state'         => ['except' => ''],
+        'subscribed'    => ['except' => ''],
+    ];
+
     final public function mount(Forum $category): void
     {
         $this->category = $category;
+    }
+
+    final public function updatedPage(): void
+    {
+        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void

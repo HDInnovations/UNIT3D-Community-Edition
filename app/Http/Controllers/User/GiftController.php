@@ -40,12 +40,12 @@ class GiftController extends Controller
         return view('user.gift.index', [
             'user'  => $user,
             'gifts' => BonTransactions::query()
-                ->with(['senderObj', 'receiverObj'])
-                ->where(fn ($query) => $query->where('sender', '=', $user->id)->orwhere('receiver', '=', $user->id))
+                ->with(['sender.group', 'receiver.group'])
+                ->where(fn ($query) => $query->where('sender_id', '=', $user->id)->orwhere('receiver_id', '=', $user->id))
                 ->where('name', '=', 'gift')
-                ->latest('date_actioned')
+                ->latest()
                 ->paginate(25),
-            'bon'           => $user->getSeedbonus(),
+            'bon'           => $user->formatted_seedbonus,
             'sentGifts'     => $user->sentGifts()->sum('cost'),
             'receivedGifts' => $user->receivedGifts()->sum('cost'),
         ]);
@@ -60,7 +60,7 @@ class GiftController extends Controller
 
         return view('user.gift.create', [
             'user' => $user,
-            'bon'  => $user->getSeedbonus(),
+            'bon'  => $user->formatted_seedbonus,
         ]);
     }
 
@@ -76,13 +76,13 @@ class GiftController extends Controller
         $sender->decrement('seedbonus', $request->cost);
 
         $bonTransactions = BonTransactions::create([
-            'itemID'     => 0,
-            'name'       => 'gift',
-            'cost'       => $request->cost,
-            'sender'     => $sender->id,
-            'receiver'   => $receiver->id,
-            'comment'    => $request->comment,
-            'torrent_id' => null,
+            'bon_exchange_id' => 0,
+            'name'            => 'gift',
+            'cost'            => $request->cost,
+            'sender_id'       => $sender->id,
+            'receiver_id'     => $receiver->id,
+            'comment'         => $request->comment,
+            'torrent_id'      => null,
         ]);
 
         if ($receiver->acceptsNotification($sender, $receiver, 'bon', 'show_bon_gift')) {

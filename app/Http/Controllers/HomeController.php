@@ -59,7 +59,7 @@ class HomeController extends Controller
             'user'               => $user,
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'users'              => cache()->remember(
-                'online_users',
+                'online_users:by-group:'.auth()->user()->group_id,
                 $expiresAt,
                 fn () => User::with('group', 'privacy')
                     ->withCount([
@@ -68,7 +68,9 @@ class HomeController extends Controller
                         },
                     ])
                     ->where('last_action', '>', now()->subMinutes(5))
+                    ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
                     ->get()
+                    ->sortBy(fn ($user) => $user->hidden || ! $user->isVisible($user, 'other', 'show_online'))
             ),
             'groups' => cache()->remember(
                 'user-groups',
@@ -403,15 +405,41 @@ class HomeController extends Controller
                 }
             ),
             'topics' => cache()->remember(
-                'latest_topics',
+                'latest_topics:by-group:'.auth()->user()->group_id,
                 $expiresAt,
-                fn () => Topic::with('forum', 'user', 'latestPoster')->latest()->take(5)->get()
+                fn () => Topic::query()
+                    ->with('user', 'user.group', 'latestPoster')
+                    ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                    ->latest()
+                    ->take(5)
+                    ->get()
             ),
             'posts' => cache()->remember(
-                'latest_posts',
+                'latest_posts:by-group:'.auth()->user()->group_id,
                 $expiresAt,
-                fn () => Post::with('topic', 'user')
+                fn () => Post::query()
+                    ->with('user', 'user.group', 'topic:id,name')
                     ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                    ->withSum('tips', 'cost')
+                    ->withExists([
+                        'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                        'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                    ])
+                    ->whereNotIn(
+                        'topic_id',
+                        Topic::query()
+                            ->whereRelation(
+                                'forumPermissions',
+                                fn ($query) => $query
+                                    ->where('group_id', '=', auth()->user()->group_id)
+                                    ->where(
+                                        fn ($query) => $query
+                                            ->where('show_forum', '!=', 1)
+                                            ->orWhere('read_topic', '!=', 1)
+                                    )
+                            )
+                            ->select('id')
+                    )
                     ->latest()
                     ->take(5)
                     ->get()
@@ -431,6 +459,7 @@ class HomeController extends Controller
             'poll'      => cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first()),
             'uploaders' => cache()->remember('top_uploaders', $expiresAt, fn () => Torrent::with(['user', 'user.group'])
                 ->select(DB::raw('user_id, count(*) as value'))
+                ->where('anon', '=', false)
                 ->groupBy('user_id')
                 ->latest('value')
                 ->take(10)
@@ -438,6 +467,7 @@ class HomeController extends Controller
             'past_uploaders' => cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with(['user', 'user.group'])
                 ->where('created_at', '>', now()->subDays(30)->toDateTimeString())
                 ->select(DB::raw('user_id, count(*) as value'))
+                ->where('anon', '=', false)
                 ->groupBy('user_id')
                 ->latest('value')
                 ->take(10)

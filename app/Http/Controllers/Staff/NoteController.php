@@ -14,7 +14,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Note;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\NoteControllerTest
@@ -27,16 +26,5 @@ class NoteController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.note.index');
-    }
-
-    /**
-     * Delete A User Note.
-     */
-    public function destroy(Note $note): \Illuminate\Http\RedirectResponse
-    {
-        $note->delete();
-
-        return to_route('Staff.note.index')
-            ->withSuccess('Note Has Successfully Been Deleted');
     }
 }

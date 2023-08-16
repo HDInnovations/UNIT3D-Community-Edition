@@ -9,7 +9,17 @@
                 <button
                     class="form__button form__button--text"
                     x-data
-                    x-on:click.stop="navigator.clipboard.writeText($refs.bdinfo.textContent)"
+                    x-on:click.stop="
+                        navigator.clipboard.writeText($refs.bdinfo.textContent);
+                        Swal.fire({
+                              toast: true,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              timer: 3000,
+                              icon: 'success',
+                              title: 'Copied to clipboard!'
+                        })
+                    "
                 >
                     Copy
                 </button>

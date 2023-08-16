@@ -30,6 +30,7 @@
                 class="form"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <label for="image" class="form__label">{{ __('user.avatar') }}</label>
                     <input

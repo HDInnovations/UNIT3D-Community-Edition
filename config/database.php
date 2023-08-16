@@ -172,6 +172,16 @@ return [
             'database'           => env('REDIS_BROADCAST_DB', 4),
             'read_write_timeout' => -1,
         ],
+
+        'announce' => [
+            'url'                => env('REDIS_URL'),
+            'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => env('REDIS_BROADCAST_DB', 5),
+            'read_write_timeout' => -1,
+        ],
     ],
 
     'pristine-db-file' => env('PRISTINE_DB_FILE'),

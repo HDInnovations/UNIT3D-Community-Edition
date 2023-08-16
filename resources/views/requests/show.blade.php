@@ -76,7 +76,7 @@
             <li class="request__resolution">
                 <span>
                     {{ $torrentRequest->resolution->name }}
-                <span>
+                </span>
             </li>
             <li class="request__type">
                 <span>
@@ -130,16 +130,7 @@
                 <dl class="key-value">
                     <dt>{{ __('request.claimed') }} by</dt>
                     <dd>
-                        @if ($torrentRequest->claim->anon)
-                            {{ strtoupper(__('common.anonymous')) }}
-                            @if ($user->group->is_modo || $torrentRequest->claim->user->is($user))
-                                ({{ $torrentRequest->claim->username }})
-                            @endif
-                        @else
-                            <a href="{{ route('users.show', ['user' => $torrentRequest->claim->user]) }}">
-                                {{ $torrentRequest->claim->username }}
-                            </a>
-                        @endif
+                        <x-user_tag :user="$torrentRequest->claim->user" :anon="$torrentRequest->claim->anon" />
                     </dd>
                     <dt>{{ __('request.claimed') }} at</dt>
                     <dd>
@@ -217,6 +208,7 @@
                             <th>{{ __('common.user') }}</th>
                             <th>{{ __('bon.bon') }}</th>
                             <th>{{ __('request.last-vote') }}</th>
+                            <th>{{ __('common.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -230,6 +222,51 @@
                                     <time datetime="{{ $bounty->created_at }}" title="{{ $bounty->created_at }}">
                                         {{ $bounty->created_at->diffForHumans() }}
                                     </time>
+                                </td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        @if ($bounty->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                            <li class="data-table__action" x-data>
+                                                <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal()">
+                                                    {{ __('common.edit') }}
+                                                </button>
+                                                <dialog class="dialog" x-ref="dialog">
+                                                    <h4 class="dialog__heading">
+                                                        {{ __('common.edit') }} {{ __('request.vote') }}
+                                                    </h4>
+                                                    <form
+                                                        class="dialog__form"
+                                                        method="POST"
+                                                        action="{{ route('requests.bounties.update', ['torrentRequest' => $torrentRequest, 'torrentRequestBounty' => $bounty]) }}"
+                                                        x-on:click.outside="$refs.dialog.close()"
+                                                    >
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <p class="form__group">
+                                                            <input type="hidden" name="anon" value="0">
+                                                            <input
+                                                                id="anon_{{ $bounty->id }}"
+                                                                class="form__checkbox"
+                                                                name="anon"
+                                                                type="checkbox"
+                                                                value="1"
+                                                                @checked($bounty->anon)
+                                                            >
+                                                            <label class="form__label" for="anon_{{ $bounty->id }}">{{ __('common.anonymous') }}?</label>
+                                                        </p>
+                                                        <p class="form__group">
+                                                            <button class="form__button form__button--filled">
+                                                                {{ __('common.edit') }}
+                                                            </button>
+                                                            <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                                                {{ __('common.cancel') }}
+                                                            </button>
+                                                        </p>
+                                                    </form>
+                                                </dialog>
+                                            </li>
+                                        @endif
+                                    </menu>
                                 </td>
                             </tr>
                         @endforeach

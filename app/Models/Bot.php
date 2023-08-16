@@ -32,7 +32,7 @@ class Bot extends Model
     /**
      * The Attributes That Should Be Cast To Native Types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'name' => 'string',

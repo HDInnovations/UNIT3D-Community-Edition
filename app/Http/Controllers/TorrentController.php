@@ -137,7 +137,7 @@ class TorrentController extends Controller
             'trailer'            => $trailer,
             'platforms'          => $platforms,
             'total_tips'         => BonTransactions::where('torrent_id', '=', $id)->sum('cost'),
-            'user_tips'          => BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', $user->id)->sum('cost'),
+            'user_tips'          => BonTransactions::where('torrent_id', '=', $id)->where('sender_id', '=', $user->id)->sum('cost'),
             'featured'           => $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null,
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
             'last_seed_activity' => History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first(),
@@ -175,7 +175,7 @@ class TorrentController extends Controller
             'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]),
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
-            'distributors' => Distributor::orderBy('position')->get(),
+            'distributors' => Distributor::orderBy('name')->get(),
             'keywords'     => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
             'torrent'      => $torrent,
             'user'         => $user,
@@ -253,7 +253,6 @@ class TorrentController extends Controller
         $request->validate([
             'message' => [
                 'required',
-                'alpha_dash',
                 'min:1',
             ],
         ]);
@@ -271,6 +270,8 @@ class TorrentController extends Controller
                 'receiver_id' => $user_id,
                 'subject'     => 'Torrent Deleted! - '.$torrent->name,
                 'message'     => '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message."\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+                'created_at'  => now(),
+                'updated_at'  => now(),
             ];
         }
 
@@ -336,7 +337,7 @@ class TorrentController extends Controller
             'types'        => Type::orderBy('position')->get(),
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
-            'distributors' => Distributor::orderBy('position')->get(),
+            'distributors' => Distributor::orderBy('name')->get(),
             'user'         => $request->user(),
             'category_id'  => $request->category_id,
             'title'        => urldecode($request->title),
@@ -367,7 +368,7 @@ class TorrentController extends Controller
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],
-            'announce'     => $decodedTorrent['announce'],
+            'folder'       => Bencode::get_name($decodedTorrent),
             'size'         => $meta['size'],
             'nfo'          => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
             'user_id'      => $user->id,

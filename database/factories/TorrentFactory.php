@@ -48,7 +48,6 @@ class TorrentFactory extends Factory
             'seeders'         => $this->faker->randomNumber(),
             'times_completed' => $this->faker->randomNumber(),
             'category_id'     => fn () => Category::factory()->create()->id,
-            'announce'        => $this->faker->word(),
             'user_id'         => fn () => User::factory()->create()->id,
             'imdb'            => $this->faker->randomNumber(),
             'tvdb'            => $this->faker->randomNumber(),

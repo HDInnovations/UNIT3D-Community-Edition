@@ -195,6 +195,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.histories.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Histories
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.rss.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('staff.rss') }}
@@ -245,8 +251,8 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.applications.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-list"></i>
-                        {{ __('staff.applications') }} ({{ $apps->pending }})
-                        @if ($apps->pending > 0)
+                        {{ __('staff.applications') }} ({{ $pendingApplicationsCount }})
+                        @if ($pendingApplicationsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -344,6 +350,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.gifts.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-file"></i>
+                        {{ __('staff.gifts-log') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.invites.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
                         {{ __('staff.invites-log') }}
@@ -365,8 +377,8 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.reports.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
-                        {{ __('staff.reports-log') }} ({{ $reports->unsolved }})
-                        @if ($reports->unsolved > 0)
+                        {{ __('staff.reports-log') }} ({{ $unsolvedReportsCount }})
+                        @if ($unsolvedReportsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -430,6 +442,10 @@
                 <dd>{{ $torrents->total }}</dd>
                 <dt>Pending</dt>
                 <dd>{{ $torrents->pending }}</dd>
+                <dt>Approved</dt>
+                <dd>{{ $torrents->approved }}</dd>
+                <dt>Postponed</dt>
+                <dd>{{ $torrents->postponed }}</dd>
                 <dt>Rejected</dt>
                 <dd>{{ $torrents->rejected }}</dd>
             </dl>
@@ -439,6 +455,10 @@
             <dl class="key-value">
                 <dt>Total</dt>
                 <dd>{{ $peers->total }}</dd>
+                <dt>Active</dt>
+                <dd>{{ $peers->active }}</dd>
+                <dt>Inactive</dt>
+                <dd>{{ $peers->inactive }}</dd>
                 <dt>Seeds</dt>
                 <dd>{{ $peers->seeders }}</dd>
                 <dt>Leeches</dt>

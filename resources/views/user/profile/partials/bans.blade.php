@@ -4,10 +4,10 @@
         <div class="panel__actions">
             <div class="panel__action" x-data="{ open: false }">
                 @if ($user->group->id === 5)
-                    <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal();">
                         {{ __('user.unban') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                    <dialog class="dialog" x-ref="dialog">
                         <h3 class="dialog__heading">
                             Unban user: {{ $user->username }}
                         </h3>
@@ -15,7 +15,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.unbans.store') }}"
-                            x-on:click.outside="open = false; $refs.dialog.close();"
+                            x-on:click.outside="$refs.dialog.close();"
                         >
                             @csrf
                             <input type="hidden" name="owned_by" value="{{ $user->id }}" />
@@ -40,7 +40,7 @@
                                         <option value="{{ $group->id }}">{{ $group->name }}</option>
                                     @endforeach
                                 </select>
-                                <label class="form__label form__label--floating">
+                                <label class="form__label form__label--floating" for="group_id">
                                     New group
                                 </label>
                             </p>
@@ -48,17 +48,17 @@
                                 <button class="form__button form__button--filled">
                                     {{ __('user.unban') }}
                                 </button>
-                                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>
                         </form>
                     </dialog>
                 @else
-                    <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal();">
                         {{ __('user.ban') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                    <dialog class="dialog" x-ref="dialog">
                         <h3 class="dialog__heading">
                             Ban user: {{ $user->username }}
                         </h3>
@@ -66,10 +66,9 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.bans.store') }}"
-                            x-on:click.outside="open = false; $refs.dialog.close();"
+                            x-on:click.outside="$refs.dialog.close();"
                         >
                             @csrf
-                            <input type="hidden" name="owned_by" value="{{ $user->id }}" />
                             <p class="form__group">
                                 <textarea
                                     id="ban_reason"
@@ -79,11 +78,12 @@
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="ban_reason">Reason</label>
                             </p>
+                            <input type="hidden" name="owned_by" value="{{ $user->id }}" />
                             <p class="form__group">
                                 <button class="form__button form__button--filled">
                                     {{ __('user.ban') }}
                                 </button>
-                                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>

@@ -261,6 +261,8 @@
   }
 
   blockquote {
+    margin-left: 2px;
+    margin-right: 2px;
     padding: 0.25em 0.25em 0.25em 1em;
     color: var(--bbcode-rendered-fg-muted);
     border-left: 0.25em solid var(--bbcode-rendered-quote-border);
@@ -272,6 +274,11 @@
   blockquote > cite {
     font-size: 12px;
     font-weight: bold;
+  }
+
+  blockquote > blockquote {
+    margin-left: 6px;
+    margin-right: 20px;
   }
 
   ul,
@@ -479,6 +486,9 @@
   tt {
     padding: 0.2em 0.4em;
     margin: 0;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    white-space: normal;
     font-size: 13px;
     background-color: var(--bbcode-rendered-neutral-muted);
     border-radius: 6px;

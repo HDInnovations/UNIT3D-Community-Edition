@@ -15,7 +15,6 @@
 namespace App\Jobs;
 
 use App\Models\FreeleechToken;
-use App\Models\History;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use Illuminate\Bus\Queueable;
@@ -25,6 +24,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class ProcessAnnounce implements ShouldQueue
 {
@@ -57,13 +57,10 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function handle(): void
     {
-        // Flag is tripped if new session is created but client reports up/down > 0
-        $ghost = false;
-
         // Set Variables
         $realUploaded = $this->queries['uploaded'];
         $realDownloaded = $this->queries['downloaded'];
-        $event = strtolower($this->queries['event']);
+        $event = $this->queries['event'];
         $peerId = base64_decode($this->queries['peer_id']);
         $ipAddress = base64_decode($this->queries['ip-address']);
 
@@ -73,52 +70,35 @@ class ProcessAnnounce implements ShouldQueue
             ->where('user_id', '=', $this->user->id)
             ->first();
 
+        $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
+        $downloaded = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
+
         // If no Peer record found then create one
         if ($peer === null) {
             if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
-                $ghost = true;
                 $event = 'started';
+                $uploaded = 0;
+                $downloaded = 0;
             }
 
             $peer = new Peer();
         }
 
-        // Get history information
-        $history = History::query()
-            ->where('torrent_id', '=', $this->torrent->id)
-            ->where('user_id', '=', $this->user->id)
-            ->first();
-
-        // If no History record found then create one
-        if ($history === null) {
-            $history = new History();
-        }
-
-        // Check Ghost Flag
-        if ($ghost) {
-            $uploaded = ($realUploaded >= $history->client_uploaded) ? ($realUploaded - $history->client_uploaded) : 0;
-            $downloaded = ($realDownloaded >= $history->client_downloaded) ? ($realDownloaded - $history->client_downloaded) : 0;
-        } else {
-            $uploaded = ($realUploaded >= $peer->uploaded) ? ($realUploaded - $peer->uploaded) : 0;
-            $downloaded = ($realDownloaded >= $peer->downloaded) ? ($realDownloaded - $peer->downloaded) : 0;
-        }
-
-        if ($history->updated_at !== null && $history->updated_at->timestamp > now()->subHours(2)->timestamp && $history->seeder && $this->queries['left'] == 0) {
-            $oldUpdate = $history->updated_at->timestamp;
-        } else {
-            $oldUpdate = now()->timestamp;
-        }
-
         // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
-        $personalFreeleech = cache()->get('personal_freeleech:'.$this->user->id) ??
-            PersonalFreeleech::query()
+        $personalFreeleech = cache()->rememberForever(
+            'personal_freeleech:'.$this->user->id,
+            fn () => PersonalFreeleech::query()
                 ->where('user_id', '=', $this->user->id)
-                ->exists();
-        $freeleechToken = cache()->get('freeleech_token:'.$this->user->id.':'.$this->torrent->id) ??
-            FreeleechToken::query()
+                ->exists()
+        );
+
+        $freeleechToken = cache()->rememberForever(
+            'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
+            fn () => FreeleechToken::query()
                 ->where('user_id', '=', $this->user->id)
                 ->where('torrent_id', '=', $this->torrent->id)
-                ->exists();
+                ->exists(),
+        );
 
         if ($personalFreeleech ||
             $this->group->is_freeleech == 1 ||
@@ -149,43 +129,20 @@ class ProcessAnnounce implements ShouldQueue
         $peer->agent = $this->queries['user-agent'];
         $peer->uploaded = $realUploaded;
         $peer->downloaded = $realDownloaded;
-        $peer->seeder = (int) ($this->queries['left'] == 0);
+        $peer->seeder = $this->queries['left'] == 0;
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
         $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
-        $peer->save();
-
-        $history->user_id = $this->user->id;
-        $history->torrent_id = $this->torrent->id;
-        $history->agent = $this->queries['user-agent'];
-        $history->seeder = (int) ($this->queries['left'] == 0);
-        $history->client_uploaded = $realUploaded;
-        $history->client_downloaded = $realDownloaded;
 
         switch ($event) {
             case 'started':
-                $history->active = 1;
-                $history->immune = (int) ($history->immune === null ? $this->group->is_immune : (bool) $history->immune && (bool) $this->group->is_immune);
-                $history->save();
+                $peer->active = true;
 
                 break;
             case 'completed':
-                $history->active = 1;
-                $history->uploaded += $modUploaded;
-                $history->actual_uploaded += $uploaded;
-                $history->downloaded += $modDownloaded;
-                $history->actual_downloaded += $downloaded;
-                $history->completed_at = now();
-
-                // Seedtime allocation
-                if ($this->queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
-                    $diff = $newUpdate - $oldUpdate;
-                    $history->seedtime += $diff;
-                }
-                $history->save();
+                $peer->active = true;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -201,21 +158,7 @@ class ProcessAnnounce implements ShouldQueue
 
                 break;
             case 'stopped':
-                $history->active = 0;
-                $history->uploaded += $modUploaded;
-                $history->actual_uploaded += $uploaded;
-                $history->downloaded += $modDownloaded;
-                $history->actual_downloaded += $downloaded;
-
-                // Seedtime allocation
-                if ($this->queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
-                    $diff = $newUpdate - $oldUpdate;
-                    $history->seedtime += $diff;
-                }
-                $history->save();
-
-                $peer->delete();
+                $peer->active = false;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -227,20 +170,7 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
                 break;
             default:
-                $history->active = 1;
-                $history->uploaded += $modUploaded;
-                $history->actual_uploaded += $uploaded;
-                $history->downloaded += $modDownloaded;
-                $history->actual_downloaded += $downloaded;
-
-                // Seedtime allocation
-                if ($this->queries['left'] == 0) {
-                    $newUpdate = $peer->updated_at->timestamp;
-                    $diff = $newUpdate - $oldUpdate;
-                    $history->seedtime += $diff;
-                }
-
-                $history->save();
+                $peer->active = true;
 
                 // User Update
                 if ($modUploaded > 0 || $modDownloaded > 0) {
@@ -252,21 +182,61 @@ class ProcessAnnounce implements ShouldQueue
                 // End User Update
         }
 
+        Redis::connection('announce')->command('RPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize($peer->only([
+                'peer_id',
+                'ip',
+                'port',
+                'agent',
+                'uploaded',
+                'downloaded',
+                'left',
+                'seeder',
+                'torrent_id',
+                'user_id',
+                'connectable',
+                'active'
+            ]))
+        ]);
+
+        Redis::connection('announce')->command('RPUSH', [
+            config('cache.prefix').':histories:batch',
+            serialize([
+                'user_id'           => $this->user->id,
+                'torrent_id'        => $this->torrent->id,
+                'agent'             => $this->queries['user-agent'],
+                'uploaded'          => $event === 'started' ? 0 : $modUploaded,
+                'actual_uploaded'   => $event === 'started' ? 0 : $uploaded,
+                'client_uploaded'   => $realUploaded,
+                'downloaded'        => $event === 'started' ? 0 : $modDownloaded,
+                'actual_downloaded' => $event === 'started' ? 0 : $downloaded,
+                'client_downloaded' => $realDownloaded,
+                'seeder'            => $this->queries['left'] == 0,
+                'active'            => $event !== 'stopped',
+                'seedtime'          => 0,
+                'immune'            => $this->group->is_immune,
+                'completed_at'      => $event === 'completed' ? now() : null,
+            ])
+        ]);
+
         $otherSeeders = $this
             ->torrent
             ->peers
             ->where('left', '=', 0)
+            ->where('active', '=', true)
             ->where('peer_id', '!=', $peerId)
             ->count();
         $otherLeechers = $this
             ->torrent
             ->peers
             ->where('left', '>', 0)
+            ->where('active', '=', true)
             ->where('peer_id', '!=', $peerId)
             ->count();
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && strtolower($this->queries['event']) !== 'stopped');
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && strtolower($this->queries['event']) !== 'stopped');
+        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && $this->queries['event'] !== 'stopped');
+        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && $this->queries['event'] !== 'stopped');
 
         $this->torrent->save();
     }

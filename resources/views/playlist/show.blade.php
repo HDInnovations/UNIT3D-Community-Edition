@@ -73,7 +73,7 @@
                 >
                     @csrf
                     @method('DELETE')
-                        <p class="form__group form__group--horizontal">
+                    <p class="form__group form__group--horizontal">
                         <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
@@ -90,8 +90,8 @@
                         >
                             <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             {{ __('common.delete') }}
-                        </p>
-                    </button>
+                        </button>
+                    </p>
                 </form>
             </div>
         </section>

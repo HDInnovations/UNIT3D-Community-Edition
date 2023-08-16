@@ -30,7 +30,6 @@
             <table class="data-table">
                 <thead>
                 <tr>
-                    <th>{{ __('common.position') }}</th>
                     <th>{{ __('common.name') }}</th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
@@ -38,7 +37,6 @@
                 <tbody>
                 @forelse ($distributors as $distributor)
                     <tr>
-                        <td>{{ $distributor->position }}</td>
                         <td>
                             <a href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}">
                                 {{ $distributor->name }}

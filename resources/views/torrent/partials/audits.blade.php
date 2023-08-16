@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($audits as $audit)
+                @foreach($audits->load(['user.group']) as $audit)
                     @php $values = json_decode($audit->record, true) @endphp
                     <tr>
                         <td>

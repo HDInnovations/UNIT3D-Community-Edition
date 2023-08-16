@@ -351,9 +351,10 @@
                                 @break
                             @case(\App\Models\Torrent::POSTPONED)
                                 Postponed By: <x-user_tag :user="$torrent->moderated" :anon="false" />
-                                @breka
+                                @break
                             @case(\App\Models\Torrent::REJECTED)
                                 Rejected By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                @break
                             @default
                                 Unmoderated
                         @endswitch

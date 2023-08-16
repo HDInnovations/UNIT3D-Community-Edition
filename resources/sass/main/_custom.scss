@@ -4212,3 +4212,8 @@ div.pagination p {
 #frame .content .messages ul li.sent h4 .text-muted {
     float: none;
 }
+
+/* Position top-end postioned swal2 notifications below the top nav */
+.swal2-top-end {
+    margin-top: 40px;
+}

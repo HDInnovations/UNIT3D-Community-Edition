@@ -63,7 +63,7 @@ class Forum extends Model
     /**
      * Returns The Category In Which The Forum Is Located.
      */
-    public function category()
+    public function category(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(self::class, 'id', 'parent_id');
     }
@@ -71,7 +71,7 @@ class Forum extends Model
     /**
      * All posts inside the forum.
      */
-    public function posts()
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
         return $this->hasManyThrough(Post::class, Topic::class);
     }
@@ -149,14 +149,6 @@ class Forum extends Model
         foreach ($staffers as $staffer) {
             $staffer->notify(new NewTopic('staff', $poster, $topic));
         }
-    }
-
-    /**
-     * Returns A Table With The Forums In The Category.
-     */
-    public function getForumsInCategory()
-    {
-        return self::where('parent_id', '=', $this->id)->get();
     }
 
     /**
