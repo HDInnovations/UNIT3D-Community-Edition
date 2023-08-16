@@ -52,12 +52,12 @@ class PaymentController extends Controller
             $paymentDetails = Nowpayments::createInvoice($data);
 
             $transaction = DonationTransaction::create([
-                'user_id'    => $user->id,
-                'item_id'    => $request->tier,
-                'invoice_id' => $paymentDetails['id'],
-                'order_id'   => $paymentDetails['order_id'],
-                'currency'   => $paymentDetails['pay_currency'],
-                'confirmed'  => 0,
+                'user_id'           => $user->id,
+                'donation_item_id'  => $request->tier,
+                'invoice_id'        => $paymentDetails['id'],
+                'order_id'          => $paymentDetails['order_id'],
+                'currency'          => $paymentDetails['pay_currency'],
+                'confirmed'         => 0,
             ]);
 
             return Redirect::to($paymentDetails['invoice_url']);

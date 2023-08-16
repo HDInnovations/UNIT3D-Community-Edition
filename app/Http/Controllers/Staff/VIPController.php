@@ -156,7 +156,7 @@ class VIPController extends Controller
             ->value('id');
         $vip->start_at = $request->input('start_at');
         $vip->end_at = $request->input('end_at');
-        $vip->item_id = $request->input('item_id');
+        $vip->donation_item_id = $request->input('donation_item_id');
         $vip->is_gifted = 0;
         $vip->is_active = 0;
 

@@ -50,7 +50,7 @@ class DonationTransaction extends Model
      */
     protected $fillable = [
         'user_id',
-        'item_id',
+        'donation_item_id',
         'order_id',
         'payment_id',
         'invoice_id',

@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('donation_transactions', function (Blueprint $table): void {
             $table->id();
             $table->integer('user_id');
-            $table->integer('item_id');
+            $table->integer('donation_item_id');
             $table->bigInteger('invoice_id')->nullable();
             $table->char('order_id', 20);
             $table->bigInteger('payment_id')->nullable();
@@ -27,7 +27,7 @@ return new class () extends Migration {
         Schema::create('donation_subscriptions', function (Blueprint $table): void {
             $table->id();
             $table->integer('user_id');
-            $table->integer('item_id');
+            $table->integer('donation_item_id');
             $table->boolean('is_active')->default(0);
             $table->boolean('is_gifted')->default(0);
             $table->date('start_at');

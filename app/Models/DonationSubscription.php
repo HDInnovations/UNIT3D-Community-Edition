@@ -50,7 +50,7 @@ class DonationSubscription extends Model
      */
     protected $fillable = [
         'user_id',
-        'item_id',
+        'donation_item_id',
         'is_active',
         'start_at',
         'end_at',

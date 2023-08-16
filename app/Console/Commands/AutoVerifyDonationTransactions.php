@@ -65,7 +65,7 @@ class AutoVerifyDonationTransactions extends Command
 
                 // Add User to donation_subscription table
                 // Check if user has active or upcoming subscriptions
-                $activeSubscriptionsEndDate = DonationSubscription::where('user_id', '=', $transaction->user_id)->where('item_id', '>=', 4)->orderBy('end_at', 'DESC')->value('end_at');
+                $activeSubscriptionsEndDate = DonationSubscription::where('user_id', '=', $transaction->user_id)->where('donation_item_id', '>=', 4)->orderBy('end_at', 'DESC')->value('end_at');
                 // Set start date accordingly
                 if ($activeSubscriptionsEndDate != null) {
                     $startDate = $activeSubscriptionsEndDate;
@@ -73,14 +73,14 @@ class AutoVerifyDonationTransactions extends Command
                     $startDate = $curDate;
                 }
 
-                $donationItem = DonationItem::find($transaction->item_id);
+                $donationItem = DonationItem::find($transaction->donation_item_id);
                 $subscription = DonationSubscription::create([
-                    'user_id'   => $transaction->user_id,
-                    'item_id'   => $transaction->item_id,
-                    'is_active' => 0,
-                    'is_gifted' => 0,
-                    'start_at'  => $startDate,
-                    'end_at'    => Carbon::parse($startDate)->addDays($donationItem->days_active)->toDateString(),
+                    'user_id'           => $transaction->user_id,
+                    'donation_item_id'  => $transaction->donation_item_id,
+                    'is_active'         => 0,
+                    'is_gifted'         => 0,
+                    'start_at'          => $startDate,
+                    'end_at'            => Carbon::parse($startDate)->addDays($donationItem->days_active)->toDateString(),
                 ]);
             }
         }

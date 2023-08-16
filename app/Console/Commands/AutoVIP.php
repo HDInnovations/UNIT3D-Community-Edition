@@ -120,7 +120,7 @@ class AutoVIP extends Command
             }
 
             // Add Gifts
-            $donationItem = DonationItem::find($vip->item_id);
+            $donationItem = DonationItem::find($vip->donation_item_id);
 
             if ($donationItem->bon_bonus) {
                 $user->seedbonus += $donationItem->bon_bonus;
