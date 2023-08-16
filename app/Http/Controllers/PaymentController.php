@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DonationItem;
 use App\Models\DonationTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -30,15 +31,7 @@ class PaymentController extends Controller
         $price = null;
 
         try {
-            if ($request->tier == 1) {
-                $price = 5.20;
-            } elseif ($request->tier == 2) {
-                $price = 10.40;
-            } elseif ($request->tier == 3) {
-                $price = 20.70;
-            } elseif ($request->tier == 4) {
-                $price = 41.40;
-            }
+            $price = DonationItem::query()->select(['price_usd'])->where('id', '=', $request->item)->value('price_usd');
 
             $data = [
                 'price_amount'   => $price ?? 100,
@@ -53,7 +46,7 @@ class PaymentController extends Controller
 
             $transaction = DonationTransaction::create([
                 'user_id'          => $user->id,
-                'donation_item_id' => $request->tier,
+                'donation_item_id' => $request->item,
                 'invoice_id'       => $paymentDetails['id'],
                 'order_id'         => $paymentDetails['order_id'],
                 'currency'         => $paymentDetails['pay_currency'],
