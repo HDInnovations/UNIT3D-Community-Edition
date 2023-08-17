@@ -781,6 +781,23 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Donation System
+        Route::prefix('donations')->group(function (): void {
+            Route::name('donations.')->group(function (): void {
+                Route::prefix('subscriptions')->group(function (): void {
+                    Route::get('/', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'index'])->name('index');
+                    Route::get('/{id}/edit', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'edit'])->name('edit');
+                    Route::get('/{id}/reedit', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'reedit'])->name('reedit');
+                    Route::post('/{id}/update', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'update'])->name('update');
+                    Route::get('/create', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'create'])->name('create');
+                    Route::post('/store', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'store'])->name('store');
+                });
+            });
+            Route::prefix('transactions')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationTransactionController::class, 'index'])->name('index');
+            });
+        });
+
         // Flush System
         Route::prefix('flush')->group(function (): void {
             Route::name('flush.')->group(function (): void {

@@ -55,7 +55,7 @@ class DonationSubscriptionController extends Controller
             ->pluck('user_id')
             ->toArray();
 
-        return view('Staff.vips.index', [
+        return view('Staff.donations.index', [
             'vips_active'     => $vips_active,
             'vips_upcoming'   => $vips_upcoming,
             'vips_inactive'   => $vips_inactive,
@@ -75,7 +75,7 @@ class DonationSubscriptionController extends Controller
         $curDate = Carbon::now();
         $vip_sub = DonationSubscription::findOrFail($id);
 
-        return view('Staff.vips.edit', [
+        return view('Staff.donations.edit', [
             'vip_sub' => $vip_sub,
             'curdate' => $curDate,
             'date'    => $curDate
@@ -118,7 +118,7 @@ class DonationSubscriptionController extends Controller
      */
     public function create()
     {
-        return view('Staff.vips.create');
+        return view('Staff.donations.create');
     }
 
     /**
@@ -149,12 +149,12 @@ class DonationSubscriptionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.vips.index')
+            return redirect()->route('staff.donations.index')
                 ->withErrors($v->errors());
         }
         $vip->save();
 
-        return redirect()->route('staff.vips.index')
+        return redirect()->route('staff.donations.index')
             ->withSuccess('New VIP Subscription added!');
     }
 }
