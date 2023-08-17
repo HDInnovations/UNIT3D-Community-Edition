@@ -20,7 +20,7 @@ class DonationTransactionController extends Controller
     /**
      * Display All VIPs.
      */
-    public function index(Request $request): void
+    public function index(): void
     {
     }
 }
