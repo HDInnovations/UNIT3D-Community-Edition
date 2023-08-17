@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Exception;
 use App\Models\DonationItem;
 use App\Models\DonationTransaction;
 use Illuminate\Http\Request;
@@ -34,12 +35,13 @@ class PaymentController extends Controller
             $price = DonationItem::query()->select(['price_usd'])->where('id', '=', $request->item)->value('price_usd');
 
             $data = [
-                'price_amount'   => $price ?? 100,
-                'price_currency' => strtolower(request()->fiat) ?? 'usd',
-                'order_id'       => request()->order_id ?? uniqid(),
-                'pay_currency'   => strtolower(request()->coin) ?? 'btc',
-                'success_url'    => config('app.url').'/pages/donate?crypto=true&success=true',
-                'cancel_url'     => config('app.url').'/pages/donate?crypto=true&success=false',
+                'price_amount'      => $price ?? 100,
+                'price_currency'    => strtolower(request()->fiat) ?? 'usd',
+                'price_currency'    => request()->fiat ? strtolower(request()->fiat) : 'usd',
+                'order_id'          => request()->order_id ? strtolower(request()->order_id) : uniqid(),
+                'pay_currency'      => request()->coin ? strtolower(request()->coin) : 'btc',
+                'success_url'       => config('app.url').'/pages/donate?crypto=true&success=true',
+                'cancel_url'        => config('app.url').'/pages/donate?crypto=true&success=false',
             ];
 
             $paymentDetails = Nowpayments::createInvoice($data);
