@@ -169,16 +169,16 @@
                         @endif
                         @if ($groupBy === 'none')
                             <th wire:click="sortBy('active')" role="columnheader button" style="text-align: right">
-                                Connectable
+                                {{ __('common.active') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'active'])
                             </th>
                         @else
                             <th wire:click="sortBy('active_count')" role="columnheader button" style="text-align: right">
-                                Connectable {{ __('torrent.peers') }}
+                                {{ __('common.active') }} {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'active_count'])
                             </th>
                             <th wire:click="sortBy('inactive_count')" role="columnheader button" style="text-align: right">
-                                Unconnectable {{ __('torrent.peers') }}
+                                Inactive {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
                             </th>
                         @endif
