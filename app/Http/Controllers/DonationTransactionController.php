@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Redirect;
 use PrevailExcel\Nowpayments\Facades\Nowpayments;
 use Exception;
 
-class PaymentController extends Controller
+class DonationTransactionController extends Controller
 {
     /**
      * Collect Order data and create Payment.
