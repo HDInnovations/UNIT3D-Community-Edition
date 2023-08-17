@@ -60,7 +60,7 @@ class AutoDonationTransactions extends Command
             if ($paymentStatus['data'][0]['payment_status'] === "finished") {
                 $transaction->update([
                     'nowpayments_payment_id' => $paymentStatus['data'][0]['payment_id'],
-                    'confirmed'  => 1,
+                    'confirmed'              => 1,
                 ]);
 
                 // Add User to donation_subscription table
