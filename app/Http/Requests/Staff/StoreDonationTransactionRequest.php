@@ -31,14 +31,13 @@ class StoreDonationTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => [
-                'required',
-                'numeric'
-            ],
-            'price_currency' => [
+            'item' => [
                 'required',
             ],
-            'pay_currency' => [
+            'fiat' => [
+                'required',
+            ],
+            'coin' => [
                 'required',
             ],
         ];

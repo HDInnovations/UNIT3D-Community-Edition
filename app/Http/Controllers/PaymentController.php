@@ -13,11 +13,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Staff\StoreDonationTransactionRequest;
 use App\Models\DonationItem;
 use App\Models\DonationTransaction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use PrevailExcel\Nowpayments\Facades\Nowpayments;
+use Exception;
 
 class PaymentController extends Controller
 {
@@ -25,11 +26,12 @@ class PaymentController extends Controller
      * Collect Order data and create Payment.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createCryptoPayment(Request $request)
+    public function createCryptoPayment(StoreDonationTransactionRequest $request)
     {
         $user = $request->user();
         $price = null;
 
+        // Validate
         $request->validated();
 
         try {
