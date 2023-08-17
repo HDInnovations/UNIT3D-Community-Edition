@@ -26,8 +26,6 @@ class VIPController extends Controller
 {
     /**
      * Display All VIPs.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -68,13 +66,8 @@ class VIPController extends Controller
 
     /**
      * Edit A VIP Subscription.
-     *
-     * @param \Illuminate\Http\Request         $request
-     * @param \App\Models\DonationSubscription $id
-     *
-     * @return \Illuminate\View\View
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, int $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -91,13 +84,8 @@ class VIPController extends Controller
 
     /**
      * Save a VIP Subscription change.
-     *
-     * @param \Illuminate\Http\Request         $request
-     * @param \App\Models\DonationSubscription $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -127,8 +115,6 @@ class VIPController extends Controller
 
     /**
      * VIP Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -137,10 +123,6 @@ class VIPController extends Controller
 
     /**
      * Store A New VIP.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
