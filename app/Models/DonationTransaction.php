@@ -37,9 +37,9 @@ class DonationTransaction extends Model
     protected $fillable = [
         'user_id',
         'donation_item_id',
-        'order_id',
-        'payment_id',
-        'invoice_id',
+        'nowpayments_order_id',
+        'nowpayments_payment_id',
+        'nowpayments_invoice_id',
         'currency',
         'confirmed',
     ];

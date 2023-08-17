@@ -47,19 +47,19 @@ class AutoDonationTransactions extends Command
         $unconfirmedTransactions = DonationTransaction::where('confirmed', '=', 0)->whereDate('created_at', '<=', $curDate)->get();
 
         foreach ($unconfirmedTransactions as $transaction) {
-            // Get array of payment status and details by invoice_id
-            $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&dateFrom=".Carbon::now()->format('Y-m-d')."&invoiceId=".$transaction->invoice_id;
+            // Get array of payment status and details by nowpayments_invoice_id
+            $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&dateFrom=".Carbon::now()->format('Y-m-d')."&invoiceId=".$transaction->nowpayments_invoice_id;
             $paymentStatus = Nowpayments::getListOfPayments($data);
 
             // Verify we filtered for the correct Payment from the API
-            if ($paymentStatus['data'][0]['invoice_id'] != $transaction->invoice_id) {
+            if ($paymentStatus['data'][0]['invoice_id'] != $transaction->nowpayments_invoice_id) {
                 throw new RuntimeException('The gathered invoice id does not match the DB invoice id!');
             }
 
             // Check if Payment was successfully
             if ($paymentStatus['data'][0]['payment_status'] === "finished") {
                 $transaction->update([
-                    'payment_id' => $paymentStatus['data'][0]['payment_id'],
+                    'nowpayments_payment_id' => $paymentStatus['data'][0]['payment_id'],
                     'confirmed'  => 1,
                 ]);
 

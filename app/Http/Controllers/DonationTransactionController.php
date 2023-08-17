@@ -51,8 +51,8 @@ class DonationTransactionController extends Controller
             $transaction = DonationTransaction::create([
                 'user_id'          => $user->id,
                 'donation_item_id' => $request->item,
-                'invoice_id'       => $paymentDetails['id'],
-                'order_id'         => $paymentDetails['order_id'],
+                'nowpayments_invoice_id'       => $paymentDetails['id'],
+                'nowpayments_order_id'         => $paymentDetails['order_id'],
                 'currency'         => $paymentDetails['pay_currency'],
                 'confirmed'        => 0,
             ]);
