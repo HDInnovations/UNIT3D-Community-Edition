@@ -22,7 +22,7 @@ use Illuminate\Http\Request;
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
  */
-class VIPController extends Controller
+class DonationSubscriptionController extends Controller
 {
     /**
      * Display All VIPs.
