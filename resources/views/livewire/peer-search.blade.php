@@ -65,6 +65,9 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Peers</h2>
+        <div class="panel__body" wire:loading.block>
+            Loading...
+        </div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
