@@ -281,8 +281,16 @@
                                 <td style="text-align: right">{{ $peer->active_count }}</td>
                                 <td style="text-align: right">{{ $peer->inactive_count }}</td>
                             @endif
-                            <td style="text-align: right">{{ $peer->created_at?->diffForHumans() ?? 'N/A' }}</td>
-                            <td style="text-align: right">{{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}</td>
+                            <td style="text-align: right">
+                                <time datetime="{{ $peer->created_at }}" title="{{ $peer->created_at }}">
+                                    {{ $peer->created_at?->diffForHumans() ?? 'N/A' }}
+                                </time>
+                            </td>
+                            <td style="text-align: right">
+                                <time datetime="{{ $peer->updated_at }}" title="{{ $peer->updated_at }}">
+                                    {{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}
+                                </time>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
