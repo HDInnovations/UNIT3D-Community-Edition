@@ -59,19 +59,17 @@ class AutoDonationSubscriptions extends Command
             $vip->save();
 
             // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = User::SYSTEM_USER_ID;
-            $pm->receiver_id = $user->id;
-            $pm->subject = 'VIP Subscription ended';
-            $pm->message = 'Hi,
-                            
-                            Your VIP subscription has ended recently. Your Rank has been reset and your VIP advantages disabled. 
-                            The system will move you to the appropriate group within the next hours. 
+            PrivateMessage::create([
+                'sender_id'   => User::SYSTEM_USER_ID,
+                'receiver_id' => $user->id,
+                'subject'     => 'VIP Subscription ended',
+                'message'     => 'Your VIP subscription has ended recently. Your Rank has been reset and your VIP advantages disabled. 
+                                  The system will move you to the appropriate group within the next hours. 
 
-                            Thank you for your support!
+                                  Thank you for your support!
 
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-            $pm->save();
+                                  [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+            ]);
         }
 
         // Promote VIP User
@@ -95,20 +93,18 @@ class AutoDonationSubscriptions extends Command
             $vip->save();
 
             // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = User::SYSTEM_USER_ID;
-            $pm->receiver_id = $user->id;
-            $pm->subject = 'VIP Subscription';
-            $pm->message = 'Hi,
-                            
-                            [b]Thank you for supporting '.config('app.name').'![/b]
-                            Your VIP access has been activated and is valid through: '.$vip->end_at.' (YYYY-MM-DD)
-                            A total of '.$donationItem->seedbonus.' BON points, '
-                            .$donationItem->uploaded.' upload and '
-                            .$donationItem->invites.' invites have been added to your account. 
-                            
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-            $pm->save();
+            PrivateMessage::create([
+                'sender_id'   => User::SYSTEM_USER_ID,
+                'receiver_id' => $user->id,
+                'subject'     => 'VIP Subscription',
+                'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]
+                                  Your VIP access has been activated and is valid through: '.$vip->end_at.' (YYYY-MM-DD)
+                                  A total of '.$donationItem->seedbonus.' BON points, '
+                                  .$donationItem->uploaded.' upload and '
+                                  .$donationItem->invites.' invites have been added to your account. 
+
+                                  [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+            ]);
         }
         $this->comment('Automated VIP Users Command Complete');
     }
