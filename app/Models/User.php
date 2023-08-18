@@ -35,7 +35,7 @@ class User extends Authenticatable
     /**
      * The Attributes Excluded From The Model's JSON Form.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'email',
@@ -188,14 +188,6 @@ class User extends Authenticatable
     public function privacy(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(UserPrivacy::class);
-    }
-
-    /**
-     * Has One Chat Object.
-     */
-    public function chat(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(UserChat::class);
     }
 
     /**
@@ -637,7 +629,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->block_notifications && $target->block_notifications == 1) {
+        if ($target->block_notifications) {
             return false;
         }
 
@@ -668,7 +660,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden && $target->hidden == 1) {
+        if ($target->hidden) {
             return false;
         }
 
@@ -677,7 +669,7 @@ class User extends Authenticatable
         }
 
         if (\is_array($target->privacy?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
+            return ! \in_array($sender->group->id, $target->privacy->$targetGroup);
         }
 
         return true;
@@ -699,7 +691,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->private_profile && $target->private_profile == 1) {
+        if ($target->private_profile) {
             return false;
         }
 
@@ -708,7 +700,7 @@ class User extends Authenticatable
         }
 
         if (\is_array($target->privacy?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->privacy?->$targetGroup);
+            return ! \in_array($sender->group->id, $target->privacy->$targetGroup);
         }
 
         return true;
