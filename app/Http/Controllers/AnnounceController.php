@@ -463,17 +463,37 @@ class AnnounceController extends Controller
      */
     private function checkMinInterval($torrent, $queries, $user): void
     {
-        $prevAnnounce = $torrent->peers
-            ->where('peer_id', '=', base64_decode($queries['peer_id']))
-            ->where('user_id', '=', $user->id)
-            ->first();
-        $setMin = config('announce.min_interval.interval') ?? self::MIN;
-        $randomMinInterval = random_int($setMin, $setMin * 2);
-        throw_if(
-            $prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
-            && $queries['event'] !== 'completed' && $queries['event'] !== 'stopped',
-            new TrackerException(162, [':min' => $randomMinInterval])
-        );
+        $event = match ($queries['event']) {
+            'started'   => 'started',
+            'completed' => 'completed',
+            'stopped'   => 'stopped',
+            default     => 'empty',
+        };
+
+        $now = now()->timestamp;
+
+        // Detect broken (namely qBittorrent) clients sending duplicate announces
+        // and eliminate them from screwing up stats.
+
+        $duplicateAnnounceKey = 'announce-lock:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']).'-'.$event;
+
+        $lastAnnouncedAt = Redis::command('SET', [$duplicateAnnounceKey, $now, 'NX', 'GET', 'EX', '30']);
+
+        if ($lastAnnouncedAt !== null) {
+            throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
+        }
+
+        // Block clients disrespecting the min interval
+
+        $lastAnnouncedKey = 'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']);
+
+        $randomMinInterval = intdiv(random_int(85, 95), 100) * self::MIN;
+
+        $lastAnnouncedAt = Redis::command('SET', [$lastAnnouncedKey, $now, 'NX', 'GET', 'EX', $randomMinInterval]);
+
+        if ($lastAnnouncedAt !== null && ! \in_array($event, ['completed', 'stopped'])) {
+            throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
+        }
     }
 
     /**
