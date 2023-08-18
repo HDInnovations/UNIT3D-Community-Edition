@@ -39,6 +39,14 @@ class TorrentSearch extends Component
 
     public string $endYear = '';
 
+    public ?int $minSize = null;
+
+    public int $minSizeMultiplier = 1;
+
+    public ?int $maxSize = null;
+
+    public int $maxSizeMultiplier = 1;
+
     public array $categories = [];
 
     public array $types = [];
@@ -121,6 +129,8 @@ class TorrentSearch extends Component
         'keywords'        => ['except' => ''],
         'startYear'       => ['except' => ''],
         'endYear'         => ['except' => ''],
+        'minSize'         => ['except' => ''],
+        'maxSize'         => ['except' => ''],
         'categories'      => ['except' => []],
         'types'           => ['except' => []],
         'resolutions'     => ['except' => []],
@@ -241,6 +251,8 @@ class TorrentSearch extends Component
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
@@ -328,6 +340,8 @@ class TorrentSearch extends Component
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
@@ -439,6 +453,8 @@ class TorrentSearch extends Component
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
