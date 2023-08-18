@@ -29,7 +29,7 @@ class ForumCategoryController extends Controller
         $forum = Forum::findOrFail($id);
 
         // Check if this is a category or forum
-        if ($forum->parent_id != 0) {
+        if ($forum->parent_id !== null) {
             return to_route('forums.show', ['id' => $forum->id]);
         }
 

@@ -50,7 +50,7 @@ class ForumsTableSeeder extends Seeder
                 'name'                    => 'UNIT3D Forums',
                 'slug'                    => 'unit3d-forums',
                 'description'             => 'UNIT3D Forums',
-                'parent_id'               => 0,
+                'parent_id'               => null,
                 'created_at'              => '2017-01-03 18:29:21',
                 'updated_at'              => '2017-01-03 18:29:21',
             ],
