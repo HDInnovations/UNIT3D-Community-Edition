@@ -30,7 +30,7 @@ class StoreSubtitleRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'subtitle_file' => [

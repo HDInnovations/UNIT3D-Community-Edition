@@ -1,98 +1,98 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
-namespace Tests\Feature\Http\Controllers\Staff;
-
+use App\Http\Controllers\Staff\ChatRoomController;
+use App\Http\Requests\Staff\StoreChatRoomRequest;
+use App\Http\Requests\Staff\UpdateChatRoomRequest;
 use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\GroupsTableSeeder;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\Staff\ChatRoomController
- */
-class ChatRoomControllerTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
+beforeEach(function (): void {
+    $this->staffUser = User::factory()->create([
+        'group_id' => fn () => Group::factory()->create([
+            'is_owner' => true,
+            'is_admin' => true,
+            'is_modo'  => true,
+        ])->id,
+    ]);
+});
 
-    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
-    {
-        return User::factory()->create([
-            'group_id' => fn () => Group::factory()->create([
-                'is_owner' => true,
-                'is_admin' => true,
-                'is_modo'  => true,
-            ])->id,
-        ]);
-    }
+test('create returns an ok response', function (): void {
+    $response = $this->actingAs($this->staffUser)->get(route('staff.chatrooms.create'));
+    $response->assertOk();
+    $response->assertViewIs('Staff.chat.room.create');
+});
 
-    /**
-     * @test
-     */
-    public function destroy_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
-        $this->seed(ChatroomTableSeeder::class);
+test('destroy returns an ok response', function (): void {
+    $this->seed(ChatroomTableSeeder::class);
 
-        $user = $this->createStaffUser();
-        $chatroom = Chatroom::factory()->create();
+    $chatroom = Chatroom::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.chatrooms.destroy', ['chatroom' => $chatroom]));
+    $response = $this->actingAs($this->staffUser)->delete(route('staff.chatrooms.destroy', [$chatroom]));
+    $response->assertRedirect(route('staff.chatrooms.index'));
+    $response->assertSessionHas('success', 'Chatroom Successfully Deleted');
 
-        $response->assertRedirect(route('staff.chatrooms.index'));
-    }
+    $this->assertModelMissing($chatroom);
+});
 
-    /**
-     * @test
-     */
-    public function index_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('edit returns an ok response', function (): void {
+    $chatroom = Chatroom::factory()->create();
 
-        $user = $this->createStaffUser();
+    $response = $this->actingAs($this->staffUser)->get(route('staff.chatrooms.edit', [$chatroom]));
+    $response->assertOk();
+    $response->assertViewIs('Staff.chat.room.edit');
+    $response->assertViewHas('chatroom', $chatroom);
+});
 
-        $response = $this->actingAs($user)->get(route('staff.chatrooms.index'));
+test('index returns an ok response', function (): void {
+    $response = $this->actingAs($this->staffUser)->get(route('staff.chatrooms.index'));
+    $response->assertOk();
+    $response->assertViewIs('Staff.chat.room.index');
+    $response->assertViewHas('chatrooms');
+});
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.chat.room.index');
-        $response->assertViewHas('chatrooms');
-    }
+test('store validates with a form request', function (): void {
+    $this->assertActionUsesFormRequest(
+        ChatRoomController::class,
+        'store',
+        StoreChatRoomRequest::class
+    );
+});
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('store returns an ok response', function (): void {
+    $response = $this->actingAs($this->staffUser)->post(route('staff.chatrooms.store'), [
+        'name' => 'Test Chatroom',
+    ]);
+    $response->assertRedirect(route('staff.chatrooms.index'));
+    $response->assertSessionHas('success', 'Chatroom Successfully Added');
+});
 
-        $user = $this->createStaffUser();
-        $chatroom = Chatroom::factory()->make();
+test('update validates with a form request', function (): void {
+    $this->assertActionUsesFormRequest(
+        ChatRoomController::class,
+        'update',
+        UpdateChatRoomRequest::class
+    );
+});
 
-        $response = $this->actingAs($user)->post(route('staff.chatrooms.store'), [
-            'name' => $chatroom->name,
-        ]);
+test('update returns an ok response', function (): void {
+    $chatroom = Chatroom::factory()->create();
 
-        $response->assertRedirect(route('staff.chatrooms.index'));
-    }
-
-    /**
-     * @test
-     */
-    public function update_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = $this->createStaffUser();
-        $chatroom = Chatroom::factory()->create();
-
-        $response = $this->actingAs($user)->post(route('staff.chatrooms.update', ['chatroom' => $chatroom]), [
-            'name' => $chatroom->name,
-        ]);
-
-        $response->assertRedirect(route('staff.chatrooms.index'));
-    }
-}
+    $response = $this->actingAs($this->staffUser)->post(route('staff.chatrooms.update', [$chatroom]), [
+        'name' => 'Test Chatroom Updated',
+    ]);
+    $response->assertRedirect(route('staff.chatrooms.index'));
+    $response->assertSessionHas('success', 'Chatroom Successfully Modified');
+});

@@ -396,12 +396,12 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\CasinoBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\NerdBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\NerdBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$user of method App\\\\Bots\\\\SystemBot\\:\\:process\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -1176,7 +1176,7 @@ parameters:
 			path: app/Http/Requests/Staff/DestroyDistributorRequest.php
 
 		-
-			message: "#^Cannot access property \\$id on object\\|string\\.$#"
+			message: "#^Parameter \\#2 \\$value of method Illuminate\\\\Validation\\\\Rules\\\\Exists\\:\\:whereNot\\(\\) expects array\\|BackedEnum\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
 			count: 1
 			path: app/Http/Requests/Staff/DestroyRegionRequest.php
 
@@ -1551,26 +1551,6 @@ parameters:
 			path: app/Models/Language.php
 
 		-
-			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between string\\|false and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
-			message: "#^Variable \\$cache in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Models/Peer.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\TicketAttachment\\:\\:\\$disk_path\\.$#"
 			count: 1
 			path: app/Models/TicketAttachment.php
@@ -1599,31 +1579,6 @@ parameters:
 			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Class App\\\\Models\\\\UserChat not found\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Comparison operation \"\\=\\=\" between non\\-empty\\-array and 1 results in an error\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Models\\\\User\\:\\:\\$hidden is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$hidden\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/Models/User.php
-
-		-
-			message: "#^Using nullsafe property access on non\\-nullable type App\\\\Models\\\\UserPrivacy\\. Use \\-\\> instead\\.$#"
-			count: 2
-			path: app/Models/User.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"

@@ -1,27 +1,25 @@
 <?php
-
-namespace Tests\Feature\Http\Controllers\Auth;
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use App\Models\UserActivation;
 use Database\Seeders\GroupsTableSeeder;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\Auth\ActivationController
- */
-class ActivationControllerTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function activate_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('activate returns an ok response', function (): void {
+    $this->seed(GroupsTableSeeder::class);
 
-        $activation = UserActivation::factory()->create();
+    $token = UserActivation::factory()->create()->token;
 
-        $this->get(route('activate', ['token' => $activation->token]))
-            ->assertRedirect(route('login'))
-            ->assertSessionHas('success', trans('auth.activation-success'));
-    }
-}
+    $response = $this->get(route('activate', ['token' => $token]));
+    $response->assertRedirect(route('login'));
+    $response->assertSessionHas('success', trans('auth.activation-success'));
+});

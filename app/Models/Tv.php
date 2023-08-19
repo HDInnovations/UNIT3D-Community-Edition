@@ -13,11 +13,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Enums\Occupations;
 use Illuminate\Database\Eloquent\Model;
 
 class Tv extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public $table = 'tv';

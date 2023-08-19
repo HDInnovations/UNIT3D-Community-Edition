@@ -13,8 +13,8 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Region;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class DestroyRegionRequest extends FormRequest
@@ -22,12 +22,12 @@ class DestroyRegionRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(Request $request): array
+    public function rules(Region $region): array
     {
         return [
             'region_id' => [
                 'required',
-                Rule::exists('regions', 'id')->whereNot('id', $request->route('region')->id),
+                Rule::exists('regions', 'id')->whereNot('id', $region->id),
             ],
         ];
     }

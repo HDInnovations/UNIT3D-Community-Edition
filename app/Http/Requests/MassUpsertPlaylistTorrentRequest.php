@@ -33,7 +33,7 @@ class MassUpsertPlaylistTorrentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'playlist_id' => [
