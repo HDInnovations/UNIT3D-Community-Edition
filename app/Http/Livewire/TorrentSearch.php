@@ -170,38 +170,6 @@ class TorrentSearch extends Component
         'view'            => ['except' => 'list'],
     ];
 
-    final public function booted(): void
-    {
-        switch ($this->view) {
-            case 'list':
-            case 'card':
-                if (! \in_array($this->sortField, [
-                    'name',
-                    'size',
-                    'seeders',
-                    'leechers',
-                    'times_completed',
-                    'created_at',
-                    'bumped_at'
-                ])) {
-                    $this->reset('sortField');
-                }
-
-                break;
-            case 'group':
-                if (! \in_array($this->sortField, [
-                    'bumped_at',
-                    'times_completed',
-                ])) {
-                    $this->reset('sortField');
-                }
-
-                break;
-            default:
-                $this->reset('sortField');
-        }
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -231,6 +199,19 @@ class TorrentSearch extends Component
             && $field[0] === '/'
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
+
+        // Whitelist which columns are allowed to be ordered by
+        if (! \in_array($this->sortField, [
+            'name',
+            'size',
+            'seeders',
+            'leechers',
+            'times_completed',
+            'created_at',
+            'bumped_at'
+        ])) {
+            $this->reset('sortField');
+        }
 
         $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->when($this->view === 'list', fn ($query) => $query->withCount(['thanks', 'comments']))
@@ -342,6 +323,14 @@ class TorrentSearch extends Component
             && $field[0] === '/'
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
+
+        // Whitelist which columns are allowed to be ordered by
+        if (! \in_array($this->sortField, [
+            'bumped_at',
+            'times_completed',
+        ])) {
+            $this->reset('sortField');
+        }
 
         $groups = Torrent::query()
             ->select('tmdb')
