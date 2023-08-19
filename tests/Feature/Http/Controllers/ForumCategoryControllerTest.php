@@ -20,8 +20,8 @@ test('show returns an ok response', function (): void {
 
     // This forum does not have a parent_id, which makes it a "Forum Category".
     $parentForum = Forum::factory()->create([
-        'parent_id'               => null,
-        'last_topic_id'           => null,
+        'parent_id'     => null,
+        'last_topic_id' => null,
     ]);
 
     Permission::factory()->create([
