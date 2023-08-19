@@ -1021,6 +1021,11 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedPosters\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedTorrents\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php

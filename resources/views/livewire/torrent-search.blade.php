@@ -498,6 +498,7 @@
                             <option value="list">{{ __('torrent.list') }}</option>
                             <option value="card">{{ __('torrent.cards') }}</option>
                             <option value="group">{{ __('torrent.groupings') }}</option>
+                            <option value="poster">{{ __('torrent.poster') }}</option>
                         </select>
                         <label class="form__label form__label--floating">
                             Layout
@@ -511,7 +512,7 @@
                             wire:model="perPage"
                             required
                         >
-                            @if ($view === 'card')
+                            @if (\in_array($view, ['card', 'poster']))
                                 <option>24</option>
                                 <option>48</option>
                                 <option>72</option>
@@ -648,6 +649,35 @@
                                 @break
                             @case('tv')
                                 <x-tv.card :media="$group" :personalFreeleech="$personalFreeleech" />
+                                @break
+                        @endswitch
+                    @endforeach
+                </div>
+                @break
+
+            @case($view === 'poster')
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="torrent-search--list__completed-header" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}">
+                                <i class="fas fa-check-circle"></i>
+                                @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                            </th>
+                            <th class="torrent-search--list__age-header" wire:click="sortBy('created_at')" role="columnheader button">
+                                {{ __('common.created_at') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="panel__body torrent-search--poster__results">
+                    @forelse ($torrents as $group)
+                        @switch ($group->meta)
+                            @case('movie')
+                                <x-movie.poster :media="$group" />
+                                @break
+                            @case('tv')
+                                <x-tv.poster :media="$group" />
                                 @break
                         @endswitch
                     @endforeach
