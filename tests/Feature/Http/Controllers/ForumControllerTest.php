@@ -36,7 +36,7 @@ test('show returns an ok response', function (): void {
     $user = User::factory()->create();
 
     $forum = Forum::factory()->create([
-        'parent_id'               => 0, // This Forum does not have a parent, which makes it a proper Forum and not a "Forum Category".
+        'parent_id'               => null, // This Forum does not have a parent, which makes it a proper Forum and not a "Forum Category".
         'last_post_user_id'       => $user->id,
         'last_post_user_username' => $user->username,
     ]);
