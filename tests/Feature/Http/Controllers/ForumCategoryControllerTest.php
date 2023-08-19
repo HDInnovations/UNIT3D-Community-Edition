@@ -12,11 +12,25 @@
  */
 
 use App\Models\Forum;
+use App\Models\Permission;
 use App\Models\User;
 
 test('show returns an ok response', function (): void {
-    $forum = Forum::factory()->create();
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->id]));
+    // This Forum has a parent Forum, which makes it a "Forum Category".
+    $parentForum = Forum::factory()->create();
+
+    Permission::factory()->create([
+        'forum_id' => $parentForum->id,
+    ]);
+
+    $forum = Forum::factory()->create([
+        'parent_id'               => $parentForum->id,
+        'last_post_user_id'       => $user->id,
+        'last_post_user_username' => $user->username,
+    ]);
+
+
+    $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->id]));
 });
