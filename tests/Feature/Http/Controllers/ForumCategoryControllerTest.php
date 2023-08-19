@@ -31,6 +31,5 @@ test('show returns an ok response', function (): void {
         'last_post_user_username' => $user->username,
     ]);
 
-
     $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->id]));
 });
