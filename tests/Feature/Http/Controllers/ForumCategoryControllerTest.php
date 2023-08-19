@@ -30,9 +30,8 @@ test('show returns an ok response', function (): void {
 
     // This forum has a parent_id, which makes it a "Forum".
     $forum = Forum::factory()->create([
-        'parent_id'               => $parentForum->id,
-        'last_post_user_id'       => $user->id,
-        'last_post_user_username' => $user->username,
+        'parent_id'     => $parentForum->id,
+        'last_topic_id' => null,
     ]);
 
     $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->id]));
