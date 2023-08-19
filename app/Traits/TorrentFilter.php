@@ -83,6 +83,16 @@ trait TorrentFilter
         return $query->where('release_year', '<=', $year);
     }
 
+    public function scopeOfSizeGreaterOrEqualTo(Builder $query, int $size): Builder
+    {
+        return $query->where('size', '>=', $size);
+    }
+
+    public function scopeOfSizeLesserOrEqualTo(Builder $query, int $size): Builder
+    {
+        return $query->where('size', '<=', $size);
+    }
+
     public function scopeOfCategory(Builder $query, array $categories): Builder
     {
         return $query->whereIntegerInRaw('category_id', $categories);
