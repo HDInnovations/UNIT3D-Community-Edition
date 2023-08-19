@@ -162,16 +162,33 @@ class TorrentSearch extends Component
 
     final public function booted(): void
     {
-        if (! \in_array($this->sortField, [
-            'name',
-            'size',
-            'seeders',
-            'leechers',
-            'times_completed',
-            'created_at',
-            'bumped_at'
-        ])) {
-            $this->reset('sortField');
+        switch ($this->view) {
+            case 'list':
+            case 'card':
+                if (! \in_array($this->sortField, [
+                    'name',
+                    'size',
+                    'seeders',
+                    'leechers',
+                    'times_completed',
+                    'created_at',
+                    'bumped_at'
+                ])) {
+                    $this->reset('sortField');
+                }
+
+                break;
+            case 'group':
+                if (! \in_array($this->sortField, [
+                    'bumped_at',
+                    'times_completed',
+                ])) {
+                    $this->reset('sortField');
+                }
+
+                break;
+            default:
+                $this->reset('sortField');
         }
     }
 
@@ -318,6 +335,7 @@ class TorrentSearch extends Component
             ->select('tmdb')
             ->selectRaw('MAX(sticky) as sticky')
             ->selectRaw('MAX(bumped_at) as bumped_at')
+            ->selectRaw('SUM(times_completed) as times_completed')
             ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
             ->havingNotNull('meta')
             ->where('tmdb', '!=', 0)
@@ -362,7 +380,7 @@ class TorrentSearch extends Component
             ->when($this->incomplete !== false, fn ($query) => $query->uncompletedBy($user))
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
-            ->orderByDesc('bumped_at')
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
