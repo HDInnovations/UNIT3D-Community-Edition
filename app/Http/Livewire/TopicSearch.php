@@ -56,7 +56,7 @@ class TopicSearch extends Component
             ->with(['forums' => fn ($query) => $query
                 ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ])
-            ->where('parent_id', '=', 0)
+            ->whereNull('parent_id')
             ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
             ->get();

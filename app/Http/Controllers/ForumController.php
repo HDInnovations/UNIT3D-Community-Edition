@@ -35,7 +35,7 @@ class ForumController extends Controller
                         ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]]),
                     'forums.latestPoster',
                 ])
-                ->where('parent_id', '=', 0)
+                ->whereNull('parent_id')
                 ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
                 ->orderBy('position')
                 ->get(),
@@ -54,7 +54,7 @@ class ForumController extends Controller
         $forum = Forum::findOrFail($id);
 
         // Check if this is a category or forum
-        if ($forum->parent_id == 0) {
+        if ($forum->parent_id === null) {
             return to_route('forums.categories.show', ['id' => $forum->id]);
         }
 

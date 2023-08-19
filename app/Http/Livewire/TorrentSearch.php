@@ -39,6 +39,14 @@ class TorrentSearch extends Component
 
     public string $endYear = '';
 
+    public ?int $minSize = null;
+
+    public int $minSizeMultiplier = 1;
+
+    public ?int $maxSize = null;
+
+    public int $maxSizeMultiplier = 1;
+
     public array $categories = [];
 
     public array $types = [];
@@ -121,6 +129,8 @@ class TorrentSearch extends Component
         'keywords'        => ['except' => ''],
         'startYear'       => ['except' => ''],
         'endYear'         => ['except' => ''],
+        'minSize'         => ['except' => ''],
+        'maxSize'         => ['except' => ''],
         'categories'      => ['except' => []],
         'types'           => ['except' => []],
         'resolutions'     => ['except' => []],
@@ -162,16 +172,33 @@ class TorrentSearch extends Component
 
     final public function booted(): void
     {
-        if (! \in_array($this->sortField, [
-            'name',
-            'size',
-            'seeders',
-            'leechers',
-            'times_completed',
-            'created_at',
-            'bumped_at'
-        ])) {
-            $this->reset('sortField');
+        switch ($this->view) {
+            case 'list':
+            case 'card':
+                if (! \in_array($this->sortField, [
+                    'name',
+                    'size',
+                    'seeders',
+                    'leechers',
+                    'times_completed',
+                    'created_at',
+                    'bumped_at'
+                ])) {
+                    $this->reset('sortField');
+                }
+
+                break;
+            case 'group':
+                if (! \in_array($this->sortField, [
+                    'bumped_at',
+                    'times_completed',
+                ])) {
+                    $this->reset('sortField');
+                }
+
+                break;
+            default:
+                $this->reset('sortField');
         }
     }
 
@@ -241,6 +268,8 @@ class TorrentSearch extends Component
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
@@ -318,6 +347,7 @@ class TorrentSearch extends Component
             ->select('tmdb')
             ->selectRaw('MAX(sticky) as sticky')
             ->selectRaw('MAX(bumped_at) as bumped_at')
+            ->selectRaw('SUM(times_completed) as times_completed')
             ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
             ->havingNotNull('meta')
             ->where('tmdb', '!=', 0)
@@ -328,6 +358,8 @@ class TorrentSearch extends Component
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
@@ -362,7 +394,7 @@ class TorrentSearch extends Component
             ->when($this->incomplete !== false, fn ($query) => $query->uncompletedBy($user))
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
-            ->orderByDesc('bumped_at')
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
@@ -439,6 +471,8 @@ class TorrentSearch extends Component
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
             ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
             ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))

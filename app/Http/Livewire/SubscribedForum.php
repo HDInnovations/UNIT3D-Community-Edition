@@ -25,7 +25,7 @@ class SubscribedForum extends Component
     {
         return Forum::query()
             ->with('latestPoster')
-            ->where('parent_id', '!=', 0)
+            ->whereNotNull('parent_id')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')

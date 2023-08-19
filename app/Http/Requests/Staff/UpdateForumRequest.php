@@ -41,7 +41,8 @@ class UpdateForumRequest extends FormRequest
                 'required',
             ],
             'parent_id' => [
-                'required',
+                'sometimes',
+                'nullable',
                 'integer',
             ],
             'permissions' => [

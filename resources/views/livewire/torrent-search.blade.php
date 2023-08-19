@@ -47,14 +47,48 @@
                         <input wire:model="endYear" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">{{ __('torrent.end-year') }}</label>
                     </p>
-                    <p class="form__group">
-                        <input wire:model="playlistId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Playlist ID</label>
-                    </p>
-                    <p class="form__group">
-                        <input wire:model="collectionId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Collection ID</label>
-                    </p>
+                    <div class="form__group--short-horizontal">
+                        <p class="form__group">
+                            <input wire:model="minSize" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating">Minimum Size</label>
+                        </p>
+                        <p class="form__group">
+                            <select wire:model="minSizeMultiplier" class="form__select" placeholder=" ">
+                                <option value="1" selected>Bytes</option>
+                                <option value="1000">KB</option>
+                                <option value="1024">KiB</option>
+                                <option value="1000000">MB</option>
+                                <option value="1048576">MiB</option>
+                                <option value="1000000000">GB</option>
+                                <option value="1073741824">GiB</option>
+                                <option value="1000000000000">TB</option>
+                                <option value="1099511627776">TiB</option>
+
+                            </select>
+                            <label class="form__label form__label--floating">Unit</label>
+                        </p>
+                    </div>
+                    <div class="form__group--short-horizontal">
+                        <p class="form__group">
+                            <input wire:model="maxSize" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating">Maximum Size</label>
+                        </p>
+                        <p class="form__group">
+                            <select wire:model="maxSizeMultiplier" class="form__select" placeholder=" ">
+                                <option value="1" selected>Bytes</option>
+                                <option value="1000">KB</option>
+                                <option value="1024">KiB</option>
+                                <option value="1000000">MB</option>
+                                <option value="1048576">MiB</option>
+                                <option value="1000000000">GB</option>
+                                <option value="1073741824">GiB</option>
+                                <option value="1000000000000">TB</option>
+                                <option value="1099511627776">TiB</option>
+
+                            </select>
+                            <label class="form__label form__label--floating">Unit</label>
+                        </p>
+                    </div>
                 </div>
                 <div class="form__group--short-horizontal">
                     <div class="form__group">
@@ -65,6 +99,16 @@
                         @php $distributors = cache()->remember('distributors', 3_600, fn () => App\Models\Distributor::orderBy('name')->get()) @endphp
                         <div id="distributors" wire:ignore></div>
                     </div>
+                </div>
+                <div class="form__group--short-horizontal">
+                    <p class="form__group">
+                        <input wire:model="playlistId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating">Playlist ID</label>
+                    </p>
+                    <p class="form__group">
+                        <input wire:model="collectionId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating">Collection ID</label>
+                    </p>
                     <p class="form__group">
                         <input wire:model="companyId" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Company ID</label>
@@ -582,6 +626,20 @@
                 @break
 
             @case($view === 'group')
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="torrent-search--list__completed-header" wire:click="sortBy('times_completed')" role="columnheader button" title="{{ __('torrent.completed') }}">
+                                <i class="fas fa-check-circle"></i>
+                                @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                            </th>
+                            <th class="torrent-search--list__age-header" wire:click="sortBy('created_at')" role="columnheader button">
+                                {{ __('common.created_at') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
                 <div class="panel__body torrent-search--grouped__results">
                     @forelse ($torrents as $group)
                         @switch ($group->meta)
