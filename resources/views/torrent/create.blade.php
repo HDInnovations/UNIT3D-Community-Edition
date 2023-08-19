@@ -21,6 +21,7 @@
             href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
                 1       => 'card',
                 2       => 'group',
+                3       => 'poster',
                 default => 'list'
             }]) }}"
         >

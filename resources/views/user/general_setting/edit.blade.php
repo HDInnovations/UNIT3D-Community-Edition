@@ -125,6 +125,7 @@
                             <option class="form__option" value="0" @selected($user->torrent_layout === 0)>Torrent list</option>
                             <option class="form__option" value="1" @selected($user->torrent_layout === 1)>Torrent cards</option>
                             <option class="form__option" value="2" @selected($user->torrent_layout === 2)>Torrent groupings</option>
+                            <option class="form__option" value="3" @selected($user->torrent_layout === 3)>Torrent posters</option>
                         </select>
                         <label class="form__label form__label--floating" for="torrent_layout">
                             Default torrent layout
