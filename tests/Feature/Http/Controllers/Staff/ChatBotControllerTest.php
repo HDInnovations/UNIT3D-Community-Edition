@@ -65,6 +65,8 @@ test('disable returns an ok response', function (): void {
 });
 
 test('edit returns an ok response', function (): void {
+    $bot = Bot::factory()->create();
+
     $response = $this->actingAs($this->staffUser)->get(route('staff.bots.edit', [$bot]));
     $response->assertOk();
     $response->assertViewIs('Staff.chat.bot.edit');
@@ -76,7 +78,7 @@ test('enable returns an ok response', function (): void {
         'active' => false,
     ]);
 
-    $response = $this->actingAs($this->staffUser)->post(route('staff.bots.disable', [$bot]), [
+    $response = $this->actingAs($this->staffUser)->post(route('staff.bots.enable', [$bot]), [
         'active' => true,
     ]);
     $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Enabled');
@@ -102,7 +104,27 @@ test('update returns an ok response', function (): void {
     ]);
 
     $response = $this->actingAs($this->staffUser)->patch(route('staff.bots.update', [$bot]), [
-        'is_protected' => true,
+        'position'     => $bot->position,
+        'name'         => $bot->name,
+        'command'      => $bot->command,
+        'color'        => $bot->color,
+        'icon'         => $bot->icon,
+        'emoji'        => $bot->emoji,
+        'info'         => $bot->info,
+        'about'        => $bot->about,
+        'help'         => $bot->help,
+        'active'       => true,
+        'is_protected' => $bot->is_protected,
+        'is_triviabot' => $bot->is_triviabot,
+        'is_nerdbot'   => $bot->is_nerdbot,
+        'is_systembot' => $bot->is_systembot,
+        'is_casinobot' => $bot->is_casinobot,
+        'is_betbot'    => $bot->is_betbot,
+        'uploaded'     => $bot->uploaded,
+        'downloaded'   => $bot->downloaded,
+        'fl_tokens'    => $bot->fl_tokens,
+        'seedbonus'    => $bot->seedbonus,
+        'invites'      => $bot->invites,
     ]);
     $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Updated');
 });

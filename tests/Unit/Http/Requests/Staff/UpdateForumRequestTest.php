@@ -37,7 +37,8 @@ test('rules', function (): void {
             'required',
         ],
         'parent_id' => [
-            'required',
+            'sometimes',
+            'nullable',
             'integer',
         ],
         'permissions' => [
