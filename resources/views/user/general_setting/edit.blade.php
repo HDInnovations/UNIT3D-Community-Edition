@@ -57,6 +57,7 @@
                             <option class="form__option" value="7" @selected($user->style === 7)>Dark Teal</option>
                             <option class="form__option" value="8" @selected($user->style === 8)>Dark Yellow</option>
                             <option class="form__option" value="9" @selected($user->style === 9)>Cosmic Void</option>
+                            <option class="form__option" value="10" @selected($user->style === 10)>Nord</option>
                         </select>
                         <label class="form__label form__label--floating" for="style">
                             Theme
