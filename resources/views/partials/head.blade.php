@@ -55,6 +55,9 @@
         @case(10)
             <link rel="stylesheet" href="{{ mix('css/themes/nord.css') }}" crossorigin="anonymous">
             @break
+        @case(11)
+            <link rel="stylesheet" href="{{ mix('css/themes/revel.css') }}" crossorigin="anonymous">
+            @break
     @endswitch
 
     @if (isset(auth()->user()->custom_css))
