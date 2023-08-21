@@ -629,7 +629,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->block_notifications) {
+        if ($target->block_notifications == 1) {
             return false;
         }
 
@@ -660,7 +660,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden) {
+        if ($target->hidden == 1) {
             return false;
         }
 
@@ -691,7 +691,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->private_profile) {
+        if ($target->private_profile == 1) {
             return false;
         }
 
