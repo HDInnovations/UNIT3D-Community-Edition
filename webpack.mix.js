@@ -35,6 +35,7 @@ mix.options({
     .sass('resources/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
     .sass('resources/sass/themes/cosmic-void.scss', 'public/css/themes/cosmic-void.css')
     .sass('resources/sass/themes/nord.scss', 'public/css/themes/nord.css')
+    .sass('resources/sass/themes/revel.scss', 'public/css/themes/revel.css')
 
     /*
      * Login and TwoStep Auth styles
