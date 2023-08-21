@@ -39,7 +39,7 @@ class PersonSearch extends Component
             ->whereNotNull('still')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
-            ->paginate(30);
+            ->paginate(36);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
