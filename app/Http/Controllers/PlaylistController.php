@@ -105,8 +105,8 @@ class PlaylistController extends Controller
         return view('playlist.show', [
             'playlist' => $playlist,
             'meta'     => match(1) {
-                $randomTorrent?->category?->tv_meta    => Tv::with('genres', 'networks', 'seasons')->find($randomTorrent->tmdb),
-                $randomTorrent?->category?->movie_meta => Movie::with('genres', 'companies', 'collection')->find($randomTorrent->tmdb),
+                $randomTorrent?->category?->tv_meta    => Tv::with('genres', 'networks', 'seasons')->find($randomTorrent->movie_id),
+                $randomTorrent?->category?->movie_meta => Movie::with('genres', 'companies', 'collection')->find($randomTorrent->tv_id),
                 default                                => null,
             },
             'torrents' => $playlist->torrents()

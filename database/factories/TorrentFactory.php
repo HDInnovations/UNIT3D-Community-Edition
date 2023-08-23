@@ -14,8 +14,10 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Movie;
 use App\Models\Resolution;
 use App\Models\Torrent;
+use App\Models\Tv;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -51,7 +53,8 @@ class TorrentFactory extends Factory
             'user_id'         => fn () => User::factory()->create()->id,
             'imdb'            => $this->faker->randomNumber(),
             'tvdb'            => $this->faker->randomNumber(),
-            'tmdb'            => $this->faker->randomNumber(),
+            'movie_id'        => fn () => Movie::factory()->create()->id,
+            'tv_id'           => fn () => Tv::factory()->create()->id,
             'mal'             => $this->faker->randomNumber(),
             'igdb'            => $this->faker->randomNumber(),
             'type_id'         => fn () => Type::factory()->create()->id,

@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Enums\Occupations;
-use App\Models\Category;
 use App\Models\Person;
 use App\Models\Torrent;
 use App\Models\User;
@@ -168,30 +167,16 @@ class PersonCredit extends Component
                 'resolution_id',
                 'personal_release',
             ])
-            ->selectRaw(
-                "CASE
-                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                END as meta"
-            )
             ->where(
                 fn ($query) => $query
-                    ->where(
-                        fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-                            ->whereIntegerInRaw('tmdb', $movieIds)
-                    )
-                    ->orWhere(
-                        fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
-                            ->whereIntegerInRaw('tmdb', $tvIds)
-                    )
+                    ->whereIntegerInRaw('movie_id', $movieIds)
+                    ->orWhereIntegerInRaw('tv_id', $tvIds)
             )
             ->get()
-            ->groupBy('meta')
+            ->groupBy(fn (Torrent $torrent) => $torrent->movie_id ? 'movie' : 'tv')
             ->map(fn ($movieOrTv, $key) => match ($key) {
                 'movie' => $movieOrTv
-                    ->groupBy('tmdb')
+                    ->groupBy('movie_id')
                     ->map(
                         function ($movie) {
                             $category_id = $movie->first()->category_id;
@@ -214,9 +199,7 @@ class PersonCredit extends Component
                         }
                     ),
                 'tv' => $movieOrTv
-                    ->groupBy([
-                        fn ($torrent) => $torrent->tmdb,
-                    ])
+                    ->groupBy('tv_id')
                     ->map(
                         function ($tv) {
                             $category_id = $tv->first()->category_id;

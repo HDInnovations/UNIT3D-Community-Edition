@@ -95,15 +95,14 @@ class SimilarTorrent extends Component
             ])
             ->when(
                 $this->category->movie_meta,
-                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),
+                fn ($query) => $query->where('movie_id', '=', $this->tmdbId),
             )
             ->when(
                 $this->category->tv_meta,
-                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('tv_meta', '=', 1)),
+                fn ($query) => $query->where('tv_id', '=', $this->tmdbId),
             )
             ->when(
-                $this->category->tv_meta || $this->category->movie_meta,
-                fn ($query) => $query->where('tmdb', '=', $this->tmdbId),
+                $this->category->game_meta,
                 fn ($query) => $query->where('igdb', '=', $this->igdbId),
             )
             ->orderBy($this->sortField, $this->sortDirection)

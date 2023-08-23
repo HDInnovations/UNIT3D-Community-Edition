@@ -68,7 +68,7 @@
     <aside class="torrent-card__aside">
         <a
             class="torrent-card__similar-link"
-            href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}"
+            href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->movie_id ?: $torrent->tv_id]) }}"
         >
             <figure class="torrent-card__figure">
                 <img

@@ -246,11 +246,6 @@ parameters:
 			path: app/Console/Commands/DemoSeed.php
 
 		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/Console/Commands/FetchReleaseYears.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
@@ -426,11 +421,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Right side of \\|\\| is always false\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$authStatus\\.$#"
 			count: 1
 			path: app/Http/Controllers/Auth/TwoStepController.php
@@ -442,7 +432,7 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
-			count: 10
+			count: 5
 			path: app/Http/Controllers/HomeController.php
 
 		-
@@ -613,11 +603,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$size of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:chunk\\(\\) expects int, float given\\.$#"
 			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
 			path: app/Http/Controllers/TorrentController.php
 
 		-
@@ -1371,6 +1356,11 @@ parameters:
 			path: app/Http/Resources/TorrentResource.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$movie_id\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$name\\.$#"
 			count: 2
 			path: app/Http/Resources/TorrentResource.php
@@ -1411,17 +1401,17 @@ parameters:
 			path: app/Http/Resources/TorrentResource.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tmdb\\.$#"
-			count: 1
-			path: app/Http/Resources/TorrentResource.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tv\\.$#"
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tvdb\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:\\$tv_id\\.$#"
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
 

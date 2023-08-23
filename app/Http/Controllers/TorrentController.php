@@ -90,18 +90,18 @@ class TorrentController extends Controller
         $trailer = null;
         $platforms = null;
 
-        if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->tv_meta && $torrent->tv_id) {
             $meta = Tv::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'networks',
                 'recommendations'
-            ])->find($torrent->tmdb);
-            $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
+            ])->find($torrent->tv_id);
+            $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tv_id))->get_trailer();
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->movie_meta && $torrent->movie_id) {
             $meta = Movie::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
@@ -109,8 +109,8 @@ class TorrentController extends Controller
                 'collection',
                 'recommendations'
             ])
-                ->find($torrent->tmdb);
-            $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
+                ->find($torrent->movie_id);
+            $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tv_id))->get_trailer();
         }
 
         if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
@@ -226,14 +226,14 @@ class TorrentController extends Controller
         $category = $torrent->category;
 
         // TMDB Meta
-        if ($torrent->tmdb != 0) {
+        if ($torrent->movie_id || $torrent->tv_id) {
             switch (true) {
                 case $category->tv_meta:
-                    (new TMDBScraper())->tv($torrent->tmdb);
+                    (new TMDBScraper())->tv($torrent->tv_id);
 
                     break;
                 case $category->movie_meta:
-                    (new TMDBScraper())->movie($torrent->tmdb);
+                    (new TMDBScraper())->movie($torrent->movie_id);
 
                     break;
             }

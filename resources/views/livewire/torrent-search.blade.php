@@ -672,11 +672,11 @@
                 </table>
                 <div class="panel__body torrent-search--poster__results">
                     @forelse ($torrents as $group)
-                        @switch ($group->meta)
-                            @case('movie')
+                        @switch (true)
+                            @case((bool) $group->movie_id)
                                 <x-movie.poster :media="$group" />
                                 @break
-                            @case('tv')
+                            @case((bool) $group->tv_id)
                                 <x-tv.poster :media="$group" />
                                 @break
                         @endswitch

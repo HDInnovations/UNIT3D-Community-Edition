@@ -56,38 +56,23 @@ class TorrentController extends BaseController
      */
     public function index(): TorrentsResource
     {
-        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor'])
-            ->select('*')
-            ->selectRaw("
-                    CASE
-                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                    END as meta
-                ")
+        $torrents = Torrent::with([
+            'user:id,username',
+            'category',
+            'type',
+            'resolution',
+            'region',
+            'distributor',
+            'movie' => [
+                'genres:name,movie_id'
+            ],
+            'tv' => [
+                'genres:name,tv_id',
+            ]
+        ])
             ->latest('sticky')
             ->latest('bumped_at')
             ->paginate(25);
-
-        $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
-        $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
-
-        $movies = Movie::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-        $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-
-        $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
-            switch ($torrent->meta) {
-                case 'movie':
-                    $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
-
-                    break;
-                case 'tv':
-                    $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
-
-                    break;
-            }
-
-            return $torrent;
-        });
 
         return new TorrentsResource($torrents);
     }
@@ -152,7 +137,8 @@ class TorrentController extends BaseController
         $torrent->user_id = $user->id;
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
-        $torrent->tmdb = $request->input('tmdb');
+        $torrent->movie_id = $category->movie_meta ? $request->integer('tmdb') : 0;
+        $torrent->tv_id = $category->tv_meta ? $request->integer('tmdb') : 0;
         $torrent->mal = $request->input('mal');
         $torrent->igdb = $request->input('igdb');
         $torrent->season_number = $request->input('season_number');
@@ -219,7 +205,8 @@ class TorrentController extends BaseController
             'user_id'          => 'required|exists:users,id',
             'imdb'             => 'required|numeric',
             'tvdb'             => 'required|numeric',
-            'tmdb'             => 'required|numeric',
+            'movie_id'         => 'required|numeric',
+            'tv_id'            => 'required|numeric',
             'mal'              => 'required|numeric',
             'igdb'             => 'required|numeric',
             'season_number'    => $seasonRule,
@@ -268,11 +255,11 @@ class TorrentController extends BaseController
 
         $tmdbScraper = new TMDBScraper();
 
-        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->tv_meta && $torrent->tv_id) {
             $tmdbScraper->tv($torrent->tmdb);
         }
 
-        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->movie_meta && $torrent->movie_id) {
             $tmdbScraper->movie($torrent->tmdb);
         }
 

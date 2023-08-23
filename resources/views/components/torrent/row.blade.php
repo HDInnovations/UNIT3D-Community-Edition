@@ -8,7 +8,7 @@
     data-torrent-id="{{ $torrent->id }}"
     data-igdb-id="{{ $torrent->igdb }}"
     data-imdb-id="{{ $torrent->imdb }}"
-    data-tmdb-id="{{ $torrent->tmdb }}"
+    data-tmdb-id="{{ $torrent->movie_id ?: $torrent->tv_id }}"
     data-tvdb-id="{{ $torrent->tvdb }}"
     data-mal-id="{{ $torrent->mal }}"
     data-category-id="{{ $torrent->category_id }}"
@@ -17,7 +17,7 @@
 >
     @if (auth()->user()->show_poster == 1)
         <td class="torrent-search--list__poster">
-            <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}">
+            <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->movie_id ?: $torrent->tv_id]) }}">
                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <img
                         src="{{ isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"

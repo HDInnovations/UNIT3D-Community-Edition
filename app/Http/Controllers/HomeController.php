@@ -109,23 +109,14 @@ class HomeController extends Controller
                                 ->where('seeder', '=', 1)
                                 ->whereNotNull('completed_at'),
                         ])
-                        ->selectRaw("
-                    CASE
-                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                    END as meta
-                ")
                         ->withCount(['thanks', 'comments'])
                         ->latest()
                         ->take(5)
                         ->get();
 
-                    $movieIds = $newest->where('meta', '=', 'movie')->pluck('tmdb');
-                    $tvIds = $newest->where('meta', '=', 'tv')->pluck('tmdb');
-                    $gameIds = $newest->where('meta', '=', 'game')->pluck('igdb');
+                    $movieIds = $newest->where('movie_id', '!=', 0)->whereNotNull('movie_id')->pluck('movie_id');
+                    $tvIds = $newest->where('tv_id', '!=', 0)->whereNotNull('tv_id')->pluck('tv_id');
+                    $gameIds = $newest->where('igdb', '!=', 0)->whereNotNull('igdb')->pluck('igdb');
 
                     $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
                     $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
@@ -136,11 +127,11 @@ class HomeController extends Controller
                     }
 
                     $newest = $newest->map(function ($torrent) use ($movies, $tv, $games) {
-                        $torrent->meta = match ($torrent->meta) {
-                            'movie' => $movies[$torrent->tmdb] ?? null,
-                            'tv'    => $tv[$torrent->tmdb] ?? null,
-                            'game'  => $games[$torrent->igdb] ?? null,
-                            default => null,
+                        $torrent->meta = match (true) {
+                            (bool) $torrent->movie_id => $movies[$torrent->movie_id] ?? null,
+                            (bool) $torrent->tv_id    => $tv[$torrent->tv_id] ?? null,
+                            (bool) $torrent->igdb     => $games[$torrent->igdb] ?? null,
+                            default                   => null,
                         };
 
                         return $torrent;
@@ -172,23 +163,14 @@ class HomeController extends Controller
                                 ->where('seeder', '=', 1)
                                 ->whereNotNull('completed_at'),
                         ])
-                        ->selectRaw("
-                    CASE
-                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                    END as meta
-                ")
                         ->withCount(['thanks', 'comments'])
                         ->latest('seeders')
                         ->take(5)
                         ->get();
 
-                    $movieIds = $seeded->where('meta', '=', 'movie')->pluck('tmdb');
-                    $tvIds = $seeded->where('meta', '=', 'tv')->pluck('tmdb');
-                    $gameIds = $seeded->where('meta', '=', 'game')->pluck('igdb');
+                    $movieIds = $seeded->where('movie_id', '!=', 0)->whereNotNull('movie_id')->pluck('movie_id');
+                    $tvIds = $seeded->where('tv_id', '!=', 0)->whereNotNull('tv_id')->pluck('tv_id');
+                    $gameIds = $seeded->where('igdb', '!=', 0)->whereNotNull('igdb')->pluck('igdb');
 
                     $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
                     $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
@@ -199,11 +181,11 @@ class HomeController extends Controller
                     }
 
                     $seeded = $seeded->map(function ($torrent) use ($movies, $tv, $games) {
-                        $torrent->meta = match ($torrent->meta) {
-                            'movie' => $movies[$torrent->tmdb] ?? null,
-                            'tv'    => $tv[$torrent->tmdb] ?? null,
-                            'game'  => $games[$torrent->igdb] ?? null,
-                            default => null,
+                        $torrent->meta = match (true) {
+                            (bool) $torrent->movie_id => $movies[$torrent->movie_id] ?? null,
+                            (bool) $torrent->tv_id    => $tv[$torrent->tv_id] ?? null,
+                            (bool) $torrent->igdb     => $games[$torrent->igdb] ?? null,
+                            default                   => null,
                         };
 
                         return $torrent;
@@ -235,25 +217,15 @@ class HomeController extends Controller
                                 ->where('seeder', '=', 1)
                                 ->whereNotNull('completed_at'),
                         ])
-                        ->selectRaw("
-                    CASE
-                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                    END as meta
-                ")
                         ->withCount(['thanks', 'comments'])
                         ->where('seeders', '=', 1)
                         ->where('times_completed', '>=', 1)
                         ->latest('leechers')
                         ->take(5)
                         ->get();
-
-                    $movieIds = $dying->where('meta', '=', 'movie')->pluck('tmdb');
-                    $tvIds = $dying->where('meta', '=', 'tv')->pluck('tmdb');
-                    $gameIds = $dying->where('meta', '=', 'game')->pluck('igdb');
+                    $movieIds = $dying->where('movie_id', '!=', 0)->whereNotNull('movie_id')->pluck('movie_id');
+                    $tvIds = $dying->where('tv_id', '!=', 0)->whereNotNull('tv_id')->pluck('tv_id');
+                    $gameIds = $dying->where('igdb', '!=', 0)->whereNotNull('igdb')->pluck('igdb');
 
                     $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
                     $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
@@ -264,11 +236,11 @@ class HomeController extends Controller
                     }
 
                     $dying = $dying->map(function ($torrent) use ($movies, $tv, $games) {
-                        $torrent->meta = match ($torrent->meta) {
-                            'movie' => $movies[$torrent->tmdb] ?? null,
-                            'tv'    => $tv[$torrent->tmdb] ?? null,
-                            'game'  => $games[$torrent->igdb] ?? null,
-                            default => null,
+                        $torrent->meta = match (true) {
+                            (bool) $torrent->movie_id => $movies[$torrent->movie_id] ?? null,
+                            (bool) $torrent->tv_id    => $tv[$torrent->tv_id] ?? null,
+                            (bool) $torrent->igdb     => $games[$torrent->igdb] ?? null,
+                            default                   => null,
                         };
 
                         return $torrent;
@@ -300,23 +272,14 @@ class HomeController extends Controller
                                 ->where('seeder', '=', 1)
                                 ->whereNotNull('completed_at'),
                         ])
-                        ->selectRaw("
-                    CASE
-                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                    END as meta
-                ")
                         ->withCount(['thanks', 'comments'])
                         ->latest('leechers')
                         ->take(5)
                         ->get();
 
-                    $movieIds = $leeched->where('meta', '=', 'movie')->pluck('tmdb');
-                    $tvIds = $leeched->where('meta', '=', 'tv')->pluck('tmdb');
-                    $gameIds = $leeched->where('meta', '=', 'game')->pluck('igdb');
+                    $movieIds = $leeched->where('movie_id', '!=', 0)->whereNotNull('movie_id')->pluck('movie_id');
+                    $tvIds = $leeched->where('tv_id', '!=', 0)->whereNotNull('tv_id')->pluck('tv_id');
+                    $gameIds = $leeched->where('igdb', '!=', 0)->whereNotNull('igdb')->pluck('igdb');
 
                     $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
                     $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
@@ -327,11 +290,11 @@ class HomeController extends Controller
                     }
 
                     $leeched = $leeched->map(function ($torrent) use ($movies, $tv, $games) {
-                        $torrent->meta = match ($torrent->meta) {
-                            'movie' => $movies[$torrent->tmdb] ?? null,
-                            'tv'    => $tv[$torrent->tmdb] ?? null,
-                            'game'  => $games[$torrent->igdb] ?? null,
-                            default => null,
+                        $torrent->meta = match (true) {
+                            (bool) $torrent->movie_id => $movies[$torrent->movie_id] ?? null,
+                            (bool) $torrent->tv_id    => $tv[$torrent->tv_id] ?? null,
+                            (bool) $torrent->igdb     => $games[$torrent->igdb] ?? null,
+                            default                   => null,
                         };
 
                         return $torrent;
@@ -363,24 +326,15 @@ class HomeController extends Controller
                                 ->where('seeder', '=', 1)
                                 ->whereNotNull('completed_at'),
                         ])
-                        ->selectRaw("
-                    CASE
-                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                    END as meta
-                ")
                         ->withCount(['thanks', 'comments'])
                         ->where('seeders', '=', 0)
                         ->latest('leechers')
                         ->take(5)
                         ->get();
 
-                    $movieIds = $dead->where('meta', '=', 'movie')->pluck('tmdb');
-                    $tvIds = $dead->where('meta', '=', 'tv')->pluck('tmdb');
-                    $gameIds = $dead->where('meta', '=', 'game')->pluck('igdb');
+                    $movieIds = $dead->where('movie_id', '!=', 0)->whereNotNull('movie_id')->pluck('movie_id');
+                    $tvIds = $dead->where('tv_id', '!=', 0)->whereNotNull('tv_id')->pluck('tv_id');
+                    $gameIds = $dead->where('igdb', '!=', 0)->whereNotNull('igdb')->pluck('igdb');
 
                     $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
                     $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
@@ -391,11 +345,11 @@ class HomeController extends Controller
                     }
 
                     $dead = $dead->map(function ($torrent) use ($movies, $tv, $games) {
-                        $torrent->meta = match ($torrent->meta) {
-                            'movie' => $movies[$torrent->tmdb] ?? null,
-                            'tv'    => $tv[$torrent->tmdb] ?? null,
-                            'game'  => $games[$torrent->igdb] ?? null,
-                            default => null,
+                        $torrent->meta = match (true) {
+                            (bool) $torrent->movie_id => $movies[$torrent->movie_id] ?? null,
+                            (bool) $torrent->tv_id    => $tv[$torrent->tv_id] ?? null,
+                            (bool) $torrent->igdb     => $games[$torrent->igdb] ?? null,
+                            default                   => null,
                         };
 
                         return $torrent;

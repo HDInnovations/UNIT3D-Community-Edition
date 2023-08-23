@@ -47,7 +47,7 @@ class FetchReleaseYears extends Command
 
         $torrents = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['category'])
-            ->select(['id', 'name', 'category_id', 'tmdb', 'release_year'])
+            ->select(['id', 'name', 'category_id', 'movie_id', 'tv_id', 'release_year'])
             ->whereNull('release_year')
             ->get();
 
@@ -65,7 +65,7 @@ class FetchReleaseYears extends Command
         foreach ($torrents as $torrent) {
             $meta = null;
 
-            if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+            if ($torrent->category->tv_meta && $torrent->tv_id) {
                 $meta = Tv::find($torrent->tmdb);
 
                 if (isset($meta->first_air_date) && substr($meta->first_air_date, 0, 4) > '1900') {
@@ -77,7 +77,7 @@ class FetchReleaseYears extends Command
                 }
             }
 
-            if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+            if ($torrent->category->movie_meta && $torrent->movie_id) {
                 $meta = Movie::find($torrent->tmdb);
 
                 if (isset($meta->release_date) && substr($meta->release_date, 0, 4) > '1900') {
