@@ -63,7 +63,9 @@
                         <td>
                             <x-user_tag :anon="false" :user="$note->staffuser" />
                         </td>
-                        <td>{{ $note->message }}</td>
+                        <td style="white-space: pre-wrap">
+                            {{ $note->message }}
+                        </td>
                         <td>
                             <time datetime="{{ $note->created_at }}" title="{{ $note->created_at }}">
                                 {{ $note->created_at->diffForHumans() }}
