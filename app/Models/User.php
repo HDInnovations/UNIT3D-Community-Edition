@@ -54,6 +54,7 @@ class User extends Authenticatable
     protected $casts = [
         'last_login'  => 'datetime',
         'last_action' => 'datetime',
+        'hidden'      => 'bool',
     ];
 
     /**
@@ -660,7 +661,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden == 1) {
+        if ($target->hidden) {
             return false;
         }
 
