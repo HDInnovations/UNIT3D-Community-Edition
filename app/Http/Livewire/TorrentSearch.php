@@ -182,7 +182,7 @@ class TorrentSearch extends Component
 
     final public function updatedView(): void
     {
-        $this->perPage = $this->view === 'card' ? 24 : 25;
+        $this->perPage = \in_array($this->view, ['card', 'poster']) ? 24 : 25;
     }
 
     final public function getPersonalFreeleechProperty()
