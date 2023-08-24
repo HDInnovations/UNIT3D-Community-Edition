@@ -1066,11 +1066,6 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Variable \\$games on left side of \\?\\? is never defined\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
 			count: 1
 			path: app/Http/Livewire/TvSearch.php
