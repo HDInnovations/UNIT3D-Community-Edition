@@ -300,7 +300,7 @@ class TorrentSearch extends Component
             $games[] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
         }
 
-        $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
+        $torrents = $torrents->through(function ($torrent) use ($movies, $tv, $games) {
             $torrent->meta = match ($torrent->meta) {
                 'movie' => $movies[$torrent->tmdb] ?? null,
                 'tv'    => $tv[$torrent->tmdb] ?? null,
