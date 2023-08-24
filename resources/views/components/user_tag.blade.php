@@ -9,6 +9,9 @@
     @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
         <span
             {{ $attributes->class('user-tag fas fa-eye-slash') }}
+            @if ($user->is_donor)
+                {{ $attributes->merge(['style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? '')] }}
+            @endif
             {{ $attributes->merge(['style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? '')]) }}
         >
             (
@@ -20,6 +23,9 @@
             >
                 {{ $user->username }}
             </a>
+            @if ($user->is_donor)
+                <i class="{{ config('other.font-awesome') }} fa-star text-gold" title="Donor"></i>
+            @endif
             {{ $appendedIcons ?? '' }}
             )
         </span>
@@ -31,6 +37,9 @@
 @else
     <span
         {{ $attributes->class('user-tag') }}
+        @if ($user->is_donor)
+            {{ $attributes->merge(['style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? '')] }}
+        @endif
         {{ $attributes->merge(['style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? '')]) }}
     >
         <a
@@ -41,6 +50,9 @@
         >
             {{ $user->username }}
         </a>
+        @if ($user->is_donor)
+            <i class="{{ config('other.font-awesome') }} fa-star text-gold" title="Donor"></i>
+        @endif
         {{ $appendedIcons ?? '' }}
     </span>
 @endif

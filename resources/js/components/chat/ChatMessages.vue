@@ -41,6 +41,13 @@
                         </a>
 
                         <i
+                            v-if="message.user && message.user.id > 1 && message.user.is_donor"
+                            title="Donor"
+                            class="fa fa-star text-gold"
+                        />
+                        </i>
+
+                        <i
                             v-if="message.user.id != 1 && canMod(message)"
                             @click="deleteMessage(message.id)"
                             title="Delete message"

@@ -275,7 +275,7 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,group_id,is_donor', 'user.group', 'category', 'type', 'resolution'])
             ->when($this->view === 'list', fn ($query) => $query->withCount(['thanks', 'comments']))
             ->withExists([
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
