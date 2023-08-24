@@ -284,6 +284,62 @@
         @endif
         @if (auth()->user()->group->is_modo)
             @livewire('user-notes', ['user' => $user])
+            @if ($user->application !== null)
+                <section class="panelV2">
+                    <h2 class="panel__heading">{{ __('staff.application') }}</h2>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('common.email') }}</th>
+                                    <th>{{ __('staff.application-type') }}</th>
+                                    <th>{{ __('common.created_at') }}</th>
+                                    <th>{{ __('common.status') }}</th>
+                                    <th>{{ __('common.action') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>{{ $user->application->email }}</td>
+                                <td>{{ $user->application->type }}</td>
+                                <td>
+                                    <time
+                                        datetime="{{ $user->application->created_at }}"
+                                        title={{ $user->application->created_at }}
+                                    >
+                                        {{ $user->application->created_at->diffForHumans() }}
+                                    </time>
+                                </td>
+                                <td>
+                                    @switch($user->application->status)
+                                        @case(\App\Models\Application::PENDING)
+                                            <span class="application--pending">Pending</span>
+                                            @break
+                                        @case(\App\Models\Application::APPROVED)
+                                            <span class="application--approved">Approved</span>
+                                            @break
+                                        @case(\App\Models\Application::REJECTED)
+                                            <span class="application--rejected">Rejected</span>
+                                            @break
+                                        @default
+                                            <span class="application--unknown">Unknown</span>
+                                    @endswitch
+                                </td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <a
+                                                class="form__button form__button--text"
+                                                href="{{ route('staff.applications.show', ['id' => $user->application->id]) }}">
+                                                {{ __('common.view') }}
+                                            </a>
+                                        </li>
+                                    </menu>
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            @endif
         @endif
         @if (auth()->user()->group->is_modo || auth()->user()->is($user))
             <section class="panelV2">

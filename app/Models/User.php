@@ -615,6 +615,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Has one application.
+     */
+    public function application(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
+    {
+        return $this->hasOneThrough(Application::class, Invite::class, 'accepted_by', 'email', 'id', 'email');
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool

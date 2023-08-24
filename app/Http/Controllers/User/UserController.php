@@ -34,6 +34,7 @@ class UserController extends Controller
     public function show(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user->load([
+            'application',
             'privacy',
             'userban' => ['banneduser', 'staffuser'],
             'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
