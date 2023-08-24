@@ -256,14 +256,18 @@ class TorrentController extends BaseController
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
+
         // Backup the files contained in the torrent
-        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
-            $torrentFile = new TorrentFile();
-            $torrentFile->name = $file['name'];
-            $torrentFile->size = $file['size'];
-            $torrentFile->torrent_id = $torrent->id;
-            $torrentFile->save();
-            unset($torrentFile);
+        $files = TorrentTools::getTorrentFiles($decodedTorrent);
+
+        foreach($files as &$file) {
+            $file['torrent_id'] = $torrent->id;
+        }
+
+        // Can't insert them all at once since some torrents have more files than mysql supports placeholders.
+        // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
+        foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
+            TorrentFile::insert($files->toArray());
         }
 
         $tmdbScraper = new TMDBScraper();
@@ -277,11 +281,14 @@ class TorrentController extends BaseController
         }
 
         // Torrent Keywords System
-        foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
-            $tag = new Keyword();
-            $tag->name = $keyword;
-            $tag->torrent_id = $torrent->id;
-            $tag->save();
+        $keywords = [];
+
+        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
+            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
+        }
+
+        foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
         }
 
         // check for trusted user and update torrent
