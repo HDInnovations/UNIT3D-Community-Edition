@@ -21,6 +21,6 @@ class DonationTransactionController extends Controller
      * Display All VIPs.
      */
     public function index(): void
-    {   
+    {
     }
 }
