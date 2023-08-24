@@ -14,9 +14,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
+    <li class="breadcrumbV2">
         <a href="#" class="breadcrumb__link">
-            Donation
+            Donations
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -29,9 +29,11 @@
         <header class="panel__header">
             <h2 class="panel__heading">VIP Users</h2>
             <div class="panel__actions">
-                <a href="{{ route('staff.donations.create') }}" class="form__button form__button--text">
-                    @lang('common.add') VIP
-                </a>
+                <div class="panel__action">
+                    <a href="{{ route('staff.donations.subscriptions.create') }}" class="form__button form__button--text">
+                        @lang('common.add') VIP
+                    </a>
+                </div>
             </div>
         </header>
         <div class="panel__body">
@@ -77,7 +79,7 @@
                                 <td>
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.donations.edit', ['id' => $vip->id]) }}"
+                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $vip->id]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -114,7 +116,7 @@
                         @foreach ($vips_active as $vip)
                             <tr>
                                 <td>
-                                    <a href="{{ route('users.show', ['username' => $vip->user->username]) }}">
+                                    <a href="{{ route('users.show', ['user' => $vip->user->username]) }}">
                                         {{ $vip->user->username }}
                                     </a>
                                     @if ($vip->user->is_donor && $vip->end_at == $curdate->toDateString())
@@ -144,7 +146,7 @@
                                 <td>
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.donations.edit', ['id' => $vip->id]) }}"
+                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $vip->id]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -181,7 +183,7 @@
                         @foreach ($vips_inactive as $vip)
                             <tr>
                                 <td>
-                                    <a href="{{ route('users.show', ['username' => $vip->user->username]) }}">
+                                    <a href="{{ route('users.show', ['user' => $vip->user->username]) }}">
                                         {{ $vip->user->username }}
                                     </a>
                                     @if ($vip->user->is_donor && !in_array($vip->user_id, $vips_active_arr) == true)

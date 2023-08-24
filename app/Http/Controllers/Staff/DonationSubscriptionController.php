@@ -55,7 +55,7 @@ class DonationSubscriptionController extends Controller
             ->pluck('user_id')
             ->toArray();
 
-        return view('Staff.donations.index', [
+        return view('Staff.donations.subscriptions.index', [
             'vips_active'     => $vips_active,
             'vips_upcoming'   => $vips_upcoming,
             'vips_inactive'   => $vips_inactive,
@@ -75,7 +75,7 @@ class DonationSubscriptionController extends Controller
         $curDate = Carbon::now();
         $vip_sub = DonationSubscription::findOrFail($id);
 
-        return view('Staff.donations.edit', [
+        return view('Staff.donations.subscriptions.edit', [
             'vip_sub' => $vip_sub,
             'curdate' => $curDate,
             'date'    => $curDate
@@ -104,12 +104,12 @@ class DonationSubscriptionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.vips.index')
+            return redirect()->route('staff.donations.subscriptions.index')
                 ->withErrors($v->errors());
         }
         $vip_sub->save();
 
-        return redirect()->route('staff.vips.index')
+        return redirect()->route('staff.donations.subscriptions.index')
             ->withSuccess('VIP Subscription Was Updated Successfully!');
     }
 
@@ -118,7 +118,7 @@ class DonationSubscriptionController extends Controller
      */
     public function create()
     {
-        return view('Staff.donations.create');
+        return view('Staff.donations.subscriptions.create');
     }
 
     /**
@@ -149,12 +149,12 @@ class DonationSubscriptionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.donations.index')
+            return redirect()->route('staff.donations.subscriptions.index')
                 ->withErrors($v->errors());
         }
         $vip->save();
 
-        return redirect()->route('staff.donations.index')
+        return redirect()->route('staff.donations.subscriptions.index')
             ->withSuccess('New VIP Subscription added!');
     }
 }
