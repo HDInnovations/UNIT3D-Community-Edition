@@ -1096,41 +1096,6 @@ parameters:
 			path: app/Http/Middleware/TwoStepAuth.php
 
 		-
-			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
-			count: 1
-			path: app/Http/Requests/Staff/ApproveApplicationRequest.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Illuminate\\\\Validation\\\\Rules\\\\Exists\\:\\:whereNot\\(\\) expects array\\|BackedEnum\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
-			count: 1
-			path: app/Http/Requests/Staff/DestroyDistributorRequest.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Illuminate\\\\Validation\\\\Rules\\\\Exists\\:\\:whereNot\\(\\) expects array\\|BackedEnum\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
-			count: 1
-			path: app/Http/Requests/Staff/DestroyRegionRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
-			count: 1
-			path: app/Http/Requests/Staff/RejectApplicationRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
-			count: 2
-			path: app/Http/Requests/Staff/UpdateModerationRequest.php
-
-		-
-			message: "#^Cannot access property \\$id on object\\|string\\.$#"
-			count: 1
-			path: app/Http/Requests/StorePollVoteRequest.php
-
-		-
-			message: "#^Cannot access property \\$multiple_choice on object\\|string\\.$#"
-			count: 1
-			path: app/Http/Requests/StorePollVoteRequest.php
-
-		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Jobs/ProcessMovieJob.php

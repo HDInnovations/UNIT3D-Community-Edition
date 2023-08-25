@@ -27,7 +27,7 @@ class DestroyRegionRequest extends FormRequest
         return [
             'region_id' => [
                 'required',
-                Rule::exists('regions', 'id')->whereNot('id', $region->id),
+                Rule::exists('regions', 'id')->whereNot('id', (string) $region->id),
             ],
         ];
     }
