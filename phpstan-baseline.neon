@@ -5596,62 +5596,12 @@ parameters:
 			path: app/Mail/DisableUser.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Application\\:\\:imageProofs\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Application.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Application\\:\\:moderated\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Application.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Application\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Application.php
 
@@ -5671,162 +5621,12 @@ parameters:
 			path: app/Models/ApplicationImageProof.php
 
 		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationImageProof\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
 			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:application\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/ApplicationUrlProof.php
 
 		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ApplicationUrlProof\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Article\\:\\:comments\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Article\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Article.php
 
@@ -5851,57 +5651,7 @@ parameters:
 			path: app/Models/Ban.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Ban\\:\\:staffuser\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ban.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ban\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Ban.php
 
@@ -5931,56 +5681,6 @@ parameters:
 			path: app/Models/BonTransactions.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Bookmark\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Bookmark.php
@@ -5991,107 +5691,7 @@ parameters:
 			path: app/Models/Bookmark.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Bot\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Bot.php
-
-		-
 			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:bot\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/BotTransaction.php
-
-		-
-			message: "#^Method App\\\\Models\\\\BotTransaction\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/BotTransaction.php
 
@@ -6101,57 +5701,7 @@ parameters:
 			path: app/Models/BotTransaction.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Category\\:\\:requests\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Category\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Category.php
 
@@ -6161,112 +5711,12 @@ parameters:
 			path: app/Models/Category.php
 
 		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ChatStatus.php
-
-		-
 			message: "#^Method App\\\\Models\\\\ChatStatus\\:\\:users\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/ChatStatus.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:messages\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Chatroom\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Chatroom.php
 
@@ -6296,57 +5746,7 @@ parameters:
 			path: app/Models/Comment.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Comment\\:\\:scopeParent\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Comment\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Comment.php
 
@@ -6386,57 +5786,7 @@ parameters:
 			path: app/Models/Credit.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Distributor\\:\\:requests\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Distributor\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Distributor.php
 
@@ -6471,56 +5821,6 @@ parameters:
 			path: app/Models/FailedLoginAttempt.php
 
 		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
 			message: "#^Method App\\\\Models\\\\FeaturedTorrent\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/FeaturedTorrent.php
@@ -6537,26 +5837,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Forum\\:\\:forums\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:getUserId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Models/Forum.php
 
@@ -6601,36 +5881,6 @@ parameters:
 			path: app/Models/Forum.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Forum\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Forum.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Forum\\:\\:sub_topics\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Forum.php
@@ -6649,56 +5899,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\Forum\\:\\:topics\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Forum.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/FreeleechToken.php
 
 		-
 			message: "#^Method App\\\\Models\\\\FreeleechToken\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -6721,62 +5921,12 @@ parameters:
 			path: app/Models/Genre.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Group\\:\\:isAllowed\\(\\) has parameter \\$object with no type specified\\.$#"
 			count: 1
 			path: app/Models/Group.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Group\\:\\:permissions\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Group\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Group.php
 
@@ -6801,79 +5951,9 @@ parameters:
 			path: app/Models/History.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Internal\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Internal.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Internal\\:\\:users\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Internal.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Invite\\:\\:receiver\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -6881,37 +5961,7 @@ parameters:
 			path: app/Models/Invite.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Invite\\:\\:sender\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Invite.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invite\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Invite.php
 
@@ -6951,57 +6001,7 @@ parameters:
 			path: app/Models/Language.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Like\\:\\:post\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Like\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Like.php
 
@@ -7009,56 +6009,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\Like\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Like.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\MediaLanguage\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/MediaLanguage.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Message\\:\\:bot\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -7146,42 +6096,7 @@ parameters:
 			path: app/Models/Network.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Note\\:\\:noteduser\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
 			count: 1
 			path: app/Models/Note.php
 
@@ -7191,92 +6106,7 @@ parameters:
 			path: app/Models/Note.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Notification\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Notification.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Occupation\\:\\:credits\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:getUserId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Models/Occupation.php
 
@@ -7286,139 +6116,9 @@ parameters:
 			path: app/Models/Occupation.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Occupation\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Occupation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Option\\:\\:poll\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Option\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Page\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Page.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Peer\\:\\:seed\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -7441,57 +6141,7 @@ parameters:
 			path: app/Models/Permission.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Permission\\:\\:group\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Permission.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Permission\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Permission.php
 
@@ -7601,107 +6251,7 @@ parameters:
 			path: app/Models/Person.php
 
 		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PersonalFreeleech\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Playlist\\:\\:comments\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Playlist\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Playlist.php
 
@@ -7721,57 +6271,7 @@ parameters:
 			path: app/Models/Playlist.php
 
 		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
 			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:playlist\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\PlaylistTorrent\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/PlaylistTorrent.php
 
@@ -7786,62 +6286,12 @@ parameters:
 			path: app/Models/PlaylistTorrent.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Poll\\:\\:options\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Poll.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Poll\\:\\:setTitleAttribute\\(\\) has parameter \\$title with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Poll.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Poll\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Poll.php
 
@@ -7871,57 +6321,7 @@ parameters:
 			path: app/Models/Post.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Post\\:\\:likes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Post.php
 
@@ -7976,57 +6376,7 @@ parameters:
 			path: app/Models/Recommendation.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Region\\:\\:requests\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Region\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Region.php
 
@@ -8034,41 +6384,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\Region\\:\\:torrents\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Region.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Report\\:\\:reported\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -8091,59 +6406,9 @@ parameters:
 			path: app/Models/Report.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Report\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Report.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Report\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Report.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Resolution\\:\\:requests\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
@@ -8151,74 +6416,9 @@ parameters:
 			path: app/Models/Resolution.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resolution\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Resolution\\:\\:torrents\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Resolution.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Resurrection.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Resurrection\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -8231,62 +6431,12 @@ parameters:
 			path: app/Models/Resurrection.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Rss\\:\\:getExpectedFieldsAttribute\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Rss.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Rss\\:\\:staff\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Rss\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Rss.php
 
@@ -8316,56 +6466,6 @@ parameters:
 			path: app/Models/Season.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Seedbox\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Seedbox.php
@@ -8377,41 +6477,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Subscription\\:\\:forum\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
 			count: 1
 			path: app/Models/Subscription.php
 
@@ -8446,21 +6511,6 @@ parameters:
 			path: app/Models/Subscription.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subscription\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Subscription\\:\\:topic\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Subscription.php
@@ -8471,57 +6521,7 @@ parameters:
 			path: app/Models/Subscription.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:language\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Subtitle.php
 
@@ -8534,56 +6534,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\Subtitle\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Subtitle.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Thank\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Thank.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Thank\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -8611,42 +6561,7 @@ parameters:
 			path: app/Models/Ticket.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Ticket\\:\\:priority\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
 			count: 1
 			path: app/Models/Ticket.php
 
@@ -8681,74 +6596,9 @@ parameters:
 			path: app/Models/Ticket.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Ticket\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketAttachment.php
 
 		-
 			message: "#^Method App\\\\Models\\\\TicketAttachment\\:\\:ticket\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -8761,132 +6611,12 @@ parameters:
 			path: app/Models/TicketAttachment.php
 
 		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketCategory\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TicketPriority\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Topic\\:\\:forum\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Topic.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Topic\\:\\:forumPermissions\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:getUserId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Models/Topic.php
 
@@ -8951,36 +6681,6 @@ parameters:
 			path: app/Models/Topic.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Topic\\:\\:subscribedUsers\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Topic.php
@@ -9027,26 +6727,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Torrent\\:\\:freeleechTokens\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:getUserId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Models/Torrent.php
 
@@ -9102,21 +6782,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Torrent\\:\\:region\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
 			count: 1
 			path: app/Models/Torrent.php
 
@@ -9641,21 +7306,6 @@ parameters:
 			path: app/Models/Torrent.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Torrent\\:\\:subtitles\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Torrent.php
@@ -9741,47 +7391,12 @@ parameters:
 			path: app/Models/TorrentRequest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
 			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:notifyRequester\\(\\) has parameter \\$payload with no type specified\\.$#"
 			count: 1
 			path: app/Models/TorrentRequest.php
 
 		-
 			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:notifyRequester\\(\\) has parameter \\$type with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
 			count: 1
 			path: app/Models/TorrentRequest.php
 
@@ -10281,21 +7896,6 @@ parameters:
 			path: app/Models/TorrentRequest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
 			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:torrent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/TorrentRequest.php
@@ -10316,57 +7916,7 @@ parameters:
 			path: app/Models/TorrentRequest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
 			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:request\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestBounty\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/TorrentRequestBounty.php
 
@@ -10376,57 +7926,7 @@ parameters:
 			path: app/Models/TorrentRequestBounty.php
 
 		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
 			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:request\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: "#^Method App\\\\Models\\\\TorrentRequestClaim\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/TorrentRequestClaim.php
 
@@ -10491,57 +7991,7 @@ parameters:
 			path: app/Models/TwoStepAuth.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Type\\:\\:requests\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Type.php
 
@@ -10901,56 +8351,6 @@ parameters:
 			path: app/Models/User.php
 
 		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/UserActivation.php
-
-		-
 			message: "#^Method App\\\\Models\\\\UserActivation\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/UserActivation.php
@@ -11026,57 +8426,7 @@ parameters:
 			path: app/Models/UserPrivacy.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Voter\\:\\:poll\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Voter\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Voter.php
 
@@ -11087,41 +8437,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Warning\\:\\:deletedBy\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
 			count: 1
 			path: app/Models/Warning.php
 
@@ -11141,21 +8456,6 @@ parameters:
 			path: app/Models/Warning.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Warning\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Warning.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Warning\\:\\:torrenttitle\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Warning.php
@@ -11171,109 +8471,9 @@ parameters:
 			path: app/Models/Watchlist.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Watchlist\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Watchlist.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:generate\\(\\) has parameter \\$action with no type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:generate\\(\\) has parameter \\$new with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:generate\\(\\) has parameter \\$old with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:getUserId\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:registerCreate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:registerDelete\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:registerUpdate\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:strip\\(\\) has parameter \\$data with no type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:strip\\(\\) has parameter \\$model with no type specified\\.$#"
-			count: 1
-			path: app/Models/Wish.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Wish\\:\\:strip\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Wish.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Wish\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
