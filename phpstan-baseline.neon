@@ -186,9 +186,14 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
-			path: app/Http/Controllers/TopicController.php
+			path: app/Jobs/ProcessMovieJob.php
+
+		-
+			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: app/Jobs/ProcessTvJob.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
@@ -564,16 +569,6 @@ parameters:
 			message: "#^Access to an undefined property App\\\\Livewire\\\\WatchlistSearch\\:\\:\\$users\\.$#"
 			count: 1
 			path: app/Livewire/WatchlistSearch.php
-
-		-
-			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMovieJob.php
-
-		-
-			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
-			count: 1
-			path: app/Jobs/ProcessTvJob.php
 
 		-
 			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
