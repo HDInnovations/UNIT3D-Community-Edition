@@ -1441,16 +1441,6 @@ parameters:
 			path: app/Jobs/ProcessTvJob.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
-			count: 1
-			path: app/Listeners/FailedLoginListener.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Listeners/FailedLoginListener.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
 			count: 1
 			path: app/Models/Comment.php
