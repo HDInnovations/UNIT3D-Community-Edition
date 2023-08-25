@@ -102,7 +102,7 @@ trait TwoStep
      *
      * @throws Exception
      */
-    private function checkTwoStepAuthStatus(int $userId): TwoStepAuth|\Illuminate\Database\Eloquent\Model
+    private function checkTwoStepAuthStatus(int $userId): TwoStepAuth
     {
         return TwoStepAuth::firstOrCreate(
             [
@@ -130,7 +130,7 @@ trait TwoStep
     protected function exceededTimeParser(DateTimeInterface $time): \Illuminate\Support\Collection
     {
         $tomorrow = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
-        $remaining = $time->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
+        $remaining = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans();
 
         $data = [
             'tomorrow'  => $tomorrow,

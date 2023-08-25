@@ -416,16 +416,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$authStatus\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Call to an undefined method DateTimeInterface\\:\\:addMinutes\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
 			count: 10
 			path: app/Http/Controllers/HomeController.php
@@ -1084,16 +1074,6 @@ parameters:
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:\\$users\\.$#"
 			count: 1
 			path: app/Http/Livewire/WatchlistSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$authStatus\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Call to an undefined method DateTimeInterface\\:\\:addMinutes\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
 
 		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
