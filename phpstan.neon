@@ -6,4 +6,4 @@ parameters:
         - app
         - resources
         - routes
-    level: 5
+    level: 6
