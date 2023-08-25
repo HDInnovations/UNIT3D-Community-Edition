@@ -13,12 +13,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-
 class Language
 {
-    use Auditable;
-
     /**
      * Get single flags view.
      */

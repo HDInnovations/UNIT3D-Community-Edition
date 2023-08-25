@@ -52,7 +52,7 @@ trait TorrentFilter
         );
     }
 
-    public function scopeOfUploader(Builder $query, string $username, \Illuminate\Contracts\Auth\Authenticatable $authenticatedUser = null): Builder
+    public function scopeOfUploader(Builder $query, string $username, User $authenticatedUser = null): Builder
     {
         $authenticatedUser ??= auth()->user();
 

@@ -291,14 +291,6 @@ class Torrent extends Model
     }
 
     /**
-     * Formats The Output Of The Media Info Dump.
-     */
-    public function getMediaInfo(): array
-    {
-        return (new MediaInfo())->parse($this->mediaInfo);
-    }
-
-    /**
      * Returns The Size In Human Format.
      */
     public function getSize(): string
