@@ -90,7 +90,7 @@ class TorrentController extends Controller
         $trailer = null;
         $platforms = null;
 
-        if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
             $meta = Tv::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
@@ -101,7 +101,7 @@ class TorrentController extends Controller
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
             $meta = Movie::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
@@ -113,7 +113,7 @@ class TorrentController extends Controller
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
-        if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
+        if ($torrent->category->game_meta && $torrent->igdb) {
             $meta = Game::with([
                 'cover'    => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],
@@ -163,12 +163,13 @@ class TorrentController extends Controller
                 ->mapWithKeys(fn ($cat) => [
                     $cat['id'] => [
                         'name' => $cat['name'],
-                        'type' => match (1) {
+                        'type' => match (true) {
                             $cat->movie_meta => 'movie',
                             $cat->tv_meta    => 'tv',
                             $cat->game_meta  => 'game',
                             $cat->music_meta => 'music',
-                            $cat->no_meta    => 'no'
+                            $cat->no_meta    => 'no',
+                            default          => 'no',
                         },
                     ]
                 ]),
@@ -324,7 +325,7 @@ class TorrentController extends Controller
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
-                    'type' => match (1) {
+                    'type' => match (true) {
                         $category->movie_meta => 'movie',
                         $category->tv_meta    => 'tv',
                         $category->game_meta  => 'game',

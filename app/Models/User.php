@@ -52,8 +52,14 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'last_login'  => 'datetime',
-        'last_action' => 'datetime',
+        'last_login'   => 'datetime',
+        'last_action'  => 'datetime',
+        'hidden'       => 'boolean',
+        'can_comment'  => 'boolean',
+        'can_download' => 'boolean',
+        'can_request'  => 'boolean',
+        'can_invite'   => 'boolean',
+        'can_upload'   => 'boolean',
     ];
 
     /**
@@ -668,7 +674,7 @@ class User extends Authenticatable
             return true;
         }
 
-        if ($target->hidden == 1) {
+        if ($target->getAttribute('hidden')) {
             return false;
         }
 

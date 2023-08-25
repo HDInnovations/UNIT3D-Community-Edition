@@ -73,12 +73,12 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Send Email
                 dispatch(new SendDeleteUserMail($user));
 
-                $user->can_upload = 0;
-                $user->can_download = 0;
-                $user->can_comment = 0;
-                $user->can_invite = 0;
-                $user->can_request = 0;
-                $user->can_chat = 0;
+                $user->can_upload = false;
+                $user->can_download = false;
+                $user->can_comment = false;
+                $user->can_invite = false;
+                $user->can_request = false;
+                $user->can_chat = false;
                 $user->group_id = $prunedGroup[0];
                 $user->deleted_by = 1;
                 $user->save();

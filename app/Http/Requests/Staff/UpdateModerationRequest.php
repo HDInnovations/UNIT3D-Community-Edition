@@ -36,11 +36,11 @@ class UpdateModerationRequest extends FormRequest
         return [
             'old_status' => [
                 'required',
-                Rule::in(Torrent::PENDING, Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED),
+                Rule::in([Torrent::PENDING, Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED]),
             ],
             'status' => [
                 'required',
-                Rule::in(Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED),
+                Rule::in([Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED]),
             ],
             'message' => [
                 Rule::requiredIf(\in_array($request->integer('status'), [Torrent::REJECTED, Torrent::POSTPONED])),

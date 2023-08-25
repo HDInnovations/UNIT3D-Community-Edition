@@ -45,11 +45,7 @@ class Forum extends Model
     {
         $children = $this->forums->pluck('id')->toArray();
 
-        if (\is_array($children)) {
-            return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
-        }
-
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
     }
 
     /**

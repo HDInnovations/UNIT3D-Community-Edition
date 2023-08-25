@@ -11,15 +11,6 @@ class TicketAttachment extends Model
     use Auditable;
     use HasFactory;
 
-    protected $appends = [
-        'full_disk_path',
-    ];
-
-    public function getFullDiskPathAttribute(): string
-    {
-        return $this->disk_path.''.$this->file_name;
-    }
-
     /**
      * Belongs To A User.
      */

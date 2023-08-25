@@ -23,6 +23,16 @@ class Like extends Model
     use HasFactory;
 
     /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array<string, string>
+     */
+    public $casts = [
+        'like'    => 'boolean',
+        'dislike' => 'boolean',
+    ];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

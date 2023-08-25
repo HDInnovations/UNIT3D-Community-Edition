@@ -41,7 +41,7 @@ class Comments extends Component
 
     protected ChatRepository $chatRepository;
 
-    public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
+    public ?User $user;
 
     public $model;
 
@@ -85,7 +85,7 @@ class Comments extends Component
 
     final public function postComment(): void
     {
-        if ($this->user->can_comment === 0) {
+        if ($this->user->can_comment === false) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;

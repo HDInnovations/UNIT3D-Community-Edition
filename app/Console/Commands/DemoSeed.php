@@ -253,10 +253,6 @@ Menu
                     break;
                 }
             }
-
-            if ($abort) {
-                break;
-            }
         }
 
         foreach ($this->tv_ids() as $id) {

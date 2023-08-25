@@ -291,14 +291,17 @@ class PersonCredit extends Component
                                                                         ->values()
                                                                 )
                                                         ),
+                                                    default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
                                                 })
                                         ),
+                                    default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
                                 });
                             $tv->put('category_id', $category_id);
 
                             return $tv;
                         }
                     ),
+                default => abort(500, 'Group found that isn\'t one of: movie, tv'),
             });
 
         $medias = collect();

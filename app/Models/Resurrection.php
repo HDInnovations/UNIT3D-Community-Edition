@@ -30,6 +30,15 @@ class Resurrection extends Model
     protected $guarded = [];
 
     /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'rewarded' => 'boolean',
+    ];
+
+    /**
      * Belongs To A User.
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

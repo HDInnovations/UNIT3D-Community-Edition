@@ -27,7 +27,7 @@ class DestroyDistributorRequest extends FormRequest
         return [
             'distributor_id' => [
                 'required',
-                Rule::exists('distributors', 'id')->whereNot('id', $distributor->id),
+                Rule::exists('distributors', 'id')->whereNot('id', (string) $distributor->id),
             ],
         ];
     }

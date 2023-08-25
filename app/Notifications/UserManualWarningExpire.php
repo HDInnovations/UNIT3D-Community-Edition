@@ -49,7 +49,7 @@ class UserManualWarningExpire extends Notification
         return [
             'title' => 'Manual Warning Expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
-            'url'   => sprintf('/users/%s', $this->user->usernamme),
+            'url'   => sprintf('/users/%s', $this->user->username),
         ];
     }
 }

@@ -26,7 +26,7 @@ class ApproveApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => Rule::in(Application::APPROVED),
+            'status' => Rule::in([Application::APPROVED]),
             'email'  => [
                 'required',
                 'string',

@@ -129,7 +129,7 @@ class TMDBScraper implements ShouldQueue
 
             Movie::updateOrCreate(['id' => $movie['id']], $array);
 
-            ProcessMovieJob::dispatch($movie, $id);
+            ProcessMovieJob::dispatch($movie);
 
             //return ['message' => 'Movies with id: ' . $id . ' Has been added  to the database, But relations are loaded with the queue'];
         }

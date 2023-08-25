@@ -59,21 +59,21 @@ class RequestController extends Controller
             'torrentRequest' => $torrentRequest->load(['category', 'claim' => ['user'], 'bounties', 'torrent']),
             'user'           => $request->user(),
             'meta'           => match (true) {
-                ($torrentRequest->category->tv_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) => Tv::with([
+                ($torrentRequest->category->tv_meta && $torrentRequest->tmdb) => Tv::with([
                     'genres',
                     'credits' => ['person', 'occupation'],
                     'networks',
                     'seasons'
                 ])
                     ->find($torrentRequest->tmdb),
-                ($torrentRequest->category->movie_meta && ($torrentRequest->tmdb || $torrentRequest->tmdb != 0)) => Movie::with([
+                ($torrentRequest->category->movie_meta && $torrentRequest->tmdb) => Movie::with([
                     'genres',
                     'credits' => ['person', 'occupation'],
                     'companies',
                     'collection'
                 ])
                     ->find($torrentRequest->tmdb),
-                ($torrentRequest->category->game_meta && ($torrentRequest->igdb || $torrentRequest->igdb != 0)) => Game::with([
+                ($torrentRequest->category->game_meta && $torrentRequest->igdb) => Game::with([
                     'cover'    => ['url', 'image_id'],
                     'artworks' => ['url', 'image_id'],
                     'genres'   => ['name'],
@@ -98,7 +98,7 @@ class RequestController extends Controller
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
-                    'type' => match (1) {
+                    'type' => match (true) {
                         $category->movie_meta => 'movie',
                         $category->tv_meta    => 'tv',
                         $category->game_meta  => 'game',

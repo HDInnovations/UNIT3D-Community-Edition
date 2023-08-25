@@ -326,7 +326,7 @@ class AnnounceController extends Controller
 
         // If User Download Rights Are Disabled Return Error to Client
         throw_if(
-            $user->can_download === 0 && $queries['left'] !== '0',
+            $user->can_download === false && $queries['left'] !== '0',
             new TrackerException(142)
         );
 

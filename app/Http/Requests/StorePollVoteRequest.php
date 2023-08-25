@@ -13,6 +13,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Poll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -35,6 +36,7 @@ class StorePollVoteRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
+        /** @var Poll $poll */
         $poll = $request->route('poll');
 
         return [

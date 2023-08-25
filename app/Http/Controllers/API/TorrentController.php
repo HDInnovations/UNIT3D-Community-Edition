@@ -181,8 +181,8 @@ class TorrentController extends BaseController
 
         // Set freeleech and doubleup if featured
         if ($torrent->featured == 1) {
-            $torrent->free = '100';
-            $torrent->doubleup = '1';
+            $torrent->free = 100;
+            $torrent->doubleup = true;
         }
 
         $resolutionRule = 'nullable|exists:resolutions,id';
@@ -272,11 +272,11 @@ class TorrentController extends BaseController
 
         $tmdbScraper = new TMDBScraper();
 
-        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
             $tmdbScraper->tv($torrent->tmdb);
         }
 
-        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
             $tmdbScraper->movie($torrent->tmdb);
         }
 

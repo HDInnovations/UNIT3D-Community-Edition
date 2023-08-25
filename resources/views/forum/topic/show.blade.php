@@ -154,7 +154,7 @@
                             </button>
                         </p>
                     </form>
-                    @if ($topic->pinned === 0)
+                    @if (! $topic->pinned)
                         <form class="form" action="{{ route('topics.pin', ['id' => $topic->id]) }}" method="POST">
                             @csrf
                             <p class="form__group form__group--horizontal">
@@ -188,7 +188,7 @@
                             id="approved-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->approved === 1)
+                            @checked($topic->approved)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="approved-label">{{ __('forum.approved') }}</label>
@@ -201,7 +201,7 @@
                             id="denied-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->denied === 1)
+                            @checked($topic->denied)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="denied-label">{{ __('forum.denied') }}</label>
@@ -214,7 +214,7 @@
                             id="solved-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->solved === 1)
+                            @checked($topic->solved)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="solved-label">{{ __('forum.solved') }}</label>
@@ -227,7 +227,7 @@
                             id="invalid-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->invalid === 1)
+                            @checked($topic->invalid)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="invalid-label">{{ __('forum.invalid') }}</label>
@@ -240,7 +240,7 @@
                             id="bug-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->bug === 1)
+                            @checked($topic->bug)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="bug-label">{{ __('forum.bug') }}</label>
@@ -253,7 +253,7 @@
                             id="suggestion-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->suggestion === 1)
+                            @checked($topic->suggestion)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="suggestion-label">{{ __('forum.suggestion') }}</label>
@@ -266,7 +266,7 @@
                             id="implemented-label"
                             class="form__checkbox"
                             type="checkbox"
-                            @checked($topic->implemented === 1)
+                            @checked($topic->implemented)
                             x-on:change="$el.form.submit()"
                         >
                         <label for="implemented-label">{{ __('forum.implemented') }}</label>

@@ -81,7 +81,7 @@ class HiddenCaptcha
     /**
      * Get and check the token values.
      */
-    private static function getToken(string $captcha): string|bool|array
+    private static function getToken(string $captcha): bool|array
     {
         // Get the token values
         try {
@@ -93,7 +93,7 @@ class HiddenCaptcha
         $token = @unserialize($token);
 
         // Token is null or unserializable
-        if (! $token || ! \is_array($token) || empty($token)) {
+        if (! $token || ! \is_array($token)) {
             return false;
         }
 

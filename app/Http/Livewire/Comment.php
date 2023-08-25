@@ -41,7 +41,7 @@ class Comment extends Component
 
     public $anon = false;
 
-    public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
+    public ?User $user;
 
     protected $listeners = [
         'refresh' => '$refresh',
@@ -113,7 +113,7 @@ class Comment extends Component
 
     final public function postReply(): void
     {
-        if (auth()->user()->can_comment === 0) {
+        if (auth()->user()->can_comment === false) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;

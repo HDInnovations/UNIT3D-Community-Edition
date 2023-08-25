@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * @method \Illuminate\Database\Eloquent\Builder<static> scopeWithAnyStatus(\Illuminate\Database\Eloquent\Builder $builder)
+ * @property string $info_hash
  */
 class Torrent extends Model
 {
@@ -45,9 +45,14 @@ class Torrent extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'igdb'         => 'integer',
         'fl_until'     => 'datetime',
         'du_until'     => 'datetime',
+        'doubleup'     => 'boolean',
+        'refundable'   => 'boolean',
+        'featured'     => 'boolean',
         'moderated_at' => 'datetime',
+        'sticky'       => 'boolean',
     ];
 
     /**
@@ -118,6 +123,22 @@ class Torrent extends Model
     public function region(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Region::class);
+    }
+
+    /**
+     * Belongs To A Movie.
+     */
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Movie::class, 'tmdb');
+    }
+
+    /**
+     * Belongs To A Tv.
+     */
+    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Tv::class, 'tmdb');
     }
 
     /**
@@ -272,14 +293,6 @@ class Torrent extends Model
     public function setMediaInfoAttribute(?string $value): void
     {
         $this->attributes['mediainfo'] = $value;
-    }
-
-    /**
-     * Formats The Output Of The Media Info Dump.
-     */
-    public function getMediaInfo(): array
-    {
-        return (new MediaInfo())->parse($this->mediaInfo);
     }
 
     /**

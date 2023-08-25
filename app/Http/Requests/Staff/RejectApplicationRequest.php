@@ -25,7 +25,7 @@ class RejectApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => Rule::in(Application::REJECTED),
+            'status' => Rule::in([Application::REJECTED]),
             'deny'   => 'required'
         ];
     }
