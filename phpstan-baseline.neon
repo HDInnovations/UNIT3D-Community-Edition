@@ -1601,11 +1601,6 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Job class App\\\\Jobs\\\\ProcessMovieJob constructor invoked with 2 parameters in App\\\\Jobs\\\\ProcessMovieJob\\:\\:dispatch\\(\\), 1 required\\.$#"
-			count: 1
-			path: app/Services/Tmdb/TMDBScraper.php
-
-		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php
