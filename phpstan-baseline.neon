@@ -1511,21 +1511,6 @@ parameters:
 			path: app/Models/TorrentRequest.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
-			count: 1
-			path: app/Notifications/StaffCommentCreated.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$ticket\\.$#"
-			count: 1
-			path: app/Notifications/UserCommentCreated.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$usernamme\\.$#"
-			count: 1
-			path: app/Notifications/UserManualWarningExpire.php
-
-		-
 			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
 			count: 1
 			path: app/Providers/CacheUserProvider.php
