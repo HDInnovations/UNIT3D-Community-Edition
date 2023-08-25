@@ -51,9 +51,9 @@ class SystemInformation
         if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
             preg_match('#^MemTotal: \s*(\d*)#m', (string) $content, $matches);
-            $total = $matches[1] * 1_024;
+            $total = ((int) $matches[1]) * 1_024;
             preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
-            $available = $matches[1] * 1_024;
+            $available = ((int) $matches[1]) * 1_024;
 
             return [
                 'total'     => $this->formatBytes($total),
@@ -73,7 +73,7 @@ class SystemInformation
     {
         $bytes = max($bytes, 0);
         $pow = floor(($bytes ? log($bytes) : 0) / log(1_024));
-        $pow = min($pow, (is_countable(self::UNITS) ? \count(self::UNITS) : 0) - 1);
+        $pow = min($pow, (\count(self::UNITS)) - 1);
         // Uncomment one of the following alternatives
         $bytes /= 1_024 ** $pow;
         // $bytes /= (1 << (10 * $pow));

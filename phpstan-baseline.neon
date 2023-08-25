@@ -271,51 +271,6 @@ parameters:
 			path: app/Events/MessageSent.php
 
 		-
-			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_DEFAULT with type string is incompatible with value 257\\.$#"
-			count: 1
-			path: app/Helpers/BackupEncryption.php
-
-		-
-			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_WINZIP_AES_128 with type string is incompatible with value 257\\.$#"
-			count: 1
-			path: app/Helpers/BackupEncryption.php
-
-		-
-			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_WINZIP_AES_192 with type string is incompatible with value 258\\.$#"
-			count: 1
-			path: app/Helpers/BackupEncryption.php
-
-		-
-			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_WINZIP_AES_256 with type string is incompatible with value 259\\.$#"
-			count: 1
-			path: app/Helpers/BackupEncryption.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\BackupPassword\\:\\:__construct\\(\\) with return type void returns string but should not return anything\\.$#"
-			count: 1
-			path: app/Helpers/BackupPassword.php
-
-		-
-			message: "#^Right side of \\|\\| is always true\\.$#"
-			count: 1
-			path: app/Helpers/Bencode.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\HiddenCaptcha\\:\\:getToken\\(\\) never returns string so it can be removed from the return type\\.$#"
-			count: 1
-			path: app/Helpers/HiddenCaptcha.php
-
-		-
-			message: "#^Variable \\$token in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: app/Helpers/HiddenCaptcha.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 1
 			path: app/Helpers/Markdown.php
@@ -324,36 +279,6 @@ parameters:
 			message: "#^Variable \\$text might not be defined\\.$#"
 			count: 2
 			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Parameter \\#2 \\$replace of function str_replace expects array\\|string, null given\\.$#"
-			count: 1
-			path: app/Helpers/MediaInfo.php
-
-		-
-			message: "#^PHPDoc tag @method has invalid value \\(timeElapsed\\)\\: Unexpected token \"\\\\n     \", expected '\\(' at offset 30$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^PHPDoc tag @method has invalid value \\(timeRemaining\\)\\: Unexpected token \"\\\\n     \", expected '\\(' at offset 32$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Binary operation \"\\*\" between string and 1024 results in an error\\.$#"
-			count: 2
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/Helpers/TorrentHelper.php
 
 		-
 			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$can_chat\\.$#"

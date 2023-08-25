@@ -341,7 +341,7 @@ class MediaInfo
 
     private function parseWidthHeight($string): string
     {
-        return str_replace(['pixels', ' '], null, strtolower($string));
+        return str_replace(['pixels', ' '], ' ', strtolower($string));
     }
 
     private function parseAudioChannels($string): array|string
