@@ -34,33 +34,32 @@ class DonationSubscriptionController extends Controller
 
         $curDate = Carbon::now();
 
-        $vips_upcoming = DonationSubscription::with('user')
-            ->where('start_at', '>=', $curDate->toDateString())
+        $subscriptionsupcoming = DonationSubscription::with('user')
+            ->where('start_at', '>', $curDate->toDateString())
             ->where('end_at', '>', $curDate->toDateString())
             ->orderBy('start_at')
             ->paginate(5);
-        $vips_active = DonationSubscription::with('user')
-            ->where('start_at', '<', $curDate->toDateString())
-            ->where('end_at', '>=', $curDate->toDateString())
-            ->orderBy('end_at')
+        $subscriptionsactive = DonationSubscription::with('user')
+            ->where('is_active', '=', True)
             ->paginate(25);
-        $vips_inactive = DonationSubscription::with('user')
+        $subscriptionsinactive = DonationSubscription::with('user')
             ->where('end_at', '<', $curDate->toDateString())
+            ->where('is_active', '=', False)
             ->orderBy('end_at', 'desc')
             ->paginate(10);
-        $vips_active_arr = DonationSubscription::with('user')
-            ->where('start_at', '<', $curDate->toDateString())
+        $subscriptionsActiveArray = DonationSubscription::join('users', 'users.id', 'donation_subscriptions.user_id')
+            ->where('is_donor', '=', True)
+            ->where('start_at', '<=', $curDate->toDateString())
             ->where('end_at', '>=', $curDate->toDateString())
-            ->orderBy('end_at')
             ->pluck('user_id')
             ->toArray();
 
         return view('Staff.donations.subscriptions.index', [
-            'vips_active'     => $vips_active,
-            'vips_upcoming'   => $vips_upcoming,
-            'vips_inactive'   => $vips_inactive,
-            'vips_active_arr' => $vips_active_arr,
-            'curdate'         => $curDate
+            'subscriptions_active'     => $subscriptionsactive,
+            'subscriptions_upcoming'   => $subscriptionsupcoming,
+            'subscriptions_inactive'   => $subscriptionsinactive,
+            'subscriptions_active_arr' => $subscriptionsActiveArray,
+            'curdate'                  => $curDate
         ]);
     }
 

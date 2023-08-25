@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('staff.vips') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Subscriptions - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('staff.vips') - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Subscriptions - @lang('staff.staff-dashboard')">
 @endsection
 
 @section('breadcrumbs')
@@ -24,10 +24,12 @@
     </li>
 @endsection
 
+@section('page', 'page__donations-subscriptions--index')
+
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">VIP Users</h2>
+            <h2 class="panel__heading">Donors</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <a href="{{ route('staff.donations.subscriptions.create') }}" class="form__button form__button--text">
@@ -51,35 +53,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vips_upcoming as $vip)
+                        @foreach ($subscriptions_upcoming as $subscription)
                             <tr>
                                 <td>
-                                    <a href="{{ route('users.show', ['user' => $vip->user->username]) }}">
-                                        {{ $vip->user->username }}
+                                    <a href="{{ route('users.show', ['user' => $subscription->user->username]) }}">
+                                        {{ $subscription->user->username }}
                                     </a>
                                 </td>
 
                                 <td>
                                     <span class="badge-user text-bold"
-                                        style="color:{{ $vip->user->group->color }}; background-image:{{ $vip->user->group->effect }};">
-                                        <i class="{{ $vip->user->group->icon }}" data-toggle="tooltip"
-                                            data-original-title="{{ $vip->user->group->name }}"></i>
-                                        {{ $vip->user->group->name }}
+                                        style="color:{{ $subscription->user->group->color }}; background-image:{{ $subscription->user->group->effect }};">
+                                        <i class="{{ $subscription->user->group->icon }}" data-toggle="tooltip"
+                                            data-original-title="{{ $subscription->user->group->name }}"></i>
+                                        {{ $subscription->user->group->name }}
                                     </span>
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($vip->start_at)) }}
+                                    {{ date('Y-m-d', strtotime($subscription->start_at)) }}
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($vip->end_at)) }}
+                                    {{ date('Y-m-d', strtotime($subscription->end_at)) }}
                                 </td>
 
                                 <td>
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $vip->id]) }}"
+                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $subscription->id]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -88,14 +90,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                @if (! $vips_upcoming->count())
+                @if (! $subscriptions_upcoming->count())
                     <div class="margin-10">
                         @lang('common.no-result')
                     </div>
                 @endif
                 <br>
                 <div class="text-center">
-                    {{ $vips_upcoming->links() }}
+                    {{ $subscriptions_upcoming->links() }}
                 </div>
             </div>
 
@@ -113,40 +115,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vips_active as $vip)
+                        @foreach ($subscriptions_active as $subscription)
                             <tr>
                                 <td>
-                                    <a href="{{ route('users.show', ['user' => $vip->user->username]) }}">
-                                        {{ $vip->user->username }}
+                                    <a href="{{ route('users.show', ['user' => $subscription->user->username]) }}">
+                                        {{ $subscription->user->username }}
                                     </a>
-                                    @if ($vip->user->is_donor && $vip->end_at == $curdate->toDateString())
+                                    @if ($subscription->user->is_donor && $subscription->end_at == $curdate->toDateString())
                                         <i class="fas fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Demoted today!"></i>
-                                    @elseif ($vip->user->is_donor === false)
+                                    @elseif ($subscription->user->is_donor === false)
                                         <i class="fas fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Shouln't this User be a VIP?"></i>
                                     @endif
                                 </td>
 
                                 <td>
                                     <span class="badge-user text-bold"
-                                        style="color:{{ $vip->user->group->color }}; background-image:{{ $vip->user->group->effect }};">
-                                        <i class="{{ $vip->user->group->icon }}" data-toggle="tooltip"
-                                            data-original-title="{{ $vip->user->group->name }}"></i>
-                                        {{ $vip->user->group->name }}
+                                        style="color:{{ $subscription->user->group->color }}; background-image:{{ $subscription->user->group->effect }};">
+                                        <i class="{{ $subscription->user->group->icon }}" data-toggle="tooltip"
+                                            data-original-title="{{ $subscription->user->group->name }}"></i>
+                                        {{ $subscription->user->group->name }}
                                     </span>
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($vip->start_at)) }}
+                                    {{ date('Y-m-d', strtotime($subscription->start_at)) }}
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($vip->end_at)) }}
+                                    {{ date('Y-m-d', strtotime($subscription->end_at)) }}
                                 </td>
 
                                 <td>
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $vip->id]) }}"
+                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $subscription->id]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -155,14 +157,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                @if (! $vips_active->count())
+                @if (! $subscriptions_active->count())
                     <div class="margin-10">
                         @lang('common.no-result')
                     </div>
                 @endif
                 <br>
                 <div class="text-center">
-                    {{ $vips_active->links() }}
+                    {{ $subscriptions_active->links() }}
                 </div>
             </div>
 
@@ -180,55 +182,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vips_inactive as $vip)
+                        @foreach ($subscriptions_inactive as $subscription)
                             <tr>
                                 <td>
-                                    <a href="{{ route('users.show', ['user' => $vip->user->username]) }}">
-                                        {{ $vip->user->username }}
+                                    <a href="{{ route('users.show', ['user' => $subscription->user->username]) }}">
+                                        {{ $subscription->user->username }}
                                     </a>
-                                    @if ($vip->user->is_donor && !in_array($vip->user_id, $vips_active_arr) == true)
+                                    @if ($subscription->user->is_donor && !in_array($subscription->user_id, $subscriptions_active_arr) == true)
                                         <i class="fas fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="User is still VIP but subscription has ended!"></i>
                                     @endif
                                 </td>
 
                                 <td>
                                     <span class="badge-user text-bold"
-                                        style="color:{{ $vip->user->group->color }}; background-image:{{ $vip->user->group->effect }};">
-                                        <i class="{{ $vip->user->group->icon }}" data-toggle="tooltip"
-                                            data-original-title="{{ $vip->user->group->name }}"></i>
-                                        {{ $vip->user->group->name }}
+                                        style="color:{{ $subscription->user->group->color }}; background-image:{{ $subscription->user->group->effect }};">
+                                        <i class="{{ $subscription->user->group->icon }}" data-toggle="tooltip"
+                                            data-original-title="{{ $subscription->user->group->name }}"></i>
+                                        {{ $subscription->user->group->name }}
                                     </span>
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($vip->start_at)) }}
+                                    {{ date('Y-m-d', strtotime($subscription->start_at)) }}
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($vip->end_at)) }}
-
-                                <td>
-                                    @if ($vip->user->is_donor && !in_array($vip->user_id, $vips_active_arr) == true)
-                                        <a
-                                            class="form__button form__button--text"
-                                            href="{{ route('user_setting', ['username' => $vip->user->username, 'id' => $vip->user->id]) }}"
-                                        >
-                                            Demote
-                                        </a>
-                                    @endif
+                                    {{ date('Y-m-d', strtotime($subscription->end_at)) }}
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                @if (! $vips_inactive->count())
+                @if (! $subscriptions_inactive->count())
                     <div class="margin-10">
                         @lang('common.no-result')
                     </div>
                 @endif
                 <br>
                 <div class="text-center">
-                    {{ $vips_inactive->links() }}
+                    {{ $subscriptions_inactive->links() }}
                 </div>
             </div>
         </div>
