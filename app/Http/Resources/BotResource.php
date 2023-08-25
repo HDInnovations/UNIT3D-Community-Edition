@@ -16,6 +16,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
+/**
+ * @mixin \App\Models\Bot
+ */
 class BotResource extends JsonResource
 {
     /**

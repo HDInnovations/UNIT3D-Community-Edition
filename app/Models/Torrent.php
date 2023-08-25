@@ -121,6 +121,22 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Movie.
+     */
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Movie::class, 'tmdb');
+    }
+
+    /**
+     * Belongs To A Tv.
+     */
+    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Tv::class, 'tmdb');
+    }
+
+    /**
      * Belongs To A Playlist.
      */
     public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
