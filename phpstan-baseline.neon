@@ -276,16 +276,6 @@ parameters:
 			path: app/Events/MessageSent.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontFlash\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontReport is not covariant with PHPDoc type array\\<int, class\\-string\\<Throwable\\>\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontReport\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
 			message: "#^PHPDoc tag @var for constant App\\\\Helpers\\\\BackupEncryption\\:\\:ENCRYPTION_DEFAULT with type string is incompatible with value 257\\.$#"
 			count: 1
 			path: app/Helpers/BackupEncryption.php
@@ -619,21 +609,6 @@ parameters:
 			message: "#^Match expression does not handle remaining value\\: true$#"
 			count: 1
 			path: app/Http/Controllers/User/TipController.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middleware is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middleware\\.$#"
-			count: 1
-			path: app/Http/Kernel.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middlewareAliases is not covariant with PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middlewareAliases\\.$#"
-			count: 1
-			path: app/Http/Kernel.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Kernel\\:\\:\\$middlewareGroups is not covariant with PHPDoc type array\\<string, array\\<int, string\\>\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Kernel\\:\\:\\$middlewareGroups\\.$#"
-			count: 1
-			path: app/Http/Kernel.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
@@ -1111,31 +1086,6 @@ parameters:
 			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\EncryptCookies\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Cookie\\\\Middleware\\\\EncryptCookies\\:\\:\\$except\\.$#"
-			count: 1
-			path: app/Http/Middleware/EncryptCookies.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\\:\\:\\$except\\.$#"
-			count: 1
-			path: app/Http/Middleware/PreventRequestsDuringMaintenance.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\TrimStrings\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\TrimStrings\\:\\:\\$except\\.$#"
-			count: 1
-			path: app/Http/Middleware/TrimStrings.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\TrustProxies\\:\\:\\$proxies is not covariant with PHPDoc type array\\<int, string\\>\\|string\\|null of overridden property Illuminate\\\\Http\\\\Middleware\\\\TrustProxies\\:\\:\\$proxies\\.$#"
-			count: 1
-			path: app/Http/Middleware/TrustProxies.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Middleware\\\\TrustProxies\\:\\:\\$proxies \\(array\\) does not accept default value of type string\\.$#"
-			count: 1
-			path: app/Http/Middleware/TrustProxies.php
-
-		-
 			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$authStatus\\.$#"
 			count: 1
 			path: app/Http/Middleware/TwoStepAuth.php
@@ -1144,11 +1094,6 @@ parameters:
 			message: "#^Call to an undefined method DateTimeInterface\\:\\:addMinutes\\(\\)\\.$#"
 			count: 1
 			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Http\\\\Middleware\\\\VerifyCsrfToken\\:\\:\\$except is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\VerifyCsrfToken\\:\\:\\$except\\.$#"
-			count: 1
-			path: app/Http/Middleware/VerifyCsrfToken.php
 
 		-
 			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, int given\\.$#"
@@ -1581,19 +1526,9 @@ parameters:
 			path: app/Notifications/UserManualWarningExpire.php
 
 		-
-			message: "#^PHPDoc type array of property App\\\\Providers\\\\AuthServiceProvider\\:\\:\\$policies is not covariant with PHPDoc type array\\<class\\-string, class\\-string\\> of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\AuthServiceProvider\\:\\:\\$policies\\.$#"
-			count: 1
-			path: app/Providers/AuthServiceProvider.php
-
-		-
 			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
 			count: 1
 			path: app/Providers/CacheUserProvider.php
-
-		-
-			message: "#^PHPDoc type array of property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen is not covariant with PHPDoc type array\\<string, array\\<int, string\\>\\> of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen\\.$#"
-			count: 1
-			path: app/Providers/EventServiceProvider.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
