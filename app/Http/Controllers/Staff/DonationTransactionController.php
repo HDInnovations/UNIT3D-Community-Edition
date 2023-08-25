@@ -14,13 +14,23 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Models\DonationTransaction;
+use Illuminate\Http\Request;
 
 class DonationTransactionController extends Controller
 {
     /**
-     * Display All VIPs.
+     * Display All Transactions.
      */
-    public function index(): void
+    public function index(Request $request)
     {
+        $user = $request->user();
+        abort_unless($user->group->is_modo, 403);
+        
+        $transactions = DonationTransaction::with(['user','item'])->orderBy('created_at')->get();
+
+        return view('Staff.donations.transactions.index', [
+            'transactions'     => $transactions
+        ]);
     }
 }
