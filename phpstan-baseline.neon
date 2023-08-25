@@ -411,11 +411,6 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept string\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -589,11 +584,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$sticky \\(int\\) does not accept string\\.$#"
 			count: 1
 			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
 
 		-
 			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
@@ -928,11 +918,6 @@ parameters:
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
 			count: 3
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
-			count: 2
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
@@ -1596,11 +1581,6 @@ parameters:
 			path: app/Notifications/UserManualWarningExpire.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
-			count: 5
-			path: app/Observers/TorrentObserver.php
-
-		-
 			message: "#^PHPDoc type array of property App\\\\Providers\\\\AuthServiceProvider\\:\\:\\$policies is not covariant with PHPDoc type array\\<class\\-string, class\\-string\\> of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\AuthServiceProvider\\:\\:\\$policies\\.$#"
 			count: 1
 			path: app/Providers/AuthServiceProvider.php
@@ -1624,11 +1604,6 @@ parameters:
 			message: "#^Job class App\\\\Jobs\\\\ProcessMovieJob constructor invoked with 2 parameters in App\\\\Jobs\\\\ProcessMovieJob\\:\\:dispatch\\(\\), 1 required\\.$#"
 			count: 1
 			path: app/Services/Tmdb/TMDBScraper.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Services/Unit3dAnnounce.php
 
 		-
 			message: "#^Undefined variable\\: \\$this$#"

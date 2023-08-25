@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * @method \Illuminate\Database\Eloquent\Builder<static> scopeWithAnyStatus(\Illuminate\Database\Eloquent\Builder $builder)
+ * @property string $info_hash
  */
 class Torrent extends Model
 {
