@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 @if ($user->group->is_modo)
-                    <th><input type="checkbox" wire:model="selectPage" style="vertical-align: middle;"></th>
+                    <th><input type="checkbox" wire:model.live="selectPage" style="vertical-align: middle;"></th>
                 @endif
                 <th class="torrents-filename" wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null" role="columnheader button">
                     {{ __('common.name') }}
@@ -59,7 +59,7 @@
                                                 id="torrent_checkbox_{{ $torrent->id }}"
                                                 type="checkbox"
                                                 value="{{ $torrent->id }}"
-                                                wire:model="checked"
+                                                wire:model.live="checked"
                                             >
                                         </td>
                                     </tr>

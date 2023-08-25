@@ -4,7 +4,7 @@
         <div class="panel__body">
             <div class="form__group--horizontal">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder=" " autofocus="">
+                    <input wire:model.live="name" class="form__text" placeholder=" " autofocus="">
                     <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
                 </p>
             </div>
@@ -14,7 +14,7 @@
                         <legend class="form__legend">{{ __('torrent.filters') }}</legend>
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
-                                <label style="user-select: none" class="form__label" x-data="{ state: @entangle('personalRelease'), ...ternaryCheckbox() }">
+                                <label style="user-select: none" class="form__label" x-data="{ state: @entangle('personalRelease').live, ...ternaryCheckbox() }">
                                     <input
                                         type="checkbox"
                                         class="user-uploads__checkbox"
@@ -34,25 +34,25 @@
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::PENDING }}" wire:model="status">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::PENDING }}" wire:model.live="status">
                                     {{ __('torrent.pending') }}
                                 </label>
                             </p>
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::APPROVED }}" wire:model="status">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::APPROVED }}" wire:model.live="status">
                                     {{ __('torrent.approved') }}
                                 </label>
                             </p>
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::REJECTED }}" wire:model="status">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::REJECTED }}" wire:model.live="status">
                                     {{ __('torrent.rejected') }}
                                 </label>
                             </p>
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::POSTPONED }}" wire:model="status">
+                                    <input class="user-uploads__checkbox" type="checkbox" value="{{ \App\Models\Torrent::POSTPONED }}" wire:model.live="status">
                                     Postponed
                                 </label>
                             </p>
@@ -65,7 +65,7 @@
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
-                                    <input type="checkbox" class="user-uploads__checkbox" wire:model="showMorePrecision">
+                                    <input type="checkbox" class="user-uploads__checkbox" wire:model.live="showMorePrecision">
                                     Show more precision
                                 </label>
                             </p>

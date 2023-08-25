@@ -2,9 +2,9 @@
 
 namespace Tests\Old;
 
-use App\Http\Livewire\PostSearch;
-use App\Http\Livewire\SubscribedForum;
-use App\Http\Livewire\TopicSearch;
+use App\Livewire\PostSearch;
+use App\Livewire\SubscribedForum;
+use App\Livewire\TopicSearch;
 use App\Models\Forum;
 use App\Models\Permission;
 use App\Models\User;

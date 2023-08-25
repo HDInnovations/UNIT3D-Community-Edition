@@ -11,7 +11,7 @@
                             id="sender"
                             class="form__text"
                             type="text"
-                            wire:model="sender"
+                            wire:model.live="sender"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="sender">
@@ -23,7 +23,7 @@
                             id="receiver"
                             class="form__text"
                             type="text"
-                            wire:model="receiver"
+                            wire:model.live="receiver"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="receiver">
@@ -35,7 +35,7 @@
                             id="email"
                             class="form__text"
                             type="text"
-                            wire:model="email"
+                            wire:model.live="email"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="email">
@@ -50,7 +50,7 @@
                             inputmode="numeric"
                             pattern="[0-9]*"
                             max="100"
-                            wire:model="threshold"
+                            wire:model.live="threshold"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="threshold">
@@ -58,7 +58,7 @@
                         </label>
                     </div>
                     <div class="form__group">
-                        <select id="groupBy" wire:model="groupBy" class="form__select" placeholder=" ">
+                        <select id="groupBy" wire:model.live="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_id">Sender</option>
                         </select>
@@ -69,7 +69,7 @@
                             id="code"
                             class="form__text"
                             type="text"
-                            wire:model="code"
+                            wire:model.live="code"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating">
@@ -81,7 +81,7 @@
                             id="code"
                             class="form__text"
                             type="text"
-                            wire:model="custom"
+                            wire:model.live="custom"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="custom">
@@ -92,7 +92,7 @@
                         <select
                             id="quantity"
                             class="form__select"
-                            wire:model="perPage"
+                            wire:model.live="perPage"
                             required
                         >
                             <option>25</option>

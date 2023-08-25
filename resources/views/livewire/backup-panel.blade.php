@@ -125,7 +125,7 @@
         </div>
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      document.addEventListener('livewire:load', function () {
+      document.addEventListener('livewire:init', function () {
         const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',

@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\PersonSearch;
+use App\Livewire\PersonSearch;
 use App\Models\Person;
 use App\Models\User;
 

@@ -8,7 +8,7 @@
                         id="sender"
                         class="form__text"
                         type="text"
-                        wire:model="sender"
+                        wire:model.live="sender"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="sender">
@@ -22,7 +22,7 @@
                         id="receiver"
                         class="form__text"
                         type="text"
-                        wire:model="receiver"
+                        wire:model.live="receiver"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="receiver">
@@ -36,7 +36,7 @@
                         id="comment"
                         class="form__text"
                         type="text"
-                        wire:model="comment"
+                        wire:model.live="comment"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="comment">
@@ -49,7 +49,7 @@
                     <select
                         id="quantity"
                         class="form__select"
-                        wire:model="perPage"
+                        wire:model.live="perPage"
                         required
                     >
                         <option>25</option>

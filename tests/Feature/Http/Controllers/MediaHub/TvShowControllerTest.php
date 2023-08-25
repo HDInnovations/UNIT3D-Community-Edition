@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\TvSearch;
+use App\Livewire\TvSearch;
 use App\Models\Tv;
 use App\Models\User;
 
