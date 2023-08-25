@@ -261,16 +261,6 @@ parameters:
 			path: app/Console/Commands/VendorCleanup.php
 
 		-
-			message: "#^Property App\\\\Events\\\\MessageEdited\\:\\:\\$message \\(App\\\\Models\\\\Message\\) does not accept App\\\\Http\\\\Resources\\\\ChatMessageResource\\.$#"
-			count: 1
-			path: app/Events/MessageEdited.php
-
-		-
-			message: "#^Property App\\\\Events\\\\MessageSent\\:\\:\\$message \\(App\\\\Models\\\\Message\\) does not accept App\\\\Http\\\\Resources\\\\ChatMessageResource\\.$#"
-			count: 1
-			path: app/Events/MessageSent.php
-
-		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 1
 			path: app/Helpers/Markdown.php
