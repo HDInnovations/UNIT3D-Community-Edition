@@ -96,7 +96,7 @@ class PageController extends Controller
     public function donate()
     {
         return view('page.donate', [
-            'items' => DonationItem::all()->sortBy('id'),
+            'items' => DonationItem::where('id', '>', '0')->orderBy('id')->get(),
         ]);
     }
 }

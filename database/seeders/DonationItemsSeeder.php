@@ -28,6 +28,17 @@ class DonationItemsSeeder extends Seeder
     {
         return [
             [
+                'id'          => 0,
+                'type'        => 'vip',
+                'name'        => '0 Month',
+                'description' => 'Custom amount of days',
+                'seedbonus'   => 0,
+                'uploaded'    => 0,
+                'invites'     => 0,
+                'days_active' => 0,
+                'price_usd'   => '0',
+            ],
+            [
                 'id'          => 1,
                 'type'        => 'vip',
                 'name'        => '1 Month',
