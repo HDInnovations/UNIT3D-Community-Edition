@@ -40,15 +40,15 @@ class DonationSubscriptionController extends Controller
             ->orderBy('start_at')
             ->paginate(5);
         $subscriptionsactive = DonationSubscription::with('user')
-            ->where('is_active', '=', True)
+            ->where('is_active', '=', true)
             ->paginate(25);
         $subscriptionsinactive = DonationSubscription::with('user')
             ->where('end_at', '<', $curDate->toDateString())
-            ->where('is_active', '=', False)
+            ->where('is_active', '=', false)
             ->orderBy('end_at', 'desc')
             ->paginate(10);
         $subscriptionsActiveArray = DonationSubscription::join('users', 'users.id', 'donation_subscriptions.user_id')
-            ->where('is_donor', '=', True)
+            ->where('is_donor', '=', true)
             ->where('start_at', '<=', $curDate->toDateString())
             ->where('end_at', '>=', $curDate->toDateString())
             ->pluck('user_id')

@@ -61,8 +61,8 @@ class DonationTransaction extends Model
     public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(DonationItem::class)->withDefault([
-            'id'    => '0',
-            'name'  => 'Custom'
+            'id'   => '0',
+            'name' => 'Custom'
         ]);
     }
 }
