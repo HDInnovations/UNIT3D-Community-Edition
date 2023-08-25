@@ -90,7 +90,7 @@ class TorrentController extends Controller
         $trailer = null;
         $platforms = null;
 
-        if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
             $meta = Tv::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
@@ -101,7 +101,7 @@ class TorrentController extends Controller
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
             $meta = Movie::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
@@ -113,7 +113,7 @@ class TorrentController extends Controller
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
-        if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
+        if ($torrent->category->game_meta && $torrent->igdb) {
             $meta = Game::with([
                 'cover'    => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],

@@ -156,29 +156,9 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$free \\(int\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Right side of \\|\\| is always false\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
 			count: 10
 			path: app/Http/Controllers/HomeController.php
-
-		-
-			message: "#^Match arm comparison between 1 and bool\\|null is always false\\.$#"
-			count: 2
-			path: app/Http/Controllers/PlaylistController.php
 
 		-
 			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$forum\\.$#"
@@ -196,54 +176,9 @@ parameters:
 			path: app/Http/Controllers/PostController.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of method MarcReichel\\\\IGDBLaravel\\\\Builder\\:\\:find\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/Http/Controllers/RequestController.php
-
-		-
-			message: "#^Right side of \\|\\| is always false\\.$#"
-			count: 2
-			path: app/Http/Controllers/RequestController.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(bool\\) does not accept int\\.$#"
-			count: 2
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Http/Controllers/SimilarTorrentController.php
-
-		-
-			message: "#^Parameter \\#2 \\$values of static method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\User\\>\\:\\:whereIntegerNotInRaw\\(\\) expects array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), mixed\\>, array\\{mixed, mixed, mixed, mixed\\} given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/MassActionController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/RssController.php
-
-		-
 			message: "#^Offset 0 does not exist on Illuminate\\\\Http\\\\Client\\\\Response\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/VersionController.php
-
-		-
-			message: "#^Parameter \\#2 \\$values of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\User\\>\\:\\:whereIntegerNotInRaw\\(\\) expects array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), mixed\\>, array\\{mixed, mixed, mixed, mixed\\} given\\.$#"
-			count: 3
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Parameter \\#2 \\$values of static method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\User\\>\\:\\:whereIntegerNotInRaw\\(\\) expects array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), mixed\\>, array\\{mixed, mixed, mixed, mixed\\} given\\.$#"
-			count: 1
-			path: app/Http/Controllers/StatsController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
@@ -254,86 +189,6 @@ parameters:
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$pinned \\(bool\\) does not accept int\\.$#"
-			count: 2
-			path: app/Http/Controllers/TopicController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$approved \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$bug \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$denied \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$implemented \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$invalid \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$solved \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Topic\\:\\:\\$suggestion \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicLabelController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept string\\.$#"
-			count: 4
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(bool\\) does not accept string\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$free \\(int\\) does not accept string\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$sticky \\(int\\) does not accept string\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method MarcReichel\\\\IGDBLaravel\\\\Builder\\:\\:find\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/ResurrectionController.php
-
-		-
-			message: "#^Match expression does not handle remaining value\\: true$#"
-			count: 1
-			path: app/Http/Controllers/User/TipController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"

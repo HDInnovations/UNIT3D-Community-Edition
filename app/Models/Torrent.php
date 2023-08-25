@@ -45,11 +45,14 @@ class Torrent extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'igdb'         => 'integer',
         'fl_until'     => 'datetime',
         'du_until'     => 'datetime',
-        'moderated_at' => 'datetime',
         'doubleup'     => 'boolean',
+        'refundable'   => 'boolean',
         'featured'     => 'boolean',
+        'moderated_at' => 'datetime',
+        'sticky'       => 'boolean',
     ];
 
     /**

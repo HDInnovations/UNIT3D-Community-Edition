@@ -77,7 +77,7 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
+        $torrent->sticky = ! $torrent->sticky;
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -137,9 +137,9 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         if ($torrent->featured == 0) {
-            $torrent->free = '100';
-            $torrent->doubleup = '1';
-            $torrent->featured = '1';
+            $torrent->free = 100;
+            $torrent->doubleup = true;
+            $torrent->featured = true;
             $torrent->save();
 
             Unit3dAnnounce::addTorrent($torrent);
@@ -175,9 +175,9 @@ class TorrentBuffController extends Controller
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->free = '0';
-        $torrent->doubleup = '0';
-        $torrent->featured = '0';
+        $torrent->free = 0;
+        $torrent->doubleup = false;
+        $torrent->featured = false;
         $torrent->save();
 
         Unit3dAnnounce::addTorrent($torrent);
@@ -205,8 +205,8 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
-        if ($torrent->doubleup == 0) {
-            $torrent->doubleup = '1';
+        if (! $torrent->doubleup) {
+            $torrent->doubleup = true;
             $du_until = $request->input('du_until');
 
             if ($du_until !== null) {
@@ -220,7 +220,7 @@ class TorrentBuffController extends Controller
                 );
             }
         } else {
-            $torrent->doubleup = '0';
+            $torrent->doubleup = false;
             $this->chatRepository->systemMessage(
                 sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrentUrl, $torrent->name)
             );
@@ -276,8 +276,8 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);
 
-        if ($torrent->refundable == 0) {
-            $torrent->refundable = 1;
+        if (! $torrent->refundable) {
+            $torrent->refundable = true;
 
             $this->chatRepository->systemMessage(
                 sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
