@@ -28,6 +28,15 @@ class Warning extends Model
     protected $guarded = [];
 
     /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
+    /**
      * Belongs To A Torrent.
      */
     public function torrenttitle(): \Illuminate\Database\Eloquent\Relations\BelongsTo

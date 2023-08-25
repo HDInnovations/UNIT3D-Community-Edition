@@ -185,7 +185,7 @@ class VendorCleanup extends Command
     /**
      * Prepare word.
      */
-    protected function prepareWord(string $matches): string
+    protected function prepareWord(array $matches): string
     {
         return '['.strtolower($matches[1]).strtoupper($matches[1]).']';
     }

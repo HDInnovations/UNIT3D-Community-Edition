@@ -78,7 +78,7 @@ class AutoPreWarning extends Command
                         $pre->user->notify(new UserPreWarning($pre->user, $pre->torrent));
 
                         // Set History Prewarn
-                        $pre->prewarn = 1;
+                        $pre->prewarn = true;
                         $pre->timestamps = false;
                         $pre->save();
                     }

@@ -52,9 +52,13 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'last_login'  => 'datetime',
-        'last_action' => 'datetime',
-        'can_comment' => 'boolean',
+        'last_login'   => 'datetime',
+        'last_action'  => 'datetime',
+        'can_comment'  => 'boolean',
+        'can_download' => 'boolean',
+        'can_request'  => 'boolean',
+        'can_invite'   => 'boolean',
+        'can_upload'   => 'boolean',
     ];
 
     /**

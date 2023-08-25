@@ -60,8 +60,8 @@ class AutoRemoveFeaturedTorrent extends Command
 
             if (isset($torrent)) {
                 $torrent->free = 0;
-                $torrent->doubleup = 0;
-                $torrent->featured = 0;
+                $torrent->doubleup = false;
+                $torrent->featured = false;
                 $torrent->save();
 
                 // Auto Announce Featured Expired

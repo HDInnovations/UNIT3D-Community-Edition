@@ -14,14 +14,13 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\BanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
+use App\Notifications\UserBan;
 use App\Rules\EmailBlacklist;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 use Exception;
 
 /**
@@ -87,7 +86,7 @@ class AutoBanDisposableUsers extends Command
                     $logban->save();
 
                     // Send Email
-                    Mail::to($user->email)->send(new BanUser($user->email, $logban));
+                    $user->notify(new UserBan($logban));
                 }
 
                 cache()->forget('user:'.$user->passkey);

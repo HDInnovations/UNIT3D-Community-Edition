@@ -86,164 +86,14 @@ parameters:
 			path: app/Bots/SystemBot.php
 
 		-
-			message: "#^Instantiated class App\\\\Mail\\\\BanUser not found\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$mailable of method Illuminate\\\\Mail\\\\PendingMail\\:\\:send\\(\\) expects Illuminate\\\\Contracts\\\\Mail\\\\Mailable, App\\\\Mail\\\\BanUser given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Warning\\:\\:\\$active \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDeactivateWarning.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between bool and 0 will always evaluate to false\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDeactivateWarning.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_chat \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_comment \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_invite \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_request \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_upload \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_invite \\(bool\\) does not accept int\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_request \\(bool\\) does not accept int\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
 
 		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$prewarn \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoPreWarning.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$doubleup \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoRemoveTimedTorrentBuffs.php
-
-		-
-			message: "#^Variable \\$torrent in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoRemoveTimedTorrentBuffs.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Resurrection\\:\\:\\$rewarded \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoRewardResurrection.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_chat \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_invite \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_request \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_upload \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Property App\\\\Models\\\\History\\:\\:\\$hitrun \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoWarning.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Warning\\:\\:\\$active \\(bool\\) does not accept string\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoWarning.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Warning\\:\\:\\$warned_by \\(int\\) does not accept string\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoWarning.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between bool and 1 will always evaluate to false\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoWarning.php
-
-		-
 			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
 			count: 2
 			path: app/Console/Commands/DemoSeed.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: app/Console/Commands/DemoSeed.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 2
-			path: app/Console/Commands/FetchReleaseYears.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -254,11 +104,6 @@ parameters:
 			message: "#^Property Illuminate\\\\Console\\\\Command\\:\\:\\$output \\(Illuminate\\\\Console\\\\OutputStyle\\) does not accept Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Parameter \\#1 \\$matches of method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:prepareWord\\(\\) expects string, array\\<int\\|string, string\\> given\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"

@@ -67,7 +67,7 @@ class AutoRewardResurrection extends Command
             }
 
             if (isset($history)) {
-                $resurrection->rewarded = 1;
+                $resurrection->rewarded = true;
                 $resurrection->save();
 
                 $user->fl_tokens += config('graveyard.reward');

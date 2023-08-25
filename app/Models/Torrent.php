@@ -48,6 +48,8 @@ class Torrent extends Model
         'fl_until'     => 'datetime',
         'du_until'     => 'datetime',
         'moderated_at' => 'datetime',
+        'doubleup'     => 'boolean',
+        'featured'     => 'boolean',
     ];
 
     /**

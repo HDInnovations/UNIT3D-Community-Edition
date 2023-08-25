@@ -42,6 +42,8 @@ class History extends Model
      */
     protected $casts = [
         'completed_at' => 'datetime',
+        'hitrun'       => 'boolean',
+        'prewarn'      => 'boolean',
     ];
 
     /**
