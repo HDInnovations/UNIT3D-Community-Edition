@@ -38,7 +38,6 @@ class PeerSearch extends Component
 
     protected $queryString = [
         'page'             => ['except' => 1],
-        'perPage'          => ['except' => ''],
         'duplicateIpsOnly' => ['except' => false],
         'includeSeedsize'  => ['except' => false],
         'perPage'          => ['except' => 25],

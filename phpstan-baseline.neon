@@ -191,11 +191,6 @@ parameters:
 			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
 
 		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_comment \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
 			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
@@ -441,11 +436,6 @@ parameters:
 			path: app/Http/Controllers/PostController.php
 
 		-
-			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
-			count: 5
-			path: app/Http/Controllers/RequestController.php
-
-		-
 			message: "#^Parameter \\#1 \\$id of method MarcReichel\\\\IGDBLaravel\\\\Builder\\:\\:find\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: app/Http/Controllers/RequestController.php
@@ -566,22 +556,7 @@ parameters:
 			path: app/Http/Controllers/TorrentBuffController.php
 
 		-
-			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
-			count: 10
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Match expression does not handle remaining value\\: 1$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
 			message: "#^Parameter \\#1 \\$id of method MarcReichel\\\\IGDBLaravel\\\\Builder\\:\\:find\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$size of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:chunk\\(\\) expects int, float given\\.$#"
 			count: 1
 			path: app/Http/Controllers/TorrentController.php
 
@@ -602,11 +577,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
-			count: 1
-			path: app/Http/Livewire/AttachmentUpload.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Http/Livewire/AttachmentUpload.php
 
@@ -636,29 +606,9 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Call to an undefined method Spatie\\\\Backup\\\\BackupDestination\\\\Backup\\:\\:size\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"
 			count: 1
 			path: app/Http/Livewire/CollectionSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 4
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between bool and 0 will always evaluate to false\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comment.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Comments\\:\\:\\$comments\\.$#"
@@ -666,34 +616,9 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$can_comment\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:\\$companies\\.$#"
 			count: 1
 			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Livewire/DislikeButton.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$dislike \\(bool\\|null\\) does not accept int\\.$#"
-			count: 1
-			path: app/Http/Livewire/DislikeButton.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLogins\\.$#"
@@ -726,16 +651,6 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Livewire/LikeButton.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Like\\:\\:\\$like \\(bool\\|null\\) does not accept int\\.$#"
-			count: 1
-			path: app/Http/Livewire/LikeButton.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$medias\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
@@ -762,11 +677,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:\\$peers\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: "#^Array has 2 duplicate keys with value 'perPage' \\('perPage', 'perPage'\\)\\.$#"
 			count: 1
 			path: app/Http/Livewire/PeerSearch.php
 
@@ -851,11 +761,6 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Match expression does not handle remaining values\\: \\(int\\|string\\)$#"
-			count: 3
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Movie\\:\\:\\$torrents is not writable\\.$#"
 			count: 1
 			path: app/Http/Livewire/PersonCredit.php
@@ -886,11 +791,6 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Match arm comparison between 1 and bool is always false\\.$#"
-			count: 3
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:\\$forums\\.$#"
 			count: 1
 			path: app/Http/Livewire/SubscribedForum.php
@@ -904,11 +804,6 @@ parameters:
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:\\$subtitles\\.$#"
 			count: 1
 			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 4
-			path: app/Http/Livewire/ThankButton.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Top10\\:\\:\\$personalFreeleech\\.$#"
@@ -1011,19 +906,14 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Match expression does not handle remaining value\\: mixed$#"
-			count: 3
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:ofName\\(\\)\\.$#"
+			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
 			count: 1
 			path: app/Http/Livewire/TvSearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$notes\\.$#"
@@ -1046,22 +936,7 @@ parameters:
 			path: app/Http/Livewire/UserTorrents.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
-			count: 4
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$uploads\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$created_at\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
 

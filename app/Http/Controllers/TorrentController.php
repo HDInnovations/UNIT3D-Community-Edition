@@ -163,12 +163,13 @@ class TorrentController extends Controller
                 ->mapWithKeys(fn ($cat) => [
                     $cat['id'] => [
                         'name' => $cat['name'],
-                        'type' => match (1) {
+                        'type' => match (true) {
                             $cat->movie_meta => 'movie',
                             $cat->tv_meta    => 'tv',
                             $cat->game_meta  => 'game',
                             $cat->music_meta => 'music',
-                            $cat->no_meta    => 'no'
+                            $cat->no_meta    => 'no',
+                            default          => 'no',
                         },
                     ]
                 ]),
@@ -324,7 +325,7 @@ class TorrentController extends Controller
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
-                    'type' => match (1) {
+                    'type' => match (true) {
                         $category->movie_meta => 'movie',
                         $category->tv_meta    => 'tv',
                         $category->game_meta  => 'game',

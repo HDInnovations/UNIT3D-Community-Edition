@@ -25,7 +25,7 @@ class UserActive extends Component
 {
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public int $perPage = 25;
 

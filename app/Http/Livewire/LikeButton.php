@@ -15,13 +15,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\User;
 use Livewire\Component;
 
 class LikeButton extends Component
 {
     public Post $post;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public int $likesCount;
 
@@ -51,7 +52,7 @@ class LikeButton extends Component
         $new = new Like();
         $new->user_id = $this->user->id;
         $new->post_id = $this->post->id;
-        $new->like = 1;
+        $new->like = true;
         $new->save();
 
         $this->likesCount += 1;

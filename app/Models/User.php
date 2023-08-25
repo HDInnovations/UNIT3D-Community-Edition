@@ -54,6 +54,7 @@ class User extends Authenticatable
     protected $casts = [
         'last_login'  => 'datetime',
         'last_action' => 'datetime',
+        'can_comment' => 'boolean',
     ];
 
     /**

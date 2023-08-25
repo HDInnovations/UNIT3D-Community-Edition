@@ -79,7 +79,7 @@ class BackupPanel extends Component
         return $backupDestination
             ->backups()
             ->map(function (Backup $backup) {
-                $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
+                $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : 0;
 
                 return [
                     'path' => $backup->path(),
