@@ -55,9 +55,9 @@
                             </td>
                             <td>
                                 @if ($transaction->confirmed)
-                                    <i class="{{ config('other.font-awesome') }} fa-circle-check text-green"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-circle-check text-green" title="Confirmed"></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-circle-question text-orange"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-circle-question text-orange" title="Unconfirmed"></i>
                                 @endif
                             </td>
                         </tr>
