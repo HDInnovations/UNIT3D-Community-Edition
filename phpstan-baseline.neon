@@ -5561,16 +5561,6 @@ parameters:
 			path: app/Jobs/SendActivationMail.php
 
 		-
-			message: "#^Method App\\\\Listeners\\\\FailedLoginListener\\:\\:handle\\(\\) has parameter \\$event with no type specified\\.$#"
-			count: 1
-			path: app/Listeners/FailedLoginListener.php
-
-		-
-			message: "#^Method App\\\\Listeners\\\\LoginListener\\:\\:handle\\(\\) has parameter \\$event with no type specified\\.$#"
-			count: 1
-			path: app/Listeners/LoginListener.php
-
-		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Article.php
