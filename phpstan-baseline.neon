@@ -5571,31 +5571,6 @@ parameters:
 			path: app/Listeners/LoginListener.php
 
 		-
-			message: "#^Method App\\\\Mail\\\\ActivateUser\\:\\:__construct\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Mail/ActivateUser.php
-
-		-
-			message: "#^Method App\\\\Mail\\\\Contact\\:\\:__construct\\(\\) has parameter \\$input with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Mail/Contact.php
-
-		-
-			message: "#^Method App\\\\Mail\\\\DeleteUser\\:\\:__construct\\(\\) has parameter \\$email with no type specified\\.$#"
-			count: 1
-			path: app/Mail/DeleteUser.php
-
-		-
-			message: "#^Method App\\\\Mail\\\\DenyApplication\\:\\:__construct\\(\\) has parameter \\$deniedMessage with no type specified\\.$#"
-			count: 1
-			path: app/Mail/DenyApplication.php
-
-		-
-			message: "#^Method App\\\\Mail\\\\DisableUser\\:\\:__construct\\(\\) has parameter \\$email with no type specified\\.$#"
-			count: 1
-			path: app/Mail/DisableUser.php
-
-		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Article.php
