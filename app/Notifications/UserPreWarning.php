@@ -21,8 +21,10 @@ class UserPreWarning extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via(mixed $notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database', 'mail'];
     }
@@ -30,7 +32,7 @@ class UserPreWarning extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         $profileUrl = href_profile($this->user);
 
@@ -43,8 +45,10 @@ class UserPreWarning extends Notification
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray(mixed $notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
             'title' => $this->torrent->name.' Pre Warning Received',

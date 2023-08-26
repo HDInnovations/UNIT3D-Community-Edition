@@ -35,6 +35,7 @@ class StoreTorrentRequestBountyRequest extends FormRequest
             'seedbonus' => [
                 'required',
                 'numeric',
+                'integer',
                 'min:100',
                 'max:'.$request->user()->seedbonus,
             ],

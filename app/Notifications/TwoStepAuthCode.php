@@ -13,6 +13,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -25,14 +26,16 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
     /**
      * TwoStepAuthCode Constructor.
      */
-    public function __construct(protected $user, protected $code)
+    public function __construct(protected User $user, protected string $code)
     {
     }
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
@@ -40,12 +43,12 @@ class TwoStepAuthCode extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
             ->from(config('auth.verificationEmailFrom'), config('auth.verificationEmailFromName'))
             ->subject(trans('auth.verificationEmailSubject'))
-            ->greeting(trans('auth.verificationEmailGreeting', ['username' => $this->user->name]))
+            ->greeting(trans('auth.verificationEmailGreeting', ['username' => $this->user->username]))
             ->line(trans('auth.verificationEmailMessage'))
             ->line($this->code)
             ->action(trans('auth.verificationEmailButton'), route('verificationNeeded'));
