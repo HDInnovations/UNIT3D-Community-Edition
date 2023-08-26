@@ -38,6 +38,8 @@ class Group extends Model
 
     /**
      * Has Many Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -46,21 +48,11 @@ class Group extends Model
 
     /**
      * Has Many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Permission::class);
-    }
-
-    /**
-     * Get the Group allowed answer as bool.
-     */
-    public function isAllowed($object, int $groupId): bool
-    {
-        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($groupId, $object['default_groups'])) {
-            return $object['default_groups'][$groupId] == 1;
-        }
-
-        return true;
     }
 }

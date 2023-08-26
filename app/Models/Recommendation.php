@@ -24,11 +24,17 @@ class Recommendation extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, self>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Movie::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Tv::class);

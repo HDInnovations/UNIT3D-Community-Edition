@@ -29,11 +29,17 @@ class Occupation extends Model
      */
     public $timestamps = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     */
     public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class, 'credits');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     */
     public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Credit::class);

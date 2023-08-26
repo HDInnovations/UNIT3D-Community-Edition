@@ -51,6 +51,8 @@ class Topic extends Model
 
     /**
      * Belongs To A Forum.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, self>
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -59,6 +61,8 @@ class Topic extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -67,6 +71,8 @@ class Topic extends Model
 
     /**
      * Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -75,6 +81,8 @@ class Topic extends Model
 
     /**
      * Has Many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -83,6 +91,8 @@ class Topic extends Model
 
     /**
      * Has One Permissions through Forum.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
      */
     public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -91,6 +101,8 @@ class Topic extends Model
 
     /**
      * Belongs to Many Subscribed Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
      */
     public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -99,6 +111,8 @@ class Topic extends Model
 
     /**
      * Latest post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Post>
      */
     public function latestPost(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -107,6 +121,8 @@ class Topic extends Model
 
     /**
      * Latest poster.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -116,7 +132,7 @@ class Topic extends Model
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      */
-    public function notifySubscribers($poster, $topic, $post): void
+    public function notifySubscribers(User $poster, Topic $topic, Post $post): void
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -135,7 +151,7 @@ class Topic extends Model
     /**
      * Notify Staffers When New Staff Post Is Made.
      */
-    public function notifyStaffers($poster, $topic, $post): void
+    public function notifyStaffers(User $poster, Topic $topic, Post $post): void
     {
         $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
             ->select('users.id')
@@ -163,7 +179,7 @@ class Topic extends Model
     /**
      * Notify Starter When An Action Is Taken.
      */
-    public function notifyStarter($poster, $topic, $post): bool
+    public function notifyStarter(User $poster, Topic $topic, Post $post): bool
     {
         $user = User::find($topic->first_post_user_id);
 

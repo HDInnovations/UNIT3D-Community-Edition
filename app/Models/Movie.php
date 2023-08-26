@@ -25,47 +25,66 @@ class Movie extends Model
 
     public $table = 'movie';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre>
+     */
     public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     */
     public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class, 'credits');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     */
     public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Credit::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     */
     public function directors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class, 'credits')
             ->wherePivot('occupation_id', '=', Occupations::DIRECTOR->value);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Company>
+     */
     public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Company::class);
     }
 
-    public function countries(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Company::class);
-    }
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Collection>
+     */
     public function collection(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Collection::class)->take(1);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Recommendation>
+     */
     public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Recommendation::class, 'movie_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
@@ -73,6 +92,9 @@ class Movie extends Model
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequest::class, 'tmdb', 'id')->whereHas('category', function ($q): void {

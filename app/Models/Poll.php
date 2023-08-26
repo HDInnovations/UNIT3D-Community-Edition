@@ -22,10 +22,17 @@ class Poll extends Model
     use Auditable;
     use HasFactory;
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
     protected $guarded = [];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -37,6 +44,8 @@ class Poll extends Model
 
     /**
      * A Poll Has Many Options.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Option>
      */
     public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -45,6 +54,8 @@ class Poll extends Model
 
     /**
      * A Poll Has Many Voters.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Voter>
      */
     public function voters(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -54,7 +65,7 @@ class Poll extends Model
     /**
      * Set The Poll's Title.
      */
-    public function setTitleAttribute($title): void
+    public function setTitleAttribute(string $title): void
     {
         $this->attributes['title'] = $title;
     }

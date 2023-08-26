@@ -78,6 +78,9 @@ class TwoStepAuth extends Model
 
     /**
      * Get a validator for an incoming Request.
+     *
+     * @param  array<string, string> $merge
+     * @return array<string, string>
      */
     public static function rules(array $merge = []): array
     {

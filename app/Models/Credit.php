@@ -35,21 +35,33 @@ class Credit extends Model
      */
     public $timestamps = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Occupation, self>
+     */
     public function occupation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Occupation::class, 'occupation_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Person, self>
+     */
     public function person(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Person::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Tv::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, self>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Movie::class);
