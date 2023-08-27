@@ -27,7 +27,7 @@ class DonationTransactionController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo, 403);
 
-        $transactions = DonationTransaction::with(['user','item'])->orderBy('created_at')->get();
+        $transactions = DonationTransaction::with(['user','item'])->orderBy('created_at', 'DESC')->get();
 
         return view('Staff.donations.transactions.index', [
             'transactions' => $transactions
