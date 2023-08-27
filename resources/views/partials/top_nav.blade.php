@@ -345,16 +345,16 @@
             >
                 <i class="{{ auth()->user()->group->icon }}"></i>
                 {{ auth()->user()->username }}
+                @if (auth()->user()->is_donor)
+                    <i class="{{ config('other.font-awesome') }} fa-star" 
+                        style="color: #f8e45c;"
+                        title="Donor"></i>
+                @endif
                 @if (auth()->user()->warnings()->active()->exists())
                     <i
                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                         title="{{ __('common.active-warning') }}"
                     ></i>
-                @endif
-                @if (auth()->user()->is_donor)
-                    <i class="{{ config('other.font-awesome') }} fa-star" 
-                        style="color: #f8e45c;"
-                        title="Donor"></i>
                 @endif
             </span>
         </a>
