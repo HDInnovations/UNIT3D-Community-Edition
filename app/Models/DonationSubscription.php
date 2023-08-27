@@ -47,10 +47,12 @@ class DonationSubscription extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);

@@ -22,7 +22,7 @@ class DonationTransactionController extends Controller
     /**
      * Display All Transactions.
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         abort_unless($user->group->is_modo, 403);

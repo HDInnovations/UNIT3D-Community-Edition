@@ -46,10 +46,12 @@ class DonationTransaction extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id')->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
@@ -57,10 +59,12 @@ class DonationTransaction extends Model
 
     /**
      * Belongs To A Item.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<DonationItem, self>
      */
     public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(DonationItem::class, 'donation_item_id')->withDefault([
+        return $this->belongsTo(DonationItem::class)->withDefault([
             'id'   => '0',
             'name' => 'Custom'
         ]);
