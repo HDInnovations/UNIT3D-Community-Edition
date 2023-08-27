@@ -27,7 +27,7 @@ class DonationSubscriptionController extends Controller
     /**
      * Display All VIPs.
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         abort_unless($user->group->is_modo, 403);
@@ -66,7 +66,7 @@ class DonationSubscriptionController extends Controller
     /**
      * Edit A VIP Subscription.
      */
-    public function edit(Request $request, int $id)
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -84,7 +84,7 @@ class DonationSubscriptionController extends Controller
     /**
      * Save a VIP Subscription change.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -115,7 +115,7 @@ class DonationSubscriptionController extends Controller
     /**
      * VIP Add Form.
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.donations.subscriptions.create');
     }
@@ -123,7 +123,7 @@ class DonationSubscriptionController extends Controller
     /**
      * Store A New VIP.
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         abort_unless($user->group->is_admin, 403);
@@ -148,12 +148,12 @@ class DonationSubscriptionController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff.donations.subscriptions.index')
+            return to_route('staff.donations.subscriptions.index')
                 ->withErrors($v->errors());
         }
         $vip->save();
 
-        return redirect()->route('staff.donations.subscriptions.index')
+        return to_route('staff.donations.subscriptions.index')
             ->withSuccess('New VIP Subscription added!');
     }
 }

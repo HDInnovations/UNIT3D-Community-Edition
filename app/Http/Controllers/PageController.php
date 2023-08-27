@@ -93,7 +93,7 @@ class PageController extends Controller
     /**
      * Show Donation Page.
      */
-    public function donate()
+    public function donate(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('page.donate', [
             'items' => DonationItem::where('id', '>', '0')->orderBy('id')->get(),
