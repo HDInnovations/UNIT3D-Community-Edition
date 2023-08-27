@@ -39,7 +39,7 @@ class DonationItemsSeeder extends Seeder
                 'price_usd'   => '0',
             ],
             [
-                'id'          => 1,
+                'id'          => 11,
                 'type'        => 'vip',
                 'name'        => '1 Month',
                 'description' => '',
@@ -50,7 +50,7 @@ class DonationItemsSeeder extends Seeder
                 'price_usd'   => '5.20',
             ],
             [
-                'id'          => 2,
+                'id'          => 12,
                 'type'        => 'vip',
                 'name'        => '3 Months',
                 'description' => '',
@@ -61,7 +61,7 @@ class DonationItemsSeeder extends Seeder
                 'price_usd'   => '10.40',
             ],
             [
-                'id'          => 3,
+                'id'          => 13,
                 'type'        => 'vip',
                 'name'        => '6 Months',
                 'description' => '',
@@ -72,7 +72,7 @@ class DonationItemsSeeder extends Seeder
                 'price_usd'   => '20.70',
             ],
             [
-                'id'          => 4,
+                'id'          => 14,
                 'type'        => 'vip',
                 'name'        => '12 Months',
                 'description' => '',
