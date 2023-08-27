@@ -48,7 +48,7 @@ class AutoDonationTransactions extends Command
 
         foreach ($unconfirmedTransactions as $transaction) {
             // Get array of payment status and details by nowpayments_invoice_id
-            $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&dateFrom=".Carbon::now()->format('Y-m-d')."&invoiceId=".$transaction->nowpayments_invoice_id;
+            $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&dateFrom=".$transaction->created_at."&invoiceId=".$transaction->nowpayments_invoice_id;
             $paymentStatus = Nowpayments::getListOfPayments($data);
 
             // Verify we filtered for the correct Payment from the API
