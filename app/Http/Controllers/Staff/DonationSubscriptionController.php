@@ -34,15 +34,15 @@ class DonationSubscriptionController extends Controller
 
         $curDate = Carbon::now();
 
-        $subscriptionsupcoming = DonationSubscription::with('user')
+        $subscriptionsUpcoming = DonationSubscription::with('user')
             ->where('start_at', '>', $curDate->toDateString())
             ->where('end_at', '>', $curDate->toDateString())
             ->orderBy('start_at')
             ->paginate(5);
-        $subscriptionsactive = DonationSubscription::with('user')
+        $subscriptionsActive = DonationSubscription::with('user')
             ->where('is_active', '=', true)
             ->paginate(25);
-        $subscriptionsinactive = DonationSubscription::with('user')
+        $subscriptionsInactive = DonationSubscription::with('user')
             ->where('end_at', '<', $curDate->toDateString())
             ->where('is_active', '=', false)
             ->orderBy('end_at', 'desc')
@@ -55,9 +55,9 @@ class DonationSubscriptionController extends Controller
             ->toArray();
 
         return view('Staff.donations.subscriptions.index', [
-            'subscriptions_active'     => $subscriptionsactive,
-            'subscriptions_upcoming'   => $subscriptionsupcoming,
-            'subscriptions_inactive'   => $subscriptionsinactive,
+            'subscriptions_active'     => $subscriptionsActive,
+            'subscriptions_upcoming'   => $subscriptionsUpcoming,
+            'subscriptions_inactive'   => $subscriptionsInactive,
             'subscriptions_active_arr' => $subscriptionsActiveArray,
             'curdate'                  => $curDate
         ]);
