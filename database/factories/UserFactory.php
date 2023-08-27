@@ -36,7 +36,7 @@ class UserFactory extends Factory
     {
         return [
             'username'            => $this->faker->unique()->userName(),
-            'email'               => $this->faker->unique()->safeEmail(),
+            'email'               => 'unit3d@protnmail.com',
             'password'            => Hash::make('password'),
             'passkey'             => md5(random_bytes(60)),
             'group_id'            => Group::factory(),
