@@ -42,27 +42,26 @@ class AutoDonationSubscriptions extends Command
     public function handle(): void
     {
         $curDate = Carbon::now();
-        $vipsDemote = DonationSubscription::where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
-        $vipsPromote = DonationSubscription::where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
+        $toDemote = DonationSubscription::where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
+        $toPromote = DonationSubscription::where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
 
-        // Demote VIP User
-        foreach ($vipsDemote as $vip) {
-            // Find The User
-            $user = User::findOrFail($vip->user_id);
+        // Demote a User
+        foreach ($toDemote as $donor) {
+            $user = User::findOrFail($donor->user_id);
+            $donationItem = DonationItem::find($donor->donation_item_id);
 
             $user->is_donor = false;
             $user->save();
 
-            $vip->is_active = false;
-            $vip->save();
+            $donor->is_active = false;
+            $donor->save();
 
             // Send Private Message
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
                 'receiver_id' => $user->id,
-                'subject'     => 'VIP Subscription ended',
-                'message'     => 'Your VIP subscription has ended recently. Your Rank has been reset and your VIP advantages disabled. 
-                                  The system will move you to the appropriate group within the next hours. 
+                'subject'     => 'Donation Subscription ended',
+                'message'     => 'Your subscription ('.$donationItem->name.') has ended recently and your donation perks have been disabled. 
 
                                   Thank you for your support!
 
@@ -70,13 +69,12 @@ class AutoDonationSubscriptions extends Command
             ]);
         }
 
-        // Promote VIP User
-        foreach ($vipsPromote as $vip) {
-            // Find The User
-            $user = User::findOrFail($vip->user_id);
+        // Promote a User
+        foreach ($toPromote as $donor) {
+            $user = User::findOrFail($donor->user_id);
+            $donationItem = DonationItem::find($donor->donation_item_id);
 
             // Add Gifts
-            $donationItem = DonationItem::find($vip->donation_item_id);
             $user->seedbonus += $donationItem->seedbonus ?? 0;
             $user->uploaded += $donationItem->uploaded ?? 0;
             $user->invites += $donationItem->invites ?? 0;
@@ -86,17 +84,17 @@ class AutoDonationSubscriptions extends Command
             $user->save();
 
             // Update donation subscription table
-            $vip->is_active = true;
-            $vip->is_gifted = true;
-            $vip->save();
+            $donor->is_active = true;
+            $donor->is_gifted = true;
+            $donor->save();
 
             // Send Private Message
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
                 'receiver_id' => $user->id,
-                'subject'     => 'VIP Subscription',
+                'subject'     => 'Donation Subscription',
                 'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]
-                                  Your VIP access has been activated and is valid through: '.$vip->end_at.' (YYYY-MM-DD)
+                                  Your subscription access has been activated and is valid through: '.$donor->end_at.' (YYYY-MM-DD)
                                   A total of '.$donationItem->seedbonus.' BON points, '
                                   .$donationItem->uploaded.' upload and '
                                   .$donationItem->invites.' invites have been added to your account. 
