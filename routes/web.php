@@ -33,7 +33,7 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 
-Route::any(config('nowpayments.path', 'laravel-nowpayments'), function() { return abort(404); });
+Route::any(config('nowpayments.path', 'laravel-nowpayments'), fn () => abort(404));
 
 Route::middleware('language')->group(function (): void {
     /*
