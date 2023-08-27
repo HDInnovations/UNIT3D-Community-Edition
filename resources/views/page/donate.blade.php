@@ -29,6 +29,7 @@
                 </div>
                 <div class="text-center oper-item card">
                     <span class="text-center">
+                        <p class="type">Type: {{ $item->type ?? 'N/A' }}</p>
                         <p class="price">${{ $item->price_usd }}@if ($item->id <= 2)<sup>2</sup>@endif</p>
                         <p class="adventage">{{ $item->seedbonus ?? 0 }} BON points</p>
                         <p class="adventage">{{ $item->upload ?? 0 }} Upload</p>

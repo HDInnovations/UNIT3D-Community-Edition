@@ -29,7 +29,7 @@ class DonationItemsSeeder extends Seeder
         return [
             [
                 'id'          => 0,
-                'type'        => 'vip',
+                'type'        => 'Freeleech',
                 'name'        => '0 Month',
                 'description' => 'Custom amount of days',
                 'seedbonus'   => 0,
@@ -40,7 +40,7 @@ class DonationItemsSeeder extends Seeder
             ],
             [
                 'id'          => 11,
-                'type'        => 'vip',
+                'type'        => 'Freeleech',
                 'name'        => '1 Month',
                 'description' => '',
                 'seedbonus'   => 1000,
@@ -51,7 +51,7 @@ class DonationItemsSeeder extends Seeder
             ],
             [
                 'id'          => 12,
-                'type'        => 'vip',
+                'type'        => 'Freeleech',
                 'name'        => '3 Months',
                 'description' => '',
                 'seedbonus'   => 2500,
@@ -62,7 +62,7 @@ class DonationItemsSeeder extends Seeder
             ],
             [
                 'id'          => 13,
-                'type'        => 'vip',
+                'type'        => 'Freeleech',
                 'name'        => '6 Months',
                 'description' => '',
                 'seedbonus'   => 6000,
@@ -73,7 +73,7 @@ class DonationItemsSeeder extends Seeder
             ],
             [
                 'id'          => 14,
-                'type'        => 'vip',
+                'type'        => 'Freeleech',
                 'name'        => '12 Months',
                 'description' => '',
                 'seedbonus'   => 15000,
