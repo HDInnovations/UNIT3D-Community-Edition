@@ -26,6 +26,8 @@ class Voter extends Model
 
     /**
      * Belongs To A Poll.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Poll, self>
      */
     public function poll(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -34,6 +36,8 @@ class Voter extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

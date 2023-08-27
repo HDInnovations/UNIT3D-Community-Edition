@@ -19,6 +19,8 @@ class UpdatePollRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(): array
     {
@@ -33,6 +35,8 @@ class UpdatePollRequest extends FormRequest
 
     /**
      * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
      */
     public function messages(): array
     {

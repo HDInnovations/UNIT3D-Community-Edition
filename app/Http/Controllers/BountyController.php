@@ -47,19 +47,19 @@ class BountyController extends Controller
         $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
         $torrentRequest->votes++;
-        $torrentRequest->bounty += $request->float('seedbonus');
+        $torrentRequest->bounty += $request->integer('seedbonus');
         $torrentRequest->created_at = Carbon::now();
         $torrentRequest->save();
 
         BonTransactions::create([
             'bon_exchange_id' => 0,
             'name'            => 'request',
-            'cost'            => $request->float('seedbonus'),
+            'cost'            => $request->integer('seedbonus'),
             'sender_id'       => $user->id,
             'comment'         => sprintf('adding bonus to %s', $torrentRequest->name),
         ]);
 
-        $user->decrement('seedbonus', $request->float('seedbonus'));
+        $user->decrement('seedbonus', $request->integer('seedbonus'));
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(
@@ -87,7 +87,7 @@ class BountyController extends Controller
         $requester = $torrentRequest->user;
 
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-            $requester->notify(new NewRequestBounty('torrent', $sender, $request->float('seedbonus'), $torrentRequest));
+            $requester->notify(new NewRequestBounty('torrent', $sender, $request->integer('seedbonus'), $torrentRequest));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])

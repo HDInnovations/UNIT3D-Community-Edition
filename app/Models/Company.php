@@ -26,11 +26,17 @@ class Company extends Model
 
     public $table = 'companies';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class);

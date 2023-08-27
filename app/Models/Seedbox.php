@@ -33,6 +33,8 @@ class Seedbox extends Model
 
     /**
      * The Attributes That Are Encrypted.
+     *
+     * @var string[]
      */
     protected array $encryptable = [
         'ip',
@@ -42,6 +44,8 @@ class Seedbox extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

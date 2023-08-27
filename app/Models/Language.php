@@ -57,8 +57,10 @@ class Language
     /**
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
+     *
+     * @return bool|array<string, string>
      */
-    public static function allowed($locale = null): bool|array
+    public static function allowed(string $locale = null): bool|array
     {
         if ($locale) {
             return \array_key_exists($locale, self::allowed());
@@ -73,6 +75,9 @@ class Language
 
     /**
      * Add names to an array of language codes as [$code => $language].
+     *
+     * @param  array<string>         $codes
+     * @return array<string, string>
      */
     public static function names(array $codes): array
     {
@@ -102,6 +107,9 @@ class Language
 
     /**
      * Add names to an array of language codes as [$language => $code].
+     *
+     * @param  array<string>         $langs
+     * @return array<string, string>
      */
     public static function codes(array $langs): array
     {

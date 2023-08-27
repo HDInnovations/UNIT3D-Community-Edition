@@ -50,6 +50,8 @@ class Category extends Model
 
     /**
      * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -58,6 +60,8 @@ class Category extends Model
 
     /**
      * Has Many Requests.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

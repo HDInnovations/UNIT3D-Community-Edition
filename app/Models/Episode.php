@@ -28,6 +28,9 @@ class Episode extends Model
 
     public $table = 'episodes';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, self>
+     */
     public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class)

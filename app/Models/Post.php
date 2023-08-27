@@ -33,6 +33,8 @@ class Post extends Model
 
     /**
      * Belongs To A Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -41,6 +43,8 @@ class Post extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -52,6 +56,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Likes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -60,6 +66,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Dislikes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -68,6 +76,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -76,6 +86,8 @@ class Post extends Model
 
     /**
      * A Post Author Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
      */
     public function authorPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -84,6 +96,8 @@ class Post extends Model
 
     /**
      * A Post Author Has Many Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

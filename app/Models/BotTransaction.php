@@ -31,6 +31,8 @@ class BotTransaction extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -42,6 +44,8 @@ class BotTransaction extends Model
 
     /**
      * Belongs To A Bot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, self>
      */
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

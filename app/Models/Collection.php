@@ -26,11 +26,17 @@ class Collection extends Model
 
     protected $table = 'collection';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class);

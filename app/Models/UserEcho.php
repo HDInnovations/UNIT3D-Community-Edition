@@ -36,6 +36,8 @@ class UserEcho extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -44,6 +46,8 @@ class UserEcho extends Model
 
     /**
      * Belongs To A Chatroom.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
      */
     public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -52,6 +56,8 @@ class UserEcho extends Model
 
     /**
      * Belongs To A Target.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function target(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -60,6 +66,8 @@ class UserEcho extends Model
 
     /**
      * Belongs To A Bot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, self>
      */
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
