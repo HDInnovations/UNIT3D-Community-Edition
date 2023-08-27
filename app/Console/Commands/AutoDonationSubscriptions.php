@@ -79,7 +79,7 @@ class AutoDonationSubscriptions extends Command
             $user->uploaded += $donationItem->uploaded ?? 0;
             $user->invites += $donationItem->invites ?? 0;
 
-            // Set user as donor if item has "days_active"
+            // Set user as donor (and grant freeleech) if item has "days_active"
             if ($donationItem->days_active > 0) {
                 $user->is_donor = true;
                 $user->save();
