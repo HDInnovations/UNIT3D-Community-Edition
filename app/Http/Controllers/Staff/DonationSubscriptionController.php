@@ -35,7 +35,8 @@ class DonationSubscriptionController extends Controller
         $curDate = Carbon::now();
 
         $subscriptionsUpcoming = DonationSubscription::with('user')
-            ->where('start_at', '>', $curDate->toDateString())
+            ->where('start_at', '>=', $curDate->toDateString())
+            ->where('is_active', '=', false)
             ->where('end_at', '>', $curDate->toDateString())
             ->orderBy('start_at')
             ->paginate(5);
