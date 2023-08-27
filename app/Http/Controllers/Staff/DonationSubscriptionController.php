@@ -44,7 +44,7 @@ class DonationSubscriptionController extends Controller
             ->where('is_active', '=', true)
             ->paginate(25);
         $subscriptionsInactive = DonationSubscription::with('user')
-            ->where('end_at', '<', $curDate->toDateString())
+            ->where('end_at', '<=', $curDate->toDateString())
             ->where('is_active', '=', false)
             ->orderBy('end_at', 'desc')
             ->paginate(10);
