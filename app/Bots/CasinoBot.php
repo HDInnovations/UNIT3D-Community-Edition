@@ -27,39 +27,31 @@ use Exception;
 
 class CasinoBot
 {
-    private $bot;
-
-    private $chat;
+    private Bot $bot;
 
     private ?\App\Models\User $target = null;
 
-    private $type;
+    private string $type;
 
     private ?string $message = null;
-
-    private ?int $targeted = null;
 
     private ?string $log = null;
 
     private readonly \Illuminate\Support\Carbon $expiresAt;
-
-    private readonly \Illuminate\Support\Carbon $current;
 
     /**
      * NerdBot Constructor.
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
-        $bot = Bot::findOrFail(3);
-        $this->bot = $bot;
+        $this->bot = Bot::findOrFail(3);
         $this->expiresAt = Carbon::now()->addMinutes(60);
-        $this->current = Carbon::now();
     }
 
     /**
      * Replace Vars.
      */
-    public function replaceVars($output): array|string
+    public function replaceVars(?string $output): string
     {
         $output = str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
 
@@ -80,12 +72,12 @@ class CasinoBot
     /**
      * Send Bot Donation.
      *
-     *
+     * @param  array<string> $note
      * @throws Exception
      */
-    public function putDonate(int $amount = 0, string $note = ''): string
+    public function putDonate(float $amount = 0, array $note = ['']): string
     {
-        $output = implode($note, ' ');
+        $output = implode(' ', $note);
         $v = validator(['bot_id' => $this->bot->id, 'amount' => $amount, 'note' => $output], [
             'bot_id' => 'required|exists:bots,id|max:999',
             'amount' => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
@@ -105,7 +97,7 @@ class CasinoBot
             $botTransaction->cost = $value;
             $botTransaction->user_id = $this->target->id;
             $botTransaction->bot_id = $this->bot->id;
-            $botTransaction->to_bot = 1;
+            $botTransaction->to_bot = true;
             $botTransaction->comment = $output;
             $botTransaction->save();
 
@@ -147,7 +139,7 @@ class CasinoBot
     /**
      * Get Help.
      */
-    public function getHelp(): array|string
+    public function getHelp(): string
     {
         return $this->replaceVars($this->bot->help);
     }
@@ -157,18 +149,16 @@ class CasinoBot
      *
      * @throws Exception
      */
-    public function process($type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
+    public function process(string $type, User $user, string $message = '', int $targeted = 0): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool
     {
         $this->target = $user;
 
-        if ($type == 'message') {
+        if ($type === 'message') {
             $x = 0;
             $y = 1;
-            $z = 2;
         } else {
             $x = 1;
             $y = 2;
-            $z = 3;
         }
 
         if ($message === '') {
@@ -182,7 +172,7 @@ class CasinoBot
         $wildcard = null;
         $params = $command[$y] ?? null;
 
-        if ($params != null) {
+        if ($params) {
             $clone = $command;
             array_shift($clone);
             array_shift($clone);
@@ -196,11 +186,10 @@ class CasinoBot
             }
 
             if ($command[$x] === 'donate') {
-                $log = $this->putDonate($params, $wildcard);
+                $log = $this->putDonate((float) $params, $wildcard);
             }
         }
 
-        $this->targeted = $targeted;
         $this->type = $type;
         $this->message = $message;
         $this->log = $log;
@@ -217,21 +206,22 @@ class CasinoBot
         $target = $this->target;
         $txt = $this->log;
         $message = $this->message;
-        $targeted = $this->targeted;
 
-        if ($type == 'message' || $type == 'private') {
-            $receiverDirty = 0;
+        if ($type === 'message' || $type === 'private') {
+            $receiverDirty = false;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
 
-            if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
-                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+            if (! $receiverEchoes || ! \is_array($receiverEchoes)) {
+                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
             $receiverListening = false;
 
-            foreach ($receiverEchoes as $se => $receiverEcho) {
-                if ($receiverEcho['bot_id'] == $this->bot->id) {
+            foreach ($receiverEchoes as $receiverEcho) {
+                if ($receiverEcho->bot_id === $this->bot->id) {
                     $receiverListening = true;
+
+                    break;
                 }
             }
 
@@ -240,28 +230,30 @@ class CasinoBot
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
                 $receiverPort->save();
-                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
-                $receiverDirty = 1;
+                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                $receiverDirty = true;
             }
 
-            if ($receiverDirty == 1) {
+            if ($receiverDirty) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-echoes'.$target->id, $receiverEchoes, $expiresAt);
                 event(new Chatter('echo', $target->id, UserEchoResource::collection($receiverEchoes)));
             }
 
-            $receiverDirty = 0;
+            $receiverDirty = false;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
 
-            if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
-                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+            if (! $receiverAudibles || ! \is_array($receiverAudibles)) {
+                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
             $receiverListening = false;
 
-            foreach ($receiverAudibles as $se => $receiverEcho) {
-                if ($receiverEcho['bot_id'] == $this->bot->id) {
+            foreach ($receiverAudibles as $receiverEcho) {
+                if ($receiverEcho->bot_id === $this->bot->id) {
                     $receiverListening = true;
+
+                    break;
                 }
             }
 
@@ -270,38 +262,38 @@ class CasinoBot
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
                 $receiverPort->save();
-                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
-                $receiverDirty = 1;
+                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                $receiverDirty = true;
             }
 
-            if ($receiverDirty == 1) {
+            if ($receiverDirty) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-audibles'.$target->id, $receiverAudibles, $expiresAt);
                 event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiverAudibles)));
             }
 
-            if ($txt != '') {
+            if ($txt !== '') {
                 $roomId = 0;
-                $message = $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
-                $message = $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
+                $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
+                $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
             }
 
             return response('success');
         }
 
-        if ($type == 'echo') {
-            if ($txt != '') {
+        if ($type === 'echo') {
+            if ($txt !== '') {
                 $roomId = 0;
-                $message = $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
+                $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
             }
 
             return response('success');
         }
 
-        if ($type == 'public') {
-            if ($txt != '') {
-                $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-                $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
+        if ($type === 'public') {
+            if ($txt !== '') {
+                $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+                $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
             return response('success');
