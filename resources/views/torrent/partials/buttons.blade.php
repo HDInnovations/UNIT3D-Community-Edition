@@ -380,7 +380,7 @@
                         </span>
                         {{ strtolower(__('graveyard.howto-hits')) }}
                         <span class="text-red text-bold">
-                            {{ App\Helpers\StringHelper::timeElapsed($history?->seedtime ?? 0 + config('graveyard.time')) }}
+                            {{ $history === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
                         <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
