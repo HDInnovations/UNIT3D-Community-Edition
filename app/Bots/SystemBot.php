@@ -27,37 +27,26 @@ use Illuminate\Support\Carbon;
 
 class SystemBot
 {
-    private $bot;
+    private Bot $bot;
 
-    private $chat;
+    private User $target;
 
-    private $target;
+    private string $type;
 
-    private $type;
+    private string $message;
 
-    private $message;
+    private string $log;
 
-    private $targeted;
-
-    private $log;
-
-    /**
-     * SystemBot Constructor.
-     */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
-        $bot = Bot::where('is_systembot', '=', '1')->sole();
-        $this->bot = $bot;
+        $this->bot = Bot::where('is_systembot', '=', '1')->sole();
     }
 
-    /**
-     * Replace Vars.
-     */
-    public function replaceVars($output): array|string
+    public function replaceVars(string $output): string
     {
         $output = str_replace(['{me}', '{command}'], [$this->bot->name, $this->bot->command], $output);
 
-        if (str_contains((string) $output, '{bots}')) {
+        if (str_contains($output, '{bots}')) {
             $botHelp = '';
             $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
 
@@ -74,15 +63,17 @@ class SystemBot
     /**
      * Get Help.
      */
-    public function getHelp(): array|string
+    public function getHelp(): string
     {
         return $this->replaceVars($this->bot->help);
     }
 
     /**
      * Send Gift.
+     *
+     * @param array<string> $note
      */
-    public function putGift($receiver = '', $amount = 0, $note = ''): string
+    public function putGift(string $receiver = '', float $amount = 0, array $note = ['']): string
     {
         $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount' => $amount, 'note' => $output], [
@@ -94,7 +85,7 @@ class SystemBot
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $receiver)->first();
 
-            if (! $recipient || $recipient->id == $this->target->id) {
+            if (! $recipient || $recipient->id === $this->target->id) {
                 return 'Your BON gift could not be sent.';
             }
 
@@ -115,7 +106,7 @@ class SystemBot
             $bonTransactions->torrent_id = null;
             $bonTransactions->save();
 
-            if ($this->target->id != $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
+            if ($this->target->id !== $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
                 $recipient->notify(new NewBon('gift', $this->target->username, $bonTransactions));
             }
 
@@ -135,13 +126,19 @@ class SystemBot
     /**
      * Process Message.
      */
-    public function process($type, User $user, $message = '', $targeted = 0): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function process(string $type, User $user, string $message = ''): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $this->target = $user;
-        $x = $type == 'message' ? 0 : 1;
 
-        $y = $x + 1;
-        $z = $y + 1;
+        if ($type === 'message') {
+            $x = 0;
+            $y = 1;
+            $z = 2;
+        } else {
+            $x = 1;
+            $y = 2;
+            $z = 3;
+        }
 
         if ($message === '') {
             $log = '';
@@ -149,7 +146,7 @@ class SystemBot
             $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
 
-        $command = @explode(' ', (string) $message);
+        $command = @explode(' ', $message);
 
         if (\array_key_exists($x, $command)) {
             if ($command[$x] === 'gift' && \array_key_exists($y, $command) && \array_key_exists($z, $command) && \array_key_exists($z + 1, $command)) {
@@ -158,7 +155,7 @@ class SystemBot
                 array_shift($clone);
                 array_shift($clone);
                 array_shift($clone);
-                $log = $this->putGift($command[$y], $command[$z], $clone);
+                $log = $this->putGift($command[$y], (float) $command[$z], $clone);
             }
 
             if ($command[$x] === 'help') {
@@ -166,7 +163,6 @@ class SystemBot
             }
         }
 
-        $this->targeted = $targeted;
         $this->type = $type;
         $this->message = $message;
         $this->log = $log;
@@ -183,21 +179,22 @@ class SystemBot
         $target = $this->target;
         $txt = $this->log;
         $message = $this->message;
-        $targeted = $this->targeted;
 
-        if ($type == 'message' || $type == 'private') {
-            $receiverDirty = 0;
+        if ($type === 'message' || $type === 'private') {
+            $receiverDirty = false;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
 
-            if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
-                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+            if (! $receiverEchoes || ! \is_array($receiverEchoes)) {
+                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
             $receiverListening = false;
 
-            foreach ($receiverEchoes as $se => $receiverEcho) {
-                if ($receiverEcho['bot_id'] == $this->bot->id) {
+            foreach ($receiverEchoes as $receiverEcho) {
+                if ($receiverEcho->bot_id === $this->bot->id) {
                     $receiverListening = true;
+
+                    break;
                 }
             }
 
@@ -206,28 +203,30 @@ class SystemBot
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
                 $receiverPort->save();
-                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
-                $receiverDirty = 1;
+                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                $receiverDirty = true;
             }
 
-            if ($receiverDirty == 1) {
+            if ($receiverDirty) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-echoes'.$target->id, $receiverEchoes, $expiresAt);
                 event(new Chatter('echo', $target->id, UserEchoResource::collection($receiverEchoes)));
             }
 
-            $receiverDirty = 0;
+            $receiverDirty = false;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
 
-            if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
-                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
+            if (! $receiverAudibles || ! \is_array($receiverAudibles)) {
+                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
             $receiverListening = false;
 
             foreach ($receiverAudibles as $se => $receiverEcho) {
-                if ($receiverEcho['bot_id'] == $this->bot->id) {
+                if ($receiverEcho->bot_id === $this->bot->id) {
                     $receiverListening = true;
+
+                    break;
                 }
             }
 
@@ -236,38 +235,38 @@ class SystemBot
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
                 $receiverPort->save();
-                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
-                $receiverDirty = 1;
+                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                $receiverDirty = true;
             }
 
-            if ($receiverDirty == 1) {
+            if ($receiverDirty) {
                 $expiresAt = Carbon::now()->addMinutes(60);
                 cache()->put('user-audibles'.$target->id, $receiverAudibles, $expiresAt);
                 event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiverAudibles)));
             }
 
-            if ($txt != '') {
+            if ($txt !== '') {
                 $roomId = 0;
-                $message = $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
-                $message = $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
+                $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
+                $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
             }
 
             return response('success');
         }
 
-        if ($type == 'echo') {
-            if ($txt != '') {
+        if ($type === 'echo') {
+            if ($txt !== '') {
                 $roomId = 0;
-                $message = $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
+                $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
             }
 
             return response('success');
         }
 
-        if ($type == 'public') {
-            if ($txt != '') {
-                $dumproom = $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-                $dumproom = $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
+        if ($type === 'public') {
+            if ($txt !== '') {
+                $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+                $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
 
             return response('success');
