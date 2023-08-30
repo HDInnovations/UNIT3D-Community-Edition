@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\Peer;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Exception;
 
@@ -58,24 +59,26 @@ class AutoUpsertPeers extends Command
             $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
             $peers = array_map('unserialize', $peers);
 
-            Peer::upsert(
-                $peers,
-                ['user_id', 'torrent_id', 'peer_id'],
-                [
-                    'peer_id',
-                    'ip',
-                    'port',
-                    'agent',
-                    'uploaded',
-                    'downloaded',
-                    'left',
-                    'seeder',
-                    'torrent_id',
-                    'user_id',
-                    'connectable',
-                    'active'
-                ],
-            );
+            DB::transaction(function () use ($peers): void {
+                Peer::upsert(
+                    $peers,
+                    ['user_id', 'torrent_id', 'peer_id'],
+                    [
+                        'peer_id',
+                        'ip',
+                        'port',
+                        'agent',
+                        'uploaded',
+                        'downloaded',
+                        'left',
+                        'seeder',
+                        'torrent_id',
+                        'user_id',
+                        'connectable',
+                        'active'
+                    ],
+                );
+            }, 5);
         }
 
         $this->comment('Automated insert peers command complete');
