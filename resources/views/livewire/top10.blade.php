@@ -1,33 +1,60 @@
-<div style="display: contents">
-    @foreach([
-        'Top 10 (Day)'       => $torrentsDay,
-        'Top 10 (Week)'      => $torrentsWeek,
-        'Top 10 (Month)'     => $torrentsMonth,
-        'Top 10 (Year)'      => $torrentsYear,
-        'Top 10 (All Time)'  => $torrentsAll
-    ] as $title => $torrents)
-        <section class="panelV2">
-            <h2 class="panel__heading">{{ $title }}</h2>
-            <div class="data-table-wrapper">
-                <table class="data-table">
-                    <tbody>
-                        @foreach($torrents->loadExists([
-                            'bookmarks'       => fn ($query) => $query->where('user_id', '=', auth()->id()),
-                            'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
-                        ]) as $torrent)
-                            @php
-                                $meta = match(true) {
-                                    $torrent->category->tv_meta && $torrent->tmdb != 0    => App\Models\Tv::find($torrent->tmdb),
-                                    $torrent->category->movie_meta && $torrent->tmdb != 0 => App\Models\Movie::find($torrent->tmdb),
-                                    $torrent->category->game_meta && $torrent->igdb != 0  => MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($torrent->igdb),
-                                    default                                               => null,
-                                };
-                            @endphp
-                            <x-torrent.row :$torrent :$meta :$personalFreeleech />
-                        @endforeach
-                    </tbody>
-                </table>
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">Top Titles</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <div class="form__group">
+                    <select id="interval" class="form__select" type="date" name="interval" wire:model="interval">
+                        <option value="day">Past Day</option>
+                        <option value="week">Past Week</option>
+                        <option value="month">Past Month</option>
+                        <option value="year">Past Year</option>
+                        <option value="all">All-time</option>
+                    </select>
+                    <label class="form__label form__label--floating" for="interval">
+                        Interval
+                    </label>
+                </div>
             </div>
-        </section>
-    @endforeach
-</div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <select id="metaType" class="form__select" type="date" name="metaType" wire:model="metaType">
+                        @foreach ($metaTypes as $name => $type)
+                            <option value="{{ $type }}">{{ $name  }}</option>
+                        @endforeach
+                    </select>
+                    <label class="form__label form__label--floating" for="metaType">
+                        Category
+                    </label>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="panel__body torrent-search--poster__results">
+        <div wire:loading.delay>Computing...</div>
+        @switch ($this->metaType)
+            @case ('movie_meta')
+                @foreach($works as $work)
+                    <figure class="top10-poster">
+                        <x-movie.poster :media="$work" />
+                        <figcaption class="top10-poster__download-count" title="{{ __('torrent.completed-times') }}">
+                            {{ $work->download_count }}
+                        </figcaption>
+                    </figure>
+                @endforeach
+
+                @break
+            @case ('tv_meta')
+                @foreach($works as $work)
+                    <figure class="top10-poster">
+                        <x-tv.poster :media="$work" />
+                        <figcaption class="top10-poster__download-count" title="{{ __('torrent.completed-times') }}">
+                            {{ $work->download_count }}
+                        </figcaption>
+                    </figure>
+                @endforeach
+
+                @break
+        @endswitch
+    </div>
+</section>
