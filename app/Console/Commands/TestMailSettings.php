@@ -16,6 +16,7 @@ namespace App\Console\Commands;
 use App\Mail\TestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Exception;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\TestMailSettingsTest
@@ -48,7 +49,7 @@ class TestMailSettings extends Command
 
         try {
             Mail::to($owner)->send(new TestEmail());
-        } catch (\Exception) {
+        } catch (Exception) {
             $this->error('Failed!');
             $this->alert('Email failed to send. Please review your mail configs in the .env file.');
 

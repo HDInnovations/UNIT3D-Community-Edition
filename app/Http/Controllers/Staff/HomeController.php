@@ -40,7 +40,7 @@ class HomeController extends Controller
         // SSL Info
         try {
             $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
-        } catch (\Exception) {
+        } catch (Exception) {
             $certificate = '';
         }
 
