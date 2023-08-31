@@ -98,21 +98,19 @@ class IRCAnnounceBot
         fwrite($this->socket, $data."\r\n");
     }
 
-    public function message(string $message, ?string $channel = null): void
+    public function message(string $receiver, string $message): void
     {
         if ($this->socket === false) {
             return;
         }
 
-        $channel ??= config('irc-bot.channel');
-
         // Messages an specific IRC Channel
-        if (config('irc-bot.joinchannel') && $this->isValidChannelName($channel)) {
-            $this->join($channel);
-            $this->privmsg($channel, $message);
-            $this->part($channel);
+        if (config('irc-bot.joinchannel') && $this->isValidChannelName($receiver)) {
+            $this->join($receiver);
+            $this->privmsg($receiver, $message);
+            $this->part($receiver);
         } else {
-            $this->privmsg($channel, $message);
+            $this->privmsg($receiver, $message);
         }
     }
 

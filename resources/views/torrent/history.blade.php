@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('torrent.history') }} - {{ config('other.title') }}</title>
+    <title>{{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

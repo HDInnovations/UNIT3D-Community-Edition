@@ -104,4 +104,12 @@ class Tv extends Model
     {
         return $this->hasMany(Recommendation::class, 'tv_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function recommendedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(__CLASS__, Recommendation::class, 'tv_id', 'recommendation_tv_id', 'id', 'id');
+    }
 }

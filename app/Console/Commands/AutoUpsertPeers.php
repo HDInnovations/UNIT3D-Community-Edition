@@ -57,6 +57,11 @@ class AutoUpsertPeers extends Command
 
         for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= $peerPerCycle) {
             $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
+
+            if ($peers === null) {
+                break;
+            }
+
             $peers = array_map('unserialize', $peers);
 
             DB::transaction(function () use ($peers): void {

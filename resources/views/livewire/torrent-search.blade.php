@@ -364,6 +364,28 @@
                                         {{ __('common.high-speeds') }}
                                     </label>
                                 </p>
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="bookmarked"
+                                        >
+                                        {{ __('common.bookmarked') }}
+                                    </label>
+                                </p>
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="wished"
+                                        >
+                                        {{ __('common.wished') }}
+                                    </label>
+                                </p>
                             </div>
                         </fieldset>
                     </div>
@@ -674,10 +696,10 @@
                     @forelse ($torrents as $group)
                         @switch ($group->meta)
                             @case('movie')
-                                <x-movie.poster :media="$group" />
+                                <x-movie.poster :categoryId="$group->category_id" :movie="$group->movie" />
                                 @break
                             @case('tv')
-                                <x-tv.poster :media="$group" />
+                                <x-tv.poster :categoryId="$group->category_id" :tv="$group->tv" />
                                 @break
                         @endswitch
                     @endforeach

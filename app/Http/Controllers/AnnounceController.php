@@ -41,8 +41,8 @@ class AnnounceController extends Controller
     protected const POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 3_600;
-    private const MAX = 5_400;
+    private const MIN = 1_800;
+    private const MAX = 3_600;
 
     // Port Blacklist
     private const BLACK_PORTS = [
@@ -216,9 +216,7 @@ class AnnounceController extends Controller
      */
     private function checkAnnounceFields(Request $request): array
     {
-        $queries = [
-            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
-        ];
+        $queries = [];
 
         // Part.1 Extract required announce fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
@@ -569,6 +567,7 @@ class AnnounceController extends Controller
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,
+            'downloaded'   => (int) $torrent->times_completed,
             'peers'        => '',
             'peers6'       => '',
         ];
