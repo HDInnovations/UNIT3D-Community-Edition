@@ -70,6 +70,11 @@ class AutoUpsertHistories extends Command
 
         for ($historiesLeft = $historyCount; $historiesLeft > 0; $historiesLeft -= $historiesPerCycle) {
             $histories = Redis::connection('announce')->command('LPOP', [$key, $historiesPerCycle]);
+
+            if ($histories === null) {
+                break;
+            }
+
             $histories = array_map('unserialize', $histories);
 
             DB::transaction(function () use ($histories): void {
