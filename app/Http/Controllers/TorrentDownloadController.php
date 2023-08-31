@@ -45,6 +45,7 @@ class TorrentDownloadController extends Controller
         }
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();
+
         // User's ratio is too low
         if ($user->ratio < config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
