@@ -549,6 +549,7 @@ class AnnounceController extends Controller
             'min interval' => self::MIN,
             'complete'     => (int) $torrent->seeders,
             'incomplete'   => (int) $torrent->leechers,
+            'downloaded'   => (int) $torrent->times_completed,
             'peers'        => '',
             'peers6'       => '',
         ];
