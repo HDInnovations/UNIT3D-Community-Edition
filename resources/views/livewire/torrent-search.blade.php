@@ -372,7 +372,18 @@
                                             value="1"
                                             wire:model="bookmarked"
                                         >
-                                        Bookmarked
+                                        {{ __('common.bookmarked') }}
+                                    </label>
+                                </p>
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="wished"
+                                        >
+                                        {{ __('common.wished') }}
                                     </label>
                                 </p>
                             </div>
