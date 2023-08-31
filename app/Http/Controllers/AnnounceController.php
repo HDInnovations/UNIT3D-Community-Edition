@@ -41,8 +41,8 @@ class AnnounceController extends Controller
     protected const POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 3_600;
-    private const MAX = 5_400;
+    private const MIN = 1_800;
+    private const MAX = 3_600;
 
     // Port Blacklist
     private const BLACK_PORTS = [
@@ -216,9 +216,7 @@ class AnnounceController extends Controller
      */
     private function checkAnnounceFields(Request $request): array
     {
-        $queries = [
-            'timestamp' => $request->server->get('REQUEST_TIME_FLOAT'),
-        ];
+        $queries = [];
 
         // Part.1 Extract required announce fields
         foreach (['info_hash', 'peer_id', 'port', 'uploaded', 'downloaded', 'left'] as $item) {
@@ -467,8 +465,7 @@ class AnnounceController extends Controller
             ->where('peer_id', '=', base64_decode($queries['peer_id']))
             ->where('user_id', '=', $user->id)
             ->first();
-        $setMin = config('announce.min_interval.interval') ?? self::MIN;
-        $randomMinInterval = random_int($setMin, $setMin * 2);
+        $randomMinInterval = random_int((int) (self::MIN * 0.9), self::MIN);
         throw_if(
             $prevAnnounce && $prevAnnounce->updated_at->greaterThan(now()->subSeconds($randomMinInterval))
             && $queries['event'] !== 'completed' && $queries['event'] !== 'stopped',
