@@ -59,6 +59,7 @@ class Article extends Model
     public function getBrief(int $length = 20, bool $ellipses = true, bool $stripHtml = false): string
     {
         $input = $this->content;
+
         //strip tags, if desired
         if ($stripHtml) {
             $input = strip_tags($input);

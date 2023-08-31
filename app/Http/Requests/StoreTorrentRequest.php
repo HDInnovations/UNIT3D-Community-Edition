@@ -22,6 +22,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
+use Exception;
 
 class StoreTorrentRequest extends FormRequest
 {
@@ -61,7 +62,7 @@ class StoreTorrentRequest extends FormRequest
 
                     try {
                         $meta = Bencode::get_meta($decodedTorrent);
-                    } catch (\Exception) {
+                    } catch (Exception) {
                         $fail('You Must Provide A Valid Torrent File For Upload!');
                     }
 
