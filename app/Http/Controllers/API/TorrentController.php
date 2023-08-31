@@ -32,6 +32,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -116,7 +117,7 @@ class TorrentController extends BaseController
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
-        } catch (\Exception) {
+        } catch (Exception) {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -245,6 +246,7 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+
         // Set torrent to featured
         if ($torrent->featured == 1) {
             $featuredTorrent = new FeaturedTorrent();

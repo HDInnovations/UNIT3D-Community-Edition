@@ -67,6 +67,7 @@ class AutoWarning extends Command
                         ->where('torrent', '=', $hr->torrent->id)
                         ->where('user_id', '=', $hr->user->id)
                         ->first();
+
                     // Insert Warning Into Warnings Table if doesnt already exsist
                     if ($exsist === null) {
                         $warning = new Warning();
