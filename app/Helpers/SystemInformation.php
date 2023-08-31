@@ -15,6 +15,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class SystemInformation
 {
@@ -160,7 +161,7 @@ class SystemInformation
     {
         try {
             return substr(sprintf('%o', fileperms(base_path($path))), -4);
-        } catch (\Exception) {
+        } catch (Exception) {
             return trans('site.error');
         }
     }

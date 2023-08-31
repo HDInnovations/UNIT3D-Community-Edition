@@ -167,6 +167,7 @@ class ProcessAnnounce implements ShouldQueue
                         'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
                     ]);
                 }
+
                 // End User Update
                 break;
             default:
