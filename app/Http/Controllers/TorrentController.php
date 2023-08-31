@@ -96,7 +96,7 @@ class TorrentController extends Controller
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'networks',
-                'recommendations'
+                'recommendedTv:id,name,poster,first_air_date'
             ])->find($torrent->tmdb);
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
@@ -107,7 +107,7 @@ class TorrentController extends Controller
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'collection',
-                'recommendations'
+                'recommendedMovies:id,title,poster,release_date'
             ])
                 ->find($torrent->tmdb);
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
