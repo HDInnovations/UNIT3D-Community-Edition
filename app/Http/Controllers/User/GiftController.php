@@ -94,7 +94,7 @@ class GiftController extends Controller
                 '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
                 href_profile($sender),
                 $sender->username,
-                $request->bon,
+                $request->cost,
                 href_profile($receiver),
                 $receiver->username
             )
