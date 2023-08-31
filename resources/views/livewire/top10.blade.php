@@ -36,7 +36,7 @@
             @case ('movie_meta')
                 @foreach($works as $work)
                     <figure class="top10-poster">
-                        <x-movie.poster :media="$work" />
+                        <x-movie.poster :movie="$work->movie" :categoryId="$work->category_id" />
                         <figcaption class="top10-poster__download-count" title="{{ __('torrent.completed-times') }}">
                             {{ $work->download_count }}
                         </figcaption>
@@ -47,7 +47,7 @@
             @case ('tv_meta')
                 @foreach($works as $work)
                     <figure class="top10-poster">
-                        <x-tv.poster :media="$work" />
+                        <x-tv.poster :tv="$work->tv" :categoryId="$work->category_id" />
                         <figcaption class="top10-poster__download-count" title="{{ __('torrent.completed-times') }}">
                             {{ $work->download_count }}
                         </figcaption>
