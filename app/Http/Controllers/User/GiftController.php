@@ -72,8 +72,8 @@ class GiftController extends Controller
         $sender = $request->user();
         $receiver = User::where('username', '=', $request->receiver_username)->sole();
 
-        $receiver->increment('seedbonus', $request->cost);
         $sender->decrement('seedbonus', $request->cost);
+        $receiver->increment('seedbonus', $request->cost);
 
         $bonTransactions = BonTransactions::create([
             'bon_exchange_id' => 0,
