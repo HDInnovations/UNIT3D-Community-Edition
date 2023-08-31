@@ -28,7 +28,6 @@ use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
-use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -40,7 +39,7 @@ class ChatController extends Controller
     /**
      * ChatController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository, private readonly Factory $authFactory)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
@@ -51,34 +50,34 @@ class ChatController extends Controller
     }
 
     /* ECHOES */
-    public function echoes(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function echoes(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $user = User::with(['echoes'])->findOrFail($this->authFactory->user()->id);
+        $user = User::with(['echoes'])->findOrFail($request->user()->id);
 
         if (! $user->echoes || (is_countable($user->echoes->toArray()) ? \count($user->echoes->toArray()) : 0) < 1) {
             $userEcho = new UserEcho();
-            $userEcho->user_id = $this->authFactory->user()->id;
+            $userEcho->user_id = $request->user()->id;
             $userEcho->room_id = 1;
             $userEcho->save();
         }
 
-        return UserEchoResource::collection($this->chatRepository->echoes($this->authFactory->user()->id));
+        return UserEchoResource::collection($this->chatRepository->echoes($request->user()->id));
     }
 
     /* AUDIBLES */
-    public function audibles(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function audibles(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $user = User::with(['audibles'])->findOrFail($this->authFactory->user()->id);
+        $user = User::with(['audibles'])->findOrFail($request->user()->id);
 
         if (! $user->audibles || (is_countable($user->audibles->toArray()) ? \count($user->audibles->toArray()) : 0) < 1) {
             $userAudible = new UserAudible();
-            $userAudible->user_id = $this->authFactory->user()->id;
+            $userAudible->user_id = $request->user()->id;
             $userAudible->room_id = 1;
             $userAudible->status = 1;
             $userAudible->save();
         }
 
-        return UserAudibleResource::collection($this->chatRepository->audibles($this->authFactory->user()->id));
+        return UserAudibleResource::collection($this->chatRepository->audibles($request->user()->id));
     }
 
     /* BOTS */
@@ -105,13 +104,13 @@ class ChatController extends Controller
     }
 
     /* MESSAGES */
-    public function privateMessages($targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function privateMessages(Request $request, $targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return ChatMessageResource::collection($this->chatRepository->privateMessages($this->authFactory->user()->id, $targetId));
+        return ChatMessageResource::collection($this->chatRepository->privateMessages($request->user()->id, $targetId));
     }
 
     /* MESSAGES */
-    public function botMessages($botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function botMessages(Request $request, $botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $runbot = null;
         $bot = Bot::findOrFail($botId);
@@ -122,15 +121,15 @@ class ChatController extends Controller
             $runbot = new NerdBot($this->chatRepository);
         }
 
-        $runbot->process('message', $this->authFactory->user(), '', 0);
+        $runbot->process('message', $request->user(), '', 0);
 
-        return ChatMessageResource::collection($this->chatRepository->botMessages($this->authFactory->user()->id, $bot->id));
+        return ChatMessageResource::collection($this->chatRepository->botMessages($request->user()->id, $bot->id));
     }
 
     public function createMessage(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|bool|ChatMessageResource
     {
         $bot = null;
-        $user = $this->authFactory->user();
+        $user = $request->user();
 
         $userId = $user->id;
         $receiverId = $request->input('receiver_id');
@@ -140,7 +139,7 @@ class ChatController extends Controller
         $targeted = $request->input('targeted');
         $save = $request->get('save');
 
-        if ($user->can_chat === 0) {
+        if ($user->can_chat === false) {
             return response('error', 401);
         }
 
@@ -236,7 +235,7 @@ class ChatController extends Controller
         }
 
         if ($runbot !== null) {
-            return $runbot->process($which, $this->authFactory->user(), $message, 0);
+            return $runbot->process($which, $request->user(), $message, 0);
         }
 
         $echo = false;
