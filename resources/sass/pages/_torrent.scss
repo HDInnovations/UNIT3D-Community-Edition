@@ -81,3 +81,14 @@
         display: none;
     }
 }
+
+/* Recommendations
+---------------------------------------------------------------------------- */
+
+.recommendations {
+    display: grid;
+    grid-auto-columns: 150px;
+    grid-auto-flow: column;
+    gap: 12px 24px;
+    overflow-x: auto;
+}
