@@ -44,6 +44,8 @@ class BountyController extends Controller
 
         $user = $request->user();
 
+        $user->decrement('seedbonus', $request->integer('seedbonus'));
+
         $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
         $torrentRequest->votes++;
@@ -58,8 +60,6 @@ class BountyController extends Controller
             'sender_id'       => $user->id,
             'comment'         => sprintf('adding bonus to %s', $torrentRequest->name),
         ]);
-
-        $user->decrement('seedbonus', $request->integer('seedbonus'));
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(
