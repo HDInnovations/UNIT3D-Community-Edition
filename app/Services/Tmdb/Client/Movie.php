@@ -18,13 +18,14 @@ use Illuminate\Support\Facades\Http;
 
 class Movie
 {
-    public $data;
+    /** @var array<mixed>|mixed */
+    public mixed $data;
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws JsonException
      */
-    public function __construct($id)
+    public function __construct(int $id)
     {
         $this->data = Http::acceptJson()
             ->withUrlParameters(['id' => $id])
@@ -36,7 +37,7 @@ class Movie
             ->json();
     }
 
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }

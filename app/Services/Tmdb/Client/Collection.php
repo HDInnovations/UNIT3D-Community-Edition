@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Http;
 
 class Collection
 {
-    public $data;
+    /** @var array<mixed>|mixed */
+    public mixed $data;
 
-    public function __construct($id)
+    public function __construct(int $id)
     {
         $this->data = Http::acceptJson()
             ->withUrlParameters(['id' => $id])
@@ -31,7 +32,7 @@ class Collection
             ->json();
     }
 
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }

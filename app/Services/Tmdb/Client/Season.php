@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Http;
 
 class Season
 {
-    public $data;
+    /** @var array<mixed>|mixed */
+    public mixed $data;
 
-    public function __construct($id, $season)
+    public function __construct(int $id, int $seasonId)
     {
         $this->data = Http::acceptJson()
-            ->withUrlParameters(['tvId' => $id, 'seasonId' => $season])
+            ->withUrlParameters(['tvId' => $id, 'seasonId' => $seasonId])
             ->get('https://api.TheMovieDB.org/3/tv/{tvId}/{seasonId}', [
                 'api_key'            => config('api-keys.tmdb'),
                 'language'           => config('app.meta_locale'),
@@ -31,7 +32,7 @@ class Season
             ->json();
     }
 
-    public function getData()
+    public function getData(): mixed
     {
         return $this->data;
     }
