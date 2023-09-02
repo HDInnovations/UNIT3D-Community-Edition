@@ -48,9 +48,4 @@ class FindTv
     {
         return $this->data;
     }
-
-    public function get_homepage()
-    {
-        return $this->data['homepage'];
-    }
 }

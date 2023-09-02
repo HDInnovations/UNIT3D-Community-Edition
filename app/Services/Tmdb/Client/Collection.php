@@ -49,37 +49,4 @@ class Collection
     {
         return $this->data;
     }
-
-    public function get_name()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
-    }
-
-    public function get_overview()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
-    }
-
-    public function get_id()
-    {
-        return $this->data['id'];
-    }
-
-    public function get_backdrop(): ?string
-    {
-        if ($this->data['backdrop_path']) {
-            return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
-        }
-
-        return null;
-    }
-
-    public function get_poster(): ?string
-    {
-        if ($this->data['poster_path']) {
-            return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
-        }
-
-        return null;
-    }
 }

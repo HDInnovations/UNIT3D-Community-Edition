@@ -49,44 +49,4 @@ class Season
     {
         return $this->data;
     }
-
-    public function _id()
-    {
-        return $this->data['_id'];
-    }
-
-    public function get_air_date()
-    {
-        return $this->data['air_date'];
-    }
-
-    public function get_name()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
-    }
-
-    public function get_overview()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
-    }
-
-    public function get_id()
-    {
-        return $this->data['id'];
-    }
-
-    public function get_poster(): string
-    {
-        return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
-    }
-
-    public function get_season_number(): string
-    {
-        return sprintf('%02d', $this->data['seasons']);
-    }
-
-    public function get_status()
-    {
-        return $this->data['status'];
-    }
 }
