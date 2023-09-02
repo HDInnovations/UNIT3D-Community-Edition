@@ -1,7 +1,7 @@
 <article class="torrent-search--poster__result">
     <figure>
         <a
-            href="{{ route('torrents.similar', ['category_id' => $categoryId, 'tmdb' => $tv->id]) }}"
+            href="{{ route('torrents.similar', ['category_id' => $categoryId, 'tmdb' => $tv?->id ?? $tmdb]) }}"
             class="torrent-search--poster__poster"
         >
             <img
