@@ -157,6 +157,7 @@ class UserController extends Controller
             }
 
             $avatar = $user->username.'.'.$image->getClientOriginalExtension();
+
             if ($user->image != $avatar) {
                 $oldAvatar = $user->image;
                 $user->image = $avatar;
