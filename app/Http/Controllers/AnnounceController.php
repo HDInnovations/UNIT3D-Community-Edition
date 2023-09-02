@@ -485,7 +485,7 @@ class AnnounceController extends Controller
 
         $lastAnnouncedKey = 'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']);
 
-        $randomMinInterval = intdiv(random_int(85, 95), 100) * self::MIN;
+        $randomMinInterval = intdiv(random_int(85, 95) * self::MIN, 100);
 
         $lastAnnouncedAt = Redis::command('SET', [$lastAnnouncedKey, $now, 'NX', 'GET', 'EX', $randomMinInterval]);
 
