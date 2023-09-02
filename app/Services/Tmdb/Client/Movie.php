@@ -14,13 +14,10 @@
 namespace App\Services\Tmdb\Client;
 
 use JsonException;
+use Illuminate\Support\Facades\Http;
 
 class Movie
 {
-    public \GuzzleHttp\Client $client;
-
-    final public const API_BASE_URI = 'https://api.themoviedb.org/3/';
-
     public $data;
 
     /**
@@ -29,26 +26,14 @@ class Movie
      */
     public function __construct($id)
     {
-        $this->client = new \GuzzleHttp\Client(
-            [
-                'base_uri'    => self::API_BASE_URI,
-                'verify'      => false,
-                'http_errors' => false,
-                'headers'     => [
-                    'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
-                ],
-                'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
-                    'language'           => config('app.meta_locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
-                ],
-            ]
-        );
-
-        $response = $this->client->request('get', 'https://api.themoviedb.org/3/movie/'.$id);
-
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = Http::acceptJson()
+            ->withUrlParameters(['id' => $id])
+            ->get('https://api.TheMovieDB.org/3/movie/{id}', [
+                'api_key'            => config('api-keys.tmdb'),
+                'language'           => config('app.meta_locale'),
+                'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
+            ])
+            ->json();
     }
 
     public function getData()

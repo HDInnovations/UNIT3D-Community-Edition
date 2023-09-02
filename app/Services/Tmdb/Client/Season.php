@@ -13,36 +13,22 @@
 
 namespace App\Services\Tmdb\Client;
 
+use Illuminate\Support\Facades\Http;
+
 class Season
 {
-    public \GuzzleHttp\Client $client;
-
-    final public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-
     public $data;
 
     public function __construct($id, $season)
     {
-        $this->client = new \GuzzleHttp\Client(
-            [
-                'base_uri'    => self::API_BASE_URI,
-                'verify'      => false,
-                'http_errors' => false,
-                'headers'     => [
-                    'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
-                ],
-                'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
-                    'language'           => config('app.meta_locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids',
-                ],
-            ]
-        );
-
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/tv/'.$id.'/season/'.$season);
-
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = Http::acceptJson()
+            ->withUrlParameters(['tvId' => $id, 'seasonId' => $season])
+            ->get('https://api.TheMovieDB.org/3/tv/{tvId}/{seasonId}', [
+                'api_key'            => config('api-keys.tmdb'),
+                'language'           => config('app.meta_locale'),
+                'append_to_response' => 'videos,images,credits,external_ids',
+            ])
+            ->json();
     }
 
     public function getData()
