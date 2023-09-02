@@ -13,12 +13,8 @@
 
 namespace App\Services\Tmdb;
 
-use App\Jobs\ProcessCollectionJob;
-use App\Jobs\ProcessCompanyJob;
 use App\Jobs\ProcessMovieJob;
 use App\Jobs\ProcessTvJob;
-use App\Models\Collection;
-use App\Models\Company;
 use App\Models\Movie;
 use App\Models\Tv;
 use DateTime;
@@ -133,49 +129,5 @@ class TMDBScraper implements ShouldQueue
 
             //return ['message' => 'Movies with id: ' . $id . ' Has been added  to the database, But relations are loaded with the queue'];
         }
-    }
-
-    public function collection($id = null): void
-    {
-        if ($id == null) {
-            $id = $this->id;
-        }
-
-        $tmdb = new TMDB();
-        $collection = (new Client\Collection($id))->getData();
-
-        $array = [
-            'name'     => $collection['name'],
-            'overview' => $collection['overview'],
-            'backdrop' => $tmdb->image('backdrop', $collection),
-            'poster'   => $tmdb->image('poster', $collection),
-        ];
-        Collection::updateOrCreate(['id' => $collection['id']], $array);
-
-        ProcessCollectionJob::dispatch($collection);
-
-        //return ['message' => 'Collection with id: ' . $id . ' Has been added  to the database, But movies are loaded with the queue'];
-    }
-
-    public function company($id = null): void
-    {
-        if ($id == null) {
-            $id = $this->id;
-        }
-
-        $tmdb = new TMDB();
-        $company = (new Client\Company($id))->getData();
-
-        $array = [
-            'name'     => $company['name'],
-            'overview' => $company['overview'],
-            'backdrop' => $tmdb->image('backdrop', $company),
-            'poster'   => $tmdb->image('poster', $company),
-        ];
-        Company::updateOrCreate(['id' => $company['id']], $array);
-
-        ProcessCompanyJob::dispatch($company);
-
-        //return ['message' => 'Company with id: ' . $id . ' Has been added  to the database, But movies are loaded with the queue'];
     }
 }
