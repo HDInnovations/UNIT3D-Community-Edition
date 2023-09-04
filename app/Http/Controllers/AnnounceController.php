@@ -19,10 +19,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
 use App\Helpers\Bencode;
-use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
+use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\Peer;
+use App\Models\PersonalFreeleech;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
@@ -605,7 +606,163 @@ class AnnounceController extends Controller
      */
     private function processAnnounceJob($queries, $user, $group, $torrent): void
     {
-        ProcessAnnounce::dispatch($queries, $user, $group, $torrent);
+        // Set Variables
+        $event = $queries['event'];
+        $peerId = base64_decode($queries['peer_id']);
+        $ipAddress = base64_decode($queries['ip-address']);
+
+        // Get The Current Peer
+        $peer = $torrent->peers
+            ->where('peer_id', '=', $peerId)
+            ->where('user_id', '=', $user->id)
+            ->first();
+
+        $isNewPeer = $peer === null;
+
+        // Calculate the change in upload/download compared to the last announce
+        $uploadedDelta = max($queries['uploaded'] - ($peer?->uploaded ?? 0), 0);
+        $downloadedDelta = max($queries['downloaded'] - ($peer?->downloaded ?? 0), 0);
+
+        // If no peer record found then set deltas to 0 and change to `started` event
+        if ($isNewPeer) {
+            if ($queries['uploaded'] > 0 || $queries['downloaded'] > 0) {
+                $event = 'started';
+                $uploadedDelta = 0;
+                $downloadedDelta = 0;
+            }
+
+            $peer = new Peer();
+        }
+
+        // Check if user currently has a personal freeleech
+        $personalFreeleech = cache()->rememberForever(
+            'personal_freeleech:'.$user->id,
+            fn () => PersonalFreeleech::query()
+                ->where('user_id', '=', $user->id)
+                ->exists()
+        );
+
+        // Check if user has a freeleech token on this torrent
+        $freeleechToken = cache()->rememberForever(
+            'freeleech_token:'.$user->id.':'.$torrent->id,
+            fn () => FreeleechToken::query()
+                ->where('user_id', '=', $user->id)
+                ->where('torrent_id', '=', $torrent->id)
+                ->exists(),
+        );
+
+        // Calculate credited Download
+        if (
+            $personalFreeleech
+            || $group->is_freeleech
+            || $freeleechToken
+            || config('other.freeleech')
+        ) {
+            $creditedDownloadedDelta = 0;
+        } elseif ($torrent->free >= 1) {
+            // Freeleech values in the database are from 0 to 100
+            // 0 means 0% of the bytes are freeleech, i.e. 100% of the bytes are counted.
+            // 100 means 100% of the bytes are freeleech, i.e. 0% of the bytes are counted.
+            // This means we have to subtract the value stored in the database from 100 before multiplying.
+            // Also make sure that 100% is the highest value of freeleech possible
+            // in order to not subtract download from an account.
+            $creditedDownloadedDelta = $downloadedDelta * (100 - min(100, $torrent->free)) / 100;
+        } else {
+            $creditedDownloadedDelta = $downloadedDelta;
+        }
+
+        // Calculate credited upload
+        if (
+            $torrent->doubleup
+            || $group->is_double_upload
+            || config('other.doubleup')
+        ) {
+            $creditedUploadedDelta = $uploadedDelta * 2;
+        } else {
+            $creditedUploadedDelta = $uploadedDelta;
+        }
+
+        $peer->updateConnectableStateIfNeeded();
+
+        // User Updates
+        if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
+            $user->update([
+                'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
+                'downloaded' => DB::raw('downloaded + '.(int) $creditedDownloadedDelta),
+            ]);
+        }
+
+        /**
+         * Peer batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertPeers
+         */
+        Redis::connection('announce')->command('RPUSH', [
+            config('cache.prefix').':peers:batch',
+            serialize([
+                'peer_id'     => base64_decode($queries['peer_id']),
+                'ip'          => $ipAddress,
+                'port'        => $queries['port'],
+                'agent'       => $queries['user-agent'],
+                'uploaded'    => $queries['uploaded'],
+                'downloaded'  => $queries['downloaded'],
+                'left'        => $queries['left'],
+                'seeder'      => $queries['left'] == 0,
+                'torrent_id'  => $torrent->id,
+                'user_id'     => $user->id,
+                'connectable' => $peer->connectable,
+                'active'      => $event !== 'stopped',
+            ])
+        ]);
+
+        /**
+         * History batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertHistories
+         */
+        Redis::connection('announce')->command('RPUSH', [
+            config('cache.prefix').':histories:batch',
+            serialize([
+                'user_id'           => $user->id,
+                'torrent_id'        => $torrent->id,
+                'agent'             => $queries['user-agent'],
+                'uploaded'          => $event === 'started' ? 0 : $creditedUploadedDelta,
+                'actual_uploaded'   => $event === 'started' ? 0 : $uploadedDelta,
+                'client_uploaded'   => $queries['uploaded'],
+                'downloaded'        => $event === 'started' ? 0 : $creditedDownloadedDelta,
+                'actual_downloaded' => $event === 'started' ? 0 : $downloadedDelta,
+                'client_downloaded' => $queries['downloaded'],
+                'seeder'            => $queries['left'] == 0,
+                'active'            => $event !== 'stopped',
+                'seedtime'          => 0,
+                'immune'            => $group->is_immune,
+                'completed_at'      => $event === 'completed' ? now() : null,
+            ])
+        ]);
+
+        // Torrent updates
+
+        $isDeadPeer = $event === 'stopped';
+        $isSeeder = $queries['left'] == 0;
+
+        $newSeed = $isNewPeer && ! $isDeadPeer && $isSeeder;
+        $newLeech = $isNewPeer && ! $isDeadPeer && ! $isSeeder;
+        $stoppedSeed = ! $isNewPeer && $isDeadPeer && $isSeeder;
+        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
+        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+
+        $seederCountDelta = ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
+        $leecherCountDelta = ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
+        $completedCountDelta = (int) ($event === 'completed');
+
+        if ($seederCountDelta !== 0 || $leecherCountDelta !== 0 || $completedCountDelta !== 0) {
+            $torrent->update([
+                'seeders'         => DB::raw('seeders + '.$seederCountDelta),
+                'leechers'        => DB::raw('leechers + '.$leecherCountDelta),
+                'times_completed' => DB::raw('times_completed + '.$completedCountDelta),
+            ]);
+        }
     }
 
     protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
