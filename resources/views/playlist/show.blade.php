@@ -149,7 +149,7 @@
         <div class="panel__body playlist__torrents">
             @foreach($torrents as $torrent)
                 @php
-                    $meta = match(1) {
+                    $meta = match(true) {
                         $torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->find($torrent->tmdb ?? 0),
                         $torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->find($torrent->tmdb ?? 0),
                         $torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
