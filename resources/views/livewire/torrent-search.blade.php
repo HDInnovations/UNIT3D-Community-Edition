@@ -696,10 +696,10 @@
                     @forelse ($torrents as $group)
                         @switch ($group->meta)
                             @case('movie')
-                                <x-movie.poster :categoryId="$group->category_id" :movie="$group->movie" />
+                                <x-movie.poster :categoryId="$group->category_id" :movie="$group->movie" :tmdb="$group->tmdb" />
                                 @break
                             @case('tv')
-                                <x-tv.poster :categoryId="$group->category_id" :tv="$group->tv" />
+                                <x-tv.poster :categoryId="$group->category_id" :tv="$group->tv" :tmdb="$group->tmdb" />
                                 @break
                         @endswitch
                     @endforeach

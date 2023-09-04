@@ -21,6 +21,7 @@ use App\Models\User;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -155,7 +156,12 @@ class UserController extends Controller
                 $image->move(public_path('/files/img/'), $filename);
             }
 
-            $user->image = $user->username.'.'.$image->getClientOriginalExtension();
+            $avatar = $user->username.'.'.$image->getClientOriginalExtension();
+
+            if ($user->image !== $avatar) {
+                $oldAvatar = $user->image;
+                $user->image = $avatar;
+            }
         }
 
         // Define data
@@ -168,6 +174,11 @@ class UserController extends Controller
         $user->about = $request->input('about');
         $user->signature = $request->input('signature');
         $user->save();
+
+        // Remove avatar's old file format
+        if (isset($oldAvatar)) {
+            File::delete(public_path('/files/img/').$oldAvatar);
+        }
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('Your Account Was Updated Successfully!');
