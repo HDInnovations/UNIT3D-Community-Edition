@@ -13,12 +13,26 @@
 
 namespace App\Services\Tmdb\Client;
 
+use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 
 class Company
 {
-    /** @var array<mixed>|mixed */
+    /**
+     * @var array{
+     *     description: ?string,
+     *     headquarters: ?string,
+     *     homepage: ?string,
+     *     id: ?int,
+     *     logo_path: ?string,
+     *     name: ?string,
+     *     origin_country: ?string,
+     *     parent_company: ?string,
+     * }
+     */
     public mixed $data;
+
+    public TMDB $tmdb;
 
     public function __construct(int $id)
     {
@@ -35,5 +49,29 @@ class Company
     public function getData(): mixed
     {
         return $this->data;
+    }
+
+    /**
+     * @return array{
+     *      id: ?int,
+     *      description: ?string,
+     *      headquarters: ?string,
+     *      homepage: ?string,
+     *      logo: ?string,
+     *      name: ?string,
+     *      origin_country: string,
+     * }
+     */
+    public function getCompany(): array
+    {
+        return [
+            'id'             => $this->data['id'],
+            'description'    => $this->data['description'] ?? null,
+            'headquarters'   => $this->data['headquarters'] ?? null,
+            'homepage'       => $this->data['homepage'] ?? null,
+            'logo'           => $this->tmdb->image('logo', $this->data),
+            'name'           => $this->data['name'] ?? null,
+            'origin_country' => $this->data['origin_country'],
+        ];
     }
 }

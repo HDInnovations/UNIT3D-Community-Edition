@@ -13,12 +13,39 @@
 
 namespace App\Services\Tmdb\Client;
 
+use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 
 class Network
 {
-    /** @var array<mixed>|mixed */
+    /**
+     * @var array{
+     *     headquarters: ?string,
+     *     homepage: ?string,
+     *     id: ?int,
+     *     logo_path: ?string,
+     *     name: ?string,
+     *     origin_country: ?string,
+     *     images: ?array{
+     *         id: ?int,
+     *         logos: ?array<
+     *             int<0, max>,
+     *             array{
+     *                 aspect_ratio: ?float,
+     *                 file_path: ?string,
+     *                 height: ?int,
+     *                 id: ?string,
+     *                 file_type: ?string,
+     *                 vote_average: ?float,
+     *                 vote_count: ?int,
+     *             },
+     *         >,
+     *     }
+     * }
+     */
     public mixed $data;
+
+    public TMDB $tmdb;
 
     public function __construct(int $id)
     {
@@ -30,10 +57,37 @@ class Network
                 'append_to_response' => 'images',
             ])
             ->json();
+
+        $this->tmdb = new TMDB();
     }
 
     public function getData(): mixed
     {
         return $this->data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNetwork(): ?array
+    {
+        if (isset($this->data['id'], $this->data['name'])) {
+            if (isset($this->data['images']['logos'][0]) && \array_key_exists('file_path', $this->data['images']['logos'][0])) {
+                $logo = 'https://image.tmdb.org/t/p/original'.$this->data['images']['logos'][0]['file_path'];
+            } else {
+                $logo = null;
+            }
+
+            return [
+                'id'             => $this->data['id'],
+                'headquarters'   => $this->tmdb->ifExists('headquarters', $this->data),
+                'homepage'       => $this->tmdb->ifExists('homepage', $this->data),
+                'logo'           => $logo,
+                'name'           => $this->data['name'],
+                'origin_country' => $this->data['origin_country'],
+            ];
+        }
+
+        return null;
     }
 }
