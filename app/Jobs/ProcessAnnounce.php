@@ -185,9 +185,16 @@ class ProcessAnnounce implements ShouldQueue
         $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
         $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
 
-        $this->torrent->times_completed += (int) ($event === 'completed');
-        $this->torrent->seeders += ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
-        $this->torrent->leechers += ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
-        $this->torrent->save();
+        $seederCountDelta = ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
+        $leecherCountDelta = ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
+        $completedCountDelta = (int) ($event === 'completed');
+
+        if ($seederCountDelta !== 0 || $leecherCountDelta !== 0 || $completedCountDelta !== 0) {
+            $this->torrent->update([
+                'seeders'         => DB::raw('seeders + '.$seederCountDelta),
+                'leechers'        => DB::raw('leechers + '.$leecherCountDelta),
+                'times_completed' => DB::raw('times_completed + '.$completedCountDelta),
+            ]);
+        }
     }
 }
