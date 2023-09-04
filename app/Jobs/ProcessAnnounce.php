@@ -133,7 +133,6 @@ class ProcessAnnounce implements ShouldQueue
         $peer->left = $this->queries['left'];
         $peer->torrent_id = $this->torrent->id;
         $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
         $peer->updated_at = now();
 
         switch ($event) {
@@ -196,7 +195,6 @@ class ProcessAnnounce implements ShouldQueue
                 'seeder',
                 'torrent_id',
                 'user_id',
-                'connectable',
                 'active'
             ]))
         ]);
