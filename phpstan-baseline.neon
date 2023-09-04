@@ -3766,31 +3766,6 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: "#^Method App\\\\Jobs\\\\ProcessAnnounce\\:\\:__construct\\(\\) has parameter \\$group with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessAnnounce\\:\\:__construct\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessAnnounce\\:\\:__construct\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessAnnounce\\:\\:__construct\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessAnnounce\\:\\:middleware\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
 			message: "#^Method App\\\\Jobs\\\\ProcessBackup\\:\\:__construct\\(\\) has parameter \\$option with no type specified\\.$#"
 			count: 1
 			path: app/Jobs/ProcessBackup.php
