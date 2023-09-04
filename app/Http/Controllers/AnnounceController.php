@@ -682,8 +682,6 @@ class AnnounceController extends Controller
             $creditedUploadedDelta = $uploadedDelta;
         }
 
-        $peer->updateConnectableStateIfNeeded();
-
         // User Updates
         if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
             $user->update([
