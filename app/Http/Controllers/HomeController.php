@@ -90,7 +90,7 @@ class HomeController extends Controller
                 'newest_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $newest = Torrent::with(['user', 'category', 'type', 'resolution'])
+                    $newest = Torrent::with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -153,7 +153,7 @@ class HomeController extends Controller
                 'seeded_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $seeded = Torrent::with(['user', 'category', 'type', 'resolution'])
+                    $seeded = Torrent::with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -216,7 +216,7 @@ class HomeController extends Controller
                 'dying_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $dying = Torrent::with(['user', 'category', 'type', 'resolution'])
+                    $dying = Torrent::with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -281,7 +281,7 @@ class HomeController extends Controller
                 'leeched_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $leeched = Torrent::with(['user', 'category', 'type', 'resolution'])
+                    $leeched = Torrent::with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -344,7 +344,7 @@ class HomeController extends Controller
                 'dead_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $dead = Torrent::with(['user', 'category', 'type', 'resolution'])
+                    $dead = Torrent::with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -448,23 +448,19 @@ class HomeController extends Controller
                 'latest_featured',
                 $expiresAt,
                 fn () => FeaturedTorrent::with([
-                    'torrent',
-                    'torrent.resolution',
-                    'torrent.type',
-                    'torrent.category',
-                    'user',
+                    'torrent' => ['resolution', 'type', 'category'],
                     'user.group'
                 ])->get()
             ),
             'poll'      => cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first()),
-            'uploaders' => cache()->remember('top_uploaders', $expiresAt, fn () => Torrent::with(['user', 'user.group'])
+            'uploaders' => cache()->remember('top_uploaders', $expiresAt, fn () => Torrent::with(['user.group'])
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->where('anon', '=', false)
                 ->groupBy('user_id')
                 ->latest('value')
                 ->take(10)
                 ->get()),
-            'past_uploaders' => cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with(['user', 'user.group'])
+            'past_uploaders' => cache()->remember('month_uploaders', $expiresAt, fn () => Torrent::with(['user.group'])
                 ->where('created_at', '>', now()->subDays(30)->toDateTimeString())
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->where('anon', '=', false)
