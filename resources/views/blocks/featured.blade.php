@@ -15,7 +15,7 @@
                         @continue
                     @endif
                     @php
-                        $meta = match(1) {
+                        $meta = match(true) {
                             $feature->torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->find($feature->torrent->tmdb ?? 0),
                             $feature->torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->find($feature->torrent->tmdb ?? 0),
                             $feature->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $feature->torrent->igdb),
