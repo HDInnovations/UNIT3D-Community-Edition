@@ -426,7 +426,7 @@ class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'active', 'port', 'updated_at'])
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'port', 'updated_at'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
