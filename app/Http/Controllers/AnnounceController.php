@@ -698,18 +698,17 @@ class AnnounceController extends Controller
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize([
-                'peer_id'     => base64_decode($queries['peer_id']),
-                'ip'          => $ipAddress,
-                'port'        => $queries['port'],
-                'agent'       => $queries['user-agent'],
-                'uploaded'    => $queries['uploaded'],
-                'downloaded'  => $queries['downloaded'],
-                'left'        => $queries['left'],
-                'seeder'      => $queries['left'] == 0,
-                'torrent_id'  => $torrent->id,
-                'user_id'     => $user->id,
-                'connectable' => $peer->connectable,
-                'active'      => $event !== 'stopped',
+                'peer_id'    => base64_decode($queries['peer_id']),
+                'ip'         => $ipAddress,
+                'port'       => $queries['port'],
+                'agent'      => $queries['user-agent'],
+                'uploaded'   => $queries['uploaded'],
+                'downloaded' => $queries['downloaded'],
+                'left'       => $queries['left'],
+                'seeder'     => $queries['left'] == 0,
+                'torrent_id' => $torrent->id,
+                'user_id'    => $user->id,
+                'active'     => $event !== 'stopped',
             ])
         ]);
 
