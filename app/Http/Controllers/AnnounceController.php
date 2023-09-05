@@ -426,7 +426,7 @@ class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'left', 'seeder', 'active', 'port', 'updated_at'])
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'port', 'updated_at'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
@@ -698,18 +698,17 @@ class AnnounceController extends Controller
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize([
-                'peer_id'     => base64_decode($queries['peer_id']),
-                'ip'          => $ipAddress,
-                'port'        => $queries['port'],
-                'agent'       => $queries['user-agent'],
-                'uploaded'    => $queries['uploaded'],
-                'downloaded'  => $queries['downloaded'],
-                'left'        => $queries['left'],
-                'seeder'      => $queries['left'] == 0,
-                'torrent_id'  => $torrent->id,
-                'user_id'     => $user->id,
-                'connectable' => $peer->connectable,
-                'active'      => $event !== 'stopped',
+                'peer_id'    => base64_decode($queries['peer_id']),
+                'ip'         => $ipAddress,
+                'port'       => $queries['port'],
+                'agent'      => $queries['user-agent'],
+                'uploaded'   => $queries['uploaded'],
+                'downloaded' => $queries['downloaded'],
+                'left'       => $queries['left'],
+                'seeder'     => $queries['left'] == 0,
+                'torrent_id' => $torrent->id,
+                'user_id'    => $user->id,
+                'active'     => $event !== 'stopped',
             ])
         ]);
 
