@@ -490,7 +490,11 @@ class AnnounceController extends Controller
 
         $lastAnnouncedAt = Redis::command('SET', [$lastAnnouncedKey, $now, 'NX', 'GET', 'EX', $randomMinInterval]);
 
-        if ($lastAnnouncedAt !== null && ! \in_array($event, ['completed', 'stopped'])) {
+        // Delete the timer if the user paused the torrent, and it's been at
+        // least 5 minutes since they last announced.
+        if ($event === 'stopped' && $lastAnnouncedAt < $now - 5 * 60) {
+            Redis::command('DEL', [$lastAnnouncedKey]);
+        } elseif ($lastAnnouncedAt !== null && ! \in_array($event, ['completed', 'stopped'])) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
         }
     }
