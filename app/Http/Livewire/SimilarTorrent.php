@@ -86,12 +86,15 @@ class SimilarTorrent extends Component
                     ->where('seeder', '=', 0),
                 'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 0)
-                    ->where('seeder', '=', 1)
+                    ->where('seeder', '=', 0)
                     ->whereNull('completed_at'),
                 'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 0)
-                    ->where('seeder', '=', 1)
-                    ->whereNotNull('completed_at'),
+                    ->where(
+                        fn ($query) => $query
+                            ->where('seeder', '=', 1)
+                            ->orWhereNotNull('completed_at')
+                    ),
             ])
             ->when(
                 $this->category->movie_meta,
