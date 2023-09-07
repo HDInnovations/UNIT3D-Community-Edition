@@ -1946,22 +1946,7 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:deleteBotEcho\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:deleteMessage\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:deleteRoomEcho\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:deleteTargetEcho\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -1976,48 +1961,8 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:toggleBotAudible\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:toggleRoomAudible\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:toggleTargetAudible\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:updateBotTarget\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:updateUserChatStatus\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:updateUserRoom\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:updateUserTarget\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(bool\\) does not accept int\\.$#"
-			count: 6
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
