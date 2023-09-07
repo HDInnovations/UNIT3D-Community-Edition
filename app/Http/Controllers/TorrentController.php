@@ -41,7 +41,6 @@ use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Redis;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
@@ -304,8 +303,7 @@ class TorrentController extends Controller
 
         $freeleechTokens->delete();
 
-        $cacheKey = config('cache.prefix').'torrents:infohash2id';
-        Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::removeTorrent($torrent);
 

@@ -384,22 +384,16 @@ class AnnounceController extends Controller
      */
     protected function checkTorrent($infoHash): object
     {
-        $cacheKey = config('cache.prefix').'torrents:infohash2id';
-        // Check Info Hash Against Torrents Table
-        $torrentId = Redis::connection('cache')->command('HGET', [$cacheKey, hex2bin($infoHash)]);
+        $infoHash = hex2bin($infoHash);
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
-            ->when(
-                $torrentId === null,
-                fn ($query) => $query->where('info_hash', '=', hex2bin($infoHash)),
-                fn ($query) => $query->where('id', '=', $torrentId),
-            )
-            ->first();
-
-        if ($torrentId === null && $torrent !== null) {
-            Redis::connection('cache')->command('HSET', [$cacheKey, hex2bin($infoHash), $torrent->id]);
-        }
+        $torrent = cache()->remember(
+            'announce-torrents:by-infohash:'.$infoHash,
+            7200,
+            fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
+                ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
+                ->where('info_hash', '=', $infoHash)
+                ->first()
+        );
 
         // If Torrent Doesn't Exsist Return Error to Client
         throw_if($torrent === null, new TrackerException(150));
@@ -763,6 +757,8 @@ class AnnounceController extends Controller
                 'leechers'        => DB::raw('leechers + '.$leecherCountDelta),
                 'times_completed' => DB::raw('times_completed + '.$completedCountDelta),
             ]);
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
         }
     }
 
