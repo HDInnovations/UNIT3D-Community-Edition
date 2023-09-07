@@ -20,7 +20,6 @@ use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -183,8 +182,7 @@ class SimilarTorrent extends Component
 
             $freeleechTokens->delete();
 
-            $cacheKey = config('cache.prefix').'torrents:infohash2id';
-            Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
             Unit3dAnnounce::removeTorrent($torrent);
 

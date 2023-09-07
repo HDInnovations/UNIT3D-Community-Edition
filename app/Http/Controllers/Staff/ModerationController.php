@@ -117,6 +117,8 @@ class ModerationController extends Controller
                     'message'     => "Greetings, \n\nYour upload ".$torrent->name." has been rejected. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
 
+                cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
                 Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
@@ -135,6 +137,8 @@ class ModerationController extends Controller
                     'subject'     => 'Your upload, '.$torrent->name.' ,has been postponed by '.$staff->username,
                     'message'     => "Greetings, \n\nYour upload, ".$torrent->name." ,has been postponed. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
+
+                cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
                 Unit3dAnnounce::addTorrent($torrent);
 
