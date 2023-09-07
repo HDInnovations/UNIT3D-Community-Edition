@@ -35,6 +35,8 @@ class Chatroom extends Model
 
     /**
      * A User Has Many Messages.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message>
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -43,6 +45,8 @@ class Chatroom extends Model
 
     /**
      * A Chat Room Has Many Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

@@ -76,6 +76,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To A Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, self>
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -100,6 +102,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To A Internal Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Internal, self>
      */
     public function internal(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -108,6 +112,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To A Chatroom.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
      */
     public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -116,6 +122,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To A Chat Status.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatStatus, self>
      */
     public function chatStatus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -124,6 +132,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To Many Bookmarks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
      */
     public function bookmarks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -132,6 +142,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To Many Seeding Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
      */
     public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -142,6 +154,8 @@ class User extends Authenticatable
 
     /**
      * Belongs To Many Leeching Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
      */
     public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -152,6 +166,8 @@ class User extends Authenticatable
 
     /**
      * Belongs to many followers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
      */
     public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -162,6 +178,8 @@ class User extends Authenticatable
 
     /**
      * Belongs to many connectable seeding torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
      */
     public function connectableSeedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -172,6 +190,8 @@ class User extends Authenticatable
 
     /**
      * Belongs to many followees.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
      */
     public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -182,6 +202,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Messages.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message>
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -190,6 +212,8 @@ class User extends Authenticatable
 
     /**
      * Has One Privacy Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy>
      */
     public function privacy(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -198,6 +222,8 @@ class User extends Authenticatable
 
     /**
      * Has One Notifications Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification>
      */
     public function notification(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -206,6 +232,8 @@ class User extends Authenticatable
 
     /**
      * Has One Watchlist Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Watchlist>
      */
     public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -214,6 +242,8 @@ class User extends Authenticatable
 
     /**
      * Has Many RSS Feeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rss>
      */
     public function rss(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -222,6 +252,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Echo Settings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserEcho>
      */
     public function echoes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -230,6 +262,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Audible Settings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAudible>
      */
     public function audibles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -238,6 +272,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Thanks Given.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank>
      */
     public function thanksGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -246,6 +282,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Wish's.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish>
      */
     public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -254,6 +292,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Thanks Received.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Thank>
      */
     public function thanksReceived(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -262,6 +302,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Polls.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Poll>
      */
     public function polls(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -270,6 +312,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -278,6 +322,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist>
      */
     public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -286,6 +332,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Sent PM's.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
      */
     public function sentPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -294,6 +342,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Received PM's.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
      */
     public function receivedPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -302,6 +352,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Peers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
      */
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -310,6 +362,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Articles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Article>
      */
     public function articles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -318,6 +372,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -326,6 +382,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -334,6 +392,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Comments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -342,6 +402,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Torrent Requests.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -350,6 +412,8 @@ class User extends Authenticatable
 
     /**
      * Has Approved Many Torrent Requests.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
     public function ApprovedRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -358,6 +422,8 @@ class User extends Authenticatable
 
     /**
      * Has Filled Many Torrent Requests.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
     public function FilledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -366,6 +432,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Torrent Request BON Bounties.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
      */
     public function requestBounty(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -374,6 +442,8 @@ class User extends Authenticatable
 
     /**
      * Has Moderated Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -382,6 +452,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Notes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
      */
     public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -390,6 +462,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Reports.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report>
      */
     public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -398,6 +472,8 @@ class User extends Authenticatable
 
     /**
      * Has Solved Many Reports.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report>
      */
     public function solvedReports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -406,6 +482,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Torrent History.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History>
      */
     public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -414,6 +492,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Bans.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban>
      */
     public function userban(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -422,6 +502,8 @@ class User extends Authenticatable
 
     /**
      * Has Given Many Bans.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban>
      */
     public function staffban(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -430,6 +512,8 @@ class User extends Authenticatable
 
     /**
      * Has Given Many Warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
      */
     public function staffwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -438,6 +522,8 @@ class User extends Authenticatable
 
     /**
      * Has Deleted Many Warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
      */
     public function staffdeletedwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -446,6 +532,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
      */
     public function userwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -454,6 +542,8 @@ class User extends Authenticatable
 
     /**
      * Has Given Many Invites.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
      */
     public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -462,6 +552,8 @@ class User extends Authenticatable
 
     /**
      * Has Received Many Invites.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
      */
     public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -470,6 +562,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Featured Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent>
      */
     public function featuredTorrent(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -478,6 +572,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Post Likes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -486,6 +582,8 @@ class User extends Authenticatable
 
     /**
      * Has Given Many BON Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function bonGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -494,6 +592,8 @@ class User extends Authenticatable
 
     /**
      * Has Received Many BON Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function bonReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -502,6 +602,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -510,6 +612,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Resurrections.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection>
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -518,6 +622,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Subscribed topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Forum>
      */
     public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -526,6 +632,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Subscribed topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Topic>
      */
     public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -534,6 +642,8 @@ class User extends Authenticatable
 
     /**
      * Has many free leech tokens.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken>
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -542,6 +652,8 @@ class User extends Authenticatable
 
     /**
      * Has many warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
      */
     public function warnings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -550,6 +662,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Tickets.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ticket>
      */
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -558,6 +672,8 @@ class User extends Authenticatable
 
     /**
      * Has Many Personal Freeleeches.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PersonalFreeleech>
      */
     public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -566,6 +682,8 @@ class User extends Authenticatable
 
     /**
      * Has many failed logins.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FailedLoginAttempt>
      */
     public function failedLogins(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -574,6 +692,8 @@ class User extends Authenticatable
 
     /**
      * Has many upload snatches.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<History>
      */
     public function uploadSnatches(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -582,6 +702,8 @@ class User extends Authenticatable
 
     /**
      * Has many sent gifts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -590,6 +712,8 @@ class User extends Authenticatable
 
     /**
      * Has many received gifts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -598,6 +722,8 @@ class User extends Authenticatable
 
     /**
      * Has many sent tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function sentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -606,6 +732,8 @@ class User extends Authenticatable
 
     /**
      * Has many received tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function receivedTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -614,6 +742,8 @@ class User extends Authenticatable
 
     /**
      * Has many seedboxes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Seedbox>
      */
     public function seedboxes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -622,6 +752,8 @@ class User extends Authenticatable
 
     /**
      * Has one application.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough<Application>
      */
     public function application(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
     {
@@ -631,7 +763,7 @@ class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      */
-    public function acceptsNotification(self $sender, self $target, string $group = 'follower', $type = false): bool
+    public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
 
@@ -661,7 +793,7 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      */
-    public function isVisible(self $target, string $group = 'profile', $type = false): bool
+    public function isVisible(self $target, string $group = 'profile', bool|string $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = auth()->user();
@@ -692,7 +824,7 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      */
-    public function isAllowed(self $target, string $group = 'profile', $type = false): bool
+    public function isAllowed(self $target, string $group = 'profile', bool|string $type = false): bool
     {
         $targetGroup = 'json_'.$group.'_groups';
         $sender = auth()->user();

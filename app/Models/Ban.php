@@ -31,6 +31,8 @@ class Ban extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function banneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -42,6 +44,8 @@ class Ban extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

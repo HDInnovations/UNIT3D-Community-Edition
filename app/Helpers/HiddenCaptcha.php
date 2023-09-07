@@ -16,6 +16,7 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
+use Exception;
 
 class HiddenCaptcha
 {
@@ -86,7 +87,7 @@ class HiddenCaptcha
         // Get the token values
         try {
             $token = Crypt::decrypt($captcha);
-        } catch (\Exception) {
+        } catch (Exception) {
             return false;
         }
 

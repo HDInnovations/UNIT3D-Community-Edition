@@ -34,6 +34,8 @@ class ApplicationUrlProof extends Model
 
     /**
      * Belongs To A Application.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Application, self>
      */
     public function application(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

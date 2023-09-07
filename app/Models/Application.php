@@ -56,6 +56,8 @@ class Application extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -64,6 +66,8 @@ class Application extends Model
 
     /**
      * Application Has Been Moderated By.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -72,6 +76,8 @@ class Application extends Model
 
     /**
      * A Application Has Many Image Proofs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationImageProof>
      */
     public function imageProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -80,6 +86,8 @@ class Application extends Model
 
     /**
      * A Application Has Many URL Proofs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationUrlProof>
      */
     public function urlProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

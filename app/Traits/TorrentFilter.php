@@ -17,6 +17,8 @@ use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\PlaylistTorrent;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\User;
 use App\Models\Wish;
 use Carbon\Carbon;
@@ -25,38 +27,50 @@ use Illuminate\Support\Facades\DB;
 
 trait TorrentFilter
 {
-    public function scopeOfName(Builder $query, string $name, bool $isRegex = false): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     */
+    public function scopeOfName(Builder $query, string $name, bool $isRegex = false): void
     {
-        return $query->when(
+        $query->when(
             $isRegex,
             fn ($query) => $query->where('name', 'REGEXP', substr($name, 1, -1)),
             fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $name).'%')
         );
     }
 
-    public function scopeOfDescription(Builder $query, string $description, bool $isRegex = false): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfDescription(Builder $query, string $description, bool $isRegex = false): void
     {
-        return $query->when(
+        $query->when(
             $isRegex,
             fn ($query) => $query->where('description', 'REGEXP', substr($description, 1, -1)),
             fn ($query) => $query->where('description', 'LIKE', '%'.$description.'%')
         );
     }
 
-    public function scopeOfMediainfo(Builder $query, string $mediainfo, bool $isRegex = false): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfMediainfo(Builder $query, string $mediainfo, bool $isRegex = false): void
     {
-        return $query->when(
+        $query->when(
             $isRegex,
             fn ($query) => $query->where('mediainfo', 'REGEXP', substr($mediainfo, 1, -1)),
             fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$mediainfo.'%')
         );
     }
 
-    public function scopeOfUploader(Builder $query, string $username, User $authenticatedUser = null): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     */
+    public function scopeOfUploader(Builder $query, string $username, User $authenticatedUser = null): void
     {
         $authenticatedUser ??= auth()->user();
 
-        return $query
+        $query
             ->whereIn('user_id', User::select('id')->where('username', '=', $username))
             ->when(
                 $authenticatedUser === null,
@@ -68,49 +82,81 @@ trait TorrentFilter
             );
     }
 
-    public function scopeOfKeyword(Builder $query, array $keywords): Builder
+    /**
+     * @param Builder<Torrent> $query
+     * @param array<string>    $keywords
+     */
+    public function scopeOfKeyword(Builder $query, array $keywords): void
     {
-        return $query->whereIn('id', Keyword::select('torrent_id')->whereIn('name', $keywords));
+        $query->whereIn('id', Keyword::select('torrent_id')->whereIn('name', $keywords));
     }
 
-    public function scopeReleasedAfterOrIn(Builder $query, int $year): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeReleasedAfterOrIn(Builder $query, int $year): void
     {
-        return $query->where('release_year', '>=', $year);
+        $query->where('release_year', '>=', $year);
     }
 
-    public function scopeReleasedBeforeOrIn(Builder $query, int $year): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeReleasedBeforeOrIn(Builder $query, int $year): void
     {
-        return $query->where('release_year', '<=', $year);
+        $query->where('release_year', '<=', $year);
     }
 
-    public function scopeOfSizeGreaterOrEqualTo(Builder $query, int $size): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfSizeGreaterOrEqualTo(Builder $query, int $size): void
     {
-        return $query->where('size', '>=', $size);
+        $query->where('size', '>=', $size);
     }
 
-    public function scopeOfSizeLesserOrEqualTo(Builder $query, int $size): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfSizeLesserOrEqualTo(Builder $query, int $size): void
     {
-        return $query->where('size', '<=', $size);
+        $query->where('size', '<=', $size);
     }
 
-    public function scopeOfCategory(Builder $query, array $categories): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     * @param array<int>                      $categories
+     */
+    public function scopeOfCategory(Builder $query, array $categories): void
     {
-        return $query->whereIntegerInRaw('category_id', $categories);
+        $query->whereIntegerInRaw('category_id', $categories);
     }
 
-    public function scopeOfType(Builder $query, array $types): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     * @param array<int>                      $types
+     */
+    public function scopeOfType(Builder $query, array $types): void
     {
-        return $query->whereIntegerInRaw('type_id', $types);
+        $query->whereIntegerInRaw('type_id', $types);
     }
 
-    public function scopeOfResolution(Builder $query, array $resolutions): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     * @param array<int>                      $resolutions
+     */
+    public function scopeOfResolution(Builder $query, array $resolutions): void
     {
-        return $query->whereIntegerInRaw('resolution_id', $resolutions);
+        $query->whereIntegerInRaw('resolution_id', $resolutions);
     }
 
-    public function scopeOfGenre(Builder $query, array $genres): Builder
+    /**
+     * @param Builder<Torrent> $query
+     * @param array<int>       $genres
+     */
+    public function scopeOfGenre(Builder $query, array $genres): void
     {
-        return $query
+        $query
             ->where(
                 fn ($query) => $query
                     ->where(
@@ -126,51 +172,80 @@ trait TorrentFilter
             );
     }
 
-    public function scopeOfRegion(Builder $query, array $regions): Builder
+    /**
+     * @param Builder<Torrent> $query
+     * @param array<int>       $regions
+     */
+    public function scopeOfRegion(Builder $query, array $regions): void
     {
-        return $query->whereIntegerInRaw('region_id', $regions);
+        $query->whereIntegerInRaw('region_id', $regions);
     }
 
-    public function scopeOfDistributor(Builder $query, array $distributors): Builder
+    /**
+     * @param Builder<Torrent> $query
+     * @param array<int>       $distributors
+     */
+    public function scopeOfDistributor(Builder $query, array $distributors): void
     {
-        return $query->whereIntegerInRaw('distributor_id', $distributors);
+        $query->whereIntegerInRaw('distributor_id', $distributors);
     }
 
-    public function scopeOfTmdb(Builder $query, int $tvdbId): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     */
+    public function scopeOfTmdb(Builder $query, int $tvdbId): void
     {
-        return $query->where('tmdb', '=', $tvdbId);
+        $query->where('tmdb', '=', $tvdbId);
     }
 
-    public function scopeOfimdb(Builder $query, int $tvdbId): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     */
+    public function scopeOfImdb(Builder $query, int $tvdbId): void
     {
-        return $query->where('imdb', '=', $tvdbId);
+        $query->where('imdb', '=', $tvdbId);
     }
 
-    public function scopeOfTvdb(Builder $query, int $tvdbId): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     */
+    public function scopeOfTvdb(Builder $query, int $tvdbId): void
     {
-        return $query->where('tvdb', '=', $tvdbId);
+        $query->where('tvdb', '=', $tvdbId);
     }
 
-    public function scopeOfMal(Builder $query, int $malId): Builder
+    /**
+     * @param Builder<Torrent|TorrentRequest> $query
+     */
+    public function scopeOfMal(Builder $query, int $malId): void
     {
-        return $query->where('mal', '=', $malId);
+        $query->where('mal', '=', $malId);
     }
 
-    public function scopeOfPlaylist(Builder $query, int $playlistId): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfPlaylist(Builder $query, int $playlistId): void
     {
-        return $query->whereIn('id', PlaylistTorrent::select('torrent_id')->where('playlist_id', '=', $playlistId));
+        $query->whereIn('id', PlaylistTorrent::select('torrent_id')->where('playlist_id', '=', $playlistId));
     }
 
-    public function scopeOfCollection(Builder $query, int $collectionId): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfCollection(Builder $query, int $collectionId): void
     {
-        return $query
+        $query
             ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
             ->whereIn('tmdb', DB::table('collection_movie')->select('movie_id')->where('collection_id', '=', $collectionId));
     }
 
-    public function scopeOfCompany(Builder $query, int $companyId): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfCompany(Builder $query, int $companyId): void
     {
-        return $query
+        $query
             ->where(
                 fn ($query) => $query
                     ->where(
@@ -186,88 +261,137 @@ trait TorrentFilter
             );
     }
 
-    public function scopeOfNetwork(Builder $query, int $networkId): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfNetwork(Builder $query, int $networkId): void
     {
-        return $query
+        $query
             ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
             ->whereIn('tmdb', DB::table('network_tv')->select('tv_id')->where('network_id', '=', $networkId));
     }
 
-    public function scopeOfFreeleech(Builder $query, string|array $free): Builder
+    /**
+     * @param Builder<Torrent> $query
+     * @param int|array<int>   $free
+     */
+    public function scopeOfFreeleech(Builder $query, int|array $free): void
     {
-        return $query->whereIntegerInRaw('free', (array) $free);
+        $query->whereIntegerInRaw('free', (array) $free);
     }
 
-    public function scopeDoubleup(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeDoubleup(Builder $query): void
     {
-        return $query->where('doubleup', '=', 1);
+        $query->where('doubleup', '=', 1);
     }
 
-    public function scopeFeatured(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeFeatured(Builder $query): void
     {
-        return $query->where('featured', '=', 1);
+        $query->where('featured', '=', 1);
     }
 
-    public function scopeStreamOptimized(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeStreamOptimized(Builder $query): void
     {
-        return $query->where('stream', '=', 1);
+        $query->where('stream', '=', 1);
     }
 
-    public function scopeSd(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeSd(Builder $query): void
     {
-        return $query->where('sd', '=', 1);
+        $query->where('sd', '=', 1);
     }
 
-    public function scopeHighSpeed(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeHighSpeed(Builder $query): void
     {
-        return $query->where('highspeed', '=', 1);
+        $query->where('highspeed', '=', 1);
     }
 
-    public function scopeBookmarkedBy(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeBookmarkedBy(Builder $query, User $user): void
     {
-        return $query->whereIn('id', Bookmark::select('torrent_id')->where('user_id', '=', $user->id));
+        $query->whereIn('id', Bookmark::select('torrent_id')->where('user_id', '=', $user->id));
     }
 
-    public function scopeWishedBy(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeWishedBy(Builder $query, User $user): void
     {
-        return $query->whereIn('tmdb', Wish::select('tmdb')->where('user_id', '=', $user->id));
+        $query->whereIn('tmdb', Wish::select('tmdb')->where('user_id', '=', $user->id));
     }
 
-    public function scopeInternal(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeInternal(Builder $query): void
     {
-        return $query->where('internal', '=', 1);
+        $query->where('internal', '=', 1);
     }
 
-    public function scopePersonalRelease(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopePersonalRelease(Builder $query): void
     {
-        return $query->where('personal_release', '=', 1);
+        $query->where('personal_release', '=', 1);
     }
 
-    public function scopeAlive(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeAlive(Builder $query): void
     {
-        return $query->where('seeders', '>', 0);
+        $query->where('seeders', '>', 0);
     }
 
-    public function scopeDying(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeDying(Builder $query): void
     {
-        return $query
+        $query
             ->where('seeders', '=', 1)
             ->where('times_completed', '>=', 3);
     }
 
-    public function scopeDead(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeDead(Builder $query): void
     {
-        return $query->where('seeders', '=', 0);
+        $query->where('seeders', '=', 0);
     }
 
-    public function scopeGraveyard(Builder $query): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeGraveyard(Builder $query): void
     {
-        return $query->where('seeders', '=', 0)->where('created_at', '<', Carbon::now()->subDays(30));
+        $query->where('seeders', '=', 0)->where('created_at', '<', Carbon::now()->subDays(30));
     }
 
-    public function scopeNotDownloadedBy(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeNotDownloadedBy(Builder $query, User $user): void
     {
-        return $query
+        $query
             ->whereDoesntHave(
                 'history',
                 fn ($query) => $query
@@ -275,9 +399,12 @@ trait TorrentFilter
             );
     }
 
-    public function scopeDownloadedBy(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeDownloadedBy(Builder $query, User $user): void
     {
-        return $query
+        $query
             ->whereHas(
                 'history',
                 fn (Builder $query) => $query
@@ -285,9 +412,12 @@ trait TorrentFilter
             );
     }
 
-    public function scopeSeededBy(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeSeededBy(Builder $query, User $user): void
     {
-        return $query
+        $query
             ->whereHas(
                 'history',
                 fn ($query) => $query
@@ -297,9 +427,12 @@ trait TorrentFilter
             );
     }
 
-    public function scopeLeechedby(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeLeechedby(Builder $query, User $user): void
     {
-        return $query
+        $query
             ->whereHas(
                 'history',
                 fn ($query) => $query
@@ -309,9 +442,12 @@ trait TorrentFilter
             );
     }
 
-    public function scopeUncompletedBy(Builder $query, User $user): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeUncompletedBy(Builder $query, User $user): void
     {
-        return $query
+        $query
             ->whereHas(
                 'history',
                 fn ($query) => $query
@@ -322,9 +458,12 @@ trait TorrentFilter
             );
     }
 
-    public function scopeOfFilename(Builder $query, string $filename): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfFilename(Builder $query, string $filename): void
     {
-        return $query
+        $query
             ->whereHas(
                 'files',
                 fn ($query) => $query
@@ -332,13 +471,19 @@ trait TorrentFilter
             );
     }
 
-    public function scopeOfSeason(Builder $query, int $seasonNumber): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfSeason(Builder $query, int $seasonNumber): void
     {
-        return $query->where('season_number', '=', $seasonNumber);
+        $query->where('season_number', '=', $seasonNumber);
     }
 
-    public function scopeOfEpisode(Builder $query, int $episodeNumber): Builder
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfEpisode(Builder $query, int $episodeNumber): void
     {
-        return $query->where('episode_number', '=', $episodeNumber);
+        $query->where('episode_number', '=', $episodeNumber);
     }
 }

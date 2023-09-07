@@ -38,6 +38,8 @@ class TorrentRequestBounty extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -49,6 +51,8 @@ class TorrentRequestBounty extends Model
 
     /**
      * Belongs To A Torrent Request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, self>
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

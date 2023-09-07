@@ -110,6 +110,8 @@ class TorrentHelper
             $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
 
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
         Unit3dAnnounce::addTorrent($torrent);
     }
 }

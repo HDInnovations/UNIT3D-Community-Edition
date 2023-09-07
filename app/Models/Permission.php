@@ -33,6 +33,8 @@ class Permission extends Model
 
     /**
      * Belongs To A Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, self>
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -41,6 +43,8 @@ class Permission extends Model
 
     /**
      * Belongs To A Forum.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, self>
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

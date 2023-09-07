@@ -38,6 +38,8 @@ class Warning extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrenttitle(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -46,6 +48,8 @@ class Warning extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function warneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -57,6 +61,8 @@ class Warning extends Model
 
     /**
      * Belongs To A USer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -68,6 +74,8 @@ class Warning extends Model
 
     /**
      * Belongs To A USer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function deletedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -79,9 +87,11 @@ class Warning extends Model
 
     /**
      * Active Warnings.
+     *
+     * @param Builder<Warning> $query
      */
-    public function scopeActive($query): Builder
+    public function scopeActive(Builder $query): void
     {
-        return $query->where('active', '=', 1);
+        $query->where('active', '=', 1);
     }
 }

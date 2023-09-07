@@ -128,6 +128,8 @@ class RequestController extends Controller
     {
         $user = $request->user();
 
+        $user->decrement('seedbonus', $request->bounty);
+
         $torrentRequest = TorrentRequest::create(['user_id' => $request->user()->id, 'votes' => 1] + $request->validated());
 
         TorrentRequestBounty::create([
@@ -144,8 +146,6 @@ class RequestController extends Controller
             'sender_id'       => $user->id,
             'comment'         => sprintf('new request - %s', $request->name),
         ]);
-
-        $user->decrement('seedbonus', $request->bounty);
 
         // Auto Shout
         if ($torrentRequest->anon == 0) {

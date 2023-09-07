@@ -29,5 +29,10 @@ class PersonalFreeleech extends Model
      */
     protected $table = 'personal_freeleech';
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
     protected $guarded = [];
 }

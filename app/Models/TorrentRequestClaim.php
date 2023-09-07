@@ -37,11 +37,19 @@ class TorrentRequestClaim extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    /**
+     * Belongs To A User.
+     *
+     * @return BelongsTo<User, self>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo<TorrentRequest, self>
+     */
     public function request(): BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class);

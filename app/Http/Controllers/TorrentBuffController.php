@@ -120,6 +120,8 @@ class TorrentBuffController extends Controller
         $torrent->free = $request->freeleech;
         $torrent->save();
 
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -141,6 +143,8 @@ class TorrentBuffController extends Controller
             $torrent->doubleup = true;
             $torrent->featured = true;
             $torrent->save();
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
             Unit3dAnnounce::addTorrent($torrent);
 
@@ -179,6 +183,8 @@ class TorrentBuffController extends Controller
         $torrent->doubleup = false;
         $torrent->featured = false;
         $torrent->save();
+
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
 
@@ -227,6 +233,8 @@ class TorrentBuffController extends Controller
         }
 
         $torrent->save();
+
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
 

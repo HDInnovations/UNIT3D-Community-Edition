@@ -67,8 +67,8 @@ class TipController extends Controller
         $recipient = $tipable->user;
         $tipAmount = $request->get('tip');
 
-        $recipient->increment('seedbonus', $tipAmount);
         $user->decrement('seedbonus', $tipAmount);
+        $recipient->increment('seedbonus', $tipAmount);
 
         BonTransactions::create([
             'bon_exchange_id' => 0,

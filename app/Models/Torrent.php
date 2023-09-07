@@ -58,7 +58,7 @@ class Torrent extends Model
     /**
      * The attributes that should not be included in audit log.
      *
-     * @var array
+     * @var string[]
      */
     protected $discarded = [
         'info_hash',
@@ -76,6 +76,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -87,6 +89,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, self>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -95,6 +99,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, self>
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -103,6 +109,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Resolution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
      */
     public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -111,6 +119,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Distributor.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Distributor, self>
      */
     public function distributor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -119,6 +129,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Region.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Region, self>
      */
     public function region(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -127,6 +139,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Movie.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, self>
      */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -135,6 +149,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Tv.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -143,6 +159,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Playlist>
      */
     public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -151,6 +169,8 @@ class Torrent extends Model
 
     /**
      * Torrent Has Been Moderated By.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -162,6 +182,8 @@ class Torrent extends Model
 
     /**
      * Has Many Keywords.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Keyword>
      */
     public function keywords(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -170,6 +192,8 @@ class Torrent extends Model
 
     /**
      * Has Many History.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History>
      */
     public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -178,6 +202,8 @@ class Torrent extends Model
 
     /**
      * Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -186,6 +212,8 @@ class Torrent extends Model
 
     /**
      * Has Many Thank.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank>
      */
     public function thanks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -194,6 +222,8 @@ class Torrent extends Model
 
     /**
      * Has Many HitRuns.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
      */
     public function hitrun(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -202,6 +232,8 @@ class Torrent extends Model
 
     /**
      * Has Many Featured.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent>
      */
     public function featured(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -210,12 +242,17 @@ class Torrent extends Model
 
     /**
      * Has Many Files.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentFile>
      */
     public function files(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentFile::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
@@ -223,6 +260,8 @@ class Torrent extends Model
 
     /**
      * Has Many Peers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
      */
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -231,6 +270,8 @@ class Torrent extends Model
 
     /**
      * Has Many Subtitles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subtitle>
      */
     public function subtitles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -239,6 +280,8 @@ class Torrent extends Model
 
     /**
      * Relationship To Many Requests.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -247,6 +290,8 @@ class Torrent extends Model
 
     /**
      * Has many free leech tokens.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken>
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -255,6 +300,8 @@ class Torrent extends Model
 
     /**
      * Bookmarks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Bookmark>
      */
     public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -263,6 +310,8 @@ class Torrent extends Model
 
     /**
      * Bookmarks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection>
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -308,7 +357,7 @@ class Torrent extends Model
     /**
      * Notify Uploader When An Action Is Taken.
      */
-    public function notifyUploader($type, $payload): bool
+    public function notifyUploader(string $type, Thank|Comment $payload): bool
     {
         $user = User::with('notification')->findOrFail($this->user_id);
 
@@ -334,7 +383,7 @@ class Torrent extends Model
     /**
      * Torrent Is Freeleech.
      */
-    public function isFreeleech($user = null): bool
+    public function isFreeleech(User $user = null): bool
     {
         $pfree = $user && ($user->group->is_freeleech || cache()->get('personal_freeleech:'.$user->id));
 
