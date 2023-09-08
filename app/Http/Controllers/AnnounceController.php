@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
-use App\Helpers\Bencode;
 use App\Models\BlacklistClient;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -91,7 +90,7 @@ class AnnounceController extends Controller
      */
     public function index(Request $request, string $passkey): ?Response
     {
-        $repDict = null;
+        $response = null;
 
         try {
             // Check client.
@@ -129,14 +128,14 @@ class AnnounceController extends Controller
             }
 
             // Generate A Response For The Torrent Client.
-            $repDict = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
+            $response = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
 
             // Process Annnounce Job.
             $this->processAnnounceJob($queries, $user, $group, $torrent);
         } catch (TrackerException $exception) {
-            $repDict = $this->generateFailedAnnounceResponse($exception);
+            $response = $this->generateFailedAnnounceResponse($exception);
         } finally {
-            return $this->sendFinalAnnounceResponse($repDict);
+            return $this->sendFinalAnnounceResponse($response);
         }
     }
 
@@ -558,18 +557,21 @@ class AnnounceController extends Controller
      *
      * @throws Exception
      */
-    private function generateSuccessAnnounceResponse($queries, $torrent, $user): array
+    private function generateSuccessAnnounceResponse($queries, $torrent, $user): string
     {
         // Build Response For Bittorrent Client
-        $repDict = [
-            'interval'     => random_int(self::MIN, self::MAX),
-            'min interval' => self::MIN,
-            'complete'     => (int) $torrent->seeders,
-            'incomplete'   => (int) $torrent->leechers,
-            'downloaded'   => (int) $torrent->times_completed,
-            'peers'        => '',
-            'peers6'       => '',
-        ];
+        // Keys must be ordered alphabetically
+        $response = 'd8:completei'
+            .$torrent->seeders
+            .'e10:downloadedi'
+            .$torrent->times_completed
+            .'e10:incompletei'
+            .$torrent->leechers
+            .'e8:intervali'
+            .random_int(self::MIN, self::MAX)
+            .'e12:min intervali'
+            .self::MIN
+            .'e';
 
         /**
          * For non `stopped` event only
@@ -588,15 +590,29 @@ class AnnounceController extends Controller
                 ->only(['ip', 'port'])
                 ->toArray();
 
+            $peersIpv4 = '';
+            $peersIpv6 = '';
+
             foreach ($peers as $peer) {
                 if (isset($peer['ip'], $peer['port'])) {
-                    $peer_insert_field = filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'peers' : 'peers6';
-                    $repDict[$peer_insert_field] .= inet_pton($peer['ip']).pack('n', (int) $peer['port']);
+                    if (filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                        $peersIpv4 .= inet_pton($peer['ip']).pack('n', (int) $peer['port']);
+                    } else {
+                        $peersIpv6 .= inet_pton($peer['ip']).pack('n', (int) $peer['port']);
+                    }
                 }
             }
+
+            $response .= '5:peers'.\strlen($peersIpv4).':'.$peersIpv4;
+
+            if ($peersIpv6 !== '') {
+                $response .= '6:peers6'.\strlen($peersIpv6).':'.$peersIpv6;
+            }
+
+            $response .= 'e';
         }
 
-        return $repDict;
+        return $response;
     }
 
     /**
@@ -762,19 +778,18 @@ class AnnounceController extends Controller
         }
     }
 
-    protected function generateFailedAnnounceResponse(TrackerException $trackerException): array
+    protected function generateFailedAnnounceResponse(TrackerException $trackerException): string
     {
-        return [
-            'failure reason' => $trackerException->getMessage(),
-            'min interval'   => self::MIN,
-        ];
+        $message = $trackerException->getMessage();
+
+        return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali'.self::MIN.'e12:min intervali'.self::MIN.'ee';
     }
 
     /**
      * Send Final Announce Response.
      */
-    protected function sendFinalAnnounceResponse($repDict): Response
+    protected function sendFinalAnnounceResponse(string $response): Response
     {
-        return response(Bencode::bencode($repDict), headers: self::HEADERS);
+        return response($response, headers: self::HEADERS);
     }
 }

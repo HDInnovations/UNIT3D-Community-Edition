@@ -35,5 +35,5 @@ test('index returns an ok response', function (): void {
     ]));
     $response ->assertOk();
 
-    $this->assertArrayNotHasKey('failure reason', [$response->getContent()]);
+    $this->assertStringNotContainsString('failure reason', $response->getContent());
 });
