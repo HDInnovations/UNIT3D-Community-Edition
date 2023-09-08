@@ -149,13 +149,19 @@ class AnnounceController extends Controller
     protected function checkClient(Request $request): void
     {
         // Query count check
-        throw_if($request->query->count() < 6, new TrackerException(129));
+        if ($request->query->count() < 6) {
+            throw new TrackerException(129);
+        }
 
         // Miss Header User-Agent is not allowed.
-        throw_if(! $request->header('User-Agent'), new TrackerException(120));
+        if (! $request->header('User-Agent')) {
+            throw new TrackerException(120);
+        }
 
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
-        throw_if($request->header('accept-language') || $request->header('referer')
+        if(
+            $request->header('accept-language')
+            || $request->header('referer')
             || $request->header('accept-charset')
 
             /**
@@ -164,25 +170,29 @@ class AnnounceController extends Controller
              *
              * @see https://blog.rhilip.info/archives/1010/ ( in Chinese )
              */
-            || $request->header('want-digest'), new TrackerException(122));
+            || $request->header('want-digest')
+        ) {
+            throw new TrackerException(122);
+        }
 
         $userAgent = $request->header('User-Agent');
 
         // Should also block User-Agent strings that are too long. (For Database reasons)
-        throw_if(\strlen((string) $userAgent) > 64, new TrackerException(123));
+        if (\strlen((string) $userAgent) > 64) {
+            throw new TrackerException(123);
+        }
 
         // Block Browser by checking the User-Agent
-        throw_if(preg_match(
-            '/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i',
-            (string) $userAgent
-        ), new TrackerException(121));
+        if (preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', (string) $userAgent)) {
+            new TrackerException(121);
+        }
 
         // Block Blacklisted Clients
         $clientBlacklist = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('name')->toArray());
-        throw_if(
-            \in_array($userAgent, $clientBlacklist),
-            new TrackerException(128, [':ua' => $request->header('User-Agent')])
-        );
+
+        if (\in_array($userAgent, $clientBlacklist)) {
+            throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
+        }
     }
 
     /**
@@ -194,19 +204,19 @@ class AnnounceController extends Controller
     protected function checkPasskey($passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
-        throw_if($passkey === null, new TrackerException(130, [':attribute' => 'passkey']));
+        if ($passkey === null) {
+            throw new TrackerException(130, [':attribute' => 'passkey']);
+        }
 
         // If Passkey Length Is Wrong
-        throw_if(
-            \strlen((string) $passkey) !== 32,
-            new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32])
-        );
+        if(\strlen((string) $passkey) !== 32) {
+            throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
+        }
 
         // If Passkey Format Is Wrong
-        throw_if(
-            strspn(strtolower($passkey), 'abcdef0123456789') !== 32,
-            new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'Passkey format is incorrect'])
-        );
+        if (strspn(strtolower($passkey), 'abcdef0123456789') !== 32) {
+            throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'Passkey format is incorrect']);
+        }
     }
 
     /**
@@ -231,18 +241,17 @@ class AnnounceController extends Controller
         }
 
         foreach (['info_hash', 'peer_id'] as $item) {
-            throw_if(
-                \strlen((string) $queries[$item]) !== 20,
-                new TrackerException(133, [':attribute' => $item, ':rule' => 20])
-            );
+            if (\strlen((string) $queries[$item]) !== 20) {
+                throw new TrackerException(133, [':attribute' => $item, ':rule' => 20]);
+            }
         }
 
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $queries[$item];
-            throw_if(
-                ! is_numeric($itemData) || $itemData < 0,
-                new TrackerException(134, [':attribute' => $item])
-            );
+
+            if (! is_numeric($itemData) || $itemData < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
         }
 
         // Part.2 Extract optional announce fields
@@ -256,35 +265,34 @@ class AnnounceController extends Controller
         }
 
         foreach (['numwant', 'corrupt'] as $item) {
-            throw_if(
-                ! is_numeric($queries[$item]) || $queries[$item] < 0,
-                new TrackerException(134, [':attribute' => $item])
-            );
+            if (! is_numeric($queries[$item]) || $queries[$item] < 0) {
+                throw new TrackerException(134, [':attribute' => $item]);
+            }
         }
 
         $queries['event'] = strtolower($queries['event']);
 
-        throw_if(
-            ! \in_array($queries['event'], ['started', 'completed', 'stopped', 'paused', '']),
-            new TrackerException(136, [':event' => $queries['event']])
-        );
+        if (! \in_array($queries['event'], ['started', 'completed', 'stopped', 'paused', ''])) {
+            throw new TrackerException(136, [':event' => $queries['event']]);
+        }
 
         // Part.3 check Port is Valid and Allowed
         /**
          * Normally , the port must in 1 - 65535 , that is ( $port > 0 && $port < 0xffff )
          * However, in some case , When `&event=stopped` the port may set to 0.
          */
-        throw_if(
-            $queries['port'] === 0 && $queries['event'] !== 'stopped',
-            new TrackerException(137, [':event' => $queries['event']])
-        );
+        if ($queries['port'] === 0 && $queries['event'] !== 'stopped') {
+            throw new TrackerException(137, [':event' => $queries['event']]);
+        }
 
-        throw_if(! is_numeric($queries['port']) || $queries['port'] < 0 || $queries['port'] > 0xFFFF
-            || \in_array(
-                $queries['port'],
-                self::BLACK_PORTS,
-                true
-            ), new TrackerException(135, [':port' => $queries['port']]));
+        if (
+            ! is_numeric($queries['port'])
+            || $queries['port'] < 0
+            || $queries['port'] > 0xFFFF
+            || \in_array($queries['port'], self::BLACK_PORTS, true)
+        ) {
+            throw new TrackerException(135, [':port' => $queries['port']]);
+        }
 
         // Part.4 base64_encode binary ip for job
         $queries['ip-address'] = base64_encode(inet_pton($request->getClientIp()));
@@ -318,16 +326,14 @@ class AnnounceController extends Controller
         });
 
         // If User Doesn't Exist Return Error to Client
-        throw_if(
-            $user === null,
-            new TrackerException(140)
-        );
+        if ($user === null) {
+            throw new TrackerException(140);
+        }
 
         // If User Download Rights Are Disabled Return Error to Client
-        throw_if(
-            $user->can_download === false && $queries['left'] !== '0',
-            new TrackerException(142)
-        );
+        if ($user->can_download === false && $queries['left'] !== '0') {
+            throw new TrackerException(142);
+        }
 
         return $user;
     }
@@ -356,22 +362,19 @@ class AnnounceController extends Controller
         });
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        throw_if(
-            $user->group_id === $deniedGroups->validating_id,
-            new TrackerException(141, [':status' => 'Unactivated/Validating'])
-        );
+        if ($user->group_id === $deniedGroups->validating_id) {
+            throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
+        }
 
         // If User Is Banned Return Error to Client
-        throw_if(
-            $user->group_id === $deniedGroups->banned_id,
-            new TrackerException(141, [':status' => 'Banned'])
-        );
+        if ($user->group_id === $deniedGroups->banned_id) {
+            throw new TrackerException(141, [':status' => 'Banned']);
+        }
 
         // If User Is Disabled Return Error to Client
-        throw_if(
-            $user->group_id === $deniedGroups->disabled_id,
-            new TrackerException(141, [':status' => 'Disabled'])
-        );
+        if ($user->group_id === $deniedGroups->disabled_id) {
+            throw new TrackerException(141, [':status' => 'Disabled']);
+        }
 
         return $group;
     }
@@ -396,25 +399,24 @@ class AnnounceController extends Controller
         );
 
         // If Torrent Doesn't Exsist Return Error to Client
-        throw_if($torrent === null, new TrackerException(150));
+        if ($torrent === null) {
+            throw new TrackerException(150);
+        }
 
         // If Torrent Is Pending Moderation Return Error to Client
-        throw_if(
-            $torrent->status === self::PENDING,
-            new TrackerException(151, [':status' => 'PENDING In Moderation'])
-        );
+        if ($torrent->status === self::PENDING) {
+            throw new TrackerException(151, [':status' => 'PENDING In Moderation']);
+        }
 
         // If Torrent Is Rejected Return Error to Client
-        throw_if(
-            $torrent->status === self::REJECTED,
-            new TrackerException(151, [':status' => 'REJECTED In Moderation'])
-        );
+        if ($torrent->status === self::REJECTED) {
+            throw new TrackerException(151, [':status' => 'REJECTED In Moderation']);
+        }
 
         // If Torrent Is Postponed Return Error to Client
-        throw_if(
-            $torrent->status === self::POSTPONED,
-            new TrackerException(151, [':status' => 'POSTPONED In Moderation'])
-        );
+        if ($torrent->status === self::POSTPONED) {
+            throw new TrackerException(151, [':status' => 'POSTPONED In Moderation']);
+        }
 
         // Don't use eager loading so that we can make use of mysql prepared statement caching.
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
@@ -437,14 +439,15 @@ class AnnounceController extends Controller
      */
     private function checkPeer($torrent, $queries, $user): void
     {
-        throw_if(
+        if (
             $queries['event'] === 'completed'
             && $torrent->peers
                 ->where('peer_id', '=', base64_decode($queries['peer_id']))
                 ->where('user_id', '=', $user->id)
-                ->isEmpty(),
-            new TrackerException(152)
-        );
+                ->isEmpty()
+        ) {
+            throw new TrackerException(152);
+        }
     }
 
     /**
@@ -508,10 +511,9 @@ class AnnounceController extends Controller
             ->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
-        throw_if(
-            $connections > config('announce.rate_limit'),
-            new TrackerException(138, [':limit' => config('announce.rate_limit')])
-        );
+        if ($connections > config('announce.rate_limit')) {
+            throw new TrackerException(138, [':limit' => config('announce.rate_limit')]);
+        }
     }
 
     /**
