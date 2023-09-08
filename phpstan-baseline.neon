@@ -2111,11 +2111,6 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateFailedAnnounceResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$queries with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
@@ -2127,11 +2122,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -2152,11 +2142,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:sendFinalAnnounceResponse\\(\\) has parameter \\$repDict with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
