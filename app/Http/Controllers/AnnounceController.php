@@ -467,9 +467,9 @@ class AnnounceController extends Controller
         // Detect broken (namely qBittorrent) clients sending duplicate announces
         // and eliminate them from screwing up stats.
 
-        $duplicateAnnounceKey = 'announce-lock:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']).'-'.$event;
+        $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']).'-'.$event;
 
-        $lastAnnouncedAt = Redis::command('SET', [$duplicateAnnounceKey, $now, 'NX', 'GET', 'EX', '30']);
+        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, 'NX', 'GET', 'EX', '30']);
 
         if ($lastAnnouncedAt !== null) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
@@ -477,16 +477,16 @@ class AnnounceController extends Controller
 
         // Block clients disrespecting the min interval
 
-        $lastAnnouncedKey = 'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']);
+        $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']);
 
         $randomMinInterval = intdiv(random_int(85, 95) * self::MIN, 100);
 
-        $lastAnnouncedAt = Redis::command('SET', [$lastAnnouncedKey, $now, 'NX', 'GET', 'EX', $randomMinInterval]);
+        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$lastAnnouncedKey, $now, 'NX', 'GET', 'EX', $randomMinInterval]);
 
         // Delete the timer if the user paused the torrent, and it's been at
         // least 5 minutes since they last announced.
         if ($event === 'stopped' && $lastAnnouncedAt < $now - 5 * 60) {
-            Redis::command('DEL', [$lastAnnouncedKey]);
+            Redis::connection('announce')->command('DEL', [$lastAnnouncedKey]);
         } elseif ($lastAnnouncedAt !== null && ! \in_array($event, ['completed', 'stopped'])) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
         }
@@ -608,9 +608,9 @@ class AnnounceController extends Controller
             if ($peersIpv6 !== '') {
                 $response .= '6:peers6'.\strlen($peersIpv6).':'.$peersIpv6;
             }
-
-            $response .= 'e';
         }
+
+        $response .= 'e';
 
         return $response;
     }
