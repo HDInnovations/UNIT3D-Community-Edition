@@ -25,7 +25,8 @@ class TorrentResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $meta = $this->movie ?? $this->tv;
+        /** @phpstan-ignore-next-line */
+        $meta = $this->work;
 
         return [
             'type'       => 'torrent',

@@ -459,11 +459,11 @@ class TorrentController extends BaseController
             $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
                 switch ($torrent->meta) {
                     case 'movie':
-                        $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
+                        $torrent->setRelation('work', $movies[$torrent->tmdb] ?? collect());
 
                         break;
                     case 'tv':
-                        $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
+                        $torrent->setRelation('work', $tv[$torrent->tmdb] ?? collect());
 
                         break;
                 }
