@@ -15,9 +15,11 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\Peer;
+use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
@@ -59,6 +61,11 @@ class AutoFlushPeers extends Command
                 $history->timestamps = false;
                 $history->save();
             }
+
+            Torrent::where('id', '=', $peer->torrent_id)->update([
+                'seeders'  => DB::raw('seeders - '.((int) $peer->seeder)),
+                'leechers' => DB::raw('leechers - '.((int) ! $peer->seeder)),
+            ]);
 
             $peer->active = false;
             $peer->timestamps = false;
