@@ -317,7 +317,7 @@ class AnnounceController extends Controller
     protected function checkUser($passkey, $queries): object
     {
         // Check Passkey Against Users Table
-        $user = cache()->remember('user:'.$passkey, 300, function () use ($passkey) {
+        $user = cache()->remember('user:'.$passkey, 8 * 3600, function () use ($passkey) {
             return User::query()
                 ->select(['id', 'group_id', 'can_download'])
                 ->where('passkey', '=', $passkey)
@@ -345,7 +345,7 @@ class AnnounceController extends Controller
      */
     protected function checkGroup($user): object
     {
-        $deniedGroups = cache()->remember('denied_groups', 300, function () {
+        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, function () {
             return DB::table('groups')
                 ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
                 ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
@@ -354,7 +354,7 @@ class AnnounceController extends Controller
         });
 
         // Get The Users Group
-        $group = cache()->remember('group:'.$user->group_id, 300, function () use ($user) {
+        $group = cache()->remember('group:'.$user->group_id, 8 * 3600, function () use ($user) {
             return Group::query()
                 ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
                 ->find($user->group_id);
@@ -390,7 +390,7 @@ class AnnounceController extends Controller
 
         $torrent = cache()->remember(
             'announce-torrents:by-infohash:'.$infoHash,
-            7200,
+            8 * 3600,
             fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
                 ->where('info_hash', '=', $infoHash)
