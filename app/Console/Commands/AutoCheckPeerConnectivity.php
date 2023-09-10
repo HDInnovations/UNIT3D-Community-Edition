@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\Peer;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class AutoCheckPeerConnectivity extends Command
@@ -49,32 +50,31 @@ class AutoCheckPeerConnectivity extends Command
 
         Peer::query()
             ->select(['ip', 'port'])
-            ->selectRaw('INET6_NTOA(ip) as ip')
             ->groupBy(['ip', 'port'])
-            ->lazy()
-            ->each(function (Peer $peer): void {
-                $connection = @fsockopen(
-                    // IPv6 Check
-                    filter_var($peer->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? '['.$peer->ip.']' : $peer->ip,
-                    $peer->port,
-                    $_,
-                    $_,
-                    0.5
-                );
+            ->chunkById(1000, function (Collection $peers): void {
+                foreach ($peers as $peer) {
+                    $ip = inet_ntop($peer->ip);
 
-                if ($connectable = \is_resource($connection)) {
-                    fclose($connection);
+                    $connection = match (\strlen($peer->ip)) {
+                        4       => @fsockopen($ip, $peer->port, $_, $_, 0.5),
+                        16      => @fsockopen('['.$ip.']', $peer->port, $_, $_, 0.5),
+                        default => null,
+                    };
+
+                    if ($connectable = \is_resource($connection)) {
+                        fclose($connection);
+                    }
+
+                    Peer::query()
+                        ->where('ip', '=', $peer->ip)
+                        ->where('port', '=', $peer->port)
+                        ->where('connectable', '!=', $connectable)
+                        ->update([
+                            'connectable' => $connectable,
+                            'updated_at'  => DB::raw('updated_at'),
+                        ]);
                 }
-
-                Peer::query()
-                    ->where('ip', '=', inet_pton($peer->ip))
-                    ->where('port', '=', $peer->port)
-                    ->where('connectable', '!=', $connectable)
-                    ->update([
-                        'connectable' => $connectable,
-                        'updated_at'  => DB::raw('updated_at'),
-                    ]);
-            });
+            }, 'ip');
 
         $this->comment('Peer connectable status updates completed.');
     }
