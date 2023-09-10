@@ -689,7 +689,7 @@ class AnnounceController extends Controller
         }
 
         // User Updates
-        if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'stopped') {
+        if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'started') {
             $user->update([
                 'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
                 'downloaded' => DB::raw('downloaded + '.(int) $creditedDownloadedDelta),
