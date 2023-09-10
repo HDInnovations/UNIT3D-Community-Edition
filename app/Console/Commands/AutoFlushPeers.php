@@ -54,13 +54,13 @@ class AutoFlushPeers extends Command
             ->get();
 
         foreach ($peers as $peer) {
-            $history = History::where('torrent_id', '=', $peer->torrent_id)->where('user_id', '=', $peer->user_id)->first();
-
-            if ($history) {
-                $history->active = false;
-                $history->timestamps = false;
-                $history->save();
-            }
+            History::query()
+                ->where('torrent_id', '=', $peer->torrent_id)
+                ->where('user_id', '=', $peer->user_id)
+                ->update([
+                    'active'     => false,
+                    'updated_at' => DB::raw('updated_at')
+                ]);
 
             Torrent::where('id', '=', $peer->torrent_id)->update([
                 'seeders'  => DB::raw('seeders - '.((int) $peer->seeder)),
