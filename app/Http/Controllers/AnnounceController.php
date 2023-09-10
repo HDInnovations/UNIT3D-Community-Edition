@@ -618,10 +618,15 @@ class AnnounceController extends Controller
         $event = $queries['event'];
 
         // Get The Current Peer
-        $peer = $torrent->peers
-            ->where('peer_id', '=', $queries['peer_id'])
-            ->where('user_id', '=', $user->id)
-            ->first();
+        $peer = null;
+
+        foreach ($torrent->peers as $torrentPeer) {
+            if ($torrentPeer->user_id === $user->id && $torrentPeer->peer_id === $queries['peer_id']) {
+                $peer = $torrentPeer;
+
+                break;
+            }
+        }
 
         $isNewPeer = $peer === null;
 
