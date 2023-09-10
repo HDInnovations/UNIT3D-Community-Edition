@@ -421,8 +421,7 @@ class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'port', 'updated_at'])
-                ->selectRaw('INET6_NTOA(ip) as ip')
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'ip', 'port', 'updated_at'])
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
         );
@@ -596,12 +595,13 @@ class AnnounceController extends Controller
             $peersIpv6 = '';
 
             foreach ($peers as $peer) {
-                if (isset($peer['ip'], $peer['port'])) {
-                    if (filter_var($peer['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-                        $peersIpv4 .= inet_pton($peer['ip']).pack('n', (int) $peer['port']);
-                    } else {
-                        $peersIpv6 .= inet_pton($peer['ip']).pack('n', (int) $peer['port']);
-                    }
+                switch (\strlen($peer['ip'])) {
+                    case 4:
+                        $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
+
+                        break;
+                    case 16:
+                        $peersIpv6 .= $peer['ip'].pack('n', (int) $peer['port']);
                 }
             }
 
