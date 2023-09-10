@@ -566,47 +566,73 @@ class AnnounceController extends Controller
             .self::MIN
             .'e';
 
+        $peersIpv4 = '';
+        $peersIpv6 = '';
+        $peerCount = 0;
+
         /**
-         * For non `stopped` event only
+         * For non `stopped` event only where either the torrent has at least one leech, or the user is a leech.
          * We query peers from database and send peerlist, otherwise just quick return.
          */
-        if ($queries['event'] !== 'stopped') {
+        if ($queries['event'] !== 'stopped' && ($queries['left'] != 0 || $torrent->leechers !== 0)) {
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            $peers = $torrent->peers
-                ->when($queries['left'] == 0, fn ($query) => $query->where('seeder', '=', 0))
-                ->where('user_id', '!=', $user->id)
-                ->where('active', '=', true)
-                ->take($limit)
-                ->map
-                ->only(['ip', 'port'])
-                ->toArray();
+            if ($queries['left'] == 0) {
+                foreach ($torrent->peers as $peer) {
+                    // Don't include other seeders, inactive peers, nor other peers belonging to the same user
+                    if ($peer->seeder || ! $peer->active || $peer->user_id === $user->id) {
+                        continue;
+                    }
 
-            $peersIpv4 = '';
-            $peersIpv6 = '';
+                    switch (\strlen($peer['ip'])) {
+                        case 4:
+                            $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
+                            $peerCount++;
 
-            foreach ($peers as $peer) {
-                switch (\strlen($peer['ip'])) {
-                    case 4:
-                        $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
+                            break;
+                        case 16:
+                            $peersIpv6 .= $peer['ip'].pack('n', (int) $peer['port']);
+                            $peerCount++;
+                    }
 
+                    if ($peerCount >= $limit) {
                         break;
-                    case 16:
-                        $peersIpv6 .= $peer['ip'].pack('n', (int) $peer['port']);
+                    }
                 }
-            }
+            } else {
+                foreach ($torrent->peers as $peer) {
+                    // Don't include inactive peers, nor other peers belonging to the same user
+                    if (! $peer->active || $peer->user_id === $user->id) {
+                        continue;
+                    }
 
-            $response .= '5:peers'.\strlen($peersIpv4).':'.$peersIpv4;
+                    switch (\strlen($peer['ip'])) {
+                        case 4:
+                            $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
+                            $peerCount++;
 
-            if ($peersIpv6 !== '') {
-                $response .= '6:peers6'.\strlen($peersIpv6).':'.$peersIpv6;
+                            break;
+                        case 16:
+                            $peersIpv6 .= $peer['ip'].pack('n', (int) $peer['port']);
+                            $peerCount++;
+                    }
+
+                    if ($peerCount >= $limit) {
+                        break;
+                    }
+                }
             }
         }
 
-        $response .= 'e';
+        if ($peersIpv6 === '') {
+            return $response.'5:peers'.\strlen($peersIpv4).':'.$peersIpv4.'e';
+        }
 
-        return $response;
+        return $response.'5:peers'
+            .\strlen($peersIpv4).':'.$peersIpv4
+            .'6:peers6'
+            .\strlen($peersIpv6).':'.$peersIpv6.'e';
     }
 
     /**
