@@ -745,6 +745,7 @@ class AnnounceController extends Controller
 
         // Torrent updates
 
+        $isNewPeer = $isNewPeer || ! $peer->active;
         $isDeadPeer = $event === 'stopped';
         $isSeeder = $queries['left'] == 0;
 
