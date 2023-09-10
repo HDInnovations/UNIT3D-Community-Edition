@@ -148,7 +148,32 @@ class RssController extends Controller
         $cacheKey = 'rss:'.$rss->id;
 
         $torrents = cache()->remember($cacheKey, 300, function () use ($search, $user) {
-            return Torrent::with('user', 'category', 'type', 'resolution')
+            return Torrent::query()
+                ->select([
+                    'name',
+                    'id',
+                    'category_id',
+                    'type_id',
+                    'resolution_id',
+                    'size',
+                    'created_at',
+                    'seeders',
+                    'leechers',
+                    'times_completed',
+                    'user_id',
+                    'anon',
+                    'imdb',
+                    'tmdb',
+                    'tvdb',
+                    'mal',
+                    'internal',
+                ])
+                ->with([
+                    'user:id,username,rsskey',
+                    'category:id,name,movie_meta,tv_meta',
+                    'type:id,name',
+                    'resolution:id,name'
+                ])
                 ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
                 ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
                 ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader, $user))
