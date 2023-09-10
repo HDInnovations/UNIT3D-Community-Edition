@@ -598,7 +598,7 @@ export default {
         this.botId = '';
         /* Update the users bot in the database */
         axios
-            .post(`/api/chat/echoes/${this.auth.id}/delete/bot`, {
+            .post(`/api/chat/echoes/delete/bot`, {
               bot_id: id,
             })
             .then((response) => {
@@ -613,7 +613,7 @@ export default {
       if (id != 0) {
         if (type == 'room') {
           axios
-              .post(`/api/chat/audibles/${this.auth.id}/toggle/chatroom`, {
+              .post(`/api/chat/audibles/toggle/chatroom`, {
                 room_id: id,
                 nv: nv,
               })
@@ -624,7 +624,7 @@ export default {
               });
         } else if (type == 'target') {
           axios
-              .post(`/api/chat/audibles/${this.auth.id}/toggle/target`, {
+              .post(`/api/chat/audibles/toggle/target`, {
                 target_id: id,
                 nv: nv,
               })
@@ -635,7 +635,7 @@ export default {
               });
         } else if (type == 'bot') {
           axios
-              .post(`/api/chat/audibles/${this.auth.id}/toggle/bot`, {
+              .post(`/api/chat/audibles/toggle/bot`, {
                 bot_id: id,
                 nv: nv,
               })
@@ -651,7 +651,7 @@ export default {
       if (id != 1) {
         /* Update the users chatroom in the database */
         axios
-            .post(`/api/chat/echoes/${this.auth.id}/delete/chatroom`, {
+            .post(`/api/chat/echoes/delete/chatroom`, {
               room_id: id,
             })
             .then((response) => {
@@ -667,7 +667,7 @@ export default {
         this.target = 0;
         /* Update the users chatroom in the database */
         axios
-            .post(`/api/chat/echoes/${this.auth.id}/delete/target`, {
+            .post(`/api/chat/echoes/delete/target`, {
               target_id: id,
             })
             .then((response) => {
@@ -711,7 +711,7 @@ export default {
       if (this.auth.chat_status.id !== status_id) {
         /* Update the users chat status in the database */
         axios
-            .post(`/api/chat/user/${this.auth.id}/status`, {
+            .post(`/api/chat/user/status`, {
               status_id: status_id,
             })
             .then((response) => {
@@ -736,7 +736,7 @@ export default {
         this.room = id;
         /* Update the users chatroom in the database */
         axios
-            .post(`/api/chat/user/${this.auth.id}/chatroom`, {
+            .post(`/api/chat/user/chatroom`, {
               room_id: id,
             })
             .then((response) => {
