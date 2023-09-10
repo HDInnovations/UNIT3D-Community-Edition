@@ -293,17 +293,11 @@ class AnnounceController extends Controller
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
 
-        // Part.4 base64_encode binary ip for job
-        $queries['ip-address'] = base64_encode(inet_pton($request->getClientIp()));
+        // Part.4 Get request ip and convert it to packed form
+        $queries['ip-address'] = inet_pton($request->getClientIp());
 
         // Part.5 Get Users Agent
         $queries['user-agent'] = $request->headers->get('user-agent');
-
-        // Part.6 bin2hex info_hash
-        $queries['info_hash'] = bin2hex($queries['info_hash']);
-
-        // Part.7 base64_encode binary peer_id for job
-        $queries['peer_id'] = base64_encode($queries['peer_id']);
 
         return $queries;
     }
@@ -386,8 +380,6 @@ class AnnounceController extends Controller
      */
     protected function checkTorrent($infoHash): object
     {
-        $infoHash = hex2bin($infoHash);
-
         $torrent = cache()->remember(
             'announce-torrents:by-infohash:'.$infoHash,
             7200,
@@ -441,7 +433,7 @@ class AnnounceController extends Controller
         if (
             $queries['event'] === 'completed'
             && $torrent->peers
-                ->where('peer_id', '=', base64_decode($queries['peer_id']))
+                ->where('peer_id', '=', $queries['peer_id'])
                 ->where('user_id', '=', $user->id)
                 ->isEmpty()
         ) {
@@ -470,7 +462,7 @@ class AnnounceController extends Controller
         // Detect broken (namely qBittorrent) clients sending duplicate announces
         // and eliminate them from screwing up stats.
 
-        $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']).'-'.$event;
+        $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.$queries['peer_id'].'-'.$event;
 
         $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, 'NX', 'GET', 'EX', '30']);
 
@@ -480,7 +472,7 @@ class AnnounceController extends Controller
 
         // Block clients disrespecting the min interval
 
-        $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.base64_decode($queries['peer_id']);
+        $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.$queries['peer_id'];
 
         $randomMinInterval = intdiv(random_int(85, 95) * self::MIN, 100);
 
@@ -526,7 +518,7 @@ class AnnounceController extends Controller
         $max = $group->download_slots;
 
         $peer = $torrent->peers
-            ->where('peer_id', '=', base64_decode($queries['peer_id']))
+            ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
 
@@ -624,12 +616,10 @@ class AnnounceController extends Controller
     {
         // Set Variables
         $event = $queries['event'];
-        $peerId = base64_decode($queries['peer_id']);
-        $ipAddress = base64_decode($queries['ip-address']);
 
         // Get The Current Peer
         $peer = $torrent->peers
-            ->where('peer_id', '=', $peerId)
+            ->where('peer_id', '=', $queries['peer_id'])
             ->where('user_id', '=', $user->id)
             ->first();
 
@@ -714,8 +704,8 @@ class AnnounceController extends Controller
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
             serialize([
-                'peer_id'    => base64_decode($queries['peer_id']),
-                'ip'         => $ipAddress,
+                'peer_id'    => $queries['peer_id'],
+                'ip'         => $queries['ip-address'],
                 'port'       => $queries['port'],
                 'agent'      => $queries['user-agent'],
                 'uploaded'   => $queries['uploaded'],
