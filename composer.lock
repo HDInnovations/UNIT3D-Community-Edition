@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8330c1a3cfffdd8515d62f776958f065",
+    "content-hash": "399eb8ae35aafae5f2cb9480b0109448",
     "packages": [
         {
             "name": "assada/laravel-achievements",

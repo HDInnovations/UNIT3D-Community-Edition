@@ -4,7 +4,7 @@
         <div class="panel__actions">
             <div class="panel__action" x-data>
                 <button
-                    class="form__button form__button--text"
+                    class="form__button form__button--outlined"
                     x-on:click.stop="$refs.dialog.showModal()"
                 >
                     {{ __('common.add') }}
@@ -21,7 +21,7 @@
                         <p class="form__group">
                             <input
                                 id="ipAddress"
-                                class="form__textarea"
+                                class="form__text"
                                 name="ipAddress"
                                 placeholder=" "
                                 wire:model.defer="ipAddress"
@@ -83,6 +83,7 @@
                 <th>{{ __('common.no') }}</th>
                 <th>{{ __('common.user') }}</th>
                 <th>{{ __('common.ip') }}</th>
+                <th>{{ __('common.reason') }}</th>
                 <th>{{ __('common.created_at') }}</th>
                 <th>{{ __('user.expires-on') }}</th>
             </tr>
@@ -93,11 +94,12 @@
                         <x-user_tag :anon="false" :user="$ipAddress->user" />
                     </td>
                     <td>{{ $ipAddress->ip_address }}</td>
+                    <td>{{ $ipAddress->reason }}</td>
                     <td>
                         <time datetime="{{ $ipAddress->created_at }}">{{ $ipAddress->created_at }}</time>
                     </td>
                     <td>
-                        <time datetime="{{ $ipAddress->expires_at }}">{{ $ipAddress->expires_at }}</time>
+                        <time datetime="{{ $ipAddress->expires_at ?? 'Never' }}">{{ $ipAddress->expires_at ?? 'Never'}}</time>
                     </td>
                 </tr>
             @empty

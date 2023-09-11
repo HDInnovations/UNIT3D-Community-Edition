@@ -22,12 +22,15 @@ class BlockIpAddress
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next): \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+    public function handle(Request $request, Closure $next): \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
     {
-        // Check Passkey Against Users Table
-        $ipAddresses = cache()->remember(config('cache.prefix').'blocked-ips', 8 * 3600, fn () => BlockedIp::query()->pluck('ip_address')->toArray());
+        $ipAddresses = cache()->remember(
+            'blocked-ips',
+            8 * 3600,
+            fn () => BlockedIp::query()->pluck('ip_address')->toArray()
+        );
 
-        if (\in_array($request->ip(), $ipAddresses)) {
+        if (\in_array($request->getClientIp(), $ipAddresses)) {
             abort(403, 'You access to '.config('app.name').' has been restricted.');
         }
 

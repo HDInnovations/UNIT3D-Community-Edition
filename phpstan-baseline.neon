@@ -2256,11 +2256,6 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/TorrentBuffController.php
@@ -2399,6 +2394,26 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$required with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/BbcodeInput.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$ipAddresses\\.$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:getIpAddressesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$queryString has no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$rules has no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"

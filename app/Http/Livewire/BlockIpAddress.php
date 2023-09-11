@@ -28,9 +28,8 @@ class BlockIpAddress extends Component
     public int $perPage = 25;
 
     protected $queryString = [
-        'ipAddress' => ['except' => ''],
-        'page'      => ['except' => 1],
-        'perPage'   => ['except' => ''],
+        'page'    => ['except' => 1],
+        'perPage' => ['except' => ''],
     ];
 
     protected $rules = [
@@ -59,7 +58,7 @@ class BlockIpAddress extends Component
 
         $this->reason = '';
 
-        cache()->forget(config('cache.prefix').'blocked-ips');
+        cache()->forget('blocked-ips');
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ip Addresses Successfully Blocked!']);
     }
@@ -73,6 +72,8 @@ class BlockIpAddress extends Component
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.block-ip-address');
+        return view('livewire.block-ip-address', [
+            'ipAddresses' => $this->ipAddresses,
+        ]);
     }
 }

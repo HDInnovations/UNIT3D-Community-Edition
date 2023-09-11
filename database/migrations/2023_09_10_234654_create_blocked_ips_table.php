@@ -9,11 +9,13 @@ return new class () extends Migration {
     {
         Schema::create('blocked_ips', function (Blueprint $table): void {
             $table->id();
-            $table->string('blocked_ips')->unique();
+            $table->unsignedInteger('user_id');
+            $table->string('ip_address')->unique();
             $table->text('reason')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 };
