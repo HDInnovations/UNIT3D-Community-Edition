@@ -91,7 +91,7 @@ class RegisterController extends Controller
                         'required',
                         Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
                     ],
-                    'email'    => [
+                    'email' => [
                         'required',
                         'string',
                         'email',
@@ -107,7 +107,7 @@ class RegisterController extends Controller
                         'required',
                         Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
                     ],
-                    'email'    => [
+                    'email' => [
                         'required',
                         'string',
                         'email',
@@ -125,7 +125,7 @@ class RegisterController extends Controller
                     'required',
                     Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
                 ],
-                'email'    => 'required|string|email|max:70|unique:users',
+                'email' => 'required|string|email|max:70|unique:users',
             ]);
         } else {
             $v = validator($request->all(), [
@@ -134,8 +134,8 @@ class RegisterController extends Controller
                     'required',
                     Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
                 ],
-                'email'    => 'required|string|email|max:70|unique:users',
-                'captcha'  => 'hiddencaptcha',
+                'email'   => 'required|string|email|max:70|unique:users',
+                'captcha' => 'hiddencaptcha',
             ]);
         }
 
