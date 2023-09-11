@@ -798,7 +798,7 @@ class AnnounceController extends Controller
                 'times_completed' => DB::raw('times_completed + '.$completedCountDelta),
             ]);
 
-            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+            cache()->forget('announce-torrents:by-infohash:'.$queries['info_hash']);
         }
     }
 
