@@ -2256,11 +2256,6 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Http/Controllers/TopicController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/TorrentBuffController.php
@@ -3519,71 +3514,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WatchlistSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:addLinkHeader\\(\\) has parameter \\$link with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:fetchLinkableNodes\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:generateAndAttachLinkHeaders\\(\\) has parameter \\$excludeKeywords with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:generateAndAttachLinkHeaders\\(\\) has parameter \\$limit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:generateAndAttachLinkHeaders\\(\\) has parameter \\$sizeLimit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:getConfig\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:getConfig\\(\\) has parameter \\$default with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:getConfig\\(\\) has parameter \\$key with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:handle\\(\\) has parameter \\$excludeKeywords with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:handle\\(\\) has parameter \\$limit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:handle\\(\\) has parameter \\$sizeLimit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"
