@@ -183,7 +183,7 @@ class AnnounceController extends Controller
 
         // Block Browser by checking the User-Agent
         if (preg_match('/(Mozilla|Browser|Chrome|Safari|AppleWebKit|Opera|Links|Lynx|Bot|Unknown)/i', (string) $userAgent)) {
-            new TrackerException(121);
+            throw new TrackerException(121);
         }
 
         // Block Blacklisted Clients
