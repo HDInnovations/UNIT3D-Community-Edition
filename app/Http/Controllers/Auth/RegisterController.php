@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
 {
@@ -86,8 +87,11 @@ class RegisterController extends Controller
             if (! config('captcha.enabled')) {
                 $v = validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                    'password' => 'required|string|between:8,16',
-                    'email'    => [
+                    'password' => [
+                        'required',
+                        Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
+                    ],
+                    'email' => [
                         'required',
                         'string',
                         'email',
@@ -99,8 +103,11 @@ class RegisterController extends Controller
             } else {
                 $v = validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                    'password' => 'required|string|between:8,16',
-                    'email'    => [
+                    'password' => [
+                        'required',
+                        Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
+                    ],
+                    'email' => [
                         'required',
                         'string',
                         'email',
@@ -114,15 +121,21 @@ class RegisterController extends Controller
         } elseif (! config('captcha.enabled')) {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                'password' => 'required|string|between:8,16',
-                'email'    => 'required|string|email|max:70|unique:users',
+                'password' => [
+                    'required',
+                    Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
+                ],
+                'email' => 'required|string|email|max:70|unique:users',
             ]);
         } else {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-                'password' => 'required|string|between:6,16',
-                'email'    => 'required|string|email|max:70|unique:users',
-                'captcha'  => 'hiddencaptcha',
+                'password' => [
+                    'required',
+                    Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
+                ],
+                'email'   => 'required|string|email|max:70|unique:users',
+                'captcha' => 'hiddencaptcha',
             ]);
         }
 
