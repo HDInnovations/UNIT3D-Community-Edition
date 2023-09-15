@@ -54,7 +54,7 @@ class FailedLoginSearch extends Component
         return FailedLoginAttempt::select('ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at'))
             ->with('user.group')
             ->groupBy('ip_address')
-            ->having('login_attempts', '>', '1')
+            ->having('login_attempts', '>', '3')
             ->having('latest_created_at', '>=', $current->subWeeks(1))
             ->orderByDesc('login_attempts')
             ->limit(10)
