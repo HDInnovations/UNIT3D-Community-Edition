@@ -47,7 +47,7 @@ class FailedLoginSearch extends Component
         $this->emit('paginationChanged');
     }
 
-    final public function getFailedLoginsTop10IpProperty(): \Illuminate\Support\Collection
+    final public function getFailedLoginsTop10IpProperty(): \Illuminate\Database\Eloquent\Collection
     {
         $current = Carbon::now();
 
