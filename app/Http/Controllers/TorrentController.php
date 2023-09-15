@@ -364,7 +364,7 @@ class TorrentController extends Controller
 
         // Check agains release group blacklist before we store the torrent file
         $isBlacklistedRG = TorrentTools::checkReleasegroupBlacklist($releasegroupBlacklist, $request->input('name'), $request->input('category_id'), $request->input('type_id'));
-        
+
         if ($isBlacklistedRG) {
             return to_route('torrents.create', ['category_id' => $request->input('category_id'), 'type_id' => $request->input('type_id')])
                 ->withErrors('This Type of this release group is currently not allowed! Please check our Upload Guide.')
