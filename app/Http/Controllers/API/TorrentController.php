@@ -18,6 +18,7 @@ use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
+use App\Models\BlacklistReleaseGroup;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
@@ -102,6 +103,7 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
+        $releasegroupBlacklist = BlacklistReleaseGroup::get();
 
         if (! $request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
@@ -125,6 +127,13 @@ class TorrentController extends BaseController
             if (! TorrentTools::isValidFilename($name)) {
                 return $this->sendError('Validation Error.', 'Invalid Filenames In Torrent Files!');
             }
+        }
+
+        // Check agains release group blacklist before we store the torrent file
+        $isBlacklistedRG = TorrentTools::checkReleasegroupBlacklist($releasegroupBlacklist, $request->input('name'), $request->input('category_id'), $request->input('type_id'));
+
+        if ($isBlacklistedRG) {
+            return $this->sendError('Validation Error.', 'This Type of this release group is currently not allowed! Please check our Upload Guide.');
         }
 
         $fileName = sprintf('%s.torrent', uniqid('', true)); // Generate a unique name

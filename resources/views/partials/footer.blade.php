@@ -64,6 +64,9 @@
                     <a href="{{ route('client_blacklist') }}">{{ __('common.blacklist') }}</a>
                 </li>
                 <li>
+                    <a href="{{ route('releasegroup_blacklist') }}">Releasegroup Blacklist</a>
+                </li>
+                <li>
                     <a href="{{ route('about') }}">{{ __('common.about') }}</a>
                 </li>
             </ul>

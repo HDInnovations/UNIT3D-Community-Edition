@@ -123,6 +123,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/staff', [App\Http\Controllers\PageController::class, 'staff'])->name('staff');
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
             Route::get('/blacklist/clients', [App\Http\Controllers\PageController::class, 'clientblacklist'])->name('client_blacklist');
+            Route::get('/blacklist/releasegroups', [App\Http\Controllers\PageController::class, 'releasegroupblacklist'])->name('releasegroup_blacklist');
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
             Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });
@@ -674,14 +675,26 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Blacklist System
-        Route::prefix('blacklisted-clients')->group(function (): void {
-            Route::name('blacklisted_clients.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
-                Route::post('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
-                Route::get('/{blacklistClient}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
-                Route::patch('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
-                Route::delete('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
+        Route::prefix('blacklists')->group(function (): void {
+            Route::prefix('clients')->group(function (): void {
+                Route::name('blacklisted_clients.')->group(function (): void {
+                    Route::get('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'index'])->name('index');
+                    Route::get('/create', [App\Http\Controllers\Staff\BlacklistClientController::class, 'create'])->name('create');
+                    Route::post('/', [App\Http\Controllers\Staff\BlacklistClientController::class, 'store'])->name('store');
+                    Route::get('/{blacklistClient}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
+                    Route::patch('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
+                    Route::delete('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
+                });
+            });
+            Route::prefix('releasegroups')->group(function (): void {
+                Route::name('blacklisted_releasegroups.')->group(function (): void {
+                    Route::get('/', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'index'])->name('index');
+                    Route::get('/create', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'create'])->name('create');
+                    Route::post('/', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'store'])->name('store');
+                    Route::get('/{blacklistReleasegroup}/edit', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'edit'])->name('edit');
+                    Route::patch('/{blacklistReleasegroup}', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'update'])->name('update');
+                    Route::delete('/{blacklistReleasegroup}', [App\Http\Controllers\Staff\BlacklistReleaseGroupController::class, 'destroy'])->name('destroy');
+                });
             });
         });
 

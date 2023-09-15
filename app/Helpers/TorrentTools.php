@@ -247,4 +247,21 @@ class TorrentTools
     {
         return array_filter(array_unique(array_map('trim', explode(',', $text))));
     }
+
+    /*
+     * Check if the torrent is in RG blacklist or not.
+    */
+    public static function checkReleasegroupBlacklist($releasegroupBlacklist, $torrentName, $categoryId, $typeId): bool
+    {
+        foreach ($releasegroupBlacklist as $rg) {
+            // Check if the RG name is in blacklist
+            if (preg_match("/-{$rg->name}/i", $torrentName) || preg_match("/- {$rg->name}/i", $torrentName)) {
+                // Check if the type is in blacklist too
+                if ($rg->json_types === null || $rg->json_types === [] || \in_array($typeId, $rg->json_types['types'] ?? null)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

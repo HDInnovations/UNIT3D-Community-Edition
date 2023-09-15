@@ -12,41 +12,66 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        Client
+        Release Groups
     </li>
 @endsection
 
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Blacklisted Clients</h2>
+            <h2 class="panel__heading">Blacklist Release Groups</h2>
             <div class="panel__actions">
-                <div class="panel_action">
-                    <a href="{{ route('staff.blacklisted_clients.create') }}" class="form__button form__button--text">
-                        {{ __('common.add') }}
-                    </a>
-                </div>
+                <a 
+                    class="panel__action form__button form__button--text"
+                    href="{{ route('staff.blacklisted_releasegroups.create') }}"
+                >
+                    {{ __('common.add') }}
+                </a>
             </div>
         </header>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
+                        <th width="5%">ID</th>
                         <th>{{ __('common.name') }}</th>
+                        <th>Forbidden types</th>
                         <th>{{ __('common.reason') }}</th>
-                        <th>{{ __('common.actions') }}</th>
+                        <th>Created at</th>
+                        <th width="15%">{{ __('common.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($clients as $client)
+                    @foreach ($releasegroups as $releasegroup)
                         <tr>
-                            <td>{{ $client->name }}</td>
-                            <td>{{ $client->reason }}</td>
+                            <td>
+                                {{ $releasegroup->id }}
+                            </td>
+                            <td>
+                                {{ $releasegroup->name }}
+                            </td>
+                            <td>
+                                @if (!is_array($releasegroup->object_releasegroup->types ?? ''))
+                                    ALL
+                                @else
+                                    @foreach ($types as $type)
+                                        @if (is_array($releasegroup->object_releasegroup->types ?? '') && in_array((string)$type->id, $releasegroup->object_releasegroup->types ?? '', true))
+                                            {{ $type->name }},
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                            <td style="word-wrap:break-word;">
+                                {{ $releasegroup->reason }}
+                            </td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($releasegroup->created_at)->format('Y-m-d')}}
+                            </td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a
-                                            href="{{ route('staff.blacklisted_clients.edit', ['blacklistClient' => $client]) }}"
+                                            href="{{ route('staff.blacklisted_releasegroups.edit', ['blacklistReleasegroup' => $releasegroup->id]) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.edit') }}
@@ -54,7 +79,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.blacklisted_clients.destroy', ['blacklistClient' => $client]) }}"
+                                            action="{{ route('staff.blacklisted_releasegroups.destroy', ['blacklistReleasegroup' => $releasegroup->id]) }}"
                                             method="POST"
                                             x-data
                                         >

@@ -20,6 +20,7 @@ use App\Helpers\TorrentTools;
 use App\Http\Requests\StoreTorrentRequest;
 use App\Http\Requests\UpdateTorrentRequest;
 use App\Models\Audit;
+use App\Models\BlacklistReleaseGroup;
 use App\Models\BonTransactions;
 use App\Models\Category;
 use App\Models\Distributor;
@@ -357,7 +358,18 @@ class TorrentController extends Controller
 
         $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
 
+        $releasegroupBlacklist = BlacklistReleaseGroup::get();
+
         $meta = Bencode::get_meta($decodedTorrent);
+
+        // Check agains release group blacklist before we store the torrent file
+        $isBlacklistedRG = TorrentTools::checkReleasegroupBlacklist($releasegroupBlacklist, $request->input('name'), $request->input('category_id'), $request->input('type_id'));
+        
+        if ($isBlacklistedRG) {
+            return to_route('torrents.create', ['category_id' => $request->input('category_id'), 'type_id' => $request->input('type_id')])
+                ->withErrors('This Type of this release group is currently not allowed! Please check our Upload Guide.')
+                ->withInput();
+        }
 
         $fileName = uniqid('', true).'.torrent'; // Generate a unique name
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));

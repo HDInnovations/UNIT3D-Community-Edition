@@ -7,8 +7,13 @@
         </a>
     </li>
     <li class="breadcrumbV2">
+        <a href="#" itemprop="url" class="breadcrumb__link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Blacklists</span>
+        </a>
+    </li>
+    <li class="breadcrumbV2">
         <a href="{{ route('staff.blacklisted_clients.index') }}" class="breadcrumb__link">
-            Blacklisted Clients
+            Client
         </a>
     </li>
     <li class="breadcrumb--active">

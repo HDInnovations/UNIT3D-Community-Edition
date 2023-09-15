@@ -14,9 +14,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlacklistClient;
+use App\Models\BlacklistReleaseGroup;
 use App\Models\Group;
 use App\Models\Internal;
 use App\Models\Page;
+use App\Models\Type;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PageControllerTest
@@ -78,6 +80,17 @@ class PageController extends Controller
     {
         return view('page.blacklist.client', [
             'clients' => BlacklistClient::all(),
+        ]);
+    }
+
+    /**
+     * Show Releasegroup-Blacklist Page.
+     */
+    public function releasegroupblacklist(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return view('page.blacklist.releasegroup', [
+            'releasegroups' => BlacklistReleaseGroup::all()->sortBy('name'),
+            'types'         => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
         ]);
     }
 
