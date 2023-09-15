@@ -42,9 +42,9 @@ class BlacklistReleaseGroup extends Model
     ];
 
     /**
-     * The Attributes That Aren't Mass Assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 

@@ -251,7 +251,7 @@ class TorrentTools
     /*
      * Check if the torrent is in RG blacklist or not.
     */
-    public static function checkReleasegroupBlacklist($releasegroupBlacklist, $torrentName, $categoryId, $typeId): bool
+    public static function checkReleasegroupBlacklist(ReleasegroupBlacklist $releasegroupBlacklist, string $torrentName, int $categoryId, int $typeId): bool
     {
         foreach ($releasegroupBlacklist as $rg) {
             // Check if the RG name is in blacklist
