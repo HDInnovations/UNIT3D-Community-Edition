@@ -66,6 +66,7 @@ class AutoDonationTransactions extends Command
                 // Add User to donation_subscription table
                 // Check if user has active or upcoming subscriptions
                 $activeSubscriptionsEndDate = DonationSubscription::where('user_id', '=', $transaction->user_id)->where('donation_item_id', '>=', 4)->orderBy('end_at', 'DESC')->value('end_at');
+
                 // Set start date accordingly
                 if ($activeSubscriptionsEndDate !== null) {
                     $startDate = $activeSubscriptionsEndDate;
