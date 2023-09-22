@@ -51,6 +51,11 @@ class AutoDonationTransactions extends Command
             $data = "limit=100&page=0&sortBy=created_at&orderBy=asc&invoiceId=".$transaction->nowpayments_invoice_id;
             $paymentStatus = Nowpayments::getListOfPayments($data);
 
+            // Verify data exists
+            if ($paymentStatus['data'] == null) {
+                throw new RuntimeException('No matches for invoice ID '.$transaction->nowpayments_invoice_id.' found in API');
+            }
+
             // Verify we filtered for the correct Payment from the API
             if ($paymentStatus['data'][0]['invoice_id'] != $transaction->nowpayments_invoice_id) {
                 throw new RuntimeException('The gathered invoice id does not match the DB invoice id!');
