@@ -678,6 +678,7 @@ final class AnnounceController extends Controller
         // Calculate credited Download
         if (
             $personalFreeleech
+            || $user->is_donor == 1
             || $group->is_freeleech
             || $freeleechToken
             || config('other.freeleech')
