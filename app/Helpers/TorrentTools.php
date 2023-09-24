@@ -13,6 +13,8 @@
 
 namespace App\Helpers;
 
+use App\Models\BlacklistReleaseGroup;
+
 class TorrentTools
 {
     /**
@@ -251,7 +253,7 @@ class TorrentTools
     /*
      * Check if the torrent is in RG blacklist or not.
     */
-    public static function checkReleasegroupBlacklist($releasegroupBlacklist, string $torrentName, int $categoryId, int $typeId): bool
+    public static function checkReleasegroupBlacklist(BlacklistReleaseGroup $releasegroupBlacklist, string $torrentName, int $categoryId, int $typeId): bool
     {
         foreach ($releasegroupBlacklist as $rg) {
             // Check if the RG name is in blacklist
