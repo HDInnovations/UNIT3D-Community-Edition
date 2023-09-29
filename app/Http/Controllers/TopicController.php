@@ -403,6 +403,6 @@ class TopicController extends Controller
             'id'   => $id,
             'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
         ])
-            ->withFragment('post-'.($post?->id ?? 0));
+            ->withFragment('post-'.($post->id ?? 0));
     }
 }
