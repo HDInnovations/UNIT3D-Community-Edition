@@ -51,7 +51,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return to_route('requests.show', ['id' => $id])
+        return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->withSuccess(trans('user.report-sent'));
     }
 
