@@ -26,6 +26,7 @@ class FailedLoginSearch extends Component
     public string $username = '';
 
     public string $userId = '';
+
     public string $ipAddress = '';
 
     public int $perPage = 25;
@@ -49,13 +50,11 @@ class FailedLoginSearch extends Component
 
     final public function getFailedLoginsTop10IpProperty(): \Illuminate\Database\Eloquent\Collection
     {
-        $current = Carbon::now();
-
-        return FailedLoginAttempt::select('ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at'))
-            ->with('user.group')
+        return FailedLoginAttempt::query()
+            ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
             ->groupBy('ip_address')
             ->having('login_attempts', '>', '3')
-            ->having('latest_created_at', '>=', $current->subWeeks(1))
+            ->having('latest_created_at', '>=', Carbon::now()->subWeek())
             ->orderByDesc('login_attempts')
             ->limit(10)
             ->get();

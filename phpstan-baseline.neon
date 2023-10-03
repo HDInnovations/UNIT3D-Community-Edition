@@ -2531,7 +2531,17 @@ parameters:
 			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLoginsTop10Ip\\.$#"
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsTop10IpProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Http/Livewire/FailedLoginSearch.php
 
