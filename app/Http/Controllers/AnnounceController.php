@@ -386,11 +386,12 @@ class AnnounceController extends Controller
             fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
                 ->where('info_hash', '=', $infoHash)
-                ->first()
+                // Laravel cache is broken for null values: https://github.com/laravel/framework/issues/31312
+                ->firstOr(fn () => -1)
         );
 
         // If Torrent Doesn't Exsist Return Error to Client
-        if ($torrent === null) {
+        if ($torrent === -1) {
             throw new TrackerException(150);
         }
 
