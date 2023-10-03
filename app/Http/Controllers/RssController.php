@@ -235,7 +235,10 @@ class RssController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
         $v = validator($request->all(), [
             'search'        => 'max:255',
@@ -298,9 +301,14 @@ class RssController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        Rss::where('is_private', '=', 1)->findOrFail($id)->delete();
+        $user = $request->user();
+        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
+
+        $rss->delete();
 
         return to_route('rss.index', ['hash' => 'private'])
             ->withSuccess(trans('rss.deleted'));
