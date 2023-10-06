@@ -20,7 +20,7 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
       redis:
-        image: redis:7.0
+        image: redis:7.2.1
         ports:
           - 6379:6379
         options: >-
@@ -38,13 +38,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1, igbinary, msgpack, lzf, zstd, lz4
+          extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1
           ini-values: error_reporting=E_ALL
           coverage: pcov
           tools: composer:v2
         env:
-          REDIS_CONFIGURE_OPTS: --enable-redis --enable-redis-igbinary --enable-redis-msgpack --enable-redis-lzf --with-liblzf --enable-redis-zstd --with-libzstd --enable-redis-lz4 --with-liblz4
-          REDIS_LIBS: liblz4-dev, liblzf-dev, libzstd-dev
+          REDIS_CONFIGURE_OPTS: --enable-redis
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
@@ -64,7 +63,7 @@ jobs:
       - name: Clear Application Cache
         run: php artisan clear:all_cache
       - name: Run PHPUnit Tests
-        run: ./vendor/bin/pest --compact --coverage --parallel --processes=4
+        run: ./vendor/bin/pest --compact --coverage --parallel --processes=4 --bail
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
