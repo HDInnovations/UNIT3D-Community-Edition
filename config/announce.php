@@ -76,7 +76,7 @@ return [
     */
 
     'min_interval' => [
-        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', true),
+        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', false),
     ],
 
     /*
