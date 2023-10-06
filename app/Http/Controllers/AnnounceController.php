@@ -386,12 +386,11 @@ class AnnounceController extends Controller
             fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
                 ->where('info_hash', '=', $infoHash)
-                // Laravel cache is broken for null values: https://github.com/laravel/framework/issues/31312
-                ->firstOr(fn () => -1)
+                ->first()
         );
 
         // If Torrent Doesn't Exsist Return Error to Client
-        if ($torrent === -1) {
+        if ($torrent === null) {
             throw new TrackerException(150);
         }
 
@@ -466,7 +465,7 @@ class AnnounceController extends Controller
 
         $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, 'NX', 'GET', 'EX', '30']);
 
-        if ($lastAnnouncedAt !== null) {
+        if ($lastAnnouncedAt !== false) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
         }
 
@@ -482,7 +481,7 @@ class AnnounceController extends Controller
         // least 5 minutes since they last announced.
         if ($event === 'stopped' && $lastAnnouncedAt < $now - 5 * 60) {
             Redis::connection('announce')->command('DEL', [$lastAnnouncedKey]);
-        } elseif ($lastAnnouncedAt !== null && ! \in_array($event, ['completed', 'stopped'])) {
+        } elseif ($lastAnnouncedAt !== false && ! \in_array($event, ['completed', 'stopped'])) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
         }
     }

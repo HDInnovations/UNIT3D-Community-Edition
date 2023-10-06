@@ -71,7 +71,7 @@ class AutoUpsertHistories extends Command
         for ($historiesLeft = $historyCount; $historiesLeft > 0; $historiesLeft -= $historiesPerCycle) {
             $histories = Redis::connection('announce')->command('LPOP', [$key, $historiesPerCycle]);
 
-            if ($histories === null) {
+            if ($histories === false) {
                 break;
             }
 

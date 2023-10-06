@@ -58,7 +58,7 @@ class AutoUpsertPeers extends Command
         for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= $peerPerCycle) {
             $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
 
-            if ($peers === null) {
+            if ($peers === false) {
                 break;
             }
 
