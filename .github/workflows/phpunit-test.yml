@@ -35,8 +35,14 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: pear, curl, dev, gd, mbstring, zip, mysql, xml, intl, bcmath, redis
+          extensions: curl, gd, mbstring, zip, mysql, xml, intl, bcmath, :redis
           coverage: pcov
+      - name: Build phpredis
+        run: |
+          phpize
+          ./configure --enable-redis-lzf --enable-redis-zstd --enable-redis-igbinary --enable-redis-msgpack --enable-redis-lz4 --with-liblz4
+          sudo make -j"$(nproc)" install
+          echo 'extension = redis.so' | sudo tee -a "$(php --ini | grep 'Scan for additional .ini files' | awk '{print $7}')"/90-redis.ini
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
