@@ -76,7 +76,7 @@ return [
     */
 
     'min_interval' => [
-        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', false),
+        'enabled' => true,
     ],
 
     /*
@@ -116,6 +116,6 @@ return [
     */
 
     'slots_system' => [
-        'enabled' => false,
+        'enabled' => true,
     ],
 ];
