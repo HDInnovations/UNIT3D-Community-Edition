@@ -3,6 +3,7 @@ on: [push, pull_request]
 jobs:
   tests:
     strategy:
+      fail-fast: true
       matrix:
         operating-system:
           - ubuntu-22.04
@@ -30,19 +31,20 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup PHP 8.2
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: curl, gd, mbstring, zip, mysql, xml, intl, bcmath, :redis
+          extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1, igbinary, msgpack, lzf, zstd, lz4
+          ini-values: error_reporting=E_ALL
           coverage: pcov
-      - name: Build phpredis
-        run: |
-          phpize
-          ./configure --enable-redis-lzf --enable-redis-zstd --enable-redis-igbinary --enable-redis-msgpack --enable-redis-lz4 --with-liblz4
-          sudo make -j"$(nproc)" install
-          echo 'extension = redis.so' | sudo tee -a "$(php --ini | grep 'Scan for additional .ini files' | awk '{print $7}')"/90-redis.ini
+          tools: composer:v2
+        env:
+          REDIS_CONFIGURE_OPTS: --enable-redis --enable-redis-igbinary --enable-redis-msgpack --enable-redis-lzf --with-liblzf --enable-redis-zstd --with-libzstd --enable-redis-lz4 --with-liblz4
+          REDIS_LIBS: liblz4-dev, liblzf-dev, libzstd-dev
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
       - name: Configure NPM
@@ -52,7 +54,7 @@ jobs:
       - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
-        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
       - name: Install NPM Dependencies
         run: npm install
       - name: Build Assets Via Mix
