@@ -115,9 +115,7 @@ class AnnounceController extends Controller
             $this->checkPeer($torrent, $queries, $user);
 
             // Lock Min Announce Interval.
-            if (config('announce.min_interval.enabled')) {
-                $this->checkMinInterval($torrent, $queries, $user);
-            }
+            $this->checkMinInterval($torrent, $queries, $user);
 
             // Check User Max Connections Per Torrent.
             $this->checkMaxConnections($torrent, $user);
