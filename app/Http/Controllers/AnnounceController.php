@@ -463,7 +463,7 @@ class AnnounceController extends Controller
 
         $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.$queries['peer_id'].'-'.$event;
 
-        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, ['NX', 'GET', 'EX', '30']]);
+        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, ['NX', 'GET', 'EX' => 30]]);
 
         if ($lastAnnouncedAt !== false) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
@@ -475,7 +475,7 @@ class AnnounceController extends Controller
 
         $randomMinInterval = intdiv(random_int(85, 95) * self::MIN, 100);
 
-        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$lastAnnouncedKey, $now, ['NX', 'GET', 'EX', $randomMinInterval]]);
+        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$lastAnnouncedKey, $now, ['NX', 'GET', 'EX' => $randomMinInterval]]);
 
         // Delete the timer if the user paused the torrent, and it's been at
         // least 5 minutes since they last announced.
