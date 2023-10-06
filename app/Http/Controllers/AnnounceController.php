@@ -463,7 +463,7 @@ class AnnounceController extends Controller
 
         $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.$queries['peer_id'].'-'.$event;
 
-        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, ['NX', 'GET', 'EX => 30]]);
+        $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, ['NX', 'GET', 'EX' => 30]]);
 
         if ($lastAnnouncedAt !== false) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
