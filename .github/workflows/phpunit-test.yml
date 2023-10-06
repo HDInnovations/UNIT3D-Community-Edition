@@ -35,7 +35,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
+          extensions: pear, curl, dev, gd, mbstring, zip, mysql, xml, intl, bcmath, redis
           coverage: pcov
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
