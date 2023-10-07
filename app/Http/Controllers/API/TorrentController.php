@@ -101,6 +101,9 @@ class TorrentController extends BaseController
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
+
+        abort_unless($user->can_upload, 403);
+
         $requestFile = $request->file('torrent');
 
         if (! $request->hasFile('torrent')) {
