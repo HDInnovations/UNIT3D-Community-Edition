@@ -471,7 +471,7 @@ Route::middleware('language')->group(function (): void {
             Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
             Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
             Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
-            Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index');
+            Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index')->withTrashed();
         });
 
         // Notifications
