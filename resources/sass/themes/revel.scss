@@ -685,8 +685,27 @@ a:hover {
   background: #8D7F20;
 }
 
-.top-nav__main-menus > li:nth-child(4) {
+.top-nav__main-menus > li:nth-child(4),
+.top-nav__main-menus > li:nth-child(4) > ul {
   background: #678120;
+}
+
+.top-nav__main-menus > li:nth-child(5),
+.top-nav__main-menus > li:nth-child(5) > ul {
+  background: #276F29;
+}
+
+.top-nav__main-menus > li:nth-child(6),
+.top-nav__main-menus > li:nth-child(6) > ul {
+  background: #267C57;
+}
+
+.top-nav__main-menus > li:nth-child(7),
+.top-nav__main-menus > li:nth-child(7) > ul {
+  background: #398787;
+}
+
+.top-nav__main-menus > li:last-child {
   border-top-right-radius: 4px;
 }
 
