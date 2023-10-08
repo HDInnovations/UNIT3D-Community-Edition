@@ -130,7 +130,6 @@
             @if (config('torrent.download_check_page'))
                 <a
                     class="form__standard-icon-button"
-                    download
                     href="{{ route('download_check', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-download"></i>
@@ -138,7 +137,6 @@
             @else
                 <a
                     class="form__standard-icon-button"
-                    download
                     href="{{ route('download', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-download"></i>

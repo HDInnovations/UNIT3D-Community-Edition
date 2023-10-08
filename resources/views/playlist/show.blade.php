@@ -102,7 +102,6 @@
                     <a
                         href="{{ route('playlist_zips.show', ['playlist' => $playlist]) }}"
                         class="form__button form__button--filled form__button--centered"
-                        download
                     >
                         <i class='{{ config('other.font-awesome') }} fa-download'></i>
                         {{ __('playlist.download-all') }}
