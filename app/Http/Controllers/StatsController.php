@@ -307,7 +307,7 @@ class StatsController extends Controller
     public function groups(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.groups.groups', [
-            'groups' => Group::orderBy('position')->get(),
+            'groups' => Group::orderBy('position')->withCount(['users' => fn ($query) => $query->withTrashed()])->get(),
         ]);
     }
 
@@ -316,11 +316,9 @@ class StatsController extends Controller
      */
     public function group(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $group = Group::findOrFail($id);
-
         return view('stats.groups.group', [
-            'users' => User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100),
-            'group' => $group,
+            'group' => Group::findOrFail($id),
+            'users' => User::with(['group'])->withTrashed()->where('group_id', '=', $id)->latest()->paginate(100),
         ]);
     }
 
