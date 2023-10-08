@@ -337,14 +337,8 @@ class StatsController extends Controller
      */
     public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = [];
-
-        if (cache()->has('stats:clients')) {
-            $clients = cache()->get('stats:clients');
-        }
-
         return view('stats.clients.clients', [
-            'clients' => $clients,
+            'clients' => cache()->get('stats:clients') ?? [],
         ]);
     }
 
