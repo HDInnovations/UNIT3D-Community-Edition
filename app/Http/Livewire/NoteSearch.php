@@ -33,7 +33,10 @@ class NoteSearch extends Component
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
-            ->with(['noteduser.group', 'staffuser.group'])
+            ->with([
+                'noteduser' => fn ($query) => $query->withTrashed()->with(['group']),
+                'staffuser' => fn ($query) => $query->withTrashed()->with(['group']),
+            ])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->latest()
             ->paginate($this->perPage);
