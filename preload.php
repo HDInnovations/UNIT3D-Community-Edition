@@ -109,32 +109,6 @@ class Preloader
 
 (new Preloader())
     ->paths(
-        __DIR__.'/vendor/laravel',
         __DIR__.'/app',
-    )
-    ->ignore(
-        'Laravel\Telescope',
-        'Laravel\Tinker',
-        'Illuminate\Queue',
-        'Illuminate\Contracts\Queue',
-        'Illuminate\View',
-        'Illuminate\Contracts\View',
-        'Illuminate\Foundation\Console',
-        'Illuminate\Notification',
-        'Illuminate\Contracts\Notifications',
-        'Illuminate\Bus',
-        'Illuminate\Session',
-        'Illuminate\Contracts\Session',
-        'Illuminate\Console',
-        'Illuminate\Testing',
-        'Illuminate\Http\Testing',
-        'Illuminate\Support\Testing',
-        'Illuminate\Cookie',
-        'Illuminate\Contracts\Cookie',
-        'Illuminate\Broadcasting',
-        'Illuminate\Contracts\Broadcasting',
-        'Illuminate\Mail',
-        'Illuminate\Carbon',
-        'Illuminate\Contracts\Mail',
     )
     ->load();
