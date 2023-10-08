@@ -76,7 +76,7 @@ class SubtitleController extends Controller
         $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
         $subtitle = Subtitle::create([
-            'title'        => Torrent::findOrFail($request->integer('torrent_id'))->name,
+            'title'        => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'))->name,
             'file_name'    => $filename,
             'file_size'    => $subtitleFile->getSize(),
             'extension'    => '.'.$subtitleFile->getClientOriginalExtension(),
