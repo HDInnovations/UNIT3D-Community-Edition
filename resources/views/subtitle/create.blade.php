@@ -100,7 +100,7 @@
 
 @section('sidebar')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('torrent.torrent') }}</label>
+        <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
         <div class="panel__body">
             <a
                 href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
