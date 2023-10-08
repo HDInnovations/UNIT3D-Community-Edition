@@ -10,7 +10,9 @@
                     class="form__button form__button--text"
                     x-data
                     x-on:click.stop="
-                        navigator.clipboard.writeText(atob('{{ base64_encode($torrent->description) }}'));
+                        text = document.createElement('textarea');
+                        text.innerHTML = decodeURIComponent(atob('{{ base64_encode($torrent->description) }}').split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                        navigator.clipboard.writeText(text.value);
                         Swal.fire({
                               toast: true,
                               position: 'top-end',
