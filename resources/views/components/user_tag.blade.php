@@ -39,9 +39,10 @@
     <span
         {{ $attributes->class('user-tag') }}
         @if ($user->is_donor)
-            {{ $attributes->merge(['style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? '')] }}
+            {{ $attributes->merge(['style' => 'background-image: ' . url(/img/sparkels.gif) . ';' . ($style ?? '')]) }}
+        @else
+            {{ $attributes->merge(['style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? '')]) }}
         @endif
-        {{ $attributes->merge(['style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? '')]) }}
     >
         <a
             class="user-tag__link {{ $user->group->icon }}"
