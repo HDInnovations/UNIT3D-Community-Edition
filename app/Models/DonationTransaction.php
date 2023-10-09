@@ -32,19 +32,6 @@ class DonationTransaction extends Model
     protected $guarded = [];
 
     /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'user_id',
-        'donation_item_id',
-        'nowpayments_order_id',
-        'nowpayments_payment_id',
-        'nowpayments_invoice_id',
-        'currency',
-        'confirmed',
-    ];
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
