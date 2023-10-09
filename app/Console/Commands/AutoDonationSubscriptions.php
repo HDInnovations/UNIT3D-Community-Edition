@@ -42,8 +42,8 @@ class AutoDonationSubscriptions extends Command
     public function handle(): void
     {
         $curDate = Carbon::now();
-        $toDemote = DonationSubscription::where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
-        $toPromote = DonationSubscription::where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
+        $toDemote = DonationSubscription::with('user', 'donation_item')->where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
+        $toPromote = DonationSubscription::with('user', 'donation_item')->where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
 
         // Demote a User
         foreach ($toDemote as $donor) {
