@@ -169,7 +169,7 @@
             </div>
 
             <!-- Old VIP User-Records -->
-            <h3>Preivous VIP User Records</h3>
+            <h3>Previous VIP User Records</h3>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
