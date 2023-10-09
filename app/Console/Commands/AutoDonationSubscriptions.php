@@ -46,26 +46,19 @@ class AutoDonationSubscriptions extends Command
         $toPromote = DonationSubscription::with('user', 'donation_item')->where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
 
         // Demote a User
-        foreach ($toDemote as $donor) {
-            $user = User::findOrFail($donor->user_id);
-            $donationItem = DonationItem::find($donor->donation_item_id);
-
-            $user->is_donor = false;
-            $user->save();
-
-            $donor->is_active = false;
-            $donor->save();
-
-            // Send Private Message
+        User::whereIntegerInRaw('id', $toDemote->pluck('user_id'))->update(['is_donor' => false]);
+        DonationSubscription::whereIntegerInRaw('id', $toDemote->pluck('id'))->update(['is_active' => false])
+        
+        foreach ($toDemote as $subscription) {
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
-                'receiver_id' => $user->id,
+                'receiver_id' => $subscription->user_id,
                 'subject'     => 'Donation Subscription ended',
-                'message'     => 'Your subscription ('.$donationItem->name.') has ended recently and your donation perks have been disabled. 
+                'message'     => 'Your subscription ('.$subscription->donation_item->name.') has ended recently and your donation perks have been disabled. 
 
-                                  Thank you for your support!
+Thank you for your support!
 
-                                  [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
             ]);
         }
 
