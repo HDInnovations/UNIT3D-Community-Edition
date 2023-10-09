@@ -35,17 +35,6 @@ class DonationSubscription extends Model
     protected $guarded = [];
 
     /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'user_id',
-        'donation_item_id',
-        'is_active',
-        'start_at',
-        'end_at',
-    ];
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
