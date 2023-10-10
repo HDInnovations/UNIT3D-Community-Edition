@@ -63,38 +63,32 @@ Thank you for your support!
         }
 
         // Promote a User
-        foreach ($toPromote as $donor) {
-            $user = User::findOrFail($donor->user_id);
-            $donationItem = DonationItem::find($donor->donation_item_id);
-
+        foreach ($toPromote as $subscription) {
             // Add Gifts
-            $user->seedbonus += $donationItem->seedbonus ?? 0;
-            $user->uploaded += $donationItem->uploaded ?? 0;
-            $user->invites += $donationItem->invites ?? 0;
+            $user->seedbonus += $subscription->item->seedbonus ?? 0;
+            $user->uploaded += $subscription->item->uploaded ?? 0;
+            $user->invites += $subscription->item->invites ?? 0;
 
             // Set user as donor (and grant freeleech) if item has "days_active"
-            if ($donationItem->days_active > 0) {
+            if ($subscription->item->days_active > 0) {
                 $user->is_donor = true;
                 $user->save();
             }
 
             // Update donation subscription table
-            $donor->is_active = true;
-            $donor->is_gifted = true;
-            $donor->save();
+            $subscription->is_active = true;
+            $subscription->is_gifted = true;
+            $subscription->save();
 
             // Send Private Message
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
                 'receiver_id' => $user->id,
                 'subject'     => 'Donation Subscription',
-                'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]
-                                  Your subscription access has been activated and is valid through: '.$donor->end_at.' (YYYY-MM-DD)
-                                  A total of '.$donationItem->seedbonus.' BON points, '
-                                  .$donationItem->uploaded.' upload and '
-                                  .$donationItem->invites.' invites have been added to your account. 
-
-                                  [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
+                'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]'."\n"
+                                  .'Your subscription access has been activated and is valid through: '.$donor->end_at.' (YYYY-MM-DD)'."\n\n"
+                                  .'A total of '.$donationItem->seedbonus.' BON points, '.$donationItem->uploaded.' upload and '.$donationItem->invites.' invites have been added to your account."\n\n" 
+                                  .'[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
             ]);
         }
         $this->comment('Automated VIP Users Command Complete');
