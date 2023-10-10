@@ -16,9 +16,9 @@ return new class () extends Migration {
             $table->id();
             $table->unsignedInteger('user_id');
             $table->unsignedBigInteger('donation_item_id');
-            $table->bigInteger('nowpayments_invoice_id')->nullable();
+            $table->bigInteger('nowpayments_invoice_id');
             $table->char('nowpayments_order_id', 20);
-            $table->bigInteger('nowpayments_payment_id')->nullable();
+            $table->bigInteger('nowpayments_payment_id');
             $table->char('currency', 4)->nullable();
             $table->boolean('confirmed')->default(0);
             $table->timestamps();
