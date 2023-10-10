@@ -26,15 +26,4 @@ class DonationItem extends Model
      * @var string[]
      */
     protected $guarded = [];
-
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'type',
-        'name',
-        'description',
-        'days_active',
-        'price_usd',
-    ];
 }

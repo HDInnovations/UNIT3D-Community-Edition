@@ -35,6 +35,7 @@ class StoreDonationTransactionRequest extends FormRequest
         return [
             'item' => [
                 'required',
+                'exists:donation_items'
             ],
             'fiat' => [
                 'required',

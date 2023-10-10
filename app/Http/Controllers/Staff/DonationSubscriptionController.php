@@ -29,85 +29,64 @@ class DonationSubscriptionController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        abort_unless($user->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
-        $curDate = Carbon::now();
-
-        $subscriptionsUpcoming = DonationSubscription::with('user')
-            ->where('start_at', '>=', $curDate->toDateString())
-            ->where('is_active', '=', false)
-            ->where('end_at', '>', $curDate->toDateString())
-            ->orderBy('start_at')
-            ->paginate(5);
-        $subscriptionsActive = DonationSubscription::with('user')
-            ->where('is_active', '=', true)
-            ->paginate(25);
-        $subscriptionsInactive = DonationSubscription::with('user')
-            ->where('end_at', '<=', $curDate->toDateString())
-            ->where('is_active', '=', false)
-            ->orderBy('end_at', 'desc')
-            ->paginate(10);
-        $subscriptionsActiveArray = DonationSubscription::join('users', 'users.id', 'donation_subscriptions.user_id')
-            ->where('is_donor', '=', true)
-            ->where('start_at', '<=', $curDate->toDateString())
-            ->where('end_at', '>=', $curDate->toDateString())
-            ->pluck('user_id')
-            ->toArray();
+        $currentDate = Carbon::now()->toDateString();
 
         return view('Staff.donations.subscriptions.index', [
-            'subscriptions_active'     => $subscriptionsActive,
-            'subscriptions_upcoming'   => $subscriptionsUpcoming,
-            'subscriptions_inactive'   => $subscriptionsInactive,
-            'subscriptions_active_arr' => $subscriptionsActiveArray,
-            'curdate'                  => $curDate
+            'subscriptions_active'     => DonationSubscription::with('user')
+                ->where('is_active', '=', true)
+                ->paginate(25),
+            'subscriptions_upcoming'   => DonationSubscription::with('user')
+                ->where('start_at', '>=', $currentDate)
+                ->where('is_active', '=', false)
+                ->where('end_at', '>', $currentDate)
+                ->orderBy('start_at')
+                ->paginate(5),
+            'subscriptions_inactive'   => DonationSubscription::with('user')
+                ->where('end_at', '<=', $currentDate)
+                ->where('is_active', '=', false)
+                ->orderBy('end_at', 'desc')
+                ->paginate(10),
+            'subscriptions_active_arr' => DonationSubscription::query()
+                ->whereRelation('user', fn ($query) => $query->where('is_donor', '=', true))
+                ->where('is_donor', '=', true)
+                ->where('start_at', '<=', $currentDate)
+                ->where('end_at', '>=', $currentDate)
+                ->pluck('user_id')
+                ->toArray(),
+            'curdate'                  => $currentDate
         ]);
     }
 
     /**
      * Edit A VIP Subscription.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, DonationSubscription $donationSubscription): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
-
-        $curDate = Carbon::now();
-        $vip_sub = DonationSubscription::findOrFail($id);
-
         return view('Staff.donations.subscriptions.edit', [
-            'vip_sub' => $vip_sub,
-            'curdate' => $curDate,
-            'date'    => $curDate
+            'vip_sub' => $donationSubscription,
         ]);
     }
 
     /**
      * Save a VIP Subscription change.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, DonationSubscription $donationSubscription): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
-
-        $curDate = Carbon::now();
-        $vip_sub_end_at_old = "";
-        $vip_sub = DonationSubscription::findOrFail($id);
-
-        // Set Dates from Input form
-        $vip_sub->start_at = $request->input('start_at');
-        $vip_sub->end_at = $request->input('end_at');
-
-        $v = validator($vip_sub->toArray(), [
-            'start_at' => 'required|date',
-            'end_at'   => 'required|date|after:start_at',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('staff.donations.subscriptions.index')
-                ->withErrors($v->errors());
-        }
-        $vip_sub->save();
+        $validated = $request->validate([
+            'start_at' => [
+                'required',
+                'date',
+            ],
+            'end_at' => [
+                'required',
+                'date',
+                'after:start_at',
+            ]
+        ])
+        
+        $donationSubscription->update($validated);
 
         return redirect()->route('staff.donations.subscriptions.index')
             ->withSuccess('VIP Subscription Was Updated Successfully!');
@@ -126,33 +105,34 @@ class DonationSubscriptionController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        abort_unless($user->group->is_admin, 403);
-
-        $vip = new DonationSubscription();
-        $vipUsername = $request->input('username');
-        // Get Users ID to store FK in DB
-        $vip->user_id = User::query()
+        $userId = User::query()
             ->select(['id'])
-            ->where('username', '=', $vipUsername)
+            ->where('username', '=', $request->username)
             ->value('id');
-        $vip->start_at = $request->input('start_at');
-        $vip->end_at = $request->input('end_at');
-        $vip->donation_item_id = $request->input('donation_item_id');
-        $vip->is_gifted = 0;
-        $vip->is_active = 0;
 
-        $v = validator($vip->toArray(), [
-            'user_id'  => 'required',
-            'start_at' => 'required|date',
-            'end_at'   => 'required|date',
+        $validated = $request->validate([
+            'donation_item_id' => [
+                'exists:donation_items,id',
+            ],
+            'username'  => [
+                'exists:users,username',
+                'exclude',
+            ],
+            'start_at' => [
+                'required',
+                'date',
+            ],
+            'end_at'   => [
+                'required',
+                'date'
+            ],
         ]);
-
-        if ($v->fails()) {
-            return to_route('staff.donations.subscriptions.index')
-                ->withErrors($v->errors());
-        }
-        $vip->save();
+        
+        DonationSubscription::create([
+            'user_id'   => $userId,
+            'is_gifted' => false,
+            'is_active' => false,
+        ] + $validated));
 
         return to_route('staff.donations.subscriptions.index')
             ->withSuccess('New VIP Subscription added!');
