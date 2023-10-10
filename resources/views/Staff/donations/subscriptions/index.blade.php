@@ -14,13 +14,8 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        <a href="#" class="breadcrumb__link">
-            Donations
-        </a>
-    </li>
     <li class="breadcrumb--active">
-        Subscriptions
+        Donation Subscriptions
     </li>
 @endsection
 
@@ -32,7 +27,7 @@
             <h2 class="panel__heading">Donors</h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    <a href="{{ route('staff.donations.subscriptions.create') }}" class="form__button form__button--text">
+                    <a href="{{ route('staff.donation_subscriptions.create') }}" class="form__button form__button--text">
                         {{ __('common.add') }} VIP
                     </a>
                 </div>
@@ -81,7 +76,7 @@
                                 <td>
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.donations.subscriptions.edit', ['id' => $subscription->id]) }}"
+                                        href="{{ route('staff.donation_subscriptions.edit', ['donationSubscription' => $subscription->id]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>

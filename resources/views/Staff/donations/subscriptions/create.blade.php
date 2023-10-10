@@ -15,13 +15,8 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="#" class="breadcrumb__link">
-            Donations
-        </a>
-    </li>
-    <li class="breadcrumbV2">
-        <a href="{{ route('staff.donations.subscriptions.index') }}" class="breadcrumb__link">
-            Subscriptions
+        <a href="{{ route('staff.donation_subscriptions.index') }}" class="breadcrumb__link">
+            Donation Subscriptions
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -42,7 +37,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.donations.subscriptions.store') }}"
+                action="{{ route('staff.donation_subscriptions.store') }}"
                 enctype="multipart/form-data"
             >
                 @csrf

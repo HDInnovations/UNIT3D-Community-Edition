@@ -87,7 +87,7 @@ class DonationSubscriptionController extends Controller
 
         $donationSubscription->update($validated);
 
-        return redirect()->route('staff.donations.subscriptions.index')
+        return redirect()->route('staff.donation_subscriptions.index')
             ->withSuccess('VIP Subscription Was Updated Successfully!');
     }
 
@@ -133,7 +133,7 @@ class DonationSubscriptionController extends Controller
             'is_active' => false,
         ] + $validated);
 
-        return to_route('staff.donations.subscriptions.index')
+        return to_route('staff.donation_subscriptions.index')
             ->withSuccess('New VIP Subscription added!');
     }
 }

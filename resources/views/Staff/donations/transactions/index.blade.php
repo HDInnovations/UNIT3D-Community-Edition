@@ -14,13 +14,8 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        <a href="#" class="breadcrumb__link">
-            Donations
-        </a>
-    </li>
     <li class="breadcrumb--active">
-        Transactions
+        Donation Transactions
     </li>
 @endsection
 

@@ -205,7 +205,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.donations.transactions.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.donation_transactions.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-cash-register"></i>
                         Donation Transactions
                     </a>

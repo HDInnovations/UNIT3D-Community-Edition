@@ -7,13 +7,8 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="#" class="breadcrumb__link">
-            Donations
-        </a>
-    </li>
-    <li class="breadcrumbV2">
-        <a href="{{ route('staff.donations.subscriptions.index') }}" class="breadcrumb__link">
-            Subscriptions
+        <a href="{{ route('staff.donation_subscriptions.index') }}" class="breadcrumb__link">
+            Donation Subscriptions
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -32,7 +27,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.donations.subscriptions.update', ['vip_sub' => $vip_sub->name, 'id' => $vip_sub->id]) }}"
+                action="{{ route('staff.donation_subscriptions.update', ['donationSubscription' => $vip_sub->id, 'vip_sub' => $vip_sub->name, 'id' => $vip_sub->id]) }}"
                 enctype="multipart/form-data"
             >
                 @method('PATCH')
