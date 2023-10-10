@@ -48,9 +48,8 @@ class DonationSubscriptionController extends Controller
                 ->where('is_active', '=', false)
                 ->orderBy('end_at', 'desc')
                 ->paginate(10),
-            'subscriptions_active_arr' => DonationSubscription::query()
+            'subscriptions_active_arr' => DonationSubscription::with('user')
                 ->whereRelation('user', fn ($query) => $query->where('is_donor', '=', true))
-                ->where('is_donor', '=', true)
                 ->where('start_at', '<=', $currentDate)
                 ->where('end_at', '>=', $currentDate)
                 ->pluck('user_id')
@@ -83,8 +82,8 @@ class DonationSubscriptionController extends Controller
                 'required',
                 'date',
                 'after:start_at',
-            ]
-        ])
+            ],
+        ]);
         
         $donationSubscription->update($validated);
 
@@ -132,7 +131,7 @@ class DonationSubscriptionController extends Controller
             'user_id'   => $userId,
             'is_gifted' => false,
             'is_active' => false,
-        ] + $validated));
+        ] + $validated);
 
         return to_route('staff.donations.subscriptions.index')
             ->withSuccess('New VIP Subscription added!');
