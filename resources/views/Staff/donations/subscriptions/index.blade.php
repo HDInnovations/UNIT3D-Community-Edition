@@ -71,11 +71,11 @@
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($subscription->start_at)) }}
+                                    {{ $subscription->start_at->format('Y-m-d') }}
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($subscription->end_at)) }}
+                                    {{ $subscription->end_at->format('Y-m-d') }}
                                 </td>
 
                                 <td>
@@ -138,11 +138,11 @@
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($subscription->start_at)) }}
+                                    {{ $subscription->start_at->format('Y-m-d') }}
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($subscription->end_at)) }}
+                                    {{ $subscription->end_at->format('Y-m-d') }}
                                 </td>
 
                                 <td>
@@ -203,11 +203,11 @@
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($subscription->start_at)) }}
+                                    {{ $subscription->start_at->format('Y-m-d') }}
                                 </td>
 
                                 <td>
-                                    {{ date('Y-m-d', strtotime($subscription->end_at)) }}
+                                    {{ $subscription->end_at->format('Y-m-d') }}
                                 </td>
                             </tr>
                         @endforeach

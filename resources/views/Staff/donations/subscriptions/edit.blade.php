@@ -54,7 +54,7 @@
                         class="form__text"
                         type="text"
                         name="start_at"
-                        value="{{ date('Y-m-d', strtotime($vip_sub->start_at)) }}"
+                        value="{{ $vip_sub->start_at->format('Y-m-d') }}"
                     >
                     <label class="form__label form__label--floating" for="start_at">Start date</label>
                 </p>
@@ -64,7 +64,7 @@
                         class="form__text"
                         type="text"
                         name="end_at"
-                        value="{{ date('Y-m-d', strtotime($vip_sub->end_at)) }}"
+                        value="{{ $vip_sub->end_at->format('Y-m-d') }}"
                     >
                     <label class="form__label form__label--floating" for="end_at">End date</label>
                 </p>
