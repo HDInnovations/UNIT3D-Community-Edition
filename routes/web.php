@@ -784,24 +784,21 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        // Donation System
-        Route::prefix('donations')->group(function (): void {
-            Route::name('donations.')->group(function (): void {
-                Route::prefix('subscriptions')->group(function (): void {
-                    Route::name('subscriptions.')->group(function (): void {
-                        Route::get('/', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'index'])->name('index');
-                        Route::get('/{id}/edit', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'edit'])->name('edit');
-                        Route::get('/{id}/reedit', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'reedit'])->name('reedit');
-                        Route::patch('/{id}/update', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'update'])->name('update');
-                        Route::get('/create', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'create'])->name('create');
-                        Route::post('/store', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'store'])->name('store');
-                    });
-                });
-                Route::prefix('transactions')->group(function (): void {
-                    Route::name('transactions.')->group(function (): void {
-                        Route::get('/', [App\Http\Controllers\Staff\DonationTransactionController::class, 'index'])->name('index');
-                    });
-                });
+        // Donation Subscriptions
+        Route::prefix('donation-subscriptions')->group(function (): void {
+            Route::name('donation_subscriptions.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'index'])->name('index');
+                Route::get('/{donationSubscription}/edit', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'edit'])->name('edit');
+                Route::patch('/{donationSubscription}/update', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'update'])->name('update');
+                Route::get('/create', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DonationSubscriptionController::class, 'store'])->name('store');
+            });
+        });
+
+        // Donation Transactions
+        Route::prefix('donation-transactions')->group(function (): void {
+            Route::name('donation_transactions.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationTransactionController::class, 'index'])->name('index');
             });
         });
 
