@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Subscriptions - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>Subscriptions - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Subscriptions - @lang('staff.staff-dashboard')">
+    <meta name="description" content="Subscriptions - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumbs')
@@ -33,7 +33,7 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <a href="{{ route('staff.donations.subscriptions.create') }}" class="form__button form__button--text">
-                        @lang('common.add') VIP
+                        {{ __('common.add') }} VIP
                     </a>
                 </div>
             </div>
@@ -45,11 +45,11 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.group')</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>{{ __('common.group') }}</th>
                             <th>VIP start</th>
                             <th>VIP end</th>
-                            <th width="10%">@lang('common.action')</th>
+                            <th width="10%">{{ __('common.action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,7 +92,7 @@
                 </table>
                 @if (! $subscriptions_upcoming->count())
                     <div class="margin-10">
-                        @lang('common.no-result')
+                        {{ __('common.no-result') }}
                     </div>
                 @endif
                 <br>
@@ -107,11 +107,11 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.group')</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>{{ __('common.group') }}</th>
                             <th>VIP Start</th>
                             <th>VIP End</th>
-                            <th width="10%">@lang('common.action')</th>
+                            <th width="10%">{{ __('common.action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,7 +159,7 @@
                 </table>
                 @if (! $subscriptions_active->count())
                     <div class="margin-10">
-                        @lang('common.no-result')
+                        {{ __('common.no-result') }}
                     </div>
                 @endif
                 <br>
@@ -174,11 +174,11 @@
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>@lang('common.user')</th>
-                            <th>@lang('common.group')</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>{{ __('common.group') }}</th>
                             <th>VIP Start</th>
                             <th>VIP End</th>
-                            <th width="10%">@lang('common.action')</th>
+                            <th width="10%">{{ __('common.action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -215,7 +215,7 @@
                 </table>
                 @if (! $subscriptions_inactive->count())
                     <div class="margin-10">
-                        @lang('common.no-result')
+                        {{ __('common.no-result') }}
                     </div>
                 @endif
                 <br>

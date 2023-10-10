@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('staff.vips') - @lang('staff.staff-dashboard') - {{ config('other.title') }}</title>
+    <title>{{ __('staff.vips') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="@lang('staff.vips') - @lang('staff.staff-dashboard')">
+    <meta name="description" content="{{ __('staff.vips') }} - {{ __('staff.staff-dashboard') }}">
 @endsection
 
 @section('breadcrumbs')
@@ -25,7 +25,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        @lang('common.add')
+        {{ __('common.add') }}
     </li>
 @endsection
 
@@ -95,4 +95,3 @@
         </div>
     </section>
 @endsection
-
