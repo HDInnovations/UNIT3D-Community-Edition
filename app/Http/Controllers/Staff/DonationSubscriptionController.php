@@ -34,16 +34,16 @@ class DonationSubscriptionController extends Controller
         $currentDate = Carbon::now()->toDateString();
 
         return view('Staff.donations.subscriptions.index', [
-            'subscriptions_active'     => DonationSubscription::with('user')
+            'subscriptions_active' => DonationSubscription::with('user')
                 ->where('is_active', '=', true)
                 ->paginate(25),
-            'subscriptions_upcoming'   => DonationSubscription::with('user')
+            'subscriptions_upcoming' => DonationSubscription::with('user')
                 ->where('start_at', '>=', $currentDate)
                 ->where('is_active', '=', false)
                 ->where('end_at', '>', $currentDate)
                 ->orderBy('start_at')
                 ->paginate(5),
-            'subscriptions_inactive'   => DonationSubscription::with('user')
+            'subscriptions_inactive' => DonationSubscription::with('user')
                 ->where('end_at', '<=', $currentDate)
                 ->where('is_active', '=', false)
                 ->orderBy('end_at', 'desc')
@@ -54,7 +54,7 @@ class DonationSubscriptionController extends Controller
                 ->where('end_at', '>=', $currentDate)
                 ->pluck('user_id')
                 ->toArray(),
-            'curdate'                  => $currentDate
+            'curdate' => $currentDate
         ]);
     }
 
@@ -84,7 +84,7 @@ class DonationSubscriptionController extends Controller
                 'after:start_at',
             ],
         ]);
-        
+
         $donationSubscription->update($validated);
 
         return redirect()->route('staff.donations.subscriptions.index')
@@ -113,7 +113,7 @@ class DonationSubscriptionController extends Controller
             'donation_item_id' => [
                 'exists:donation_items,id',
             ],
-            'username'  => [
+            'username' => [
                 'exists:users,username',
                 'exclude',
             ],
@@ -121,12 +121,12 @@ class DonationSubscriptionController extends Controller
                 'required',
                 'date',
             ],
-            'end_at'   => [
+            'end_at' => [
                 'required',
                 'date'
             ],
         ]);
-        
+
         DonationSubscription::create([
             'user_id'   => $userId,
             'is_gifted' => false,

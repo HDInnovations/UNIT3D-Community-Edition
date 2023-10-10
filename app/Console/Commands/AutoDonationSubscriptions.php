@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\DonationItem;
 use App\Models\DonationSubscription;
 use App\Models\User;
 use App\Models\PrivateMessage;
@@ -48,7 +47,7 @@ class AutoDonationSubscriptions extends Command
         // Demote a User
         User::whereIntegerInRaw('id', $toDemote->pluck('user_id'))->update(['is_donor' => false]);
         DonationSubscription::whereIntegerInRaw('id', $toDemote->pluck('id'))->update(['is_active' => false]);
-        
+
         foreach ($toDemote as $subscription) {
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
@@ -87,7 +86,7 @@ Thank you for your support!
                 'subject'     => 'Donation Subscription',
                 'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]'."\n"
 .'Your subscription access has been activated and is valid through: '.$subscription->end_at.' (YYYY-MM-DD)'."\n\n"
-.'A total of '.$donationItem->seedbonus.' BON points, '.$donationItem->uploaded.' upload and '.$donationItem->invites.' invites have been added to your account.'."\n\n" 
+.'A total of '.$donationItem->seedbonus.' BON points, '.$donationItem->uploaded.' upload and '.$donationItem->invites.' invites have been added to your account.'."\n\n"
 .'[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
             ]);
         }
