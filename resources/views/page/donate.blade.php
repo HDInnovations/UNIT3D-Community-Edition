@@ -38,48 +38,52 @@
                 </div>
             </div>
         @endforeach
+
         <h2>Donate</h2>
-        <div class="text-center oper-item card_footer">
-            <form
-                class="form"
-                method="POST"
-                action="{{ route('create_payment') }}"
-                enctype="multipart/form-data"
-            >
-                @csrf
-                <label for="coin">Coin</label>
-                <select name="coin" class="form__select" x-model="coin">
-                    <option hidden disabled selected value=""></option>
+        <form
+            class="form"
+            method="POST"
+            action="{{ route('create_payment') }}"
+            enctype="multipart/form-data"
+            x-data
+        >
+            @csrf
+            <p class="form__group">
+                <select name="coin" id="coin" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+                    <option hidden="" disabled selected value=""></option>
                     <option value="BTC">Bitcoin</option>
                     <option value="XMR">Monero</option>
                 </select>
-                <hr>
-                <label for="fiat">Fiat Currency</label>
-                <select name="fiat" class="form__select" x-model="fiat">
-                    <option hidden disabled selected value=""></option>
+                <label class="form__label form__label--floating" for="coin">Coin</label>
+            </p>
+
+            <p class="form__group">
+                <select name="fiat" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+                    <option hidden="" disabled selected value=""></option>
                     <option value="USD">USD</option>
                     <option value="GBP">GBP</option>
                     <option value="EUR">EUR</option>
                 </select>
-                <hr>
-                <label for="item">Item</label>
-                <select name="item" class="form__select" id="btcpay-input-price" x-model="item">
-                    <option hidden disabled selected value=""></option>
+                <label class="form__label form__label--floating" for="fiat">Fiat Currency</label>
+            </p>
+
+            <p class="form__group">
+                <select name="item" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+                    <option hidden="" disabled selected value=""></option>
                     @foreach ($items as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                 </select>
-                <hr>
-                <div class="label-text" style="padding: 5px;">
-                    Please note: <br>
-                    <u>In the next step</u>, we will ask to provide an email address and a username. You do not need to provide your real email address,<br>
-                    but we need your aither username to map your donation to an account.
-                </div>
-                <hr>
-                <button type="submit" x-show="item && coin && fiat">
-                    submit
-                </button>
-            </form>
-        </div>
+                <label class="form__label form__label--floating" for="item">Item</label>
+            </p>
+
+            @error('error')
+                <span class="form__hint">{{ $error }}</span>
+            @enderror
+
+            <button type="submit">
+                Submit
+            </button>
+        </form>
     </div>
 @endsection
