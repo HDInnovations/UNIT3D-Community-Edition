@@ -1,0 +1,45 @@
+.gird__container--donation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+
+.grid__item--donation {
+    height: 300px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card_header,
+.card,
+.card_footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background-color: var(--panel-fg);
+    box-shadow: var(--panel-box-shadow);
+    height: 180px;
+    margin-top: -20px;
+}
+
+p.type,
+p.price,
+p.adventage {
+    size: 1em;
+}
+
+/* Screen */
+@media screen and (max-width: 700px) {
+    .gird__container--donation {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 20px;
+    }
+}

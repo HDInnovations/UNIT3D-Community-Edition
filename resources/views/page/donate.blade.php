@@ -38,52 +38,52 @@
                 </div>
             </div>
         @endforeach
-
-        <h2>Donate</h2>
-        <form
-            class="form"
-            method="POST"
-            action="{{ route('create_payment') }}"
-            enctype="multipart/form-data"
-            x-data
-        >
-            @csrf
-            <p class="form__group">
-                <select name="coin" id="coin" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
-                    <option hidden="" disabled selected value=""></option>
-                    <option value="BTC">Bitcoin</option>
-                    <option value="XMR">Monero</option>
-                </select>
-                <label class="form__label form__label--floating" for="coin">Coin</label>
-            </p>
-
-            <p class="form__group">
-                <select name="fiat" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
-                    <option hidden="" disabled selected value=""></option>
-                    <option value="USD">USD</option>
-                    <option value="GBP">GBP</option>
-                    <option value="EUR">EUR</option>
-                </select>
-                <label class="form__label form__label--floating" for="fiat">Fiat Currency</label>
-            </p>
-
-            <p class="form__group">
-                <select name="item" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
-                    <option hidden="" disabled selected value=""></option>
-                    @foreach ($items as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
-                </select>
-                <label class="form__label form__label--floating" for="item">Item</label>
-            </p>
-
-            @error('error')
-                <span class="form__hint">{{ $error }}</span>
-            @enderror
-
-            <button type="submit">
-                Submit
-            </button>
-        </form>
     </div>
+
+    <h2>Donate</h2>
+    <form
+        class="form"
+        method="POST"
+        action="{{ route('create_payment') }}"
+        enctype="multipart/form-data"
+        x-data
+    >
+        @csrf
+        <p class="form__group">
+            <select name="coin" id="coin" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+                <option hidden="" disabled selected value=""></option>
+                <option value="BTC">Bitcoin</option>
+                <option value="XMR">Monero</option>
+            </select>
+            <label class="form__label form__label--floating" for="coin">Coin</label>
+        </p>
+
+        <p class="form__group">
+            <select name="fiat" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+                <option hidden="" disabled selected value=""></option>
+                <option value="USD">USD</option>
+                <option value="GBP">GBP</option>
+                <option value="EUR">EUR</option>
+            </select>
+            <label class="form__label form__label--floating" for="fiat">Fiat Currency</label>
+        </p>
+
+        <p class="form__group">
+            <select name="item" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+                <option hidden="" disabled selected value=""></option>
+                @foreach ($items as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
+            <label class="form__label form__label--floating" for="item">Item</label>
+        </p>
+
+        @error('error')
+            <span class="form__hint">{{ $error }}</span>
+        @enderror
+
+        <button type="submit">
+            Submit
+        </button>
+    </form>
 @endsection
