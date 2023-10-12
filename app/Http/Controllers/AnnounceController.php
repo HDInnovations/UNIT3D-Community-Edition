@@ -307,7 +307,7 @@ final class AnnounceController extends Controller
     private function checkUser(string $passkey, array $queries): object
     {
         // Check Passkey Against Users Table
-        $user = cache()->remember('user:'.$passkey, 8 * 3600, fn() => User::query()
+        $user = cache()->remember('user:'.$passkey, 8 * 3600, fn () => User::query()
             ->select(['id', 'group_id', 'can_download'])
             ->where('passkey', '=', $passkey)
             ->first());
@@ -333,14 +333,14 @@ final class AnnounceController extends Controller
      */
     private function checkGroup($user): object
     {
-        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, fn() => DB::table('groups')
+        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, fn () => DB::table('groups')
             ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
             ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
             ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
             ->first());
 
         // Get The Users Group
-        $group = cache()->remember('group:'.$user->group_id, 8 * 3600, fn() => Group::query()
+        $group = cache()->remember('group:'.$user->group_id, 8 * 3600, fn () => Group::query()
             ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
             ->find($user->group_id));
 
