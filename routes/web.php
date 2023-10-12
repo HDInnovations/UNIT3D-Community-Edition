@@ -104,7 +104,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
             Route::prefix('donate')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\PageController::class, 'donate'])->name('donate');
-                Route::post('/createpayment', [App\Http\Controllers\DonationTransactionController::class, 'createCryptoPayment'])->name('create_payment');
+                Route::post('/createpayment', [App\Http\Controllers\DonationTransactionController::class, 'create'])->name('create_payment');
             });
             Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });

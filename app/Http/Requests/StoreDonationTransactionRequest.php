@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Requests\Staff;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,7 +33,7 @@ class StoreDonationTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'item' => [
+            'id' => [
                 'required',
                 'exists:donation_items'
             ],

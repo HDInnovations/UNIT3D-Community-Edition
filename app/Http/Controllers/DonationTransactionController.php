@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Staff\StoreDonationTransactionRequest;
+use App\Http\Requests\StoreDonationTransactionRequest;
 use App\Models\DonationItem;
 use App\Models\DonationTransaction;
 use Illuminate\Support\Facades\Redirect;
@@ -34,7 +34,7 @@ class DonationTransactionController extends Controller
         $request->validated();
 
         try {
-            $price = DonationItem::query()->select(['price_usd'])->findOrFail($request->item)->value('price_usd');
+            $price = DonationItem::query()->select(['price_usd'])->where('id', '=', $request->id)->value('price_usd');
 
             $data = [
                 'price_amount'   => $price ?? 100,
@@ -49,7 +49,7 @@ class DonationTransactionController extends Controller
 
             $transaction = DonationTransaction::create([
                 'user_id'                => $user->id,
-                'donation_item_id'       => $request->item,
+                'donation_item_id'       => $request->id,
                 'nowpayments_invoice_id' => $paymentDetails['id'],
                 'nowpayments_order_id'   => $paymentDetails['order_id'],
                 'currency'               => $paymentDetails['pay_currency'],

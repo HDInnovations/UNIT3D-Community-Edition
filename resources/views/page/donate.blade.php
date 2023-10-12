@@ -69,13 +69,13 @@
         </p>
 
         <p class="form__group">
-            <select name="item" id="item" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+            <select name="id" id="id" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
                 <option hidden="" disabled selected value=""></option>
                 @foreach ($items as $item)
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
             </select>
-            <label class="form__label form__label--floating" for="item">Item</label>
+            <label class="form__label form__label--floating" for="id">Item</label>
         </p>
 
         @error('error')
