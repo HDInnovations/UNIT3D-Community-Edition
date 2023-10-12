@@ -90,8 +90,6 @@ class AnnounceController extends Controller
      */
     public function index(Request $request, string $passkey): ?Response
     {
-        $response = null;
-
         try {
             // Check client.
             $this->checkClient($request);
@@ -306,7 +304,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkUser($passkey, $queries): object
+    protected function checkUser(string $passkey, array $queries): object
     {
         // Check Passkey Against Users Table
         $user = cache()->remember('user:'.$passkey, 8 * 3600, function () use ($passkey) {
@@ -376,7 +374,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkTorrent($infoHash): object
+    protected function checkTorrent(string $infoHash): object
     {
         $torrent = cache()->remember(
             'announce-torrents:by-infohash:'.$infoHash,
@@ -384,7 +382,7 @@ class AnnounceController extends Controller
             fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
                 ->where('info_hash', '=', $infoHash)
-                ->firstOr(fn () => -1)
+                ->firstOr(fn (): string => '-1')
         );
 
         // If Torrent Doesn't Exsist Return Error to Client
@@ -425,7 +423,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkPeer($torrent, $queries, $user): void
+    private function checkPeer(object $torrent, array $queries, object $user): void
     {
         if (
             $queries['event'] === 'completed'
@@ -445,7 +443,7 @@ class AnnounceController extends Controller
      * @throws Exception
      * @throws Throwable
      */
-    private function checkMinInterval($torrent, $queries, $user): void
+    private function checkMinInterval(object $torrent, array $queries, object $user): void
     {
         $event = match ($queries['event']) {
             'started'   => 'started',
@@ -490,7 +488,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkMaxConnections($torrent, $user): void
+    private function checkMaxConnections(object $torrent, object $user): void
     {
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = $torrent->peers
@@ -510,7 +508,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkDownloadSlots($queries, $torrent, $user, $group): void
+    private function checkDownloadSlots(array $queries, object $torrent, object $user, object $group): void
     {
         $max = $group->download_slots;
 
@@ -548,7 +546,7 @@ class AnnounceController extends Controller
      *
      * @throws Exception
      */
-    private function generateSuccessAnnounceResponse($queries, $torrent, $user): string
+    private function generateSuccessAnnounceResponse(array $queries, object $torrent, object $user): string
     {
         // Build Response For Bittorrent Client
         // Keys must be ordered alphabetically
@@ -636,7 +634,7 @@ class AnnounceController extends Controller
     /**
      * Process Announce Database Queries.
      */
-    private function processAnnounceJob($queries, $user, $group, $torrent): void
+    private function processAnnounceJob(array $queries, object $user, object $group, object $torrent): void
     {
         // Set Variables
         $event = $queries['event'];
