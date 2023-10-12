@@ -44,7 +44,7 @@
                                     {{ $transaction->user->username }}
                                 </a>
                             </td>
-                            <td>{{ $transaction->item->name }}</td>
+                            <td>{{ $transaction->donation_item_id }}</td>
                             <td>
                                 {{ $transaction->nowpayments_order_id }}
                             </td>
