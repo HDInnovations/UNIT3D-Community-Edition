@@ -33,7 +33,7 @@ use Throwable;
 use Exception;
 use Illuminate\Support\Facades\Redis;
 
-class AnnounceController extends Controller
+final class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
     protected const PENDING = 0;
@@ -141,7 +141,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkClient(Request $request): void
+    private function checkClient(Request $request): void
     {
         // Query count check
         if ($request->query->count() < 6) {
@@ -196,7 +196,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkPasskey($passkey): void
+    private function checkPasskey($passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey === null) {
@@ -209,7 +209,7 @@ class AnnounceController extends Controller
         }
 
         // If Passkey Format Is Wrong
-        if (strspn(strtolower($passkey), 'abcdef0123456789') !== 32) {
+        if (strspn(strtolower((string) $passkey), 'abcdef0123456789') !== 32) {
             throw new TrackerException(131, [':attribute' => 'passkey', ':reason' => 'Passkey format is incorrect']);
         }
     }
@@ -304,15 +304,13 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkUser(string $passkey, array $queries): object
+    private function checkUser(string $passkey, array $queries): object
     {
         // Check Passkey Against Users Table
-        $user = cache()->remember('user:'.$passkey, 8 * 3600, function () use ($passkey) {
-            return User::query()
-                ->select(['id', 'group_id', 'can_download'])
-                ->where('passkey', '=', $passkey)
-                ->first();
-        });
+        $user = cache()->remember('user:'.$passkey, 8 * 3600, fn() => User::query()
+            ->select(['id', 'group_id', 'can_download'])
+            ->where('passkey', '=', $passkey)
+            ->first());
 
         // If User Doesn't Exist Return Error to Client
         if ($user === null) {
@@ -333,22 +331,18 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkGroup($user): object
+    private function checkGroup($user): object
     {
-        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, function () {
-            return DB::table('groups')
-                ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
-                ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
-                ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
-                ->first();
-        });
+        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, fn() => DB::table('groups')
+            ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
+            ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
+            ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
+            ->first());
 
         // Get The Users Group
-        $group = cache()->remember('group:'.$user->group_id, 8 * 3600, function () use ($user) {
-            return Group::query()
-                ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
-                ->find($user->group_id);
-        });
+        $group = cache()->remember('group:'.$user->group_id, 8 * 3600, fn() => Group::query()
+            ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
+            ->find($user->group_id));
 
         // If User Account Is Unactivated/Validating Return Error to Client
         if ($user->group_id === $deniedGroups->validating_id) {
@@ -374,7 +368,7 @@ class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    protected function checkTorrent(string $infoHash): object
+    private function checkTorrent(string $infoHash): object
     {
         $torrent = cache()->remember(
             'announce-torrents:by-infohash:'.$infoHash,
@@ -581,7 +575,7 @@ class AnnounceController extends Controller
                         continue;
                     }
 
-                    switch (\strlen($peer['ip'])) {
+                    switch (\strlen((string) $peer['ip'])) {
                         case 4:
                             $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
                             $peerCount++;
@@ -603,7 +597,7 @@ class AnnounceController extends Controller
                         continue;
                     }
 
-                    switch (\strlen($peer['ip'])) {
+                    switch (\strlen((string) $peer['ip'])) {
                         case 4:
                             $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
                             $peerCount++;
@@ -798,7 +792,7 @@ class AnnounceController extends Controller
         }
     }
 
-    protected function generateFailedAnnounceResponse(TrackerException $trackerException): string
+    private function generateFailedAnnounceResponse(TrackerException $trackerException): string
     {
         $message = $trackerException->getMessage();
 
@@ -808,7 +802,7 @@ class AnnounceController extends Controller
     /**
      * Send Final Announce Response.
      */
-    protected function sendFinalAnnounceResponse(string $response): Response
+    private function sendFinalAnnounceResponse(string $response): Response
     {
         return response($response, headers: self::HEADERS);
     }
