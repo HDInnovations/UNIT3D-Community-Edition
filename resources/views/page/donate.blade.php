@@ -69,7 +69,7 @@
         </p>
 
         <p class="form__group">
-            <select name="item" id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+            <select name="item" id="item" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
                 <option hidden="" disabled selected value=""></option>
                 @foreach ($items as $item)
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
