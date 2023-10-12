@@ -1971,22 +1971,7 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$group with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -1996,27 +1981,7 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMaxConnections\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMaxConnections\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -2026,67 +1991,27 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$queries with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$torrent with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkTorrent\\(\\) has parameter \\$infoHash with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$passkey with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$group with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Variable \\$response might not be defined\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
