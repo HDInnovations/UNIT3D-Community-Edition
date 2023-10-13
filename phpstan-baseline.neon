@@ -1706,11 +1706,6 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:parseAudioChannels\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MediaInfo.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:parseBitRate\\(\\) has parameter \\$string with no type specified\\.$#"
 			count: 1
 			path: app/Helpers/MediaInfo.php

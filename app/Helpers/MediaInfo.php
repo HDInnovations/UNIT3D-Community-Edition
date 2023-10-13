@@ -344,7 +344,7 @@ class MediaInfo
         return str_replace(['pixels', ' '], ' ', strtolower((string) $string));
     }
 
-    private function parseAudioChannels($string): array|string
+    private function parseAudioChannels($string): string
     {
         return str_ireplace(array_keys(self::REPLACE), self::REPLACE, (string) $string);
     }
