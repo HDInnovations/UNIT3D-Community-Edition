@@ -23,9 +23,9 @@ class Application extends Model
     use Auditable;
     use HasFactory;
 
-    public const PENDING = 0;
-    public const APPROVED = 1;
-    public const REJECTED = 2;
+    final public const PENDING = 0;
+    final public const APPROVED = 1;
+    final public const REJECTED = 2;
 
     /**
      * The Attributes That Are Mass Assignable.

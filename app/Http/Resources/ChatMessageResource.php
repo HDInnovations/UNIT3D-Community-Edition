@@ -37,12 +37,12 @@ class ChatMessageResource extends JsonResource
         if ($this->user_id == 1) {
             $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.$this->message.'</div></div>');
             $logger = $emojiOne->toImage($logger);
-            $logger = str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', $logger);
+            $logger = str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', (string) $logger);
         } else {
             $logger = $bbcode->parse('<div class="align-left">'.$this->message.'</div>');
             $logger = $emojiOne->toImage($logger);
         }
-        $logger = htmlspecialchars_decode($logger);
+        $logger = htmlspecialchars_decode((string) $logger);
 
         return [
             'id'         => $this->id,

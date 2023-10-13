@@ -98,7 +98,7 @@ if (! \function_exists('tmdb_image')) {
             default        => 'original',
         };
 
-        return str_replace('/original/', '/'.$new.'/', $original);
+        return str_replace('/original/', '/'.$new.'/', (string) $original);
     }
 }
 

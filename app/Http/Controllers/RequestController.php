@@ -112,7 +112,7 @@ class RequestController extends Controller
             'resolutions' => Resolution::orderBy('position')->get(),
             'user'        => $request->user(),
             'category_id' => $request->category_id ?? Category::first('id')->id,
-            'title'       => urldecode($request->title),
+            'title'       => urldecode((string) $request->title),
             'imdb'        => $request->imdb,
             'tmdb'        => $request->tmdb,
             'mal'         => $request->mal,

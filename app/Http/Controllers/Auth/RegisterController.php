@@ -162,7 +162,7 @@ class RegisterController extends Controller
         }
 
         // Handle The Activation System
-        $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
+        $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), (string) config('app.key'));
         $userActivation = new UserActivation();
         $userActivation->user_id = $user->id;
         $userActivation->token = $token;
