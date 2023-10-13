@@ -21,7 +21,7 @@ class Season
 
     public $data;
 
-    public function __construct($id, $season)
+    public function __construct(string $id, string $season)
     {
         $this->client = new \GuzzleHttp\Client(
             [
@@ -60,12 +60,12 @@ class Season
         return $this->data['air_date'];
     }
 
-    public function get_name()
+    public function get_name(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }
 
-    public function get_overview()
+    public function get_overview(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }

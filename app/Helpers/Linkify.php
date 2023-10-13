@@ -19,7 +19,7 @@ use VStelmakh\UrlHighlight\Validator\Validator;
 
 class Linkify
 {
-    public function linky($text): string
+    public function linky(string $text): string
     {
         $validator = new Validator(
             false, // bool - if should use top level domain to match urls without scheme

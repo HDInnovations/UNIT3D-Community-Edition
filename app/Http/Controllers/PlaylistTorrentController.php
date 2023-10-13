@@ -53,9 +53,9 @@ class PlaylistTorrentController extends Controller
 
         $playlistTorrents = $request->string('torrent_urls')
             ->explode("\n")
-            ->map(fn ($url) => basename($url))
+            ->map(fn ($url): string => basename($url))
             ->unique()
-            ->map(fn ($id) => ['playlist_id' => $playlist->id, 'torrent_id' => $id, 'tmdb_id' => 0])
+            ->map(fn ($id): array => ['playlist_id' => $playlist->id, 'torrent_id' => $id, 'tmdb_id' => 0])
             ->toArray();
 
         Validator::make($playlistTorrents, [

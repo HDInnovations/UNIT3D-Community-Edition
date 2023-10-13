@@ -97,7 +97,7 @@ class InviteController extends Controller
                 'unique:invites',
                 'unique:users',
                 'unique:applications',
-                Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist())
+                Rule::when(config('email-blacklist.enabled'), fn (): \App\Rules\EmailBlacklist => new EmailBlacklist())
             ],
         ]);
 

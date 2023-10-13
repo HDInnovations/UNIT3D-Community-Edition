@@ -30,7 +30,7 @@ trait ConsoleTools
         $this->io->writeln(sprintf('<fg=cyan>%s</>', $line));
     }
 
-    private function white($line): void
+    private function white(string $line): void
     {
         $this->io->writeln(PHP_EOL.$line);
     }

@@ -21,7 +21,7 @@ class TV
 
     public $data;
 
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->client = new \GuzzleHttp\Client(
             [
@@ -89,7 +89,7 @@ class TV
         return $this->data['id'];
     }
 
-    public function get_imdb_id()
+    public function get_imdb_id(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['imdb_id']);
     }
@@ -109,7 +109,7 @@ class TV
         return $this->data['last_episode_to_air'];
     }
 
-    public function get_name()
+    public function get_name(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }
@@ -144,12 +144,12 @@ class TV
         return $this->data['original_language'];
     }
 
-    public function get_original_name()
+    public function get_original_name(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['original_name']);
     }
 
-    public function get_overview()
+    public function get_overview(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }

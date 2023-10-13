@@ -194,7 +194,7 @@ class StringHelper
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    public static function ordinal($number): string
+    public static function ordinal(string $number): string
     {
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';

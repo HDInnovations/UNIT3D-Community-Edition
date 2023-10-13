@@ -17,7 +17,7 @@ use App\Models\User;
 
 class CacheUser
 {
-    public static function user($id)
+    public static function user(string $id)
     {
         if (! $id || $id <= 0 || ! is_numeric($id)) {
             return;

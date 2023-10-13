@@ -40,7 +40,7 @@ class EmailController extends Controller
                 'email',
                 'max:70',
                 'unique:users',
-                Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist()),
+                Rule::when(config('email-blacklist.enabled'), fn (): \App\Rules\EmailBlacklist => new EmailBlacklist()),
             ],
         ]);
 

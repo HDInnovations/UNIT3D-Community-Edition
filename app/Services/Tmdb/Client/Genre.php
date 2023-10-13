@@ -21,7 +21,7 @@ class Genre
 
     public $data;
 
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->client = new \GuzzleHttp\Client(
             [
@@ -54,12 +54,12 @@ class Genre
         return $this->data['birthday'];
     }
 
-    public function get_known_for_department()
+    public function get_known_for_department(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['known_for_department']);
     }
 
-    public function get_deathday()
+    public function get_deathday(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['deathday']);
     }
@@ -74,7 +74,7 @@ class Genre
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
 
-    public function get_name()
+    public function get_name(): ?string
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }

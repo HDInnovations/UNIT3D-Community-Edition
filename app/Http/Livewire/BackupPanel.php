@@ -35,7 +35,7 @@ class BackupPanel extends Component
     final public function getBackupStatusesProperty(): array
     {
         return BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
-            ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
+            ->map(fn (BackupDestinationStatus $backupDestinationStatus): array => [
                 'name'      => $backupDestinationStatus->backupDestination()->backupName(),
                 'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
                 'reachable' => $backupDestinationStatus->backupDestination()->isReachable(),
@@ -78,7 +78,7 @@ class BackupPanel extends Component
 
         return $backupDestination
             ->backups()
-            ->map(function (Backup $backup) {
+            ->map(function (Backup $backup): array {
                 $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : 0;
 
                 return [
@@ -101,7 +101,7 @@ class BackupPanel extends Component
 
         $backupDestination
             ->backups()
-            ->first(fn (Backup $backup) => $backup->path() === $deletingFile['path'])
+            ->first(fn (Backup $backup): bool => $backup->path() === $deletingFile['path'])
             ->delete();
 
         $this->emit('refreshBackups');
@@ -117,7 +117,7 @@ class BackupPanel extends Component
 
         $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
 
-        $backup = $backupDestination->backups()->first(fn (Backup $backup) => $backup->path() === $filePath);
+        $backup = $backupDestination->backups()->first(fn (Backup $backup): bool => $backup->path() === $filePath);
 
         if (! $backup) {
             return response('Backup not found', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);

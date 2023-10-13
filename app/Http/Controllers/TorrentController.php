@@ -159,7 +159,7 @@ class TorrentController extends Controller
             'categories' => Category::query()
                 ->orderBy('position')
                 ->get()
-                ->mapWithKeys(fn ($cat) => [
+                ->mapWithKeys(fn ($cat): array => [
                     $cat['id'] => [
                         'name' => $cat['name'],
                         'type' => match (true) {
@@ -172,7 +172,7 @@ class TorrentController extends Controller
                         },
                     ]
                 ]),
-            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]),
+            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type): array => [$type['id'] => ['name' => $type['name']]]),
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
@@ -321,7 +321,7 @@ class TorrentController extends Controller
         return view('torrent.create', [
             'categories' => Category::orderBy('position')
                 ->get()
-                ->mapWithKeys(fn ($category) => [$category->id => [
+                ->mapWithKeys(fn ($category): array => [$category->id => [
                     'name' => $category->name,
                     'type' => match (true) {
                         $category->movie_meta => 'movie',

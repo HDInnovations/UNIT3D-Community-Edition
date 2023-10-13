@@ -196,7 +196,7 @@ final class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkPasskey($passkey): void
+    private function checkPasskey(string $passkey): void
     {
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey === null) {
@@ -331,7 +331,7 @@ final class AnnounceController extends Controller
      * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
-    private function checkGroup($user): object
+    private function checkGroup(object $user): object
     {
         $deniedGroups = cache()->remember('denied_groups', 8 * 3600, fn () => DB::table('groups')
             ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")

@@ -30,7 +30,7 @@ class BbcodeInput extends Component
 
     public string $contentHtml = '';
 
-    final public function mount($name, $label, $required = false, $content = null): void
+    final public function mount(string $name, string $label, bool $required = false, $content = null): void
     {
         $this->name = $name;
         $this->label = $label;

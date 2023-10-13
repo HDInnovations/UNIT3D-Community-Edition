@@ -383,7 +383,7 @@ class TorrentController extends BaseController
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
-        $isRegex = fn ($field) => $isRegexAllowed
+        $isRegex = fn ($field): bool => $isRegexAllowed
             && \strlen((string) $field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'

@@ -96,7 +96,7 @@ class RequestController extends Controller
         return view('requests.create', [
             'categories' => Category::orderBy('position')
                 ->get()
-                ->mapWithKeys(fn ($category) => [$category->id => [
+                ->mapWithKeys(fn ($category): array => [$category->id => [
                     'name' => $category->name,
                     'type' => match (true) {
                         $category->movie_meta => 'movie',

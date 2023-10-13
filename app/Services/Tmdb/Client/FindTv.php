@@ -21,7 +21,7 @@ class FindTv
 
     public $data;
 
-    public function __construct($query, $year)
+    public function __construct(string $query, string $year)
     {
         $this->client = new \GuzzleHttp\Client(
             [
