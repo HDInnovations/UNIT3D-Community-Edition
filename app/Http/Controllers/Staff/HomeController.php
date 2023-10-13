@@ -48,19 +48,19 @@ class HomeController extends Controller
         $systemInformation = new SystemInformation();
 
         return view('Staff.dashboard.index', [
-            'users' => cache()->remember('dashboard_users', 300, fn() => DB::table('users')
+            'users' => cache()->remember('dashboard_users', 300, fn () => DB::table('users')
                 ->selectRaw('count(*) as total')
                 ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
                 ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
                 ->first()),
-            'torrents' => cache()->remember('dashboard_torrents', 300, fn() => DB::table('torrents')
+            'torrents' => cache()->remember('dashboard_torrents', 300, fn () => DB::table('torrents')
                 ->selectRaw('count(*) as total')
                 ->selectRaw('count(case when status = 0 then 1 end) as pending')
                 ->selectRaw('count(case when status = 1 then 1 end) as approved')
                 ->selectRaw('count(case when status = 2 then 1 end) as rejected')
                 ->selectRaw('count(case when status = 3 then 1 end) as postponed')
                 ->first()),
-            'peers' => cache()->remember('dashboard_peers', 300, fn() => DB::table('peers')
+            'peers' => cache()->remember('dashboard_peers', 300, fn () => DB::table('peers')
                 ->selectRaw('count(*) as total')
                 ->selectRaw('sum(active = 1) as active')
                 ->selectRaw('sum(active = 0) as inactive')

@@ -78,7 +78,7 @@ class TorrentController extends BaseController
         $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
             match ($torrent->meta) {
                 'movie' => $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect()),
-                'tv' => $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect()),
+                'tv'    => $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect()),
                 default => $torrent,
             };
 
@@ -457,7 +457,7 @@ class TorrentController extends BaseController
             $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
                 match ($torrent->meta) {
                     'movie' => $torrent->setRelation('work', $movies[$torrent->tmdb] ?? collect()),
-                    'tv' => $torrent->setRelation('work', $tv[$torrent->tmdb] ?? collect()),
+                    'tv'    => $torrent->setRelation('work', $tv[$torrent->tmdb] ?? collect()),
                     default => $torrent,
                 };
 

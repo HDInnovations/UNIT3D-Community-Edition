@@ -84,6 +84,6 @@ class TwoStepAuth extends Model
      */
     public static function rules(array $merge = []): array
     {
-        return ['userId'     => 'required|integer', 'authCode'   => 'required|string|max:4|min:4', 'authCount'  => 'required|integer', 'authStatus' => 'required|boolean', ...$merge];
+        return ['userId' => 'required|integer', 'authCode' => 'required|string|max:4|min:4', 'authCount' => 'required|integer', 'authStatus' => 'required|boolean', ...$merge];
     }
 }

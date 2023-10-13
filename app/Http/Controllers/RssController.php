@@ -147,7 +147,7 @@ class RssController extends Controller
 
         $cacheKey = 'rss:'.$rss->id;
 
-        $torrents = cache()->remember($cacheKey, 300, fn() => Torrent::query()
+        $torrents = cache()->remember($cacheKey, 300, fn () => Torrent::query()
             ->select([
                 'name',
                 'id',
