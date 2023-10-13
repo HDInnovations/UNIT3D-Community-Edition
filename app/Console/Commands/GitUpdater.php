@@ -233,7 +233,7 @@ class GitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($paths as $path) {
-            $to = Str::replaceLast('/.', '', base_path(\dirname($path)));
+            $to = Str::replaceLast('/.', '', base_path(\dirname((string) $path)));
             $from = storage_path('gitupdate').'/'.$path;
 
             if (is_dir($from)) {
@@ -348,8 +348,8 @@ class GitUpdater extends Command
             if (! mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && ! is_dir($concurrentDirectory)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
-        } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
-            $path = \dirname($path);
+        } elseif (is_file(base_path($path)) && \dirname((string) $path) !== '.') {
+            $path = \dirname((string) $path);
 
             if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! mkdir($concurrentDirectory = storage_path(sprintf(
                 'gitupdate/%s',
@@ -365,6 +365,6 @@ class GitUpdater extends Command
         $p = $this->process('git diff master --name-only');
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
 
-        return array_merge($paths, self::ADDITIONAL);
+        return [...$paths, ...self::ADDITIONAL];
     }
 }

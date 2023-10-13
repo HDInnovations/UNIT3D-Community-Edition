@@ -339,7 +339,7 @@ class TorrentController extends Controller
             'distributors' => Distributor::orderBy('name')->get(),
             'user'         => $request->user(),
             'category_id'  => $request->category_id,
-            'title'        => urldecode($request->title),
+            'title'        => urldecode((string) $request->title),
             'imdb'         => $request->imdb,
             'tmdb'         => $request->tmdb,
             'mal'          => $request->mal,

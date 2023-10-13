@@ -24,7 +24,7 @@ class Subtitle extends Model
     use Auditable;
     use HasFactory;
 
-    public const APPROVED = 1;
+    final public const APPROVED = 1;
 
     protected $guarded = [];
 

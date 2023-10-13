@@ -70,7 +70,7 @@ class IRCAnnounceBot
                         break;
                     }
 
-                    [$server1] = preg_split('/ +/', $parameters) + [null];
+                    [$server1] = preg_split('/ +/', (string) $parameters) + [null];
 
                     if ($server1 === null) {
                         break;

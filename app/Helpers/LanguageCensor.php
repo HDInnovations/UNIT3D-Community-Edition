@@ -35,7 +35,7 @@ class LanguageCensor
         $result = [];
         $length = \strlen((string) $word);
         $stringLength = \strlen((string) $string);
-        $pos = stripos($string, (string) $word, 0);
+        $pos = stripos((string) $string, (string) $word, 0);
 
         while ($pos !== false) {
             $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
@@ -45,7 +45,7 @@ class LanguageCensor
                 $result[] = $pos;
             }
 
-            $pos = stripos($string, (string) $word, $pos + $length);
+            $pos = stripos((string) $string, (string) $word, $pos + $length);
         }
 
         return $result;
@@ -66,7 +66,7 @@ class LanguageCensor
 
             for ($i = 0; $i < $length; $i++) {
                 if (\count($indexes) > 0 && $indexes[0] == $i) {
-                    $match = substr($source, $indexes[0], $wordLength);
+                    $match = substr((string) $source, $indexes[0], $wordLength);
                     $result .= sprintf("<span class='censor'>%s</span>", $match);
                     $ignore = $wordLength - 1;
                 } elseif ($ignore > 0) {
@@ -82,7 +82,7 @@ class LanguageCensor
         $replaceDict = config('censor.replace', []);
 
         foreach ($replaceDict as $word => $replacement) {
-            $source = str_ireplace($word, $replacement, $source);
+            $source = str_ireplace((string) $word, (string) $replacement, (string) $source);
         }
 
         return $source;

@@ -43,7 +43,7 @@ class Language
             return strtolower(substr(self::getLongCode($locale), 3));
         }
 
-        return strtolower(substr($locale, 3));
+        return strtolower(substr((string) $locale, 3));
     }
 
     /**
