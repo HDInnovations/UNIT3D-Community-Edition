@@ -49,7 +49,7 @@ class AutoStatsClients extends Command
             ->groupBy('agent')
             ->orderBy('agent')
             ->get()
-            ->mapWithKeys(fn ($item, $key): array => [$item['agent'] => $item['count']])
+            ->mapWithKeys(fn ($item, $key) => [$item['agent'] => $item['count']])
             ->toArray();
 
         if (! empty($clients)) {

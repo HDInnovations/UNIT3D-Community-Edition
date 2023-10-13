@@ -36,7 +36,7 @@ class TorrentPeerController extends Controller
                 ->orderByDesc('active')
                 ->orderByDesc('seeder')
                 ->get()
-                ->map(function (array $peer) use ($torrent): array {
+                ->map(function ($peer) use ($torrent) {
                     $progress = 100 * (1 - $peer->left / $torrent->size);
                     $peer['progress'] = match (true) {
                         0 < $progress && $progress < 1    => 1,

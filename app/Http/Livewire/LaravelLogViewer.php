@@ -88,7 +88,7 @@ class LaravelLogViewer extends Component
             }
         }
 
-        $groupedEntries = $entries->groupBy(fn ($entry): string => $entry['message'].'-'.$entry['exception'].'-'.$entry['in'].'-'.$entry['line']);
+        $groupedEntries = $entries->groupBy(fn ($entry) => $entry['message'].'-'.$entry['exception'].'-'.$entry['in'].'-'.$entry['line']);
         $currentEntries = $groupedEntries->forPage($this->page, $this->perPage);
 
         return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);

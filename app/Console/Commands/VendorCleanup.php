@@ -98,7 +98,7 @@ class VendorCleanup extends Command
 
         foreach ($directories as $directory) {
             foreach ($patterns as $pattern) {
-                $casePattern = preg_replace_callback('#([a-z])#i', fn ($matches): string => $this->prepareWord($matches), (string) $pattern);
+                $casePattern = preg_replace_callback('#([a-z])#i', fn ($matches) => $this->prepareWord($matches), (string) $pattern);
 
                 $files = glob($directory.'/'.$casePattern, GLOB_BRACE);
 
@@ -201,7 +201,7 @@ class VendorCleanup extends Command
         return false;
     }
 
-    protected function out(string $message): void
+    protected function out($message): void
     {
         echo $message.PHP_EOL;
     }

@@ -21,7 +21,7 @@ class Collection
 
     public $data;
 
-    public function __construct(string $id)
+    public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
             [
@@ -50,12 +50,12 @@ class Collection
         return $this->data;
     }
 
-    public function get_name(): ?string
+    public function get_name()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }
 
-    public function get_overview(): ?string
+    public function get_overview()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }

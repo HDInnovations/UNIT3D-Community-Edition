@@ -138,7 +138,7 @@ class InviteLogSearch extends Component
         ]);
     }
 
-    final public function sortBy(string $field): void
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

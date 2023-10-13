@@ -124,7 +124,7 @@ class TorrentRequestSearch extends Component
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
-        $isRegex = fn ($field): bool => $isRegexAllowed
+        $isRegex = fn ($field) => $isRegexAllowed
             && \strlen((string) $field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'
@@ -183,7 +183,7 @@ class TorrentRequestSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function sortBy(string $field): void
+    final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';

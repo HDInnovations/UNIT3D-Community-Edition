@@ -21,7 +21,7 @@ class Movie
 
     public $data;
 
-    public function __construct(string $id)
+    public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
             [
@@ -69,7 +69,7 @@ class Movie
         return $this->data['belongs_to_collection'];
     }
 
-    public function get_budget(): ?string
+    public function get_budget()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['budget']);
     }
@@ -79,7 +79,7 @@ class Movie
         return $this->data['genres'];
     }
 
-    public function get_homepage(): ?string
+    public function get_homepage()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['homepage']);
     }
@@ -89,12 +89,12 @@ class Movie
         return $this->data['id'];
     }
 
-    public function get_imdb_id(): ?string
+    public function get_imdb_id()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['imdb_id']);
     }
 
-    public function get_original_title(): ?string
+    public function get_original_title()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['original_title']);
     }
@@ -104,7 +104,7 @@ class Movie
         return $this->data['alternative_titles'];
     }
 
-    public function get_overview(): ?string
+    public function get_overview()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }
@@ -153,12 +153,12 @@ class Movie
         return $this->data['status'];
     }
 
-    public function get_tagline(): ?string
+    public function get_tagline()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['tagline']);
     }
 
-    public function get_title(): ?string
+    public function get_title()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['title']);
     }

@@ -259,28 +259,28 @@ class Bbcode
     /**
      * Parses the BBCode string.
      */
-    public function parse(array $source, $replaceLineBreaks = true): string
+    public function parse($source, $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
             '/\[url\](.*?)\[\/url\]/i',
-            fn ($matches): string => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
+            fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
             $source
         );
         $source = preg_replace_callback(
             '/\[img\](.*?)\[\/img\]/i',
-            fn ($matches): string => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img width=(\d+)\](.*?)\[\/img\]/i',
-            fn ($matches): string => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
-            fn ($matches): string => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
 
@@ -288,17 +288,17 @@ class Bbcode
         // has to be moved into an html attribute
         $source = preg_replace_callback(
             '/\[youtube\](.*?)\[\/youtube\]/i',
-            fn ($matches): string => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
             '/\[video\](.*?)\[\/video\]/i',
-            fn ($matches): string => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
             '/\[video="youtube"\](.*?)\[\/video\]/i',
-            fn ($matches): string => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
 
@@ -306,10 +306,10 @@ class Bbcode
         // so it must be done here instead
         $source = preg_replace_callback(
             '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
-            function (array $matches): string|array|null {
+            function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
-                $validatedUrls = collect($urls)->filter(fn ($url): mixed => filter_var($url, FILTER_VALIDATE_URL));
+                $validatedUrls = collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
                 $chunkedUrls = $validatedUrls->chunk(\count($comparates));
                 $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
                 $html = preg_replace('/\s+/', ' ', $html);

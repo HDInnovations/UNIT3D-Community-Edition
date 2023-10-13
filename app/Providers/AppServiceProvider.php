@@ -62,11 +62,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // Hidden Captcha
-        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username'): string => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
+        Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
-            function ($attribute, $value, array $parameters, $validator): bool {
+            function ($attribute, $value, $parameters, $validator) {
                 $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
                 $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
 

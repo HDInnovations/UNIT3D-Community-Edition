@@ -18,7 +18,7 @@ if (! \function_exists('appurl')) {
 }
 
 if (! \function_exists('href_profile')) {
-    function href_profile($user): string
+    function href_profile($user)
     {
         $appurl = appurl();
 
@@ -27,7 +27,7 @@ if (! \function_exists('href_profile')) {
 }
 
 if (! \function_exists('href_article')) {
-    function href_article($article): string
+    function href_article($article)
     {
         $appurl = appurl();
 
@@ -36,7 +36,7 @@ if (! \function_exists('href_article')) {
 }
 
 if (! \function_exists('href_torrent')) {
-    function href_torrent($torrent): string
+    function href_torrent($torrent)
     {
         $appurl = appurl();
 
@@ -45,7 +45,7 @@ if (! \function_exists('href_torrent')) {
 }
 
 if (! \function_exists('href_request')) {
-    function href_request($torrentRequest): string
+    function href_request($torrentRequest)
     {
         $appurl = appurl();
 
@@ -54,7 +54,7 @@ if (! \function_exists('href_request')) {
 }
 
 if (! \function_exists('href_poll')) {
-    function href_poll($poll): string
+    function href_poll($poll)
     {
         $appurl = appurl();
 
@@ -63,7 +63,7 @@ if (! \function_exists('href_poll')) {
 }
 
 if (! \function_exists('href_playlist')) {
-    function href_playlist($playlist): string
+    function href_playlist($playlist)
     {
         $appurl = appurl();
 
@@ -72,7 +72,7 @@ if (! \function_exists('href_playlist')) {
 }
 
 if (! \function_exists('href_collection')) {
-    function href_collection($collection): string
+    function href_collection($collection)
     {
         $appurl = appurl();
 
@@ -81,7 +81,7 @@ if (! \function_exists('href_collection')) {
 }
 
 if (! \function_exists('tmdb_image')) {
-    function tmdb_image($type, $original): string
+    function tmdb_image($type, $original)
     {
         $new = match ($type) {
             'back_big'     => 'w1280',
@@ -103,7 +103,7 @@ if (! \function_exists('tmdb_image')) {
 }
 
 if (! \function_exists('modal_style')) {
-    function modal_style(): string
+    function modal_style()
     {
         return (auth()->user()->style == 0) ? '' : ' modal-dark';
     }

@@ -68,7 +68,7 @@ class TorrentTools
     /**
      * Calculate the number of files in the torrent.
      */
-    public static function getFileCount(array $decodedTorrent): int
+    public static function getFileCount($decodedTorrent): int
     {
         // Multiple file torrent ?
         if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
@@ -81,7 +81,7 @@ class TorrentTools
     /**
      * Returns the size of the torrent files.
      */
-    public static function getTorrentSize(array $decodedTorrent): mixed
+    public static function getTorrentSize($decodedTorrent): mixed
     {
         $size = 0;
 
@@ -102,7 +102,7 @@ class TorrentTools
     /**
      * Returns the torrent file list.
      */
-    public static function getTorrentFiles(array $decodedTorrent): array
+    public static function getTorrentFiles($decodedTorrent): array
     {
         $files = [];
 
@@ -134,7 +134,7 @@ class TorrentTools
     /**
      * Returns file and folder names from the torrent.
      */
-    public static function getFilenameArray(array $decodedTorrent): array
+    public static function getFilenameArray($decodedTorrent): array
     {
         $filenames = [];
 
@@ -158,7 +158,7 @@ class TorrentTools
     /**
      * Returns the sha1 (hash) of the torrent.
      */
-    public static function getTorrentHash(array $decodedTorrent): string
+    public static function getTorrentHash($decodedTorrent): string
     {
         return sha1((string) Bencode::bencode($decodedTorrent['info']));
     }
@@ -166,7 +166,7 @@ class TorrentTools
     /**
      * Returns the number of the torrent file.
      */
-    public static function getTorrentFileCount(array $decodedTorrent): int
+    public static function getTorrentFileCount($decodedTorrent): int
     {
         if (\array_key_exists('files', $decodedTorrent['info'])) {
             return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;

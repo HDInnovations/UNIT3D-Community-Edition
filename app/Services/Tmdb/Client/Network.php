@@ -21,7 +21,7 @@ class Network
 
     public $data;
 
-    public function __construct(string $id)
+    public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
             [
@@ -55,12 +55,12 @@ class Network
         return $this->data['birthday'];
     }
 
-    public function get_known_for_department(): ?string
+    public function get_known_for_department()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['known_for_department']);
     }
 
-    public function get_deathday(): ?string
+    public function get_deathday()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['deathday']);
     }
@@ -75,7 +75,7 @@ class Network
         return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
     }
 
-    public function get_name(): ?string
+    public function get_name()
     {
         return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }

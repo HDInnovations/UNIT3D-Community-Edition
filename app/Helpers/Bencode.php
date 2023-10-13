@@ -17,7 +17,7 @@ use function theodorejb\polycast\safe_int;
 
 class Bencode
 {
-    public static function parse_integer(array $s, &$pos)
+    public static function parse_integer($s, &$pos)
     {
         $len = \strlen((string) $s);
 
@@ -52,7 +52,7 @@ class Bencode
         }
     }
 
-    public static function parse_string(array $s, &$pos)
+    public static function parse_string($s, &$pos)
     {
         $len = \strlen((string) $s);
         $lengthStr = '';
@@ -96,7 +96,7 @@ class Bencode
         return $result;
     }
 
-    public static function bdecode(array $s, &$pos = 0)
+    public static function bdecode($s, &$pos = 0)
     {
         $len = \strlen((string) $s);
 
@@ -164,7 +164,7 @@ class Bencode
         }
     }
 
-    public static function bencode(string $d)
+    public static function bencode($d)
     {
         if (\is_array($d)) {
             $ret = 'l';
@@ -222,12 +222,12 @@ class Bencode
         return self::bdecode($f);
     }
 
-    public static function get_infohash(array $t): string
+    public static function get_infohash($t): string
     {
         return sha1((string) self::bencode($t['info']), true);
     }
 
-    public static function get_meta(array $t): array
+    public static function get_meta($t): array
     {
         $result = [];
         $size = 0;
@@ -269,7 +269,7 @@ class Bencode
         return $name;
     }
 
-    public static function is_v2_or_hybrid(array $t): bool
+    public static function is_v2_or_hybrid($t): bool
     {
         return isset($t['piece layers']);
     }

@@ -30,7 +30,7 @@ class LanguageCensor
         return str_contains(self::SPECIAL_CHARS, (string) $c);
     }
 
-    protected static function matchWordIndexes(array $string, $word): array
+    protected static function matchWordIndexes($string, $word): array
     {
         $result = [];
         $length = \strlen((string) $word);
@@ -54,7 +54,7 @@ class LanguageCensor
     /**
      * Censor a text.
      */
-    public static function censor(array $source): string|array
+    public static function censor($source)
     {
         foreach (config('censor.redact', []) as $word) {
             $result = '';

@@ -53,7 +53,7 @@ class AuditLogSearch extends Component
         $this->emit('paginationChanged');
     }
 
-    final public function getModelNamesProperty(): array
+    final public function getModelNamesProperty()
     {
         $modelList = [];
         $path = app_path()."/Models";

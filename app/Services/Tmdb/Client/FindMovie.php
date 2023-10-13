@@ -21,7 +21,7 @@ class FindMovie
 
     public $data;
 
-    public function __construct(string $query, string $year)
+    public function __construct($query, $year)
     {
         $this->client = new \GuzzleHttp\Client(
             [

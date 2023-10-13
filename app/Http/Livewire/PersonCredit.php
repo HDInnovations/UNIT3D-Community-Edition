@@ -221,7 +221,7 @@ class PersonCredit extends Component
                         function ($tv) {
                             $category_id = $tv->first()->category_id;
                             $tv = $tv
-                                ->groupBy(fn ($torrent): string => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
+                                ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
                                 ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
                                     'Complete Pack' => $packOrSpecialOrSeasons
                                         ->sortBy('type.position')
@@ -237,7 +237,7 @@ class PersonCredit extends Component
                                                 ->values()
                                         ),
                                     'Specials' => $packOrSpecialOrSeasons
-                                        ->groupBy(fn ($torrent): string => 'Special '.$torrent->episode_number)
+                                        ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
                                         ->map(
                                             fn ($episode) => $episode
                                                 ->sortBy('type.position')
@@ -254,11 +254,11 @@ class PersonCredit extends Component
                                                 )
                                         ),
                                     'Seasons' => $packOrSpecialOrSeasons
-                                        ->groupBy(fn ($torrent): string => 'Season '.$torrent->season_number)
+                                        ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
                                         ->sortKeys(SORT_NATURAL)
                                         ->map(
                                             fn ($season) => $season
-                                                ->groupBy(fn ($torrent): string => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
+                                                ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
                                                 ->map(fn ($packOrEpisodes, $key) => match ($key) {
                                                     'Season Pack' => $packOrEpisodes
                                                         ->sortBy('type.position')
@@ -274,7 +274,7 @@ class PersonCredit extends Component
                                                                 ->values()
                                                         ),
                                                     'Episodes' => $packOrEpisodes
-                                                        ->groupBy(fn ($torrent): string => 'Episode '.$torrent->episode_number)
+                                                        ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
                                                         ->sortKeys(SORT_NATURAL)
                                                         ->map(
                                                             fn ($episode) => $episode
