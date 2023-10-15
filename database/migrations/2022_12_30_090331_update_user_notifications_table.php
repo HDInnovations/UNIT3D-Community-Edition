@@ -21,38 +21,47 @@ return new class () extends Migration {
             ->toArray();
 
         //
-        // Input format looks like:
+        // Input format looks like ("1" means accepts notifications, "0" means blocks notifications):
         // {
         //   "default_groups": {
         //     "1": 0,
         //     "2": 1,
         //     "3": 0,
-        //     "4": 1,
+        //     "4": 1
         //   }
         // }
         //
-        // Output format looks like:
+        // Output format looks like (Presence means blocks notifications)
         // [
         //   1,
-        //   3,
+        //   3
         // ]
         //
 
-        $migrate = fn ($groups) => array_keys(array_filter(
-            $groups,
-            fn ($groupId, $acceptsNotifications) => ! $acceptsNotifications && \in_array($groupId, $allowedGroups),
-            ARRAY_FILTER_USE_BOTH
-        ));
+        $migrate = function ($jsonGroups) use ($allowedGroups) {
+            $new = [];
+            $old = json_decode($jsonGroups);
+
+            if (\is_object($old) && \is_object($old->default_groups)) {
+                foreach ($old->default_groups as $groupId => $acceptsNotifications) {
+                    if (! $acceptsNotifications && \in_array($groupId, $allowedGroups)) {
+                        $new[] = (int) $groupId;
+                    }
+                }
+            }
+
+            return json_encode(array_values(array_unique($new)));
+        } ;
 
         foreach (DB::table('user_notifications')->get() as $user_notification) {
-            $user_notification->json_account_groups = $migrate($user_notification->json_account_groups['default_groups']);
-            $user_notification->json_bon_groups = $migrate($user_notification->json_bon_groups['default_groups']);
-            $user_notification->json_mention_groups = $migrate($user_notification->json_mention_groups['default_groups']);
-            $user_notification->json_request_groups = $migrate($user_notification->json_request_groups['default_groups']);
-            $user_notification->json_torrent_groups = $migrate($user_notification->json_torrent_groups['default_groups']);
-            $user_notification->json_forum_groups = $migrate($user_notification->json_forum_groups['default_groups']);
-            $user_notification->json_following_groups = $migrate($user_notification->json_following_groups['default_groups']);
-            $user_notification->json_subscription_groups = $migrate($user_notification->json_subscription_groups['default_groups']);
+            $user_notification->json_account_groups = $migrate($user_notification->json_account_groups);
+            $user_notification->json_bon_groups = $migrate($user_notification->json_bon_groups);
+            $user_notification->json_mention_groups = $migrate($user_notification->json_mention_groups);
+            $user_notification->json_request_groups = $migrate($user_notification->json_request_groups);
+            $user_notification->json_torrent_groups = $migrate($user_notification->json_torrent_groups);
+            $user_notification->json_forum_groups = $migrate($user_notification->json_forum_groups);
+            $user_notification->json_following_groups = $migrate($user_notification->json_following_groups);
+            $user_notification->json_subscription_groups = $migrate($user_notification->json_subscription_groups);
             $user_notification->save();
         }
     }
