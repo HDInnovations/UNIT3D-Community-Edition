@@ -21,41 +21,50 @@ return new class () extends Migration {
             ->toArray();
 
         //
-        // Input format looks like:
+        // Input format looks like ("1" means accepts notifications, "0" means blocks notifications):
         // {
         //   "default_groups": {
         //     "1": 0,
         //     "2": 1,
         //     "3": 0,
-        //     "4": 1,
+        //     "4": 1
         //   }
         // }
         //
-        // Output format looks like:
+        // Output format looks like (Presence means blocks notifications)
         // [
         //   1,
-        //   3,
+        //   3
         // ]
         //
 
-        $migrate = fn ($groups) => array_keys(array_filter(
-            $groups,
-            fn ($groupId, $isAllowed) => ! $isAllowed && \in_array($groupId, $allowedGroups),
-            ARRAY_FILTER_USE_BOTH
-        ));
+        $migrate = function ($jsonGroups) use ($allowedGroups) {
+            $new = [];
+            $old = json_decode($jsonGroups);
+
+            if (\is_object($old) && \is_object($old->default_groups)) {
+                foreach ($old->default_groups as $groupId => $isAllowed) {
+                    if (! $isAllowed && \in_array($groupId, $allowedGroups)) {
+                        $new[] = (int) $groupId;
+                    }
+                }
+            }
+
+            return json_encode(array_values(array_unique($new)));
+        } ;
 
         foreach (DB::table('user_privacy')->get() as $user_privacy) {
-            $user_privacy->json_profile_groups = $migrate($user_privacy->json_profile_groups['default_groups']);
-            $user_privacy->json_torrent_groups = $migrate($user_privacy->json_torrent_groups['default_groups']);
-            $user_privacy->json_forum_groups = $migrate($user_privacy->json_forum_groups['default_groups']);
-            $user_privacy->json_bon_groups = $migrate($user_privacy->json_bon_groups['default_groups']);
-            $user_privacy->json_comment_groups = $migrate($user_privacy->json_comment_groups['default_groups']);
-            $user_privacy->json_wishlist_groups = $migrate($user_privacy->json_wishlist_groups['default_groups']);
-            $user_privacy->json_follower_groups = $migrate($user_privacy->json_follower_groups['default_groups']);
-            $user_privacy->json_achievement_groups = $migrate($user_privacy->json_achievement_groups['default_groups']);
-            $user_privacy->json_rank_groups = $migrate($user_privacy->json_rank_groups['default_groups']);
-            $user_privacy->json_request_groups = $migrate($user_privacy->json_request_groups['default_groups']);
-            $user_privacy->json_other_groups = $migrate($user_privacy->json_other_groups['default_groups']);
+            $user_privacy->json_profile_groups = $migrate($user_privacy->json_profile_groups);
+            $user_privacy->json_torrent_groups = $migrate($user_privacy->json_torrent_groups);
+            $user_privacy->json_forum_groups = $migrate($user_privacy->json_forum_groups);
+            $user_privacy->json_bon_groups = $migrate($user_privacy->json_bon_groups);
+            $user_privacy->json_comment_groups = $migrate($user_privacy->json_comment_groups);
+            $user_privacy->json_wishlist_groups = $migrate($user_privacy->json_wishlist_groups);
+            $user_privacy->json_follower_groups = $migrate($user_privacy->json_follower_groups);
+            $user_privacy->json_achievement_groups = $migrate($user_privacy->json_achievement_groups);
+            $user_privacy->json_rank_groups = $migrate($user_privacy->json_rank_groups);
+            $user_privacy->json_request_groups = $migrate($user_privacy->json_request_groups);
+            $user_privacy->json_other_groups = $migrate($user_privacy->json_other_groups);
             $user_privacy->save();
         }
     }
