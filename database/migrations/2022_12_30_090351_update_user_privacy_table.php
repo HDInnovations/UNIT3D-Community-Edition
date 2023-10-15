@@ -54,18 +54,21 @@ return new class () extends Migration {
         } ;
 
         foreach (DB::table('user_privacy')->get() as $user_privacy) {
-            $user_privacy->json_profile_groups = $migrate($user_privacy->json_profile_groups);
-            $user_privacy->json_torrent_groups = $migrate($user_privacy->json_torrent_groups);
-            $user_privacy->json_forum_groups = $migrate($user_privacy->json_forum_groups);
-            $user_privacy->json_bon_groups = $migrate($user_privacy->json_bon_groups);
-            $user_privacy->json_comment_groups = $migrate($user_privacy->json_comment_groups);
-            $user_privacy->json_wishlist_groups = $migrate($user_privacy->json_wishlist_groups);
-            $user_privacy->json_follower_groups = $migrate($user_privacy->json_follower_groups);
-            $user_privacy->json_achievement_groups = $migrate($user_privacy->json_achievement_groups);
-            $user_privacy->json_rank_groups = $migrate($user_privacy->json_rank_groups);
-            $user_privacy->json_request_groups = $migrate($user_privacy->json_request_groups);
-            $user_privacy->json_other_groups = $migrate($user_privacy->json_other_groups);
-            $user_privacy->save();
+            DB::table('user_privacy')
+                ->where('id', '=', $user_privacy->id)
+                ->update([
+                    'json_profile_groups'     => $migrate($user_privacy->json_profile_groups),
+                    'json_torrent_groups'     => $migrate($user_privacy->json_torrent_groups),
+                    'json_forum_groups'       => $migrate($user_privacy->json_forum_groups),
+                    'json_bon_groups'         => $migrate($user_privacy->json_bon_groups),
+                    'json_comment_groups'     => $migrate($user_privacy->json_comment_groups),
+                    'json_wishlist_groups'    => $migrate($user_privacy->json_wishlist_groups),
+                    'json_follower_groups'    => $migrate($user_privacy->json_follower_groups),
+                    'json_achievement_groups' => $migrate($user_privacy->json_achievement_groups),
+                    'json_rank_groups'        => $migrate($user_privacy->json_rank_groups),
+                    'json_request_groups'     => $migrate($user_privacy->json_request_groups),
+                    'json_other_groups'       => $migrate($user_privacy->json_other_groups),
+                ]);
         }
     }
 };
