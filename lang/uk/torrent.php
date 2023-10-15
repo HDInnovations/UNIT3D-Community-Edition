@@ -191,7 +191,7 @@ return [
     'special'                  => 'Спеціальний',
     'special-double_upload'    => 'Спеціальна Подвійна Віддача',
     'special-freeleech'        => 'Спеціальний Фріліч',
-    'staff-tools'              => 'Інструменти модерації',  
+    'staff-tools'              => 'Інструменти модерації',
     'start-year'               => 'Рік З',
     'started'                  => 'Почав',
     'status'                   => 'Статус',
@@ -238,5 +238,4 @@ return [
     'view-trailer'             => 'Переглянути трейлер',
     'votes'                    => 'Голосів',
     'year-range'               => 'Діапазон років',
-
 ];

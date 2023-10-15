@@ -12,13 +12,13 @@
  */
 
 return [
-    'downloads'                   => 'Завантажено',
-    'extension'                   => 'Розширення',
-    'delete-confirm'              => 'Ви дійсно впевнені, що хочете видалити це?',
-    'note'                        => 'Примітка',
-    'note-help'                   => 'Додаткова інформація про ці субтитри',
-    'rules-title'                 => 'Правила субтитр',
-    'rules'                       => '<ul>
+    'downloads'      => 'Завантажено',
+    'extension'      => 'Розширення',
+    'delete-confirm' => 'Ви дійсно впевнені, що хочете видалити це?',
+    'note'           => 'Примітка',
+    'note-help'      => 'Додаткова інформація про ці субтитри',
+    'rules-title'    => 'Правила субтитр',
+    'rules'          => '<ul>
                                         <li>Only proper subtitles are allowed (correct frame rate, translation, spelling, timing)</li>
                                         <li>No Google-translated, machine-translated and incorrect subtitles</li>
                                         <li>Subtitles must be in sync with the video</li>
@@ -26,9 +26,9 @@ return [
                                         <li>Repeated uploads of junk subs will constitute a violation and subject to a disciplinary action</li>
                                         <li>Keep the Note of the subtitle short, NO urls/links are allowed</li>
                                       </ul>',
-    'size'                        => 'Розмір',
-    'subtitle-file'               => 'Файл субтитрів',
-    'subtitle-file-types'         => 'Прийнятними файлами є SRT, ASS, SUP та ZIP',
-    'uploaded'                    => 'Додано',
-    'uploader'                    => 'Додав',
+    'size'                => 'Розмір',
+    'subtitle-file'       => 'Файл субтитрів',
+    'subtitle-file-types' => 'Прийнятними файлами є SRT, ASS, SUP та ZIP',
+    'uploaded'            => 'Додано',
+    'uploader'            => 'Додав',
 ];
