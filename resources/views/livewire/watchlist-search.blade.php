@@ -26,7 +26,7 @@
                         class="form__text"
                         type="text"
                         wire:model="search"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="search">
                         Search by message
@@ -73,16 +73,16 @@
                         <menu class="data-table__actions">
                             <li class="data-table__action">
                                 <form
-                                    action="{{ route('staff.watchlist.destroy', ['id' => $watching->id]) }}"
+                                    action="{{ route('staff.watchlist.destroy', ['watchlist' => $watching]) }}"
                                     method="POST"
                                     x-data
                                 >
                                     @csrf
                                     @method('DELETE')
-                                    <button 
+                                    <button
                                         x-on:click.prevent="Swal.fire({
                                             title: 'Are you sure?',
-                                            text: 'Are you sure you want to unwatch this user: {{ $watching->user->username }}?',
+                                            text: `Are you sure you want to unwatch this user: ${atob('{{ base64_encode($watching->user->username) }}')}?`,
                                             icon: 'warning',
                                             showConfirmButton: true,
                                             showCancelButton: true,

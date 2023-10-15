@@ -40,16 +40,16 @@
                     <label class="form__label form__label--floating" for="forum_type">Forum Type</label>
                 </p>
                 <p class="form__group">
-                    <input id="title" class="form__text" type="text" name="title" required>
-                    <label class="form__label form__label--floating" for="title">Title</label>
+                    <input id="name" class="form__text" type="text" name="name" required>
+                    <label class="form__label form__label--floating" for="name">Title</label>
                 </p>
                 <p class="form__group">
-                    <textarea id="description" class="form__textarea" name="description" placeholder=""></textarea>
+                    <textarea id="description" class="form__textarea" name="description" placeholder=" "></textarea>
                     <label class="form__label form__label--floating" for="description">Description</label>
                 </p>
                 <p class="form__group">
                     <select id="parent_id" class="form__select" name="parent_id" required>
-                        <option value="0">New Category</option>
+                        <option value="">New Category</option>
                         @foreach ($categories as $category)
                             <option class="form__option" value="{{ $category->id }}">
                                 New Forum In {{ $category->name }} Category
@@ -65,7 +65,7 @@
                         inputmode="numeric"
                         name="position"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                     >
                     <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>

@@ -14,10 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\DestroyRegionRequest;
+use App\Http\Requests\Staff\StoreRegionRequest;
+use App\Http\Requests\Staff\UpdateRegionRequest;
 use App\Models\Region;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Exception;
 
 class RegionController extends Controller
 {
@@ -26,9 +27,9 @@ class RegionController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $regions = Region::all()->sortBy('position');
-
-        return \view('Staff.region.index', ['regions' => $regions]);
+        return view('Staff.region.index', [
+            'regions' => Region::orderBy('position')->get(),
+        ]);
     }
 
     /**
@@ -36,93 +37,52 @@ class RegionController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.region.create');
+        return view('Staff.region.create');
     }
 
     /**
      * Store A New Region.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreRegionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $region = new Region();
-        $region->name = $request->input('name');
-        $region->slug = Str::slug($region->name);
-        $region->position = $request->input('position');
+        Region::create($request->validated());
 
-        $v = \validator($region->toArray(), [
-            'name'     => 'required|unique:regions,name',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.regions.index')
-                ->withErrors($v->errors());
-        }
-
-        $region->save();
-
-        return \to_route('staff.regions.index')
-                ->withSuccess('Region Successfully Added');
+        return to_route('staff.regions.index')
+            ->withSuccess('Region Successfully Added');
     }
 
     /**
      * Region Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Region $region): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $region = Region::findOrFail($id);
-
-        return \view('Staff.region.edit', ['region' => $region]);
+        return view('Staff.region.edit', [
+            'region' => $region,
+        ]);
     }
 
     /**
      * Edit A Region.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateRegionRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        $region = Region::findOrFail($id);
-        $region->name = $request->input('name');
-        $region->slug = Str::slug($region->name);
-        $region->position = $request->input('position');
+        $region->update($request->validated());
 
-        $v = \validator($region->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.regions.index')
-                ->withErrors($v->errors());
-        }
-
-        $region->save();
-
-        return \to_route('staff.regions.index')
-                ->withSuccess('Region Successfully Modified');
+        return to_route('staff.regions.index')
+            ->withSuccess('Region Successfully Modified');
     }
 
     /**
      * Delete A Region.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(DestroyRegionRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        $region = Region::findOrFail($id);
-
-        $validated = $request->validate([
-            'region_id' => [
-                'required',
-                'exists:regions,id',
-                Rule::notIn([$region->id]),
-            ],
-        ]);
-        $region->torrents()->update($validated);
+        $region->torrents()->update($request->validated());
         $region->delete();
 
-        return \to_route('staff.regions.index')
+        return to_route('staff.regions.index')
             ->withSuccess('Region Successfully Deleted');
     }
 }

@@ -44,7 +44,7 @@
                                         {{ $group->name }}
                                 </a>
                             </td>
-                            <td>{{ $group->users()->withTrashed()->count() }}</td>
+                            <td>{{ $group->users_count }}</td>
                         </tr>
                     @endforeach
                 </tbody>

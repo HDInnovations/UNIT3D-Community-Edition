@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\ChatStatus;
 use App\Models\Group;
 use App\Models\User;
@@ -11,14 +14,14 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\ChatStatusController
  */
-class ChatStatusControllerTest extends TestCase
+final class ChatStatusControllerTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
     }
 
-    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+    protected function createStaffUser(): Collection|Model
     {
         return User::factory()->create([
             'group_id' => fn () => Group::factory()->create([
@@ -29,9 +32,7 @@ class ChatStatusControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -39,13 +40,11 @@ class ChatStatusControllerTest extends TestCase
         $user = $this->createStaffUser();
         $chat_status = ChatStatus::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.statuses.destroy', ['id' => $chat_status->id]));
+        $response = $this->actingAs($user)->delete(route('staff.statuses.destroy', ['chatStatus' => $chat_status]));
         $response->assertRedirect(route('staff.statuses.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -59,9 +58,7 @@ class ChatStatusControllerTest extends TestCase
         $response->assertViewHas('chatstatuses');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -78,9 +75,7 @@ class ChatStatusControllerTest extends TestCase
         $response->assertRedirect(route('staff.statuses.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -88,7 +83,7 @@ class ChatStatusControllerTest extends TestCase
         $user = $this->createStaffUser();
         $chat_status = ChatStatus::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.statuses.update', ['id' => $chat_status->id]), [
+        $response = $this->actingAs($user)->post(route('staff.statuses.update', ['chatStatus' => $chat_status]), [
             'name'  => $chat_status->name,
             'color' => $chat_status->color,
             'icon'  => $chat_status->icon,

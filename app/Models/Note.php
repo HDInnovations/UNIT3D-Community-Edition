@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.
@@ -30,7 +30,16 @@ class Note extends Model
     protected $table = 'user_notes';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function noteduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -42,6 +51,8 @@ class Note extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

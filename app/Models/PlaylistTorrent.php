@@ -15,12 +15,12 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class PlaylistTorrent extends Model
+class PlaylistTorrent extends Pivot
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Indicates If The Model Should Be Timestamped.
@@ -30,7 +30,25 @@ class PlaylistTorrent extends Model
     public $timestamps = false;
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
+
+    protected $table = 'playlist_torrents';
+
+    /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -39,6 +57,8 @@ class PlaylistTorrent extends Model
 
     /**
      * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, self>
      */
     public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

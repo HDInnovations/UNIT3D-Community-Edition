@@ -23,7 +23,7 @@ return new class () extends Migration {
     {
         Schema::dropIfExists('log_activities');
 
-        Schema::create('audits', function (Blueprint $table) {
+        Schema::create('audits', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable()->default(null);
             $table->string('model_name');

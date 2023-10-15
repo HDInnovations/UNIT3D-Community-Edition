@@ -13,7 +13,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\BonExchange;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
@@ -32,30 +31,15 @@ class StoreTransactionRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(Request $request): array
     {
         return [
-            'exchange'   => [
-                'bail',
+            'exchange' => [
                 'required',
                 'exists:bon_exchange,id',
-                function ($attribute, $value, $fail) use ($request) {
-                    $user = $request->user();
-                    $item = BonExchange::findOrFail($value);
-
-                    switch (true) {
-                        case $item->cost > $user->seedbonus:
-                            $fail('Not enough BON.');
-                            break;
-                        case $item->download && $user->downloaded < $item->value:
-                            $fail('Not enough download.');
-                            break;
-                        case $item->personal_freeleech && $user->personalFreeleeches()->exists():
-                            $fail('Your previous personal freeleech is still active.');
-                            break;
-                    }
-                },
             ],
         ];
     }

@@ -30,7 +30,6 @@
             <table class="data-table">
                 <thead>
                 <tr>
-                    <th>{{ __('common.position') }}</th>
                     <th>{{ __('common.name') }}</th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
@@ -38,9 +37,8 @@
                 <tbody>
                 @forelse ($distributors as $distributor)
                     <tr>
-                        <td>{{ $distributor->position }}</td>
                         <td>
-                            <a href="{{ route('staff.distributors.edit', ['id' => $distributor->id]) }}">
+                            <a href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}">
                                 {{ $distributor->name }}
                             </a>
                         </td>
@@ -48,7 +46,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.distributors.edit', ['id' => $distributor->id]) }}"
+                                        href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -56,7 +54,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.distributors.delete', ['id' => $distributor->id]) }}"
+                                        href="{{ route('staff.distributors.delete', ['distributor' => $distributor]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.delete') }}

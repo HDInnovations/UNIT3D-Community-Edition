@@ -1,118 +1,52 @@
 <?php
-
-namespace Tests\Feature\Http\Controllers;
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use App\Models\Forum;
 use App\Models\Permission;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\ForumController
- */
-class ForumControllerTest extends TestCase
-{
-    /** @test */
-    public function index_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+test('index returns an ok response', function (): void {
+    $user = User::factory()->create();
 
-        $user = User::factory()->create();
+    $response = $this->actingAs($user)->get(route('forums.index'));
+    $response->assertOk();
+    $response->assertViewIs('forum.index');
+    $response->assertViewHas('categories');
+    $response->assertViewHas('num_posts');
+    $response->assertViewHas('num_forums');
+    $response->assertViewHas('num_topics');
+});
 
-        $this->actingAs($user)->get(route('forums.index'))
-            ->assertOk()
-            ->assertViewIs('forum.index')
-            ->assertViewHas('categories')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics');
-    }
+test('show returns an ok response', function (): void {
+    $this->seed(UsersTableSeeder::class);
+    $this->seed(GroupsTableSeeder::class);
 
-    /** @test */
-    public function latest_posts_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+    $user = User::factory()->create();
 
-        $user = User::factory()->create();
+    $forum = Forum::factory()->create([
+        'parent_id'               => null, // This Forum does not have a parent, which makes it a proper Forum and not a "Forum Category".
+        'last_post_user_id'       => $user->id,
+        'last_post_user_username' => $user->username,
+        'last_topic_id'           => null,
+    ]);
 
-        $this->actingAs($user)->get(route('forum_latest_posts'))
-            ->assertOk()
-            ->assertViewIs('forum.latest_posts')
-            ->assertViewHas('results')
-            ->assertViewHas('user')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics');
-    }
+    Permission::factory()->create([
+        'forum_id'   => $forum->id,
+        'show_forum' => true,
+    ]);
 
-    /** @test */
-    public function latest_topics_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = User::factory()->create();
-
-        $this->actingAs($user)->get(route('forum_latest_topics'))
-            ->assertOk()
-            ->assertViewIs('forum.latest_topics')
-            ->assertViewHas('results')
-            ->assertViewHas('user')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics');
-    }
-
-    /** @test */
-    public function show_forum_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = User::factory()->create();
-
-        // This Forum does not have a parent, which makes it a proper Forum
-        // (and not a "Forum Category").
-
-        $forum = Forum::factory()->create([
-            'parent_id'               => 0,
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
-        ]);
-
-        $permissions = Permission::factory()->create([
-            'forum_id'   => $forum->id,
-            'show_forum' => true,
-        ]);
-
-        $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))
-            ->assertRedirect(route('forums.categories.show', ['id' => $forum->id]));
-    }
-
-    /** @test */
-    public function subscriptions_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = User::factory()->create();
-
-        $this->actingAs($user)->get(route('forum_subscriptions'))
-            ->assertOk()
-            ->assertViewIs('forum.subscriptions')
-            ->assertViewHas('results')
-            ->assertViewHas('user')
-            ->assertViewHas('name')
-            ->assertViewHas('body')
-            ->assertViewHas('num_posts')
-            ->assertViewHas('num_forums')
-            ->assertViewHas('num_topics')
-            ->assertViewHas('params')
-            ->assertViewHas('forum_neos')
-            ->assertViewHas('topic_neos');
-    }
-}
+    $response = $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]));
+    $response->assertRedirect(route('forums.categories.show', ['id' => $forum->id]));
+});

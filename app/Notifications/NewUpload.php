@@ -31,21 +31,25 @@ class NewUpload extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
             'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
-            'body'  => \sprintf('%s, whom you are following has uploaded Torrent %s', $this->torrent->user->username, $this->torrent->name),
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'body'  => sprintf('%s, whom you are following has uploaded Torrent %s', $this->torrent->user->username, $this->torrent->name),
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

@@ -1,15 +1,30 @@
 <?php
-
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace Database\Factories;
 
 use App\Models\Forum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Topic;
 
 class TopicFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     */
+    protected $model = Topic::class;
+
     /**
      * Define the model's default state.
      */
@@ -17,8 +32,7 @@ class TopicFactory extends Factory
     {
         return [
             'name'                     => $this->faker->name(),
-            'slug'                     => $this->faker->slug(),
-            'state'                    => $this->faker->word(),
+            'state'                    => $this->faker->state(),
             'pinned'                   => $this->faker->boolean(),
             'approved'                 => $this->faker->boolean(),
             'denied'                   => $this->faker->boolean(),
@@ -28,13 +42,13 @@ class TopicFactory extends Factory
             'suggestion'               => $this->faker->boolean(),
             'implemented'              => $this->faker->boolean(),
             'num_post'                 => $this->faker->randomNumber(),
-            'first_post_user_id'       => fn () => User::factory()->create()->id,
-            'last_post_user_id'        => $this->faker->randomNumber(),
+            'first_post_user_id'       => User::factory(),
+            'last_post_user_id'        => User::factory(),
             'first_post_user_username' => $this->faker->word(),
             'last_post_user_username'  => $this->faker->word(),
             'last_reply_at'            => $this->faker->dateTime(),
             'views'                    => $this->faker->randomNumber(),
-            'forum_id'                 => fn () => Forum::factory()->create()->id,
+            'forum_id'                 => Forum::factory(),
         ];
     }
 }

@@ -20,9 +20,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
-        <div class="panel__body">
-            {{ $ticket->body }}
-        </div>
+        <div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>
     </section>
     <livewire:comments :model="$ticket"/>
 @endsection
@@ -68,16 +66,16 @@
             @if($user->group->is_modo)
                 <form
                     class="form form--horizontal"
-                    action="{{ route('tickets.assign', ['id' => $ticket->id]) }}"
+                    action="{{ route('tickets.assignee.store', ['ticket' => $ticket]) }}"
                     method="POST"
                     x-data
                 >
                     @csrf
                     <p class="form__group">
-                        <select name="user_id" class="form__select" x-on:change="$root.submit()">
+                        <select name="staff_id" class="form__select" x-on:change="$root.submit()">
                             <option hidden disabled selected value=""></option>
                             @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
-                                <option value="{{ $user->id }}" @selected($user->id = $ticket->staff_id)>
+                                <option value="{{ $user->id }}" @selected($user->id === $ticket->staff_id)>
                                     {{ $user->username }}
                                 </option>
                             @endforeach
@@ -87,26 +85,26 @@
                 </form>
                 @if(! empty($ticket->staff_id))
                     <form
-                        action="{{ route('tickets.unassign', ['id' => $ticket->id]) }}"
+                        action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
                         method="POST"
                     >
                         @csrf
+                        @method('DELETE')
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled">
+                            <button class="form__button form__button--filled form__button--centered">
                                 {{ __('ticket.unassign') }}
                             </button>
                         </p>
                     </form>
                 @endif
                 <form
-                    action="{{ route('tickets.destroy', ['id' => $ticket->id]) }}"
+                    action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}"
                     method="POST"
                 >
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled">
-                            <i class="fas fa-times"></i>
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.delete') }}
                         </button>
                     </p>
@@ -114,13 +112,12 @@
             @endif
             @if(empty($ticket->closed_at))
                 <form
-                    action="{{ route('tickets.close', ['id' => $ticket->id]) }}"
+                    action="{{ route('tickets.close', ['ticket' => $ticket]) }}"
                     method="POST"
                 >
                     <p class="form__group form__group--horizontal">
                         @csrf
-                        <button class="form__button form__button--filled">
-                            <i class="fas fa-times"></i>
+                        <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.close') }}
                         </button>
                     </p>

@@ -42,7 +42,7 @@
             <p class="subforum-listing__latest-heading">
                 <a
                     class="subforum-listing__latest-link"
-                    href="{{ route('forum_topic', ['id' => $subforum->last_topic_id ?? 1]) }}"
+                    href="{{ route('topics.show', ['id' => $subforum->last_topic_id ?? 1]) }}"
                 >
                     {{ $subforum->last_topic_name }}
                 </a>
@@ -53,13 +53,22 @@
             datetime="{{ $subforum->updated_at }}"
             title="{{ $subforum->updated_at }}"
         >
-            {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+            @if ($subforum->last_topic_id === null)
+                {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+            @else
+                <a
+                    class="subforum-listing__latest-post-link"
+                    href="{{ route('topics.latestPermalink', ['id' => $subforum->last_topic_id]) }}"
+                >
+                    {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+                </a>
+            @endif
         </time>
         @if ($subforum->last_topic_id !== null && $subforum->last_post_user_username !== null)
             <address class="subforum-listing__latest-author">
                 <a
                     class="subforum-listing__latest-author-link"
-                    href="{{ route('users.show', ['username' => $subforum->last_post_user_username]) }}"
+                    href="{{ route('users.show', ['user' => $subforum->latestPoster]) }}"
                 >
                     {{ $subforum->last_post_user_username }}
                 </a>

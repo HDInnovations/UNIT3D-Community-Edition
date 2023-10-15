@@ -30,18 +30,22 @@ class NewComment extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
-        if ($this->type == 'torrent') {
+        if ($this->type === 'torrent') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Torrent Comment Received',
@@ -53,86 +57,86 @@ class NewComment extends Notification
             return [
                 'title' => 'New Torrent Comment Received',
                 'body'  => 'Anonymous has left you a comment on Torrent '.$this->comment->commentable->name,
-                'url'   => '/torrents/'.$this->comment->torrent->id,
+                'url'   => '/torrents/'.$this->comment->commentable->id,
             ];
         }
 
-        if ($this->type == 'torrentrequest') {
+        if ($this->type === 'torrent request') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Request Comment Received',
-                    'body' => $this->comment->user->username.' has left you a comment on Torrent Request '.$this->comment->commentable->name,
-                    'url' => '/requests/'.$this->comment->commentable->id,
+                    'body'  => $this->comment->user->username.' has left you a comment on Torrent Request '.$this->comment->commentable->name,
+                    'url'   => '/requests/'.$this->comment->commentable->id,
                 ];
             }
 
             return [
                 'title' => 'New Request Comment Received',
-                'body' => 'Anonymous has left you a comment on Torrent Request '.$this->comment->commentable->name,
-                'url' => '/requests/'.$this->comment->commentable->id,
+                'body'  => 'Anonymous has left you a comment on Torrent Request '.$this->comment->commentable->name,
+                'url'   => '/requests/'.$this->comment->commentable->id,
             ];
         }
 
-        if ($this->type == 'ticket') {
+        if ($this->type === 'ticket') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Ticket Comment Received',
-                    'body' => $this->comment->user->username.' has left you a comment on Ticket '.$this->comment->commentable->subject,
-                    'url' => '/tickets/'.$this->comment->commentable->id,
+                    'body'  => $this->comment->user->username.' has left you a comment on Ticket '.$this->comment->commentable->subject,
+                    'url'   => '/tickets/'.$this->comment->commentable->id,
                 ];
             }
 
             return [
                 'title' => 'New Ticket Comment Received',
-                'body' => 'Anonymous has left you a comment on Ticket '.$this->comment->commentable->subject,
-                'url' => '/tickets/'.$this->comment->commentable->id,
+                'body'  => 'Anonymous has left you a comment on Ticket '.$this->comment->commentable->subject,
+                'url'   => '/tickets/'.$this->comment->commentable->id,
             ];
         }
 
-        if ($this->type == 'playlist') {
+        if ($this->type === 'playlist') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Playlist Comment Received',
-                    'body' => $this->comment->user->username.' has left you a comment on Playlist '.$this->comment->commentable->name,
-                    'url' => '/playlists/'.$this->comment->commentable->id,
+                    'body'  => $this->comment->user->username.' has left you a comment on Playlist '.$this->comment->commentable->name,
+                    'url'   => '/playlists/'.$this->comment->commentable->id,
                 ];
             }
 
             return [
                 'title' => 'New Playlist Comment Received',
-                'body' => 'Anonymous has left you a comment on Playlist '.$this->comment->commentable->name,
-                'url' => '/playlists/'.$this->comment->commentable->id,
+                'body'  => 'Anonymous has left you a comment on Playlist '.$this->comment->commentable->name,
+                'url'   => '/playlists/'.$this->comment->commentable->id,
             ];
         }
 
-        if ($this->type == 'collection') {
+        if ($this->type === 'collection') {
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Collection Comment Received',
-                    'body' => $this->comment->user->username.' has left you a comment on Collection '.$this->comment->commentable->name,
-                    'url' => '/mediahub/collections/'.$this->comment->commentable->id,
+                    'body'  => $this->comment->user->username.' has left you a comment on Collection '.$this->comment->commentable->name,
+                    'url'   => '/mediahub/collections/'.$this->comment->commentable->id,
                 ];
             }
 
             return [
                 'title' => 'New Collection Comment Received',
-                'body' => 'Anonymous has left you a comment on Collection '.$this->comment->commentable->name,
-                'url' => '/mediahub/collections/'.$this->comment->commentable->id,
+                'body'  => 'Anonymous has left you a comment on Collection '.$this->comment->commentable->name,
+                'url'   => '/mediahub/collections/'.$this->comment->commentable->id,
             ];
         }
 
         if ($this->comment->anon == 0) {
             return [
                 'title' => 'New Article Comment Received',
-                'body' => $this->comment->user->username.' has left you a comment on Article '.$this->comment->commentable->title,
-                'url' => '/articles/'.$this->comment->commentable->id,
+                'body'  => $this->comment->user->username.' has left you a comment on Article '.$this->comment->commentable->title,
+                'url'   => '/articles/'.$this->comment->commentable->id,
             ];
         }
 
         return [
             'title' => 'New Article Comment Received',
-            'body' => 'Anonymous has left you a comment on Article '.$this->comment->commentable->title,
-            'url' => '/articles/'.$this->comment->commentable->id,
+            'body'  => 'Anonymous has left you a comment on Article '.$this->comment->commentable->title,
+            'url'   => '/articles/'.$this->comment->commentable->id,
         ];
     }
 }

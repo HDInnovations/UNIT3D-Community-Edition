@@ -14,12 +14,15 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreRssRequest;
+use App\Http\Requests\Staff\UpdateRssRequest;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -29,13 +32,10 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      */
-    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
-
-        return \view('Staff.rss.index', [
-            'hash'       => $hash,
-            'public_rss' => $publicRss,
+        return view('Staff.rss.index', [
+            'public_rss' => Rss::where('is_private', '=', 0)->oldest('position')->get(),
         ]);
     }
 
@@ -44,113 +44,45 @@ class RssController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        return \view('Staff.rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
+        return view('Staff.rss.create', [
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $request->user(),
         ]);
     }
 
     /**
      * Store a newly created RSS resource in storage.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function store(StoreRssRequest $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $user = $request->user();
+        $rss = new Rss();
+        $rss->name = $request->name;
+        $rss->user_id = $request->user()->id;
+        $rss->json_torrent = array_merge($rss->expected_fields, $request->validated());
+        $rss->is_private = false;
+        $rss->position = $request->position;
+        $rss->save();
 
-        $v = \validator($request->all(), [
-            'name'          => 'required|min:3|max:255',
-            'search'        => 'max:255',
-            'description'   => 'max:255',
-            'uploader'      => 'max:255',
-            'categories'    => 'sometimes|array|max:999',
-            'categories.*'  => 'sometimes|exists:categories,id',
-            'types'         => 'sometimes|array|max:999',
-            'types.*'       => 'sometimes|exists:types,id',
-            'resolutions'   => 'sometimes|array|max:999',
-            'resolutions.*' => 'sometimes|exists:resolutions,id',
-            'genres'        => 'sometimes|array|max:999',
-            'genres.*'      => 'sometimes|exists:genres,id',
-            'position'      => 'sometimes|integer|max:9999',
-        ]);
-
-        $params = $request->only([
-            'type',
-            'name',
-            'position',
-            'search',
-            'description',
-            'uploader',
-            'imdb',
-            'tvdb',
-            'tmdb',
-            'mal',
-            'categories',
-            'types',
-            'resolutions',
-            'genres',
-            'freeleech',
-            'doubleupload',
-            'featured',
-            'stream',
-            'highspeed',
-            'sd',
-            'internal',
-            'personalrelease',
-            'bookmark',
-            'alive',
-            'dying',
-            'dead',
-        ]);
-
-        $error = null;
-        $success = null;
-
-        if ($v->passes()) {
-            $rss = new Rss();
-            $rss->name = $request->input('name');
-            $rss->user_id = $user->id;
-            $expected = $rss->expected_fields;
-            $rss->json_torrent = \array_merge($expected, $params);
-            $rss->is_private = 0;
-            $rss->staff_id = $user->id;
-            $rss->position = (int) $request->input('position');
-            $rss->save();
-            $success = 'Public RSS Feed Created';
-        }
-
-        if ($success === null) {
-            $error = 'Unable To Process Request';
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('staff.rss.create')
-                ->withErrors($error);
-        }
-
-        return \to_route('staff.rss.index')
-            ->withSuccess($success);
+        return to_route('staff.rss.index')
+            ->withSuccess('Public RSS Feed Created');
     }
 
     /**
      * Show the form for editing the specified RSS resource.
      */
-    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Rss $rss): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        abort_if($rss->is_private, 403);
 
-        return \view('Staff.rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'       => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'      => Genre::all()->sortBy('name'),
-            'user'        => $user,
+        return view('Staff.rss.edit', [
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $request->user(),
             'rss'         => $rss,
         ]);
     }
@@ -158,94 +90,32 @@ class RssController extends Controller
     /**
      * Update the specified RSS resource in storage.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function update(UpdateRssRequest $request, Rss $rss): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        abort_if($rss->is_private, 403);
 
-        $v = \validator($request->all(), [
-            'name'          => 'required|min:3|max:255',
-            'search'        => 'max:255',
-            'description'   => 'max:255',
-            'uploader'      => 'max:255',
-            'categories'    => 'sometimes|array|max:999',
-            'categories.*'  => 'sometimes|exists:categories,id',
-            'types'         => 'sometimes|array|max:999',
-            'types.*'       => 'sometimes|exists:types,id',
-            'resolutions'   => 'sometimes|array|max:999',
-            'resolutions.*' => 'sometimes|exists:resolutions,id',
-            'genres'        => 'sometimes|array|max:999',
-            'genres.*'      => 'sometimes|exists:genres,id',
-            'position'      => 'sometimes|integer|max:9999',
+        $rss->update([
+            'json_torrent' => array_merge($rss->json_torrent, $rss->expected_fields, $request->validated()),
+            'name'         => $request->name,
+            'position'     => $request->position,
         ]);
 
-        $params = $request->only([
-            'type',
-            'position',
-            'search',
-            'description',
-            'uploader',
-            'imdb',
-            'tvdb',
-            'tmdb',
-            'mal',
-            'categories',
-            'types',
-            'resolutions',
-            'genres',
-            'freeleech',
-            'doubleupload',
-            'featured',
-            'stream',
-            'highspeed',
-            'sd',
-            'internal',
-            'personalrelease',
-            'bookmark',
-            'alive',
-            'dying',
-            'dead',
-        ]);
-
-        $error = null;
-        $success = null;
-        $redirect = null;
-
-        if ($v->passes()) {
-            $expected = $rss->expected_fields;
-            $push = \array_merge($expected, $params);
-            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
-            $rss->is_private = 0;
-            $rss->name = $request->input('name');
-            $rss->position = (int) $request->input('position');
-            $rss->save();
-            $success = 'Public RSS Feed Updated';
-        }
-
-        if ($success === null) {
-            $error = 'Unable To Process Request';
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('staff.rss.edit', ['id' => $id])
-                ->withErrors($error);
-        }
-
-        return \to_route('staff.rss.index')
-            ->withSuccess($success);
+        return to_route('staff.rss.index')
+            ->withSuccess('Public RSS Feed Updated');
     }
 
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function destroy(Rss $rss): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
+        abort_if($rss->is_private, 403);
+
         $rss->delete();
 
-        return \to_route('staff.rss.index')
+        return to_route('staff.rss.index')
             ->withSuccess('RSS Feed Deleted!');
     }
 }

@@ -25,14 +25,15 @@
     <section class="panelV2">
         <h2 class="panel__heading">Edit Group: {{ $group->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.groups.update', ['group' => $group->name, 'id' => $group->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.groups.update', ['group' => $group]) }}">
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->name }}"
                     />
                     <label class="form__label form__label--floating">
@@ -44,7 +45,7 @@
                         class="form__text"
                         type="text"
                         name="position"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->position }}"
                     />
                     <label class="form__label form__label--floating">
@@ -56,7 +57,7 @@
                         class="form__text"
                         type="text"
                         name="level"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->level }}"
                     />
                     <label class="form__label form__label--floating">
@@ -68,7 +69,7 @@
                         class="form__text"
                         type="text"
                         name="download_slots"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->download_slots }}"
                     />
                     <label class="form__label form__label--floating">
@@ -80,7 +81,7 @@
                         class="form__text"
                         type="text"
                         name="color"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->color }}"
                     />
                     <label class="form__label form__label--floating">
@@ -92,7 +93,7 @@
                         class="form__text"
                         type="text"
                         name="icon"
-                        placeholder=""
+                        placeholder=" "
                         value="{{ $group->icon }}"
                     />
                     <label class="form__label form__label--floating">
@@ -221,6 +222,20 @@
                     >
                     <label class="form__label" for="is_double_upload">
                         Double Upload
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="is_refundable" type="hidden" value="0">
+                    <input
+                            id="is_refundable"
+                            class="form__checkbox"
+                            name="is_refundable"
+                            type="checkbox"
+                            value="1"
+                            @checked($group->is_refundable)
+                    >
+                    <label class="form__label" for="is_refundable">
+                        Refundable Download
                     </label>
                 </p>
                 <p class="form__group">

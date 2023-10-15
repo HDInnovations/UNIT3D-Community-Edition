@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -42,12 +43,12 @@ class SyncPeers extends Command
      */
     public function handle(): void
     {
-        Torrent::withAnyStatus()
+        Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
                 Peer::query()
                     ->select('torrent_id')
-                    ->addSelect(DB::raw('sum(case when peers.left = 0 then 1 else 0 end) as updated_seeders'))
-                    ->addSelect(DB::raw('sum(case when peers.left <> 0 then 1 else 0 end) as updated_leechers'))
+                    ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1) AS updated_seeders'))
+                    ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1) AS updated_leechers'))
                     ->groupBy('torrent_id'),
                 'seeders_leechers',
                 fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')

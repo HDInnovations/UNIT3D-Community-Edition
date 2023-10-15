@@ -56,7 +56,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrent', ['id' => $subtitle->torrent->id]) }}">
+                                    <a href="{{ route('torrents.show', ['id' => $subtitle->torrent->id]) }}">
                                         {{ $subtitle->torrent->name }}
                                     </a>
                                 </td>
@@ -80,7 +80,7 @@
                                         <li class="data-table__action">
                                             <a
                                                 class="form__button form__button--text"
-                                                href="{{ route('subtitles.download', ['id' => $subtitle->id]) }}"
+                                                href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                             >
                                                 {{ __('common.download') }}
                                             </a>
@@ -106,7 +106,7 @@
                             wire:model="search"
                             type="search"
                             class="form__text"
-                            placeholder=""
+                            placeholder=" "
                         >
                         <label for="search" class="form__label form__label--floating">
                             {{ __('torrent.name') }}
@@ -122,7 +122,7 @@
                             x-bind:class="language === '' ? 'form__select--default' : ''"
                         >
                             <option hidden disabled selected value=""></option>
-                            @foreach (App\Models\MediaLanguage::all()->sortBy('name') as $media_language)
+                            @foreach (App\Models\MediaLanguage::orderBy('name')->get() as $media_language)
                                 <option class="form__option" value="{{ $media_language->id }}">
                                     {{ $media_language->name }} ({{ $media_language->code }})
                                 </option>
@@ -136,7 +136,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('common.category') }}</legend>
                             <div class="form__fieldset-checkbox-container--shrink">
-                                @foreach (App\Models\Category::all()->sortBy('position') as $category)
+                                @foreach (App\Models\Category::orderBy('position')->get() as $category)
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input
@@ -152,6 +152,18 @@
                             </div>
                         </fieldset>
                     </div>
+                    <p class="form__group">
+                        <input
+                            id="username"
+                            wire:model="username"
+                            type="search"
+                            class="form__text"
+                            placeholder=" "
+                        >
+                        <label for="username" class="form__label form__label--floating">
+                            {{ __('subtitle.uploader') }}
+                        </label>
+                    </p>
                     <p class="form__group">
                         <select
                             id="quantity"

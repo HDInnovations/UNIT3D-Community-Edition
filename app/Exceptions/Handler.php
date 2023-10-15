@@ -19,9 +19,17 @@ use Throwable;
 class Handler extends ExceptionHandler
 {
     /**
+     * A list of exceptions with their corresponding custom log levels.
+     *
+     * @var array<class-string<Throwable>, \Psr\Log\LogLevel::*>
+     */
+    protected $levels = [
+    ];
+
+    /**
      * A list of the exception types that are not reported.
      *
-     * @var array
+     * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
         \Illuminate\Queue\MaxAttemptsExceededException::class,
@@ -30,7 +38,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $dontFlash = [
         'current_password',
@@ -43,8 +51,7 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (Throwable $e): void {
         });
     }
 }

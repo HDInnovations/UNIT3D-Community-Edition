@@ -33,12 +33,7 @@ class WatchlistSearch extends Component
 
     final public function mount(): void
     {
-        $this->user = \auth()->user();
-    }
-
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
+        $this->user = auth()->user();
     }
 
     final public function updatedPage(): void
@@ -54,7 +49,7 @@ class WatchlistSearch extends Component
     final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Watchlist::query()
-            ->with(['user', 'author'])
+            ->with(['user.group', 'author.group'])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
@@ -73,7 +68,7 @@ class WatchlistSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.watchlist-search', [
+        return view('livewire.watchlist-search', [
             'watchedUsers' => $this->users,
         ]);
     }

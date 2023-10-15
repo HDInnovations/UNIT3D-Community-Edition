@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Non tes suficiente Bonus',
     'edit-request'        => 'Editar solicitude',
     'enter-bp'            => 'Introduza puntos de bonificación (mínimo 100)',
-    'enter-hash'          => 'Introduce o Info Hash do Torrent subido',
+    'enter-hash'          => 'Introduce o ID do Torrent subido',
     'fill'                => 'Encha',
     'fill-request'        => 'Encha esta solicitude',
     'filled'              => 'Recheo',

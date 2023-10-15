@@ -25,5 +25,4 @@ return [
 
     'previous' => 'Forrige',
     'next'     => 'Næste',
-
 ];

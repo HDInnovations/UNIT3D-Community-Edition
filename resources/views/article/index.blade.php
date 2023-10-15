@@ -23,7 +23,7 @@
                 <h2 class="article-preview__title">
                     <a
                         class="article-preview__link"
-                        href="{{ route('articles.show', ['id' => $article->id]) }}"
+                        href="{{ route('articles.show', ['article' => $article]) }}"
                     >
                         {{ $article->title }}
                     </a>
@@ -44,12 +44,10 @@
             <p class="article-preview__content">
                 @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content, 500, '...'), 150))
             </p>
-            <a href="{{ route('articles.show', ['id' => $article->id]) }}" class="article-preview__read-more">
+            <a href="{{ route('articles.show', ['article' => $article]) }}" class="article-preview__read-more">
                 {{ __('articles.read-more') }}
             </a>
         </article>
     @endforeach
-    <div class="text-center">
-        {{ $articles->links() }}
-    </div>
+    {{ $articles->links('partials.pagination') }}
 @endsection

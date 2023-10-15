@@ -12,18 +12,15 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents') }}">
-            List
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
-            Cards
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
-            Grouped
+        <a class="nav-tab__link"
+            href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                3       => 'poster',
+                default => 'list'
+            }]) }}"
+        >
+            {{ __('common.search') }}
         </a>
     </li>
     <li class="nav-tabV2--active">
@@ -37,19 +34,12 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+        <a class="nav-tab__link" href="{{ route('torrents.create', ['category_id' => 1]) }}">
             {{ __('common.upload') }}
         </a>
     </li>
 @endsection
 
-@section('content')
-    <style>
-        td {
-            vertical-align: middle !important;
-        }
-    </style>
-    <div class="box container">
-        @livewire('top10')
-    </div>
+@section('main')
+    @livewire('top10')
 @endsection

@@ -20,11 +20,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Forum extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at'];
 
     /**
      * Has Many Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -33,19 +42,20 @@ class Forum extends Model
 
     /**
      * Has Many Sub Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         $children = $this->forums->pluck('id')->toArray();
-        if (\is_array($children)) {
-            return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
-        }
 
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
     }
 
     /**
      * Has Many Sub Forums.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
      */
     public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -53,24 +63,49 @@ class Forum extends Model
     }
 
     /**
-     * Has Many Subscribed Topics.
+     * Returns The Category In Which The Forum Is Located.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<self>
      */
-    public function subscription_topics(): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Relations\HasMany
+    public function category(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        if (\auth()->user() !== null) {
-            $id = $this->id;
-            $subscriptions = \auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
+        return $this->hasOne(self::class, 'id', 'parent_id');
+    }
 
-            return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions) {
-                $query->whereIntegerInRaw('topics.id', [$id])->orWhereIntegerInRaw('topics.id', $subscriptions);
-            });
-        }
+    /**
+     * All posts inside the forum.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Post>
+     */
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(Post::class, Topic::class);
+    }
 
-        return $this->hasMany(Topic::class, 'id', 'topic_id');
+    /**
+     * Latest topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic>
+     */
+    public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Topic::class)->ofMany('last_reply_at', 'max');
+    }
+
+    /**
+     * Latest poster.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     */
+    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'last_post_user_id');
     }
 
     /**
      * Has Many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -79,6 +114,8 @@ class Forum extends Model
 
     /**
      * Has Many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -86,9 +123,19 @@ class Forum extends Model
     }
 
     /**
+     * Belongs To Many Subscribed Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     */
+    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, Subscription::class);
+    }
+
+    /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
      */
-    public function notifySubscribers($poster, $topic): void
+    public function notifySubscribers(User $poster, Topic $topic): void
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -107,7 +154,7 @@ class Forum extends Model
     /**
      * Notify Staffers When New Staff Topic Is Made.
      */
-    public function notifyStaffers($poster, $topic): void
+    public function notifyStaffers(User $poster, Topic $topic): void
     {
         $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
             ->select('users.id')
@@ -121,59 +168,11 @@ class Forum extends Model
     }
 
     /**
-     * Returns A Table With The Forums In The Category.
-     */
-    public function getForumsInCategory()
-    {
-        return self::where('parent_id', '=', $this->id)->get();
-    }
-
-    /**
-     * Returns A Table With The Forums In The Category.
-     */
-    public function getForumsInCategoryById(int $forumId)
-    {
-        return self::where('parent_id', '=', $forumId)->get();
-    }
-
-    /**
-     * Returns The Category In Which The Forum Is Located.
-     */
-    public function getCategory()
-    {
-        return self::find($this->parent_id);
-    }
-
-    /**
-     * Count The Number Of Posts In The Forum.
-     */
-    public function getPostCount(int $forumId): float|int
-    {
-        $topics = self::find($forumId)->topics;
-        $count = 0;
-        foreach ($topics as $t) {
-            $count += $t->posts()->count();
-        }
-
-        return $count;
-    }
-
-    /**
-     * Count The Number Of Topics In The Forum.
-     */
-    public function getTopicCount(int $forumId): int
-    {
-        $forum = self::find($forumId);
-
-        return Topic::where('forum_id', '=', $forum->id)->count();
-    }
-
-    /**
      * Returns The Permission Field.
      */
     public function getPermission(): object
     {
-        $group = \auth()->check() ? \auth()->user()->group : Group::where('slug', 'guest')->first();
+        $group = auth()->check() ? auth()->user()->group : Group::where('slug', 'guest')->first();
 
         return $group->permissions->where('forum_id', $this->id)->first();
     }

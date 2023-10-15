@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('peers', function (Blueprint $table) {
+        Schema::create('peers', function (Blueprint $table): void {
             $table->bigInteger('id', true)->unsigned();
             $table->string('peer_id', 60)->nullable();
             $table->string('md5_peer_id')->nullable();

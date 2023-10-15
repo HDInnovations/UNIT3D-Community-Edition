@@ -37,5 +37,4 @@ return [
     'to'            => 'Til',
     'unread'        => 'Ulæst',
     'empty-inbox'   => 'Tøm indbakke',
-
 ];

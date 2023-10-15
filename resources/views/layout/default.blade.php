@@ -107,12 +107,6 @@
     </script>
 @endif
 
-@if (Session::has('achievement'))
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      $('#modal-achievement').modal('show')
-    </script>
-@endif
-
 @foreach (['warning', 'success', 'info'] as $key)
     @if (Session::has($key))
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
@@ -137,10 +131,10 @@
       Swal.fire({
         title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
         icon: 'error',
-        html: jQuery('#ERROR_COPY').html(),
+        html: document.getElementById('ERROR_COPY').innerHTML,
         showCloseButton: true,
         willOpen: function (el) {
-          $(el).find('textarea').remove()
+          el.querySelector('textarea').remove()
         }
       })
 

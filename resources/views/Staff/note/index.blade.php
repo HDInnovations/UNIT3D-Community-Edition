@@ -8,6 +8,10 @@
     <meta name="description" content="User Notes - {{ __('staff.staff-dashboard') }}">
 @endsection
 
+@section('nav-tabs')
+    @include('Staff.partials.user-info-search')
+@endsection
+
 @section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">

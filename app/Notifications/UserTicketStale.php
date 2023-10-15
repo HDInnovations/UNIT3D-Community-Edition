@@ -31,8 +31,10 @@ class UserTicketStale extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
@@ -40,19 +42,21 @@ class UserTicketStale extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->cc($this->ticket->staff->email)
-                    ->subject('Your ticket is still open')
-                    ->line('This is a reminder that your ticket is still open')
-                    ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
+            ->cc($this->ticket->staff->email)
+            ->subject('Your ticket is still open')
+            ->line('This is a reminder that your ticket is still open')
+            ->action('View Ticket', route('tickets.show', ['ticket' => $this->ticket]));
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [];
     }

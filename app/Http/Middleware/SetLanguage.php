@@ -17,6 +17,7 @@ use App\Models\Language;
 use Closure;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
+use Date;
 
 class SetLanguage
 {
@@ -27,41 +28,41 @@ class SetLanguage
     {
         // Check if is allowed and set default locale if not
         if (! Language::allowed($locale)) {
-            $locale = \config('app.locale');
+            $locale = config('app.locale');
         }
 
         // Set app language
         App::setLocale($locale);
 
         // Set carbon language
-        if (\config('language.carbon')) {
+        if (config('language.carbon')) {
             // Carbon uses only language code
-            if (\config('language.mode.code') == 'long') {
-                $locale = \explode('-', (string) $locale)[0];
+            if (config('language.mode.code') == 'long') {
+                $locale = explode('-', (string) $locale)[0];
             }
 
             Carbon::setLocale($locale);
         }
 
         // Set date language
-        if (\config('language.date')) {
+        if (config('language.date')) {
             // Date uses only language code
-            if (\config('language.mode.code') == 'long') {
-                $locale = \explode('-', (string) $locale)[0];
+            if (config('language.mode.code') == 'long') {
+                $locale = explode('-', (string) $locale)[0];
             }
 
-            \Date::setLocale($locale);
+            Date::setLocale($locale);
         }
     }
 
     public function setDefaultLocale(): void
     {
-        $this->setLocale(\config('app.locale'));
+        $this->setLocale(config('app.locale'));
     }
 
     public function setUserLocale(): void
     {
-        $user = \auth()->user();
+        $user = auth()->user();
 
         if ($user->locale) {
             $this->setLocale($user->locale);
@@ -73,7 +74,7 @@ class SetLanguage
     public function setSystemLocale($request): void
     {
         if ($request->session()->has('locale')) {
-            $this->setLocale(\session('locale'));
+            $this->setLocale(session('locale'));
         } else {
             $this->setDefaultLocale();
         }
@@ -86,7 +87,7 @@ class SetLanguage
     {
         if ($request->has('lang')) {
             $this->setLocale($request->get('lang'));
-        } elseif (\auth()->check()) {
+        } elseif (auth()->check()) {
             $this->setUserLocale();
         } else {
             $this->setSystemLocale($request);

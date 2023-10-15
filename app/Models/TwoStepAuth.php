@@ -13,14 +13,12 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TwoStepAuth extends Model
 {
     use HasFactory;
-    use Auditable;
 
     /**
      * The Database Table Used By The Model.
@@ -39,7 +37,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Are Not Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $guarded = [
         'id',
@@ -54,7 +52,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'userId',
@@ -68,7 +66,7 @@ class TwoStepAuth extends Model
     /**
      * The Attributes That Should Be Casted To Native Types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'requestDate' => 'datetime',
@@ -80,17 +78,12 @@ class TwoStepAuth extends Model
 
     /**
      * Get a validator for an incoming Request.
+     *
+     * @param  array<string, string> $merge
+     * @return array<string, string>
      */
     public static function rules(array $merge = []): array
     {
-        return \array_merge(
-            [
-                'userId'     => 'required|integer',
-                'authCode'   => 'required|string|max:4|min:4',
-                'authCount'  => 'required|integer',
-                'authStatus' => 'required|boolean',
-            ],
-            $merge
-        );
+        return ['userId' => 'required|integer', 'authCode' => 'required|string|max:4|min:4', 'authCount' => 'required|integer', 'authStatus' => 'required|boolean', ...$merge];
     }
 }

@@ -23,18 +23,18 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->integer('resolution_id')->nullable()->index();
         });
 
         if (Schema::hasColumn('torrents', 'resolution')) {
             foreach (Torrent::all() as $torrent) {
-                $resolution_id = Resolution::where('name', '=', $torrent->resolution)->firstOrFail()->id;
+                $resolution_id = Resolution::where('name', '=', $torrent->resolution)->sole()->id;
                 $torrent->resolution_id = $resolution_id;
                 $torrent->save();
             }
 
-            Schema::table('torrents', function (Blueprint $table) {
+            Schema::table('torrents', function (Blueprint $table): void {
                 $table->dropColumn('resolution');
             });
         }

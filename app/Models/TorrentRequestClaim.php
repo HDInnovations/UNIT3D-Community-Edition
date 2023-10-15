@@ -16,11 +16,12 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TorrentRequestClaim extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.
@@ -28,4 +29,29 @@ class TorrentRequestClaim extends Model
      * @var string
      */
     protected $table = 'request_claims';
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Belongs To A User.
+     *
+     * @return BelongsTo<User, self>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsTo<TorrentRequest, self>
+     */
+    public function request(): BelongsTo
+    {
+        return $this->belongsTo(TorrentRequest::class);
+    }
 }

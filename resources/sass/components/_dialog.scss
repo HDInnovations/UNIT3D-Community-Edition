@@ -4,13 +4,21 @@
     border-radius: var(--dialog-border-radius);
     padding: 0;
     color: inherit;
-    max-height: calc(100% - 12px);
+    max-height: calc(100vh - 12px);
     overflow-y: auto;
     width: 500px;
-    max-width: calc(100% - 12px);
-    position: absolute;
-    left: calc(50% - min(500px / 2, (100% - 12px) / 2));
-    right: calc(50% - min(500px / 2, (100% - 12px) / 2));
+    max-width: calc(100vw - 12px);
+    position: fixed;
+    left: calc(50vw - min(500px / 2, (100vw - 12px) / 2));
+    right: calc(50vw - min(500px / 2, (100vw - 12px) / 2));
+    top: calc(50vh - (100vh - 12px) / 2);
+    bottom: calc(50vh - (100vh - 12px) / 2);
+}
+
+.dialog--auto-width {
+    width: max-content;
+    left: 0;
+    right: 0;
 }
 
 .dialog::backdrop {
@@ -27,6 +35,15 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.dialog__header {
+    background-color: var(--dialog-head-bg);
+    color: var(--dialog-head-fg);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .dialog__heading,
@@ -50,6 +67,24 @@
     display: flex;
     justify-content: end;
     column-gap: 9px;
+}
+
+.dialog__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    padding: 4px 12px;
+    color: var(--dialog-head-fg);
+    background-color: var(--dialog-head-bg);
+}
+
+.dialog__action {
+    flex-shrink: 0;
+    color: var(--dialog-head-fg);
+    font-size: 14px;
+    background-color: var(--dialog-head-bg);
 }
 
 .dialog__body {

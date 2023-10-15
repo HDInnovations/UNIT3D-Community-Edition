@@ -1,0 +1,23 @@
+.top10-poster {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr auto;
+}
+
+.top10-poster > .torrent-search--poster__result {
+  grid-area: 1 / 1 / 3 / 3;
+}
+
+.top10-poster__download-count {
+  grid-area: 2 / 3 / 1 / 2;
+  border-radius: 9999px;
+  margin: 6px;
+  background: #161A42;
+  border: 2px solid #73904b;
+  height: 36px;
+  line-height: 32px;
+  width: 36px;
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+  font-size: 11px;
+  text-align: center;
+}

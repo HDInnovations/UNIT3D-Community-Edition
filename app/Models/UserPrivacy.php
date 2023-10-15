@@ -37,7 +37,7 @@ class UserPrivacy extends Model
     /**
      * The Attributes That Should Be Cast To Native Values.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'json_profile_groups'     => 'array',
@@ -55,6 +55,8 @@ class UserPrivacy extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -66,14 +68,18 @@ class UserPrivacy extends Model
 
     /**
      * Get the Expected groups for form validation.
+     *
+     * @return array{}
      */
     public function getExpectedGroupsAttribute(): array
     {
-        return ['default_groups' => ['1' => 0]];
+        return [];
     }
 
     /**
      * Get the Expected fields for form validation.
+     *
+     * @return array{}
      */
     public function getExpectedFieldsAttribute(): array
     {

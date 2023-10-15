@@ -20,8 +20,10 @@ class UserMaxWarningsReached extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
@@ -29,26 +31,28 @@ class UserMaxWarningsReached extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
-        $profileUrl = \href_profile($this->user);
+        $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
             ->greeting('Max Hit and Run Warnings Reached!')
             ->line('You have hit the limit on active Hit and Run Warnings! Your download privilliges have been revoked!')
-            ->action('View Unsatfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->action('View Unsatisfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
             'title' => 'Max Hit and Run Warnings Reached!',
             'body'  => 'You have hit the limit on active Hit and Run Warnings! Your download privilliges have been revoked!',
-            'url'   => \sprintf('/users/%s', $this->user->username),
+            'url'   => sprintf('/users/%s', $this->user->username),
         ];
     }
 }

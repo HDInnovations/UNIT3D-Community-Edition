@@ -30,7 +30,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.distributors.destroy', ['id' => $distributor->id]) }}"
+                action="{{ route('staff.distributors.destroy', ['distributor' => $distributor]) }}"
                 x-data
             >
                 @csrf
@@ -59,10 +59,10 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <button 
+                    <button
                         x-on:click.prevent="Swal.fire({
                             title: 'Are you sure?',
-                            text: 'Are you sure you want to delete this distributor: {{ $distributor->name }}?',
+                            text: `Are you sure you want to delete this distributor: ${atob('{{ base64_encode($distributor->name) }}')}?`,
                             icon: 'warning',
                             showConfirmButton: true,
                             showCancelButton: true,

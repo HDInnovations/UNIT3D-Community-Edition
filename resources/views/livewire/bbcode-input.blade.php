@@ -22,13 +22,17 @@
             }
         },
         showButtons: false,
+        bbcodePreviewHeight: null,
+        isPreviewEnabled: @entangle('isPreviewEnabled'),
+        isOverInput: false,
+        previousActiveElement: document.activeElement,
     }"
 >
     <p class="bbcode-input__tabs">
-        <input class="bbcode-input__tab-input" type="radio" id="bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model="isPreviewEnabled" />
-        <label class="bbcode-input__tab-label" for="bbcode-preview-disabled">Write</label>
-        <input class="bbcode-input__tab-input" type="radio" id="bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model="isPreviewEnabled" />
-        <label class="bbcode-input__tab-label" for="bbcode-preview-enabled">{{ __('common.preview') }}</label>
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model="isPreviewEnabled" />
+        <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">Write</label>
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model="isPreviewEnabled" />
+        <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-enabled">{{ __('common.preview') }}</label>
     </p>
     <p class="bbcode-input__icon-bar-toggle">
         <button type="button" class="form__button form__button--text" x-on:click="showButtons = ! showButtons">BBCode</button>
@@ -174,7 +178,7 @@
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insert('[alert]', '[/alert]')">
-                <abbr title="Note">
+                <abbr title="Alert">
                     <i class="{{ config('other.font-awesome') }} fa-file-exclamation"></i>
                 </abbr>
             </button>
@@ -186,30 +190,51 @@
                 </abbr>
             </button>
         </li>
+        <li>
+            <button
+                type="button"
+                class="form__standard-icon-button"
+                x-on:click="Swal.fire({
+                    title: 'Emoji Picker',
+                    html: 'If using MacOS, press Ctrl + Cmd + Space bar<br>If using Windows or Linux, press Windows logo key + .',
+                    icon: 'info',
+                    showConfirmButton: true,
+                })"
+            >
+                <abbr title="If using MacOS, press Ctrl + Cmd + Space bar&NewLine;If using Windows or Linux, press Windows logo key + .">
+                    <i class="{{ config('other.font-awesome') }} fa-face-smile"></i>
+                </abbr>
+            </button>
+        </li>
     </menu>
     <div class="bbcode-input__tab-pane">
-        @if ($isPreviewEnabled)
-            <p class="bbcode-input__preview">
-                @joypixels($contentHtml)
-            </p>
-            <input type="hidden" name="{{ $name }}" wire:model.defer="contentBbcode">
-        @else
-            <p class="form__group">
-                <textarea
-                    id="bbcode-{{ $name }}"
-                    name="{{ $name }}"
-                    class="form__textarea bbcode-input__input"
-                    placeholder=""
-                    x-ref="bbcode"
-                    wire:model.defer="contentBbcode"
-                    @if ($isRequired)
-                        required
-                    @endif
-                ></textarea>
-                <label class="form__label form__label--floating" for="{{ $name }}">
-                    {{ $label }}
-                </label>
-            </p>
-        @endif
+        <div class="bbcode-input__preview bbcode-rendered" x-show="isPreviewEnabled">
+            @joypixels($contentHtml)
+        </div>
+        <p class="form__group" x-show="! isPreviewEnabled">
+            <textarea
+                id="bbcode-{{ $name }}"
+                name="{{ $name }}"
+                class="form__textarea bbcode-input__input"
+                placeholder=" "
+                x-ref="bbcode"
+                x-on:mouseup="
+                    if (isOverInput) {
+                        bbcodePreviewHeight = $el.style.height;
+                    }
+                "
+                x-on:mousedown="previousActiveElement = document.activeElement;"
+                x-on:mouseover="isOverInput = true"
+                x-on:mouseleave="isOverInput = false"
+                wire:model.defer="contentBbcode"
+                x-bind:style="{ height: bbcodePreviewHeight !== null && bbcodePreviewHeight, transition: previousActiveElement === $el ? 'none' : 'border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1)' }"
+                @if ($isRequired)
+                    required
+                @endif
+            ></textarea>
+            <label class="form__label form__label--floating" for="bbcode-{{ $name }}">
+                {{ $label }}
+            </label>
+        </p>
     </div>
 </div>

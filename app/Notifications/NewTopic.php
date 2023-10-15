@@ -32,29 +32,33 @@ class NewTopic extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         if ($this->type == 'staff') {
             return [
                 'title' => $this->user->username.' Has Posted In A Staff Forum',
                 'body'  => $this->user->username.' has started a new staff topic in '.$this->topic->forum->name,
-                'url'   => \route('forum_topic', ['id' => $this->topic->id]),
+                'url'   => route('topics.show', ['id' => $this->topic->id]),
             ];
         }
 
         return [
             'title' => $this->user->username.' Has Posted In A Subscribed Forum',
             'body'  => $this->user->username.' has started a new topic in '.$this->topic->forum->name,
-            'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
+            'url'   => sprintf('/forums/topics/%s', $this->topic->id),
         ];
     }
 }

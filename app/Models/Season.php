@@ -13,10 +13,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Season extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public $timestamps = false;
@@ -25,37 +28,30 @@ class Season extends Model
 
     /**
      * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q) {
+        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q): void {
             $q->where('tv_meta', '=', true);
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Tv::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Episode>
+     */
     public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Episode::class)
             ->oldest('episode_number');
-    }
-
-    public function person(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Person::class);
-    }
-
-    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Cast::class);
-    }
-
-    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Crew::class);
     }
 }

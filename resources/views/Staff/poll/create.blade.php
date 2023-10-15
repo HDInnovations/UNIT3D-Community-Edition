@@ -25,7 +25,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('poll.create-poll') }}</h2>
-        <div class="panel-body">
+        <div class="panel__body">
             <form
                 class="form"
                 method="POST"
@@ -52,9 +52,10 @@
                         <input
                             x-bind:id="'option' + option"
                             class="form__text"
-                            name="options[]"
+                            x-bind:name="'options[' + option + '][name]'"
+                            required
                             type="text"
-                            placeholder=""
+                            placeholder=" "
                         >
                         <label class="form__label form__label--floating" x-bind:for="'option' + option">
                             {{ __('poll.option') }}
@@ -76,6 +77,7 @@
                     </button>
                 </p>
                 <p class="form__group">
+                    <input type="hidden" name="multiple_choice" value="0" />
                     <input
                         id="multiple_choice"
                         class="form__checkbox"

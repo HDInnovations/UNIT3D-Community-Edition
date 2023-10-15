@@ -8,20 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class TicketAttachment extends Model
 {
-    use HasFactory;
     use Auditable;
-
-    protected $appends = [
-        'full_disk_path',
-    ];
-
-    public function getFullDiskPathAttribute(): string
-    {
-        return $this->disk_path.''.$this->file_name;
-    }
+    use HasFactory;
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -30,6 +23,8 @@ class TicketAttachment extends Model
 
     /**
      * Belongs To A Ticket.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Ticket, self>
      */
     public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

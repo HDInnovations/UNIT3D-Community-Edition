@@ -24,7 +24,7 @@
         'type'       => (object) [
             'name' => '',
         ],
-        'uploader'   => (object) [
+        'user'   => (object) [
             'id'       => '',
             'group'    => (object) [
                 'icon'   => '',
@@ -42,7 +42,7 @@
         <div class="torrent-card__left-header">
             <span class="torrent-card__category">{{ $torrent->category->name }}</span>
             <span class="torrent-card__meta-seperator"> &bull; </span>
-            <span class="torrent-card__resolution">{{ $torrent->resolution->name }}</span>
+            <span class="torrent-card__resolution">{{ $torrent->resolution->name ?? 'No Res'}}</span>
             <span class="torrent-card__meta-seperator"> </span>
             <span class="torrent-card__type">{{ $torrent->type->name }}</span>
             <span class="torrent-card__meta-seperator"> &bull; </span>
@@ -91,7 +91,7 @@
     </aside>
     <div class="torrent-card__body">
         <h2 class="torrent-card__title">
-            <a class="torrent-card__link" href="{{ route('torrent', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+            <a class="torrent-card__link" href="{{ route('torrents.show', ['id' => $torrent->id]) }}">{{ $torrent->name }}</a>
         </h2>
         <div class="torrent-card__rating-and-genres">
             <span
@@ -105,7 +105,7 @@
             <ul class="torrent-card__genres">
                 @foreach($meta->genres as $genre)
                     <li class="torrent-card__genre-item">
-                        <a class="torrent-card__genre" href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                        <a class="torrent-card__genre" href="{{ route('torrents.index', ['view' => 'group', 'genres' => [$genre->id]]) }}">
                             {{ $genre->name }}
                         </a>
                     </li>
@@ -130,15 +130,13 @@
             @if (config('torrent.download_check_page'))
                 <a
                     class="form__standard-icon-button"
-                    download
-                    href="{{ route('download_check_page', ['id' => $torrent->id]) }}"
+                    href="{{ route('download_check', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-download"></i>
                 </a>
             @else
                 <a
                     class="form__standard-icon-button"
-                    download
                     href="{{ route('download', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-download"></i>

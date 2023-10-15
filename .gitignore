@@ -7,7 +7,6 @@
 !.gitkeep
 
 /public/css
-/public/files
 /public/fonts
 /public/img
 /public/js
@@ -36,7 +35,7 @@ laravel-echo-server.lock
 /.idea
 /.vscode
 /nbproject
-.phpunit.result.cache
+/.phpunit.cache
 .ftpconfig
 
 # Vim
@@ -44,3 +43,4 @@ laravel-echo-server.lock
 _ide_helper.php
 
 supervisor.ini
+/.phpunit.cache/

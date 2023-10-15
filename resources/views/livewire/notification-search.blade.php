@@ -16,7 +16,7 @@
                     @forelse($notifications as $notification)
                         <tr>
                             <td class="{{ $notification->read_at === null ? 'notification--unread' : 'notification--read' }}">
-                                <a href="{{ route('notifications.show', ['id' => $notification->id]) }}">
+                                <a href="{{ route('users.notifications.show', ['user' => $user, 'notification' => $notification]) }}">
                                     {{ $notification->data['title'] }}
                                 </a>
                             </td>
@@ -32,10 +32,11 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('notifications.update', ['id' => $notification->id]) }}"
+                                            action="{{ route('users.notifications.update', ['user' => $user, 'notification' => $notification]) }}"
                                             method="POST"
                                         >
                                             @csrf
+                                            @method('PATCH')
                                             <button class="form__button form__button--text" @disabled($notification->read_at !== null)>
                                                 {{ __('notification.mark-read') }}
                                             </button>
@@ -43,16 +44,16 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('notifications.destroy', ['id' => $notification->id]) }}"
+                                            action="{{ route('users.notifications.destroy', ['user' => $user, 'notification' => $notification]) }}"
                                             method="POST"
                                             x-data
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <button 
+                                            <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this notification: {{ $notification->data['body'] }}?',
+                                                    text: `Are you sure you want to delete this notification: ${atob('{{ base64_encode($notification->data['body']) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,
@@ -228,8 +229,9 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
-                <form action="{{ route('notifications.updateall') }}" method="POST" x-data>
+                <form action="{{ route('users.notifications.mass_update', ['user' => $user]) }}" method="POST" x-data>
                     @csrf
+                    @method('PATCH')
                     <p class="form__group form__group--horizontal">
                         <button
                             x-on:click.prevent="Swal.fire({
@@ -243,13 +245,13 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--filled"
+                            class="form__button form__button--filled form__button--centered"
                         >
-                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> {{ __('notification.mark-all-read') }}
+                            {{ __('notification.mark-all-read') }}
                         </button>
                     </p>
                 </form>
-                <form action="{{ route('notifications.destroyall') }}" method="POST" x-data>
+                <form action="{{ route('users.notifications.mass_destroy', ['user' => $user]) }}" method="POST" x-data>
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
@@ -265,9 +267,8 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--filled"
+                            class="form__button form__button--filled form__button--centered"
                         >
-                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ __('notification.delete-all') }}
                         </button>
                     </p>

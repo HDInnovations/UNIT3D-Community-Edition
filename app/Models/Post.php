@@ -22,11 +22,19 @@ use voku\helper\AntiXSS;
 
 class Post extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    protected $fillable = [
+        'content',
+        'topic_id',
+        'user_id',
+    ];
 
     /**
      * Belongs To A Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -35,6 +43,8 @@ class Post extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -46,6 +56,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Likes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -54,6 +66,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Dislikes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -62,6 +76,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -69,11 +85,31 @@ class Post extends Model
     }
 
     /**
+     * A Post Author Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
+     */
+    public function authorPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Post::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * A Post Author Has Many Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
+     */
+    public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Topic::class, 'first_post_user_id', 'user_id');
+    }
+
+    /**
      * Set The Posts Content After Its Been Purified.
      */
     public function setContentAttribute(?string $value): void
     {
-        $this->attributes['content'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['content'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -83,7 +119,7 @@ class Post extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->content, true));
+        return (new Linkify())->linky($bbcode->parse($this->content));
     }
 
     /**
@@ -92,9 +128,10 @@ class Post extends Model
     public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {
         $input = $this->content;
+
         //strip tags, if desired
         if ($stripHtml) {
-            $input = \strip_tags($input);
+            $input = strip_tags((string) $input);
         }
 
         //no need to trim, already shorter than trim length
@@ -103,8 +140,8 @@ class Post extends Model
         }
 
         //find last space within length
-        $lastSpace = \strrpos(\substr($input, 0, $length), ' ');
-        $trimmedText = \substr($input, 0, $lastSpace);
+        $lastSpace = strrpos(substr((string) $input, 0, $length), ' ');
+        $trimmedText = substr((string) $input, 0, $lastSpace);
 
         //add ellipses (...)
         if ($ellipses) {
@@ -112,23 +149,5 @@ class Post extends Model
         }
 
         return $trimmedText;
-    }
-
-    /**
-     * Get A Post From A ID.
-     */
-    public function getPostNumber(): string
-    {
-        return $this->topic->postNumberFromId($this->id);
-    }
-
-    /**
-     * Get A Posts Page Number.
-     */
-    public function getPageNumber(): float
-    {
-        $result = ($this->getPostNumber() - 1) / 25 + 1;
-
-        return \floor($result);
     }
 }

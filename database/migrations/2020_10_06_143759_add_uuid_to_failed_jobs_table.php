@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('failed_jobs', function (Blueprint $table) {
+        Schema::table('failed_jobs', function (Blueprint $table): void {
             $table->string('uuid')->after('id')->nullable()->unique();
         });
     }

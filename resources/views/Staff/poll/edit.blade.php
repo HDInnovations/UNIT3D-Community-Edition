@@ -29,11 +29,11 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.polls.update', ['id' => $poll->id]) }}"
+                action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
                 x-data='{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }''
             >
                 @csrf
-                <input type="hidden" name="poll-id" value="{{ $poll->id }}">
+            @method('PATCH')
                 <p class="form__group">
                     <input
                         id="title"
@@ -50,12 +50,12 @@
                 </p>
                 <template x-for="(option, i) in extraOptions">
                     <p class="form__group">
-                        <input type="hidden" name="option-id[]" x-bind:value="option['id']">
+                        <input type="hidden" x-bind:name="'options[' + i + '][id]'" x-bind:value="option['id']">
                         <input
                             x-bind:id="'option' + i"
                             class="form__text"
                             type="text"
-                            name="option-content[]"
+                            x-bind:name="'options[' + i + '][name]'"
                             x-bind:value="option['name']"
                             required
                         >
@@ -65,7 +65,7 @@
                     </p>
                 </template>
                 <p class="form__group">
-                    <button x-on:click.prevent='extraOptions.push({"id": null, "name": ""})' class="form__button form__button--outlined">
+                    <button x-on:click.prevent='extraOptions.push({"id": 0, "name": ""})' class="form__button form__button--outlined">
                         {{ __('poll.add-option') }}
                     </button>
                     <button x-on:click.prevent="extraOptions.length > 2 ? extraOptions.pop() : null" id="del" class="form__button form__button--outlined">
@@ -73,11 +73,13 @@
                     </button>
                 </p>
                 <p class="form__group">
+                    <input type="hidden" name="multiple_choice" value="0" />
                     <input
                         id="multiple_choice"
                         class="form__checkbox"
                         type="checkbox"
                         name="multiple_choice"
+                        value="1"
                         @checked($poll->multiple_choice)
                     >
                     <label class="form__label" for="multiple_choice">

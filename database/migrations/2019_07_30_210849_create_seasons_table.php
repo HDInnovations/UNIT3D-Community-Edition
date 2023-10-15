@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('seasons', function (Blueprint $table) {
+        Schema::create('seasons', function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->integer('tv_id');
             $table->integer('season_number');

@@ -15,7 +15,6 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
@@ -23,10 +22,18 @@ use voku\helper\AntiXSS;
 class PrivateMessage extends Model
 {
     use HasFactory;
-    use Auditable;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -38,6 +45,8 @@ class PrivateMessage extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -48,11 +57,31 @@ class PrivateMessage extends Model
     }
 
     /**
+     * Has a reply.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<PrivateMessage>
+     */
+    public function reply(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->HasOne(PrivateMessage::class, 'related_to');
+    }
+
+    /**
+     * Has a reply.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<PrivateMessage>
+     */
+    public function replyRecursive(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->reply()->with('replyRecursive');
+    }
+
+    /**
      * Set The PM Message After Its Been Purified.
      */
     public function setMessageAttribute(string $value): void
     {
-        $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -62,6 +91,6 @@ class PrivateMessage extends Model
     {
         $bbcode = new Bbcode();
 
-        return (new Linkify())->linky($bbcode->parse($this->message, true));
+        return (new Linkify())->linky($bbcode->parse($this->message));
     }
 }

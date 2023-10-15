@@ -52,5 +52,4 @@ return [
     'you-have-received-tips'  => 'Du har modtaget',
     'you-have-sent-tips'      => 'Du har sendt',
     'your-points'             => 'Dine point',
-
 ];

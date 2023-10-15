@@ -13,7 +13,6 @@
 
 namespace App\Notifications;
 
-use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,27 +25,31 @@ class NewFollow extends Notification implements ShouldQueue
     /**
      * NewFollow Constructor.
      */
-    public function __construct(public string $type, public User $sender, public User $target, public Follow $follow)
+    public function __construct(public string $type, public User $follower)
     {
     }
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->sender->username.' Has Followed You!',
-            'body'  => $this->sender->username.' has started to follow you so they will get notifications about your activities.',
-            'url'   => \sprintf('/users/%s', $this->sender->username),
+            'title' => $this->follower->username.' Has Followed You!',
+            'body'  => $this->follower->username.' has started to follow you so they will get notifications about your activities.',
+            'url'   => '/users/'.$this->follower->username,
         ];
     }
 }

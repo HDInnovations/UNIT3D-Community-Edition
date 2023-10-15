@@ -33,11 +33,12 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.edit') }} {{ __('forum.forum') }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.forums.update', ['id' => $forum->id]) }}">
+            <form class="form" method="POST" action="{{ route('staff.forums.update', ['forum' => $forum]) }}">
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
-                    <input id="title" class="form__text" type="text" name="title" value="{{ $forum->name }}">
-                    <label class="form__label form__label--floating" for="title">Title</label>
+                    <input id="name" class="form__text" type="text" name="name" value="{{ $forum->name }}">
+                    <label class="form__label form__label--floating" for="name">Title</label>
                 </p>
                 <p class="form__group">
                     <textarea
@@ -49,7 +50,7 @@
                 </p>
                 <p class="form__group">
                     <select name="forum_type" class="form__select">
-                        @if ($forum->getCategory() == null)
+                        @if ($forum->category == null)
                             <option value="category" selected>Category (Current)</option>
                             <option value="forum">Forum</option>
                         @else
@@ -61,9 +62,9 @@
                 </p>
                 <p class="form__group">
                     <select name="parent_id" class="form__select">
-                        @if ($forum->getCategory() != null)
+                        @if ($forum->category != null)
                             <option value="{{ $forum->parent_id }}" selected>
-                                {{ $forum->getCategory()->name }} (Current)
+                                {{ $forum->category->name }} (Current)
                             </option>
                         @endif
                         @foreach ($categories as $category)
@@ -79,7 +80,7 @@
                         inputmode="numeric"
                         name="position"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $forum->position }}"
                         required
@@ -110,7 +111,7 @@
                                             type="checkbox"
                                             name="permissions[{{ $group->id }}][show_forum]"
                                             value="1"
-                                            @checked($group->getPermissionsByForum($forum)->show_forum)
+                                            @checked($forum->permissions->where('group_id', '=', $group->id)->first()->show_forum)
                                         />
                                     </td>
                                     <td>
@@ -118,7 +119,7 @@
                                             type="checkbox"
                                             name="permissions[{{ $group->id }}][read_topic]"
                                             value="1"
-                                            @checked($group->getPermissionsByForum($forum)->read_topic)
+                                            @checked($forum->permissions->where('group_id', '=', $group->id)->first()->read_topic)
                                         />
                                     </td>
                                     <td>
@@ -126,7 +127,7 @@
                                             type="checkbox"
                                             name="permissions[{{ $group->id }}][start_topic]"
                                             value="1"
-                                            @checked($group->getPermissionsByForum($forum)->start_topic)
+                                            @checked($forum->permissions->where('group_id', '=', $group->id)->first()->start_topic)
                                         />
                                     </td>
                                     <td>
@@ -134,7 +135,7 @@
                                             type="checkbox"
                                             name="permissions[{{ $group->id }}][reply_topic]"
                                             value="1"
-                                            @checked($group->getPermissionsByForum($forum)->reply_topic)
+                                            @checked($forum->permissions->where('group_id', '=', $group->id)->first()->reply_topic)
                                         />
                                     </td>
                                 </tr>

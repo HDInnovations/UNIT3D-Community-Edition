@@ -19,7 +19,7 @@
             <div class="panel__body user-card-wrapper">
                 @foreach ($internal->users as $user)
                     <a
-                        href="{{ route('users.show', ['username' => $user->username]) }}"
+                        href="{{ route('users.show', ['user' => $user]) }}"
                         class="user-card"
                         style="background-color: {{ $user->group->color }}; background-image: {{ $internal->effect }};"
                     >

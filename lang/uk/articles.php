@@ -12,8 +12,8 @@
  */
 
 return [
-    'articles'      => 'Статті',
-    'meta-articles' => 'Статті та новини на трекері та спільноті',
-    'published-at'  => 'Опубліковано на',
+    'articles'      => 'Новини',
+    'meta-articles' => 'Новини на трекері',
+    'published-at'  => 'Опубліковано',
     'read-more'     => 'Докладніше',
 ];

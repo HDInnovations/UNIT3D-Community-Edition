@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seedbox extends Model
 {
-    use HasFactory;
-    use Encryptable;
     use Auditable;
+    use Encryptable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.
@@ -33,13 +33,19 @@ class Seedbox extends Model
 
     /**
      * The Attributes That Are Encrypted.
+     *
+     * @var string[]
      */
     protected array $encryptable = [
         'ip',
     ];
 
+    protected $guarded = [];
+
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

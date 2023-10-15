@@ -1,4 +1,4 @@
-<div class="panel-body" style="padding: 5px;">
+<div class="panel__body" style="padding: 5px;">
     @if (! empty($meta->collection['0']) && $torrent->category->movie_meta)
         <div id="collection_waypoint" class="collection">
             <div class="header collection"
@@ -15,11 +15,9 @@
                     </p>
 
                     <a href="{{ route('mediahub.collections.show', ['id' => $meta->collection['0']->id]) }}"
-                       role="button" class="btn btn-labeled btn-primary"
+                       role="button" class="form__button form__button--filled"
                        style=" margin: 0; text-transform: uppercase; position: absolute; bottom: 50px;">
-				    								<span class="btn-label">
-				    									<i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
-				    								</span>
+                        <i class="{{ config("other.font-awesome") }} fa-copy"></i> View The Collection
                     </a>
                 </section>
             </div>

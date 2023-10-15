@@ -18,7 +18,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('staff.rooms.index') }}">
+        <a class="nav-tab--active__link" href="{{ route('staff.chatrooms.index') }}">
             {{ __('staff.rooms') }}
         </a>
     </li>
@@ -39,7 +39,7 @@
                 <div class="panel__action">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.rooms.create') }}"
+                        href="{{ route('staff.chatrooms.create') }}"
                     >
                         {{ __('common.add') }}
                     </a>
@@ -60,7 +60,7 @@
                     <tr>
                         <td>{{ $chatroom->id }}</td>
                         <td>
-                            <a href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}">
+                            <a href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}">
                                 {{ $chatroom->name }}
                             </a>
                         </td>
@@ -69,7 +69,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.rooms.edit', ['id' => $chatroom->id]) }}"
+                                        href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -77,15 +77,15 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.rooms.destroy', ['id' => $chatroom->id]) }}"
+                                        action="{{ route('staff.chatrooms.destroy', ['chatroom' => $chatroom]) }}"
                                         x-data
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this chatroom: {{ $chatroom->name }}?',
+                                                text: `Are you sure you want to delete this chatroom: ${atob('{{ base64_encode($chatroom->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

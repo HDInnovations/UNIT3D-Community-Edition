@@ -19,12 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /** The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name',
@@ -32,6 +32,8 @@ class Option extends Model
 
     /**
      * Belongs To A Poll.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Poll, self>
      */
     public function poll(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('warnings', function (Blueprint $table) {
+        Schema::table('warnings', function (Blueprint $table): void {
             $table->integer('deleted_by')->after('active')->nullable();
             $table->softDeletes()->after('deleted_by');
         });

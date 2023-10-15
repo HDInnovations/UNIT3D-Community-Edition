@@ -1,0 +1,88 @@
+.user-resurrections {
+    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
+    width: max-content;
+    max-width: 100vw;
+    align-self: center;
+}
+
+@media only screen and (min-width: 1600px) {
+    .user-resurrections {
+        margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+@media only screen and (min-width: 2500px) {
+    .user-resurrections {
+        margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+.user-resurrections__filters {
+    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px));
+}
+
+@media only screen and (max-width: 767px) {
+    .user-resurrections__filters {
+        margin: 0 max(0, 45vw - 600px);
+    }
+}
+
+.user-resurrections__name-header,
+.user-resurrections__size-header,
+.user-resurrections__seeders-header,
+.user-resurrections__leechers-header,
+.user-resurrections__times-created-header,
+.user-resurrections__completed-at-header,
+.user-resurrections__current-seedtime-header,
+.user-resurrections__seedtime-header,
+.user-resurrections__rewarded-header,
+.user-resurrections__actions-header {
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.user-resurrections__name,
+.user-resurrections__size,
+.user-resurrections__seeders,
+.user-resurrections__leechers,
+.user-resurrections__times-header,
+.user-resurrections__completed-header,
+.user-resurrections__current-header,
+.user-resurrections__seedtime,
+.user-resurrections__actions {
+    font-size: 14px;
+}
+
+.user-resurrections__rewarded {
+    font-size: 11px;
+}
+
+.user-uploads__size-header,
+.user-uploads__seeders-header,
+.user-uploads__leechers-header,
+.user-uploads__times-completed-header,
+.user-uploads__size,
+.user-uploads__seeders,
+.user-uploads__leechers,
+.user-uploads__times-completed {
+    text-align: right;
+}
+
+.user-resurrections__rewarded-header,
+.user-resurrections__rewarded {
+    text-align: center;
+}
+
+.user-resurrections__name {
+    font-weight: bolder;
+    color: var(--text-color);
+}
+
+.user-resurrections__checkbox {
+    all: revert !important;
+}
+
+.user-resurrections__checkbox:indeterminate {
+    all: revert !important;
+}

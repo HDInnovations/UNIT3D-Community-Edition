@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('twostep_auth', function (Blueprint $table) {
+        Schema::create('twostep_auth', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('userId')->unsigned()->index();
             $table->string('authCode')->nullable();

@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Seedbox;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
@@ -43,13 +44,17 @@ class AutoHighspeedTag extends Command
      */
     public function handle(): void
     {
-        $seedboxIps = Seedbox::all()->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+        $seedboxIps = Seedbox::all()
+            ->pluck('ip')
+            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
-        Torrent::withAnyStatus()
+        Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
-                Peer::distinct()
+                Peer::where('seeder', '=', 1)
+                    ->where('active', '=', 1)
+                    ->distinct()
                     ->select('torrent_id')
-                    ->whereRaw("ip IN ('".$seedboxIps->implode("','")."')"),
+                    ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
                 'highspeed_torrents',
                 fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
             )

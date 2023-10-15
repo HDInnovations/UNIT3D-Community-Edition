@@ -20,8 +20,10 @@ class UserBan extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
@@ -29,14 +31,14 @@ class UserBan extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
-        $chatdUrl = \config('unit3d.chat-link-url');
+        $chatdUrl = config('unit3d.chat-link-url');
 
         return (new MailMessage())
             ->greeting('You have been banned 😭')
-            ->line('You have been banned from '.\config('other.title').' for '.$this->ban->ban_reason)
+            ->line('You have been banned from '.config('other.title').' for '.$this->ban->ban_reason)
             ->action('Need Support?', $chatdUrl)
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 }

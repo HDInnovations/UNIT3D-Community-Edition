@@ -30,9 +30,10 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('staff.media_languages.update', ['id' => $media_language->id]) }}"
+                action="{{ route('staff.media_languages.update', ['mediaLanguage' => $media_language]) }}"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"

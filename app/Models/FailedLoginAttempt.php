@@ -23,7 +23,7 @@ class FailedLoginAttempt extends Model
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'user_id',
@@ -31,12 +31,22 @@ class FailedLoginAttempt extends Model
         'ip_address',
     ];
 
-    public static function record($user, $username, $ip): mixed
+    public static function record(?User $user, string $username, string $ip): mixed
     {
         return static::create([
-            'user_id'    => \is_null($user) ? null : $user->id,
+            'user_id'    => $user?->id,
             'username'   => $username,
             'ip_address' => $ip,
         ]);
+    }
+
+    /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

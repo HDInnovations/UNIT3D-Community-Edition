@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
+    final public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -37,24 +37,24 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $this->routes(function () {
+        $this->routes(function (): void {
             Route::prefix('api')
                 ->middleware(['web', 'auth'])
-                ->group(\base_path('routes/vue.php'));
+                ->group(base_path('routes/vue.php'));
 
             Route::middleware('web')
-                ->group(\base_path('routes/web.php'));
+                ->group(base_path('routes/web.php'));
 
             Route::prefix('api')
                 ->middleware('api')
-                ->group(\base_path('routes/api.php'));
+                ->group(base_path('routes/api.php'));
 
             Route::prefix('announce')
                 ->middleware('announce')
-                ->group(\base_path('routes/announce.php'));
+                ->group(base_path('routes/announce.php'));
 
             Route::middleware('rss')
-                ->group(\base_path('routes/rss.php'));
+                ->group(base_path('routes/rss.php'));
         });
     }
 
@@ -63,6 +63,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting(): void
     {
+        RateLimiter::for('web', fn (Request $request): Limit => $request->user()
+            ? Limit::perMinute(30)->by($request->user()->id)
+            : Limit::perMinute(5)->by($request->ip()));
         RateLimiter::for('api', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
         RateLimiter::for('announce', fn (Request $request) => Limit::perMinute(500)->by($request->ip()));
         RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));

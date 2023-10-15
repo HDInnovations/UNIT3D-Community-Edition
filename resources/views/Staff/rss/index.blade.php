@@ -47,7 +47,7 @@
                     <tr>
                         <td>
                             <a
-                                href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}"
+                                href="{{ route('staff.rss.edit', ['rss' => $rss]) }}"
                             >
                                 {{ $rss->name }}
                             </a>
@@ -115,7 +115,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.rss.edit', ['id' => $rss->id]) }}"
+                                        href="{{ route('staff.rss.edit', ['rss' => $rss]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -123,16 +123,16 @@
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.rss.destroy', ['id' => $rss->id]) }}"
+                                        action="{{ route('staff.rss.destroy', ['rss' => $rss]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this public RSS feed: {{ $rss->name }}?',
+                                                text: `Are you sure you want to delete this public RSS feed: ${atob('{{ base64_encode($rss->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

@@ -34,7 +34,7 @@
                 >
                     @csrf
                     @method('DELETE')
-                    <button 
+                    <button
                         x-on:click.prevent="Swal.fire({
                             title: 'Are you sure?',
                             text: 'Are you sure you want to reset all torrent balances? This will allow you to start tracking cheated torrents from scratch, but you will no longer have data for previous cheated torrents.',
@@ -79,7 +79,7 @@
                     @forelse ($torrents as $torrent)
                         <tr>
                             <td>
-                                <a href="{{ route('torrent', ['id' => $torrent->id]) }}">
+                                <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                                     {{ $torrent->name }}
                                 </a>
                             </td>
@@ -117,7 +117,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.cheated_torrents.destroy', ['id' => $torrent->id]) }}"
+                                            action="{{ route('staff.cheated_torrents.destroy', ['cheatedTorrent' => $torrent]) }}"
                                             method="POST"
                                         >
                                             @csrf

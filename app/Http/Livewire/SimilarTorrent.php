@@ -14,27 +14,24 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use App\Models\FeaturedTorrent;
-use App\Models\Graveyard;
 use App\Models\History;
 use App\Models\Movie;
-use App\Models\Peer;
-use App\Models\PersonalFreeleech;
-use App\Models\PlaylistTorrent;
 use App\Models\PrivateMessage;
-use App\Models\Subtitle;
 use App\Models\Torrent;
-use App\Models\TorrentFile;
-use App\Models\TorrentRequest;
 use App\Models\Tv;
-use App\Models\Warning;
+use App\Services\Unit3dAnnounce;
 use Livewire\Component;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
-    public $categoryId;
+    public Category $category;
+
+    public Movie|Tv|Game $work;
 
     public $tmdbId;
+
+    public $igdbId;
 
     public $reason;
 
@@ -68,32 +65,51 @@ class SimilarTorrent extends Component
 
     final public function isChecked($torrentId): bool
     {
-        return in_array($torrentId, $this->checked);
+        return \in_array($torrentId, $this->checked);
     }
 
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
-        $category = Category::findOrFail($this->categoryId);
+        $user = auth()->user();
 
-        $query = Torrent::query();
-        $query = $query->with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments']);
-        if ($category->movie_meta) {
-            $query = $query->whereHas('category', function ($q) {
-                $q->where('movie_meta', '=', true);
-            });
-        }
-
-        if ($category->tv_meta) {
-            $query = $query->whereHas('category', function ($q) {
-                $q->where('tv_meta', '=', true);
-            });
-        }
-
-        $query = $query->where('tmdb', '=', $this->tmdbId);
-        $query = $query->orderBy($this->sortField, $this->sortDirection);
-
-        return $query->get();
+        return Torrent::query()
+            ->with('user:id,username,group_id', 'category', 'type', 'resolution')
+            ->withCount(['thanks', 'comments'])
+            ->withExists([
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 0)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', 0)
+                    ->where(
+                        fn ($query) => $query
+                            ->where('seeder', '=', 1)
+                            ->orWhereNotNull('completed_at')
+                    ),
+            ])
+            ->when(
+                $this->category->movie_meta,
+                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),
+            )
+            ->when(
+                $this->category->tv_meta,
+                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('tv_meta', '=', 1)),
+            )
+            ->when(
+                $this->category->tv_meta || $this->category->movie_meta,
+                fn ($query) => $query->where('tmdb', '=', $this->tmdbId),
+                fn ($query) => $query->where('igdb', '=', $this->igdbId),
+            )
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
     }
 
     final public function sortBy($field): void
@@ -114,8 +130,8 @@ class SimilarTorrent extends Component
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
             'message' => 'Are you sure?',
-            'body'    => 'If deleted, you will not be able to recover the following files!'.\nl2br("\n")
-                        .\nl2br(\implode("\n", $names)),
+            'body'    => 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
+                        .nl2br(implode("\n", $names)),
         ]);
     }
 
@@ -124,67 +140,51 @@ class SimilarTorrent extends Component
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
-        $titleids = [];
-        $titles = [];
+        $title = match (true) {
+            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date.')',
+            $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
+            $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
+            default                     => $torrents->pluck('name')->join(', '),
+        };
+
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
+
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
-                if (! in_array($pm->user_id, $users)) {
+                if (! \in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
                 }
             }
 
-            if (! in_array($torrent->tmdb, $titleids)) {
-                $titleids[] = $torrent->tmdb;
-                $title = null;
-                $cat = $torrent->category;
-                $meta = 'none';
-
-                if ($cat->tv_meta === 1) {
-                    $meta = 'tv';
-                } elseif ($cat->movie_meta === 1) {
-                    $meta = 'movie';
-                }
-
-                switch ($meta) {
-                    case 'movie':
-                        $title = Movie::find($torrent->tmdb);
-                        $titles[] = $title->title.' ('.substr($title->release_date, 0, 4).')';
-                        break;
-                    case 'tv':
-                        $title = Tv::find($torrent->tmdb);
-                        $titles[] = $title->name.' ('.substr($title->first_air_date, 0, 4).')';
-                        break;
-                    default:
-                        break;
-                }
-            }
-
             // Reset Requests
-            $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
-            foreach ($torrentRequest as $req) {
-                if ($req) {
-                    $req->filled_by = null;
-                    $req->filled_when = null;
-                    $req->filled_hash = null;
-                    $req->approved_by = null;
-                    $req->approved_when = null;
-                    $req->save();
-                }
-            }
+            $torrent->requests()->update([
+                'torrent_id' => null,
+            ]);
 
             //Remove Torrent related info
-            \cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
-            Peer::where('torrent_id', '=', $torrent->id)->delete();
-            History::where('torrent_id', '=', $torrent->id)->delete();
-            Warning::where('torrent', '=', $torrent->id)->delete();
-            TorrentFile::where('torrent_id', '=', $torrent->id)->delete();
-            PlaylistTorrent::where('torrent_id', '=', $torrent->id)->delete();
-            Subtitle::where('torrent_id', '=', $torrent->id)->delete();
-            Graveyard::where('torrent_id', '=', $torrent->id)->delete();
-            if ($torrent->featured === 1) {
-                FeaturedTorrent::where('torrent_id', '=', $torrent->id)->delete();
+            cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
+
+            $torrent->comments()->delete();
+            $torrent->peers()->delete();
+            $torrent->history()->delete();
+            $torrent->hitrun()->delete();
+            $torrent->files()->delete();
+            $torrent->playlists()->detach();
+            $torrent->subtitles()->delete();
+            $torrent->resurrections()->delete();
+            $torrent->featured()->delete();
+
+            $freeleechTokens = $torrent->freeleechTokens();
+
+            foreach ($freeleechTokens->get() as $freeleechToken) {
+                cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
             }
+
+            $freeleechTokens->delete();
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
+            Unit3dAnnounce::removeTorrent($torrent);
 
             $torrent->delete();
         }
@@ -193,10 +193,10 @@ class SimilarTorrent extends Component
             $pmuser = new PrivateMessage();
             $pmuser->sender_id = 1;
             $pmuser->receiver_id = $user;
-            $pmuser->subject = 'Bulk Torrents Deleted - '.\implode(', ', $titles).'! ';
+            $pmuser->subject = 'Bulk Torrents Deleted - '.$title.'! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
             [list]
-                [*]'.\implode(' [*]', $names).'
+                [*]'.implode(' [*]', $names).'
             [/list]
             Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
                                     [b]Removal Reason: [/b] '.$this->reason.'
@@ -215,28 +215,15 @@ class SimilarTorrent extends Component
         ]);
     }
 
-    final public function deleteSingleRecord($torrentId): void
-    {
-        $torrent = Torrent::findOrFail($torrentId);
-        $torrent->delete();
-        $this->checked = array_diff($this->checked, [$torrentId]);
-
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type'    => 'success',
-            'message' => 'Torrent Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded this torrent.',
-        ]);
-    }
-
     final public function getPersonalFreeleechProperty()
     {
-        return PersonalFreeleech::where('user_id', '=', \auth()->user()->id)->first();
+        return cache()->get('personal_freeleech:'.auth()->id());
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.similar-torrent', [
-            'user'              => \auth()->user(),
+        return view('livewire.similar-torrent', [
+            'user'              => auth()->user(),
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
         ]);

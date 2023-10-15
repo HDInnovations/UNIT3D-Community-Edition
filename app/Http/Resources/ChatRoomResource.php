@@ -15,6 +15,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \App\Models\Chatroom
+ */
 class ChatRoomResource extends JsonResource
 {
     /**

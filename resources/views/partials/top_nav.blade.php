@@ -8,7 +8,15 @@
     </div>
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a class="top-nav__dropdown--nontouch"  href="{{ route('torrents') }}">
+            <a
+                class="top-nav__dropdown--nontouch"
+                href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
+                    1       => 'card',
+                    2       => 'group',
+                    3       => 'poster',
+                    default => 'list'
+                }]) }}"
+            >
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
@@ -20,13 +28,20 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{ route('torrents') }}">
+                    <a
+                        href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
+                            1       => 'card',
+                            2       => 'group',
+                            3       => 'poster',
+                            default => 'list'
+                        }]) }}"
+                    >
                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                         {{ __('torrent.torrents') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('upload_form', ['category_id' => 1]) }}">
+                    <a href="{{ route('torrents.create', ['category_id' => 1]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                         {{ __('common.upload') }}
                     </a>
@@ -42,7 +57,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('rss.rss') }}
                     </a>
-                </li>                
+                </li>
                 <li>
                     <a href="{{ route('mediahub.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
@@ -76,7 +91,7 @@
                     </a>
                 </li>
                 <li>
-                    <a  href="{{ route('polls') }}">
+                    <a  href="{{ route('polls.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i>
                         {{ __('poll.polls') }}
                     </a>
@@ -114,23 +129,23 @@
                                 ->whereNull('closed_at')->whereNull('staff_id')
                                 ->orwhere(function($query) {
                                     $query
-                                        ->where('staff_id', '=', auth()->user()->id)
+                                        ->where('staff_id', '=', auth()->id())
                                         ->Where('staff_read', '=', '0');
                                 })
-                                ->count()
+                                ->exists()
                         @endphp
-                        @if ($tickets > 0)
+                        @if ($tickets)
                             <x-animation.notification />
                         @endif
                     <!-- Notification for Users -->
                     @else
                         @php
                             $ticket_unread = DB::table('tickets')
-                                ->where('user_id', '=', auth()->user()->id)
+                                ->where('user_id', '=', auth()->id())
                                 ->where('user_read', '=', '0')
-                                ->count()
+                                ->exists()
                         @endphp
-                        @if ($ticket_unread > 0)
+                        @if ($ticket_unread)
                             <x-animation.notification />
                         @endif
                     @endif
@@ -188,12 +203,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('graveyard.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-skull"></i>
-                        {{ __('graveyard.graveyard') }}
-                    </a>
-                </li>
-                <li>
                     <a href="{{ route('top10.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                         Top 10
@@ -218,68 +227,81 @@
         <ul class="top-nav__stats" x-bind:class="expanded && 'mobile'">
             <li class="top-nav__stats-up" title="{{ __('common.upload') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                {{ auth()->user()->getUploaded() }}
+                {{ auth()->user()->formatted_uploaded }}
             </li>
             <li class="top-nav__stats-down" title="{{ __('common.download') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                {{ auth()->user()->getDownloaded() }}
+                {{ auth()->user()->formatted_downloaded }}
             </li>
             <li class="top-nav__stats-ratio" title="{{ __('common.ratio') }}">
                 <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                {{ auth()->user()->getRatioString() }}
+                {{ auth()->user()->formatted_ratio }}
             </li>
         </ul> 
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    {{ auth()->user()->getUploaded() }}
+                    {{ auth()->user()->formatted_uploaded }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'downloaded' => 'include']) }}">
+                <a href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                    {{ auth()->user()->getDownloaded() }}
+                    {{ auth()->user()->formatted_downloaded }}
                 </a>
             </li>
+            @php
+                // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
+                $peer_count = Cache::remember(
+                    'users:'.auth()->id().':peer_count',
+                    60,
+                    fn () => DB::table('peers')->where('user_id', '=', auth()->id())->where('active', '=', 1)->count() ?? 0
+                );
+                $leech_count = Cache::remember(
+                    'users:'.auth()->id().':leech_count',
+                    60,
+                    fn () => DB::table('peers')->where('seeder', '=', false)->where('user_id', '=', auth()->id())->where('active', '=', 1)->count() ?? 0
+                )
+            @endphp
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
-                <a href="{{ route('user_active', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ auth()->user()->seedingTorrents()->count() }}
+                    {{ $peer_count - $leech_count }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username, 'unsatisfied' => 'include']) }}">
+                <a href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}">
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ auth()->user()->leechingTorrents()->count() }}
+                    {{ $leech_count }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
-                    {{ auth()->user()->untilRatio(config('other.ratio')) }}
+                    {{ auth()->user()->formatted_buffer }}
                 </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
-                <a href="{{ route('earnings.index', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-coins" ></i>
-                    {{ auth()->user()->getSeedbonus() }}
+                    {{ auth()->user()->formatted_seedbonus }}
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                <a href="{{ route('user_torrents', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                    {{ auth()->user()->getRatioString() }}
+                    {{ auth()->user()->formatted_ratio }}
                 </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
-                <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     {{ auth()->user()->fl_tokens }}
                 </a>
             </li>
         </ul> 
-        <a class="top-nav__username--highresolution" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+        <a class="top-nav__username--highresolution" href="{{ route('users.show', ['user' => auth()->user()]) }}">
             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                 <i class="{{ auth()->user()->group->icon }}"></i>
                 {{ auth()->user()->username }}
@@ -302,9 +324,9 @@
                     <a class="top-nav--right__icon-link" href="{{ route('staff.moderation.index') }}" title="{{ __('staff.torrent-moderation') }}">
                         <i class="{{ config('other.font-awesome') }} fa-tasks"></i>
                         @php
-                            $torrents_unmoderated = DB::table('torrents')->where('status', '=', '0')->count()
+                            $torrents_unmoderated = DB::table('torrents')->where('status', '=', \App\Models\Torrent::PENDING)->exists()
                         @endphp
-                        @if ($torrents_unmoderated > 0)
+                        @if ($torrents_unmoderated)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -313,27 +335,27 @@
             <li>
                 @php
                     $pm = DB::table('private_messages')
-                        ->where('receiver_id', '=', auth()->user()->id)
+                        ->where('receiver_id', '=', auth()->id())
                         ->where('read', '=', '0')
-                        ->count()
+                        ->exists()
                 @endphp
-                <a class="top-nav--right__icon-link" href="{{ route('inbox') }}" title="{{ __('pm.inbox') }}">
+                <a class="top-nav--right__icon-link" href="{{ route('users.received_messages.index', ['user' => auth()->user()]) }}" title="{{ __('pm.inbox') }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
-                    @if ($pm > 0)
+                    @if ($pm)
                         <x-animation.notification />
                     @endif
                 </a>
             </li>
             <li>
-                <a class="top-nav--right__icon-link" href="{{ route('notifications.index') }}" title="{{ __('user.notifications') }}">
+                <a class="top-nav--right__icon-link" href="{{ route('users.notifications.index', ['user' => auth()->user()]) }}" title="{{ __('user.notifications') }}">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
-                    @if (auth()->user()->unreadNotifications->count() > 0)
+                    @if (auth()->user()->unreadNotifications()->exists())
                         <x-animation.notification />
                     @endif
                 </a>
             </li>
             <li class="top-nav__dropdown">
-                <a class="top-nav__dropdown--nontouch" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                <a class="top-nav__dropdown--nontouch" href="{{ route('users.show', ['user' => auth()->user()]) }}">
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/'.auth()->user()->image : 'img/profile.png')}}"
                         alt="{{ auth()->user()->username }}"
@@ -349,7 +371,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a class="top-nav__username" href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                        <a class="top-nav__username" href="{{ route('users.show', ['user' => auth()->user()]) }}">
                             <span class="text-bold" style="color:{{ auth()->user()->group->color }}; background-image:{{ auth()->user()->group->effect }};">
                                 <i class="{{ auth()->user()->group->icon }}"></i>
                                 {{ auth()->user()->username }}
@@ -361,55 +383,49 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('users.show', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i>
                             {{ __('user.my-profile') }}
                         </a>
                     </li>
                     <li>
-                        <a class="top-nav--right__link" href="{{ route('user_settings', ['username' => auth()->user()->username]) }}">
+                        <a class="top-nav--right__link" href="{{ route('users.general_settings.edit', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
                             {{ __('user.my-settings') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_privacy', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.privacy_settings.edit', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                             {{ __('user.my-privacy') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_security', ['username' => auth()->user()->username]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i>
-                            {{ __('user.my-security') }}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('achievements.index') }}">
+                        <a href="{{ route('users.achievements.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                             My {{ __('user.achievements') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_uploads', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                             {{ __('user.my-uploads') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_requested', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('requests.index', ['requestor' => auth()->user()->username]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i>
                             {{ __('user.my-requested') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('torrents', ['bookmarked' => 1]) }}">
+                        <a href="{{ route('torrents.index', ['bookmarked' => 1]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
                             {{ __('user.my-bookmarks') }}
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('wishes.index', ['username' => auth()->user()->username]) }}">
+                        <a href="{{ route('users.wishes.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
                             {{ __('user.my-wishlist') }}
                         </a>

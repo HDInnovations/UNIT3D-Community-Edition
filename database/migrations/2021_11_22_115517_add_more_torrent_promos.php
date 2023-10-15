@@ -10,13 +10,14 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->smallInteger('free')->default(0)->change();
         });
 
         // Change all "free->1" torrents to "free->100" for now FL discounts
         $fl_torrents = DB::table('torrents')->select('id', 'free')->where('free', '=', 1)->get();
         $i = 0;
+
         foreach ($fl_torrents as $torrent) {
             DB::table('torrents')
                 ->where('id', $torrent->id)
@@ -29,13 +30,14 @@ return new class () extends Migration {
 
     public function down(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->boolean('free')->default(0)->change();
         });
 
         // Change all "free->100" torrents to "free->1" for now FL discounts
         $fl_torrents = DB::table('torrents')->select('id', 'free')->where('free', '>', 1)->get();
         $i = 0;
+
         foreach ($fl_torrents as $torrent) {
             DB::table('torrents')
                 ->where('id', $torrent->id)

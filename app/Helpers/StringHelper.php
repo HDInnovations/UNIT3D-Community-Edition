@@ -38,6 +38,7 @@ class StringHelper
     public static function generateRandomString($length = 20): string
     {
         $string = '';
+
         for ($i = 0; $i < $length; $i++) {
             $string .= self::CHARACTERS[random_int(0, \strlen(self::CHARACTERS) - 1)];
         }
@@ -48,6 +49,7 @@ class StringHelper
     public static function formatBytes($bytes = 0, $precision = 2): string
     {
         $minus = false;
+
         if ($bytes < 0) {
             $minus = true;
             $bytes *= -1;
@@ -55,6 +57,7 @@ class StringHelper
 
         $suffix = 'B';
         $value = $bytes;
+
         if ($bytes >= self::PIB) {
             $suffix = 'PiB';
             $value = $bytes / self::PIB;
@@ -72,7 +75,8 @@ class StringHelper
             $value = $bytes / self::KIB;
         }
 
-        $result = \round($value, $precision);
+        $result = round($value, $precision);
+
         if ($minus) {
             $result *= -1;
         }
@@ -80,9 +84,6 @@ class StringHelper
         return $result."\u{a0}".$suffix;
     }
 
-    /**
-     * @method timeRemaining
-     */
     public static function timeRemaining(int $seconds): string
     {
         $minutes = 0;
@@ -92,7 +93,7 @@ class StringHelper
         $months = 0;
         $years = 0;
 
-        $seconds = \config('hitrun.seedtime') - $seconds;
+        $seconds = config('hitrun.seedtime') - $seconds;
 
         if ($seconds == 0) {
             return 'N/A';
@@ -128,20 +129,17 @@ class StringHelper
             $seconds -= 60;
         }
 
-        $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.\trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.\trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.\trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.\trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.\trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.\trans('common.abbrev-seconds');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    /**
-     * @method timeElapsed
-     */
     public static function timeElapsed(int $seconds): string
     {
         $minutes = 0;
@@ -185,13 +183,13 @@ class StringHelper
             $seconds -= 60;
         }
 
-        $years = ($years === 0) ? '' : $years.\trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.\trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.\trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.\trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.\trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.\trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.\trans('common.abbrev-seconds');
+        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
+        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
+        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
+        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
+        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
+        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
+        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
 
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }

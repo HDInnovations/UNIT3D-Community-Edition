@@ -26,10 +26,10 @@ class TopicLabelController extends Controller
     public function approve(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->approved = $topic->approved == 0 ? '1' : '0';
+        $topic->approved = ! $topic->approved;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -39,10 +39,10 @@ class TopicLabelController extends Controller
     public function deny(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->denied = $topic->denied == 0 ? '1' : '0';
+        $topic->denied = ! $topic->denied;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -52,10 +52,10 @@ class TopicLabelController extends Controller
     public function solve(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->solved = $topic->solved == 0 ? '1' : '0';
+        $topic->solved = ! $topic->solved;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -65,10 +65,10 @@ class TopicLabelController extends Controller
     public function invalid(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->invalid = $topic->invalid == 0 ? '1' : '0';
+        $topic->invalid = ! $topic->invalid;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -78,10 +78,10 @@ class TopicLabelController extends Controller
     public function bug(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->bug = $topic->bug == 0 ? '1' : '0';
+        $topic->bug = ! $topic->bug;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -91,10 +91,10 @@ class TopicLabelController extends Controller
     public function suggest(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->suggestion = $topic->suggestion == 0 ? '1' : '0';
+        $topic->suggestion = ! $topic->suggestion;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 
@@ -104,10 +104,10 @@ class TopicLabelController extends Controller
     public function implement(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->implemented = $topic->implemented == 0 ? '1' : '0';
+        $topic->implemented = ! $topic->implemented;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');
     }
 }

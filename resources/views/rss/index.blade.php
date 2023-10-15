@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a class="breadcrumb__link" href="{{ route('torrents') }}">
+        <a class="breadcrumb__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.torrents') }}
         </a>
     </li>
@@ -13,18 +13,15 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents') }}">
-            List
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('cards') }}">
-            Cards
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('grouped') }}">
-            Grouped
+        <a class="nav-tab__link" 
+            href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                3       => 'poster',
+                default => 'list'
+            }]) }}"
+        >
+            {{ __('torrent.search') }}
         </a>
     </li>
     <li class="nav-tabV2">
@@ -38,7 +35,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('upload_form', ['category_id' => 1]) }}">
+        <a class="nav-tab__link" href="{{ route('torrents.create', ['category_id' => 1]) }}">
             {{ __('common.upload') }}
         </a>
     </li>
@@ -218,7 +215,7 @@
                             @endif
                         </td>
                         <td>
-                            @if(auth()->user()->id == $rss->user_id)
+                            @if(auth()->id() == $rss->user_id)
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a
@@ -239,7 +236,7 @@
                                             <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this private RSS feed: {{ $rss->name }}?',
+                                                    text: `Are you sure you want to delete this private RSS feed: ${atob('{{ base64_encode($rss->name) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,

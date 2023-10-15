@@ -1,105 +1,130 @@
-<div class="movie-wrapper">
-    <div class="movie-overlay"></div>
-    <div class="movie-poster">
-        <img style="height: 516px !important;"
-             src="{{ (isset($meta) && $meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_original/'.$meta->cover['image_id'].'.jpg' : 'https://via.placeholder.com/400x600' }}"
-             class="img-responsive" id="meta-poster">
+<section class="meta">
+    @if(isset($meta) && $meta->artworks)
+        <img class="meta__backdrop" src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{ $meta->artworks[0]['image_id'] }}.jpg" alt="Backdrop">
+    @endif
+    <a class="meta__title-link" href="{{ route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $igdb]) }}">
+        <h1 class="meta__title">
+            {{ $meta->name ?? 'No Meta Found' }} ({{ substr($meta->first_release_date ?? '', 0, 4) ?? '' }})
+        </h1>
+    </a>
+    <a class="meta__poster-link" href="{{ route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $igdb]) }}">
+        <img
+            src="{{ $meta?->cover ? 'https://images.igdb.com/igdb/image/upload/t_original/'.$meta->cover['image_id'].'.jpg' : 'https://via.placeholder.com/400x600' }}"
+            class="meta__poster"
+        >
+    </a>
+    <div class="meta__actions">
+        <a class="meta__dropdown-button" href="#">
+            <i class="{{ config('other.font-awesome') }} fa-ellipsis-v"></i>
+        </a>
+        <ul class="meta__dropdown">
+            <li>
+                <a href="{{ route('torrents.create', [
+                    'category_id' => $category->id,
+                    'title'       => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                    'imdb'        => $torrent->imdb ?? '',
+                    'tmdb'        => $torrent->tmdb ?? '',
+                    'mal'         => $torrent->mal ?? '',
+                    'tvdb'        => $torrent->tvdb ?? '',
+                    'igdb'        => $torrent->igdb ?? '',
+                ]) }}">
+                    {{ __('common.upload') }}
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('requests.create', [
+                    'category_id' => $category->id,
+                    'title'       => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                    'imdb'        => $torrent->imdb ?? '',
+                    'tmdb'        => $torrent->tmdb ?? '',
+                    'mal'         => $torrent->mal ?? '',
+                    'tvdb'        => $torrent->tvdb ?? '',
+                    'igdb'        => $torrent->igdb ?? '',
+                ]) }}">
+                    Request similar
+                </a>
+            </li>
+        </ul>
     </div>
-    <div class="meta-info">
-        <div class="tags">
-            {{ $torrent->category->name }}
-        </div>
-
-        <div class="movie-right">
-            @if(isset($meta->involved_companies))
-                <div class="badge-user">
-                    <a href="{{ $meta->involved_companies[0]['company']['url'] }}" target="_blank">
-                        @if(array_key_exists("logo", $meta->involved_companies[0]['company']))
-                            <img class="img-responsive"
-                                 src="{{ $meta->involved_companies[0]['company']['logo']['image_id'] ? 'https://images.igdb.com/igdb/image/upload/t_logo_med/'.$meta->involved_companies[0]['company']['logo']['image_id'].'.png' : 'https://via.placeholder.com/138x175' }}">
+    <ul class="meta__ids">
+        @if ($igdb > 0 && $meta->url)
+            <li class="meta__tvdb">
+                <a
+                    class="meta-id-tag"
+                    href="{{ $meta->url }}"
+                    title="IGDB"
+                    target="_blank"
+                >
+                    IGDB: {{ $igdb }}
+                </a>
+            </li>
+        @endif
+    </ul>
+    <p class="meta__description">{{ $meta?->summary ?? '' }}</p>
+    <div class="meta__chips">
+        <section class="meta__chip-container">
+            <h2 class="meta__heading">Platforms</h2>
+            @foreach ($platforms ?? [] as $platform)
+                <article class="meta-chip-wrapper meta-chip">
+                        @if ($platform->image_id)
+                            <img
+                                class="meta-chip__image"
+                                src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $platform->image_id }}.png"
+                                alt=""
+                            />
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-user meta-chip__icon"></i>
                         @endif
+                        <h2 class="meta-chip__name"></h2>
+                        <h3 class="meta-chip__value"></h3>
                     </a>
-                </div>
+                </article>
+            @endforeach
+        </section>
+        <section class="meta__chip-container">
+            <h2 class="meta__heading">Companies</h2>
+            @foreach($meta?->involved_companies ?? [] as $company)
+                <article class="meta__company">
+                    <a class="meta-chip" href="{{ $company['company']['url'] }}" target="_blank">
+                        @if (array_key_exists('logo', $company['company']))
+                            <img
+                                class="meta-chip__image"
+                                style="object-fit: scale-down"
+                                src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $company['company']['logo']['image_id'] }}.png"
+                                alt="logo"
+                            />
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-camera-movie meta-chip__icon"></i>
+                        @endif
+                        <h2 class="meta-chip__name">Company</h2>
+                        <h3 class="meta-chip__value">{{ $company['company']['name'] }}</h3>
+                    </a>
+                </article>
+            @endforeach
+        </section>
+        <section class="meta__chip-container">
+            <h2 class="meta__heading">Extra Information</h2>
+            <article class="meta-chip-wrapper meta-chip">
+                <i class="{{ config('other.font-awesome') }} fa-star meta-chip__icon"></i>
+                <h2 class="meta-chip__name">{{ __('torrent.rating') }}</h2>
+                <h3 class="meta-chip__value">{{ round($meta->rating ?? 0) }}% ({{ $meta->rating_count ?? 0 }} {{ __('torrent.votes') }})</h3>
+            </article>
+            @isset($trailer)
+                <article class="meta__trailer show-trailer">
+                    <a class="meta-chip" href="#">
+                        <i class="{{ config('other.font-awesome') }} fa-external-link meta-chip__icon"></i>
+                        <h2 class="meta-chip__name">Trailer</h2>
+                        <h3 class="meta-chip__value">View</h3>
+                    </a>
+                </article>
+            @endisset
+            @if ($meta->genres !== [] && $meta->genres !== null)
+                <article class="meta__genres meta-chip">
+                    <i class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"></i>
+                    <h2 class="meta-chip__name">Genres</h2>
+                    <h3 class="meta-chip__value">{{ implode(' / ', array_map(fn ($genre) => $genre['name'], $meta->genres)) }}</h3>
+                </article>
             @endif
-        </div>
-
-        <div class="movie-backdrop"
-             style="background-image: url('{{ (isset($meta) && $meta->artworks) ? 'https://images.igdb.com/igdb/image/upload/t_screenshot_big/'.$meta->artworks[0]['image_id'].'.jpg' : 'https://via.placeholder.com/960x540' }}');"></div>
-
-        <div class="movie-top">
-            <h1 class="movie-heading" style="margin-bottom: 0;">
-                <span class="text-bright text-bold" style="font-size: 28px;">{{ $meta->name ?? 'No Meta Found' }}</span>
-                @if(isset($meta->first_release_date))
-                    <span style="font-size: 28px;"> ({{ substr($meta->first_release_date, 0, 4) ?? '' }})</span>
-                @endif
-            </h1>
-
-            <div class="movie-overview">
-                {{ isset($meta->summary) ? Str::limit($meta->summary, $limit = 600, $end = '...') : '' }}
-            </div>
-        </div>
-
-        <div class="movie-bottom">
-            <div class="movie-details">
-                @if (isset($meta) && $meta->url && $torrent->igdb !== 0 && $torrent->igdb !== null)
-                    <span class="badge-user text-bold">
-                        <a href="{{ $meta->url }}" title="IGDB" target="_blank">
-                            <i class="{{ config('other.font-awesome') }} fa-gamepad"></i> IGDB: {{ $torrent->igdb }}
-                        </a>
-                    </span>
-                @endif
-
-                @if (isset($trailer))
-                    <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
-                        <a class="text-pink" title="{{ __('torrent.trailer') }}">{{ __('torrent.trailer') }}
-                            <i class="{{ config('other.font-awesome') }} fa-external-link"></i>
-                        </a>
-                    </span>
-                @endif
-
-                <br>
-                @if (isset($meta->genres))
-                    @foreach ($meta->genres as $genre)
-                        <span class="badge-user text-bold text-green">
-                            <i class="{{ config('other.font-awesome') }} fa-theater-masks"></i> {{ $genre['name'] }}
-                        </span>
-                    @endforeach
-                @endif
-
-                <br>
-                @if ($torrent->keywords)
-                    @foreach ($torrent->keywords as $keyword)
-                        <span class="badge-user text-bold text-green">
-                            <a href="{{ route('torrents', ['keywords' => $keyword->name]) }}">
-                                <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $keyword->name }}
-                            </a>
-                        </span>
-                    @endforeach
-                @endif
-            </div>
-
-            <div class="movie-details">
-                <span class="badge-user text-bold text-gold">{{ __('torrent.rating') }}:
-                    <span class="movie-rating-stars">
-                        <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                    </span>
-                    {{ round($meta->rating ?? 0) }}/100 ({{ $meta->rating_count ?? 0 }} {{ __('torrent.votes') }})
-                </span>
-            </div>
-
-            <span class="badge-user text-bold">
-                <i class="fab fa-xbox"></i> Platforms:
-            </span>
-            <div class="cast-list">
-                @if (isset($platforms))
-                    @foreach ($platforms as $platform)
-                        <div class="cast-item" style="max-width: 80px;">
-                            <img class="img-responsive"
-                                 src="{{ $platform->image_id ? 'https://images.igdb.com/igdb/image/upload/t_logo_med/'.$platform->image_id.'.png' : 'https://via.placeholder.com/138x175' }}">
-                        </div>
-                    @endforeach
-                @endif
-            </div>
-        </div>
+        </section>
     </div>
-</div>
+</section>

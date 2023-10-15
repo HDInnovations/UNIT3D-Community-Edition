@@ -15,23 +15,23 @@ namespace App\Console\Commands;
 
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
-use App\Models\Follow;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
-use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
-use App\Models\Note;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest
@@ -55,35 +55,38 @@ class AutoSoftDeleteDisabledUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
-        if (\config('pruning.user_pruning')) {
-            $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        if (config('pruning.user_pruning')) {
+            $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+            $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabledGroup[0])
-                ->where('disabled_at', '<', $current->copy()->subDays(\config('pruning.soft_delete'))->toDateTimeString())
+                ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
             foreach ($users as $user) {
                 // Send Email
-                \dispatch(new SendDeleteUserMail($user));
+                dispatch(new SendDeleteUserMail($user));
 
-                $user->can_upload = 0;
-                $user->can_download = 0;
-                $user->can_comment = 0;
-                $user->can_invite = 0;
-                $user->can_request = 0;
-                $user->can_chat = 0;
+                $user->can_upload = false;
+                $user->can_download = false;
+                $user->can_comment = false;
+                $user->can_invite = false;
+                $user->can_request = false;
+                $user->can_chat = false;
                 $user->group_id = $prunedGroup[0];
                 $user->deleted_by = 1;
                 $user->save();
 
+                cache()->forget('user:'.$user->passkey);
+                Unit3dAnnounce::addUser($user);
+
                 // Removes UserID from Torrents if any and replaces with System UserID (1)
-                foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
+                foreach (Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->get() as $tor) {
                     $tor->user_id = 1;
                     $tor->save();
                 }
@@ -129,11 +132,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                     $shout->delete();
                 }
 
-                // Removes all notes for user
-                foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-                    $note->delete();
-                }
-
                 // Removes all likes for user
                 foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
                     $like->delete();
@@ -145,21 +143,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 }
 
                 // Removes all follows for user
-                foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-                    $follow->delete();
-                }
-
-                // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-                foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
-                    $sentInvite->user_id = 1;
-                    $sentInvite->save();
-                }
-
-                // Removes UserID from Received Invite if any and replaces with System UserID (1)
-                foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
-                    $receivedInvite->accepted_by = 1;
-                    $receivedInvite->save();
-                }
+                $user->followers()->detach();
+                $user->following()->detach();
 
                 // Removes all Peers for user
                 foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
@@ -174,6 +159,8 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all FL Tokens for user
                 foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
                     $token->delete();
+
+                    cache()->forget('freeleech_token:'.$token->user_id.':'.$token->torrent_id);
                 }
 
                 $user->delete();

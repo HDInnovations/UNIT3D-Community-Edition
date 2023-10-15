@@ -24,6 +24,8 @@ class Contact extends Mailable
 
     /**
      * Contact Constructor.
+     *
+     * @param array{email: string} $input
      */
     public function __construct(public array $input)
     {
@@ -35,7 +37,7 @@ class Contact extends Mailable
     public function build(): static
     {
         return $this->markdown('emails.contact')
-            ->from($this->input['email'], \config('other.title'))
+            ->from($this->input['email'], config('other.title'))
             ->subject('New contact mail');
     }
 }

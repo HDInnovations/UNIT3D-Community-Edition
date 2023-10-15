@@ -25,27 +25,31 @@ class NewUploadTip extends Notification implements ShouldQueue
     /**
      * NewUploadTip Constructor.
      */
-    public function __construct(public string $type, public string $tipper, public $amount, public Torrent $torrent)
+    public function __construct(public string $type, public string $tipper, public int $amount, public Torrent $torrent)
     {
     }
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
             'body'  => $this->tipper.' has tipped one of your Uploaded Torrents '.$this->torrent->name,
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];
     }
 }

@@ -27,12 +27,11 @@ use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
 use App\Models\Forum;
 use App\Models\Post;
+use App\Models\Subscription;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TopicControllerTest
@@ -42,285 +41,368 @@ class TopicController extends Controller
     /**
      * TopicController Constructor.
      */
-    public function __construct(private readonly TaggedUserRepository $taggedUserRepository, private readonly ChatRepository $chatRepository)
+    public function __construct(private readonly ChatRepository $chatRepository)
     {
     }
 
     /**
-     * Show The Topic.
+     * Topics index.
      */
-    public function topic(int $id, string $page = '', string $post = ''): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        // Find the topic
-        $topic = Topic::findOrFail($id);
+        return view('forum.topic.index');
+    }
 
-        // Get the forum of the topic
-        $forum = $topic->forum;
+    /**
+     * Show Topic.
+     */
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    {
+        $user = $request->user();
 
-        // Get The category of the forum
-        $category = Forum::findOrFail($forum->id);
+        $topic = Topic::with('user')
+            ->whereRelation('forumPermissions', [
+                ['show_forum', '=', 1],
+                ['read_topic', '=', 1],
+                ['group_id', '=', $user->group_id],
+            ])
+            ->findOrFail($id);
 
-        // Get all posts
-        $posts = $topic->posts()->with(['user', 'user.group', 'user.topics', 'user.posts', 'topic', 'tips'])
-            ->withCount(['likes' => function (Builder $query) {
-                $query->where('like', '=', 1);
-            }, 'likes as dislikes_count' => function (Builder $query) {
-                $query->where('dislike', '=', 1);
-            }])->paginate(25);
+        $forum = $topic->forum->load('category');
 
-        // First post
-        $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();
+        $subscription = Subscription::where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
 
-        // The user can post a topic here ?
-        if (! $category->getPermission()->read_topic) {
-            // Redirect him to the forum index
-            return \to_route('forums.index')
-                ->withErrors('You Do Not Have Access To Read This Topic!');
-        }
-
-        // Increment view
         $topic->views++;
         $topic->save();
 
-        return \view('forum.topic', [
-            'topic'     => $topic,
-            'forum'     => $forum,
-            'category'  => $category,
-            'posts'     => $posts,
-            'firstPost' => $firstPost,
+        return view('forum.topic.show', [
+            'topic'        => $topic,
+            'forum'        => $forum,
+            'subscription' => $subscription,
         ]);
     }
 
     /**
-     * Topic Add Form.
+     * Create Topic.
      */
-    public function addForm(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
-    {
-        $forum = Forum::findOrFail($id);
-        $category = Forum::findOrFail($id);
-
-        // The user has the right to create a topic here?
-        if (! $category->getPermission()->start_topic) {
-            return \to_route('forums.index')
-                ->withErrors('You Cannot Start A New Topic Here!');
-        }
-
-        return \view('forum.new_topic', [
-            'forum'    => $forum,
-            'category' => $category,
-            'title'    => $request->input('title'),
-        ]);
-    }
-
-    /**
-     * Create A New Topic In The Forum.
-     */
-    public function newTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function create(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $forum = Forum::findOrFail($id);
-        $category = Forum::findOrFail($id);
 
-        // The user has the right to create a topic here?
-        if (! $category->getPermission()->start_topic) {
-            return \to_route('forums.index')
-                ->withErrors('You Cannot Start A New Topic Here!');
-        }
+        $forum = Forum::with('category')
+            ->whereRelation('permissions', [
+                ['show_forum', '=', 1],
+                ['start_topic', '=', 1],
+                ['group_id', '=', $user->group_id],
+            ])
+            ->findOrFail($id);
 
-        // Create The Topic
-        $topic = new Topic();
-        $topic->name = $request->input('title');
-        $topic->slug = Str::slug($request->input('title'));
-        $topic->state = 'open';
-        $topic->first_post_user_id = $user->id;
-        $topic->last_post_user_id = $user->id;
-        $topic->first_post_user_username = $user->username;
-        $topic->last_post_user_username = $user->username;
-        $topic->views = 0;
-        $topic->pinned = false;
-        $topic->forum_id = $forum->id;
+        return view('forum.forum_topic.create', [
+            'forum' => $forum,
+        ]);
+    }
 
-        $v = \validator($topic->toArray(), [
-            'name'                     => 'required',
-            'slug'                     => 'required',
-            'state'                    => 'required',
-            'num_post'                 => '',
-            'first_post_user_id'       => 'required',
-            'first_post_user_username' => 'required',
-            'last_post_user_id'        => '',
-            'last_post_user_username'  => '',
-            'views'                    => '',
-            'pinned'                   => '',
-            'forum_id'                 => 'required',
+    /**
+     * Store Topic.
+     */
+    public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    {
+        $request->validate([
+            'title'   => 'required',
+            'content' => 'required',
         ]);
 
-        if ($v->fails()) {
-            return \to_route('forums.index')
-                ->withErrors($v->errors());
-        }
+        $user = $request->user();
+        $forum = Forum::whereRelation('permissions', [
+            ['start_topic', '=', 1],
+            ['group_id', '=', $user->group_id],
+        ])
+            ->findOrFail($id);
 
-        $topic->save();
-        $post = new Post();
-        $post->content = $request->input('content');
-        $post->user_id = $user->id;
-        $post->topic_id = $topic->id;
-        $v = \validator($post->toArray(), [
-            'content'  => 'required',
-            'user_id'  => 'required',
-            'topic_id' => 'required',
+        $topic = Topic::create([
+            'name'                     => $request->title,
+            'state'                    => 'open',
+            'first_post_user_id'       => $user->id,
+            'last_post_user_id'        => $user->id,
+            'first_post_user_username' => $user->username,
+            'last_post_user_username'  => $user->username,
+            'views'                    => 0,
+            'pinned'                   => false,
+            'forum_id'                 => $forum->id,
+            'num_post'                 => 1,
+            'last_reply_at'            => now(),
         ]);
-        if ($v->fails()) {
-            return \to_route('forums.index')
-                ->withErrors($v->errors());
-        }
 
-        $post->save();
-        $topic->num_post = 1;
-        $topic->last_reply_at = $post->created_at;
-        $topic->save();
-        $forum->num_topic = $forum->getTopicCount($forum->id);
-        $forum->num_post = $forum->getPostCount($forum->id);
-        $forum->last_topic_id = $topic->id;
-        $forum->last_topic_name = $topic->name;
-        $forum->last_topic_slug = $topic->slug;
-        $forum->last_post_user_id = $user->id;
-        $forum->last_post_user_username = $user->username;
-        $forum->save();
+        Post::create([
+            'content'  => $request->input('content'),
+            'user_id'  => $user->id,
+            'topic_id' => $topic->id,
+        ]);
+
+        $forum->update([
+            'num_topic'               => $forum->topics()->count(),
+            'num_post'                => $forum->posts()->count(),
+            'last_topic_id'           => $topic->id,
+            'last_topic_name'         => $topic->name,
+            'last_post_user_id'       => $user->id,
+            'last_post_user_username' => $user->username,
+        ]);
 
         // Post To ShoutBox
-        $appurl = \config('app.url');
-        $topicUrl = \sprintf('%s/forums/topics/%s', $appurl, $topic->id);
-        $profileUrl = \sprintf('%s/users/%s', $appurl, $user->username);
+        $appUrl = config('app.url');
+        $topicUrl = sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
+        $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
-        if (\config('other.staff-forum-notify') && ($forum->id == \config('other.staff-forum-id') || $forum->parent_id == \config('other.staff-forum-id'))) {
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
             $forum->notifyStaffers($user, $topic);
         } else {
-            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
             $forum->notifySubscribers($user, $topic);
+
+            //Achievements
+            $user->unlock(new UserMadeFirstPost());
+            $user->addProgress(new UserMade25Posts(), 1);
+            $user->addProgress(new UserMade50Posts(), 1);
+            $user->addProgress(new UserMade100Posts(), 1);
+            $user->addProgress(new UserMade200Posts(), 1);
+            $user->addProgress(new UserMade300Posts(), 1);
+            $user->addProgress(new UserMade400Posts(), 1);
+            $user->addProgress(new UserMade500Posts(), 1);
+            $user->addProgress(new UserMade600Posts(), 1);
+            $user->addProgress(new UserMade700Posts(), 1);
+            $user->addProgress(new UserMade800Posts(), 1);
+            $user->addProgress(new UserMade900Posts(), 1);
         }
 
-        //Achievements
-        $user->unlock(new UserMadeFirstPost(), 1);
-        $user->addProgress(new UserMade25Posts(), 1);
-        $user->addProgress(new UserMade50Posts(), 1);
-        $user->addProgress(new UserMade100Posts(), 1);
-        $user->addProgress(new UserMade200Posts(), 1);
-        $user->addProgress(new UserMade300Posts(), 1);
-        $user->addProgress(new UserMade400Posts(), 1);
-        $user->addProgress(new UserMade500Posts(), 1);
-        $user->addProgress(new UserMade600Posts(), 1);
-        $user->addProgress(new UserMade700Posts(), 1);
-        $user->addProgress(new UserMade800Posts(), 1);
-        $user->addProgress(new UserMade900Posts(), 1);
-
-        return \to_route('forum_topic', ['id' => $topic->id])
-                ->withSuccess('Topic Created Successfully!');
+        return to_route('topics.show', ['id' => $topic->id])
+            ->withSuccess('Topic Created Successfully!');
     }
 
     /**
-     * Topic Edit Form.
+     * Edit Topic.
      */
-    public function editForm(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $topic = Topic::findOrFail($id);
-        $categories = Forum::where('parent_id', '!=', 0)->get();
-
-        return \view('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
-    }
-
-    /**
-     * Edit Topic In The Forum.
-     */
-    public function editTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
+
+        $topic = Topic::with('forum.category')
+            ->whereRelation('forumPermissions', [
+                ['show_forum', '=', 1],
+                ['read_topic', '=', 1],
+                ['group_id', '=', $user->group_id]
+            ])
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+
+        $categories = Forum::whereRelation('permissions', [
+            ['show_forum', '=', 1],
+            ['start_topic', '=', 1],
+        ])
+            ->whereNull('parent_id')
+            ->with([
+                'forums' => fn ($query) => $query->whereRelation('permissions', [
+                    ['show_forum', '=', 1],
+                    ['start_topic', '=', 1],
+                ])
+            ])
+            ->get();
+
+        return view('forum.topic.edit', [
+            'topic'      => $topic,
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * Update Topic.
+     */
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'name'     => 'required|min:1',
+            'forum_id' => 'required|integer|exists:forums,id',
+        ]);
+
+        $topic = Topic::query()
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+
+        $newForum = Forum::whereRelation('permissions', [
+            ['start_topic', '=', 1],
+            ['group_id', '=', $user->group_id],
+        ])
+            ->whereKey($request->forum_id)
+            ->sole();
+
+        $oldForum = $topic->forum;
+
+        $topic->update([
+            'name'     => $request->name,
+            'forum_id' => $newForum->id,
+        ]);
+
+        if ($oldForum->id === $newForum->id) {
+            $lastRepliedTopic = $newForum->lastRepliedTopic;
+
+            if ($lastRepliedTopic->id === $newForum->last_topic_id) {
+                $latestPost = $lastRepliedTopic->latestPost;
+
+                $newForum->last_topic_name = $request->name;
+                $newForum->updated_at = $latestPost->created_at;
+                $newForum->save();
+            }
+        } else {
+            $lastRepliedTopic = $oldForum->lastRepliedTopic;
+            $latestPost = $lastRepliedTopic->latestPost;
+            $latestPoster = $latestPost->user;
+
+            $oldForum->update([
+                'num_topic'               => $oldForum->topics()->count(),
+                'num_post'                => $oldForum->posts()->count(),
+                'last_topic_id'           => $lastRepliedTopic->id,
+                'last_topic_name'         => $lastRepliedTopic->name,
+                'last_post_user_id'       => $latestPoster->id,
+                'last_post_user_username' => $latestPoster->username,
+                'updated_at'              => $latestPost->created_at,
+            ]);
+
+            $lastRepliedTopic = $newForum->lastRepliedTopic;
+            $latestPost = $lastRepliedTopic->latestPost;
+            $latestPoster = $latestPost->user;
+
+            $newForum->update([
+                'num_topic'               => $newForum->topics()->count(),
+                'num_post'                => $newForum->posts()->count(),
+                'last_topic_id'           => $lastRepliedTopic->id,
+                'last_topic_name'         => $lastRepliedTopic->name,
+                'last_post_user_id'       => $latestPoster->id,
+                'last_post_user_username' => $latestPoster->username,
+                'updated_at'              => $latestPost->created_at,
+            ]);
+        }
+
+        return to_route('topics.show', ['id' => $topic->id])
+            ->withSuccess('Topic Successfully Edited');
+    }
+
+    /**
+     * Delete The Topic and The Posts.
+     *
+     * @throws Exception
+     */
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    {
         $topic = Topic::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
-        $name = $request->input('name');
-        $forumId = $request->input('forum_id');
-        $topic->name = $name;
-        $topic->forum_id = $forumId;
-        $topic->save();
+        $topic->posts()->delete();
+        $topic->delete();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
-            ->withSuccess('Topic Successfully Edited');
+        $forum = $topic->forum;
+        $lastRepliedTopic = $forum->lastRepliedTopic;
+        $latestPost = $lastRepliedTopic->latestPost;
+        $latestPoster = $latestPost->user;
+
+        $topic->forum()->update([
+            'num_topic'               => $forum->topics()->count(),
+            'num_post'                => $forum->posts()->count(),
+            'last_topic_id'           => $lastRepliedTopic->id,
+            'last_topic_name'         => $lastRepliedTopic->name,
+            'last_post_user_id'       => $latestPoster->id,
+            'last_post_user_username' => $latestPoster->username,
+            'updated_at'              => $latestPost->created_at,
+        ]);
+
+        return to_route('forums.show', ['id' => $forum->id])
+            ->withSuccess('This Topic Is Now Deleted!');
     }
 
     /**
      * Close The Topic.
      */
-    public function closeTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function close(int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
         $topic = Topic::findOrFail($id);
-
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $topic->state = 'close';
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Closed!');
     }
 
     /**
      * Open The Topic.
      */
-    public function openTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function open(int $id): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
         $topic = Topic::findOrFail($id);
-
-        \abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $topic->state = 'open';
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Open!');
-    }
-
-    /**
-     * Delete The Topic and The Posts.
-     *
-     * @throws \Exception
-     */
-    public function deleteTopic(Request $request, int $id): \Illuminate\Http\RedirectResponse
-    {
-        $user = $request->user();
-        $topic = Topic::findOrFail($id);
-
-        \abort_unless($user->group->is_modo || ($user->id === $topic->first_post_user_id && $topic->num_post <= 1 && $topic->created_at->greaterThan(now()->subDay())), 403);
-        $posts = $topic->posts();
-        $posts->delete();
-        $topic->delete();
-
-        return \to_route('forums.show', ['id' => $topic->forum->id])
-            ->withSuccess('This Topic Is Now Deleted!');
     }
 
     /**
      * Pin The Topic.
      */
-    public function pinTopic(int $id): \Illuminate\Http\RedirectResponse
+    public function pin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = 1;
+        $topic->pinned = true;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Pinned!');
     }
 
     /**
      * Unpin The Topic.
      */
-    public function unpinTopic(int $id): \Illuminate\Http\RedirectResponse
+    public function unpin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = 0;
+        $topic->pinned = false;
         $topic->save();
 
-        return \to_route('forum_topic', ['id' => $topic->id])
+        return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('This Topic Is Now Unpinned!');
+    }
+
+    /**
+     * Redirect to the appropriate topic page.
+     */
+    public function permalink(int $topicId, int $postId): \Illuminate\Http\RedirectResponse
+    {
+        $index = Post::where('topic_id', '=', $topicId)->where('id', '<', $postId)->count();
+
+        return to_route('topics.show', [
+            'id'   => $topicId,
+            'page' => intdiv($index, 25) + 1
+        ])
+            ->withFragment('post-'.$postId);
+    }
+
+    /**
+     * Redirect to the appropriate topic page for the latest post.
+     */
+    public function latestPermalink(int $id): \Illuminate\Http\RedirectResponse
+    {
+        $post = Post::query()
+            ->selectRaw('MAX(id) as id')
+            ->selectRaw('count(*) as post_count')
+            ->where('topic_id', '=', $id)
+            ->first();
+
+        return to_route('topics.show', [
+            'id'   => $id,
+            'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
+        ])
+            ->withFragment('post-'.($post->id ?? 0));
     }
 }

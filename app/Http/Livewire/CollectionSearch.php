@@ -21,12 +21,7 @@ class CollectionSearch extends Component
 {
     use WithPagination;
 
-    public $search;
-
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -42,14 +37,14 @@ class CollectionSearch extends Component
     {
         return Collection::withCount('movie')
             ->with('movie')
-            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
             ->paginate(25);
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.collection-search', [
+        return view('livewire.collection-search', [
             'collections' => $this->collections,
         ]);
     }

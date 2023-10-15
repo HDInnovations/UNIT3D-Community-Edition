@@ -1,55 +1,65 @@
-<div>
-    <div class="container well search mt-5">
-        <div class="form-horizontal form-condensed form-torrent-search form-bordered">
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">{{ __('torrent.name') }}</label>
-                <div class="col-sm-9 fatten-me">
-                    <input type="text" class="form-control" id="name" wire:model="name" placeholder="{{ __('torrent.name') }}">
-                </div>
-            </div>
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">{{ __('torrent.filters') }}</label>
-                <div class="col-sm-10">
-                    <span class="badge-user">
-                        <label style="user-select: none" class="inline" x-data="{ state: @entangle('seeding'), ...ternaryCheckbox() }">
-                            <input
-                                type="checkbox"
-                                class="user-active__checkbox"
-                                x-init="updateTernaryCheckboxProperties($el, state)"
-                                x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state);"
-                                x-bind:checked="state === 'include'"
-                            >
-                            {{ __('torrent.seeding') }}
-                        </label>
-                    </span>
-                </div>
-            </div>
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">Precision</label>
-                <div class="col-sm-10">
-                    <span class="badge-user">
-                        <label class="inline">
-                            <input type="checkbox" class="user-active__checkbox" wire:model="showMorePrecision">
-                            Show more precision
-                        </label>
-                    </span>
-                </div>
-            </div>
-            <div class="mx-0 mt-5 form-group fatten-me">
-                <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">{{ __('common.quantity') }}</label>
-                <div class="col-sm-9">
-                    <select wire:model="perPage" class="form-control">
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
-            </div>
+<div style="display: flex; flex-direction: column; gap: 1rem;">
+    <section class="panelV2 user-peers__filters">
+        <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
+        <div class="panel__body">
+            <form class="form">
+                <p class="form__group">
+                    <input wire:model="name" class="form__text" placeholder=" " autofocus="">
+                    <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
+                </p>
+                <p class="form__group">
+                    <label style="user-select: none" class="form__label" x-data="{ state: @entangle('seeding'), ...ternaryCheckbox() }">
+                        <input
+                            type="checkbox"
+                            class="user-peers__checkbox"
+                            x-init="updateTernaryCheckboxProperties($el, state)"
+                            x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
+                            x-bind:checked="state === 'include'"
+                        >
+                        {{ __('torrent.seeding') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <label style="user-select: none" class="form__label" x-data="{ state: @entangle('active'), ...ternaryCheckbox() }">
+                        <input
+                            type="checkbox"
+                            class="user-peers__checkbox"
+                            x-init="updateTernaryCheckboxProperties($el, state)"
+                            x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
+                            x-bind:checked="state === 'include'"
+                        >
+                        {{ __('common.active') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <label class="form__label">
+                        <input type="checkbox" class="user-peers__checkbox" wire:model="showMorePrecision">
+                        Show more precision
+                    </label>
+                </p>
+            </form>
         </div>
-    </div>
-    <div>
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered">
+    </section>
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">{{ __('user.active-torrents') }}</h2>
+            <div class="panel__actions">
+                <div class="panel__action">
+                    <div class="form__group">
+                        <select wire:model="perPage" class="form__select">
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <label class="form__label form__label--floating">
+                            {{ __('common.quantity') }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                 <th class="user-active__name-header" wire:click="sortBy('name')" role="columnheader button">
                     {{ __('torrent.name') }}
@@ -84,9 +94,9 @@
                         <i class="{{ config('other.font-awesome') }} fa-wifi" title="Connectable"></i>
                     </th>
                 @endif
-                <th class="user-active__seeding-header" wire:click="sortBy('size')" role="columnheader button" title="{{ __('torrent.seeding') }}">
+                <th class="user-active__seeding-header" wire:click="sortBy('seeder')" role="columnheader button" title="{{ __('torrent.seeding') }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    @include('livewire.includes._sort-icon', ['field' => 'seeding'])
+                    @include('livewire.includes._sort-icon', ['field' => 'seeder'])
                 </th>
                 <th class="user-active__size-header" wire:click="sortBy('size')" role="columnheader button">
                     {{ __('torrent.size') }}
@@ -121,7 +131,7 @@
                 @foreach ($actives as $active)
                     <tr>
                         <td>
-                            <a class="user-active__name" href="{{ route('torrent', ['id' => $active->torrent_id]) }}">
+                            <a class="user-active__name" href="{{ route('torrents.show', ['id' => $active->torrent_id]) }}">
                                 {{ $active->name }}
                             </a>
                         </td>
@@ -175,10 +185,14 @@
                             </td>
                         @endif
                         <td class="user-active__seeding">
-                            @if ($active->seeder === 1)
-                                <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.seeding') }}"></i>
+                            @if ($active->active)
+                                @if ($active->seeder)
+                                    <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.seeding') }}"></i>
+                                @else
+                                    <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.seeding') }}"></i>
+                                @endif
                             @else
-                                <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.seeding') }}"></i>
+                                <i class="{{ config('other.font-awesome') }} text-blue circle-stop" title="Stopped {{ __('torrent.seeding') }}"></i>
                             @endif
                         </td>
                         <td class="user-active__size">
@@ -214,11 +228,9 @@
                 @endforeach
                 </tbody>
             </table>
-            <div class="text-center">
-                {{ $actives->links() }}
-            </div>
         </div>
-    </div>
+        {{ $actives->links('partials.pagination') }}
+    </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         function ternaryCheckbox() {
             return {

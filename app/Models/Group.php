@@ -19,15 +19,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
-     * The Attributes That Aren't Mass Assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var string[]
      */
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Indicates If The Model Should Be Timestamped.
@@ -38,6 +38,8 @@ class Group extends Model
 
     /**
      * Has Many Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -46,31 +48,11 @@ class Group extends Model
 
     /**
      * Has Many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Permission::class);
-    }
-
-    /**
-     * Returns The Requested Row From The Permissions Table.
-     */
-    public function getPermissionsByForum($forum): ?object
-    {
-        return Permission::where('forum_id', '=', $forum->id)
-            ->where('group_id', '=', $this->id)
-            ->first();
-    }
-
-    /**
-     * Get the Group allowed answer as bool.
-     */
-    public function isAllowed($object, int $groupId): bool
-    {
-        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($groupId, $object['default_groups'])) {
-            return $object['default_groups'][$groupId] == 1;
-        }
-
-        return true;
     }
 }

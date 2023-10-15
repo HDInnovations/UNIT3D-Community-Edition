@@ -13,9 +13,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MassUpsertPlaylistTorrentRequest;
+use App\Http\Requests\StorePlaylistTorrentRequest;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistTorrentControllerTest
@@ -25,47 +30,58 @@ class PlaylistTorrentController extends Controller
     /**
      * Attach A Torrent To A Playlist.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = \auth()->user();
-        $playlist = Playlist::findOrFail($request->input('playlist_id'));
+        $playlist = Playlist::findOrFail($request->integer('playlist_id'));
 
-        \abort_unless($user->id === $playlist->user_id, 403);
+        abort_unless($request->user()->id === $playlist->user_id, 403);
 
-        $playlistTorrent = new PlaylistTorrent();
-        $playlistTorrent->playlist_id = $playlist->id;
-        $playlistTorrent->torrent_id = $request->input('torrent_id');
+        PlaylistTorrent::create($request->validated());
 
-        $v = \validator($playlistTorrent->toArray(), [
-            'playlist_id'    => 'required|numeric|exists:playlists,id|unique:playlist_torrents,playlist_id,NULL,NULL,torrent_id,'.$request->input('torrent_id'),
-            'torrent_id'     => 'required|numeric|exists:torrents,id|unique:playlist_torrents,torrent_id,NULL,NULL,playlist_id,'.$request->input('playlist_id'),
-        ]);
+        return to_route('playlists.show', ['playlist' => $playlist])
+            ->withSuccess(trans('playlist.attached-success'));
+    }
 
-        if ($v->fails()) {
-            return \to_route('playlists.show', ['id' => $playlist->id])
-                ->withErrors($v->errors());
-        }
+    /**
+     * Attach Torrents To A Playlist.
+     */
+    public function massUpsert(MassUpsertPlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $playlist = Playlist::findOrFail($request->integer('playlist_id'));
 
-        $playlistTorrent->save();
+        abort_unless($request->user()->id === $playlist->user_id, 403);
 
-        return \to_route('playlists.show', ['id' => $playlist->id])
-            ->withSuccess(\trans('playlist.attached-success'));
+        $playlistTorrents = $request->string('torrent_urls')
+            ->explode("\n")
+            ->map(fn ($url) => basename($url))
+            ->unique()
+            ->map(fn ($id) => ['playlist_id' => $playlist->id, 'torrent_id' => $id, 'tmdb_id' => 0])
+            ->toArray();
+
+        Validator::make($playlistTorrents, [
+            '*.torrent_id' => Rule::exists('torrents', 'id'),
+        ], [
+            '*.torrent_id.exists' => 'The torrent ID/URL ":input" entered was not found on site.'
+        ])->validate();
+
+        PlaylistTorrent::upsert($playlistTorrents, ['playlist_id', 'torrent_id', 'tmdb_id']);
+
+        return to_route('playlists.show', ['playlist' => $playlist])
+            ->withSuccess(trans('playlist.attached-success'));
     }
 
     /**
      * Detach A Torrent From A Playlist.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, PlaylistTorrent $playlistTorrent): \Illuminate\Http\RedirectResponse
     {
-        $user = \auth()->user();
-        $playlistTorrent = PlaylistTorrent::findOrFail($id);
+        abort_unless($request->user()->group->is_modo || $request->user()->id === $playlistTorrent->playlist->user_id, 403);
 
-        \abort_unless($user->group->is_modo || $user->id === $playlistTorrent->playlist->user_id, 403);
         $playlistTorrent->delete();
 
-        return \to_route('playlists.show', ['id' => $playlistTorrent->playlist->id])
-            ->withSuccess(\trans('playlist.detached-success'));
+        return to_route('playlists.show', ['playlist' => $playlistTorrent->playlist])
+            ->withSuccess(trans('playlist.detached-success'));
     }
 }

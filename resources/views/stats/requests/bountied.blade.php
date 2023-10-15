@@ -39,18 +39,18 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <a href="{{ route('request', ['id' => $request->id]) }}">
+                                <a href="{{ route('requests.show', ['torrentRequest' => $request]) }}">
                                     {{ $request->name }}
                                 </a>
                             </td>
                             <td>{{ $request->bounty }}</td>
                             <td>
-                                @if ($request->filled_hash == null)
+                                @if ($request->torrent_id === null)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-times-circle text-danger"
                                         title="{{ __('stat.request-not-fulfilled') }}"
                                     ></i>
-                                @elseif ($request->filled_hash != null && $request->approved_by == null)
+                                @elseif ($request->torrent_id !== null && $request->approved_by === null)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-question-circle text-info"
                                         title="{{ __('stat.request-pending-aproval') }}">

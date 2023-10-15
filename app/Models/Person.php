@@ -13,33 +13,246 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\Occupations;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public $timestamps = false;
 
     public $table = 'person';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Tv::class, 'person_tv', 'tv_id', 'person_id');
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
     }
 
-    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function createdTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Season::class, 'person_season', 'season_id', 'person_id');
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::CREATOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
     }
 
-    public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function directedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Episode::class, 'episode_person', 'episode_id', 'person_id');
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::DIRECTOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function writtenTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::WRITER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function producedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::PRODUCER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function composedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::COMPOSER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function cinematographedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::CINEMATOGRAPHER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function editedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::EDITOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function productionDesignedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::PRODUCTION_DESIGNER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function artDirectedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::ART_DIRECTOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function actedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tv::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::ACTOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Movie::class, 'person_movie', 'movie_id', 'person_id');
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function directedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::DIRECTOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function writtenMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::WRITER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function producedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::PRODUCER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function composedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::COMPOSER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function cinematographedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::CINEMATOGRAPHER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function editedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::EDITOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function productionDesignedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::PRODUCTION_DESIGNER)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function artDirectedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::ART_DIRECTOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
+    public function actedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Movie::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::ACTOR)
+            ->withPivot('character', 'occupation_id')
+            ->as('credit');
     }
 }

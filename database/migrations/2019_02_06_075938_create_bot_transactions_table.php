@@ -21,7 +21,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('bot_transactions', function (Blueprint $table) {
+        Schema::create('bot_transactions', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->string('type')->default('')->nullable()->index();
             $table->float('cost', 22)->default(0.00);

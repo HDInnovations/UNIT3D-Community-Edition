@@ -10,7 +10,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('genre_torrent', function (Blueprint $table) {
+        Schema::create('genre_torrent', function (Blueprint $table): void {
             $table->bigInteger('genre_id')->index();
             $table->bigInteger('torrent_id')->index();
             $table->primary(['genre_id', 'torrent_id']);

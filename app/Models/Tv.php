@@ -13,10 +13,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\Occupations;
 use Illuminate\Database\Eloquent\Model;
 
 class Tv extends Model
 {
+    use HasFactory;
+
     protected $guarded = [];
 
     public $table = 'tv';
@@ -25,57 +29,87 @@ class Tv extends Model
 
     /**
      * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q) {
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
             $q->where('tv_meta', '=', true);
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Season>
+     */
     public function seasons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Season::class)
             ->oldest('season_number');
     }
 
-    public function persons(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     */
+    public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Person::class);
+        return $this->belongsToMany(Person::class, 'credits');
     }
 
-    public function cast(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     */
+    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsToMany(Cast::class, 'cast_tv', 'cast_id', 'tv_id');
+        return $this->hasMany(Credit::class);
     }
 
-    public function crew(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     */
+    public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Crew::class, 'crew_tv', 'person_id', 'tv_id');
+        return $this->belongsToMany(Person::class, 'credits')
+            ->wherePivot('occupation_id', '=', Occupations::CREATOR->value);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre>
+     */
     public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Genre::class);
     }
 
-    public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Person::class);
-    }
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Network>
+     */
     public function networks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Network::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Company>
+     */
     public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Company::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Recommendation>
+     */
     public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Recommendation::class, 'tv_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
+    public function recommendedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(__CLASS__, Recommendation::class, 'tv_id', 'recommendation_tv_id', 'id', 'id');
     }
 }

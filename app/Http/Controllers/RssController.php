@@ -22,6 +22,7 @@ use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -33,16 +34,11 @@ class RssController extends Controller
      */
     public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        $publicRss = Rss::where('is_private', '=', 0)->oldest('position')->get();
-        $privateRss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
-
-        return \view('rss.index', [
+        return view('rss.index', [
             'hash'        => $hash,
-            'public_rss'  => $publicRss,
-            'private_rss' => $privateRss,
-            'user'        => $user,
+            'public_rss'  => Rss::where('is_private', '=', 0)->oldest('position')->get(),
+            'private_rss' => Rss::where('is_private', '=', 1)->where('user_id', '=', $request->user()->id)->latest()->get(),
+            'user'        => $request->user(),
         ]);
     }
 
@@ -51,14 +47,12 @@ class RssController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        return \view('rss.create', [
-            'categories'         => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'              => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions'        => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'             => Genre::all()->sortBy('name'),
-            'user'               => $user,
+        return view('rss.create', [
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $request->user(),
         ]);
     }
 
@@ -67,9 +61,7 @@ class RssController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $user = $request->user();
-
-        $v = \validator($request->all(), [
+        $v = validator($request->all(), [
             'name'          => 'required|min:3|max:255',
             'search'        => 'max:255',
             'description'   => 'max:255',
@@ -112,92 +104,103 @@ class RssController extends Controller
             'dead',
         ]);
 
-        $error = null;
-        $success = null;
-
         if ($v->passes()) {
             $rss = new Rss();
             $rss->name = $request->input('name');
-            $rss->user_id = $user->id;
+            $rss->user_id = $request->user()->id;
             $expected = $rss->expected_fields;
-            $rss->json_torrent = \array_merge($expected, $params);
-            $rss->is_private = 1;
+            $rss->json_torrent = array_merge($expected, $params);
+            $rss->is_private = true;
             $rss->save();
-            $success = \trans('rss.created');
+
+            return to_route('rss.index', ['hash' => 'private'])
+                ->withSuccess(trans('rss.created'));
         }
 
-        if ($success === null) {
-            $error = \trans('rss.error');
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('rss.create')
-                ->withErrors($error);
-        }
-
-        return \to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess($success);
+        return to_route('rss.create')
+            ->withErrors($v->errors());
     }
 
     /**
      * Display the specified RSS resource.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
     {
-        $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
+        $user = User::where('rsskey', '=', $rsskey)->sole();
 
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-        \abort_if($user->group->id == $bannedGroup[0] || $user->group->id == $disabledGroup[0] || ! $user->active, 404);
+        abort_if($user->group_id == $bannedGroup[0] || $user->group_id == $disabledGroup[0] || ! $user->active, 404);
 
         $rss = Rss::query()
-            ->where('id', '=', $id)
             ->where(
                 fn ($query) => $query
-                ->where('user_id', '=', $user->id)
-                ->orWhere('is_private', '=', 0)
+                    ->where('user_id', '=', $user->id)
+                    ->orWhere('is_private', '=', 0)
             )
-            ->firstOrFail();
+            ->findOrFail($id);
 
         $search = $rss->object_torrent;
 
         $cacheKey = 'rss:'.$rss->id;
 
-        $torrents = \cache()->remember($cacheKey, 300, function () use ($search, $user) {
-            return Torrent::with('user', 'category', 'type', 'resolution')
-                ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
-                ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
-                ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader))
-                ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
-                ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
-                ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
-                ->when($search->genres !== null, fn ($query) => $query->ofGenre($search->genres))
-                ->when($search->tmdb !== null, fn ($query) => $query->ofTmdb((int) $search->tmdb))
-                ->when($search->imdb !== null, fn ($query) => $query->ofImdb((int) (\preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)))
-                ->when($search->tvdb !== null, fn ($query) => $query->ofTvdb((int) $search->tvdb))
-                ->when($search->mal !== null, fn ($query) => $query->ofMal((int) $search->mal))
-                ->when($search->freeleech !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
-                ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
-                ->when($search->featured !== null, fn ($query) => $query->featured())
-                ->when($search->stream !== null, fn ($query) => $query->streamOptimized())
-                ->when($search->sd !== null, fn ($query) => $query->sd())
-                ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
-                ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
-                ->when($search->internal !== null, fn ($query) => $query->internal())
-                ->when($search->personalrelease !== null, fn ($query) => $query->personalRelease())
-                ->when($search->alive !== null, fn ($query) => $query->alive())
-                ->when($search->dying !== null, fn ($query) => $query->dying())
-                ->when($search->dead !== null, fn ($query) => $query->dead())
-                ->orderByDesc('bumped_at')
-                ->take(50)
-                ->get();
-        });
+        $torrents = cache()->remember($cacheKey, 300, fn () => Torrent::query()
+            ->select([
+                'name',
+                'id',
+                'category_id',
+                'type_id',
+                'resolution_id',
+                'size',
+                'created_at',
+                'seeders',
+                'leechers',
+                'times_completed',
+                'user_id',
+                'anon',
+                'imdb',
+                'tmdb',
+                'tvdb',
+                'mal',
+                'internal',
+            ])
+            ->with([
+                'user:id,username,rsskey',
+                'category:id,name,movie_meta,tv_meta',
+                'type:id,name',
+                'resolution:id,name'
+            ])
+            ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
+            ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
+            ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader, $user))
+            ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
+            ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
+            ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
+            ->when($search->genres !== null, fn ($query) => $query->ofGenre($search->genres))
+            ->when($search->tmdb !== null, fn ($query) => $query->ofTmdb((int) $search->tmdb))
+            ->when($search->imdb !== null, fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', (string) $search->imdb, $matches) ? $matches[1] : $search->imdb)))
+            ->when($search->tvdb !== null, fn ($query) => $query->ofTvdb((int) $search->tvdb))
+            ->when($search->mal !== null, fn ($query) => $query->ofMal((int) $search->mal))
+            ->when($search->freeleech !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
+            ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
+            ->when($search->featured !== null, fn ($query) => $query->featured())
+            ->when($search->stream !== null, fn ($query) => $query->streamOptimized())
+            ->when($search->sd !== null, fn ($query) => $query->sd())
+            ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
+            ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
+            ->when($search->internal !== null, fn ($query) => $query->internal())
+            ->when($search->personalrelease !== null, fn ($query) => $query->personalRelease())
+            ->when($search->alive !== null, fn ($query) => $query->alive())
+            ->when($search->dying !== null, fn ($query) => $query->dying())
+            ->when($search->dead !== null, fn ($query) => $query->dead())
+            ->orderByDesc('bumped_at')
+            ->take(50)
+            ->get());
 
-        return \response()->view('rss.show', [
+        return response()->view('rss.show', [
             'torrents' => $torrents,
             'user'     => $user,
             'rss'      => $rss,
@@ -212,15 +215,16 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        \abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
-        return \view('rss.edit', [
-            'categories'         => Category::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'types'              => Type::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'resolutions'        => Resolution::select(['id', 'name', 'position'])->get()->sortBy('position'),
-            'genres'             => Genre::all()->sortBy('name'),
-            'user'               => $user,
-            'rss'                => $rss,
+        abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
+
+        return view('rss.edit', [
+            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => Genre::orderBy('name')->get(),
+            'user'        => $user,
+            'rss'         => $rss,
         ]);
     }
 
@@ -229,9 +233,12 @@ class RssController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
-        $v = \validator($request->all(), [
+        abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
+
+        $v = validator($request->all(), [
             'search'        => 'max:255',
             'description'   => 'max:255',
             'uploader'      => 'max:255',
@@ -272,43 +279,36 @@ class RssController extends Controller
             'dead',
         ]);
 
-        $error = null;
-        $success = null;
-        $redirect = null;
         if ($v->passes()) {
             $expected = $rss->expected_fields;
-            $push = \array_merge($expected, $params);
-            $rss->json_torrent = \array_merge($rss->json_torrent, $push);
-            $rss->is_private = 1;
+            $push = array_merge($expected, $params);
+            $rss->json_torrent = array_merge($rss->json_torrent, $push);
+            $rss->is_private = true;
             $rss->save();
-            $success = \trans('rss.updated');
+
+            return to_route('rss.index', ['hash' => 'private'])
+                ->withSuccess(trans('rss.created'));
         }
 
-        if ($success === null) {
-            $error = \trans('rss.error');
-            if ($v->errors()) {
-                $error = $v->errors();
-            }
-
-            return \to_route('rss.edit', ['id' => $id])
-                ->withErrors($error);
-        }
-
-        return \to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess($success);
+        return to_route('rss.create', ['id' => $id])
+            ->withErrors($v->errors());
     }
 
     /**
      * Remove the specified RSS resource from storage.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
+        $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
+
         $rss->delete();
 
-        return \to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess(\trans('rss.deleted'));
+        return to_route('rss.index', ['hash' => 'private'])
+            ->withSuccess(trans('rss.deleted'));
     }
 }

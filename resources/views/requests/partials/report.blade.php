@@ -1,16 +1,16 @@
-<div class="form__group form__group--short-horizontal" x-data="{ open: false }">
-    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="open = true; $refs.dialog.showModal();">
+<div class="form__group form__group--short-horizontal" x-data>
+    <button class="form__button form__button--outlined form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
         {{ __('common.report') }}
     </button>
-    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+    <dialog class="dialog" x-ref="dialog">
         <h3 class="dialog__heading">
-            {{ __('request.report') }}: {{ $torrentRequest->name }}</h4>
+            {{ __('request.report') }}: {{ $torrentRequest->name }}
         </h3>
         <form
             class="dialog__form"
             method="POST"
             action="{{ route("report_request", ['id' => $torrentRequest->id]) }}"
-            x-on:click.outside="open = false; $refs.dialog.close();"
+            x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
             <input id="type" type="hidden" name="title" value="{{ $torrentRequest->name }}">
@@ -19,7 +19,7 @@
                     id="message"
                     class="form__text"
                     name="message"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 ></textarea>
                 <label for="message" class="form__label form__label--floating">
@@ -36,7 +36,7 @@
                 >
                     {{ __('request.report') }}
                 </button>
-                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
             </p>

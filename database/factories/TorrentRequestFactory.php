@@ -1,6 +1,15 @@
 <?php
-
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace Database\Factories;
 
@@ -10,36 +19,42 @@ use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\TorrentRequest;
 
 class TorrentRequestFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     */
+    protected $model = TorrentRequest::class;
+
     /**
      * Define the model's default state.
      */
     public function definition(): array
     {
         return [
-            'name'               => $this->faker->name(),
-            'category_id'        => fn () => Category::factory()->create()->id,
-            'type_id'            => fn () => Type::factory()->create()->id,
-            'resolution_id'      => fn () => Resolution::factory()->create()->id,
-            'imdb'               => $this->faker->word(),
-            'tvdb'               => $this->faker->word(),
-            'tmdb'               => $this->faker->word(),
-            'mal'                => $this->faker->word(),
-            'igdb'               => $this->faker->word(),
-            'description'        => $this->faker->text(),
-            'user_id'            => fn () => User::factory()->create()->id,
-            'bounty'             => $this->faker->randomFloat(),
-            'votes'              => $this->faker->randomNumber(),
-            'claimed'            => $this->faker->boolean(),
-            'anon'               => $this->faker->boolean(),
-            'filled_by'          => fn () => User::factory()->create()->id,
-            'filled_hash'        => fn () => Torrent::factory()->create()->id,
-            'filled_when'        => $this->faker->dateTime(),
-            'filled_anon'        => $this->faker->boolean(),
-            'approved_by'        => fn () => User::factory()->create()->id,
-            'approved_when'      => $this->faker->dateTime(),
+            'name'          => $this->faker->name(),
+            'category_id'   => Category::factory(),
+            'imdb'          => $this->faker->randomNumber(),
+            'tvdb'          => $this->faker->randomNumber(),
+            'tmdb'          => $this->faker->randomNumber(),
+            'mal'           => $this->faker->randomNumber(),
+            'igdb'          => $this->faker->word(),
+            'description'   => $this->faker->text(),
+            'user_id'       => User::factory(),
+            'bounty'        => $this->faker->randomFloat(),
+            'votes'         => $this->faker->randomNumber(),
+            'claimed'       => $this->faker->boolean(),
+            'anon'          => $this->faker->boolean(),
+            'filled_by'     => User::factory(),
+            'torrent_id'    => Torrent::factory(),
+            'filled_when'   => $this->faker->dateTime(),
+            'filled_anon'   => $this->faker->boolean(),
+            'approved_by'   => User::factory(),
+            'approved_when' => $this->faker->dateTime(),
+            'type_id'       => Type::factory(),
+            'resolution_id' => Resolution::factory(),
         ];
     }
 }

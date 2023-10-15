@@ -14,10 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\DestroyDistributorRequest;
+use App\Http\Requests\Staff\StoreDistributorRequest;
+use App\Http\Requests\Staff\UpdateDistributorRequest;
 use App\Models\Distributor;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Exception;
 
 class DistributorController extends Controller
 {
@@ -26,9 +27,9 @@ class DistributorController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributors = Distributor::all()->sortBy('position');
-
-        return \view('Staff.distributor.index', ['distributors' => $distributors]);
+        return view('Staff.distributor.index', [
+            'distributors' => Distributor::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -36,104 +37,63 @@ class DistributorController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.distributor.create');
+        return view('Staff.distributor.create');
     }
 
     /**
      * Store A New Distributor.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreDistributorRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $distributor = new Distributor();
-        $distributor->name = $request->input('name');
-        $distributor->slug = Str::slug($distributor->name);
-        $distributor->position = $request->input('position');
+        Distributor::create($request->validated());
 
-        $v = \validator($distributor->toArray(), [
-            'name'     => 'required|unique:distributors,name',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.distributors.index')
-                ->withErrors($v->errors());
-        }
-
-        $distributor->save();
-
-        return \to_route('staff.distributors.index')
-                ->withSuccess('Distributor Successfully Added');
+        return to_route('staff.distributors.index')
+            ->withSuccess('Distributor Successfully Added');
     }
 
     /**
      * Distributor Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributor = Distributor::findOrFail($id);
-
-        return \view('Staff.distributor.edit', ['distributor' => $distributor]);
+        return view('Staff.distributor.edit', [
+            'distributor' => $distributor,
+        ]);
     }
 
     /**
      * Edit A Distributor.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        $distributor = Distributor::findOrFail($id);
-        $distributor->name = $request->input('name');
-        $distributor->slug = Str::slug($distributor->name);
-        $distributor->position = $request->input('position');
+        $distributor->update($request->validated());
 
-        $v = \validator($distributor->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.distributors.index')
-                ->withErrors($v->errors());
-        }
-
-        $distributor->save();
-
-        return \to_route('staff.distributors.index')
-                ->withSuccess('Distributor Successfully Modified');
+        return to_route('staff.distributors.index')
+            ->withSuccess('Distributor Successfully Modified');
     }
 
     /**
      * Delete Edit Form.
      */
-    public function delete(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function delete(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $distributors = Distributor::all()->sortBy('position');
-        $distributor = Distributor::findOrFail($id);
-
-        return \view('Staff.distributor.delete', ['distributors' => $distributors, 'distributor' => $distributor]);
+        return view('Staff.distributor.delete', [
+            'distributors' => Distributor::orderBy('name')->get(),
+            'distributor'  => $distributor,
+        ]);
     }
 
     /**
      * Destroy A Distributor.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(DestroyDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        $distributor = Distributor::findOrFail($id);
-
-        $validated = $request->validate([
-            'distributor_id' => [
-                'required',
-                'exists:distributors,id',
-                Rule::notIn([$distributor->id]),
-            ],
-        ]);
-        $distributor->torrents()->update($validated);
+        $distributor->torrents()->update($request->validated());
         $distributor->delete();
 
-        return \to_route('staff.distributors.index')
+        return to_route('staff.distributors.index')
             ->withSuccess('Distributor Successfully Deleted');
     }
 }

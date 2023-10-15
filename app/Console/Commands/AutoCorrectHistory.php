@@ -16,6 +16,8 @@ namespace App\Console\Commands;
 use App\Models\History;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
@@ -39,17 +41,17 @@ class AutoCorrectHistory extends Command
     /**
      * Execute the console command.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
-        $carbon = new Carbon();
-        $history = History::select(['id', 'active', 'updated_at'])->where('active', '=', 1)->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
-
-        foreach ($history as $h) {
-            $h->active = false;
-            $h->save();
-        }
+        History::select(['id', 'active', 'updated_at'])
+            ->where('active', '=', 1)
+            ->where('updated_at', '<', Carbon::now()->subHours(2)->toDateTimeString())
+            ->update([
+                'active'     => 0,
+                'updated_at' => DB::raw('updated_at'),
+            ]);
 
         $this->comment('Automated History Record Correction Command Complete');
     }

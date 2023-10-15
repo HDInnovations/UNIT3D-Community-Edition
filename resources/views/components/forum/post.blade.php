@@ -1,36 +1,4 @@
-@props([
-    'post' => (object) [
-        'id'                               => 1,
-        'topic'                            => (object) [
-            'id' => 1,
-            'name' => '',
-            'state' => 'closed',
-            'tips' => [
-                (object) ['cost' => 0],
-            ],
-        ],
-        'page'                             => -1,
-        'created_at'                       => '',
-        'user'                             => [
-            'id'       => 1,
-            'image'    => null,
-            'group' => (object) [
-                'color' => '',
-                'effect' => '',
-                'group' => '',
-                'icon' => '',
-            ],
-            'posts' => [],
-            'signature' => '',
-            'title' => '',
-            'topics' => [],
-            'username' => '',
-        ],
-        'content'                         => '',
-    ],
-])
-
-<article class="post" id="post-{{ $post->id }}">
+<article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
         <time
             class="post__datetime"
@@ -39,16 +7,16 @@
         >
             {{ $post->created_at?->diffForHumans() }}
         </time>
-        @if (! Route::is('forum_topic'))
+        @if (! Route::is('topics.show'))
             <span class="post__topic">
                 {{ __('forum.in') }}
-                <a href="{{ route('forum_topic', ['id' => $post->topic->id]) }}">{{ $post->topic->name }}</a>
+                <a href="{{ route('topics.show', ['id' => $post->topic->id]) }}">{{ $post->topic->name }}</a>
             </span>
         @endif
-        @if($post->tips?->sum('cost') > 0)
+        @if($post->tips_sum_cost > 0)
             <dl class="post__tip-stats">
                 <dt>{{ __('torrent.bon-tipped') }}</dt>
-                <dd>{{ $post->tips?->sum('cost') ?? 0 }}</dd>
+                <dd>{{ $post->tips_sum_cost ?? 0 }}</dd>
             </dl>
         @endif
         <menu class="post__toolbar">
@@ -57,7 +25,7 @@
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('tips.store', ['username' => auth()->user()->username]) }}"
+                    action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
                 >
                     @csrf
                     <input type="hidden" name="recipient" value="{{ $post->user->id }}">
@@ -87,15 +55,15 @@
                 </form>
             </li>
             <li class="post__toolbar-item">
-                @livewire('like-button', ['post' => $post->id])
+                @livewire('like-button', ['post' => $post, 'likesCount' => $post->likes_count], key('like-'.$post->id))
             </li>
             <li class="post__toolbar-item">
-                @livewire('dislike-button', ['post' => $post->id])
+                @livewire('dislike-button', ['post' => $post, 'dislikesCount' => $post->dislikes_count], key('dislike-'.$post->id))
             </li>
             <li class="post__toolbar-item">
                 <a
                     class="post__permalink"
-                    href="{{ route('forum_topic', ['id' => $post->topic->id]) }}?page={{ $post->getPageNumber() }}#post-{{ $post->id }}"
+                    href="{{ route('topics.permalink', ['topicId' => $post->topic_id, 'postId' => $post->id]) }}"
                     title="{{ __('forum.permalink') }}"
                 >
                     <i class="{{ \config('other.font-awesome') }} fa-link"></i>
@@ -106,11 +74,16 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-data
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]{{ \htmlspecialchars($post->content) }}[/quote]';
+                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]';
+                            input.value += (() => {
+                                var text = document.createElement('textarea');
+                                text.innerHTML = decodeURIComponent(atob($refs.content.dataset.base64Bbcode).split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                                return text.value;
+                            })();
+                            input.value += '[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
@@ -119,24 +92,23 @@
                     </button>
                 </li>
             @endif
-            @if (auth()->user()->group->is_modo || $post->user->id === auth()->user()->id)
+            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->id() && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <a
                         class="post__edit"
-                        href="{{ route('forum_post_edit_form', ['id' => $post->topic->id, 'postId' => $post->id]) }}"
+                        href="{{ route('posts.edit', ['id' => $post->id]) }}"
                         title="{{ __('common.edit') }}"
                     >
                         <i class="{{ \config('other.font-awesome') }} fa-pencil"></i>
                     </a>
                 </li>
-            @endif
-            @if (auth()->user()->group->is_modo || ($post->user->id === auth()->user()->id && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <form
                         class="post__delete"
                         role="form"
                         method="POST"
-                        action="{{ route('forum_post_delete', ['id' => $post->topic->id, 'postId' => $post->id]) }}"
+                        action="{{ route('posts.destroy', ['id' => $post->id]) }}"
+                        x-data
                     >
                         @csrf
                         @method('DELETE')
@@ -144,6 +116,17 @@
                             class="post__delete-button"
                             type="submit"
                             title="{{ __('common.delete') }}"
+                            x-on:click.prevent="Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'Are you sure you want to delete this post?',
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $root.submit();
+                                    }
+                                })"
                         >
                             <i class="{{ \config('other.font-awesome') }} fa-trash"></i>
                         </button>
@@ -171,7 +154,7 @@
                 @else
                     <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="Offline"></i>
                 @endif
-                <a href="{{ route('create', ['receiver_id' => $post->user->id, 'username' => $post->user->username]) }}">
+                <a href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $post->user->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
             </x-slot>
@@ -195,31 +178,32 @@
         </dl>
         <dl class="post__author-topics">
             <dt>
-                <a href="{{ route('user_topics', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.topics.index', ['user' => $post->user]) }}">
                 {{ __('forum.topics') }}
                 </a>
             </dt>
-            <dd>{{ $post->user->topics?->count() ?? '0' }}</dd>
+            <dd>{{ $post->author_topics_count ?? '0' }}</dd>
         </dl>
         <dl class="post__author-posts">
             <dt>
-                <a href="{{ route('user_posts', ['username' => $post->user->username]) }}">
+                <a href="{{ route('users.posts.index', ['user' => $post->user]) }}">
                     {{ __('forum.posts') }}
                 </a>
             </dt>
-            <dd>{{ $post->user->posts?->count() ?? '0' }}</dd>
+            <dd>{{ $post->author_posts_count ?? '0' }}</dd>
         </dl>
     </aside>
     <div
-        class="post__content"
-        data-bbcode="{{ $post->content }}"
+        class="post__content bbcode-rendered"
+        x-ref="content"
+        data-base64-bbcode="{{ base64_encode($post->content) }}"
     >
         @joypixels($post->getContentHtml())
     </div>
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                {!! $post->user->getSignature() !!}
+                {!! $post->user->signature_html !!}
             </p>
         </footer>
     @endif

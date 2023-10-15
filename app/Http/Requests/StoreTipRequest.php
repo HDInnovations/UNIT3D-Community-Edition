@@ -33,6 +33,8 @@ class StoreTipRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(Request $request): array
     {
@@ -44,9 +46,9 @@ class StoreTipRequest extends FormRequest
                 'prohibits:post',
                 'required_without:post',
                 'exists:torrents,id',
-                function ($attribute, $value, $fail) use ($user) {
-                    if (Torrent::find($value)->user->id === $user->id) {
-                        $fail(\trans('bon.failed-yourself'));
+                function ($attribute, $value, $fail) use ($user): void {
+                    if (Torrent::find($value)->user->is($user)) {
+                        $fail(trans('bon.failed-yourself'));
                     }
                 },
             ],
@@ -55,9 +57,9 @@ class StoreTipRequest extends FormRequest
                 'prohibits:torrent',
                 'required_without:torrent',
                 'exists:posts,id',
-                function ($attribute, $value, $fail) use ($user) {
-                    if (Post::find($value)->user->id === $user->id) {
-                        $fail(\trans('bon.failed-yourself'));
+                function ($attribute, $value, $fail) use ($user): void {
+                    if (Post::find($value)->user->is($user)) {
+                        $fail(trans('bon.failed-yourself'));
                     }
                 },
             ],
@@ -72,12 +74,14 @@ class StoreTipRequest extends FormRequest
 
     /**
      * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
      */
     public function messages(): array
     {
         return [
-            'tip.min' => \trans('bon.failed-negative'),
-            'tip.max' => \trans('bon.failed-funds-poster'),
+            'tip.min' => trans('bon.failed-negative'),
+            'tip.max' => trans('bon.failed-funds-poster'),
         ];
     }
 }

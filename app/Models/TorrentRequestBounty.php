@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TorrentRequestBounty extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.
@@ -30,7 +30,16 @@ class TorrentRequestBounty extends Model
     protected $table = 'request_bounty';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -42,6 +51,8 @@ class TorrentRequestBounty extends Model
 
     /**
      * Belongs To A Torrent Request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, self>
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

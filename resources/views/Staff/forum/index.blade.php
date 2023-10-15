@@ -43,7 +43,7 @@
                 @foreach ($categories as $category)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.forums.edit', ['id' => $category->id]) }}">{{ $category->name }}</a>
+                            <a href="{{ route('staff.forums.edit', ['forum' => $category]) }}">{{ $category->name }}</a>
                         </td>
                         <td>Category</td>
                         <td>{{ $category->position }}</td>
@@ -52,7 +52,7 @@
                                 <li class="data-table__action">
                                     <a
                                         class="form__button form__button--text"
-                                        href="{{ route('staff.forums.edit', ['id' => $category->id]) }}"
+                                        href="{{ route('staff.forums.edit', ['forum' => $category]) }}"
                                     >
                                         {{ __('common.edit') }}
                                     </a>
@@ -60,15 +60,15 @@
                                 <li class="data-table__action">
                                     <form
                                         method="POST"
-                                        action="{{ route('staff.forums.destroy', ['id' => $category->id]) }}"
+                                        action="{{ route('staff.forums.destroy', ['forum' => $category]) }}"
                                         x-data
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this forum category: {{ $category->name }}?',
+                                                text: `Are you sure you want to delete this forum category: ${atob('{{ base64_encode($category->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,
@@ -86,10 +86,10 @@
                             </menu>
                         </td>
                     </tr>
-                    @foreach ($category->getForumsInCategory()->sortBy('position') as $forum)
+                    @foreach ($category->forums as $forum)
                         <tr>
                             <td style="padding-left: 50px">
-                                <a href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}">{{ $forum->name }}</a>
+                                <a href="{{ route('staff.forums.edit', ['forum' => $forum]) }}">{{ $forum->name }}</a>
                             </td>
                             <td>Forum</td>
                             <td>{{ $forum->position }}</td>
@@ -98,7 +98,7 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.forums.edit', ['id' => $forum->id]) }}"
+                                            href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
@@ -106,15 +106,15 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.forums.destroy', ['id' => $forum->id]) }}"
+                                            action="{{ route('staff.forums.destroy', ['forum' => $forum]) }}"
                                             x-data
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <button 
+                                            <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this forum: {{ $forum->name }}?',
+                                                    text: `Are you sure you want to delete this forum: ${atob('{{ base64_encode($forum->name) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,

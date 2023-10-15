@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Sinulla ei ole tarpeeksi bonusta',
     'edit-request'        => 'Muokkaa pyyntöä',
     'enter-bp'            => 'Anna bonuspisteet (vähintään 100)',
-    'enter-hash'          => 'Anna ladatun Torrentin Info Hash',
+    'enter-hash'          => 'Anna ladatun Torrentin ID',
     'fill'                => 'Täyttää',
     'fill-request'        => 'Täytä tämä pyyntö',
     'filled'              => 'täynnä',

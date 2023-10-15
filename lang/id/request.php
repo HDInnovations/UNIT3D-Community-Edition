@@ -33,7 +33,7 @@ return [
     'dont-have-bps'       => 'Anda tidak memiliki Bonus yang cukup',
     'edit-request'        => 'Edit permintaan',
     'enter-bp'            => 'Masukkan poin bonus (minimal 100)',
-    'enter-hash'          => 'Masukkan Info Hash dari Torrent yang diunggah',
+    'enter-hash'          => 'Masukkan ID dari Torrent yang diunggah',
     'fill'                => 'Mengisi',
     'fill-request'        => 'Isi permintaan ini',
     'filled'              => 'Terisi',

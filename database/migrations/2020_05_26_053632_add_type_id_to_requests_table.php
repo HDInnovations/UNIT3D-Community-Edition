@@ -23,17 +23,17 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('requests', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table): void {
             $table->integer('type_id')->index();
         });
 
         foreach (TorrentRequest::all() as $torrent_req) {
-            $type_id = Type::where('name', '=', $torrent_req->type)->firstOrFail()->id;
+            $type_id = Type::where('name', '=', $torrent_req->type)->sole()->id;
             $torrent_req->type_id = $type_id;
             $torrent_req->save();
         }
 
-        Schema::table('requests', function (Blueprint $table) {
+        Schema::table('requests', function (Blueprint $table): void {
             $table->dropColumn('type');
         });
     }

@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BotTransaction extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Indicates If The Model Should Be Timestamped.
@@ -31,8 +31,9 @@ class BotTransaction extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
-    // Bad name to not conflict with sender (not sender_id)
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
@@ -43,8 +44,9 @@ class BotTransaction extends Model
 
     /**
      * Belongs To A Bot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, self>
      */
-    // Bad name to not conflict with sender (not sender_id)
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Bot::class)->withDefault([

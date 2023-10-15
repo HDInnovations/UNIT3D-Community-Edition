@@ -25,13 +25,6 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     /**
-     * ReportController Constructor.
-     */
-    public function __construct(private readonly Report $report)
-    {
-    }
-
-    /**
      * Create A Request Report.
      */
     public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
@@ -40,28 +33,26 @@ class ReportController extends Controller
         $reportedBy = $request->user();
         $reportedUser = $torrentRequest->user;
 
-        $v = \validator($request->all(), [
-            'message' => 'required',
+        $request->validate([
+            'message' => [
+                'required',
+                'max:65535',
+            ],
         ]);
 
-        if ($v->fails()) {
-            return \to_route('request', ['id' => $id])
-                ->withErrors($v->errors());
-        }
-
-        $this->report->create([
+        Report::create([
             'type'          => 'Request',
             'request_id'    => $torrentRequest->id,
-            'torrent_id'    => 0,
+            'torrent_id'    => null,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $torrentRequest->name,
-            'message'       => $request->get('message'),
+            'message'       => $request->string('message'),
             'solved'        => 0,
         ]);
 
-        return \to_route('request', ['id' => $id])
-            ->withSuccess(\trans('user.report-sent'));
+        return to_route('requests.show', ['torrentRequest' => $torrentRequest])
+            ->withSuccess(trans('user.report-sent'));
     }
 
     /**
@@ -73,28 +64,26 @@ class ReportController extends Controller
         $reportedBy = $request->user();
         $reportedUser = $torrent->user;
 
-        $v = \validator($request->all(), [
-            'message' => 'required',
+        $request->validate([
+            'message' => [
+                'required',
+                'max:65535',
+            ],
         ]);
 
-        if ($v->fails()) {
-            return \to_route('torrent', ['id' => $id])
-                ->withErrors($v->errors());
-        }
-
-        $this->report->create([
+        Report::create([
             'type'          => 'Torrent',
             'torrent_id'    => $torrent->id,
-            'request_id'    => 0,
+            'request_id'    => null,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $torrent->name,
-            'message'       => $request->get('message'),
+            'message'       => $request->string('message'),
             'solved'        => 0,
         ]);
 
-        return \to_route('torrent', ['id' => $id])
-            ->withSuccess(\trans('user.report-sent'));
+        return to_route('torrents.show', ['id' => $id])
+            ->withSuccess(trans('user.report-sent'));
     }
 
     /**
@@ -102,30 +91,28 @@ class ReportController extends Controller
      */
     public function user(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $reportedUser = User::where('username', '=', $username)->firstOrFail();
+        $reportedUser = User::where('username', '=', $username)->sole();
         $reportedBy = $request->user();
 
-        $v = \validator($request->all(), [
-            'message' => 'required',
+        $request->validate([
+            'message' => [
+                'required',
+                'max:65535',
+            ],
         ]);
 
-        if ($v->fails()) {
-            return \to_route('users.show', ['username' => $username])
-                ->withErrors($v->errors());
-        }
-
-        $this->report->create([
+        Report::create([
             'type'          => 'User',
-            'torrent_id'    => 0,
-            'request_id'    => 0,
+            'torrent_id'    => null,
+            'request_id'    => null,
             'reporter_id'   => $reportedBy->id,
             'reported_user' => $reportedUser->id,
             'title'         => $reportedUser->username,
-            'message'       => $request->get('message'),
+            'message'       => $request->string('message'),
             'solved'        => 0,
         ]);
 
-        return \to_route('users.show', ['username' => $username])
-            ->withSuccess(\trans('user.report-sent'));
+        return to_route('users.show', ['user' => $reportedBy])
+            ->withSuccess(trans('user.report-sent'));
     }
 }

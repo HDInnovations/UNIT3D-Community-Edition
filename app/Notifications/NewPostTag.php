@@ -25,27 +25,31 @@ class NewPostTag extends Notification implements ShouldQueue
     /**
      * NewPostTag Constructor.
      */
-    public function __construct(public string $type, public string $tagger, public Post $post)
+    public function __construct(public Post $post)
     {
     }
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->tagger.' Has Tagged You In A Post',
-            'body'  => $this->tagger.' has tagged you in a Post in Topic '.$this->post->topic->name,
-            'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+            'title' => $this->post->user->username.' Has Tagged You In A Post',
+            'body'  => $this->post->user->username.' has tagged you in a Post in Topic '.$this->post->topic->name,
+            'url'   => sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
         ];
     }
 }

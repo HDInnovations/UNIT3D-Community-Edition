@@ -174,7 +174,7 @@ return [
     'special'                  => 'Special',
     'special-freeleech'        => 'Special Freeleech',
     'staff-tools'              => 'Outils du Staff',
-    'start-year'	              => 'Année de début',
+    'start-year'               => 'Année de début',
     'started'                  => 'Demarré',
     'status'                   => 'Statut',
     'statistics'               => 'Statistiques',
@@ -218,5 +218,4 @@ return [
     'view-trailer'             => 'Bande-annonce',
     'votes'                    => 'Votes',
     'year-range'               => 'Par année',
-
 ];

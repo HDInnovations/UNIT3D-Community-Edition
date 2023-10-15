@@ -15,9 +15,12 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
+use App\Http\Requests\UpdatePollRequest;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
+use Exception;
+use Illuminate\Support\Arr;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
@@ -36,19 +39,19 @@ class PollController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $polls = Poll::latest()->paginate(25);
-
-        return \view('Staff.poll.index', ['polls' => $polls]);
+        return view('Staff.poll.index', [
+            'polls' => Poll::latest()->paginate(25),
+        ]);
     }
 
     /**
      * Show A Poll.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Poll $poll): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::where('id', '=', $id)->firstOrFail();
-
-        return \view('Staff.poll.show', ['poll' => $poll]);
+        return view('Staff.poll.show', [
+            'poll' => $poll,
+        ]);
     }
 
     /**
@@ -56,107 +59,68 @@ class PollController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.poll.create');
+        return view('Staff.poll.create');
     }
 
     /**
      * Store A New Poll.
      */
-    public function store(StorePoll $storePoll): \Illuminate\Http\RedirectResponse
+    public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $storePoll->user();
-
-        $poll = $storePoll->user() ? $user->polls()->create($storePoll->all()) : Poll::create($storePoll->all());
-
-        $options = \collect($storePoll->input('options'))->map(fn ($value) => new Option(['name' => $value]));
-        $poll->options()->saveMany($options);
-
-        $pollUrl = \href_poll($poll);
+        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'multiple_choice']));
+        Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], []);
 
         $this->chatRepository->systemMessage(
-            \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
+            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', href_poll($poll), $poll->title)
         );
 
-        return \to_route('staff.polls.index')
+        return to_route('staff.polls.index')
             ->withSuccess('Your poll has been created.');
     }
 
     /**
      * Poll Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Poll $poll): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $poll = Poll::findOrFail($id);
-
-        return \view('Staff.poll.edit', ['poll' => $poll]);
+        return view('Staff.poll.edit', [
+            'poll' => $poll,
+        ]);
     }
 
     /**
      * Update A New Poll.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function update(StorePoll $storePoll, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdatePollRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::findOrFail($id);
+        $poll->update($request->safe()->only(['title', 'multiple_choice']));
 
-        $poll->title = $storePoll->input('title');
-
-        $poll->multiple_choice = (bool) $storePoll->input('multiple_choice');
-
-        // Remove the deleted options in poll
-        $oldOptionIds = \collect($poll->options)->map(fn ($option) => $option->id)->all();
-
-        $existingOldOptionIds = \collect($storePoll->input('option-id'))->map(fn ($id) => (int) $id)->all();
-
-        foreach (\array_diff($oldOptionIds, $existingOldOptionIds) as $id) {
-            $option = Option::findOrFail($id);
-            $option->delete();
-        }
-
-        // Update existing options
-        $existingOldOptionContents = \collect($storePoll->input('option-content'))->map(fn ($content) => (string) $content)->all();
-
-        if (\count($existingOldOptionContents) === \count($existingOldOptionIds)) {
-            $len = \count($existingOldOptionContents);
-            for ($i = 0; $i < $len; $i++) {
-                $option = Option::findOrFail($existingOldOptionIds[$i]);
-                $option->name = $existingOldOptionContents[$i];
-                $option->save();
-            }
-        }
-
-        // Insert new options
-        $newOptions = \collect($storePoll->input('new-option-content'))->map(fn ($content) => new Option(['name' => $content]));
-
-        $poll->options()->saveMany($newOptions);
-
-        // Last work from store()
-        $pollUrl = \href_poll($poll);
+        $poll->options()
+            ->whereNotIn('id', Arr::flatten($request->safe()->only(['options.*.id'])))
+            ->delete();
+        Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], ['name']);
 
         $this->chatRepository->systemMessage(
-            \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', $pollUrl, $poll->title)
+            sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', href_poll($poll), $poll->title)
         );
 
-        $poll->save();
-
-        return \to_route('staff.polls.index')
+        return to_route('staff.polls.index')
             ->withSuccess('Your poll has been edited.');
     }
 
     /**
      * Delete A Poll.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::findOrFail($id);
+        $poll->options()->delete();
         $poll->delete();
 
-        Option::where('poll_id', '=', $id)->delete();
-
-        return \to_route('staff.polls.index')
+        return to_route('staff.polls.index')
             ->withSuccess('Poll has successfully been deleted');
     }
 }

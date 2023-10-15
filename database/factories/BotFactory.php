@@ -1,13 +1,28 @@
 <?php
-
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Bot;
 
 class BotFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     */
+    protected $model = Bot::class;
+
     /**
      * Define the model's default state.
      */
@@ -15,12 +30,11 @@ class BotFactory extends Factory
     {
         return [
             'position'     => $this->faker->randomNumber(),
-            'slug'         => $this->faker->slug(),
             'name'         => $this->faker->name(),
             'command'      => $this->faker->word(),
             'color'        => $this->faker->word(),
             'icon'         => $this->faker->word(),
-            'emoji'        => $this->faker->word(),
+            'emoji'        => $this->faker->emoji(),
             'info'         => $this->faker->word(),
             'about'        => $this->faker->word(),
             'help'         => $this->faker->text(),

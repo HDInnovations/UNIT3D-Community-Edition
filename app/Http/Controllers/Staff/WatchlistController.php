@@ -14,8 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreWatchedUserRequest;
+use App\Models\User;
 use App\Models\Watchlist;
-use Illuminate\Http\Request;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WatchlistControllerTest
@@ -27,47 +29,28 @@ class WatchlistController extends Controller
      */
     final public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.watchlist.index');
+        return view('Staff.watchlist.index');
     }
 
     /**
      * Store A New Watched User.
      */
-    final public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    final public function store(StoreWatchedUserRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $watchedUser = new Watchlist();
-        $watchedUser->user_id = $id;
-        $watchedUser->staff_id = $request->user()->id;
-        $watchedUser->message = $request->input('message');
+        Watchlist::create(['staff_id' => $request->user()->id] + $request->validated());
 
-        $v = \validator($watchedUser->toArray(), [
-            'user_id'  => 'required|exists:users,id',
-            'staff_id' => 'required|exists:users,id',
-            'message'  => 'required|min:3',
-        ]);
-
-        if ($v->fails()) {
-            return \to_route('staff.watchlist.index')
-                ->withErrors($v->errors());
-        }
-
-        $watchedUser->save();
-
-        return \to_route('staff.watchlist.index')
-            ->withSuccess('User Successfully Being Watched');
+        return back()->withSuccess('User Successfully Being Watched');
     }
 
     /**
      * Delete A Watched User.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    final public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    final public function destroy(Watchlist $watchlist): \Illuminate\Http\RedirectResponse
     {
-        $watchedUser = Watchlist::findOrFail($id);
-        $watchedUser->delete();
+        $watchlist->delete();
 
-        return \to_route('staff.watchlist.index')
-            ->withSuccess('Successfully Stopped Watching User');
+        return back()->withSuccess('Successfully Stopped Watching User');
     }
 }

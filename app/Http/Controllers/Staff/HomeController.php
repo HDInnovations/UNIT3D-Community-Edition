@@ -19,6 +19,7 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
@@ -28,81 +29,53 @@ class HomeController extends Controller
     /**
      * Display Staff Dashboard.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // User Info
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $users = \cache()->remember('dashboard_users', 300, function () use ($bannedGroup, $validatingGroup) {
-            return DB::table('users')
-                ->selectRaw('count(*) as total')
-                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
-                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
-                ->first();
-        });
-
-        // Torrent Info
-        $torrents = \cache()->remember('dashboard_torrents', 300, function () {
-            return DB::table('torrents')
-                ->selectRaw('count(*) as total')
-                ->selectRaw('count(case when status = 0 then 1 end) as pending')
-                ->selectRaw('count(case when status = 2 then 1 end) as rejected')
-                ->selectRaw('count(case when status = 3 then 1 end) as postponed')
-                ->first();
-        });
-
-        // Peers Info
-        $peers = \cache()->remember('dashboard_peers', 300, function () {
-            return DB::table('peers')
-                ->selectRaw('count(*) as total')
-                ->selectRaw('count(case when seeder = 0 then 1 end) as leechers')
-                ->selectRaw('count(case when seeder = 1 then 1 end) as seeders')
-                ->first();
-        });
-
-        // Reports Info
-        $reports = DB::table('reports')
-            ->selectRaw('count(case when solved = 0 then 1 end) as unsolved')
-            ->first();
-
-        // Pending Applications Count
-        $apps = DB::table('applications')
-            ->selectRaw('count(case when status = 0 then 1 end) as pending')
-            ->first();
+        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
 
         // SSL Info
         try {
-            $certificate = $request->secure() ? SslCertificate::createForHostName(\config('app.url')) : '';
-        } catch (\Exception) {
+            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+        } catch (Exception) {
             $certificate = '';
         }
 
         // System Information
         $systemInformation = new SystemInformation();
-        $uptime = $systemInformation->uptime();
-        $ram = $systemInformation->memory();
-        $disk = $systemInformation->disk();
-        $avg = $systemInformation->avg();
-        $basic = $systemInformation->basic();
 
-        // Directory Permissions
-        $filePermissions = $systemInformation->directoryPermissions();
-
-        return \view('Staff.dashboard.index', [
-            'users'              => $users,
-            'torrents'           => $torrents,
-            'peers'              => $peers,
-            'reports'            => $reports,
-            'apps'               => $apps,
-            'certificate'        => $certificate,
-            'uptime'             => $uptime,
-            'ram'                => $ram,
-            'disk'               => $disk,
-            'avg'                => $avg,
-            'basic'              => $basic,
-            'file_permissions'   => $filePermissions,
+        return view('Staff.dashboard.index', [
+            'users' => cache()->remember('dashboard_users', 300, fn () => DB::table('users')
+                ->selectRaw('count(*) as total')
+                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
+                ->first()),
+            'torrents' => cache()->remember('dashboard_torrents', 300, fn () => DB::table('torrents')
+                ->selectRaw('count(*) as total')
+                ->selectRaw('count(case when status = 0 then 1 end) as pending')
+                ->selectRaw('count(case when status = 1 then 1 end) as approved')
+                ->selectRaw('count(case when status = 2 then 1 end) as rejected')
+                ->selectRaw('count(case when status = 3 then 1 end) as postponed')
+                ->first()),
+            'peers' => cache()->remember('dashboard_peers', 300, fn () => DB::table('peers')
+                ->selectRaw('count(*) as total')
+                ->selectRaw('sum(active = 1) as active')
+                ->selectRaw('sum(active = 0) as inactive')
+                ->selectRaw('sum(seeder = 0 AND active = 1) as leechers')
+                ->selectRaw('sum(seeder = 1 AND active = 1) as seeders')
+                ->first()),
+            'unsolvedReportsCount'     => DB::table('reports')->where('solved', '=', false)->count(),
+            'pendingApplicationsCount' => DB::table('applications')->where('status', '=', 0)->count(),
+            'certificate'              => $certificate,
+            'uptime'                   => $systemInformation->uptime(),
+            'ram'                      => $systemInformation->memory(),
+            'disk'                     => $systemInformation->disk(),
+            'avg'                      => $systemInformation->avg(),
+            'basic'                    => $systemInformation->basic(),
+            'file_permissions'         => $systemInformation->directoryPermissions(),
         ]);
     }
 }

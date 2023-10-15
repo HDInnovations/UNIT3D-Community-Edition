@@ -14,10 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreArticleRequest;
+use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use Exception;
 
 /**
  * @see \Tests\Feature\Http\Controllers\ArticleControllerTest
@@ -29,9 +30,12 @@ class ArticleController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $articles = Article::latest()->paginate(25);
-
-        return \view('Staff.article.index', ['articles' => $articles]);
+        return view('Staff.article.index', [
+            'articles' => Article::latest()
+                ->with('user:id,username')
+                ->withCount('comments')
+                ->paginate(25),
+        ]);
     }
 
     /**
@@ -39,111 +43,66 @@ class ArticleController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return \view('Staff.article.create');
+        return view('Staff.article.create');
     }
 
     /**
      * Store A New Article.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreArticleRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $article = new Article();
-        $article->title = $request->input('title');
-        $article->slug = Str::slug($article->title);
-        $article->content = $request->input('content');
-        $article->user_id = $request->user()->id;
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'article-'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = \public_path('/files/img/'.$filename);
+            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
-            $article->image = $filename;
-        } else {
-            // Use Default /public/img/missing-image.png
-            $article->image = null;
         }
 
-        $v = \validator($article->toArray(), [
-            'title'   => 'required',
-            'slug'    => 'required',
-            'content' => 'required|min:20',
-            'user_id' => 'required',
-        ]);
+        Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
 
-        if ($v->fails()) {
-            return \to_route('staff.articles.index')
-                ->withErrors($v->errors());
-        }
-
-        $article->save();
-
-        return \to_route('staff.articles.index')
+        return to_route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');
     }
 
     /**
      * Article Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Article $article): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $article = Article::findOrFail($id);
-
-        return \view('Staff.article.edit', ['article' => $article]);
+        return view('Staff.article.edit', [
+            'article' => $article,
+        ]);
     }
 
     /**
      * Edit A Article.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateArticleRequest $request, Article $article): \Illuminate\Http\RedirectResponse
     {
-        $article = Article::findOrFail($id);
-        $article->title = $request->input('title');
-        $article->slug = Str::slug($article->title);
-        $article->content = $request->input('content');
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = 'article-'.\uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = \public_path('/files/img/'.$filename);
+            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
-            $article->image = $filename;
-        } else {
-            // Use Default /public/img/missing-image.png
-            $article->image = null;
         }
 
-        $v = \validator($article->toArray(), [
-            'title'   => 'required',
-            'slug'    => 'required',
-            'content' => 'required|min:20',
-        ]);
+        $article->update(['image' => $filename ?? null,] + $request->validated());
 
-        if ($v->fails()) {
-            return \to_route('staff.articles.index')
-                ->withErrors($v->errors());
-        }
-
-        $article->save();
-
-        return \to_route('staff.articles.index')
+        return to_route('staff.articles.index')
             ->withSuccess('Your article changes have successfully published!');
     }
 
     /**
      * Delete A Article.
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Article $article): \Illuminate\Http\RedirectResponse
     {
-        $article = Article::with('comments')->findOrFail($id);
-        foreach ($article->comments as $comment) {
-            $comment->delete();
-        }
+        $article->comments()->delete();
         $article->delete();
 
-        return \to_route('staff.articles.index')
+        return to_route('staff.articles.index')
             ->withSuccess('Article has successfully been deleted');
     }
 }

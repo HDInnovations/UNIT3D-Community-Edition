@@ -1,0 +1,401 @@
+.meta {
+    display: grid;
+    grid-template-areas: "poster title actions" "poster ids ids" "poster description description" "poster chips chips";
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    gap: 16px 32px;
+    padding: 16px;
+    max-height: 510px;
+}
+
+.meta__poster-link {
+    grid-area: poster;
+}
+
+.meta__title-link {
+    grid-area: title;
+}
+
+.meta__description {
+    grid-area: description;
+    max-height: 150px;
+    overflow-y: auto;
+    color: var(--meta-description-fg);
+}
+
+.meta__backdrop {
+    position: absolute;
+    z-index: -1;
+    top: 72px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    filter: var(--meta-backdrop-filter);
+}
+
+.meta__poster {
+    border-radius: 12px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    width: 320px;
+}
+
+.meta__title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 1200px) {
+    .meta {
+        grid-template-areas: "poster title actions" "poster ids ids" "poster description description" "chips chips chips";
+        grid-template-columns: 140px minmax(0, 1fr) auto;
+    }
+
+    .meta__poster {
+        width: 140px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .meta {
+        max-height: unset;
+        grid-template-areas: "poster title actions" "poster ids ids" "poster description description" "chips chips chips";
+        grid-template-columns: 96px minmax(0, 1fr) auto;
+    }
+
+    .meta__poster {
+        width: 96px;
+    }
+
+    .meta__description {
+        max-height: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .meta {
+        grid-template-areas: "poster title actions" "ids ids ids" "description description description" "chips chips chips";
+        grid-template-columns: 64px minmax(0, 1fr) auto;
+        column-gap: 12px;
+        align-items: center;
+    }
+
+    .meta__poster {
+        width: 64px;
+    }
+
+    .meta__title {
+        font-size: 15px;
+    }
+}
+
+/* Actions dropdown
+---------------------------------------------------------------------------- */
+
+.meta__actions {
+    grid-area: actions;
+    position: relative;
+}
+
+.meta__dropdown {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 40px;
+    right: 0;
+    list-style-type: none;
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    margin: 0;
+    padding: 0;
+    backdrop-filter: var(--meta-dropdown-backdrop-filter);
+
+    @supports (not (backdrop-filter: brightness(2) blur(10px))) and (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
+        background: var(--meta-dropdown-bg);
+    }
+}
+
+.meta__dropdown::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -40px;
+    height: 40px;
+    width: 100%;
+}
+
+.meta__dropdown-button {
+    color: var(--meta-dropdown-fg);
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.meta__actions:hover .meta__dropdown-button, .meta__dropdown-button:active {
+    backdrop-filter: var(--meta-dropdown-backdrop-filter-hover);
+    -webkit-backdrop-filter: var(--meta-dropdown-backdrop-filter-hover);
+    color: var(--meta-dropdown-hover-fg);
+
+    @supports (not (backdrop-filter: brightness(2) blur(10px))) and (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
+        background: var(--meta-dropdown-hover-bg);
+    }
+}
+
+.meta__actions:focus-within .meta__dropdown,
+.meta__actions:hover .meta__dropdown,
+.meta__actions:hover {
+    display: flex;
+    flex-direction: column;
+}
+
+.meta__dropdown li {
+    margin: 0;
+    padding: 0;
+}
+
+.meta__dropdown > li > form {
+    display: contents;
+}
+
+.meta__dropdown > li:first-child > a,
+.meta__dropdown > li:first-child > form > button {
+    border-radius: 6px 6px 0 0;
+}
+
+.meta__dropdown > li:last-child > a,
+.meta__dropdown > li:last-child > form > button {
+    border-radius: 0 0 6px 6px;
+}
+
+.meta__dropdown > li:only-child > a,
+.meta__dropdown > li:only-child > form > button {
+    border-radius: 6px;
+}
+
+.meta__dropdown > li > a,
+.meta__dropdown > li > form > button {
+    padding: 18px 18px 18px 28px;
+    min-width: 180px;
+    display: block;
+    color: var(--meta-dropdown-fg);
+    background: transparent;
+    font-size: 14px;
+    text-align: left;
+    border: none;
+}
+
+.meta__dropdown > li > a:hover,
+.meta__dropdown > li > form > button:hover {
+    background: var(--meta-dropdown-hover-bg);
+    color: var(--meta-dropdown-hover-fg);
+}
+
+/* IDs
+---------------------------------------------------------------------------- */
+
+.meta__ids {
+    grid-area: ids;
+    display: flex;
+    column-gap: 12px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    @media screen and (max-width: 480px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+.meta-id-tag {
+    padding: 2px 8px;
+    color: var(--meta-id-tag-fg);
+    font-size: 13px;
+    display: inline-block;
+    padding: 6px 8px;
+    white-space: nowrap;
+    background: var(--meta-id-tag-bg);
+}
+
+.meta-id-tag:hover {
+    background: var(--meta-id-tag-hover-bg);
+    border-radius: 9999px;
+    color: var(--meta-id-tag-hover-fg);
+}
+
+/* Chips
+---------------------------------------------------------------------------- */
+
+.meta__chips {
+    display: flex;
+    overflow-x: auto;
+    grid-area: chips;
+    gap: 24px;
+}
+
+.meta__chip-container {
+    position: relative;
+    padding-top: 16px;
+    height: calc(100%);
+    overflow-y: auto;
+    flex: 1 0 200px;
+}
+
+.meta__heading {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--meta-chips-heading-fg);
+    position: absolute;
+    top: 0px;
+}
+
+@media screen and (max-width: 767px) {
+    .meta__chips {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .meta__chip-container {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+        align-items: start;
+        overflow-y: unset;
+        max-height: none;
+        flex: 1 0 content;
+    }
+}
+
+/* Meta-chip
+---------------------------------------------------------------------------- */
+
+.meta-chip {
+    display: grid;
+    grid-template-areas: "image name" "image value";
+    grid-template-columns: 40px auto;
+    grid-template-rows: auto auto;
+    gap: 3px 20px;
+    border-radius: 26px;
+    padding: 6px 26px 6px 6px;
+}
+
+.meta-chip:hover {
+    backdrop-filter: var(--meta-chip-backdrop-filter-hover);
+    -webkit-backdrop-filter: var(--meta-chip-backdrop-filter-hover);
+
+    @supports (not (backdrop-filter: brightness(2) blur(10px))) and (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
+        background: var(--meta-chip-hover-bg);
+    }
+}
+
+.meta-chip:hover .meta-chip__icon {
+    background: var(--meta-chip-icon-hover-bg);
+}
+
+.meta-chip__image {
+    grid-area: image;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--meta-chip-icon-bg);
+    align-self: start;
+    background: var(--meta-chip-icon-bg);
+}
+
+.meta-chip__icon {
+    grid-area: image;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    color: var(--meta-chip-icon-fg);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--meta-chip-icon-bg);
+}
+
+.meta-chip__name {
+    grid-area: name;
+    display: inline;
+    margin: 0;
+    font-size: 16px;
+    color: var(--meta-chip-name-fg);
+    font-weight: bold;
+    line-height: 1;
+    align-self: end;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.meta-chip__value {
+    grid-area: value;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: var(--meta-chip-value-fg);
+    line-height: 1;
+    align-self: start;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    height: 100%;
+}
+
+.meta-chip__value a {
+    color: var(--meta-chip-value-fg);
+}
+
+.meta-chip__value a:hover {
+    color: var(--meta-chip-value-hover-fg);
+}
+
+@media screen and (max-width: 767px) {
+    .meta-chip {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
+        max-height: 150px;
+        overflow-y:hidden
+    }
+
+    .meta-chip__image {
+        height: 64px;
+        width: 64px;
+        align-self: center;
+    }
+
+    .meta-chip__icon {
+        height: 64px;
+        width: 64px;
+        line-height: 64px;
+        font-size: 25px;
+    }
+
+    .meta-chip__name {
+        font-size: 13px;
+        align-self: center;
+        text-align: center;
+    }
+    .meta-chip__value {
+        font-size: 13px;
+        align-self: center;
+        text-align: center;
+        text-overflow: ellipsis;
+        line-clamp: 4;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+    }
+}

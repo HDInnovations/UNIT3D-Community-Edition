@@ -20,7 +20,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('follows', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->integer('target_id')->index();

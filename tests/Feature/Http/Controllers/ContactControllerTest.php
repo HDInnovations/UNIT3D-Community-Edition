@@ -1,46 +1,43 @@
 <?php
-
-namespace Tests\Feature\Http\Controllers;
-
-use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
-use Database\Seeders\UsersTableSeeder;
-use Tests\TestCase;
-
 /**
- * @see \App\Http\Controllers\ContactController
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-class ContactControllerTest extends TestCase
-{
-    /** @test */
-    public function index_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
 
-        $user = User::factory()->create();
+use App\Mail\Contact;
+use App\Models\User;
+use Database\Seeders\UsersTableSeeder;
+use Illuminate\Support\Facades\Mail;
 
-        $response = $this->actingAs($user)->get(route('contact.index'));
+test('index returns an ok response', function (): void {
+    $user = User::factory()->create();
 
-        $response->assertOk()
-            ->assertViewIs('contact.index');
-    }
+    $response = $this->actingAs($user)->get(route('contact.index'));
+    $response->assertOk();
+    $response->assertViewIs('contact.index');
+});
 
-    /** @test */
-    public function store_returns_an_ok_response(): void
-    {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+test('store returns an ok response', function (): void {
+    $this->seed(UsersTableSeeder::class);
 
-        $user = User::factory()->create();
+    Mail::fake();
 
-        $response = $this->actingAs($user)->post(route('contact.store'), [
-            'email'        => 'foo@bar.com',
-            'contact-name' => 'Foo Bar',
-            'message'      => 'Hello, world!',
-        ]);
+    $user = User::factory()->create();
 
-        $response->assertRedirect(route('home.index'))
-            ->assertSessionHas('success', 'Your Message Was Successfully Sent');
-    }
-}
+    $response = $this->actingAs($user)->post(route('contact.store'), [
+        'contact-name' => $user->username,
+        'email'        => $user->email,
+        'message'      => 'This is a test message.',
+    ]);
+
+    Mail::assertSent(Contact::class);
+
+    $response->assertRedirect(route('home.index'))->assertSessionHas('success', 'Your Message Was Successfully Sent');
+});

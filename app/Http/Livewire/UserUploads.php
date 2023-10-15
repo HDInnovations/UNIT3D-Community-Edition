@@ -13,6 +13,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Livewire\Component;
@@ -22,7 +23,7 @@ class UserUploads extends Component
 {
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public int $perPage = 25;
 
@@ -39,22 +40,17 @@ class UserUploads extends Component
     public $showMorePrecision = false;
 
     protected $queryString = [
-        'perPage'           => ['except' => ''],
-        'name'              => ['except' => ''],
-        'personalRelease'   => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
-        'status'            => ['except' => []],
+        'perPage'         => ['except' => ''],
+        'name'            => ['except' => ''],
+        'personalRelease' => ['except' => 'any'],
+        'sortField'       => ['except' => 'created_at'],
+        'sortDirection'   => ['except' => 'desc'],
+        'status'          => ['except' => []],
     ];
 
     final public function mount($userId): void
     {
         $this->user = User::find($userId);
-    }
-
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
     }
 
     final public function updatedPage(): void
@@ -72,13 +68,13 @@ class UserUploads extends Component
         return Torrent::query()
             ->withCount('thanks')
             ->withSum('tips', 'cost')
-            ->withAnyStatus()
+            ->withoutGlobalScope(ApprovedScope::class)
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)
             ->when(
                 $this->name,
                 fn ($query) => $query
-                ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
+                    ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', 1))
@@ -89,7 +85,7 @@ class UserUploads extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.user-uploads', [
+        return view('livewire.user-uploads', [
             'uploads' => $this->uploads,
         ]);
     }

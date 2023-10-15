@@ -19,11 +19,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChatStatus extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * A Status Has Many Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

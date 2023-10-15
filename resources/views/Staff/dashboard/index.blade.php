@@ -65,7 +65,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.rooms.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.chatrooms.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-comment-dots"></i>
                         {{ __('staff.rooms') }}
                     </a>
@@ -79,7 +79,7 @@
                 <p class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.chat') }}" x-data>
                         @csrf
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to delete all chatbox messages in all chatrooms (including private chatbox messages)?',
@@ -91,7 +91,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--text" href
+                            class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-broom"></i>
                             {{ __('staff.flush-chat') }}
@@ -139,7 +139,7 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.blacklists.clients.index') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.blacklisted_clients.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
                         {{ __('common.blacklist') }}
                     </a>
@@ -189,6 +189,18 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.peers.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Peers
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.histories.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Histories
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.rss.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('staff.rss') }}
@@ -209,7 +221,7 @@
                 <p class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
                         @csrf
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to delete all ghost peers?',
@@ -221,7 +233,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--text" href
+                            class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
                             {{ __('staff.flush-ghost-peers') }}
@@ -239,14 +251,14 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.applications.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-list"></i>
-                        {{ __('staff.applications') }} ({{ $apps->pending }})
-                        @if ($apps->pending > 0)
+                        {{ __('staff.applications') }} ({{ $pendingApplicationsCount }})
+                        @if ($pendingApplicationsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>
                 </li>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('user_search') }}">
+                    <a class="form__button form__button--text" href="{{ route('staff.users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
                     </a>
@@ -258,12 +270,6 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
-                    <a class="form__button form__button--text" href="{{ route('staff.gifts.index') }}">
-                        <i class="{{ config('other.font-awesome') }} fa-gift"></i>
-                        {{ __('staff.user-gifting') }}
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.mass-pm.create') }}">
                         <i class="{{ config('other.font-awesome') }} fa-envelope-square"></i>
                         {{ __('staff.mass-pm') }}
@@ -272,7 +278,7 @@
                 <p class="form__group form__group--horizontal">
                     <form method="GET" action="{{ route('staff.mass-actions.validate') }}" x-data>
                         @csrf
-                        <button 
+                        <button
                             x-on:click.prevent="Swal.fire({
                                 title: 'Are you sure?',
                                 text: 'Are you sure you want to automatically validate all users even if their email address isn\'t confirmed?',
@@ -284,7 +290,7 @@
                                     $root.submit();
                                 }
                             })"
-                            class="form__button form__button--text" href
+                            class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-history"></i>
                             {{ __('staff.mass-validate-users') }}
@@ -344,6 +350,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.gifts.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-file"></i>
+                        {{ __('staff.gifts-log') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.invites.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
                         {{ __('staff.invites-log') }}
@@ -365,8 +377,8 @@
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.reports.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
-                        {{ __('staff.reports-log') }} ({{ $reports->unsolved }})
-                        @if ($reports->unsolved > 0)
+                        {{ __('staff.reports-log') }} ({{ $unsolvedReportsCount }})
+                        @if ($unsolvedReportsCount > 0)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -430,6 +442,10 @@
                 <dd>{{ $torrents->total }}</dd>
                 <dt>Pending</dt>
                 <dd>{{ $torrents->pending }}</dd>
+                <dt>Approved</dt>
+                <dd>{{ $torrents->approved }}</dd>
+                <dt>Postponed</dt>
+                <dd>{{ $torrents->postponed }}</dd>
                 <dt>Rejected</dt>
                 <dd>{{ $torrents->rejected }}</dd>
             </dl>
@@ -439,6 +455,10 @@
             <dl class="key-value">
                 <dt>Total</dt>
                 <dd>{{ $peers->total }}</dd>
+                <dt>Active</dt>
+                <dd>{{ $peers->active }}</dd>
+                <dt>Inactive</dt>
+                <dd>{{ $peers->inactive }}</dd>
                 <dt>Seeds</dt>
                 <dd>{{ $peers->seeders }}</dd>
                 <dt>Leeches</dt>
@@ -479,10 +499,14 @@
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Load</h2>
+            <h2 class="panel__heading">Load Average</h2>
             <dl class="key-value">
-                <dt>Average</dt>
-                <dd>{{ $avg }}</dd>
+                <dt>1 minute</dt>
+                <dd>{{ $avg['1-minute'] }}</dd>
+                <dt>5 minutes</dt>
+                <dd>{{ $avg['5-minute'] }}</dd>
+                <dt>15 minutes</dt>
+                <dd>{{ $avg['15-minute'] }}</dd>
             </dl>
         </section>
     </div>

@@ -31,21 +31,25 @@ class NewBon extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
             'title' => $this->sender.' Has Gifted You '.$this->bonTransactions->cost.' BON',
             'body'  => $this->sender.' has gifted you '.$this->bonTransactions->cost.' BON with the following note: '.$this->bonTransactions->comment,
-            'url'   => \sprintf('/users/%s', $this->bonTransactions->senderObj->username),
+            'url'   => sprintf('/users/%s', $this->bonTransactions->sender->username),
         ];
     }
 }

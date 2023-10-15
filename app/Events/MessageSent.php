@@ -29,10 +29,8 @@ class MessageSent implements ShouldBroadcastNow
 
     /**
      * Message details.
-     *
-     * @var Message
      */
-    public $message;
+    public ChatMessageResource $message;
 
     /**
      * Create a new event instance.

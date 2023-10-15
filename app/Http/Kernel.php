@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
      *
      * These middleware are run during every request to your application.
      *
-     * @var array
+     * @var array<int, class-string|string>
      */
     protected $middleware = [
         // Default Laravel
@@ -31,17 +31,13 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
-
-        // Extra
-        \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
-        \App\Http\Middleware\Http2ServerPush::class,
+        \Illuminate\Http\Middleware\HandleCors::class,
     ];
 
     /**
      * The application's route middleware groups.
      *
-     * @var array
+     * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
         'web' => [
@@ -53,18 +49,17 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\UpdateLastAction::class,
+            \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
+            //'throttle:web',
         ],
         'api' => [
             'throttle:api',
-            'bindings',
         ],
         'announce' => [
             'throttle:announce',
-            'bindings',
         ],
         'rss' => [
             'throttle:rss',
-            'bindings',
         ],
     ];
 
@@ -73,9 +68,9 @@ class Kernel extends HttpKernel
      *
      * These middleware may be assigned to groups or used individually.
      *
-     * @var array
+     * @var array<string, class-string|string>
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         'admin'         => \App\Http\Middleware\CheckForAdmin::class,
         'auth'          => \App\Http\Middleware\Authenticate::class,
         'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

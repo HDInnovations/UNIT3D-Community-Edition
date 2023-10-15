@@ -19,11 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thank extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -32,6 +34,8 @@ class Thank extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

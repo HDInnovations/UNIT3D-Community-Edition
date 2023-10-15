@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PersonalFreeleech extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Database Table Used By The Model.
@@ -28,4 +28,11 @@ class PersonalFreeleech extends Model
      * @var string
      */
     protected $table = 'personal_freeleech';
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
 }

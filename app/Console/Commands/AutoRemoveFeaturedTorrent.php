@@ -56,18 +56,19 @@ class AutoRemoveFeaturedTorrent extends Command
 
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featuredTorrent->torrent_id)->first();
+            $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
+
             if (isset($torrent)) {
                 $torrent->free = 0;
-                $torrent->doubleup = 0;
-                $torrent->featured = 0;
+                $torrent->doubleup = false;
+                $torrent->featured = false;
                 $torrent->save();
 
                 // Auto Announce Featured Expired
-                $appurl = \config('app.url');
+                $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
                 );
             }
 

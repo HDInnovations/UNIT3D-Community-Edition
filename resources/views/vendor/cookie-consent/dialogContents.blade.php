@@ -8,7 +8,7 @@
         {!! __('cookie-consent::texts.message') !!}
     </span>
 
-        <button class="btn btn-sm btn-primary js-cookie-consent-agree cookie-consent__agree">
+        <button class="form__button form__button--filled js-cookie-consent-agree cookie-consent__agree">
             {{ __('cookie-consent::texts.agree') }}
         </button>
     </div>

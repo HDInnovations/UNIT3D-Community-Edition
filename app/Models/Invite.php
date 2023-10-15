@@ -16,14 +16,20 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invite extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+    use SoftDeletes;
+
+    protected $guarded = [];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -35,6 +41,8 @@ class Invite extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -29,7 +29,7 @@
         <form
             class="form"
             method="POST"
-            action="{{ route('staff.rss.update', ['id' => $rss->id]) }}"
+            action="{{ route('staff.rss.update', ['rss' => $rss]) }}"
         >
             @csrf
             @method('PATCH')
@@ -53,7 +53,7 @@
                     inputmode="numeric"
                     name="position"
                     pattern="[0-9]*"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                     value="{{ $rss->position }}"
                 >
@@ -66,7 +66,7 @@
                     id="search"
                     class="form__text"
                     name="search"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                     value="{{ $rss->object_torrent->search }}"
                 >
@@ -80,7 +80,7 @@
                     type="text"
                     class="form__text"
                     name="description"
-                    placeholder=""
+                    placeholder=" "
                     value="{{ $rss->object_torrent->description }}"
                 >
                 <label class="form__label form__label--floating" for="description">
@@ -93,7 +93,7 @@
                     type="text"
                     class="form__text"
                     name="uploader"
-                    placeholder=""
+                    placeholder=" "
                     value="{{ $rss->object_torrent->uploader }}"
                 >
                 <label class="form__label form__label--floating" for="uploader">
@@ -108,7 +108,7 @@
                         inputmode="numeric"
                         name="tmdb"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $rss->object_torrent->tmdb }}"
                     >
@@ -123,7 +123,7 @@
                         inputmode="numeric"
                         name="imdb"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $rss->object_torrent->imdb }}"
                     >
@@ -138,7 +138,7 @@
                         inputmode="numeric"
                         name="tvdb"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $rss->object_torrent->tvdb }}"
                     >
@@ -154,7 +154,7 @@
                         inputmode="numeric"
                         name="mal"
                         pattern="[0-9]*"
-                        placeholder=""
+                        placeholder=" "
                         type="text"
                         value="{{ $rss->object_torrent->mal }}"
                     >

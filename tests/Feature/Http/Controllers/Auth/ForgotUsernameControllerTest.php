@@ -1,38 +1,32 @@
 <?php
-
-namespace Tests\Feature\Http\Controllers\Auth;
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use App\Models\User;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\Auth\ForgotUsernameController
- */
-class ForgotUsernameControllerTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function send_username_reminder_returns_an_ok_response(): void
-    {
-        config(['captcha.enabled' => false]);
+test('send username reminder returns an ok response', function (): void {
+    config(['captcha.enabled' => false]);
 
-        $user = User::factory()->create();
+    $user = User::factory()->create();
 
-        $this->post(route('username.email'), [
-            'email' => $user->email,
-        ])
-            ->assertRedirect(route('login'))
-            ->assertSessionHas('success', trans('email.username-sent'));
-    }
+    $response = $this->post(route('username.email'), [
+        'email' => $user->email,
+    ]);
+    $response->assertRedirect(route('login'));
+    $response->assertSessionHas('success', trans('email.username-sent'));
+});
 
-    /**
-     * @test
-     */
-    public function show_forgot_username_form_returns_an_ok_response(): void
-    {
-        $this->get(route('username.request'))
-            ->assertOk()
-            ->assertViewIs('auth.username');
-    }
-}
+test('show forgot username form returns an ok response', function (): void {
+    $response = $this->get(route('username.request'));
+    $response->assertOk();
+    $response->assertViewIs('auth.username');
+});

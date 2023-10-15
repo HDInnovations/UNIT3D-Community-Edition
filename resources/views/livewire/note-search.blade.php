@@ -26,7 +26,7 @@
                             class="form__text"
                             type="text"
                             wire:model="search"
-                            placeholder=""
+                            placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         Message
@@ -57,7 +57,7 @@
                     <td>
                         <x-user_tag :anon="false" :user="$note->staffuser" />
                     </td>
-                    <td>{{ $note->message }}</td>
+                    <td style="white-space: pre-wrap">{{ $note->message }}</td>
                     <td>
                         <time datetime="{{ $note->created_at }}" title="{{ $note->created_at }}">
                             {{ $note->created_at->diffForHumans() }}
@@ -66,26 +66,20 @@
                     <td>
                         <menu class="data-table__actions">
                             <li class="data-table__action">
-                                <form
-                                        action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}"
-                                        method="POST"
-                                        x-data
-                                >
-                                    @csrf
-                                    @method('DELETE')
+                                <form x-data>
                                     <button
-                                            x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this note: {{ $note->message }}?',
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
-                                            class="form__button form__button--text"
+                                        x-on:click.prevent="Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
+                                            icon: 'warning',
+                                            showConfirmButton: true,
+                                            showCancelButton: true,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                @this.destroy({{ $note->id }})
+                                            }
+                                        })"
+                                        class="form__button form__button--text"
                                     >
                                         {{ __('common.delete') }}
                                     </button>

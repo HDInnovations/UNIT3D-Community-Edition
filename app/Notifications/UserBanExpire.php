@@ -19,8 +19,10 @@ class UserBanExpire extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
@@ -28,11 +30,11 @@ class UserBanExpire extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
             ->greeting('You have been unbanned 🤩')
-            ->line('You have been unbanned from '.\config('other.title'))
-            ->line('Thank you for using 🚀'.\config('other.title'));
+            ->line('You have been unbanned from '.config('other.title'))
+            ->line('Thank you for using 🚀'.config('other.title'));
     }
 }

@@ -19,7 +19,7 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('rss', function (Blueprint $table) {
+        Schema::create('rss', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('userID')->index('userID');
             $table->string('category')->nullable();

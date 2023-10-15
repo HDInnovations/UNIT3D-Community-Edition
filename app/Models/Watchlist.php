@@ -8,11 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Watchlist extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -24,6 +33,8 @@ class Watchlist extends Model
 
     /**
      * Belongs To A Uploader.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -13,17 +13,24 @@
 
 namespace App\Models;
 
+use App\Helpers\Bbcode;
+use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 class Playlist extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    protected $guarded = [];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -35,14 +42,37 @@ class Playlist extends Model
 
     /**
      * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(PlaylistTorrent::class);
+        return $this->belongsToMany(Torrent::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    /**
+     * Set The Playlists Description After It's Been Purified.
+     */
+    public function setDescriptionAttribute(?string $value): void
+    {
+        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+    }
+
+    /**
+     * Parse Description And Return Valid HTML.
+     */
+    public function getDescriptionHtml(): string
+    {
+        $bbcode = new Bbcode();
+
+        return (new Linkify())->linky($bbcode->parse($this->description));
     }
 }

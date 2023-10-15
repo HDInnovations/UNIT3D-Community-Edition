@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\Page;
 use App\Models\User;
@@ -11,14 +14,14 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\PageController
  */
-class PageControllerTest extends TestCase
+final class PageControllerTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
     }
 
-    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+    protected function createStaffUser(): Collection|Model
     {
         return User::factory()->create([
             'group_id' => fn () => Group::factory()->create([
@@ -29,9 +32,7 @@ class PageControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -44,9 +45,7 @@ class PageControllerTest extends TestCase
         $response->assertViewIs('Staff.page.create');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function destroy_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -54,14 +53,12 @@ class PageControllerTest extends TestCase
         $user = $this->createStaffUser();
         $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('staff.pages.destroy', ['id' => $page->id]));
+        $response = $this->actingAs($user)->delete(route('staff.pages.destroy', ['page' => $page]));
 
         $response->assertRedirect(route('staff.pages.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -69,16 +66,14 @@ class PageControllerTest extends TestCase
         $user = $this->createStaffUser();
         $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.pages.edit', ['id' => $page->id]));
+        $response = $this->actingAs($user)->get(route('staff.pages.edit', ['page' => $page]));
 
         $response->assertOk();
         $response->assertViewIs('Staff.page.edit');
         $response->assertViewHas('page');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -92,9 +87,7 @@ class PageControllerTest extends TestCase
         $response->assertViewHas('pages');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -104,16 +97,13 @@ class PageControllerTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('staff.pages.store'), [
             'name'    => $page->name,
-            'slug'    => $page->slug,
             'content' => $page->content,
         ]);
 
         $response->assertRedirect(route('staff.pages.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -121,9 +111,8 @@ class PageControllerTest extends TestCase
         $user = $this->createStaffUser();
         $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->post(route('staff.pages.update', ['id' => $page->id]), [
+        $response = $this->actingAs($user)->patch(route('staff.pages.update', ['page' => $page]), [
             'name'    => $page->name,
-            'slug'    => $page->slug,
             'content' => $page->content,
         ]);
 

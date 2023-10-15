@@ -54,5 +54,4 @@ return [
     'username-sent'       => 'Dit brugernavn er blevet sendt til din email-adresse!',
     'disabled-header'     => 'Din konto er blevet deaktiveret',
     'pruned-header'       => 'Din konto er blevet fjernet',
-
 ];

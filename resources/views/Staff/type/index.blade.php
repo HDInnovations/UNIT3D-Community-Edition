@@ -40,7 +40,7 @@
                     <tr>
                         <td>{{ $type->position }}</td>
                         <td>
-                            <a href="{{ route('staff.types.edit', ['id' => $type->id]) }}">
+                            <a href="{{ route('staff.types.edit', ['type' => $type]) }}">
                                 {{ $type->name }}
                             </a>
                         </td>
@@ -48,7 +48,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.types.edit', ['id' => $type->id]) }}"
+                                        href="{{ route('staff.types.edit', ['type' => $type]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -56,16 +56,16 @@
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.types.destroy', ['id' => $type->id]) }}"
+                                        action="{{ route('staff.types.destroy', ['type' => $type]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this type: {{ $type->name }}?',
+                                                text: `Are you sure you want to delete this type: ${atob('{{ base64_encode($type->name) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

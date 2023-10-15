@@ -15,6 +15,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \App\Models\UserAudible
+ */
 class UserAudibleResource extends JsonResource
 {
     /**
@@ -23,13 +26,13 @@ class UserAudibleResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id'         => $this->id,
-            'user_id'    => $this->user_id,
-            'user'       => $this->user,
-            'target'     => $this->target,
-            'room'       => $this->room,
-            'bot'        => $this->bot,
-            'status'     => $this->status,
+            'id'      => $this->id,
+            'user_id' => $this->user_id,
+            'user'    => $this->user,
+            'target'  => $this->target,
+            'room'    => $this->room,
+            'bot'     => $this->bot,
+            'status'  => $this->status,
         ];
     }
 }

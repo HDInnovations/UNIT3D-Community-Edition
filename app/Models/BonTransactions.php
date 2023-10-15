@@ -35,12 +35,20 @@ class BonTransactions extends Model
     protected $dateFormat = 'U';
 
     /**
-     * Belongs To A Sender.
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
      */
-    // Bad name to not conflict with sender (not sender_id)
-    public function senderObj(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Belongs To A Sender.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     */
+    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
@@ -48,11 +56,12 @@ class BonTransactions extends Model
 
     /**
      * Belongs To A Receiver.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
-    // Bad name to not conflict with sender (not sender_id)
-    public function receiverObj(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'receiver', 'id')->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
@@ -60,12 +69,34 @@ class BonTransactions extends Model
 
     /**
      * Belongs To BonExchange.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, self>
      */
     public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([
+        return $this->belongsTo(BonExchange::class)->withDefault([
             'value' => 0,
             'cost'  => 0,
         ]);
+    }
+
+    /**
+     * Belongs to Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     */
+    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs to Post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
+     */
+    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Post::class);
     }
 }

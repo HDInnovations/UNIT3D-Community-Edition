@@ -128,6 +128,7 @@ return [
     'no-meta'                  => 'No Metadata Found',
     'no-privileges'            => 'You are not able to download this file - Please check below for more info',
     'no-privileges-desc'       => 'Please solve the failed results above for download button to appear',
+    'not-personal-release'     => 'Not a Personal Release',
     'not-completed'            => 'Started Downloading But Never Completed',
     'not-downloaded'           => 'Not Downloaded',
     'not-seeding'              => 'Not Seeding',
@@ -154,6 +155,8 @@ return [
     'ready'                    => 'This file is ready for download',
     'recent-bumped'            => 'Recently Bumped',
     'recommendations'          => 'Recommendations',
+    'refundable'               => 'Refundable',
+    'refunded'                 => 'Refunded',
     'rejected'                 => 'Rejected',
     'region'                   => 'Region',
     'released'                 => 'Released',
@@ -191,7 +194,7 @@ return [
     'special-double_upload'    => 'Special Double Upload',
     'special-freeleech'        => 'Special Freeleech',
     'staff-tools'              => 'Staff Tools',
-    'start-year'	              => 'Start Year',
+    'start-year'               => 'Start Year',
     'started'                  => 'Started',
     'status'                   => 'Status',
     'statistics'               => 'Statistics',
@@ -237,5 +240,4 @@ return [
     'view-trailer'             => 'View Trailer',
     'votes'                    => 'Votes',
     'year-range'               => 'Year Range',
-
 ];

@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('playlists.edit', ['id' => $playlist->id]) }}" class="breadcrumb__link">
+        <a href="{{ route('playlists.edit', ['playlist' => $playlist]) }}" class="breadcrumb__link">
             {{ $playlist->name }}
         </a>
     </li>
@@ -33,7 +33,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('playlists.update', ['id' => $playlist->id]) }}"
+                action="{{ route('playlists.update', ['playlist' => $playlist]) }}"
                 enctype="multipart/form-data"
             >
                 @csrf
@@ -44,25 +44,21 @@
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                         required
                         value="{{ $playlist->name }}"
                     >
                     <label class="form__label form__label--floating" for="name">
                         {{ __('playlist.title') }}
-                    <label>
+                    </label>
                 </p>
                 <p class="form__group">
-                    <textarea
-                        id="description"
-                        class="form__textarea"
-                        type="text"
-                        name="description"
-                        placeholder=""
-                    >{{ $playlist->description }}</textarea>
-                    <label class="form__label form__label--floating" for="description">
-                        {{ __('playlist.desc') }}
-                    </label>
+                    @livewire('bbcode-input', [
+                        'name'     => 'description',
+                        'label'    => __('common.description'),
+                        'required' => true,
+                        'content'  => $playlist->description
+                    ])
                 </p>
                 <p class="form__group">
                     <label for="cover_image" class="form__label">

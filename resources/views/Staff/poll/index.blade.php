@@ -38,7 +38,7 @@
                 @foreach ($polls as $poll)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">
+                            <a href="{{ route('staff.polls.show', ['poll' => $poll]) }}">
                                 {{ $poll->title }}
                             </a>
                         </td>
@@ -51,7 +51,7 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('poll', ['id' => $poll->id]) }}"
+                                        href="{{ route('polls.show', ['poll' => $poll]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.view') }}
@@ -59,7 +59,7 @@
                                 </li>
                                 <li class="data-table__action">
                                     <a
-                                        href="{{ route('staff.polls.edit', ['id' => $poll->id]) }}"
+                                        href="{{ route('staff.polls.edit', ['poll' => $poll]) }}"
                                         class="form__button form__button--text"
                                     >
                                         {{ __('common.edit') }}
@@ -67,16 +67,16 @@
                                 </li>
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.polls.destroy', ['id' => $poll->id]) }}"
+                                        action="{{ route('staff.polls.destroy', ['poll' => $poll]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this poll: {{ $poll->title }}?',
+                                                text: `Are you sure you want to delete this poll: ${atob('{{ base64_encode($poll->title) }}')}?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

@@ -1,28 +1,44 @@
 <?php
-
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace Database\Factories;
 
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\History;
 
 class HistoryFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     */
+    protected $model = History::class;
+
     /**
      * Define the model's default state.
      */
     public function definition(): array
     {
         return [
-            'user_id'           => fn () => User::factory()->create()->id,
+            'user_id'           => User::factory(),
+            'torrent_id'        => Torrent::factory(),
             'agent'             => $this->faker->word(),
-            'info_hash'         => fn () => Torrent::factory()->create()->id,
             'uploaded'          => $this->faker->randomNumber(),
             'actual_uploaded'   => $this->faker->randomNumber(),
             'client_uploaded'   => $this->faker->randomNumber(),
             'downloaded'        => $this->faker->randomNumber(),
+            'refunded_download' => $this->faker->randomNumber(),
             'actual_downloaded' => $this->faker->randomNumber(),
             'client_downloaded' => $this->faker->randomNumber(),
             'seeder'            => $this->faker->boolean(),
@@ -32,7 +48,6 @@ class HistoryFactory extends Factory
             'hitrun'            => $this->faker->boolean(),
             'prewarn'           => $this->faker->boolean(),
             'completed_at'      => $this->faker->dateTime(),
-            'deleted_at'        => $this->faker->dateTime(),
         ];
     }
 }

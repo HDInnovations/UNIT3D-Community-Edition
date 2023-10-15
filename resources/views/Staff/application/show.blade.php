@@ -34,7 +34,7 @@
                 @foreach($application->imageProofs as $img_proof)
                     <li>
                         <a href="{{ $img_proof->image }}" target="_blank">
-                            {{ __('staff.application-image-proofs') }} {{ $loop->iteration }}
+                            {{ $img_proof->image }}
                         </a>
                     </li>
                 @endforeach
@@ -81,18 +81,24 @@
             </dd>
             <dt>{{ __('common.status') }}</dt>
             <dd>
-                @if ($application->status == 0)
-                    <span class="application--pending">{{ __('request.pending') }}</span>
-                @elseif ($application->status == 1)
-                    <span class="application--approved">{{ __('request.approve') }}</span>
-                @else
-                    <span class="application--rejected">{{ __('request.reject') }}</span>
-                @endif
+                @switch($application->status)
+                    @case(\App\Models\Application::PENDING)
+                        <span class="application--pending">Pending</span>
+                        @break
+                    @case(\App\Models\Application::APPROVED)
+                        <span class="application--approved">Approved</span>
+                        @break
+                    @case(\App\Models\Application::REJECTED)
+                        <span class="application--rejected">Rejected</span>
+                        @break
+                    @default
+                        <span class="application--unknown">Unknown</span>
+                @endswitch
             </dd>
         </dl>
     </section>
     <section class="panelV2">
-        @if($application->status)
+        @if($application->status !== \App\Models\Application::PENDING)
             <h2 class="panel__heading">{{ __('common.moderated-by') }}</h2>
             <div class="panel__body">
                 <x-user_tag :anon="false" :user="$application->moderated" />
@@ -100,14 +106,14 @@
         @else
             <h2 class="panel__heading">{{ __('common.action') }}</h2>
             <div class="panel__body">
-                    <div x-data="{ open: false }">
+                    <div x-data>
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                            <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                                 <i class="{{ config('other.font-awesome') }} fa-check"></i>
                                 {{ __('request.approve') }}
                             </button>
                         </p>
-                        <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                        <dialog class="dialog" x-ref="dialog">
                             <h3 class="dialog__heading">
                                 {{ __('request.approve') }}
                                 {{ __('common.this') }}
@@ -117,7 +123,7 @@
                                 class="dialog__form"
                                 method="POST"
                                 action="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
-                                x-on:click.outside="open = false; $refs.dialog.close();"
+                                x-on:click.outside="$refs.dialog.close()"
                             >
                                 @csrf
                                 <input
@@ -127,28 +133,28 @@
                                     value="{{ $application->email }}"
                                 >
                                 <p class="form__group">
-                                    <textarea id="approve" class="form__textarea" name="approve" placeholder="">Application Approved!</textarea>
+                                    <textarea id="approve" class="form__textarea" name="approve" placeholder=" ">Application Approved!</textarea>
                                     <label class="form__label form__label--floating" for="approve">Invitation Message</label>
                                 </p>
                                 <p class="form__group">
                                     <button class="form__button form__button--filled">
                                         {{ __('request.approve') }}
                                     </button>
-                                    <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                    <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                         {{ __('common.cancel') }}
                                     </button>
                                 </p>
                             </form>
                         </dialog>
                     </div>
-                    <div x-data="{ open: false }">
+                    <div x-data>
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled" x-on:click.stop="open = true; $refs.dialog.showModal();">
+                            <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
                                 <i class="{{ config('other.font-awesome') }} fa-times"></i>
                                 {{ __('request.reject') }}
                             </button>
                         </p>
-                        <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                        <dialog class="dialog" x-ref="dialog">
                             <h3 class="dialog__heading">
                                 {{ __('request.reject') }}
                                 {{ __('common.this') }}
@@ -158,7 +164,7 @@
                                 class="dialog__form"
                                 method="POST"
                                 action="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
-                                x-on:click.outside="open = false; $refs.dialog.close();"
+                                x-on:click.outside="$refs.dialog.close()"
                             >
                                 @csrf
                                 <input
@@ -180,7 +186,7 @@
                                     <button class="form__button form__button--filled">
                                         {{ __('request.reject') }}
                                     </button>
-                                    <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                                    <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                                         {{ __('common.cancel') }}
                                     </button>
                                 </p>

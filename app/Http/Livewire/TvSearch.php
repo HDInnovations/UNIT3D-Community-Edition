@@ -23,11 +23,6 @@ class TvSearch extends Component
 
     public $search;
 
-    final public function paginationView(): string
-    {
-        return 'vendor.pagination.livewire-pagination';
-    }
-
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -49,7 +44,7 @@ class TvSearch extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('livewire.tv-search', [
+        return view('livewire.tv-search', [
             'shows' => $this->shows,
         ]);
     }

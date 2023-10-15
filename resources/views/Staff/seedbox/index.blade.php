@@ -52,16 +52,16 @@
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
                                     <form
-                                        action="{{ route('staff.seedboxes.destroy', ['id' => $seedbox->id]) }}"
+                                        action="{{ route('staff.seedboxes.destroy', ['seedbox' => $seedbox]) }}"
                                         method="POST"
                                         x-data
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button 
+                                        <button
                                             x-on:click.prevent="Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: 'Are you sure you want to delete this seedbox: {{ $seedbox->ip }} (owned by {{ $seedbox->user->username }})?',
+                                                text: `Are you sure you want to delete this seedbox: ${atob('{{ base64_encode($seedbox->ip) }}')} (owned by ${atob('{{ base64_encode($seedbox->user->username) }}')})?`,
                                                 icon: 'warning',
                                                 showConfirmButton: true,
                                                 showCancelButton: true,

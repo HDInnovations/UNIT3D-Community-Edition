@@ -19,13 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApplicationUrlProof extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
      * The Attributes That Are Mass Assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'application_id',
@@ -34,6 +34,8 @@ class ApplicationUrlProof extends Model
 
     /**
      * Belongs To A Application.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Application, self>
      */
     public function application(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

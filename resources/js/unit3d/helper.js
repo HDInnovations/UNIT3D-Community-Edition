@@ -1,20 +1,3 @@
-// NOTICE OF LICENSE
-//
-// UNIT3D is open-sourced software licensed under the GNU Affero General Public License v3.0
-// The details is bundled with this project in the file LICENSE.txt.
-//
-// @project    UNIT3D
-//
-// @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
-// @author     HDVinnie, singularity43, MiM
-//
-// File Contents:
-//
-// uploadExtensionBuilder - To parse torrent files titles / Used: Upload
-// userFilterBuilder - To add filters for user search / Used: All User Histories
-// forumTipBuilder - To add tip buttons for forum / Used: Topics
-//
-// After classes, event attachments then globals.
 class uploadExtensionBuilder {
     removeDots(title) {
         // Remove extensions
@@ -219,9 +202,9 @@ class uploadExtensionBuilder {
 
             // Torrent Category
             if (release.type === 'Movie') {
-                $('#autocat').val(1);
+                document.getElementById('autocat').value = 1;
             } else if (release.type === 'TV Show') {
-                $('#autocat').val(2);
+                document.getElementById('autocat').value = 2;
             }
 
             // Torrent Type
@@ -235,40 +218,40 @@ class uploadExtensionBuilder {
                 matcher.indexOf('avc') > 0 ||
                 matcher.indexOf('vc-1') > 0
             ) {
-                $('#autotype').val(1);
+                document.getElementById('autotype').value = 1;
             }
             if (matcher.indexOf('remux') > 0) {
-                $('#autotype').val(2);
+                document.getElementById('autotype').value = 2;
             }
             if (matcher.indexOf('x264') > 0) {
-                $('#autotype').val(3);
+                document.getElementById('autotype').value = 3;
             }
             if (matcher.indexOf('x265') > 0) {
-                $('#autotype').val(3);
+                document.getElementById('autotype').value = 3;
             }
             if (matcher.indexOf('webdl') > 0 || matcher.indexOf('web-dl') > 0) {
-                $('#autotype').val(4);
+                document.getElementById('autotype').value = 4;
             }
             if (matcher.indexOf('web-rip') > 0 || matcher.indexOf('webrip') > 0) {
-                $('#autotype').val(5);
+                document.getElementById('autotype').value = 5;
             }
             if (matcher.indexOf('hdtv') > 0) {
-                $('#autotype').val(6);
+                document.getElementById('autotype').value = 6;
             }
 
             // Torrent Resolution
             if (release.resolution) {
-                $('#autores').val(release.resolution);
+                document.getElementById('autores').value = release.resolution;
             }
 
             // Torrent Season (TV Only)
             if (release.season) {
-                $('#season_number').val(release.season);
+                document.getElementById('season_number').value = release.season;
             }
 
             // Torrent Episode (TV Only)
             if (release.episode) {
-                $('#episode_number').val(release.episode);
+                document.getElementById('episode_number').value = release.episode;
             }
 
             // Torrent TMDB ID
@@ -295,10 +278,9 @@ class uploadExtensionBuilder {
                 data = JSON.parse(data);
                 if (release.type === 'Movie') {
                     if (data.results && data.results.length > 0) {
-                        $('#autotmdb').val(data.results[0].id);
-                        $('#apimatch').val(
-                            'Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')'
-                        );
+                        document.getElementById('autotmdb').value = data.results[0].id;
+                        document.getElementById('apimatch').value =
+                            'Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')';
                         theMovieDb.movies.getKeywords(
                             {
                                 id: data.results[0].id,
@@ -316,10 +298,9 @@ class uploadExtensionBuilder {
                     }
                 } else if (release.type === 'TV Show') {
                     if (data.results && data.results.length > 0) {
-                        $('#autotmdb').val(data.results[0].id);
-                        $('#apimatch').val(
-                            'Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')'
-                        );
+                        document.getElementById('autotmdb').value = data.results[0].id;
+                        document.getElementById('apimatch').value =
+                            'Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')';
                         theMovieDb.tv.getKeywords(
                             {
                                 id: data.results[0].id,
@@ -347,10 +328,10 @@ class uploadExtensionBuilder {
                 data = JSON.parse(data);
                 if (release.type === 'Movie') {
                     let tags = data.keywords.map(({ name }) => name).join(', ');
-                    $('#autokeywords').val(tags);
+                    document.getElementById('autokeywords').value = tags;
                 } else if (release.type === 'TV Show' && data?.results.length > 0) {
                     let tags = data.results.map(({ name }) => name).join(', ');
-                    $('#autokeywords').val(tags);
+                    document.getElementById('autokeywords').value = tags;
                 }
             }
 
@@ -364,10 +345,10 @@ class uploadExtensionBuilder {
                 let imdb = data.imdb_id;
                 imdb = imdb.substring(2) ?? 0;
                 if (release.type === 'Movie') {
-                    $('#autoimdb').val(imdb);
+                    document.getElementById('autoimdb').value = imdb;
                 } else if (release.type === 'TV Show') {
-                    $('#autoimdb').val(imdb);
-                    $('#autotvdb').val(data.tvdb_id ?? 0);
+                    document.getElementById('autoimdb').value = imdb;
+                    document.getElementById('autotvdb').value = data.tvdb_id ?? 0;
                 }
             }
 
@@ -383,454 +364,5 @@ class uploadExtensionBuilder {
     }
 }
 
-class userFilterBuilder {
-    constructor() {
-        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-        this.api = '';
-        this.filter = '';
-        this.start = 0;
-        this.view = 'history';
-    }
-
-    set(filter) {
-        this.filter = filter;
-    }
-
-    get() {
-        return this.filter;
-    }
-
-    force() {
-        this.handle(this.start, true);
-    }
-
-    handle(page, nav) {
-        const userId = $('#userFilter').attr('userId');
-        const userName = $('#userFilter').attr('userName');
-
-        const view = $('#userFilter').attr('view');
-
-        const active = (function () {
-            if ($('#active').is(':checked')) {
-                return $('#active').val();
-            }
-        })();
-
-        const seeding = (function () {
-            if ($('#seeding').is(':checked')) {
-                return $('#seeding').val();
-            }
-        })();
-
-        const leeching = (function () {
-            if ($('#leeching').is(':checked')) {
-                return $('#leeching').val();
-            }
-        })();
-
-        const prewarned = (function () {
-            if ($('#prewarned').is(':checked')) {
-                return $('#prewarned').val();
-            }
-        })();
-
-        const hr = (function () {
-            if ($('#hr').is(':checked')) {
-                return $('#hr').val();
-            }
-        })();
-
-        const immune = (function () {
-            if ($('#immune').is(':checked')) {
-                return $('#immune').val();
-            }
-        })();
-
-        const completed = (function () {
-            if ($('#completed').is(':checked')) {
-                return $('#completed').val();
-            }
-        })();
-
-        const pending = (function () {
-            if ($('#pending').is(':checked')) {
-                return $('#pending').val();
-            }
-        })();
-
-        const approved = (function () {
-            if ($('#approved').is(':checked')) {
-                return $('#approved').val();
-            }
-        })();
-
-        const rejected = (function () {
-            if ($('#rejected').is(':checked')) {
-                return $('#rejected').val();
-            }
-        })();
-
-        const dead = (function () {
-            if ($('#dead').is(':checked')) {
-                return $('#dead').val();
-            }
-        })();
-
-        const alive = (function () {
-            if ($('#alive').is(':checked')) {
-                return $('#alive').val();
-            }
-        })();
-
-        const reseed = (function () {
-            if ($('#reseed').is(':checked')) {
-                return $('#reseed').val();
-            }
-        })();
-
-        const error = (function () {
-            if ($('#error').is(':checked')) {
-                return $('#error').val();
-            }
-        })();
-
-        const satisfied = (function () {
-            if ($('#satisfied').is(':checked')) {
-                return $('#satisfied').val();
-            }
-        })();
-
-        const notsatisfied = (function () {
-            if ($('#notsatisfied').is(':checked')) {
-                return $('#notsatisfied').val();
-            }
-        })();
-
-        const rewarded = (function () {
-            if ($('#rewarded').is(':checked')) {
-                return $('#rewarded').val();
-            }
-        })();
-
-        const notrewarded = (function () {
-            if ($('#notrewarded').is(':checked')) {
-                return $('#notrewarded').val();
-            }
-        })();
-
-        const dying = (function () {
-            if ($('#dying').is(':checked')) {
-                return $('#dying').val();
-            }
-        })();
-
-        const legendary = (function () {
-            if ($('#legendary').is(':checked')) {
-                return $('#legendary').val();
-            }
-        })();
-
-        const large = (function () {
-            if ($('#large').is(':checked')) {
-                return $('#large').val();
-            }
-        })();
-
-        const huge = (function () {
-            if ($('#huge').is(':checked')) {
-                return $('#huge').val();
-            }
-        })();
-
-        const everyday = (function () {
-            if ($('#everyday').is(':checked')) {
-                return $('#everyday').val();
-            }
-        })();
-
-        const legendary_seeder = (function () {
-            if ($('#legendary_seeder').is(':checked')) {
-                return $('#legendary_seeder').val();
-            }
-        })();
-
-        const mvp_seeder = (function () {
-            if ($('#mvp_seeder').is(':checked')) {
-                return $('#mvp_seeder').val();
-            }
-        })();
-
-        const committed_seeder = (function () {
-            if ($('#committed_seeder').is(':checked')) {
-                return $('#committed_seeder').val();
-            }
-        })();
-
-        const teamplayer_seeder = (function () {
-            if ($('#teamplayer_seeder').is(':checked')) {
-                return $('#teamplayer_seeder').val();
-            }
-        })();
-
-        const participant_seeder = (function () {
-            if ($('#participant_seeder').is(':checked')) {
-                return $('#participant_seeder').val();
-            }
-        })();
-
-        const old = (function () {
-            if ($('#old').is(':checked')) {
-                return $('#old').val();
-            }
-        })();
-
-        const unfilled = (function () {
-            if ($('#unfilled').is(':checked')) {
-                return $('#unfilled').val();
-            }
-        })();
-
-        const filled = (function () {
-            if ($('#filled').is(':checked')) {
-                return $('#filled').val();
-            }
-        })();
-
-        const claimed = (function () {
-            if ($('#claimed').is(':checked')) {
-                return $('#claimed').val();
-            }
-        })();
-
-        const search = $('#search').val();
-
-        const sorting = $('#sorting').val();
-        const direction = $('#direction').val();
-
-        if (userFilterXHR != null) {
-            userFilterXHR.abort();
-        }
-        userFilterXHR = $.ajax({
-            url: '/users/' + userName + '/userFilters',
-            data: {
-                _token: this.csrf,
-                page: page,
-                active: active,
-                sorting: sorting,
-                direction: direction,
-                seeding: seeding,
-                prewarned: prewarned,
-                completed: completed,
-                hr: hr,
-                rewarded: rewarded,
-                notrewarded: notrewarded,
-                immune: immune,
-                claimed: claimed,
-                filled: filled,
-                unfilled: unfilled,
-                name: search,
-                pending: pending,
-                leeching: leeching,
-                approved: approved,
-                rejected: rejected,
-                dead: dead,
-                alive: alive,
-                satisfied: satisfied,
-                notsatisfied: notsatisfied,
-                reseed: reseed,
-                error: error,
-                dying: dying,
-                legendary: legendary,
-                old: old,
-                huge: huge,
-                large: large,
-                everyday: everyday,
-                legendary_seeder: legendary_seeder,
-                mvp_seeder: mvp_seeder,
-                teamplayer_seeder: teamplayer_seeder,
-                committed_seeder: committed_seeder,
-                participant_seeder: participant_seeder,
-                view: view,
-            },
-            type: 'post',
-            beforeSend: function () {
-                $('#userFilter').html('<i class="fal fa-spinner fa-spin fa-3x fa-fw"></i>');
-            },
-        }).done(function (e) {
-            $data = $(e);
-            $('#userFilter').html($data);
-            if (page) {
-                $('#filterHeader')[0].scrollIntoView();
-            }
-            if (!nav) {
-                if (window.history && window.history.replaceState) {
-                    window.history.replaceState(null, null, ' ');
-                }
-            }
-            userFilterXHR = null;
-        });
-    }
-
-    init() {
-        $('.userFilter').each(function () {
-            if ($(this).attr('trigger')) {
-                var trigger = $(this).attr('trigger');
-            } else {
-                var trigger = 'click';
-            }
-            $(this).off(trigger);
-            $(this).on(
-                trigger,
-                _.debounce(function (e) {
-                    userFilter.handle();
-                }, 400)
-            );
-        });
-
-        let page = 0;
-        if (window.location.hash && window.location.hash.indexOf('page')) {
-            page = parseInt(window.location.hash.split('/')[1]);
-        }
-        if (page && page > 0) {
-            this.start = page;
-            this.force();
-        }
-    }
-}
-
-class forumTipBuilder {
-    constructor() {
-        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute('content');
-        this.leaveTip = $('#forumTip').attr('leaveTip');
-        this.quickTip = $('#forumTip').attr('quickTip');
-        this.route = $('#forumTip').attr('route');
-    }
-
-    handle(user, id) {
-        this.user = user;
-        this.template =
-            '<div class="some-padding">' +
-            '<div class="box">' +
-            '<form role="form" method="POST" action="' +
-            this.route +
-            '">' +
-            '<input type="hidden" name="_token" value="' +
-            this.csrf +
-            '">' +
-            '<input type="hidden" name="recipient" value="' +
-            this.user +
-            '">' +
-            '<input type="hidden" name="post" value="' +
-            id +
-            '">' +
-            '<input type="number" name="tip" value="0" placeholder="0" class="form-control">' +
-            '<button type="submit" class="btn btn-primary">' +
-            this.leaveTip +
-            '</button>' +
-            '<br>' +
-            '<br>' +
-            '<span class="text-green text-bold">' +
-            this.quickTip +
-            '</span>' +
-            '<br>' +
-            '<button type="submit" value="10" name="tip" class="label label-sm label-success space-me">10 BON</button>' +
-            '<button type="submit" value="20" name="tip" class="label label-sm label-danger space-me">20 BON</button>' +
-            '<button type="submit" value="50" name="tip" class="label label-sm label-info space-me">50 BON</button>' +
-            '<button type="submit" value="100" name="tip" class="label label-sm label-warning space-me">100 BON</button>' +
-            '<button type="submit" value="200" name="tip" class="label label-sm label-danger space-me">200 BON</button>' +
-            '<button type="submit" value="500" name="tip" class="label label-sm label-primary space-me">500 BON</button>' +
-            '<button type="submit" value="1000" name="tip" class="label label-sm label-success space-me">1000 BON</button>' +
-            '</form>' +
-            '</div>' +
-            '</div>';
-
-        $('#forumTip' + id).html(this.template);
-        $('#forumTip' + id).show();
-    }
-
-    init() {
-        $('.forumTip').each(function () {
-            $(this).on('click', function (e) {
-                e.preventDefault();
-                forumTip.handle($(this).attr('user'), $(this).attr('post'));
-            });
-        });
-    }
-}
-
-// Global attachments.
-// Attach to events using jQuery.
-
-$(document).ajaxComplete(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
-$(document).ready(function () {
-    if (document.getElementById('request-form-description')) {
-        $('#request-form-description').wysibb({});
-    }
-    if ($('#comments').length > 0) {
-        if (window.location.hash && window.location.hash.substring) {
-            let hash = window.location.hash.substring(1).split('/')[0];
-            if (hash == 'comments') {
-                $('#comments')[0].scrollIntoView();
-            }
-        }
-    }
-    if ($('#upload-form-description').length > 0) {
-        $('#upload-form-description').wysibb({});
-    }
-    if (document.getElementById('userFilter')) {
-        userFilter.init();
-    }
-    if (document.getElementById('forumTip')) {
-        forumTip.init();
-    }
-});
-$(document).on('click', '.pagination a', function (e) {
-    var url = $(this).attr('href');
-    if ($('#comments').length > 0) {
-        e.preventDefault();
-        window.location.href = url + '#comments';
-        return;
-    }
-
-    if (!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) {
-    } else {
-        e.preventDefault();
-
-        let sub = null;
-        if (window.location.hash && window.location.hash.substring) {
-            sub = window.location.hash.substring(1).split('/')[0];
-        }
-        if (!sub) {
-            sub = 'page';
-        }
-        const link_url = $(this).attr('href');
-        const page = parseInt(link_url.split('page=')[1]);
-        var url = window.location.href.split('#')[0] + '#' + sub + '/' + page;
-        if (window.history && window.history.pushState) {
-            window.history.pushState('', '', url);
-        }
-        if (document.getElementById('facetedSearch')) {
-            facetedSearch.show(page, true);
-        }
-        if (document.getElementById('userFilter')) {
-            userFilter.handle(page, true);
-        }
-    }
-});
-$(document).mousedown(function () {
-    if (audioLoaded == 0) {
-        window.sounds = {};
-        const sound = new Audio('/sounds/alert.mp3');
-        sound.load();
-        window.sounds['alert.mp3'] = sound;
-    }
-    audioLoaded = 1;
-});
 // Globals
-const userFilter = new userFilterBuilder();
-const forumTip = new forumTipBuilder();
 const uploadExtension = new uploadExtensionBuilder();
-var userFilterXHR = null;
-var audioLoaded = 0;

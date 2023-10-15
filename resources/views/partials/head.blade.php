@@ -16,33 +16,49 @@
 
 @if (auth()->user()->standalone_css === null)
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
-    @if (auth()->user()->style == 1)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 2)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 3)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 4)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 5)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 6)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 7)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 8)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}" crossorigin="anonymous">
-    @elseif (auth()->user()->style == 9)
-        <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ mix('css/themes/cosmic-void.css') }}" crossorigin="anonymous">
-    @endif
+    @switch(auth()->user()->style)
+        @case(1)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            @break
+        @case(2)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}" crossorigin="anonymous">
+            @break
+        @case(3)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}" crossorigin="anonymous">
+            @break
+        @case(4)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}" crossorigin="anonymous">
+            @break
+        @case(5)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}" crossorigin="anonymous">
+            @break
+        @case(6)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}" crossorigin="anonymous">
+            @break
+        @case(7)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}" crossorigin="anonymous">
+            @break
+        @case(8)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}" crossorigin="anonymous">
+            @break
+        @case(9)
+            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ mix('css/themes/cosmic-void.css') }}" crossorigin="anonymous">
+            @break
+        @case(10)
+            <link rel="stylesheet" href="{{ mix('css/themes/nord.css') }}" crossorigin="anonymous">
+            @break
+        @case(11)
+            <link rel="stylesheet" href="{{ mix('css/themes/revel.css') }}" crossorigin="anonymous">
+            @break
+    @endswitch
 
     @if (isset(auth()->user()->custom_css))
         <link rel="stylesheet" href="{{ auth()->user()->custom_css }}">

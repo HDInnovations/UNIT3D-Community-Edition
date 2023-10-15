@@ -7,12 +7,10 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('torrents', function (Blueprint $table) {
+        Schema::table('torrents', function (Blueprint $table): void {
             $table->bigInteger('balance')->nullable();
             $table->bigInteger('balance_offset')->nullable();
         });

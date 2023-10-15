@@ -32,7 +32,6 @@
             >
                 @csrf
                 <input name="torrent_id" type="hidden" value="{{ $torrent->id }}">
-                <input name="torrent_name" type="hidden" value="{{ $torrent->name }}">
                 <p class="form__group">
                     <label for="subtitle_file" class="form__label">
                         {{ __('subtitle.subtitle-file') }} ({{ __('subtitle.subtitle-file-types') }})
@@ -70,23 +69,24 @@
                         name="note"
                         id="note"
                         class="form__text"
-                        placeholder=""
+                        placeholder=" "
+                        required
                     >
                     <label class="form__label form__label--floating" for="note">
                         {{ __('subtitle.note') }} ({{ __('subtitle.note-help') }})
                     </label>
                 </p>
                 <p class="form__group">
-                    <input type="hidden" name="anonymous" value="0">
+                    <input type="hidden" name="anon" value="0">
                     <input
-                        id="anonymous"
+                        id="anon"
                         class="form__checkbox"
-                        name="anonymous"
+                        name="anon"
                         type="checkbox"
                         value="1"
-                        @checked(old('anonymous'))
+                        @checked(old('anon'))
                     >
-                    <label class="form__label" for="anonymous">{{ __('common.anonymous') }}?</label>
+                    <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
@@ -100,10 +100,10 @@
 
 @section('sidebar')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('torrent.torrent') }}</label>
+        <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
         <div class="panel__body">
             <a
-                href="{{ route('torrent', ['id' => $torrent->id]) }}"
+                href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
                 title="{{ $torrent->name }}"
             >
                 {{ $torrent->name }}

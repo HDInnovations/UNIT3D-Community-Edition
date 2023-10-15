@@ -19,11 +19,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ban extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function banneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -35,6 +44,8 @@ class Ban extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

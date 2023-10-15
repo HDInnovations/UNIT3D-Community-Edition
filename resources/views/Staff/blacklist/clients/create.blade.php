@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.blacklists.clients.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.blacklisted_clients.index') }}" class="breadcrumb__link">
             Blacklisted Clients
         </a>
     </li>
@@ -23,31 +23,32 @@
         </h2>
         <div class="panel__body">
             <form
-                    name="upload"
-                    class="upload-form form"
-                    id="upload-form"
-                    method="POST"
-                    action="{{ route('staff.blacklists.clients.store') }}"
+                name="upload"
+                class="upload-form form"
+                id="upload-form"
+                method="POST"
+                action="{{ route('staff.blacklisted_clients.store') }}"
             >
                 @csrf
                 <p class="form__group">
                     <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            class="form__text"
-                            value="{{ old('name') }}"
-                            required
+                        id="name"
+                        class="form__text"
+                        name="name"
+                        required
+                        type="text"
+                        value="{{ old('name') }}"
                     >
                     <label class="form__label form__label--floating" for="name">{{ __('common.name') }}</label>
                 </p>
                 <p class="form__group">
                     <input
-                            type="text"
-                            name="reason"
-                            id="reason"
-                            class="form__text"
-                            value="{{ old('reason') }}"
+                        id="reason"
+                        class="form__text"
+                        name="reason"
+                        required
+                        type="text"
+                        value="{{ old('reason') }}"
                     >
                     <label class="form__label form__label--floating" for="reason">
                         {{ __('common.reason') }}

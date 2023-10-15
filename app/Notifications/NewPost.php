@@ -32,22 +32,26 @@ class NewPost extends Notification implements ShouldQueue
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         if ($this->type == 'subscription') {
             return [
                 'title' => $this->user->username.' Has Posted In A Subscribed Topic',
                 'body'  => $this->user->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
-                'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+                'url'   => sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
             ];
         }
 
@@ -55,14 +59,14 @@ class NewPost extends Notification implements ShouldQueue
             return [
                 'title' => $this->user->username.' Has Posted In A Staff Forum Topic',
                 'body'  => $this->user->username.' has left a new post in Staff Topic '.$this->post->topic->name,
-                'url'   => \sprintf('%s?page=%s#post-%s', \route('forum_topic', ['id' => $this->post->topic->id]), $this->post->getPageNumber(), $this->post->id),
+                'url'   => sprintf('%s/posts/%s', route('topics.show', ['id' => $this->post->topic->id]), $this->post->id),
             ];
         }
 
         return [
             'title' => $this->user->username.' Has Posted In A Topic You Started',
             'body'  => $this->user->username.' has left a new post in Your Topic '.$this->post->topic->name,
-            'url'   => \sprintf('/forums/topics/%s?page=%s#post-%s', $this->post->topic->id, $this->post->getPageNumber(), $this->post->id),
+            'url'   => sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
         ];
     }
 }

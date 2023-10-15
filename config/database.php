@@ -1,18 +1,6 @@
 <?php
-/**
- * NOTICE OF LICENSE.
- *
- * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D Community Edition
- *
- * @author     HDVinnie <hdinnovations@protonmail.com>
- * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- */
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -43,7 +31,6 @@ return [
     */
 
     'connections' => [
-
         'sqlite' => [
             'driver'                  => 'sqlite',
             'url'                     => env('DATABASE_URL'),
@@ -67,10 +54,9 @@ return [
             'prefix_indexes' => true,
             'strict'         => true,
             'engine'         => null,
-            'options'        => extension_loaded('pdo_mysql') ? array_filter([
+            'options'        => \extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
-
             'dump' => [
                 'dump_binary_path' => '/usr/bin', // only the path, so without `mysqldump` or `pg_dump`
                 'use_single_transaction',
@@ -80,18 +66,18 @@ return [
         ],
 
         'pgsql' => [
-            'driver'              => 'pgsql',
-            'url'                 => env('DATABASE_URL'),
-            'host'                => env('DB_HOST', '127.0.0.1'),
-            'port'                => env('DB_PORT', '5432'),
-            'database'            => env('DB_DATABASE', 'forge'),
-            'username'            => env('DB_USERNAME', 'forge'),
-            'password'            => env('DB_PASSWORD', ''),
-            'charset'             => 'utf8',
-            'prefix'              => '',
-            'prefix_indexes'      => true,
-            'search_path'         => 'public',
-            'sslmode'             => 'prefer',
+            'driver'         => 'pgsql',
+            'url'            => env('DATABASE_URL'),
+            'host'           => env('DB_HOST', '127.0.0.1'),
+            'port'           => env('DB_PORT', '5432'),
+            'database'       => env('DB_DATABASE', 'forge'),
+            'username'       => env('DB_USERNAME', 'forge'),
+            'password'       => env('DB_PASSWORD', ''),
+            'charset'        => 'utf8',
+            'prefix'         => '',
+            'prefix_indexes' => true,
+            'search_path'    => 'public',
+            'sslmode'        => 'prefer',
         ],
 
         'sqlsrv' => [
@@ -105,8 +91,9 @@ return [
             'charset'        => 'utf8',
             'prefix'         => '',
             'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-
     ],
 
     /*
@@ -134,16 +121,15 @@ return [
     */
 
     'redis' => [
-
-        'client' => env('REDIS_CLIENT', 'predis'),
+        'client' => env('REDIS_CLIENT', 'phpredis'),
 
         'default' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
             'username'           => env('REDIS_USERNAME'),
-            'password'           => env('REDIS_PASSWORD', null),
-            'port'               => env('REDIS_PORT', 6379),
-            'database'           => env('REDIS_DB', 0),
+            'password'           => env('REDIS_PASSWORD'),
+            'port'               => env('REDIS_PORT', '6379'),
+            'database'           => env('REDIS_DB', '0'),
             'read_write_timeout' => -1,
         ],
 
@@ -151,9 +137,9 @@ return [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
             'username'           => env('REDIS_USERNAME'),
-            'password'           => env('REDIS_PASSWORD', null),
-            'port'               => env('REDIS_PORT', 6379),
-            'database'           => env('REDIS_CACHE_DB', 1),
+            'password'           => env('REDIS_PASSWORD'),
+            'port'               => env('REDIS_PORT', '6379'),
+            'database'           => env('REDIS_CACHE_DB', '1'),
             'read_write_timeout' => -1,
         ],
 
@@ -187,8 +173,16 @@ return [
             'read_write_timeout' => -1,
         ],
 
+        'announce' => [
+            'url'                => env('REDIS_URL'),
+            'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'username'           => env('REDIS_USERNAME'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => env('REDIS_BROADCAST_DB', 5),
+            'read_write_timeout' => -1,
+        ],
     ],
 
     'pristine-db-file' => env('PRISTINE_DB_FILE'),
-
 ];

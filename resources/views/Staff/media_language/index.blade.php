@@ -42,7 +42,7 @@
                     @foreach($media_languages as $media_language)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}">
+                                <a href="{{ route('staff.media_languages.edit', ['mediaLanguage' => $media_language]) }}">
                                     {{ $media_language->name }}
                                 </a>
                             </td>
@@ -52,7 +52,7 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.media_languages.edit', ['id' => $media_language->id]) }}"
+                                            href="{{ route('staff.media_languages.edit', ['mediaLanguage' => $media_language]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
@@ -60,15 +60,15 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.media_languages.destroy', ['id' => $media_language->id]) }}"
+                                            action="{{ route('staff.media_languages.destroy', ['mediaLanguage' => $media_language]) }}"
                                             x-data
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <button 
+                                            <button
                                                 x-on:click.prevent="Swal.fire({
                                                     title: 'Are you sure?',
-                                                    text: 'Are you sure you want to delete this media language: {{ $media_language->name }}?',
+                                                    text: `Are you sure you want to delete this media language: ${atob('{{ base64_encode($media_language->name) }}')}?`,
                                                     icon: 'warning',
                                                     showConfirmButton: true,
                                                     showCancelButton: true,

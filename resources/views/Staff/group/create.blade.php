@@ -29,7 +29,7 @@
                         class="form__text"
                         type="text"
                         name="name"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         {{ __('common.name') }}
@@ -40,7 +40,7 @@
                         class="form__text"
                         type="text"
                         name="position"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         {{ __('common.position') }}
@@ -51,7 +51,7 @@
                         class="form__text"
                         type="text"
                         name="level"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         Level
@@ -62,7 +62,7 @@
                         class="form__text"
                         type="text"
                         name="download_slots"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         DL Slots
@@ -73,7 +73,7 @@
                         class="form__text"
                         type="text"
                         name="color"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         Color (e.g. #ff0000)
@@ -84,7 +84,7 @@
                         class="form__text"
                         type="text"
                         name="icon"
-                        placeholder=""
+                        placeholder=" "
                     />
                     <label class="form__label form__label--floating">
                         FontAwesome Icon (e.g. fas fa-user)
@@ -204,6 +204,19 @@
                     >
                     <label class="form__label" for="is_double_upload">
                         Double Upload
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="is_refundable" type="hidden" value="0">
+                    <input
+                            id="is_refundable"
+                            class="form__checkbox"
+                            name="is_refundable"
+                            type="checkbox"
+                            value="1"
+                    >
+                    <label class="form__label" for="is_refundable">
+                        Refundable Download
                     </label>
                 </p>
                 <p class="form__group">

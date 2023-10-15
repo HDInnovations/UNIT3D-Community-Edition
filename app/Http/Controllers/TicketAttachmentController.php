@@ -13,15 +13,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
 use App\Models\TicketAttachment;
+use Illuminate\Http\Request;
 
 class TicketAttachmentController extends Controller
 {
     /**
      * Download a ticket attachment from storage.
      */
-    final public function download(TicketAttachment $attachment): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    final public function download(Request $request, Ticket $ticket, TicketAttachment $attachment): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        return \response()->download(\getcwd().'/files/attachments/attachments/'.$attachment->file_name)->deleteFileAfterSend(false);
+        abort_unless($request->user()->group->is_modo || $request->user()->id === $ticket->user_id, 403);
+
+        return response()->download(getcwd().'/files/attachments/attachments/'.$attachment->file_name)->deleteFileAfterSend(false);
     }
 }

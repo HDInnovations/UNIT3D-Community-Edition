@@ -19,20 +19,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    use HasFactory;
     use Auditable;
+    use HasFactory;
 
     /**
-     * The Attributes That Aren't Mass Assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var string[]
      */
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Belongs To A Request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, self>
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -41,6 +41,8 @@ class Report extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -49,6 +51,8 @@ class Report extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function reporter(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -60,6 +64,8 @@ class Report extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function reported(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -71,6 +77,8 @@ class Report extends Model
 
     /**
      * Belongs To A Staff Member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

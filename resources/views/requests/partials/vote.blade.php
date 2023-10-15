@@ -1,30 +1,30 @@
-<div class="panel__action" x-data="{ open: false }">
-    <button class="form__button form__button--text" x-on:click.stop="open = true; $refs.dialog.showModal();">
+<li class="form__group form__group--short-horizontal" x-data>
+    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
         {{ __('request.vote') }}
     </button>
-    <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+    <dialog class="dialog" x-ref="dialog">
         <h3 class="dialog__heading">
             {{ __('request.vote-that') }}
         </h3>
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route("add_votes", ['id' => $torrentRequest->id]) }}"
-            x-on:click.outside="open = false; $refs.dialog.close();"
+            action="{{ route("requests.bounties.store", ['torrentRequest' => $torrentRequest]) }}"
+            x-on:click.outside="$refs.dialog.close()"
         >
             @csrf
             <input id="type" type="hidden" name="request_id" value="{{ $torrentRequest->id }}">
             <p class="form__group">
                 <input
-                    id="bonus_value"
+                    id="seedbonus"
                     class="form__text"
                     inputmode="numeric"
-                    name="bonus_value"
+                    name="seedbonus"
                     pattern="[0-9]*?[1-9][0-9]{2,}"
-                    placeholder=""
+                    placeholder=" "
                     type="text"
                 >
-                <label for="bonus_value" class="form__label form__label--floating">
+                <label for="seedbonus" class="form__label form__label--floating">
                     {{ __('request.enter-bp') }}
                 </label>
             </p>
@@ -51,10 +51,10 @@
                 >
                     {{ __('request.vote') }}
                 </button>
-                <button x-on:click.prevent="open = false; $refs.dialog.close();" class="form__button form__button--outlined">
+                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
             </p>
         </form>
     </dialog>
-</div>
+</li>

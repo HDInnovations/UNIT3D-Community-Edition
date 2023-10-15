@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\MediaHub;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Company;
 use App\Models\Genre;
@@ -29,22 +30,15 @@ class HomeController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $tv = Tv::count();
-        $movies = Movie::count();
-        $collections = Collection::count();
-        $persons = Person::whereNotNull('still')->count();
-        $genres = Genre::count();
-        $networks = Network::count();
-        $companies = Company::count();
-
-        return \view('mediahub.index', [
-            'tv'          => $tv,
-            'movies'      => $movies,
-            'collections' => $collections,
-            'persons'     => $persons,
-            'genres'      => $genres,
-            'networks'    => $networks,
-            'companies'   => $companies,
+        return view('mediahub.index', [
+            'tv'               => Tv::count(),
+            'movies'           => Movie::count(),
+            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'collections'      => Collection::count(),
+            'persons'          => Person::whereNotNull('still')->count(),
+            'genres'           => Genre::count(),
+            'networks'         => Network::count(),
+            'companies'        => Company::count(),
         ]);
     }
 }

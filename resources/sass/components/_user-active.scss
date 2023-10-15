@@ -1,3 +1,32 @@
+.user-peers {
+    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
+    width: max-content;
+    max-width: 100vw;
+    align-self: center;
+}
+
+@media only screen and (min-width: 1600px) {
+    .user-peers {
+        margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+@media only screen and (min-width: 2500px) {
+    .user-peers {
+        margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    }
+}
+
+.user-peers__filters {
+    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px));
+}
+
+@media only screen and (max-width: 767px) {
+    .user-peers__filters {
+        margin: 0 max(0, 45vw - 600px);
+    }
+}
+
 .user-active__name-header,
 .user-active__seeders-header,
 .user-active__leechers-header,
