@@ -1,8 +1,4 @@
 <p align="center">
-    <img src="https://i.postimg.cc/FKP2H5p4/Screen-Shot-2023-07-03-at-2-23-52-PM.png" alt="UNIT3D-Community-Edition Cover Image">
-</p>
-
-<p align="center">
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-10-f4645f.svg" /></a> 
 <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
 <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg" /></a>
@@ -86,7 +82,8 @@ Use this command to generate demo users and torrents for testing purposes:
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 6.x.x       |  Active Support :rocket: | >= 8.1
+ 7.x.x       |  Active Support :rocket: | >= 8.2
+ 6.x.x       |  End Of Life :skull: | >= 8.1
  5.x.x       |  End Of Life :skull: | >= 8.0
  4.x.x       |  End Of Life :skull: | >= 7.4
  3.x.x       |  End Of Life :skull: | >= 7.4
