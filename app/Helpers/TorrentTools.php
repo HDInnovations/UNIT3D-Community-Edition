@@ -257,7 +257,7 @@ class TorrentTools
     {
         foreach ($releasegroupBlacklist as $rg) {
             // Check if the RG name is in blacklist
-            if (preg_match("/-{$rg->name}/i", $torrentName) || preg_match("/- {$rg->name}/i", $torrentName)) {
+            if (preg_match("/-{$rg->name}/", $torrentName) || preg_match("/- {$rg->name}/", $torrentName)) {
                 // Check if the type is in blacklist too
                 if ($rg->json_types === null || $rg->json_types === [] || \in_array($typeId, $rg->json_types['types'] ?? null)) {
                     return true;
