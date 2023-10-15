@@ -54,15 +54,18 @@ return new class () extends Migration {
         } ;
 
         foreach (DB::table('user_notifications')->get() as $user_notification) {
-            $user_notification->json_account_groups = $migrate($user_notification->json_account_groups);
-            $user_notification->json_bon_groups = $migrate($user_notification->json_bon_groups);
-            $user_notification->json_mention_groups = $migrate($user_notification->json_mention_groups);
-            $user_notification->json_request_groups = $migrate($user_notification->json_request_groups);
-            $user_notification->json_torrent_groups = $migrate($user_notification->json_torrent_groups);
-            $user_notification->json_forum_groups = $migrate($user_notification->json_forum_groups);
-            $user_notification->json_following_groups = $migrate($user_notification->json_following_groups);
-            $user_notification->json_subscription_groups = $migrate($user_notification->json_subscription_groups);
-            $user_notification->save();
+            DB::table('user_notifications')
+                ->where('id', '=', $user_notification->id)
+                ->update([
+                    'json_account_groups'      => $migrate($user_notification->json_account_groups),
+                    'json_bon_groups'          => $migrate($user_notification->json_bon_groups),
+                    'json_mention_groups'      => $migrate($user_notification->json_mention_groups),
+                    'json_request_groups'      => $migrate($user_notification->json_request_groups),
+                    'json_torrent_groups'      => $migrate($user_notification->json_torrent_groups),
+                    'json_forum_groups'        => $migrate($user_notification->json_forum_groups),
+                    'json_following_groups'    => $migrate($user_notification->json_following_groups),
+                    'json_subscription_groups' => $migrate($user_notification->json_subscription_groups),
+                ]);
         }
     }
 };
