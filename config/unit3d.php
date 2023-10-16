@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v7.0.0',
+    'powered-by' => 'UNIT3D Community Edition v7.0.0',
 
     /*
     |--------------------------------------------------------------------------
