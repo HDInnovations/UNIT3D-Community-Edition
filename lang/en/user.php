@@ -175,6 +175,7 @@ return [
     'mention-notification-help'            => 'Control which notifications are sent when a user @mentions you.
     These settings are overridden if you do not allow any groups to send notifications if a user @mentions you or if you <strong>Disable Notifications</strong>',
     'moderated-by'                   => 'Moderated by :mod on',
+    'my-achievements'                => 'My Achievements',
     'my-bonus-points'                => 'My Bonus Points',
     'my-bookmarks'                   => 'My Bookmarks',
     'my-fl-tokens'                   => 'My FL tokens',
