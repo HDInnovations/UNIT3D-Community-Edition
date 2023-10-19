@@ -63,3 +63,10 @@ if (document.getElementById('vue')) {
  */
 // Sweet Alert
 window.Swal = require('sweetalert2');
+
+/*
+  * Livewire 3 + AlpineJS
+ */
+import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm';
+
+Livewire.start();
