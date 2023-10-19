@@ -16,6 +16,7 @@
                     3       => 'poster',
                     default => 'list'
                 }]) }}"
+                wire:navigate
             >
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
@@ -35,31 +36,32 @@
                             3       => 'poster',
                             default => 'list'
                         }]) }}"
+                        wire:navigate
                     >
                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                         {{ __('torrent.torrents') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('torrents.create', ['category_id' => 1]) }}">
+                    <a href="{{ route('torrents.create', ['category_id' => 1]) }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                         {{ __('common.upload') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('requests.index') }}">
+                    <a href="{{ route('requests.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-hands-helping"></i>
                         {{ __('request.requests') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('rss.index') }}">
+                    <a href="{{ route('rss.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('rss.rss') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('mediahub.index') }}">
+                    <a href="{{ route('mediahub.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
                         MediaHub
                     </a>
@@ -67,7 +69,7 @@
             </ul>
         </li>
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a class="top-nav__dropdown--nontouch"  href="{{ route('forums.index') }}">
+            <a class="top-nav__dropdown--nontouch"  href="{{ route('forums.index') }}" wire:navigate>
                 <div class="top-nav--left__container">
                     {{ __('common.community') }}
                 </div>
@@ -79,31 +81,31 @@
             </a>
             <ul>
                 <li>
-                    <a  href="{{ route('forums.index') }}">
+                    <a  href="{{ route('forums.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-comments"></i>
                         {{ __('forum.forums') }}
                     </a>
                 </li>
                 <li>
-                    <a  href="{{ route('playlists.index') }}">
+                    <a  href="{{ route('playlists.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
                         {{ __('playlist.playlists') }}
                     </a>
                 </li>
                 <li>
-                    <a  href="{{ route('polls.index') }}">
+                    <a  href="{{ route('polls.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i>
                         {{ __('poll.polls') }}
                     </a>
                 </li>
                 <li>
-                    <a  href="{{ route('stats') }}">
+                    <a  href="{{ route('stats') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-chart-bar"></i>
                         {{ __('common.extra-stats') }}
                     </a>
                 </li>
                 <li>
-                    <a  href="{{ route('articles.index') }}">
+                    <a  href="{{ route('articles.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-newspaper"></i>
                         {{ __('common.news') }}
                     </a>
@@ -153,19 +155,19 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{ config('other.rules_url') }}">
+                    <a href="{{ config('other.rules_url') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-info"></i>
                         {{ __('common.rules') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ config('other.faq_url') }}">
+                    <a href="{{ config('other.faq_url') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>
                         {{ __('common.faq') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('tickets.index') }}">
+                    <a href="{{ route('tickets.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
                         {{ __('ticket.helpdesk') }}
                         <!-- Notifications for Mods -->
@@ -182,7 +184,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('staff') }}">
+                    <a href="{{ route('staff') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-user-secret"></i>
                         {{ __('common.staff') }}
                     </a>
@@ -197,25 +199,25 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{ route('subtitles.index') }}">
+                    <a href="{{ route('subtitles.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
                         {{ __('common.subtitles') }}
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('top10.index') }}">
+                    <a href="{{ route('top10.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
                         Top 10
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('missing.index') }}">
+                    <a href="{{ route('missing.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-ballot-check"></i>
                         Missing
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('internal') }}">
+                    <a href="{{ route('internal') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-star-shooting"></i>
                         {{ __('common.internal') }}
                     </a>
