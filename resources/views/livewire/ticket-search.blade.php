@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: @entangle('tab') }">
+<section class="panelV2" x-data="{ tab: @entangle('tab').live }">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('ticket.helpdesk') }}</h2>
         <div class="panel__actions">
@@ -7,7 +7,7 @@
                     <select
                         id="quantity"
                         class="form__select"
-                        wire:model="perPage"
+                        wire:model.live="perPage"
                         required
                     >
                         <option>25</option>
@@ -25,7 +25,7 @@
                         id="search"
                         class="form__text"
                         type="text"
-                        wire:model="search"
+                        wire:model.live="search"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="search">
@@ -175,6 +175,6 @@
             @endforelse
             </tbody>
         </table>
-        {{ $tickets->links('partials.pagination') }}
+        {{ $tickets->links('partials.livewire-pagination') }}
     </div>
 </section>

@@ -44,5 +44,5 @@
 		@endforeach
 		</tbody>
 	</table>
-	{{ $medias->links('partials.pagination') }}
+	{{ $medias->links('partials.livewire-pagination') }}
 </section>

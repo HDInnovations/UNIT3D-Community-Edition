@@ -7,19 +7,19 @@
             <form class="form">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="torrent" class="form__text" placeholder=" ">
+                        <input wire:model.live="torrent" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Torrent Name</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="user" class="form__text" placeholder=" ">
+                        <input wire:model.live="user" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Username</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="agent" class="form__text" placeholder=" ">
+                        <input wire:model.live="agent" class="form__text" placeholder=" ">
                         <label class="form__label form__label--floating">Agent</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="seeder" class="form__select" placeholder=" ">
+                        <select wire:model.live="seeder" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="include">Completed</option>
                             <option value="exclude">Incomplete</option>
@@ -27,7 +27,7 @@
                         <label class="form__label form__label--floating">Completed</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="active" class="form__select" placeholder=" ">
+                        <select wire:model.live="active" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="exclude">Inactive</option>
                             <option value="include">Active</option>
@@ -35,7 +35,7 @@
                         <label class="form__label form__label--floating">Active</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="groupBy" class="form__select" placeholder=" ">
+                        <select wire:model.live="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_id">User</option>
                         </select>
@@ -358,7 +358,7 @@
                         </tbody>
                     </table>
             @endswitch
-            {{ $histories->links('partials.pagination') }}
+            {{ $histories->links('partials.livewire-pagination') }}
         </div>
     </section>
 </div>

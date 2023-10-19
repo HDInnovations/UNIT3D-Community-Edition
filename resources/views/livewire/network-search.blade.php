@@ -8,7 +8,7 @@
                         class="form__text"
                         placeholder=" "
                         type="text"
-                        wire:model.debounce.250ms="search"
+                        wire:model.live.debounce.250ms="search"
                     />
                     <label class="form__label form__label--floating">
                         {{ __('torrent.search-by-name') }}
@@ -17,7 +17,7 @@
             </div>
         </div>
     </header>
-    {{ $networks->links('partials.pagination') }}
+    {{ $networks->links('partials.livewire-pagination') }}
     <div class="panel__body blocks">
         @forelse ($networks as $network)
             <a href="{{ route('torrents.index', ['view' => 'group', 'networkId' => $network->id]) }}" style="padding: 0 2px;">
@@ -40,5 +40,5 @@
             No {{ __('mediahub.networks') }}
         @endforelse
     </div>
-    {{ $networks->links('partials.pagination') }}
+    {{ $networks->links('partials.livewire-pagination') }}
 </div>

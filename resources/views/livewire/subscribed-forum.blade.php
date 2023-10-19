@@ -1,6 +1,6 @@
 <section class="panelV2">
     <h2 class="panel__heading">{{ __('forum.forums') }}</h2>
-    {{ $forums->links('partials.pagination') }}
+    {{ $forums->links('partials.livewire-pagination') }}
     @if($forums->count() > 0)
         <ul class="subforum-listings">
             @foreach ($forums as $forum)
@@ -14,5 +14,5 @@
             No forums in category.
         </div>
     @endif
-    {{ $forums->links('partials.pagination') }}
+    {{ $forums->links('partials.livewire-pagination') }}
 </section>

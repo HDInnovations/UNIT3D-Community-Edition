@@ -8,7 +8,7 @@
                         class="form__text"
                         placeholder=" "
                         type="text"
-                        wire:model.debounce.250ms="search"
+                        wire:model.live.debounce.250ms="search"
                     />
                     <label class="form__label form__label--floating">
                         {{ __('torrent.search-by-name') }}
@@ -17,7 +17,7 @@
             </div>
         </div>
     </header>
-    {{ $companies->links('partials.pagination') }}
+    {{ $companies->links('partials.livewire-pagination') }}
     <div class="panel__body blocks">
         @foreach ($companies as $company)
             <a href="{{ route('torrents.index', ['view' => 'group', 'companyId' => $company->id]) }}" style="padding: 0 2px;">
@@ -38,5 +38,5 @@
             </a>
         @endforeach
     </div>
-    {{ $companies->links('partials.pagination') }}
+    {{ $companies->links('partials.livewire-pagination') }}
 </section>

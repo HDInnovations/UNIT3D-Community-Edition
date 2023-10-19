@@ -78,7 +78,7 @@
                     @endforelse
                     </tbody>
                 </table>
-                {{ $notifications->links('partials.pagination') }}
+                {{ $notifications->links('partials.livewire-pagination') }}
             </div>
         </section>
     </div>
@@ -91,112 +91,112 @@
                     <div class="form__fieldset-checkbox-container">
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="bon_gifts" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="bon_gifts" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
                                 {{ __('notification.bon-gifts') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="comment" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="comment" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i>
                                 {{ __('common.comments') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="comment_tags" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="comment_tags" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i>
                                 {{ __('notification.comment-tags') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="followers" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="followers" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-smile-plus text-success"></i>
                                 {{ __('user.followers') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="posts" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="posts" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-comment-dots text-success"></i>
                                 {{ __('common.posts') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="post_tags" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="post_tags" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i>
                                 {{ __('notification.post-tags') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="post_tips" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="post_tips" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
                                 {{ __('notification.post-tips') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_bounties" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="request_bounties" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-crosshairs text-success"></i>
                                 {{ __('notification.request-bounties') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_claims" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="request_claims" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
                                 {{ __('notification.request-claims') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_fills" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="request_fills" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-check-square text-success"></i>
                                 {{ __('notification.request-fills') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_approvals" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="request_approvals" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"></i>
                                 {{ __('notification.request-approvals') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_rejections" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="request_rejections" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-times text-success"></i>
                                 {{ __('notification.request-rejections') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="request_unclaims" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="request_unclaims" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-times-square text-success"></i>
                                 {{ __('notification.request-unclaims') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="reseed_requests" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="reseed_requests" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-question text-success"></i>
                                 {{ __('notification.reseed-requests') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="thanks" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="thanks" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i>
                                 {{ __('torrent.thanks') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="upload_tips" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="upload_tips" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i>
                                 {{ __('bon.tips') }}
                             </label>
@@ -210,14 +210,14 @@
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="unfollows" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="unfollows" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-frown text-success"></i>
                                 {{ __('notification.unfollows') }}
                             </label>
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" wire:model.prefetch="uploads" value="1">
+                                <input class="form__checkbox" type="checkbox" wire:model.live.prefetch="uploads" value="1">
                                 <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i>
                                 {{ __('user.uploads') }}
                             </label>

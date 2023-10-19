@@ -11,7 +11,7 @@
                     class="quick-search__radio"
                     name="quicksearchRadio"
                     value="movies"
-                    wire:model.debounce.0="quicksearchRadio"
+                    wire:model.live.debounce.0="quicksearchRadio"
                     x-on:click="$nextTick(() => $refs.quickSearch.focus());"
                 />
                 <i
@@ -25,7 +25,7 @@
                     class="quick-search__radio"
                     name="quicksearchRadio"
                     value="series"
-                    wire:model.debounce.0="quicksearchRadio"
+                    wire:model.live.debounce.0="quicksearchRadio"
                     x-on:click="$nextTick(() => $refs.quickSearch.focus());"
                 />
                 <i
@@ -39,7 +39,7 @@
                     class="quick-search__radio"
                     name="quicksearchRadio"
                     value="persons"
-                    wire:model.debounce.0="quicksearchRadio"
+                    wire:model.live.debounce.0="quicksearchRadio"
                     x-on:click="$nextTick(() => $refs.quickSearch.focus());"
                 />
                 <i
@@ -50,7 +50,7 @@
         </div>
         <input
             class="quick-search__input"
-            wire:model.debounce.250ms="quicksearchText"
+            wire:model.live.debounce.250ms="quicksearchText"
             type="text"
             placeholder="{{ $quicksearchRadio }}"
             x-ref="quickSearch"

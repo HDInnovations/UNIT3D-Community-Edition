@@ -8,7 +8,7 @@
                         class="form__text"
                         placeholder=" "
                         type="text"
-                        wire:model.debounce.250ms="search"
+                        wire:model.live.debounce.250ms="search"
                     />
                     <label class="form__label form__label--floating">
                         {{ __('torrent.search-by-name') }}
@@ -17,7 +17,7 @@
             </div>
         </div>
     </header>
-    {{ $persons->links('partials.pagination') }}
+    {{ $persons->links('partials.livewire-pagination') }}
     <div class="panel__body" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem;">
         @forelse ($persons as $person)
             <figure style="display: flex; flex-direction: column; align-items: center">
@@ -34,7 +34,7 @@
             No persons.
         @endforelse
     </div>
-    {{ $persons->links('partials.pagination') }}
+    {{ $persons->links('partials.livewire-pagination') }}
 </section>
 
 

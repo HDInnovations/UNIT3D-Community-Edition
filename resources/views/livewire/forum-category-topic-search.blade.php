@@ -2,7 +2,7 @@
     <div>
         <section class="panelV2">
             <h2 class="panel__heading">{{ $category->description }}</h2>
-            {{ $topics->links('partials.pagination') }}
+            {{ $topics->links('partials.livewire-pagination') }}
             @if($topics->count() > 0)
                 <ul class="topic-listings">
                     @foreach ($topics as $topic)
@@ -16,7 +16,7 @@
                     No topics.
                 </div>
             @endif
-            {{ $topics->links('partials.pagination') }}
+            {{ $topics->links('partials.livewire-pagination') }}
         </section>
     </div>
     <aside>
@@ -29,7 +29,7 @@
                             id="search"
                             class="form__text"
                             type="text"
-                            wire:model="search"
+                            wire:model.live="search"
                             placeholder=" "
                         />
                         <label for="search" class="form__label form__label--floating">
@@ -41,7 +41,7 @@
                             id="sorting"
                             class="form__select"
                             name="sorting"
-                            wire:model="label"
+                            wire:model.live="label"
                         >
                             <option value="" selected default>Any</option>
                             <option value="approved">
@@ -76,7 +76,7 @@
                             class="form__select"
                             name="sorting"
                             required
-                            wire:model="sortField"
+                            wire:model.live="sortField"
                         >
                             <option value="last_reply_at">
                                 {{ __('forum.updated-at') }}
@@ -95,7 +95,7 @@
                             class="form__select"
                             name="direction"
                             required
-                            wire:model="sortDirection"
+                            wire:model.live="sortDirection"
                         >
                             <option value="desc">
                                 {{ __('common.descending') }}
@@ -113,7 +113,7 @@
                             id="direction"
                             class="form__select"
                             name="direction"
-                            wire:model="state"
+                            wire:model.live="state"
                         >
                             <option value="" selected default>Any</option>
                             <option value="open">
@@ -132,7 +132,7 @@
                             id="direction"
                             class="form__select"
                             name="direction"
-                            wire:model="subscribed"
+                            wire:model.live="subscribed"
                         >
                             <option value="" selected default>Any</option>
                             <option value="include">

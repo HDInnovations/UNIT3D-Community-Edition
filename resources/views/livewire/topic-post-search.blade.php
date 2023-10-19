@@ -8,7 +8,7 @@
                         id="search"
                         class="form__text"
                         type="text"
-                        wire:model="search"
+                        wire:model.live="search"
                         placeholder=" "
                     />
                     <label for="search" class="form__label form__label--floating">
@@ -46,7 +46,7 @@
             @endif
         </ul>
     @endif
-    {{ $posts->links('partials.pagination') }}
+    {{ $posts->links('partials.livewire-pagination') }}
     <div class="panel__body">
         @if ($posts->count() > 0)
             <ol class="topic-posts">
@@ -60,5 +60,5 @@
             No topics.
         @endif
     </div>
-    {{ $posts->links('partials.pagination') }}
+    {{ $posts->links('partials.livewire-pagination') }}
 </section>

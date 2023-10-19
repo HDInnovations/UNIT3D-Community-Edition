@@ -8,7 +8,7 @@
                             id="username"
                             class="form__text"
                             type="text"
-                            wire:model="username"
+                            wire:model.live="username"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -24,7 +24,7 @@
                             type="text"
                             inputmode="numeric"
                             pattern="[0-9]*"
-                            wire:model="userId"
+                            wire:model.live="userId"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -38,7 +38,7 @@
                             id="ipAddress"
                             class="form__text"
                             type="text"
-                            wire:model="ipAddress"
+                            wire:model.live="ipAddress"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -51,7 +51,7 @@
                     <select
                             id="quantity"
                             class="form__select"
-                            wire:model="perPage"
+                            wire:model.live="perPage"
                             required
                     >
                         <option>25</option>
@@ -111,7 +111,7 @@
             </tbody>
         </table>
     </div>
-    {{ $failedLogins->links('partials.pagination') }}
+    {{ $failedLogins->links('partials.livewire-pagination') }}
 </section>
 
 @section('sidebar')

@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\AuditLogSearch;
+use App\Livewire\AuditLogSearch;
 use App\Models\Audit;
 use App\Models\Group;
 use App\Models\User;

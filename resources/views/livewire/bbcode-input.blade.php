@@ -23,15 +23,15 @@
         },
         showButtons: false,
         bbcodePreviewHeight: null,
-        isPreviewEnabled: @entangle('isPreviewEnabled'),
+        isPreviewEnabled: @entangle('isPreviewEnabled').live,
         isOverInput: false,
         previousActiveElement: document.activeElement,
     }"
 >
     <p class="bbcode-input__tabs">
-        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model="isPreviewEnabled" />
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-disabled" name="isPreviewEnabled" value="0" wire:model.live="isPreviewEnabled" />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">Write</label>
-        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model="isPreviewEnabled" />
+        <input class="bbcode-input__tab-input" type="radio" id="{{ $name }}-bbcode-preview-enabled" name="isPreviewEnabled" value="1" wire:model.live="isPreviewEnabled" />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-enabled">{{ __('common.preview') }}</label>
     </p>
     <p class="bbcode-input__icon-bar-toggle">
@@ -226,7 +226,7 @@
                 x-on:mousedown="previousActiveElement = document.activeElement;"
                 x-on:mouseover="isOverInput = true"
                 x-on:mouseleave="isOverInput = false"
-                wire:model.defer="contentBbcode"
+                wire:model="contentBbcode"
                 x-bind:style="{ height: bbcodePreviewHeight !== null && bbcodePreviewHeight, transition: previousActiveElement === $el ? 'none' : 'border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1)' }"
                 @if ($isRequired)
                     required

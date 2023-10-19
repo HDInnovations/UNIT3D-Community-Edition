@@ -21,7 +21,7 @@
                             id="receiver"
                             class="form__text"
                             type="text"
-                            wire:model="receiver"
+                            wire:model.live="receiver"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -35,7 +35,7 @@
                             id="sender"
                             class="form__text"
                             type="text"
-                            wire:model="sender"
+                            wire:model.live="sender"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -49,7 +49,7 @@
                             id="torrent"
                             class="form__text"
                             type="text"
-                            wire:model="torrent"
+                            wire:model.live="torrent"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -63,7 +63,7 @@
                             id="reason"
                             class="form__text"
                             type="text"
-                            wire:model="reason"
+                            wire:model.live="reason"
                             placeholder=" "
                     />
                     <label class="form__label form__label--floating">
@@ -76,7 +76,7 @@
                     <select
                             id="quantity"
                             class="form__select"
-                            wire:model="perPage"
+                            wire:model.live="perPage"
                             required
                     >
                         <option>25</option>
@@ -164,5 +164,5 @@
         @endforelse
         </tbody>
     </table>
-    {{ $warnings->links('partials.pagination') }}
+    {{ $warnings->links('partials.livewire-pagination') }}
 </section>

@@ -8,7 +8,7 @@
                         class="form__text"
                         placeholder=" "
                         type="text"
-                        wire:model.debounce.250ms="search"
+                        wire:model.live.debounce.250ms="search"
                     />
                     <label class="form__label form__label--floating">
                         {{ __('torrent.search-by-name') }}
@@ -17,7 +17,7 @@
             </div>
         </div>
     </header>
-    {{ $collections->links('partials.pagination') }}
+    {{ $collections->links('partials.livewire-pagination') }}
     <div class="panel__body">
         @foreach($collections as $collection)
             <div class="col-md-12">
@@ -45,5 +45,5 @@
             </div>
         @endforeach
     </div>
-    {{ $collections->links('partials.pagination') }}
+    {{ $collections->links('partials.livewire-pagination') }}
 </section>
