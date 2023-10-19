@@ -169,7 +169,7 @@
 
 @yield('javascripts')
 @yield('scripts')
-@livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
+@livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
 
 <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
   Livewire.on('paginationChanged', () => {
