@@ -127,7 +127,8 @@ class SimilarTorrent extends Component
     {
         $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
-        $this->dispatch('swal:confirm',
+        $this->dispatch(
+            'swal:confirm',
             type: 'warning',
             message: 'Are you sure?',
             body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
@@ -208,7 +209,8 @@ class SimilarTorrent extends Component
         $this->selectAll = false;
         $this->selectPage = false;
 
-        $this->dispatch('swal:modal',
+        $this->dispatch(
+            'swal:modal',
             type: 'success',
             message: 'Torrents Deleted Successfully!',
             text:  'A personal message has been sent to all users that have downloaded these torrents.',

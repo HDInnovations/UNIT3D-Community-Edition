@@ -77,6 +77,6 @@ class UserNotes extends Component
 
         Note::findOrFail($id)->delete();
 
-        $this->dispatch('success', type: 'success',  message: 'Note has successfully been deleted!');
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }
 }
