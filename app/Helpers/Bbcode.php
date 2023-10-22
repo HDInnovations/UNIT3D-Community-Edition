@@ -89,7 +89,7 @@ class Bbcode
         'size' => [
             'openBbcode'  => '/^\[size=(\d+)\]/i',
             'closeBbcode' => '[/size]',
-            'openHtml'    => '<span style="font-size: clamp(10px, $1, 100px);">',
+            'openHtml'    => '<span style="font-size: clamp(10px, $1px, 100px);">',
             'closeHtml'   => '</span>',
             'block'       => false,
         ],
