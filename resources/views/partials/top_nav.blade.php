@@ -123,7 +123,7 @@
         <li class="top-nav__dropdown">
             <a tabindex="0">
                 <div class="top-nav--left__container">
-                    Support
+                    {{ __('common.support') }}
                     <!-- Notifications for Mods -->
                     @if (auth()->user()->group->is_modo)
                         @php
@@ -194,7 +194,7 @@
         <li class="top-nav__dropdown">
             <a tabindex="0">
                 <div class="top-nav--left__container">
-                    Other
+                    {{ __('common.other') }}
                 </div>
             </a>
             <ul>
@@ -207,13 +207,13 @@
                 <li>
                     <a href="{{ route('top10.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
-                        Top 10
+                        {{ __('common.top-10') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('missing.index') }}" wire:navigate>
                         <i class="{{ config('other.font-awesome') }} fa-ballot-check"></i>
-                        Missing
+                        {{ __('common.missing') }}
                     </a>
                 </li>
                 <li>
@@ -405,7 +405,7 @@
                     <li>
                         <a href="{{ route('users.achievements.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-trophy-alt"></i>
-                            My {{ __('user.achievements') }}
+                            {{ __('user.my-achievements') }}
                         </a>
                     </li>
                     <li>
