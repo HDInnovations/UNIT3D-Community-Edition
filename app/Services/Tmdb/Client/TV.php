@@ -21,6 +21,10 @@ class TV
 
     public $data;
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \JsonException
+     */
     public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
