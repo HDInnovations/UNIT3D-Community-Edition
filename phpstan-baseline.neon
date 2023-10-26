@@ -3041,12 +3041,32 @@ parameters:
 			path: app/Livewire/SimilarTorrent.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrentRequests\\.$#"
+			count: 1
+			path: app/Livewire/SimilarTorrent.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
 			count: 3
 			path: app/Livewire/SimilarTorrent.php
 
 		-
 			message: "#^Method App\\\\Livewire\\\\SimilarTorrent\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\.$#"
+			count: 1
+			path: app/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Livewire/SimilarTorrent.php
 
