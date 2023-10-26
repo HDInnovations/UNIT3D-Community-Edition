@@ -45,6 +45,7 @@ class FetchMeta extends Command
 
         foreach ($torrents as $torrent) {
             sleep(3);
+
             if ($torrent->category->tv_meta) {
                 $tmdbScraper->tv($torrent->tmdb);
                 $this->info('TV Fetched');

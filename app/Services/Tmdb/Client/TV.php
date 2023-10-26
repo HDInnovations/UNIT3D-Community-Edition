@@ -13,6 +13,8 @@
 
 namespace App\Services\Tmdb\Client;
 
+use JsonException;
+
 class TV
 {
     public \GuzzleHttp\Client $client;
@@ -23,7 +25,7 @@ class TV
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function __construct($id)
     {
