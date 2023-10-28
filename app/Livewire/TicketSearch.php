@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Ticket;
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,20 +25,17 @@ class TicketSearch extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public string $tab = 'open';
 
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
 
     public string $sortField = 'updated_at';
 
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'search',
-        'tab',
-    ];
 
     final public function mount(): void
     {

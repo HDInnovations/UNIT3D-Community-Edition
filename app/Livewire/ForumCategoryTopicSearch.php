@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Forum;
 use App\Models\Topic;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,28 +23,25 @@ class ForumCategoryTopicSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public String $search = '';
 
+    #[Url]
     public String $sortField = 'last_reply_at';
 
+    #[Url]
     public String $sortDirection = 'desc';
 
+    #[Url]
     public String $label = '';
 
+    #[Url]
     public String $state = '';
 
+    #[Url]
     public String $subscribed = '';
 
     public Forum $category;
-
-    protected $queryString = [
-        'search',
-        'sortField',
-        'sortDirection',
-        'label',
-        'state',
-        'subscribed',
-    ];
 
     final public function mount(Forum $category): void
     {

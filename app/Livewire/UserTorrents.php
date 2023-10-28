@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\History;
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,50 +25,47 @@ class UserTorrents extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $unsatisfied = 'any';
 
+    #[Url]
     public string $active = 'any';
 
+    #[Url]
     public string $completed = 'any';
 
+    #[Url]
     public string $uploaded = 'any';
 
+    #[Url]
     public string $hitrun = 'any';
 
+    #[Url]
     public string $prewarn = 'any';
 
+    #[Url]
     public string $immune = 'any';
 
+    #[Url]
     public string $downloaded = 'any';
 
+    #[Url]
     public array $status = [];
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public $showMorePrecision = false;
-
-    protected $queryString = [
-        'perPage',
-        'name',
-        'sortField',
-        'sortDirection',
-        'unsatisfied',
-        'active',
-        'completed',
-        'prewarn',
-        'hitrun',
-        'immune',
-        'uploaded',
-        'downloaded',
-        'status',
-        'showMorePrecision',
-    ];
 
     final public function mount($userId): void
     {

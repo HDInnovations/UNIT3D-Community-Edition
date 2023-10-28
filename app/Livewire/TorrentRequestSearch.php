@@ -17,6 +17,7 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,73 +25,69 @@ class TorrentRequestSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $requestor = '';
 
+    #[Url]
     public array $categories = [];
 
+    #[Url]
     public array $types = [];
 
+    #[Url]
     public array $resolutions = [];
 
+    #[Url]
     public array $genres = [];
 
+    #[Url]
     public string $tmdbId = '';
 
+    #[Url]
     public string $imdbId = '';
 
+    #[Url]
     public string $tvdbId = '';
 
+    #[Url]
     public string $malId = '';
 
+    #[Url]
     public $unfilled;
 
+    #[Url]
     public $claimed;
 
+    #[Url]
     public $pending;
 
+    #[Url]
     public $filled;
 
+    #[Url]
     public $myRequests;
 
+    #[Url]
     public $myClaims;
 
+    #[Url]
     public $myVoted;
 
+    #[Url]
     public $myFilled;
 
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     public bool $showFilters = false;
-
-    protected $queryString = [
-        'name',
-        'requestor',
-        'categories',
-        'types',
-        'resolutions',
-        'genres',
-        'tmdbId',
-        'imdbId',
-        'tvdbId',
-        'malId',
-        'unfilled',
-        'claimed',
-        'pending',
-        'filled',
-        'myRequests',
-        'myClaims',
-        'myVoted',
-        'myFilled',
-        'sortField',
-        'sortDirection',
-        'page',
-    ];
 
     final public function updatedPage(): void
     {

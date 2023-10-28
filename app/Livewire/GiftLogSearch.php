@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\BonTransactions;
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,8 +23,10 @@ class GiftLogSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $sender = '';
 
+    #[Url]
     public string $receiver = '';
 
     public string $comment = '';
@@ -32,14 +35,8 @@ class GiftLogSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    protected $queryString = [
-        'sender',
-        'receiver',
-        'page',
-        'perPage',
-    ];
 
     final public function updatedPage(): void
     {

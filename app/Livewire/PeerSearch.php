@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Peer;
 use App\Models\Torrent;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,45 +24,41 @@ class PeerSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public bool $duplicateIpsOnly = false;
 
+    #[Url]
     public bool $includeSeedsize = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $ip = '';
 
+    #[Url]
     public string $port = '';
 
+    #[Url]
     public string $agent = '';
 
+    #[Url]
     public string $torrent = '';
 
+    #[Url]
     public string $connectivity = 'any';
 
+    #[Url]
     public string $active = 'any';
 
+    #[Url]
     public string $groupBy = 'none';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'page',
-        'duplicateIpsOnly',
-        'includeSeedsize',
-        'perPage',
-        'ip',
-        'port',
-        'agent',
-        'torrent',
-        'connectivity',
-        'active',
-        'groupBy',
-        'sortField',
-        'sortDirection',
-    ];
 
     final public function updatedPage(): void
     {
