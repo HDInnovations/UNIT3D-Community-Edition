@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Tv;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,7 +34,11 @@ class TvSearch extends Component
         $this->resetPage();
     }
 
-    final public function getShowsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Tv>
+     */
+    #[Computed]
+    final public function shows(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Tv::with(['networks', 'genres'])
             ->withCount('seasons')

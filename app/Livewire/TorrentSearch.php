@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Closure;
+use Livewire\Attributes\Computed;
 
 class TorrentSearch extends Component
 {
@@ -187,9 +188,10 @@ class TorrentSearch extends Component
         $this->perPage = \in_array($this->view, ['card', 'poster']) ? 24 : 25;
     }
 
-    final public function getPersonalFreeleechProperty()
+    #[Computed]
+    final public function personalFreeleech(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
     final public function filters(): Closure
@@ -247,7 +249,11 @@ class TorrentSearch extends Component
             ->when($this->incomplete, fn ($query) => $query->uncompletedBy($user));
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
+    #[Computed]
+    final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
 
@@ -327,7 +333,8 @@ class TorrentSearch extends Component
         return $torrents;
     }
 
-    final public function getGroupedTorrentsProperty()
+    #[Computed]
+    final public function groupedTorrents()
     {
         $user = auth()->user();
 
@@ -567,7 +574,8 @@ class TorrentSearch extends Component
         return $medias;
     }
 
-    final public function getGroupedPostersProperty()
+    #[Computed]
+    final public function groupedPosters()
     {
         // Whitelist which columns are allowed to be ordered by
         if (! \in_array($this->sortField, [

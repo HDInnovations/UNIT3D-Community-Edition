@@ -31,6 +31,7 @@ use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;
@@ -195,7 +196,11 @@ class Comments extends Component
         $this->gotoPage(1);
     }
 
-    final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Comment>
+     */
+    #[Computed]
+    final public function comments(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model
             ->comments()

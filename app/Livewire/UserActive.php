@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Peer;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -72,7 +73,11 @@ class UserActive extends Component
         $this->resetPage();
     }
 
-    final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
+    #[Computed]
+    final public function actives(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')

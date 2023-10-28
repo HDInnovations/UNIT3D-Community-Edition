@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Company;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,7 +34,11 @@ class CompanySearch extends Component
         $this->resetPage();
     }
 
-    final public function getCompaniesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Company>
+     */
+    #[Computed]
+    final public function companies(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Company::withCount('tv', 'movie')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

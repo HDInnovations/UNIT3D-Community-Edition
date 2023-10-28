@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Forum;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,7 +22,11 @@ class SubscribedForum extends Component
 {
     use WithPagination;
 
-    final public function getForumsProperty()
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Forum>
+     */
+    #[Computed]
+    final public function forums()
     {
         return Forum::query()
             ->with('latestPoster')

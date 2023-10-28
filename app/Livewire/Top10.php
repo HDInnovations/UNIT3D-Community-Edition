@@ -17,6 +17,7 @@ use App\Models\Category;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Top10 extends Component
@@ -44,7 +45,8 @@ class Top10 extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Torrent>
      */
-    final public function getWorksProperty(): Collection
+    #[Computed]
+    final public function works(): Collection
     {
         $this->validate();
 
@@ -82,7 +84,8 @@ class Top10 extends Component
     /**
      * @return array<string, string>
      */
-    final public function getMetaTypesProperty(): array
+    #[Computed]
+    final public function metaTypes(): array
     {
         $metaTypes = [];
 

@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Note;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -39,7 +40,11 @@ class UserNotes extends Component
         ],
     ];
 
-    final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
+    #[Computed]
+    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with('staffuser', 'staffuser.group')

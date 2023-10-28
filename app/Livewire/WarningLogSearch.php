@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -61,7 +62,11 @@ class WarningLogSearch extends Component
         }
     }
 
-    final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
+     */
+    #[Computed]
+    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Warning::query()
             ->with(['warneduser.group', 'staffuser.group', 'torrenttitle'])

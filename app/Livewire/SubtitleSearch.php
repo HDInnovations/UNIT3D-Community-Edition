@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -47,7 +48,11 @@ class SubtitleSearch extends Component
         $this->resetPage();
     }
 
-    final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Subtitle>
+     */
+    #[Computed]
+    final public function subtitles(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Subtitle::with(['user.group', 'torrent.category', 'language'])
             ->when($this->search, fn ($query) => $query->where('title', 'like', '%'.$this->search.'%'))

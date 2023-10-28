@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Peer;
 use App\Models\Torrent;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -95,7 +96,11 @@ class PeerSearch extends Component
         }
     }
 
-    final public function getPeersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
+    #[Computed]
+    final public function peers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->when(

@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -60,7 +61,11 @@ class UserSearch extends Component
         }
     }
 
-    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     */
+    #[Computed]
+    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
             ->with('group')

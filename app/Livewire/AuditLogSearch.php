@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Audit;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -53,7 +54,11 @@ class AuditLogSearch extends Component
         $this->dispatch('paginationChanged');
     }
 
-    final public function getModelNamesProperty()
+    /**
+     * @return array<String>
+     */
+    #[Computed]
+    final public function modelNames(): array
     {
         $modelList = [];
         $path = app_path()."/Models";
@@ -71,7 +76,11 @@ class AuditLogSearch extends Component
         return $modelList;
     }
 
-    final public function getAuditsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Audit>
+     */
+    #[Computed]
+    final public function audits(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->username)))

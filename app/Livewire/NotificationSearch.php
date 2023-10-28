@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -70,7 +71,11 @@ class NotificationSearch extends Component
         $this->dispatch('paginationChanged');
     }
 
-    final public function getNotificationsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
+     */
+    #[Computed]
+    final public function notifications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return auth()->user()->notifications()
             ->select('*')

@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Watchlist;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -46,7 +47,11 @@ class WatchlistSearch extends Component
         $this->resetPage();
     }
 
-    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\User>
+     */
+    #[Computed]
+    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Watchlist::query()
             ->with(['user.group', 'author.group'])

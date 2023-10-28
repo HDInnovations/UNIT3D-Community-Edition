@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -78,7 +79,11 @@ class InviteLogSearch extends Component
         };
     }
 
-    final public function getInvitesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Invite>
+     */
+    #[Computed]
+    final public function invites(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
             ->with(['sender.group', 'receiver.group'])

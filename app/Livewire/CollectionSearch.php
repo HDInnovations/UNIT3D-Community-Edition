@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,7 +34,11 @@ class CollectionSearch extends Component
         $this->resetPage();
     }
 
-    final public function getCollectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Collection>
+     */
+    #[Computed]
+    final public function collections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Collection::withCount('movie')
             ->with('movie')

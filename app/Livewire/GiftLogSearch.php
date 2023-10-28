@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\BonTransactions;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -46,7 +47,11 @@ class GiftLogSearch extends Component
         $this->dispatch('paginationChanged');
     }
 
-    final public function getGiftsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<BonTransactions>
+     */
+    #[Computed]
+    final public function gifts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return BonTransactions::with([
             'sender'   => fn ($query) => $query->withTrashed()->with('group'),
