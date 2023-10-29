@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Peer;
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,38 +25,35 @@ class UserActive extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $ip = '';
 
+    #[Url]
     public string $port = '';
 
+    #[Url]
     public string $client = '';
 
+    #[Url]
     public string $seeding = 'any';
 
+    #[Url]
     public string $active = 'include';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public $showMorePrecision = false;
-
-    protected $queryString = [
-        'perPage',
-        'name',
-        'ip',
-        'port',
-        'client',
-        'seeding',
-        'active',
-        'sortField',
-        'sortDirection',
-        'showMorePrecision',
-    ];
 
     final public function mount($userId): void
     {

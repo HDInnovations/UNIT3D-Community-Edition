@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,25 +24,21 @@ class FailedLoginSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $userId = '';
 
+    #[Url]
     public string $ipAddress = '';
 
+    #[Url]
     public int $perPage = 25;
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'username',
-        'userId',
-        'ipAddress',
-        'page',
-        'perPage',
-    ];
 
     final public function updatedPage(): void
     {

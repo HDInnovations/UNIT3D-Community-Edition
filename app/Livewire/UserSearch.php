@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,22 +22,18 @@ class UserSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public bool $show = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'search',
-        'show',
-        'page',
-        'perPage',
-    ];
 
     final public function updatedPage(): void
     {

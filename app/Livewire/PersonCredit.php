@@ -18,17 +18,15 @@ use App\Models\Category;
 use App\Models\Person;
 use App\Models\Torrent;
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class PersonCredit extends Component
 {
     public Person $person;
 
+    #[Url]
     public ?int $occupationId = null;
-
-    public $queryString = [
-        'occupationId',
-    ];
 
     final public function mount(): void
     {

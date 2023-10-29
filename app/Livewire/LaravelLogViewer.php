@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use SplFileInfo;
@@ -25,13 +26,10 @@ class LaravelLogViewer extends Component
 
     public $logs = [0];
 
+    #[Url]
     public $page = 1;
 
     public $perPage = 5;
-
-    protected $queryString = [
-        'page'
-    ];
 
     final public function updatedPage(): void
     {

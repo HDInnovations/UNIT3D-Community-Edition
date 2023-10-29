@@ -17,6 +17,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,6 +27,7 @@ class UserWarnings extends Component
 
     public User $user;
 
+    #[Url]
     public string $warningTab = 'automated';
 
     public string $message = '';
@@ -35,10 +37,6 @@ class UserWarnings extends Component
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'warningTab',
-    ];
 
     protected $rules = [
         'message' => [
