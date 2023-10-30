@@ -23,6 +23,7 @@ return [
     'latest-project'  => '最后项目：',
     'networks'        => '网剧',
     'no-data'         => '没有找到数据！',
+    'movie'           => '电影',
     'movies'          => '电影',
     'movie-credits'   => '电影评分：',
     'persons'         => '个人',
