@@ -44,7 +44,7 @@ test('destroy aborts with a 403', function (): void {
     $this->seed(GroupsTableSeeder::class);
 
     $user = User::factory()->create([
-        'group_id' => UserGroups::USER,
+        'group_id' => UserGroups::USER->value,
     ]);
 
     $bot = Bot::factory()->create();
