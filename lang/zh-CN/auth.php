@@ -93,8 +93,8 @@ return [
     'verificationEmailMessage'  => '你的账户的两步验证码为:',
     'verificationEmailSubject'  => '需要验证',
 
-    'verificationEmailSentMsg'  => '验证邮件已发送！',
-    'verificationEmailSuccess'  => '成功！',
+    'verificationEmailSentMsg' => '验证邮件已发送！',
+    'verificationEmailSuccess' => '成功！',
 
     'verificationWarningMessage' => '这是你的最后一次尝试机会。如果失败，你的账户将被锁定 :hours 小时。',
     'verificationWarningTitle'   => '警告！',
@@ -102,5 +102,5 @@ return [
     'verificationLockedMessage' => '账户被锁定！',
     'verificationLockedTitle'   => '不妙！',
 
-    'verificationModalConfBtn'  => 'Ok',
+    'verificationModalConfBtn' => 'Ok',
 ];
