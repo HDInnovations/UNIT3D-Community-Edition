@@ -120,7 +120,7 @@ class UserController extends Controller
             'can_invite'   => false,
             'can_request'  => false,
             'can_chat'     => false,
-            'group_id'     => UserGroups::PRUNED,
+            'group_id'     => UserGroups::PRUNED->value,
             'deleted_by'   => auth()->id(),
         ]);
 
