@@ -40,10 +40,10 @@ return new class () extends Migration {
             $table->string('type', 20);
             $table->string('name', 40);
             $table->string('description')->nullable();
-            $table->bigUnsignedInteger('seedbonus');
-            $table->bigUnsignedInteger('uploaded');
-            $table->smallUnsignedInteger('invites');
-            $table->unsignedSmallnteger('days_active')->nullable();
+            $table->unsignedBigInteger('seedbonus');
+            $table->unsignedBigInteger('uploaded');
+            $table->unsignedSmallInteger('invites');
+            $table->unsignedSmallInteger('days_active')->nullable();
             $table->decimal('price_usd', 6, 2);
             $table->timestamps();
         });
