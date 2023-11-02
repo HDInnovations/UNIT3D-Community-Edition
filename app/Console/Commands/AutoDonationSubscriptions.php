@@ -63,7 +63,6 @@ Thank you for your support!
 
         // Promote a User
         foreach ($toPromote as $subscription) {
-            dd($subscription->item->name);
             // Add Gifts
             $subscription->user->seedbonus += $subscription->item->seedbonus ?? 0;
             $subscription->user->uploaded += $subscription->item->uploaded ?? 0;
