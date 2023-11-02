@@ -54,6 +54,6 @@ class DonationSubscription extends Model
      */
     public function item(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(DonationItem::class);
+        return $this->belongsTo(DonationItem::class, 'donation_item_id');
     }
 }

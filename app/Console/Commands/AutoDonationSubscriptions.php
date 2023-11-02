@@ -41,8 +41,8 @@ class AutoDonationSubscriptions extends Command
     public function handle(): void
     {
         $curDate = Carbon::now();
-        $toDemote = DonationSubscription::with('user', 'donation_item')->where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
-        $toPromote = DonationSubscription::with('user', 'donation_item')->where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
+        $toDemote = DonationSubscription::with('user', 'item')->where('end_at', '<=', $curDate->toDateString())->where('is_active', '=', true)->get();
+        $toPromote = DonationSubscription::with('user', 'item')->where('start_at', '<=', $curDate->toDateString())->where('is_active', '=', false)->get();
 
         // Demote a User
         User::whereIntegerInRaw('id', $toDemote->pluck('user_id'))->update(['is_donor' => false]);
@@ -51,9 +51,9 @@ class AutoDonationSubscriptions extends Command
         foreach ($toDemote as $subscription) {
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
-                'receiver_id' => $subscription->user_id,
+                'receiver_id' => $subscription->user->id,
                 'subject'     => 'Donation Subscription ended',
-                'message'     => 'Your subscription ('.$subscription->donation_item->name.') has ended recently and your donation perks have been disabled. 
+                'message'     => 'Your subscription ('.$subscription->item->name.') has ended recently and your donation perks have been disabled. 
 
 Thank you for your support!
 
@@ -63,10 +63,11 @@ Thank you for your support!
 
         // Promote a User
         foreach ($toPromote as $subscription) {
+            dd($subscription->item->name);
             // Add Gifts
-            $user->seedbonus += $subscription->item->seedbonus ?? 0;
-            $user->uploaded += $subscription->item->uploaded ?? 0;
-            $user->invites += $subscription->item->invites ?? 0;
+            $subscription->user->seedbonus += $subscription->item->seedbonus ?? 0;
+            $subscription->user->uploaded += $subscription->item->uploaded ?? 0;
+            $subscription->user->invites += $subscription->item->invites ?? 0;
 
             // Set user as donor (and grant freeleech) if item has "days_active"
             if ($subscription->item->days_active > 0) {
@@ -86,7 +87,7 @@ Thank you for your support!
                 'subject'     => 'Donation Subscription',
                 'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]'."\n"
 .'Your subscription access has been activated and is valid through: '.$subscription->end_at.' (YYYY-MM-DD)'."\n\n"
-.'A total of '.$donationItem->seedbonus.' BON points, '.$donationItem->uploaded.' upload and '.$donationItem->invites.' invites have been added to your account.'."\n\n"
+.'A total of '.$subscription->item->seedbonus.' BON points, '.$subscription->item->uploaded.' upload and '.$subscription->item->invites.' invites have been added to your account.'."\n\n"
 .'[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
             ]);
         }
