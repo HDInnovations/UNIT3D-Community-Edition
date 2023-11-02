@@ -59,7 +59,7 @@ class DonationTransactionController extends Controller
             return Redirect::to($paymentDetails['invoice_url']);
         } catch(Exception $e) {
             return to_route('donate')
-                ->withError('Theres an error in the data!');
+                ->withErrors('Ups, something went wrong!');
         }
     }
 }
