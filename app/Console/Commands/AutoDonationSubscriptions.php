@@ -70,8 +70,8 @@ Thank you for your support!
 
             // Set user as donor (and grant freeleech) if item has "days_active"
             if ($subscription->item->days_active > 0) {
-                $user->is_donor = true;
-                $user->save();
+                $subscription->user->is_donor = true;
+                $subscription->user->save();
             }
 
             // Update donation subscription table
@@ -82,7 +82,7 @@ Thank you for your support!
             // Send Private Message
             PrivateMessage::create([
                 'sender_id'   => User::SYSTEM_USER_ID,
-                'receiver_id' => $user->id,
+                'receiver_id' => $subscription->user->id,
                 'subject'     => 'Donation Subscription',
                 'message'     => '[b]Thank you for supporting '.config('app.name').'![/b]'."\n"
 .'Your subscription access has been activated and is valid through: '.$subscription->end_at.' (YYYY-MM-DD)'."\n\n"
