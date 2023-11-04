@@ -25,7 +25,6 @@ use App\Traits\GroupedLastScope;
 use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Torrent.
@@ -386,14 +385,6 @@ class Torrent extends Model
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Resurrection::class);
-    }
-
-    /**
-     * Set The Torrents Description After Its Been Purified.
-     */
-    public function setDescriptionAttribute(?string $value): void
-    {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

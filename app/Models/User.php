@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\User.
@@ -1038,14 +1037,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Set The Users Signature After It's Been Purified.
-     */
-    public function setSignatureAttribute(?string $value): void
-    {
-        $this->attributes['signature'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
      * Returns the HTML of the user's signature.
      */
     public function getSignatureHtmlAttribute(): string
@@ -1053,14 +1044,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $bbcode = new Bbcode();
 
         return (new Linkify())->linky($bbcode->parse($this->signature));
-    }
-
-    /**
-     * Set The Users About Me After It's Been Purified.
-     */
-    public function setAboutAttribute(?string $value): void
-    {
-        $this->attributes['about'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

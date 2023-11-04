@@ -150,7 +150,7 @@ class Bbcode
             'block'       => true,
         ],
         'namedquote' => [
-            'openBbcode'  => '/^\[quote=([^<>"]*?)\]/i',
+            'openBbcode'  => '/^\[quote=(.*?)\]/i',
             'closeBbcode' => '[/quote]',
             'openHtml'    => '<blockquote><i class="fas fa-quote-left"></i> <cite>Quoting $1:</cite><p>',
             'closeHtml'   => '</p></blockquote>',
@@ -275,8 +275,11 @@ class Bbcode
      */
     public function parse(?string $source, bool $replaceLineBreaks = true): string
     {
+        $source ??= '';
+        $source = htmlspecialchars($source, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+
         // Replace all void elements since they don't have closing tags
-        $source = str_replace('[*]', '<li>', (string) $source);
+        $source = str_replace('[*]', '<li>', $source);
         $source = preg_replace_callback(
             '/\[url](.*?)\[\/url]/i',
             fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$this->sanitizeUrl($matches[1]).'</a>',
@@ -316,7 +319,7 @@ class Bbcode
             $source
         );
         $source = preg_replace_callback(
-            '/\[video="youtube"]([a-z0-9_-]{11})\[\/video]/i',
+            '/\[video=&quot;youtube&quot;]([a-z0-9_-]{11})\[\/video]/i',
             static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );

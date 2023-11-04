@@ -18,7 +18,6 @@ use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Post.
@@ -144,14 +143,6 @@ class Post extends Model
                 ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
                 ->select('id')
         );
-    }
-
-    /**
-     * Set The Posts Content After Its Been Purified.
-     */
-    public function setContentAttribute(?string $value): void
-    {
-        $this->attributes['content'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

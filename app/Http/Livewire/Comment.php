@@ -32,7 +32,6 @@ use App\Repositories\ChatRepository;
 use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
-use voku\helper\AntiXSS;
 
 class Comment extends Component
 {
@@ -102,7 +101,7 @@ class Comment extends Component
     final public function editComment(): void
     {
         if (auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) {
-            $this->comment->update((new AntiXSS())->xss_clean($this->editState));
+            $this->comment->update($this->editState);
             $this->isEditing = false;
         } else {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
@@ -138,7 +137,7 @@ class Comment extends Component
             'replyState.content' => 'required',
         ]);
 
-        $reply = $this->comment->children()->make((new AntiXSS())->xss_clean($this->replyState));
+        $reply = $this->comment->children()->make($this->replyState);
         $reply->user()->associate(auth()->user());
         $reply->commentable()->associate($this->comment->commentable);
         $reply->anon = $this->anon;

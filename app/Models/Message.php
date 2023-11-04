@@ -16,7 +16,6 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Message.
@@ -85,14 +84,6 @@ class Message extends Model
     public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
-    }
-
-    /**
-     * Set The Chat Message After Its Been Purified.
-     */
-    public function setMessageAttribute(string $value): void
-    {
-        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

@@ -34,7 +34,6 @@ use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
-use voku\helper\AntiXSS;
 
 class Comments extends Component
 {
@@ -113,7 +112,7 @@ class Comments extends Component
             'newCommentState.content' => 'required',
         ]);
 
-        $comment = $this->model->comments()->make((new AntiXSS())->xss_clean($this->newCommentState));
+        $comment = $this->model->comments()->make($this->newCommentState);
         $comment->user()->associate($this->user);
         $comment->anon = $this->anon;
         $comment->save();

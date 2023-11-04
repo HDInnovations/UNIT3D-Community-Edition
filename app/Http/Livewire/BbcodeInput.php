@@ -36,7 +36,7 @@ class BbcodeInput extends Component
         $this->name = $name;
         $this->label = $label;
         $this->isRequired = $required;
-        $this->contentBbcode = $content === null ? (old($name) ?? '') : htmlspecialchars_decode((string) $content);
+        $this->contentBbcode = $content ?? old($name) ?? '';
     }
 
     final public function updatedIsPreviewEnabled(): void
