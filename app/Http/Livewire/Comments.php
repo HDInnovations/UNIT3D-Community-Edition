@@ -122,6 +122,7 @@ class Comments extends Component
         $comment = $this->model->comments()->create([
             'content' => $this->newCommentState,
             'user_id' => auth()->id(),
+            'anon'    => $this->anon,
         ]);
 
         // New Comment Notification
