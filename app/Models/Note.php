@@ -20,7 +20,6 @@ use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Note.
@@ -77,14 +76,6 @@ class Note extends Model
             'username' => 'System',
             'id'       => User::SYSTEM_USER_ID,
         ]);
-    }
-
-    /**
-     * Set Message After It's Been Purified.
-     */
-    public function setMessageAttribute(?string $value): void
-    {
-        $this->attributes['message'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
