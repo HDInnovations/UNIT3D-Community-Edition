@@ -1,0 +1,95 @@
+<?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+namespace App\Console\Commands;
+
+use App\Models\Movie;
+use App\Models\Scopes\ApprovedScope;
+use App\Models\Torrent;
+use App\Models\Tv;
+use Illuminate\Console\Command;
+
+/**
+ * @see \Tests\Todo\Unit\Console\Commands\FetchReleaseYearsTest
+ */
+class FetchReleaseYears extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'fetch:release_years';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Fetch Release Years For Torrents In DB';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle(): void
+    {
+        $appurl = config('app.url');
+
+        $torrents = Torrent::withoutGlobalScope(ApprovedScope::class)
+            ->with(['category'])
+            ->select(['id', 'name', 'category_id', 'tmdb', 'release_year'])
+            ->whereNull('release_year')
+            ->get();
+
+        $withyear = Torrent::withoutGlobalScope(ApprovedScope::class)
+            ->whereNotNull('release_year')
+            ->count();
+
+        $withoutyear = Torrent::withoutGlobalScope(ApprovedScope::class)
+            ->whereNull('release_year')
+            ->count();
+
+        $this->alert(sprintf('%s Torrents Already Have A Release Year Value!', $withyear));
+        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value!', $withoutyear));
+
+        foreach ($torrents as $torrent) {
+            $meta = null;
+
+            if ($torrent->category->tv_meta && $torrent->tmdb) {
+                $meta = Tv::find($torrent->tmdb);
+
+                if (isset($meta->first_air_date) && substr((string) $meta->first_air_date, 0, 4) > '1900') {
+                    $torrent->release_year = substr((string) $meta->first_air_date, 0, 4);
+                    $torrent->save();
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                } else {
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
+                }
+            }
+
+            if ($torrent->category->movie_meta && $torrent->tmdb) {
+                $meta = Movie::find($torrent->tmdb);
+
+                if (isset($meta->release_date) && substr((string) $meta->release_date, 0, 4) > '1900') {
+                    $torrent->release_year = substr((string) $meta->release_date, 0, 4);
+                    $torrent->save();
+                    $this->info(sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                } else {
+                    $this->warn(sprintf('(%s) No Release Year Found For Torrent %s %s/torrents/%s', $torrent->category->name, $torrent->name, $appurl, $torrent->id));
+                }
+            }
+        }
+
+        $this->comment('Torrent Release Year Command Complete');
+    }
+}

@@ -1,0 +1,58 @@
+<?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+namespace App\Console\Commands;
+
+use App\Models\History;
+use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
+use Exception;
+use Illuminate\Support\Facades\DB;
+
+/**
+ * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
+ */
+class AutoCorrectHistory extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'auto:correct_history';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Corrects History Records Said To Be Active Even Though Really Are Not Due To Not Receiving A STOPPED Event From Client.';
+
+    /**
+     * Execute the console command.
+     *
+     * @throws Exception
+     */
+    public function handle(): void
+    {
+        History::select(['id', 'active', 'updated_at'])
+            ->where('active', '=', 1)
+            ->where('updated_at', '<', Carbon::now()->subHours(2)->toDateTimeString())
+            ->update([
+                'active'     => 0,
+                'updated_at' => DB::raw('updated_at'),
+            ]);
+
+        $this->comment('Automated History Record Correction Command Complete');
+    }
+}
