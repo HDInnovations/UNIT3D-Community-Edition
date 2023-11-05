@@ -162,10 +162,9 @@
 
 @section('javascripts')
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
-      $(function () {
+      document.addEventListener('DOMContentLoaded', function() {
         // Check for on keypress
-        $('input').on('keyup', function (event) {
-          const self = $(this)
+        document.querySelectorAll('input').forEach(el => el.addEventListener('keyup', function (event) {
           // Keyboard Controls
           const controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13, 127,
             27, 32
@@ -181,142 +180,135 @@
             combined.push(i)
           }
           // handle Input
-          if ($.inArray(event.which, combined) === -1) {
+          if (combined.indexOf(event.which) === -1) {
             event.preventDefault()
           }
           // Handle Autostepper
-          if ($.inArray(event.which, controls.concat(specialChars)) === -1) {
-            setTimeout(function () {
-              if (self.hasClass('last-input')) {
-                $('#submit_verification').focus()
+          if (controls.concat(specialChars).indexOf(event.which) === -1) {
+            setTimeout(() => {
+              if (this.classList.contains('last-input')) {
+                document.getElementById('submit_verification').focus()
               } else {
-                self.parent().parent().next().find('input').focus()
+                this.parentElement.parentElement.nextElementSibling.querySelector(':scope input').focus()
               }
             }, 1)
           }
-        })
+        }))
         // Check for cop and paste
-        $('input').on('input', function () {
+        document.querySelectorAll('input').forEach(el => el.addEventListener('input', function () {
           const regexp = /[^a-zA-Z0-9]/g
-          if ($(this).val().match(regexp)) {
-            $(this).val($(this).val().replace(regexp, ''))
+          if (this.value.match(regexp)) {
+            this.value = this.value.replace(regexp, '')
           }
-        })
+        }))
       })
 
     </script>
 
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
-      $('.code-inputs').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
-        $('.code-inputs').delay(200).removeClass('invalid-shake')
+      ['webkitAnimationEnd', 'oanimationend', 'msAnimationEnd', 'animationend'].forEach(function (e) {
+          document.querySelectorAll('.code-inputs').forEach(el => el.addEventListener(e, function (e) {
+              document.querySelectorAll('.code-inputs').forEach(el => el.delay(200).classList.remove('invalid-shake'))
+          }))
       })
-      $('#submit_verification').click(function (event) {
+      document.getElementById('submit_verification').addEventListener('click', function (event) {
         event.preventDefault()
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
+        const formData = new URLSearchParams(new FormData(document.getElementById('verification_form'))).toString()
+        fetch('/twostep/verify', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
         })
-        const formData = $('#verification_form').serialize()
-        $.ajax({
-          url: '/twostep/verify',
-          type: 'post',
-          dataType: 'json',
-          data: formData,
-          success: function (response, status, data) {
-            window.location.href = data.responseJSON.nextUri
-          },
-          error: function (response, status, error) {
-            if (response.status === 418) {
-              const remainingAttempts = response.responseJSON.remainingAttempts
-              const submitTrigger = $('#submit_verification')
-              const varificationForm = $('#verification_form')
-              $('.code-inputs').addClass('invalid-shake')
-              varificationForm[0].reset()
-              $('#remaining_attempts').text(remainingAttempts)
-              switch (remainingAttempts) {
-                case 0:
-                  submitTrigger.addClass('btn-danger')
-                  Swal.fire(
-                    "{{ __('auth.verificationLockedTitle') }}",
-                    "{{ __('auth.verificationLockedMessage') }}",
-                    'error'
-                  )
-                  break
-                case 1:
-                  submitTrigger.addClass('btn-danger')
-                  Swal.fire(
-                    "{{ __('auth.verificationWarningTitle') }}",
-                    "{{ __('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire]) }}",
-                    'error'
-                  )
-                  break
-                case 2:
-                  submitTrigger.addClass('btn-warning')
-                  break
-                case 3:
-                  submitTrigger.addClass('btn-info')
-                  break
-                default:
-                  submitTrigger.addClass('btn-success')
-                  break
-              }
-              if (remainingAttempts === 0) {
-                $('#verification_status_title').html('<h3>{{ __('auth.titleFailed ') }}</h3>')
-                varificationForm.fadeOut(100, function () {
-                  $('#failed_login_alert').show()
-                  setTimeout(function () {
-                    $('body').fadeOut(100, function () {
-                      location.reload()
-                    })
-                  }, 2000)
+          .then(response => {
+            if (response.ok) {
+                response.text().then(data => {
+                    console.log(data)
+                    // window.location.href = data.nextUri
                 })
-              }
-
+            } else if (response.statusCode === 418) {
+              response.text().then(data => {
+                  console.log(data)
+                const remainingAttempts = data.remainingAttempts
+                const submitTrigger = document.getElementById('submit_verification')
+                const varificationForm = document.getElementById('verification_form')
+                document.querySelectorAll('.code-inputs').forEach(el => el.classList.add('invalid-shake'))
+                varificationForm[0].reset()
+                document.getElementById('remaining_attempts').value = remainingAttempts
+                switch (remainingAttempts) {
+                  case 0:
+                    submitTrigger.classList.add('btn-danger')
+                    Swal.fire(
+                      "{{ __('auth.verificationLockedTitle') }}",
+                      "{{ __('auth.verificationLockedMessage') }}",
+                      'error'
+                    )
+                    break
+                  case 1:
+                    submitTrigger.classList.add('btn-danger')
+                    Swal.fire(
+                      "{{ __('auth.verificationWarningTitle') }}",
+                      "{{ __('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire]) }}",
+                      'error'
+                    )
+                    break
+                  case 2:
+                    submitTrigger.classList.add('btn-warning')
+                    break
+                  case 3:
+                    submitTrigger.classList.add('btn-info')
+                    break
+                  default:
+                    submitTrigger.classList.add('btn-success')
+                    break
+                  }
+                  if (remainingAttempts === 0) {
+                    document.getElementById('verification_status_title').innerHTML = '<h3>{{ __('auth.titleFailed ') }}</h3>'
+                    varificationForm.style.opacity = '0'
+                    document.getElementById('failed_login_alert').style.display = ''
+                    document.querySelector('body').style.opacity = '0';
+                    location.reload()
+                  }
+              })
             }
-
-          }
-        })
-      })
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-Token': $('meta[name=_token]').attr('content')
-        }
+          })
       })
 
     </script>
 
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}" crossorigin="anonymous">
-      $('#resend_code_trigger').click(function (event) {
+      document.getElementById('resend_code_trigger').addEventListener('click', function (event) {
         event.preventDefault()
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-        })
-        const self = $(this)
-        let resultStatus
-        let resultData
-        const endpoint = '/twostep/resend'
-        self.addClass('disabled')
-          .attr('disabled', true)
+        const self = this
+        self.classList.add('disabled')
+        self.setAttribute('disabled', true)
         Swal.fire({
           text: 'Sending verification code ...',
           allowOutsideClick: false,
           grow: false,
-          animation: false,
-          onOpen: () => {
+          didOpen: () => {
             Swal.showLoading()
-            $.ajax({
-              type: 'post',
-              url: endpoint,
-              success: function (response, status, data) {
-                swalCallback(response.title, response.message, status)
+            fetch('/twostep/resend', {
+              method: 'POST',
+              headers: {
+                'accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
               },
-              error: function (response, status, error) {
-                swalCallback(error, error, status)
-              }
             })
+              .then(response => {
+                if (response.ok) {
+                  response.text().then(data => {
+                      console.log(data)
+                    swalCallback(data.title, data.message, response.status)
+                  })
+                } else {
+                  swalCallback(response.statusText, response.statusText, response.statusCode)
+                }
+              })
           }
         })
 
@@ -332,7 +324,8 @@
             confirmButtonClass: 'btn btn-lg btn-' + status,
             confirmButtonText: "{{ __('auth.verificationModalConfBtn') }}",
           })
-          self.removeClass('disabled').attr('disabled', false)
+          self.classList.remove('disabled')
+          self.setAttribute('disabled', false)
         }
       })
 
