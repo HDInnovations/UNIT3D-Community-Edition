@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Note;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,15 +12,11 @@ class NoteSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
-
-    protected $queryString = [
-        'search',
-        'page',
-        'perPage',
-    ];
 
     final public function updatedPage(): void
     {

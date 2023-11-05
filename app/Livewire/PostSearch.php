@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use App\Models\Topic;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,11 +24,8 @@ class PostSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public String $search = '';
-
-    protected $queryString = [
-        'search',
-    ];
 
     final public function updatedPage(): void
     {

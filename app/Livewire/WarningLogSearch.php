@@ -17,6 +17,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,31 +25,27 @@ class WarningLogSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $sender = '';
 
+    #[Url]
     public string $receiver = '';
 
+    #[Url]
     public string $torrent = '';
 
+    #[Url]
     public string $reason = '';
 
+    #[Url]
     public bool $show = false;
 
+    #[Url]
     public int $perPage = 25;
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'sender',
-        'receiver',
-        'torrent',
-        'reason',
-        'show',
-        'page',
-        'perPage',
-    ];
 
     final public function updatedPage(): void
     {

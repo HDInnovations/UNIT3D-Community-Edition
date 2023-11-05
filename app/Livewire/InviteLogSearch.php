@@ -17,6 +17,7 @@ use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,39 +25,35 @@ class InviteLogSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $sender = '';
 
+    #[Url]
     public string $email = '';
 
+    #[Url]
     public string $code = '';
 
+    #[Url]
     public string $receiver = '';
 
+    #[Url]
     public string $custom = '';
 
+    #[Url]
     public string $groupBy = 'none';
 
+    #[Url]
     public int $threshold = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    protected $queryString = [
-        'sender',
-        'email',
-        'code',
-        'receiver',
-        'custom',
-        'groupBy',
-        'threshold',
-        'page',
-        'sortField',
-        'sortDirection',
-        'perPage',
-    ];
 
     final public function mount(): void
     {

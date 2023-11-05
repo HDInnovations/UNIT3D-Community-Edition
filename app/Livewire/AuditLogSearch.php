@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Audit;
 use App\Models\User;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,31 +24,27 @@ class AuditLogSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $modelName = '';
 
+    #[Url]
     public string $modelId = '';
 
+    #[Url]
     public string $action = '';
 
+    #[Url]
     public string $record = '';
 
+    #[Url]
     public int $perPage = 25;
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'username',
-        'modelName',
-        'modelId',
-        'action',
-        'record',
-        'page',
-        'perPage',
-    ];
 
     final public function updatedPage(): void
     {

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Movie;
 use App\Models\Type;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,21 +13,17 @@ class MissingMediaSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public array $categories = [];
 
+    #[Url]
     public int $perPage = 50;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'categories',
-        'sortField',
-        'sortDirection',
-        'page',
-        'perPage',
-    ];
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Movie>

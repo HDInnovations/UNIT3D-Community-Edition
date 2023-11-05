@@ -17,6 +17,7 @@ use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,28 +27,25 @@ class UserUploads extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $personalRelease = 'any';
 
+    #[Url]
     public array $status = [];
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     public $showMorePrecision = false;
-
-    protected $queryString = [
-        'perPage',
-        'name',
-        'personalRelease',
-        'sortField',
-        'sortDirection',
-        'status',
-    ];
 
     final public function mount($userId): void
     {

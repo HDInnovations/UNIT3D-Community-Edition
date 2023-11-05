@@ -23,155 +23,152 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Closure;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 
 class TorrentSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $description = '';
 
+    #[Url]
     public string $mediainfo = '';
 
+    #[Url]
     public string $uploader = '';
 
+    #[Url]
     public string $keywords = '';
 
+    #[Url]
     public string $startYear = '';
 
+    #[Url]
     public string $endYear = '';
 
+    #[Url]
     public ?int $minSize = null;
 
     public int $minSizeMultiplier = 1;
 
+    #[Url]
     public ?int $maxSize = null;
 
     public int $maxSizeMultiplier = 1;
 
+    #[Url]
     public array $categories = [];
 
+    #[Url]
     public array $types = [];
 
+    #[Url]
     public array $resolutions = [];
 
+    #[Url]
     public array $genres = [];
 
+    #[Url]
     public array $regions = [];
 
+    #[Url]
     public array $distributors = [];
 
+    #[Url]
     public string $tmdbId = '';
 
+    #[Url]
     public string $imdbId = '';
 
+    #[Url]
     public string $tvdbId = '';
 
+    #[Url]
     public string $malId = '';
 
+    #[Url]
     public string $playlistId = '';
 
+    #[Url]
     public string $collectionId = '';
 
+    #[Url]
     public string $networkId = '';
 
+    #[Url]
     public string $companyId = '';
 
+    #[Url]
     public array $free = [];
 
+    #[Url]
     public bool $doubleup = false;
 
+    #[Url]
     public bool $featured = false;
 
+    #[Url]
     public bool $stream = false;
 
+    #[Url]
     public bool $sd = false;
 
+    #[Url]
     public bool $highspeed = false;
 
+    #[Url]
     public bool $bookmarked = false;
 
+    #[Url]
     public bool $wished = false;
 
+    #[Url]
     public bool $internal = false;
 
+    #[Url]
     public bool $personalRelease = false;
 
+    #[Url]
     public bool $alive = false;
 
+    #[Url]
     public bool $dying = false;
 
+    #[Url]
     public bool $dead = false;
 
+    #[Url]
     public bool $graveyard = false;
 
     public bool $notDownloaded = false;
 
+    #[Url]
     public bool $downloaded = false;
 
+    #[Url]
     public bool $seeding = false;
 
+    #[Url]
     public bool $leeching = false;
 
+    #[Url]
     public bool $incomplete = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'bumped_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public string $view = 'list';
-
-    protected $queryString = [
-        'name',
-        'description',
-        'mediainfo',
-        'uploader',
-        'keywords',
-        'startYear',
-        'endYear',
-        'minSize',
-        'maxSize',
-        'categories',
-        'types',
-        'resolutions',
-        'genres',
-        'regions',
-        'distributors',
-        'tmdbId',
-        'imdbId',
-        'tvdbId',
-        'malId',
-        'playlistId',
-        'collectionId',
-        'companyId',
-        'networkId',
-        'free',
-        'doubleup',
-        'featured',
-        'stream',
-        'sd',
-        'highspeed',
-        'bookmarked',
-        'wished',
-        'internal',
-        'personalRelease',
-        'alive',
-        'dying',
-        'dead',
-        'graveyard',
-        'downloaded',
-        'seeding',
-        'leeching',
-        'incomplete',
-        'page',
-        'perPage',
-        'sortField',
-        'sortDirection',
-        'view',
-    ];
 
     final public function updatedPage(): void
     {

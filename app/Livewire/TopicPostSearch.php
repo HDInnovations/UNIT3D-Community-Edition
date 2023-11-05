@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use App\Models\Topic;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,13 +24,10 @@ class TopicPostSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public String $search = '';
 
     public Topic $topic;
-
-    protected $queryString = [
-        'search',
-    ];
 
     final public function mount(Topic $topic): void
     {

@@ -18,21 +18,16 @@ use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class Top10 extends Component
 {
+    #[Url]
     public string $metaType = 'movie_meta';
 
+    #[Url]
     public string $interval = 'day';
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected $queryString = [
-        'metaType',
-        'interval',
-    ];
 
     /**
      * @var array<string, string>

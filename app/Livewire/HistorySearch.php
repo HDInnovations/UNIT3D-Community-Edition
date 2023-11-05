@@ -18,6 +18,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,36 +26,32 @@ class HistorySearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $agent = '';
 
+    #[Url]
     public string $torrent = '';
 
+    #[Url]
     public string $user = '';
 
+    #[Url]
     public string $seeder = 'any';
 
+    #[Url]
     public string $active = 'any';
 
+    #[Url]
     public string $groupBy = 'none';
 
+    #[Url]
     public string $sortField = '';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'page',
-        'perPage',
-        'agent',
-        'torrent',
-        'user',
-        'seeder',
-        'active',
-        'groupBy',
-        'sortField',
-        'sortDirection',
-    ];
 
     final public function updatedPage(): void
     {
