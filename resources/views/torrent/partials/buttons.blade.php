@@ -1,30 +1,33 @@
 <menu class="torrent__buttons form__group--short-horizontal">
-    <li class="form__group form__group--short-horizontal">
-        @if ($fileExists = file_exists(public_path().'/files/torrents/'.$torrent->file_name))
-            @if (config('torrent.download_check_page') == 1)
-                <a
-                    class="form__button form__button--filled form__button--centered"
-                    href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button"
-                >
-                    <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
-                </a>
-            @else
-                <a
-                    class="form__button form__button--filled form__button--centered"
-                    href="{{ route('download', ['id' => $torrent->id]) }}"
-                >
-                    <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
-                </a>
-            @endif
+    @if ($fileExists = file_exists(public_path().'/files/torrents/'.$torrent->file_name))
+    <li class="form__group form__group--short-horizontal">        
+        @if (config('torrent.download_check_page') == 1)
+            <a
+                class="form__button form__button--filled form__button--centered"
+                href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button"
+            >
+                <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
+            </a>
         @else
             <a
-                href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}"
                 class="form__button form__button--filled form__button--centered"
+                href="{{ route('download', ['id' => $torrent->id]) }}"
             >
-                <i class='{{ config("other.font-awesome") }} fa-magnet'></i> {{ __('common.magnet') }}
+                <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
             </a>
         @endif
     </li>
+    @endif
+    @if ((!$fileExists) || config('torrent.magnet'))
+    <li class="form__group form__group--short-horizontal">
+        <a
+                href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey ]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}"
+                class="form__button form__button--filled form__button--centered"
+        >
+                <i class='{{ config("other.font-awesome") }} fa-magnet'></i> {{ __('common.magnet') }}
+        </a>
+    </li>
+    @endif
     @if ($fileExists)
         @if ($torrent->free !== 100 && config('other.freeleech') == false && ! $personal_freeleech && $user->group->is_freeleech == 0 && ! $freeleech_token)
             <li class="form__group form__group--short-horizontal">
