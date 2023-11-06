@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Person;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,7 +34,11 @@ class PersonSearch extends Component
         $this->resetPage();
     }
 
-    final public function getPersonsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Person>
+     */
+    #[Computed]
+    final public function persons(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Person::select(['id', 'still', 'name'])
             ->whereNotNull('still')

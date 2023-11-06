@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\History;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -82,7 +83,11 @@ class UserTorrents extends Component
         $this->resetPage();
     }
 
-    final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
+    #[Computed]
+    final public function history(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->join(

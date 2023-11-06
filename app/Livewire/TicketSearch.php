@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Ticket;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -57,7 +58,11 @@ class TicketSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Ticket>
+     */
+    #[Computed]
+    final public function tickets(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])

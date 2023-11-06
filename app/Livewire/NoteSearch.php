@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Note;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,7 +28,11 @@ class NoteSearch extends Component
         $this->resetPage();
     }
 
-    final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
+    #[Computed]
+    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with([

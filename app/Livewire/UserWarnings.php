@@ -17,6 +17,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -46,7 +47,11 @@ class UserWarnings extends Component
         ],
     ];
 
-    final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
+     */
+    #[Computed]
+    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->user
             ->userwarning()
@@ -61,17 +66,20 @@ class UserWarnings extends Component
             ->paginate($this->perPage);
     }
 
-    final public function getAutomatedWarningsCountProperty(): int
+    #[Computed]
+    final public function automatedWarningsCount(): int
     {
         return $this->user->userwarning()->whereNotNull('torrent')->count();
     }
 
-    final public function getManualWarningsCountProperty(): int
+    #[Computed]
+    final public function manualWarningsCount(): int
     {
         return $this->user->userwarning()->whereNull('torrent')->count();
     }
 
-    final public function getDeletedWarningsCountProperty(): int
+    #[Computed]
+    final public function deletedWarningsCount(): int
     {
         return $this->user->userwarning()->onlyTrashed()->count();
     }

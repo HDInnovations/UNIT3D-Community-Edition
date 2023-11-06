@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Resurrection;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -55,7 +56,11 @@ class UserResurrections extends Component
         $this->resetPage();
     }
 
-    final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Resurrection>
+     */
+    #[Computed]
+    final public function resurrections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Resurrection::query()
             ->select([

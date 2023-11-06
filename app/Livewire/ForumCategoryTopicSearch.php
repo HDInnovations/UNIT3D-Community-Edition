@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Forum;
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -58,7 +59,11 @@ class ForumCategoryTopicSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     */
+    #[Computed]
+    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')

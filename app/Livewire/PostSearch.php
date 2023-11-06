@@ -15,6 +15,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -36,7 +37,11 @@ class PostSearch extends Component
         $this->resetPage();
     }
 
-    final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
+     */
+    #[Computed]
+    final public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()
             ->with('user', 'user.group', 'topic:id,name')

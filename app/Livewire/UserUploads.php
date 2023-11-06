@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -61,7 +62,11 @@ class UserUploads extends Component
         $this->resetPage();
     }
 
-    final public function getUploadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
+    #[Computed]
+    final public function uploads(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Torrent::query()
             ->withCount('thanks')

@@ -14,6 +14,7 @@
 namespace App\Livewire;
 
 use App\Models\Network;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,7 +34,11 @@ class NetworkSearch extends Component
         $this->resetPage();
     }
 
-    final public function getNetworksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Network>
+     */
+    #[Computed]
+    final public function networks(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Network::withCount('tv')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

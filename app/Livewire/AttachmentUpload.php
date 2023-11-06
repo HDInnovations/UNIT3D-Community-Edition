@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -56,7 +57,11 @@ class AttachmentUpload extends Component
         $this->dispatch('success', type: 'success', message: 'Ticket Attachment Uploaded Successfully!');
     }
 
-    final public function getAttachmentsProperty(): \Illuminate\Database\Eloquent\Collection
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
+     */
+    #[Computed]
+    final public function attachments(): \Illuminate\Database\Eloquent\Collection
     {
         return Ticket::find($this->ticket)->attachments;
     }

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Movie;
 use App\Models\Type;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,7 +25,11 @@ class MissingMediaSearch extends Component
     #[Url]
     public string $sortDirection = 'desc';
 
-    final public function getMediasProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Movie>
+     */
+    #[Computed]
+    final public function medias(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
             ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereNull('claimed')])
@@ -32,7 +37,11 @@ class MissingMediaSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function getTypesProperty(): \Illuminate\Database\Eloquent\Collection
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     */
+    #[Computed]
+    final public function types(): \Illuminate\Database\Eloquent\Collection
     {
         return Type::select('id', 'position', 'name')->orderBy('position')->get();
     }

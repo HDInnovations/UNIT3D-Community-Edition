@@ -21,6 +21,7 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -69,7 +70,11 @@ class SimilarTorrent extends Component
         return \in_array($torrentId, $this->checked);
     }
 
-    final public function getTorrentsProperty(): \Illuminate\Support\Collection
+    /**
+     * @return \Illuminate\Support\Collection<int, Torrent>
+     */
+    #[Computed]
+    final public function torrents(): \Illuminate\Support\Collection
     {
         $user = auth()->user();
 
@@ -113,7 +118,11 @@ class SimilarTorrent extends Component
             ->get();
     }
 
-    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
+     */
+    #[Computed]
+    final public function torrentRequests(): \Illuminate\Database\Eloquent\Collection
     {
         return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
@@ -228,9 +237,10 @@ class SimilarTorrent extends Component
         );
     }
 
-    final public function getPersonalFreeleechProperty()
+    #[Computed]
+    final public function personalFreeleech(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -17,6 +17,7 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -99,7 +100,8 @@ class TorrentRequestSearch extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty(): ?object
+    #[Computed]
+    final public function torrentRequestStat(): ?object
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -108,7 +110,8 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty(): ?object
+    #[Computed]
+    final public function torrentRequestBountyStat(): ?object
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
@@ -117,7 +120,11 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentRequest>
+     */
+    #[Computed]
+    final public function torrentRequests(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;

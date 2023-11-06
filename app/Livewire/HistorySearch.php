@@ -17,6 +17,7 @@ use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -87,7 +88,11 @@ class HistorySearch extends Component
         $this->resetPage();
     }
 
-    final public function getHistoriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
+    #[Computed]
+    final public function histories(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->with('user', 'torrent:id,name')

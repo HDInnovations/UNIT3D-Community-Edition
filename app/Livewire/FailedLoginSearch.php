@@ -16,6 +16,7 @@ namespace App\Livewire;
 use App\Models\FailedLoginAttempt;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -45,7 +46,8 @@ class FailedLoginSearch extends Component
         $this->dispatch('paginationChanged');
     }
 
-    final public function getFailedLoginsTop10IpProperty(): \Illuminate\Database\Eloquent\Collection
+    #[Computed]
+    final public function failedLoginsTop10Ip(): \Illuminate\Database\Eloquent\Collection
     {
         return FailedLoginAttempt::query()
             ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
@@ -57,7 +59,11 @@ class FailedLoginSearch extends Component
             ->get();
     }
 
-    final public function getFailedLoginsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<FailedLoginAttempt>
+     */
+    #[Computed]
+    final public function failedLogins(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return FailedLoginAttempt::query()
             ->with('user.group')
