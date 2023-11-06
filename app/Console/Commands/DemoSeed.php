@@ -74,7 +74,7 @@ class DemoSeed extends Command
                     $year = 2021;
 
                     if (\array_key_exists('release_date', $movie)) {
-                        $year = (int) substr($movie['release_date'], 0, 4);
+                        $year = (int) substr((string) $movie['release_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
@@ -279,7 +279,7 @@ Menu
                     $year = 2021;
 
                     if (\array_key_exists('first_air_date', $tv)) {
-                        $year = (int) substr($tv['first_air_date'], 0, 4);
+                        $year = (int) substr((string) $tv['first_air_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];

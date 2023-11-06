@@ -89,7 +89,7 @@ class Bbcode
         'size' => [
             'openBbcode'  => '/^\[size=(\d+)\]/i',
             'closeBbcode' => '[/size]',
-            'openHtml'    => '<span style="font-size: clamp(10px, $1, 100px);">',
+            'openHtml'    => '<span style="font-size: clamp(10px, $1px, 100px);">',
             'closeHtml'   => '</span>',
             'block'       => false,
         ],
@@ -262,7 +262,7 @@ class Bbcode
     public function parse($source, $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
-        $source = str_replace('[*]', '<li>', $source);
+        $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
             '/\[url\](.*?)\[\/url\]/i',
             fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
@@ -326,9 +326,9 @@ class Bbcode
         $index = 0;
 
         // Don't loop more than the length of the source
-        while ($index < \strlen($source)) {
+        while ($index < \strlen((string) $source)) {
             // Get the next occurrence of `[`
-            $index = strpos($source, '[', $index);
+            $index = strpos((string) $source, '[', $index);
 
             // Break if there are no more occurrences of `[`
             if ($index === false) {
@@ -336,7 +336,7 @@ class Bbcode
             }
 
             // Break if `[` is the last character of the source
-            if ($index + 1 >= \strlen($source)) {
+            if ($index + 1 >= \strlen((string) $source)) {
                 break;
             }
 
@@ -344,29 +344,29 @@ class Bbcode
             if ($source[$index + 1] === '/' && ! empty($openedElements)) {
                 $name = array_pop($openedElements);
                 $el = $this->parsers[$name];
-                $tag = substr($source, $index, \strlen($el['closeBbcode']));
+                $tag = substr((string) $source, $index, \strlen((string) $el['closeBbcode']));
 
                 // Replace bbcode tag with html tag if found tag matches expected tag,
                 // otherwise return the expected element's to the stack
-                if (strcasecmp($tag, $el['closeBbcode']) === 0) {
-                    $source = substr_replace($source, $el['closeHtml'], $index, \strlen($el['closeBbcode']));
+                if (strcasecmp($tag, (string) $el['closeBbcode']) === 0) {
+                    $source = substr_replace((string) $source, (string) $el['closeHtml'], $index, \strlen((string) $el['closeBbcode']));
 
                     if ($replaceLineBreaks === true && $el['block'] === true) {
-                        $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($el['closeHtml']) - 1);
+                        $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen((string) $el['closeHtml']) - 1);
                     }
                 } else {
                     $openedElements[] = $name;
                 }
             } else {
-                $remainingText = substr($source, $index);
+                $remainingText = substr((string) $source, $index);
 
                 // Find match between found bbcode tag and valid elements
                 foreach ($this->parsers as $name => $el) {
                     // The opening bbcode tag uses the regex `^` character to make
                     // sure only the beginning of $remainingText is matched
                     if (preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
-                        $replacement = preg_replace($el['openBbcode'], $el['openHtml'], $matches[0]);
-                        $source = substr_replace($source, $replacement, $index, \strlen($matches[0]));
+                        $replacement = preg_replace($el['openBbcode'], (string) $el['openHtml'], $matches[0]);
+                        $source = substr_replace((string) $source, $replacement, $index, \strlen($matches[0]));
 
                         if ($replaceLineBreaks === true && $el['block'] === true) {
                             $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($replacement) - 1);
@@ -388,7 +388,7 @@ class Bbcode
 
         if ($replaceLineBreaks) {
             // Replace line breaks
-            $source = str_replace(["\r\n", "\n"], '<br>', $source);
+            $source = str_replace(["\r\n", "\n"], '<br>', (string) $source);
         }
 
         return $source;

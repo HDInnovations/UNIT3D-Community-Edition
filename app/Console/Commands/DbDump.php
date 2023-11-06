@@ -43,11 +43,11 @@ class DbDump extends Command
 
         $cmd = sprintf(
             'mysqldump --user=%s --databases %s --add-drop-database --add-drop-table --default-character-set=utf8mb4 --skip-extended-insert --host=%s --quick --quote-names --routines --set-charset --single-transaction --triggers --tz-utc %s> %s;',
-            escapeshellarg($user),
-            escapeshellarg($db),
-            escapeshellarg($host),
+            escapeshellarg((string) $user),
+            escapeshellarg((string) $db),
+            escapeshellarg((string) $host),
             $this->option('verbose') ? '--verbose ' : '',
-            escapeshellarg($outfile)
+            escapeshellarg((string) $outfile)
         );
 
         $return = null;

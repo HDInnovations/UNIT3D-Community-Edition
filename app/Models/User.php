@@ -72,7 +72,7 @@ class User extends Authenticatable
     /**
      * ID of the system user.
      */
-    public const SYSTEM_USER_ID = 1;
+    final public const SYSTEM_USER_ID = 1;
 
     /**
      * Belongs To A Group.

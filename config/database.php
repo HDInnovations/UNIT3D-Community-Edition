@@ -121,7 +121,7 @@ return [
     */
 
     'redis' => [
-        'client' => env('REDIS_CLIENT', 'predis'),
+        'client' => env('REDIS_CLIENT', 'phpredis'),
 
         'default' => [
             'url'                => env('REDIS_URL'),

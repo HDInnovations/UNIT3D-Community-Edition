@@ -28,7 +28,6 @@
 <td class="torrent-search--grouped__download">
     @if (config('torrent.download_check_page') == 1)
         <a
-            download
             href="{{ route('download_check', ['id' => $torrent->id]) }}"
             title="{{ __('common.download') }}"
         >
@@ -36,7 +35,6 @@
         </a>
     @else
         <a
-            download
             href="{{ route('download', ['id' => $torrent->id]) }}"
             title="{{ __('common.download') }}"
         >

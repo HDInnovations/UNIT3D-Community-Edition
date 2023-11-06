@@ -76,16 +76,11 @@ class TorrentController extends BaseController
         $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
         $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
-            switch ($torrent->meta) {
-                case 'movie':
-                    $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
-
-                    break;
-                case 'tv':
-                    $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
-
-                    break;
-            }
+            match ($torrent->meta) {
+                'movie' => $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect()),
+                'tv'    => $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect()),
+                default => $torrent,
+            };
 
             return $torrent;
         });
@@ -101,6 +96,9 @@ class TorrentController extends BaseController
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
+
+        abort_unless($user->can_upload, 403);
+
         $requestFile = $request->file('torrent');
 
         if (! $request->hasFile('torrent')) {
@@ -386,7 +384,7 @@ class TorrentController extends BaseController
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
-            && \strlen($field) > 2
+            && \strlen((string) $field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
@@ -457,16 +455,11 @@ class TorrentController extends BaseController
             $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
             $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
-                switch ($torrent->meta) {
-                    case 'movie':
-                        $torrent->setRelation('work', $movies[$torrent->tmdb] ?? collect());
-
-                        break;
-                    case 'tv':
-                        $torrent->setRelation('work', $tv[$torrent->tmdb] ?? collect());
-
-                        break;
-                }
+                match ($torrent->meta) {
+                    'movie' => $torrent->setRelation('work', $movies[$torrent->tmdb] ?? collect()),
+                    'tv'    => $torrent->setRelation('work', $tv[$torrent->tmdb] ?? collect()),
+                    default => $torrent,
+                };
 
                 return $torrent;
             });

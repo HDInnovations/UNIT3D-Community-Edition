@@ -126,7 +126,6 @@
                 <a
                     class="torrent-search--list__file form__standard-icon-button"
                     href="{{ route('download_check', ['id' => $torrent->id]) }}"
-                    download
                     title="{{ __('common.download') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -135,7 +134,6 @@
                 <a
                     class="torrent-search--list__file form__standard-icon-button"
                     href="{{ route('download', ['id' => $torrent->id]) }}"
-                    download
                     title="{{ __('common.download') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>

@@ -18,6 +18,7 @@ use App\Models\History;
 use App\Models\Movie;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
 use Livewire\Component;
@@ -109,6 +110,16 @@ class SimilarTorrent extends Component
                 fn ($query) => $query->where('igdb', '=', $this->igdbId),
             )
             ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
+    }
+
+    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
+    {
+        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+            ->withCount(['comments'])
+            ->where('tmdb', '=', $this->tmdbId)
+            ->where('category_id', '=', $this->category->id)
+            ->latest()
             ->get();
     }
 
@@ -226,6 +237,7 @@ class SimilarTorrent extends Component
             'user'              => auth()->user(),
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
+            'torrentRequests'   => $this->torrentRequests,
         ]);
     }
 }

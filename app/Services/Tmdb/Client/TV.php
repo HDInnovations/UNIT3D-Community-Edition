@@ -13,6 +13,8 @@
 
 namespace App\Services\Tmdb\Client;
 
+use JsonException;
+
 class TV
 {
     public \GuzzleHttp\Client $client;
@@ -21,6 +23,10 @@ class TV
 
     public $data;
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws JsonException
+     */
     public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
@@ -91,7 +97,7 @@ class TV
 
     public function get_imdb_id()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['imdb_id']);
     }
 
     public function get_in_production()
@@ -111,7 +117,7 @@ class TV
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }
 
     public function get_alternative_names()
@@ -146,12 +152,12 @@ class TV
 
     public function get_original_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['original_name']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['original_name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }
 
     public function get_poster(): ?string

@@ -51,7 +51,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\UpdateLastAction::class,
             \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
-            \App\Http\Middleware\Http2ServerPush::class,
             //'throttle:web',
         ],
         'api' => [

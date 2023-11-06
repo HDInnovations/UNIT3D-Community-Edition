@@ -123,7 +123,7 @@ class BackupPanel extends Component
             return response('Backup not found', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $fileName = pathinfo($backup->path(), PATHINFO_BASENAME);
+        $fileName = pathinfo((string) $backup->path(), PATHINFO_BASENAME);
         $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
 
         $downloadHeaders = [

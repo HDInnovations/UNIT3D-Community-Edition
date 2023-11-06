@@ -13,6 +13,8 @@
 
 namespace App\Services\Tmdb\Client;
 
+use JsonException;
+
 class Movie
 {
     public \GuzzleHttp\Client $client;
@@ -21,6 +23,10 @@ class Movie
 
     public $data;
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws JsonException
+     */
     public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
@@ -71,7 +77,7 @@ class Movie
 
     public function get_budget()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['budget']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['budget']);
     }
 
     public function get_genres()
@@ -81,7 +87,7 @@ class Movie
 
     public function get_homepage()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['homepage']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['homepage']);
     }
 
     public function get_id()
@@ -91,12 +97,12 @@ class Movie
 
     public function get_imdb_id()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['imdb_id']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['imdb_id']);
     }
 
     public function get_original_title()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['original_title']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['original_title']);
     }
 
     public function get_alternative_titles()
@@ -106,7 +112,7 @@ class Movie
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }
 
     public function get_popularity()
@@ -155,12 +161,12 @@ class Movie
 
     public function get_tagline()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['tagline']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['tagline']);
     }
 
     public function get_title()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['title']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['title']);
     }
 
     public function get_vote_average()

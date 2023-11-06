@@ -1706,11 +1706,6 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:parseAudioChannels\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MediaInfo.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:parseBitRate\\(\\) has parameter \\$string with no type specified\\.$#"
 			count: 1
 			path: app/Helpers/MediaInfo.php
@@ -1971,22 +1966,7 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$group with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -1996,27 +1976,7 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMaxConnections\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMaxConnections\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -2026,67 +1986,27 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$queries with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$torrent with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkTorrent\\(\\) has parameter \\$infoHash with no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$passkey with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$group with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$queries with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$user with no type specified\\.$#"
+			message: "#^Variable \\$response might not be defined\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -2551,7 +2471,17 @@ parameters:
 			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLoginsTop10Ip\\.$#"
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsTop10IpProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Http/Livewire/FailedLoginSearch.php
 
@@ -2946,12 +2876,32 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrentRequests\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
 			count: 3
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
@@ -3534,71 +3484,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WatchlistSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:addLinkHeader\\(\\) has parameter \\$link with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:fetchLinkableNodes\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:generateAndAttachLinkHeaders\\(\\) has parameter \\$excludeKeywords with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:generateAndAttachLinkHeaders\\(\\) has parameter \\$limit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:generateAndAttachLinkHeaders\\(\\) has parameter \\$sizeLimit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:getConfig\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:getConfig\\(\\) has parameter \\$default with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:getConfig\\(\\) has parameter \\$key with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:handle\\(\\) has parameter \\$excludeKeywords with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:handle\\(\\) has parameter \\$limit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Http2ServerPush\\:\\:handle\\(\\) has parameter \\$sizeLimit with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
-
-		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 1
-			path: app/Http/Middleware/Http2ServerPush.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"

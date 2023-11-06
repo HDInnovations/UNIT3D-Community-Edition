@@ -48,7 +48,7 @@
                     <label class="form__label form__label--floating" for="description">Description</label>
                 </p>
                 <p class="form__group">
-                    <select id="parent_id" class="form__select" name="parent_id" required>
+                    <select id="parent_id" class="form__select" name="parent_id">
                         <option value="">New Category</option>
                         @foreach ($categories as $category)
                             <option class="form__option" value="{{ $category->id }}">

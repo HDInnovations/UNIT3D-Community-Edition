@@ -40,9 +40,9 @@ class DbLoad extends Command
 
         $cmd = sprintf(
             'mysql -u %s %s < %s',
-            escapeshellarg($user),
-            escapeshellarg($db),
-            escapeshellarg($input)
+            escapeshellarg((string) $user),
+            escapeshellarg((string) $db),
+            escapeshellarg((string) $input)
         );
 
         $return = null;

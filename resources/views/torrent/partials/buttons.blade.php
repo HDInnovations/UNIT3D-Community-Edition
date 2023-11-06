@@ -5,7 +5,6 @@
                 <a
                     class="form__button form__button--filled form__button--centered"
                     href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button"
-                    download
                 >
                     <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
                 </a>
@@ -13,7 +12,6 @@
                 <a
                     class="form__button form__button--filled form__button--centered"
                     href="{{ route('download', ['id' => $torrent->id]) }}"
-                    download
                 >
                     <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
                 </a>
@@ -39,7 +37,7 @@
                     @csrf
                     <button
                         class="form__button form__button--outlined form__button--centered"
-                        title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'
+                        title="{{ __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) }}!"
                         x-on:click.prevent="
                             Swal.fire({
                                 title: 'Are you sure?',
