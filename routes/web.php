@@ -685,6 +685,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Block Ip System
+        Route::prefix('blocked-ips')->group(function (): void {
+            Route::name('blocked_ips.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\BlockedIpController::class, 'index'])->name('index');
+            });
+        });
+
         // Bon Exchanges
         Route::prefix('bon-exchanges')->group(function (): void {
             Route::name('bon_exchanges.')->group(function (): void {
