@@ -44,7 +44,7 @@
         ></i>
     @endif
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleechTokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech');
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleechTokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
     @endphp
     @if ($alwaysFreeleech || $torrent->free)
         <i
