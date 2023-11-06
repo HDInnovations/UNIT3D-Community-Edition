@@ -45,7 +45,6 @@
     @endif
     @php
         $alwaysFreeleech = $personalFreeleech || $torrent->freeleechTokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech');
-        $tagsMet = 0;
     @endphp
     @if ($alwaysFreeleech || $torrent->free)
         <i
