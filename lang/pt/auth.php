@@ -60,44 +60,4 @@ return [
     'veteran'               => 'Experiência com trackers privados',
     'welcome'               => 'Bem-vindo(a) de volta!',
     'welcome-restore'       => 'Bem-vindo(a) de volta! A sua conta não está mais desativada!',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Verification Required',
-    'title'       => 'Verificação em 2 etapas',
-    'titleFailed' => 'Falha na verificação',
-    'titlePassed' => 'Verificação efetuada com sucesso!',
-
-    'inputAlt1' => 'Entrada de código 1',
-    'inputAlt2' => 'Entrada de código 2',
-    'inputAlt3' => 'Entrada de código 3',
-    'inputAlt4' => 'Entrada de código 4',
-
-    'attemptsRemaining' => 'Tentativa restante|Tentativas restantes',
-    'missingCode'       => 'Não recebeu o código de verificação?',
-    'verifyButton'      => 'Verificar',
-
-    'exceededTitle' => 'Tentativas de verificação excedidas',
-    'lockedUntil'   => 'Conta bloqueada até:',
-    'returnButton'  => 'Retornar para página inicial',
-    'tryAgainIn'    => 'Tentar novamente em',
-
-    'verificationEmailButton'   => 'Verificar agora',
-    'verificationEmailGreeting' => 'Olá :username',
-    'verificationEmailMessage'  => 'O código de verificação em 2 etapas da sua conta é:',
-    'verificationEmailSubject'  => 'Verificação necessária',
-
-    'verificationEmailSentMsg' => 'E-mail de verificação enviado!',
-    'verificationEmailSuccess' => 'Sucesso!',
-
-    'verificationWarningMessage' => 'Esta é a sua última tentativa antes que a sua conta seja bloqueada por :hours horas',
-    'verificationWarningTitle'   => 'Aviso!',
-
-    'verificationLockedMessage' => 'Conta bloqueada!',
-    'verificationLockedTitle'   => 'Ops!',
-
-    'verificationModalConfBtn' => 'OK',
 ];

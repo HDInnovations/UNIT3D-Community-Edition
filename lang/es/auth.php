@@ -63,44 +63,4 @@ return [
     'veteran'               => 'Veterano en Trackers privados',
     'welcome'               => '¡Bienvenido!',
     'welcome-restore'       => '¡Te echábamos de menos! Tu cuenta se ha desbloqueado correctamente.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Validación requerida',
-    'title'       => 'Autenticación de 2 pasos (2FA)',
-    'titleFailed' => 'Validación erronea',
-    'titlePassed' => 'Validación correcta',
-
-    'inputAlt1' => 'Input Código 1',
-    'inputAlt2' => 'Input Código 2',
-    'inputAlt3' => 'Input Código 3',
-    'inputAlt4' => 'Input Código 4',
-
-    'attemptsRemaining' => 'Intento(s) restante(s): ',
-    'missingCode'       => '¿No has recibido el código?',
-    'verifyButton'      => 'Verificar',
-
-    'exceededTitle' => 'Verification Attempts Exceeded',
-    'lockedUntil'   => 'Account Locked Until:',
-    'returnButton'  => 'Return Home',
-    'tryAgainIn'    => 'Try again in',
-
-    'verificationEmailButton'   => 'Validar usuario',
-    'verificationEmailGreeting' => 'Hola :username',
-    'verificationEmailMessage'  => 'Para iniciar sesión en tu cuenta de la comunidad privada, introduce el siguiente código 2FA:',
-    'verificationEmailSubject'  => 'Código de 2 pasos para iniciar sesión',
-
-    'verificationEmailSentMsg' => 'Se te ha enviado un Email para verificar que eres tú.',
-    'verificationEmailSuccess' => '¡Enviado!',
-
-    'verificationWarningMessage' => 'Si vuelves a fallar, tu cuenta se bloqueará durante :hours horas.',
-    'verificationWarningTitle'   => '¡Último intento!',
-
-    'verificationLockedMessage' => '¡Cuenta bloqueada por 2FA fallidos!',
-    'verificationLockedTitle'   => '¡Bloqueado!',
-
-    'verificationModalConfBtn' => 'Ok',
 ];

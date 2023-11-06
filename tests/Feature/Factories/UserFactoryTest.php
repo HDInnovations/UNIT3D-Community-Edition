@@ -56,7 +56,6 @@ test('user factory returns correct values when created', function (): void {
     $this->assertArrayHasKey('private_profile', $user);
     $this->assertArrayHasKey('block_notifications', $user);
     $this->assertArrayHasKey('stat_hidden', $user);
-    $this->assertArrayHasKey('twostep', $user);
     $this->assertArrayHasKey('remember_token', $user);
     $this->assertArrayHasKey('api_token', $user);
     $this->assertArrayHasKey('last_login', $user);
