@@ -56,10 +56,10 @@
                 'fa-calendar-star' => ! $alwaysFreeleech && $torrent->fl_until !== null,
             ])
             title="{{ 
-                ($personalFreeleech ? __('torrent.personal-freeleech') . ($tagsMet++ >= 1 ? "\n" : '') : '') . 
-                ($torrent->freeleechTokens_exists ? __('torrent.freeleech-token') . ($tagsMet++ >= 1 ? "\n" : '') : '') . 
-                (auth()->user()->group->is_freeleech ? __('torrent.special-freeleech') . ($tagsMet++ >= 1 ? "\n" : '') : '') . 
-                (config('other.freeleech') ? __('torrent.global-freeleech') . ($tagsMet++ >= 1 ? "\n" : '') : '') . 
+                ($personalFreeleech ? ($tagsMet++ >= 1 ? "\n" : '') . __('torrent.personal-freeleech') : '') . 
+                ($torrent->freeleechTokens_exists ? ($tagsMet++ >= 1 ? "\n" : '') . __('torrent.freeleech-token') : '') . 
+                (auth()->user()->group->is_freeleech ? ($tagsMet++ >= 1 ? "\n" : '') . __('torrent.special-freeleech') : '') . 
+                (config('other.freeleech') ? ($tagsMet++ >= 1 ? "\n" : '') . __('torrent.global-freeleech') : '') . 
                 ($torrent->free > 0 ? ($tagsMet++ >= 1 ? "\n" : '') . $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') : '') 
             }}"
         ></i>
