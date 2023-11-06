@@ -2401,11 +2401,6 @@ parameters:
 			path: app/Livewire/AuditLogSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\AuditLogSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/AuditLogSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\BackupPanel\\:\\:\\$activeDisk\\.$#"
 			count: 4
 			path: app/Livewire/BackupPanel.php
@@ -2596,27 +2591,12 @@ parameters:
 			path: app/Livewire/FailedLoginSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/FailedLoginSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$topics\\.$#"
 			count: 1
 			path: app/Livewire/ForumCategoryTopicSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/ForumCategoryTopicSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/ForumTopicSearch.php
 
@@ -2631,22 +2611,12 @@ parameters:
 			path: app/Livewire/GiftLogSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\GiftLogSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/GiftLogSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\HistorySearch\\:\\:\\$histories\\.$#"
 			count: 1
 			path: app/Livewire/HistorySearch.php
 
 		-
 			message: "#^Method App\\\\Livewire\\\\HistorySearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Livewire/HistorySearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\HistorySearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/HistorySearch.php
 
@@ -2662,11 +2632,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Livewire\\\\InviteLogSearch\\:\\:updatingGroupBy\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Livewire/InviteLogSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\InviteLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/InviteLogSearch.php
 
@@ -2706,11 +2671,6 @@ parameters:
 			path: app/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/LaravelLogViewer.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$medias\\.$#"
 			count: 1
 			path: app/Livewire/MissingMediaSearch.php
@@ -2731,11 +2691,6 @@ parameters:
 			path: app/Livewire/MissingMediaSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/MissingMediaSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\NetworkSearch\\:\\:\\$networks\\.$#"
 			count: 1
 			path: app/Livewire/NetworkSearch.php
@@ -2747,11 +2702,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\NoteSearch\\:\\:\\$notes\\.$#"
-			count: 1
-			path: app/Livewire/NoteSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\NoteSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/NoteSearch.php
 
@@ -2782,11 +2732,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Livewire\\\\PeerSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Livewire/PeerSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\PeerSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/PeerSearch.php
 
@@ -2876,11 +2821,6 @@ parameters:
 			path: app/Livewire/PersonCredit.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\PersonCredit\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/PersonCredit.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Movie\\:\\:\\$torrents is not writable\\.$#"
 			count: 1
 			path: app/Livewire/PersonCredit.php
@@ -2902,11 +2842,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\PostSearch\\:\\:\\$posts\\.$#"
-			count: 1
-			path: app/Livewire/PostSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\PostSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/PostSearch.php
 
@@ -3011,11 +2946,6 @@ parameters:
 			path: app/Livewire/TicketSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\TicketSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/TicketSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\Top10\\:\\:\\$metaTypes\\.$#"
 			count: 1
 			path: app/Livewire/Top10.php
@@ -3026,17 +2956,7 @@ parameters:
 			path: app/Livewire/Top10.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\Top10\\:\\:\\$queryString \\(array\\<string, mixed\\>\\) does not accept default value of type array\\<int, string\\>\\.$#"
-			count: 1
-			path: app/Livewire/Top10.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\TopicPostSearch\\:\\:\\$posts\\.$#"
-			count: 1
-			path: app/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\TopicPostSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/TopicPostSearch.php
 
@@ -3047,11 +2967,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\TopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Livewire/TopicSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\TopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/TopicSearch.php
 
@@ -3117,11 +3032,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$pending has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/TorrentRequestSearch.php
 
@@ -3221,11 +3131,6 @@ parameters:
 			path: app/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\TorrentSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/TorrentSearch.php
-
-		-
 			message: "#^Property App\\\\Livewire\\\\TorrentSearch\\:\\:\\$regions type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Livewire/TorrentSearch.php
@@ -3266,11 +3171,6 @@ parameters:
 			path: app/Livewire/UserActive.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\UserActive\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/UserActive.php
-
-		-
 			message: "#^Property App\\\\Livewire\\\\UserActive\\:\\:\\$showMorePrecision has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/UserActive.php
@@ -3301,11 +3201,6 @@ parameters:
 			path: app/Livewire/UserResurrections.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\UserResurrections\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/UserResurrections.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\UserSearch\\:\\:\\$users\\.$#"
 			count: 1
 			path: app/Livewire/UserSearch.php
@@ -3321,11 +3216,6 @@ parameters:
 			path: app/Livewire/UserSearch.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\UserSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/UserSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Livewire\\\\UserTorrents\\:\\:\\$history\\.$#"
 			count: 1
 			path: app/Livewire/UserTorrents.php
@@ -3337,11 +3227,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Livewire\\\\UserTorrents\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Livewire/UserTorrents.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\UserTorrents\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/UserTorrents.php
 
@@ -3367,11 +3252,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Livewire\\\\UserUploads\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Livewire/UserUploads.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\UserUploads\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/UserUploads.php
 
@@ -3406,11 +3286,6 @@ parameters:
 			path: app/Livewire/UserWarnings.php
 
 		-
-			message: "#^Property App\\\\Livewire\\\\UserWarnings\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Livewire/UserWarnings.php
-
-		-
 			message: "#^Property App\\\\Livewire\\\\UserWarnings\\:\\:\\$rules has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/UserWarnings.php
@@ -3427,11 +3302,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
-			count: 1
-			path: app/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Property App\\\\Livewire\\\\WarningLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Livewire/WarningLogSearch.php
 
