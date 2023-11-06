@@ -105,8 +105,8 @@ export default {
         e.preventDefault();
         let target = e.target.hash;
         const tmp = target.split('/');
-        $('#chat-message').val('/' + tmp[1] + ' ' + tmp[2] + ' ');
-        $('#chat-message').val('/' + tmp[1] + ' ' + tmp[2] + ' ');
+        document.getElementById('chat-message').value = '/' + tmp[1] + ' ' + tmp[2] + ' ';
+        document.getElementById('chat-message').value = '/' + tmp[1] + ' ' + tmp[2] + ' ';
       }
     },
     canMod(message) {
