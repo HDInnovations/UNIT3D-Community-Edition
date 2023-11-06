@@ -70,7 +70,7 @@ Route::middleware('language')->group(function (): void {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::middleware(['auth', 'banned'])->group(function (): void {
         // General
         Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
@@ -93,13 +93,6 @@ Route::middleware('language')->group(function (): void {
                 Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy');
             });
-        });
-
-        // TwoStep Auth System
-        Route::prefix('twostep')->group(function (): void {
-            Route::get('/needed', [App\Http\Controllers\Auth\TwoStepController::class, 'showVerification'])->name('verificationNeeded');
-            Route::post('/verify', [App\Http\Controllers\Auth\TwoStepController::class, 'verify'])->name('verify');
-            Route::post('/resend', [App\Http\Controllers\Auth\TwoStepController::class, 'resend'])->name('resend');
         });
 
         // Reports System
@@ -298,7 +291,7 @@ Route::middleware('language')->group(function (): void {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::prefix('mediahub')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::prefix('mediahub')->middleware(['auth', 'banned'])->group(function (): void {
         // MediaHub Home
         Route::get('/', [App\Http\Controllers\MediaHub\HomeController::class, 'index'])->name('mediahub.index');
 
@@ -338,7 +331,7 @@ Route::middleware('language')->group(function (): void {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('forums')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::prefix('forums')->middleware(['auth', 'banned'])->group(function (): void {
         // Forum System
         Route::name('forums.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
@@ -400,7 +393,7 @@ Route::middleware('language')->group(function (): void {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'twostep', 'banned'])->scopeBindings()->group(function (): void {
+    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'banned'])->scopeBindings()->group(function (): void {
         Route::get('/', [App\Http\Controllers\User\UserController::class, 'show'])->name('show')->withTrashed();
         Route::get('/edit', [App\Http\Controllers\User\UserController::class, 'edit'])->name('edit');
         Route::patch('/', [App\Http\Controllers\User\UserController::class, 'update'])->name('update');
@@ -551,14 +544,6 @@ Route::middleware('language')->group(function (): void {
             Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
         });
 
-        // Two-Step Authentication
-        if (config('auth.TwoStepEnabled') === true) {
-            Route::prefix('two-step')->name('two_step.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\TwoStepController::class, 'edit'])->name('edit');
-                Route::patch('/', [App\Http\Controllers\User\TwoStepController::class, 'update'])->name('update');
-            });
-        }
-
         // Tips
         Route::prefix('tips')->name('tips.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
@@ -607,7 +592,7 @@ Route::middleware('language')->group(function (): void {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('dashboard')->middleware(['auth', 'twostep', 'modo', 'banned'])->name('staff.')->group(function (): void {
+    Route::prefix('dashboard')->middleware(['auth', 'modo', 'banned'])->name('staff.')->group(function (): void {
         // Staff Dashboard
         Route::name('dashboard.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');

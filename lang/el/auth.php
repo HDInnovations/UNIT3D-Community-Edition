@@ -63,44 +63,4 @@ return [
     'veteran'               => 'Έμπειρος χρήστης σε ιδιωτικούς Trackers',
     'welcome'               => 'Καλως ήρθες πάλι!',
     'welcome-restore'       => 'Καλως ήρθες πάλι! Ο Λογαριασμός σου , δεν είναι πλέον ανενεργός',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Απαιτείται Επιβεβαίωση',
-    'title'       => '2-Step Verification',
-    'titleFailed' => 'η Επιβεβαίωση απέτυχε',
-    'titlePassed' => 'Good News Everyone!',
-
-    'inputAlt1' => 'Code Input 1',
-    'inputAlt2' => 'Code Input 2',
-    'inputAlt3' => 'Code Input 3',
-    'inputAlt4' => 'Code Input 4',
-
-    'attemptsRemaining' => 'Attempt Remaining|Attempts Remaining',
-    'missingCode'       => 'Δεν έλαβες το κωδικό επιβεβαίωσης?',
-    'verifyButton'      => 'Επιβεβαίωση',
-
-    'exceededTitle' => 'Verification Attempts Exceeded',
-    'lockedUntil'   => 'Ο λογαριασμός είναι κλειδωμένος μέχρι :',
-    'returnButton'  => 'Return Home',
-    'tryAgainIn'    => 'Δοκίμασε ξανά σε ',
-
-    'verificationEmailButton'   => 'Verify Now',
-    'verificationEmailGreeting' => 'Γειά σου :username',
-    'verificationEmailMessage'  => 'Your account 2-step verification code is:',
-    'verificationEmailSubject'  => 'Verification Required',
-
-    'verificationEmailSentMsg' => 'Verification Email Sent!',
-    'verificationEmailSuccess' => 'Success!',
-
-    'verificationWarningMessage' => 'This is your last attempt before your account locks for :hours hours.',
-    'verificationWarningTitle'   => 'Warning!',
-
-    'verificationLockedMessage' => 'Account Locked!',
-    'verificationLockedTitle'   => 'Doh!',
-
-    'verificationModalConfBtn' => 'Ok',
 ];

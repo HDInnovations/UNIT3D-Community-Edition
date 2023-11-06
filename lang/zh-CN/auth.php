@@ -63,44 +63,4 @@ return [
     'veteran'               => '老司机',
     'welcome'               => '欢迎回来！',
     'welcome-restore'       => '欢迎回来！你的帐户已获解封！',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => '需要额外验证',
-    'title'       => '两步验证',
-    'titleFailed' => '验证失败',
-    'titlePassed' => '验证成功！',
-
-    'inputAlt1' => 'Code Input 1',
-    'inputAlt2' => 'Code Input 2',
-    'inputAlt3' => 'Code Input 3',
-    'inputAlt4' => 'Code Input 4',
-
-    'attemptsRemaining' => '尝试次数剩余|尝试次数剩余',
-    'missingCode'       => '没有收到验证码?',
-    'verifyButton'      => '验证',
-
-    'exceededTitle' => '验证尝试次数已达上限',
-    'lockedUntil'   => '账户被锁定，直到：',
-    'returnButton'  => '返回主页',
-    'tryAgainIn'    => '以下时间后再尝试',
-
-    'verificationEmailButton'   => '立即验证',
-    'verificationEmailGreeting' => ' :username 你好',
-    'verificationEmailMessage'  => '你的账户的两步验证码为:',
-    'verificationEmailSubject'  => '需要验证',
-
-    'verificationEmailSentMsg' => '验证邮件已发送！',
-    'verificationEmailSuccess' => '成功！',
-
-    'verificationWarningMessage' => '这是你的最后一次尝试机会。如果失败，你的账户将被锁定 :hours 小时。',
-    'verificationWarningTitle'   => '警告！',
-
-    'verificationLockedMessage' => '账户被锁定！',
-    'verificationLockedTitle'   => '不妙！',
-
-    'verificationModalConfBtn' => 'Ok',
 ];

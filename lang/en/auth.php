@@ -63,44 +63,4 @@ return [
     'veteran'               => 'Experienced With Private Trackers',
     'welcome'               => 'Welcome Back!',
     'welcome-restore'       => 'Welcome Back! Your Account Is No Longer Disabled!',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Verification Required',
-    'title'       => '2-Step Verification',
-    'titleFailed' => 'Verification Failed',
-    'titlePassed' => 'Good News Everyone!',
-
-    'inputAlt1' => 'Code Input 1',
-    'inputAlt2' => 'Code Input 2',
-    'inputAlt3' => 'Code Input 3',
-    'inputAlt4' => 'Code Input 4',
-
-    'attemptsRemaining' => 'Attempt Remaining|Attempts Remaining',
-    'missingCode'       => 'Didn\'t receive verification code?',
-    'verifyButton'      => 'Verify',
-
-    'exceededTitle' => 'Verification Attempts Exceeded',
-    'lockedUntil'   => 'Account Locked Until:',
-    'returnButton'  => 'Return Home',
-    'tryAgainIn'    => 'Try again in',
-
-    'verificationEmailButton'   => 'Verify Now',
-    'verificationEmailGreeting' => 'Hello :username',
-    'verificationEmailMessage'  => 'Your account 2-step verification code is:',
-    'verificationEmailSubject'  => 'Verification Required',
-
-    'verificationEmailSentMsg' => 'Verification Email Sent!',
-    'verificationEmailSuccess' => 'Success!',
-
-    'verificationWarningMessage' => 'This is your last attempt before your account locks for :hours hours.',
-    'verificationWarningTitle'   => 'Warning!',
-
-    'verificationLockedMessage' => 'Account Locked!',
-    'verificationLockedTitle'   => 'Doh!',
-
-    'verificationModalConfBtn' => 'Ok',
 ];
