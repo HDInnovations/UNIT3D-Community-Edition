@@ -21,8 +21,10 @@ class UserWarning extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via(mixed $notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database', 'mail'];
     }
@@ -30,7 +32,7 @@ class UserWarning extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         $profileUrl = href_profile($this->user);
 
@@ -43,11 +45,13 @@ class UserWarning extends Notification
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray(mixed $notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->torrent->name.' Warning Recieved',
+            'title' => $this->torrent->name.' Warning Received',
             'body'  => 'You have received an automated WARNING from the system because you failed to follow the Hit and Run rules in relation to Torrent '.$this->torrent->name,
             'url'   => sprintf('/torrents/%s', $this->torrent->id),
         ];

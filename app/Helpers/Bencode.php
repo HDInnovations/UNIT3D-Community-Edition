@@ -30,7 +30,7 @@ class Bencode
         $result = '';
 
         while ($pos < $len && $s[$pos] != 'e') {
-            if (is_numeric($s[$pos]) || $s[$pos] = '-') {
+            if (is_numeric($s[$pos]) || $s[$pos] === '-') {
                 $result .= $s[$pos];
             } else {
                 // We have an invalid character in the string.
@@ -224,7 +224,7 @@ class Bencode
 
     public static function get_infohash($t): string
     {
-        return sha1(self::bencode($t['info']), true);
+        return sha1((string) self::bencode($t['info']), true);
     }
 
     public static function get_meta($t): array

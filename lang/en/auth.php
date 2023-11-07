@@ -46,76 +46,21 @@ return [
     'not-a-member'          => 'Not yet a member ? Signup in less than 30s.',
     'not-activated'         => 'This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.',
     'password'              => 'Password',
-    'password-confirmation' => 'Password Confirmation',
-    'password-confirm'      => [
-        'title'       => 'Password Confirmation Required',
-        'breadcrumb'  => 'Password Confirmation',
-        'description' => 'Please confirm your password before continuing.',
-        'input'       => 'Password',
-        'button'      => 'Confirm'
-    ],
-    'proof-image'         => 'Proof Image URL',
-    'proof-image-title'   => 'Links to profile screenshots',
-    'proof-profile'       => 'Profile Link URL',
-    'proof-profile-title' => 'Links to your profiles',
-    'proof-min'           => '(Minimum 2, Recommended 3)',
-    'recover-my-password' => 'Recover My Password',
-    'registration'        => 'Registration',
-    'register-thanks'     => 'Thanks for signing up! Please check your email to Validate your account',
-    'remember-me'         => 'Remember Me',
-    'require-rules'       => 'Please Read And Accept Our Rules By Scrolling To Bottom Of Page.',
-    'reset-password'      => 'Reset Your Password',
-    'signup'              => 'Signup',
-    'throttle'            => 'Too many login attempts. Please try again in :seconds seconds.',
-    'unlock'              => 'Unlock',
-    'user-icon'           => 'User Icon',
-    'username'            => 'Username',
-    'veteran'             => 'Experienced With Private Trackers',
-    'verify-email'        => 'Verify Your Email',
-    'verify-email-button' => 'Resend Comfirmation Email',
-    'welcome'             => 'Welcome Back!',
-    'welcome-restore'     => 'Welcome Back! Your Account Is No Longer Disabled!',
-    'totp'                => [
-        'title' => 'Enter 2FA Code',
-        'input' => '2FA Code'
-    ],
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Verification Required',
-    'title'       => '2-Step Verification',
-    'titleFailed' => 'Verification Failed',
-    'titlePassed' => 'Good News Everyone!',
-
-    'inputAlt1' => 'Code Input 1',
-    'inputAlt2' => 'Code Input 2',
-    'inputAlt3' => 'Code Input 3',
-    'inputAlt4' => 'Code Input 4',
-
-    'attemptsRemaining' => 'Attempt Remaining|Attempts Remaining',
-    'missingCode'       => 'Didn\'t receive verification code?',
-    'verifyButton'      => 'Verify',
-
-    'exceededTitle' => 'Verification Attempts Exceeded',
-    'lockedUntil'   => 'Account Locked Until:',
-    'returnButton'  => 'Return Home',
-    'tryAgainIn'    => 'Try again in',
-
-    'verificationEmailButton'   => 'Verify Now',
-    'verificationEmailGreeting' => 'Hello :username',
-    'verificationEmailMessage'  => 'Your account 2-step verification code is:',
-    'verificationEmailSubject'  => 'Verification Required',
-
-    'verificationEmailSentMsg' => 'Verification Email Sent!',
-    'verificationEmailSuccess' => 'Success!',
-
-    'verificationWarningMessage' => 'This is your last attempt before your account locks for :hours hours.',
-    'verificationWarningTitle'   => 'Warning!',
-
-    'verificationLockedMessage' => 'Account Locked!',
-    'verificationLockedTitle'   => 'Doh!',
-
-    'verificationModalConfBtn' => 'Ok',
+    'proof-image'           => 'Proof Image URL',
+    'proof-image-title'     => 'Links to profile screenshots',
+    'proof-profile'         => 'Profile Link URL',
+    'proof-profile-title'   => 'Links to your profiles',
+    'proof-min'             => '(Minimum 2, Recommended 3)',
+    'recover-my-password'   => 'Recover My Password',
+    'register-thanks'       => 'Thanks for signing up! Please check your email to Validate your account',
+    'remember-me'           => 'Remember Me',
+    'require-rules'         => 'Please Read And Accept Our Rules By Scrolling To Bottom Of Page.',
+    'signup'                => 'Signup',
+    'throttle'              => 'Too many login attempts. Please try again in :seconds seconds.',
+    'unlock'                => 'Unlock',
+    'user-icon'             => 'User Icon',
+    'username'              => 'Username',
+    'veteran'               => 'Experienced With Private Trackers',
+    'welcome'               => 'Welcome Back!',
+    'welcome-restore'       => 'Welcome Back! Your Account Is No Longer Disabled!',
 ];

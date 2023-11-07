@@ -27,6 +27,8 @@ class StoreForumRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(): array
     {
@@ -41,7 +43,8 @@ class StoreForumRequest extends FormRequest
                 'required',
             ],
             'parent_id' => [
-                'required',
+                'sometimes',
+                'nullable',
                 'integer',
             ],
             'permissions' => [

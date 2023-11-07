@@ -1,40 +1,34 @@
 <?php
-
-namespace Tests\Feature\Http\Controllers\Auth;
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use App\Models\Application;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\Auth\ApplicationController
- */
-class ApplicationControllerTest extends TestCase
-{
-    /**
-     * @test
-     */
-    public function create_returns_an_ok_response(): void
-    {
-        $this->get(route('application.create'))
-            ->assertOk()
-            ->assertViewIs('auth.application.create');
-    }
+test('create returns an ok response', function (): void {
+    $response = $this->get(route('application.create'));
+    $response->assertOk();
+    $response->assertViewIs('auth.application.create');
+});
 
-    /**
-     * @test
-     */
-    public function store_returns_an_ok_response(): void
-    {
-        config(['captcha.enabled' => false]);
+test('store returns an ok response', function (): void {
+    config(['captcha.enabled' => false]);
 
-        $application = Application::factory()->make();
+    $application = Application::factory()->make();
 
-        $this->post(route('application.store'), [
-            'type'     => $application->type,
-            'email'    => $application->email,
-            'referrer' => $application->referrer,
-        ])
-            ->assertRedirect(route('login'))
-            ->assertSessionHas('success', trans('auth.application-submitted'));
-    }
-}
+    $response = $this->post(route('application.store'), [
+        'type'     => $application->type,
+        'email'    => $application->email,
+        'referrer' => $application->referrer,
+    ]);
+    $response->assertRedirect(route('login'));
+    $response->assertSessionHas('success', trans('auth.application-submitted'));
+});

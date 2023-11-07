@@ -57,6 +57,8 @@
                             <option class="form__option" value="7" @selected($user->style === 7)>Dark Teal</option>
                             <option class="form__option" value="8" @selected($user->style === 8)>Dark Yellow</option>
                             <option class="form__option" value="9" @selected($user->style === 9)>Cosmic Void</option>
+                            <option class="form__option" value="10" @selected($user->style === 10)>Nord</option>
+                            <option class="form__option" value="11" @selected($user->style === 11)>Revel (Desktop only)</option>
                         </select>
                         <label class="form__label form__label--floating" for="style">
                             Theme
@@ -125,6 +127,7 @@
                             <option class="form__option" value="0" @selected($user->torrent_layout === 0)>Torrent list</option>
                             <option class="form__option" value="1" @selected($user->torrent_layout === 1)>Torrent cards</option>
                             <option class="form__option" value="2" @selected($user->torrent_layout === 2)>Torrent groupings</option>
+                            <option class="form__option" value="3" @selected($user->torrent_layout === 3)>Torrent posters</option>
                         </select>
                         <label class="form__label form__label--floating" for="torrent_layout">
                             Default torrent layout

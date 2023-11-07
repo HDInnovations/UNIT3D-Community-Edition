@@ -33,6 +33,8 @@ class Post extends Model
 
     /**
      * Belongs To A Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -41,6 +43,8 @@ class Post extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -52,6 +56,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Likes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -60,6 +66,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Dislikes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -68,6 +76,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -76,6 +86,8 @@ class Post extends Model
 
     /**
      * A Post Author Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
      */
     public function authorPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -84,6 +96,8 @@ class Post extends Model
 
     /**
      * A Post Author Has Many Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -114,9 +128,10 @@ class Post extends Model
     public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
     {
         $input = $this->content;
+
         //strip tags, if desired
         if ($stripHtml) {
-            $input = strip_tags($input);
+            $input = strip_tags((string) $input);
         }
 
         //no need to trim, already shorter than trim length
@@ -125,8 +140,8 @@ class Post extends Model
         }
 
         //find last space within length
-        $lastSpace = strrpos(substr($input, 0, $length), ' ');
-        $trimmedText = substr($input, 0, $lastSpace);
+        $lastSpace = strrpos(substr((string) $input, 0, $length), ' ');
+        $trimmedText = substr((string) $input, 0, $lastSpace);
 
         //add ellipses (...)
         if ($ellipses) {

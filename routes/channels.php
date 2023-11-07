@@ -25,6 +25,16 @@ use Illuminate\Support\Facades\Broadcast;
  * |
  */
 
-Broadcast::channel('chatroom.{id}', fn ($user, $id) => User::with(['chatStatus', 'chatroom', 'echoes', 'group'])
-    ->find($user->id));
+Broadcast::channel('chatroom.{id}', function ($user, $id) {
+    return User::select([
+        'id',
+        'username',
+        'group_id',
+        'image',
+        'chatroom_id',
+        'chat_status_id'
+    ])
+        ->with(['chatStatus:id,color', 'chatroom:id,name', 'group:id,color,effect,icon'])
+        ->find($user->id);
+});
 Broadcast::channel('chatter.{id}', fn ($user, $id) => $user->id == $id);

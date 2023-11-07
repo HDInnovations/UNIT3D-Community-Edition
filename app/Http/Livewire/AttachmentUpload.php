@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,7 +23,7 @@ class AttachmentUpload extends Component
 {
     use WithFileUploads;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public ?int $ticket = null;
 

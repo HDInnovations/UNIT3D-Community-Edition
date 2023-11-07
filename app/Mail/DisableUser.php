@@ -25,7 +25,7 @@ class DisableUser extends Mailable
     /**
      * DisableUser Constructor.
      */
-    public function __construct(public $email)
+    public function __construct(public string $email)
     {
     }
 

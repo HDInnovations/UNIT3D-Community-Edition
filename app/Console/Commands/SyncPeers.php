@@ -47,8 +47,8 @@ class SyncPeers extends Command
             ->leftJoinSub(
                 Peer::query()
                     ->select('torrent_id')
-                    ->addSelect(DB::raw('sum(case when peers.left = 0 then 1 else 0 end) as updated_seeders'))
-                    ->addSelect(DB::raw('sum(case when peers.left <> 0 then 1 else 0 end) as updated_leechers'))
+                    ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1) AS updated_seeders'))
+                    ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1) AS updated_leechers'))
                     ->groupBy('torrent_id'),
                 'seeders_leechers',
                 fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')

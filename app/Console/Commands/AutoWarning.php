@@ -14,6 +14,7 @@
 namespace App\Console\Commands;
 
 use App\Models\History;
+use App\Models\User;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
 use App\Services\Unit3dAnnounce;
@@ -66,19 +67,20 @@ class AutoWarning extends Command
                         ->where('torrent', '=', $hr->torrent->id)
                         ->where('user_id', '=', $hr->user->id)
                         ->first();
+
                     // Insert Warning Into Warnings Table if doesnt already exsist
                     if ($exsist === null) {
                         $warning = new Warning();
                         $warning->user_id = $hr->user->id;
-                        $warning->warned_by = '1';
+                        $warning->warned_by = User::SYSTEM_USER_ID;
                         $warning->torrent = $hr->torrent->id;
                         $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
                         $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
-                        $warning->active = '1';
+                        $warning->active = true;
                         $warning->save();
 
                         // Add +1 To Users Warnings Count In Users Table
-                        $hr->hitrun = 1;
+                        $hr->hitrun = true;
                         $hr->user->hitandruns++;
                         $hr->user->save();
 
@@ -95,7 +97,7 @@ class AutoWarning extends Command
             $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 
             foreach ($warnings as $warning) {
-                if ($warning->warneduser->can_download === 1) {
+                if ($warning->warneduser->can_download) {
                     $warning->warneduser->can_download = 0;
                     $warning->warneduser->save();
 

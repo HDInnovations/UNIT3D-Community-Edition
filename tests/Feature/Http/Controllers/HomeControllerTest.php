@@ -1,70 +1,40 @@
 <?php
-
-namespace Tests\Feature\Http\Controllers;
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\HomeController
- */
-class HomeControllerTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
+test('index returns an ok response', function (): void {
+    $user = User::factory()->create();
 
-        $this->seed(GroupsTableSeeder::class);
-    }
-
-    /** @test */
-    public function whenNotAuthenticatedHomepageRedirectsToLogin(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertRedirect(route('login'));
-    }
-
-    /** @test */
-    public function whenAuthenticatedHomepageReturns200(): void
-    {
-        $user = User::factory()->create();
-        $user->markEmailAsVerified();
-
-        $this->actingAs($user)
-            ->get(route('home.index'))
-            ->assertOk()
-            ->assertViewIs('home.index')
-            ->assertViewHas('user')
-            ->assertViewHas('personal_freeleech')
-            ->assertViewHas('users')
-            ->assertViewHas('groups')
-            ->assertViewHas('articles')
-            ->assertViewHas('newest')
-            ->assertViewHas('seeded')
-            ->assertViewHas('dying')
-            ->assertViewHas('leeched')
-            ->assertViewHas('dead')
-            ->assertViewHas('topics')
-            ->assertViewHas('posts')
-            ->assertViewHas('featured')
-            ->assertViewHas('poll')
-            ->assertViewHas('uploaders')
-            ->assertViewHas('past_uploaders')
-            ->assertViewHas('freeleech_tokens')
-            ->assertViewHas('bookmarks');
-    }
-
-    /** @test */
-    public function whenAuthenticatedAndTwoStepRequiredHomepageRedirectsToTwoStep(): void
-    {
-        $user = User::factory()->create([
-            'twostep' => true,
-        ]);
-        $user->markEmailAsVerified();
-        $this->actingAs($user)
-            ->get(route('home.index'))
-            ->assertRedirect(route('verificationNeeded'));
-    }
-}
+    $response = $this->actingAs($user)->get(route('home.index'));
+    $response->assertOk();
+    $response->assertViewIs('home.index');
+    $response->assertViewHas('user');
+    $response->assertViewHas('personal_freeleech');
+    $response->assertViewHas('users');
+    $response->assertViewHas('groups');
+    $response->assertViewHas('articles');
+    $response->assertViewHas('newest');
+    $response->assertViewHas('seeded');
+    $response->assertViewHas('dying');
+    $response->assertViewHas('leeched');
+    $response->assertViewHas('dead');
+    $response->assertViewHas('topics');
+    $response->assertViewHas('posts');
+    $response->assertViewHas('featured');
+    $response->assertViewHas('poll');
+    $response->assertViewHas('uploaders');
+    $response->assertViewHas('past_uploaders');
+    $response->assertViewHas('freeleech_tokens');
+    $response->assertViewHas('bookmarks');
+});

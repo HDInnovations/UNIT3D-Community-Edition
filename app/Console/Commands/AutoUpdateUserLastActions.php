@@ -45,7 +45,7 @@ class AutoUpdateUserLastActions extends Command
         $userIdCount = Redis::command('LLEN', [$key]);
         $userIds = Redis::command('LPOP', [$key, $userIdCount]);
 
-        if ($userIds !== null) {
+        if ($userIds !== false) {
             User::whereIntegerInRaw('id', $userIds)->update([
                 'last_action' => now(),
             ]);

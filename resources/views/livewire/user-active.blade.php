@@ -20,6 +20,18 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <label style="user-select: none" class="form__label" x-data="{ state: @entangle('active'), ...ternaryCheckbox() }">
+                        <input
+                            type="checkbox"
+                            class="user-peers__checkbox"
+                            x-init="updateTernaryCheckboxProperties($el, state)"
+                            x-on:click="state = getNextTernaryCheckboxState(state); updateTernaryCheckboxProperties($el, state)"
+                            x-bind:checked="state === 'include'"
+                        >
+                        {{ __('common.active') }}
+                    </label>
+                </p>
+                <p class="form__group">
                     <label class="form__label">
                         <input type="checkbox" class="user-peers__checkbox" wire:model="showMorePrecision">
                         Show more precision
@@ -174,7 +186,7 @@
                         @endif
                         <td class="user-active__seeding">
                             @if ($active->active)
-                                @if ($active->seeder === 1)
+                                @if ($active->seeder)
                                     <i class="{{ config('other.font-awesome') }} text-green fa-check" title="{{ __('torrent.seeding') }}"></i>
                                 @else
                                     <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not {{ __('torrent.seeding') }}"></i>

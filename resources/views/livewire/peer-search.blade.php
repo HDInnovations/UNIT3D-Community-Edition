@@ -31,6 +31,14 @@
                         <label class="form__label form__label--floating">Connectivity</label>
                     </p>
                     <p class="form__group">
+                        <select wire:model="active" class="form__select" placeholder=" ">
+                            <option value="any">Any</option>
+                            <option value="exclude">Inactive</option>
+                            <option value="include">Active</option>
+                        </select>
+                        <label class="form__label form__label--floating">Active</label>
+                    </p>
+                    <p class="form__group">
                         <select wire:model="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_session">User Session</option>
@@ -57,6 +65,9 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Peers</h2>
+        <div class="panel__body" wire:loading.block>
+            Loading...
+        </div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -159,6 +170,21 @@
                                 </th>
                             @endif
                         @endif
+                        @if ($groupBy === 'none')
+                            <th wire:click="sortBy('active')" role="columnheader button" style="text-align: right">
+                                {{ __('common.active') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'active'])
+                            </th>
+                        @else
+                            <th wire:click="sortBy('active_count')" role="columnheader button" style="text-align: right">
+                                {{ __('common.active') }} {{ __('torrent.peers') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'active_count'])
+                            </th>
+                            <th wire:click="sortBy('inactive_count')" role="columnheader button" style="text-align: right">
+                                Inactive {{ __('torrent.peers') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
+                            </th>
+                        @endif
                         <th wire:click="sortBy('created_at')" role="columnheader button" style="text-align: right">
                             Started
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
@@ -246,8 +272,28 @@
                                     <td style="text-align: right">{{ $peer->unconnectable_count }}</td>
                                 @endif
                             @endif
-                            <td style="text-align: right">{{ $peer->created_at?->diffForHumans() ?? 'N/A' }}</td>
-                            <td style="text-align: right">{{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}</td>
+                            @if ($groupBy === 'none')
+                                <td style="text-align: right">
+                                    @if ($peer->active)
+                                        <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Active"></i>
+                                    @else
+                                        <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Inactive"></i>
+                                    @endif
+                                </td>
+                            @else
+                                <td style="text-align: right">{{ $peer->active_count }}</td>
+                                <td style="text-align: right">{{ $peer->inactive_count }}</td>
+                            @endif
+                            <td style="text-align: right">
+                                <time datetime="{{ $peer->created_at }}" title="{{ $peer->created_at }}">
+                                    {{ $peer->created_at?->diffForHumans() ?? 'N/A' }}
+                                </time>
+                            </td>
+                            <td style="text-align: right">
+                                <time datetime="{{ $peer->updated_at }}" title="{{ $peer->updated_at }}">
+                                    {{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}
+                                </time>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

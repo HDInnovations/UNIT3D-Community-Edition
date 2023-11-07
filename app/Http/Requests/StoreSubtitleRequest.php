@@ -13,8 +13,8 @@
 
 namespace App\Http\Requests;
 
+use Closure;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class StoreSubtitleRequest extends FormRequest
@@ -29,13 +29,20 @@ class StoreSubtitleRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'subtitle_file' => [
                 'required',
-                'mimes:srt,ass,sup,zip',
+                'file',
+                function (string $attribute, mixed $value, Closure $fail): void {
+                    if (! \in_array('.'.$value->getClientOriginalExtension(), ['.srt','.ass', '.sup', '.zip'])) {
+                        $fail('The Subtitle uploaded does not have a ".srt, .ass, .sup or .zip" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
+                    }
+                },
             ],
             'language_id' => [
                 'required',

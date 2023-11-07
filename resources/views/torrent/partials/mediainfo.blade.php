@@ -12,7 +12,9 @@
                     class="form__button form__button--text"
                     x-data
                     x-on:click.stop="
-                        navigator.clipboard.writeText($refs.mediainfo.textContent);
+                        text = document.createElement('textarea');
+                        text.innerHTML = decodeURIComponent($refs.mediainfo.textContent.split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                        navigator.clipboard.writeText(text.value);
                         Swal.fire({
                               toast: true,
                               position: 'top-end',

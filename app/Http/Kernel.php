@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
      *
      * These middleware are run during every request to your application.
      *
-     * @var array
+     * @var array<int, class-string|string>
      */
     protected $middleware = [
         // Default Laravel
@@ -32,16 +32,13 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
-
-        // Extra
-        \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
-        \App\Http\Middleware\Http2ServerPush::class,
+        \App\Http\Middleware\BlockIpAddress::class,
     ];
 
     /**
      * The application's route middleware groups.
      *
-     * @var array
+     * @var array<string, array<int, class-string|string>>
      */
     protected $middlewareGroups = [
         'web' => [
@@ -53,6 +50,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\UpdateLastAction::class,
+            \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
             //'throttle:web',
         ],
         'api' => [
@@ -71,25 +69,24 @@ class Kernel extends HttpKernel
      *
      * These middleware may be assigned to groups or used individually.
      *
-     * @var array
+     * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'admin'            => \App\Http\Middleware\CheckForAdmin::class,
-        'auth'             => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'banned'           => \App\Http\Middleware\CheckIfBanned::class,
-        'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
-        'csrf'             => \App\Http\Middleware\VerifyCsrfToken::class,
-        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'language'         => \App\Http\Middleware\SetLanguage::class,
-        'modo'             => \App\Http\Middleware\CheckForModo::class,
-        'owner'            => \App\Http\Middleware\CheckForOwner::class,
-        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
-        'twostep'          => \App\Http\Middleware\TwoStepAuth::class,
-        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
+        'auth'          => \App\Http\Middleware\Authenticate::class,
+        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
+        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
+        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
+        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'language'      => \App\Http\Middleware\SetLanguage::class,
+        'modo'          => \App\Http\Middleware\CheckForModo::class,
+        'owner'         => \App\Http\Middleware\CheckForOwner::class,
+        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
+        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class
     ];
 }

@@ -37,6 +37,8 @@ class Comment extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -46,11 +48,17 @@ class Comment extends Model
         ]);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, Comment>
+     */
     public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
         return $this->morphTo();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
+     */
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(__CLASS__, 'parent_id')->oldest();
@@ -66,6 +74,9 @@ class Comment extends Model
         return null !== $this->parent_id;
     }
 
+    /**
+     * @param Builder<Comment> $builder
+     */
     public function scopeParent(Builder $builder): void
     {
         $builder->whereNull('parent_id');
@@ -86,11 +97,11 @@ class Comment extends Model
      */
     public static function checkForStale(Ticket $ticket): void
     {
-        if (empty($ticket->reminded_at) || strtotime($ticket->reminded_at) < strtotime('+ 3 days')) {
+        if (empty($ticket->reminded_at) || strtotime((string) $ticket->reminded_at) < strtotime('+ 3 days')) {
             $last_comment = $ticket->comments()->latest('id')->first();
 
-            if (property_exists($last_comment, 'id') && $last_comment->id !== null && ! $last_comment->user->is_modo && strtotime($last_comment->created_at) < strtotime('- 3 days')) {
-                event(new TicketWentStale($last_comment->ticket));
+            if (property_exists($last_comment, 'id') && $last_comment->id !== null && ! $last_comment->user->group->is_modo && strtotime((string) $last_comment->created_at) < strtotime('- 3 days')) {
+                event(new TicketWentStale($last_comment->commentable));
             }
         }
     }

@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
@@ -10,14 +13,14 @@ use Tests\TestCase;
 /**
  * @see \App\Http\Controllers\Staff\GroupController
  */
-class GroupControllerTest extends TestCase
+final class GroupControllerTest extends TestCase
 {
     protected function setUp(): void
     {
         parent::setUp();
     }
 
-    protected function createStaffUser(): \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+    protected function createStaffUser(): Collection|Model
     {
         return User::factory()->create([
             'group_id' => fn () => Group::factory()->create([
@@ -28,9 +31,7 @@ class GroupControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function create_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -43,9 +44,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewIs('Staff.group.create');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function edit_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -60,9 +59,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewHas('group');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function index_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -76,9 +73,7 @@ class GroupControllerTest extends TestCase
         $response->assertViewHas('groups');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function store_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);
@@ -111,9 +106,7 @@ class GroupControllerTest extends TestCase
         $response->assertRedirect(route('staff.groups.index'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function update_returns_an_ok_response(): void
     {
         $this->seed(GroupsTableSeeder::class);

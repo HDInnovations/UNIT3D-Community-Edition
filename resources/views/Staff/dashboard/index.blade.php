@@ -144,6 +144,12 @@
                         {{ __('common.blacklist') }}
                     </a>
                 </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.blocked_ips.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-ban"></i>
+                        {{ __('staff.blocked-ips') }}
+                    </a>
+                </p>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -192,6 +198,12 @@
                     <a class="form__button form__button--text" href="{{ route('staff.peers.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
                         Peers
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.histories.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Histories
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -436,6 +448,10 @@
                 <dd>{{ $torrents->total }}</dd>
                 <dt>Pending</dt>
                 <dd>{{ $torrents->pending }}</dd>
+                <dt>Approved</dt>
+                <dd>{{ $torrents->approved }}</dd>
+                <dt>Postponed</dt>
+                <dd>{{ $torrents->postponed }}</dd>
                 <dt>Rejected</dt>
                 <dd>{{ $torrents->rejected }}</dd>
             </dl>
@@ -445,6 +461,10 @@
             <dl class="key-value">
                 <dt>Total</dt>
                 <dd>{{ $peers->total }}</dd>
+                <dt>Active</dt>
+                <dd>{{ $peers->active }}</dd>
+                <dt>Inactive</dt>
+                <dd>{{ $peers->inactive }}</dd>
                 <dt>Seeds</dt>
                 <dd>{{ $peers->seeders }}</dd>
                 <dt>Leeches</dt>

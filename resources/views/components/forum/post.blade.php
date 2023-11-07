@@ -80,7 +80,7 @@
                             input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]';
                             input.value += (() => {
                                 var text = document.createElement('textarea');
-                                text.innerHTML = atob($refs.content.dataset.base64Bbcode);
+                                text.innerHTML = decodeURIComponent(atob($refs.content.dataset.base64Bbcode).split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
                                 return text.value;
                             })();
                             input.value += '[/quote]';
@@ -154,7 +154,7 @@
                 @else
                     <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="Offline"></i>
                 @endif
-                <a href="{{ route('users.sent_messages.create', ['user' => $post->user, 'username' => $post->user->username]) }}">
+                <a href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $post->user->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
             </x-slot>
@@ -203,7 +203,7 @@
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                {!! $post->user->getSignature() !!}
+                {!! $post->user->signature_html !!}
             </p>
         </footer>
     @endif

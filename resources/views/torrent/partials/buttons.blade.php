@@ -5,7 +5,6 @@
                 <a
                     class="form__button form__button--filled form__button--centered"
                     href="{{ route('download_check', ['id' => $torrent->id]) }}" role="button"
-                    download
                 >
                     <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
                 </a>
@@ -13,7 +12,6 @@
                 <a
                     class="form__button form__button--filled form__button--centered"
                     href="{{ route('download', ['id' => $torrent->id]) }}"
-                    download
                 >
                     <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ __('common.download') }}
                 </a>
@@ -39,7 +37,7 @@
                     @csrf
                     <button
                         class="form__button form__button--outlined form__button--centered"
-                        title='{!! __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) !!}!'
+                        title="{{ __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) }}!"
                         x-on:click.prevent="
                             Swal.fire({
                                 title: 'Are you sure?',
@@ -380,7 +378,7 @@
                         </span>
                         {{ strtolower(__('graveyard.howto-hits')) }}
                         <span class="text-red text-bold">
-                            {{ App\Helpers\StringHelper::timeElapsed($history?->seedtime ?? 0 + config('graveyard.time')) }}
+                            {{ $history === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
                         <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">

@@ -27,5 +27,5 @@ return [
     'account_age'  => 90,
     'last_login'   => 90,
     'soft_delete'  => 120,
-    'group_ids'    => [UserGroups::USER, UserGroups::POWERUSER, UserGroups::SUPERUSER, UserGroups::LEECH],
+    'group_ids'    => [UserGroups::USER->value, UserGroups::POWERUSER->value, UserGroups::SUPERUSER->value, UserGroups::LEECH->value],
 ];

@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('torrent.history') }} - {{ config('other.title') }}</title>
+    <title>{{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -21,6 +21,19 @@
     </li>
     <li class="breadcrumb--active">
         {{ __('torrent.history') }}
+    </li>
+@endsection
+
+@section('nav-tabs')
+    <li class="nav-tabV2">
+        <a class="nav-tab__link" href="{{ route('peers', ['id' => $torrent]) }}">
+            {{ __('torrent.peers') }}
+        </a>
+    </li>
+    <li class="nav-tab--active">
+        <a class="nav-tab--active__link" href="{{ route('history', ['id' => $torrent]) }}">
+            {{ __('torrent.history') }}
+        </a>
     </li>
 @endsection
 

@@ -313,6 +313,7 @@
 
   pre {
     background-color: var(--bbcode-rendered-neutral-muted);
+    color: var(--bbcode-rendered-fg-default);
     border: revert;
     border-radius: 6px;
     margin-top: 0;
@@ -486,6 +487,9 @@
   tt {
     padding: 0.2em 0.4em;
     margin: 0;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    white-space: normal;
     font-size: 13px;
     background-color: var(--bbcode-rendered-neutral-muted);
     border-radius: 6px;

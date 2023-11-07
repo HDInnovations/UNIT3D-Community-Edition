@@ -36,7 +36,7 @@ class ClaimController extends Controller
                 ->withErrors(trans('request.already-claimed'));
         }
 
-        $torrentRequest->claim()->create(['username' => $request->user()->username] + $request->validated());
+        $torrentRequest->claim()->create(['user_id' => $request->user()->id] + $request->validated());
 
         $torrentRequest->update([
             'claimed' => true,
@@ -60,7 +60,7 @@ class ClaimController extends Controller
      */
     public function destroy(Request $request, TorrentRequest $torrentRequest, TorrentRequestClaim $claim): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo || $request->user()->username == $claim->username, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $claim->user_id, 403);
 
         $claim->delete();
 

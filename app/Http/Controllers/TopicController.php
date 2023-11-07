@@ -200,7 +200,7 @@ class TopicController extends Controller
             ['show_forum', '=', 1],
             ['start_topic', '=', 1],
         ])
-            ->where('parent_id', '=', 0)
+            ->whereNull('parent_id')
             ->with([
                 'forums' => fn ($query) => $query->whereRelation('permissions', [
                     ['show_forum', '=', 1],
@@ -354,7 +354,7 @@ class TopicController extends Controller
     public function pin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = 1;
+        $topic->pinned = true;
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
@@ -367,7 +367,7 @@ class TopicController extends Controller
     public function unpin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = 0;
+        $topic->pinned = false;
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
@@ -403,6 +403,6 @@ class TopicController extends Controller
             'id'   => $id,
             'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
         ])
-            ->withFragment('post-'.($post?->id ?? 0));
+            ->withFragment('post-'.($post->id ?? 0));
     }
 }

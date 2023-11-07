@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             TypesTableSeeder::class,
             ArticlesTableSeeder::class,
-            PermissionsTableSeeder::class,
             ForumsTableSeeder::class,
+            PermissionsTableSeeder::class,
             ChatroomTableSeeder::class,
             ChatStatusSeeder::class,
             BotsTableSeeder::class,
@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             TicketPrioritiesTableSeeder::class,
             DistributorsTableSeeder::class,
             RegionsTableSeeder::class,
+            OccupationSeeder::class,
         ]);
     }
 }

@@ -21,8 +21,10 @@ class UserManualWarningExpire extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via(mixed $notifiable): array
+    public function via(object $notifiable): array
     {
         return ['database', 'mail'];
     }
@@ -30,7 +32,7 @@ class UserManualWarningExpire extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(mixed $notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         $profileUrl = href_profile($this->user);
 
@@ -43,13 +45,15 @@ class UserManualWarningExpire extends Notification
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray(mixed $notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [
             'title' => 'Manual Warning Expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
-            'url'   => sprintf('/users/%s', $this->user->usernamme),
+            'url'   => sprintf('/users/%s', $this->user->username),
         ];
     }
 }

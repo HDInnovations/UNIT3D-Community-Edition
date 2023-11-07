@@ -175,6 +175,7 @@ return [
     'mention-notification-help'            => 'Control which notifications are sent when a user @mentions you.
     These settings are overridden if you do not allow any groups to send notifications if a user @mentions you or if you <strong>Disable Notifications</strong>',
     'moderated-by'                   => 'Moderated by :mod on',
+    'my-achievements'                => 'My Achievements',
     'my-bonus-points'                => 'My Bonus Points',
     'my-bookmarks'                   => 'My Bookmarks',
     'my-fl-tokens'                   => 'My FL tokens',
@@ -266,6 +267,7 @@ return [
     'profile-privacy-help'          => 'Control which statistics and pieces of information appear on your profile.
     These settings are overridden if you do not allow any groups to access your profile or if you <strong>Go Private</strong>',
     'public-info'         => 'Public Info',
+    'reactivate'          => 'Reactivate',
     'reason-ban'          => 'Ban Reason',
     'reason-unban'        => 'Unban Reason',
     'recent-achievements' => 'Recent Achievements',

@@ -34,7 +34,7 @@
                 @foreach($application->imageProofs as $img_proof)
                     <li>
                         <a href="{{ $img_proof->image }}" target="_blank">
-                            {{ __('staff.application-image-proofs') }} {{ $loop->iteration }}
+                            {{ $img_proof->image }}
                         </a>
                     </li>
                 @endforeach

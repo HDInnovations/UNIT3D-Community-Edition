@@ -366,7 +366,7 @@
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                 @else
-                    <input type="hidden" name="anonymous" value={{ $torrent->anon }}>
+                    <input type="hidden" name="anon" value={{ $torrent->anon }}>
                 @endif
                 <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
                     <input type="hidden" name="stream" value="0">

@@ -70,6 +70,7 @@ class AutoPreWarning extends Command
                         ->where('torrent', '=', $pre->torrent->id)
                         ->where('user_id', '=', $pre->user->id)
                         ->first();
+
                     // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
                     if ($exsist === null) {
                         $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
@@ -78,7 +79,7 @@ class AutoPreWarning extends Command
                         $pre->user->notify(new UserPreWarning($pre->user, $pre->torrent));
 
                         // Set History Prewarn
-                        $pre->prewarn = 1;
+                        $pre->prewarn = true;
                         $pre->timestamps = false;
                         $pre->save();
                     }

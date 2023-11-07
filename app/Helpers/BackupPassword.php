@@ -37,7 +37,7 @@ class BackupPassword
 
         // If no password is set, just return the backup-path
         if (! $this->password) {
-            return $this->path = $path;
+            return;
         }
 
         consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');

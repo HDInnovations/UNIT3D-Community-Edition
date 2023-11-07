@@ -13,7 +13,7 @@
                 <span>{{ __('common.hour') }}</span>
                 <span x-text="minutes">00</span>
                 <span>{{ __('common.minute') }}</span>
-                <span>and</span>
+                <span>{{ __('common.and') }}</span>
                 <span x-text="seconds">00</span>
                 <span>{{ __('common.second') }}</span>
             </div>

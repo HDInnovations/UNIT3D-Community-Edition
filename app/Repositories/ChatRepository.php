@@ -337,13 +337,13 @@ class ChatRepository
     {
         foreach (config('censor.redact') as $word) {
             if (preg_match(sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $message)) {
-                $message = str_replace($word, sprintf("<span class='censor'>%s</span>", $word), $message);
+                $message = str_replace($word, sprintf("<span class='censor'>%s</span>", $word), (string) $message);
             }
         }
 
         foreach (config('censor.replace') as $word => $rword) {
             if (Str::contains($message, $word)) {
-                $message = str_replace($word, $rword, $message);
+                $message = str_replace($word, $rword, (string) $message);
             }
         }
 

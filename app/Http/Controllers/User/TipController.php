@@ -43,7 +43,7 @@ class TipController extends Controller
                 ->where('name', '=', 'tip')
                 ->latest()
                 ->paginate(25),
-            'bon'          => $user->getSeedbonus(),
+            'bon'          => $user->formatted_seedbonus,
             'sentTips'     => $user->sentTips()->sum('cost'),
             'receivedTips' => $user->receivedTips()->sum('cost'),
         ]);
@@ -62,12 +62,13 @@ class TipController extends Controller
         $tipable = match (true) {
             $request->has('torrent') => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->get('torrent')),
             $request->has('post')    => Post::findOrFail($request->get('post')),
+            default                  => abort(500, 'This is not one of: torrent, post.')
         };
         $recipient = $tipable->user;
         $tipAmount = $request->get('tip');
 
-        $recipient->increment('seedbonus', $tipAmount);
         $user->decrement('seedbonus', $tipAmount);
+        $recipient->increment('seedbonus', $tipAmount);
 
         BonTransactions::create([
             'bon_exchange_id' => 0,

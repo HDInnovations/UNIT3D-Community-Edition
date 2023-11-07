@@ -43,6 +43,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs To A Sender.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -54,6 +56,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs To A Receiver.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -65,6 +69,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs To BonExchange.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, self>
      */
     public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -76,6 +82,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs to Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -84,6 +92,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs to Post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
      */
     public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\Peer;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Exception;
 
@@ -47,35 +48,41 @@ class AutoUpsertPeers extends Command
         /**
          * MySql can handle a max of 65k placeholders per query,
          * and there are 15 fields on each peer that are updated.
-         * (`active`, `agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
+         * (`active`, `agent`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
          */
-        $peerPerCycle = intdiv(65_000, 15);
+        $peerPerCycle = intdiv(65_000, 14);
 
         $key = config('cache.prefix').':peers:batch';
         $peerCount = Redis::connection('announce')->command('LLEN', [$key]);
 
         for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= $peerPerCycle) {
             $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
+
+            if ($peers === false) {
+                break;
+            }
+
             $peers = array_map('unserialize', $peers);
 
-            Peer::upsert(
-                $peers,
-                ['user_id', 'torrent_id', 'peer_id'],
-                [
-                    'peer_id',
-                    'ip',
-                    'port',
-                    'agent',
-                    'uploaded',
-                    'downloaded',
-                    'left',
-                    'seeder',
-                    'torrent_id',
-                    'user_id',
-                    'connectable',
-                    'active'
-                ],
-            );
+            DB::transaction(function () use ($peers): void {
+                Peer::upsert(
+                    $peers,
+                    ['user_id', 'torrent_id', 'peer_id'],
+                    [
+                        'peer_id',
+                        'ip',
+                        'port',
+                        'agent',
+                        'uploaded',
+                        'downloaded',
+                        'left',
+                        'seeder',
+                        'torrent_id',
+                        'user_id',
+                        'active'
+                    ],
+                );
+            }, 5);
         }
 
         $this->comment('Automated insert peers command complete');

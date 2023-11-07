@@ -32,6 +32,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -75,16 +76,11 @@ class TorrentController extends BaseController
         $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
         $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
-            switch ($torrent->meta) {
-                case 'movie':
-                    $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
-
-                    break;
-                case 'tv':
-                    $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
-
-                    break;
-            }
+            match ($torrent->meta) {
+                'movie' => $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect()),
+                'tv'    => $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect()),
+                default => $torrent,
+            };
 
             return $torrent;
         });
@@ -100,6 +96,9 @@ class TorrentController extends BaseController
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
+
+        abort_unless($user->can_upload, 403);
+
         $requestFile = $request->file('torrent');
 
         if (! $request->hasFile('torrent')) {
@@ -116,7 +115,7 @@ class TorrentController extends BaseController
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
-        } catch (\Exception) {
+        } catch (Exception) {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -181,8 +180,8 @@ class TorrentController extends BaseController
 
         // Set freeleech and doubleup if featured
         if ($torrent->featured == 1) {
-            $torrent->free = '100';
-            $torrent->doubleup = '1';
+            $torrent->free = 100;
+            $torrent->doubleup = true;
         }
 
         $resolutionRule = 'nullable|exists:resolutions,id';
@@ -245,6 +244,7 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+
         // Set torrent to featured
         if ($torrent->featured == 1) {
             $featuredTorrent = new FeaturedTorrent();
@@ -256,32 +256,39 @@ class TorrentController extends BaseController
         // Count and save the torrent number in this category
         $category->num_torrent = $category->torrents_count;
         $category->save();
+
         // Backup the files contained in the torrent
-        foreach (TorrentTools::getTorrentFiles($decodedTorrent) as $file) {
-            $torrentFile = new TorrentFile();
-            $torrentFile->name = $file['name'];
-            $torrentFile->size = $file['size'];
-            $torrentFile->torrent_id = $torrent->id;
-            $torrentFile->save();
-            unset($torrentFile);
+        $files = TorrentTools::getTorrentFiles($decodedTorrent);
+
+        foreach($files as &$file) {
+            $file['torrent_id'] = $torrent->id;
+        }
+
+        // Can't insert them all at once since some torrents have more files than mysql supports placeholders.
+        // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
+        foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
+            TorrentFile::insert($files->toArray());
         }
 
         $tmdbScraper = new TMDBScraper();
 
-        if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
             $tmdbScraper->tv($torrent->tmdb);
         }
 
-        if ($torrent->category->movie_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
             $tmdbScraper->movie($torrent->tmdb);
         }
 
         // Torrent Keywords System
-        foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
-            $tag = new Keyword();
-            $tag->name = $keyword;
-            $tag->torrent_id = $torrent->id;
-            $tag->save();
+        $keywords = [];
+
+        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
+            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
+        }
+
+        foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
         }
 
         // check for trusted user and update torrent
@@ -377,7 +384,7 @@ class TorrentController extends BaseController
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
-            && \strlen($field) > 2
+            && \strlen((string) $field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
@@ -448,16 +455,11 @@ class TorrentController extends BaseController
             $tv = Tv::select(['id', 'poster'])->with('genres:name')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
             $torrents = $torrents->through(function ($torrent) use ($movies, $tv) {
-                switch ($torrent->meta) {
-                    case 'movie':
-                        $torrent->setRelation('movie', $movies[$torrent->tmdb] ?? collect());
-
-                        break;
-                    case 'tv':
-                        $torrent->setRelation('tv', $tv[$torrent->tmdb] ?? collect());
-
-                        break;
-                }
+                match ($torrent->meta) {
+                    'movie' => $torrent->setRelation('work', $movies[$torrent->tmdb] ?? collect()),
+                    'tv'    => $torrent->setRelation('work', $tv[$torrent->tmdb] ?? collect()),
+                    default => $torrent,
+                };
 
                 return $torrent;
             });

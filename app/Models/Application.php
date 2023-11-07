@@ -23,13 +23,31 @@ class Application extends Model
     use Auditable;
     use HasFactory;
 
-    public const PENDING = 0;
-    public const APPROVED = 1;
-    public const REJECTED = 2;
+    final public const PENDING = 0;
+    final public const APPROVED = 1;
+    final public const REJECTED = 2;
+
+    /**
+     * The Attributes That Are Mass Assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'status',
+        'moderated_by',
+        'moderated_at',
+    ];
 
     protected $casts = [
         'moderated_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected static function booted(): void
     {
@@ -38,6 +56,8 @@ class Application extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -46,6 +66,8 @@ class Application extends Model
 
     /**
      * Application Has Been Moderated By.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -54,6 +76,8 @@ class Application extends Model
 
     /**
      * A Application Has Many Image Proofs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationImageProof>
      */
     public function imageProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -62,6 +86,8 @@ class Application extends Model
 
     /**
      * A Application Has Many URL Proofs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationUrlProof>
      */
     public function urlProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

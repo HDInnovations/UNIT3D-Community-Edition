@@ -25,6 +25,7 @@ class AuditLogSearch extends Component
     public string $username = '';
 
     public string $modelName = '';
+
     public string $modelId = '';
 
     public string $action = '';
@@ -82,7 +83,7 @@ class AuditLogSearch extends Component
             ->paginate($this->perPage);
 
         foreach ($audits as $audit) {
-            $audit->values = json_decode($audit->record, true, 512, JSON_THROW_ON_ERROR);
+            $audit->values = json_decode((string) $audit->record, true, 512, JSON_THROW_ON_ERROR);
         }
 
         return $audits;

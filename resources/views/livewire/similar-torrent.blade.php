@@ -74,6 +74,72 @@
     @endforeach
 </div>
 
+<section class="panelV2">
+    <header class="panel__header">
+        <h2 class="panel__heading">{{ __('request.requests') }}</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <a href="{{ route('requests.create') }}" class="form__button form__button--text">
+                    {{ __('request.add-request') }}
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="data-table-wrapper">
+        <table class="data-table">
+            <tbody>
+            @forelse($torrentRequests as $torrentRequest)
+                <tr>
+                    <td>
+                        <a href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}">
+                            {{ $torrentRequest->name }}
+                        </a>
+                    </td>
+                    <td>{{ $torrentRequest->category->name }}</td>
+                    <td>{{ $torrentRequest->type->name }}</td>
+                    <td>{{ $torrentRequest->resolution->name ?? 'Unknown' }}</td>
+                    <td>
+                        <x-user_tag :user="$torrentRequest->user" :anon="$torrentRequest->anon" />
+                    </td>
+                    <td>{{ $torrentRequest->votes }}</td>
+                    <td>{{ $torrentRequest->comments_count }}</td>
+                    <td>{{ number_format($torrentRequest->bounty) }}</td>
+                    <td>
+                        <time datetime="{{ $torrentRequest->created_at }}" title="{{ $torrentRequest->created_at }}">
+                            {{ $torrentRequest->created_at->diffForHumans() }}
+                        </time>
+                    </td>
+                    <td>
+                        @switch(true)
+                            @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
+                                <i class="fas fa-circle text-blue"></i>
+                                {{ __('request.claimed') }}
+                                @break
+                            @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
+                                <i class="fas fa-circle text-purple"></i>
+                                {{ __('request.pending') }}
+                                @break
+                            @case ($torrentRequest->torrent_id === null)
+                                <i class="fas fa-circle text-red"></i>
+                                {{ __('request.unfilled') }}
+                                @break
+                            @default
+                                <i class="fas fa-circle text-green"></i>
+                                {{ __('request.filled') }}
+                                @break
+                        @endswitch
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="10">{{ __('common.no-result') }}</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
+</section>
+
 @section('javascripts')
     @if ($user->group->is_modo)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">

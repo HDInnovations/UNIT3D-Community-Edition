@@ -36,12 +36,19 @@ class PlaylistTorrent extends Pivot
      */
     public $incrementing = true;
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
     protected $guarded = [];
 
     protected $table = 'playlist_torrents';
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -50,6 +57,8 @@ class PlaylistTorrent extends Pivot
 
     /**
      * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, self>
      */
     public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

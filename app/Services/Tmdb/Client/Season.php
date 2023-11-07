@@ -62,12 +62,12 @@ class Season
 
     public function get_name()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['name']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
     }
 
     public function get_overview()
     {
-        return preg_replace('/[[:^print:]]/', '', $this->data['overview']);
+        return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
     }
 
     public function get_id()

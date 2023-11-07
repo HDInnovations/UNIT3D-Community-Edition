@@ -18,11 +18,14 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $actives
+ */
 class UserActive extends Component
 {
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public int $perPage = 25;
 
@@ -35,6 +38,8 @@ class UserActive extends Component
     public string $client = '';
 
     public string $seeding = 'any';
+
+    public string $active = 'include';
 
     public string $sortField = 'created_at';
 
@@ -49,6 +54,7 @@ class UserActive extends Component
         'port'              => ['except' => ''],
         'client'            => ['excpet' => ''],
         'seeding'           => ['except' => 'any'],
+        'active'            => ['except' => 'any'],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
         'showMorePrecision' => ['except' => false],
@@ -69,7 +75,7 @@ class UserActive extends Component
         $this->resetPage();
     }
 
-    final public function getActiveProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
@@ -85,6 +91,7 @@ class UserActive extends Component
                 'peers.updated_at',
                 'peers.torrent_id',
                 'peers.user_id',
+                'peers.active',
                 'torrents.name',
                 'torrents.size',
                 'torrents.seeders',
@@ -94,7 +101,6 @@ class UserActive extends Component
             ->selectRaw('INET6_NTOA(ip) as ip')
             ->selectRaw('(1 - (peers.left / NULLIF(torrents.size, 0))) AS progress')
             ->where('peers.user_id', '=', $this->user->id)
-            ->where('active', '=', 1)
             ->when(
                 $this->name,
                 fn ($query) => $query
@@ -105,6 +111,8 @@ class UserActive extends Component
             ->when($this->client !== '', fn ($query) => $query->where('agent', '=', $this->client))
             ->when($this->seeding === 'include', fn ($query) => $query->where('seeder', '=', 1))
             ->when($this->seeding === 'exclude', fn ($query) => $query->where('seeder', '=', 0))
+            ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
+            ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -112,7 +120,7 @@ class UserActive extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.user-active', [
-            'actives' => $this->active,
+            'actives' => $this->actives,
         ]);
     }
 

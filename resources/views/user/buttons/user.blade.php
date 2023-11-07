@@ -30,6 +30,32 @@
             </li>
         @else
             <li class="nav-tabV2">
+                @if ($user->followers()->where('users.id', '=', auth()->id())->exists())
+                    <form
+                        action="{{ route('users.followers.destroy', ['user' => $user]) }}"
+                        method="POST"
+                        style="display: contents;"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button class="nav-tab__link" type="submit" id="delete-follow-{{ $user->target_id }}">
+                            {{ __('user.unfollow') }}
+                        </button>
+                    </form>
+                @else
+                    <form
+                        action="{{ route('users.followers.store', ['user' => $user]) }}"
+                        method="POST"
+                        style="display: contents;"
+                    >
+                        @csrf
+                        <button class="nav-tab__link" type="submit" id="follow-user-{{ $user->id }}">
+                            {{ __('user.follow') }}
+                        </button>
+                    </form>
+                @endif
+            </li>
+            <li class="nav-tabV2">
                 <button class="nav-tab__link" data-toggle="modal" data-target="#modal_user_report">
                     {{ __('user.report') }}
                 </button>
@@ -96,16 +122,14 @@
                     API Key
                 </a>
             </li>
-            @if (config('auth.TwoStepEnabled') == true)
-                <li class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                    <a
-                        class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.two_step.edit', ['user' => $user]) }}"
-                    >
-                        {{ __('user.two-step-auth.title') }}
-                    </a>
-                </li>
-            @endif
+            <li class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.two_step.edit', ['user' => $user]) }}"
+                >
+                    {{ __('user.two-step-auth.title') }}
+                </a>
+            </li>
             @if ($isProfileOwner)
                 <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
@@ -201,7 +225,7 @@
                     </button>
                 </form>
                 <li class="nav-tabV2">
-                    <a download class="nav-tab__link" href="{{ route('users.torrent_zip.show', ['user' => $user]) }}">
+                    <a class="nav-tab__link" href="{{ route('users.torrent_zip.show', ['user' => $user]) }}">
                         {{ __('torrent.download-all') }}
                     </a>
                 </li>

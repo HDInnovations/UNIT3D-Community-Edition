@@ -42,7 +42,7 @@ class Rss extends Model
     /**
      * The Attributes That Should Be Cast To Native Types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'name'            => 'string',
@@ -59,6 +59,8 @@ class Rss extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -70,6 +72,8 @@ class Rss extends Model
 
     /**
      * Belongs To A Staff Member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -94,6 +98,8 @@ class Rss extends Model
 
     /**
      * Get the RSS feeds expected fields for form validation.
+     *
+     * @return array<string, null>
      */
     public function getExpectedFieldsAttribute(): array
     {

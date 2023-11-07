@@ -84,9 +84,6 @@ class StringHelper
         return $result."\u{a0}".$suffix;
     }
 
-    /**
-     * @method timeRemaining
-     */
     public static function timeRemaining(int $seconds): string
     {
         $minutes = 0;
@@ -143,9 +140,6 @@ class StringHelper
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    /**
-     * @method timeElapsed
-     */
     public static function timeElapsed(int $seconds): string
     {
         $minutes = 0;

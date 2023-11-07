@@ -4,7 +4,7 @@
         {{ __('blocks.users-online') }} ({{ $users->count() }})
     </h2>
     <div class="panel__body">
-        <ul style="display: flex; flex-wrap: wrap; column-gap: 1rem; list-style-type: none; padding: 0">
+        <ul style="column-width: 200px; column-gap: 1rem; list-style-type: none; padding: 0">
             @foreach ($users as $user)
                 <li>
                     <x-user_tag :user="$user" :anon="$user->hidden || ! $user->isVisible($user, 'other', 'show_online')">
@@ -21,9 +21,9 @@
             @endforeach
         </ul>
         <hr>
-        <ul style="display: flex; flex-wrap: wrap; column-gap: 1rem; list-style-type: none; padding: 0; justify-content: center">
+        <ul style="column-width: 200px; column-gap: 1rem; list-style-type: none; padding: 0;">
             @foreach ($groups as $group)
-                <span class="user-tag" style="background-image: {{ $group->effect }};">
+                <span class="user-tag" style="padding: 4px 8px; display: block">
                     <a
                         class="user-tag__link {{ $group->icon }}"
                         href="{{ route('group', ['id' => $group->id]) }}"

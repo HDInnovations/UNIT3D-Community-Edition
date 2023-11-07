@@ -34,10 +34,10 @@
                 @break
         @endswitch
         <menu class="torrent__buttons form__group--short-horizontal">
-            @includeWhen($torrentRequest->torrent_id === null, 'requests.partials.vote')
+            @includeWhen($torrentRequest->torrent === null, 'requests.partials.vote')
             @switch(true)
                 {{-- Claimed --}}
-                @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
+                @case ($torrentRequest->claimed && $torrentRequest->torrent === null)
                     @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.unclaim')
                     @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.fulfill')
                     @include('requests.partials.report')
@@ -51,7 +51,7 @@
                     @includeWhen($user->group->is_modo, 'requests.partials.delete')
                     @break
                 {{-- Unfilled --}}
-                @case ($torrentRequest->torrent_id === null)
+                @case ($torrentRequest->torrent === null)
                     @include('requests.partials.claim')
                     @include('requests.partials.fulfill')
                     @include('requests.partials.report')
@@ -94,15 +94,15 @@
             <li>
                 <span>
                     @switch(true)
-                        @case ($torrentRequest->claim !== null && $torrentRequest->torrent_id === null)
+                        @case ($torrentRequest->claim !== null && $torrentRequest->torrent === null)
                             <i class="fas fa-circle text-blue"></i>
                             {{ __('request.claimed') }}
                             @break
-                        @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
+                        @case ($torrentRequest->torrent !== null && $torrentRequest->approved_by === null)
                             <i class="fas fa-circle text-purple"></i>
                             {{ __('request.pending') }}
                             @break
-                        @case ($torrentRequest->torrent_id === null)
+                        @case ($torrentRequest->torrent === null)
                             <i class="fas fa-circle text-red"></i>
                             {{ __('request.unfilled') }}
                             @break
@@ -124,22 +124,13 @@
                 @joypixels($torrentRequest->getDescriptionHtml())
             </div>
         </section>
-        @if ($torrentRequest->claim !== null && $torrentRequest->torrent_id === null)
+        @if ($torrentRequest->claim !== null && $torrentRequest->torrent === null)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.claimed') }}</h2>
                 <dl class="key-value">
                     <dt>{{ __('request.claimed') }} by</dt>
                     <dd>
-                        @if ($torrentRequest->claim->anon)
-                            {{ strtoupper(__('common.anonymous')) }}
-                            @if ($user->group->is_modo || $torrentRequest->claim->user->is($user))
-                                ({{ $torrentRequest->claim->username }})
-                            @endif
-                        @else
-                            <a href="{{ route('users.show', ['user' => $torrentRequest->claim->user]) }}">
-                                {{ $torrentRequest->claim->username }}
-                            </a>
-                        @endif
+                        <x-user_tag :user="$torrentRequest->claim->user" :anon="$torrentRequest->claim->anon" />
                     </dd>
                     <dt>{{ __('request.claimed') }} at</dt>
                     <dd>
@@ -166,7 +157,7 @@
                     </dd>
                     <dt>{{ __('request.filled') }} with</dt>
                     <dd>
-                        @if ($torrentRequest->torrent_id === null)
+                        @if ($torrentRequest->torrent === null)
                             Filled torrent has been deleted
                         @else
                             <a

@@ -32,6 +32,8 @@ class Forum extends Model
 
     /**
      * Has Many Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -40,20 +42,20 @@ class Forum extends Model
 
     /**
      * Has Many Sub Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         $children = $this->forums->pluck('id')->toArray();
 
-        if (\is_array($children)) {
-            return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
-        }
-
-        return $this->hasMany(Topic::class);
+        return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
     }
 
     /**
      * Has Many Sub Forums.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
      */
     public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -62,6 +64,8 @@ class Forum extends Model
 
     /**
      * Returns The Category In Which The Forum Is Located.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<self>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -70,6 +74,8 @@ class Forum extends Model
 
     /**
      * All posts inside the forum.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Post>
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -78,6 +84,8 @@ class Forum extends Model
 
     /**
      * Latest topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic>
      */
     public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -86,6 +94,8 @@ class Forum extends Model
 
     /**
      * Latest poster.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -94,6 +104,8 @@ class Forum extends Model
 
     /**
      * Has Many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -102,6 +114,8 @@ class Forum extends Model
 
     /**
      * Has Many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -110,6 +124,8 @@ class Forum extends Model
 
     /**
      * Belongs To Many Subscribed Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
      */
     public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -119,7 +135,7 @@ class Forum extends Model
     /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
      */
-    public function notifySubscribers($poster, $topic): void
+    public function notifySubscribers(User $poster, Topic $topic): void
     {
         $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
@@ -138,7 +154,7 @@ class Forum extends Model
     /**
      * Notify Staffers When New Staff Topic Is Made.
      */
-    public function notifyStaffers($poster, $topic): void
+    public function notifyStaffers(User $poster, Topic $topic): void
     {
         $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
             ->select('users.id')

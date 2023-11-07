@@ -23,14 +23,25 @@ class Resurrection extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
+     * The attributes that aren't mass assignable.
      *
-     * @var string
+     * @var string[]
      */
     protected $guarded = [];
 
     /**
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'rewarded' => 'boolean',
+    ];
+
+    /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -39,6 +50,8 @@ class Resurrection extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

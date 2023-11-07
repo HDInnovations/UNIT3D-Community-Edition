@@ -41,7 +41,6 @@ use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Redis;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
@@ -90,30 +89,30 @@ class TorrentController extends Controller
         $trailer = null;
         $platforms = null;
 
-        if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
             $meta = Tv::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'networks',
-                'recommendations'
+                'recommendedTv:id,name,poster,first_air_date'
             ])->find($torrent->tmdb);
             $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
             $meta = Movie::with([
                 'genres',
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'collection',
-                'recommendations'
+                'recommendedMovies:id,title,poster,release_date'
             ])
                 ->find($torrent->tmdb);
             $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
-        if ($torrent->category->game_meta && ($torrent->igdb || $torrent->igdb != 0)) {
+        if ($torrent->category->game_meta && $torrent->igdb) {
             $meta = Game::with([
                 'cover'    => ['url', 'image_id'],
                 'artworks' => ['url', 'image_id'],
@@ -163,12 +162,13 @@ class TorrentController extends Controller
                 ->mapWithKeys(fn ($cat) => [
                     $cat['id'] => [
                         'name' => $cat['name'],
-                        'type' => match (1) {
+                        'type' => match (true) {
                             $cat->movie_meta => 'movie',
                             $cat->tv_meta    => 'tv',
                             $cat->game_meta  => 'game',
                             $cat->music_meta => 'music',
-                            $cat->no_meta    => 'no'
+                            $cat->no_meta    => 'no',
+                            default          => 'no',
                         },
                     ]
                 ]),
@@ -303,8 +303,7 @@ class TorrentController extends Controller
 
         $freeleechTokens->delete();
 
-        $cacheKey = config('cache.prefix').'torrents:infohash2id';
-        Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::removeTorrent($torrent);
 
@@ -324,7 +323,7 @@ class TorrentController extends Controller
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
-                    'type' => match (1) {
+                    'type' => match (true) {
                         $category->movie_meta => 'movie',
                         $category->tv_meta    => 'tv',
                         $category->game_meta  => 'game',
@@ -340,7 +339,7 @@ class TorrentController extends Controller
             'distributors' => Distributor::orderBy('name')->get(),
             'user'         => $request->user(),
             'category_id'  => $request->category_id,
-            'title'        => urldecode($request->title),
+            'title'        => urldecode((string) $request->title),
             'imdb'         => $request->imdb,
             'tmdb'         => $request->tmdb,
             'mal'          => $request->mal,
@@ -390,7 +389,7 @@ class TorrentController extends Controller
 
         // Can't insert them all at once since some torrents have more files than mysql supports placeholders.
         // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
-        foreach (collect($files)->chunk(65_000 / 3) as $files) {
+        foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
             TorrentFile::insert($files->toArray());
         }
 
@@ -415,8 +414,8 @@ class TorrentController extends Controller
             $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
-        foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent', 'name'], []);
+        foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
         }
 
         // Cover Image for No-Meta Torrents

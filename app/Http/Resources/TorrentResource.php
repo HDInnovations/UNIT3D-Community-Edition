@@ -15,6 +15,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin \App\Models\Torrent
+ */
 class TorrentResource extends JsonResource
 {
     /**
@@ -22,7 +25,8 @@ class TorrentResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $meta = $this->movie ?? $this->tv;
+        /** @phpstan-ignore-next-line */
+        $meta = $this->work;
 
         return [
             'type'       => 'torrent',

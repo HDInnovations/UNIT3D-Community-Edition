@@ -45,7 +45,7 @@ class GiftController extends Controller
                 ->where('name', '=', 'gift')
                 ->latest()
                 ->paginate(25),
-            'bon'           => $user->getSeedbonus(),
+            'bon'           => $user->formatted_seedbonus,
             'sentGifts'     => $user->sentGifts()->sum('cost'),
             'receivedGifts' => $user->receivedGifts()->sum('cost'),
         ]);
@@ -60,7 +60,7 @@ class GiftController extends Controller
 
         return view('user.gift.create', [
             'user' => $user,
-            'bon'  => $user->getSeedbonus(),
+            'bon'  => $user->formatted_seedbonus,
         ]);
     }
 
@@ -72,8 +72,8 @@ class GiftController extends Controller
         $sender = $request->user();
         $receiver = User::where('username', '=', $request->receiver_username)->sole();
 
-        $receiver->increment('seedbonus', $request->cost);
         $sender->decrement('seedbonus', $request->cost);
+        $receiver->increment('seedbonus', $request->cost);
 
         $bonTransactions = BonTransactions::create([
             'bon_exchange_id' => 0,
@@ -94,7 +94,7 @@ class GiftController extends Controller
                 '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
                 href_profile($sender),
                 $sender->username,
-                $request->bon,
+                $request->cost,
                 href_profile($receiver),
                 $receiver->username
             )

@@ -18,9 +18,9 @@ use App\Models\History;
 use App\Models\Movie;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -86,12 +86,15 @@ class SimilarTorrent extends Component
                     ->where('seeder', '=', 0),
                 'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 0)
-                    ->where('seeder', '=', 1)
+                    ->where('seeder', '=', 0)
                     ->whereNull('completed_at'),
                 'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 0)
-                    ->where('seeder', '=', 1)
-                    ->whereNotNull('completed_at'),
+                    ->where(
+                        fn ($query) => $query
+                            ->where('seeder', '=', 1)
+                            ->orWhereNotNull('completed_at')
+                    ),
             ])
             ->when(
                 $this->category->movie_meta,
@@ -107,6 +110,16 @@ class SimilarTorrent extends Component
                 fn ($query) => $query->where('igdb', '=', $this->igdbId),
             )
             ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
+    }
+
+    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
+    {
+        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+            ->withCount(['comments'])
+            ->where('tmdb', '=', $this->tmdbId)
+            ->where('category_id', '=', $this->category->id)
+            ->latest()
             ->get();
     }
 
@@ -138,7 +151,7 @@ class SimilarTorrent extends Component
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
-        $title = match (1) {
+        $title = match (true) {
             $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date.')',
             $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
             $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
@@ -180,8 +193,7 @@ class SimilarTorrent extends Component
 
             $freeleechTokens->delete();
 
-            $cacheKey = config('cache.prefix').'torrents:infohash2id';
-            Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
             Unit3dAnnounce::removeTorrent($torrent);
 
@@ -225,6 +237,7 @@ class SimilarTorrent extends Component
             'user'              => auth()->user(),
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
+            'torrentRequests'   => $this->torrentRequests,
         ]);
     }
 }

@@ -33,7 +33,10 @@ class NoteSearch extends Component
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
-            ->with(['noteduser.group', 'staffuser.group'])
+            ->with([
+                'noteduser' => fn ($query) => $query->withTrashed()->with(['group']),
+                'staffuser' => fn ($query) => $query->withTrashed()->with(['group']),
+            ])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->latest()
             ->paginate($this->perPage);
@@ -44,5 +47,12 @@ class NoteSearch extends Component
         return view('livewire.note-search', [
             'notes' => $this->notes,
         ]);
+    }
+
+    final public function destroy(Note $note): void
+    {
+        $note->delete();
+
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
     }
 }

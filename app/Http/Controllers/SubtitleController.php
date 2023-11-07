@@ -76,7 +76,7 @@ class SubtitleController extends Controller
         $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
         $subtitle = Subtitle::create([
-            'title'        => Torrent::findOrFail($request->integer('torrent_id'))->name,
+            'title'        => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'))->name,
             'file_name'    => $filename,
             'file_size'    => $subtitleFile->getSize(),
             'extension'    => '.'.$subtitleFile->getClientOriginalExtension(),
@@ -103,6 +103,21 @@ class SubtitleController extends Controller
                     $subtitle->torrent->name
                 )
             );
+
+            // Achievements
+            $user->unlock(new UserUploadedFirstSubtitle());
+            $user->addProgress(new UserUploaded25Subtitles(), 1);
+            $user->addProgress(new UserUploaded50Subtitles(), 1);
+            $user->addProgress(new UserUploaded100Subtitles(), 1);
+            $user->addProgress(new UserUploaded200Subtitles(), 1);
+            $user->addProgress(new UserUploaded300Subtitles(), 1);
+            $user->addProgress(new UserUploaded400Subtitles(), 1);
+            $user->addProgress(new UserUploaded500Subtitles(), 1);
+            $user->addProgress(new UserUploaded600Subtitles(), 1);
+            $user->addProgress(new UserUploaded700Subtitles(), 1);
+            $user->addProgress(new UserUploaded800Subtitles(), 1);
+            $user->addProgress(new UserUploaded900Subtitles(), 1);
+            $user->addProgress(new UserUploaded1000Subtitles(), 1);
         } else {
             $this->chatRepository->systemMessage(
                 sprintf(
@@ -113,21 +128,6 @@ class SubtitleController extends Controller
                 )
             );
         }
-
-        // Achievements
-        $user->unlock(new UserUploadedFirstSubtitle());
-        $user->addProgress(new UserUploaded25Subtitles(), 1);
-        $user->addProgress(new UserUploaded50Subtitles(), 1);
-        $user->addProgress(new UserUploaded100Subtitles(), 1);
-        $user->addProgress(new UserUploaded200Subtitles(), 1);
-        $user->addProgress(new UserUploaded300Subtitles(), 1);
-        $user->addProgress(new UserUploaded400Subtitles(), 1);
-        $user->addProgress(new UserUploaded500Subtitles(), 1);
-        $user->addProgress(new UserUploaded600Subtitles(), 1);
-        $user->addProgress(new UserUploaded700Subtitles(), 1);
-        $user->addProgress(new UserUploaded800Subtitles(), 1);
-        $user->addProgress(new UserUploaded900Subtitles(), 1);
-        $user->addProgress(new UserUploaded1000Subtitles(), 1);
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
             ->withSuccess('Subtitle Successfully Added');

@@ -21,6 +21,7 @@ return [
     'application-referrer'     => 'Referrer',
     'article-content'          => 'Content',
     'bans-log'                 => 'Bans Log',
+    'blocked-ips'              => 'Blocked IPs',
     'blocks'                   => 'Blocks',
     'bon-exchange'             => 'BON Exchange',
     'bot'                      => 'Bot',

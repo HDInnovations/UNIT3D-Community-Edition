@@ -16,13 +16,14 @@ namespace App\Http\Livewire;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Torrent;
+use App\Models\User;
 use Livewire\Component;
 
 class ThankButton extends Component
 {
     public $torrent;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     final public function mount($torrent): void
     {

@@ -48,7 +48,6 @@
                                         href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                         class="form__button form__button--text"
                                         title="{{ __('common.download') }}"
-                                        download
                                     >
                                         {{ __('common.download') }}
                                     </a>

@@ -111,7 +111,7 @@
             </header>
             <div class="panel__body">
                 <article class="profileV2">
-                    <x-user_tag :user=$user :anon="false" class="profile__username">
+                    <x-user_tag :user="$user" :anon="false" class="profile__username">
                         <x-slot:appendedIcons>
                             @if ($user->isOnline())
                                 <i class="{{ config('other.font-awesome') }} fa-circle text-green" title="{{ __('user.online') }}"></i>
@@ -144,7 +144,7 @@
                     @if (auth()->user()->isAllowed($user,'profile','show_profile_about') && $user->about)
                         <div class="profile__about">
                             {{ __('user.about') }}:
-                            <div class="bbcode-rendered">@joypixels($user->getAboutHtml())</div>
+                            <div class="bbcode-rendered">@joypixels($user->about_html)</div>
                         </div>
                     @endif
                 </article>
@@ -284,6 +284,62 @@
         @endif
         @if (auth()->user()->group->is_modo)
             @livewire('user-notes', ['user' => $user])
+            @if ($user->application !== null)
+                <section class="panelV2">
+                    <h2 class="panel__heading">{{ __('staff.application') }}</h2>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('common.email') }}</th>
+                                    <th>{{ __('staff.application-type') }}</th>
+                                    <th>{{ __('common.created_at') }}</th>
+                                    <th>{{ __('common.status') }}</th>
+                                    <th>{{ __('common.action') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>{{ $user->application->email }}</td>
+                                <td>{{ $user->application->type }}</td>
+                                <td>
+                                    <time
+                                        datetime="{{ $user->application->created_at }}"
+                                        title={{ $user->application->created_at }}
+                                    >
+                                        {{ $user->application->created_at->diffForHumans() }}
+                                    </time>
+                                </td>
+                                <td>
+                                    @switch($user->application->status)
+                                        @case(\App\Models\Application::PENDING)
+                                            <span class="application--pending">Pending</span>
+                                            @break
+                                        @case(\App\Models\Application::APPROVED)
+                                            <span class="application--approved">Approved</span>
+                                            @break
+                                        @case(\App\Models\Application::REJECTED)
+                                            <span class="application--rejected">Rejected</span>
+                                            @break
+                                        @default
+                                            <span class="application--unknown">Unknown</span>
+                                    @endswitch
+                                </td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <a
+                                                class="form__button form__button--text"
+                                                href="{{ route('staff.applications.show', ['id' => $user->application->id]) }}">
+                                                {{ __('common.view') }}
+                                            </a>
+                                        </li>
+                                    </menu>
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            @endif
         @endif
         @if (auth()->user()->group->is_modo || auth()->user()->is($user))
             <section class="panelV2">
@@ -324,7 +380,11 @@
         @endif
         @if (auth()->user()->group->is_modo)
             @include('user.profile.partials.bans', ['bans' => $user->userban])
-            @include('user.profile.partials.warnings')
+        @endif
+        @if (auth()->user()->group->is_modo || auth()->user()->is($user))
+            <livewire:user-warnings :user="$user" />
+        @endif
+        @if (auth()->user()->group->is_modo)
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">Watchlist</h2>
@@ -508,6 +568,12 @@
                         </a>
                     </dt>
                     <dd>{{ $peers->leeching ?? 0 }}</dd>
+                    <dt>
+                        <a href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}">
+                            Total Inactive Peers
+                        </a>
+                    </dt>
+                    <dd>{{ $peers->inactive ?? 0 }}</dd>
                 </dl>
             </section>
         @endif
@@ -516,15 +582,15 @@
                 <h2 class="panel__heading">Traffic {{ __('torrent.statistics') }}</h2>
                 <dl class="key-value">
                     <dt>{{ __('common.ratio') }}</dt>
-                    <dd>{{ $user->getRatioString() }}</dd>
+                    <dd>{{ $user->formatted_ratio }}</dd>
                     <dt>Real {{ __('common.ratio') }}</dt>
                     <dd>{{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}</dd>
                     <dt>{{ __('common.buffer') }}</dt>
-                    <dd>{{ $user->untilRatio(config('other.ratio')) }}</dd>
+                    <dd>{{ $user->formatted_buffer }}</dd>
                     <dt>{{ __('common.account') }} {{ __('common.upload') }} (Total)</dt>
-                    <dd>{{ $user->getUploaded() }}</dd>
+                    <dd>{{ $user->formatted_uploaded }}</dd>
                     <dt>{{ __('common.account') }} {{ __('common.download') }} (Total)</dt>
-                    <dd>{{ $user->getDownloaded() }}</dd>
+                    <dd>{{ $user->formatted_downloaded }}</dd>
                     <dt>{{ __('torrent.torrent') }} {{ __('common.upload') }}</dt>
                     <dd>{{ App\Helpers\StringHelper::formatBytes($history->upload_sum ?? 0, 2) }}</dd>
                     <dt>{{ __('torrent.torrent') }} {{ __('common.upload') }} ({{ __('torrent.credited') }})</dt>
@@ -707,7 +773,7 @@
                             {{ __('bon.bon') }}
                         </a>
                     </dt>
-                    <dd>{{ $user->getSeedBonus() }}</dd>
+                    <dd>{{ $user->formatted_seedbonus }}</dd>
                     <dt>{{ __('user.tips-received') }}</dt>
                     <dd>{{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, null, "\u{202F}") }}</dd>
                     <dt>{{ __('user.tips-given') }}</dt>

@@ -21,6 +21,7 @@
             href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
                 1       => 'card',
                 2       => 'group',
+                3       => 'poster',
                 default => 'list'
             }]) }}"
         >
@@ -29,7 +30,7 @@
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('top10.index') }}">
-            Top 10
+            {{ __('common.top-10') }}
         </a>
     </li>
     <li class="nav-tabV2">

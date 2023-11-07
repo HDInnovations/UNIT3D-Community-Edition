@@ -13,6 +13,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Poll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -32,9 +33,12 @@ class StorePollVoteRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(Request $request): array
     {
+        /** @var Poll $poll */
         $poll = $request->route('poll');
 
         return [
@@ -53,6 +57,8 @@ class StorePollVoteRequest extends FormRequest
 
     /**
      * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
      */
     public function messages(): array
     {

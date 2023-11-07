@@ -15,7 +15,6 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
-use App\Notifications\NewComment;
 use App\Traits\Auditable;
 use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,11 +30,12 @@ class TorrentRequest extends Model
     /**
      * The Attributes That Should Be Mutated To Dates.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'filled_when'   => 'datetime',
         'approved_when' => 'datetime',
+        'igdb'          => 'integer',
     ];
 
     /**
@@ -54,6 +54,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -65,6 +67,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function approver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -76,6 +80,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function filler(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -87,6 +93,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, self>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -95,6 +103,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, self>
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -103,6 +113,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Resolution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
      */
     public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -111,12 +123,17 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
@@ -124,6 +141,8 @@ class TorrentRequest extends Model
 
     /**
      * Has Many BON Bounties.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
      */
     public function bounties(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -132,6 +151,8 @@ class TorrentRequest extends Model
 
     /**
      * Has One Torrent Request Claim.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentRequestClaim>
      */
     public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -154,21 +175,5 @@ class TorrentRequest extends Model
         $bbcode = new Bbcode();
 
         return (new Linkify())->linky($bbcode->parse($this->description));
-    }
-
-    /**
-     * Notify Requester When A New Action Is Taken.
-     */
-    public function notifyRequester($type, $payload): bool
-    {
-        $user = User::with('notification')->findOrFail($this->user_id);
-
-        if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
-            $user->notify(new NewComment('request', $payload));
-
-            return true;
-        }
-
-        return true;
     }
 }

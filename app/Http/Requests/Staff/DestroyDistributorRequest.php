@@ -21,13 +21,15 @@ class DestroyDistributorRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(Distributor $distributor): array
     {
         return [
             'distributor_id' => [
                 'required',
-                Rule::exists('distributors', 'id')->whereNot('id', $distributor->id),
+                Rule::exists('distributors', 'id')->whereNot('id', (string) $distributor->id),
             ],
         ];
     }

@@ -125,7 +125,7 @@ class TorrentRequestSearch extends Component
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
         $isRegex = fn ($field) => $isRegexAllowed
-            && \strlen($field) > 2
+            && \strlen((string) $field) > 2
             && $field[0] === '/'
             && $field[-1] === '/'
             && @preg_match($field, 'Validate regex') !== false;
@@ -169,7 +169,7 @@ class TorrentRequestSearch extends Component
                 $query->where('user_id', '=', $user->id);
             })
             ->when($this->myClaims, function ($query) use ($user): void {
-                $requestClaims = TorrentRequestClaim::where('username', '=', $user->username)->pluck('request_id');
+                $requestClaims = TorrentRequestClaim::where('user_id', '=', $user->id)->pluck('request_id');
                 $query->whereIntegerInRaw('id', $requestClaims)->whereNull('torrent_id')->whereNull('approved_by');
             })
             ->when($this->myVoted, function ($query) use ($user): void {

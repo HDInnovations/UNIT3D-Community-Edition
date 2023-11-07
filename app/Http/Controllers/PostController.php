@@ -108,6 +108,7 @@ class PostController extends Controller
             $topic->notifyStaffers($user, $topic, $post);
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+
             // Notify All Subscribers Of New Reply
             if ($topic->first_post_user_id != $user->id) {
                 $topic->notifyStarter($user, $topic, $post);
@@ -132,7 +133,7 @@ class PostController extends Controller
 
         // User Tagged Notification
         if ($user->id !== $post->user_id) {
-            preg_match_all('/@([\w\-]+)/', $post->content, $matches);
+            preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
             $users = User::whereIn('username', $matches[1])->get();
             Notification::send($users, new NewPostTag($post));
         }

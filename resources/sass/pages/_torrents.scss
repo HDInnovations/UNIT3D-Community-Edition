@@ -859,3 +859,45 @@ td.torrent-search--grouped__age time {
     text-align: center;
   }
 }
+
+
+/* Grouped Posters
+---------------------------------------------------------------------------- */
+
+.torrent-search--poster__results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px 24px;
+  grid-auto-flow: dense;
+}
+
+.torrent-search--poster__poster {
+  grid-area: poster;
+  overflow: hidden;
+}
+
+.torrent-search--poster__poster > img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.torrent-search--poster__caption {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  margin: 8px;
+}
+
+.torrent-search--poster__title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.torrent-search--poster__release-date {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}

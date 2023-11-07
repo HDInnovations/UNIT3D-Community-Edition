@@ -34,14 +34,15 @@ mix.options({
     .sass('resources/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
     .sass('resources/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
     .sass('resources/sass/themes/cosmic-void.scss', 'public/css/themes/cosmic-void.css')
+    .sass('resources/sass/themes/nord.scss', 'public/css/themes/nord.css')
+    .sass('resources/sass/themes/revel.scss', 'public/css/themes/revel.css')
 
     /*
-     * Login and TwoStep Auth styles
+     * Auth styles
      *
      * We compile each of these separately since they should only be loaded with the certain views
      */
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
-    .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
 
     /*
      * Here we take all these scripts and compile them into a single 'unit3d.js' file that will be loaded after 'app.js'
