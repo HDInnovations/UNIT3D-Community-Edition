@@ -779,12 +779,12 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $type && (! $target->notification->$type)) {
+        if ($target->notification && $type && (!$target->notification->$type)) {
             return false;
         }
 
         if (\is_array($target->notification?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->notification->$targetGroup, true);
+            return !\in_array($sender->group->id, $target->notification->$targetGroup, true);
         }
 
         return true;
@@ -810,12 +810,12 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
 
         if (\is_array($target->privacy?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->privacy->$targetGroup);
+            return !\in_array($sender->group->id, $target->privacy->$targetGroup);
         }
 
         return true;
@@ -841,12 +841,12 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
 
         if (\is_array($target->privacy?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->privacy->$targetGroup);
+            return !\in_array($sender->group->id, $target->privacy->$targetGroup);
         }
 
         return true;

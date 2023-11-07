@@ -252,7 +252,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'name',
             'size',
             'seeders',
@@ -332,7 +332,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {
@@ -570,7 +570,7 @@ class TorrentSearch extends Component
     final public function getGroupedPostersProperty()
     {
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {

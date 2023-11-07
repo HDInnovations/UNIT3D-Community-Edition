@@ -84,7 +84,7 @@ class GitUpdater extends Command
         <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
-        if (! $this->io->confirm('Would you like to proceed', true)) {
+        if (!$this->io->confirm('Would you like to proceed', true)) {
             $this->line('<fg=red>Aborted ...</>');
 
             exit();
@@ -337,24 +337,24 @@ class GitUpdater extends Command
 
     private function validatePath($path): void
     {
-        if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
+        if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
             $this->red(sprintf("The path '%s' is invalid", $path));
         }
     }
 
     private function createBackupPath($path): void
     {
-        if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! is_file(base_path($path))) {
-            if (! mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && ! is_dir($concurrentDirectory)) {
+        if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !is_file(base_path($path))) {
+            if (!mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         } elseif (is_file(base_path($path)) && \dirname((string) $path) !== '.') {
             $path = \dirname((string) $path);
 
-            if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! mkdir($concurrentDirectory = storage_path(sprintf(
+            if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !mkdir($concurrentDirectory = storage_path(sprintf(
                 'gitupdate/%s',
                 $path
-            )), 0775, true) && ! is_dir($concurrentDirectory)) {
+            )), 0775, true) && !is_dir($concurrentDirectory)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }

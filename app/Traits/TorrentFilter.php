@@ -76,7 +76,7 @@ trait TorrentFilter
                 $authenticatedUser === null,
                 fn ($query) => $query->where('anon', '=', false),
                 fn ($query) => $query->when(
-                    ! $authenticatedUser->group->is_modo,
+                    !$authenticatedUser->group->is_modo,
                     fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', false)->orWhere('user_id', '=', $authenticatedUser->id))
                 )
             );

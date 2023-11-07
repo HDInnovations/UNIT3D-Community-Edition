@@ -64,7 +64,7 @@ class RegisterController extends Controller
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
 
-        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
             return to_route('registrationForm', ['code' => $code])
                 ->withErrors(trans('auth.invalid-key'));
         }
@@ -84,7 +84,7 @@ class RegisterController extends Controller
         $user->group_id = $validatingGroup[0];
 
         if (config('email-blacklist.enabled')) {
-            if (! config('captcha.enabled')) {
+            if (!config('captcha.enabled')) {
                 $v = validator($request->all(), [
                     'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                     'password' => [
@@ -118,7 +118,7 @@ class RegisterController extends Controller
                     'captcha' => 'hiddencaptcha',
                 ]);
             }
-        } elseif (! config('captcha.enabled')) {
+        } elseif (!config('captcha.enabled')) {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|string|between:3,25|unique:users',
                 'password' => [

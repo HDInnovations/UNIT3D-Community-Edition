@@ -26,7 +26,7 @@ class EmailBlacklist implements Rule
         $domain = Str::after(strtolower((string) $value), '@');
 
         // Run validation check
-        return ! \in_array($domain, $this->domains, true);
+        return !\in_array($domain, $this->domains, true);
     }
 
     /**
@@ -47,7 +47,7 @@ class EmailBlacklist implements Rule
         $autoupdate = config('email-blacklist.auto-update');
 
         try {
-            if ($autoupdate && ! cache()->has(config('email-blacklist.cache-key'))) {
+            if ($autoupdate && !cache()->has(config('email-blacklist.cache-key'))) {
                 EmailBlacklistUpdater::update();
             }
         } catch (InvalidArgumentException) {

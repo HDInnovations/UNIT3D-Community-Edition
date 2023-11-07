@@ -34,7 +34,7 @@ class CacheUserProvider extends EloquentUserProvider
     {
         $model = CacheUser::user($identifier);
 
-        if (! $model) {
+        if (!$model) {
             return;
         }
 

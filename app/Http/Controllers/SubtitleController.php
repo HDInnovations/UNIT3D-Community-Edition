@@ -92,7 +92,7 @@ class SubtitleController extends Controller
         Storage::disk('subtitles')->put($filename, file_get_contents($subtitleFile));
 
         // Announce To Shoutbox
-        if (! $subtitle->anon) {
+        if (!$subtitle->anon) {
             $this->chatRepository->systemMessage(
                 sprintf(
                     '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',

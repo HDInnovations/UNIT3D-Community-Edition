@@ -40,7 +40,7 @@ class TMDB
 
     public function ifExists($type, $array)
     {
-        if (isset($array[$type]) && ! empty($array[$type])) {
+        if (isset($array[$type]) && !empty($array[$type])) {
             return $array[$type];
         }
 

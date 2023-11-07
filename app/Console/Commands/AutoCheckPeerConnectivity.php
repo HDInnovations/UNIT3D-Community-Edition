@@ -44,7 +44,7 @@ class AutoCheckPeerConnectivity extends Command
      */
     public function handle(): void
     {
-        if (! config('announce.connectable_check')) {
+        if (!config('announce.connectable_check')) {
             return;
         }
 

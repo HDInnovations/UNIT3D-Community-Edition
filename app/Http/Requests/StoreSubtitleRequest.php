@@ -39,7 +39,7 @@ class StoreSubtitleRequest extends FormRequest
                 'required',
                 'file',
                 function (string $attribute, mixed $value, Closure $fail): void {
-                    if (! \in_array('.'.$value->getClientOriginalExtension(), ['.srt','.ass', '.sup', '.zip'])) {
+                    if (!\in_array('.'.$value->getClientOriginalExtension(), ['.srt','.ass', '.sup', '.zip'])) {
                         $fail('The Subtitle uploaded does not have a ".srt, .ass, .sup or .zip" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
                 },
