@@ -73,7 +73,7 @@
     @endif
     @if ($torrent->refundable || auth()->user()->group->is_refundable)
         <i class="{{ config('other.font-awesome') }} fa-percentage"
-           title='{{ __('torrent.refundable') }}"
+           title={{ __('torrent.refundable') }}"
         ></i>
     @endif
     @if ($torrent->sticky)
