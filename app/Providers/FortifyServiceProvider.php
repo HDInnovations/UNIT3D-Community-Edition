@@ -72,13 +72,13 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
                 // Make sure open reg is off, invite code is not present and application signups enabled
-                if (! $request->has('code') && config('other.invite-only') && config('other.application_signups')) {
+                if (!$request->has('code') && config('other.invite-only') && config('other.application_signups')) {
                     return to_route('application.create')
                         ->withInfo(trans('auth.allow-invite-appl'));
                 }
 
                 // Make sure open reg is off and invite code is not present
-                if (! $request->has('code') && config('other.invite-only')) {
+                if (!$request->has('code') && config('other.invite-only')) {
                     return to_route('login')
                         ->withWarning(trans('auth.allow-invite'));
                 }

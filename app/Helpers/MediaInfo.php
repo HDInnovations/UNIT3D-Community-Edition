@@ -70,7 +70,7 @@ class MediaInfo
         foreach ($sections as $key => $section) {
             $keySection = strtolower(explode(' ', $key)[0]);
 
-            if (! empty($section)) {
+            if (!empty($section)) {
                 if ($keySection === 'general') {
                     $output[$keySection] = $this->parseProperty($section, $keySection);
                 } else {
@@ -327,7 +327,7 @@ class MediaInfo
         $number = (float) str_replace(' ', '', (string) $string);
         preg_match('/[KMGTPEZ]/i', (string) $string, $size);
 
-        if (! empty($size[0])) {
+        if (!empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }
 

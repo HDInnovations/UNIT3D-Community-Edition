@@ -119,7 +119,7 @@ class BackupPanel extends Component
 
         $backup = $backupDestination->backups()->first(fn (Backup $backup) => $backup->path() === $filePath);
 
-        if (! $backup) {
+        if (!$backup) {
             return response('Backup not found', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
         }
 

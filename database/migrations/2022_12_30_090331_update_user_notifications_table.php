@@ -44,7 +44,7 @@ return new class () extends Migration {
 
             if (\is_object($old) && \is_object($old->default_groups)) {
                 foreach ($old->default_groups as $groupId => $acceptsNotifications) {
-                    if (! $acceptsNotifications && \in_array($groupId, $allowedGroups)) {
+                    if (!$acceptsNotifications && \in_array($groupId, $allowedGroups)) {
                         $new[] = (int) $groupId;
                     }
                 }

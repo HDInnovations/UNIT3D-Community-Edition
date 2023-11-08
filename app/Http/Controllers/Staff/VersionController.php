@@ -29,7 +29,7 @@ class VersionController extends Controller
         $latestVersion = Http::get('//api.github.com/repos/HDInnovations/UNIT3D/releases')[0]['tag_name'];
 
         return response([
-            'updated'       => ! version_compare(config('unit3d.version'), $latestVersion, '<'),
+            'updated'       => !version_compare(config('unit3d.version'), $latestVersion, '<'),
             'latestversion' => $latestVersion,
         ]);
     }

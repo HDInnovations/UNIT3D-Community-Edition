@@ -99,7 +99,7 @@ class TorrentRequestSearch extends Component
 
     final public function toggleShowFilters(): void
     {
-        $this->showFilters = ! $this->showFilters;
+        $this->showFilters = !$this->showFilters;
     }
 
     final public function getTorrentRequestStatProperty(): ?object
