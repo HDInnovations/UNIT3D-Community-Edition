@@ -60,6 +60,7 @@ class User extends Authenticatable
         'can_request'  => 'boolean',
         'can_invite'   => 'boolean',
         'can_upload'   => 'boolean',
+        'can_chat'     => 'boolean',
     ];
 
     /**
