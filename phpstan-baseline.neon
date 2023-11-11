@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method App\\\\Actions\\\\Fortify\\\\CreateNewUser\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: "#^Method App\\\\Actions\\\\Fortify\\\\ResetUserPassword\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Actions/Fortify/ResetUserPassword.php
+
+		-
+			message: "#^Method App\\\\Actions\\\\Fortify\\\\UpdateUserPassword\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Actions/Fortify/UpdateUserPassword.php
+
+		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
@@ -2011,11 +2026,6 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\ActivationController\\:\\:activate\\(\\) has parameter \\$token with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/ActivationController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/Auth/ApplicationController.php
@@ -2024,31 +2034,6 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/Auth/ApplicationController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\LoginController\\:\\:authenticated\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/LoginController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\RegisterController\\:\\:register\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/RegisterController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\RegisterController\\:\\:registrationForm\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/RegisterController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\ResetPasswordController\\:\\:resetPassword\\(\\) has parameter \\$password with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/ResetPasswordController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\ResetPasswordController\\:\\:resetPassword\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/ResetPasswordController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
@@ -3199,6 +3184,11 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$search has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TvSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$two_factor_confirmed_at\\.$#"
+			count: 1
+			path: app/Http/Livewire/TwoFactorAuthForm.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:getActivesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"

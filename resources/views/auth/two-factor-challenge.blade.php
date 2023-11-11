@@ -3,112 +3,66 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ __('auth.login') }} - {{ config('other.title') }}</title>
-    @section('meta')
-        <meta name="description"
-              content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:title" content="{{ __('auth.login') }}">
-        <meta property="og:site_name" content="{{ config('other.title') }}">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="{{ url('/img/og.png') }}">
-        <meta property="og:description" content="{{ config('unit3d.powered-by') }}">
-        <meta property="og:url" content="{{ url('/') }}">
-        <meta property="og:locale" content="{{ config('app.locale') }}">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-    @show
+    <title>{{ __('Two Factor Authentication') }} - {{ config('other.title') }}</title>
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
 </head>
 
 <body>
-<!-- Dont Not Change! For Jackett Support -->
-<div class="Jackett" style="display:none;">{{ config('unit3d.powered-by') }}</div>
-<!-- Dont Not Change! For Jackett Support -->
-
-@if ($errors->any())
-    <div id="ERROR_COPY" style="display: none;">
-        @foreach ($errors->all() as $error)
-            {{ $error }}<br>
-        @endforeach
-    </div>
-@endif
-<div class="wrapper fadeInDown">
-    <svg viewBox="0 0 800 100" class="sitebanner">
-        <symbol id="s-text">
-            <text text-anchor="middle" x="50%" y="50%" dy=".35em">
-                {{ config('other.title') }}
-            </text>
-        </symbol>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-        <use xlink:href="#s-text" class="text"></use>
-    </svg>
-
-    <div id="formContent">
-        <div>
-            <h2 class="active">{{ __('auth.totp.title') }} </h2>
-        </div>
-
-        <div class="fadeIn first">
-            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ __('auth.user-icon') }}"/>
-        </div>
-
-        <form role="form" method="POST" action="{{ route('two-factor.login') }}">
-            @csrf
-            <div>
-                <label for="username" class="col-md-4 control-label">{{ __('auth.totp.input') }}</label>
-                <div class="col-md-6">
-                    <input id="code" type="text" class="form-control" name="code"
-                           required autofocus>
-                </div>
+<div class="block">
+    <div>
+        <div x-data="{ recovery: false }">
+            <div class="mb-4 text-sm text-gray-600 dark:text-gray-400" x-show="! recovery">
+                {{ __('Please confirm access to your account by entering the authentication code provided by your authenticator application.') }}
             </div>
-            <button type="submit" class="fadeIn fourth" id="login-button">{{ __('auth.login') }}</button>
-        </form>
 
-        <div id="formFooter">
-            <a href="{{ route('password.request') }}">
-                <h2 class="inactive underlineHover">{{ __('auth.lost-password') }} </h2>
-            </a>
+            <div class="mb-4 text-sm text-gray-600 dark:text-gray-400" x-cloak x-show="recovery">
+                {{ __('Please confirm access to your account by entering one of your emergency recovery codes.') }}
+            </div>
+
+
+            <form method="POST" action="{{ route('two-factor.login') }}">
+                @csrf
+
+                <div class="mt-4" x-show="! recovery">
+                    <label for="code" value="{{ __('Code') }}"></label>
+                    <input id="code" class="block mt-1 w-full" type="text" inputmode="numeric" name="code" autofocus x-ref="code" autocomplete="one-time-code" />
+                </div>
+
+                <div class="mt-4" x-cloak x-show="recovery">
+                    <label for="recovery_code" value="{{ __('Recovery Code') }}"></label>
+                    <input id="recovery_code" class="block mt-1 w-full" type="text" name="recovery_code" x-ref="recovery_code" autocomplete="one-time-code" />
+                </div>
+
+                <div class="flex items-center justify-end mt-4">
+                    <button type="button" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 underline cursor-pointer"
+                            x-show="! recovery"
+                            x-on:click="
+                                        recovery = true;
+                                        $nextTick(() => { $refs.recovery_code.focus() })
+                                    ">
+                        {{ __('Use a recovery code') }}
+                    </button>
+
+                    <button type="button" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 underline cursor-pointer"
+                            x-cloak
+                            x-show="recovery"
+                            x-on:click="
+                                        recovery = false;
+                                        $nextTick(() => { $refs.code.focus() })
+                                    ">
+                        {{ __('Use an authentication code') }}
+                    </button>
+
+                    <button class="ms-4">
+                        {{ __('Log in') }}
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
-<script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
-@foreach (['warning', 'success', 'info'] as $key)
-    @if (Session::has($key))
-        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            })
-
-            Toast.fire({
-                icon: '{{ $key }}',
-                title: '{{ Session::get($key) }}'
-            })
-
-        </script>
-    @endif
-@endforeach
-
-@if (Session::has('errors'))
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        Swal.fire({
-            title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
-            icon: 'error',
-            html: document.getElementById('ERROR_COPY').innerHTML,
-            showCloseButton: true,
-        })
-
-    </script>
-@endif
-
 </body>
 
 </html>

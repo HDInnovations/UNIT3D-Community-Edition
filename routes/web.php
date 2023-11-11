@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController;
+use Laravel\Fortify\RoutePath;
 
 /**
  * NOTICE OF LICENSE.
@@ -38,7 +41,7 @@ Route::middleware('language')->group(function (): void {
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::group(['before' => 'auth', 'middleware' => 'guest'], function (): void {
+    Route::middleware('guest')->group(function (): void {
         // Application Signup
         Route::get('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'create'])->name('application.create');
         Route::post('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'store'])->name('application.store');
@@ -494,6 +497,11 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\SeedboxController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\User\SeedboxController::class, 'store'])->name('store');
             Route::delete('/{seedbox}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('destroy');
+        });
+
+        // Two-Factor Authentication
+        Route::prefix('two-factor-auth')->name('two_factor_auth.')->group(function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\TwoFactorAuthController::class, 'edit'])->name('edit');
         });
 
         // Email
