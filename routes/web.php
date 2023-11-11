@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
-use Laravel\Fortify\Features;
-use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController;
-use Laravel\Fortify\RoutePath;
 
 /**
  * NOTICE OF LICENSE.
