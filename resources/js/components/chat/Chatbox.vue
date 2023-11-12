@@ -1077,11 +1077,9 @@ export default {
         container.animate({ scrollTop: container.scrollHeight }, 0);
       }
 
-      container.scroll(() => {
-        let scrollHeight = container.scrollHeight;
-        this.scroll = scrollHeight + 9999;
-        this.forced = true;
-      });
+      container.scroll({
+        top: container.scrollHeight + 9999,
+      })
     },
     listenForChatter() {
       this.chatter = window.Echo.private(`chatter.${this.auth.id}`);
