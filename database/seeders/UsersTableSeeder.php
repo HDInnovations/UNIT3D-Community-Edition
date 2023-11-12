@@ -61,14 +61,15 @@ class UsersTableSeeder extends Seeder
                 'active'    => 1,
             ],
             [
-                'username'  => config('unit3d.owner-username'),
-                'email'     => config('unit3d.default-owner-email'),
-                'group_id'  => 10,
-                'password'  => Hash::make(config('unit3d.default-owner-password')),
-                'passkey'   => md5(random_bytes(60)),
-                'rsskey'    => md5(random_bytes(60)),
-                'api_token' => Str::random(100),
-                'active'    => 1,
+                'username'          => config('unit3d.owner-username'),
+                'email'             => config('unit3d.default-owner-email'),
+                'email_verified_at' => now(),
+                'group_id'          => 10,
+                'password'          => Hash::make(config('unit3d.default-owner-password')),
+                'passkey'           => md5(random_bytes(60)),
+                'rsskey'            => md5(random_bytes(60)),
+                'api_token'         => Str::random(100),
+                'active'            => 1,
             ],
         ];
     }

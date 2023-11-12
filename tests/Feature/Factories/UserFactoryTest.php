@@ -20,6 +20,7 @@ test('user factory returns correct values when created', function (): void {
 
     $this->assertArrayHasKey('username', $user);
     $this->assertArrayHasKey('email', $user);
+    $this->assertArrayHasKey('email_verified_at', $user);
     $this->assertArrayHasKey('password', $user);
     $this->assertArrayHasKey('passkey', $user);
     $this->assertArrayHasKey('group_id', $user);

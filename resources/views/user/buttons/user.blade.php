@@ -122,6 +122,14 @@
                     API Key
                 </a>
             </li>
+            <li class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.two_factor_auth.edit', ['user' => $user]) }}"
+                >
+                    {{ __('user.two-step-auth.title') }}
+                </a>
+            </li>
             @if ($isProfileOwner)
                 <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a

@@ -24,9 +24,9 @@
         "hdvinnie/laravel-security-headers": "^2.0.0",
         "intervention/image": "^2.7.2",
         "joypixels/assets": "^v7.0.1",
-        "laravel/framework": "^10.30.1",
+        "laravel/fortify": "^1.18.1",
+        "laravel/framework": "^10.31.0",
         "laravel/tinker": "^2.8.2",
-        "laravel/ui": "^4.2.2",
         "livewire/livewire": "^2.12.6",
         "marcreichel/igdb-laravel": "^3.8.1",
         "paragonie/constant_time_encoding": "^2.6.3",
@@ -37,13 +37,13 @@
         "symfony/dom-crawler": "^6.3.4",
         "theodorejb/polycast": "dev-master",
         "voku/anti-xss": "^4.1.42",
-        "vstelmakh/url-highlight": "^3.0.2"
+        "vstelmakh/url-highlight": "^3.0.3"
     },
     "require-dev": {
         "brianium/paratest": "7.2.2",
         "fakerphp/faker": "^1.23",
         "jasonmccreary/laravel-test-assertions": "^2.3",
-        "laravel/pint": "^1.13.5",
+        "laravel/pint": "^1.13.6",
         "laravel/sail": "^1.26.0",
         "mockery/mockery": "^1.6.6",
         "nunomaduro/collision": "7.7.0",
