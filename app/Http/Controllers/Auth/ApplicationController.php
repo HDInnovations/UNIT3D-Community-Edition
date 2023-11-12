@@ -38,6 +38,8 @@ class ApplicationController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
+        abort_unless(config('other.application_signups'), 403);
+
         $application = resolve(Application::class);
         $application->type = $request->input('type');
         $application->email = $request->input('email');

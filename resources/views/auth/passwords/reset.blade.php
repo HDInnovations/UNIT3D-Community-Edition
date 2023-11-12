@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
-
 <head>
     <meta charset="UTF-8">
     <title>{{ __('auth.lost-password') }} - {{ config('other.title') }}</title>
     @section('meta')
-        <meta name="description"
-              content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}">
+        <meta
+            name="description"
+            content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}"
+        >
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="{{ __('auth.login') }}">
         <meta property="og:site_name" content="{{ config('other.title') }}">
@@ -21,102 +22,84 @@
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
 </head>
-
 <body>
-@if ($errors->any())
-    <div id="ERROR_COPY" style="display: none;">
-        @foreach ($errors->all() as $error)
-            {{ $error }}<br>
-        @endforeach
-    </div>
-@endif
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <div class="fadeIn first">
-            <svg viewBox="0 0 400 140" class="sitebanner" style="width: 100%">
-                <symbol id="s-text">
-                    <text text-anchor="middle" x="50%" y="28%" dy=".6em">
-                        {{ config('other.title') }}
-                    </text>
-                </symbol>
-                <symbol id="s-text-sm">
-                    <text text-anchor="middle" x="50%" y="50%" dy="1.6em">
-                        {{ __('auth.reset-password') }}
-                    </text>
-                </symbol>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-            </svg>
-        </div>
-        <form class="form-horizontal" role="form" method="POST" action="{{ route('password.update') }}">
-            @csrf
-            <input type="hidden" name="token" value="{{ request()->route('token') }}">
-            <div>
-                <label for="email" class="col-md-4 control-label">{{ __('auth.email') }}</label>
-                <div class="col-md-6">
-                    <input id="email" type="text" class="form-control" name="email"
-                           value="{{ old('email') }}" required autofocus>
-                </div>
-            </div>
-
-            <div>
-                <label for="password" class="col-md-4 control-label">{{ __('auth.password') }}</label>
-                <div class="col-md-6">
-                    <input id="password" type="password" class="form-control" name="password" required>
-                </div>
-            </div>
-
-            <div>
-                <label for="password" class="col-md-4 control-label">{{ __('auth.password-confirmation') }}</label>
-                <div class="col-md-6">
-                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
-                </div>
-            </div>
-            <button type="submit" class="fadeIn fourth">{{ __('common.submit') }}</button>
-        </form>
-    </div>
-</div>
-
-<script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
-@foreach (['warning', 'success', 'info'] as $key)
-    @if (Session::has($key))
-        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          })
-
-          Toast.fire({
-            icon: '{{ $key }}',
-            title: '{{ Session::get($key) }}'
-          })
-
-        </script>
-    @endif
-@endforeach
-
-@if (Session::has('errors'))
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-      Swal.fire({
-        title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
-        icon: 'error',
-        html: document.getElementById('ERROR_COPY').innerHTML,
-        showCloseButton: true,
-      })
-
-    </script>
-@endif
-
+    <main>
+        <section class="auth-form">
+            <form class="auth-form__form" method="POST" action="{{ route('password.update') }}">
+                @csrf
+                <input type="hidden" name="token" value="{{ request()->route('token') }}">
+                <a class="auth-form__branding" href="{{ route('home.index') }}">
+                    <i class="fal fa-tv-retro"></i>
+                    <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
+                </a>
+                @if (Session::has('warning') || Session::has('success') || Session::has('info'))
+                    <ul class="auth-form__important-infos">
+                        @if (Session::has('warning'))
+                            <li>Warning: {{ Session::get('warning') }}</li>
+                        @endif
+                        @if (Session::has('info'))
+                            <li>Info: {{ Session::get('info') }}</li>
+                        @endif
+                        @if (Session::has('success'))
+                            <li>Success: {{ Session::get('success') }}</li>
+                        @endif
+                    </ul>
+                @endif
+                <p class="auth-form__text-input-group">
+                    <label class="auth-form__label" for="email">
+                        {{ __('auth.email') }}
+                    </label>
+                    <input
+                        id="email"
+                        class="auth-form__text-input"
+                        autofocus
+                        name="email"
+                        required
+                        type="email"
+                        value="{{ old('email') }}"
+                    >
+                </p>
+                <p class="auth-form__text-input-group">
+                    <label class="auth-form__label" for="password">
+                        {{ __('auth.new-password') }}
+                    </label>
+                    <input
+                        id="password"
+                        class="auth-form__text-input"
+                        autocomplete="new-password"
+                        name="password"
+                        required
+                        type="password"
+                        value="{{ old('password') }}"
+                    >
+                </p>
+                <p class="auth-form__text-input-group">
+                    <label class="auth-form__label" for="password_confirmation">
+                        {{ __('auth.confirm-new-password') }}
+                    </label>
+                    <input
+                        id="password_confirmation"
+                        class="auth-form__text-input"
+                        autocomplete="new-password"
+                        name="password_confirmation"
+                        required
+                        type="password"
+                        value="{{ old('password_confirmation') }}"
+                    >
+                </p>
+                @if (config('captcha.enabled'))
+                    @hiddencaptcha
+                @endif
+                <button class="auth-form__primary-button">{{ __('auth.password-reset') }}</button>
+                @if (Session::has('errors'))
+                    <ul class="auth-form__errors">
+                        @foreach ($errors->all() as $error)
+                            <li class="auth-form__error">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </form>
+        </section>
+    </main>
 </body>
-
 </html>

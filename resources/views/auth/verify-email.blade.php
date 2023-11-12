@@ -20,42 +20,44 @@
     <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
 </head>
 <body>
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <div class="fadeIn first">
-            <svg viewBox="0 0 400 140" class="sitebanner" style="width: 100%">
-                <symbol id="s-text">
-                    <text text-anchor="middle" x="50%" y="28%" dy=".6em">
-                        {{ config('other.title') }}
-                    </text>
-                </symbol>
-                <symbol id="s-text-sm">
-                    <text text-anchor="middle" x="50%" y="50%" dy="1.6em">
-                        {{ __('auth.verify-email') }}
-                    </text>
-                </symbol>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text" class="text"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-                <use xlink:href="#s-text-sm" class="text-sm"></use>
-            </svg>
-        </div>
-        <p>
-            Almost done...
-            <br>
-            We'll send you an email shortly. Open it up to activate your account.
-        </p>
-        <form  method="post" action="{{ route('verification.send') }}">
+<main>
+    <section class="auth-form">
+        <form class="auth-form__form" method="POST" action="{{ route('verification.send') }}">
             @csrf
-            <button type="submit" class="fadeIn fourth">{{ __('auth.verify-email-button') }}</button>
+            <a class="auth-form__branding" href="{{ route('home.index') }}">
+                <i class="fal fa-tv-retro"></i>
+                <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
+            </a>
+            <ul class="auth-form__important-infos">
+                <li class="auth-form__important-info">Almost done...</li>
+                <li class="auth-form__important-info">Click the button below and we'll email you shortly.</li>
+                <li class="auth-form__important-info">Open it up to activate your account.</li>
+                @if (Session::has('warning'))
+                    <li class="auth-form__important-info">Warning: {{ Session::get('warning') }}</li>
+                @endif
+                @if (Session::has('info'))
+                    <li class="auth-form__important-info">Info: {{ Session::get('info') }}</li>
+                @endif
+                @if (Session::has('success'))
+                    <li class="auth-form__important-info">Success: {{ Session::get('success') }}</li>
+                @endif
+            </ul>
+            @if (config('captcha.enabled'))
+                @hiddencaptcha
+            @endif
+            <button class="auth-form__primary-button">{{ __('auth.send-verification-email') }}</button>
+            @if (Session::has('errors') || Session::has('status'))
+                <ul class="auth-form__errors">
+                    @foreach ($errors->all() as $error)
+                        <li class="auth-form__error">{{ $error }}</li>
+                    @endforeach
+                    @if (session('status') == 'verification-link-sent')
+                        <li class="auth-form__error">{{ __('auth.email-verification-link') }}</li>
+                    @endif
+                </ul>
+            @endif
         </form>
-    </div>
-</div>
+    </section>
+</main>
 </body>
 </html>

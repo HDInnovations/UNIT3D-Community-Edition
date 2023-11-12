@@ -18,6 +18,7 @@ use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -968,5 +969,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFormattedSeedbonusAttribute(): string
     {
         return number_format($this->seedbonus, 0, null, "\u{202F}");
+    }
+
+    /**
+     * Make sure that password reset emails are sent after the user has sent a
+     * password reset request, that way an attacker can't use the timing to
+     * determine if an email was sent or not.
+     *
+     * @param       $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        dispatch(fn () => $this->notify(new ResetPassword($token)))->afterResponse();
     }
 }

@@ -12,6 +12,7 @@ use App\Services\Unit3dAnnounce;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rule;
@@ -20,6 +21,8 @@ use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\RegisterViewResponse;
 use Laravel\Fortify\Contracts\VerifyEmailResponse;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Responses\FailedPasswordResetLinkRequestResponse;
+use Laravel\Fortify\Http\Responses\SuccessfulPasswordResetLinkRequestResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -71,18 +74,6 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(RegisterViewResponse::class, new class () implements RegisterViewResponse {
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
-                // Make sure open reg is off, invite code is not present and application signups enabled
-                if (!$request->has('code') && config('other.invite-only') && config('other.application_signups')) {
-                    return to_route('application.create')
-                        ->withInfo(trans('auth.allow-invite-appl'));
-                }
-
-                // Make sure open reg is off and invite code is not present
-                if (!$request->has('code') && config('other.invite-only')) {
-                    return to_route('login')
-                        ->withWarning(trans('auth.allow-invite'));
-                }
-
                 return view('auth.register', ['code' => $request->query('code')]);
             }
         });
@@ -115,6 +106,8 @@ class FortifyServiceProvider extends ServiceProvider
                     ->withErrors(trans('auth.activation-error'));
             }
         });
+
+        $this->app->extend(FailedPasswordResetLinkRequestResponse::class, fn () => new SuccessfulPasswordResetLinkRequestResponse(Password::RESET_LINK_SENT));
     }
 
     /**
