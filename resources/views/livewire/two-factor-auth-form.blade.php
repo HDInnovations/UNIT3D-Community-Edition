@@ -31,7 +31,7 @@
                     </p>
                 </div>
 
-                <div>
+                <div class="twoStep__qrCode">
                     {!! $this->user->twoFactorQrCodeSvg() !!}
                 </div>
 
