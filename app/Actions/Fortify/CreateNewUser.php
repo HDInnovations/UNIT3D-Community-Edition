@@ -61,7 +61,7 @@ class CreateNewUser implements CreatesNewUsers
         $invite = Invite::query()->where('code', '=', $input['code'])->first();
 
         if (config('other.invite-only') === true && ($invite === null || $invite->accepted_by !== null)) {
-            return to_route('registrationForm', ['code' => $input['code']])
+            return to_route('register', ['code' => $input['code']])
                 ->withErrors(trans('auth.invalid-key'));
         }
 
