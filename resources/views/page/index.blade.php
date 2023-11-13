@@ -10,7 +10,7 @@
 
 @section('content')
     <section class="panelV2">
-        <h2 class="panel__heading">Pages</h1>
+        <h2 class="panel__heading">Pages</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>

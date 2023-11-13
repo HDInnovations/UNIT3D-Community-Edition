@@ -46,7 +46,7 @@
                         type="text"
                         required
                     >
-                    <label class="form__label form__label--floating" for="name">
+                    <label class="form__label form__label--floating" for="code">
                         {{ __('common.code') }}
                     </label>
                 </p>
@@ -57,5 +57,5 @@
                 </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

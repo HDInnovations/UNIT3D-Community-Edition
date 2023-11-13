@@ -55,7 +55,7 @@
             @if ($mediaInfo !== null)
                 @isset($mediaInfo['video'])
                     <section class="mediainfo__video">
-                        <h3>Video</h4>
+                        <h3>Video</h3>
                         @foreach ($mediaInfo['video'] as $key => $videoElement)
                             <article>
                                 <h4>#{{ ++$key }}</h4>

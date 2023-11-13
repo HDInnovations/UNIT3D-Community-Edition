@@ -55,7 +55,7 @@
                         required
                         type="text"
                     >
-                    <label class="form__label form__label--floating" for="name">
+                    <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
                 </p>

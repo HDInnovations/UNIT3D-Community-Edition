@@ -38,7 +38,7 @@
                             required
                             type="text"
                         />
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="tmdb">
                             TMDB ID
                         </label>
                     </div>

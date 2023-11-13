@@ -180,7 +180,7 @@
                                         name="deny"
                                         required
                                     >Insufficient Proofs.</textarea>
-                                    <label class="form__label form__label--floating for="message">Rejection Message</label>
+                                    <label class="form__label form__label--floating" for="message">Rejection Message</label>
                                 </p>
                                 <p class="form__group">
                                     <button class="form__button form__button--filled">
@@ -193,7 +193,6 @@
                             </form>
                         </dialog>
                     </div>
-                </div>
             </div>
         @endif
     </section>
