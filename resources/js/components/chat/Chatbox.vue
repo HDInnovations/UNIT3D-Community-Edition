@@ -1071,10 +1071,14 @@ export default {
 
       if (container === null) return;
 
-      if (this.forced != false && force != true && this.frozen) return;
+      if (!this.forced && !force && this.frozen) return;
 
       if (this.scroll || force) {
-        container.animate({ scrollTop: container.scrollHeight }, 0);
+        container.animate({
+          scrollTop: container.scrollHeight
+        }, {
+          duration: 0
+        });
       }
 
       container.scroll({
