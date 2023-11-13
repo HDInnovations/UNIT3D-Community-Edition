@@ -117,27 +117,32 @@
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">Top 10 Failed Logins By IP</h2>
-        <div class="panel__body">
+        <div class="data-table-wrapper">
             <table class="data-table">
-                <head>
+                <thead>
                     <tr>
                         <td>{{ __('common.ip') }}</td>
                         <td>Count</td>
                         <td>Most recent</td>
                     </tr>
-                </head>
+                </thead>
                 <tbody>
                     @forelse ($failedLoginsTop10Ip as $failedLogin)
                         <tr>
                             <td>{{ $failedLogin->ip_address }}</td>
                             <td>{{ $failedLogin->login_attempts }}</td>
                             <td>
-                                <time datetime="{{ $failedLogin->latest_created_at }}">{{ $failedLogin->latest_created_at }}</time>
+                                <time
+                                    datetime="{{ $failedLogin->latest_created_at }}"
+                                    title="{{ $failedLogin->latest_created_at }}"
+                                >
+                                    {{ $failedLogin->latest_created_at }}
+                                </time>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7">No IPs with more than 5 failed logins</td>
+                            <td colspan="3">No IPs with more than 5 failed logins</td>
                         </tr>
                     @endforelse
                 </tbody>
