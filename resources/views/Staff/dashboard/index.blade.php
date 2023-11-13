@@ -270,6 +270,12 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.passkeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('staff.passkeys') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.watchlist.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                         Watchlist

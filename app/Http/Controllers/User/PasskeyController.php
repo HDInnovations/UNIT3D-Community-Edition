@@ -14,6 +14,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Passkey;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
@@ -32,9 +33,15 @@ class PasskeyController extends Controller
 
         abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
 
+        cache()->forget('user:'.$user->passkey);
+
+        $user->passkeys()->latest()->first()?->update(['deleted_at' => now()]);
+
         $user->update([
             'passkey' => md5(random_bytes(60).$user->password)
         ]);
+
+        $user->passkeys()->create(['content' => $user->passkey]);
 
         if ($changedByStaff) {
             PrivateMessage::create([
@@ -45,12 +52,10 @@ class PasskeyController extends Controller
             ]);
         }
 
-        cache()->forget('user:'.$user->passkey);
-
         Unit3dAnnounce::removeUser($user);
         Unit3dAnnounce::addUser($user);
 
-        return to_route('users.passkey.edit', ['user' => $user])
+        return to_route('users.passkeys.index', ['user' => $user])
             ->withSuccess('Your passkey was changed successfully.');
     }
 
@@ -61,6 +66,9 @@ class PasskeyController extends Controller
     {
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        return view('user.passkey.edit', ['user' => $user]);
+        return view('user.passkey.index', [
+            'user'     => $user,
+            'passkeys' => $user->passkeys()->latest()->get(),
+        ]);
     }
 }
