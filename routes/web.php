@@ -514,8 +514,8 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Passkey
-        Route::prefix('passkey')->name('passkey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('edit');
+        Route::prefix('passkeys')->name('passkeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\PasskeyController::class, 'update'])->name('update');
         });
 
@@ -863,6 +863,13 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{page}/edit', [App\Http\Controllers\Staff\PageController::class, 'edit'])->name('edit');
                 Route::patch('/{page}', [App\Http\Controllers\Staff\PageController::class, 'update'])->name('update');
                 Route::delete('/{page}', [App\Http\Controllers\Staff\PageController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Passkeys
+        Route::prefix('passkeys')->group(function (): void {
+            Route::name('passkeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PasskeyController::class, 'index'])->name('index');
             });
         });
 

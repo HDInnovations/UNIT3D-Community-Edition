@@ -766,6 +766,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has many passkeys.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey>
+     */
+    public function passkeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Passkey::class);
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool

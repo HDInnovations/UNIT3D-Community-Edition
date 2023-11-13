@@ -49,6 +49,7 @@ return [
     'notes'                    => 'Notes',
     'page'                     => 'Page',
     'pages'                    => 'Pages',
+    'passkeys'                 => 'Passkeys',
     'please-moderate'          => 'Please Moderate This Torrent!',
     'polls'                    => 'Polls',
     'reports-log'              => 'Reports Log',

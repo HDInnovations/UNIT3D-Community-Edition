@@ -98,10 +98,10 @@
                     {{ __('common.password') }}
                 </a>
             </li>
-            <li class="{{ Route::is('users.passkey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.passkeys.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.passkey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.passkey.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.passkeys.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.passkeys.index', ['user' => $user]) }}"
                 >
                     Passkey
                 </a>
