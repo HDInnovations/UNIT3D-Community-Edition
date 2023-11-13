@@ -100,8 +100,8 @@
             }, 100)
           },
           padNum: function (num) {
-            var zero = ''
-            for (var i = 0; i < 2; i++) {
+            let zero = ''
+            for (let i = 0; i < 2; i++) {
               zero += '0'
             }
             return (zero + num).slice(-2)
@@ -181,7 +181,7 @@
     window.scrollTo({
       top: 15,
       left: 15,
-      behaviour: 'smooth'
+      behavior: 'smooth'
     })
   })
 </script>

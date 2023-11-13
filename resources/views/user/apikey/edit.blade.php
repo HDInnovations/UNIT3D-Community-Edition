@@ -53,7 +53,7 @@
                             type="text"
                             value="{{ $user->api_token }}"
                         >
-                        <label class="form__label form__label--floating" for="current_passkey">Current API Key</label>
+                        <label class="form__label form__label--floating" for="current_apikey">Current API Key</label>
                     </p>
                     <p class="form__group">
                         <button class="form__button form__button--filled">

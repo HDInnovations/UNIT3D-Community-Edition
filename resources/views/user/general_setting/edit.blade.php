@@ -123,7 +123,7 @@
                 <fieldset class="form form__fieldset">
                     <legend class="form__legend">Torrent</legend>
                     <p class="form__group">
-                        <select id="show_poster" class="form__select" name="torrent_layout" required>
+                        <select id="torrent_layout" class="form__select" name="torrent_layout" required>
                             <option class="form__option" value="0" @selected($user->torrent_layout === 0)>Torrent list</option>
                             <option class="form__option" value="1" @selected($user->torrent_layout === 1)>Torrent cards</option>
                             <option class="form__option" value="2" @selected($user->torrent_layout === 2)>Torrent groupings</option>

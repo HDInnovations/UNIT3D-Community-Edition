@@ -7,39 +7,39 @@
             <form class="form">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="torrent" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Torrent Name</label>
+                        <input id="torrent" wire:model="torrent" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="torrent">Torrent Name</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="user" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Username</label>
+                        <input id="user" wire:model="user" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="user">Username</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="agent" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Agent</label>
+                        <input id="agent" wire:model="agent" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="seeder" class="form__select" placeholder=" ">
+                        <select id="seeder" wire:model="seeder" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="include">Completed</option>
                             <option value="exclude">Incomplete</option>
                         </select>
-                        <label class="form__label form__label--floating">Completed</label>
+                        <label class="form__label form__label--floating" for="seeder">Completed</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="active" class="form__select" placeholder=" ">
+                        <select id="active" wire:model="active" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="exclude">Inactive</option>
                             <option value="include">Active</option>
                         </select>
-                        <label class="form__label form__label--floating">Active</label>
+                        <label class="form__label form__label--floating" for="active">Active</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="groupBy" class="form__select" placeholder=" ">
+                        <select id="groupBy" wire:model="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_id">User</option>
                         </select>
-                        <label class="form__label form__label--floating">Group By</label>
+                        <label class="form__label form__label--floating" for="groupBy">Group By</label>
                     </p>
                 </div>
             </form>

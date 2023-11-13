@@ -56,7 +56,7 @@
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="quantity">
                         {{ __('common.quantity') }}
                     </label>
                 </div>

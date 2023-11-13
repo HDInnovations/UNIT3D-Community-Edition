@@ -72,13 +72,13 @@
                             wire:model="code"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="code">
                             {{ __('common.code') }}
                         </label>
                     </div>
                     <div class="form__group">
                         <input
-                            id="code"
+                            id="custom"
                             class="form__text"
                             type="text"
                             wire:model="custom"
@@ -99,7 +99,7 @@
                             <option>50</option>
                             <option>100</option>
                         </select>
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="quantity">
                             {{ __('common.quantity') }}
                         </label>
                     </div>

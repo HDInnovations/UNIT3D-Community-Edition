@@ -112,6 +112,7 @@
                 </div>
                 <div class="form__group">
                     <input
+                        id="tip"
                         class="form__text"
                         list="torrent_quick_tips"
                         name="tip"
@@ -120,7 +121,7 @@
                         pattern="[0-9]*"
                         inputmode="numeric"
                     >
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="tip">
                         {{ __('torrent.define-tip-amount') }}
                     </label>
                     <datalist id="torrent_quick_tips">
@@ -381,7 +382,7 @@
                             {{ $history === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
-                        <span class="badge-user text-bold text-pink" style="background-image:url(/img/sparkels.gif);">
+                        <span class="badge-user text-bold text-pink" style="background-image:url({{ url('/img/sparkels.gif') }};">
                             {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }} Token(s)!
                         </span>
                     </p>
@@ -420,7 +421,7 @@
                         name="message"
                         required
                     ></textarea>
-                    <label for="report_reason" class="form__label form__label--floating">
+                    <label for="report_reason" class="form__label form__label--floating" for="message">
                         {{ __('common.reason') }}
                     </label>
                 </p>
