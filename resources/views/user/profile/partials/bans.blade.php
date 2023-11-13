@@ -118,8 +118,16 @@
                         </td>
                         <td>{{ $ban->ban_reason }}</td>
                         <td>{{ $ban->unban_reason }}</td>
-                        <td>{{ $ban->created_at }}</td>
-                        <td>{{ $ban->removed_at }}</td>
+                        <td>
+                            <time datetime="{{ $ban->created_at }}" title="{{ $ban->created_at }}">
+                                {{ $ban->created_at }}
+                            </time>
+                        </td>
+                        <td>
+                            <time datetime="{{ $ban->removed_at }}" title="{{ $ban->removed_at }}">
+                                {{ $ban->removed_at }}
+                            </time>
+                        </td>
                     </tr>
                 @empty
                     <tr>

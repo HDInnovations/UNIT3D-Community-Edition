@@ -101,7 +101,7 @@
                         <td>{{ $gift->cost }}</td>
                         <td>{{ $gift->comment }}</td>
                         <td>
-                            <time datetime="{{ $gift->created_at }}">
+                            <time datetime="{{ $gift->created_at }}" title="{{ $gift->created_at }}">
                                 {{ $gift->created_at }}
                             </time>
                         </td>

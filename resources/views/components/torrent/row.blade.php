@@ -184,6 +184,8 @@
         </a>
     </td>
     <td class="torrent-search--list__age">
-        <span>{{ $torrent->created_at->diffForHumans() }}</span>
+        <time datetime="{{ $torrent->created_at }}" title="{{ $torrent->created_at }}">
+            {{ $torrent->created_at->diffForHumans() }}
+        </time>
     </td>
 </tr>

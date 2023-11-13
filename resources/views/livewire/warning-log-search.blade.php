@@ -140,12 +140,12 @@
                 </td>
                 <td>{{ $warning->reason }}</td>
                 <td>
-                    <time datetime="{{ $warning->created_at }}">
+                    <time datetime="{{ $warning->created_at }}" title="{{ $warning->created_at }}">
                         {{ $warning->created_at }}
                     </time>
                 </td>
                 <td>
-                    <time datetime="{{ $warning->expires_on }}">
+                    <time datetime="{{ $warning->expires_on }}" title="{{ $warning->expires_on }}">
                         {{ $warning->expires_on }}
                     </time>
                 </td>

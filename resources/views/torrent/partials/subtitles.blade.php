@@ -37,7 +37,11 @@
                         <td>{{ $subtitle->extension }}</td>
                         <td>{{ $subtitle->getSize() }}</td>
                         <td>{{ $subtitle->downloads }}</td>
-                        <td>{{ $subtitle->created_at->diffForHumans() }}</td>
+                        <td>
+                            <time datetime="{{ $subtitle->created_at }}" title="{{ $subtitle->created_at }}">
+                                {{ $subtitle->created_at->diffForHumans() }}
+                            </time>
+                        </td>
                         <td>
                             <x-user_tag :user="$subtitle->user" :anon="$subtitle->anon" />
                         </td>

@@ -56,7 +56,11 @@
             </dd>
             @if (!empty($ticket->closed_at))
                 <dt>{{ __('ticket.closed') }}</dt>
-                <dd>{{ $ticket->closed_at->format('m/d/Y') }}</dd>
+                <dd>
+                    <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
+                        {{ $ticket->closed_at->format('m/d/Y') }}
+                    </time>
+                </dd>
             @endif
         </dl>
     </section>
