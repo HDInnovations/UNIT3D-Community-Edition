@@ -29,10 +29,14 @@
                                 </a>
                             </td>
                             <td>
-                                {{ $page->created_at }}
+                                <time datetime="{{ $page->created_at }}" title="{{ $page->created_at }}">
+                                    {{ $page->created_at }}
+                                </time>
                             </td>
                             <td>
-                                {{ $page->updated_at }}
+                                <time datetime="{{ $page->updated_at }}" title="{{ $page->updated_at }}">
+                                    {{ $page->updated_at }}
+                                </time>
                             </td>
                         </tr>
                     @endforeach

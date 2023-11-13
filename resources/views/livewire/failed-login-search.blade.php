@@ -100,7 +100,9 @@
                     <td>{{ $failedLogin->user_id ?? 'Not Found' }}</td>
                     <td>{{ $failedLogin->ip_address }}</td>
                     <td>
-                        <time datetime="{{ $failedLogin->created_at }}">{{ $failedLogin->created_at }}</time>
+                        <time datetime="{{ $failedLogin->created_at }}" title="{{ $failedLogin->created_at }}">
+                            {{ $failedLogin->created_at }}
+                        </time>
                     </td>
                 </tr>
             @empty

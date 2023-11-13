@@ -214,14 +214,26 @@
                             {{ $active->progress < 100 ? \floor($active->progress * 10000) / 100 : INF }}%
                         </td>
                         @if ($showMorePrecision)
-                            <td class="user-active__created-at">{{ $active->created_at ?? 'N/A' }}</td>
-                            <td class="user-active__updated-at">{{ $active->updated_at ?? 'N/A' }}</td>
-                        @else
                             <td class="user-active__created-at">
-                                {{ isset($active->created_at) ? \explode(" ", $active->created_at)[0] : 'N/A' }}
+                                <time datetime="{{ $active->created_at }}" title="{{ $active->created_at }}">
+                                    {{ $active->created_at ?? 'N/A' }}
+                                </time>
                             </td>
                             <td class="user-active__updated-at">
-                                {{ isset($active->updated_at) ? \explode(" ", $active->updated_at)[0] : 'N/A' }}
+                                <time datetime="{{ $active->updated_at }}" title="{{ $active->updated_at }}">
+                                    {{ $active->updated_at ?? 'N/A' }}
+                                </time>
+                            </td>
+                        @else
+                            <td class="user-active__created-at">
+                                <time datetime="{{ $active->created_at }}" title="{{ $active->created_at }}">
+                                    {{ isset($active->created_at) ? \explode(" ", $active->created_at)[0] : 'N/A' }}
+                                </time>
+                            </td>
+                            <td class="user-active__updated-at">
+                                <time datetime="{{ $active->updated_at }}" title="{{ $active->updated_at }}">
+                                    {{ isset($active->updated_at) ? \explode(" ", $active->updated_at)[0] : 'N/A' }}
+                                </time>
                             </td>
                         @endif
                     </tr>

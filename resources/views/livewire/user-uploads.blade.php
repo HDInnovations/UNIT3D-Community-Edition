@@ -163,7 +163,7 @@
                             {{ $torrent->thanks_count ?? 0 }}
                         </td>
                         <td class="user-uploads__created-at">
-                            <time datetime="{{ $torrent->created_at }}">
+                            <time datetime="{{ $torrent->created_at }}" title="{{ $torrent->created_at }}">
                                 @if ($showMorePrecision)
                                     {{ $torrent->created_at ?? 'N/A' }}
                                 @else

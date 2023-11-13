@@ -67,7 +67,9 @@
                     </td>
                     <td>{{ $watching->message }}</td>
                     <td>
-                        <time datetime="{{ $watching->created_at }}">{{ $watching->created_at }}</time>
+                        <time datetime="{{ $watching->created_at }}" title="{{ $watching->created_at }}">
+                            {{ $watching->created_at }}
+                        </time>
                     </td>
                     <td>
                         <menu class="data-table__actions">

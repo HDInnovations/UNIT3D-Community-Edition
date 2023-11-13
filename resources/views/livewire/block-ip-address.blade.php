@@ -96,10 +96,14 @@
                     <td>{{ $ipAddress->ip_address }}</td>
                     <td>{{ $ipAddress->reason }}</td>
                     <td>
-                        <time datetime="{{ $ipAddress->created_at }}">{{ $ipAddress->created_at }}</time>
+                        <time datetime="{{ $ipAddress->created_at }}" title="{{ $ipAddresses->created_at }}">
+                            {{ $ipAddress->created_at }}
+                        </time>
                     </td>
                     <td>
-                        <time datetime="{{ $ipAddress->expires_at ?? 'Never' }}">{{ $ipAddress->expires_at ?? 'Never'}}</time>
+                        <time datetime="{{ $ipAddress->expires_at ?? 'Never' }}" title="{{ $ipAddress->expires_at }}">
+                            {{ $ipAddress->expires_at ?? 'Never'}}
+                        </time>
                     </td>
                 </tr>
             @empty
