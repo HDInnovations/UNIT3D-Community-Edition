@@ -96,7 +96,7 @@
                     <td>{{ $ipAddress->ip_address }}</td>
                     <td>{{ $ipAddress->reason }}</td>
                     <td>
-                        <time datetime="{{ $ipAddress->created_at }}" title="{{ $ipAddresses->created_at }}">
+                        <time datetime="{{ $ipAddress->created_at }}" title="{{ $ipAddress->created_at }}">
                             {{ $ipAddress->created_at }}
                         </time>
                     </td>
