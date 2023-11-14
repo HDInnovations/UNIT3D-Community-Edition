@@ -19,6 +19,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PasskeyController extends Controller
 {
@@ -35,22 +36,24 @@ class PasskeyController extends Controller
 
         cache()->forget('user:'.$user->passkey);
 
-        $user->passkeys()->latest()->first()?->update(['deleted_at' => now()]);
+        DB::transaction(static function () use ($user, $changedByStaff): void {
+            $user->passkeys()->latest()->first()?->update(['deleted_at' => now()]);
 
-        $user->update([
-            'passkey' => md5(random_bytes(60).$user->password)
-        ]);
-
-        $user->passkeys()->create(['content' => $user->passkey]);
-
-        if ($changedByStaff) {
-            PrivateMessage::create([
-                'sender_id'   => 1,
-                'receiver_id' => $user->id,
-                'subject'     => 'ATTENTION - Your passkey has been reset',
-                'message'     => "Your passkey has been reset by staff. You will need to update your passkey in all your torrent clients to continue seeding.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+            $user->update([
+                'passkey' => md5(random_bytes(60).$user->password)
             ]);
-        }
+
+            $user->passkeys()->create(['content' => $user->passkey]);
+
+            if ($changedByStaff) {
+                PrivateMessage::create([
+                    'sender_id'   => 1,
+                    'receiver_id' => $user->id,
+                    'subject'     => 'ATTENTION - Your passkey has been reset',
+                    'message'     => "Your passkey has been reset by staff. You will need to update your passkey in all your torrent clients to continue seeding.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+                ]);
+            }
+        });
 
         Unit3dAnnounce::removeUser($user);
         Unit3dAnnounce::addUser($user);
