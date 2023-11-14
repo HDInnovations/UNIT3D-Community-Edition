@@ -131,7 +131,7 @@
                     <tr>
                         <td>{{ __('torrent.team-player') }} {{ __('torrent.seeder') }}</td>
                         <td>{{ __('torrent.seed-time') }} &ge; 2 {{ strtolower(__('common.months')) }} {{ strtolower(__('common.but')) }} < 3 {{ strtolower(__('common.months')) }}</td>
-                        <td>0.50 &times; {{ $teamplayer }}</strong></td>
+                        <td>0.50 &times; {{ $teamplayer }}</td>
                         <td>{{ $teamplayer * 0.5 }}</td>
                         <td x-cloak x-show="extendStats">{{ $teamplayer * 0.5 * 24 }}</td>
                         <td x-cloak x-show="extendStats">{{ $teamplayer * 0.5 * 24 * 7 }}</td>
