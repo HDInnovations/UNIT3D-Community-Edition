@@ -26,7 +26,7 @@
         @endif
     </li>
     @if ($fileExists)
-        @if ($torrent->free !== 100 && config('other.freeleech') == false && ! $personal_freeleech && $user->group->is_freeleech == 0 && ! $freeleech_token)
+        @if ($torrent->free !== 100 && config('other.freeleech') == false && ! $personal_freeleech && $user->group->is_freeleech == 0 && ! $torrent->freeleechToken_exists)
             <li class="form__group form__group--short-horizontal">
                 <form
                     action="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
