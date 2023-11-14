@@ -675,6 +675,8 @@
                                 <x-tv.card :media="$group" :personalFreeleech="$personalFreeleech" />
                                 @break
                         @endswitch
+                    @empty
+                        {{ __('common.no-result') }}
                     @endforelse
                 </div>
                 @break
@@ -704,6 +706,8 @@
                                 <x-tv.poster :categoryId="$group->category_id" :tv="$group->tv" :tmdb="$group->tmdb" />
                                 @break
                         @endswitch
+                    @empty
+                        {{ __('common.no-result') }}
                     @endforelse
                 </div>
                 @break
