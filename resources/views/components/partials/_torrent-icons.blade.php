@@ -44,7 +44,7 @@
         ></i>
     @endif
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleechTokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
     @endphp
     @if ($alwaysFreeleech || $torrent->free)
         <i
@@ -57,7 +57,7 @@
             title="{{
                 implode("\n", array_keys([
                     __('torrent.personal-freeleech') => $personalFreeleech,
-                    __('torrent.freeleech-token')    => $torrent->freeleechTokens_exists,
+                    __('torrent.freeleech-token')    => $torrent->freeleech_tokens_exists,
                     __('torrent.special-freeleech')  => auth()->user()->group->is_freeleech,
                     __('torrent.global-freeleech')   => config('other.freeleech'),
                     $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
