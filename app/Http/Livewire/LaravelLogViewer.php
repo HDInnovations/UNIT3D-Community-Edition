@@ -96,7 +96,7 @@ class LaravelLogViewer extends Component
         return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);
     }
 
-    final public function clearLatestLog()
+    final public function clearLatestLog(): void
     {
         $latestLogFile = $this->logFiles->first();
 
