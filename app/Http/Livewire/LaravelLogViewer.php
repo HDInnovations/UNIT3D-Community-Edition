@@ -105,7 +105,7 @@ class LaravelLogViewer extends Component
         }
     }
 
-    final public function deleteAllLogs()
+    final public function deleteAllLogs(): void
     {
         $directory = storage_path('logs');
         $files = File::allFiles($directory);
