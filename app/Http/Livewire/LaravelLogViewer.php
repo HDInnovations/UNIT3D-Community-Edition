@@ -55,7 +55,7 @@ class LaravelLogViewer extends Component
         $logString = '';
 
         foreach ($this->logs as $log) {
-            if (isset($files[$log])) {
+            if ($files[$log] ?? []) {
                 $logString .= file_get_contents($files[$log]->getPathname());
             }
         }
