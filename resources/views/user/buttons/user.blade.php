@@ -106,12 +106,12 @@
                     Passkey
                 </a>
             </li>
-            <li class="{{ Route::is('users.rsskey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.rsskeys.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.rsskey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.rsskey.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.rsskeys.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.rsskeys.index', ['user' => $user]) }}"
                 >
-                    RSS Key
+                    {{ __('user.rsskey') }}
                 </a>
             </li>
             <li class="{{ Route::is('users.apikey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">

@@ -82,6 +82,8 @@ class CreateNewUser implements CreatesNewUsers
 
         $user->passkeys()->create(['content' => $user->passkey]);
 
+        $user->rsskeys()->create(['content' => $user->rsskey]);
+
         if ($invite !== null) {
             $invite->update([
                 'accepted_by' => $user->id,
