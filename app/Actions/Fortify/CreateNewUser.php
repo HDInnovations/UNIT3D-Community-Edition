@@ -4,7 +4,6 @@ namespace App\Actions\Fortify;
 
 use App\Models\Group;
 use App\Models\Invite;
-use App\Models\Passkey;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Repositories\ChatRepository;
