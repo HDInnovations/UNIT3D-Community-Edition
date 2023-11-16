@@ -113,7 +113,10 @@ class Comment extends Component
 
     final public function postReply(): void
     {
-        if (auth()->user()->can_comment === false) {
+        // Set Polymorphic Model Name
+        $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
+
+        if ($modelName !== 'ticket' && auth()->user()->can_comment === false) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;
@@ -132,9 +135,6 @@ class Comment extends Component
         $reply->commentable()->associate($this->comment->commentable);
         $reply->anon = $this->anon;
         $reply->save();
-
-        // Set Polymorphic Model Name
-        $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
         // New Comment Notification
         switch ($modelName) {
