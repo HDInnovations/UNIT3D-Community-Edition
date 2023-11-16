@@ -130,4 +130,49 @@
         </div>
     </section>
     @livewire('attachment-upload', ['id' => $ticket->id])
+    @if ($pastUserTickets->count() > 0)
+        <section class="panelV2">
+            <h2 class="panel__heading">Other Tickets</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>{{ __('common.name') }}</th>
+                            <th>{{ __('ticket.created') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pastUserTickets as $ticket)
+                            <tr>
+                                <td>
+                                    @switch($ticket->priority->name)
+                                        @case ('Low')
+                                            <i class="fas fa-circle text-yellow"></i>
+                                            @break
+                                        @case ('Medium')
+                                            <i class="fas fa-circle text-orange"></i>
+                                            @break
+                                        @case ('High')
+                                            <i class="fas fa-circle text-red"></i>
+                                            @break
+                                    @endswitch
+                                    <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
+                                        {{ $ticket->subject }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <time
+                                        title="{{ $ticket->created_at }}"
+                                        datetime="{{ $ticket->created_at }}"
+                                    >
+                                        {{ $ticket->created_at->format('Y-m') }}
+                                    </time>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    @endif
 @endsection
