@@ -63,7 +63,7 @@ test('update aborts with a 403', function (): void {
         'group_id' => UserGroups::USER->value,
     ]);
 
-    $response = $this->actingAs($authUser)->patch(route('users.apikey.update', [$user]));
+    $response = $this->actingAs($authUser)->patch(route('users.apikeys.update', [$user]));
 
     $response->assertForbidden();
 });

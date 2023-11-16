@@ -526,8 +526,8 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Apikey
-        Route::prefix('apikey')->name('apikey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\ApikeyController::class, 'edit'])->name('edit');
+        Route::prefix('apikeys')->name('apikeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\ApikeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
         });
 
@@ -583,6 +583,13 @@ Route::middleware('language')->group(function (): void {
         // Staff Dashboard
         Route::name('dashboard.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
+        });
+
+        // Apikeys
+        Route::prefix('apikeys')->group(function (): void {
+            Route::name('apikeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\ApikeyController::class, 'index'])->name('index');
+            });
         });
 
         // Articles System
