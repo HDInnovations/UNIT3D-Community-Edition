@@ -81,6 +81,7 @@
                                         <time
                                             class="quick-search__result-year"
                                             datetime="{{ $search_result->release_date }}"
+                                            title="{{ $search_result->release_date }}"
                                         >
                                             {{ substr($search_result->release_date, 0, 4) }}
                                         </time>
@@ -102,6 +103,7 @@
                                         <time
                                             class="quick-search__result-year"
                                             datetime="{{ $search_result->first_air_date }}"
+                                            title="{{ $search_result->first_air_date }}"
                                         >
                                             {{ substr($search_result->first_air_date, 0, 4) }}
                                         </time>

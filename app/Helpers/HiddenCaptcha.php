@@ -52,12 +52,12 @@ class HiddenCaptcha
         $formData = $validator->getData();
 
         // Check post values
-        if (! isset($formData['_captcha']) || ! ($token = self::getToken($formData['_captcha']))) {
+        if (!isset($formData['_captcha']) || !($token = self::getToken($formData['_captcha']))) {
             return false;
         }
 
         // Hidden "must be empty" field check
-        if (! \array_key_exists($token['must_be_empty'], $formData) || ! empty($formData[$token['must_be_empty']])) {
+        if (!\array_key_exists($token['must_be_empty'], $formData) || !empty($formData[$token['must_be_empty']])) {
             return false;
         }
 
@@ -94,7 +94,7 @@ class HiddenCaptcha
         $token = @unserialize($token);
 
         // Token is null or unserializable
-        if (! $token || ! \is_array($token)) {
+        if (!$token || !\is_array($token)) {
             return false;
         }
 

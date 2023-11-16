@@ -98,10 +98,10 @@
                     {{ __('common.password') }}
                 </a>
             </li>
-            <li class="{{ Route::is('users.passkey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.passkeys.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.passkey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.passkey.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.passkeys.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.passkeys.index', ['user' => $user]) }}"
                 >
                     Passkey
                 </a>
@@ -122,16 +122,14 @@
                     API Key
                 </a>
             </li>
-            @if (config('auth.TwoStepEnabled') == true)
-                <li class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                    <a
-                        class="{{ Route::is('users.two_step.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.two_step.edit', ['user' => $user]) }}"
-                    >
-                        Two-Step Authentication
-                    </a>
-                </li>
-            @endif
+            <li class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.two_factor_auth.edit', ['user' => $user]) }}"
+                >
+                    {{ __('user.two-step-auth.title') }}
+                </a>
+            </li>
             @if ($isProfileOwner)
                 <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a

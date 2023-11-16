@@ -149,7 +149,7 @@ export default {
       }
     },
     sendMessage() {
-      let msg = this.input.val().trim();
+      let msg = this.input.value = this.input.value.trim();
 
       if (msg !== null && msg !== '') {
         this.$emit('message-sent', {
@@ -160,7 +160,7 @@ export default {
           bot_id: this.bot_id,
         });
 
-        this.input.val('');
+        this.input.value = '';
       }
     },
   },
@@ -168,10 +168,10 @@ export default {
     this.user = this.$parent.auth;
   },
   mounted() {
-    this.editor = $('#chat-message').val();
-    this.input = $('#chat-message');
-    this.input.keyup(this.keyup);
-    this.input.keydown(this.keydown);
+    this.editor = document.getElementById('chat-message').value;
+    this.input = document.getElementById('chat-message');
+    this.input.addEventListener("keyup", this.keyup);
+    this.input.addEventListener("keydown", this.keydown);
   },
 };
 </script>

@@ -29,7 +29,7 @@ class RsskeyController extends Controller
 
         $changedByStaff = $request->user()->isNot($user);
 
-        abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
 
         $user->update([
             'rsskey' => md5(random_bytes(60).$user->password),

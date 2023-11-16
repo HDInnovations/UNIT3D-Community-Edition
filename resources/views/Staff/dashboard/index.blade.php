@@ -76,7 +76,7 @@
                         {{ __('staff.bots') }}
                     </a>
                 </p>
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.chat') }}" x-data>
                         @csrf
                         <button
@@ -97,7 +97,7 @@
                             {{ __('staff.flush-chat') }}
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -142,6 +142,12 @@
                     <a class="form__button form__button--text" href="{{ route('staff.blacklisted_clients.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
                         {{ __('common.blacklist') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.blocked_ips.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-ban"></i>
+                        {{ __('staff.blocked-ips') }}
                     </a>
                 </p>
             </div>
@@ -218,7 +224,7 @@
                         Cheated Torrents
                     </a>
                 </p>
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
                         @csrf
                         <button
@@ -239,7 +245,7 @@
                             {{ __('staff.flush-ghost-peers') }}
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -256,11 +262,17 @@
                             <x-animation.notification />
                         @endif
                     </a>
-                </li>
+                </p>
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.passkeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('staff.passkeys') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -275,7 +287,7 @@
                         {{ __('staff.mass-pm') }}
                     </a>
                 </p>
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="GET" action="{{ route('staff.mass-actions.validate') }}" x-data>
                         @csrf
                         <button
@@ -296,7 +308,7 @@
                             {{ __('staff.mass-validate-users') }}
                         </button>
                     </form>
-                </p>
+                </div>
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.cheaters.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>

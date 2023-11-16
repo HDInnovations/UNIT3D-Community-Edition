@@ -26,7 +26,11 @@
     <header class="panel__header">
         <h1 class="panel__heading">{{ $article->title }}</h1>
         <div class="panel__actions">
-            <time class="panel__action page__published" datetime="{{ $article->created_at }}">
+            <time
+                class="panel__action page__published"
+                datetime="{{ $article->created_at }}"
+                title="{{ $article->created_at }}"
+            >
                 {{ $article->created_at->toDayDateTimeString() }}
             </time>
         </div>

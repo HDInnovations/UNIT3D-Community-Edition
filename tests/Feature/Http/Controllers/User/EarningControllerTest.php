@@ -42,11 +42,11 @@ test('index aborts with a 403', function (): void {
     $this->seed(GroupsTableSeeder::class);
 
     $user = User::factory()->create([
-        'group_id' => UserGroups::MODERATOR,
+        'group_id' => UserGroups::MODERATOR->value,
     ]);
 
     $authUser = User::factory()->create([
-        'group_id' => UserGroups::USER,
+        'group_id' => UserGroups::USER->value,
     ]);
 
     $response = $this->actingAs($authUser)->get(route('users.earnings.index', [$user]));

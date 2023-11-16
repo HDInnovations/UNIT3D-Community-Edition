@@ -76,7 +76,7 @@
         <h2 class="panel__heading">Disclaimer</h2>
         <div class="panel__body" style="text-align: center">
             {{ __('mediahub.disclaimer') }}
-            <img class="" src="/img/tmdb_long.svg" style="width: 200px;">
+            <img class="" src="{{ url('/img/tmdb_long.svg') }}" style="width: 200px;">
         </div>
     </section>
 @endsection

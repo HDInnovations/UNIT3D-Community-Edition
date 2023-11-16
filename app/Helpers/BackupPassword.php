@@ -36,7 +36,7 @@ class BackupPassword
         $this->password = config('backup.security.password');
 
         // If no password is set, just return the backup-path
-        if (! $this->password) {
+        if (!$this->password) {
             return;
         }
 

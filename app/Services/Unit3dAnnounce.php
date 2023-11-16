@@ -36,7 +36,7 @@ class Unit3dAnnounce
             'upload_factor'   => 100,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to add torrent.', ['id' => $torrent->id]);
         }
 
@@ -50,7 +50,7 @@ class Unit3dAnnounce
             'info_hash' => bin2hex($torrent->info_hash),
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to remove torrent', ['id' => $torrent->id]);
         }
 
@@ -86,7 +86,7 @@ class Unit3dAnnounce
             'upload_factor'   => $user->group->is_double_upload ? 200 : 100,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to add user', ['id' => $user->id]);
         }
 
@@ -100,7 +100,7 @@ class Unit3dAnnounce
             'passkey' => $user->passkey,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to remove user', ['id' => $user->id]);
         }
 
@@ -113,7 +113,7 @@ class Unit3dAnnounce
             'name' => $blacklistedAgent,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to add blacklisted agent.', ['name' => $blacklistedAgent]);
         }
 
@@ -126,7 +126,7 @@ class Unit3dAnnounce
             'name' => $blacklistedClient->name,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to remove blacklisted agent.', ['name' => $blacklistedClient->name]);
         }
 
@@ -140,7 +140,7 @@ class Unit3dAnnounce
             'torrent_id' => $torrent_id
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to add freeleech token.', ['user_id' => $user_id, 'torrent_id' => $torrent_id]);
         }
 
@@ -153,7 +153,7 @@ class Unit3dAnnounce
             'user_id' => $user_id,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to add personal freeleech.', ['user_id' => $user_id]);
         }
 
@@ -166,7 +166,7 @@ class Unit3dAnnounce
             'user_id' => $user_id,
         ]);
 
-        if (! $isSuccess) {
+        if (!$isSuccess) {
             Log::notice('TRACKER - Failed to remove personal freeleech.', ['user_id' => $user_id]);
         }
 
@@ -185,12 +185,12 @@ class Unit3dAnnounce
             $attemptsLeft = 3;
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path;
 
-            while (! $isSuccess && $attemptsLeft > 0) {
+            while (!$isSuccess && $attemptsLeft > 0) {
                 $response = Http::put($route, $data);
 
                 $isSuccess = $response->ok();
 
-                if (! $isSuccess) {
+                if (!$isSuccess) {
                     $attemptsLeft -= 1;
 
                     if ($attemptsLeft > 0) {
@@ -217,12 +217,12 @@ class Unit3dAnnounce
             $attemptsLeft = 3;
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path;
 
-            while (! $isSuccess && $attemptsLeft > 0) {
+            while (!$isSuccess && $attemptsLeft > 0) {
                 $response = Http::delete($route, $data);
 
                 $isSuccess = $response->ok();
 
-                if (! $isSuccess) {
+                if (!$isSuccess) {
                     $attemptsLeft -= 1;
 
                     if ($attemptsLeft > 0) {

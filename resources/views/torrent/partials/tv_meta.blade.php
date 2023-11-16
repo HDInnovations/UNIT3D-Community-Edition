@@ -173,6 +173,13 @@
                     </a>
                 </article>
             @endisset
+            <article class="meta__runtime">
+                <a class="meta-chip" href="#">
+                    <i class="{{ config('other.font-awesome') }} fa-clock meta-chip__icon"></i>
+                    <h2 class="meta-chip__name">Runtime</h2>
+                    <h3 class="meta-chip__value">{{ $meta->episode_run_time ?? 0 }} Minutes</h3>
+                </a>
+            </article>
             @if ($meta?->genres?->isNotEmpty())
                 <article class="meta__genres">
                     <a class="meta-chip" href="{{ route('torrents.index', ['view' => 'group', 'genres' => $meta->genres->pluck('id')->toArray()]) }}">

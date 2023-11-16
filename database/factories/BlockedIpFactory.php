@@ -13,15 +13,16 @@
 
 namespace Database\Factories;
 
+use App\Models\BlockedIp;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\TwoStepAuth;
 
-class TwoStepAuthFactory extends Factory
+class BlockedIpFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = TwoStepAuth::class;
+    protected $model = BlockedIp::class;
 
     /**
      * Define the model's default state.
@@ -29,18 +30,10 @@ class TwoStepAuthFactory extends Factory
     public function definition(): array
     {
         return [
-            'userId'   => $this->faker->randomNumber(),
-            'authCode' => sprintf(
-                '%s%s%s%s',
-                $this->faker->numberBetween(0, 9),
-                $this->faker->numberBetween(0, 9),
-                $this->faker->numberBetween(0, 9),
-                $this->faker->numberBetween(0, 9)
-            ),
-            'authCount'   => 0,
-            'authStatus'  => false,
-            'authDate'    => null,
-            'requestDate' => now(),
+            'ip_address' => $this->faker->ipv4(),
+            'reason'     => $this->faker->sentence(),
+            'user_id'    => User::factory(),
+            'expires_at' => $this->faker->dateTimeBetween('+1 day', '+1 week'),
         ];
     }
 }

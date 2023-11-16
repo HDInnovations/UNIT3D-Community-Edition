@@ -101,7 +101,7 @@ class TorrentController extends BaseController
 
         $requestFile = $request->file('torrent');
 
-        if (! $request->hasFile('torrent')) {
+        if (!$request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
 
@@ -120,7 +120,7 @@ class TorrentController extends BaseController
         }
 
         foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
-            if (! TorrentTools::isValidFilename($name)) {
+            if (!TorrentTools::isValidFilename($name)) {
                 return $this->sendError('Validation Error.', 'Invalid Filenames In Torrent Files!');
             }
         }

@@ -13,10 +13,10 @@ return new class () extends Migration {
         $allowedGroups = DB::table('groups')
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING)
-            ->where('id', '!=', UserGroups::PRUNED)
-            ->where('id', '!=', UserGroups::BANNED)
-            ->where('id', '!=', UserGroups::DISABLED)
+            ->where('id', '!=', UserGroups::VALIDATING->value)
+            ->where('id', '!=', UserGroups::PRUNED->value)
+            ->where('id', '!=', UserGroups::BANNED->value)
+            ->where('id', '!=', UserGroups::DISABLED->value)
             ->pluck('id')
             ->toArray();
 
@@ -44,7 +44,7 @@ return new class () extends Migration {
 
             if (\is_object($old) && \is_object($old->default_groups)) {
                 foreach ($old->default_groups as $groupId => $isAllowed) {
-                    if (! $isAllowed && \in_array($groupId, $allowedGroups)) {
+                    if (!$isAllowed && \in_array($groupId, $allowedGroups)) {
                         $new[] = (int) $groupId;
                     }
                 }

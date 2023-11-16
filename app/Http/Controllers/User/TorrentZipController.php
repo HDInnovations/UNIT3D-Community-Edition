@@ -38,7 +38,7 @@ class TorrentZipController extends Controller
         $zipPath = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (! File::isDirectory($zipPath)) {
+        if (!File::isDirectory($zipPath)) {
             File::makeDirectory($zipPath, 0755, true, true);
         }
 

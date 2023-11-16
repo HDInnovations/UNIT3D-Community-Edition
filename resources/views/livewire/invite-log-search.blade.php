@@ -72,13 +72,13 @@
                             wire:model="code"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="code">
                             {{ __('common.code') }}
                         </label>
                     </div>
                     <div class="form__group">
                         <input
-                            id="code"
+                            id="custom"
                             class="form__text"
                             type="text"
                             wire:model="custom"
@@ -99,7 +99,7 @@
                             <option>50</option>
                             <option>100</option>
                         </select>
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="quantity">
                             {{ __('common.quantity') }}
                         </label>
                     </div>
@@ -156,17 +156,17 @@
                                         <x-user_tag :anon="false" :user="$invite->sender" />
                                     </td>
                                     <td>
-                                        <time datetime="{{ $invite->created_at_min }}">
+                                        <time datetime="{{ $invite->created_at_min }}" title="{{ $invite->created_at_min }}">
                                             {{ $invite->created_at_min->format('Y-m-d') }}
                                         </time>
                                     </td>
                                     <td>
-                                        <time datetime="{{ $invite->created_at_avg }}">
+                                        <time datetime="{{ $invite->created_at_avg }}" title="{{ $invite->created_at_avg }}">
                                             {{ $invite->created_at_avg->format('Y-m-d') }}
                                         </time>
                                     </td>
                                     <td>
-                                        <time datetime="{{ $invite->created_at_max }}">
+                                        <time datetime="{{ $invite->created_at_max }}" title="{{ $invite->created_at_max }}">
                                             {{ $invite->created_at_max->format('Y-m-d') }}
                                         </time>
                                     </td>
@@ -244,12 +244,12 @@
                                     <td>{{ $invite->code }}</td>
                                     <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
                                     <td>
-                                        <time datetime="{{ $invite->created_at }}">
+                                        <time datetime="{{ $invite->created_at }}" title="{{ $invite->created_at }}">
                                             {{ $invite->created_at }}
                                         </time>
                                     </td>
                                     <td>
-                                        <time datetime="{{ $invite->expires_on }}">
+                                        <time datetime="{{ $invite->expires_on }}" title="{{ $invite->expires_on }}">
                                             {{ $invite->expires_on }}
                                         </time>
                                     </td>
@@ -261,12 +261,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <time datetime="{{ $invite->accepted_at ?? '' }}">
+                                        <time datetime="{{ $invite->accepted_at }}" title="{{ $invite->accepted_at }}">
                                             {{ $invite->accepted_at ?? 'N/A' }}
                                         </time>
                                     </td>
                                     <td>
-                                        <time datetime="{{ $invite->deleted_at ?? '' }}">
+                                        <time datetime="{{ $invite->deleted_at }}" title="{{ $invite->deleted_at }}">
                                             {{ $invite->deleted_at ?? 'N/A' }}
                                         </time>
                                     </td>

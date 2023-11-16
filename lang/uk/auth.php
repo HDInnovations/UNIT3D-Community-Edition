@@ -70,44 +70,4 @@ return [
     'veteran'               => 'Маєте досвід користування закритими торрент трекерами',
     'welcome'               => 'З Поверненням!',
     'welcome-restore'       => 'З Поверненням! Ваш Профіль Знову Активний!',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Потрібна перевірка',
-    'title'       => '2-етапна перевірка',
-    'titleFailed' => 'Помилка перевірки',
-    'titlePassed' => 'Все пройшло успішно!',
-
-    'inputAlt1' => 'Code Input 1',
-    'inputAlt2' => 'Code Input 2',
-    'inputAlt3' => 'Code Input 3',
-    'inputAlt4' => 'Code Input 4',
-
-    'attemptsRemaining' => 'Спроба Залишилась|Спроб Залишилось',
-    'missingCode'       => 'Не отримали код перевірки?',
-    'verifyButton'      => 'Перевірити',
-
-    'exceededTitle' => 'Перевищено кількість спроб перевірки',
-    'lockedUntil'   => 'Профіль заблоковано до:',
-    'returnButton'  => 'Повернутись на Головну',
-    'tryAgainIn'    => 'Спробуйте знову через',
-
-    'verificationEmailButton'   => 'Перевірити Зараз',
-    'verificationEmailGreeting' => 'Привіт :username',
-    'verificationEmailMessage'  => 'Двоетапний код перевірки вашого профілю:',
-    'verificationEmailSubject'  => 'Потрібна Перевірка',
-
-    'verificationEmailSentMsg' => 'Електронний лист для перевірки надіслано!',
-    'verificationEmailSuccess' => 'Успіх!',
-
-    'verificationWarningMessage' => 'Це ваша остання спроба, перш ніж ваш профіль буде заблоковано на :hours годин.',
-    'verificationWarningTitle'   => 'Попередження!',
-
-    'verificationLockedMessage' => 'Профіль заблоковано!',
-    'verificationLockedTitle'   => 'Упс!',
-
-    'verificationModalConfBtn' => 'Ok',
 ];

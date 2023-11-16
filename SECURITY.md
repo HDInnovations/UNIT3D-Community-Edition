@@ -4,7 +4,8 @@
 
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 6.x.x       |  Active Support :rocket: | >= 8.1
+ 7.x.x       |  Active Support :rocket: | >= 8.2 
+ 6.x.x       |  End Of Life :skull: | >= 8.1
  5.x.x       |  End Of Life :skull: | >= 8.0
  4.x.x       |  End Of Life :skull: | >= 7.4
  3.x.x       |  End Of Life :skull: | >= 7.4

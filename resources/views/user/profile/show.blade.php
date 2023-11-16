@@ -463,7 +463,9 @@
                                     </td>
                                     <td>{{ $watch->message }}</td>
                                     <td>
-                                        <time datetime="{{ $watch->created_at }}">{{ $watch->created_at }}</time>
+                                        <time datetime="{{ $watch->created_at }}" title="{{ $watch->created_at }}">
+                                            {{ $watch->created_at }}
+                                        </time>
                                     </td>
                                     <td>
                                         <menu class="data-table__actions">
@@ -637,7 +639,7 @@
                         @if ($user->last_login === null)
                             N/A
                         @else
-                            <time class="{{ $user->last_login }}" title="{{ $user->last_login }}">
+                            <time class="{{ $user->last_login }}" datetime="{{ $user->last_login }}" title="{{ $user->last_login }}">
                                 {{ $user->last_login->diffForHumans() }}
                             </time>
                         @endif
@@ -647,7 +649,7 @@
                         @if ($user->last_action === null)
                             N/A
                         @else
-                            <time class="{{ $user->last_action }}" title="{{ $user->last_action }}">
+                            <time class="{{ $user->last_action }}" datetime="{{ $user->last_action }}" title="{{ $user->last_action }}">
                                 {{ $user->last_action->diffForHumans() }}
                             </time>
                         @endif

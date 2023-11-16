@@ -13,6 +13,8 @@
 
 namespace App\Services\Tmdb\Client;
 
+use JsonException;
+
 class Movie
 {
     public \GuzzleHttp\Client $client;
@@ -21,6 +23,10 @@ class Movie
 
     public $data;
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws JsonException
+     */
     public function __construct($id)
     {
         $this->client = new \GuzzleHttp\Client(
@@ -175,7 +181,7 @@ class Movie
 
     public function get_trailer(): ?string
     {
-        if (! empty($this->data['videos']['results'])) {
+        if (!empty($this->data['videos']['results'])) {
             return 'https://www.youtube-nocookie.com/embed/'.$this->data['videos']['results'][0]['key'];
         }
 

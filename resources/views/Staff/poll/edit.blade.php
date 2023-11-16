@@ -30,7 +30,7 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
-                x-data='{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }''
+                x-data='{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }'
             >
                 @csrf
             @method('PATCH')

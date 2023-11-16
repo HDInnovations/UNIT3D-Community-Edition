@@ -4,8 +4,8 @@
         <div class="panel__body">
             <div class="form__group--horizontal">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder=" " autofocus="">
-                    <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
+                    <input id="name" wire:model="name" class="form__text" placeholder=" " autofocus="">
+                    <label class="form__label form__label--floating" for="name">{{ __('torrent.name') }}</label>
                 </p>
             </div>
             <div class="form__group--short-horizontal">
@@ -347,17 +347,17 @@
                                 </span>
                             </td>
                             <td class="user-torrents__created-at">
-                                <time datetime="{{ $history->created_at ?? 0}}">
+                                <time datetime="{{ $history->created_at}}" title="{{ $history->created_at }}">
                                     {{ $history->created_at ?? 'N/A' }}
                                 </time>
                             </td>
                             <td class="user-torrents__updated-at">
-                                <time datetime="{{ $history->updated_at ?? 0}}">
+                                <time datetime="{{ $history->updated_at}}" title="{{ $history->updated_at }}">
                                     {{ $history->updated_at ?? 'N/A' }}
                                 </time>
                             </td>
                             <td class="user-torrents__completed-at">
-                                <time datetime="{{ $history->completed_at ?? 0}}">
+                                <time datetime="{{ $history->completed_at}}" title="{{ $history->completed_at }}">
                                     {{ $history->completed_at ?? 'N/A' }}
                                 </time>
                             </td>
@@ -379,13 +379,19 @@
                                 @endif
                             </td>
                             <td class="user-torrents__created-at">
-                                {{ $history->created_at === null ? 'N/A' : \explode(" ", $history->created_at)[0] }}
+                                <time datetime="{{ $history->created_at }}" title="{{ $history->created_at }}">
+                                    {{ $history->created_at === null ? 'N/A' : \explode(" ", $history->created_at)[0] }}
+                                </time>
                             </td>
                             <td class="user-torrents__updated-at">
-                                {{ $history->updated_at === null ? 'N/A' : \explode(" ", $history->updated_at)[0] }}
+                                <time datetime="{{ $history->updated_at }}" title="{{ $history->updated_at }}">
+                                    {{ $history->updated_at === null ? 'N/A' : \explode(" ", $history->updated_at)[0] }}
+                                </time>
                             </td>
                             <td class="user-torrents__completed-at">
-                                {{ $history->completed_at === null ? 'N/A' : \explode(" ", $history->completed_at)[0] }}
+                                <time datetime="{{ $history->completed_at }}" title="{{ $history->completed_at }}">
+                                    {{ $history->completed_at === null ? 'N/A' : \explode(" ", $history->completed_at)[0] }}
+                                </time>
                             </td>
                         @endif
                         <td class="user-torrents__seeding">

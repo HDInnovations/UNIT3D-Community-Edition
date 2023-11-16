@@ -61,42 +61,4 @@ return [
     'username'              => 'Nutzername',
     'welcome'               => 'Willkommen zurück!',
     'welcome-restore'       => 'Willkommen zurück! Dein Account ist nicht mehr deaktiviert!',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Verifizierung erforderlich',
-    'title'       => '2-Faktor-Verifizierung',
-    'titleFailed' => 'Verifizierung fehlgeschlagen',
-    'titlePassed' => 'Gute Nachricht!',
-
-    'inputAlt1' => 'Code Eingabe 1',
-    'inputAlt2' => 'Code Eingabe 2',
-    'inputAlt3' => 'Code Eingabe 3',
-    'inputAlt4' => 'Code Eingabe 4',
-
-    'attemptsRemaining' => 'Verbleibende Versuche|Verbleibende Versuche',
-    'missingCode'       => 'Keinen Verifizierungscode erhalten?',
-    'verifyButton'      => 'Verifizieren',
-
-    'exceededTitle' => 'Verifizierungsversuche überschritten',
-    'lockedUntil'   => 'Nutzerkonto gesperrt bis:',
-    'returnButton'  => 'Zurück zur Homepage',
-    'tryAgainIn'    => 'Versuche erneut in',
-
-    'verificationEmailButton'   => 'Jetzt verifizieren',
-    'verificationEmailGreeting' => 'Hallo :username',
-    'verificationEmailMessage'  => 'Dein 2-Faktor-Verifizierung Code ist:',
-    'verificationEmailSubject'  => 'Verifizierung erforderlich',
-
-    'verificationEmailSentMsg' => 'Verifizierungs E-Mail gesendet!',
-    'verificationEmailSuccess' => 'Erfolgreich!',
-
-    'verificationWarningMessage' => 'Dies ist dein letzter Versuch, bevor dein Konto für :hours Stunden gesperrt wird.',
-    'verificationWarningTitle'   => 'Achtung!',
-
-    'verificationLockedMessage' => 'Konto gesperrt!',
-    'verificationLockedTitle'   => 'Oje!',
 ];

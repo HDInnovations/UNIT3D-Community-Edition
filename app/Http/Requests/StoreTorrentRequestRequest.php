@@ -47,7 +47,7 @@ class StoreTorrentRequestRequest extends FormRequest
                     'required',
                     'numeric',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
@@ -57,7 +57,7 @@ class StoreTorrentRequestRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! $category->tv_meta, [
+                Rule::when(!$category->tv_meta, [
                     Rule::in([0]),
                 ]),
             ],
@@ -67,7 +67,7 @@ class StoreTorrentRequestRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
@@ -77,7 +77,7 @@ class StoreTorrentRequestRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
@@ -87,7 +87,7 @@ class StoreTorrentRequestRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! $category->game_meta, [
+                Rule::when(!$category->game_meta, [
                     Rule::in([0]),
                 ]),
             ],
