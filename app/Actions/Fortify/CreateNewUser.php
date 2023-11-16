@@ -81,7 +81,7 @@ class CreateNewUser implements CreatesNewUsers
             'group_id'   => $validatingGroup[0],
         ]);
 
-        Passkey::create(['content' => $user->passkey]);
+        $user->passkeys()->create(['content' => $user->passkey]);
 
         if ($invite !== null) {
             $invite->update([
