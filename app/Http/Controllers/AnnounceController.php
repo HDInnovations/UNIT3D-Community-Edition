@@ -764,6 +764,30 @@ final class AnnounceController extends Controller
             ])
         ]);
 
+        if (config('announce.log_announces')) {
+            /**
+             * Announce batch upsert.
+             *
+             * @see \App\Console\Commands\AutoUpsertAnnounces
+             */
+            Redis::connection('announce')->command('RPUSH', [
+                config('cache.prefix').':announces:batch',
+                serialize([
+                    'user_id'    => $user->id,
+                    'torrent_id' => $torrent->id,
+                    'uploaded'   => $queries['uploaded'],
+                    'downloaded' => $queries['downloaded'],
+                    'left'       => $queries['left'],
+                    'corrupt'    => $queries['corrupt'],
+                    'peer_id'    => $queries['peer_id'],
+                    'port'       => $queries['port'],
+                    'numwant'    => $queries['numwant'],
+                    'event'      => $queries['event'],
+                    'key'        => $queries['key'],
+                ])
+            ]);
+        }
+
         // Torrent updates
 
         $isNewPeer = $isNewPeer || !$peer->active;

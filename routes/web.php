@@ -585,6 +585,13 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
         });
 
+        // Announces
+        Route::prefix('announces')->group(function (): void {
+            Route::name('announces.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\AnnounceController::class, 'index'])->name('index');
+            });
+        });
+
         // Articles System
         Route::prefix('articles')->group(function (): void {
             Route::name('articles.')->group(function (): void {
