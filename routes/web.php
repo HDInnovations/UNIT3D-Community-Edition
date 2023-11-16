@@ -520,8 +520,8 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Rsskey
-        Route::prefix('rsskey')->name('rsskey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\RsskeyController::class, 'edit'])->name('edit');
+        Route::prefix('rsskeys')->name('rsskeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\RsskeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\RsskeyController::class, 'update'])->name('update');
         });
 
@@ -943,6 +943,13 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{rss}/edit', [App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
                 Route::patch('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
                 Route::delete('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // RSS Keys
+        Route::prefix('rsskeys')->group(function (): void {
+            Route::name('rsskeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\RsskeyController::class, 'index'])->name('index');
             });
         });
 

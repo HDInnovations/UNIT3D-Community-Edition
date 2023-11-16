@@ -302,6 +302,8 @@ return [
     'reset-rss-help'                  => 'You will have to re-load all of your active RSS feeds, after resetting the RID',
     'resurrections'                   => 'Resurrections',
     'restore'                         => 'Restore',
+    'rsskey'                          => 'RSS Key',
+    'rsskeys'                         => 'RSS Keys',
     'satisfied-immune'                => 'Satisfied / Immune',
     'search'                          => 'Quick Search by Username/Email',
     'security'                        => 'Security',
