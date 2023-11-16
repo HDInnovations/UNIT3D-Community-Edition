@@ -515,7 +515,7 @@ Route::middleware('language')->group(function (): void {
 
         // Passkey
         Route::prefix('passkeys')->name('passkeys.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('index');
+            Route::get('/', [App\Http\Controllers\User\PasskeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\PasskeyController::class, 'update'])->name('update');
         });
 
