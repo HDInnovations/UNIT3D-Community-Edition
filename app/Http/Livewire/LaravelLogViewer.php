@@ -20,7 +20,7 @@ use Livewire\WithPagination;
 use SplFileInfo;
 
 /**
- * @property \Illuminate\Support\Collection $logFiles
+ * @property \Illuminate\Support\Collection              $logFiles
  * @property \Illuminate\Pagination\LengthAwarePaginator $entries
  */
 class LaravelLogViewer extends Component
