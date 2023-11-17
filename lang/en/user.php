@@ -34,6 +34,8 @@ return [
     'active-warnings'       => 'Active Warnings',
     'add-seedbox'           => 'Add Seedbox',
     'all-torrents'          => 'All Torrents',
+    'apikey'                => 'API Key',
+    'apikeys'               => 'API Keys',
     'article-comments'      => 'Article Comments Made',
     'avatar'                => 'Avatar',
     'avg-seedtime'          => 'Average Seedtime',

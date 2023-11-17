@@ -114,12 +114,12 @@
                     {{ __('user.rsskey') }}
                 </a>
             </li>
-            <li class="{{ Route::is('users.apikey.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.apikeys.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.apikey.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.apikey.edit', ['user' => $user]) }}"
+                    class="{{ Route::is('users.apikeys.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.apikeys.index', ['user' => $user]) }}"
                 >
-                    API Key
+                    {{ __('user.apikey') }}
                 </a>
             </li>
             <li class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
