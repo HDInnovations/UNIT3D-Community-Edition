@@ -65,6 +65,19 @@ class FortifyServiceProvider extends ServiceProvider
 
                 // Redirect to home page
 
+                // Fix for issue described in https://github.com/laravel/framework/pull/46133
+                if ($rootUrlOverride = config('unit3d.root_url_override')) {
+                    $url = redirect()->getIntendedUrl();
+
+                    return redirect(
+                        rtrim(
+                            rtrim($rootUrlOverride, '/')
+                            .parse_url($url, PHP_URL_PATH)
+                            .'?'.parse_url($url, PHP_URL_QUERY),
+                        )
+                    );
+                }
+
                 return redirect()->intended()
                     ->withSuccess(trans('auth.welcome'));
             }
