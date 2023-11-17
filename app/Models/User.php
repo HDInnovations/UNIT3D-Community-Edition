@@ -776,6 +776,26 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has many rsskeys.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey>
+     */
+    public function rsskeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rsskey::class);
+    }
+
+    /**
+     * Has many apikeys.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey>
+     */
+    public function apikeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Apikey::class);
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool

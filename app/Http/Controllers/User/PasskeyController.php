@@ -24,6 +24,19 @@ use Illuminate\Support\Facades\DB;
 class PasskeyController extends Controller
 {
     /**
+     * Display a users passkeys.
+     */
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
+
+        return view('user.passkey.index', [
+            'user'     => $user,
+            'passkeys' => $user->passkeys()->latest()->get(),
+        ]);
+    }
+
+    /**
      * Update user passkey.
      */
     protected function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
@@ -60,18 +73,5 @@ class PasskeyController extends Controller
 
         return to_route('users.passkeys.index', ['user' => $user])
             ->withSuccess('Your passkey was changed successfully.');
-    }
-
-    /**
-     * Edit user passkey.
-     */
-    public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
-
-        return view('user.passkey.index', [
-            'user'     => $user,
-            'passkeys' => $user->passkeys()->latest()->get(),
-        ]);
     }
 }

@@ -278,9 +278,21 @@
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.apikeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.apikeys') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.passkeys.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-key"></i>
                         {{ __('staff.passkeys') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.rsskeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.rsskeys') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">

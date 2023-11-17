@@ -515,19 +515,19 @@ Route::middleware('language')->group(function (): void {
 
         // Passkey
         Route::prefix('passkeys')->name('passkeys.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('index');
+            Route::get('/', [App\Http\Controllers\User\PasskeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\PasskeyController::class, 'update'])->name('update');
         });
 
         // Rsskey
-        Route::prefix('rsskey')->name('rsskey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\RsskeyController::class, 'edit'])->name('edit');
+        Route::prefix('rsskeys')->name('rsskeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\RsskeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\RsskeyController::class, 'update'])->name('update');
         });
 
         // Apikey
-        Route::prefix('apikey')->name('apikey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\ApikeyController::class, 'edit'])->name('edit');
+        Route::prefix('apikeys')->name('apikeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\ApikeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
         });
 
@@ -589,6 +589,13 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('announces')->group(function (): void {
             Route::name('announces.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\AnnounceController::class, 'index'])->name('index');
+            });
+        });
+      
+        // Apikeys
+        Route::prefix('apikeys')->group(function (): void {
+            Route::name('apikeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\ApikeyController::class, 'index'])->name('index');
             });
         });
 
@@ -950,6 +957,13 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{rss}/edit', [App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
                 Route::patch('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
                 Route::delete('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // RSS Keys
+        Route::prefix('rsskeys')->group(function (): void {
+            Route::name('rsskeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\RsskeyController::class, 'index'])->name('index');
             });
         });
 

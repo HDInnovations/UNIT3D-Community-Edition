@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
 use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -61,8 +62,10 @@ class CreateNewUser implements CreatesNewUsers
         $invite = Invite::query()->where('code', '=', $input['code'])->first();
 
         if (config('other.invite-only') === true && ($invite === null || $invite->accepted_by !== null)) {
-            return to_route('register', ['code' => $input['code']])
-                ->withErrors(trans('auth.invalid-key'));
+            throw new HttpResponseException(
+                to_route('register', ['code' => $input['code']])
+                    ->withErrors(trans('auth.invalid-key'))
+            );
         }
 
         $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
@@ -81,6 +84,8 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         $user->passkeys()->create(['content' => $user->passkey]);
+
+        $user->rsskeys()->create(['content' => $user->rsskey]);
 
         if ($invite !== null) {
             $invite->update([
