@@ -224,6 +224,14 @@
                         Cheated Torrents
                     </a>
                 </p>
+                @if (config('announce.log_announces'))
+                    <p class="form__group form__group--horizontal">
+                        <a class="form__button form__button--text" href="{{ route('staff.announces.index') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-chart-bar"></i>
+                            Announces
+                        </a>
+                    </p>
+                @endif
                 <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
                         @csrf
