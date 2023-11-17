@@ -299,6 +299,14 @@ trait TorrentFilter
     /**
      * @param Builder<Torrent> $query
      */
+    public function scopeRefundable(Builder $query): void
+    {
+        $query->where('refundable', '=', 1);
+    }
+
+    /**
+     * @param Builder<Torrent> $query
+     */
     public function scopeStreamOptimized(Builder $query): void
     {
         $query->where('stream', '=', 1);
