@@ -637,7 +637,7 @@
                     <dt>2FA Enabled</dt>
                     <dd>
                         @if ($user->two_factor_confirmed_at != NULL)
-                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-green" title="Enabled"></i>
+                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-red"></i>
                         @endif
