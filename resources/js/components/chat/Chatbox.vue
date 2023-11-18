@@ -1032,9 +1032,16 @@ export default {
     /* User defaults to System user */
     createMessage(message, save = true, user_id = 1, receiver_id = null, bot_id = null) {
       // Prevent Users abusing BBCode size
-      const regex = new RegExp(/\[size=[0-9]{3,}\]/);
-      if (regex.test(message) == true) return;
-      if (this.tab == 'userlist') return;
+      if (/\[size=[0-9]{3,}\]/.test(message) || this.tab === 'userlist') return;
+  
+      const urls = message.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) || [];
+  
+      const isImageLink = (url) => url.match(/\.(jpeg|jpg|gif|png)(\?.*)?$/) !== null;
+  
+      urls.forEach(url => {
+        const formattedURL = url.startsWith('http') ? url : `https://${url}`;
+        message = message.replace(url, isImageLink(formattedURL) ? `[img]${formattedURL}[/img]` : `[url]${formattedURL}[/url]`);
+    });
       axios
           .post('/api/chat/messages', {
             user_id: user_id,
