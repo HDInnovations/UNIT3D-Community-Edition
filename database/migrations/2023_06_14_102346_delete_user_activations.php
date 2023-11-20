@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Group;
+use App\Enums\UserGroups;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,9 +18,7 @@ return new class () extends Migration {
             $table->timestamp('email_verified_at')->nullable();
         });
 
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
-
-        $users = User::where('group_id', '!=', $validatingGroup[0])->get();
+        $users = User::where('group_id', '!=', UserGroups::VALIDATING->value)->get();
 
         foreach ($users as $user) {
             $user->markEmailAsVerified();
