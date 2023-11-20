@@ -58,7 +58,6 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         // Make sure open reg is off and invite code exists and has not been used already
-
         $invite = Invite::query()->where('code', '=', $input['code'])->first();
 
         if (config('other.invite-only') === true && ($invite === null || $invite->accepted_by !== null)) {
@@ -95,7 +94,6 @@ class CreateNewUser implements CreatesNewUsers
         }
 
         // Select A Random Welcome Message
-
         $profileUrl = href_profile($user);
 
         $welcomeArray = [
@@ -113,7 +111,6 @@ class CreateNewUser implements CreatesNewUsers
         );
 
         // Send Welcome PM
-
         PrivateMessage::create([
             'sender_id'   => 1,
             'receiver_id' => $user->id,
