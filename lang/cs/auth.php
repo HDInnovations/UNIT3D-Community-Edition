@@ -63,44 +63,4 @@ return [
     'veteran'               => 'Zkušenosti se soukromými trackery',
     'welcome'               => 'Vítej zpět!',
     'welcome-restore'       => 'Vítejte zpět! Váš účet již není deaktivován!',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Two Step Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
-    'subtitle'    => 'Požadované ověření',
-    'title'       => 'Dvoufázové ověřování',
-    'titleFailed' => 'Ověření se nezdařilo',
-    'titlePassed' => 'Dobré zprávy pro všechny!',
-
-    'inputAlt1' => 'Zadání kódu 1',
-    'inputAlt2' => 'Zadání kódu 2',
-    'inputAlt3' => 'Zadání kódu 3',
-    'inputAlt4' => 'Zadání kódu 4',
-
-    'attemptsRemaining' => 'Zbývající pokus|Zbývající pokusy',
-    'missingCode'       => 'Neobdržel jsem ověřovací kód?',
-    'verifyButton'      => 'Ověřit',
-
-    'exceededTitle' => 'Překročení počtu pokusů o ověření',
-    'lockedUntil'   => 'Účet uzamčen na:',
-    'returnButton'  => 'Zpět domů',
-    'tryAgainIn'    => 'Zkuste to znovu v',
-
-    'verificationEmailButton'   => 'Ověřit nyní',
-    'verificationEmailGreeting' => 'Ahoj :username',
-    'verificationEmailMessage'  => 'Kód dvoufázového ověření vašeho účtu je:',
-    'verificationEmailSubject'  => 'Požadované ověření',
-
-    'verificationEmailSentMsg' => 'Ověřovací e-mail odeslán!',
-    'verificationEmailSuccess' => 'Úspěch!',
-
-    'verificationWarningMessage' => 'Toto je váš poslední pokus, než se váš účet zablokuje na :hours hodin.',
-    'verificationWarningTitle'   => 'Pozor!',
-
-    'verificationLockedMessage' => 'Účet uzamčen!',
-    'verificationLockedTitle'   => 'Doh!',
-
-    'verificationModalConfBtn' => 'Ok',
 ];

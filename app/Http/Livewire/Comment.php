@@ -82,7 +82,7 @@ class Comment extends Component
 
     final public function updatedIsEditing($isEditing): void
     {
-        if (! $isEditing) {
+        if (!$isEditing) {
             return;
         }
 
@@ -113,13 +113,16 @@ class Comment extends Component
 
     final public function postReply(): void
     {
-        if (auth()->user()->can_comment === false) {
+        // Set Polymorphic Model Name
+        $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
+
+        if ($modelName !== 'ticket' && auth()->user()->can_comment === false) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;
         }
 
-        if (! $this->comment->isParent()) {
+        if (!$this->comment->isParent()) {
             return;
         }
 
@@ -132,9 +135,6 @@ class Comment extends Component
         $reply->commentable()->associate($this->comment->commentable);
         $reply->anon = $this->anon;
         $reply->save();
-
-        // Set Polymorphic Model Name
-        $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
         // New Comment Notification
         switch ($modelName) {
@@ -149,7 +149,7 @@ class Comment extends Component
                     User::find($ticket->user_id)->notify(new NewComment($modelName, $reply));
                 }
 
-                if (! \in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
+                if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
                     User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
                 }
 

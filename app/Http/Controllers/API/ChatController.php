@@ -55,7 +55,7 @@ class ChatController extends Controller
     {
         $user = $request->user()->load(['echoes']);
 
-        if (! $user->echoes || (is_countable($user->echoes->toArray()) ? \count($user->echoes->toArray()) : 0) < 1) {
+        if (!$user->echoes || (is_countable($user->echoes->toArray()) ? \count($user->echoes->toArray()) : 0) < 1) {
             $userEcho = new UserEcho();
             $userEcho->user_id = $request->user()->id;
             $userEcho->room_id = 1;
@@ -70,7 +70,7 @@ class ChatController extends Controller
     {
         $user = $request->user()->load(['audibles']);
 
-        if (! $user->audibles || (is_countable($user->audibles->toArray()) ? \count($user->audibles->toArray()) : 0) < 1) {
+        if (!$user->audibles || (is_countable($user->audibles->toArray()) ? \count($user->audibles->toArray()) : 0) < 1) {
             $userAudible = new UserAudible();
             $userAudible->user_id = $request->user()->id;
             $userAudible->room_id = 1;
@@ -152,7 +152,7 @@ class ChatController extends Controller
         $botDirty = 0;
         $bots = cache()->get('bots');
 
-        if (! $bots || ! \is_array($bots) || \count($bots) < 1) {
+        if (!$bots || !\is_array($bots) || \count($bots) < 1) {
             $bots = Bot::where('active', '=', 1)->oldest('position')->get();
             $botDirty = 1;
         }
@@ -225,7 +225,7 @@ class ChatController extends Controller
             }
         }
 
-        if ($which != null && $which != 'skip' && ! $runbot) {
+        if ($which != null && $which != 'skip' && !$runbot) {
             if ($bot->is_systembot) {
                 $runbot = new SystemBot($this->chatRepository);
             } elseif ($bot->is_nerdbot) {
@@ -247,11 +247,11 @@ class ChatController extends Controller
             $senderEchoes = cache()->get('user-echoes'.$userId);
             $receiverEchoes = cache()->get('user-echoes'.$receiverId);
 
-            if (! $senderEchoes || ! \is_array($senderEchoes) || \count($senderEchoes) < 1) {
+            if (!$senderEchoes || !\is_array($senderEchoes) || \count($senderEchoes) < 1) {
                 $senderEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
             }
 
-            if (! $receiverEchoes || ! \is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
+            if (!$receiverEchoes || !\is_array($receiverEchoes) || \count($receiverEchoes) < 1) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiverId])->get();
             }
 
@@ -263,7 +263,7 @@ class ChatController extends Controller
                 }
             }
 
-            if (! $senderListening) {
+            if (!$senderListening) {
                 $senderPort = new UserEcho();
                 $senderPort->user_id = $userId;
                 $senderPort->target_id = $receiverId;
@@ -280,7 +280,7 @@ class ChatController extends Controller
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $receiverId;
                 $receiverPort->target_id = $userId;
@@ -306,11 +306,11 @@ class ChatController extends Controller
             $senderAudibles = cache()->get('user-audibles'.$userId);
             $receiverAudibles = cache()->get('user-audibles'.$receiverId);
 
-            if (! $senderAudibles || ! \is_array($senderAudibles) || \count($senderAudibles) < 1) {
+            if (!$senderAudibles || !\is_array($senderAudibles) || \count($senderAudibles) < 1) {
                 $senderAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', $userId)->get();
             }
 
-            if (! $receiverAudibles || ! \is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
+            if (!$receiverAudibles || !\is_array($receiverAudibles) || \count($receiverAudibles) < 1) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$receiverId])->get();
             }
 
@@ -322,7 +322,7 @@ class ChatController extends Controller
                 }
             }
 
-            if (! $senderListening) {
+            if (!$senderListening) {
                 $senderPort = new UserAudible();
                 $senderPort->user_id = $userId;
                 $senderPort->target_id = $receiverId;
@@ -340,7 +340,7 @@ class ChatController extends Controller
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $receiverId;
                 $receiverPort->target_id = $userId;
@@ -373,7 +373,7 @@ class ChatController extends Controller
             $message = $this->chatRepository->message($userId, $roomId, $message, $receiverId, $botId);
         }
 
-        if (! $save) {
+        if (!$save) {
             $message->delete();
         }
 
@@ -392,7 +392,7 @@ class ChatController extends Controller
 
         $changedByStaff = $request->user()->id !== $message->user_id;
 
-        abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level <= $message->user->group->level, 403);
+        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $message->user->group->level, 403);
 
         $this->chatRepository->deleteMessage($id);
 
@@ -455,7 +455,7 @@ class ChatController extends Controller
     {
         $user = $request->user();
         $echo = UserAudible::where('user_id', '=', $user->id)->where('room_id', '=', $request->input('room_id'))->sole();
-        $echo->status = ! $echo->status;
+        $echo->status = !$echo->status;
         $echo->save();
 
         $user->load(['chatStatus', 'chatroom', 'group', 'audibles', 'audibles']);
@@ -472,7 +472,7 @@ class ChatController extends Controller
     {
         $user = $request->user();
         $echo = UserAudible::where('user_id', '=', $user->id)->where('target_id', '=', $request->input('target_id'))->sole();
-        $echo->status = ! $echo->status;
+        $echo->status = !$echo->status;
         $echo->save();
 
         $user->load(['chatStatus', 'chatroom', 'group', 'audibles', 'audibles']);
@@ -489,7 +489,7 @@ class ChatController extends Controller
     {
         $user = $request->user();
         $echo = UserAudible::where('user_id', '=', $user->id)->where('bot_id', '=', $request->input('bot_id'))->sole();
-        $echo->status = ! $echo->status;
+        $echo->status = !$echo->status;
         $echo->save();
 
         $user->load(['chatStatus', 'chatroom', 'group', 'audibles', 'audibles'])->findOrFail($user->id);
@@ -537,7 +537,7 @@ class ChatController extends Controller
         $senderDirty = 0;
         $senderEchoes = cache()->get('user-echoes'.$user->id);
 
-        if (! $senderEchoes || ! \is_array($senderEchoes) || \count($senderEchoes) < 1) {
+        if (!$senderEchoes || !\is_array($senderEchoes) || \count($senderEchoes) < 1) {
             $senderEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $user->id)->get();
         }
 
@@ -549,7 +549,7 @@ class ChatController extends Controller
             }
         }
 
-        if (! $senderListening) {
+        if (!$senderListening) {
             $userEcho = new UserEcho();
             $userEcho->user_id = $user->id;
             $userEcho->room_id = $room->id;

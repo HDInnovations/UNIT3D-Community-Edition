@@ -19,6 +19,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use SplFileInfo;
 
+/**
+ * @property \Illuminate\Support\Collection              $logFiles
+ * @property \Illuminate\Pagination\LengthAwarePaginator $entries
+ */
 class LaravelLogViewer extends Component
 {
     use WithPagination;
@@ -55,7 +59,9 @@ class LaravelLogViewer extends Component
         $logString = '';
 
         foreach ($this->logs as $log) {
-            $logString .= file_get_contents($files[$log]->getPathname());
+            if ($files[$log] ?? []) {
+                $logString .= file_get_contents($files[$log]->getPathname());
+            }
         }
 
         $entryPattern = '/^\[(?<date>.*)\]\s(?<env>\w+)\.(?<level>\w+)\:\s/m';
@@ -92,6 +98,25 @@ class LaravelLogViewer extends Component
         $currentEntries = $groupedEntries->forPage($this->page, $this->perPage);
 
         return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);
+    }
+
+    final public function clearLatestLog(): void
+    {
+        $latestLogFile = $this->logFiles->first();
+
+        if ($latestLogFile) {
+            File::put($latestLogFile->getPathname(), '');
+        }
+    }
+
+    final public function deleteAllLogs(): void
+    {
+        $directory = storage_path('logs');
+        $files = File::allFiles($directory);
+
+        foreach ($files as $file) {
+            File::delete($file->getPathname());
+        }
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

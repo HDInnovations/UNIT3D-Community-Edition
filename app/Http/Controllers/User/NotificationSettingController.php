@@ -41,10 +41,10 @@ class NotificationSettingController extends Controller
         $validGroups = Group::query()
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING)
-            ->where('id', '!=', UserGroups::PRUNED)
-            ->where('id', '!=', UserGroups::BANNED)
-            ->where('id', '!=', UserGroups::DISABLED)
+            ->where('id', '!=', UserGroups::VALIDATING->value)
+            ->where('id', '!=', UserGroups::PRUNED->value)
+            ->where('id', '!=', UserGroups::BANNED->value)
+            ->where('id', '!=', UserGroups::DISABLED->value)
             ->pluck('id');
 
         $request->validate([
@@ -139,10 +139,10 @@ class NotificationSettingController extends Controller
             'groups' => Group::query()
                 ->where('is_modo', '=', '0')
                 ->where('is_admin', '=', '0')
-                ->where('id', '!=', UserGroups::VALIDATING)
-                ->where('id', '!=', UserGroups::PRUNED)
-                ->where('id', '!=', UserGroups::BANNED)
-                ->where('id', '!=', UserGroups::DISABLED)
+                ->where('id', '!=', UserGroups::VALIDATING->value)
+                ->where('id', '!=', UserGroups::PRUNED->value)
+                ->where('id', '!=', UserGroups::BANNED->value)
+                ->where('id', '!=', UserGroups::DISABLED->value)
                 ->latest('level')
                 ->get(),
         ]);

@@ -19,10 +19,10 @@ test('edit returns an ok response', function (): void {
     $user = User::factory()->create();
     $authUser = User::factory()->create();
 
-    $response = $this->actingAs($authUser)->get(route('users.passkey.edit', [$user]));
+    $response = $this->actingAs($authUser)->get(route('users.passkeys.index', [$user]));
 
     $response->assertOk();
-    $response->assertViewIs('user.passkey.edit');
+    $response->assertViewIs('user.passkey.index');
     $response->assertViewHas('user', $user);
 
     // TODO: perform additional assertions
@@ -36,7 +36,7 @@ test('edit aborts with a 403', function (): void {
 
     // TODO: perform additional setup to trigger `abort_unless(403)`...
 
-    $response = $this->actingAs($authUser)->get(route('users.passkey.edit', [$user]));
+    $response = $this->actingAs($authUser)->get(route('users.passkeys.index', [$user]));
 
     $response->assertForbidden();
 });

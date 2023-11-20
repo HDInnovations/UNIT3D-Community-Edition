@@ -27,7 +27,7 @@
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="quantity">
                         {{ __('common.quantity') }}
                     </label>
                 </div>
@@ -41,7 +41,7 @@
                         wire:model="search"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="search">
                         {{ __('user.search') }}
                     </label>
                 </div>
@@ -93,13 +93,19 @@
                     </td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <time datetime="{{ $user->created_at }}">{{ $user->created_at }}</time>
+                        <time datetime="{{ $user->created_at }}" title="{{ $user->created_at }}">
+                            {{ $user->created_at }}
+                        </time>
                     </td>
                     <td>
-                        <time datetime="{{ $user->last_login }}">{{ $user->last_login ?? 'Never' }}</time>
+                        <time datetime="{{ $user->last_login }}" title="{{ $user->last_login }}">
+                            {{ $user->last_login ?? 'Never' }}
+                        </time>
                     </td>
                     <td>
-                        <time datetime="{{ $user->last_action }}">{{ $user->last_action ?? 'Never' }}</time>
+                        <time datetime="{{ $user->last_action }}" title="{{ $user->last_action }}">
+                            {{ $user->last_action ?? 'Never' }}
+                        </time>
                     </td>
                     <td>
                         <menu class="data-table__actions">

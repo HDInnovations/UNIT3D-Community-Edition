@@ -18,18 +18,22 @@ use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use voku\helper\AntiXSS;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Achiever;
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
+    use TwoFactorAuthenticatable;
     use UsersOnlineTrait;
 
     /**
@@ -60,6 +64,7 @@ class User extends Authenticatable
         'can_request'  => 'boolean',
         'can_invite'   => 'boolean',
         'can_upload'   => 'boolean',
+        'can_chat'     => 'boolean',
     ];
 
     /**
@@ -761,6 +766,36 @@ class User extends Authenticatable
     }
 
     /**
+     * Has many passkeys.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey>
+     */
+    public function passkeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Passkey::class);
+    }
+
+    /**
+     * Has many rsskeys.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey>
+     */
+    public function rsskeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rsskey::class);
+    }
+
+    /**
+     * Has many apikeys.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey>
+     */
+    public function apikeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Apikey::class);
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool
@@ -779,12 +814,12 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->notification && $type && (! $target->notification->$type)) {
+        if ($target->notification && $type && (!$target->notification->$type)) {
             return false;
         }
 
         if (\is_array($target->notification?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->notification->$targetGroup, true);
+            return !\in_array($sender->group->id, $target->notification->$targetGroup, true);
         }
 
         return true;
@@ -810,12 +845,12 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
 
         if (\is_array($target->privacy?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->privacy->$targetGroup);
+            return !\in_array($sender->group->id, $target->privacy->$targetGroup);
         }
 
         return true;
@@ -841,12 +876,12 @@ class User extends Authenticatable
             return false;
         }
 
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
 
         if (\is_array($target->privacy?->$targetGroup)) {
-            return ! \in_array($sender->group->id, $target->privacy->$targetGroup);
+            return !\in_array($sender->group->id, $target->privacy->$targetGroup);
         }
 
         return true;
@@ -964,5 +999,18 @@ class User extends Authenticatable
     public function getFormattedSeedbonusAttribute(): string
     {
         return number_format($this->seedbonus, 0, null, "\u{202F}");
+    }
+
+    /**
+     * Make sure that password reset emails are sent after the user has sent a
+     * password reset request, that way an attacker can't use the timing to
+     * determine if an email was sent or not.
+     *
+     * @param       $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        dispatch(fn () => $this->notify(new ResetPassword($token)))->afterResponse();
     }
 }

@@ -77,7 +77,7 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->sticky = ! $torrent->sticky;
+        $torrent->sticky = !$torrent->sticky;
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -211,7 +211,7 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
-        if (! $torrent->doubleup) {
+        if (!$torrent->doubleup) {
             $torrent->doubleup = true;
             $du_until = $request->input('du_until');
 
@@ -252,7 +252,7 @@ class TorrentBuffController extends Controller
 
         $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
 
-        if ($user->fl_tokens >= 1 && ! $activeToken) {
+        if ($user->fl_tokens >= 1 && !$activeToken) {
             $freeleechToken = new FreeleechToken();
             $freeleechToken->user_id = $user->id;
             $freeleechToken->torrent_id = $torrent->id;
@@ -284,7 +284,7 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);
 
-        if (! $torrent->refundable) {
+        if (!$torrent->refundable) {
             $torrent->refundable = true;
 
             $this->chatRepository->systemMessage(

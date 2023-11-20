@@ -57,7 +57,7 @@ class AutoRefundDownload extends Command
             ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
             ->where('history.created_at', '>=', $now->copy()->subSeconds($MIN_SEEDTIME))
             ->whereColumn('torrents.user_id', '!=', 'history.user_id')
-            ->when(! config('other.refundable'), fn ($query) => $query->where(
+            ->when(!config('other.refundable'), fn ($query) => $query->where(
                 fn ($query) => $query
                     ->where('groups.is_refundable', '=', 1)
                     ->orWhere('torrents.refundable', '=', 1)

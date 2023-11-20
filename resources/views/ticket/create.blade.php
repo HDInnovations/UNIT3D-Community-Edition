@@ -51,7 +51,7 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <label for="category" class="form__label form__label--floating">
+                    <label for="category_id" class="form__label form__label--floating">
                         {{ __('ticket.category') }}
                     </label>
                 </p>
@@ -67,7 +67,7 @@
                             <option value="{{ $priority->id }}">{{ $priority->name }}</option>
                         @endforeach
                     </select>
-                    <label for="priority" class="form__label form__label--floating">
+                    <label for="priority_id" class="form__label form__label--floating">
                         {{ __('ticket.priority') }}
                     </label>
                 </p>
@@ -100,5 +100,5 @@
                 </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

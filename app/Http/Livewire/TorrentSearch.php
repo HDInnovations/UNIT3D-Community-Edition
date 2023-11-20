@@ -83,6 +83,8 @@ class TorrentSearch extends Component
 
     public bool $featured = false;
 
+    public bool $refundable = false;
+
     public bool $stream = false;
 
     public bool $sd = false;
@@ -150,6 +152,7 @@ class TorrentSearch extends Component
         'free'            => ['except' => []],
         'doubleup'        => ['except' => false],
         'featured'        => ['except' => false],
+        'refundable'      => ['except' => false],
         'stream'          => ['except' => false],
         'sd'              => ['except' => false],
         'highspeed'       => ['except' => false],
@@ -229,6 +232,7 @@ class TorrentSearch extends Component
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup, fn ($query) => $query->doubleup())
             ->when($this->featured, fn ($query) => $query->featured())
+            ->when($this->refundable, fn ($query) => $query->refundable())
             ->when($this->stream, fn ($query) => $query->streamOptimized())
             ->when($this->sd, fn ($query) => $query->sd())
             ->when($this->highspeed, fn ($query) => $query->highspeed())
@@ -252,7 +256,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'name',
             'size',
             'seeders',
@@ -332,7 +336,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {
@@ -570,7 +574,7 @@ class TorrentSearch extends Component
     final public function getGroupedPostersProperty()
     {
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {

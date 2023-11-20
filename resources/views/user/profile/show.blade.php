@@ -463,7 +463,9 @@
                                     </td>
                                     <td>{{ $watch->message }}</td>
                                     <td>
-                                        <time datetime="{{ $watch->created_at }}">{{ $watch->created_at }}</time>
+                                        <time datetime="{{ $watch->created_at }}" title="{{ $watch->created_at }}">
+                                            {{ $watch->created_at }}
+                                        </time>
                                     </td>
                                     <td>
                                         <menu class="data-table__actions">
@@ -632,12 +634,20 @@
                     <dd>{{ $user->id }}</dd>
                     <dt>{{ __('common.email') }}</dt>
                     <dd>{{ $user->email }}</dd>
+                    <dt>2FA Enabled</dt>
+                    <dd>
+                        @if ($user->two_factor_confirmed_at !== null)
+                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-red"></i>
+                        @endif
+                    </dd>
                     <dt>{{ __('user.last-login') }}</dt>
                     <dd>
                         @if ($user->last_login === null)
                             N/A
                         @else
-                            <time class="{{ $user->last_login }}" title="{{ $user->last_login }}">
+                            <time class="{{ $user->last_login }}" datetime="{{ $user->last_login }}" title="{{ $user->last_login }}">
                                 {{ $user->last_login->diffForHumans() }}
                             </time>
                         @endif
@@ -647,7 +657,7 @@
                         @if ($user->last_action === null)
                             N/A
                         @else
-                            <time class="{{ $user->last_action }}" title="{{ $user->last_action }}">
+                            <time class="{{ $user->last_action }}" datetime="{{ $user->last_action }}" title="{{ $user->last_action }}">
                                 {{ $user->last_action->diffForHumans() }}
                             </time>
                         @endif

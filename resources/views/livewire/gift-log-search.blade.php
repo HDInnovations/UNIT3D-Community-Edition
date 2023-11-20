@@ -56,7 +56,7 @@
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="quantity">
                         {{ __('common.quantity') }}
                     </label>
                 </div>
@@ -101,7 +101,7 @@
                         <td>{{ $gift->cost }}</td>
                         <td>{{ $gift->comment }}</td>
                         <td>
-                            <time datetime="{{ $gift->created_at }}">
+                            <time datetime="{{ $gift->created_at }}" title="{{ $gift->created_at }}">
                                 {{ $gift->created_at }}
                             </time>
                         </td>

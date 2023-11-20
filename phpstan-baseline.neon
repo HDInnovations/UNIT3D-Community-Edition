@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method App\\\\Actions\\\\Fortify\\\\CreateNewUser\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Actions/Fortify/CreateNewUser.php
+
+		-
+			message: "#^Method App\\\\Actions\\\\Fortify\\\\ResetUserPassword\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Actions/Fortify/ResetUserPassword.php
+
+		-
+			message: "#^Method App\\\\Actions\\\\Fortify\\\\UpdateUserPassword\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Actions/Fortify/UpdateUserPassword.php
+
+		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
@@ -2011,11 +2026,6 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\ActivationController\\:\\:activate\\(\\) has parameter \\$token with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/ActivationController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/Auth/ApplicationController.php
@@ -2024,101 +2034,6 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/Auth/ApplicationController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\LoginController\\:\\:authenticated\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/LoginController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\RegisterController\\:\\:register\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/RegisterController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\RegisterController\\:\\:registrationForm\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/RegisterController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\ResetPasswordController\\:\\:resetPassword\\(\\) has parameter \\$password with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/ResetPasswordController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\ResetPasswordController\\:\\:resetPassword\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/ResetPasswordController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:checkTimeSinceVerified\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:exceededTimeParser\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:getTwoStepAuthStatus\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:invalidCodeReturnData\\(\\) has parameter \\$errors with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:invalidCodeReturnData\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:resetActivationCountdown\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:resetAuthStatus\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:resetExceededTime\\(\\) has parameter \\$twoStepEntry with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:sendVerificationCodeNotification\\(\\) has parameter \\$deliveryMethod with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:sendVerificationCodeNotification\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:\\$authCount has no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:\\$authStatus has no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:\\$remainingAttempts has no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Controllers\\\\Auth\\\\TwoStepController\\:\\:\\$twoStepAuth has no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Auth/TwoStepController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
@@ -2314,6 +2229,26 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$required with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/BbcodeInput.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$ipAddresses\\.$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:getIpAddressesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$queryString has no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$rules has no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"
@@ -2559,16 +2494,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$entries\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$logFiles\\.$#"
-			count: 2
-			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getEntriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2856,12 +2781,32 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrentRequests\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
 			count: 3
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
@@ -3231,6 +3176,11 @@ parameters:
 			path: app/Http/Livewire/TvSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$two_factor_confirmed_at\\.$#"
+			count: 1
+			path: app/Http/Livewire/TwoFactorAuthForm.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:getActivesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
@@ -3454,46 +3404,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Middleware\\\\TrustHosts\\:\\:hosts\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Middleware/TrustHosts.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:checkTimeSinceVerified\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:exceededTimeParser\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:getTwoStepAuthStatus\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:resetActivationCountdown\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:resetAuthStatus\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:resetExceededTime\\(\\) has parameter \\$twoStepEntry with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:sendVerificationCodeNotification\\(\\) has parameter \\$deliveryMethod with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TwoStepAuth\\:\\:sendVerificationCodeNotification\\(\\) has parameter \\$twoStepAuth with no type specified\\.$#"
-			count: 1
-			path: app/Http/Middleware/TwoStepAuth.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Resources\\\\BotResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"

@@ -62,7 +62,7 @@ class SubtitleSearch extends Component
                 fn ($query) => $query
                     ->whereIn('user_id', User::select('id')->where('username', '=', $this->username))
                     ->when(
-                        ! auth()->user()->group->is_modo,
+                        !auth()->user()->group->is_modo,
                         fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', false)->orWhere('user_id', '=', auth()->id()))
                     )
             )

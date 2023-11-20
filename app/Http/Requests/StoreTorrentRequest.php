@@ -67,7 +67,7 @@ class StoreTorrentRequest extends FormRequest
                     }
 
                     foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
-                        if (! TorrentTools::isValidFilename($name)) {
+                        if (!TorrentTools::isValidFilename($name)) {
                             $fail('Invalid Filenames In Torrent Files!');
                         }
                     }
@@ -124,7 +124,7 @@ class StoreTorrentRequest extends FormRequest
             ],
             'resolution_id' => [
                 Rule::when($category->movie_meta || $category->tv_meta, 'required'),
-                Rule::when(! $category->movie_meta && ! $category->tv_meta, 'nullable'),
+                Rule::when(!$category->movie_meta && !$category->tv_meta, 'nullable'),
                 'exists:resolutions,id',
             ],
             'region_id' => [
@@ -140,7 +140,7 @@ class StoreTorrentRequest extends FormRequest
                     'required',
                     'numeric',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
@@ -150,7 +150,7 @@ class StoreTorrentRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! $category->tv_meta, [
+                Rule::when(!$category->tv_meta, [
                     Rule::in([0]),
                 ]),
             ],
@@ -160,7 +160,7 @@ class StoreTorrentRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
@@ -170,7 +170,7 @@ class StoreTorrentRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
@@ -180,7 +180,7 @@ class StoreTorrentRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::when(! $category->game_meta, [
+                Rule::when(!$category->game_meta, [
                     Rule::in([0]),
                 ]),
             ],
@@ -190,7 +190,7 @@ class StoreTorrentRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::prohibitedIf(! $category->tv_meta),
+                Rule::prohibitedIf(!$category->tv_meta),
             ],
             'episode_number' => [
                 Rule::when($category->tv_meta, [
@@ -198,7 +198,7 @@ class StoreTorrentRequest extends FormRequest
                     'numeric',
                     'integer',
                 ]),
-                Rule::prohibitedIf(! $category->tv_meta),
+                Rule::prohibitedIf(!$category->tv_meta),
             ],
             'anon' => [
                 'required',
@@ -219,19 +219,19 @@ class StoreTorrentRequest extends FormRequest
             'internal' => [
                 'sometimes',
                 'boolean',
-                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
             ],
             'free' => [
                 'sometimes',
                 'integer',
                 'numeric',
                 'between:0,100',
-                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
-                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
             ],
         ];
     }

@@ -11,5 +11,5 @@ window.Echo = new Echo({
     broadcaster: 'socket.io',
     host: process.env.MIX_ECHO_ADDRESS,
     forceTLS: true,
-    transports: ['websocket', 'polling', 'flashsocket'],
+    withCredentials: true,
 });

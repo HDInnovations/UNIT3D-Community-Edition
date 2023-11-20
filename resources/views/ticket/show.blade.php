@@ -56,7 +56,11 @@
             </dd>
             @if (!empty($ticket->closed_at))
                 <dt>{{ __('ticket.closed') }}</dt>
-                <dd>{{ $ticket->closed_at->format('m/d/Y') }}</dd>
+                <dd>
+                    <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
+                        {{ $ticket->closed_at->format('m/d/Y') }}
+                    </time>
+                </dd>
             @endif
         </dl>
     </section>
@@ -72,7 +76,7 @@
                 >
                     @csrf
                     <p class="form__group">
-                        <select name="staff_id" class="form__select" x-on:change="$root.submit()">
+                        <select id="staff_id" name="staff_id" class="form__select" x-on:change="$root.submit()">
                             <option hidden disabled selected value=""></option>
                             @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
                                 <option value="{{ $user->id }}" @selected($user->id === $ticket->staff_id)>
@@ -80,7 +84,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <label class="form__label form__label--floating">{{ __('ticket.assign') }}</label>
+                        <label class="form__label form__label--floating" for="staff_id">{{ __('ticket.assign') }}</label>
                     </p>
                 </form>
                 @if(! empty($ticket->staff_id))
@@ -126,4 +130,49 @@
         </div>
     </section>
     @livewire('attachment-upload', ['id' => $ticket->id])
+    @if ($pastUserTickets->count() > 0)
+        <section class="panelV2">
+            <h2 class="panel__heading">Other Tickets</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>{{ __('common.name') }}</th>
+                            <th>{{ __('ticket.created') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pastUserTickets as $ticket)
+                            <tr>
+                                <td>
+                                    @switch($ticket->priority->name)
+                                        @case ('Low')
+                                            <i class="fas fa-circle text-yellow"></i>
+                                            @break
+                                        @case ('Medium')
+                                            <i class="fas fa-circle text-orange"></i>
+                                            @break
+                                        @case ('High')
+                                            <i class="fas fa-circle text-red"></i>
+                                            @break
+                                    @endswitch
+                                    <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
+                                        {{ $ticket->subject }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <time
+                                        title="{{ $ticket->created_at }}"
+                                        datetime="{{ $ticket->created_at }}"
+                                    >
+                                        {{ $ticket->created_at->format('Y-m') }}
+                                    </time>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    @endif
 @endsection

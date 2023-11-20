@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.postimg.cc/GpMQ3bj2/68747470733a2f2f692e706f7374696d672e63632f765a623674706e772f53637265656e2d53686f742d323032312d31302d.png" alt="UNIT3D-Community-Edition Cover Image">
+    <img src="https://i.postimg.cc/c4zVJKG6/Screen-Shot-2023-11-20-at-10-21-19-AM.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 
 <p align="center">

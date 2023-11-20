@@ -570,22 +570,22 @@ export default {
       });
     },
     forceMessage(name) {
-      $('#chat-message').val('/msg ' + name + ' ');
-      $('#chat-message').val('/msg ' + name + ' ');
+      document.getElementById('chat-message').value = '/msg ' + name + ' ';
+      document.getElementById('chat-message').value = '/msg ' + name + ' ';
     },
     forceGift(name) {
-      $('#chat-message').val('/gift ' + name + ' ');
-      $('#chat-message').val('/gift ' + name + ' ');
+      document.getElementById('chat-message').value = '/gift ' + name + ' ';
+      document.getElementById('chat-message').value = '/gift ' + name + ' ';
     },
     freezeChat() {
       this.frozen = true;
     },
     unfreezeChat() {
-      let container = $('.messages .list-group');
-      let xy = parseInt(container.prop('offsetHeight') + container.scrollTop());
+      let container = document.querySelector('.messages .list-group');
+      let xy = Math.ceil(container.offsetHeight + container.scrollTop);
       if (xy != undefined && this.frozen == true) {
         if (
-            Math.ceil(container.prop('scrollHeight') - container.scrollTop()) === container.prop('clientHeight')
+            Math.ceil(container.scrollHeight - container.scrollTop) === container.clientHeight
         ) {
           this.frozen = false;
         }
@@ -604,7 +604,7 @@ export default {
             .then((response) => {
               // reassign the auth variable to the response data
               this.auth = response.data;
-              $('#currentChatroom').val('1');
+              document.getElementById('currentChatroom').value = '1';
               this.fetchRooms();
             });
       }
@@ -657,7 +657,7 @@ export default {
             .then((response) => {
               // reassign the auth variable to the response data
               this.auth = response.data;
-              $('#currentChatroom').val('1');
+              document.getElementById('currentChatroom').value = '1';
               this.fetchRooms();
             });
       }
@@ -673,36 +673,60 @@ export default {
             .then((response) => {
               // reassign the auth variable to the response data
               this.auth = response.data;
-              $('#currentChatroom').val('1');
+              document.getElementById('currentChatroom').value = '1';
               this.fetchRooms();
             });
       }
     },
     changeFullscreen() {
+      let frameBody = document.getElementById('frameBody');
+      let frameList = document.getElementById('frameList');
+      let frameHeader = document.getElementById('frameHeader');
+      let frameFooter = document.getElementById('frameFooter');
+      let frameWrap = document.getElementById('frameWrap');
+
       if (this.fullscreen == 1) {
         this.fullscreen = 0;
-        $('#frameBody').css({ height: '92vh', 'min-height': '300px', 'max-height': '590px' });
-        $('#frameList').css({ height: 'initial', 'min-height': '300px', 'max-height': '535px' });
-        $('#frameHeader').css({ height: 'initial', 'min-height': 'initial', 'max-height': 'initial' });
-        $('#frameFooter').css({
-          'padding-top': '10px',
-          height: 'initial',
-          'min-height': 'initial',
-          'max-height': 'initial',
-        });
-        $('#frameWrap').css({ width: '100%', 'padding-top': '0px' });
+
+        frameBody.style.height = '92vh';
+        frameBody.style.minHeight = '300px';
+        frameBody.style.maxHeight = '590px';
+
+        frameList.style.height = 'initial';
+        frameList.style.minHeight = '300px';
+        frameList.style.maxHeight = '535px';
+
+        frameHeader.style.height = 'initial';
+        frameHeader.style.minHeight = 'initial';
+        frameHeader.style.maxHeight = 'initial';
+
+        frameFooter.style.paddingTop = '10px';
+        frameFooter.style.height = 'initial';
+        frameFooter.style.minHeight = 'initial';
+        frameFooter.style.maxHeight = 'initial';
+
+        frameWrap.style.width = '100%';
+        frameWrap.style.paddingTop = '0px';
       } else {
         this.fullscreen = 1;
-        $('#frameBody').css({ height: '70vh', 'min-height': '0px', 'max-height': '70vh' });
-        $('#frameList').css({ height: $('#frameBody').height() - $('#frameTabs').height() - 20 + 'px' });
-        $('#frameHeader').css({ height: '6vh', 'min-height': '0px', 'max-height': '6vh' });
-        $('#frameFooter').css({
-          'padding-top': '0px',
-          height: '24vh',
-          'min-height': '0px',
-          'max-height': '24vh',
-        });
-        $('#frameWrap').css({ width: '100%', 'padding-top': '5px' });
+
+        frameBody.style.height = '70vh';
+        frameBody.style.minHeight = '0px';
+        frameBody.style.maxHeight = '70vh';
+
+        frameList.style.height = frameBody.getBoundingClientRect().height - frameTabs.getBoundingClientRect().height - 20 + 'px';
+
+        frameHeader.style.height = '6vh';
+        frameHeader.style.minHeight = '0px';
+        frameHeader.style.maxHeight = '6vh';
+
+        frameFooter.style.paddingTop = '0px';
+        frameFooter.style.height = '24vh';
+        frameFooter.style.minHeight = '0px';
+        frameFooter.style.maxHeight = '24vh';
+
+        frameWrap.style.width = '100%';
+        frameWrap.style.paddingTop = '5px';
       }
     },
     changeStatus(status_id) {
@@ -821,7 +845,7 @@ export default {
       }
     },
     handleSound(type, id) {
-      let audioState = $('#chatbody').attr('audio');
+      let audioState = document.getElementById('chatbody').getAttribute('audio');
       if (type == 'room') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
@@ -869,7 +893,7 @@ export default {
       }
     },
     handleMessage(type, id, message) {
-      let audioState = $('#chatbody').attr('audio');
+      let audioState = document.getElementById('chatbody').getAttribute('audio');
       if (type == 'room') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
@@ -1043,19 +1067,23 @@ export default {
           });
     },
     scrollToBottom(force = false) {
-      let container = $('.messages .list-group');
+      let container = document.querySelector('.messages .list-group');
 
-      if (this.forced != false && force != true && this.frozen) return;
+      if (container === null) return;
+
+      if (!this.forced && !force && this.frozen) return;
 
       if (this.scroll || force) {
-        container.animate({ scrollTop: container.prop('scrollHeight') }, 0);
+        container.animate({
+          scrollTop: container.scrollHeight
+        }, {
+          duration: 0
+        });
       }
 
-      container.scroll(() => {
-        let scrollHeight = container.prop('scrollHeight');
-        this.scroll = scrollHeight + 9999;
-        this.forced = true;
-      });
+      container.scroll({
+        top: container.scrollHeight + 9999,
+      })
     },
     listenForChatter() {
       this.chatter = window.Echo.private(`chatter.${this.auth.id}`);
@@ -1132,13 +1160,11 @@ export default {
           });
     },
     attachAudible() {
-      $(window).off('blur');
-      $(window).on('blur', function () {
-        $('#chatbody').attr('audio', true);
+      window.addEventListener('blur', function () {
+        document.getElementById('chatbody').setAttribute('audio', true);
       });
-      $(window).off('focus');
-      $(window).on('focus', function () {
-        $('#chatbody').attr('audio', false);
+      window.addEventListener('focus', function () {
+        document.getElementById('chatbody').setAttribute('audio', false);
       });
     },
   },

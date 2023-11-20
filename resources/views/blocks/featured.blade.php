@@ -27,7 +27,7 @@
                         <footer class="featured-carousel__feature-details">
                             <p class="featured-carousel__featured-until">
                                 {{ __('blocks.featured-until') }}:<br>
-                                <time datetime="{{ $feature->created_at->addDay(7) }}">
+                                <time datetime="{{ $feature->created_at->addDay(7) }}" title="{{ $feature->created_at->addDay(7) }}">
                                     {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
                                     ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
                                 </time>
