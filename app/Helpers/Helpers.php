@@ -140,7 +140,7 @@ if (!\function_exists('language_flag')) {
             'Arabic', 'Arabic (001)', 'Arabic (AE)' => 'ae',
             'Arabic (SA)' => 'sa',
             'Arabic (MA)' => 'ma',
-            'Armenian' => 'am',
+            'Armenian'    => 'am',
             'Azerbaijani' => 'az',
             'Belarusian'  => 'by',
             'Bengali'     => 'bd',
