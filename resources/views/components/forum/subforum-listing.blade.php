@@ -68,7 +68,7 @@
             <address class="subforum-listing__latest-author">
                 <a
                     class="subforum-listing__latest-author-link"
-                    href="{{ route('users.show', ['user' => $subforum->latestPoster]) }}"
+                    href="{{ route('users.show', ['user' => $subforum->last_post_user_username]) }}"
                 >
                     {{ $subforum->last_post_user_username }}
                 </a>
