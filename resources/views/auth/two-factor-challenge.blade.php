@@ -5,7 +5,7 @@
     <title>{{ __('Two Factor Authentication') }} - {{ config('other.title') }}</title>
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous">
+    @vite('resources/css/main/login.css')
 </head>
 <body>
 <main x-data="{ recovery: false }">
@@ -99,6 +99,6 @@
         </form>
     </section>
 </main>
-<script src="{{ mix('js/alpine.js') }}" crossorigin="anonymous"></script>
+@vite('resources/js/alpine.js')
 </body>
 </html>

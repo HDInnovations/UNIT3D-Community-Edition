@@ -15,48 +15,48 @@
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
 @if (auth()->user()->standalone_css === null)
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous">
+    @vite('resources/css/app.css')
     @switch(auth()->user()->style)
         @case(1)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
             @break
         @case(2)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-blue.css')
             @break
         @case(3)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-green.css')
             @break
         @case(4)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-pink.css')
             @break
         @case(5)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-purple.css')
             @break
         @case(6)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-red.css')
             @break
         @case(7)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-teal.css')
             @break
         @case(8)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/dark-yellow.css')
             @break
         @case(9)
-            <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ mix('css/themes/cosmic-void.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/galactic.css')
+            @vite('resources/css/themes/cosmic-void.css')
             @break
         @case(10)
-            <link rel="stylesheet" href="{{ mix('css/themes/nord.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/nord.css')
             @break
         @case(11)
-            <link rel="stylesheet" href="{{ mix('css/themes/revel.css') }}" crossorigin="anonymous">
+            @vite('resources/css/themes/revel.css')
             @break
     @endswitch
 
