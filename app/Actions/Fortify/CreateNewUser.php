@@ -9,9 +9,7 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
 use Exception;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -54,18 +52,11 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::excludeIf(config('captcha.enabled') === false),
                 Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
             ],
-            'code' => 'required',
+            'code' => [
+                Rule::when(config('other.invite-only') === true, 'required'),
+                Rule::when(config('other.invite-only') === true, Rule::exists('invites', 'code')->whereNull('accepted_by'))
+            ]
         ])->validate();
-
-        // Make sure open reg is off and invite code exists and has not been used already
-        $invite = Invite::query()->where('code', '=', $input['code'])->first();
-
-        if (config('other.invite-only') === true && ($invite === null || $invite->accepted_by !== null)) {
-            throw new HttpResponseException(
-                to_route('register', ['code' => $input['code']])
-                    ->withErrors(trans('auth.invalid-key'))
-            );
-        }
 
         $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
@@ -86,10 +77,10 @@ class CreateNewUser implements CreatesNewUsers
 
         $user->rsskeys()->create(['content' => $user->rsskey]);
 
-        if ($invite !== null) {
-            $invite->update([
+        if (config('other.invite-only') === true) {
+            Invite::where('code', '=', $input['code'])->update([
                 'accepted_by' => $user->id,
-                'accepted_at' => new Carbon(),
+                'accepted_at' => now(),
             ]);
         }
 
