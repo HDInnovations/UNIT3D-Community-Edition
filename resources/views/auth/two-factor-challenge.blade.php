@@ -37,7 +37,7 @@
                 <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
             </a>
             <ul class="auth-form__important-infos">
-                <li class="auth-form__important-info" x-cloak x-show="!recovery">
+                <li class="auth-form__important-info" x-show="!recovery">
                     {{ __('auth.enter-totp') }}
                 </li>
                 <li class="auth-form__important-info" x-cloak x-show="recovery">
