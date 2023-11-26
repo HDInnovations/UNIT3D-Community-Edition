@@ -1,32 +1,35 @@
 {
-  "private": true,
-  "scripts": {
-    "development": "mix",
-    "watch": "mix watch",
-    "watch-poll": "mix watch -- --watch-options-poll=1000",
-    "hot": "mix watch --hot",
-    "production": "mix --production"
-  },
-  "dependencies": {
-    "ajv": "^8.10.0",
-    "alpinejs": "^3.9.1",
-    "axios": "^0.26.1",
-    "cross-env": "^7.0.3",
-    "dayjs": "^1.11.0",
-    "laravel-echo": "^1.11.4",
-    "laravel-echo-server": "^1.6.3",
-    "laravel-mix": "^6.0.43",
-    "laravel-mix-purgecss": "^6.0.0",
-    "postcss": "^8.4.12",
-    "resolve-url-loader": "^5.0.0",
-    "sass": "^1.49.9",
-    "sass-loader": "^12.6.0",
-    "socket.io": "^2.4.0",
-    "socket.io-client": "^2.3.1",
-    "sweetalert2": "^11.4.6",
-    "virtual-select-plugin": "^1.0.26",
-    "vue": "^2.6.14",
-    "vue-loader": "^15.9.8",
-    "vue-template-compiler": "^2.6.14"
-  }
+    "private": true,
+    "scripts": {
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "production": "mix --production"
+    },
+    "dependencies": {
+        "ajv": "^8.10.0",
+        "alpinejs": "^3.9.1",
+        "axios": "^0.26.1",
+        "cross-env": "^7.0.3",
+        "dayjs": "^1.11.0",
+        "laravel-echo": "^1.11.4",
+        "laravel-echo-server": "^1.6.3",
+        "postcss": "^8.4.12",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.49.9",
+        "sass-loader": "^12.6.0",
+        "socket.io": "^2.4.0",
+        "socket.io-client": "^2.3.1",
+        "sweetalert2": "^11.4.6",
+        "virtual-select-plugin": "^1.0.26",
+        "vue": "^2.7.0",
+        "vue-loader": "^15.9.8",
+        "vue-template-compiler": "^2.6.14",
+        "@vitejs/plugin-vue2": "^1.1.2"
+    },
+    "devDependencies": {
+        "vite": "^3.0.2",
+        "laravel-vite-plugin": "^0.6.0"
+    }
 }
