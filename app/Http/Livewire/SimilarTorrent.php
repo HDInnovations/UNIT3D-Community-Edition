@@ -136,7 +136,7 @@ class SimilarTorrent extends Component
 
     final public function alertConfirm(): void
     {
-        if (! auth()->user()->group->is_modo) {
+        if (!auth()->user()->group->is_modo) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
 
             return;
@@ -154,7 +154,7 @@ class SimilarTorrent extends Component
 
     final public function deleteRecords(): void
     {
-        if (! auth()->user()->group->is_modo) {
+        if (!auth()->user()->group->is_modo) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
 
             return;
