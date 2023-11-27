@@ -136,6 +136,12 @@ class SimilarTorrent extends Component
 
     final public function alertConfirm(): void
     {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
@@ -148,6 +154,12 @@ class SimilarTorrent extends Component
 
     final public function deleteRecords(): void
     {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];

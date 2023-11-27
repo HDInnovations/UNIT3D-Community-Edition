@@ -73,14 +73,14 @@
                     {{ $torrentRequest->category->name }}
                 </span>
             </li>
-            <li class="request__resolution">
-                <span>
-                    {{ $torrentRequest->resolution->name }}
-                </span>
-            </li>
             <li class="request__type">
                 <span>
-                    {{ $torrentRequest->type->name ?? 'No Res' }}
+                    {{ $torrentRequest->type->name }}
+                </span>
+            </li>
+            <li class="request__resolution">
+                <span>
+                    {{ $torrentRequest->resolution->name ?? 'No Res' }}
                 </span>
             </li>
             <li class="request__requester">
