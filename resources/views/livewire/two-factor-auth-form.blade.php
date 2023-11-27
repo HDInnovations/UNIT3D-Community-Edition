@@ -54,6 +54,8 @@
                                autocomplete="one-time-code"
                                wire:model="code"
                                wire:keydown.enter="confirmTwoFactorAuthentication" />
+
+                        @error('code') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 @endif
             @endif

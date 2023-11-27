@@ -40,7 +40,7 @@ class TwoFactorAuthForm extends Component
     /**
      * The OTP code for confirming two-factor authentication.
      */
-    public ?string $code;
+    public string $code;
 
     /**
      * Mount the component.
@@ -76,6 +76,12 @@ class TwoFactorAuthForm extends Component
      */
     final public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
+        if (empty($this->code)) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'The two factor authentication code input must not be empty.']);
+
+            return;
+        }
+
         $confirm(auth()->user(), $this->code);
 
         $this->showingQrCode = false;
