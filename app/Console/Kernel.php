@@ -29,7 +29,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:update_user_last_actions')->everyFiveSeconds();
         $schedule->command('auto:delete_stopped_peers')->everyTwoMinutes();
         $schedule->command('auto:cache_user_leech_counts')->everyThirtyMinutes();
-        $schedule->command('auto:check_peer_connectivity')->everyThirtyMinutes()->runInBackground();
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
         $schedule->command('auto:reward_resurrection')->daily();
