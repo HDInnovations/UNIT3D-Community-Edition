@@ -41,10 +41,10 @@ class EarningController extends Controller
 
         // These two partially-built queries are used for constructing all the other queries
         $distinctSeeds = Peer::query()
-            ->select(['user_id', 'torrent_id', 'seeder'])
             ->where('user_id', '=', $user->id)
             ->where('seeder', '=', 1)
             ->where('active', '=', 1)
+            ->groupBy('torrent_id')
             ->distinct();
 
         $history = History::query()
