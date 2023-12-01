@@ -23,10 +23,10 @@ class EmailBlacklist implements Rule
         $this->refresh();
 
         // Extract domain from supplied email address
-        $domain = Str::after(strtolower($value), '@');
+        $domain = Str::after(strtolower((string) $value), '@');
 
         // Run validation check
-        return ! \in_array($domain, $this->domains, true);
+        return !\in_array($domain, $this->domains, true);
     }
 
     /**
@@ -47,7 +47,7 @@ class EmailBlacklist implements Rule
         $autoupdate = config('email-blacklist.auto-update');
 
         try {
-            if ($autoupdate && ! cache()->has(config('email-blacklist.cache-key'))) {
+            if ($autoupdate && !cache()->has(config('email-blacklist.cache-key'))) {
                 EmailBlacklistUpdater::update();
             }
         } catch (InvalidArgumentException) {
@@ -65,7 +65,7 @@ class EmailBlacklist implements Rule
             return;
         }
 
-        $appendDomains = explode('|', strtolower($appendList));
+        $appendDomains = explode('|', strtolower((string) $appendList));
         $this->domains = array_merge($this->domains, $appendDomains);
     }
 

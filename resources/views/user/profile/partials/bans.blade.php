@@ -27,6 +27,7 @@
                                     required
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="unban_reason">Reason</label>
+                                <span class="form__hint">The reason is only visible for staff.</span>
                             </p>
                             <p class="form__group">
                                 <select
@@ -77,6 +78,7 @@
                                     required
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="ban_reason">Reason</label>
+                                <span class="form__hint">The reason will be emailed to the user.</span>
                             </p>
                             <input type="hidden" name="owned_by" value="{{ $user->id }}" />
                             <p class="form__group">
@@ -116,8 +118,16 @@
                         </td>
                         <td>{{ $ban->ban_reason }}</td>
                         <td>{{ $ban->unban_reason }}</td>
-                        <td>{{ $ban->created_at }}</td>
-                        <td>{{ $ban->removed_at }}</td>
+                        <td>
+                            <time datetime="{{ $ban->created_at }}" title="{{ $ban->created_at }}">
+                                {{ $ban->created_at }}
+                            </time>
+                        </td>
+                        <td>
+                            <time datetime="{{ $ban->removed_at }}" title="{{ $ban->removed_at }}">
+                                {{ $ban->removed_at }}
+                            </time>
+                        </td>
                     </tr>
                 @empty
                     <tr>

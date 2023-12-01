@@ -61,7 +61,7 @@
                     >
                 </p>
                 <p class="form__group">
-                    <input type="text" class="form__text" name="name" value="{{ old('name') ?? $torrent->name }}" required>
+                    <input id="name" type="text" class="form__text" name="name" value="{{ old('name') ?? $torrent->name }}" required>
                     <label class="form__label form__label--floating" for="name">
                         {{ __('torrent.title') }}
                     </label>
@@ -347,7 +347,7 @@
                         name="bdinfo"
                         placeholder=" "
                     >{{ old('bdinfo') ?? $torrent->bdinfo }}</textarea>
-                    <label class="form__label form__label--floating" for="description">
+                    <label class="form__label form__label--floating" for="bdinfo">
                         BDInfo (Quick Summary)
                     </label>
                 </p>
@@ -366,7 +366,7 @@
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                 @else
-                    <input type="hidden" name="anonymous" value={{ $torrent->anon }}>
+                    <input type="hidden" name="anon" value={{ $torrent->anon }}>
                 @endif
                 <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
                     <input type="hidden" name="stream" value="0">
@@ -387,7 +387,7 @@
                         class="form__checkbox"
                         id="sd"
                         name="sd"
-                        x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'""
+                        x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '1' : '0'"
                         @checked(old('stream') ?? $torrent->sd)
                     >
                     <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>

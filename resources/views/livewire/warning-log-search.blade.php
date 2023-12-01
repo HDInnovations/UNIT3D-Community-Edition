@@ -5,10 +5,10 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="show"
-                            class="form__checkbox"
-                            type="checkbox"
-                            wire:click="toggleProperties('show')"
+                        id="show"
+                        class="form__checkbox"
+                        type="checkbox"
+                        wire:click="toggleProperties('show')"
                     >
                     <label class="form__label" for="show">
                         Show Soft Deletes
@@ -18,13 +18,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="receiver"
-                            class="form__text"
-                            type="text"
-                            wire:model="receiver"
-                            placeholder=" "
+                        id="receiver"
+                        class="form__text"
+                        type="text"
+                        wire:model="receiver"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="receiver">
                         {{ __('common.user') }} {{ __('common.username') }}
                     </label>
                 </div>
@@ -32,13 +32,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="sender"
-                            class="form__text"
-                            type="text"
-                            wire:model="sender"
-                            placeholder=" "
+                        id="sender"
+                        class="form__text"
+                        type="text"
+                        wire:model="sender"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="sender">
                         {{ __('common.staff') }} {{ __('common.username') }}
                     </label>
                 </div>
@@ -46,13 +46,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="torrent"
-                            class="form__text"
-                            type="text"
-                            wire:model="torrent"
-                            placeholder=" "
+                        id="torrent"
+                        class="form__text"
+                        type="text"
+                        wire:model="torrent"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="torrent">
                         {{ __('torrent.torrent') }} {{ __('common.name') }}
                     </label>
                 </div>
@@ -60,13 +60,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="reason"
-                            class="form__text"
-                            type="text"
-                            wire:model="reason"
-                            placeholder=" "
+                        id="reason"
+                        class="form__text"
+                        type="text"
+                        wire:model="reason"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="reason">
                         {{ __('common.reason') }}
                     </label>
                 </div>
@@ -74,16 +74,16 @@
             <div class="panel__action">
                 <div class="form__group">
                     <select
-                            id="quantity"
-                            class="form__select"
-                            wire:model="perPage"
-                            required
+                        id="quantity"
+                        class="form__select"
+                        wire:model="perPage"
+                        required
                     >
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="quantity">
                         {{ __('common.quantity') }}
                     </label>
                 </div>
@@ -140,12 +140,12 @@
                 </td>
                 <td>{{ $warning->reason }}</td>
                 <td>
-                    <time datetime="{{ $warning->created_at }}">
+                    <time datetime="{{ $warning->created_at }}" title="{{ $warning->created_at }}">
                         {{ $warning->created_at }}
                     </time>
                 </td>
                 <td>
-                    <time datetime="{{ $warning->expires_on }}">
+                    <time datetime="{{ $warning->expires_on }}" title="{{ $warning->expires_on }}">
                         {{ $warning->expires_on }}
                     </time>
                 </td>

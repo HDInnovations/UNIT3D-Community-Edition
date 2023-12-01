@@ -22,7 +22,11 @@
                             <x-user_tag :user="$audit->user" :anon="false" />
                         </td>
                         <td>{{ $audit->action }}</td>
-                        <td>{{ $audit->created_at }} ({{ $audit->created_at->diffForHumans() }})</td>
+                        <td>
+                            <time datetime="{{ $audit->created_at }}" title="{{ $audit->created_at }}">
+                                {{ $audit->created_at }} ({{ $audit->created_at->diffForHumans() }})
+                            </time>
+                        </td>
                         <td>
                             <ul>
                                 @foreach ($values as $key => $value)

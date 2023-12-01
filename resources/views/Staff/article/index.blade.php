@@ -54,7 +54,7 @@
                             </a>
                         </td>
                         <td>
-                            <time datetime="{{ $article->created_at }}">
+                            <time datetime="{{ $article->created_at }}" title="{{ $article->created_at }}">
                                 {{ $article->created_at }}
                             </time>
                         </td>

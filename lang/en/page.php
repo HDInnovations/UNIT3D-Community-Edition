@@ -27,7 +27,7 @@ return [
     'aboutus-welcome-desc'  => ':title is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing members. :titles strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly Staff Team.',
     'blacklist-btclient'    => 'BitTorrent Client',
     'blacklist-clients'     => 'Clients',
-    'blacklist-desc'        => 'The Following Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
+    'blacklist-desc'        => 'These BitTorrent clients are blacklisted/forbidden from announcing to :title',
     'blacklist-emaildomain' => 'Blocked Domain',
     'email-blacklist-desc'  => 'The Following Email Domains Are Blocked From Being Used. You Cannot Register Or Send A Invite To The Following.',
     'email-whitelist-desc'  => 'The Following Email Domains Are The Only Email Domains Allowed To Be Used. You May Only Register Or Send A Invite Using The Following.',

@@ -64,10 +64,10 @@ class Torrent extends Model
         'info_hash',
     ];
 
-    public const PENDING = 0;
-    public const APPROVED = 1;
-    public const REJECTED = 2;
-    public const POSTPONED = 3;
+    final public const PENDING = 0;
+    final public const APPROVED = 1;
+    final public const REJECTED = 2;
+    final public const POSTPONED = 3;
 
     protected static function booted(): void
     {

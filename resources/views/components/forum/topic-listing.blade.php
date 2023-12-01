@@ -101,8 +101,8 @@
         </address>
         <time
             class="topic-listing__latest-datetime"
-            datetime="{{ $topic->last_reply_at ?? '' }}"
-            title="{{ $topic->last_reply_at ?? '' }}"
+            datetime="{{ $topic->last_reply_at }}"
+            title="{{ $topic->last_reply_at }}"
         >
             <a
                 class="topic-listing__latest-post-link"

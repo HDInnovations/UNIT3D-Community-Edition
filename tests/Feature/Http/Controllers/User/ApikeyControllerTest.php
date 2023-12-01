@@ -19,10 +19,10 @@ use Illuminate\Support\Str;
 test('edit returns an ok response', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->get(route('users.apikey.edit', [$user]));
+    $response = $this->actingAs($user)->get(route('users.apikeys.index', [$user]));
 
     $response->assertOk();
-    $response->assertViewIs('user.apikey.edit');
+    $response->assertViewIs('user.apikey.index');
     $response->assertViewHas('user', $user);
 });
 
@@ -30,14 +30,14 @@ test('edit aborts with a 403', function (): void {
     $this->seed(GroupsTableSeeder::class);
 
     $staffUser = User::factory()->create([
-        'group_id' => UserGroups::MODERATOR,
+        'group_id' => UserGroups::MODERATOR->value,
     ]);
 
     $user = User::factory()->create([
-        'group_id' => UserGroups::USER,
+        'group_id' => UserGroups::USER->value,
     ]);
 
-    $response = $this->actingAs($user)->get(route('users.apikey.edit', [$staffUser]));
+    $response = $this->actingAs($user)->get(route('users.apikeys.index', [$staffUser]));
 
     $response->assertForbidden();
 });
@@ -45,11 +45,11 @@ test('edit aborts with a 403', function (): void {
 test('update returns an ok response', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->patch(route('users.apikey.update', [$user]), [
+    $response = $this->actingAs($user)->patch(route('users.apikeys.update', [$user]), [
         'api_token' => Str::random(100),
     ]);
 
-    $response->assertRedirect(route('users.apikey.edit', ['user' => $user]))
+    $response->assertRedirect(route('users.apikeys.index', ['user' => $user]))
         ->assertSessionHas('success', 'Your API key was changed successfully.');
 });
 
@@ -57,14 +57,14 @@ test('update aborts with a 403', function (): void {
     $this->seed(GroupsTableSeeder::class);
 
     $staffUser = User::factory()->create([
-        'group_id' => UserGroups::MODERATOR,
+        'group_id' => UserGroups::MODERATOR->value,
     ]);
 
     $user = User::factory()->create([
-        'group_id' => UserGroups::USER,
+        'group_id' => UserGroups::USER->value,
     ]);
 
-    $response = $this->actingAs($user)->patch(route('users.apikey.update', [$staffUser]));
+    $response = $this->actingAs($user)->patch(route('users.apikeys.update', [$staffUser]));
 
     $response->assertForbidden();
 });

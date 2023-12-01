@@ -48,10 +48,20 @@
                         <td>
                             @switch(true)
                                 @case($tip->torrent_id !== null)
-                                    <x-user_tag :user="$tip->receiver" :anon="$tip->torrent->anon" />
+                                    @if ($tip->torrent === null)
+                                        Torrent Deleted
+                                    @else
+                                        <x-user_tag :user="$tip->receiver" :anon="$tip->torrent->anon" />
+                                    @endif
+
                                     @break
                                 @case($tip->post_id !== null)
-                                    <x-user_tag :user="$tip->receiver" :anon="false" />
+                                    @if ($tip->post === null)
+                                        Post Deleted
+                                    @else
+                                        <x-user_tag :user="$tip->receiver" :anon="false" />
+                                    @endif
+
                                     @break
                             @endswitch
                         </td>
@@ -78,6 +88,6 @@
             <dd>{{ $receivedTips }}</dd>
             <dt>{{ __('bon.you-have-sent-tips') }}</dt>
             <dd>{{ $sentTips }}</dd>
-        </div>
+        </dl>
     </section>
 @endsection

@@ -66,18 +66,17 @@
             <h2 class="meta__heading">Platforms</h2>
             @foreach ($platforms ?? [] as $platform)
                 <article class="meta-chip-wrapper meta-chip">
-                        @if ($platform->image_id)
-                            <img
-                                class="meta-chip__image"
-                                src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $platform->image_id }}.png"
-                                alt=""
-                            />
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-user meta-chip__icon"></i>
-                        @endif
-                        <h2 class="meta-chip__name"></h2>
-                        <h3 class="meta-chip__value"></h3>
-                    </a>
+                    @if ($platform->image_id)
+                        <img
+                            class="meta-chip__image"
+                            src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $platform->image_id }}.png"
+                            alt=""
+                        />
+                    @else
+                        <i class="{{ config('other.font-awesome') }} fa-user meta-chip__icon"></i>
+                    @endif
+                    <h2 class="meta-chip__name"></h2>
+                    <h3 class="meta-chip__value"></h3>
                 </article>
             @endforeach
         </section>

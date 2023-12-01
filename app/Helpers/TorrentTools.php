@@ -53,7 +53,7 @@ class TorrentTools
         $result['info']['private'] = 1;
 
         if (config('torrent.created_by_append') && \array_key_exists('created by', $result)) {
-            $result['created by'] = trim($result['created by'], '. ').'. '.config('torrent.created_by', '');
+            $result['created by'] = trim((string) $result['created by'], '. ').'. '.config('torrent.created_by', '');
         } else {
             $result['created by'] = config('torrent.created_by', '');
         }
@@ -145,7 +145,7 @@ class TorrentTools
                 $count = is_countable($file['path']) ? \count($file['path']) : 0;
 
                 for ($i = 0; $i < $count; $i++) {
-                    if (! \in_array($file['path'][$i], $filenames)) {
+                    if (!\in_array($file['path'][$i], $filenames)) {
                         $filenames[] = $file['path'][$i];
                     }
                 }
@@ -162,7 +162,7 @@ class TorrentTools
      */
     public static function getTorrentHash($decodedTorrent): string
     {
-        return sha1(Bencode::bencode($decodedTorrent['info']));
+        return sha1((string) Bencode::bencode($decodedTorrent['info']));
     }
 
     /**
@@ -224,18 +224,18 @@ class TorrentTools
             return null;
         }
 
-        $completeNameI = strpos($mediainfo, 'Complete name');
+        $completeNameI = strpos((string) $mediainfo, 'Complete name');
 
         if ($completeNameI !== false) {
-            $pathI = strpos($mediainfo, ': ', $completeNameI);
+            $pathI = strpos((string) $mediainfo, ': ', $completeNameI);
 
             if ($pathI !== false) {
                 $pathI += 2;
-                $endI = strpos($mediainfo, "\n", $pathI);
-                $path = substr($mediainfo, $pathI, $endI - $pathI);
+                $endI = strpos((string) $mediainfo, "\n", $pathI);
+                $path = substr((string) $mediainfo, $pathI, $endI - $pathI);
                 $newPath = MediaInfo::stripPath($path);
 
-                return substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
+                return substr_replace((string) $mediainfo, $newPath, $pathI, \strlen($path));
             }
         }
 
@@ -247,7 +247,7 @@ class TorrentTools
      */
     public static function parseKeywords($text): array
     {
-        return array_filter(array_unique(array_map('trim', explode(',', $text))));
+        return array_filter(array_unique(array_map('trim', explode(',', (string) $text))));
     }
 
     /*

@@ -112,7 +112,7 @@
                         type="text"
                         value="{{ $rss->object_torrent->tmdb }}"
                     >
-                    <label class="form__label form__label--floating" for="tmdb">
+                    <label class="form__label form__label--floating" for="autotmdb">
                         TMDB ID
                     </label>
                 </p>
@@ -127,7 +127,7 @@
                         type="text"
                         value="{{ $rss->object_torrent->imdb }}"
                     >
-                    <label class="form__label form__label--floating" for="imdb">
+                    <label class="form__label form__label--floating" for="autoimdb">
                         IMDB ID
                     </label>
                 </p>
@@ -142,7 +142,7 @@
                         type="text"
                         value="{{ $rss->object_torrent->tvdb }}"
                     >
-                    <label class="form__label form__label--floating" for="tvdb">
+                    <label class="form__label form__label--floating" for="autotvdb">
                         TVDB ID
                     </label>
                 </p>
@@ -158,7 +158,7 @@
                         type="text"
                         value="{{ $rss->object_torrent->mal }}"
                     >
-                    <label class="form__label form__label--floating" for="mal">
+                    <label class="form__label form__label--floating" for="automal">
                         MAL ID
                     </label>
                 </p>
@@ -448,5 +448,6 @@
                 </button>
             </p>
         </form>
+        </div>
     </section>
 @endsection

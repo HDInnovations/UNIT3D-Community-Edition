@@ -45,7 +45,7 @@ class StorePollVoteRequest extends FormRequest
             'options' => [
                 'required',
                 'array',
-                Rule::when(! $poll->multiple_choice, 'max:1'),
+                Rule::when(!$poll->multiple_choice, 'max:1'),
                 'min:1',
             ],
             'options.*' => [

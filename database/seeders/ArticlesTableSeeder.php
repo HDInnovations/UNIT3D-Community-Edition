@@ -41,7 +41,7 @@ class ArticlesTableSeeder extends Seeder
             [
                 'id'         => 1,
                 'title'      => 'Welcome To '.config('other.title').' .',
-                'content'    => 'Welcome to '.config('other.title').'. Powered By '.config('unit3d.powered-by').'.',
+                'content'    => 'Welcome to '.config('other.title').'. '.config('unit3d.powered-by').'.',
                 'user_id'    => 3,
                 'created_at' => '2017-02-28 17:22:37',
                 'updated_at' => '2017-04-21 12:21:06',

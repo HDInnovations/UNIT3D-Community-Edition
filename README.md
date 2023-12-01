@@ -1,16 +1,14 @@
 <p align="center">
-    <img src="https://i.postimg.cc/FKP2H5p4/Screen-Shot-2023-07-03-at-2-23-52-PM.png" alt="UNIT3D-Community-Edition Cover Image">
+    <img src="https://i.postimg.cc/c4zVJKG6/Screen-Shot-2023-11-20-at-10-21-19-AM.png" alt="UNIT3D-Community-Edition Cover Image">
 </p>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-10-f4645f.svg" /></a> 
-<a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
-<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg" /></a>
-<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg" /></a>
-<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg" /></a>
-<a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg" /></a>  
-<a href="https://discord.gg/J8dsx7F5yT"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
-<a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+    <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-10-f4645f.svg" /></a> 
+    <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/lint.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/phpunit-test.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg" /></a>  
 </p>
 
 <p align="center">
@@ -36,7 +34,7 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-We have been developing a Private Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 9, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.2 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+We have been developing a Private Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 10, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.2 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -86,7 +84,8 @@ Use this command to generate demo users and torrents for testing purposes:
 ## <a name="versions"></a> 🚨 Version Support Information
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 6.x.x       |  Active Support :rocket: | >= 8.1
+ 7.x.x       |  Active Support :rocket: | >= 8.2
+ 6.x.x       |  End Of Life :skull: | >= 8.1
  5.x.x       |  End Of Life :skull: | >= 8.0
  4.x.x       |  End Of Life :skull: | >= 7.4
  3.x.x       |  End Of Life :skull: | >= 7.4
@@ -161,6 +160,7 @@ DOGE - DJ78fQspiu879y3adLbTZVSFABKhKqHE7B
 
 ## <a name="thanks"></a> 🎉 Special Thanks
 
+<a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="50px;"></a>
 <a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
 <a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" height="50px;"></a>
 <a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>

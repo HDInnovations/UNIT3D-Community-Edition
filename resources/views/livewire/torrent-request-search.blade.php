@@ -121,31 +121,31 @@
                                 class="form__text"
                                 placeholder=" "
                             />
-                            <label class="form__label form__label--floating">
+                            <label class="form__label form__label--floating" for="name">
                                 {{ __('common.name') }}
                             </label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="requestor" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">{{ __('common.author') }}</label>
+                            <input id="requester" wire:model="requestor" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="requester">{{ __('common.author') }}</label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
-                            <input wire:model="tmdbId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">TMDb ID</label>
+                            <input id="tmdbId" wire:model="tmdbId" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="tmdbId">TMDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="imdbId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">IMDb ID</label>
+                            <input id="imdbId" wire:model="imdbId" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="imdbId">IMDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="tvdbId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">TVDb ID</label>
+                            <input id="tvdbId" wire:model="tvdbId" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="tvdbId">TVDb ID</label>
                         </p>
                         <p class="form__group">
-                            <input wire:model="malId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">MAL ID</label>
+                            <input id="malId" wire:model="malId" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="malId">MAL ID</label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">

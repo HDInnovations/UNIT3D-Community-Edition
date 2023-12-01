@@ -158,7 +158,7 @@ class UserTorrents extends Component
             ->when($this->uploaded === 'exclude', fn ($query) => $query->where('torrents.user_id', '<>', $this->user->id))
             ->when($this->downloaded === 'include', fn ($query) => $query->where('history.actual_downloaded', '>', 0))
             ->when($this->downloaded === 'exclude', fn ($query) => $query->where('history.actual_downloaded', '=', 0))
-            ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
+            ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

@@ -4,8 +4,8 @@
         <div class="panel__body">
             <form class="form">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder=" " autofocus="">
-                    <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
+                    <input id="name" wire:model="name" class="form__text" placeholder=" " autofocus="">
+                    <label class="form__label form__label--floating" for="name">{{ __('torrent.name') }}</label>
                 </p>
                 <p class="form__group">
                     <label style="user-select: none" class="form__label" x-data="{ state: @entangle('seeding'), ...ternaryCheckbox() }">
@@ -46,12 +46,12 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
-                        <select wire:model="perPage" class="form__select">
+                        <select id="perPage" wire:model="perPage" class="form__select">
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                         </select>
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="perPage">
                             {{ __('common.quantity') }}
                         </label>
                     </div>
@@ -214,14 +214,26 @@
                             {{ $active->progress < 100 ? \floor($active->progress * 10000) / 100 : INF }}%
                         </td>
                         @if ($showMorePrecision)
-                            <td class="user-active__created-at">{{ $active->created_at ?? 'N/A' }}</td>
-                            <td class="user-active__updated-at">{{ $active->updated_at ?? 'N/A' }}</td>
-                        @else
                             <td class="user-active__created-at">
-                                {{ isset($active->created_at) ? \explode(" ", $active->created_at)[0] : 'N/A' }}
+                                <time datetime="{{ $active->created_at }}" title="{{ $active->created_at }}">
+                                    {{ $active->created_at ?? 'N/A' }}
+                                </time>
                             </td>
                             <td class="user-active__updated-at">
-                                {{ isset($active->updated_at) ? \explode(" ", $active->updated_at)[0] : 'N/A' }}
+                                <time datetime="{{ $active->updated_at }}" title="{{ $active->updated_at }}">
+                                    {{ $active->updated_at ?? 'N/A' }}
+                                </time>
+                            </td>
+                        @else
+                            <td class="user-active__created-at">
+                                <time datetime="{{ $active->created_at }}" title="{{ $active->created_at }}">
+                                    {{ isset($active->created_at) ? \explode(" ", $active->created_at)[0] : 'N/A' }}
+                                </time>
+                            </td>
+                            <td class="user-active__updated-at">
+                                <time datetime="{{ $active->updated_at }}" title="{{ $active->updated_at }}">
+                                    {{ isset($active->updated_at) ? \explode(" ", $active->updated_at)[0] : 'N/A' }}
+                                </time>
                             </td>
                         @endif
                     </tr>

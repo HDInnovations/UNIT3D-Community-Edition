@@ -84,6 +84,6 @@
             <dd>{{ $receivedGifts }}</dd>
             <dt>{{ __('bon.you-have-sent-gifts') }}</dt>
             <dd>{{ $sentGifts }}</dd>
-        </div>
+        </dl>
     </section>
 @endsection

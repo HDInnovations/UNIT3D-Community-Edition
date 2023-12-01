@@ -43,8 +43,8 @@ class ProcessBackup implements ShouldQueue
             $backupJob->dontBackupDatabases();
         }
 
-        if (! empty($this->option)) {
-            $prefix = str_replace('_', '-', $this->option).'-';
+        if (!empty($this->option)) {
+            $prefix = str_replace('_', '-', (string) $this->option).'-';
 
             $backupJob->setFilename($prefix.date('Y-m-d-H-i-s').'.zip');
         }

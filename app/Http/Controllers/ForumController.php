@@ -33,7 +33,7 @@ class ForumController extends Controller
                 ->with([
                     'forums' => fn ($query) => $query
                         ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]]),
-                    'forums.latestPoster',
+                    'forums.latestPoster' => fn ($query) => $query->withTrashed(),
                 ])
                 ->whereNull('parent_id')
                 ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
@@ -59,7 +59,7 @@ class ForumController extends Controller
         }
 
         // Check if the user has permission to view the forum
-        if (! $forum->getPermission()->show_forum) {
+        if (!$forum->getPermission()->show_forum) {
             return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }

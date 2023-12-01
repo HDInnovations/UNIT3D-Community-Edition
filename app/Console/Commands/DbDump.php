@@ -31,7 +31,7 @@ class DbDump extends Command
         $user = config('database.connections.mysql.username');
         $password = config('database.connections.mysql.password');
 
-        if (! $outfile) {
+        if (!$outfile) {
             $this->error('The dump file location is not set in the configuration. If you\'ve tried to set it, you may need to call "php artisan cache:clear" and/or specify the environment when calling Artisan, e.g., "php artisan --env=testing db:dump".');
 
             return;
@@ -43,11 +43,11 @@ class DbDump extends Command
 
         $cmd = sprintf(
             'mysqldump --user=%s --databases %s --add-drop-database --add-drop-table --default-character-set=utf8mb4 --skip-extended-insert --host=%s --quick --quote-names --routines --set-charset --single-transaction --triggers --tz-utc %s> %s;',
-            escapeshellarg($user),
-            escapeshellarg($db),
-            escapeshellarg($host),
+            escapeshellarg((string) $user),
+            escapeshellarg((string) $db),
+            escapeshellarg((string) $host),
             $this->option('verbose') ? '--verbose ' : '',
-            escapeshellarg($outfile)
+            escapeshellarg((string) $outfile)
         );
 
         $return = null;

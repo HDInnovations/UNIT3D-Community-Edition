@@ -15,45 +15,45 @@
         <div class="panel__body" style="padding: 5px;">
             <div class="form__group--horizontal">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder=" " autofocus>
-                    <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
+                    <input id="name" wire:model="name" class="form__text" placeholder=" " autofocus>
+                    <label class="form__label form__label--floating" for="name">{{ __('torrent.name') }}</label>
                 </p>
             </div>
             <form class="form" x-cloak x-show="open">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="description" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">{{ __('torrent.description') }}</label>
+                        <input id="description" wire:model="description" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="description">{{ __('torrent.description') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="mediainfo" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">{{ __('torrent.media-info') }}</label>
+                        <input id="mediainfo" wire:model="mediainfo" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="mediainfo">{{ __('torrent.media-info') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="keywords" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">{{ __('torrent.keywords') }}</label>
+                        <input id="keywords" wire:model="keywords" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="keywords">{{ __('torrent.keywords') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="uploader" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">{{ __('torrent.uploader') }}</label>
+                        <input id="uploader" wire:model="uploader" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="uploader">{{ __('torrent.uploader') }}</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="startYear" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">{{ __('torrent.start-year') }}</label>
+                        <input id="startYear" wire:model="startYear" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="startYear">{{ __('torrent.start-year') }}</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="endYear" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">{{ __('torrent.end-year') }}</label>
+                        <input id="endYear" wire:model="endYear" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="endYear">{{ __('torrent.end-year') }}</label>
                     </p>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
-                            <input wire:model="minSize" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">Minimum Size</label>
+                            <input id="minSize" wire:model="minSize" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="minSize">Minimum Size</label>
                         </p>
                         <p class="form__group">
-                            <select wire:model="minSizeMultiplier" class="form__select" placeholder=" ">
+                            <select id="minSizeMultiplier" wire:model="minSizeMultiplier" class="form__select" placeholder=" ">
                                 <option value="1" selected>Bytes</option>
                                 <option value="1000">KB</option>
                                 <option value="1024">KiB</option>
@@ -65,16 +65,16 @@
                                 <option value="1099511627776">TiB</option>
 
                             </select>
-                            <label class="form__label form__label--floating">Unit</label>
+                            <label class="form__label form__label--floating" for="minSizeMultiplier">Unit</label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
-                            <input wire:model="maxSize" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating">Maximum Size</label>
+                            <input id="maxSize" wire:model="maxSize" class="form__text" placeholder=" ">
+                            <label class="form__label form__label--floating" for="maxSize">Maximum Size</label>
                         </p>
                         <p class="form__group">
-                            <select wire:model="maxSizeMultiplier" class="form__select" placeholder=" ">
+                            <select id="maxSizeMultiplier" wire:model="maxSizeMultiplier" class="form__select" placeholder=" ">
                                 <option value="1" selected>Bytes</option>
                                 <option value="1000">KB</option>
                                 <option value="1024">KiB</option>
@@ -86,7 +86,7 @@
                                 <option value="1099511627776">TiB</option>
 
                             </select>
-                            <label class="form__label form__label--floating">Unit</label>
+                            <label class="form__label form__label--floating" for="maxSizeMultiplier">Unit</label>
                         </p>
                     </div>
                 </div>
@@ -102,38 +102,38 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="playlistId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Playlist ID</label>
+                        <input id="playlistId" wire:model="playlistId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="playlistId">Playlist ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="collectionId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Collection ID</label>
+                        <input id="collectionId" wire:model="collectionId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="collectionId">Collection ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="companyId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Company ID</label>
+                        <input id="companyId" wire:model="companyId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="companyId">Company ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="networkId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Network ID</label>
+                        <input id="networkId" wire:model="networkId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="networkId">Network ID</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="tmdbId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">TMDb ID</label>
+                        <input id="tmdbId" wire:model="tmdbId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="tmdbId">TMDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="imdbId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">IMDb ID</label>
+                        <input id="imdbId" wire:model="imdbId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="imdbId">IMDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="tvdbId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">TVDb ID</label>
+                        <input id="tvdbId" wire:model="tvdbId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="tvdbId">TVDb ID</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="malId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">MAL ID</label>
+                        <input id="malId" wire:model="malId" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="malId">MAL ID</label>
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
@@ -300,6 +300,17 @@
                                             wire:model="featured"
                                         >
                                         Featured
+                                    </label>
+                                </p>
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
+                                            wire:model="refundable"
+                                        >
+                                        Refundable
                                     </label>
                                 </p>
                             </div>
@@ -513,6 +524,7 @@
                 <div class="panel__action">
                     <div class="form__group">
                         <select
+                            id="view"
                             class="form__select"
                             wire:model="view"
                             required
@@ -522,7 +534,7 @@
                             <option value="group">{{ __('torrent.groupings') }}</option>
                             <option value="poster">{{ __('torrent.poster') }}</option>
                         </select>
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="view">
                             Layout
                         </label>
                     </div>
@@ -530,6 +542,7 @@
                 <div class="panel__action">
                     <div class="form__group">
                         <select
+                            id="perPage"
                             class="form__select"
                             wire:model="perPage"
                             required
@@ -546,7 +559,7 @@
                                 <option>100</option>
                             @endif
                         </select>
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="perPage">
                             {{ __('common.quantity') }}
                         </label>
                     </div>
@@ -673,7 +686,9 @@
                                 <x-tv.card :media="$group" :personalFreeleech="$personalFreeleech" />
                                 @break
                         @endswitch
-                    @endforeach
+                    @empty
+                        {{ __('common.no-result') }}
+                    @endforelse
                 </div>
                 @break
 
@@ -702,7 +717,9 @@
                                 <x-tv.poster :categoryId="$group->category_id" :tv="$group->tv" :tmdb="$group->tmdb" />
                                 @break
                         @endswitch
-                    @endforeach
+                    @empty
+                        {{ __('common.no-result') }}
+                    @endforelse
                 </div>
                 @break
         @endswitch

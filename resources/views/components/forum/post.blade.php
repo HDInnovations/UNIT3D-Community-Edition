@@ -157,7 +157,7 @@
                 <a href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $post->user->username]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
-            </x-slot>
+            </x-slot:appended-icons>
         </x-user_tag>
         @if (! empty($post->user->title))
             <p class="post__author-title">

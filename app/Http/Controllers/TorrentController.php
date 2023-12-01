@@ -84,6 +84,7 @@ class TorrentController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
             ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
+            ->withExists(['freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->findOrFail($id);
 
         $meta = null;
@@ -132,7 +133,6 @@ class TorrentController extends Controller
             'torrent'            => $torrent,
             'user'               => $user,
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
-            'freeleech_token'    => cache()->get('freeleech_token:'.$user->id.':'.$torrent->id),
             'meta'               => $meta,
             'trailer'            => $trailer,
             'platforms'          => $platforms,
@@ -340,7 +340,7 @@ class TorrentController extends Controller
             'distributors' => Distributor::orderBy('name')->get(),
             'user'         => $request->user(),
             'category_id'  => $request->category_id,
-            'title'        => urldecode($request->title),
+            'title'        => urldecode((string) $request->title),
             'imdb'         => $request->imdb,
             'tmdb'         => $request->tmdb,
             'mal'          => $request->mal,
@@ -447,7 +447,7 @@ class TorrentController extends Controller
         }
 
         // check for trusted user and update torrent
-        if ($user->group->is_trusted && ! $request->boolean('mod_queue_opt_in')) {
+        if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {
             $appurl = config('app.url');
             $user = $torrent->user;
             $username = $user->username;

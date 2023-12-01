@@ -24,8 +24,8 @@ export default {
                 confirmButtonText: 'Send',
                 showLoaderOnConfirm: true,
                 willOpen: () => {
-                    this.editor = $('#chat-message-pm').val();
-                    this.target = $('#receiver-id').val();
+                    this.editor = document.getElementById('chat-message-pm').value;
+                    this.target = document.getElementById('receiver-id').value;
                 },
                 willClose: () => {
                     this.editor = null;
@@ -33,7 +33,7 @@ export default {
                 },
                 preConfirm: (msg) => {
                     let target = this.target;
-                    msg = this.input.val().trim();
+                    msg = this.input.value = this.input.value.trim();
                     if (msg !== null && msg !== '') {
                         this.$emit('pm-sent', {
                             message: msg,
@@ -41,7 +41,7 @@ export default {
                             user_id: this.$parent.auth.id,
                             receiver_id: target,
                         });
-                        $('#chat-message-pm').val('');
+                        document.getElementById('chat-message-pm').value = '';
                     }
                     return user;
                 },

@@ -18,7 +18,6 @@ use App\Models\Comment;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
-use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
 use App\Models\Peer;
@@ -146,18 +145,6 @@ class AutoSoftDeleteDisabledUsers extends Command
                 // Removes all follows for user
                 $user->followers()->detach();
                 $user->following()->detach();
-
-                // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-                foreach (Invite::where('user_id', '=', $user->id)->get() as $sentInvite) {
-                    $sentInvite->user_id = 1;
-                    $sentInvite->save();
-                }
-
-                // Removes UserID from Received Invite if any and replaces with System UserID (1)
-                foreach (Invite::where('accepted_by', '=', $user->id)->get() as $receivedInvite) {
-                    $receivedInvite->accepted_by = 1;
-                    $receivedInvite->save();
-                }
 
                 // Removes all Peers for user
                 foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {

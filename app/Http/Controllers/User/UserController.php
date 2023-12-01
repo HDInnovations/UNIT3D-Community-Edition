@@ -128,12 +128,12 @@ class UserController extends Controller
         if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
 
-            if (! \in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
+            if (!\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Only .jpg, .bmp, .png, .tiff, and .gif are allowed.');
             }
 
-            if (! preg_match('#image/*#', (string) $image->getMimeType())) {
+            if (!preg_match('#image/*#', (string) $image->getMimeType())) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Incorrect mime type.');
             }

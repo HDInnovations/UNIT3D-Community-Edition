@@ -69,8 +69,12 @@ class TicketController extends Controller
         $ticket->save();
 
         return view('ticket.show', [
-            'user'   => $request->user(),
-            'ticket' => $ticket->load('comments'),
+            'user'            => $request->user(),
+            'ticket'          => $ticket->load('comments'),
+            'pastUserTickets' => Ticket::query()
+                ->where('user_id', '=', $ticket->user_id)
+                ->where('id', '!=', $ticket->id)
+                ->get(),
         ]);
     }
 

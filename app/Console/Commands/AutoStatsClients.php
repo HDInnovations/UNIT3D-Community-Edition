@@ -52,7 +52,7 @@ class AutoStatsClients extends Command
             ->mapWithKeys(fn ($item, $key) => [$item['agent'] => $item['count']])
             ->toArray();
 
-        if (! empty($clients)) {
+        if (!empty($clients)) {
             cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
         }
 

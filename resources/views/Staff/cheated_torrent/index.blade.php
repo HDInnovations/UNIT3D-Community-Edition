@@ -109,7 +109,7 @@
                                 {{ \App\Helpers\StringHelper::formatBytes($torrent->balance) }}
                             </td>
                             <td>
-                                <time datetime="{{ $torrent->created_at ?? '' }}">
+                                <time datetime="{{ $torrent->created_at }}" title="{{ $torrent->created_at }}">
                                     {{ $torrent->created_at ?? 'N/A' }}
                                 </time>
                             </td>

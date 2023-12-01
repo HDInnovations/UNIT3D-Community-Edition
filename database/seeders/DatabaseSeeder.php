@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
             TicketPrioritiesTableSeeder::class,
             DistributorsTableSeeder::class,
             RegionsTableSeeder::class,
+            OccupationSeeder::class,
         ]);
     }
 }

@@ -126,7 +126,6 @@
                 <a
                     class="torrent-search--list__file form__standard-icon-button"
                     href="{{ route('download_check', ['id' => $torrent->id]) }}"
-                    download
                     title="{{ __('common.download') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -135,7 +134,6 @@
                 <a
                     class="torrent-search--list__file form__standard-icon-button"
                     href="{{ route('download', ['id' => $torrent->id]) }}"
-                    download
                     title="{{ __('common.download') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -186,6 +184,8 @@
         </a>
     </td>
     <td class="torrent-search--list__age">
-        <span>{{ $torrent->created_at->diffForHumans() }}</span>
+        <time datetime="{{ $torrent->created_at }}" title="{{ $torrent->created_at }}">
+            {{ $torrent->created_at->diffForHumans() }}
+        </time>
     </td>
 </tr>

@@ -44,7 +44,7 @@ class AutoCheckPeerConnectivity extends Command
      */
     public function handle(): void
     {
-        if (! config('announce.connectable_check')) {
+        if (!config('announce.connectable_check')) {
             return;
         }
 
@@ -55,7 +55,7 @@ class AutoCheckPeerConnectivity extends Command
                 foreach ($peers as $peer) {
                     $ip = inet_ntop($peer->ip);
 
-                    $connection = match (\strlen($peer->ip)) {
+                    $connection = match (\strlen((string) $peer->ip)) {
                         4       => @fsockopen($ip, $peer->port, $_, $_, 0.5),
                         16      => @fsockopen('['.$ip.']', $peer->port, $_, $_, 0.5),
                         default => null,

@@ -40,6 +40,6 @@ return [
     'check-news' => '公告（每日必看）',
     'new-news'   => '最新消息',
 
-    // Top torrents
+    // Top Torrents
     'new-torrents' => '最新资源',
 ];

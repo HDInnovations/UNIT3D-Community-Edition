@@ -21,7 +21,6 @@ class Ticket extends Model
 
     /**
      * @param  Builder<Ticket> $query
-     * @param  string          $status
      * @return Builder<Ticket>
      */
     public function scopeStatus(Builder $query, string $status): Builder

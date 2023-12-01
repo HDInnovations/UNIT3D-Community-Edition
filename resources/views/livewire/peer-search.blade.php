@@ -7,45 +7,45 @@
             <form class="form">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input wire:model="torrent" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Torrent Name</label>
+                        <input id="torrent" wire:model="torrent" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="torrent">Torrent Name</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="ip" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">IP Address</label>
+                        <input id="ip" wire:model="ip" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="ip">IP Address</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="port" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Port</label>
+                        <input id="port" wire:model="port" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="port">Port</label>
                     </p>
                     <p class="form__group">
-                        <input wire:model="agent" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating">Agent</label>
+                        <input id="agent" wire:model="agent" class="form__text" placeholder=" ">
+                        <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="connectivity" class="form__select" placeholder=" ">
+                        <select id="connectivity" wire:model="connectivity" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="connectable">Connectable</option>
                             <option value="unconnectable">Unconnectable</option>
                         </select>
-                        <label class="form__label form__label--floating">Connectivity</label>
+                        <label class="form__label form__label--floating" for="connectivity">Connectivity</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="active" class="form__select" placeholder=" ">
+                        <select id="active" wire:model="active" class="form__select" placeholder=" ">
                             <option value="any">Any</option>
                             <option value="exclude">Inactive</option>
                             <option value="include">Active</option>
                         </select>
-                        <label class="form__label form__label--floating">Active</label>
+                        <label class="form__label form__label--floating" for="active">Active</label>
                     </p>
                     <p class="form__group">
-                        <select wire:model="groupBy" class="form__select" placeholder=" ">
+                        <select id="groupBy" wire:model="groupBy" class="form__select" placeholder=" ">
                             <option value="none">None</option>
                             <option value="user_session">User Session</option>
                             <option value="user_ip">User IP</option>
                             <option value="user">User</option>
                         </select>
-                        <label class="form__label form__label--floating">Group By</label>
+                        <label class="form__label form__label--floating" for="groupBy">Group By</label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">

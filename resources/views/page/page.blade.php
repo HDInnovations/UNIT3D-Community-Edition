@@ -27,9 +27,17 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
             <dt>{{ __('common.created_at') }}</dt>
-            <dd>{{ $page->created_at }}</dd>
+            <dd>
+                <time datetime="{{ $page->created_at }}" title="{{ $page->created_at }}">
+                    {{ $page->created_at }}
+                </time>
+            </dd>
             <dt>{{ __('torrent.updated_at') }}</dt>
-            <dd>{{ $page->updated_at }}</dd>
+            <dd>
+                <time datetime="{{ $page->updated_at }}" title="{{ $page->updated_at }}">
+                    {{ $page->updated_at }}
+                </time>
+            </dd>
         </dl>
     </section>
 @endsection

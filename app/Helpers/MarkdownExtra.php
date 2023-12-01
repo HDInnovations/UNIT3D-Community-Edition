@@ -39,7 +39,7 @@ class MarkdownExtra extends Markdown
         $markup = $this->elements($Elements);
 
         // trim line breaks
-        $markup = trim($markup, "\n");
+        $markup = trim((string) $markup, "\n");
 
         // merge consecutive dl elements
 
@@ -123,7 +123,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockDefinitionList($Line, $Block)
     {
-        if (! isset($Block) || $Block['type'] !== 'Paragraph') {
+        if (!isset($Block) || $Block['type'] !== 'Paragraph') {
             return;
         }
 
@@ -169,7 +169,7 @@ class MarkdownExtra extends Markdown
             unset($Block['interrupted']);
         }
 
-        $text = substr($Line['body'], min($Line['indent'], 4));
+        $text = substr((string) $Line['body'], min($Line['indent'], 4));
 
         $Block['dd']['handler']['argument'] .= "\n".$text;
 
@@ -188,7 +188,7 @@ class MarkdownExtra extends Markdown
 
             $Block['element']['attributes'] = $this->parseAttributeData($attributeString);
 
-            $Block['element']['handler']['argument'] = substr($Block['element']['handler']['argument'], 0, $matches[0][1]);
+            $Block['element']['handler']['argument'] = substr((string) $Block['element']['handler']['argument'], 0, $matches[0][1]);
         }
 
         return $Block;
@@ -220,7 +220,7 @@ class MarkdownExtra extends Markdown
             ];
 
             $length = \strlen((string) $matches[0]);
-            $remainder = substr($Line['text'], $length);
+            $remainder = substr((string) $Line['text'], $length);
 
             if (trim($remainder) === '') {
                 if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
@@ -271,7 +271,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockMarkupComplete($Block)
     {
-        if (! isset($Block['void'])) {
+        if (!isset($Block['void'])) {
             $Block['element']['rawHtml'] = $this->processTag($Block['element']['rawHtml']);
         }
 
@@ -290,7 +290,7 @@ class MarkdownExtra extends Markdown
 
             $Block['element']['attributes'] = $this->parseAttributeData($attributeString);
 
-            $Block['element']['handler']['argument'] = substr($Block['element']['handler']['argument'], 0, $matches[0][1]);
+            $Block['element']['handler']['argument'] = substr((string) $Block['element']['handler']['argument'], 0, $matches[0][1]);
         }
 
         return $Block;
@@ -308,13 +308,13 @@ class MarkdownExtra extends Markdown
         if (preg_match('#^\[\^(.+?)\]#', (string) $Excerpt['text'], $matches)) {
             $name = $matches[1];
 
-            if (! isset($this->DefinitionData['Footnote'][$name])) {
+            if (!isset($this->DefinitionData['Footnote'][$name])) {
                 return;
             }
 
             $this->DefinitionData['Footnote'][$name]['count']++;
 
-            if (! isset($this->DefinitionData['Footnote'][$name]['number'])) {
+            if (!isset($this->DefinitionData['Footnote'][$name]['number'])) {
                 $this->DefinitionData['Footnote'][$name]['number'] = ++$this->footnoteCount; // » &
             }
 
@@ -344,7 +344,7 @@ class MarkdownExtra extends Markdown
     {
         $Link = parent::inlineLink($Excerpt);
 
-        $remainder = $Link !== null ? substr($Excerpt['text'], $Link['extent']) : '';
+        $remainder = $Link !== null ? substr((string) $Excerpt['text'], $Link['extent']) : '';
 
         if (preg_match('/^[ ]*{('.$this->regexAttribute.'+)}/', $remainder, $matches)) {
             $Link['element']['attributes'] += $this->parseAttributeData($matches[1]);
@@ -367,7 +367,7 @@ class MarkdownExtra extends Markdown
     {
         if (isset($Element['text'])) {
             $Element['elements'] = self::pregReplaceElements(
-                '/\b'.preg_quote($this->currentAbreviation, '/').'\b/',
+                '/\b'.preg_quote((string) $this->currentAbreviation, '/').'\b/',
                 [
                     [
                         'name'       => 'abbr',
@@ -411,7 +411,7 @@ class MarkdownExtra extends Markdown
 
     protected function addDdElement(array $Line, array $Block)
     {
-        $text = substr($Line['text'], 1);
+        $text = substr((string) $Line['text'], 1);
         $text = trim($text);
 
         unset($Block['dd']);
@@ -453,7 +453,7 @@ class MarkdownExtra extends Markdown
         uasort($this->DefinitionData['Footnote'], 'self::sortFootnotes');
 
         foreach ($this->DefinitionData['Footnote'] as $definitionId => $DefinitionData) {
-            if (! isset($DefinitionData['number'])) {
+            if (!isset($DefinitionData['number'])) {
                 continue;
             }
 
@@ -550,7 +550,7 @@ class MarkdownExtra extends Markdown
         $DOMDocument = new DOMDocument();
 
         // http://stackoverflow.com/q/11309194/200145
-        $elementMarkup = mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8');
+        $elementMarkup = mb_convert_encoding((string) $elementMarkup, 'HTML-ENTITIES', 'UTF-8');
 
         // http://stackoverflow.com/q/4879946/200145
         $DOMDocument->loadHTML($elementMarkup);
@@ -571,7 +571,7 @@ class MarkdownExtra extends Markdown
             foreach ($DOMDocument->documentElement->childNodes as $Node) {
                 $nodeMarkup = $DOMDocument->saveHTML($Node);
 
-                if ($Node instanceof DOMElement && ! \in_array($Node->nodeName, $this->textLevelElements)) {
+                if ($Node instanceof DOMElement && !\in_array($Node->nodeName, $this->textLevelElements)) {
                     $elementText .= $this->processTag($nodeMarkup);
                 } else {
                     $elementText .= $nodeMarkup;

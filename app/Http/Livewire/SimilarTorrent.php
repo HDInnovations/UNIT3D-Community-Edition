@@ -18,6 +18,7 @@ use App\Models\History;
 use App\Models\Movie;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
 use Livewire\Component;
@@ -112,6 +113,16 @@ class SimilarTorrent extends Component
             ->get();
     }
 
+    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
+    {
+        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+            ->withCount(['comments'])
+            ->where('tmdb', '=', $this->tmdbId)
+            ->where('category_id', '=', $this->category->id)
+            ->latest()
+            ->get();
+    }
+
     final public function sortBy($field): void
     {
         if ($this->sortField === $field) {
@@ -125,6 +136,12 @@ class SimilarTorrent extends Component
 
     final public function alertConfirm(): void
     {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
@@ -137,6 +154,12 @@ class SimilarTorrent extends Component
 
     final public function deleteRecords(): void
     {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
@@ -151,7 +174,7 @@ class SimilarTorrent extends Component
             $names[] = $torrent->name;
 
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
-                if (! \in_array($pm->user_id, $users)) {
+                if (!\in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
                 }
             }
@@ -226,6 +249,7 @@ class SimilarTorrent extends Component
             'user'              => auth()->user(),
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
+            'torrentRequests'   => $this->torrentRequests,
         ]);
     }
 }

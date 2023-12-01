@@ -66,6 +66,7 @@ class UserWarnings extends Component
             ->when($this->warningTab === 'automated', fn ($query) => $query->whereNotNull('torrent'))
             ->when($this->warningTab === 'manual', fn ($query) => $query->whereNull('torrent'))
             ->when($this->warningTab === 'deleted', fn ($query) => $query->onlyTrashed())
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
@@ -244,6 +245,17 @@ class UserWarnings extends Component
         Warning::withTrashed()->findOrFail($id)->restore();
 
         $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Restored']);
+    }
+
+    final public function sortBy(string $field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

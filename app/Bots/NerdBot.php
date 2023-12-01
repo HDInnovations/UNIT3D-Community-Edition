@@ -354,7 +354,7 @@ class NerdBot
             $receiverDirty = false;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
 
-            if (! $receiverEchoes || ! \is_array($receiverEchoes)) {
+            if (!$receiverEchoes || !\is_array($receiverEchoes)) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -368,7 +368,7 @@ class NerdBot
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
@@ -386,7 +386,7 @@ class NerdBot
             $receiverDirty = false;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
 
-            if (! $receiverAudibles || ! \is_array($receiverAudibles)) {
+            if (!$receiverAudibles || !\is_array($receiverAudibles)) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -400,7 +400,7 @@ class NerdBot
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;

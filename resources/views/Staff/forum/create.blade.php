@@ -48,7 +48,7 @@
                     <label class="form__label form__label--floating" for="description">Description</label>
                 </p>
                 <p class="form__group">
-                    <select id="parent_id" class="form__select" name="parent_id" required>
+                    <select id="parent_id" class="form__select" name="parent_id">
                         <option value="">New Category</option>
                         @foreach ($categories as $category)
                             <option class="form__option" value="{{ $category->id }}">
@@ -70,7 +70,7 @@
                     >
                     <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>
                 </p>
-                <p class="form__group">
+                <div class="form__group">
                     <h3>Permissions</h3>
                     <div class="data-table-wrapper">
                         <table class="data-table">
@@ -104,7 +104,7 @@
                             </tbody>
                         </table>
                     </div>
-                </p>
+                </div>
                 <p class="form__group">
                     <button class="form__button form__button--filled">Save Forum</button>
                 </p>

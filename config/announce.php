@@ -68,19 +68,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Min Interval
-    |--------------------------------------------------------------------------
-    |
-    | Site Min Announce Interval
-    |
-    */
-
-    'min_interval' => [
-        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', true),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Rate Limit
     |--------------------------------------------------------------------------
     |
@@ -116,6 +103,18 @@ return [
     */
 
     'slots_system' => [
-        'enabled' => false,
+        'enabled' => true,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging
+    |--------------------------------------------------------------------------
+    |
+    | Log all torrent announces and show in staff dashboard
+    | Used mainly for debugging purposes - Will generate significant amounts of data
+    |
+    */
+
+    'log_announces' => false,
 ];

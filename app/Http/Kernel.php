@@ -32,6 +32,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
+        \App\Http\Middleware\BlockIpAddress::class,
     ];
 
     /**
@@ -71,21 +72,21 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
-        'auth'          => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'    => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
-        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
-        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'language'      => \App\Http\Middleware\SetLanguage::class,
-        'modo'          => \App\Http\Middleware\CheckForModo::class,
-        'owner'         => \App\Http\Middleware\CheckForOwner::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
-        'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
-        'signed'        => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'verified'      => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'admin'            => \App\Http\Middleware\CheckForAdmin::class,
+        'auth'             => \App\Http\Middleware\Authenticate::class,
+        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'banned'           => \App\Http\Middleware\CheckIfBanned::class,
+        'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
+        'csrf'             => \App\Http\Middleware\VerifyCsrfToken::class,
+        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'language'         => \App\Http\Middleware\SetLanguage::class,
+        'modo'             => \App\Http\Middleware\CheckForModo::class,
+        'owner'            => \App\Http\Middleware\CheckForOwner::class,
+        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
+        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class
     ];
 }

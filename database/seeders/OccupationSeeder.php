@@ -31,7 +31,9 @@ class OccupationSeeder extends Seeder
      */
     public function run(): void
     {
-        Occupation::upsert($this->occupations);
+        foreach ($this->occupations as $occupation) {
+            Occupation::updateOrCreate($occupation);
+        }
     }
 
     private function getOccupations(): array

@@ -10,14 +10,14 @@
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-if (! \function_exists('appurl')) {
+if (!\function_exists('appurl')) {
     function appurl()
     {
         return config('app.url');
     }
 }
 
-if (! \function_exists('href_profile')) {
+if (!\function_exists('href_profile')) {
     function href_profile($user)
     {
         $appurl = appurl();
@@ -26,7 +26,7 @@ if (! \function_exists('href_profile')) {
     }
 }
 
-if (! \function_exists('href_article')) {
+if (!\function_exists('href_article')) {
     function href_article($article)
     {
         $appurl = appurl();
@@ -35,7 +35,7 @@ if (! \function_exists('href_article')) {
     }
 }
 
-if (! \function_exists('href_torrent')) {
+if (!\function_exists('href_torrent')) {
     function href_torrent($torrent)
     {
         $appurl = appurl();
@@ -44,7 +44,7 @@ if (! \function_exists('href_torrent')) {
     }
 }
 
-if (! \function_exists('href_request')) {
+if (!\function_exists('href_request')) {
     function href_request($torrentRequest)
     {
         $appurl = appurl();
@@ -53,7 +53,7 @@ if (! \function_exists('href_request')) {
     }
 }
 
-if (! \function_exists('href_poll')) {
+if (!\function_exists('href_poll')) {
     function href_poll($poll)
     {
         $appurl = appurl();
@@ -62,7 +62,7 @@ if (! \function_exists('href_poll')) {
     }
 }
 
-if (! \function_exists('href_playlist')) {
+if (!\function_exists('href_playlist')) {
     function href_playlist($playlist)
     {
         $appurl = appurl();
@@ -71,7 +71,7 @@ if (! \function_exists('href_playlist')) {
     }
 }
 
-if (! \function_exists('href_collection')) {
+if (!\function_exists('href_collection')) {
     function href_collection($collection)
     {
         $appurl = appurl();
@@ -80,7 +80,7 @@ if (! \function_exists('href_collection')) {
     }
 }
 
-if (! \function_exists('tmdb_image')) {
+if (!\function_exists('tmdb_image')) {
     function tmdb_image($type, $original)
     {
         $new = match ($type) {
@@ -98,18 +98,18 @@ if (! \function_exists('tmdb_image')) {
             default        => 'original',
         };
 
-        return str_replace('/original/', '/'.$new.'/', $original);
+        return str_replace('/original/', '/'.$new.'/', (string) $original);
     }
 }
 
-if (! \function_exists('modal_style')) {
+if (!\function_exists('modal_style')) {
     function modal_style()
     {
         return (auth()->user()->style == 0) ? '' : ' modal-dark';
     }
 }
 
-if (! \function_exists('rating_color')) {
+if (!\function_exists('rating_color')) {
     function rating_color($number)
     {
         $rating = round((float) $number);
@@ -128,7 +128,7 @@ if (! \function_exists('rating_color')) {
     }
 }
 
-if (! \function_exists('language_flag')) {
+if (!\function_exists('language_flag')) {
     function language_flag($language)
     {
         $flag = match ($language) {
@@ -137,19 +137,23 @@ if (! \function_exists('language_flag')) {
             'English (CA)' => 'can',
             'English (AU)' => 'au',
             'Albanian', 'Albanian (AL)' => 'al',
-            'Arabic', 'Arabic (001)' => 'ae',
-            'Belarusian' => 'by',
-            'Bengali'    => 'bd',
+            'Arabic', 'Arabic (001)', 'Arabic (AE)' => 'ae',
+            'Arabic (SA)' => 'sa',
+            'Arabic (MA)' => 'ma',
+            'Armenian'    => 'am',
+            'Azerbaijani' => 'az',
+            'Belarusian'  => 'by',
+            'Bengali'     => 'bd',
             'Bosnian', 'Bosnian (BA)' => 'ba',
             'Bulgarian', 'Bulgarian (BG)' => 'bg',
             'Burmese' => 'mm',
             'Chinese', 'Mandarin', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)', 'Chinese (Simplified)', 'Chinese-yue-Hant', 'Chinese-cmn-Hans', 'Chinese-cmn-Hant' => 'cn',
-            'Chinese (HK)', 'Chinese-Hant-HK', 'Mandarin (HK)' => 'hk',
+            'Chinese (HK)', 'Chinese-Hant-HK', 'Mandarin (HK)', 'Cantonese (HK)', 'Chinese-cmn-HK' => 'hk',
             'Chinese (Taiwan)' => 'tw',
             'Croatian', 'Croatian (HR)' => 'hr',
             'Czech', 'Czech (CZ)' => 'cz',
             'Danish', 'Danish (DK)' => 'dk',
-            'Dutch', 'Dutch (NL)' => 'nl',
+            'Dutch', 'Dutch (NL)', 'Limburgish' => 'nl',
             'Dutch (BE)' => 'be',
             'Estonian', 'Estonian (EE)' => 'ee',
             'Finnish', 'Finnish (FI)' => 'fi',
@@ -160,7 +164,7 @@ if (! \function_exists('language_flag')) {
             'German (CH)' => 'ch',
             'Greek', 'Greek (GR)' => 'gr',
             'Hebrew', 'Hebrew (IL)' => 'il',
-            'Hindi', 'Tamil', 'Telugu', 'Hindi (IN)', 'Tamil (IN)', 'Telugu (IN)', 'Kannada', 'Kannada (IN)', 'Malayalam', 'Malayalam (IN)' => 'in',
+            'Hindi', 'Tamil', 'Telugu', 'Hindi (IN)', 'Tamil (IN)', 'Telugu (IN)', 'Kannada', 'Kannada (IN)', 'Malayalam', 'Malayalam (IN)', 'Marathi', 'Marathi (IN)' => 'in',
             'Hungarian', 'Hungarian (HU)' => 'hu',
             'Icelandic', 'Icelandic (IS)' => 'is',
             'Indonesian', 'Indonesian (ID)' => 'id',
@@ -172,7 +176,9 @@ if (! \function_exists('language_flag')) {
             'Latvian', 'Latvian (LV)' => 'lv',
             'Lithuanian', 'Lithuanian (LT)' => 'lt',
             'Malay', 'Malay (MY)' => 'my',
+            'Malay (SG)' => 'sg',
             'Macedonian', 'Macedonian (MK)' => 'mk',
+            'Mongolian' => 'mn',
             'Norwegian', 'Norwegian Bokmal', 'Norwegian (NO)', 'Norwegian Bokmal (NO)', 'Norwegian Nynorsk', 'Norwegian Nynorsk (NO)' => 'no',
             'Persian' => 'ir',
             'Polish', 'Polish (PL)' => 'pl',
@@ -181,15 +187,17 @@ if (! \function_exists('language_flag')) {
             'Romanian', 'Romanian (RO)' => 'ro',
             'Russian', 'Russian (RU)' => 'ru',
             'Serbian', 'Serbian-Latn-RS', 'Serbian (RS)' => 'rs',
+            'Sinhala' => 'lk',
             'Slovak', 'Slovak (SK)' => 'sk',
             'Slovenian', 'Slovenian (SI)' => 'si',
             'Spanish', 'Spanish (ES)', 'Spanish (CA)', 'Spanish (EU)', 'Spanish (150)' => 'es',
             'Spanish (Latin America)', 'Spanish (LA)', 'Spanish (MX)' => 'mx',
+            'Spanish (AR)' => 'ar',
             'Basque', 'Basque (ES)' => 'es-pv',
             'Catalan', 'Catalan (ES)' => 'es-ct',
             'Galician', 'Galician (ES)' => 'es-ga',
             'Swedish', 'Swedish (SE)' => 'se',
-            'Tagalog', 'fil', 'fil (PH)' => 'ph',
+            'Tagalog', 'fil', 'fil (PH)', 'Filipino' , 'Filipino (PH)' => 'ph',
             'Thai', 'Thai (TH)' => 'th',
             'Turkish', 'Turkish (TR)' => 'tr',
             'Ukrainian', 'Ukrainian (UA)' => 'ua',

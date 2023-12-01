@@ -49,7 +49,7 @@
                     <label class="form__label form__label--floating" for="description">Description</label>
                 </p>
                 <p class="form__group">
-                    <select name="forum_type" class="form__select">
+                    <select id="forum_type" name="forum_type" class="form__select">
                         @if ($forum->category == null)
                             <option value="category" selected>Category (Current)</option>
                             <option value="forum">Forum</option>
@@ -61,7 +61,7 @@
                     <label class="form__label form__label--floating" for="forum_type">Forum Type</label>
                 </p>
                 <p class="form__group">
-                    <select name="parent_id" class="form__select">
+                    <select id="parent_id" name="parent_id" class="form__select">
                         @if ($forum->category != null)
                             <option value="{{ $forum->parent_id }}" selected>
                                 {{ $forum->category->name }} (Current)
@@ -89,7 +89,7 @@
                         {{ __('common.position') }}
                     </label>
                 </p>
-                <p class="form__group">
+                <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
                         <table class="data-table">
@@ -143,7 +143,7 @@
                             </tbody>
                         </table>
                     </div>
-                </p>
+                </div>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         Save Forum

@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v6.5.0',
+    'powered-by' => 'Powered By UNIT3D Community Edition v7.1.2',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker)',
+    'codebase' => 'UNIT3D Community Edition',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'version' => 'v6.5.0',
+    'version' => 'v7.1.2',
 
     /*
     |--------------------------------------------------------------------------

@@ -84,17 +84,17 @@ class StatsController extends Controller
             'disabled_user' => cache()->remember(
                 'disabled_user',
                 $this->carbon,
-                fn () => User::whereNotIn('group_id', Group::select('id')->where('slug', '=', 'disabled'))->count()
+                fn () => User::whereIn('group_id', Group::select('id')->where('slug', '=', 'disabled'))->count()
             ),
             'pruned_user' => cache()->remember(
                 'pruned_user',
                 $this->carbon,
-                fn () => User::onlyTrashed()->whereNotIn('group_id', Group::select('id')->where('slug', '=', 'pruned'))->count()
+                fn () => User::onlyTrashed()->whereIn('group_id', Group::select('id')->where('slug', '=', 'pruned'))->count()
             ),
             'banned_user' => cache()->remember(
                 'banned_user',
                 $this->carbon,
-                fn () => User::whereNotIn('group_id', Group::select('id')->where('slug', '=', 'banned'))->count()
+                fn () => User::whereIn('group_id', Group::select('id')->where('slug', '=', 'banned'))->count()
             ),
             'num_torrent'       => $numTorrent,
             'categories'        => Category::withCount('torrents')->orderBy('position')->get(),
@@ -307,7 +307,7 @@ class StatsController extends Controller
     public function groups(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.groups.groups', [
-            'groups' => Group::orderBy('position')->get(),
+            'groups' => Group::orderBy('position')->withCount(['users' => fn ($query) => $query->withTrashed()])->get(),
         ]);
     }
 
@@ -316,11 +316,9 @@ class StatsController extends Controller
      */
     public function group(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $group = Group::findOrFail($id);
-
         return view('stats.groups.group', [
-            'users' => User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100),
-            'group' => $group,
+            'group' => Group::findOrFail($id),
+            'users' => User::with(['group'])->withTrashed()->where('group_id', '=', $id)->latest()->paginate(100),
         ]);
     }
 
@@ -339,14 +337,8 @@ class StatsController extends Controller
      */
     public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = [];
-
-        if (cache()->has('stats:clients')) {
-            $clients = cache()->get('stats:clients');
-        }
-
         return view('stats.clients.clients', [
-            'clients' => $clients,
+            'clients' => cache()->get('stats:clients') ?? [],
         ]);
     }
 

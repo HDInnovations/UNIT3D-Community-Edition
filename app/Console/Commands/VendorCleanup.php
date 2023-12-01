@@ -98,11 +98,11 @@ class VendorCleanup extends Command
 
         foreach ($directories as $directory) {
             foreach ($patterns as $pattern) {
-                $casePattern = preg_replace_callback('#([a-z])#i', fn ($matches) => $this->prepareWord($matches), $pattern);
+                $casePattern = preg_replace_callback('#([a-z])#i', fn ($matches) => $this->prepareWord($matches), (string) $pattern);
 
                 $files = glob($directory.'/'.$casePattern, GLOB_BRACE);
 
-                if (! $files) {
+                if (!$files) {
                     continue;
                 }
 
@@ -121,13 +121,13 @@ class VendorCleanup extends Command
                     if (is_dir($file)) {
                         $this->out('DELETING DIR: '.$file);
 
-                        if (! $isDry) {
+                        if (!$isDry) {
                             $this->delTree($file);
                         }
                     } else {
                         $this->out('DELETING FILE: '.$file);
 
-                        if (! $isDry) {
+                        if (!$isDry) {
                             @unlink($file);
                         }
                     }
@@ -162,7 +162,7 @@ class VendorCleanup extends Command
      */
     protected function delTree(string $dir)
     {
-        if (! file_exists($dir) || ! is_dir($dir)) {
+        if (!file_exists($dir) || !is_dir($dir)) {
             return false;
         }
 
@@ -187,13 +187,13 @@ class VendorCleanup extends Command
      */
     protected function prepareWord(array $matches): string
     {
-        return '['.strtolower($matches[1]).strtoupper($matches[1]).']';
+        return '['.strtolower((string) $matches[1]).strtoupper((string) $matches[1]).']';
     }
 
     protected function arrayFind($needle, array $haystack): int|string|bool
     {
         foreach ($haystack as $key => $value) {
-            if (false !== stripos($value, (string) $needle)) {
+            if (false !== stripos((string) $value, (string) $needle)) {
                 return $key;
             }
         }

@@ -4,8 +4,8 @@
         <div class="panel__body">
             <div class="form__group--horizontal">
                 <p class="form__group">
-                    <input wire:model="name" class="form__text" placeholder=" " autofocus="">
-                    <label class="form__label form__label--floating">{{ __('torrent.name') }}</label>
+                    <input id="name" wire:model="name" class="form__text" placeholder=" " autofocus="">
+                    <label class="form__label form__label--floating" for="name">{{ __('torrent.name') }}</label>
                 </p>
             </div>
             <div class="form__group--short-horizontal">
@@ -163,7 +163,7 @@
                             {{ $torrent->thanks_count ?? 0 }}
                         </td>
                         <td class="user-uploads__created-at">
-                            <time datetime="{{ $torrent->created_at }}">
+                            <time datetime="{{ $torrent->created_at }}" title="{{ $torrent->created_at }}">
                                 @if ($showMorePrecision)
                                     {{ $torrent->created_at ?? 'N/A' }}
                                 @else

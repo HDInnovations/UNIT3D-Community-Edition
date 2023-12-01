@@ -62,7 +62,7 @@ class Article extends Model
 
         //strip tags, if desired
         if ($stripHtml) {
-            $input = strip_tags($input);
+            $input = strip_tags((string) $input);
         }
 
         //no need to trim, already shorter than trim length
@@ -71,8 +71,8 @@ class Article extends Model
         }
 
         //find last space within length
-        $lastSpace = strrpos(substr($input, 0, $length), ' ');
-        $trimmedText = substr($input, 0, $lastSpace);
+        $lastSpace = strrpos(substr((string) $input, 0, $length), ' ');
+        $trimmedText = substr((string) $input, 0, $lastSpace);
 
         //add ellipses (...)
         if ($ellipses) {
