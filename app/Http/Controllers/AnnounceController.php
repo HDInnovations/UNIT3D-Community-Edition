@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
+use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -717,27 +718,20 @@ final class AnnounceController extends Controller
             ]);
         }
 
-        /**
-         * Peer batch upsert.
-         *
-         * @see \App\Console\Commands\AutoUpsertPeers
-         */
-        Redis::connection('announce')->command('RPUSH', [
-            config('cache.prefix').':peers:batch',
-            serialize([
-                'peer_id'    => $queries['peer_id'],
-                'ip'         => $queries['ip-address'],
-                'port'       => $queries['port'],
-                'agent'      => $queries['user-agent'],
-                'uploaded'   => $queries['uploaded'],
-                'downloaded' => $queries['downloaded'],
-                'left'       => $queries['left'],
-                'seeder'     => $queries['left'] == 0,
-                'torrent_id' => $torrent->id,
-                'user_id'    => $user->id,
-                'active'     => $event !== 'stopped',
-            ])
-        ]);
+        // Peer update
+        ProcessAnnounce::dispatch(
+            bin2hex($queries['peer_id']),
+            bin2hex($queries['ip-address']),
+            $queries['port'],
+            bin2hex($queries['user-agent']),
+            $queries['uploaded'],
+            $queries['downloaded'],
+            $queries['left'],
+            $queries['left'] == 0,
+            $torrent->id,
+            $user->id,
+            $event !== 'stopped',
+        );
 
         /**
          * History batch upsert.
