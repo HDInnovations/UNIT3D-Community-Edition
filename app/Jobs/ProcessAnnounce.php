@@ -69,8 +69,8 @@ class ProcessAnnounce implements ShouldQueue
 
             $key = $ip.'-'.$this->port.'-'.hex2bin($this->agent);
 
-            if (cache()->has(':peers:connectable-timer:'.$key)) {
-                $connectable = cache()->get(':peers:connectable:'.$key) === true;
+            if (cache()->has('peers:connectable-timer:'.$key)) {
+                $connectable = cache()->get('peers:connectable:'.$key) === true;
             } else {
                 $connection = @fsockopen($ip, $this->port, $_, $_, 1);
 
@@ -78,8 +78,8 @@ class ProcessAnnounce implements ShouldQueue
                     fclose($connection);
                 }
 
-                cache()->put(':peers:connectable:'.$key, $connectable, config('announce.connectable_check_interval'));
-                cache()->remember(':peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
+                cache()->put('peers:connectable:'.$key, $connectable, config('announce.connectable_check_interval'));
+                cache()->remember('peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
             }
         }
 
