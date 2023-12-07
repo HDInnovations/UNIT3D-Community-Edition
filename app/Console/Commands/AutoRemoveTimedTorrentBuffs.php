@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -63,6 +64,8 @@ class AutoRemoveTimedTorrentBuffs extends Command
             $this->chatRepository->systemMessage(
                 sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed freeleech buff has expired.', $appurl, $torrent->id, $torrent->name)
             );
+
+            Unit3dAnnounce::addTorrent($torrent);
         }
 
         $duTorrents = Torrent::whereNotNull('du_until')->where('du_until', '<', Carbon::now()->toDateTimeString())->get();
@@ -76,6 +79,8 @@ class AutoRemoveTimedTorrentBuffs extends Command
             $this->chatRepository->systemMessage(
                 sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed double upload buff has expired.', $appurl, $torrent->id, $torrent->name)
             );
+
+            Unit3dAnnounce::addTorrent($torrent);
         }
 
         $this->comment('Automated Removal Of Expired Torrent Buffs Command Complete');
