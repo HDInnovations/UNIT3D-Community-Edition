@@ -49,6 +49,8 @@ class PasskeyController extends Controller
 
         cache()->forget('user:'.$user->passkey);
 
+        Unit3dAnnounce::removeUser($user);
+
         DB::transaction(static function () use ($user, $changedByStaff): void {
             $user->passkeys()->latest()->first()?->update(['deleted_at' => now()]);
 
@@ -68,7 +70,6 @@ class PasskeyController extends Controller
             }
         });
 
-        Unit3dAnnounce::removeUser($user);
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.passkeys.index', ['user' => $user])
