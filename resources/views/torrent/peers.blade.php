@@ -35,6 +35,13 @@
             {{ __('torrent.history') }}
         </a>
     </li>
+    @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
+        <li class="nav-tabV2">
+            <a class="nav-tab__link" href="{{ route('torrents.external_tracker', ['id' => $torrent]) }}">
+                External Tracker
+            </a>
+        </li>
+    @endif
 @endsection
 
 @section('main')
