@@ -46,6 +46,38 @@ class Unit3dAnnounce
         ]);
     }
 
+    /**
+     * @param int $torrentId
+     * @return bool|null|array{
+     *         id: int,
+     *         status: string,
+     *         is_deleted: bool,
+     *         peers: array<
+     *             string,
+     *             array{
+     *                 ip_address: string,
+     *                 user_id: int,
+     *                 torrent_id: int,
+     *                 port: int,
+     *                 is_seeder: bool,
+     *                 is_active: bool,
+     *                 updated_at: int,
+     *                 uploaded: int,
+     *                 downloaded: int,
+     *             }
+     *         >,
+     *         seeders: int,
+     *         leechers: int,
+     *         times_completed: int,
+     *         download_factor: int,
+     *         upload_factor: int,
+     *     }
+     */
+    public static function getTorrent(int $torrentId): null|bool|array
+    {
+        return self::get('torrents', $torrentId);
+    }
+
     public static function addUser(User $user): bool
     {
         if ($user->deleted_at !== null) {
@@ -75,6 +107,22 @@ class Unit3dAnnounce
             'id'      => $user->id,
             'passkey' => $user->passkey,
         ]);
+    }
+
+    /**
+     * @param int $userId
+     * @return bool|null|array{
+     *     id: int,
+     *     group_id: int,
+     *     passkey: string,
+     *     can_download: bool,
+     *     num_seeding: int,
+     *     num_leeching: int,
+     * }
+     */
+    public static function getUser(int $userId): null|bool|array
+    {
+        return self::get('users', $userId);
     }
 
     public static function addGroup(Group $group): bool
@@ -130,6 +178,44 @@ class Unit3dAnnounce
         return self::delete('personal-freeleech', [
             'user_id' => $user_id,
         ]);
+    }
+
+    /**
+     * @param  string            $path
+     * @param  int               $id
+     * @return bool|array<mixed>
+     */
+    private static function get(string $path, int $id): bool|array
+    {
+        if (
+            config('announce.external_tracker.is_enabled') === true
+            && config('announce.external_tracker.host') !== null
+            && config('announce.external_tracker.port') !== null
+            && config('announce.external_tracker.key') !== null
+        ) {
+            $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
+
+            $response = Http::acceptJson()->get($route);
+
+            if (!$response->ok()) {
+                Log::notice('External tracker error - GET', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                    'path'   => $path,
+                    'id'     => $id,
+                ]);
+
+                if ($response->notFound()) {
+                    return false;
+                }
+
+                return [];
+            }
+
+            return $response->json();
+        }
+
+        return true;
     }
 
     private static function put(string $path, array $data): bool
