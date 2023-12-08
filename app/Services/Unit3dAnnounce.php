@@ -33,8 +33,8 @@ class Unit3dAnnounce
             'seeders'         => $torrent->seeders,
             'leechers'        => $torrent->leechers,
             'times_completed' => $torrent->times_completed,
-            'download_factor' => 100,
-            'upload_factor'   => 100,
+            'download_factor' => max(0, 100 - $torrent->free),
+            'upload_factor'   => $torrent->doubleup ? 200 : 100,
         ]);
     }
 
