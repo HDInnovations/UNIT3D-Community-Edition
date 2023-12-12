@@ -201,7 +201,7 @@ class FortifyServiceProvider extends ServiceProvider
             return false;
         });
 
-        RateLimiter::for('login', fn(Request $request) => Limit::perMinute(5)->by($request->ip()));
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
         RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
     }
 }
