@@ -6,11 +6,14 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\FailedLoginAttempt;
 use App\Models\Group;
 use App\Models\User;
+use App\Notifications\FailedLogin;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\RateLimiter;
@@ -149,29 +152,48 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::query()->where('username', $request->username)->first();
 
+            if ($user && !Hash::check($request->password, $user->password)) {
+                FailedLoginAttempt::create([
+                    'user_id'    => $user->id,
+                    'username'   => $request->username,
+                    'ip_address' => $request->ip(),
+                ]);
+
+                $user->notify(new FailedLogin(
+                    $request->ip()
+                ));
+
+                throw ValidationException::withMessages([
+                    Fortify::username() => __('auth.failed'),
+                ]);
+            }
+
             if ($user && Hash::check($request->password, $user->password)) {
                 // Check if user is activated
                 $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
-                if ($user->active == 0 || $user->group_id == $validatingGroup[0]) {
+                if ($user->active == 0 || $user->group_id === $validatingGroup[0]) {
                     $request->session()->invalidate();
 
                     throw ValidationException::withMessages([
-                        Fortify::username() => trans('auth.not-activated'),
+                        Fortify::username() => __('auth.not-activated'),
                     ]);
                 }
 
                 // Check if user is banned
-
                 $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
 
-                if ($user->group_id == $bannedGroup[0]) {
+                if ($user->group_id === $bannedGroup[0]) {
                     $request->session()->invalidate();
 
                     throw ValidationException::withMessages([
-                        Fortify::username() => trans('auth.banned'),
+                        Fortify::username() => __('auth.banned'),
                     ]);
                 }
+
+                // Update Login Timestamp
+                $user->last_login = Carbon::now();
+                $user->save();
 
                 return $user;
             }
@@ -179,12 +201,7 @@ class FortifyServiceProvider extends ServiceProvider
             return false;
         });
 
-        RateLimiter::for('login', function (Request $request) {
-            $username = (string) $request->username;
-
-            return Limit::perMinute(5)->by($username.$request->ip());
-        });
-
+        RateLimiter::for('login', fn(Request $request) => Limit::perMinute(5)->by($request->ip()));
         RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
     }
 }

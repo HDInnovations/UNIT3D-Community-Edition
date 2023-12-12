@@ -45,14 +45,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array<string, array<int, string>>
      */
     protected $listen = [
-        // Auth System
-        Login::class => [
-            LoginListener::class,
-        ],
-        Failed::class => [
-            FailedLoginListener::class,
-        ],
-
         // Achievements System
         Unlocked::class => [
             AchievementUnlocked::class,
