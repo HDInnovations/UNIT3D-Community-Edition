@@ -699,9 +699,9 @@
                     <dt>2FA Enabled</dt>
                     <dd>
                         @if ($user->two_factor_confirmed_at !== null)
-                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-green"></i>
+                            <i class="{{ config('other.font-awesome') }} fa-lock text-green"></i>
                         @else
-                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-red"></i>
+                            <i class="{{ config('other.font-awesome') }} fa-lock-open text-red"></i>
                         @endif
                     </dd>
                     <dt>{{ __('user.last-login') }}</dt>
