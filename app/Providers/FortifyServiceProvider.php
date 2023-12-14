@@ -151,8 +151,8 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
 
             $user = User::query()->where('username', $request->username)->first();
-
-            if ($user && !Hash::check($request->password, $user->password)) {
+            $password = Hash::check($request->password, $user->password);
+            if ($user && $password === false) {
                 FailedLoginAttempt::create([
                     'user_id'    => $user->id,
                     'username'   => $request->username,
@@ -168,7 +168,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
 
-            if ($user && Hash::check($request->password, $user->password)) {
+            if ($user && $password === true) {
                 // Check if user is activated
                 $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
