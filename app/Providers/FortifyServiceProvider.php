@@ -39,8 +39,8 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request): \Illuminate\Http\RedirectResponse
             {
                 $user = $request->user();
-                // Check if user is disabled
 
+                // Check if user is disabled
                 $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::query()->where('slug', '=', 'disabled')->pluck('id'));
                 $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
 
@@ -60,13 +60,10 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 // Check if user has read the rules
-
                 if ($request->user()->read_rules == 0) {
                     return redirect()->to(config('other.rules_url'))
                         ->withWarning(trans('auth.require-rules'));
                 }
-
-                // Redirect to home page
 
                 // Fix for issue described in https://github.com/laravel/framework/pull/46133
                 if ($rootUrlOverride = config('unit3d.root_url_override')) {
@@ -191,10 +188,6 @@ class FortifyServiceProvider extends ServiceProvider
                         Fortify::username() => __('auth.banned'),
                     ]);
                 }
-
-                // Update Login Timestamp
-                $user->last_login = Carbon::now();
-                $user->save();
 
                 return $user;
             }

@@ -19,6 +19,7 @@ use App\Events\TicketClosed;
 use App\Events\TicketCreated;
 use App\Events\TicketWentStale;
 use App\Listeners\AchievementUnlocked;
+use App\Listeners\LoginListener;
 use App\Listeners\NotifyStaffCommentWasCreated;
 use App\Listeners\NotifyStaffTicketWasAssigned;
 use App\Listeners\NotifyStaffTicketWasClosed;
@@ -30,6 +31,7 @@ use App\Listeners\NotifyUserTicketWasClosed;
 use App\Listeners\NotifyUserTicketWasCreated;
 use App\Listeners\PasswordProtectBackup;
 use Assada\Achievements\Event\Unlocked;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Spatie\Backup\Events\BackupZipWasCreated;
 
@@ -41,6 +43,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array<string, array<int, string>>
      */
     protected $listen = [
+        // Login Timestamp
+        Login::class => [
+            LoginListener::class,
+        ],
+
         // Achievements System
         Unlocked::class => [
             AchievementUnlocked::class,
