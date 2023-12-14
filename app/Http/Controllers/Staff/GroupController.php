@@ -19,7 +19,6 @@ use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
-use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Str;
 
@@ -64,6 +63,8 @@ class GroupController extends Controller
             ]);
         }
 
+        Unit3dAnnounce::addGroup($group);
+
         return to_route('staff.groups.index')
             ->withSuccess('Group Was Created Successfully!');
     }
@@ -87,9 +88,7 @@ class GroupController extends Controller
 
         cache()->forget('group:'.$group->id);
 
-        foreach (User::whereBelongsTo($group)->get() as $user) {
-            Unit3dAnnounce::addUser($user);
-        }
+        Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');

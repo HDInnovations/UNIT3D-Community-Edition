@@ -5,5 +5,5 @@
 {{ __('email.invite-signup') }}
 @endcomponent
 <p>{{ __('email.register-footer') }}</p>
-<p style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">{{ route('register', $invite->code) }}</p>
+<p style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">{{ route('register', ['code' => $invite->code]) }}</p>
 @endcomponent

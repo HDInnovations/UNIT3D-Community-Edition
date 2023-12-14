@@ -115,8 +115,11 @@ class AutoGroup extends Command
                 $user->save();
             }
 
-            cache()->forget('user:'.$user->passkey);
-            Unit3dAnnounce::addUser($user);
+            if ($user->wasChanged()) {
+                cache()->forget('user:'.$user->passkey);
+
+                Unit3dAnnounce::addUser($user);
+            }
         }
 
         $this->comment('Automated User Group Command Complete');

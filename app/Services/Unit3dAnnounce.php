@@ -14,6 +14,7 @@
 namespace App\Services;
 
 use App\Models\BlacklistClient;
+use App\Models\Group;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
@@ -24,7 +25,7 @@ class Unit3dAnnounce
 {
     public static function addTorrent(Torrent $torrent): bool
     {
-        $isSuccess = self::put('torrents', [
+        return self::put('torrents', [
             'id'              => $torrent->id,
             'status'          => $torrent->status,
             'info_hash'       => bin2hex($torrent->info_hash),
@@ -32,29 +33,49 @@ class Unit3dAnnounce
             'seeders'         => $torrent->seeders,
             'leechers'        => $torrent->leechers,
             'times_completed' => $torrent->times_completed,
-            'download_factor' => 100,
-            'upload_factor'   => 100,
+            'download_factor' => max(0, 100 - $torrent->free),
+            'upload_factor'   => $torrent->doubleup ? 200 : 100,
         ]);
-
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to add torrent.', ['id' => $torrent->id]);
-        }
-
-        return $isSuccess;
     }
 
     public static function removeTorrent(Torrent $torrent): bool
     {
-        $isSuccess = self::delete('torrents', [
+        return self::delete('torrents', [
             'id'        => $torrent->id,
             'info_hash' => bin2hex($torrent->info_hash),
         ]);
+    }
 
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to remove torrent', ['id' => $torrent->id]);
-        }
-
-        return $isSuccess;
+    /**
+     * @param int $torrentId
+     * @return bool|null|array{
+     *         id: int,
+     *         status: string,
+     *         is_deleted: bool,
+     *         peers: array<
+     *             string,
+     *             array{
+     *                 ip_address: string,
+     *                 user_id: int,
+     *                 torrent_id: int,
+     *                 port: int,
+     *                 is_seeder: bool,
+     *                 is_active: bool,
+     *                 updated_at: int,
+     *                 uploaded: int,
+     *                 downloaded: int,
+     *             }
+     *         >,
+     *         seeders: int,
+     *         leechers: int,
+     *         times_completed: int,
+     *         download_factor: int,
+     *         upload_factor: int,
+     *     }
+     */
+    public static function getTorrent(int $torrentId): null|bool|array
+    {
+        return self::get('torrents', $torrentId);
     }
 
     public static function addUser(User $user): bool
@@ -63,114 +84,138 @@ class Unit3dAnnounce
             return true;
         }
 
-        $user->load('group');
-
-        if (\in_array($user->group->slug, ['banned', 'validating', 'disabled'])) {
-            return true;
-        }
-
         $peers = Peer::query()
             ->where('user_id', '=', $user->id)
-            ->selectRaw('count(case when seeder = 1 then 1 end) as num_seeding, count(case when seeder = 0 then 1 end) as num_leeching')
+            ->selectRaw('SUM(seeder = 1 AND active = 1) as num_seeding, SUM(seeder = 0 AND active = 1) as num_leeching')
             ->first();
 
-        $isSuccess = self::put('users', [
-            'id'              => $user->id,
-            'passkey'         => $user->passkey,
-            'can_download'    => (bool) $user->can_download,
-            'download_slots'  => $user->group->download_slots,
-            'is_immune'       => (bool) $user->group->is_immune,
-            'num_seeding'     => $peers->num_seeding ?? 0,
-            'num_leeching'    => $peers->num_leeching ?? 0,
-            'download_factor' => $user->group->is_freeleech ? 0 : 100,
-            'upload_factor'   => $user->group->is_double_upload ? 200 : 100,
+        return self::put('users', [
+            'id'           => (int) $user->id,
+            'group_id'     => (int) $user->group_id,
+            'passkey'      => $user->passkey,
+            'can_download' => (bool) $user->can_download,
+            /** @phpstan-ignore-next-line  */
+            'num_seeding' => (int) $peers->num_seeding,
+            /** @phpstan-ignore-next-line  */
+            'num_leeching' => (int) $peers->num_leeching,
         ]);
-
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to add user', ['id' => $user->id]);
-        }
-
-        return $isSuccess;
     }
 
     public static function removeUser(User $user): bool
     {
-        $isSuccess = self::delete('users', [
+        return self::delete('users', [
             'id'      => $user->id,
             'passkey' => $user->passkey,
         ]);
+    }
 
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to remove user', ['id' => $user->id]);
-        }
+    /**
+     * @param int $userId
+     * @return bool|null|array{
+     *     id: int,
+     *     group_id: int,
+     *     passkey: string,
+     *     can_download: bool,
+     *     num_seeding: int,
+     *     num_leeching: int,
+     * }
+     */
+    public static function getUser(int $userId): null|bool|array
+    {
+        return self::get('users', $userId);
+    }
 
-        return $isSuccess;
+    public static function addGroup(Group $group): bool
+    {
+        return self::put('groups', [
+            'id'               => $group->id,
+            'slug'             => $group->slug,
+            'download_slots'   => $group->download_slots,
+            'is_immune'        => (bool) $group->is_immune,
+            'is_freeleech'     => (bool) $group->is_freeleech,
+            'is_double_upload' => (bool) $group->is_double_upload,
+        ]);
+    }
+
+    public static function removeGroup(Group $group): bool
+    {
+        return self::delete('groups', [
+            'id' => $group->id,
+        ]);
     }
 
     public static function addBlacklistedAgent(String $blacklistedAgent): bool
     {
-        $isSuccess = self::put('blacklisted-agents', [
+        return self::put('blacklisted-agents', [
             'name' => $blacklistedAgent,
         ]);
-
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to add blacklisted agent.', ['name' => $blacklistedAgent]);
-        }
-
-        return $isSuccess;
     }
 
     public static function removeBlacklistedAgent(BlacklistClient $blacklistedClient): bool
     {
-        $isSuccess = self::delete('blacklisted-agents', [
+        return self::delete('blacklisted-agents', [
             'name' => $blacklistedClient->name,
         ]);
-
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to remove blacklisted agent.', ['name' => $blacklistedClient->name]);
-        }
-
-        return $isSuccess;
     }
 
     public static function addFreeleechToken(int $user_id, int $torrent_id): bool
     {
-        $isSuccess = self::put('freeleech-tokens', [
+        return self::put('freeleech-tokens', [
             'user_id'    => $user_id,
             'torrent_id' => $torrent_id
         ]);
-
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to add freeleech token.', ['user_id' => $user_id, 'torrent_id' => $torrent_id]);
-        }
-
-        return $isSuccess;
     }
 
     public static function addPersonalFreeleech(int $user_id): bool
     {
-        $isSuccess = self::put('personal-freeleech', [
+        return self::put('personal-freeleech', [
             'user_id' => $user_id,
         ]);
-
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to add personal freeleech.', ['user_id' => $user_id]);
-        }
-
-        return $isSuccess;
     }
 
     public static function removePersonalFreeleech(int $user_id): bool
     {
-        $isSuccess = self::delete('personal-freeleech', [
+        return self::delete('personal-freeleech', [
             'user_id' => $user_id,
         ]);
+    }
 
-        if (!$isSuccess) {
-            Log::notice('TRACKER - Failed to remove personal freeleech.', ['user_id' => $user_id]);
+    /**
+     * @param  string            $path
+     * @param  int               $id
+     * @return bool|array<mixed>
+     */
+    private static function get(string $path, int $id): bool|array
+    {
+        if (
+            config('announce.external_tracker.is_enabled') === true
+            && config('announce.external_tracker.host') !== null
+            && config('announce.external_tracker.port') !== null
+            && config('announce.external_tracker.key') !== null
+        ) {
+            $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
+
+            $response = Http::acceptJson()->get($route);
+
+            if (!$response->ok()) {
+                Log::notice('External tracker error - GET', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                    'path'   => $path,
+                    'id'     => $id,
+                ]);
+
+                if ($response->notFound()) {
+                    return false;
+                }
+
+                return [];
+            }
+
+            return $response->json();
         }
 
-        return $isSuccess;
+        return true;
     }
 
     private static function put(string $path, array $data): bool
@@ -197,6 +242,15 @@ class Unit3dAnnounce
                         sleep(6);
                     }
                 }
+            }
+
+            if (!$isSuccess) {
+                Log::notice('External tracker error - PUT', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                    'path'   => $path,
+                    'data'   => $data,
+                ]);
             }
 
             return $isSuccess;
@@ -229,6 +283,15 @@ class Unit3dAnnounce
                         sleep(6);
                     }
                 }
+            }
+
+            if (!$isSuccess) {
+                Log::notice('External tracker error - DELETE', [
+                    'status' => $response->status(),
+                    'body'   => $response->body(),
+                    'path'   => $path,
+                    'data'   => $data,
+                ]);
             }
 
             return $isSuccess;

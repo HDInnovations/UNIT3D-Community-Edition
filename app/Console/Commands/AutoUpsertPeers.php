@@ -48,9 +48,9 @@ class AutoUpsertPeers extends Command
         /**
          * MySql can handle a max of 65k placeholders per query,
          * and there are 15 fields on each peer that are updated.
-         * (`active`, `agent`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
+         * (`active`, `agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
          */
-        $peerPerCycle = intdiv(65_000, 14);
+        $peerPerCycle = intdiv(65_000, 15);
 
         $key = config('cache.prefix').':peers:batch';
         $peerCount = Redis::connection('announce')->command('LLEN', [$key]);
@@ -79,6 +79,7 @@ class AutoUpsertPeers extends Command
                         'seeder',
                         'torrent_id',
                         'user_id',
+                        'connectable',
                         'active'
                     ],
                 );

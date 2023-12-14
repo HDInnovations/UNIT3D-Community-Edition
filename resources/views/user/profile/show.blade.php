@@ -608,6 +608,68 @@
                 </dl>
             </section>
         @endif
+        @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
+            @if ($externalUser === true)
+                <section class="panelV2">
+                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <div class="panel__body">
+                        External tracker not enabled.
+                    </div>
+                </section>
+            @elseif ($externalUser === false)
+                <section class="panelV2">
+                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <div class="panel__body">
+                        User not found.
+                    </div>
+                </section>
+            @elseif ($externalUser === [])
+                <section class="panelV2">
+                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <div class="panel__body">
+                        Tracker returned an error.
+                    </div>
+                </section>
+            @else
+                <section class="panelV2">
+                    <h2 class="panel__heading">External Tracker</h2>
+                    <dl class="key-value">
+                        <dt>{{ __('common.group') }}</dt>
+                        <dd>
+                            @if (null !== ($group = \App\Models\Group::find($externalUser['group_id'])))
+                                <span class="user-tag">
+                                    <a
+                                        class="user-tag__link {{ $group->icon }}"
+                                        href="{{ route('group', ['id' => $group->id]) }}"
+                                        style="color: {{ $group->color }}"
+                                        title="{{ $group->name }}"
+                                    >
+                                        {{ $group->name }}
+                                    </a>
+                                </span>
+                            @else
+                                Unrecognized group_id: {{ $externalUser['group_id'] }}
+                            @endif
+                        </dd>
+                        <dt>{{ __('user.passkey') }}</dt>
+                        <dd>
+
+                            <details>
+                                <summary style="cursor: pointer;">{{ __('user.show-passkey') }}</summary>
+                                <code><pre>{{ $externalUser['passkey'] }}</pre></code>
+                                <span class="text-red">{{ __('user.passkey-warning') }}</span>
+                            </details>
+                        </dd>
+                        <dt>{{ __('user.can-download') }}</dt>
+                        <dd>{{ $externalUser['can_download'] ? __('common.yes') : __('common.no') }}</dd>
+                        <dt>{{ __('user.total-seeding') }}</dt>
+                        <dd>{{ $externalUser['num_seeding'] }}</dd>
+                        <dt>{{ __('user.total-leeching') }}</dt>
+                        <dd>{{ $externalUser['num_leeching'] }}</dd>
+                    </dl>
+                </section>
+            @endif
+        @endif
         @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
                 <h2 class="panel__heading">
@@ -637,9 +699,9 @@
                     <dt>2FA Enabled</dt>
                     <dd>
                         @if ($user->two_factor_confirmed_at !== null)
-                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-green"></i>
+                            <i class="{{ config('other.font-awesome') }} fa-lock text-green"></i>
                         @else
-                            <i class="{{ config('other.font-awesome') }} fa-stopwatch-20 text-red"></i>
+                            <i class="{{ config('other.font-awesome') }} fa-lock-open text-red"></i>
                         @endif
                     </dd>
                     <dt>{{ __('user.last-login') }}</dt>

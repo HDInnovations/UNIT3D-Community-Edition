@@ -233,6 +233,13 @@ class Bbcode
             'closeHtml'   => '</tr>',
             'block'       => true,
         ],
+        'table-header' => [
+            'openBbcode'  => '/^\[th\]/i',
+            'closeBbcode' => '[/th]',
+            'openHtml'    => '<th>',
+            'closeHtml'   => '</th>',
+            'block'       => true,
+        ],
         'table-data' => [
             'openBbcode'  => '/^\[td\]/i',
             'closeBbcode' => '[/td]',
