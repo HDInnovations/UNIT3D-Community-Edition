@@ -152,6 +152,7 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::query()->where('username', $request->username)->first();
             $password = Hash::check($request->password, $user->password);
+
             if ($user && $password === false) {
                 FailedLoginAttempt::create([
                     'user_id'    => $user->id,
