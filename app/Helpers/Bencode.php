@@ -168,7 +168,7 @@ class Bencode
     {
         if (\is_array($d)) {
             $ret = 'l';
-            $isDict = !\array_is_list($d);
+            $isDict = !array_is_list($d);
 
             if ($isDict) {
                 $ret = 'd';
