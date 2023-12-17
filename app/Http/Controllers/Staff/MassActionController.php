@@ -72,13 +72,14 @@ class MassActionController extends Controller
 
         foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
             $user->update([
-                'group_id'     => $memberGroup[0],
-                'active'       => 1,
-                'can_upload'   => 1,
-                'can_download' => 1,
-                'can_request'  => 1,
-                'can_comment'  => 1,
-                'can_invite'   => 1,
+                'group_id'          => $memberGroup[0],
+                'active'            => 1,
+                'can_upload'        => 1,
+                'can_download'      => 1,
+                'can_request'       => 1,
+                'can_comment'       => 1,
+                'can_invite'        => 1,
+                'email_verified_at' => now(),
             ]);
 
             Unit3dAnnounce::addUser($user);
