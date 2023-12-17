@@ -573,4 +573,88 @@
             </table>
         </div>
     </section>
+    @if (config('announce.external_tracker.is_enabled'))
+        @if ($externalTrackerStats === true)
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <div class="panel__body">
+                    External tracker not enabled.
+                </div>
+            </section>
+        @elseif ($externalTrackerStats === false)
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <div class="panel__body">
+                    Stats endpoint not found.
+                </div>
+            </section>
+        @elseif ($externalTrackerStats === [])
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <div class="panel__body">
+                    Tracker returned an error.
+                </div>
+            </section>
+        @else
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <dl class="key-value">
+                    @php
+                        $createdAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['created_at']);
+                        $lastRequestAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['last_request_at']);
+                        $lastAnnounceResponseAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['last_announce_response_at']);
+                    @endphp
+                    <dt>{{ __('torrent.started') }}</dt>
+                    <dd>
+                        <time
+                            title="{{ $createdAt->format('Y-m-d h:i:s') }}"
+                            datetime="{{ $createdAt->format('Y-m-d h:i:s') }}"
+                        >
+                            {{ $createdAt->diffForHumans() }}
+                        </time>
+                    </dd>
+                    <dt>Last Request At</dt>
+                    <dd>
+                        <time
+                            title="{{ $lastRequestAt->format('Y-m-d h:i:s') }}"
+                            datetime="{{ $lastRequestAt->format('Y-m-d h:i:s') }}"
+                        >
+                            {{ $lastRequestAt->diffForHumans() }}
+                        </time>
+                    </dd>
+                    <dt>Last Successful Response At</dt>
+                    <dd>
+                        <time
+                            title="{{ $lastAnnounceResponseAt->format('Y-m-d h:i:s') }}"
+                            datetime="{{ $lastAnnounceResponseAt->format('Y-m-d h:i:s') }}"
+                        >
+                            {{ $lastAnnounceResponseAt->diffForHumans() }}
+                        </time>
+                    </dd>
+                </dl>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align: right">Interval (s)</th>
+                            <th style="text-align: right">In (req/s)</th>
+                            <th style="text-align: right">Out (req/s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach([1, 10, 60, 900, 7200] as $interval)
+                            <tr>
+                                <td style="text-align: right">{{ $interval }}</td>
+                                <td style="text-align: right">
+                                    {{ \number_format($externalTrackerStats['requests_per_'.$interval.'s'], 0, null, "\u{202F}") }}
+                                </td>
+                                <td style="text-align: right;">
+                                    {{ \number_format($externalTrackerStats['announce_responses_per_'.$interval.'s'], 0, null, "\u{202F}") }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </section>
+        @endif
+    @endif
 @endsection

@@ -23,6 +23,29 @@ use Illuminate\Support\Facades\Log;
 
 class Unit3dAnnounce
 {
+    /**
+     * @return bool|null|array{
+     *     created_at: double,
+     *     last_request_at: double,
+     *     last_announce_response_at: double,
+     *     requests_per_1s: double,
+     *     requests_per_10s: double,
+     *     requests_per_60s: double,
+     *     requests_per_900s: double,
+     *     requests_per_7200s: double,
+     *     announce_responses_per_1s: double,
+     *     announce_responses_per_10s: double,
+     *     announce_responses_per_60s: double,
+     *     announce_responses_per_900s: double,
+     *     announce_responses_per_7200s: double,
+     *     announce_responses_per_second: double,
+     * }
+     */
+    public static function getStats(): null|bool|array
+    {
+        return self::get('stats');
+    }
+
     public static function addTorrent(Torrent $torrent): bool
     {
         return self::put('torrents', [
@@ -182,10 +205,10 @@ class Unit3dAnnounce
 
     /**
      * @param  string            $path
-     * @param  int               $id
+     * @param  ?int              $id
      * @return bool|array<mixed>
      */
-    private static function get(string $path, int $id): bool|array
+    private static function get(string $path, ?int $id = null): bool|array
     {
         if (
             config('announce.external_tracker.is_enabled') === true
@@ -194,6 +217,7 @@ class Unit3dAnnounce
             && config('announce.external_tracker.key') !== null
         ) {
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
+            $route = rtrim($route, "/");
 
             $response = Http::acceptJson()->get($route);
 

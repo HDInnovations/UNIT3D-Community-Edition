@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Staff;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
@@ -76,6 +77,7 @@ class HomeController extends Controller
             'avg'                      => $systemInformation->avg(),
             'basic'                    => $systemInformation->basic(),
             'file_permissions'         => $systemInformation->directoryPermissions(),
+            'externalTrackerStats'     => Unit3dAnnounce::getStats(),
         ]);
     }
 }
