@@ -84,9 +84,13 @@ class Comments extends Component
         $this->perPage += 10;
     }
 
+    /// TODO: Find a better data structure to avoid this mess of exception cases
     final public function postComment(): void
     {
-        if ($this->user->can_comment === false) {
+        // Set Polymorhic Model Name
+        $modelName = str()->snake(class_basename($this->model), ' ');
+
+        if ($modelName !== 'ticket' && $this->user->can_comment === false) {
             $this->dispatch('error', type: 'error', message: trans('comment.rights-revoked'));
 
             return;
@@ -106,9 +110,6 @@ class Comments extends Component
         $comment->user()->associate($this->user);
         $comment->anon = $this->anon;
         $comment->save();
-
-        // Set Polymorhic Model Name
-        $modelName = str()->snake(class_basename($this->model), ' ');
 
         // New Comment Notification
         switch ($modelName) {

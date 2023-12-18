@@ -39,30 +39,13 @@ Route::middleware('language')->group(function (): void {
     |---------------------------------------------------------------------------------
     */
     Route::middleware('guest')->group(function (): void {
-        // Activation
-        Route::get('/activate/{token}', [App\Http\Controllers\Auth\ActivationController::class, 'activate'])->name('activate');
-
         // Application Signup
         Route::get('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'create'])->name('application.create');
         Route::post('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'store'])->name('application.store');
 
-        // Authentication
-        Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-        Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('');
-
-        // Forgot Username
-        Route::get('username/reminder', [App\Http\Controllers\Auth\ForgotUsernameController::class, 'showForgotUsernameForm'])->name('username.request');
-        Route::post('username/reminder', [App\Http\Controllers\Auth\ForgotUsernameController::class, 'sendUsernameReminder'])->name('username.email');
-
-        // Password Reset
-        Route::post('password/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-        Route::get('password/reset', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-        Route::post('password/reset', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('');
-        Route::get('/password/reset/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-
-        // Registration
-        Route::get('/register/{code?}', [App\Http\Controllers\Auth\RegisterController::class, 'registrationForm'])->name('registrationForm');
-        Route::post('/register/{code?}', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
+        // This redirect must be kept until all invite emails that use the old syntax have expired
+        // Hack so that Fortify can be used (allows query parameters but not route parameters)
+        Route::get('/register/{code?}', fn (string $code) => to_route('register', ['code' => $code]));
     });
 
     /*
@@ -70,9 +53,8 @@ Route::middleware('language')->group(function (): void {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::middleware(['auth', 'banned', 'verified'])->group(function (): void {
         // General
-        Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
         // Articles System
@@ -93,13 +75,6 @@ Route::middleware('language')->group(function (): void {
                 Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update');
                 Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy');
             });
-        });
-
-        // TwoStep Auth System
-        Route::prefix('twostep')->group(function (): void {
-            Route::get('/needed', [App\Http\Controllers\Auth\TwoStepController::class, 'showVerification'])->name('verificationNeeded');
-            Route::post('/verify', [App\Http\Controllers\Auth\TwoStepController::class, 'verify'])->name('verify');
-            Route::post('/resend', [App\Http\Controllers\Auth\TwoStepController::class, 'resend'])->name('resend');
         });
 
         // Reports System
@@ -203,6 +178,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('torrents')->group(function (): void {
             Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers');
             Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history');
+            Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->middleware('modo');
             Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check');
             Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download');
             Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
@@ -298,7 +274,7 @@ Route::middleware('language')->group(function (): void {
     | MediaHub (When Authorized)
     |------------------------------------------
     */
-    Route::prefix('mediahub')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::prefix('mediahub')->middleware(['auth', 'banned'])->group(function (): void {
         // MediaHub Home
         Route::get('/', [App\Http\Controllers\MediaHub\HomeController::class, 'index'])->name('mediahub.index');
 
@@ -338,7 +314,7 @@ Route::middleware('language')->group(function (): void {
     | Forums Routes Group (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('forums')->middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+    Route::prefix('forums')->middleware(['auth', 'banned'])->group(function (): void {
         // Forum System
         Route::name('forums.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
@@ -400,7 +376,7 @@ Route::middleware('language')->group(function (): void {
     | User Private Routes Group (When authorized) (Alpha ordered)
     |-------------------------------------------------------------------------------
     */
-    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'twostep', 'banned'])->scopeBindings()->group(function (): void {
+    Route::prefix('users/{user:username}')->name('users.')->middleware(['auth', 'banned'])->scopeBindings()->group(function (): void {
         Route::get('/', [App\Http\Controllers\User\UserController::class, 'show'])->name('show')->withTrashed();
         Route::get('/edit', [App\Http\Controllers\User\UserController::class, 'edit'])->name('edit');
         Route::patch('/', [App\Http\Controllers\User\UserController::class, 'update'])->name('update');
@@ -521,6 +497,11 @@ Route::middleware('language')->group(function (): void {
             Route::delete('/{seedbox}', [App\Http\Controllers\User\SeedboxController::class, 'destroy'])->name('destroy');
         });
 
+        // Two-Factor Authentication
+        Route::prefix('two-factor-auth')->name('two_factor_auth.')->group(function (): void {
+            Route::get('/edit', [App\Http\Controllers\User\TwoFactorAuthController::class, 'edit'])->name('edit');
+        });
+
         // Email
         Route::prefix('email')->name('email.')->group(function (): void {
             Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit');
@@ -534,30 +515,22 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Passkey
-        Route::prefix('passkey')->name('passkey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\PasskeyController::class, 'edit'])->name('edit');
+        Route::prefix('passkeys')->name('passkeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\PasskeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\PasskeyController::class, 'update'])->name('update');
         });
 
         // Rsskey
-        Route::prefix('rsskey')->name('rsskey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\RsskeyController::class, 'edit'])->name('edit');
+        Route::prefix('rsskeys')->name('rsskeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\RsskeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\RsskeyController::class, 'update'])->name('update');
         });
 
         // Apikey
-        Route::prefix('apikey')->name('apikey.')->group(function (): void {
-            Route::get('/edit', [App\Http\Controllers\User\ApikeyController::class, 'edit'])->name('edit');
+        Route::prefix('apikeys')->name('apikeys.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\ApikeyController::class, 'index'])->name('index');
             Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
         });
-
-        // Two-Step Authentication
-        if (config('auth.TwoStepEnabled') === true) {
-            Route::prefix('two-step')->name('two_step.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\TwoStepController::class, 'edit'])->name('edit');
-                Route::patch('/', [App\Http\Controllers\User\TwoStepController::class, 'update'])->name('update');
-            });
-        }
 
         // Tips
         Route::prefix('tips')->name('tips.')->group(function (): void {
@@ -607,10 +580,24 @@ Route::middleware('language')->group(function (): void {
     | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::prefix('dashboard')->middleware(['auth', 'twostep', 'modo', 'banned'])->name('staff.')->group(function (): void {
+    Route::prefix('dashboard')->middleware(['auth', 'modo', 'banned'])->name('staff.')->group(function (): void {
         // Staff Dashboard
         Route::name('dashboard.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
+        });
+
+        // Announces
+        Route::prefix('announces')->group(function (): void {
+            Route::name('announces.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\AnnounceController::class, 'index'])->name('index');
+            });
+        });
+
+        // Apikeys
+        Route::prefix('apikeys')->group(function (): void {
+            Route::name('apikeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\ApikeyController::class, 'index'])->name('index');
+            });
         });
 
         // Articles System
@@ -682,6 +669,13 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{blacklistClient}/edit', [App\Http\Controllers\Staff\BlacklistClientController::class, 'edit'])->name('edit');
                 Route::patch('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'update'])->name('update');
                 Route::delete('/{blacklistClient}', [App\Http\Controllers\Staff\BlacklistClientController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Block Ip System
+        Route::prefix('blocked-ips')->group(function (): void {
+            Route::name('blocked_ips.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\BlockedIpController::class, 'index'])->name('index');
             });
         });
 
@@ -887,6 +881,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Passkeys
+        Route::prefix('passkeys')->group(function (): void {
+            Route::name('passkeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PasskeyController::class, 'index'])->name('index');
+            });
+        });
+
         // Peers
         Route::prefix('peers')->group(function (): void {
             Route::name('peers.')->group(function (): void {
@@ -957,6 +958,13 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{rss}/edit', [App\Http\Controllers\Staff\RssController::class, 'edit'])->name('edit');
                 Route::patch('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'update'])->name('update');
                 Route::delete('/{rss}', [App\Http\Controllers\Staff\RssController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // RSS Keys
+        Route::prefix('rsskeys')->group(function (): void {
+            Route::name('rsskeys.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\RsskeyController::class, 'index'])->name('index');
             });
         });
 

@@ -113,14 +113,32 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>{{ __('user.warned-by') }}</th>
+                    <th wire:click="sortBy('warned_by')" role="columnheader button">
+                        {{ __('user.warned-by') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'warned_by'])
+                    </th>
                     @if ($warningTab !== 'manual')
-                        <th>{{ __('torrent.torrent') }}</th>
+                        <th wire:click="sortBy('torrent_id')" role="columnheader button">
+                            {{ __('torrent.torrent') }}
+                            @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
+                        </th>
                     @endif
-                    <th>{{ __('common.reason') }}</th>
-                    <th>{{ __('user.created-on') }}</th>
-                    <th>{{ __('user.expires-on') }}</th>
-                    <th>{{ __('user.active') }}</th>
+                    <th wire:click="sortBy('reason')" role="columnheader button">
+                        {{ __('common.reason') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'reason'])
+                    </th>
+                    <th wire:click="sortBy('created_at')" role="columnheader button">
+                        {{ __('user.created-on') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    </th>
+                    <th wire:click="sortBy('expires_on')" role="columnheader button">
+                        {{ __('user.expires-on') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'expires_on'])
+                    </th>
+                    <th wire:click="sortBy('active')" role="columnheader button">
+                        {{ __('user.active') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'active'])
+                    </th>
                     <th>{{ __('common.actions') }}</th>
                 </tr>
             </thead>

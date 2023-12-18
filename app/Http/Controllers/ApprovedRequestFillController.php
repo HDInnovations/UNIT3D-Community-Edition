@@ -63,7 +63,7 @@ class ApprovedRequestFillController extends Controller
         $filler->increment('seedbonus', $torrentRequest->bounty);
 
         // Achievements
-        if (! $torrentRequest->filled_anon) {
+        if (!$torrentRequest->filled_anon) {
             $filler->addProgress(new UserFilled25Requests(), 1);
             $filler->addProgress(new UserFilled50Requests(), 1);
             $filler->addProgress(new UserFilled75Requests(), 1);

@@ -76,7 +76,7 @@
                         {{ __('staff.bots') }}
                     </a>
                 </p>
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.chat') }}" x-data>
                         @csrf
                         <button
@@ -97,7 +97,7 @@
                             {{ __('staff.flush-chat') }}
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -142,6 +142,12 @@
                     <a class="form__button form__button--text" href="{{ route('staff.blacklisted_clients.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
                         {{ __('common.blacklist') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.blocked_ips.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-ban"></i>
+                        {{ __('staff.blocked-ips') }}
                     </a>
                 </p>
             </div>
@@ -218,7 +224,15 @@
                         Cheated Torrents
                     </a>
                 </p>
-                <p class="form__group form__group--horizontal">
+                @if (config('announce.log_announces'))
+                    <p class="form__group form__group--horizontal">
+                        <a class="form__button form__button--text" href="{{ route('staff.announces.index') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-chart-bar"></i>
+                            Announces
+                        </a>
+                    </p>
+                @endif
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
                         @csrf
                         <button
@@ -239,7 +253,7 @@
                             {{ __('staff.flush-ghost-peers') }}
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -256,11 +270,29 @@
                             <x-animation.notification />
                         @endif
                     </a>
-                </li>
+                </p>
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.users.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
                         {{ __('staff.user-search') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.apikeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.apikeys') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.passkeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('staff.passkeys') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a class="form__button form__button--text" href="{{ route('staff.rsskeys.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.rsskeys') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -275,7 +307,7 @@
                         {{ __('staff.mass-pm') }}
                     </a>
                 </p>
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="GET" action="{{ route('staff.mass-actions.validate') }}" x-data>
                         @csrf
                         <button
@@ -296,7 +328,7 @@
                             {{ __('staff.mass-validate-users') }}
                         </button>
                     </form>
-                </p>
+                </div>
                 <p class="form__group form__group--horizontal">
                     <a class="form__button form__button--text" href="{{ route('staff.cheaters.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>
@@ -541,4 +573,88 @@
             </table>
         </div>
     </section>
+    @if (config('announce.external_tracker.is_enabled'))
+        @if ($externalTrackerStats === true)
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <div class="panel__body">
+                    External tracker not enabled.
+                </div>
+            </section>
+        @elseif ($externalTrackerStats === false)
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <div class="panel__body">
+                    Stats endpoint not found.
+                </div>
+            </section>
+        @elseif ($externalTrackerStats === [])
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <div class="panel__body">
+                    Tracker returned an error.
+                </div>
+            </section>
+        @else
+            <section class="panelV2">
+                <h2 class="panel__heading">External Tracker Stats</h2>
+                <dl class="key-value">
+                    @php
+                        $createdAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['created_at']);
+                        $lastRequestAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['last_request_at']);
+                        $lastAnnounceResponseAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['last_announce_response_at']);
+                    @endphp
+                    <dt>{{ __('torrent.started') }}</dt>
+                    <dd>
+                        <time
+                            title="{{ $createdAt->format('Y-m-d h:i:s') }}"
+                            datetime="{{ $createdAt->format('Y-m-d h:i:s') }}"
+                        >
+                            {{ $createdAt->diffForHumans() }}
+                        </time>
+                    </dd>
+                    <dt>Last Request At</dt>
+                    <dd>
+                        <time
+                            title="{{ $lastRequestAt->format('Y-m-d h:i:s') }}"
+                            datetime="{{ $lastRequestAt->format('Y-m-d h:i:s') }}"
+                        >
+                            {{ $lastRequestAt->diffForHumans() }}
+                        </time>
+                    </dd>
+                    <dt>Last Successful Response At</dt>
+                    <dd>
+                        <time
+                            title="{{ $lastAnnounceResponseAt->format('Y-m-d h:i:s') }}"
+                            datetime="{{ $lastAnnounceResponseAt->format('Y-m-d h:i:s') }}"
+                        >
+                            {{ $lastAnnounceResponseAt->diffForHumans() }}
+                        </time>
+                    </dd>
+                </dl>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align: right">Interval (s)</th>
+                            <th style="text-align: right">In (req/s)</th>
+                            <th style="text-align: right">Out (req/s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach([1, 10, 60, 900, 7200] as $interval)
+                            <tr>
+                                <td style="text-align: right">{{ $interval }}</td>
+                                <td style="text-align: right">
+                                    {{ \number_format($externalTrackerStats['requests_per_'.$interval.'s'], 0, null, "\u{202F}") }}
+                                </td>
+                                <td style="text-align: right;">
+                                    {{ \number_format($externalTrackerStats['announce_responses_per_'.$interval.'s'], 0, null, "\u{202F}") }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </section>
+        @endif
+    @endif
 @endsection

@@ -70,7 +70,7 @@ class HomeController extends Controller
                     ->where('last_action', '>', now()->subMinutes(5))
                     ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
                     ->get()
-                    ->sortBy(fn ($user) => $user->hidden || ! $user->isVisible($user, 'other', 'show_online'))
+                    ->sortBy(fn ($user) => $user->hidden || !$user->isVisible($user, 'other', 'show_online'))
             ),
             'groups' => cache()->remember(
                 'user-groups',

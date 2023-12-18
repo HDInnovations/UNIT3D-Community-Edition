@@ -131,7 +131,7 @@
                     <tr>
                         <td>{{ __('torrent.team-player') }} {{ __('torrent.seeder') }}</td>
                         <td>{{ __('torrent.seed-time') }} &ge; 2 {{ strtolower(__('common.months')) }} {{ strtolower(__('common.but')) }} < 3 {{ strtolower(__('common.months')) }}</td>
-                        <td>0.50 &times; {{ $teamplayer }}</strong></td>
+                        <td>0.50 &times; {{ $teamplayer }}</td>
                         <td>{{ $teamplayer * 0.5 }}</td>
                         <td x-cloak x-show="extendStats">{{ $teamplayer * 0.5 * 24 }}</td>
                         <td x-cloak x-show="extendStats">{{ $teamplayer * 0.5 * 24 * 7 }}</td>
@@ -140,7 +140,7 @@
                     <tr>
                         <td>{{ __('torrent.participant') }} {{ __('torrent.seeder') }}</td>
                         <td>{{ __('torrent.seed-time') }} &ge; 1 {{ strtolower(__('common.month')) }} {{ strtolower(__('common.but')) }} < 2 {{ strtolower(__('common.months')) }}</td>
-                        <td>0.25 &times; {{ $participant }}</strong></td>
+                        <td>0.25 &times; {{ $participant }}</td>
                         <td>{{ $participant * 0.25 }}</td>
                         <td x-cloak x-show="extendStats">{{ $participant * 0.25 * 24 }}</td>
                         <td x-cloak x-show="extendStats">{{ $participant * 0.25 * 24 * 7 }}</td>

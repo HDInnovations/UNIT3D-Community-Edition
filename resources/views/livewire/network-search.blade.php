@@ -5,12 +5,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
+                        id="name"
                         class="form__text"
                         placeholder=" "
                         type="text"
                         wire:model.live.debounce.250ms="search"
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="name">
                         {{ __('torrent.search-by-name') }}
                     </label>
                 </div>
@@ -41,4 +42,4 @@
         @endforelse
     </div>
     {{ $networks->links('partials.livewire-pagination') }}
-</div>
+</section>

@@ -55,7 +55,7 @@ class WarningLogSearch extends Component
     final public function toggleProperties($property): void
     {
         if ($property === 'show') {
-            $this->show = ! $this->show;
+            $this->show = !$this->show;
         }
     }
 

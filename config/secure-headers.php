@@ -665,7 +665,6 @@ return [
             ],
 
             'allow' => [
-                'fonts.googleapis.com',
                 'gitcdn.xyz',
                 'github.io',
                 "*.github.io",

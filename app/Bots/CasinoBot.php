@@ -120,7 +120,7 @@ class CasinoBot
     {
         $donations = cache()->get('casinobot-donations');
 
-        if (! $donations) {
+        if (!$donations) {
             $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
             cache()->put('casinobot-donations', $donations, $this->expiresAt);
         }
@@ -211,7 +211,7 @@ class CasinoBot
             $receiverDirty = false;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
 
-            if (! $receiverEchoes || ! \is_array($receiverEchoes)) {
+            if (!$receiverEchoes || !\is_array($receiverEchoes)) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -225,7 +225,7 @@ class CasinoBot
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
@@ -243,7 +243,7 @@ class CasinoBot
             $receiverDirty = false;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
 
-            if (! $receiverAudibles || ! \is_array($receiverAudibles)) {
+            if (!$receiverAudibles || !\is_array($receiverAudibles)) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -257,7 +257,7 @@ class CasinoBot
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;

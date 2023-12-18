@@ -61,11 +61,11 @@ class ApplicationController extends Controller
     public function approve(ApproveApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $application->update([
-            'status'       => Application::APPROVED,
-            'moderated_at' => now(),
-            'moderated_by' => $request->user()->id,
-        ]);
+
+        $application->status = Application::APPROVED;
+        $application->moderated_at = now();
+        $application->moderated_by = $request->user()->id;
+        $application->save();
 
         $invite = Invite::create([
             'user_id'    => $request->user()->id,

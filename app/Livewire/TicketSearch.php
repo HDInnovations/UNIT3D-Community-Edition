@@ -66,7 +66,7 @@ class TicketSearch extends Component
     {
         return Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])
-            ->when(! $this->user->group->is_modo, fn ($query) => $query->where('user_id', '=', $this->user->id))
+            ->when(!$this->user->group->is_modo, fn ($query) => $query->where('user_id', '=', $this->user->id))
             ->when(
                 $this->tab === 'open',
                 fn ($query) => $query->whereNull('closed_at'),

@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RsskeyController extends Controller
 {
@@ -29,32 +30,41 @@ class RsskeyController extends Controller
 
         $changedByStaff = $request->user()->isNot($user);
 
-        abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
 
-        $user->update([
-            'rsskey' => md5(random_bytes(60).$user->password),
-        ]);
+        DB::transaction(function () use ($user, $changedByStaff): void {
+            $user->rsskeys()->latest()->first()?->update(['deleted_at' => now()]);
 
-        if ($changedByStaff) {
-            PrivateMessage::create([
-                'sender_id'   => 1,
-                'receiver_id' => $user->id,
-                'subject'     => 'ATTENTION - Your RSS key has been reset',
-                'message'     => "Your RSS key has been reset by staff. You will need to update your RSS key in your torrent client to continue receiving new torrents.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+            $user->update([
+                'rsskey' => md5(random_bytes(60).$user->password),
             ]);
-        }
 
-        return to_route('users.rsskey.edit', ['user' => $user])
+            $user->rsskeys()->create(['content' => $user->rsskey]);
+
+            if ($changedByStaff) {
+                PrivateMessage::create([
+                    'sender_id'   => 1,
+                    'receiver_id' => $user->id,
+                    'subject'     => 'ATTENTION - Your RSS key has been reset',
+                    'message'     => "Your RSS key has been reset by staff. You will need to update your RSS key in your torrent client to continue receiving new torrents.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+                ]);
+            }
+        });
+
+        return to_route('users.rsskeys.index', ['user' => $user])
             ->withSuccess('Your RSS key was changed successfully.');
     }
 
     /**
      * Edit user rsskey.
      */
-    public function edit(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        return view('user.rsskey.edit', ['user' => $user]);
+        return view('user.rsskey.index', [
+            'user'    => $user,
+            'rsskeys' => $user->rsskeys()->latest()->get(),
+        ]);
     }
 }

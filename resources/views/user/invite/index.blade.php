@@ -60,8 +60,16 @@
                                 <td>{{ $invite->code }}</td>
                                 <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
                             @endif
-                            <td>{{ $invite->created_at }}</td>
-                            <td>{{ $invite->expires_on }}</td>
+                            <td>
+                                <time datetime="{{ $invite->created_at }}" title="{{ $invite->created_at }}">
+                                    {{ $invite->created_at }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $invite->expires_on }}" title="{{ $invite->expires_on }}">
+                                    {{ $invite->expires_on }}
+                                </time>
+                            </td>
                             <td>
                                 @if ($invite->accepted_by !== null && $invite->accepted_by !== 1)
                                     <x-user_tag :user="$invite->receiver" :anon="false" />
@@ -69,8 +77,16 @@
                                     N/A
                                 @endif
                             </td>
-                            <td>{{ $invite->accepted_at ?? 'N/A' }}</td>
-                            <td>{{ $invite->deleted_at ?? 'N/A' }}</td>
+                            <td>
+                                <time datetime="{{ $invite->accepted_at }}" title="{{ $invite->accepted_at }}">
+                                    {{ $invite->accepted_at ?? 'N/A' }}
+                                </time>
+                            </td>
+                            <td>
+                                <time datetime="{{ $invite->deleted_at }}" title="{{ $invite->deleted_at }}">
+                                    {{ $invite->deleted_at ?? 'N/A' }}
+                                </time>
+                            </td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">

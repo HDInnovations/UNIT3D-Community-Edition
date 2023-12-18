@@ -10,7 +10,7 @@
 
 @section('content')
     <section class="panelV2">
-        <h2 class="panel__heading">Pages</h1>
+        <h2 class="panel__heading">Pages</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -29,10 +29,14 @@
                                 </a>
                             </td>
                             <td>
-                                {{ $page->created_at }}
+                                <time datetime="{{ $page->created_at }}" title="{{ $page->created_at }}">
+                                    {{ $page->created_at }}
+                                </time>
                             </td>
                             <td>
-                                {{ $page->updated_at }}
+                                <time datetime="{{ $page->updated_at }}" title="{{ $page->updated_at }}">
+                                    {{ $page->updated_at }}
+                                </time>
                             </td>
                         </tr>
                     @endforeach

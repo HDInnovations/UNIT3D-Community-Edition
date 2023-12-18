@@ -19,10 +19,20 @@
 
 <div style="display: grid; grid-template-columns: 1fr max-content; gap: 12px; align-items: flex-start">
     <section class="panelV2">
-        <h2 class="panel__heading">
-            <i class="{{ config('other.font-awesome') }} fa-list"></i>
-            Laravel Log Viewer
-        </h2>
+        <header class="panel__header">
+            <h2 class="panel__heading">
+                <i class="{{ config('other.font-awesome') }} fa-list"></i>
+                Laravel Log Viewer
+            </h2>
+            <div class="panel__actions">
+                <div class="panel__action">
+                    <button class="form__button form__button--text" wire:click="clearLatestLog">Clear Latest Log</button>
+                </div>
+                <div class="panel__action">
+                    <button class="form__button form__button--text" wire:click="deleteAllLogs">Delete all logs</button>
+                </div>
+            </div>
+        </header>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>

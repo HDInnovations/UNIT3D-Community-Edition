@@ -112,6 +112,9 @@ class TorrentSearch extends Component
     public bool $featured = false;
 
     #[Url]
+    public bool $refundable = false;
+
+    #[Url]
     public bool $stream = false;
 
     #[Url]
@@ -228,6 +231,7 @@ class TorrentSearch extends Component
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup, fn ($query) => $query->doubleup())
             ->when($this->featured, fn ($query) => $query->featured())
+            ->when($this->refundable, fn ($query) => $query->refundable())
             ->when($this->stream, fn ($query) => $query->streamOptimized())
             ->when($this->sd, fn ($query) => $query->sd())
             ->when($this->highspeed, fn ($query) => $query->highspeed())
@@ -255,7 +259,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'name',
             'size',
             'seeders',
@@ -336,7 +340,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {
@@ -575,7 +579,7 @@ class TorrentSearch extends Component
     final public function groupedPosters()
     {
         // Whitelist which columns are allowed to be ordered by
-        if (! \in_array($this->sortField, [
+        if (!\in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {

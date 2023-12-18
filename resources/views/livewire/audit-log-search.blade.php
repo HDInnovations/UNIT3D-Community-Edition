@@ -5,13 +5,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="username"
-                            class="form__text"
-                            type="text"
-                            wire:model.live="username"
-                            placeholder=" "
+                        id="username"
+                        class="form__text"
+                        type="text"
+                        wire:model.live="username"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="username">
                         Username
                     </label>
                 </div>
@@ -19,20 +19,20 @@
             <div class="panel__action">
                 <div class="form__group">
                     <select
-                            x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''"
-                            class="form__select"
-                            wire:model.live="modelName"
-                            required
-                            x-data="{ selected: '' }"
-                            x-model="selected"
-                            x-bind:class="selected === '' ? 'form__select--default' : ''"
+                        id="model"
+                        x-data="{ selected: '' }"
+                        x-model="selected"
+                        x-bind:class="selected === '' ? 'form__select--default' : ''"
+                        class="form__select"
+                        wire:model.live="modelName"
+                        required
                     >
                         <option selected value="">All</option>
                         @foreach ($modelNames as $modelName)
                             <option value="{{ $modelName }}">{{ $modelName }}</option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="model">
                         Model Name
                     </label>
                 </div>
@@ -40,13 +40,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="modelId"
-                            class="form__text"
-                            type="text"
-                            wire:model.live="modelId"
-                            placeholder=" "
+                        id="modelId"
+                        class="form__text"
+                        type="text"
+                        wire:model.live="modelId"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="modelId">
                         Model Id
                     </label>
                 </div>
@@ -54,19 +54,20 @@
             <div class="panel__action">
                 <div class="form__group">
                     <select
-                            class="form__select"
-                            wire:model.live="action"
-                            required
-                            x-data="{ selected: '' }"
-                            x-model="selected"
-                            x-bind:class="selected === '' ? 'form__select--default' : ''"
+                        id="action"
+                        class="form__select"
+                        wire:model.live="action"
+                        required
+                        x-data="{ selected: '' }"
+                        x-model="selected"
+                        x-bind:class="selected === '' ? 'form__select--default' : ''"
                     >
                         <option selected value="">All</option>
                         <option value="create">Create</option>
                         <option value="update">Update</option>
                         <option value="delete">Delete</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="action">
                         Action
                     </label>
                 </div>
@@ -74,13 +75,13 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                            id="record"
-                            class="form__text"
-                            type="text"
-                            wire:model.live="record"
-                            placeholder=" "
+                        id="record"
+                        class="form__text"
+                        type="text"
+                        wire:model.live="record"
+                        placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="record">
                         Record
                     </label>
                 </div>
@@ -97,7 +98,7 @@
                         <option>50</option>
                         <option>100</option>
                     </select>
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="quantity">
                         {{ __('common.quantity') }}
                     </label>
                 </div>

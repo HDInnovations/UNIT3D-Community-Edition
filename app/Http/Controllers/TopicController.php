@@ -191,7 +191,7 @@ class TopicController extends Controller
                 ['read_topic', '=', 1],
                 ['group_id', '=', $user->group_id]
             ])
-            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -228,7 +228,7 @@ class TopicController extends Controller
         ]);
 
         $topic = Topic::query()
-            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);

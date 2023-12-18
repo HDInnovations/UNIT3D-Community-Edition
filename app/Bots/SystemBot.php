@@ -85,7 +85,7 @@ class SystemBot
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $receiver)->first();
 
-            if (! $recipient || $recipient->id === $this->target->id) {
+            if (!$recipient || $recipient->id === $this->target->id) {
                 return 'Your BON gift could not be sent.';
             }
 
@@ -184,7 +184,7 @@ class SystemBot
             $receiverDirty = false;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
 
-            if (! $receiverEchoes || ! \is_array($receiverEchoes)) {
+            if (!$receiverEchoes || !\is_array($receiverEchoes)) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -198,7 +198,7 @@ class SystemBot
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
@@ -216,7 +216,7 @@ class SystemBot
             $receiverDirty = false;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
 
-            if (! $receiverAudibles || ! \is_array($receiverAudibles)) {
+            if (!$receiverAudibles || !\is_array($receiverAudibles)) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -230,7 +230,7 @@ class SystemBot
                 }
             }
 
-            if (! $receiverListening) {
+            if (!$receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;

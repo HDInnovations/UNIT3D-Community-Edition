@@ -21,6 +21,7 @@ test('create returns an ok response', function (): void {
 
 test('store returns an ok response', function (): void {
     config(['captcha.enabled' => false]);
+    config(['other.application_signups' => true]);
 
     $application = Application::factory()->make();
 

@@ -18,6 +18,7 @@ use App\Models\BonTransactions;
 use App\Models\Invite;
 use App\Models\Peer;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -102,7 +103,8 @@ class UserController extends Controller
                 ->selectRaw('SUM(active = 0) as inactive')
                 ->where('user_id', '=', $user->id)
                 ->first(),
-            'watch' => $user->watchlist,
+            'watch'        => $user->watchlist,
+            'externalUser' => $user->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
         ]);
     }
 
@@ -128,12 +130,12 @@ class UserController extends Controller
         if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
             $image = $request->file('image');
 
-            if (! \in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
+            if (!\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Only .jpg, .bmp, .png, .tiff, and .gif are allowed.');
             }
 
-            if (! preg_match('#image/*#', (string) $image->getMimeType())) {
+            if (!preg_match('#image/*#', (string) $image->getMimeType())) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Incorrect mime type.');
             }

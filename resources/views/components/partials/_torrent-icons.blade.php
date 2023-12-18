@@ -44,7 +44,7 @@
         ></i>
     @endif
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleechTokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
     @endphp
     @if ($alwaysFreeleech || $torrent->free)
         <i
@@ -54,7 +54,15 @@
                 'fa-star-half' => ! $alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,
                 'fa-calendar-star' => ! $alwaysFreeleech && $torrent->fl_until !== null,
             ])
-            title="@if($personalFreeleech){{ __('torrent.personal-freeleech') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->freeleechTokens_exists){{ __('torrent.freeleech-token') }}&NewLine;@endif&ZeroWidthSpace;@if(auth()->user()->group->is_freeleech){{ __('torrent.special-freeleech') }}&NewLine;@endif&ZeroWidthSpace;@if(config('other.freeleech')){{ __('torrent.global-freeleech') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->free > 0){{ $torrent->free }}% {{ __('common.free') }}@if($torrent->fl_until !== null) (expires {{ $torrent->fl_until->diffForHumans() }})@endif&ZeroWidthSpace;@endif"
+            title="{{
+                implode("\n", array_keys([
+                    __('torrent.personal-freeleech') => $personalFreeleech,
+                    __('torrent.freeleech-token')    => $torrent->freeleech_tokens_exists,
+                    __('torrent.special-freeleech')  => auth()->user()->group->is_freeleech,
+                    __('torrent.global-freeleech')   => config('other.freeleech'),
+                    $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
+                ], true))
+            }}"
         ></i>
     @endif
     @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
@@ -65,8 +73,8 @@
     @endif
     @if ($torrent->refundable || auth()->user()->group->is_refundable)
         <i class="{{ config('other.font-awesome') }} fa-percentage"
-           title='{{ __('torrent.refundable') }}'>
-        </i>
+           title="{{ __('torrent.refundable') }}"
+        ></i>
     @endif
     @if ($torrent->sticky)
         <i

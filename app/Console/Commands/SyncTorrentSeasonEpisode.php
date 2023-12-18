@@ -40,7 +40,7 @@ class SyncTorrentSeasonEpisode extends Command
     {
         foreach (Torrent::withoutGlobalScope(ApprovedScope::class)->with(['category'])->whereNull('season_number')->orWhereNull('episode_number')->get() as $torrent) {
             // Skip if not TV
-            if (! $torrent->category->tv_meta) {
+            if (!$torrent->category->tv_meta) {
                 continue;
             }
 

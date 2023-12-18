@@ -41,7 +41,7 @@ class PlaylistZipController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (! File::isDirectory($path)) {
+        if (!File::isDirectory($path)) {
             File::makeDirectory($path, 0755, true, true);
         }
 

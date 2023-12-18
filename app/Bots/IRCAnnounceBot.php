@@ -126,12 +126,12 @@ class IRCAnnounceBot
             // Channel name must begin with either `#` or `&`
             && \in_array($channel[0], ['#', '&'], true)
             // Channel names can contain any 8bit code except for SPACE, BELL, NUL, CR, LF and comma
-            && ! str_contains($channel, ' ')
-            && ! str_contains($channel, "\7")
-            && ! str_contains($channel, "\0")
-            && ! str_contains($channel, "\r")
-            && ! str_contains($channel, "\n")
-            && ! str_contains($channel, ',');
+            && !str_contains($channel, ' ')
+            && !str_contains($channel, "\7")
+            && !str_contains($channel, "\0")
+            && !str_contains($channel, "\r")
+            && !str_contains($channel, "\n")
+            && !str_contains($channel, ',');
     }
 
     /**
@@ -163,7 +163,7 @@ class IRCAnnounceBot
      */
     private function join(string $channel, string $key = ''): void
     {
-        if (! $this->isValidChannelName($channel)) {
+        if (!$this->isValidChannelName($channel)) {
             Log::error('Tried to join a channel with invalid name.', ['name' => $channel]);
 
             return;
@@ -177,7 +177,7 @@ class IRCAnnounceBot
      */
     private function part(string $channel): void
     {
-        if (! $this->isValidChannelName($channel)) {
+        if (!$this->isValidChannelName($channel)) {
             Log::error('Tried to part a channel with invalid name.', ['name' => $channel]);
 
             return;

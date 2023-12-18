@@ -92,6 +92,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Connectable check interval
+    |--------------------------------------------------------------------------
+    |
+    | Amount Of Time until the next connectable check
+    |
+    */
+    'connectable_check_interval' => 60 * 30,
+
+    /*
+    |--------------------------------------------------------------------------
     | Download Slots System
     |--------------------------------------------------------------------------
     |
@@ -105,4 +115,16 @@ return [
     'slots_system' => [
         'enabled' => true,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging
+    |--------------------------------------------------------------------------
+    |
+    | Log all torrent announces and show in staff dashboard
+    | Used mainly for debugging purposes - Will generate significant amounts of data
+    |
+    */
+
+    'log_announces' => false,
 ];

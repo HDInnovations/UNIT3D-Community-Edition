@@ -117,17 +117,17 @@ return [
 
     'password_timeout' => 10800,
 
-    'TwoStepEnabled' => true,
-
-    'verificationEmailFrom' => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
-
-    'verificationEmailFromName' => ' 2-Step Verification',
-
-    'TwoStepExceededCount' => 3,
-
-    'TwoStepExceededCountdownMinutes' => 60 * 24,
-
-    'TwoStepVerifiedLifetimeMinutes' => 6 * 60,
-
-    'TwoStepTimeResetBufferSeconds' => 6 * 60,
+    /*
+    |--------------------------------------------------------------------------
+    | Email Verification Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the amount of minutes before an email verification
+    | times out and the user is prompted to re-verify their email via the
+    | verify screen. By default, the timeout lasts for one day.
+    |
+    */
+    'verification' => [
+        'expire' => 1440,
+    ],
 ];

@@ -12,9 +12,7 @@
                     class="form__button form__button--text"
                     x-data
                     x-on:click.stop="
-                        text = document.createElement('textarea');
-                        text.innerHTML = decodeURIComponent($refs.mediainfo.textContent.split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-                        navigator.clipboard.writeText(text.value);
+                        navigator.clipboard.writeText($refs.mediainfo.textContent);
                         Swal.fire({
                               toast: true,
                               position: 'top-end',
@@ -55,7 +53,7 @@
             @if ($mediaInfo !== null)
                 @isset($mediaInfo['video'])
                     <section class="mediainfo__video">
-                        <h3>Video</h4>
+                        <h3>Video</h3>
                         @foreach ($mediaInfo['video'] as $key => $videoElement)
                             <article>
                                 <h4>#{{ ++$key }}</h4>

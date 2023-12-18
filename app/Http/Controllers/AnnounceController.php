@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Exceptions\TrackerException;
+use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
 use App\Models\FreeleechToken;
 use App\Models\Group;
@@ -149,7 +150,7 @@ final class AnnounceController extends Controller
         }
 
         // Miss Header User-Agent is not allowed.
-        if (! $request->header('User-Agent')) {
+        if (!$request->header('User-Agent')) {
             throw new TrackerException(120);
         }
 
@@ -244,7 +245,7 @@ final class AnnounceController extends Controller
         foreach (['uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $queries[$item];
 
-            if (! is_numeric($itemData) || $itemData < 0) {
+            if (!is_numeric($itemData) || $itemData < 0) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
         }
@@ -260,14 +261,14 @@ final class AnnounceController extends Controller
         }
 
         foreach (['numwant', 'corrupt'] as $item) {
-            if (! is_numeric($queries[$item]) || $queries[$item] < 0) {
+            if (!is_numeric($queries[$item]) || $queries[$item] < 0) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
         }
 
         $queries['event'] = strtolower($queries['event']);
 
-        if (! \in_array($queries['event'], ['started', 'completed', 'stopped', 'paused', ''])) {
+        if (!\in_array($queries['event'], ['started', 'completed', 'stopped', 'paused', ''])) {
             throw new TrackerException(136, [':event' => $queries['event']]);
         }
 
@@ -281,7 +282,7 @@ final class AnnounceController extends Controller
         }
 
         if (
-            ! is_numeric($queries['port'])
+            !is_numeric($queries['port'])
             || $queries['port'] < 0
             || $queries['port'] > 0xFFFF
             || \in_array($queries['port'], self::BLACK_PORTS, true)
@@ -471,7 +472,7 @@ final class AnnounceController extends Controller
         // least 5 minutes since they last announced.
         if ($event === 'stopped' && $lastAnnouncedAt < $now - 5 * 60) {
             Redis::connection('announce')->command('DEL', [$lastAnnouncedKey]);
-        } elseif ($lastAnnouncedAt !== false && ! \in_array($event, ['completed', 'stopped'])) {
+        } elseif ($lastAnnouncedAt !== false && !\in_array($event, ['completed', 'stopped'])) {
             throw new TrackerException(162, [':elapsed' => $now - $lastAnnouncedAt]);
         }
     }
@@ -519,10 +520,10 @@ final class AnnounceController extends Controller
         $isDeadPeer = $queries['event'] === 'stopped';
         $isSeeder = $queries['left'] == 0;
 
-        $newLeech = $isNewPeer && ! $isDeadPeer && ! $isSeeder;
-        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
-        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
-        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+        $newLeech = $isNewPeer && !$isDeadPeer && !$isSeeder;
+        $stoppedLeech = !$isNewPeer && $isDeadPeer && !$isSeeder;
+        $leechBecomesSeed = !$isNewPeer && !$isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = !$isNewPeer && !$isDeadPeer && !$isSeeder && $peer->left === 0;
 
         if ($max !== null && $max >= 0 && ($newLeech || $seedBecomesLeech) && $count >= $max) {
             throw new TrackerException(164, [':max' => $max]);
@@ -571,7 +572,7 @@ final class AnnounceController extends Controller
             if ($queries['left'] == 0) {
                 foreach ($torrent->peers as $peer) {
                     // Don't include other seeders, inactive peers, nor other peers belonging to the same user
-                    if ($peer->seeder || ! $peer->active || $peer->user_id === $user->id) {
+                    if ($peer->seeder || !$peer->active || $peer->user_id === $user->id) {
                         continue;
                     }
 
@@ -593,7 +594,7 @@ final class AnnounceController extends Controller
             } else {
                 foreach ($torrent->peers as $peer) {
                     // Don't include inactive peers, nor other peers belonging to the same user
-                    if (! $peer->active || $peer->user_id === $user->id) {
+                    if (!$peer->active || $peer->user_id === $user->id) {
                         continue;
                     }
 
@@ -717,27 +718,20 @@ final class AnnounceController extends Controller
             ]);
         }
 
-        /**
-         * Peer batch upsert.
-         *
-         * @see \App\Console\Commands\AutoUpsertPeers
-         */
-        Redis::connection('announce')->command('RPUSH', [
-            config('cache.prefix').':peers:batch',
-            serialize([
-                'peer_id'    => $queries['peer_id'],
-                'ip'         => $queries['ip-address'],
-                'port'       => $queries['port'],
-                'agent'      => $queries['user-agent'],
-                'uploaded'   => $queries['uploaded'],
-                'downloaded' => $queries['downloaded'],
-                'left'       => $queries['left'],
-                'seeder'     => $queries['left'] == 0,
-                'torrent_id' => $torrent->id,
-                'user_id'    => $user->id,
-                'active'     => $event !== 'stopped',
-            ])
-        ]);
+        // Peer update
+        ProcessAnnounce::dispatch(
+            bin2hex($queries['peer_id']),
+            bin2hex($queries['ip-address']),
+            $queries['port'],
+            bin2hex($queries['user-agent']),
+            $queries['uploaded'],
+            $queries['downloaded'],
+            $queries['left'],
+            $queries['left'] == 0,
+            $torrent->id,
+            $user->id,
+            $event !== 'stopped',
+        );
 
         /**
          * History batch upsert.
@@ -764,18 +758,42 @@ final class AnnounceController extends Controller
             ])
         ]);
 
+        if (config('announce.log_announces')) {
+            /**
+             * Announce batch upsert.
+             *
+             * @see \App\Console\Commands\AutoUpsertAnnounces
+             */
+            Redis::connection('announce')->command('RPUSH', [
+                config('cache.prefix').':announces:batch',
+                serialize([
+                    'user_id'    => $user->id,
+                    'torrent_id' => $torrent->id,
+                    'uploaded'   => $queries['uploaded'],
+                    'downloaded' => $queries['downloaded'],
+                    'left'       => $queries['left'],
+                    'corrupt'    => $queries['corrupt'],
+                    'peer_id'    => $queries['peer_id'],
+                    'port'       => $queries['port'],
+                    'numwant'    => $queries['numwant'],
+                    'event'      => $queries['event'],
+                    'key'        => $queries['key'],
+                ])
+            ]);
+        }
+
         // Torrent updates
 
-        $isNewPeer = $isNewPeer || ! $peer->active;
+        $isNewPeer = $isNewPeer || !$peer->active;
         $isDeadPeer = $event === 'stopped';
         $isSeeder = $queries['left'] == 0;
 
-        $newSeed = $isNewPeer && ! $isDeadPeer && $isSeeder;
-        $newLeech = $isNewPeer && ! $isDeadPeer && ! $isSeeder;
-        $stoppedSeed = ! $isNewPeer && $isDeadPeer && $isSeeder;
-        $stoppedLeech = ! $isNewPeer && $isDeadPeer && ! $isSeeder;
-        $leechBecomesSeed = ! $isNewPeer && ! $isDeadPeer && $isSeeder && $peer->left > 0;
-        $seedBecomesLeech = ! $isNewPeer && ! $isDeadPeer && ! $isSeeder && $peer->left === 0;
+        $newSeed = $isNewPeer && !$isDeadPeer && $isSeeder;
+        $newLeech = $isNewPeer && !$isDeadPeer && !$isSeeder;
+        $stoppedSeed = !$isNewPeer && $isDeadPeer && $isSeeder;
+        $stoppedLeech = !$isNewPeer && $isDeadPeer && !$isSeeder;
+        $leechBecomesSeed = !$isNewPeer && !$isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = !$isNewPeer && !$isDeadPeer && !$isSeeder && $peer->left === 0;
 
         $seederCountDelta = ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
         $leecherCountDelta = ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
