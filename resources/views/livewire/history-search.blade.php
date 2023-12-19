@@ -174,9 +174,9 @@
                                     @endif
                                     <td>{{ $history->seeding_count }}</td>
                                     <td>{{ $history->leeching_count }}</td>
-                                    <td>{{ $history->immune_count }}</td>
-                                    <td>{{ $history->hitrun_count }}</td>
                                     <td>{{ $history->prewarn_count }}</td>
+                                    <td>{{ $history->hitrun_count }}</td>
+                                    <td>{{ $history->immune_count }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
