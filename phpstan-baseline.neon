@@ -2086,6 +2086,46 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\WikiCategory\\:\\:\\$icon\\.$#"
+			count: 2
+			path: app/Http/Controllers/Staff/WikiCategoryController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\WikiCategory\\:\\:\\$name\\.$#"
+			count: 2
+			path: app/Http/Controllers/Staff/WikiCategoryController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\WikiCategory\\:\\:\\$position\\.$#"
+			count: 2
+			path: app/Http/Controllers/Staff/WikiCategoryController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Wiki\\:\\:\\$category_id\\.$#"
+			count: 2
+			path: app/Http/Controllers/Staff/WikiController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Wiki\\:\\:\\$content\\.$#"
+			count: 2
+			path: app/Http/Controllers/Staff/WikiController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Wiki\\:\\:\\$name\\.$#"
+			count: 2
+			path: app/Http/Controllers/Staff/WikiController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\WikiController\\:\\:destroy\\(\\) has invalid return type App\\\\Http\\\\Controllers\\\\Staff\\\\Illuminate\\\\Http\\\\RedirectResponse\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/WikiController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\WikiController\\:\\:destroy\\(\\) should return App\\\\Http\\\\Controllers\\\\Staff\\\\Illuminate\\\\Http\\\\RedirectResponse but returns Illuminate\\\\Http\\\\RedirectResponse\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/WikiController.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
@@ -3559,6 +3599,21 @@ parameters:
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 2
 			path: app/Models/User.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Wiki\\:\\:\\$content\\.$#"
+			count: 1
+			path: app/Models/Wiki.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Wiki\\:\\:category\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			count: 1
+			path: app/Models/Wiki.php
+
+		-
+			message: "#^Method App\\\\Models\\\\WikiCategory\\:\\:wikis\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
+			count: 1
+			path: app/Models/WikiCategory.php
 
 		-
 			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
