@@ -153,7 +153,7 @@ class FortifyServiceProvider extends ServiceProvider
                     Fortify::username() => __('auth.failed'),
                 ]);
             }
-            
+
             $password = Hash::check($request->password, $user->password);
 
             if ($password === false) {
