@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('wikis', function (Blueprint $table) {
+        Schema::create('wikis', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name');
             $table->longText('content');

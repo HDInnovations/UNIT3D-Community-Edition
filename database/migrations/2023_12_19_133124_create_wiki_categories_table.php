@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::create('wiki_categories', function (Blueprint $table) {
+        Schema::create('wiki_categories', function (Blueprint $table): void {
             $table->increments('id');
             $table->string('name');
             $table->string('icon')->default('fa-book');
