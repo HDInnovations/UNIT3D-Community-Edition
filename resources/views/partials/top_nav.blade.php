@@ -165,6 +165,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('wikis.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-list-alt"></i>
+                        Wiki
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('tickets.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
                         {{ __('ticket.helpdesk') }}

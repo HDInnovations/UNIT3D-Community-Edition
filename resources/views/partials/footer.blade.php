@@ -32,6 +32,7 @@
                 <li>
                     <a href="{{ route('articles.index') }}">{{ __('common.news') }}</a>
                 </li>
+                <li><a href="{{ route('wikis.index') }}">Wikis</a></li>
             </ul>
         </section>
         @if ($footer_pages)
