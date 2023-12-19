@@ -139,7 +139,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model | bool {
+        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model {
             $request->validate([
                 'username' => 'required|string',
                 'password' => 'required|string',
@@ -147,9 +147,16 @@ class FortifyServiceProvider extends ServiceProvider
             ]);
 
             $user = User::query()->where('username', $request->username)->first();
+
+            if ($user == null) {
+                throw ValidationException::withMessages([
+                    Fortify::username() => __('auth.failed'),
+                ]);
+            }
+
             $password = Hash::check($request->password, $user->password);
 
-            if ($user && $password === false) {
+            if ($password === false) {
                 FailedLoginAttempt::create([
                     'user_id'    => $user->id,
                     'username'   => $request->username,
@@ -165,7 +172,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
 
-            if ($user && $password === true) {
+            if ($password === true) {
                 // Check if user is activated
                 $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
@@ -190,8 +197,6 @@ class FortifyServiceProvider extends ServiceProvider
 
                 return $user;
             }
-
-            return false;
         });
 
         RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
