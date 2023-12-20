@@ -23,7 +23,6 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('icon')->default('fa-book');
             $table->integer('position');
-            $table->timestamps();
         });
     }
 };
