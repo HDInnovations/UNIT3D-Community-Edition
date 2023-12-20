@@ -1,57 +1,64 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('wikis.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Wikis</span>
-        </a>
+@section('title')
+    <title>Wikis - {{ config('other.title') }}</title>
+@endsection
+
+@section('meta')
+    <meta name="description" content="{{ config('other.title') }} - Wikis">
+@endsection
+
+@section('breadcrumbs')
+    <li class="breadcrumb--active">
+        Wikis
     </li>
 @endsection
 
-@section('content')
-<div class="container">
-    <div class="block">
-        <div class="forum-categories">
-            <table class="table table-bordered table-hover">
-                @foreach ($wiki_categories as $category)
-                        <thead class="no-space">
-                        <tr class="no-space">
-                            <td colspan="5" class="no-space">
-                                <div class="header gradient teal some-padding">
-                                    <div class="inner_content">
-                                        <h2 class="no-space">{{ $category->name }}</h2>
-                                    </div>
-                                </div>
+@section('page', 'page__wikis--index')
+
+@section('main')
+    @foreach ($wiki_categories as $category)
+        <section class="panelV2">
+            <h2 class="panel__heading">
+                <a class="panel__header-link" href="#">
+                    {{ $category->name }}
+                </a>
+            </h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>{{ __('common.name') }}</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($category->wikis->sortBy('name') as $wiki)
+                        <tr>
+                            <td>
+                                <a
+                                    href="{{ route('wikis.show', ['id' => $wiki->id]) }}"
+                                    target="_blank"
+                                >
+                                    {{ $wiki->name }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ $wiki->created_at }}
+                            </td>
+                            <td>
+                                {{ $wiki->updated_at }}
                             </td>
                         </tr>
-                        </thead>
-                        <thead>
+                    @empty
                         <tr>
-                            <th>@lang('common.name')</th>
-                            <th>Created</th>
-                            <th>Updated</th>
+                            <td colspan="8">No wikis in category.</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($category->wikis->sortBy('name') as $wiki)
-                                <tr>
-                                    <td>
-                                        <a href="{{ route('wikis.show', ['id' => $wiki->id]) }}">
-                                            {{ $wiki->name }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ $wiki->created_at }}
-                                    </td>
-                                    <td>
-                                        {{ $wiki->updated_at }}
-                                    </td>
-                                </tr>
-                        @endforeach
-                        </tbody>
-                @endforeach
-            </table>
-        </div>
-    </div>
-</div>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    @endforeach
 @endsection

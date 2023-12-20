@@ -1,31 +1,43 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('wikis.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Wikis</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('wikis.index') }}" class="breadcrumb__link">
+            Wikis
         </a>
     </li>
-    <li>
-        <a href="{{ route('wikis.show', ['id' => $wiki->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $wiki->name }}</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ $wiki->name }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <div class="col-md-12 page">
-            <div class="header gradient silver">
-                <div class="inner_content">
-                    <div class="page-title">
-                        <h1>{{ $wiki->name }}</h1>
-                    </div>
-                </div>
-            </div>
-            <article class="page-content bbcode-rendered">
-                @joypixels($wiki->getContentHtml())
-            </article>
+@section('page', 'page__wiki--show')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ $wiki->name }}</h2>
+        <div class="panel__body bbcode-rendered">
+            @joypixels($wiki->getContentHtml())
         </div>
-    </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <dl class="key-value">
+            <dt>{{ __('common.created_at') }}</dt>
+            <dd>
+                <time datetime="{{ $wiki->created_at }}" title="{{ $wiki->created_at }}">
+                    {{ $wiki->created_at }}
+                </time>
+            </dd>
+            <dt>{{ __('torrent.updated_at') }}</dt>
+            <dd>
+                <time datetime="{{ $wiki->updated_at }}" title="{{ $wiki->updated_at }}">
+                    {{ $wiki->updated_at }}
+                </time>
+            </dd>
+        </dl>
+    </section>
 @endsection
