@@ -25,13 +25,6 @@ class Seedbox extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-    protected $table = 'clients';
-
-    /**
      * The Attributes That Are Encrypted.
      *
      * @var string[]

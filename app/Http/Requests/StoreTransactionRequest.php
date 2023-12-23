@@ -39,7 +39,7 @@ class StoreTransactionRequest extends FormRequest
         return [
             'exchange' => [
                 'required',
-                'exists:bon_exchange,id',
+                'exists:bon_exchanges,id',
             ],
         ];
     }

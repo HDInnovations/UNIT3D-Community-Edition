@@ -25,8 +25,6 @@ class Person extends Model
 
     public $timestamps = false;
 
-    public $table = 'person';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
      */

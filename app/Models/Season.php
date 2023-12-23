@@ -24,8 +24,6 @@ class Season extends Model
 
     public $timestamps = false;
 
-    public $table = 'seasons';
-
     /**
      * Has Many Torrents.
      *

@@ -32,7 +32,7 @@ test('rules', function (): void {
         'exchange' => [
             'bail',
             'required',
-            'exists:bon_exchange,id',
+            'exists:bon_exchanges,id',
         ],
     ], $actual);
 });
