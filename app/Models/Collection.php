@@ -24,8 +24,6 @@ class Collection extends Model
 
     public $timestamps = false;
 
-    protected $table = 'collection';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
      */

@@ -24,7 +24,7 @@ class GuestStar extends Model
 
     public $timestamps = false;
 
-    public $table = 'person';
+    public $table = 'people';
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Episode>

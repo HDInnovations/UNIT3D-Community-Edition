@@ -24,8 +24,6 @@ class Network extends Model
 
     public $timestamps = false;
 
-    public $table = 'networks';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
      */

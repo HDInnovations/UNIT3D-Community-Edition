@@ -23,13 +23,6 @@ class PersonalFreeleech extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-    protected $table = 'personal_freeleech';
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]

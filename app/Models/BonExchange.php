@@ -21,13 +21,6 @@ class BonExchange extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-    protected $table = 'bon_exchange';
-
-    /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
