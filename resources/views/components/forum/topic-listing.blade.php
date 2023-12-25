@@ -1,27 +1,3 @@
-@props([
-    'topic' => (object),
-    'name' => '',
-    'id' => 1,
-    'first_post_user_username' => 'System',
-    'num_post' => 0,
-    'views' => 0,
-    'pinned' => false,
-    'state' => 'close',
-    'approved' => false,
-    'denied' => false,
-    'solved' => false,
-    'invalid' => false,
-    'bug' => false,
-    'suggestion' => false,
-    'implemented' => false,
-    'last_post_user_username' => 'System',
-    'last_reply_at' => null,
-    'forum' => (object),
-    'name' => '',
-    
-    
-])
-
 <article class="topic-listing">
     <header class="topic-listing__header">
         <h2 class="topic-listing__heading">

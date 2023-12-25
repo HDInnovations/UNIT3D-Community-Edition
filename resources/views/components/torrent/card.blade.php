@@ -1,42 +1,3 @@
-@props([
-    'meta' => (object),
-    'genres' => [],
-    'overview' => '',
-    'poster' => '',
-    'summary' => '',
-    'vote_average' => '',
-    'vote_count' => '',
-    
-    'torrent' => (object),
-    'anon' => true,
-    'category' => (object),
-    'name' => '',
-    
-    'created_at' => '',
-    'id' => '',
-    'name' => '',
-    'leechers' => 0,
-    'seeders' => 0,
-    'resolution' => (object),
-    'name' => '',
-    
-    'times_completed',
-    'type' => (object),
-    'name' => '',
-    
-    'user' => (object),
-    'id' => '',
-    'group' => (object),
-    'icon' => '',
-    'color' => '',
-    'name' => '',
-    'effect' => '',
-    
-    'username' => '',
-    
-    
-])
-
 <article class="torrent-card">
     <header class="torrent-card__header">
         <div class="torrent-card__left-header">
@@ -81,19 +42,19 @@
                     @switch(true)
                         @case($torrent->category->movie_meta || $torrent->category->tv_meta)
                             src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
-                    
+
                             @break
                         @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover->image_id && $meta->name)
                             src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover->image_id }}.jpg"
-                    
+
                             @break
                         @case($torrent->category->music_meta)
                             src="https://via.placeholder.com/160x240"
-                    
+
                             @break
                         @case($torrent->category->no_meta && file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg'))
                             src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
-                    
+
                             @break
                     @endswitch
 
