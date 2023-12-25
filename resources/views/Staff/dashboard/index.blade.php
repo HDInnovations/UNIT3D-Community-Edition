@@ -543,6 +543,19 @@
         </section>
     </div>
     <section class="panelV2">
+        <h2 class="panel__heading">Requests per Second</h2>
+        <dl class="key-value">
+            <dt>10 second interval</dt>
+            <dd>
+                @if (null === $rate = cache()->get('metrics:requests-per-second-rate'))
+                    {{ __('common.unknown') }}
+                @else
+                    {{ \number_format($rate / 10, 0, null, "\u{202F}") }}
+                @endif
+            </dd>
+        </dl>
+    </section>
+    <section class="panelV2">
         <h2 class="panel__heading">Directory Permissions</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
