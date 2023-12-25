@@ -206,10 +206,14 @@
                         @foreach ($nodes = explode("/", $file->name) as $node)
                             @if (($prevNodes[$loop->index] ?? "") != $node)
                                 @for ($depth = count($prevNodes); $depth > $loop->index; $depth--)
+                                    {{-- format-ignore-start --}}
                                     </details>
+                                    {{-- format-ignore-end --}}
                                 @endfor
                                 @for ($depth = $loop->index; $depth < $loop->count; $depth++)
+                                    {{-- format-ignore-start --}}
                                     <details style="@if ($depth != 0) margin-left: 20px; @endif">
+                                    {{-- format-ignore-end --}}
                                         <summary style="padding: 8px; @if ($depth != $loop->count - 1) cursor: pointer; @endif">
                                             <span style="display: grid; grid-template-areas: 'icon1 icon2 folder count . size'; grid-template-columns: 24px 24px auto auto 1fr auto;">
                                                 @if ($depth == $loop->count - 1)

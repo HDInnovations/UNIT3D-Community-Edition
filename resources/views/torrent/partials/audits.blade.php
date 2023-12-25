@@ -16,7 +16,9 @@
             </thead>
             <tbody>
                 @foreach($audits->load(['user.group']) as $audit)
+                    {{-- format-ignore-start --}}
                     @php $values = json_decode($audit->record, true) @endphp
+                    {{-- format-ignore-end --}}
                     <tr>
                         <td>
                             <x-user_tag :user="$audit->user" :anon="false" />

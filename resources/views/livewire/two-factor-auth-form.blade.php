@@ -65,12 +65,13 @@
                     <span class="text-danger">
                         {{ __('Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.') }}
                     </span>
-
+                    {{-- format-ignore-start --}}
                     <pre>
                         @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
                             <div>{{ $code }}</div>
-                      @endforeach
+                        @endforeach
                     </pre>
+                    {{-- format-ignore-end --}}
                 </div>
             @endif
         @endif
