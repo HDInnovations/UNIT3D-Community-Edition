@@ -1,7 +1,7 @@
 <section class="panelV2 torrent-bdinfo" x-data>
     <header class="panel__header">
         <h2 class="panel__heading">
-            <i class="{{ config("other.font-awesome") }} fa-compact-disc"></i>
+            <i class="{{ config('other.font-awesome') }} fa-compact-disc"></i>
             BDInfo
         </h2>
         <div class="panel__actions">
@@ -12,12 +12,12 @@
                     x-on:click.stop="
                         navigator.clipboard.writeText($refs.bdinfo.textContent);
                         Swal.fire({
-                              toast: true,
-                              position: 'top-end',
-                              showConfirmButton: false,
-                              timer: 3000,
-                              icon: 'success',
-                              title: 'Copied to clipboard!'
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            icon: 'success',
+                            title: 'Copied to clipboard!',
                         })
                     "
                 >

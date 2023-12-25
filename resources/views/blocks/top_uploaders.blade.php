@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: 'alltime'}">
+<section class="panelV2" x-data="{ tab: 'alltime' }">
     <h2 class="panel__heading">Top Uploaders</h2>
     <menu class="panel__tabs">
         <li
@@ -28,13 +28,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($uploaders as $uploader)
+                @foreach ($uploaders as $uploader)
                     <tr>
                         <td>
-                            <x-user_tag :user="$uploader->user" :anon="$uploader->user->private_profile" />
+                            <x-user_tag
+                                :user="$uploader->user"
+                                :anon="$uploader->user->private_profile"
+                            />
                         </td>
                         <td>{{ $uploader->value }}</td>
-                        <td>{{ App\Helpers\StringHelper::ordinal($loop->iteration) }} {{ __('stat.place') }}</td>
+                        <td>
+                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ __('stat.place') }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -50,13 +56,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($past_uploaders as $uploader)
+                @foreach ($past_uploaders as $uploader)
                     <tr>
                         <td>
-                            <x-user_tag :user="$uploader->user" :anon="$uploader->user->private_profile" />
+                            <x-user_tag
+                                :user="$uploader->user"
+                                :anon="$uploader->user->private_profile"
+                            />
                         </td>
                         <td>{{ $uploader->value }}</td>
-                        <td>{{ App\Helpers\StringHelper::ordinal($loop->iteration) }} {{ __('stat.place') }}</td>
+                        <td>
+                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ __('stat.place') }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

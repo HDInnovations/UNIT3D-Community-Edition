@@ -45,7 +45,7 @@
                         required
                         type="text"
                         value="{{ $type->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -60,7 +60,7 @@
                         required
                         type="text"
                         value="{{ $type->position }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>

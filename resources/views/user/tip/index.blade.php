@@ -32,43 +32,46 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('bon.sender') }}</th>
-                    <th>{{ __('bon.receiver') }}</th>
-                    <th>{{ __('bon.points') }}</th>
-                    <th>{{ __('bon.date') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('bon.sender') }}</th>
+                        <th>{{ __('bon.receiver') }}</th>
+                        <th>{{ __('bon.points') }}</th>
+                        <th>{{ __('bon.date') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($tips as $tip)
-                    <tr>
-                        <td>
-                            <x-user_tag :user="$tip->sender" :anon="false" />
-                        </td>
-                        <td>
-                            @switch(true)
-                                @case($tip->torrent_id !== null)
-                                    @if ($tip->torrent === null)
-                                        Torrent Deleted
-                                    @else
-                                        <x-user_tag :user="$tip->receiver" :anon="$tip->torrent->anon" />
-                                    @endif
+                    @foreach ($tips as $tip)
+                        <tr>
+                            <td>
+                                <x-user_tag :user="$tip->sender" :anon="false" />
+                            </td>
+                            <td>
+                                @switch(true)
+                                    @case($tip->torrent_id !== null)
+                                        @if ($tip->torrent === null)
+                                            Torrent Deleted
+                                        @else
+                                            <x-user_tag
+                                                :user="$tip->receiver"
+                                                :anon="$tip->torrent->anon"
+                                            />
+                                        @endif
 
-                                    @break
-                                @case($tip->post_id !== null)
-                                    @if ($tip->post === null)
-                                        Post Deleted
-                                    @else
-                                        <x-user_tag :user="$tip->receiver" :anon="false" />
-                                    @endif
+                                        @break
+                                    @case($tip->post_id !== null)
+                                        @if ($tip->post === null)
+                                            Post Deleted
+                                        @else
+                                            <x-user_tag :user="$tip->receiver" :anon="false" />
+                                        @endif
 
-                                    @break
-                            @endswitch
-                        </td>
-                        <td>{{ $tip->cost }}</td>
-                        <td>{{ $tip->created_at }}</td>
-                    </tr>
-                @endforeach
+                                        @break
+                                @endswitch
+                            </td>
+                            <td>{{ $tip->cost }}</td>
+                            <td>{{ $tip->created_at }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

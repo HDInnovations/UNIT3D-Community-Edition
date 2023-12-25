@@ -1,7 +1,10 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -11,7 +14,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('users.general_settings.edit', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('user.settings') }}
         </a>
     </li>
@@ -42,21 +48,31 @@
                         <tr>
                             <td>{{ $rsskey->content }}</td>
                             <td>
-                                <time datetime="{{ $rsskey->created_at }}" title="{{ $rsskey->created_at }}">
+                                <time
+                                    datetime="{{ $rsskey->created_at }}"
+                                    title="{{ $rsskey->created_at }}"
+                                >
                                     {{ $rsskey->created_at }}
                                 </time>
                             </td>
                             <td>
-                                <time datetime="{{ $rsskey->deleted_at }}" title="{{ $rsskey->deleted_at }}">
+                                <time
+                                    datetime="{{ $rsskey->deleted_at }}"
+                                    title="{{ $rsskey->deleted_at }}"
+                                >
                                     {{ $rsskey->deleted_at ?? 'Currently in use' }}
                                 </time>
                             </td>
                             <td>
                                 @if ($loop->first)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                     {{ __('common.active') }}
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                     {{ __('stat.disabled') }}
                                 @endif
                             </td>

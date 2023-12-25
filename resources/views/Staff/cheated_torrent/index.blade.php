@@ -1,11 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Cheated Torrents - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        Cheated Torrents - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Cheated Torrents - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Cheated Torrents - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -14,9 +16,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Cheated Torrents
-    </li>
+    <li class="breadcrumb--active">Cheated Torrents</li>
 @endsection
 
 @section('page', 'page__cheated-torrents--index')
@@ -35,17 +35,19 @@
                     @csrf
                     @method('DELETE')
                     <button
-                        x-on:click.prevent="Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'Are you sure you want to reset all torrent balances? This will allow you to start tracking cheated torrents from scratch, but you will no longer have data for previous cheated torrents.',
-                            icon: 'warning',
-                            showConfirmButton: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $root.submit();
-                            }
-                        })"
+                        x-on:click.prevent="
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'Are you sure you want to reset all torrent balances? This will allow you to start tracking cheated torrents from scratch, but you will no longer have data for previous cheated torrents.',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCancelButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            })
+                        "
                         class="form__button form__button--text"
                     >
                         Reset all torrent balances
@@ -109,7 +111,10 @@
                                 {{ \App\Helpers\StringHelper::formatBytes($torrent->balance) }}
                             </td>
                             <td>
-                                <time datetime="{{ $torrent->created_at }}" title="{{ $torrent->created_at }}">
+                                <time
+                                    datetime="{{ $torrent->created_at }}"
+                                    title="{{ $torrent->created_at }}"
+                                >
                                     {{ $torrent->created_at ?? 'N/A' }}
                                 </time>
                             </td>

@@ -5,12 +5,18 @@
     <div class="panel__body">
         @if ($this->enabled)
             @if ($showingConfirmation)
-                <span class="text-warning">{{ __('Finish enabling two factor authentication.') }}</span>
+                <span class="text-warning">
+                    {{ __('Finish enabling two factor authentication.') }}
+                </span>
             @else
-                <span class="text-success">{{ __('You have enabled two factor authentication.') }}</span>
+                <span class="text-success">
+                    {{ __('You have enabled two factor authentication.') }}
+                </span>
             @endif
         @else
-            <span class="text-danger">{{ __('You have not enabled two factor authentication.') }}</span>
+            <span class="text-danger">
+                {{ __('You have not enabled two factor authentication.') }}
+            </span>
         @endif
 
         <div>
@@ -36,26 +42,28 @@
                 </div>
 
                 <div>
-                    <p>
-                        {{ __('Setup Key') }}: {{ decrypt($this->user->two_factor_secret) }}
-                    </p>
+                    <p>{{ __('Setup Key') }}: {{ decrypt($this->user->two_factor_secret) }}</p>
                 </div>
 
                 @if ($showingConfirmation)
                     <div>
                         <label for="code" value="{{ __('Code') }}"></label>
 
-                        <input id="code"
-                               name="code"
-                               class="form__text"
-                               type="text"
-                               inputmode="numeric"
-                               autofocus
-                               autocomplete="one-time-code"
-                               wire:model="code"
-                               wire:keydown.enter="confirmTwoFactorAuthentication" />
+                        <input
+                            id="code"
+                            name="code"
+                            class="form__text"
+                            type="text"
+                            inputmode="numeric"
+                            autofocus
+                            autocomplete="one-time-code"
+                            wire:model="code"
+                            wire:keydown.enter="confirmTwoFactorAuthentication"
+                        />
 
-                        @error('code') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('code')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 @endif
             @endif
@@ -78,35 +86,57 @@
 
         <div>
             @if (! $this->enabled)
-                <button class="form__button form__button--filled" wire:click="enableTwoFactorAuthentication" wire:loading.attr="disabled">
+                <button
+                    class="form__button form__button--filled"
+                    wire:click="enableTwoFactorAuthentication"
+                    wire:loading.attr="disabled"
+                >
                     {{ __('Enable') }}
                 </button>
             @else
                 @if ($showingRecoveryCodes)
-                    <button class="form__button form__button--filled" wire:click="regenerateRecoveryCodes">
+                    <button
+                        class="form__button form__button--filled"
+                        wire:click="regenerateRecoveryCodes"
+                    >
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
                 @elseif ($showingConfirmation)
-                    <button class="form__button form__button--filled" type="button" wire:click="confirmTwoFactorAuthentication" wire:loading.attr="disabled">
+                    <button
+                        class="form__button form__button--filled"
+                        type="button"
+                        wire:click="confirmTwoFactorAuthentication"
+                        wire:loading.attr="disabled"
+                    >
                         {{ __('Confirm') }}
                     </button>
                 @else
-                    <button class="form__button form__button--filled" wire:click="showRecoveryCodes">
+                    <button
+                        class="form__button form__button--filled"
+                        wire:click="showRecoveryCodes"
+                    >
                         {{ __('Show Recovery Codes') }}
                     </button>
                 @endif
 
                 @if ($showingConfirmation)
-                    <button class="form__button form__button--filled" wire:click="disableTwoFactorAuthentication" wire:loading.attr="disabled">
+                    <button
+                        class="form__button form__button--filled"
+                        wire:click="disableTwoFactorAuthentication"
+                        wire:loading.attr="disabled"
+                    >
                         {{ __('Cancel') }}
                     </button>
                 @else
-                    <button class="form__button form__button--filled" wire:click="disableTwoFactorAuthentication" wire:loading.attr="disabled">
+                    <button
+                        class="form__button form__button--filled"
+                        wire:click="disableTwoFactorAuthentication"
+                        wire:loading.attr="disabled"
+                    >
                         {{ __('Disable') }}
                     </button>
                 @endif
             @endif
         </div>
-
     </div>
 </section>

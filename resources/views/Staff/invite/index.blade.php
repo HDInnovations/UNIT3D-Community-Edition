@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Invites Log - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Invites Log - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')

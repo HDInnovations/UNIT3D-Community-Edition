@@ -48,12 +48,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="quantity"
-                        class="form__select"
-                        wire:model="perPage"
-                        required
-                    >
+                    <select id="quantity" class="form__select" wire:model="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -68,48 +63,51 @@
     <div class="data-table-wrapper">
         <table class="data-table">
             <tbody>
-            <tr>
-                <th>{{ __('common.no') }}</th>
-                <th wire:click="sortBy('username')" role="columnheader button">
-                    {{ __('common.username') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'username'])
-                </th>
-                <th wire:click="sortBy('user_id')" role="columnheader button">
-                    {{ __('user.user-id') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
-                </th>
-                <th wire:click="sortBy('ip_address')" role="columnheader button">
-                    {{ __('common.ip') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'ip_address'])
-                </th>
-                <th wire:click="sortBy('created_at')" role="columnheader button">
-                    {{ __('common.created_at') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
-                </th>
-            </tr>
-            @forelse ($failedLogins as $failedLogin)
                 <tr>
-                    <td>{{ $failedLogin->id }}</td>
-                    <td>
-                        @if ($failedLogin->user_id === null)
-                            {{ $attempt->username }}
-                        @else
-                            <x-user_tag :anon="false" :user="$failedLogin->user" />
-                        @endif
-                    </td>
-                    <td>{{ $failedLogin->user_id ?? 'Not Found' }}</td>
-                    <td>{{ $failedLogin->ip_address }}</td>
-                    <td>
-                        <time datetime="{{ $failedLogin->created_at }}" title="{{ $failedLogin->created_at }}">
-                            {{ $failedLogin->created_at }}
-                        </time>
-                    </td>
+                    <th>{{ __('common.no') }}</th>
+                    <th wire:click="sortBy('username')" role="columnheader button">
+                        {{ __('common.username') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'username'])
+                    </th>
+                    <th wire:click="sortBy('user_id')" role="columnheader button">
+                        {{ __('user.user-id') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                    </th>
+                    <th wire:click="sortBy('ip_address')" role="columnheader button">
+                        {{ __('common.ip') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'ip_address'])
+                    </th>
+                    <th wire:click="sortBy('created_at')" role="columnheader button">
+                        {{ __('common.created_at') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    </th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="7">No failed logins</td>
-                </tr>
-            @endforelse
+                @forelse ($failedLogins as $failedLogin)
+                    <tr>
+                        <td>{{ $failedLogin->id }}</td>
+                        <td>
+                            @if ($failedLogin->user_id === null)
+                                {{ $attempt->username }}
+                            @else
+                                <x-user_tag :anon="false" :user="$failedLogin->user" />
+                            @endif
+                        </td>
+                        <td>{{ $failedLogin->user_id ?? 'Not Found' }}</td>
+                        <td>{{ $failedLogin->ip_address }}</td>
+                        <td>
+                            <time
+                                datetime="{{ $failedLogin->created_at }}"
+                                title="{{ $failedLogin->created_at }}"
+                            >
+                                {{ $failedLogin->created_at }}
+                            </time>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7">No failed logins</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

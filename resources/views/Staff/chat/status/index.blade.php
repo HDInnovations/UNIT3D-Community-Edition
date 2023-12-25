@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.chat') }} {{ __('staff.statuses') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.chat') }} {{ __('staff.statuses') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -51,74 +49,80 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>{{ __('common.name') }}</th>
-                    <th>Color</th>
-                    <th>Icon</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>Color</th>
+                        <th>Icon</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($chatstatuses as $chatstatus)
-                    <tr>
-                        <td>{{ $chatstatus->id }}</td>
-                        <td>
-                            <a href="{{ route('staff.statuses.edit', ['chatStatus' => $chatstatus]) }}">
-                                {{ $chatstatus->name }}
-                            </a>
-                        </td>
-                        <td>
-                            <i
-                                class="{{ config('other.font-awesome') }} fa-circle"
-                                style="color: {{ $chatstatus->color }};"
-                            ></i>
-                            {{ $chatstatus->color }}
-                        </td>
-                        <td>
-                            <i class="{{ $chatstatus->icon }}"></i>
-                            [{{ $chatstatus->icon }}]
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        class="form__button form__button--text"
-                                        href="{{ route('staff.statuses.edit', ['chatStatus' => $chatstatus]) }}"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <form
-                                        method="POST"
-                                        action="{{ route('staff.statuses.destroy', ['chatStatus' => $chatstatus]) }}"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this chat status: ${atob('{{ base64_encode($chatstatus->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                    @foreach ($chatstatuses as $chatstatus)
+                        <tr>
+                            <td>{{ $chatstatus->id }}</td>
+                            <td>
+                                <a
+                                    href="{{ route('staff.statuses.edit', ['chatStatus' => $chatstatus]) }}"
+                                >
+                                    {{ $chatstatus->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-circle"
+                                    style="color: {{ $chatstatus->color }}"
+                                ></i>
+                                {{ $chatstatus->color }}
+                            </td>
+                            <td>
+                                <i class="{{ $chatstatus->icon }}"></i>
+                                [{{ $chatstatus->icon }}]
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
                                             class="form__button form__button--text"
+                                            href="{{ route('staff.statuses.edit', ['chatStatus' => $chatstatus]) }}"
                                         >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @endforeach
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            method="POST"
+                                            action="{{ route('staff.statuses.destroy', ['chatStatus' => $chatstatus]) }}"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this chat status: ${atob(
+                                                            '{{ base64_encode($chatstatus->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('common.contact') }} {{ config('other.title') }}.">
+    <meta name="description" content="{{ __('common.contact') }} {{ config('other.title') }}." />
 @endsection
 
 @section('breadcrumbs')
@@ -36,7 +36,7 @@
                         required
                         type="text"
                         value="{{ auth()->user()->username }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="contact-name">
                         {{ __('common.name') }}
                     </label>
@@ -50,7 +50,7 @@
                         required
                         type="email"
                         value="{{ auth()->user()->email }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="email">
                         {{ __('common.email') }}
                     </label>

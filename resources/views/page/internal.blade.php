@@ -21,7 +21,10 @@
                     <a
                         href="{{ route('users.show', ['user' => $user]) }}"
                         class="user-card"
-                        style="background-color: {{ $user->group->color }}; background-image: {{ $internal->effect }};"
+                        style="
+                            background-color: {{ $user->group->color }};
+                            background-image: {{ $internal->effect }};
+                        "
                     >
                         <h3 class="user-card__username">
                             {{ $user->username }}

@@ -32,12 +32,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="quantity"
-                        class="form__select"
-                        wire:model="perPage"
-                        required
-                    >
+                    <select id="quantity" class="form__select" wire:model="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -77,12 +72,18 @@
                         </td>
                         <td>{{ $rsskey->content }}</td>
                         <td>
-                            <time datetime="{{ $rsskey->created_at }}" title="{{ $rsskey->created_at }}">
+                            <time
+                                datetime="{{ $rsskey->created_at }}"
+                                title="{{ $rsskey->created_at }}"
+                            >
                                 {{ $rsskey->created_at }}
                             </time>
                         </td>
                         <td>
-                            <time datetime="{{ $rsskey->deleted_at }}" title="{{ $rsskey->deleted_at }}">
+                            <time
+                                datetime="{{ $rsskey->deleted_at }}"
+                                title="{{ $rsskey->deleted_at }}"
+                            >
                                 {{ $rsskey->deleted_at ?? 'Currently in use' }}
                             </time>
                         </td>

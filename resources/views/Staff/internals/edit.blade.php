@@ -7,9 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">
-            Internals
-        </a>
+        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
     </li>
     <li class="breadcrumbV2">
         {{ $internal->name }}
@@ -23,7 +21,9 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.edit') }} Interal Group: {{ $internal->name }}</h2>
+        <h2 class="panel__heading">
+            {{ __('common.edit') }} Interal Group: {{ $internal->name }}
+        </h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -40,7 +40,7 @@
                         required
                         type="text"
                         value="{{ $internal->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -53,10 +53,8 @@
                         required
                         type="text"
                         value="{{ $internal->icon }}"
-                    >
-                    <label class="form__label form__label--floating" for="icon">
-                        Icon
-                    </label>
+                    />
+                    <label class="form__label form__label--floating" for="icon">Icon</label>
                 </p>
                 <p class="form__group">
                     <input
@@ -66,10 +64,8 @@
                         required
                         type="text"
                         value="{{ $internal->effect }}"
-                    >
-                    <label class="form__label form__label--floating" for="effect">
-                        Effect
-                    </label>
+                    />
+                    <label class="form__label form__label--floating" for="effect">Effect</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

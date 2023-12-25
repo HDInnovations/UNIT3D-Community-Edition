@@ -1,4 +1,4 @@
-@if($paginator->hasPages())
+@if ($paginator->hasPages())
     <nav class="pagination" role="navigation" aria-label="Pagination Navigation">
         <ul class="pagination__items">
             @if ($paginator->onFirstPage())
@@ -48,6 +48,7 @@
                             <li class="pagination__ellipsis">&middot;&middot;&middot;</li>
                         @endif
                     @endif
+
                     @for ($page = max(2, $paginator->currentPage() - 3); $page <= min($paginator->currentPage() + 3, $paginator->lastPage() - 1); $page++)
                         @if ($page === $paginator->currentPage())
                             <li class="pagination__current">{{ $page }}</li>
@@ -63,6 +64,7 @@
                             </li>
                         @endif
                     @endfor
+
                     @if ($paginator->currentPage() + 3 < $paginator->lastPage() - 1)
                         @if ($paginator->currentPage() + 4 === $paginator->lastPage() - 1)
                             <li>
@@ -78,6 +80,7 @@
                             <li class="pagination__ellipsis">&middot;&middot;&middot;</li>
                         @endif
                     @endif
+
                     @if ($paginator->hasMorePages())
                         <li>
                             <a
@@ -94,6 +97,7 @@
                     @endif
                 </ul>
             </li>
+
             @if ($paginator->hasMorePages())
                 <li class="pagination__next">
                     <a

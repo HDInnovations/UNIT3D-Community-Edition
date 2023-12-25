@@ -20,7 +20,7 @@
 @endsection
 
 @section('main')
-    @if (auth()->user()->isAllowed($user,'forum','show_topic'))
+    @if (auth()->user()->isAllowed($user, 'forum', 'show_topic'))
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('forum.topics') }}</h2>
             <ul class="topic-listings">

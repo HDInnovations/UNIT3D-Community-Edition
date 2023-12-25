@@ -23,9 +23,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('common.media-language') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('common.edit') }} {{ __('common.media-language') }}</h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -42,7 +40,7 @@
                         required
                         type="text"
                         value="{{ $media_language->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -55,7 +53,7 @@
                         required
                         type="text"
                         value="{{ $media_language->code }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="code">
                         {{ __('common.code') }}
                     </label>

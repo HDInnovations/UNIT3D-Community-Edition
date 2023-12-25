@@ -5,7 +5,8 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}"> @endsection
+    <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}" />
+@endsection
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
@@ -18,9 +19,7 @@
             {{ __('staff.reports-log') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.report') }} Details
-    </li>
+    <li class="breadcrumb--active">{{ __('common.report') }} Details</li>
 @endsection
 
 @section('page', 'page__poll--show')
@@ -36,9 +35,12 @@
             </div>
         </section>
     @endif
+
     @if ($report->request)
         <section class="panelV2">
-            <h2 class="panel__heading">{{ __('torrent.torrent-request') }} {{ __('request.title') }}</h2>
+            <h2 class="panel__heading">
+                {{ __('torrent.torrent-request') }} {{ __('request.title') }}
+            </h2>
             <div class="panel__body">
                 <a href="{{ route('requests.show', ['torrentRequest' => $report->request]) }}">
                     {{ $report->title }}
@@ -46,6 +48,7 @@
             </div>
         </section>
     @endif
+
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.message') }}</h2>
         <div class="panel__body">{{ $report->message }}</div>
@@ -64,6 +67,7 @@
             </div>
         </section>
     @endif
+
     @if ($report->solved)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>

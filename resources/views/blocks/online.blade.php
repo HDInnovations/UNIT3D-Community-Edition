@@ -7,21 +7,24 @@
         <ul style="column-width: 200px; column-gap: 1rem; list-style-type: none; padding: 0">
             @foreach ($users as $user)
                 <li>
-                    <x-user_tag :user="$user" :anon="$user->hidden || ! $user->isVisible($user, 'other', 'show_online')">
+                    <x-user_tag
+                        :user="$user"
+                        :anon="$user->hidden || ! $user->isVisible($user, 'other', 'show_online')"
+                    >
                         @if ($user->warnings_count > 0)
                             <x-slot:appended-icons>
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                     title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                 ></i>
-                            </x-slot:appended-icons>
+                            </x-slot>
                         @endif
                     </x-user_tag>
                 </li>
             @endforeach
         </ul>
-        <hr>
-        <ul style="column-width: 200px; column-gap: 1rem; list-style-type: none; padding: 0;">
+        <hr />
+        <ul style="column-width: 200px; column-gap: 1rem; list-style-type: none; padding: 0">
             @foreach ($groups as $group)
                 <span class="user-tag" style="padding: 4px 8px; display: block">
                     <a

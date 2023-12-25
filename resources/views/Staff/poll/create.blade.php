@@ -42,7 +42,7 @@
                         required
                         type="text"
                         value="{{ old('title') }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="title">
                         {{ __('common.title') }}
                     </label>
@@ -56,8 +56,11 @@
                             required
                             type="text"
                             placeholder=" "
+                        />
+                        <label
+                            class="form__label form__label--floating"
+                            x-bind:for="'option' + option"
                         >
-                        <label class="form__label form__label--floating" x-bind:for="'option' + option">
                             {{ __('poll.option') }}
                         </label>
                     </p>
@@ -84,7 +87,7 @@
                         name="multiple_choice"
                         type="checkbox"
                         value="1"
-                    >
+                    />
                     <label class="form__label" for="multiple_choice">
                         {{ __('poll.multiple-choice') }}
                     </label>

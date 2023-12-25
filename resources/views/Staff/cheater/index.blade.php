@@ -1,11 +1,16 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Possible Leech Cheaters - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        Possible Leech Cheaters - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Possible Leech Cheaters - {{ __('staff.staff-dashboard') }}">
+    <meta
+        name="description"
+        content="Possible Leech Cheaters - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -23,9 +28,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('staff.possible-leech-cheaters') }} (Ghost Leechers)
-        </h2>
+        <h2 class="panel__heading">{{ __('staff.possible-leech-cheaters') }} (Ghost Leechers)</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -42,13 +45,19 @@
                                 <x-user_tag :anon="false" :user="$cheater" />
                             </td>
                             <td>
-                                <time datetime="{{ $cheater->created_at }}" title="{{ $cheater->created_at }}">
+                                <time
+                                    datetime="{{ $cheater->created_at }}"
+                                    title="{{ $cheater->created_at }}"
+                                >
                                     {{ $cheater->created_at ?? 'N/A' }}
                                 </time>
                             </td>
                             <td>
-                                <time datetime="{{ $cheater->last_login }}" title="{{ $cheater->last_login }}">
-                                    {{ $cheater->last_login ?? 'N/A'}}
+                                <time
+                                    datetime="{{ $cheater->last_login }}"
+                                    title="{{ $cheater->last_login }}"
+                                >
+                                    {{ $cheater->last_login ?? 'N/A' }}
                                 </time>
                             </td>
                         </tr>

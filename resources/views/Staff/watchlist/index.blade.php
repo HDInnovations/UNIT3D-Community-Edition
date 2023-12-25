@@ -1,11 +1,14 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Watchlist {{ __('common.search') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        Watchlist {{ __('common.search') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Watchlist Search - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Watchlist Search - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -14,9 +17,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Watchlist
-    </li>
+    <li class="breadcrumb--active">Watchlist</li>
 @endsection
 
 @section('page', 'page__watchlist--index')

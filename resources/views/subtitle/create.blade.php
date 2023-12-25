@@ -1,7 +1,9 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.upload') }} {{ __('common.subtitle') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('common.upload') }} {{ __('common.subtitle') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -19,9 +21,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.upload') }} {{ __('common.subtitle') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('common.upload') }} {{ __('common.subtitle') }}</h2>
         <div class="panel__body">
             <form
                 id="form_upload_subtitle"
@@ -31,10 +31,11 @@
                 method="POST"
             >
                 @csrf
-                <input name="torrent_id" type="hidden" value="{{ $torrent->id }}">
+                <input name="torrent_id" type="hidden" value="{{ $torrent->id }}" />
                 <p class="form__group">
                     <label for="subtitle_file" class="form__label">
-                        {{ __('subtitle.subtitle-file') }} ({{ __('subtitle.subtitle-file-types') }})
+                        {{ __('subtitle.subtitle-file') }}
+                        ({{ __('subtitle.subtitle-file-types') }})
                     </label>
                     <input
                         id="subtitle_file"
@@ -43,18 +44,16 @@
                         name="subtitle_file"
                         required
                         type="file"
-                    >
+                    />
                 </p>
                 <p class="form__group">
-                    <select
-                        id="language_id"
-                        class="form__select"
-                        name="language_id"
-                        required
-                    >
+                    <select id="language_id" class="form__select" name="language_id" required>
                         <option hidden disabled selected value=""></option>
                         @foreach ($media_languages as $media_language)
-                            <option value="{{ $media_language->id }}" @selected(old('media_language') == $media_language->id)>
+                            <option
+                                value="{{ $media_language->id }}"
+                                @selected(old('media_language') == $media_language->id)
+                            >
                                 {{ $media_language->code }}
                             </option>
                         @endforeach
@@ -71,13 +70,13 @@
                         class="form__text"
                         placeholder=" "
                         required
-                    >
+                    />
                     <label class="form__label form__label--floating" for="note">
                         {{ __('subtitle.note') }} ({{ __('subtitle.note-help') }})
                     </label>
                 </p>
                 <p class="form__group">
-                    <input type="hidden" name="anon" value="0">
+                    <input type="hidden" name="anon" value="0" />
                     <input
                         id="anon"
                         class="form__checkbox"
@@ -85,7 +84,7 @@
                         type="checkbox"
                         value="1"
                         @checked(old('anon'))
-                    >
+                    />
                     <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>
                 <p class="form__group">
@@ -114,7 +113,7 @@
         <h2 class="panel__heading">{{ __('subtitle.rules-title') }}</h2>
         <div class="panel__body">
             <ol>
-                @foreach(Str::of(__('subtitle.rules'))->replace(['<ul>', '</ul>', '<li>', '</li>'], '')->trim()->explode("\n") as $rule)
+                @foreach (Str::of(__('subtitle.rules'))->replace(['<ul>', '</ul>', '<li>', '</li>'], '')->trim()->explode("\n") as $rule)
                     <li>{{ $rule }}</li>
                 @endforeach
             </ol>

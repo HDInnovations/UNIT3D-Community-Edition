@@ -29,65 +29,71 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.position') }}</th>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse ($resolutions as $resolution)
-                    <tr>
-                        <td>{{ $resolution->position }}</td>
-                        <td>
-                            <a href="{{ route('staff.resolutions.edit', ['resolution' => $resolution]) }}">
-                                {{ $resolution->name }}
-                            </a>
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        href="{{ route('staff.resolutions.edit', ['resolution' => $resolution]) }}"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <form
-                                        action="{{ route('staff.resolutions.destroy', ['resolution' => $resolution]) }}"
-                                        method="POST"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this resolution: ${atob('{{ base64_encode($resolution->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                    @forelse ($resolutions as $resolution)
+                        <tr>
+                            <td>{{ $resolution->position }}</td>
+                            <td>
+                                <a
+                                    href="{{ route('staff.resolutions.edit', ['resolution' => $resolution]) }}"
+                                >
+                                    {{ $resolution->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.resolutions.edit', ['resolution' => $resolution]) }}"
                                             class="form__button form__button--text"
                                         >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3">No resolution</td>
-                    </tr>
-                @endforelse
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('staff.resolutions.destroy', ['resolution' => $resolution]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this resolution: ${atob(
+                                                            '{{ base64_encode($resolution->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">No resolution</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
