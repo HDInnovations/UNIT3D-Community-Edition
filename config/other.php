@@ -145,7 +145,7 @@ return [
     |--------------------------------------------------------------------------
     | Default Site Style
     |--------------------------------------------------------------------------
-    | 0 = Light Theme
+    | 0 = Classic Light Theme
     | 1 = Galactic Theme
     | 2 = Dark Blue Theme
     | 3 = Dark Green Theme
@@ -154,8 +154,12 @@ return [
     | 6 = Dark Red Theme
     | 7 = Dark Teal Theme
     | 8 = Dark Yellow Theme
+    | 9 = Cosmic Void
+    | 10 = Nord
+    | 11 = Revel
+    | 12 = Material Design v3 Light
     */
-    'default_style' => 0,
+    'default_style' => 12,
 
     /*
     |--------------------------------------------------------------------------

@@ -47,7 +47,7 @@
                     <legend class="form__legend">Style</legend>
                     <p class="form__group">
                         <select id="style" class="form__select" name="style" required>
-                            <option class="form__option" value="0" @selected($user->style === 0)>Light</option>
+                            <option class="form__option" value="0" @selected($user->style === 0)>Classic Light</option>
                             <option class="form__option" value="1" @selected($user->style === 1)>Galactic</option>
                             <option class="form__option" value="2" @selected($user->style === 2)>Dark Blue</option>
                             <option class="form__option" value="3" @selected($user->style === 3)>Dark Green</option>
@@ -59,6 +59,7 @@
                             <option class="form__option" value="9" @selected($user->style === 9)>Cosmic Void</option>
                             <option class="form__option" value="10" @selected($user->style === 10)>Nord</option>
                             <option class="form__option" value="11" @selected($user->style === 11)>Revel (Desktop only)</option>
+                            <option class="form__option" value="12" @selected($user->style === 12)>Material Design 3 Light</option>
                         </select>
                         <label class="form__label form__label--floating" for="style">
                             Theme
