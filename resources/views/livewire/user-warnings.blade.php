@@ -159,14 +159,14 @@
                         @if ($warningTab !== 'manual')
                             <td>
                                 @isset($warning->torrenttitle)
-                                <a
-                                    href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}"
-                                >
-                                    {{ $warning->torrenttitle->name }}
-                                </a>
+                                    <a
+                                        href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}"
+                                    >
+                                        {{ $warning->torrenttitle->name }}
+                                    </a>
                                 @else
-                                n/a
-                                @endif
+                                    n/a
+                                @endisset
                             </td>
                         @endif
 
