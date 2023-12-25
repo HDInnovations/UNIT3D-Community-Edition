@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '18.x'
       - name: Run Prettier
-        run: npm run format
+        run: ./node_modules/.bin/prettier -w *
       - name: Commit Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
