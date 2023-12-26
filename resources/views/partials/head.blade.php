@@ -147,13 +147,28 @@
 
             @break
         @case(12)
-            <link rel="stylesheet" href="{{ mix('css/themes/material-design-v3-light.css') }}" crossorigin="anonymous">
+            <link
+                rel="stylesheet"
+                href="{{ mix('css/themes/material-design-v3-light.css') }}"
+                crossorigin="anonymous"
+            />
+
             @break
         @case(13)
-            <link rel="stylesheet" href="{{ mix('css/themes/material-design-v3-dark.css') }}" crossorigin="anonymous">
+            <link
+                rel="stylesheet"
+                href="{{ mix('css/themes/material-design-v3-dark.css') }}"
+                crossorigin="anonymous"
+            />
+
             @break
         @case(14)
-            <link rel="stylesheet" href="{{ mix('css/themes/material-design-v3-amoled.css') }}" crossorigin="anonymous">
+            <link
+                rel="stylesheet"
+                href="{{ mix('css/themes/material-design-v3-amoled.css') }}"
+                crossorigin="anonymous"
+            />
+
             @break
     @endswitch
 
