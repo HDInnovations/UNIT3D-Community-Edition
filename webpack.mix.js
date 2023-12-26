@@ -36,6 +36,9 @@ mix.options({
     .sass('resources/sass/themes/cosmic-void.scss', 'public/css/themes/cosmic-void.css')
     .sass('resources/sass/themes/nord.scss', 'public/css/themes/nord.css')
     .sass('resources/sass/themes/revel.scss', 'public/css/themes/revel.css')
+    .sass('resources/sass/themes/material-design-v3-light.scss', 'public/css/themes/material-design-v3-light.css')
+    .sass('resources/sass/themes/material-design-v3-dark.scss', 'public/css/themes/material-design-v3-dark.css')
+    .sass('resources/sass/themes/material-design-v3-amoled.scss', 'public/css/themes/material-design-v3-amoled.css')
 
     /*
      * Auth styles
