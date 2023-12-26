@@ -696,7 +696,7 @@
         <dl class="key-value">
             <dt>10 second interval</dt>
             <dd>
-                @if (null === $rate = cache()->get('metrics:requests-per-second-rate'))
+                @if (null === ($rate = cache()->get('metrics:requests-per-second-rate')))
                     {{ __('common.unknown') }}
                 @else
                     {{ \number_format($rate / 10, 0, null, "\u{202F}") }}
