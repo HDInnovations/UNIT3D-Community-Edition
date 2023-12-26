@@ -1,6 +1,8 @@
 @php
     $isModo = auth()->user()->group->is_modo;
-    $isProfileOwner = auth()->user()->is($user)
+    $isProfileOwner = auth()
+        ->user()
+        ->is($user)
 @endphp
 
 <li class="nav-tab-menu">
@@ -34,11 +36,15 @@
                     <form
                         action="{{ route('users.followers.destroy', ['user' => $user]) }}"
                         method="POST"
-                        style="display: contents;"
+                        style="display: contents"
                     >
                         @csrf
                         @method('DELETE')
-                        <button class="nav-tab__link" type="submit" id="delete-follow-{{ $user->target_id }}">
+                        <button
+                            class="nav-tab__link"
+                            type="submit"
+                            id="delete-follow-{{ $user->target_id }}"
+                        >
                             {{ __('user.unfollow') }}
                         </button>
                     </form>
@@ -46,10 +52,14 @@
                     <form
                         action="{{ route('users.followers.store', ['user' => $user]) }}"
                         method="POST"
-                        style="display: contents;"
+                        style="display: contents"
                     >
                         @csrf
-                        <button class="nav-tab__link" type="submit" id="follow-user-{{ $user->id }}">
+                        <button
+                            class="nav-tab__link"
+                            type="submit"
+                            id="follow-user-{{ $user->id }}"
+                        >
                             {{ __('user.follow') }}
                         </button>
                     </form>
@@ -73,7 +83,9 @@
         </a>
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner)
-                <li class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
@@ -82,6 +94,7 @@
                     </a>
                 </li>
             @endif
+
             <li class="{{ Route::is('users.email.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
                     class="{{ Route::is('users.email.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
@@ -122,7 +135,9 @@
                     {{ __('user.apikey') }}
                 </a>
             </li>
-            <li class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li
+                class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active' : 'nav-tavV2' }}"
+            >
                 <a
                     class="{{ Route::is('users.two_factor_auth.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                     href="{{ route('users.two_factor_auth.edit', ['user' => $user]) }}"
@@ -131,7 +146,9 @@
                 </a>
             </li>
             @if ($isProfileOwner)
-                <li class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.privacy_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.privacy_settings.edit', ['user' => $user]) }}"
@@ -139,7 +156,9 @@
                         {{ __('user.privacy') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.notification_settings.edit', ['user' => $user]) }}"
@@ -151,6 +170,7 @@
         </ul>
     </li>
 @endif
+
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         @if ($isProfileOwner || $isModo)
@@ -167,7 +187,9 @@
         @endif
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li class="{{ Route::is('users.history.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.history.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.history.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.history.index', ['user' => $user]) }}"
@@ -176,7 +198,10 @@
                     </a>
                 </li>
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('users.torrents.index', ['user' => $user]) }}">
+                    <a
+                        class="nav-tab__link"
+                        href="{{ route('users.torrents.index', ['user' => $user]) }}"
+                    >
                         {{ __('user.uploads') }}
                     </a>
                 </li>
@@ -188,8 +213,10 @@
                         {{ __('user.active') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                    <a 
+                <li
+                    class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
+                    <a
                         class="{{ Route::is('users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.resurrections.index', ['user' => $user]) }}"
                     >
@@ -197,6 +224,7 @@
                     </a>
                 </li>
             @endif
+
             @if (auth()->user()->isAllowed($user, '', 'show_requested'))
                 <li class="nav-tavV2">
                     <a
@@ -207,16 +235,20 @@
                     </a>
                 </li>
             @endif
-            @if($isProfileOwner)
+
+            @if ($isProfileOwner)
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('torrents.index', ['bookmarked' => '1']) }}">
+                    <a
+                        class="nav-tab__link"
+                        href="{{ route('torrents.index', ['bookmarked' => '1']) }}"
+                    >
                         {{ __('user.bookmarks') }}
                     </a>
                 </li>
                 <form
                     action="{{ route('users.peers.mass_destroy', ['user' => $user]) }}"
                     method="POST"
-                    style="display: contents;"
+                    style="display: contents"
                 >
                     @csrf()
                     @method('DELETE')
@@ -225,7 +257,10 @@
                     </button>
                 </form>
                 <li class="nav-tabV2">
-                    <a class="nav-tab__link" href="{{ route('users.torrent_zip.show', ['user' => $user]) }}">
+                    <a
+                        class="nav-tab__link"
+                        href="{{ route('users.torrent_zip.show', ['user' => $user]) }}"
+                    >
                         {{ __('torrent.download-all') }}
                     </a>
                 </li>
@@ -233,19 +268,31 @@
         </ul>
     </li>
 @endif
-@if (
-    auth()->user()->isAllowed($user, 'achievement', 'show_achievement')
-    || auth()->user()->isAllowed($user, 'forum', 'show_topic')
-    || auth()->user()->isAllowed($user, 'forum', 'show_post')
-    || auth()->user()->isAllowed($user, 'follower', 'show_follower')
-)
+
+@if (auth()
+    ->user()
+    ->isAllowed($user, 'achievement', 'show_achievement') ||
+    auth()
+        ->user()
+        ->isAllowed($user, 'forum', 'show_topic') ||
+    auth()
+        ->user()
+        ->isAllowed($user, 'forum', 'show_post') ||
+    auth()
+        ->user()
+        ->isAllowed($user, 'follower', 'show_follower'))
     <li class="nav-tab-menu">
-        <span tabindex="-1" class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span
+            tabindex="-1"
+            class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        >
             {{ __('forum.activity') }}
         </span>
         <ul class="nav-tab-menu__items">
             @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
-                <li class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.achievements.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.achievements.index', ['user' => $user]) }}"
@@ -254,8 +301,11 @@
                     </a>
                 </li>
             @endif
+
             @if (auth()->user()->isAllowed($user, 'forum', 'show_topic'))
-                <li class="{{ Route::is('users.topics.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.topics.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.topics.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.topics.index', ['user' => $user]) }}"
@@ -264,6 +314,7 @@
                     </a>
                 </li>
             @endif
+
             @if (auth()->user()->isAllowed($user, 'forum', 'show_post'))
                 <li class="{{ Route::is('users.posts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
@@ -274,8 +325,11 @@
                     </a>
                 </li>
             @endif
+
             @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
-                <li class="{{ Route::is('users.followers.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.followers.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.followers.index', ['user' => $user]) }}"
@@ -284,8 +338,11 @@
                     </a>
                 </li>
             @endif
+
             @if (auth()->user()->group->is_modo || auth()->id() === $user->id)
-                <li class="{{ Route::is('users.following.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.following.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.following.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.following.index', ['user' => $user]) }}"
@@ -297,6 +354,7 @@
         </ul>
     </li>
 @endif
+
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
@@ -315,7 +373,9 @@
                 </a>
             </li>
             @if ($isProfileOwner)
-                <li class="{{ Route::is('users.transactions.create') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.transactions.create') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.transactions.create') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.transactions.create', ['user' => $user]) }}"
@@ -324,6 +384,7 @@
                     </a>
                 </li>
             @endif
+
             <li class="{{ Route::is('users.gifts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
                     class="{{ Route::is('users.gifts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
@@ -343,14 +404,20 @@
         </ul>
     </li>
 @endif
+
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
-        <span tabindex="-1" class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}">
+        <span
+            tabindex="-1"
+            class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        >
             {{ __('common.other') }}
         </span>
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.wishes.index', ['user' => $user]) }}"
@@ -358,7 +425,9 @@
                         {{ __('user.wishlist') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.seedboxes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.seedboxes.index', ['user' => $user]) }}"
@@ -366,7 +435,9 @@
                         {{ __('user.seedboxes') }}
                     </a>
                 </li>
-                <li class="{{ Route::is('users.invites.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <li
+                    class="{{ Route::is('users.invites.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
                     <a
                         class="{{ Route::is('users.invites.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.invites.index', ['user' => $user]) }}"

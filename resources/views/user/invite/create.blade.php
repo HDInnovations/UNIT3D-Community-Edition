@@ -1,7 +1,9 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - {{ __('user.send-invite') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $user->username }} - {{ __('user.send-invite') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -51,8 +53,10 @@
                             type="email"
                             name="email"
                             placeholder=" "
-                        >
-                        <label class="form__label form__label--floating" for="email">{{ __('common.email') }}</label>
+                        />
+                        <label class="form__label form__label--floating" for="email">
+                            {{ __('common.email') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <textarea
@@ -61,7 +65,9 @@
                             name="message"
                             required
                         ></textarea>
-                        <label class="form__label form__label--floating" for="message">{{ __('common.message') }}</label>
+                        <label class="form__label form__label--floating" for="message">
+                            {{ __('common.message') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <button class="form__button form__button--filled">
@@ -75,7 +81,9 @@
 
     @section('sidebar')
         <section class="panelV2">
-            <h2 class="panel__heading">{{ __('user.invites-count', ['count' => $user->invites]) }}</h2>
+            <h2 class="panel__heading">
+                {{ __('user.invites-count', ['count' => $user->invites]) }}
+            </h2>
             <div class="panel__body">{!! __('user.invites-rules') !!}</div>
         </section>
     @endsection

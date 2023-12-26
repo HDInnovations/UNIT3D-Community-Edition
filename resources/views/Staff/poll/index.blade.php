@@ -28,73 +28,80 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('poll.title') }}</th>
-                    <th>{{ __('common.date') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('poll.title') }}</th>
+                        <th>{{ __('common.date') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($polls as $poll)
-                    <tr>
-                        <td>
-                            <a href="{{ route('staff.polls.show', ['poll' => $poll]) }}">
-                                {{ $poll->title }}
-                            </a>
-                        </td>
-                        <td>
-                            <time datetime="{{ $poll->created_at }}" title="{{ $poll->created_at }}">
-                                {{ date('d M Y', $poll->created_at->getTimestamp()) }}
-                            </time>
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        href="{{ route('polls.show', ['poll' => $poll]) }}"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.view') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <a
-                                        href="{{ route('staff.polls.edit', ['poll' => $poll]) }}"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <form
-                                        action="{{ route('staff.polls.destroy', ['poll' => $poll]) }}"
-                                        method="POST"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this poll: ${atob('{{ base64_encode($poll->title) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                    @foreach ($polls as $poll)
+                        <tr>
+                            <td>
+                                <a href="{{ route('staff.polls.show', ['poll' => $poll]) }}">
+                                    {{ $poll->title }}
+                                </a>
+                            </td>
+                            <td>
+                                <time
+                                    datetime="{{ $poll->created_at }}"
+                                    title="{{ $poll->created_at }}"
+                                >
+                                    {{ date('d M Y', $poll->created_at->getTimestamp()) }}
+                                </time>
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('polls.show', ['poll' => $poll]) }}"
                                             class="form__button form__button--text"
                                         >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @endforeach
+                                            {{ __('common.view') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.polls.edit', ['poll' => $poll]) }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('staff.polls.destroy', ['poll' => $poll]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this poll: ${atob(
+                                                            '{{ base64_encode($poll->title) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

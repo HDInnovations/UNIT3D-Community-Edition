@@ -7,9 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">
-            Torrent Regions
-        </a>
+        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent Regions</a>
     </li>
     <li class="breadcrumbV2">
         {{ $region->name }}
@@ -42,7 +40,7 @@
                         required
                         type="text"
                         value="{{ $region->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -57,7 +55,7 @@
                         required
                         type="text"
                         value="{{ $region->position }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>

@@ -10,9 +10,7 @@
                     {{ __('common.add') }}
                 </button>
                 <dialog class="dialog" x-ref="dialog">
-                    <h3 class="dialog__heading">
-                        Note user: {{ $user->username }}
-                    </h3>
+                    <h3 class="dialog__heading">Note user: {{ $user->username }}</h3>
                     <form
                         class="dialog__form"
                         x-on:click.outside="$refs.dialog.close()"
@@ -38,7 +36,11 @@
                             >
                                 {{ __('common.save') }}
                             </button>
-                            <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                            <button
+                                formmethod="dialog"
+                                formnovalidate
+                                class="form__button form__button--outlined"
+                            >
                                 {{ __('common.cancel') }}
                             </button>
                         </p>
@@ -50,12 +52,12 @@
     <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
-            <tr>
-                <th>{{ __('common.staff') }}</th>
-                <th>{{ __('user.note') }}</th>
-                <th>{{ __('user.created-on') }}</th>
-                <th>{{ __('common.action') }}</th>
-            </tr>
+                <tr>
+                    <th>{{ __('common.staff') }}</th>
+                    <th>{{ __('user.note') }}</th>
+                    <th>{{ __('user.created-on') }}</th>
+                    <th>{{ __('common.action') }}</th>
+                </tr>
             </thead>
             <tbody>
                 @forelse ($notes as $note)
@@ -65,7 +67,10 @@
                         </td>
                         <td style="white-space: pre-wrap">{{ $note->message }}</td>
                         <td>
-                            <time datetime="{{ $note->created_at }}" title="{{ $note->created_at }}">
+                            <time
+                                datetime="{{ $note->created_at }}"
+                                title="{{ $note->created_at }}"
+                            >
                                 {{ $note->created_at->diffForHumans() }}
                             </time>
                         </td>

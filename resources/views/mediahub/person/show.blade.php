@@ -26,8 +26,8 @@
         <img
             src="{{ isset($person->still) ? tmdb_image('cast_big', $person->still) : 'https://via.placeholder.com/300x450' }}"
             alt="{{ $person->name }}"
-            style="max-width: 100%;"
-        >
+            style="max-width: 100%"
+        />
         <dl class="key-value">
             <dt>{{ __('mediahub.born') }}</dt>
             <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>

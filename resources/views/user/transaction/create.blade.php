@@ -28,11 +28,11 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('bon.item') }}</th>
-                    <th>Cost</th>
-                    <th>{{ __('bon.exchange') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('bon.item') }}</th>
+                        <th>Cost</th>
+                        <th>{{ __('bon.exchange') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($items as $item)
@@ -45,12 +45,19 @@
                                         {{ __('bon.activated') }}!
                                     </button>
                                 @else
-                                    <form method="POST" action="{{ route('users.transactions.store', ['user' => $user]) }}">
+                                    <form
+                                        method="POST"
+                                        action="{{ route('users.transactions.store', ['user' => $user]) }}"
+                                    >
                                         @csrf
                                         <button class="form__button form__button--filled">
                                             {{ __('bon.exchange') }}
                                         </button>
-                                        <input type="hidden" name="exchange" value="{{ $item->id }}">
+                                        <input
+                                            type="hidden"
+                                            name="exchange"
+                                            value="{{ $item->id }}"
+                                        />
                                     </form>
                                 @endif
                             </td>

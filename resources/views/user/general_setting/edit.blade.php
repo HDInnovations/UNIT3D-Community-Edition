@@ -1,7 +1,10 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Settings - {{ __('common.members') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $user->username }} - Settings - {{ __('common.members') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -34,38 +37,68 @@
                 <p class="form__group">
                     <select id="locale" class="form__select" name="locale" required>
                         @foreach (App\Models\Language::allowed() as $code => $name)
-                            <option class="form__option" value="{{ $code }}" @selected($user->locale === $code)>
+                            <option
+                                class="form__option"
+                                value="{{ $code }}"
+                                @selected($user->locale === $code)
+                            >
                                 {{ $name }}
                             </option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating" for="locale">
-                        Language
-                    </label>
+                    <label class="form__label form__label--floating" for="locale">Language</label>
                 </p>
                 <fieldset class="form form__fieldset">
                     <legend class="form__legend">Style</legend>
                     <p class="form__group">
                         <select id="style" class="form__select" name="style" required>
-                            <option class="form__option" value="0" @selected($user->style === 0)>Classic Light</option>
-                            <option class="form__option" value="1" @selected($user->style === 1)>Galactic</option>
-                            <option class="form__option" value="2" @selected($user->style === 2)>Dark Blue</option>
-                            <option class="form__option" value="3" @selected($user->style === 3)>Dark Green</option>
-                            <option class="form__option" value="4" @selected($user->style === 4)>Dark Pink</option>
-                            <option class="form__option" value="5" @selected($user->style === 5)>Dark Purple</option>
-                            <option class="form__option" value="6" @selected($user->style === 6)>Dark Red</option>
-                            <option class="form__option" value="7" @selected($user->style === 7)>Dark Teal</option>
-                            <option class="form__option" value="8" @selected($user->style === 8)>Dark Yellow</option>
-                            <option class="form__option" value="9" @selected($user->style === 9)>Cosmic Void</option>
-                            <option class="form__option" value="10" @selected($user->style === 10)>Nord</option>
-                            <option class="form__option" value="11" @selected($user->style === 11)>Revel (Desktop only)</option>
-                            <option class="form__option" value="12" @selected($user->style === 12)>Material Design 3 Light</option>
-                            <option class="form__option" value="13" @selected($user->style === 13)>Material Design 3 Dark</option>
-                            <option class="form__option" value="14" @selected($user->style === 14)>Material Design 3 Amoled</option>
+                            <option class="form__option" value="0" @selected($user->style === 0)>
+                                Light
+                            </option>
+                            <option class="form__option" value="1" @selected($user->style === 1)>
+                                Galactic
+                            </option>
+                            <option class="form__option" value="2" @selected($user->style === 2)>
+                                Dark Blue
+                            </option>
+                            <option class="form__option" value="3" @selected($user->style === 3)>
+                                Dark Green
+                            </option>
+                            <option class="form__option" value="4" @selected($user->style === 4)>
+                                Dark Pink
+                            </option>
+                            <option class="form__option" value="5" @selected($user->style === 5)>
+                                Dark Purple
+                            </option>
+                            <option class="form__option" value="6" @selected($user->style === 6)>
+                                Dark Red
+                            </option>
+                            <option class="form__option" value="7" @selected($user->style === 7)>
+                                Dark Teal
+                            </option>
+                            <option class="form__option" value="8" @selected($user->style === 8)>
+                                Dark Yellow
+                            </option>
+                            <option class="form__option" value="9" @selected($user->style === 9)>
+                                Cosmic Void
+                            </option>
+                            <option class="form__option" value="10" @selected($user->style === 10)>
+                                Nord
+                            </option>
+                            <option class="form__option" value="11" @selected($user->style === 11)>
+                                Revel (Desktop only)
+                            </option>
+                            <option class="form__option" value="12" @selected($user->style === 12)>
+                                Material Design 3 Light
+                            </option>
+                            <option class="form__option" value="13" @selected($user->style === 13)>
+                                Material Design 3 Dark
+                            </option>
+                            <option class="form__option" value="14" @selected($user->style === 14)>
+                                Material Design 3 Amoled
+                            </option>
                         </select>
-                        <label class="form__label form__label--floating" for="style">
-                            Theme
-                        </label>
+                        <label class="form__label form__label--floating" for="style">Theme</label>
                     </p>
                     <p class="form__group">
                         <input
@@ -75,7 +108,7 @@
                             placeholder=" "
                             type="url"
                             value="{{ $user->custom_css }}"
-                        >
+                        />
                         <label class="form__label form__label--floating" for="custom_css">
                             External CSS Stylesheet (Stacks on top of above theme)
                         </label>
@@ -88,7 +121,7 @@
                             placeholder=" "
                             type="url"
                             value="{{ $user->standalone_css }}"
-                        >
+                        />
                         <label class="form__label form__label--floating" for="standalone_css">
                             Standalone CSS Stylesheet (No site theme used)
                         </label>
@@ -98,7 +131,7 @@
                     <legend class="form__legend">Chat</legend>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="censor" value="0">
+                            <input type="hidden" name="censor" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
@@ -111,7 +144,7 @@
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="chat_hidden" value="0">
+                            <input type="hidden" name="chat_hidden" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
@@ -126,11 +159,40 @@
                 <fieldset class="form form__fieldset">
                     <legend class="form__legend">Torrent</legend>
                     <p class="form__group">
-                        <select id="torrent_layout" class="form__select" name="torrent_layout" required>
-                            <option class="form__option" value="0" @selected($user->torrent_layout === 0)>Torrent list</option>
-                            <option class="form__option" value="1" @selected($user->torrent_layout === 1)>Torrent cards</option>
-                            <option class="form__option" value="2" @selected($user->torrent_layout === 2)>Torrent groupings</option>
-                            <option class="form__option" value="3" @selected($user->torrent_layout === 3)>Torrent posters</option>
+                        <select
+                            id="torrent_layout"
+                            class="form__select"
+                            name="torrent_layout"
+                            required
+                        >
+                            <option
+                                class="form__option"
+                                value="0"
+                                @selected($user->torrent_layout === 0)
+                            >
+                                Torrent list
+                            </option>
+                            <option
+                                class="form__option"
+                                value="1"
+                                @selected($user->torrent_layout === 1)
+                            >
+                                Torrent cards
+                            </option>
+                            <option
+                                class="form__option"
+                                value="2"
+                                @selected($user->torrent_layout === 2)
+                            >
+                                Torrent groupings
+                            </option>
+                            <option
+                                class="form__option"
+                                value="3"
+                                @selected($user->torrent_layout === 3)
+                            >
+                                Torrent posters
+                            </option>
                         </select>
                         <label class="form__label form__label--floating" for="torrent_layout">
                             Default torrent layout
@@ -138,8 +200,12 @@
                     </p>
                     <p class="form__group">
                         <select id="ratings" class="form__select" name="ratings" required>
-                            <option class="form__option" value="0" @selected($user->ratings === 0)>TMDB</option>
-                            <option class="form__option" value="1" @selected($user->ratings === 1)>IMDB</option>
+                            <option class="form__option" value="0" @selected($user->ratings === 0)>
+                                TMDB
+                            </option>
+                            <option class="form__option" value="1" @selected($user->ratings === 1)>
+                                IMDB
+                            </option>
                         </select>
                         <label class="form__label form__label--floating" for="ratings">
                             Ratings source
@@ -147,7 +213,7 @@
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="show_poster" value="0">
+                            <input type="hidden" name="show_poster" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"

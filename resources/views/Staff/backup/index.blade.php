@@ -1,12 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}
-        - {{ config('other.title') }}</title>
+    <title>
+        {{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}
+        - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}">
+    <meta
+        name="description"
+        content="{{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -15,9 +20,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('backup.backup') }} {{ __('backup.manager') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('backup.backup') }} {{ __('backup.manager') }}</li>
 @endsection
 
 @section('page', 'page__backup-manager--index')

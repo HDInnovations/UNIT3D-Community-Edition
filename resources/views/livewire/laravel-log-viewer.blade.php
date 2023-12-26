@@ -1,9 +1,11 @@
 @section('title')
-    <title>Laravel Log Viewer - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        Laravel Log Viewer - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Laravel Log Viewer - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Laravel Log Viewer - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -12,12 +14,17 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Laravel Log Viewer
-    </li>
+    <li class="breadcrumb--active">Laravel Log Viewer</li>
 @endsection
 
-<div style="display: grid; grid-template-columns: 1fr max-content; gap: 12px; align-items: flex-start">
+<div
+    style="
+        display: grid;
+        grid-template-columns: 1fr max-content;
+        gap: 12px;
+        align-items: flex-start;
+    "
+>
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">
@@ -26,10 +33,14 @@
             </h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    <button class="form__button form__button--text" wire:click="clearLatestLog">Clear Latest Log</button>
+                    <button class="form__button form__button--text" wire:click="clearLatestLog">
+                        Clear Latest Log
+                    </button>
                 </div>
                 <div class="panel__action">
-                    <button class="form__button form__button--text" wire:click="deleteAllLogs">Delete all logs</button>
+                    <button class="form__button form__button--text" wire:click="deleteAllLogs">
+                        Delete all logs
+                    </button>
                 </div>
             </div>
         </header>
@@ -46,23 +57,35 @@
                         <th>Count</th>
                     </tr>
                 </thead>
-                @forelse($entries as $message => $groupedEntry)
-                    <tbody x-data="{ expanded: false }" style="border-top: 0;">
-                        <tr x-on:click="expanded = !expanded" style="cursor: pointer;">
+                @forelse ($entries as $message => $groupedEntry)
+                    <tbody x-data="{ expanded: false }" style="border-top: 0">
+                        <tr x-on:click="expanded = !expanded" style="cursor: pointer">
                             <td>{{ $groupedEntry[0]['date'] }}</td>
                             <td>
-                                @switch ($groupedEntry[0]['level'])
-                                    @case ('CRITICAL')
-                                        <span class="text-danger">{{ $groupedEntry[0]['level'] }}</span>
+                                @switch($groupedEntry[0]['level'])
+                                    @case('CRITICAL')
+                                        <span class="text-danger">
+                                            {{ $groupedEntry[0]['level'] }}
+                                        </span>
+
                                         @break
-                                    @case ('ERROR')
-                                        <span class="text-warning">{{ $groupedEntry[0]['level'] }}</span>
+                                    @case('ERROR')
+                                        <span class="text-warning">
+                                            {{ $groupedEntry[0]['level'] }}
+                                        </span>
+
                                         @break
-                                    @case ('INFO')
-                                        <span class="text-info">{{ $groupedEntry[0]['level'] }}</span>
+                                    @case('INFO')
+                                        <span class="text-info">
+                                            {{ $groupedEntry[0]['level'] }}
+                                        </span>
+
                                         @break
-                                    @case ('WARNING')
-                                        <span class="text-info">{{ $groupedEntry[0]['level'] }}</span>
+                                    @case('WARNING')
+                                        <span class="text-info">
+                                            {{ $groupedEntry[0]['level'] }}
+                                        </span>
+
                                         @break
                                     @default
                                         {{ $groupedEntry[0]['level'] }}
@@ -75,7 +98,7 @@
                             <td>{{ count($groupedEntry) }}</td>
                         </tr>
                         <tr x-cloak x-show="expanded">
-                            <td colspan="7" style="padding: 0 0 0 8px;">
+                            <td colspan="7" style="padding: 0 0 0 8px">
                                 <table class="data-table">
                                     <thead>
                                         <tr>
@@ -84,9 +107,15 @@
                                             <th>Stacktrace</th>
                                         </tr>
                                     </thead>
-                                    @foreach($groupedEntry as $entry)
-                                        <tbody x-data="{ expanded: false }" style="border-top: 0;">
-                                            <tr x-on:click="expanded = !expanded" style="cursor: pointer;">
+                                    @foreach ($groupedEntry as $entry)
+                                        <tbody
+                                            x-data="{ expanded: false }"
+                                            style="border-top: 0"
+                                        >
+                                            <tr
+                                                x-on:click="expanded = !expanded"
+                                                style="cursor: pointer"
+                                            >
                                                 <td>{{ $entry['date'] }}</td>
                                                 <td>{{ $entry['env'] }}</td>
                                                 <td>
@@ -100,7 +129,11 @@
                                             </tr>
                                             <tr x-cloack x-show="expanded">
                                                 <td colspan="2">
-                                                    <code><pre x-ref="stacktrace">{{ $entry['stacktrace'] }}</pre></code>
+                                                    <code>
+                                                        <pre x-ref="stacktrace">
+{{ $entry['stacktrace'] }}</pre
+                                                        >
+                                                    </code>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -122,9 +155,16 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Entries</h2>
-        <select multiple wire:model="logs" style="height: 320px; padding: 8px; border-radius: 4px; width: 100%">
-            @foreach($files as $file)
-                <option value="{{ $loop->index }}" style="padding: 6px; border-radius: 4px; cursor: pointer;">
+        <select
+            multiple
+            wire:model="logs"
+            style="height: 320px; padding: 8px; border-radius: 4px; width: 100%"
+        >
+            @foreach ($files as $file)
+                <option
+                    value="{{ $loop->index }}"
+                    style="padding: 6px; border-radius: 4px; cursor: pointer"
+                >
                     {{ $file->getFilename() }}
                 </option>
             @endforeach

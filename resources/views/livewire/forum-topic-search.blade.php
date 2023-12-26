@@ -16,6 +16,7 @@
                             </div>
                         </div>
                     @endif
+
                     <div class="panel__action">
                         <div class="form__group">
                             @if ($subscription === null)
@@ -25,7 +26,11 @@
                                     method="POST"
                                 >
                                     @csrf
-                                    <input type="hidden" name="forum_id" value="{{ $forum->id }}" />
+                                    <input
+                                        type="hidden"
+                                        name="forum_id"
+                                        value="{{ $forum->id }}"
+                                    />
                                     <button class="panel__action form__button form__button--text">
                                         <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                                         {{ __('forum.subscribe') }}
@@ -39,7 +44,9 @@
                                 >
                                     @csrf
                                     <button class="panel__action form__button form__button--text">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i>
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-bell-slash"
+                                        ></i>
                                         {{ __('forum.unsubscribe') }}
                                     </button>
                                 </form>
@@ -49,7 +56,7 @@
                 </div>
             </header>
             {{ $topics->links('partials.pagination') }}
-            @if($topics->count() > 0)
+            @if ($topics->count() > 0)
                 <ul class="topic-listings">
                     @foreach ($topics as $topic)
                         <li class="topic-listings__item">
@@ -58,9 +65,7 @@
                     @endforeach
                 </ul>
             @else
-                <div class="panel__body">
-                    No topics.
-                </div>
+                <div class="panel__body">No topics.</div>
             @endif
             {{ $topics->links('partials.pagination') }}
         </section>
@@ -83,12 +88,7 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select
-                            id="sorting"
-                            class="form__select"
-                            name="sorting"
-                            wire:model="label"
-                        >
+                        <select id="sorting" class="form__select" name="sorting" wire:model="label">
                             <option value="" selected default>Any</option>
                             <option value="approved">
                                 {{ __('forum.approved') }}

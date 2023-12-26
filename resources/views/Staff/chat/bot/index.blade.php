@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($bots as $bot)
+                    @foreach ($bots as $bot)
                         <tr>
                             <td>
                                 <a href="{{ route('staff.bots.edit', ['bot' => $bot]) }}">
@@ -60,20 +60,24 @@
                                     class="chat-bots__icon"
                                     src="/vendor/joypixels/png/64/{{ $bot->emoji }}.png"
                                     alt="emoji"
-                                >
+                                />
                             </td>
                             <td>{{ $bot->command }}</td>
                             <td>
                                 @if ($bot->active)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 <div class="data-table__actions">
-                                    @if(! $bot->is_systembot)
-                                        @if($bot->active)
+                                    @if (! $bot->is_systembot)
+                                        @if ($bot->active)
                                             <li class="data-table__action">
                                                 <form
                                                     method="POST"
@@ -99,6 +103,7 @@
                                             </li>
                                         @endif
                                     @endif
+
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
@@ -115,7 +120,7 @@
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            @if(!$bot->is_protected)
+                                            @if (! $bot->is_protected)
                                                 <button class="form__button form__button--text">
                                                     {{ __('common.delete') }}
                                                 </button>

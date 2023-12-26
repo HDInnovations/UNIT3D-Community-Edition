@@ -24,16 +24,16 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('poll.edit-poll') }}: {{$poll->title}}</h2>
+        <h2 class="panel__heading">{{ __('poll.edit-poll') }}: {{ $poll->title }}</h2>
         <div class="panel__body">
             <form
                 class="form"
                 method="POST"
                 action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
-                x-data='{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }'
+                x-data="{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }"
             >
                 @csrf
-            @method('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="title"
@@ -43,14 +43,18 @@
                         required
                         type="text"
                         value="{{ $poll->title }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="title">
                         {{ __('poll.title') }}
                     </label>
                 </p>
                 <template x-for="(option, i) in extraOptions">
                     <p class="form__group">
-                        <input type="hidden" x-bind:name="'options[' + i + '][id]'" x-bind:value="option['id']">
+                        <input
+                            type="hidden"
+                            x-bind:name="'options[' + i + '][id]'"
+                            x-bind:value="option['id']"
+                        />
                         <input
                             x-bind:id="'option' + i"
                             class="form__text"
@@ -58,17 +62,27 @@
                             x-bind:name="'options[' + i + '][name]'"
                             x-bind:value="option['name']"
                             required
+                        />
+                        <label
+                            class="form__label form__label--floating"
+                            x-bind:for="'option' + i"
                         >
-                        <label class="form__label form__label--floating" x-bind:for="'option' + i">
                             {{ __('poll.option') }}
                         </label>
                     </p>
                 </template>
                 <p class="form__group">
-                    <button x-on:click.prevent='extraOptions.push({"id": 0, "name": ""})' class="form__button form__button--outlined">
+                    <button
+                        x-on:click.prevent="extraOptions.push({ 'id': 0, 'name': '' })"
+                        class="form__button form__button--outlined"
+                    >
                         {{ __('poll.add-option') }}
                     </button>
-                    <button x-on:click.prevent="extraOptions.length > 2 ? extraOptions.pop() : null" id="del" class="form__button form__button--outlined">
+                    <button
+                        x-on:click.prevent="extraOptions.length > 2 ? extraOptions.pop() : null"
+                        id="del"
+                        class="form__button form__button--outlined"
+                    >
                         {{ __('poll.delete-option') }}
                     </button>
                 </p>
@@ -81,7 +95,7 @@
                         name="multiple_choice"
                         value="1"
                         @checked($poll->multiple_choice)
-                    >
+                    />
                     <label class="form__label" for="multiple_choice">
                         {{ __('poll.multiple-choice') }}
                     </label>
@@ -94,5 +108,4 @@
             </form>
         </div>
     </section>
-
 @endsection

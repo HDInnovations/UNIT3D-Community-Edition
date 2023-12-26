@@ -1,37 +1,56 @@
-<div style="display: flex; flex-direction: column; row-gap: 1rem;">
+<div style="display: flex; flex-direction: column; row-gap: 1rem">
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.search') }}</h2>
         </header>
-        <div class="panel__body" style="padding: 5px;">
+        <div class="panel__body" style="padding: 5px">
             <form class="form">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input id="torrent" wire:model="torrent" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating" for="torrent">Torrent Name</label>
+                        <input
+                            id="torrent"
+                            wire:model="torrent"
+                            class="form__text"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="torrent">
+                            Torrent Name
+                        </label>
                     </p>
                     <p class="form__group">
-                        <input id="ip" wire:model="ip" class="form__text" placeholder=" ">
+                        <input id="ip" wire:model="ip" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="ip">IP Address</label>
                     </p>
                     <p class="form__group">
-                        <input id="port" wire:model="port" class="form__text" placeholder=" ">
+                        <input id="port" wire:model="port" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="port">Port</label>
                     </p>
                     <p class="form__group">
-                        <input id="agent" wire:model="agent" class="form__text" placeholder=" ">
+                        <input id="agent" wire:model="agent" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">
-                        <select id="connectivity" wire:model="connectivity" class="form__select" placeholder=" ">
+                        <select
+                            id="connectivity"
+                            wire:model="connectivity"
+                            class="form__select"
+                            placeholder=" "
+                        >
                             <option value="any">Any</option>
                             <option value="connectable">Connectable</option>
                             <option value="unconnectable">Unconnectable</option>
                         </select>
-                        <label class="form__label form__label--floating" for="connectivity">Connectivity</label>
+                        <label class="form__label form__label--floating" for="connectivity">
+                            Connectivity
+                        </label>
                     </p>
                     <p class="form__group">
-                        <select id="active" wire:model="active" class="form__select" placeholder=" ">
+                        <select
+                            id="active"
+                            wire:model="active"
+                            class="form__select"
+                            placeholder=" "
+                        >
                             <option value="any">Any</option>
                             <option value="exclude">Inactive</option>
                             <option value="include">Active</option>
@@ -39,23 +58,38 @@
                         <label class="form__label form__label--floating" for="active">Active</label>
                     </p>
                     <p class="form__group">
-                        <select id="groupBy" wire:model="groupBy" class="form__select" placeholder=" ">
+                        <select
+                            id="groupBy"
+                            wire:model="groupBy"
+                            class="form__select"
+                            placeholder=" "
+                        >
                             <option value="none">None</option>
                             <option value="user_session">User Session</option>
                             <option value="user_ip">User IP</option>
                             <option value="user">User</option>
                         </select>
-                        <label class="form__label form__label--floating" for="groupBy">Group By</label>
+                        <label class="form__label form__label--floating" for="groupBy">
+                            Group By
+                        </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input wire:model="duplicateIpsOnly" type="checkbox" class="form__checkbox">
+                            <input
+                                wire:model="duplicateIpsOnly"
+                                type="checkbox"
+                                class="form__checkbox"
+                            />
                             Duplicate Ips Only
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input wire:model="includeSeedsize" type="checkbox" class="form__checkbox">
+                            <input
+                                wire:model="includeSeedsize"
+                                type="checkbox"
+                                class="form__checkbox"
+                            />
                             Include Seedsize
                         </label>
                     </p>
@@ -65,9 +99,7 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Peers</h2>
-        <div class="panel__body" wire:loading.block>
-            Loading...
-        </div>
+        <div class="panel__body" wire:loading.block>Loading...</div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -77,11 +109,16 @@
                             @include('livewire.includes._sort-icon', ['field' => 'peers.user_id'])
                         </th>
                         @if ($groupBy !== 'none')
-                            <th wire:click="sortBy('peer_count')" role="columnheader button" style="text-align: right">
+                            <th
+                                wire:click="sortBy('peer_count')"
+                                role="columnheader button"
+                                style="text-align: right"
+                            >
                                 {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'peer_count'])
                             </th>
                         @endif
+
                         <th wire:click="sortBy('torrent_id')" role="columnheader button">
                             @if ($groupBy === 'none')
                                 {{ __('torrent.torrent') }}
@@ -98,7 +135,11 @@
                             @endif
                             @include('livewire.includes._sort-icon', ['field' => 'agent'])
                         </th>
-                        <th wire:click="sortBy('ip')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('ip')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             @if ($groupBy === 'none' || $groupBy === 'user_ip' || $groupBy === 'user_session')
                                 IP
                             @else
@@ -106,7 +147,11 @@
                             @endif
                             @include('livewire.includes._sort-icon', ['field' => 'ip'])
                         </th>
-                        <th wire:click="sortBy('port')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('port')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             @if ($groupBy === 'user_ip' || $groupBy === 'user')
                                 Ports
                             @else
@@ -114,21 +159,38 @@
                             @endif
                             @include('livewire.includes._sort-icon', ['field' => 'port'])
                         </th>
-                        <th wire:click="sortBy('uploaded')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('uploaded')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             {{ __('torrent.uploaded') }}
                             @include('livewire.includes._sort-icon', ['field' => 'uploaded'])
                         </th>
-                        <th wire:click="sortBy('downloaded')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('downloaded')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             {{ __('torrent.downloaded') }}
                             @include('livewire.includes._sort-icon', ['field' => 'downloaded'])
                         </th>
-                        <th wire:click="sortBy('left')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('left')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             {{ __('torrent.left') }}
                             @include('livewire.includes._sort-icon', ['field' => 'left'])
                         </th>
                         @if ($groupBy === 'none')
                             @if ($includeSeedsize)
-                                <th wire:click="sortBy('size')" wire:key="size" role="columnheader button" style="text-align: right">
+                                <th
+                                    wire:click="sortBy('size')"
+                                    wire:key="size"
+                                    role="columnheader button"
+                                    style="text-align: right"
+                                >
                                     {{ __('torrent.size') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'size'])
                                 </th>
@@ -137,16 +199,28 @@
                             @endif
                         @else
                             @if ($includeSeedsize)
-                                <th wire:click="sortBy('size')" role="columnheader button" style="text-align: right">
+                                <th
+                                    wire:click="sortBy('size')"
+                                    role="columnheader button"
+                                    style="text-align: right"
+                                >
                                     {{ __('torrent.size') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'size'])
                                 </th>
                                 @if (\config('announce.connectable_check'))
-                                    <th wire:click="sortBy('connectable_size')" role="columnheader button" style="text-align: right">
+                                    <th
+                                        wire:click="sortBy('connectable_size')"
+                                        role="columnheader button"
+                                        style="text-align: right"
+                                    >
                                         Connectable {{ __('torrent.size') }}
                                         @include('livewire.includes._sort-icon', ['field' => 'connectable_size'])
                                     </th>
-                                    <th wire:click="sortBy('unconnectable_size')" role="columnheader button" style="text-align: right">
+                                    <th
+                                        wire:click="sortBy('unconnectable_size')"
+                                        role="columnheader button"
+                                        style="text-align: right"
+                                    >
                                         Unconnectable {{ __('torrent.size') }}
                                         @include('livewire.includes._sort-icon', ['field' => 'unconnectable_size'])
                                     </th>
@@ -155,41 +229,74 @@
                         @endif
                         @if (\config('announce.connectable_check'))
                             @if ($groupBy === 'none')
-                                <th wire:click="sortBy('connectable')" role="columnheader button" style="text-align: right">
+                                <th
+                                    wire:click="sortBy('connectable')"
+                                    role="columnheader button"
+                                    style="text-align: right"
+                                >
                                     Connectable
                                     @include('livewire.includes._sort-icon', ['field' => 'connectable'])
                                 </th>
                             @else
-                                <th wire:click="sortBy('connectable_count')" role="columnheader button" style="text-align: right">
+                                <th
+                                    wire:click="sortBy('connectable_count')"
+                                    role="columnheader button"
+                                    style="text-align: right"
+                                >
                                     Connectable {{ __('torrent.peers') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'connectable_count'])
                                 </th>
-                                <th wire:click="sortBy('unconnectable_count')" role="columnheader button" style="text-align: right">
+                                <th
+                                    wire:click="sortBy('unconnectable_count')"
+                                    role="columnheader button"
+                                    style="text-align: right"
+                                >
                                     Unconnectable {{ __('torrent.peers') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'unconnectable_count'])
                                 </th>
                             @endif
                         @endif
+
                         @if ($groupBy === 'none')
-                            <th wire:click="sortBy('active')" role="columnheader button" style="text-align: right">
+                            <th
+                                wire:click="sortBy('active')"
+                                role="columnheader button"
+                                style="text-align: right"
+                            >
                                 {{ __('common.active') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'active'])
                             </th>
                         @else
-                            <th wire:click="sortBy('active_count')" role="columnheader button" style="text-align: right">
+                            <th
+                                wire:click="sortBy('active_count')"
+                                role="columnheader button"
+                                style="text-align: right"
+                            >
                                 {{ __('common.active') }} {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'active_count'])
                             </th>
-                            <th wire:click="sortBy('inactive_count')" role="columnheader button" style="text-align: right">
+                            <th
+                                wire:click="sortBy('inactive_count')"
+                                role="columnheader button"
+                                style="text-align: right"
+                            >
                                 Inactive {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
                             </th>
                         @endif
-                        <th wire:click="sortBy('created_at')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('created_at')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             Started
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </th>
-                        <th wire:click="sortBy('updated_at')" role="columnheader button" style="text-align: right">
+                        <th
+                            wire:click="sortBy('updated_at')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
                             Announced
                             @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
                         </th>
@@ -206,9 +313,12 @@
                                     {{ $peer->peer_count }}
                                 </td>
                             @endif
+
                             @if ($groupBy === 'none')
                                 <td>
-                                    <a href="{{ route('torrents.show', ['id' => $peer->torrent_id]) }}">
+                                    <a
+                                        href="{{ route('torrents.show', ['id' => $peer->torrent_id]) }}"
+                                    >
                                         {{ $peer->torrent->name ?? '' }}
                                     </a>
                                 </td>
@@ -217,6 +327,7 @@
                                     {{ $peer->torrent_id }}
                                 </td>
                             @endif
+
                             @if ($groupBy === 'none' || $groupBy === 'user_session')
                                 <td>{{ $peer->agent }}</td>
                             @else
@@ -262,22 +373,39 @@
                                 @if ($groupBy === 'none')
                                     <td style="text-align: right">
                                         @if ($peer->connectable)
-                                            <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Connectable"></i>
+                                            <i
+                                                class="{{ config('other.font-awesome') }} text-green fa-check"
+                                                title="Connectable"
+                                            ></i>
                                         @else
-                                            <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Not Connectable"></i>
+                                            <i
+                                                class="{{ config('other.font-awesome') }} text-red fa-times"
+                                                title="Not Connectable"
+                                            ></i>
                                         @endif
                                     </td>
                                 @else
-                                    <td style="text-align: right">{{ $peer->connectable_count }}</td>
-                                    <td style="text-align: right">{{ $peer->unconnectable_count }}</td>
+                                    <td style="text-align: right">
+                                        {{ $peer->connectable_count }}
+                                    </td>
+                                    <td style="text-align: right">
+                                        {{ $peer->unconnectable_count }}
+                                    </td>
                                 @endif
                             @endif
+
                             @if ($groupBy === 'none')
                                 <td style="text-align: right">
                                     @if ($peer->active)
-                                        <i class="{{ config('other.font-awesome') }} text-green fa-check" title="Active"></i>
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                            title="Active"
+                                        ></i>
                                     @else
-                                        <i class="{{ config('other.font-awesome') }} text-red fa-times" title="Inactive"></i>
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-times"
+                                            title="Inactive"
+                                        ></i>
                                     @endif
                                 </td>
                             @else
@@ -285,12 +413,18 @@
                                 <td style="text-align: right">{{ $peer->inactive_count }}</td>
                             @endif
                             <td style="text-align: right">
-                                <time datetime="{{ $peer->created_at }}" title="{{ $peer->created_at }}">
+                                <time
+                                    datetime="{{ $peer->created_at }}"
+                                    title="{{ $peer->created_at }}"
+                                >
                                     {{ $peer->created_at?->diffForHumans() ?? 'N/A' }}
                                 </time>
                             </td>
                             <td style="text-align: right">
-                                <time datetime="{{ $peer->updated_at }}" title="{{ $peer->updated_at }}">
+                                <time
+                                    datetime="{{ $peer->updated_at }}"
+                                    title="{{ $peer->updated_at }}"
+                                >
                                     {{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}
                                 </time>
                             </td>

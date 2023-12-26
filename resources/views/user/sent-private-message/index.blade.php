@@ -2,7 +2,10 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.sent_messages.index', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.sent_messages.index', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('pm.messages') }}
         </a>
     </li>
@@ -56,12 +59,17 @@
                                 <x-user_tag :user="$pm->receiver" :anon="false" />
                             </td>
                             <td>
-                                <a href="{{ route('users.sent_messages.show', ['user' => $user, 'sentPrivateMessage' => $pm]) }}">
+                                <a
+                                    href="{{ route('users.sent_messages.show', ['user' => $user, 'sentPrivateMessage' => $pm]) }}"
+                                >
                                     {{ $pm->subject }}
                                 </a>
                             </td>
                             <td>
-                                <time datetime="{{ $pm->created_at }}" title="{{ $pm->created_at }}">
+                                <time
+                                    datetime="{{ $pm->created_at }}"
+                                    title="{{ $pm->created_at }}"
+                                >
                                     {{ $pm->created_at->diffForHumans() }}
                                 </time>
                             </td>

@@ -38,7 +38,7 @@
                             required
                             type="text"
                             value="{{ $title ?: old('name') }}"
-                        >
+                        />
                         <label class="form__label form__label--floating" for="title">
                             {{ __('request.title') }}
                         </label>
@@ -54,7 +54,11 @@
                         >
                             <option hidden selected disabled value=""></option>
                             @foreach ($categories as $id => $category)
-                                <option class="form__option" value="{{ $id }}" @selected((old('category_id') ?: $category_id) ==  $id)>
+                                <option
+                                    class="form__option"
+                                    value="{{ $id }}"
+                                    @selected((old('category_id') ?: $category_id) == $id)
+                                >
                                     {{ $category['name'] }}
                                 </option>
                             @endforeach
@@ -64,15 +68,13 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select
-                            id="type_id"
-                            class="form__select"
-                            name="type_id"
-                            required
-                        >
+                        <select id="type_id" class="form__select" name="type_id" required>
                             <option hidden disabled selected value=""></option>
                             @foreach ($types as $type)
-                                <option value="{{ $type->id }}" @selected(old('type_id')==$type->id)>
+                                <option
+                                    value="{{ $type->id }}"
+                                    @selected(old('type_id') == $type->id)
+                                >
                                     {{ $type->name }}
                                 </option>
                             @endforeach
@@ -90,7 +92,10 @@
                         >
                             <option hidden disabled selected value=""></option>
                             @foreach ($resolutions as $resolution)
-                                <option value="{{ $resolution->id }}" @selected(old('resolution_id')==$resolution->id)>
+                                <option
+                                    value="{{ $resolution->id }}"
+                                    @selected(old('resolution_id') == $resolution->id)
+                                >
                                     {{ $resolution->name }}
                                 </option>
                             @endforeach
@@ -99,8 +104,14 @@
                             {{ __('request.resolution') }}
                         </label>
                     </p>
-                    <div class="form__group--short-horizontal" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'">
-                        <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
+                    <div
+                        class="form__group--short-horizontal"
+                        x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
+                    >
+                        <p
+                            class="form__group"
+                            x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
+                        >
                             <input type="hidden" name="tmdb" value="0" />
                             <input
                                 id="autotmdb"
@@ -110,12 +121,17 @@
                                 pattern="[0-9]*"
                                 required
                                 type="text"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $tmdb ?: old('tmdb') }}' : '0'"
+                                x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '{{ $tmdb ?: old('tmdb') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                            >
-                            <label class="form__label form__label--floating" for="autotmdb">TMDB ID</label>
+                            />
+                            <label class="form__label form__label--floating" for="autotmdb">
+                                TMDB ID
+                            </label>
                         </p>
-                        <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
+                        <p
+                            class="form__group"
+                            x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
+                        >
                             <input type="hidden" name="imdb" value="0" />
                             <input
                                 id="autoimdb"
@@ -125,10 +141,12 @@
                                 pattern="[0-9]*"
                                 required
                                 type="text"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $imdb ?: old('imdb') }}' : '0'"
+                                x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '{{ $imdb ?: old('imdb') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                            >
-                            <label class="form__label form__label--floating" for="autoimdb">IMDB ID</label>
+                            />
+                            <label class="form__label form__label--floating" for="autoimdb">
+                                IMDB ID
+                            </label>
                         </p>
                         <p class="form__group" x-show="cats[cat].type === 'tv'">
                             <input type="hidden" name="tvdb" value="0" />
@@ -142,10 +160,15 @@
                                 type="text"
                                 x-bind:value="cats[cat].type === 'tv' ? '{{ $tvdb ?: old('tvdb') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'tv'"
-                            >
-                            <label class="form__label form__label--floating" for="autotvdb">TVDB ID</label>
+                            />
+                            <label class="form__label form__label--floating" for="autotvdb">
+                                TVDB ID
+                            </label>
                         </p>
-                        <p class="form__group" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
+                        <p
+                            class="form__group"
+                            x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
+                        >
                             <input type="hidden" name="mal" value="0" />
                             <input
                                 id="automal"
@@ -155,10 +178,12 @@
                                 pattern="[0-9]*"
                                 placeholder=" "
                                 type="text"
-                                x-bind:value="(cats[cat].type === 'movie' || cats[cat].type === 'tv') ? '{{ $mal ?: old('mal') }}' : '0'"
+                                x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '{{ $mal ?: old('mal') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                            >
-                            <label class="form__label form__label--floating" for="automal">MAL ID ({{ __('torrent.required-anime') }})</label>
+                            />
+                            <label class="form__label form__label--floating" for="automal">
+                                MAL ID ({{ __('torrent.required-anime') }})
+                            </label>
                         </p>
                         <p class="form__group" x-show="cats[cat].type === 'game'">
                             <input
@@ -171,7 +196,7 @@
                                 type="text"
                                 x-bind:value="cats[cat].type === 'game' ? '{{ $igdb ?: old('igdb') }}' : '0'"
                                 x-bind:required="cats[cat].type === 'game'"
-                            >
+                            />
                             <label class="form__label form__label--floating" for="igdb">
                                 IGDB ID ({{ __('request.required') }} For Games)
                             </label>
@@ -190,13 +215,14 @@
                             type="text"
                             pattern="[0-9]*?[1-9][0-9]{2,}"
                             value="100"
-                            required>
+                            required
+                        />
                         <label class="form__label form__label--floating" for="bounty">
                             {{ __('request.reward') }} ({{ __('request.reward-desc') }})
                         </label>
                     </p>
                     <p class="form__group">
-                        <input type="hidden" name="anon" value="0">
+                        <input type="hidden" name="anon" value="0" />
                         <input
                             type="checkbox"
                             class="form__checkbox"
@@ -204,7 +230,7 @@
                             name="anon"
                             value="1"
                             @checked(old('anon'))
-                        >
+                        />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group">

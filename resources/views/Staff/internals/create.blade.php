@@ -7,9 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">
-            Internals
-        </a>
+        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
     </li>
     <li class="breadcrumb--active">
         {{ __('common.new-adj') }}
@@ -22,16 +20,15 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.add') }} Internal Group</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.internals.store') }}" enctype="multipart/form-data">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('staff.internals.store') }}"
+                enctype="multipart/form-data"
+            >
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        name="name"
-                        required
-                        type="text"
-                    >
+                    <input id="name" class="form__text" name="name" required type="text" />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -44,10 +41,8 @@
                         required
                         type="text"
                         value="fa-magic"
-                    >
-                    <label class="form__label form__label--floating" for="icon">
-                        Icon
-                    </label>
+                    />
+                    <label class="form__label form__label--floating" for="icon">Icon</label>
                 </p>
                 <p class="form__group">
                     <input
@@ -57,10 +52,8 @@
                         required
                         type="text"
                         value="none"
-                    >
-                    <label class="form__label form__label--floating" for="effect">
-                        Effect
-                    </label>
+                    />
+                    <label class="form__label form__label--floating" for="effect">Effect</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

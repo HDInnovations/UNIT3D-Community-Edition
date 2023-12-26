@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forums - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Forums - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -32,73 +32,29 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.name') }}</th>
-                    <th>Type</th>
-                    <th>{{ __('common.position') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.name') }}</th>
+                        <th>Type</th>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($categories as $category)
-                    <tr>
-                        <td>
-                            <a href="{{ route('staff.forums.edit', ['forum' => $category]) }}">{{ $category->name }}</a>
-                        </td>
-                        <td>Category</td>
-                        <td>{{ $category->position }}</td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        class="form__button form__button--text"
-                                        href="{{ route('staff.forums.edit', ['forum' => $category]) }}"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <form
-                                        method="POST"
-                                        action="{{ route('staff.forums.destroy', ['forum' => $category]) }}"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this forum category: ${atob('{{ base64_encode($category->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
-                                            class="form__button form__button--text"
-                                        >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                    @foreach ($category->forums as $forum)
+                    @foreach ($categories as $category)
                         <tr>
-                            <td style="padding-left: 50px">
-                                <a href="{{ route('staff.forums.edit', ['forum' => $forum]) }}">{{ $forum->name }}</a>
+                            <td>
+                                <a href="{{ route('staff.forums.edit', ['forum' => $category]) }}">
+                                    {{ $category->name }}
+                                </a>
                             </td>
-                            <td>Forum</td>
-                            <td>{{ $forum->position }}</td>
+                            <td>Category</td>
+                            <td>{{ $category->position }}</td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
+                                            href="{{ route('staff.forums.edit', ['forum' => $category]) }}"
                                         >
                                             {{ __('common.edit') }}
                                         </a>
@@ -106,23 +62,27 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.forums.destroy', ['forum' => $forum]) }}"
+                                            action="{{ route('staff.forums.destroy', ['forum' => $category]) }}"
                                             x-data
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this forum: ${atob('{{ base64_encode($forum->name) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this forum category: ${atob(
+                                                            '{{ base64_encode($category->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
@@ -132,8 +92,62 @@
                                 </menu>
                             </td>
                         </tr>
+                        @foreach ($category->forums as $forum)
+                            <tr>
+                                <td style="padding-left: 50px">
+                                    <a
+                                        href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
+                                    >
+                                        {{ $forum->name }}
+                                    </a>
+                                </td>
+                                <td>Forum</td>
+                                <td>{{ $forum->position }}</td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <a
+                                                class="form__button form__button--text"
+                                                href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
+                                            >
+                                                {{ __('common.edit') }}
+                                            </a>
+                                        </li>
+                                        <li class="data-table__action">
+                                            <form
+                                                method="POST"
+                                                action="{{ route('staff.forums.destroy', ['forum' => $forum]) }}"
+                                                x-data
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    x-on:click.prevent="
+                                                        Swal.fire({
+                                                            title: 'Are you sure?',
+                                                            text: `Are you sure you want to delete this forum: ${atob(
+                                                                '{{ base64_encode($forum->name) }}'
+                                                            )}?`,
+                                                            icon: 'warning',
+                                                            showConfirmButton: true,
+                                                            showCancelButton: true,
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                $root.submit();
+                                                            }
+                                                        })
+                                                    "
+                                                    class="form__button form__button--text"
+                                                >
+                                                    {{ __('common.delete') }}
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </menu>
+                                </td>
+                            </tr>
+                        @endforeach
                     @endforeach
-                @endforeach
                 </tbody>
             </table>
         </div>

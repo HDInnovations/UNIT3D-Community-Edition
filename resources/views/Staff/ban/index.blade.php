@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Bans - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Bans - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -54,21 +54,25 @@
                             <td>{{ $ban->ban_reason }}</td>
                             <td>{{ $ban->unban_reason }}</td>
                             <td>
-                                <time datetime="{{ $ban->created_at }}" title="{{ $ban->created_at }}">
+                                <time
+                                    datetime="{{ $ban->created_at }}"
+                                    title="{{ $ban->created_at }}"
+                                >
                                     {{ $ban->created_at }}
                                 </time>
                             </td>
                             <td>
-                                <time datetime="{{ $ban->removed_at }}" title="{{ $ban->removed_at }}">
+                                <time
+                                    datetime="{{ $ban->removed_at }}"
+                                    title="{{ $ban->removed_at }}"
+                                >
                                     {{ $ban->removed_at }}
                                 </time>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7">
-                                No bans
-                            </td>
+                            <td colspan="7">No bans</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('forum.display-forum') }}">
+    <meta name="description" content="{{ __('forum.display-forum') }}" />
 @endsection
 
 @section('breadcrumbs')

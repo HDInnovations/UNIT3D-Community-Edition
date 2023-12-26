@@ -1,22 +1,48 @@
 <section class="panelV2">
     <h2 class="panel__heading">
-        <i class="{{ config("other.font-awesome") }} fa-hammer-war"></i> {{ __('torrent.moderation') }}
+        <i class="{{ config('other.font-awesome') }} fa-hammer-war"></i>
+        {{ __('torrent.moderation') }}
     </h2>
     <div class="panel__body">
-        <menu style="display: flex; justify-content: space-between; padding: 0; margin: 0; list-style-type: none; flex-wrap: wrap">
+        <menu
+            style="
+                display: flex;
+                justify-content: space-between;
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+                flex-wrap: wrap;
+            "
+        >
             @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <li>
-                    <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; flex-wrap: wrap;">
+                    <menu
+                        style="
+                            display: flex;
+                            list-style-type: none;
+                            margin: 0;
+                            padding: 0;
+                            flex-wrap: wrap;
+                        "
+                    >
                         <li>
-                            <a class="form__button form__button--outlined" href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
-                                role="button">
-                                <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> {{ __('common.edit') }}
+                            <a
+                                class="form__button form__button--outlined"
+                                href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
+                                role="button"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
+                                {{ __('common.edit') }}
                             </a>
                         </li>
-                        @if (auth()->user()->group->is_modo || ( auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
+                        @if (auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
                             <li x-data>
-                                <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
-                                    <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ __('common.delete') }}
+                                <button
+                                    class="form__button form__button--outlined"
+                                    x-on:click.stop="$refs.dialog.showModal()"
+                                >
+                                    <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                                    {{ __('common.delete') }}
                                 </button>
                                 <dialog class="dialog" x-ref="dialog">
                                     <h4 class="dialog__heading">
@@ -30,9 +56,24 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <input id="type" name="type" type="hidden" value="Torrent">
-                                        <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                                        <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
+                                        <input
+                                            id="type"
+                                            name="type"
+                                            type="hidden"
+                                            value="Torrent"
+                                        />
+                                        <input
+                                            id="id"
+                                            name="id"
+                                            type="hidden"
+                                            value="{{ $torrent->id }}"
+                                        />
+                                        <input
+                                            id="title"
+                                            name="title"
+                                            type="hidden"
+                                            value="{{ $torrent->name }}"
+                                        />
                                         <p class="form__group">
                                             <textarea
                                                 id="message"
@@ -40,7 +81,10 @@
                                                 name="message"
                                                 required
                                             ></textarea>
-                                            <label for="message" class="form__label form__label--floating">
+                                            <label
+                                                for="message"
+                                                class="form__label form__label--floating"
+                                            >
                                                 {{ __('common.reason') }}
                                             </label>
                                         </p>
@@ -48,7 +92,11 @@
                                             <button class="form__button form__button--filled">
                                                 {{ __('common.delete') }}
                                             </button>
-                                            <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                            <button
+                                                formmethod="dialog"
+                                                formnovalidate
+                                                class="form__button form__button--outlined"
+                                            >
                                                 {{ __('common.cancel') }}
                                             </button>
                                         </p>
@@ -59,16 +107,27 @@
                     </menu>
                 </li>
             @endif
+
             @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
-                <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; flex-wrap: wrap;">
+                <menu
+                    style="
+                        display: flex;
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                        flex-wrap: wrap;
+                    "
+                >
                     <li x-data>
-                        <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
-                            <i class="{{ config('other.font-awesome') }} fa-star"></i> Freeleech
+                        <button
+                            class="form__button form__button--outlined"
+                            x-on:click.stop="$refs.dialog.showModal()"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                            Freeleech
                         </button>
                         <dialog class="dialog" x-ref="dialog">
-                            <h4 class="dialog__heading">
-                                Edit Freeleech
-                            </h4>
+                            <h4 class="dialog__heading">Edit Freeleech</h4>
                             <div x-on:click.outside="$refs.dialog.close()">
                                 <form
                                     class="dialog__form"
@@ -77,14 +136,31 @@
                                 >
                                     @csrf
                                     <p class="form__group">
-                                        <select id="freeleech" name="freeleech" class="form__select">
-                                            <option value="0" @selected($torrent->free === 0)>No</option>
-                                            <option value="25" @selected($torrent->free === 25)>25%</option>
-                                            <option value="50" @selected($torrent->free === 50)>50%</option>
-                                            <option value="75" @selected($torrent->free === 75)>75%</option>
-                                            <option value="100" @selected($torrent->free === 100)>100%</option>
+                                        <select
+                                            id="freeleech"
+                                            name="freeleech"
+                                            class="form__select"
+                                        >
+                                            <option value="0" @selected($torrent->free === 0)>
+                                                No
+                                            </option>
+                                            <option value="25" @selected($torrent->free === 25)>
+                                                25%
+                                            </option>
+                                            <option value="50" @selected($torrent->free === 50)>
+                                                50%
+                                            </option>
+                                            <option value="75" @selected($torrent->free === 75)>
+                                                75%
+                                            </option>
+                                            <option value="100" @selected($torrent->free === 100)>
+                                                100%
+                                            </option>
                                         </select>
-                                        <label class="form__label form__label--floating" for="freeleech">
+                                        <label
+                                            class="form__label form__label--floating"
+                                            for="freeleech"
+                                        >
                                             Freeleech
                                         </label>
                                     </p>
@@ -99,7 +175,11 @@
                                             <option value="6">6 Days</option>
                                             <option value="7">7 Days</option>
                                         </select>
-                                        <label for="fl_until" class="form__label form__label--floating" for="fl_until">
+                                        <label
+                                            for="fl_until"
+                                            class="form__label form__label--floating"
+                                            for="fl_until"
+                                        >
                                             Buff Time
                                         </label>
                                     </p>
@@ -107,7 +187,11 @@
                                         <button class="form__button form__button--filled">
                                             {{ __('common.save') }}
                                         </button>
-                                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                        <button
+                                            formmethod="dialog"
+                                            formnovalidate
+                                            class="form__button form__button--outlined"
+                                        >
                                             {{ __('common.cancel') }}
                                         </button>
                                     </p>
@@ -116,13 +200,15 @@
                         </dialog>
                     </li>
                     <li x-data>
-                        <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
-                            <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> Double Upload
+                        <button
+                            class="form__button form__button--outlined"
+                            x-on:click.stop="$refs.dialog.showModal()"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i>
+                            Double Upload
                         </button>
                         <dialog class="dialog" x-ref="dialog">
-                            <h4 class="dialog__heading">
-                                Edit Double Upload
-                            </h4>
+                            <h4 class="dialog__heading">Edit Double Upload</h4>
                             <div x-on:click.outside="$refs.dialog.close()">
                                 <form
                                     class="dialog__form"
@@ -141,7 +227,10 @@
                                             <option value="6">6 Days</option>
                                             <option value="7">7 Days</option>
                                         </select>
-                                        <label class="form__label form__label--floating" for="du_until">
+                                        <label
+                                            class="form__label form__label--floating"
+                                            for="du_until"
+                                        >
                                             Buff Time
                                         </label>
                                     </p>
@@ -149,7 +238,11 @@
                                         <button class="form__button form__button--filled">
                                             {{ __('common.save') }}
                                         </button>
-                                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                        <button
+                                            formmethod="dialog"
+                                            formnovalidate
+                                            class="form__button form__button--outlined"
+                                        >
                                             {{ __('common.cancel') }}
                                         </button>
                                     </p>
@@ -159,21 +252,27 @@
                     </li>
                     <li>
                         @if ($torrent->refundable == 0)
-                            <form action="{{ route('refundable', ['id' => $torrent->id]) }}"
-                                  method="POST"
-                                  style="display: inline;">
+                            <form
+                                action="{{ route('refundable', ['id' => $torrent->id]) }}"
+                                method="POST"
+                                style="display: inline"
+                            >
                                 @csrf
                                 <button type="submit" class="form__button form__button--outlined">
-                                    <i class="{{ config('other.font-awesome') }} fa-repeat"></i> {{ __('torrent.refundable') }}
+                                    <i class="{{ config('other.font-awesome') }} fa-repeat"></i>
+                                    {{ __('torrent.refundable') }}
                                 </button>
                             </form>
                         @else
-                            <form action="{{ route('refundable', ['id' => $torrent->id]) }}"
-                                  method="POST"
-                                  style="display: inline;">
+                            <form
+                                action="{{ route('refundable', ['id' => $torrent->id]) }}"
+                                method="POST"
+                                style="display: inline"
+                            >
                                 @csrf
                                 <button type="submit" class="form__button form__button--outlined">
-                                    <i class="{{ config('other.font-awesome') }} fa-repeat"></i> {{ __('torrent.revoke') }} {{ __('torrent.refundable') }}
+                                    <i class="{{ config('other.font-awesome') }} fa-repeat"></i>
+                                    {{ __('torrent.revoke') }} {{ __('torrent.refundable') }}
                                 </button>
                             </form>
                         @endif
@@ -183,22 +282,24 @@
                             <form
                                 action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                 method="POST"
-                                style="display: inline;"
+                                style="display: inline"
                             >
                                 @csrf
                                 <button class="form__button form__button--outlined">
-                                    <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> {{ __('torrent.sticky') }}
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i>
+                                    {{ __('torrent.sticky') }}
                                 </button>
                             </form>
                         @else
                             <form
                                 action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                 method="POST"
-                                style="display: inline;"
+                                style="display: inline"
                             >
                                 @csrf
                                 <button class="form__button form__button--outlined">
-                                    <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> {{ __('torrent.unsticky') }}
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i>
+                                    {{ __('torrent.unsticky') }}
                                 </button>
                             </form>
                         @endif
@@ -207,11 +308,12 @@
                         <form
                             action="{{ route('bumpTorrent', ['id' => $torrent->id]) }}"
                             method="POST"
-                            style="display: inline;"
+                            style="display: inline"
                         >
                             @csrf
                             <button class="form__button form__button--outlined">
-                                <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> {{ __('torrent.bump') }}
+                                <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i>
+                                {{ __('torrent.bump') }}
                             </button>
                         </form>
                     </li>
@@ -220,48 +322,81 @@
                             <form
                                 method="POST"
                                 action="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
-                                style="display: inline-block;"
+                                style="display: inline-block"
                             >
                                 @csrf
                                 <button class="form__button form__button--outlined">
-                                    <i class='{{ config('other.font-awesome') }} fa-certificate'></i> {{ __('torrent.feature') }}
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-certificate"
+                                    ></i>
+                                    {{ __('torrent.feature') }}
                                 </button>
                             </form>
                         @else
                             <form
                                 method="POST"
                                 action="{{ route('torrent_revokefeature', ['id' => $torrent->id]) }}"
-                                style="display: inline-block;"
+                                style="display: inline-block"
                             >
                                 @csrf
                                 <button class="form__button form__button--outlined">
-                                    <i class='{{ config('other.font-awesome') }} fa-certificate'></i> {{ __('torrent.revokefeatured') }}
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-certificate"
+                                    ></i>
+                                    {{ __('torrent.revokefeatured') }}
                                 </button>
                             </form>
                         @endif
                     </li>
                 </menu>
             @endif
+
             @if (auth()->user()->group->is_modo)
-                <menu style="display: flex; list-style-type: none; margin: 0; padding: 0; align-items: center; flex-wrap: wrap;">
+                <menu
+                    style="
+                        display: flex;
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                        align-items: center;
+                        flex-wrap: wrap;
+                    "
+                >
                     @if ($torrent->status !== \App\Models\Torrent::APPROVED)
                         <li>
-                            <form role="form" method="POST"
-                                    action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-                                    style="display: inline-block;">
+                            <form
+                                role="form"
+                                method="POST"
+                                action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
+                                style="display: inline-block"
+                            >
                                 @csrf
-                                <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                <input type="hidden" name="status" value="{{ \App\Models\Torrent::APPROVED }}">
+                                <input
+                                    type="hidden"
+                                    name="old_status"
+                                    value="{{ $torrent->status }}"
+                                />
+                                <input
+                                    type="hidden"
+                                    name="status"
+                                    value="{{ \App\Models\Torrent::APPROVED }}"
+                                />
                                 <button class="form__button form__button--outlined">
-                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> {{ __('common.moderation-approve') }}
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
+                                    {{ __('common.moderation-approve') }}
                                 </button>
                             </form>
                         </li>
                     @endif
+
                     @if ($torrent->status !== \App\Models\Torrent::POSTPONED)
                         <li x-data>
-                            <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
-                                <i class="{{ config('other.font-awesome') }} fa-pause"></i> {{ __('common.moderation-postpone') }}
+                            <button
+                                class="form__button form__button--outlined"
+                                x-on:click.stop="$refs.dialog.showModal()"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-pause"></i>
+                                {{ __('common.moderation-postpone') }}
                             </button>
                             <dialog class="dialog" x-ref="dialog">
                                 <h4 class="dialog__heading">
@@ -274,10 +409,28 @@
                                     x-on:click.outside="$refs.dialog.close()"
                                 >
                                     @csrf
-                                    <input id="type" name="type" type="hidden" value="{{ __('torrent.torrent') }}">
-                                    <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                                    <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                    <input type="hidden" name="status" value="{{ \App\Models\Torrent::POSTPONED }}">
+                                    <input
+                                        id="type"
+                                        name="type"
+                                        type="hidden"
+                                        value="{{ __('torrent.torrent') }}"
+                                    />
+                                    <input
+                                        id="id"
+                                        name="id"
+                                        type="hidden"
+                                        value="{{ $torrent->id }}"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="old_status"
+                                        value="{{ $torrent->status }}"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="{{ \App\Models\Torrent::POSTPONED }}"
+                                    />
                                     <p class="form__group">
                                         <textarea
                                             id="message"
@@ -285,7 +438,10 @@
                                             name="message"
                                             required
                                         ></textarea>
-                                        <label for="report_reason" class="form__label form__label--floating">
+                                        <label
+                                            for="report_reason"
+                                            class="form__label form__label--floating"
+                                        >
                                             {{ __('common.reason') }}
                                         </label>
                                     </p>
@@ -293,7 +449,11 @@
                                         <button class="form__button form__button--filled">
                                             {{ __('common.moderation-postpone') }}
                                         </button>
-                                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                        <button
+                                            formmethod="dialog"
+                                            formnovalidate
+                                            class="form__button form__button--outlined"
+                                        >
                                             {{ __('common.cancel') }}
                                         </button>
                                     </p>
@@ -301,10 +461,17 @@
                             </dialog>
                         </li>
                     @endif
+
                     @if ($torrent->status !== \App\Models\Torrent::REJECTED)
                         <li x-data>
-                            <button class="form__button form__button--outlined" x-on:click.stop="$refs.dialog.showModal()">
-                                <i class="{{ config('other.font-awesome') }} fa-fw fa-thumbs-down"></i> {{ __('common.moderation-reject') }}
+                            <button
+                                class="form__button form__button--outlined"
+                                x-on:click.stop="$refs.dialog.showModal()"
+                            >
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-fw fa-thumbs-down"
+                                ></i>
+                                {{ __('common.moderation-reject') }}
                             </button>
                             <dialog class="dialog" x-ref="dialog">
                                 <h4 class="dialog__heading">
@@ -317,10 +484,28 @@
                                     x-on:click.outside="$refs.dialog.close()"
                                 >
                                     @csrf
-                                    <input id="type" name="type" type="hidden" value="{{ __('torrent.torrent') }}">
-                                    <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
-                                    <input type="hidden" name="old_status" value="{{ $torrent->status }}">
-                                    <input type="hidden" name="status" value="{{ \App\Models\Torrent::REJECTED }}">
+                                    <input
+                                        id="type"
+                                        name="type"
+                                        type="hidden"
+                                        value="{{ __('torrent.torrent') }}"
+                                    />
+                                    <input
+                                        id="id"
+                                        name="id"
+                                        type="hidden"
+                                        value="{{ $torrent->id }}"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="old_status"
+                                        value="{{ $torrent->status }}"
+                                    />
+                                    <input
+                                        type="hidden"
+                                        name="status"
+                                        value="{{ \App\Models\Torrent::REJECTED }}"
+                                    />
                                     <p class="form__group">
                                         <textarea
                                             id="message"
@@ -328,7 +513,10 @@
                                             name="message"
                                             required
                                         ></textarea>
-                                        <label for="report_reason" class="form__label form__label--floating">
+                                        <label
+                                            for="report_reason"
+                                            class="form__label form__label--floating"
+                                        >
                                             {{ __('common.reason') }}
                                         </label>
                                     </p>
@@ -336,7 +524,11 @@
                                         <button class="form__button form__button--filled">
                                             {{ __('common.moderation-reject') }}
                                         </button>
-                                        <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                        <button
+                                            formmethod="dialog"
+                                            formnovalidate
+                                            class="form__button form__button--outlined"
+                                        >
                                             {{ __('common.cancel') }}
                                         </button>
                                     </p>
@@ -344,16 +536,23 @@
                             </dialog>
                         </li>
                     @endif
+
                     <li>
-                        @switch ($torrent->status)
+                        @switch($torrent->status)
                             @case(\App\Models\Torrent::APPROVED)
-                                Approved By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                Approved By:
+                                <x-user_tag :user="$torrent->moderated" :anon="false" />
+
                                 @break
                             @case(\App\Models\Torrent::POSTPONED)
-                                Postponed By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                Postponed By:
+                                <x-user_tag :user="$torrent->moderated" :anon="false" />
+
                                 @break
                             @case(\App\Models\Torrent::REJECTED)
-                                Rejected By: <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                Rejected By:
+                                <x-user_tag :user="$torrent->moderated" :anon="false" />
+
                                 @break
                             @default
                                 Unmoderated
