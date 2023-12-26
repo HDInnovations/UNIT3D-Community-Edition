@@ -60,6 +60,7 @@
                             <option class="form__option" value="10" @selected($user->style === 10)>Nord</option>
                             <option class="form__option" value="11" @selected($user->style === 11)>Revel (Desktop only)</option>
                             <option class="form__option" value="12" @selected($user->style === 12)>Material Design 3 Light</option>
+                            <option class="form__option" value="13" @selected($user->style === 13)>Material Design 3 Dark</option>
                         </select>
                         <label class="form__label form__label--floating" for="style">
                             Theme
