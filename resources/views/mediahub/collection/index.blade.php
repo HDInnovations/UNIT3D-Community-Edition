@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('mediahub.collections') }}">
+    <meta name="description" content="{{ __('mediahub.collections') }}" />
 @endsection
 
 @section('breadcrumbs')

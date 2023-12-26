@@ -22,7 +22,7 @@
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
         <div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>
     </section>
-    <livewire:comments :model="$ticket"/>
+    <livewire:comments :model="$ticket" />
 @endsection
 
 @section('sidebar')
@@ -42,19 +42,22 @@
             <dt>{{ __('ticket.priority') }}</dt>
             <dd>
                 @switch($ticket->priority->name)
-                    @case ('Low')
+                    @case('Low')
                         <i class="fas fa-circle text-yellow"></i>
+
                         @break
-                    @case ('Medium')
+                    @case('Medium')
                         <i class="fas fa-circle text-orange"></i>
+
                         @break
-                    @case ('High')
+                    @case('High')
                         <i class="fas fa-circle text-red"></i>
+
                         @break
                 @endswitch
                 {{ $ticket->priority->name }}
             </dd>
-            @if (!empty($ticket->closed_at))
+            @if (! empty($ticket->closed_at))
                 <dt>{{ __('ticket.closed') }}</dt>
                 <dd>
                     <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
@@ -67,7 +70,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
-            @if($user->group->is_modo)
+            @if ($user->group->is_modo)
                 <form
                     class="form form--horizontal"
                     action="{{ route('tickets.assignee.store', ['ticket' => $ticket]) }}"
@@ -76,18 +79,28 @@
                 >
                     @csrf
                     <p class="form__group">
-                        <select id="staff_id" name="staff_id" class="form__select" x-on:change="$root.submit()">
+                        <select
+                            id="staff_id"
+                            name="staff_id"
+                            class="form__select"
+                            x-on:change="$root.submit()"
+                        >
                             <option hidden disabled selected value=""></option>
-                            @foreach(App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
-                                <option value="{{ $user->id }}" @selected($user->id === $ticket->staff_id)>
+                            @foreach (App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
+                                <option
+                                    value="{{ $user->id }}"
+                                    @selected($user->id === $ticket->staff_id)
+                                >
                                     {{ $user->username }}
                                 </option>
                             @endforeach
                         </select>
-                        <label class="form__label form__label--floating" for="staff_id">{{ __('ticket.assign') }}</label>
+                        <label class="form__label form__label--floating" for="staff_id">
+                            {{ __('ticket.assign') }}
+                        </label>
                     </p>
                 </form>
-                @if(! empty($ticket->staff_id))
+                @if (! empty($ticket->staff_id))
                     <form
                         action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
                         method="POST"
@@ -95,16 +108,16 @@
                         @csrf
                         @method('DELETE')
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled form__button--centered">
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                            >
                                 {{ __('ticket.unassign') }}
                             </button>
                         </p>
                     </form>
                 @endif
-                <form
-                    action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}"
-                    method="POST"
-                >
+
+                <form action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
@@ -114,11 +127,9 @@
                     </p>
                 </form>
             @endif
-            @if(empty($ticket->closed_at))
-                <form
-                    action="{{ route('tickets.close', ['ticket' => $ticket]) }}"
-                    method="POST"
-                >
+
+            @if (empty($ticket->closed_at))
+                <form action="{{ route('tickets.close', ['ticket' => $ticket]) }}" method="POST">
                     <p class="form__group form__group--horizontal">
                         @csrf
                         <button class="form__button form__button--filled form__button--centered">
@@ -146,14 +157,17 @@
                             <tr>
                                 <td>
                                     @switch($ticket->priority->name)
-                                        @case ('Low')
+                                        @case('Low')
                                             <i class="fas fa-circle text-yellow"></i>
+
                                             @break
-                                        @case ('Medium')
+                                        @case('Medium')
                                             <i class="fas fa-circle text-orange"></i>
+
                                             @break
-                                        @case ('High')
+                                        @case('High')
                                             <i class="fas fa-circle text-red"></i>
+
                                             @break
                                     @endswitch
                                     <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">

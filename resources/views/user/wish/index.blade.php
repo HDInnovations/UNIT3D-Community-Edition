@@ -31,16 +31,8 @@
                 >
                     @csrf
                     <div class="form__group">
-                        <input
-                            id="tmdb"
-                            class="form__text"
-                            name="tmdb"
-                            required
-                            type="text"
-                        />
-                        <label class="form__label form__label--floating" for="tmdb">
-                            TMDB ID
-                        </label>
+                        <input id="tmdb" class="form__text" name="tmdb" required type="text" />
+                        <label class="form__label form__label--floating" for="tmdb">TMDB ID</label>
                     </div>
                     <button class="form__button form__button--text">
                         {{ __('common.add') }}
@@ -69,15 +61,22 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('torrents.index', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
+                                <a
+                                    href="{{ route('torrents.index', ['tmdbId' => $wish->tmdb]) }}"
+                                    target="_blank"
+                                >
                                     Torrents
                                 </a>
                             </td>
                             <td>
                                 @if ($wish->source === null)
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
@@ -91,17 +90,21 @@
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this wish: ${atob('{{ base64_encode($wish->title) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this wish: ${atob(
+                                                            '{{ base64_encode($wish->title) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

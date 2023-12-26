@@ -27,6 +27,7 @@
                 <div class="panel__heading">
                     <div class="text-center">
                         <h2>{{ $user->username }}</h2>
+
                         @if ($user->ratio < config('other.ratio') || $user->can_download == 0)
                             <h4>{{ __('torrent.no-privileges') }}</h4>
                         @else
@@ -42,32 +43,44 @@
                 </div>
                 <div class="text-center">
                     <h3 class="movie-title">
-                        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
-                           title="{{ $torrent->name }}">{{ $torrent->name }}</a>
+                        <a
+                            href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
+                            title="{{ $torrent->name }}"
+                        >
+                            {{ $torrent->name }}
+                        </a>
                     </h3>
                     <ul class="list-inline">
-                        <span class="badge-extra text-blue"><i
-                                    class="{{ config('other.font-awesome') }} fa-database"></i>
-                            <strong>{{ __('torrent.size') }}
-                                : </strong> {{ $torrent->getSize() }}</span>
-                        <span class="badge-extra text-blue"><i
-                                    class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
-                            <strong>{{ __('torrent.released') }}
-                                : </strong> {{ $torrent->created_at->diffForHumans() }}</span>
+                        <span class="badge-extra text-blue">
+                            <i class="{{ config('other.font-awesome') }} fa-database"></i>
+                            <strong>{{ __('torrent.size') }} :</strong>
+                            {{ $torrent->getSize() }}
+                        </span>
+                        <span class="badge-extra text-blue">
+                            <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
+                            <strong>{{ __('torrent.released') }} :</strong>
+                            {{ $torrent->created_at->diffForHumans() }}
+                        </span>
                         <span class="badge-extra text-green">
-                            <li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                                <strong>{{ __('torrent.seeders') }}
-                                    : </strong> {{ $torrent->seeders }}</li>
+                            <li>
+                                <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                                <strong>{{ __('torrent.seeders') }} :</strong>
+                                {{ $torrent->seeders }}
+                            </li>
                         </span>
                         <span class="badge-extra text-red">
-                            <li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                                <strong>{{ __('torrent.leechers') }}
-                                    : </strong> {{ $torrent->leechers }}</li>
+                            <li>
+                                <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                                <strong>{{ __('torrent.leechers') }} :</strong>
+                                {{ $torrent->leechers }}
+                            </li>
                         </span>
                         <span class="badge-extra text-orange">
-                            <li><i class="{{ config('other.font-awesome') }} fa-check-square"></i>
-                                <strong>{{ __('torrent.completed') }}
-                                    : </strong> {{ $torrent->times_completed }}</li>
+                            <li>
+                                <i class="{{ config('other.font-awesome') }} fa-check-square"></i>
+                                <strong>{{ __('torrent.completed') }} :</strong>
+                                {{ $torrent->times_completed }}
+                            </li>
                         </span>
                     </ul>
                 </div>
@@ -75,41 +88,67 @@
         </div>
         <div class="well">
             <div class="text-center">
-                <strong>{{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }} {{ config('other.ratio') }}
-                    : </strong>
-                @if ($user->ratio < config('other.ratio'))<span class="badge-extra text-red"><i
-                            class="{{ config('other.font-awesome') }} fa-times"></i>
-                        {{ strtoupper(__('torrent.failed')) }}</span>
-                @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
-                            {{ strtoupper(__('torrent.passed')) }}</span>
+                <strong>
+                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
+                    {{ config('other.ratio') }} :
+                </strong>
+
+                @if ($user->ratio < config('other.ratio'))
+                    <span class="badge-extra text-red">
+                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                        {{ strtoupper(__('torrent.failed')) }}
+                    </span>
+                @else
+                    <span class="badge-extra text-green">
+                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                        {{ strtoupper(__('torrent.passed')) }}
+                    </span>
                 @endif
-                <strong>{{ __('torrent.download-rights-active') }}: </strong>
-                @if ($user->can_download == 0 && $torrent->user_id != $user->id)<span class="badge-extra text-red"><i
-                            class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(__('torrent.failed')) }}</span>
-                @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
-                            {{ strtoupper(__('torrent.passed')) }}</span>
+                <strong>{{ __('torrent.download-rights-active') }}:</strong>
+
+                @if ($user->can_download == 0 && $torrent->user_id != $user->id)
+                    <span class="badge-extra text-red">
+                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                        {{ strtoupper(__('torrent.failed')) }}
+                    </span>
+                @else
+                    <span class="badge-extra text-green">
+                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                        {{ strtoupper(__('torrent.passed')) }}
+                    </span>
                 @endif
-                <strong>{{ __('torrent.moderation') }}: </strong>
-                @if ($torrent->status === \App\Models\Torrent::REJECTED)<span class="badge-extra text-red"><i
-                            class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(__('torrent.rejected')) }}</span>
-                @elseif ($torrent->status === \App\Models\Torrent::PENDING)<span class="badge-extra text-orange"><i
-                            class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(__('torrent.pending')) }}</span>
-                @else<span class="badge-extra text-green"><i class="{{ config('other.font-awesome') }} fa-check"></i>
-                            {{ strtoupper(__('torrent.approved')) }}</span>
+                <strong>{{ __('torrent.moderation') }}:</strong>
+
+                @if ($torrent->status === \App\Models\Torrent::REJECTED)
+                    <span class="badge-extra text-red">
+                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                        {{ strtoupper(__('torrent.rejected')) }}
+                    </span>
+                @elseif ($torrent->status === \App\Models\Torrent::PENDING)
+                    <span class="badge-extra text-orange">
+                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                        {{ strtoupper(__('torrent.pending')) }}
+                    </span>
+                @else
+                    <span class="badge-extra text-green">
+                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                        {{ strtoupper(__('torrent.approved')) }}
+                    </span>
                 @endif
             </div>
-            <br>
+            <br />
             <div class="text-center">
-                @if ($user->ratio < config('other.ratio') || ($user->can_download == 0 && $torrent->user_id !=
-                        $user->id))
+                @if ($user->ratio < config('other.ratio') ||
+                    ($user->can_download == 0 && $torrent->user_id != $user->id))
                     <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
                 @else
-                    <a href="{{ route('download', ['id' => $torrent->id]) }}" role="button"
-                       class="form__button form__button--filled">
-                        <i class='{{ config('other.font-awesome') }} fa-download'></i> {{ __('common.download') }}
+                    <a
+                        href="{{ route('download', ['id' => $torrent->id]) }}"
+                        role="button"
+                        class="form__button form__button--filled"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                        {{ __('common.download') }}
                     </a>
                 @endif
             </div>

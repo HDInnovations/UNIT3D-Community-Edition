@@ -42,7 +42,7 @@
                         required
                         type="text"
                         value="{{ $page->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>

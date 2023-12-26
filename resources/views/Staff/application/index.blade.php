@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Applications - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Applications - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -58,7 +58,7 @@
                             <td>
                                 <time
                                     datetime="{{ $application->created_at }}"
-                                    title={{ $application->created_at }}
+                                    title="{{ $application->created_at }}"
                                 >
                                     {{ $application->created_at->diffForHumans() }}
                                 </time>
@@ -67,12 +67,15 @@
                                 @switch($application->status)
                                     @case(\App\Models\Application::PENDING)
                                         <span class="application--pending">Pending</span>
+
                                         @break
                                     @case(\App\Models\Application::APPROVED)
                                         <span class="application--approved">Approved</span>
+
                                         @break
                                     @case(\App\Models\Application::REJECTED)
                                         <span class="application--rejected">Rejected</span>
+
                                         @break
                                     @default
                                         <span class="application--unknown">Unknown</span>
@@ -90,7 +93,8 @@
                                     <li class="data-table__action">
                                         <a
                                             class="form__button form__button--text"
-                                            href="{{ route('staff.applications.show', ['id' => $application->id]) }}">
+                                            href="{{ route('staff.applications.show', ['id' => $application->id]) }}"
+                                        >
                                             {{ __('common.view') }}
                                         </a>
                                     </li>
@@ -100,7 +104,7 @@
                     @empty
                         <tr class="applications--empty">
                             <td colspan="10">
-                                {{ __('common.no')}} {{__('staff.applications') }}
+                                {{ __('common.no') }} {{ __('staff.applications') }}
                             </td>
                         </tr>
                     @endforelse

@@ -10,9 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        History
-    </li>
+    <li class="breadcrumb--active">History</li>
 @endsection
 
 @section('page', 'page__history--index')

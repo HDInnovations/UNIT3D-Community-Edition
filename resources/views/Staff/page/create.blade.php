@@ -22,7 +22,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art',false) }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('common.new-adj') }}
             {{ __('staff.page') }}
         </h2>
@@ -30,13 +30,7 @@
             <form class="form" method="POST" action="{{ route('staff.pages.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        type="text"
-                        name="name"
-                        required
-                    >
+                    <input id="name" class="form__text" type="text" name="name" required />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('staff.page') }} {{ __('common.name') }}
                     </label>

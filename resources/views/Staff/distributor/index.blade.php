@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Torrent Distributors
-    </li>
+    <li class="breadcrumb--active">Torrent Distributors</li>
 @endsection
 
 @section('page', 'page__distributor--index')
@@ -29,45 +27,47 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse ($distributors as $distributor)
-                    <tr>
-                        <td>
-                            <a href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}">
-                                {{ $distributor->name }}
-                            </a>
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <a
-                                        href="{{ route('staff.distributors.delete', ['distributor' => $distributor]) }}"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.delete') }}
-                                    </a>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3">No distributors</td>
-                    </tr>
-                @endforelse
+                    @forelse ($distributors as $distributor)
+                        <tr>
+                            <td>
+                                <a
+                                    href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}"
+                                >
+                                    {{ $distributor->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.distributors.edit', ['distributor' => $distributor]) }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.distributors.delete', ['distributor' => $distributor]) }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.delete') }}
+                                        </a>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">No distributors</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

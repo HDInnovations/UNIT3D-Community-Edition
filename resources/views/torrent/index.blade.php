@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('torrent.torrents') }} {{ config('other.title') }}">
+    <meta name="description" content="{{ __('torrent.torrents') }} {{ config('other.title') }}" />
 @endsection
 
 @section('breadcrumbs')

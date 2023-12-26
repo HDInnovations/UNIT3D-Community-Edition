@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ config('other.title') }} - {{ __('forum.forums') }}">
+    <meta name="description" content="{{ config('other.title') }} - {{ __('forum.forums') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -24,7 +24,10 @@
     @foreach ($categories as $category)
         <section class="panelV2">
             <h2 class="panel__heading">
-                <a class="panel__header-link" href="{{ route('forums.categories.show', ['id' => $category->id]) }}">
+                <a
+                    class="panel__header-link"
+                    href="{{ route('forums.categories.show', ['id' => $category->id]) }}"
+                >
                     {{ $category->name }}
                 </a>
             </h2>
@@ -37,9 +40,7 @@
                     @endforeach
                 </ul>
             @else
-                <div class="panel__body">
-                    No forums in category.
-                </div>
+                <div class="panel__body">No forums in category.</div>
             @endif
         </section>
     @endforeach

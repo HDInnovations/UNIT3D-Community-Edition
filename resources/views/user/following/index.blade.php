@@ -40,7 +40,7 @@
                                         src="{{ url($following->image === null ? 'img/profile.png' : 'files/img/' . $following->image) }}"
                                         alt="{{ $following->username }}"
                                         class="user-search__avatar"
-                                    >
+                                    />
                                 </td>
                                 <td>
                                     <x-user_tag :anon="false" :user="$following" />

@@ -4,7 +4,11 @@
         {{ __('common.comments') }}
     </h4>
     <div class="panel__body">
-        <form wire:submit.prevent="postComment" class="form new-comment" x-data="{ open: false }">
+        <form
+            wire:submit.prevent="postComment"
+            class="form new-comment"
+            x-data="{ open: false }"
+        >
             <p class="form__group">
                 <textarea
                     name="comment"
@@ -17,8 +21,9 @@
                 ></textarea>
                 <label for="new-comment__textarea" class="form__label form__label--floating">
                     @error('newCommentState.content')
-                        <strong>{{ __('common.error') }}: </strong>
+                        <strong>{{ __('common.error') }}:</strong>
                     @enderror
+
                     Add a comment...
                 </label>
                 @error('newCommentState.content')
@@ -26,21 +31,19 @@
                 @enderror
             </p>
             <p class="form__group" x-show="open" x-cloak>
-                <input type="checkbox" id="anon" class="form__checkbox" wire:model="anon">
+                <input type="checkbox" id="anon" class="form__checkbox" wire:model="anon" />
                 <label for="anon" class="form__label">{{ __('common.anonymous') }}?</label>
             </p>
             <p class="form__group" x-show="open" x-cloak>
-                <button type="submit" class="form__button form__button--filled">
-                    Comment
-                </button>
+                <button type="submit" class="form__button form__button--filled">Comment</button>
                 <button type="reset" class="form__button form__button--text">
                     {{ __('common.cancel') }}
                 </button>
             </p>
         </form>
         <ol class="comment-list">
-            @forelse($comments as $comment)
-                <livewire:comment :comment="$comment" :key="$comment->id"/>
+            @forelse ($comments as $comment)
+                <livewire:comment :comment="$comment" :key="$comment->id" />
             @empty
                 <li>
                     <i class="{{ config('other.font-awesome') }} fa-frown"></i>
@@ -50,7 +53,9 @@
         </ol>
         @if ($comments->hasMorePages())
             <div class="text-center">
-                <button class="form__button form__button--filled" wire:click.prevent="loadMore">Load More Comments</button>
+                <button class="form__button form__button--filled" wire:click.prevent="loadMore">
+                    Load More Comments
+                </button>
             </div>
         @endif
     </div>

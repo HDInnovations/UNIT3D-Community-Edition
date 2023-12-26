@@ -5,7 +5,10 @@
                 <h2 class="panel__heading">{{ __('request.requests') }}</h2>
                 <div class="panel__actions">
                     <div class="panel__action">
-                        <a href="{{ route('requests.create') }}" class="form__button form__button--text">
+                        <a
+                            href="{{ route('requests.create') }}"
+                            class="form__button form__button--text"
+                        >
                             {{ __('request.add-request') }}
                         </a>
                     </div>
@@ -40,7 +43,9 @@
                                 @include('livewire.includes._sort-icon', ['field' => 'votes'])
                             </th>
                             <th>
-                                <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i>
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-comment-alt-lines"
+                                ></i>
                             </th>
                             <th wire:click="sortBy('bounty')" role="columnheader button">
                                 <i class="{{ config('other.font-awesome') }} fa-coins"></i>
@@ -54,10 +59,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($torrentRequests as $torrentRequest)
+                        @forelse ($torrentRequests as $torrentRequest)
                             <tr>
                                 <td>
-                                    <a href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}">
+                                    <a
+                                        href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}"
+                                    >
                                         {{ $torrentRequest->name }}
                                     </a>
                                 </td>
@@ -65,33 +72,43 @@
                                 <td>{{ $torrentRequest->type->name }}</td>
                                 <td>{{ $torrentRequest->resolution->name ?? 'Unknown' }}</td>
                                 <td>
-                                    <x-user_tag :user="$torrentRequest->user" :anon="$torrentRequest->anon" />
+                                    <x-user_tag
+                                        :user="$torrentRequest->user"
+                                        :anon="$torrentRequest->anon"
+                                    />
                                 </td>
                                 <td>{{ $torrentRequest->votes }}</td>
                                 <td>{{ $torrentRequest->comments_count }}</td>
                                 <td>{{ number_format($torrentRequest->bounty) }}</td>
                                 <td>
-                                    <time datetime="{{ $torrentRequest->created_at }}" title="{{ $torrentRequest->created_at }}">
+                                    <time
+                                        datetime="{{ $torrentRequest->created_at }}"
+                                        title="{{ $torrentRequest->created_at }}"
+                                    >
                                         {{ $torrentRequest->created_at->diffForHumans() }}
                                     </time>
                                 </td>
                                 <td>
                                     @switch(true)
-                                        @case ($torrentRequest->claimed && $torrentRequest->torrent_id === null)
+                                        @case($torrentRequest->claimed && $torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-blue"></i>
                                             {{ __('request.claimed') }}
+
                                             @break
-                                        @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
+                                        @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_by === null)
                                             <i class="fas fa-circle text-purple"></i>
                                             {{ __('request.pending') }}
+
                                             @break
-                                        @case ($torrentRequest->torrent_id === null)
+                                        @case($torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-red"></i>
                                             {{ __('request.unfilled') }}
+
                                             @break
                                         @default
                                             <i class="fas fa-circle text-green"></i>
                                             {{ __('request.filled') }}
+
                                             @break
                                     @endswitch
                                 </td>
@@ -126,26 +143,61 @@
                             </label>
                         </p>
                         <p class="form__group">
-                            <input id="requester" wire:model="requestor" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating" for="requester">{{ __('common.author') }}</label>
+                            <input
+                                id="requester"
+                                wire:model="requestor"
+                                class="form__text"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="requester">
+                                {{ __('common.author') }}
+                            </label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
-                            <input id="tmdbId" wire:model="tmdbId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating" for="tmdbId">TMDb ID</label>
+                            <input
+                                id="tmdbId"
+                                wire:model="tmdbId"
+                                class="form__text"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="tmdbId">
+                                TMDb ID
+                            </label>
                         </p>
                         <p class="form__group">
-                            <input id="imdbId" wire:model="imdbId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating" for="imdbId">IMDb ID</label>
+                            <input
+                                id="imdbId"
+                                wire:model="imdbId"
+                                class="form__text"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="imdbId">
+                                IMDb ID
+                            </label>
                         </p>
                         <p class="form__group">
-                            <input id="tvdbId" wire:model="tvdbId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating" for="tvdbId">TVDb ID</label>
+                            <input
+                                id="tvdbId"
+                                wire:model="tvdbId"
+                                class="form__text"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="tvdbId">
+                                TVDb ID
+                            </label>
                         </p>
                         <p class="form__group">
-                            <input id="malId" wire:model="malId" class="form__text" placeholder=" ">
-                            <label class="form__label form__label--floating" for="malId">MAL ID</label>
+                            <input
+                                id="malId"
+                                wire:model="malId"
+                                class="form__text"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="malId">
+                                MAL ID
+                            </label>
                         </p>
                     </div>
                     <div class="form__group--short-horizontal">
@@ -161,7 +213,7 @@
                                                     type="checkbox"
                                                     value="{{ $category->id }}"
                                                     wire:model="categories"
-                                                >
+                                                />
                                                 {{ $category->name }}
                                             </label>
                                         </p>
@@ -181,7 +233,7 @@
                                                     type="checkbox"
                                                     value="{{ $type->id }}"
                                                     wire:model="types"
-                                                >
+                                                />
                                                 {{ $type->name }}
                                             </label>
                                         </p>
@@ -201,7 +253,7 @@
                                                     type="checkbox"
                                                     value="{{ $resolution->id }}"
                                                     wire:model="resolutions"
-                                                >
+                                                />
                                                 {{ $resolution->name }}
                                             </label>
                                         </p>
@@ -220,7 +272,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="unfilled"
-                                            >
+                                            />
                                             {{ __('request.unfilled') }}
                                         </label>
                                     </p>
@@ -231,7 +283,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="claimed"
-                                            >
+                                            />
                                             {{ __('request.claimed') }}
                                         </label>
                                     </p>
@@ -242,7 +294,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="pending"
-                                            >
+                                            />
                                             {{ __('request.pending') }}
                                         </label>
                                     </p>
@@ -253,7 +305,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="filled"
-                                            >
+                                            />
                                             {{ __('request.filled') }}
                                         </label>
                                     </p>
@@ -271,7 +323,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="myRequests"
-                                            >
+                                            />
                                             {{ __('request.my-requests') }}
                                         </label>
                                     </p>
@@ -282,7 +334,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="myClaims"
-                                            >
+                                            />
                                             {{ __('request.my-claims') }}
                                         </label>
                                     </p>
@@ -293,7 +345,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="myVoted"
-                                            >
+                                            />
                                             {{ __('request.my-voted') }}
                                         </label>
                                     </p>
@@ -304,7 +356,7 @@
                                                 type="checkbox"
                                                 value="1"
                                                 wire:model="myFilled"
-                                            >
+                                            />
                                             {{ __('request.my-filled') }}
                                         </label>
                                     </p>
@@ -327,11 +379,14 @@
                 <dt>{{ __('request.total-bounty') }}:</dt>
                 <dd>{{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }}</dd>
                 <dt>{{ __('request.bounty-claimed') }}:</dt>
-                <dd>{{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}</dd>
+                <dd>
+                    {{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}
+                </dd>
                 <dt>{{ __('request.bounty-unclaimed') }}:</dt>
-                <dd>{{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}</dd>
+                <dd>
+                    {{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}
+                </dd>
             </dl>
         </section>
     </aside>
 </div>
-

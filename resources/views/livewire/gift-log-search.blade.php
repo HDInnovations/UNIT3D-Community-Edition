@@ -46,12 +46,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="quantity"
-                        class="form__select"
-                        wire:model="perPage"
-                        required
-                    >
+                    <select id="quantity" class="form__select" wire:model="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -101,7 +96,10 @@
                         <td>{{ $gift->cost }}</td>
                         <td>{{ $gift->comment }}</td>
                         <td>
-                            <time datetime="{{ $gift->created_at }}" title="{{ $gift->created_at }}">
+                            <time
+                                datetime="{{ $gift->created_at }}"
+                                title="{{ $gift->created_at }}"
+                            >
                                 {{ $gift->created_at }}
                             </time>
                         </td>
@@ -116,4 +114,3 @@
     </div>
     {{ $gifts->links('partials.pagination') }}
 </section>
-

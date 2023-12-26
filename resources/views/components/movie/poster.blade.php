@@ -8,7 +8,7 @@
                 src="{{ isset($movie->poster) ? tmdb_image('poster_mid', $movie->poster) : 'https://via.placeholder.com/90x135' }}"
                 alt="{{ __('torrent.poster') }}"
                 loading="lazy"
-            >
+            />
         </a>
         <figcaption class="torrent-search--poster__caption">
             <h2 class="torrent-search--poster__title">

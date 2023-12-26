@@ -1,28 +1,30 @@
-<div style="display: flex; flex-direction: column; row-gap: 1rem;">
+<div style="display: flex; flex-direction: column; row-gap: 1rem">
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Announces</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
-                        <input id="torrent" wire:model="torrentId" class="form__text" placeholder=" ">
-                        <label class="form__label form__label--floating" for="torrent">Torrent ID</label>
+                        <input
+                            id="torrent"
+                            wire:model="torrentId"
+                            class="form__text"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="torrent">
+                            Torrent ID
+                        </label>
                     </div>
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <input id="user" wire:model="userId" class="form__text" placeholder=" ">
+                        <input id="user" wire:model="userId" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="user">User ID</label>
                     </div>
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <select
-                            id="quantity"
-                            class="form__select"
-                            wire:model="perPage"
-                            required
-                        >
+                        <select id="quantity" class="form__select" wire:model="perPage" required>
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>
@@ -30,12 +32,11 @@
                         <label class="form__label form__label--floating" for="quantity">
                             {{ __('common.quantity') }}
                         </label>
-                    </div></div>
+                    </div>
+                </div>
             </div>
         </header>
-        <div class="panel__body" wire:loading.block>
-            Loading...
-        </div>
+        <div class="panel__body" wire:loading.block>Loading...</div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>

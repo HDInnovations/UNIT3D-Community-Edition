@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('common.about') }}">
+    <meta name="description" content="{{ __('common.about') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -54,7 +54,10 @@
         <h2 class="panel__heading">{{ __('common.contact') }}</h2>
         <div class="panel__body">
             <p class="form__group form__group--horizontal">
-                <a href="{{ route('contact.index') }}" class="form__button form__button--filled form__button--centered">
+                <a
+                    href="{{ route('contact.index') }}"
+                    class="form__button form__button--filled form__button--centered"
+                >
                     {{ __('common.contact') }} {{ config('other.title') }}
                 </a>
             </p>

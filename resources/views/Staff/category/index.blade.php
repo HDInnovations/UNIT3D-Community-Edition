@@ -28,25 +28,27 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.position') }}</th>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.icon') }}</th>
-                    <th>{{ __('common.image') }}</th>
-                    <th>Movie Meta</th>
-                    <th>TV Meta</th>
-                    <th>Game Meta</th>
-                    <th>Music Meta</th>
-                    <th>No Meta</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.icon') }}</th>
+                        <th>{{ __('common.image') }}</th>
+                        <th>Movie Meta</th>
+                        <th>TV Meta</th>
+                        <th>Game Meta</th>
+                        <th>Music Meta</th>
+                        <th>No Meta</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($categories as $category)
                         <tr>
                             <td>{{ $category->position }}</td>
                             <td>
-                                <a href="{{ route('staff.categories.edit', ['category' => $category]) }}">
+                                <a
+                                    href="{{ route('staff.categories.edit', ['category' => $category]) }}"
+                                >
                                     {{ $category->name }}
                                 </a>
                             </td>
@@ -55,44 +57,67 @@
                             </td>
                             <td>
                                 @if ($category->image != null)
-                                    <img alt="{{ $category->name }}" src="{{ url('files/img/' . $category->image) }}">
+                                    <img
+                                        alt="{{ $category->name }}"
+                                        src="{{ url('files/img/' . $category->image) }}"
+                                    />
                                 @else
                                     <span>N/A</span>
                                 @endif
                             </td>
                             <td>
                                 @if ($category->movie_meta)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($category->tv_meta)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($category->game_meta)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($category->music_meta)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($category->no_meta)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
@@ -114,17 +139,21 @@
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this category: ${atob('{{ base64_encode($category->name) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this category: ${atob(
+                                                            '{{ base64_encode($category->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

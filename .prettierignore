@@ -1,0 +1,14 @@
+# ignore all files
+/*
+
+# except /resources/views/**/*.blade.php
+!/resources/
+/resources/*
+!/resources/views/
+/resources/views/**/*.*
+!/resources/views/**/*.blade.php
+
+# ignored
+resources/views/emails
+resources/views/rss/show.blade.php
+resources/views/vendor

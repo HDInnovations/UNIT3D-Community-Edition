@@ -49,61 +49,67 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($chatrooms as $chatroom)
-                    <tr>
-                        <td>{{ $chatroom->id }}</td>
-                        <td>
-                            <a href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}">
-                                {{ $chatroom->name }}
-                            </a>
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        class="form__button form__button--text"
-                                        href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <form
-                                        method="POST"
-                                        action="{{ route('staff.chatrooms.destroy', ['chatroom' => $chatroom]) }}"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this chatroom: ${atob('{{ base64_encode($chatroom->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                    @foreach ($chatrooms as $chatroom)
+                        <tr>
+                            <td>{{ $chatroom->id }}</td>
+                            <td>
+                                <a
+                                    href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}"
+                                >
+                                    {{ $chatroom->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
                                             class="form__button form__button--text"
+                                            href="{{ route('staff.chatrooms.edit', ['chatroom' => $chatroom]) }}"
                                         >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @endforeach
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            method="POST"
+                                            action="{{ route('staff.chatrooms.destroy', ['chatroom' => $chatroom]) }}"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this chatroom: ${atob(
+                                                            '{{ base64_encode($chatroom->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

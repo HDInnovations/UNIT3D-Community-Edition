@@ -27,25 +27,13 @@
             <form class="form" method="POST" action="{{ route('staff.media_languages.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        name="name"
-                        type="text"
-                        required
-                    >
+                    <input id="name" class="form__text" name="name" type="text" required />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        id="code"
-                        class="form__text"
-                        name="code"
-                        type="text"
-                        required
-                    >
+                    <input id="code" class="form__text" name="code" type="text" required />
                     <label class="form__label form__label--floating" for="code">
                         {{ __('common.code') }}
                     </label>

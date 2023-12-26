@@ -24,7 +24,7 @@
             {{ __('ticket.create-ticket') }}
         </h2>
         <div class="panel__body">
-            @if(session('errors'))
+            @if (session('errors'))
                 <div class="alert alert-danger">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -37,17 +37,13 @@
                     </ul>
                 </div>
             @endif
+
             <form class="form" action="{{ route('tickets.store') }}" method="POST">
                 @csrf
                 <p class="form__group">
-                    <select
-                        id="category_id"
-                        class="form__text"
-                        name="category_id"
-                        required
-                    >
+                    <select id="category_id" class="form__text" name="category_id" required>
                         <option hidden disabled selected value=""></option>
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
@@ -56,14 +52,9 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <select
-                        name="priority_id"
-                        id="priority_id"
-                        class="form__select"
-                        required
-                    >
+                    <select name="priority_id" id="priority_id" class="form__select" required>
                         <option hidden disabled selected value=""></option>
-                        @foreach($priorities as $priority)
+                        @foreach ($priorities as $priority)
                             <option value="{{ $priority->id }}">{{ $priority->name }}</option>
                         @endforeach
                     </select>
@@ -72,23 +63,13 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        id="ticket_subject"
-                        class="form__text"
-                        name="subject"
-                        required
-                    >
+                    <input id="ticket_subject" class="form__text" name="subject" required />
                     <label for="ticket_subject" class="form__label form__label--floating">
                         {{ __('ticket.subject') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <textarea
-                        id="body"
-                        class="form__textarea"
-                        name="body"
-                        required
-                    ></textarea>
+                    <textarea id="body" class="form__textarea" name="body" required></textarea>
                     <label for="body" class="form__label form__label--floating">
                         {{ __('ticket.body') }}
                     </label>

@@ -11,7 +11,7 @@
                         wire:model="attachment"
                         wire:change="upload"
                         style="display: none"
-                    >
+                    />
                     <label class="form__button form__button--text" for="attachment">
                         {{ __('common.add') }}
                     </label>
@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($attachments as $attachment)
+                @forelse ($attachments as $attachment)
                     <tr>
                         <td>{{ $attachment->file_name }}</td>
                         <td>
@@ -39,7 +39,9 @@
                                         method="POST"
                                     >
                                         @csrf
-                                        <button class="form__button form__button--text">{{ __('ticket.download') }}</button>
+                                        <button class="form__button form__button--text">
+                                            {{ __('ticket.download') }}
+                                        </button>
                                     </form>
                                 </li>
                             </menu>
