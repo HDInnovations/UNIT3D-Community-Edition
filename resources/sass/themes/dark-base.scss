@@ -100,15 +100,6 @@ select option {
     background-color: #454545 !important;
 }
 
-.form-control {
-    background-color: #2b2b2b;
-    color: #fff;
-    border: 2px solid rgba(0, 0, 0, 0.56);
-}
-.form-control:focus {
-    box-shadow: 0 0 5px var(--color-light-blue);
-    border: 1px solid var(--color-light-blue);
-}
 .form-control > option {
     background-color: #616161;
 }
@@ -184,15 +175,6 @@ a.text-bright:hover {
     color: inherit;
 }
 
-
-div.header.purple div.inner_content,
-div.header.green div.inner_content,
-div.header.blue div.inner_content,
-div.header.orange div.inner_content,
-div.header.yellow div.inner_content,
-div.header.red div.inner_content {
-    background-image: var(--background-pipe) !important;
-}
 
 /* history table restores */
 .table > tbody > tr > td.text-green {

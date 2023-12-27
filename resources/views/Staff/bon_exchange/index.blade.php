@@ -21,8 +21,8 @@
                 </a>
             </div>
         </header>
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover">
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>{{ __('common.name') }}</th>

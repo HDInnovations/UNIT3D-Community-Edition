@@ -361,31 +361,8 @@ h6 {
     background-color: rgba(66, 63, 65, 0.58);
 }
 
-.form-control {
-    background-color: hsla(0, 0%, 100%, 0.16);
-    color: #dddddd;
-    border: 2px solid rgba(0, 0, 0, 0.56);
-}
-
 hr {
     border-top: 1px solid #525252;
-}
-
-.form-control {
-    margin-top: 0;
-}
-
-.form-control:focus {
-    border-color: #353535;
-}
-
-div.header.blue div.inner_content,
-div.header.green div.inner_content,
-div.header.orange div.inner_content,
-div.header.purple div.inner_content,
-div.header.red div.inner_content,
-div.header.yellow div.inner_content {
-    background-image: url(/img/pipes/silver.png);
 }
 
 .mb-5 {
@@ -467,23 +444,12 @@ div.stats {
     background-color: rgba(30, 30, 30, 0.51);
 }
 
-.lead,
-blockquote {
-    color: #dddddd;
-}
-
 .media {
     border-left-color: #19191b;
 }
 
 select option {
     background-color: #464d60;
-}
-
-.jumbotron {
-    border: 1px solid #19191b;
-    background-color: #19191b;
-    box-shadow: 2px 2px 10px 1px #252426;
 }
 
 .badge-user {

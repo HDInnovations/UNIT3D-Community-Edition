@@ -557,12 +557,6 @@ tr.success > td {
     text-shadow: 1.5px 1.5px #000;
 }
 
-.form-control {
-    background-color: #c6c6c6;
-    color: #000;
-    border: 1px solid #000;
-}
-
 .pagination > .disabled > span,
 .pagination > li > a {
     background-color: #333;
@@ -771,14 +765,6 @@ pre {
 
 ul {
     color: var(--text-color);
-}
-
-.form-control[disabled],
-.form-control[readonly],
-fieldset[disabled] {
-    background-color: hsla(0, 0%, 100%, 0.16);
-    color: #fff;
-    border: 2px solid rgba(0, 0, 0, 0.56);
 }
 
 /* Chat Message Bubbles

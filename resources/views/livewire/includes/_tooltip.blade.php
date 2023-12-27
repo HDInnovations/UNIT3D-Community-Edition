@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="card_footer">
-            <span class="badge-user text-bold" style="float: right">
+            <span class="text-bold" style="float: right">
                 <i class="{{ config('other.font-awesome') }} fa-thumbs-up text-gold"></i>
                 {{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0 }}
                 {{ __('torrent.votes') }})
