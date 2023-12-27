@@ -16,9 +16,11 @@ namespace App\Traits;
 use App\Models\Bookmark;
 use App\Models\Category;
 use App\Models\Keyword;
+use App\Models\Movie;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\Tv;
 use App\Models\User;
 use App\Models\Wish;
 use Carbon\Carbon;
@@ -493,5 +495,27 @@ trait TorrentFilter
     public function scopeOfEpisode(Builder $query, int $episodeNumber): void
     {
         $query->where('episode_number', '=', $episodeNumber);
+    }
+
+    /**
+     * @param Builder<Torrent> $query
+     * @param array<int>       $languages
+     */
+    public function scopeOfPrimaryLanguage(Builder $query, array $languages): void
+    {
+        $query
+            ->where(
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIn('tmdb', Movie::select('id')->whereIn('original_language', $languages))
+                    )
+                    ->orWhere(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIn('tmdb', Tv::select('id')->whereIn('original_language', $languages))
+                    )
+            );
     }
 }

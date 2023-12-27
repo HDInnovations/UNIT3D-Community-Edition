@@ -671,6 +671,37 @@
                             </div>
                         </fieldset>
                     </div>
+                    <div class="form__group">
+                        <fieldset class="form__fieldset">
+                            <legend class="form__legend">Primary Language</legend>
+                            <div class="form__fieldset-checkbox-container">
+                                @php
+                                    $primaryLanguages = cache()->remember(
+                                        'torrent-search:languages',
+                                        3600,
+                                        fn () => \App\Models\Movie::select('original_language')
+                                            ->distinct()
+                                            ->orderBy('original_language')
+                                            ->pluck('original_language')
+                                    )
+                                @endphp
+
+                                @foreach ($primaryLanguages as $primaryLanguage)
+                                    <p class="form__group">
+                                        <label class="form__label">
+                                            <input
+                                                class="form__checkbox"
+                                                type="checkbox"
+                                                value="{{ $primaryLanguage }}"
+                                                wire:model="primaryLanguages"
+                                            />
+                                            {{ $primaryLanguage }}
+                                        </label>
+                                    </p>
+                                @endforeach
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
             </form>
         </div>

@@ -77,6 +77,11 @@ class TorrentSearch extends Component
 
     public string $companyId = '';
 
+    /**
+     * @var string[]
+     */
+    public array $primaryLanguages = [];
+
     public array $free = [];
 
     public bool $doubleup = false;
@@ -126,53 +131,54 @@ class TorrentSearch extends Component
     public string $view = 'list';
 
     protected $queryString = [
-        'name'            => ['except' => ''],
-        'description'     => ['except' => ''],
-        'mediainfo'       => ['except' => ''],
-        'uploader'        => ['except' => ''],
-        'keywords'        => ['except' => ''],
-        'startYear'       => ['except' => ''],
-        'endYear'         => ['except' => ''],
-        'minSize'         => ['except' => ''],
-        'maxSize'         => ['except' => ''],
-        'categories'      => ['except' => []],
-        'types'           => ['except' => []],
-        'resolutions'     => ['except' => []],
-        'genres'          => ['except' => []],
-        'regions'         => ['except' => []],
-        'distributors'    => ['except' => []],
-        'tmdbId'          => ['except' => ''],
-        'imdbId'          => ['except' => ''],
-        'tvdbId'          => ['except' => ''],
-        'malId'           => ['except' => ''],
-        'playlistId'      => ['except' => ''],
-        'collectionId'    => ['except' => ''],
-        'companyId'       => ['except' => ''],
-        'networkId'       => ['except' => ''],
-        'free'            => ['except' => []],
-        'doubleup'        => ['except' => false],
-        'featured'        => ['except' => false],
-        'refundable'      => ['except' => false],
-        'stream'          => ['except' => false],
-        'sd'              => ['except' => false],
-        'highspeed'       => ['except' => false],
-        'bookmarked'      => ['except' => false],
-        'wished'          => ['except' => false],
-        'internal'        => ['except' => false],
-        'personalRelease' => ['except' => false],
-        'alive'           => ['except' => false],
-        'dying'           => ['except' => false],
-        'dead'            => ['except' => false],
-        'graveyard'       => ['except' => false],
-        'downloaded'      => ['except' => false],
-        'seeding'         => ['except' => false],
-        'leeching'        => ['except' => false],
-        'incomplete'      => ['except' => false],
-        'page'            => ['except' => 1],
-        'perPage'         => ['except' => ''],
-        'sortField'       => ['except' => 'bumped_at'],
-        'sortDirection'   => ['except' => 'desc'],
-        'view'            => ['except' => 'list'],
+        'name'             => ['except' => ''],
+        'description'      => ['except' => ''],
+        'mediainfo'        => ['except' => ''],
+        'uploader'         => ['except' => ''],
+        'keywords'         => ['except' => ''],
+        'startYear'        => ['except' => ''],
+        'endYear'          => ['except' => ''],
+        'minSize'          => ['except' => ''],
+        'maxSize'          => ['except' => ''],
+        'categories'       => ['except' => []],
+        'types'            => ['except' => []],
+        'resolutions'      => ['except' => []],
+        'genres'           => ['except' => []],
+        'regions'          => ['except' => []],
+        'distributors'     => ['except' => []],
+        'tmdbId'           => ['except' => ''],
+        'imdbId'           => ['except' => ''],
+        'tvdbId'           => ['except' => ''],
+        'malId'            => ['except' => ''],
+        'playlistId'       => ['except' => ''],
+        'collectionId'     => ['except' => ''],
+        'companyId'        => ['except' => ''],
+        'networkId'        => ['except' => ''],
+        'primaryLanguages' => ['except' => []],
+        'free'             => ['except' => []],
+        'doubleup'         => ['except' => false],
+        'featured'         => ['except' => false],
+        'refundable'       => ['except' => false],
+        'stream'           => ['except' => false],
+        'sd'               => ['except' => false],
+        'highspeed'        => ['except' => false],
+        'bookmarked'       => ['except' => false],
+        'wished'           => ['except' => false],
+        'internal'         => ['except' => false],
+        'personalRelease'  => ['except' => false],
+        'alive'            => ['except' => false],
+        'dying'            => ['except' => false],
+        'dead'             => ['except' => false],
+        'graveyard'        => ['except' => false],
+        'downloaded'       => ['except' => false],
+        'seeding'          => ['except' => false],
+        'leeching'         => ['except' => false],
+        'incomplete'       => ['except' => false],
+        'page'             => ['except' => 1],
+        'perPage'          => ['except' => ''],
+        'sortField'        => ['except' => 'bumped_at'],
+        'sortDirection'    => ['except' => 'desc'],
+        'view'             => ['except' => 'list'],
     ];
 
     final public function updatedPage(): void
@@ -229,6 +235,7 @@ class TorrentSearch extends Component
             ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
             ->when($this->companyId !== '', fn ($query) => $query->ofCompany((int) $this->companyId))
             ->when($this->networkId !== '', fn ($query) => $query->ofNetwork((int) $this->networkId))
+            ->when($this->primaryLanguages !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguages))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup, fn ($query) => $query->doubleup())
             ->when($this->featured, fn ($query) => $query->featured())
