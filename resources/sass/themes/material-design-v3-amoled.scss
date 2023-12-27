@@ -7,11 +7,11 @@
   --achievement-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);;
   --achievement-progress-bg: #444;
 
-  --article-card-bg: #343338;
-  --article-card-fg: #aaa;
-  --article-card-head-fg: #d8d7dc;
-  --article-card-time-fg: #999;
-  --article-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
+  --article-card-bg: #000;
+  --article-card-fg: #ccc;
+  --article-card-head-fg: #fff;
+  --article-card-time-fg: #bbb;
+  --article-box-shadow: none;
 
   --bbcode-input-header-bg: #000;
   --bbcode-input-body-bg: #000;
@@ -375,6 +375,7 @@ body {
 
 .article-preview {
   border-radius: 22px;
+  border: 1px solid #222;
 }
 
 .post {
@@ -541,4 +542,13 @@ li.pagination__previous {
   width: 36px;
   margin: 2px;
   line-height: 36px;
+}
+
+.playlists__playlist {
+  border: 1px solid #222;
+  background-color: #000;
+}
+
+.playlists__playlist-image--none {
+  background-color: #000;
 }
