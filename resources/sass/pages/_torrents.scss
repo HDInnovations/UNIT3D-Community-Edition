@@ -866,9 +866,13 @@ td.torrent-search--grouped__age time {
 
 .torrent-search--poster__results {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px 24px;
   grid-auto-flow: dense;
+}
+
+.torrent-search--poster__result {
+  max-width: 300px;
 }
 
 .torrent-search--poster__poster {
