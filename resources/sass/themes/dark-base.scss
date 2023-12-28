@@ -100,10 +100,6 @@ select option {
     background-color: #454545 !important;
 }
 
-.form-control > option {
-    background-color: #616161;
-}
-
 .text-info,
 .footer-icon {
     color: var(--color-400);
@@ -136,11 +132,7 @@ a.text-bright:hover {
 }
 
 .alert-danger,
-.panel-primary,
-.panel-primary > .panel-heading,
-.alert-info,
-.panel-info,
-.panel-info > .panel-heading {
+.alert-info {
     background-color: var(--color-magenta) !important;
 }
 
@@ -149,30 +141,12 @@ a.text-bright:hover {
 }
 
 .alert > h2,
-.alert > h2 > strong,
-.panel > .panel-heading > h2,
-.panel > .panel-heading > h4,
-.panel > .panel-heading > div > h2,
-.panel > .panel-heading > div > h4,
-.movie-title > a {
+.alert > h2 > strong {
     color: #000;
-}
-
-.panel-chat > .panel-heading > h4 {
-    color: #fff;
 }
 
 .badge-user {
     border-radius: 0;
-}
-
-.container.box {
-    background: #1f1f1f;
-    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-}
-
-.list-inline {
-    color: inherit;
 }
 
 

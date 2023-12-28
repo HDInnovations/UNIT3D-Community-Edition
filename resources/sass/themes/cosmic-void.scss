@@ -302,33 +302,15 @@ body {
     background-color: #19191b;
 }
 
-.panel-chat > .panel-heading {
-    background-color: #19191b;
-}
-
 .container > .block,
-.container > .box,
 .container > .well {
     background: #27272b;
 }
 
 .block,
 .container > .block,
-.container > .box,
 .container > .well,
 .well {
-    box-shadow: 0 5px 5px -10px rgba(0, 0, 0, 0.42), 0 4px 10px 0 rgba(0, 0, 0, 0.12),
-        0 8px 10px -5px rgba(0, 0, 0, 0.2) !important;
-}
-
-.container.box {
-    background: #27272b;
-    box-shadow: 0 5px 5px -10px rgba(0, 0, 0, 0.42), 0 4px 10px 0 rgba(0, 0, 0, 0.12),
-        0 8px 10px -5px rgba(0, 0, 0, 0.2) !important;
-}
-
-.container.box {
-    background: #27272b;
     box-shadow: 0 5px 5px -10px rgba(0, 0, 0, 0.42), 0 4px 10px 0 rgba(0, 0, 0, 0.12),
         0 8px 10px -5px rgba(0, 0, 0, 0.2) !important;
 }
@@ -374,12 +356,6 @@ ul.nav.nav-tabs.mb-5 {
 }
 
 .alert-danger {
-    background-color: #635f5f;
-}
-
-
-.panel-primary,
-.panel-primary > .panel-heading {
     background-color: #635f5f;
 }
 
@@ -480,10 +456,6 @@ select option {
     color: #dddddd;
 }
 
-.panel-heading {
-    border-bottom: 3px solid transparent;
-}
-
 #frame {
     background: #222;
     border-color: #dddddd !important;
@@ -499,7 +471,6 @@ table > tbody > tr {
 }
 
 .panel-body,
-.table-striped > tbody > tr,
 .table > tbody > tr.info > td,
 td,
 thead {
