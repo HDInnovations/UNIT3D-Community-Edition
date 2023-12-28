@@ -34,6 +34,11 @@
     --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     --achievement-progress-bg: #8fbcbb;
 
+    --alert-bg: #292929;
+    --alert-fg: #aaa;
+    --alert-gap-color: #444;
+    --alert-gap-width: 1px;
+
     --article-card-bg: #2c2c2c;
     --article-card-fg: #aaa;
     --article-card-head-fg: #aaa;
@@ -59,6 +64,9 @@
     --bbcode-rendered-danger-fg: #ff141ccc;
     --bbcode-rendered-quote-bg: #6662;
     --bbcode-rendered-quote-border: var(--color-green);
+
+    --body-bg: #232323;
+    --body-fg: var(--text-color);
 
     --breadcrumb-fg: #777;
     --breadcrumb-active-fg: #aaa;
@@ -139,6 +147,13 @@
     --legend-bg: transparent;
     --legend-border: none;
     --legend-border-radius: 0;
+
+    --mediahub-card-bg: #1A1A1A;
+    --mediahub-card-fg: #ddd;
+    --mediahub-card-hover-fg: #fff;
+    --mediahub-card-border: none;
+    --mediahub-card-border-radius: 0;
+    --mediahub-card-box-shadow: none;
 
     --meta-backdrop-filter:  brightness(30%);
     --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
@@ -345,149 +360,12 @@ a.text-bright:hover {
     color: #958;
 }
 
-
-.panel-footer {
-    background-color: #232323;
-}
-
-.badge-extra {
-    margin-bottom: 0.5em;
-}
-
-.likes {
-    background: none;
-    right: 5px;
-
-    .badge-extra {
-        margin: 0;
-        padding: 3px;
-        font-size: 12px;
-    }
-}
-
-.shoutbox {
-    border-color: #000;
-    border-radius: 4px;
-    background-color: transparent;
-}
-
-* {
-    border: #000;
-    border-radius: 0;
-}
-
-.panel {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border: 0;
-}
-
-.container > .block,
-.container > .well {
-    background: #333;
-}
-
-.badge-extra.text-red {
-    color: var(--color-light-red);
-}
-
-.panel-footer {
-    border: 1px solid #232323;
-}
-
-.panel .panel-chat {
-    margin-bottom: 0;
-}
-
-.nav-tabs {
-    background-color: #373737;
-    border-bottom: none;
-}
-
-.nav-tabs > li > a,
-td,
-thead {
-    background-color: var(--color-dark-red);
-}
-
-.nav-tabs > li > a,
-.nav-tabs > li > a:hover,
-td,
-thead {
-    color: var(--text-color) !important;
-}
-
-.nav-tabs > li.active > a {
-    color: var(--color-bright-white);
-}
-
-.nav-tabs > li.active > a,
-.nav-tabs > li > a:hover {
-    background-color: var(--color-red) !important;
-    border: 1px solid var(--color-red) !important;
-}
-
-th {
-    background-color: #353535;
-}
-
-.mb-5 {
-    padding-bottom: 5px;
-}
-
-td,
-thead {
-    background-color: #272727;
-}
-
-.mb-5,
-.table {
-    margin-bottom: 0;
-}
-
-
-table,
-td,
-th,
-thead {
-    border: 0 !important;
-}
-
-.panel-body,
-.table > tbody > tr.info > td {
-    background-color: #272727;
-}
-
-tr:last-child {
-    background-color: #2b2b2b !important;
-}
-
 a {
     color: var(--color-blue);
 }
 
 a:hover {
     color: var(--color-light-blue);
-}
-
-.well {
-    border: 0;
-    box-shadow: none;
-    color: var(--text-color);
-}
-
-.block,
-.well {
-    background-color: rgba(30, 30, 30, 0.51);
-}
-
-.block td {
-    background-color: #262626 !important;
-}
-
-.block {
-    box-shadow: none;
-    border: 0;
 }
 
 .text-green {
@@ -508,18 +386,8 @@ a:hover {
     color: #979;
 }
 
-.alert-danger {
-    background-color: var(--color-red);
-    background-image: none;
-    border: 0;
-}
-
 .text-danger {
     color: var(--color-light-red);
-}
-
-tr.success > td {
-    background-color: #404040 !important;
 }
 
 .badge-user {
@@ -529,98 +397,7 @@ tr.success > td {
     text-shadow: 1.5px 1.5px #000;
 }
 
-.pagination > .disabled > span,
-.pagination > li > a {
-    background-color: #333;
-    border: 1px solid #2b2b2b;
-    color: var(--text-color);
-}
-
-.pagination > .active > a,
-.pagination > .active > span {
-    background-color: #252525 !important;
-    border: 1px solid #262626;
-    color: var(--text-color);
-}
-
-.pagination a:hover {
-    background-color: #252525 !important;
-    border: 0;
-}
-
-.pagination .active a:hover {
-    background-color: #252525 !important;
-    border-bottom: 3px solid #252525;
-}
-
-.head {
-    box-shadow: unset;
-}
-
-body {
-    background-color: #232323;
-}
-
-.articles .article {
-    background: #232323;
-    box-shadow: none;
-}
-
-
-label {
-    color: var(--text-color);
-}
-
-table > tbody > tr {
-    border-bottom: 1px dotted #404040;
-}
-
-span.badge-user {
-    margin: 0.25em;
-}
-
-.panel-footer > .badge-extra,
-h3 {
-    color: var(--text-color);
-}
-
-div.stats {
-    background: #353535;
-}
-
-.pagination a:hover,
-div.stats * {
-    color: var(--text-color) !important;
-}
-
-i.torrent-icon {
-    color: #6888bb;
-}
-
-
-.comments {
-    background-color: #252525;
-}
-
-.progress {
-    background-color: #353535;
-    border: 0;
-}
-
-.container,
-span.badge-user,
-strong {
-    color: var(--text-color);
-}
-
-ul.nav.nav-tabs.mb-5 {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.footer-icon {
+.footer__icon {
     color: rgba(148, 123, 204, 1);
 }
 
@@ -666,69 +443,6 @@ ul.nav.nav-tabs.mb-5 {
 
 #frame .content .message-input .wrap button:hover {
     background: #435f7a;
-}
-
-.alert-info {
-    background-color: #446;
-    border-color: #446;
-}
-
-.card.is-torrent {
-    background-color: #171717;
-}
-
-.card.is-torrent .card_head {
-    background-color: #171717;
-}
-
-.card.is-torrent .card_body {
-    background-color: #000000;
-}
-
-.card.is-torrent .genre-label {
-    border: 0.5px solid #222;
-    border-radius: 5px;
-    background-color: #1e1e1e;
-    box-shadow: none;
-}
-
-.card.is-torrent .card_footer {
-    background-color: #171717;
-}
-
-/* Mobile */
-@media only screen and (max-width: 613px) {
-    ul.nav.nav-tabs.mb-5 {
-        float: left;
-        display: inline-block;
-    }
-    .panel .nav-tabs {
-        padding-bottom: 6px;
-        padding-top: 6px;
-    }
-}
-
-/* Pages */
-
-a > strong {
-    color: var(--color-blue);
-}
-
-a > strong:hover {
-    color: var(--color-light-blue);
-}
-
-
-pre {
-    color: var(--text-color);
-    background-color: #232323;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-}
-
-
-ul {
-    color: var(--text-color);
 }
 
 /* Chat Message Bubbles

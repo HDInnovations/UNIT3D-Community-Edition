@@ -32,6 +32,8 @@ For example dark blue,
 */
 
 :root {
+    --body-bg: var(--color-dark-blue);
+
     --torrent-row-fg: #ccc;
     --torrent-row-format-fg: #ccc;
     --torrent-row-format-bg: #3c3c3c;
@@ -53,14 +55,6 @@ For example dark blue,
     --torrent-row-bumped-fg: #ffb800;
 }
 
-body {
-    background-color: var(--color-dark-blue);
-}
-
-.nav-tabs > #active {
-    background-color: var(--color-dark-green);
-}
-
 .text-green {
     color: #3fb618;
 }
@@ -76,32 +70,8 @@ i.torrent-icon {
     background-color: var(--color-dark-blue);
 }
 
-.notify .point {
-    background-color: var(--color-A400);
-}
-
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #fff;
-}
-
-select,
-select option {
-    background-color: #454545 !important;
-}
-
 .text-info,
-.footer-icon {
+.footer__icon {
     color: var(--color-400);
 }
 
@@ -122,8 +92,7 @@ a.text-bright:hover {
 .text-purple,
 .text-orange,
 .text-success,
-.text-pink,
-.fa-coins {
+.text-pink {
     color: var(--color-400);
 }
 
@@ -131,29 +100,7 @@ a.text-bright:hover {
     color: #996666;
 }
 
-.alert-danger,
-.alert-info {
-    background-color: var(--color-magenta) !important;
-}
-
-.alert {
-    color: #424242;
-}
-
-.alert > h2,
-.alert > h2 > strong {
-    color: #000;
-}
-
 .badge-user {
     border-radius: 0;
 }
 
-
-/* history table restores */
-.table > tbody > tr > td.text-green {
-    color: #3fb618 !important;
-}
-.table > tbody > tr > td.text-red {
-    color: var(--color-light-red) !important;
-}

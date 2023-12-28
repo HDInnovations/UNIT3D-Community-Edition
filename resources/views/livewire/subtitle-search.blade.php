@@ -6,7 +6,7 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th class="torrents-icon"></th>
+                            <th class="category__icon"></th>
                             <th wire:click="sortBy('title')" role="columnheader button">
                                 {{ __('torrent.torrent') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'title'])
@@ -44,7 +44,7 @@
                                 <td>
                                     @if ($subtitle->torrent->category->image === null)
                                         <i
-                                            class="{{ $subtitle->torrent->category->icon }} torrent-icon"
+                                            class="{{ $subtitle->torrent->category->icon }} category__icon"
                                             title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                         ></i>
                                     @else

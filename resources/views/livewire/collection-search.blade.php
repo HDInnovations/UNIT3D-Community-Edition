@@ -20,59 +20,35 @@
     </header>
     {{ $collections->links('partials.pagination') }}
     <div class="panel__body">
-        @foreach ($collections as $collection)
-            <div class="col-md-12">
-                <div class="collection">
-                    <div
-                        class="header collection"
+        <ul class="collection__list">
+            @foreach ($collections as $collection)
+                <li class="collection__list-item">
+                    <article
+                        class="collection"
                         style="
-                            background-image: url({{ isset($collection->backdrop) ? tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/1280x300' }});
-                            background-size: cover;
-                            background-position: 50% 50%;
-                        "
-                    >
-                        <div
-                            class="collection-overlay"
-                            style="
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
-                                background-image: linear-gradient(
+                            background-image: linear-gradient(
                                     rgba(0, 0, 0, 0.87),
                                     rgba(45, 71, 131, 0.46)
-                                );
-                            "
-                        ></div>
-                        <section class="collection">
-                            <h2>{{ $collection->name }}</h2>
-                            <p class="text-blue">
-                                {{ __('mediahub.includes') }}
-                                @foreach ($collection->movie as $collection_movie)
-                                        {{ $collection_movie->title }},
-                                @endforeach
-                            </p>
-
+                                ),
+                                url({{ isset($collection->backdrop) ? tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/1280x300' }});
+                        "
+                    >
+                        <h3 class="collection__heading">
                             <a
+                                class="collection__link"
                                 href="{{ route('mediahub.collections.show', ['id' => $collection->id]) }}"
-                                role="button"
-                                class="form__button form__button--filled"
-                                style="
-                                    margin: 0;
-                                    text-transform: uppercase;
-                                    position: absolute;
-                                    bottom: 50px;
-                                "
                             >
-                                <i class="{{ config('other.font-awesome') }} fa-copy"></i>
-                                {{ __('mediahub.view-collection') }}
+                                {{ $collection->name }}
                             </a>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+                        </h3>
+                        <p class="collection__description">
+                            {{ __('mediahub.includes') }}
+                            {{ $collection->movie->pluck('title')->implode(',') }}
+                        </p>
+                    </article>
+                </li>
+            @endforeach
+        </ul>
     </div>
     {{ $collections->links('partials.pagination') }}
 </section>

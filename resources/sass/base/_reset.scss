@@ -1,0 +1,34 @@
+html {
+  -webkit-tap-highlight-color: transparent;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  height: auto;
+  font-size: 10px;
+}
+
+body,
+figure {
+  margin: 0;
+  height: auto;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.46666667;
+  color: var(--body-fg);
+  background: var(--body-bg);
+}
+
+a {
+  text-decoration: none;
+}
+
+code,
+pre {
+  font-family: 'Roboto Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.46666667;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+}
