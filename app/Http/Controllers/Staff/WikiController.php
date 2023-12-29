@@ -13,10 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\WikiCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\StoreWikiRequest;
+use App\Http\Requests\Staff\UpdateWikiRequest;
 use App\Models\Wiki;
-use Illuminate\Http\Request;
+use App\Models\WikiCategory;
 
 class WikiController extends Controller
 {
@@ -25,7 +26,9 @@ class WikiController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Staff.wiki.index', ['wikis' => Wiki::with(['category'])->get()]);
+        return view('Staff.wiki.index', [
+            'wikis' => Wiki::with(['category'])->get(),
+        ]);
     }
 
     /**
@@ -33,82 +36,52 @@ class WikiController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Staff.wiki.create', ['categories' => WikiCategory::all()->sortBy('position')]);
+        return view('Staff.wiki.create', [
+            'wikiCategories' => WikiCategory::query()->orderBy('position')->get(),
+        ]);
     }
 
     /**
      * Store A New Page.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreWikiRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $wiki = new Wiki();
-        $wiki->name = $request->input('name');
-        $wiki->category_id = $request->input('category_id');
-        $wiki->content = $request->input('content');
+        Wiki::create($request->validated());
 
-        $v = validator($wiki->toArray(), [
-            'name'        => 'required',
-            'category_id' => 'required',
-            'content'     => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('staff.wikis.index')
-                ->withErrors($v->errors());
-        }
-
-        $wiki->save();
-
-        return redirect()->route('staff.wikis.index')
+        return to_route('staff.wikis.index')
             ->withSuccess('Wiki has been created successfully');
     }
 
     /**
      * Page Edit Form.
      */
-    public function edit(int $id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function edit(Wiki $wiki): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('Staff.wiki.edit', [
-            'wiki'       => Wiki::findOrFail($id),
-            'categories' => WikiCategory::all()->sortBy('position')
+            'wiki'           => $wiki,
+            'wikiCategories' => WikiCategory::query()->orderBy('position')->get(),
         ]);
     }
 
     /**
      * Edit A Page.
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateWikiRequest $request, Wiki $wiki): \Illuminate\Http\RedirectResponse
     {
-        $wiki = Wiki::findOrFail($id);
-        $wiki->name = $request->input('name');
-        $wiki->category_id = $request->input('category_id');
-        $wiki->content = $request->input('content');
+        $wiki->update($request->validated());
 
-        $v = validator($wiki->toArray(), [
-            'name'        => 'required',
-            'category_id' => 'required',
-            'content'     => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('staff.wikis.index')
-                ->withErrors($v->errors());
-        }
-
-        $wiki->save();
-
-        return redirect()->route('staff.wikis.index')
+        return to_route('staff.wikis.index')
             ->withSuccess('Wiki has been edited successfully');
     }
 
     /**
      * Delete A Page.
      */
-    public function destroy(int $id): Illuminate\Http\RedirectResponse
+    public function destroy(Wiki $wiki): \Illuminate\Http\RedirectResponse
     {
-        Wiki::findOrFail($id)->delete();
+        $wiki->delete();
 
-        return redirect()->route('staff.wikis.index')
+        return to_route('staff.wikis.index')
             ->withSuccess('Wiki has been deleted successfully');
     }
 }

@@ -1,57 +1,66 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('staff.staff-dashboard')</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.wikis.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Wikis</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.wikis.index') }}" class="breadcrumb__link">
+            Wikis
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.wikis.edit', ['id' => $wiki->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('common.edit') Wiki</span>
-        </a>
+    <li class="breadcrumbV2">
+        {{ $wiki->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>Edit wiki</h2>
-        <form role="form" method="POST" action="{{ route('staff.wikis.update', ['id' => $wiki->id]) }}">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="name">Wiki __('common.name')</label>
-                <label>
-                    <input type="text" name="name" class="form-control" value="{{ $wiki->name }}">
-                </label>
-            </div>
+@section('page', 'page__wiki-category-admin--edit')
 
-            <div class="form-group">
-                <label for="category_id">Wiki Category</label>
-                <label>
-                    <select name="category_id" class="form-control">
-                        <option value="{{ $wiki->category->id }}" selected>{{ $wiki->category->name }}
-                            (__('torrent.current'))
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.edit') }} Wiki: {{ $wiki->name }}
+        </h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.wikis.update', ['wiki' => $wiki]) }}">
+                @csrf
+                @method('PATCH')
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        type="text"
+                        name="name"
+                        required
+                        value="{{ $wiki->name }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select id="category_id" name="category_id" class="form__select">
+                        <option value="{{ $wiki->category_id }}" selected>
+                            {{ $wiki->category->name }} (Current)
                         </option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @foreach ($wikiCategories as $wikiCategory)
+                            <option value="{{ $wikiCategory->id }}">{{ $wikiCategory->name }}</option>
                         @endforeach
                     </select>
-                </label>
-            </div>
-    
-            <div class="form-group">
-                <label for="content">Content</label>
-                <textarea name="content" id="content" cols="30" rows="10"
-                    class="form-control">{{ $wiki->content }}</textarea>
-            </div>
-    
-            <button type="submit" class="btn btn-default">Save</button>
-        </form>
-    </div>
+                    <label class="form__label form__label--floating" for="category_id">{{ __('common.category') }}</label>
+                </p>
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $wiki->content])
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

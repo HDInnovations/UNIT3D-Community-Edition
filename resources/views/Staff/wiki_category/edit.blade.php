@@ -1,52 +1,79 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('staff.staff-dashboard')</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.wiki_categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('staff.torrent-categories')</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">
+            Wiki Categories
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.wiki_categories.edit', ['id' => $category->id]) }}" itemprop="url"
-            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('common.edit') Wiki Category</span>
-        </a>
+    <li class="breadcrumbV2">
+        {{ $wikiCategory->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>__('common.edit') A Wiki Category</h2>
-        <form role="form" method="POST" action="{{ route('staff.wiki_categories.update', ['id' => $category->id]) }}">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="name">__('common.name')</label>
-                <label>
-                    <input type="text" class="form-control" name="name" value="{{ $category->name }}">
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="name">__('common.position')</label>
-                <label>
-                    <input type="text" class="form-control" name="position" value="{{ $category->position }}">
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="name">Icon (FontAwesome)</label>
-                <label>
-                    <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
-                </label>
-            </div>
-            <br>
-            <br>
-    
-            <button type="submit" class="btn btn-default">__('common.submit')</button>
-        </form>
-    </div>
+@section('page', 'page__wiki-category-admin--edit')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.edit') }} Wiki Category: {{ $wikiCategory->name }}
+        </h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.wiki_categories.update', ['wikiCategory' => $wikiCategory]) }}">
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        type="text"
+                        name="name"
+                        required
+                        value="{{ $wikiCategory->name }}"
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
+                        class="form__text"
+                        type="text"
+                        name="position"
+                        required
+                        value="{{ $wikiCategory->position }}"
+                    >
+                    <label class="form__label form__label--floating" for="position">
+                        {{ __('common.position') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="icon"
+                        class="form__text"
+                        type="text"
+                        name="icon"
+                        required
+                        value="{{ $wikiCategory->icon }}"
+                    >
+                    <label class="form__label form__label--floating" for="icon">
+                        {{ __('common.icon') }} (E.g. "fas fa-rocket")
+                    </label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

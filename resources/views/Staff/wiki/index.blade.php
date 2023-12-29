@@ -1,60 +1,94 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('staff.staff-dashboard')</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.wikis.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Wikis</span>
-        </a>
+    <li class="breadcrumb--active">
+        Wikis
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>Wikis</h2>
-        <a href="{{ route('staff.wikis.create') }}" class="btn btn-primary">Add a new wiki</a>
-    
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover">
+@section('main')
+    <section class="panelV2">
+        <header class="panel__header">
+            <h2 class="panel__heading">Wikis</h2>
+            <div class="panel__actions">
+                <a href="{{ route('staff.wikis.create') }}" class="panel__action form__button form__button--text">
+                    {{ __('common.add') }}
+                </a>
+            </div>
+        </header>
+        <div class="data-table-wrapper">
+            <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>__('common.action')</th>
+                        <th>{{ __('common.title') }}</th>
+                        <th>{{ __('common.category') }}</th>
+                        <th>{{ __('common.created_at') }}</th>
+                        <th>{{ __('torrent.updated_at') }}</th>
+                        <th>{{ __('common.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($wikis as $wiki)
+                    @forelse ($wikis as $wiki)
                         <tr>
                             <td>
-                                <a href="{{ route('wikis.show', ['id' => $wiki->id]) }}">
+                                <a href="{{ route('wikis.show', ['wiki' => $wiki]) }}">
                                     {{ $wiki->name }}
                                 </a>
                             </td>
+                            <td>{{ $wiki->category->name }}</td>
+                            <td>{{ $wiki->created_at }}</td>
+                            <td>{{ $wiki->updated_at }}</td>
                             <td>
-                                {{ $wiki->category->name }}
-                            </td>
-                            <td>
-                                {{ $wiki->created_at }} ({{ $wiki->created_at->diffForHumans() }})
-                            </td>
-                            <td>
-                                <form action="{{ route('staff.wikis.destroy', ['id' => $wiki->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a href="{{ route('staff.wikis.edit', ['id' => $wiki->id]) }}"
-                                        class="btn btn-warning">__('common.edit')</a>
-                                    <button type="submit" class="btn btn-danger">__('common.delete')</button>
-                                </form>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.wikis.edit', ['wiki' => $wiki]) }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('staff.wikis.destroy', ['wiki' => $wiki]) }}"
+                                            method="POST"
+                                            x-data
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="Swal.fire({
+                                                title: 'Are you sure?',
+                                                text: `Are you sure you want to delete this wiki: ${atob('{{ base64_encode($wiki->name) }}')}?`,
+                                                icon: 'warning',
+                                                showConfirmButton: true,
+                                                showCancelButton: true,
+                                            }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $root.submit();
+                                                }
+                                            })"
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="2">No Wikis</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 @endsection

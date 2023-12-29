@@ -19,8 +19,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wiki extends Model
 {
+    protected $guarded = [];
+
     /**
      * Belongs To A Category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<WikiCategory, self>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

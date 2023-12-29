@@ -24,8 +24,12 @@ class WikiCategory extends Model
      */
     public $timestamps = false;
 
+    protected $guarded = [];
+
     /**
      * Has Many Wikis.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wiki>
      */
     public function wikis(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
