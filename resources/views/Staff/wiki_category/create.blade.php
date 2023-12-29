@@ -22,7 +22,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art',false) }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('common.new-adj') }}
             Wiki
         </h2>
@@ -30,37 +30,19 @@
             <form class="form" method="POST" action="{{ route('staff.wiki_categories.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        type="text"
-                        name="name"
-                        required
-                    >
+                    <input id="name" class="form__text" type="text" name="name" required />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        id="position"
-                        class="form__text"
-                        type="text"
-                        name="position"
-                        required
-                    >
+                    <input id="position" class="form__text" type="text" name="position" required />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        id="icon"
-                        class="form__text"
-                        type="text"
-                        name="icon"
-                        required
-                    >
+                    <input id="icon" class="form__text" type="text" name="icon" required />
                     <label class="form__label form__label--floating" for="icon">
                         {{ __('common.icon') }} (E.g. "fas fa-rocket")
                     </label>

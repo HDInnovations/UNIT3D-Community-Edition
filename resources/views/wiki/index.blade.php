@@ -5,13 +5,11 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ config('other.title') }} - Wikis">
+    <meta name="description" content="{{ config('other.title') }} - Wikis" />
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        Wikis
-    </li>
+    <li class="breadcrumb--active">Wikis</li>
 @endsection
 
 @section('page', 'page__wikis--index')
@@ -32,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($category->wikis->sortBy('name') as $wiki)
+                        @forelse ($category->wikis->sortBy('name') as $wiki)
                             <tr>
                                 <td>
                                     <a

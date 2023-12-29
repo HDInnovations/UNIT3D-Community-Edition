@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Wiki Categories
-    </li>
+    <li class="breadcrumb--active">Wiki Categories</li>
 @endsection
 
 @section('content')
@@ -16,7 +14,10 @@
         <header class="panel__header">
             <h2 class="panel__heading">Wiki Categories</h2>
             <div class="panel__actions">
-                <a href="{{ route('staff.wiki_categories.create') }}" class="panel__action form__button form__button--text">
+                <a
+                    href="{{ route('staff.wiki_categories.create') }}"
+                    class="panel__action form__button form__button--text"
+                >
                     {{ __('common.add') }}
                 </a>
             </div>
@@ -35,7 +36,9 @@
                     @forelse ($wikiCategories as $wikiCategory)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.wiki_categories.edit', ['wikiCategory' => $wikiCategory]) }}">
+                                <a
+                                    href="{{ route('staff.wiki_categories.edit', ['wikiCategory' => $wikiCategory]) }}"
+                                >
                                     {{ $wikiCategory->name }}
                                 </a>
                             </td>
@@ -62,17 +65,21 @@
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this wiki category: ${atob('{{ base64_encode($wikiCategory->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this wiki category: ${atob(
+                                                            '{{ base64_encode($wikiCategory->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

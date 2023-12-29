@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Wikis
-    </li>
+    <li class="breadcrumb--active">Wikis</li>
 @endsection
 
 @section('main')
@@ -16,7 +14,10 @@
         <header class="panel__header">
             <h2 class="panel__heading">Wikis</h2>
             <div class="panel__actions">
-                <a href="{{ route('staff.wikis.create') }}" class="panel__action form__button form__button--text">
+                <a
+                    href="{{ route('staff.wikis.create') }}"
+                    class="panel__action form__button form__button--text"
+                >
                     {{ __('common.add') }}
                 </a>
             </div>
@@ -62,17 +63,21 @@
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this wiki: ${atob('{{ base64_encode($wiki->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                                                x-on:click.prevent="
+                                                    Swal.fire({
+                                                        title: 'Are you sure?',
+                                                        text: `Are you sure you want to delete this wiki: ${atob(
+                                                            '{{ base64_encode($wiki->name) }}'
+                                                        )}?`,
+                                                        icon: 'warning',
+                                                        showConfirmButton: true,
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            $root.submit();
+                                                        }
+                                                    })
+                                                "
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

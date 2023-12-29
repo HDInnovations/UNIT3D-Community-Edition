@@ -7,9 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.wikis.index') }}" class="breadcrumb__link">
-            Wikis
-        </a>
+        <a href="{{ route('staff.wikis.index') }}" class="breadcrumb__link">Wikis</a>
     </li>
     <li class="breadcrumbV2">
         {{ $wiki->name }}
@@ -23,11 +21,13 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.edit') }} Wiki: {{ $wiki->name }}
-        </h2>
+        <h2 class="panel__heading">{{ __('common.edit') }} Wiki: {{ $wiki->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.wikis.update', ['wiki' => $wiki]) }}">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('staff.wikis.update', ['wiki' => $wiki]) }}"
+            >
                 @csrf
                 @method('PATCH')
                 <p class="form__group">
@@ -38,7 +38,7 @@
                         name="name"
                         required
                         value="{{ $wiki->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -49,10 +49,14 @@
                             {{ $wiki->category->name }} (Current)
                         </option>
                         @foreach ($wikiCategories as $wikiCategory)
-                            <option value="{{ $wikiCategory->id }}">{{ $wikiCategory->name }}</option>
+                            <option value="{{ $wikiCategory->id }}">
+                                {{ $wikiCategory->name }}
+                            </option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating" for="category_id">{{ __('common.category') }}</label>
+                    <label class="form__label form__label--floating" for="category_id">
+                        {{ __('common.category') }}
+                    </label>
                 </p>
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $wiki->content])
                 <p class="form__group">

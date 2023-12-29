@@ -27,7 +27,11 @@
             {{ __('common.edit') }} Wiki Category: {{ $wikiCategory->name }}
         </h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.wiki_categories.update', ['wikiCategory' => $wikiCategory]) }}">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('staff.wiki_categories.update', ['wikiCategory' => $wikiCategory]) }}"
+            >
                 @csrf
                 <p class="form__group">
                     <input
@@ -37,7 +41,7 @@
                         name="name"
                         required
                         value="{{ $wikiCategory->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -50,7 +54,7 @@
                         name="position"
                         required
                         value="{{ $wikiCategory->position }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
@@ -63,7 +67,7 @@
                         name="icon"
                         required
                         value="{{ $wikiCategory->icon }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="icon">
                         {{ __('common.icon') }} (E.g. "fas fa-rocket")
                     </label>
