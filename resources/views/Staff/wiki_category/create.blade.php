@@ -1,51 +1,76 @@
 @extends('layout.default')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('staff.staff-dashboard')</span>
+@section('breadcrumbs')
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
+            {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('staff.wiki_categories.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">__('staff.torrent-categories')</span>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">
+            Wiki Categories
         </a>
     </li>
-    <li class="active">
-        <a href="{{ route('staff.wiki_categories.create') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Add Wiki Category</span>
-        </a>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
     </li>
 @endsection
 
-@section('content')
-    <div class="container box">
-        <h2>Add A Wiki Category</h2>
-        <form role="form" method="POST" action="{{ route('staff.wiki_categories.store') }}" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="name">__('common.name')</label>
-                <label>
-                    <input type="text" class="form-control" name="name">
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="name">__('common.position')</label>
-                <label>
-                    <input type="text" class="form-control" name="position">
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="name">Icon (FontAwesome)</label>
-                <label>
-                    <input type="text" class="form-control" name="icon"
-                        placeholder="Example: {{ config('other.font-awesome') }} fa-rocket">
-                </label>
-            </div>
-            <br>
-            <br>
-    
-            <button type="submit" class="btn btn-default">__('common.add')</button>
-        </form>
-    </div>
+@section('page', 'page__wiki-categories--create')
+
+@section('main')
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.add') }}
+            {{ trans_choice('common.a-an-art',false) }}
+            {{ __('common.new-adj') }}
+            Wiki
+        </h2>
+        <div class="panel__body">
+            <form class="form" method="POST" action="{{ route('staff.wiki_categories.store') }}">
+                @csrf
+                <p class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        type="text"
+                        name="name"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
+                        class="form__text"
+                        type="text"
+                        name="position"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="position">
+                        {{ __('common.position') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="icon"
+                        class="form__text"
+                        type="text"
+                        name="icon"
+                        required
+                    >
+                    <label class="form__label form__label--floating" for="icon">
+                        {{ __('common.icon') }} (E.g. "fas fa-rocket")
+                    </label>
+                </p>
+                <p class="form__group">
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
+                </p>
+            </form>
+        </div>
+    </section>
 @endsection

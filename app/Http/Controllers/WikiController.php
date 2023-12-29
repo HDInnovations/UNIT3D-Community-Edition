@@ -23,18 +23,23 @@ class WikiController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $wiki_categories = WikiCategory::with(['wikis'])->get()->sortBy('position');
-
-        return view('wiki.index', ['wiki_categories' => $wiki_categories]);
+        return view('wiki.index', [
+            'wiki_categories' => WikiCategory::query()
+                ->orderBy('position')
+                ->with([
+                    'wikis' => fn ($query) => $query->orderBy('name'),
+                ])
+                ->get(),
+        ]);
     }
 
     /**
      * Show A Wiki.
      */
-    public function show(int $id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function show(Wiki $wiki): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $wiki = Wiki::findOrFail($id);
-
-        return view('wiki.show', ['wiki' => $wiki]);
+        return view('wiki.show', [
+            'wiki' => $wiki,
+        ]);
     }
 }
