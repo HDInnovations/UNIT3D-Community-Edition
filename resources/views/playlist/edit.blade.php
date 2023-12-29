@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('playlist.edit-playlist') }}">
+    <meta name="description" content="{{ __('playlist.edit-playlist') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -15,7 +15,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('playlists.edit', ['playlist' => $playlist]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('playlists.edit', ['playlist' => $playlist]) }}"
+            class="breadcrumb__link"
+        >
             {{ $playlist->name }}
         </a>
     </li>
@@ -47,7 +50,7 @@
                         placeholder=" "
                         required
                         value="{{ $playlist->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('playlist.title') }}
                     </label>
@@ -64,15 +67,10 @@
                     <label for="cover_image" class="form__label">
                         {{ __('playlist.cover') }}
                     </label>
-                    <input
-                        id="cover_image"
-                        class="form__file"
-                        type="file"
-                        name="cover_image"
-                    >
+                    <input id="cover_image" class="form__file" type="file" name="cover_image" />
                 </p>
                 <p class="form__group">
-                    <input type="hidden" name="is_private" value="0">
+                    <input type="hidden" name="is_private" value="0" />
                     <input
                         id="is_private"
                         class="form__checkbox"
@@ -80,8 +78,10 @@
                         type="checkbox"
                         value="1"
                         @checked($playlist->is_private)
-                    >
-                    <label class="form__label" for="is_private">{{ __('playlist.is-private') }}</label>
+                    />
+                    <label class="form__label" for="is_private">
+                        {{ __('playlist.is-private') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

@@ -19,15 +19,22 @@
         </div>
     </header>
     {{ $persons->links('partials.pagination') }}
-    <div class="panel__body" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem;">
+    <div
+        class="panel__body"
+        style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 2rem;
+        "
+    >
         @forelse ($persons as $person)
             <figure style="display: flex; flex-direction: column; align-items: center">
                 <a href="{{ route('mediahub.persons.show', ['id' => $person->id]) }}">
                     <img
                         alt="{{ $person->name }}"
                         src="{{ isset($person->still) ? tmdb_image('cast_mid', $person->still) : 'https://via.placeholder.com/160x240' }}"
-                        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%;"
-                    >
+                        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%"
+                    />
                 </a>
                 <figcaption>{{ $person->name }}</figcaption>
             </figure>
@@ -37,5 +44,3 @@
     </div>
     {{ $persons->links('partials.pagination') }}
 </section>
-
-

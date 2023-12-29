@@ -1,7 +1,7 @@
 <li class="form__group form__group--short-horizontal">
     <form
         method="POST"
-        action="{{ route("requests.approved_fills.destroy", ['torrentRequest' => $torrentRequest]) }}"
+        action="{{ route('requests.approved_fills.destroy', ['torrentRequest' => $torrentRequest]) }}"
         x-data
         style="display: contents"
     >
@@ -25,4 +25,3 @@
         </button>
     </form>
 </li>
-

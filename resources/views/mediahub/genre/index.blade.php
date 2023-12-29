@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Genres">
+    <meta name="description" content="Genres" />
 @endsection
 
 @section('breadcrumbs')
@@ -24,14 +24,18 @@
         <h2 class="panel__heading">{{ __('common.genres') }}</h2>
         <div class="panel__body blocks">
             @foreach ($genres as $genre)
-                <a href="{{ route('torrents.index', ['view' => 'group', 'genres' => [$genre->id]]) }}" style="padding: 0 2px;">
-                    <div class="people media_blocks" style="background-color: rgba(0, 0, 0, 0.33);">
-                        <h2 class="text-bold"> {{ $genre->name }}</h2>
-                        <span style="background-color: #317aaf;"></span>
-                        <h2 style="font-size: 14px;">
-                            <i class="{{ config('other.font-awesome') }} fa-tv-retro"></i> {{ $genre->tv_count }} {{ __('mediahub.shows') }}
-                            |
-                            <i class="{{ config('other.font-awesome') }} fa-film"></i> {{ $genre->movie_count }} {{ __('mediahub.movies') }}
+                <a
+                    href="{{ route('torrents.index', ['view' => 'group', 'genres' => [$genre->id]]) }}"
+                    style="padding: 0 2px"
+                >
+                    <div class="people media_blocks" style="background-color: rgba(0, 0, 0, 0.33)">
+                        <h2 class="text-bold">{{ $genre->name }}</h2>
+                        <span style="background-color: #317aaf"></span>
+                        <h2 style="font-size: 14px">
+                            <i class="{{ config('other.font-awesome') }} fa-tv-retro"></i>
+                            {{ $genre->tv_count }} {{ __('mediahub.shows') }} |
+                            <i class="{{ config('other.font-awesome') }} fa-film"></i>
+                            {{ $genre->movie_count }} {{ __('mediahub.movies') }}
                         </h2>
                     </div>
                 </a>

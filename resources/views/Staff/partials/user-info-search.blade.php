@@ -5,7 +5,8 @@
     >
         {{ __('common.users') }}
     </a>
-</li><li class="{{ Route::is('staff.bans.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+</li>
+<li class="{{ Route::is('staff.bans.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
     <a
         class="{{ Route::is('staff.bans.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
         href="{{ route('staff.bans.index') }}"

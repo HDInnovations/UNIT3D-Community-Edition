@@ -1,4 +1,8 @@
-<form class="form-horizontal" method="POST" action="{{ route('polls.votes.store', ['poll' => $poll]) }}">
+<form
+    class="form-horizontal"
+    method="POST"
+    action="{{ route('polls.votes.store', ['poll' => $poll]) }}"
+>
     @csrf
     @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -9,6 +13,7 @@
             </ul>
         </div>
     @endif
+
     @if ($poll->multiple_choice)
         @foreach ($poll->options as $option)
             <p class="form__group">
@@ -18,7 +23,7 @@
                     type="checkbox"
                     name="options[]"
                     value="{{ $option->id }}"
-                >
+                />
                 <label class="form__label" for="option{{ $option->id }}">
                     {{ $option->name }}
                 </label>
@@ -34,7 +39,7 @@
                     name="options[]"
                     value="{{ $option->id }}"
                     required
-                >
+                />
                 <label class="form__label" for="option{{ $option->id }}">
                     {{ $option->name }}
                 </label>

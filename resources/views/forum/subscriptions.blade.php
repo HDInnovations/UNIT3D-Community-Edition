@@ -1,11 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.subscriptions') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('common.subscriptions') }} - {{ __('forum.forums') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum {{ __('common.subscriptions') }}">
+    <meta name="description" content="Forum {{ __('common.subscriptions') }}" />
 @endsection
 
 @section('breadcrumbs')

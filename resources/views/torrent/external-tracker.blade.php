@@ -1,11 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>External Tracker - {{ $torrent?->name ?? 'Not Found' }} - {{ config('other.title') }}</title>
+    <title>
+        External Tracker - {{ $torrent?->name ?? 'Not Found' }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('torrent.peers') }}">
+    <meta name="description" content="{{ __('torrent.peers') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -36,7 +38,10 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('torrents.external_tracker', ['id' => $id]) }}">
+        <a
+            class="nav-tab--active__link"
+            href="{{ route('torrents.external_tracker', ['id' => $id]) }}"
+        >
             External Tracker
         </a>
     </li>
@@ -46,23 +51,17 @@
     @if ($externalTorrent === true)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
-            <div class="panel__body">
-                External tracker not enabled.
-            </div>
+            <div class="panel__body">External tracker not enabled.</div>
         </section>
     @elseif ($externalTorrent === false)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
-            <div class="panel__body">
-                Torrent not found.
-            </div>
+            <div class="panel__body">Torrent not found.</div>
         </section>
     @elseif ($externalTorrent === [])
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
-            <div class="panel__body">
-                Tracker returned an error.
-            </div>
+            <div class="panel__body">Tracker returned an error.</div>
         </section>
     @else
         <section class="panelV2">
@@ -90,15 +89,18 @@
                                         @if ($torrent === null)
                                             <x-user_tag :user="$user" :anon="true" />
                                         @else
-                                            <x-user_tag :user="$user" :anon="
-                                                $user->hidden == 1
-                                                || $user->peer_hidden == 1
-                                                || $user->privacy?->show_peer === 0
-                                                || ($user->id == $torrent->user->id && $torrent->anon == 1)
-                                            " />
+                                            <x-user_tag
+                                                :user="$user"
+                                                :anon="
+                                                    $user->hidden == 1
+                                                    || $user->peer_hidden == 1
+                                                    || $user->privacy?->show_peer === 0
+                                                    || ($user->id == $torrent->user->id && $torrent->anon == 1)
+                                                "
+                                            />
                                         @endif
                                     @else
-                                        User not found
+                                            User not found
                                     @endif
                                 </td>
                                 <td>
@@ -106,8 +108,9 @@
                                         Torrent size not available
                                     @else
                                         @php
-                                            $progress = 100 * ($peer['downloaded'] % ($torrent->size)) / $torrent->size
+                                            $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size
                                         @endphp
+
                                         @if (0 < $progress && $progress < 1)
                                             1%
                                         @elseif (99 < $progress && $progress < 100)
@@ -117,9 +120,16 @@
                                         @endif
                                     @endif
                                 </td>
-                                <td class="text-green">{{ \App\Helpers\StringHelper::formatBytes($peer['uploaded'] ?? 0, 2) }}</td>
-                                <td class="text-red">{{ \App\Helpers\StringHelper::formatBytes($peer['downloaded'] ?? 0, 2) }}</td>
-                                <td>{{ \App\Helpers\StringHelper::formatBytes($peer['left'] ?? 0, 2) }}</td>
+                                <td class="text-green">
+                                    {{ \App\Helpers\StringHelper::formatBytes($peer['uploaded'] ?? 0, 2) }}
+                                </td>
+                                <td class="text-red">
+                                    {{ \App\Helpers\StringHelper::formatBytes($peer['downloaded'] ?? 0, 2) }}
+                                </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($peer['left'] ?? 0, 2) }}
+                                </td>
+
                                 @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
                                     <td>{{ $peer['ip_address'] }}</td>
                                     <td>{{ $peer['port'] }}</td>
@@ -131,11 +141,14 @@
                                     @php
                                         $updatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($peer['updated_at'])
                                     @endphp
+
                                     <time datetime="{{ $updatedAt }}" title="{{ $updatedAt }}">
                                         {{ $updatedAt ? $updatedAt->diffForHumans() : 'N/A' }}
                                     </time>
                                 </td>
-                                <td class="{{ $peer['is_active'] ? ($peer['is_seeder'] ? 'text-green' : 'text-red') : 'text-orange' }}">
+                                <td
+                                    class="{{ $peer['is_active'] ? ($peer['is_seeder'] ? 'text-green' : 'text-red') : 'text-orange' }}"
+                                >
                                     @if ($peer['is_active'])
                                         @if ($peer['is_seeder'])
                                             {{ __('torrent.seeder') }}
@@ -143,7 +156,7 @@
                                             {{ __('torrent.leecher') }}
                                         @endif
                                     @else
-                                        Inactive
+                                            Inactive
                                     @endif
                                 </td>
                             </tr>
@@ -169,7 +182,9 @@
                     <dt>Upload Factor</dt>
                     <dd>{{ $externalTorrent['upload_factor'] }}</dd>
                     <dt>Deleted</dt>
-                    <dd>{{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}</dd>
+                    <dd>
+                        {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
+                    </dd>
                 </dl>
             </section>
         @endsection

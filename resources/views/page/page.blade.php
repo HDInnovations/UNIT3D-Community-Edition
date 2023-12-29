@@ -2,9 +2,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('pages.index') }}" class="breadcrumb__link">
-            Pages
-        </a>
+        <a href="{{ route('pages.index') }}" class="breadcrumb__link">Pages</a>
     </li>
     <li class="breadcrumb--active">
         {{ $page->name }}
@@ -43,51 +41,55 @@
 @endsection
 
 @section('javascripts')
-    @if(parse_url(request()->url(), PHP_URL_PATH) === parse_url(config('other.rules_url'), PHP_URL_PATH) && auth()->user()->read_rules == 0)
+    @if (parse_url(request()->url(), PHP_URL_PATH) === parse_url(config('other.rules_url'), PHP_URL_PATH) && auth()->user()->read_rules == 0)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-          confirmRules = function () {
-            let scrollHeight, totalHeight
-            scrollHeight = document.body.scrollHeight
-            totalHeight = Math.ceil(window.scrollY + window.innerHeight)
+            confirmRules = function () {
+                let scrollHeight, totalHeight;
+                scrollHeight = document.body.scrollHeight;
+                totalHeight = Math.ceil(window.scrollY + window.innerHeight);
 
-            if (totalHeight >= scrollHeight) {
-              Swal.fire({
-                title: '<strong>Read The <u>Rules?</u></strong>',
-                text: 'Do You Fully Understand Our Rules?',
-                icon: 'question',
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> I Do!',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  axios.post(`/users/${atob('{{ base64_encode(auth()->user()->username) }}')}/accept-rules`)
-                  const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                  })
+                if (totalHeight >= scrollHeight) {
+                    Swal.fire({
+                        title: '<strong>Read The <u>Rules?</u></strong>',
+                        text: 'Do You Fully Understand Our Rules?',
+                        icon: 'question',
+                        confirmButtonText: '<i class="fa fa-thumbs-up"></i> I Do!',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.post(
+                                `/users/${atob(
+                                    '{{ base64_encode(auth()->user()->username) }}',
+                                )}/accept-rules`,
+                            );
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                            });
 
-                  Toast.fire({
-                    icon: 'success',
-                    title: 'Thanks For Accepting Our Rules!'
-                  })
-                } else {
-                  const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                  })
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Thanks For Accepting Our Rules!',
+                            });
+                        } else {
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                            });
 
-                  Toast.fire({
-                    icon: 'error',
-                    title: 'Something Went Wrong!'
-                  })
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Something Went Wrong!',
+                            });
+                        }
+                    });
                 }
-              })
-            }
-          }
-          window.onscroll = confirmRules
-          window.onload = confirmRules
+            };
+            window.onscroll = confirmRules;
+            window.onload = confirmRules;
         </script>
     @endif
 @endsection

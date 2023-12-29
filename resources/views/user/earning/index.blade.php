@@ -29,7 +29,7 @@
             <div class="panel__actions">
                 <label class="panel__action">
                     {{ __('bon.extended-stats') }}
-                    <input type="checkbox" x-model="extendStats">
+                    <input type="checkbox" x-model="extendStats" />
                 </label>
             </div>
         </header>
@@ -58,7 +58,9 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.legendary-torrent') }}</td>
-                        <td>{{ __('common.older-than') }} 12 {{ strtolower(__('common.months')) }}</td>
+                        <td>
+                            {{ __('common.older-than') }} 12 {{ strtolower(__('common.months')) }}
+                        </td>
                         <td>1.50 &times; {{ $legendary }}</td>
                         <td>{{ $legendary * 1.5 }}</td>
                         <td x-cloak x-show="extendStats">{{ $legendary * 1.5 * 24 }}</td>
@@ -67,7 +69,9 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.old-torrent') }}</td>
-                        <td>{{ __('common.older-than') }} 6 {{ strtolower(__('common.months')) }}</td>
+                        <td>
+                            {{ __('common.older-than') }} 6 {{ strtolower(__('common.months')) }}
+                        </td>
                         <td>1.00 &times; {{ $old }}</td>
                         <td>{{ $old * 1 }}</td>
                         <td x-cloak x-show="extendStats">{{ $old * 1 * 24 }}</td>
@@ -76,7 +80,9 @@
                     </tr>
                     <tr>
                         <td>{{ __('common.huge') }} {{ __('torrent.torrents') }}</td>
-                        <td>{{ __('torrent.torrent') }} {{ __('torrent.size') }} &gt; 100&nbsp;GiB</td>
+                        <td>
+                            {{ __('torrent.torrent') }} {{ __('torrent.size') }} &gt; 100&nbsp;GiB
+                        </td>
                         <td>0.75 &times; {{ $huge }}</td>
                         <td>{{ $huge * 0.75 }}</td>
                         <td x-cloak x-show="extendStats">{{ $huge * 0.75 * 24 }}</td>
@@ -85,7 +91,10 @@
                     </tr>
                     <tr>
                         <td>{{ __('common.large') }} {{ __('torrent.torrents') }}</td>
-                        <td>{{ __('torrent.torrent') }} {{ __('torrent.size') }} &ge; 25&nbsp;GiB {{ strtolower(__('common.but')) }} < 100GiB</td>
+                        <td>
+                            {{ __('torrent.torrent') }} {{ __('torrent.size') }} &ge; 25&nbsp;GiB
+                            {{ strtolower(__('common.but')) }} < 100GiB
+                        </td>
                         <td>0.50 &times; {{ $large }}</td>
                         <td>{{ $large * 0.5 }}</td>
                         <td x-cloak x-show="extendStats">{{ $large * 0.5 * 24 }}</td>
@@ -94,7 +103,10 @@
                     </tr>
                     <tr>
                         <td>{{ __('common.everyday') }} {{ __('torrent.torrents') }}</td>
-                        <td>{{ __('torrent.torrent') }} {{ __('torrent.size') }} &ge; 1&nbsp;GiB {{ strtolower(__('common.but')) }} < 25GiB</td>
+                        <td>
+                            {{ __('torrent.torrent') }} {{ __('torrent.size') }} &ge; 1&nbsp;GiB
+                            {{ strtolower(__('common.but')) }} < 25GiB
+                        </td>
                         <td>0.25 &times; {{ $regular }}</td>
                         <td>{{ $regular * 0.25 }}</td>
                         <td x-cloak x-show="extendStats">{{ $regular * 0.25 * 24 }}</td>
@@ -103,7 +115,10 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.legendary-seeder') }}</td>
-                        <td>{{ __('torrent.seed-time') }} &ge; 1 {{ strtolower(__('common.year')) }}</td>
+                        <td>
+                            {{ __('torrent.seed-time') }} &ge; 1
+                            {{ strtolower(__('common.year')) }}
+                        </td>
                         <td>2.00 &times; {{ $legend }}</td>
                         <td>{{ $legend * 2 }}</td>
                         <td x-cloak x-show="extendStats">{{ $legend * 2 * 24 }}</td>
@@ -112,7 +127,12 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.mvp') }} {{ __('torrent.seeder') }}</td>
-                        <td>{{ __('torrent.seed-time') }} &ge; 6 {{ strtolower(__('common.months')) }} {{ strtolower(__('common.but')) }} < 1 {{ strtolower(__('common.year')) }}</td>
+                        <td>
+                            {{ __('torrent.seed-time') }} &ge; 6
+                            {{ strtolower(__('common.months')) }}
+                            {{ strtolower(__('common.but')) }} < 1
+                            {{ strtolower(__('common.year')) }}
+                        </td>
                         <td>1.00 &times; {{ $mvp }}</td>
                         <td>{{ $mvp * 1 }}</td>
                         <td x-cloak x-show="extendStats">{{ $mvp * 1 * 24 }}</td>
@@ -121,7 +141,12 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.commited') }} {{ __('torrent.seeder') }}</td>
-                        <td>{{ __('torrent.seed-time') }} &ge; 3 {{ strtolower(__('common.months')) }} {{ strtolower(__('common.but')) }} < 6 {{ strtolower(__('common.months')) }}</td>
+                        <td>
+                            {{ __('torrent.seed-time') }} &ge; 3
+                            {{ strtolower(__('common.months')) }}
+                            {{ strtolower(__('common.but')) }} < 6
+                            {{ strtolower(__('common.months')) }}
+                        </td>
                         <td>0.75 &times; {{ $committed }}</td>
                         <td>{{ $committed * 0.75 }}</td>
                         <td x-cloak x-show="extendStats">{{ $committed * 0.75 * 24 }}</td>
@@ -130,7 +155,12 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.team-player') }} {{ __('torrent.seeder') }}</td>
-                        <td>{{ __('torrent.seed-time') }} &ge; 2 {{ strtolower(__('common.months')) }} {{ strtolower(__('common.but')) }} < 3 {{ strtolower(__('common.months')) }}</td>
+                        <td>
+                            {{ __('torrent.seed-time') }} &ge; 2
+                            {{ strtolower(__('common.months')) }}
+                            {{ strtolower(__('common.but')) }} < 3
+                            {{ strtolower(__('common.months')) }}
+                        </td>
                         <td>0.50 &times; {{ $teamplayer }}</td>
                         <td>{{ $teamplayer * 0.5 }}</td>
                         <td x-cloak x-show="extendStats">{{ $teamplayer * 0.5 * 24 }}</td>
@@ -139,12 +169,19 @@
                     </tr>
                     <tr>
                         <td>{{ __('torrent.participant') }} {{ __('torrent.seeder') }}</td>
-                        <td>{{ __('torrent.seed-time') }} &ge; 1 {{ strtolower(__('common.month')) }} {{ strtolower(__('common.but')) }} < 2 {{ strtolower(__('common.months')) }}</td>
+                        <td>
+                            {{ __('torrent.seed-time') }} &ge; 1
+                            {{ strtolower(__('common.month')) }}
+                            {{ strtolower(__('common.but')) }} < 2
+                            {{ strtolower(__('common.months')) }}
+                        </td>
                         <td>0.25 &times; {{ $participant }}</td>
                         <td>{{ $participant * 0.25 }}</td>
                         <td x-cloak x-show="extendStats">{{ $participant * 0.25 * 24 }}</td>
                         <td x-cloak x-show="extendStats">{{ $participant * 0.25 * 24 * 7 }}</td>
-                        <td x-cloak x-show="extendStats">{{ $participant * 0.25 * 24 * 30 }}</td>
+                        <td x-cloak x-show="extendStats">
+                            {{ $participant * 0.25 * 24 * 30 }}
+                        </td>
                     </tr>
                 </tbody>
                 <tfoot>

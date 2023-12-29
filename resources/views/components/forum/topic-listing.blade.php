@@ -1,34 +1,7 @@
-@props([
-    'topic' => (object) [
-        'name'                     => '',
-        'id'                       => 1,
-        'first_post_user_username' => 'System',
-        'num_post'                 => 0,
-        'views'                    => 0,
-        'pinned'                   => false,
-        'state'                    => 'close',
-        'approved'                 => false,
-        'denied'                   => false,
-        'solved'                   => false,
-        'invalid'                  => false,
-        'bug'                      => false,
-        'suggestion'               => false,
-        'implemented'              => false,
-        'last_post_user_username'  => 'System',
-        'last_reply_at'            => null,
-        'forum'                    => (object) [
-            'name' => '',
-        ],
-    ],
-])
-
 <article class="topic-listing">
     <header class="topic-listing__header">
         <h2 class="topic-listing__heading">
-            <a
-                class="topic-listing__link"
-                href="{{ route('topics.show', ['id' => $topic->id]) }}"
-            >
+            <a class="topic-listing__link" href="{{ route('topics.show', ['id' => $topic->id]) }}">
                 {{ $topic->name }}
             </a>
         </h2>
@@ -36,21 +9,27 @@
             @if ($topic->approved)
                 <li class="topic-tag topic-tag--approved">{{ __('forum.approved') }}</li>
             @endif
+
             @if ($topic->denied)
                 <li class="topic-tag topic-tag--denied">{{ __('forum.denied') }}</li>
             @endif
+
             @if ($topic->solved)
                 <li class="topic-tag topic-tag--solved">{{ __('forum.solved') }}</li>
             @endif
+
             @if ($topic->invalid)
                 <li class="topic-tag topic-tag--invalid">{{ __('forum.invalid') }}</li>
             @endif
+
             @if ($topic->bug)
                 <li class="topic-tag topic-tag--bug">{{ __('forum.bug') }}</li>
             @endif
+
             @if ($topic->suggestion)
                 <li class="topic-tag topic-tag--suggestion">{{ __('forum.suggestion') }}</li>
             @endif
+
             @if ($topic->implemented)
                 <li class="topic-tag topic-tag--implemented">{{ __('forum.implemented') }}</li>
             @endif
@@ -69,6 +48,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i>
                     </abbr>
                 @endif
+
                 @if ($topic->state === 'close')
                     <abbr title="{{ __('user.locked') }}">
                         <i class="{{ config('other.font-awesome') }} fa-lock"></i>

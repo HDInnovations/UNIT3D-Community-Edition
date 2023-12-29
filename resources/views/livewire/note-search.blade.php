@@ -4,12 +4,7 @@
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="quantity"
-                        class="form__select"
-                        wire:model="perPage"
-                        required
-                    >
+                    <select id="quantity" class="form__select" wire:model="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -28,9 +23,7 @@
                         wire:model="search"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="search">
-                        Message
-                    </label>
+                    <label class="form__label form__label--floating" for="search">Message</label>
                 </div>
             </div>
         </div>
@@ -38,37 +31,40 @@
     <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>{{ __('common.user') }}</th>
-                <th>{{ __('common.staff') }}</th>
-                <th>{{ __('common.message') }}</th>
-                <th>{{ __('user.created-on') }}</th>
-                <th>{{ __('common.actions') }}</th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>{{ __('common.user') }}</th>
+                    <th>{{ __('common.staff') }}</th>
+                    <th>{{ __('common.message') }}</th>
+                    <th>{{ __('user.created-on') }}</th>
+                    <th>{{ __('common.actions') }}</th>
+                </tr>
             </thead>
             <tbody>
-            @forelse ($notes as $note)
-                <tr>
-                    <td>{{ $note->id }}</td>
-                    <td>
-                        <x-user_tag :anon="false" :user="$note->noteduser" />
-                    </td>
-                    <td>
-                        <x-user_tag :anon="false" :user="$note->staffuser" />
-                    </td>
-                    <td style="white-space: pre-wrap">{{ $note->message }}</td>
-                    <td>
-                        <time datetime="{{ $note->created_at }}" title="{{ $note->created_at }}">
-                            {{ $note->created_at->diffForHumans() }}
-                        </time>
-                    </td>
-                    <td>
-                        <menu class="data-table__actions">
-                            <li class="data-table__action">
-                                <form x-data>
-                                    <button
-                                        x-on:click.prevent="Swal.fire({
+                @forelse ($notes as $note)
+                    <tr>
+                        <td>{{ $note->id }}</td>
+                        <td>
+                            <x-user_tag :anon="false" :user="$note->noteduser" />
+                        </td>
+                        <td>
+                            <x-user_tag :anon="false" :user="$note->staffuser" />
+                        </td>
+                        <td style="white-space: pre-wrap">{{ $note->message }}</td>
+                        <td>
+                            <time
+                                datetime="{{ $note->created_at }}"
+                                title="{{ $note->created_at }}"
+                            >
+                                {{ $note->created_at->diffForHumans() }}
+                            </time>
+                        </td>
+                        <td>
+                            <menu class="data-table__actions">
+                                <li class="data-table__action">
+                                    <form x-data>
+                                        <button
+                                            x-on:click.prevent="Swal.fire({
                                             title: 'Are you sure?',
                                             text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
                                             icon: 'warning',
@@ -79,20 +75,20 @@
                                                 @this.destroy({{ $note->id }})
                                             }
                                         })"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.delete') }}
-                                    </button>
-                                </form>
-                            </li>
-                        </menu>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6">No notes</td>
-                </tr>
-            @endforelse
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.delete') }}
+                                        </button>
+                                    </form>
+                                </li>
+                            </menu>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6">No notes</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

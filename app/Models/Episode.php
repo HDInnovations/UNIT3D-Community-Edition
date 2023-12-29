@@ -26,8 +26,6 @@ class Episode extends Model
 
     protected string $orderDirection = 'ASC';
 
-    public $table = 'episodes';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, self>
      */

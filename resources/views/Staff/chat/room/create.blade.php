@@ -22,7 +22,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art',false) }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('common.chat-room') }}
         </h2>
         <div class="panel__body">
@@ -34,13 +34,7 @@
             >
                 @csrf
                 <p class="form__group">
-                    <input
-                        type="text"
-                        class="form__text"
-                        name="name"
-                        id="name"
-                        required
-                    >
+                    <input type="text" class="form__text" name="name" id="name" required />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>

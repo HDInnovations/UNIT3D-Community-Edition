@@ -32,7 +32,10 @@
             <h2 class="panel__heading">{{ __('bon.gifts') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    <a class="form__button form__button--text" href="{{ route('users.gifts.create', ['user' => $user]) }}">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('users.gifts.create', ['user' => $user]) }}"
+                    >
                         {{ __('bon.send-gift') }}
                     </a>
                 </div>
@@ -41,30 +44,30 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('bon.sender') }}</th>
-                    <th>{{ __('bon.receiver') }}</th>
-                    <th>{{ __('bon.points') }}</th>
-                    <th>{{ __('bon.date') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('bon.sender') }}</th>
+                        <th>{{ __('bon.receiver') }}</th>
+                        <th>{{ __('bon.points') }}</th>
+                        <th>{{ __('bon.date') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach($gifts as $gift)
-                    <tr>
-                        <td>
-                            <x-user_tag :user="$gift->sender" :anon="false" />
-                        </td>
-                        <td>
-                            <x-user_tag :user="$gift->receiver" :anon="false" />
-                        </td>
-                        <td>
-                            {{ $gift->cost }}
-                        </td>
-                        <td>
-                            {{ $gift->created_at }}
-                        </td>
-                    </tr>
-                @endforeach
+                    @foreach ($gifts as $gift)
+                        <tr>
+                            <td>
+                                <x-user_tag :user="$gift->sender" :anon="false" />
+                            </td>
+                            <td>
+                                <x-user_tag :user="$gift->receiver" :anon="false" />
+                            </td>
+                            <td>
+                                {{ $gift->cost }}
+                            </td>
+                            <td>
+                                {{ $gift->created_at }}
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

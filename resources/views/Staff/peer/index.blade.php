@@ -10,9 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Peers
-    </li>
+    <li class="breadcrumb--active">Peers</li>
 @endsection
 
 @section('nav-tabs')

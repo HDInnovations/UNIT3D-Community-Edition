@@ -1,17 +1,3 @@
-@props([
-    'subforum' => (object) [
-        'name'                    => '',
-        'id'                      => 0,
-        'description'             => '',
-        'num_topic'               => 0,
-        'num_post'                => 0,
-        'last_topic_id'           => null,
-        'last_topic_name'         => null,
-        'last_post_user_username' => null,
-        'updated_at'              => '',
-    ]
-])
-
 <article class="subforum-listing">
     <header class="subforum-listing__header">
         <h3 class="subforum-listing__heading">
@@ -48,6 +34,7 @@
                 </a>
             </p>
         @endif
+
         <time
             class="subforum-listing__latest-datetime"
             datetime="{{ $subforum->updated_at }}"

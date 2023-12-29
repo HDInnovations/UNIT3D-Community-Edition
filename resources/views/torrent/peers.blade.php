@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('torrent.peers') }}">
+    <meta name="description" content="{{ __('torrent.peers') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -37,7 +37,10 @@
     </li>
     @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
         <li class="nav-tabV2">
-            <a class="nav-tab__link" href="{{ route('torrents.external_tracker', ['id' => $torrent]) }}">
+            <a
+                class="nav-tab__link"
+                href="{{ route('torrents.external_tracker', ['id' => $torrent]) }}"
+            >
                 External Tracker
             </a>
         </li>
@@ -60,8 +63,9 @@
                         <th>{{ __('common.ip') }}</th>
                         <th>{{ __('common.port') }}</th>
                         @if (\config('announce.connectable_check') == true)
-                        <th>Connectable</th>
+                            <th>Connectable</th>
                         @endif
+
                         <th>{{ __('torrent.started') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('common.status') }}</th>
@@ -71,18 +75,26 @@
                     @foreach ($peers as $peer)
                         <tr>
                             <td>
-                                <x-user_tag :user="$peer->user" :anon="
-                                    $peer->user->hidden == 1
-                                    || $peer->user->peer_hidden == 1
-                                    || $peer->user->privacy?->show_peer === 0
-                                    || ($peer->user->id == $torrent->user->id && $torrent->anon == 1)
-                                " />
+                                <x-user_tag
+                                    :user="$peer->user"
+                                    :anon="
+                                        $peer->user->hidden == 1
+                                        || $peer->user->peer_hidden == 1
+                                        || $peer->user->privacy?->show_peer === 0
+                                        || ($peer->user->id == $torrent->user->id && $torrent->anon == 1)
+                                    "
+                                />
                             </td>
                             <td>{{ $peer->progress }}%</td>
-                            <td class="text-green">{{ \App\Helpers\StringHelper::formatBytes($peer->uploaded, 2) }}</td>
-                            <td class="text-red">{{ \App\Helpers\StringHelper::formatBytes($peer->downloaded, 2) }}</td>
+                            <td class="text-green">
+                                {{ \App\Helpers\StringHelper::formatBytes($peer->uploaded, 2) }}
+                            </td>
+                            <td class="text-red">
+                                {{ \App\Helpers\StringHelper::formatBytes($peer->downloaded, 2) }}
+                            </td>
                             <td>{{ \App\Helpers\StringHelper::formatBytes($peer->left, 2) }}</td>
                             <td>{{ $peer->agent }}</td>
+
                             @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
                                 <td>{{ $peer->ip }}</td>
                                 <td>{{ $peer->port }}</td>
@@ -93,23 +105,33 @@
                             @if (\config('announce.connectable_check') == true)
                                 @php
                                     $connectable = false;
-                                    if (cache()->has('peers:connectable:'.$peer->ip.'-'.$peer->port.'-'.$peer->agent)) {
-                                        $connectable = cache()->get('peers:connectable:'.$peer->ip.'-'.$peer->port.'-'.$peer->agent);
+                                    if (cache()->has('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent)) {
+                                        $connectable = cache()->get('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent);
                                     }
                                 @endphp
+
                                 <td>@choice('user.client-connectable-state', $connectable)</td>
                             @endif
+
                             <td>
-                                <time datetime="{{ $peer->created_at }}" title="{{ $peer->created_at }}">
+                                <time
+                                    datetime="{{ $peer->created_at }}"
+                                    title="{{ $peer->created_at }}"
+                                >
                                     {{ $peer->created_at ? $peer->created_at->diffForHumans() : 'N/A' }}
                                 </time>
                             </td>
                             <td>
-                                <time datetime="{{ $peer->updated_at }}" title="{{ $peer->updated_at }}">
+                                <time
+                                    datetime="{{ $peer->updated_at }}"
+                                    title="{{ $peer->updated_at }}"
+                                >
                                     {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}
                                 </time>
                             </td>
-                            <td class="{{ $peer->active ? ($peer->seeder ? 'text-green' : 'text-red') : 'text-orange' }}">
+                            <td
+                                class="{{ $peer->active ? ($peer->seeder ? 'text-green' : 'text-red') : 'text-orange' }}"
+                            >
                                 @if ($peer->active)
                                     @if ($peer->seeder)
                                         {{ __('torrent.seeder') }}
@@ -117,7 +139,7 @@
                                         {{ __('torrent.leecher') }}
                                     @endif
                                 @else
-                                    Inactive
+                                        Inactive
                                 @endif
                             </td>
                         </tr>

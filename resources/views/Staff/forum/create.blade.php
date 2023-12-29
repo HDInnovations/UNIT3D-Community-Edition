@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Add Forums - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Add Forums - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -33,19 +33,28 @@
             <form class="form" method="POST" action="{{ route('staff.forums.store') }}">
                 @csrf
                 <p class="form__group">
-                    <select id ="forum_type" class="form__select" name="forum_type" required>
+                    <select id="forum_type" class="form__select" name="forum_type" required>
                         <option class="form__option" value="category">Category</option>
                         <option class="form__option" value="forum">Forum</option>
                     </select>
-                    <label class="form__label form__label--floating" for="forum_type">Forum Type</label>
+                    <label class="form__label form__label--floating" for="forum_type">
+                        Forum Type
+                    </label>
                 </p>
                 <p class="form__group">
-                    <input id="name" class="form__text" type="text" name="name" required>
+                    <input id="name" class="form__text" type="text" name="name" required />
                     <label class="form__label form__label--floating" for="name">Title</label>
                 </p>
                 <p class="form__group">
-                    <textarea id="description" class="form__textarea" name="description" placeholder=" "></textarea>
-                    <label class="form__label form__label--floating" for="description">Description</label>
+                    <textarea
+                        id="description"
+                        class="form__textarea"
+                        name="description"
+                        placeholder=" "
+                    ></textarea>
+                    <label class="form__label form__label--floating" for="description">
+                        Description
+                    </label>
                 </p>
                 <p class="form__group">
                     <select id="parent_id" class="form__select" name="parent_id">
@@ -56,7 +65,9 @@
                             </option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating" for="parent_id">Parent forum</label>
+                    <label class="form__label form__label--floating" for="parent_id">
+                        Parent forum
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -67,40 +78,70 @@
                         pattern="[0-9]*"
                         placeholder=" "
                         type="text"
-                    >
-                    <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="position">
+                        {{ __('common.position') }}
+                    </label>
                 </p>
                 <div class="form__group">
                     <h3>Permissions</h3>
                     <div class="data-table-wrapper">
                         <table class="data-table">
                             <thead>
-                            <tr>
-                                <th>Groups</th>
-                                <th>View the forum</th>
-                                <th>Read topics</th>
-                                <th>Start new topic</th>
-                                <th>Reply to topics</th>
-                            </tr>
+                                <tr>
+                                    <th>Groups</th>
+                                    <th>View the forum</th>
+                                    <th>Read topics</th>
+                                    <th>Start new topic</th>
+                                    <th>Reply to topics</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach ($groups as $group)
-                                <tr>
-                                    <th>{{ $group->name }}</th>
-                                    <td><label>
-                                            <input type="checkbox" name="permissions[{{ $group->id }}][show_forum]" value="1" checked>
-                                        </label></td>
-                                    <td><label>
-                                            <input type="checkbox" name="permissions[{{ $group->id }}][read_topic]" value="1" checked>
-                                        </label></td>
-                                    <td><label>
-                                            <input type="checkbox" name="permissions[{{ $group->id }}][start_topic]" value="1" checked>
-                                        </label></td>
-                                    <td><label>
-                                            <input type="checkbox" name="permissions[{{ $group->id }}][reply_topic]" value="1" checked>
-                                        </label></td>
-                                </tr>
-                            @endforeach
+                                @foreach ($groups as $group)
+                                    <tr>
+                                        <th>{{ $group->name }}</th>
+                                        <td>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="permissions[{{ $group->id }}][show_forum]"
+                                                    value="1"
+                                                    checked
+                                                />
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="permissions[{{ $group->id }}][read_topic]"
+                                                    value="1"
+                                                    checked
+                                                />
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="permissions[{{ $group->id }}][start_topic]"
+                                                    value="1"
+                                                    checked
+                                                />
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="permissions[{{ $group->id }}][reply_topic]"
+                                                    value="1"
+                                                    checked
+                                                />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -4,13 +4,14 @@
         @if (auth()->user()->group->is_modo)
             <div class="panel__actions">
                 <div class="panel__action" x-data>
-                    <button class="form__button form__button--text" x-on:click.stop="$refs.dialog.showModal();">
+                    <button
+                        class="form__button form__button--text"
+                        x-on:click.stop="$refs.dialog.showModal();"
+                    >
                         {{ __('common.add') }}
                     </button>
                     <dialog class="dialog" x-ref="dialog" x-cloak>
-                        <h3 class="dialog__heading">
-                            Warn user: {{ $user->username }}
-                        </h3>
+                        <h3 class="dialog__heading">Warn user: {{ $user->username }}</h3>
                         <form
                             class="dialog__form"
                             x-on:click.outside="$refs.dialog.close()"
@@ -25,7 +26,9 @@
                                     required
                                     wire:model.defer="message"
                                 ></textarea>
-                                <label class="form__label form__label--floating" for="warn_reason">Reason</label>
+                                <label class="form__label form__label--floating" for="warn_reason">
+                                    Reason
+                                </label>
                             </p>
                             <p class="form__group">
                                 <button
@@ -35,7 +38,11 @@
                                 >
                                     {{ __('common.save') }}
                                 </button>
-                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                <button
+                                    formmethod="dialog"
+                                    formnovalidate
+                                    class="form__button form__button--outlined"
+                                >
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>
@@ -123,6 +130,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                         </th>
                     @endif
+
                     <th wire:click="sortBy('reason')" role="columnheader button">
                         {{ __('common.reason') }}
                         @include('livewire.includes._sort-icon', ['field' => 'reason'])
@@ -151,33 +159,46 @@
                         @if ($warningTab !== 'manual')
                             <td>
                                 @isset($warning->torrenttitle)
-                                    <a href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}">
+                                    <a
+                                        href="{{ route('torrents.show', ['id' => $warning->torrenttitle->id]) }}"
+                                    >
                                         {{ $warning->torrenttitle->name }}
                                     </a>
                                 @else
                                     n/a
-                                @endif
+                                @endisset
                             </td>
                         @endif
+
                         <td>{{ $warning->reason }}</td>
                         <td>
-                            <time datetime="{{ $warning->created_at }}" title="{{ $warning->created_at }}">
+                            <time
+                                datetime="{{ $warning->created_at }}"
+                                title="{{ $warning->created_at }}"
+                            >
                                 {{ $warning->created_at }}
                             </time>
                         </td>
                         <td>
-                            <time datetime="{{ $warning->expires_on }}" title="{{ $warning->expires_on }}">
+                            <time
+                                datetime="{{ $warning->expires_on }}"
+                                title="{{ $warning->expires_on }}"
+                            >
                                 {{ $warning->expires_on }}
                             </time>
                         </td>
                         <td>
                             @if ($warning->active)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
                             @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
                             @endif
                         </td>
-                        @if(auth()->user()->group->is_modo)
+                        @if (auth()->user()->group->is_modo)
                             <td>
                                 <menu class="data-table__actions">
                                     @if ($warningTab === 'deleted')
@@ -251,6 +272,7 @@
                                                 </li>
                                             @endif
                                         @endif
+
                                         <li class="data-table__action">
                                             <form>
                                                 @csrf
@@ -279,7 +301,11 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="{{ 6 + (int) ($warningTab !== 'manual') + (int) auth()->user()->group->is_modo }}">{{ __('user.no-warning') }}</td>
+                        <td
+                            colspan="{{ 6 + (int) ($warningTab !== 'manual') + (int) auth()->user()->group->is_modo }}"
+                        >
+                            {{ __('user.no-warning') }}
+                        </td>
                     </tr>
                 @endforelse
             </tbody>

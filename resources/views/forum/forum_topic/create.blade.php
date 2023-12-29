@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.create-new-topic') }}">
+    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.create-new-topic') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -15,7 +15,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}"
+            class="breadcrumb__link"
+        >
             {{ $forum->category->name }}
         </a>
     </li>
@@ -37,7 +40,11 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('forum.create-new-topic') }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('topics.store', ['id' => $forum->id]) }}">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('topics.store', ['id' => $forum->id]) }}"
+            >
                 @csrf
                 <p class="form__group">
                     <input
@@ -48,7 +55,7 @@
                         name="title"
                         required
                         type="text"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="input-thread-title">
                         {{ __('forum.topic-title') }}
                     </label>

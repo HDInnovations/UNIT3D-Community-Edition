@@ -22,20 +22,10 @@
     <section class="panelV2">
         <h2 class="panel__heading">Add A Torrent Distributor</h2>
         <div class="panel__body">
-            <form
-                class="form"
-                method="POST"
-                action="{{ route('staff.distributors.store') }}"
-            >
+            <form class="form" method="POST" action="{{ route('staff.distributors.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        name="name"
-                        required
-                        type="text"
-                    >
+                    <input id="name" class="form__text" name="name" required type="text" />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
