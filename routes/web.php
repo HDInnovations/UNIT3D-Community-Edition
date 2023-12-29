@@ -102,6 +102,12 @@ Route::middleware('language')->group(function (): void {
             Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
         });
 
+        // Wiki System
+        Route::prefix('wikis')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\WikiController::class, 'index'])->name('wikis.index');
+            Route::get('/{wiki}', [App\Http\Controllers\WikiController::class, 'show'])->name('wikis.show');
+        });
+
         // Extra-Stats System
         Route::prefix('stats')->group(function (): void {
             Route::get('/', [App\Http\Controllers\StatsController::class, 'index'])->name('stats');
@@ -1021,6 +1027,30 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WatchlistController::class, 'index'])->name('index');
                 Route::post('/', [App\Http\Controllers\Staff\WatchlistController::class, 'store'])->name('store');
                 Route::delete('/{watchlist}', [App\Http\Controllers\Staff\WatchlistController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Wiki Categories System
+        Route::prefix('wiki_categories')->group(function (): void {
+            Route::name('wiki_categories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\WikiCategoryController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\WikiCategoryController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\WikiCategoryController::class, 'store'])->name('store');
+                Route::get('/{wikiCategory}/edit', [App\Http\Controllers\Staff\WikiCategoryController::class, 'edit'])->name('edit');
+                Route::patch('/{wikiCategory}/update', [App\Http\Controllers\Staff\WikiCategoryController::class, 'update'])->name('update');
+                Route::delete('/{wikiCategory}/destroy', [App\Http\Controllers\Staff\WikiCategoryController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Wiki System
+        Route::prefix('wikis')->group(function (): void {
+            Route::name('wikis.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\WikiController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\WikiController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
+                Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');
+                Route::patch('/{wiki}/update', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
+                Route::delete('/{wiki}/destroy', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
             });
         });
     });
