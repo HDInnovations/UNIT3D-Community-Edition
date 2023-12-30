@@ -360,7 +360,7 @@ class Bbcode
             }
 
             // Is the potential tag opening or closing?
-            if ($source[$index + 1] === '/' && !empty($openedElements)) {
+            if ($source[$index + 1] === '/' && ! empty($openedElements)) {
                 $name = array_pop($openedElements);
                 $el = $this->parsers[$name];
                 $tag = substr((string) $source, $index, \strlen((string) $el['closeBbcode']));
@@ -401,7 +401,7 @@ class Bbcode
             $index++;
         }
 
-        while (!empty($openedElements)) {
+        while (! empty($openedElements)) {
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 
@@ -425,12 +425,12 @@ class Bbcode
      * [/list]
      * ```
      *
-     * @param String $source        Reference to the source text content currently being converted from bbcode to html.
+     * @param string $source        Reference to the source text content currently being converted from bbcode to html.
      * @param int    $index         Reference to the current index of `$source` that the parser must keep track of.
      * @param int    $tagStartIndex The index of the first character of the tag being parsed inside `$source`. Should be the `[` character.
      * @param int    $tagStopIndex  The index of the last character of the tag being parsed inside `$source`. Should be the `]` character.
      */
-    private function handleBlockElementSpacing(String &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
+    private function handleBlockElementSpacing(string &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
     {
         // Remove two line breaks (if they exist) instead of one, since a
         // line break after a block element is positioned on the line after
