@@ -1,7 +1,7 @@
 .form__label {
     user-select: none;
     font-size: 14px;
-    font-weight: normal !important; /* Needed until site-wide `label` styles are removed */
+    font-weight: normal;
 }
 
 .form__label--floating {

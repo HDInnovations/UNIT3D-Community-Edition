@@ -12,7 +12,6 @@
 .form__group {
     background-color: inherit;
     position: relative;
-    margin-top: 0 !important; /* Can be removed once site-wide <p> styles are removed */
 }
 
 /* Form labels */
@@ -20,7 +19,6 @@
 .form__label {
     user-select: none;
     font-size: 14px;
-    font-weight: normal !important; /* Needed until site-wide <label> styles are removed */
 }
 
 .form__label--floating {
@@ -124,26 +122,12 @@
 
         & + .form__label--floating {
             color: #ba1b1b;
-
-            > strong {
-                color: inherit; /* Can be removed once site-wide <strong> styling is removed */
-            }
         }
 
         & ~ .form__hint {
             color: #ba1b1b;
             font-size: 12px;
             margin-left: 16px;
-
-            > strong {
-                color: inherit; /* Can be removed once site-wide <strong> styling is removed */
-            }
         }
     }
-}
-
-/* Checkboxes */
-
-.form__checkbox {
-    all: revert !important; /* Can be removed once site-wide checkbox styling is removed */
 }

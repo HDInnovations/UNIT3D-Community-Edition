@@ -34,6 +34,7 @@ class HomeController extends Controller
             'tv'               => Tv::count(),
             'movies'           => Movie::count(),
             'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'tvCategoryIds'    => Category::where('tv_meta', '=', 1)->pluck('id')->toArray(),
             'collections'      => Collection::count(),
             'persons'          => Person::whereNotNull('still')->count(),
             'genres'           => Genre::count(),

@@ -5,7 +5,7 @@
 >
     @if ($post->dislikes_exists)
         <i
-            class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down fa-beat"
+            class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down post__like-animation"
         ></i>
     @else
         <i class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"></i>

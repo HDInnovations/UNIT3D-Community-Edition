@@ -33,6 +33,7 @@
     text-align: right;
     padding: calc(var(--key-value-padding) / 2) var(--key-value-padding) calc(var(--key-value-padding) / 2)
         calc(var(--key-value-padding) / 2);
+    margin: 0;
 }
 
 .key-value dt:nth-child(4n + 1),

@@ -4,16 +4,6 @@
     action="{{ route('polls.votes.store', ['poll' => $poll]) }}"
 >
     @csrf
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     @if ($poll->multiple_choice)
         @foreach ($poll->options as $option)
             <p class="form__group">

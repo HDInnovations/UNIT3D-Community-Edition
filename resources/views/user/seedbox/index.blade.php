@@ -152,10 +152,12 @@
             {{ strtoupper(__('user.disclaimer')) }}
         </h2>
         <div class="panel__body">
-            {{ __('user.disclaimer-info') }}
-            <br />
-            <br />
-            {{ __('user.disclaimer-info-bordered') }}
+            <p>
+                {{ __('user.disclaimer-info') }}
+            </p>
+            <p>
+                {{ __('user.disclaimer-info-bordered') }}
+            </p>
         </div>
     </section>
 @endsection

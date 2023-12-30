@@ -5,7 +5,9 @@
 @import 'vendor/alpinejs';
 
 // Base
+@import 'base/normalize';
 @import 'base/typography';
+@import 'base/reset';
 @import 'base/scrollbar';
 
 // Components
@@ -14,13 +16,16 @@
 @import 'chat/chatbox';
 @import 'main/tooltips';
 @import 'components/achievement';
+@import 'components/alert';
 @import 'components/article-preview';
 @import 'components/bbcode-input';
 @import 'components/bbcode-rendered';
+@import 'components/collection-card';
 @import 'components/comment';
 @import 'components/comparison';
 @import 'components/data-table';
 @import 'components/dialog';
+@import 'components/emoji';
 @import 'components/featured-pane';
 @import 'components/form/button';
 @import 'components/form/checkbox';
@@ -40,12 +45,14 @@
 @import 'components/forum/topic-listing';
 @import 'components/forum/topic-tag';
 @import 'components/key-value';
+@import 'components/mediahub-card';
 @import 'components/mediainfo';
 @import 'components/meta';
 @import 'components/pagination';
 @import 'components/panel';
 @import 'components/playlist';
 @import 'components/quick_search';
+@import 'components/swal';
 @import 'components/torrent-card';
 @import 'components/user-active';
 @import 'components/user-card';
