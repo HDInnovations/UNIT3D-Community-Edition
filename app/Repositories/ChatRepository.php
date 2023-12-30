@@ -207,6 +207,7 @@ class ChatRepository
             'receiver.chatStatus',
         ])->where(function ($query) use ($roomId): void {
             $query->where('chatroom_id', '=', $roomId);
+            $query->where('chatroom_id', '!=', 0);
         })
             ->latest('id')
             ->limit(config('chat.message_limit'))
@@ -227,6 +228,7 @@ class ChatRepository
         ])->where(function ($query) use ($senderId, $systemUserId): void {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
         })->where('bot_id', '=', $botId)
+            ->where('chatroom_id', '=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
@@ -244,6 +246,7 @@ class ChatRepository
         ])->where(function ($query) use ($senderId, $targetId): void {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);
         })
+            ->where('chatroom_id', '=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();

@@ -28,8 +28,8 @@ class UserAudibleResource extends JsonResource
         return [
             'id'      => $this->id,
             'user_id' => $this->user_id,
-            'user'    => $this->user,
-            'target'  => $this->target,
+            'user'    => new ChatUserResource($this->user),
+            'target'  => new ChatUserResource($this->target),
             'room'    => $this->room,
             'bot'     => $this->bot,
             'status'  => $this->status,
