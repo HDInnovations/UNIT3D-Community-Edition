@@ -275,20 +275,7 @@ parameters:
 			count: 1
 			path: app/Exceptions/TrackerException.php
 
-		-
-			message: "#^Method App\\\\Helpers\\\\Bbcode\\:\\:parse\\(\\) has parameter \\$replaceLineBreaks with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
 
-		-
-			message: "#^Method App\\\\Helpers\\\\Bbcode\\:\\:parse\\(\\) has parameter \\$source with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Bbcode\\:\\:\\$parsers type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
 
 		-
 			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
