@@ -479,7 +479,7 @@ Menu
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->movie($id);
 
-        return (new Movie($id))->getData();
+        return (new Movie($id))->data;
     }
 
     private function fetchTv($id)
@@ -488,7 +488,7 @@ Menu
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->tv($id);
 
-        return (new TV($id))->getData();
+        return (new TV($id))->data;
     }
 
     private function movie_ids(): array

@@ -13,124 +13,62 @@
 
 namespace App\Services\Tmdb\Client;
 
+use App\Services\Tmdb\TMDB;
+use Illuminate\Support\Facades\Http;
+
 class Company
 {
-    public \GuzzleHttp\Client $client;
+    /**
+     * @var array{
+     *     description: ?string,
+     *     headquarters: ?string,
+     *     homepage: ?string,
+     *     id: ?int,
+     *     logo_path: ?string,
+     *     name: ?string,
+     *     origin_country: ?string,
+     *     parent_company: ?string,
+     * }
+     */
+    public mixed $data;
 
-    public ?int $page = null;
+    public TMDB $tmdb;
 
-    final public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
-
-    public $data;
-
-    public function __construct($id, $page = null)
+    public function __construct(int $id)
     {
-        $this->client = new \GuzzleHttp\Client(
-            [
-                'base_uri'    => self::API_BASE_URI,
-                'verify'      => false,
-                'http_errors' => false,
-                'headers'     => [
-                    'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
-                ],
-                'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
-                    'language'           => config('app.meta_locale'),
-                    'append_to_response' => 'movies,videos,images,credits',
-                    'page'               => $page,
-                ],
-            ]
-        );
+        $this->tmdb = new TMDB();
 
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/company/'.$id);
-
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->data = Http::acceptJson()
+            ->withUrlParameters(['id' => $id])
+            ->get('https://api.TheMovieDB.org/3/company/{id}', [
+                'api_key'            => config('api-keys.tmdb'),
+                'language'           => config('app.meta_locale'),
+                'append_to_response' => 'movies,videos,images,credits',
+            ])
+            ->json();
     }
 
-    public function getData()
+    /**
+     * @return array{
+     *      id: ?int,
+     *      description: ?string,
+     *      headquarters: ?string,
+     *      homepage: ?string,
+     *      logo: ?string,
+     *      name: ?string,
+     *      origin_country: string,
+     * }
+     */
+    public function getCompany(): array
     {
-        return $this->data;
-    }
-
-    public function get_birthday()
-    {
-        return $this->data['birthday'];
-    }
-
-    public function get_known_for_department()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['known_for_department']);
-    }
-
-    public function get_deathday()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['deathday']);
-    }
-
-    public function get_id()
-    {
-        return $this->data['id'];
-    }
-
-    public function get_foto(): string
-    {
-        return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
-    }
-
-    public function get_name()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
-    }
-
-    public function get_gender()
-    {
-        return $this->data['gender'];
-    }
-
-    public function get_biography()
-    {
-        return $this->data['biography'];
-    }
-
-    public function get_popularity()
-    {
-        return $this->data['popularity'];
-    }
-
-    public function get_place_of_birth()
-    {
-        return $this->data['place_of_birth'];
-    }
-
-    public function get_adult()
-    {
-        return $this->data['adult'];
-    }
-
-    public function get_imdb_id()
-    {
-        return $this->data['imdb_id'];
-    }
-
-    public function get_homepage()
-    {
-        return $this->data['homepage'];
-    }
-
-    public function get_movies(): array
-    {
-        $array = [];
-        $this->page = 1;
-
-        while ($data = $this->data['movies'][$this->page++]) {
-            $json = json_decode((string) $data, true, 512, JSON_THROW_ON_ERROR);                                   //01
-
-            foreach ($json['results'] as $row) {
-                $array[] = $row;
-            }
-        }
-
-        return $array;
+        return [
+            'id'             => $this->data['id'],
+            'description'    => $this->data['description'] ?? null,
+            'headquarters'   => $this->data['headquarters'] ?? null,
+            'homepage'       => $this->data['homepage'] ?? null,
+            'logo'           => $this->tmdb->image('logo', $this->data),
+            'name'           => $this->data['name'] ?? null,
+            'origin_country' => $this->data['origin_country'],
+        ];
     }
 }
