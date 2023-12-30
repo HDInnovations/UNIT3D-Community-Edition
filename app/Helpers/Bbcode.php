@@ -306,18 +306,18 @@ class Bbcode
         // YouTube video elements need to be replaced like this because the content inside the two tags
         // has to be moved into an HTML attribute
         $source = preg_replace_callback(
-            '/\[youtube](.*?)\[\/youtube]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            '/\[youtube]([a-z0-9_-]{11})\[\/youtube]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[video](.*?)\[\/video]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            '/\[video]([a-z0-9_-]{11})\[\/video]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[video="youtube"](.*?)\[\/video]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            '/\[video="youtube"]([a-z0-9_-]{11})\[\/video]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
 
@@ -360,7 +360,7 @@ class Bbcode
             }
 
             // Is the potential tag opening or closing?
-            if ($source[$index + 1] === '/' && ! empty($openedElements)) {
+            if ($source[$index + 1] === '/' && !empty($openedElements)) {
                 $name = array_pop($openedElements);
                 $el = $this->parsers[$name];
                 $tag = substr((string) $source, $index, \strlen((string) $el['closeBbcode']));
@@ -401,7 +401,7 @@ class Bbcode
             $index++;
         }
 
-        while (! empty($openedElements)) {
+        while (!empty($openedElements)) {
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 
