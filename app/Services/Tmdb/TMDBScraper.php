@@ -16,20 +16,14 @@ namespace App\Services\Tmdb;
 use App\Jobs\ProcessMovieJob;
 use App\Jobs\ProcessTvJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 
 class TMDBScraper implements ShouldQueue
 {
     use SerializesModels;
 
-    public int $id;
-
-    public function __construct(Request $request = null)
+    public function __construct()
     {
-        if ($request != null) {
-            $this->id = $request->query('id');
-        }
     }
 
     public function tv(int $id): void

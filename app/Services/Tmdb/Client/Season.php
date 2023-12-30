@@ -98,11 +98,6 @@ class Season
         $this->tmdb = new TMDB();
     }
 
-    public function getData(): mixed
-    {
-        return $this->data;
-    }
-
     /**
      * @return array{
      *     id: int,
@@ -128,19 +123,23 @@ class Season
     }
 
     /**
-     * @return array{
-     *     id: int,
-     *     tv_id: int,
-     *     air_date: ?string,
-     *     name: ?string,
-     *     episode_number: ?int,
-     *     overview: ?string,
-     *     still: ?string,
-     *     production_code: ?string,
-     *     season_number: ?int,
-     *     vote_average: ?float,
-     *     vote_count: ?int,
-     *     season_id: int,
+     * @return array<
+     *     int<0, max>,
+     *     array{
+     *         id: int,
+     *         tv_id: int,
+     *         air_date: ?string,
+     *         name: ?string,
+     *         episode_number: ?int,
+     *         overview: ?string,
+     *         still: ?string,
+     *         production_code: ?string,
+     *         season_number: ?int,
+     *         vote_average: ?float,
+     *         vote_count: ?int,
+     *         season_id: int,
+     *     }
+     * >
      */
     public function getEpisodes(): array
     {

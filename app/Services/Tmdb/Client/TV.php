@@ -309,11 +309,6 @@ class TV
         $this->tmdb = new TMDB();
     }
 
-    public function getData(): mixed
-    {
-        return $this->data;
-    }
-
     /**
      * @return ?array{
      *     backdrop: ?string,
@@ -489,7 +484,7 @@ class TV
     {
         $tv_ids = \App\Models\Tv::query()
             ->select('id')
-            ->findMany(array_column($this->data['recommendations']['results'] ?? [], 'id'))
+            ->whereIntegerInRaw('id', array_column($this->data['recommendations']['results'] ?? [], 'id'))
             ->pluck('id');
 
         $recommendations = [];

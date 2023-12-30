@@ -65,11 +65,6 @@ class Collection
         $this->tmdb = new TMDB();
     }
 
-    public function getData(): mixed
-    {
-        return $this->data;
-    }
-
     /**
      * @return array{
      *     id: int,

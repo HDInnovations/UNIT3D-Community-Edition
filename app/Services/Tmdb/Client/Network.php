@@ -61,13 +61,15 @@ class Network
         $this->tmdb = new TMDB();
     }
 
-    public function getData(): mixed
-    {
-        return $this->data;
-    }
-
     /**
-     * @return array
+     * @return null|array{
+     *      id: ?int,
+     *      headquarters: ?string,
+     *      homepage: ?string,
+     *      logo: ?string,
+     *      name: ?string,
+     *      origin_country: ?string,
+     * }
      */
     public function getNetwork(): ?array
     {

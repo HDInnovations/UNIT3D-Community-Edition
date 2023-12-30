@@ -3471,16 +3471,6 @@ parameters:
 			path: app/Jobs/ProcessBackup.php
 
 		-
-			message: "#^Method App\\\\Jobs\\\\ProcessCollectionJob\\:\\:__construct\\(\\) has parameter \\$collection with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessCollectionJob.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessCompanyJob\\:\\:__construct\\(\\) has parameter \\$company with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessCompanyJob.php
-
-		-
 			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
 			count: 1
 			path: app/Jobs/ProcessMassPM.php
@@ -3499,31 +3489,6 @@ parameters:
 			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$subject with no type specified\\.$#"
 			count: 1
 			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMovieJob.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMovieJob\\:\\:__construct\\(\\) has parameter \\$movie with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMovieJob.php
-
-		-
-			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
-			count: 1
-			path: app/Jobs/ProcessTvJob.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessTvJob\\:\\:__construct\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessTvJob.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessTvJob\\:\\:__construct\\(\\) has parameter \\$tv with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessTvJob.php
 
 		-
 			message: "#^Method App\\\\Jobs\\\\SendActivationMail\\:\\:__construct\\(\\) has parameter \\$code with no type specified\\.$#"

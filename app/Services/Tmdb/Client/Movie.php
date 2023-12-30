@@ -243,11 +243,6 @@ class Movie
         $this->tmdb = new TMDB();
     }
 
-    public function getData(): ?array
-    {
-        return $this->data;
-    }
-
     /**
      * @return null|array{
      *     adult: bool,
@@ -390,7 +385,7 @@ class Movie
     {
         $movie_ids = \App\Models\Movie::query()
             ->select('id')
-            ->findMany(array_column($this->data['recommendations']['results'] ?? [], 'id'))
+            ->whereIntegerInRaw('id', array_column($this->data['recommendations']['results'] ?? [], 'id'))
             ->pluck('id');
 
         $recommendations = [];

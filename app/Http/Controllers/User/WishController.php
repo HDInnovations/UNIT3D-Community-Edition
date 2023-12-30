@@ -62,9 +62,9 @@ class WishController extends Controller
             ''
         ]);
 
-        $meta = (new Movie($request->tmdb))->getData();
+        $meta = (new Movie($request->tmdb))->data;
 
-        if ($meta === null || $meta === false) {
+        if ($meta === null) {
             return to_route('users.wishes.index', ['user' => $user])
                 ->withErrors('TMDM Bad Request!');
         }

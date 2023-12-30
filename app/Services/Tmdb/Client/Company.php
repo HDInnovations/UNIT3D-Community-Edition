@@ -46,11 +46,6 @@ class Company
             ->json();
     }
 
-    public function getData(): mixed
-    {
-        return $this->data;
-    }
-
     /**
      * @return array{
      *      id: ?int,
