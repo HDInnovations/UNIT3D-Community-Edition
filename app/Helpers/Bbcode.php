@@ -284,22 +284,22 @@ class Bbcode
         $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
             '/\[url](.*?)\[\/url]/i',
-            static fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
+            static fn ($matches) => '<a href="'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'">'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'</a>',
             $source
         );
         $source = preg_replace_callback(
             '/\[img](.*?)\[\/img]/i',
-            static fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img width=(\d+)](.*?)\[\/img]/i',
-            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2], ENT_QUOTES | ENT_HTML5).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
-            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2], ENT_QUOTES | ENT_HTML5).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
 
@@ -307,17 +307,17 @@ class Bbcode
         // has to be moved into an html attribute
         $source = preg_replace_callback(
             '/\[youtube](.*?)\[\/youtube]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
             '/\[video](.*?)\[\/video]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
             '/\[video="youtube"](.*?)\[\/video]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
 
