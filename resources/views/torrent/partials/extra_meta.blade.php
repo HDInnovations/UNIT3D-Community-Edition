@@ -1,5 +1,10 @@
-<section class="panelV2"
-     x-data="{ tab: window.location.hash ? window.location.hash.substring(1) : 'recommendations' }" id="tab_wrapper">
+<section
+    class="panelV2"
+    x-data="{
+        tab: window.location.hash ? window.location.hash.substring(1) : 'recommendations',
+    }"
+    id="tab_wrapper"
+>
     <!-- The tabs navigation -->
     <h2 class="panel__heading">Relations</h2>
     <menu class="panel__tabs">

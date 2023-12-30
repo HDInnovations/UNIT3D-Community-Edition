@@ -1,12 +1,14 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }}
-        - {{ config('other.title') }}</title>
+    <title>
+        {{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.edit-post') }}">
+    <meta name="description" content="{{ $forum->name . ' - ' . __('forum.edit-post') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -16,7 +18,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.categories.show', ['id' => $category->id]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('forums.categories.show', ['id' => $category->id]) }}"
+            class="breadcrumb__link"
+        >
             {{ $category->name }}
         </a>
     </li>
@@ -42,10 +47,15 @@
 @section('content')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}: {{ $forum->name }}
+            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}:
+            {{ $forum->name }}
         </h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('posts.update', ['id' => $post->id]) }}">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('posts.update', ['id' => $post->id]) }}"
+            >
                 @csrf
                 @method('PATCH')
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'content' => $post->content])

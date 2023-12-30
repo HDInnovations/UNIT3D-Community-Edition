@@ -1,7 +1,10 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -11,7 +14,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('users.general_settings.edit', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('user.settings') }}
         </a>
     </li>

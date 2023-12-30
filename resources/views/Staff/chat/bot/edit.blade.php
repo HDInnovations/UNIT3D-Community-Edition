@@ -47,7 +47,11 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bot.edit-bot') }}: {{ $bot->name }}</h2>
         <div class="panel__body">
-            <form class="form" method="POST" action="{{ route('staff.bots.update', ['bot' => $bot]) }}">
+            <form
+                class="form"
+                method="POST"
+                action="{{ route('staff.bots.update', ['bot' => $bot]) }}"
+            >
                 @csrf
                 @method('PATCH')
                 <p class="form__group">
@@ -58,8 +62,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->name }}"
-                    >
-                    <label class="form__label form__label--floating" for="name">{{ __('bot.name') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('bot.name') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -71,8 +77,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->position }}"
-                    >
-                    <label class="form__label form__label--floating" for="position">{{ __('common.position') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="position">
+                        {{ __('common.position') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -82,8 +90,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->command }}"
-                    >
-                    <label class="form__label form__label--floating" for="command">{{ __('bot.command') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="command">
+                        {{ __('bot.command') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -93,8 +103,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->info }}"
-                    >
-                    <label class="form__label form__label--floating" for="info">{{ __('bot.info') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="info">
+                        {{ __('bot.info') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -104,8 +116,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->about }}"
-                    >
-                    <label class="form__label form__label--floating" for="about">{{ __('bot.about') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="about">
+                        {{ __('bot.about') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -115,8 +129,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->emoji }}"
-                    >
-                    <label class="form__label form__label--floating" for="emoji">{{ __('bot.emoji-code') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="emoji">
+                        {{ __('bot.emoji-code') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -126,8 +142,10 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->icon }}"
-                    >
-                    <label class="form__label form__label--floating" for="icon">{{ __('bot.icon') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="icon">
+                        {{ __('bot.icon') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -137,20 +155,23 @@
                         placeholder=" "
                         type="text"
                         value="{{ $bot->color }}"
+                    />
+                    <label class="form__label form__label--floating" for="color">
+                        {{ __('bot.color') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <textarea id="help" class="form__textarea" name="help" placeholder=" ">
+{{ $bot->help }}</textarea
                     >
-                    <label class="form__label form__label--floating" for="color">{{ __('bot.color') }}</label>
+                    <label class="form__label form__label--floating" for="help">
+                        {{ __('bot.help') }}
+                    </label>
                 </p>
                 <p class="form__group">
-                    <textarea
-                        id="help"
-                        class="form__textarea"
-                        name="help"
-                        placeholder=" "
-                    >{{ $bot->help }}</textarea>
-                    <label class="form__label form__label--floating" for="help">{{ __('bot.help') }}</label>
-                </p>
-                <p class="form__group">
-                    <button class="form__button form__button--filled">{{ __('common.edit') }}</button>
+                    <button class="form__button form__button--filled">
+                        {{ __('common.edit') }}
+                    </button>
                 </p>
             </form>
         </div>

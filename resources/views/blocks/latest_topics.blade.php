@@ -6,7 +6,7 @@
             </a>
         </h2>
     </header>
-    @if($topics->count() > 0)
+    @if ($topics->count() > 0)
         <ul class="topic-listings">
             @foreach ($topics as $topic)
                 @if ($topic->viewable())
@@ -17,8 +17,6 @@
             @endforeach
         </ul>
     @else
-        <div class="panel__body">
-            No topics.
-        </div>
+        <div class="panel__body">No topics.</div>
     @endif
 </section>

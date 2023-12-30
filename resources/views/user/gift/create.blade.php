@@ -31,7 +31,12 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.gift-to') }}</h2>
         <div class="panel__body">
-            <form id="send_bonus" class="form" method="POST" action="{{ route('users.gifts.store', ['user' => $user]) }}">
+            <form
+                id="send_bonus"
+                class="form"
+                method="POST"
+                action="{{ route('users.gifts.store', ['user' => $user]) }}"
+            >
                 @csrf
                 <p class="form__group">
                     <input
@@ -41,7 +46,7 @@
                         placeholder=" "
                         required
                         type="text"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="receiver_username">
                         {{ __('pm.select') }}
                     </label>
@@ -56,7 +61,7 @@
                         placeholder=" "
                         required
                         type="text"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="cost">
                         {{ __('bon.amount') }}
                     </label>

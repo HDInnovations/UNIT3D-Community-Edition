@@ -3,7 +3,7 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.latest-topics') }}</h2>
             {{ $topics->links('partials.pagination') }}
-            @if($topics->count() > 0)
+            @if ($topics->count() > 0)
                 <ul class="topic-listings">
                     @foreach ($topics as $topic)
                         <li class="topic-listings__item">
@@ -12,9 +12,7 @@
                     @endforeach
                 </ul>
             @else
-                <div class="panel__body">
-                    No topics.
-                </div>
+                <div class="panel__body">No topics.</div>
             @endif
             {{ $topics->links('partials.pagination') }}
         </section>
@@ -60,12 +58,7 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select
-                            id="sorting"
-                            class="form__select"
-                            name="sorting"
-                            wire:model="label"
-                        >
+                        <select id="sorting" class="form__select" name="sorting" wire:model="label">
                             <option value="" selected default>Any</option>
                             <option value="approved">
                                 {{ __('forum.approved') }}

@@ -5,16 +5,21 @@
                 <b>{{ config('other.title') }}</b>
             </h2>
             <p>{{ config('other.meta_description') }}</p>
-            <i class="{{ config('other.font-awesome') }} fa-tv-retro footer-icon" style="font-size: 90px;"></i>
+            <i
+                class="{{ config('other.font-awesome') }} fa-tv-retro footer-icon"
+                style="font-size: 90px"
+            ></i>
         </section>
         <section class="footer__section">
             <h2 class="footer__section-title">{{ __('common.account') }}</h2>
             <ul class="footer__section-list">
                 <li>
-                    <a href="{{ route('users.show', ['user' => auth()->user()]) }}">{{ __('user.my-profile') }}</a>
+                    <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
+                        {{ __('user.my-profile') }}
+                    </a>
                 </li>
                 <li>
-                    <form action="{{ route('logout') }}" method="POST" style="display: contents;">
+                    <form action="{{ route('logout') }}" method="POST" style="display: contents">
                         @csrf
                         <button style="display: contents">
                             {{ __('common.logout') }}
@@ -32,6 +37,7 @@
                 <li>
                     <a href="{{ route('articles.index') }}">{{ __('common.news') }}</a>
                 </li>
+                <li><a href="{{ route('wikis.index') }}">Wikis</a></li>
             </ul>
         </section>
         @if ($footer_pages)
@@ -45,12 +51,14 @@
                             </a>
                         </li>
                     @endforeach
+
                     <li>
                         <a href="{{ route('pages.index') }}">[View All]</a>
                     </li>
                 </ul>
             </section>
         @endif
+
         <section class="footer__section">
             <h2 class="footer__section-title">{{ __('common.info') }}</h2>
             <ul class="footer__section-list">
@@ -67,7 +75,9 @@
                     <a href="{{ route('about') }}">{{ __('common.about') }}</a>
                 </li>
                 <li>
-                    <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v7.0.0)">
+                    <a
+                        href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v7.0.0)"
+                    >
                         API Documentation
                     </a>
                 </li>
@@ -98,6 +108,9 @@
         </section>
     </div>
     <p class="footer__stats">
-        This page took {{ number_format(microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT')), 3) }} seconds to render and {{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MB of memory
+        This page took
+        {{ number_format(microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT')), 3) }}
+        seconds to render and {{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MB
+        of memory
     </p>
 </footer>

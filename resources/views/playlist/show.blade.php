@@ -11,13 +11,16 @@
     </li>
 @endsection
 
-@if(auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
+@if (auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
                 <div class="form__group form__group--horizontal" x-data>
-                    <button class="form__button form__button--filled form__button--centered" x-on:click.stop="$refs.dialog.showModal()">
+                    <button
+                        class="form__button form__button--filled form__button--centered"
+                        x-on:click.stop="$refs.dialog.showModal()"
+                    >
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.add-torrent') }}
                     </button>
@@ -34,7 +37,12 @@
                             @csrf
                             @method('PUT')
                             <p class="form__group">
-                                <input id="playlist_id" name="playlist_id" type="hidden" value="{{ $playlist->id }}">
+                                <input
+                                    id="playlist_id"
+                                    name="playlist_id"
+                                    type="hidden"
+                                    value="{{ $playlist->id }}"
+                                />
                             </p>
                             <p class="form__group">
                                 <textarea
@@ -43,14 +51,22 @@
                                     name="torrent_urls"
                                     type="text"
                                     required
-                                >{{ old('torrent_urls') }}</textarea>
-                                <label class="form__label form__label--floating" for="torrent_urls">Torrent IDs/URLs (One per line)</label>
+                                >
+{{ old('torrent_urls') }}</textarea
+                                >
+                                <label class="form__label form__label--floating" for="torrent_urls">
+                                    Torrent IDs/URLs (One per line)
+                                </label>
                             </p>
                             <p class="form__group">
                                 <button class="form__button form__button--filled">
                                     {{ __('common.add') }}
                                 </button>
-                                <button formmethod="dialog" formnovalidate class="form__button form__button--outlined">
+                                <button
+                                    formmethod="dialog"
+                                    formnovalidate
+                                    class="form__button form__button--outlined"
+                                >
                                     {{ __('common.cancel') }}
                                 </button>
                             </p>
@@ -75,17 +91,21 @@
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
                         <button
-                            x-on:click.prevent="Swal.fire({
-                                title: 'Are you sure?',
-                                text: `Are you sure you want to delete this playlist: ${atob('{{ base64_encode($playlist->name) }}')}?`,
-                                icon: 'warning',
-                                showConfirmButton: true,
-                                showCancelButton: true,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $root.submit();
-                                }
-                            })"
+                            x-on:click.prevent="
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: `Are you sure you want to delete this playlist: ${atob(
+                                        '{{ base64_encode($playlist->name) }}'
+                                    )}?`,
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $root.submit();
+                                    }
+                                })
+                            "
                             class="form__button form__button--filled form__button--centered"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-trash"></i>
@@ -103,7 +123,7 @@
                         href="{{ route('playlist_zips.show', ['playlist' => $playlist]) }}"
                         class="form__button form__button--filled form__button--centered"
                     >
-                        <i class='{{ config('other.font-awesome') }} fa-download'></i>
+                        <i class="{{ config('other.font-awesome') }} fa-download"></i>
                         {{ __('playlist.download-all') }}
                     </a>
                 </p>
@@ -112,7 +132,7 @@
                         href="{{ route('torrents.index', ['playlistId' => $playlist->id]) }}"
                         class="form__button form__button--filled form__button--centered"
                     >
-                        <i class='{{ config('other.font-awesome') }} fa-eye'></i>
+                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                         Playlist Torrents List
                     </a>
                 </p>
@@ -124,15 +144,23 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $playlist->name }}</h2>
-        @php $tmdb_backdrop = isset($meta->backdrop) ? tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350' @endphp
+        @php
+            $tmdb_backdrop = isset($meta->backdrop)
+                ? tmdb_image('back_big', $meta->backdrop)
+                : 'https://via.placeholder.com/1280x350'
+        @endphp
+
         <div class="playlist__backdrop" style="background-image: url('{{ $tmdb_backdrop }}')">
             <div class="playlist__backdrop-filter">
-                <a class="playlist__author-link" href="{{ route('users.show', ['user' => $playlist->user]) }}">
+                <a
+                    class="playlist__author-link"
+                    href="{{ route('users.show', ['user' => $playlist->user]) }}"
+                >
                     <img
                         class="playlist__author-avatar"
-                        src="{{ url($playlist->user->image ? 'files/img/'.$playlist->user->image : 'img/profile.png') }}"
+                        src="{{ url($playlist->user->image ? 'files/img/' . $playlist->user->image : 'img/profile.png') }}"
                         alt="{{ $playlist->user->username }}"
-                    >
+                    />
                 </a>
                 <p class="playlist__author">
                     <x-user_tag :user="$playlist->user" :anon="false" />
@@ -146,18 +174,25 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
         <div class="panel__body playlist__torrents">
-            @foreach($torrents as $torrent)
+            @foreach ($torrents as $torrent)
                 @php
-                    $meta = match(true) {
-                        $torrent->category->tv_meta => App\Models\Tv::query()->with('genres', 'networks', 'seasons')->find($torrent->tmdb ?? 0),
-                        $torrent->category->movie_meta => App\Models\Movie::query()->with('genres', 'companies', 'collection')->find($torrent->tmdb ?? 0),
-                        $torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])->find((int) $playlistTorrent->torrent->igdb),
+                    $meta = match (true) {
+                        $torrent->category->tv_meta => App\Models\Tv::query()
+                            ->with('genres', 'networks', 'seasons')
+                            ->find($torrent->tmdb ?? 0),
+                        $torrent->category->movie_meta => App\Models\Movie::query()
+                            ->with('genres', 'companies', 'collection')
+                            ->find($torrent->tmdb ?? 0),
+                        $torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()
+                            ->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])
+                            ->find((int) $playlistTorrent->torrent->igdb),
                         default => null,
                     };
                 @endphp
+
                 <div class="playlist__torrent-container">
                     <x-torrent.card :meta="$meta" :torrent="$torrent" />
-                    @if(auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
+                    @if (auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
                         <form
                             action="{{ route('playlist_torrents.destroy', ['playlistTorrent' => $torrent->pivot]) }}"
                             method="POST"
@@ -174,5 +209,5 @@
         </div>
         {{ $torrents->links('partials.pagination') }}
     </section>
-    <livewire:comments :model="$playlist"/>
+    <livewire:comments :model="$playlist" />
 @endsection

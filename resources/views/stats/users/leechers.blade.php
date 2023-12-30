@@ -38,7 +38,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <x-user_tag :user="$user->user" :anon="$user->user->private_profile" />
+                                <x-user_tag
+                                    :user="$user->user"
+                                    :anon="$user->user->private_profile"
+                                />
                             </td>
                             <td>{{ $user->user->leechingTorrents()->count() }}</td>
                         </tr>

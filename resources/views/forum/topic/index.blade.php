@@ -1,12 +1,15 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.latest-topics') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('common.latest-topics') }} - {{ __('forum.forums') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum {{ __('common.latest-topics') }}">
+    <meta name="description" content="Forum {{ __('common.latest-topics') }}" />
 @endsection
+
 @section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('forums.index') }}" class="breadcrumb__link">

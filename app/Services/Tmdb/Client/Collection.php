@@ -13,73 +13,79 @@
 
 namespace App\Services\Tmdb\Client;
 
+use App\Services\Tmdb\TMDB;
+use Illuminate\Support\Facades\Http;
+
 class Collection
 {
-    public \GuzzleHttp\Client $client;
+    /**
+     * @var array{
+     *     id: ?int,
+     *     name: ?string,
+     *     overview: ?string,
+     *     poster_path: ?string,
+     *     backdrop_path: ?string,
+     *     parts: ?array<
+     *         int<0, max>,
+     *         array{
+     *             adult: ?boolean,
+     *             backdrop_path: ?string,
+     *             id: ?int,
+     *             title: ?string,
+     *             original_language: ?string,
+     *             original_title: ?string,
+     *             overview: ?string,
+     *             poster_path: ?string,
+     *             media_type: ?string,
+     *             genre_ids: array<int>,
+     *             popularity: ?float,
+     *             release_date: ?string,
+     *             video: ?boolean,
+     *             vote_average: ?float,
+     *             vote_count: ?int,
+     *         },
+     *     >,
+     * }
+     */
+    public mixed $data;
 
-    final public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
+    public TMDB $tmdb;
 
-    public $data;
-
-    public function __construct($id)
+    public function __construct(int $id)
     {
-        $this->client = new \GuzzleHttp\Client(
-            [
-                'base_uri'    => self::API_BASE_URI,
-                'verify'      => false,
-                'http_errors' => false,
-                'headers'     => [
-                    'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
-                ],
-                'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
-                    'language'           => config('app.meta_locale'),
-                    'append_to_response' => 'videos,images,credits',
-                ],
-            ]
-        );
+        $this->data = Http::acceptJson()
+            ->withUrlParameters(['id' => $id])
+            ->get('https://api.TheMovieDB.org/3/collection/{id}', [
+                'api_key'            => config('api-keys.tmdb'),
+                'language'           => config('app.meta_locale'),
+                'append_to_response' => 'videos,images,credits',
+            ])
+            ->json();
 
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/collection/'.$id);
-
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->tmdb = new TMDB();
     }
 
-    public function getData()
+    /**
+     * @return array{
+     *     id: int,
+     *     name: ?string,
+     *     name_sort: string,
+     *     parts: int,
+     *     overview: ?string,
+     *     poster: ?string,
+     *     backdrop: ?string,
+     * }
+     */
+    public function getCollection(): array
     {
-        return $this->data;
-    }
-
-    public function get_name()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
-    }
-
-    public function get_overview()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['overview']);
-    }
-
-    public function get_id()
-    {
-        return $this->data['id'];
-    }
-
-    public function get_backdrop(): ?string
-    {
-        if ($this->data['backdrop_path']) {
-            return 'https://image.tmdb.org/t/p/original'.$this->data['backdrop_path'];
-        }
-
-        return null;
-    }
-
-    public function get_poster(): ?string
-    {
-        if ($this->data['poster_path']) {
-            return 'https://image.tmdb.org/t/p/original'.$this->data['poster_path'];
-        }
-
-        return null;
+        return [
+            'id'        => $this->data['id'],
+            'name'      => $this->data['name'] ?? null,
+            'name_sort' => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $this->data['name'])),
+            'parts'     => is_countable($this->data['parts']) ? \count($this->data['parts']) : 0,
+            'overview'  => $this->data['overview'] ?? null,
+            'poster'    => $this->tmdb->image('poster', $this->data),
+            'backdrop'  => $this->tmdb->image('backdrop', $this->data),
+        ];
     }
 }

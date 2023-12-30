@@ -1,9 +1,7 @@
 @extends('layout.default')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        Pages
-    </li>
+    <li class="breadcrumb--active">Pages</li>
 @endsection
 
 @section('page', 'page__page--index')
@@ -21,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($pages as $page)
+                    @foreach ($pages as $page)
                         <tr>
                             <td>
                                 <a href="{{ route('pages.show', ['page' => $page]) }}">
@@ -29,12 +27,18 @@
                                 </a>
                             </td>
                             <td>
-                                <time datetime="{{ $page->created_at }}" title="{{ $page->created_at }}">
+                                <time
+                                    datetime="{{ $page->created_at }}"
+                                    title="{{ $page->created_at }}"
+                                >
                                     {{ $page->created_at }}
                                 </time>
                             </td>
                             <td>
-                                <time datetime="{{ $page->updated_at }}" title="{{ $page->updated_at }}">
+                                <time
+                                    datetime="{{ $page->updated_at }}"
+                                    title="{{ $page->updated_at }}"
+                                >
                                     {{ $page->updated_at }}
                                 </time>
                             </td>

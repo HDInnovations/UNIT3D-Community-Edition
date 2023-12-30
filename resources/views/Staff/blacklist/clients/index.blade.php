@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Client Blacklist
-    </li>
+    <li class="breadcrumb--active">Client Blacklist</li>
 @endsection
 
 @section('main')
@@ -17,7 +15,10 @@
             <h2 class="panel__heading">Blacklisted Clients</h2>
             <div class="panel__actions">
                 <div class="panel_action">
-                    <a href="{{ route('staff.blacklisted_clients.create') }}" class="form__button form__button--text">
+                    <a
+                        href="{{ route('staff.blacklisted_clients.create') }}"
+                        class="form__button form__button--text"
+                    >
                         {{ __('common.add') }}
                     </a>
                 </div>
@@ -56,7 +57,8 @@
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                    x-on:click.prevent="Swal.fire({
+                                                x-on:click.prevent="
+                                                    Swal.fire({
                                                         title: 'Delete?',
                                                         text: 'Are you sure you want to delete?',
                                                         icon: 'warning',
@@ -66,8 +68,9 @@
                                                         if (result.isConfirmed) {
                                                             $root.submit();
                                                         }
-                                                    })"
-                                                    class="form__button form__button--text"
+                                                    })
+                                                "
+                                                class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
                                             </button>

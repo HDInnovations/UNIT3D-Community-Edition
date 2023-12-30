@@ -42,7 +42,7 @@
                         required
                         type="text"
                         value="{{ $resolution->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -57,7 +57,7 @@
                         required
                         type="text"
                         value="{{ $resolution->position }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>

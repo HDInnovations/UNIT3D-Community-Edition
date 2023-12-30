@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('forum.display-forum') }}">
+    <meta name="description" content="{{ __('forum.display-forum') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -15,7 +15,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}"
+            class="breadcrumb__link"
+        >
             {{ $forum->category->name }}
         </a>
     </li>

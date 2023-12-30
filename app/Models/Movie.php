@@ -23,8 +23,6 @@ class Movie extends Model
 
     protected $guarded = [];
 
-    public $table = 'movie';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre>
      */

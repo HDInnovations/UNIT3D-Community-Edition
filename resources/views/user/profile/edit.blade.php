@@ -39,7 +39,7 @@
                         accept=".jpg, .jpeg, .bmp, .png, .tiff, .gif"
                         name="image"
                         type="file"
-                    >
+                    />
                 </p>
                 <p class="form__group">
                     <input
@@ -49,7 +49,7 @@
                         placeholder=" "
                         type="text"
                         value="{{ $user->title }}"
-                    >
+                    />
                     <label for="title" class="form__label form__label--floating">
                         {{ __('user.custom-title') }}
                     </label>

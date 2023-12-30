@@ -15,6 +15,18 @@ namespace App\Helpers;
 
 class Bbcode
 {
+    /**
+     * @var array<
+     *     string,
+     *     array{
+     *         openBbcode: string,
+     *         closeBbcode: string,
+     *         openHtml: string,
+     *         closeHtml: string,
+     *         block: boolean
+     *     }
+     * > $parsers.
+     */
     private array $parsers = [
         'h1' => [
             'openBbcode'  => '/^\[h1\]/i',
@@ -266,54 +278,54 @@ class Bbcode
     /**
      * Parses the BBCode string.
      */
-    public function parse($source, $replaceLineBreaks = true): string
+    public function parse(?string $source, bool $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
-            '/\[url\](.*?)\[\/url\]/i',
-            fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
+            '/\[url](.*?)\[\/url]/i',
+            static fn ($matches) => '<a href="'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'">'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'</a>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            '/\[img](.*?)\[\/img]/i',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img width=(\d+)\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            '/\[img width=(\d+)](.*?)\[\/img]/i',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2], ENT_QUOTES | ENT_HTML5).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2], ENT_QUOTES | ENT_HTML5).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
 
-        // Youtube elements need to be replaced like this because the content inside the two tags
-        // has to be moved into an html attribute
+        // YouTube video elements need to be replaced like this because the content inside the two tags
+        // has to be moved into an HTML attribute
         $source = preg_replace_callback(
-            '/\[youtube\](.*?)\[\/youtube\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            '/\[youtube]([a-z0-9_-]{11})\[\/youtube]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[video\](.*?)\[\/video\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            '/\[video]([a-z0-9_-]{11})\[\/video]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[video="youtube"\](.*?)\[\/video\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            '/\[video="youtube"]([a-z0-9_-]{11})\[\/video]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
 
-        // Common comparison syntax used in other torrent management systems is quite specific
+        // Common comparison syntax used in other torrent management systems is quite specific,
         // so it must be done here instead
         $source = preg_replace_callback(
-            '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
-            function ($matches) {
+            '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
+            static function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
                 $validatedUrls = collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
@@ -413,13 +425,12 @@ class Bbcode
      * [/list]
      * ```
      *
-     * @param  String $source        Reference to the source text content currently being converted from bbcode to html.
-     * @param  int    $index         Reference to the current index of `$source` that the parser must keep track of.
-     * @param  int    $tagStartIndex The index of the first character of the tag being parsed inside of `$source`. Should be the `[` character.
-     * @param  int    $tagStopIndex  The index of the last character of the tag being parsed inside of `$source`. Should be the `]` character.
-     * @return void
+     * @param string $source        Reference to the source text content currently being converted from bbcode to html.
+     * @param int    $index         Reference to the current index of `$source` that the parser must keep track of.
+     * @param int    $tagStartIndex The index of the first character of the tag being parsed inside `$source`. Should be the `[` character.
+     * @param int    $tagStopIndex  The index of the last character of the tag being parsed inside `$source`. Should be the `]` character.
      */
-    private function handleBlockElementSpacing(String &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
+    private function handleBlockElementSpacing(string &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
     {
         // Remove two line breaks (if they exist) instead of one, since a
         // line break after a block element is positioned on the line after

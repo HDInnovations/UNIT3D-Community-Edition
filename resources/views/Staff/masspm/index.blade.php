@@ -1,11 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('staff.mass-pm') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff.mass-pm') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('staff.mass-pm') }} - {{ __('staff.staff-dashboard') }}">
+    <meta
+        name="description"
+        content="{{ __('staff.mass-pm') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -35,7 +41,7 @@
                         name="subject"
                         type="text"
                         required
-                    >
+                    />
                     <label class="form__label form__label--floating" for="subject">
                         {{ __('pm.subject') }}
                     </label>
@@ -43,17 +49,19 @@
                 @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.message'), 'required' => true])
                 <p class="form__group">
                     <button
-                        x-on:click.prevent="Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'Are you sure you want to send this private message to every user on the site?',
-                            icon: 'warning',
-                            showConfirmButton: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $root.submit();
-                            }
-                        })"
+                        x-on:click.prevent="
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: 'Are you sure you want to send this private message to every user on the site?',
+                                icon: 'warning',
+                                showConfirmButton: true,
+                                showCancelButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $root.submit();
+                                }
+                            })
+                        "
                         class="form__button form__button--filled"
                     >
                         {{ __('pm.send') }}

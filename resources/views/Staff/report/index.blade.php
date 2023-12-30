@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -27,16 +27,16 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>{{ __('common.title') }}</th>
-                    <th>Reported</th>
-                    <th>{{ __('common.reporter') }}</th>
-                    <th>{{ __('user.created-on') }}</th>
-                    <th>{{ __('user.judge') }}</th>
-                    <th>{{ __('forum.solved') }}</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>{{ __('common.title') }}</th>
+                        <th>Reported</th>
+                        <th>{{ __('common.reporter') }}</th>
+                        <th>{{ __('user.created-on') }}</th>
+                        <th>{{ __('user.judge') }}</th>
+                        <th>{{ __('forum.solved') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @forelse ($reports as $report)
@@ -55,7 +55,10 @@
                                 <x-user_tag :anon="false" :user="$report->reporter" />
                             </td>
                             <td>
-                                <time datetime="{{ $report->created_at }}" title="{{ $report->created_at }}">
+                                <time
+                                    datetime="{{ $report->created_at }}"
+                                    title="{{ $report->created_at }}"
+                                >
                                     {{ $report->created_at->toDayDateTimeString() }}
                                 </time>
                             </td>
@@ -66,10 +69,14 @@
                             </td>
                             <td>
                                 @if ($report->solved)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                     {{ __('common.yes') }}
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                     {{ __('common.no') }}
                                 @endif
                             </td>

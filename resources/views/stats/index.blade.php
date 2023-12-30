@@ -42,9 +42,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('themes') }}">
-            Themes
-        </a>
+        <a class="nav-tab__link" href="{{ route('themes') }}">Themes</a>
     </li>
 @endsection
 
@@ -61,6 +59,7 @@
                     <dt>{{ $category->name }} {{ __('common.category') }}</dt>
                     <dd>{{ $category->torrents_count }}</dd>
                 @endforeach
+
                 <dt>HD</dt>
                 <dd>{{ $num_hd }}</dd>
                 <dt>SD</dt>

@@ -13,105 +13,83 @@
 
 namespace App\Services\Tmdb\Client;
 
+use App\Services\Tmdb\TMDB;
+use Illuminate\Support\Facades\Http;
+
 class Network
 {
-    public \GuzzleHttp\Client $client;
+    /**
+     * @var array{
+     *     headquarters: ?string,
+     *     homepage: ?string,
+     *     id: ?int,
+     *     logo_path: ?string,
+     *     name: ?string,
+     *     origin_country: ?string,
+     *     images: ?array{
+     *         id: ?int,
+     *         logos: ?array<
+     *             int<0, max>,
+     *             array{
+     *                 aspect_ratio: ?float,
+     *                 file_path: ?string,
+     *                 height: ?int,
+     *                 id: ?string,
+     *                 file_type: ?string,
+     *                 vote_average: ?float,
+     *                 vote_count: ?int,
+     *             },
+     *         >,
+     *     }
+     * }
+     */
+    public mixed $data;
 
-    final public const API_BASE_URI = 'https://api.TheMovieDB.org/3';
+    public TMDB $tmdb;
 
-    public $data;
-
-    public function __construct($id)
+    public function __construct(int $id)
     {
-        $this->client = new \GuzzleHttp\Client(
-            [
-                'base_uri'    => self::API_BASE_URI,
-                'verify'      => false,
-                'http_errors' => false,
-                'headers'     => [
-                    'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
-                ],
-                'query' => [
-                    'api_key'            => config('api-keys.tmdb'),
-                    'language'           => config('app.meta_locale'),
-                    'append_to_response' => 'images',
-                ],
-            ]
-        );
+        $this->data = Http::acceptJson()
+            ->withUrlParameters(['id' => $id])
+            ->get('https://api.TheMovieDB.org/3/network/{id}', [
+                'api_key'            => config('api-keys.tmdb'),
+                'language'           => config('app.meta_locale'),
+                'append_to_response' => 'images',
+            ])
+            ->json();
 
-        $response = $this->client->request('get', 'https://api.TheMovieDB.org/3/network/'.$id);
-
-        $this->data = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+        $this->tmdb = new TMDB();
     }
 
-    public function getData()
+    /**
+     * @return null|array{
+     *      id: ?int,
+     *      headquarters: ?string,
+     *      homepage: ?string,
+     *      logo: ?string,
+     *      name: ?string,
+     *      origin_country: ?string,
+     * }
+     */
+    public function getNetwork(): ?array
     {
-        return $this->data;
-    }
+        if (isset($this->data['id'], $this->data['name'])) {
+            if (isset($this->data['images']['logos'][0]) && \array_key_exists('file_path', $this->data['images']['logos'][0])) {
+                $logo = 'https://image.tmdb.org/t/p/original'.$this->data['images']['logos'][0]['file_path'];
+            } else {
+                $logo = null;
+            }
 
-    public function get_birthday()
-    {
-        return $this->data['birthday'];
-    }
+            return [
+                'id'             => $this->data['id'],
+                'headquarters'   => $this->tmdb->ifExists('headquarters', $this->data),
+                'homepage'       => $this->tmdb->ifExists('homepage', $this->data),
+                'logo'           => $logo,
+                'name'           => $this->data['name'],
+                'origin_country' => $this->data['origin_country'],
+            ];
+        }
 
-    public function get_known_for_department()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['known_for_department']);
-    }
-
-    public function get_deathday()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['deathday']);
-    }
-
-    public function get_id()
-    {
-        return $this->data['id'];
-    }
-
-    public function get_foto(): string
-    {
-        return 'https://image.tmdb.org/t/p/original'.$this->data['profile_path'];
-    }
-
-    public function get_name()
-    {
-        return preg_replace('/[[:^print:]]/', '', (string) $this->data['name']);
-    }
-
-    public function get_gender()
-    {
-        return $this->data['gender'];
-    }
-
-    public function get_biography()
-    {
-        return $this->data['biography'];
-    }
-
-    public function get_popularity()
-    {
-        return $this->data['popularity'];
-    }
-
-    public function get_place_of_birth()
-    {
-        return $this->data['place_of_birth'];
-    }
-
-    public function get_adult()
-    {
-        return $this->data['adult'];
-    }
-
-    public function get_imdb_id()
-    {
-        return $this->data['imdb_id'];
-    }
-
-    public function get_homepage()
-    {
-        return $this->data['homepage'];
+        return null;
     }
 }

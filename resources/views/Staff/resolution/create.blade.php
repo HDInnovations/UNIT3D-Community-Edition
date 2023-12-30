@@ -22,20 +22,10 @@
     <section class="panelV2">
         <h2 class="panel__heading">Add A Torrent Resolution</h2>
         <div class="panel__body">
-            <form
-                class="form"
-                method="POST"
-                action="{{ route('staff.resolutions.store') }}"
-            >
+            <form class="form" method="POST" action="{{ route('staff.resolutions.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        name="name"
-                        required
-                        type="text"
-                    >
+                    <input id="name" class="form__text" name="name" required type="text" />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -49,7 +39,7 @@
                         pattern="[0-9]*"
                         type="text"
                         required
-                    >
+                    />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>

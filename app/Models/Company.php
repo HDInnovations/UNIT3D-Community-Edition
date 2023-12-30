@@ -24,8 +24,6 @@ class Company extends Model
 
     public $timestamps = false;
 
-    public $table = 'companies';
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
      */

@@ -32,12 +32,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="quantity"
-                        class="form__select"
-                        wire:model="perPage"
-                        required
-                    >
+                    <select id="quantity" class="form__select" wire:model="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -77,12 +72,18 @@
                         </td>
                         <td>{{ $apikey->content }}</td>
                         <td>
-                            <time datetime="{{ $apikey->created_at }}" title="{{ $apikey->created_at }}">
+                            <time
+                                datetime="{{ $apikey->created_at }}"
+                                title="{{ $apikey->created_at }}"
+                            >
                                 {{ $apikey->created_at }}
                             </time>
                         </td>
                         <td>
-                            <time datetime="{{ $apikey->deleted_at }}" title="{{ $apikey->deleted_at }}">
+                            <time
+                                datetime="{{ $apikey->deleted_at }}"
+                                title="{{ $apikey->deleted_at }}"
+                            >
                                 {{ $apikey->deleted_at ?? 'Currently in use' }}
                             </time>
                         </td>

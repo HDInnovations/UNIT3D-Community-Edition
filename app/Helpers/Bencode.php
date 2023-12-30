@@ -168,20 +168,7 @@ class Bencode
     {
         if (\is_array($d)) {
             $ret = 'l';
-            $isDict = false;
-
-            if (!isset($d['isDct'])) {
-                foreach (array_keys($d) as $key) {
-                    if (!\is_int($key)) {
-                        $isDict = true;
-
-                        break;
-                    }
-                }
-            } else {
-                $isDict = (bool) $d['isDct'];
-                unset($d['isDct']);
-            }
+            $isDict = !array_is_list($d);
 
             if ($isDict) {
                 $ret = 'd';

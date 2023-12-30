@@ -1,9 +1,7 @@
 @extends('layout.default')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ config('other.title') }} {{ __('common.staff') }}
-    </li>
+    <li class="breadcrumb--active">{{ config('other.title') }} {{ __('common.staff') }}</li>
 @endsection
 
 @section('page', 'page__staff--index')
@@ -17,7 +15,10 @@
                     <a
                         href="{{ route('users.show', ['user' => $user]) }}"
                         class="user-card"
-                        style="background-color: {{ $user->group->color }}; background-image: {{ $group->effect }};"
+                        style="
+                            background-color: {{ $user->group->color }};
+                            background-image: {{ $group->effect }};
+                        "
                     >
                         <h3 class="user-card__username">
                             {{ $user->username }}

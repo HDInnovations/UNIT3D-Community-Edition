@@ -28,13 +28,6 @@ class UserEcho extends Model
     public $timestamps = true;
 
     /**
-     * The Database Table Used By The Model.
-     *
-     * @var string
-     */
-    protected $table = 'user_echoes';
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>

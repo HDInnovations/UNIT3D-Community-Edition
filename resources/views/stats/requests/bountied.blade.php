@@ -39,7 +39,9 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <a href="{{ route('requests.show', ['torrentRequest' => $request]) }}">
+                                <a
+                                    href="{{ route('requests.show', ['torrentRequest' => $request]) }}"
+                                >
                                     {{ $request->name }}
                                 </a>
                             </td>
@@ -53,13 +55,13 @@
                                 @elseif ($request->torrent_id !== null && $request->approved_by === null)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-question-circle text-info"
-                                        title="{{ __('stat.request-pending-aproval') }}">
-                                    </i>
+                                        title="{{ __('stat.request-pending-aproval') }}"
+                                    ></i>
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check-circle text-success"
-                                        title="{{ __('stat.request-fulfilled') }}">
-                                    </i>
+                                        title="{{ __('stat.request-fulfilled') }}"
+                                    ></i>
                                 @endif
                             </td>
                         </tr>

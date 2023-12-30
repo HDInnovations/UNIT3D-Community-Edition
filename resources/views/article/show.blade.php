@@ -1,11 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $article->title }} - {{ __('articles.articles') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $article->title }} - {{ __('articles.articles') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
+    <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}..." />
 @endsection
 
 @section('breadcrumbs')
@@ -22,22 +24,22 @@
 @section('page', 'page__articles--show')
 
 @section('main')
-<section class="panelV2">
-    <header class="panel__header">
-        <h1 class="panel__heading">{{ $article->title }}</h1>
-        <div class="panel__actions">
-            <time
-                class="panel__action page__published"
-                datetime="{{ $article->created_at }}"
-                title="{{ $article->created_at }}"
-            >
-                {{ $article->created_at->toDayDateTimeString() }}
-            </time>
+    <section class="panelV2">
+        <header class="panel__header">
+            <h1 class="panel__heading">{{ $article->title }}</h1>
+            <div class="panel__actions">
+                <time
+                    class="panel__action page__published"
+                    datetime="{{ $article->created_at }}"
+                    title="{{ $article->created_at }}"
+                >
+                    {{ $article->created_at->toDayDateTimeString() }}
+                </time>
+            </div>
+        </header>
+        <div class="panel__body bbcode-rendered">
+            @joypixels($article->getContentHtml())
         </div>
-    </header>
-    <div class="panel__body bbcode-rendered">
-        @joypixels($article->getContentHtml())
-    </div>
-</section>
-<livewire:comments :model="$article"/>
+    </section>
+    <livewire:comments :model="$article" />
 @endsection
