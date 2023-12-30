@@ -36,6 +36,8 @@ class Company
 
     public function __construct(int $id)
     {
+        $this->tmdb = new TMDB();
+
         $this->data = Http::acceptJson()
             ->withUrlParameters(['id' => $id])
             ->get('https://api.TheMovieDB.org/3/company/{id}', [

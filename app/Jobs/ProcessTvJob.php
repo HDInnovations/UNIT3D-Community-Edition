@@ -46,13 +46,11 @@ class ProcessTvJob implements ShouldQueue
 
     public function handle(): void
     {
-        $tv = Tv::find($this->id);
-
         // Tv
 
         $tvScraper = new Client\TV($this->id);
 
-        Tv::updateOrCreate(['id' => $this->id], $tvScraper->getTv());
+        $tv = Tv::updateOrCreate(['id' => $this->id], $tvScraper->getTv());
 
         // Companies
 

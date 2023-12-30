@@ -471,12 +471,12 @@ class TV
      * @return array<
      *     int<0, max>,
      *     array{
-     *         recommendation_tv_id: int,
-     *         tv_id: int,
-     *         title: string,
-     *         vote_average: float,
-     *         poster: string,
-     *         release_date: string,
+     *         recommendation_tv_id: ?int,
+     *         tv_id: ?int,
+     *         title: ?string,
+     *         vote_average: ?float,
+     *         poster: ?string,
+     *         first_air_date: ?string,
      *     }
      * >
      */
@@ -494,10 +494,9 @@ class TV
                 $recommendations[] = [
                     'recommendation_tv_id' => $recommendation['id'],
                     'tv_id'                => $this->data['id'],
-                    'title'                => $recommendation['title'],
+                    'title'                => $recommendation['name'],
                     'vote_average'         => $recommendation['vote_average'],
                     'poster'               => $this->tmdb->image('poster', $recommendation),
-                    'release_date'         => $recommendation['release_date'],
                     'first_air_date'       => $recommendation['first_air_date'],
                 ];
             }

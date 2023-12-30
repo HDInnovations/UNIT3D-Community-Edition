@@ -26,7 +26,12 @@ class Movie
      * @var null|array{
      *     adult: ?bool,
      *     backdrop_path: ?string,
-     *     belongs_to_collection: ?string,
+     *     belongs_to_collection: ?array{
+     *         id: int,
+     *         name: ?string,
+     *         poster_path: ?string,
+     *         backdrop_path: ?string,
+     *     },
      *     budget: ?int,
      *     genres: ?array<
      *         int<0, max>,

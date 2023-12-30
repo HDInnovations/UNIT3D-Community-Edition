@@ -43,13 +43,11 @@ class ProcessMovieJob implements ShouldQueue
 
     public function handle(): void
     {
-        $movie = Movie::find($this->id);
-
         // Movie
 
         $movieScraper = new Client\Movie($this->id);
 
-        Movie::updateOrCreate(['id' => $this->id], $movieScraper->getMovie());
+        $movie = Movie::updateOrCreate(['id' => $this->id], $movieScraper->getMovie());
 
         // Genres
 
@@ -60,7 +58,7 @@ class ProcessMovieJob implements ShouldQueue
 
         $companies = [];
 
-        foreach ($this->movie['production_companies'] ?? [] as $company) {
+        foreach ($movieScraper->data['production_companies'] ?? [] as $company) {
             $companies[] = (new Client\Company($company['id']))->getCompany();
         }
 
@@ -69,8 +67,8 @@ class ProcessMovieJob implements ShouldQueue
 
         // Collection
 
-        if (isset($this->movie['belongs_to_collection']['id'])) {
-            $collection = (new Client\Collection($this->movie['belongs_to_collection']['id']))->getCollection();
+        if ($movieScraper->data['belongs_to_collection'] !== null) {
+            $collection = (new Client\Collection($movieScraper->data['belongs_to_collection']['id']))->getCollection();
 
             Collection::upsert($collection, 'id');
             $movie->collection()->sync([$collection['id']]);

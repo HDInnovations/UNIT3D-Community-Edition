@@ -84,11 +84,11 @@ class Season
 
     public TMDB $tmdb;
 
-    public function __construct(public int $tvId, public int $seasonId)
+    public function __construct(public int $tvId, public int $seasonNumber)
     {
         $this->data = Http::acceptJson()
-            ->withUrlParameters(['tvId' => $tvId, 'seasonId' => $seasonId])
-            ->get('https://api.TheMovieDB.org/3/tv/{tvId}/{seasonId}', [
+            ->withUrlParameters(['tvId' => $tvId, 'seasonNumber' => $seasonNumber])
+            ->get('https://api.TheMovieDB.org/3/tv/{tvId}/season/{seasonNumber}', [
                 'api_key'            => config('api-keys.tmdb'),
                 'language'           => config('app.meta_locale'),
                 'append_to_response' => 'videos,images,credits,external_ids',
@@ -112,7 +112,7 @@ class Season
     public function getSeason(): array
     {
         return [
-            'id'            => $this->seasonId,
+            'id'            => $this->data['id'],
             'air_date'      => $this->data['air_date'] ?? null,
             'poster'        => $this->tmdb->image('poster', $this->data),
             'name'          => $this->data['name'] ?? null,
@@ -158,7 +158,7 @@ class Season
                 'season_number'   => $episode['season_number'],
                 'vote_average'    => $episode['vote_average'],
                 'vote_count'      => $episode['vote_count'],
-                'season_id'       => $this->seasonId,
+                'season_id'       => $this->data['id'],
             ];
         }
 
