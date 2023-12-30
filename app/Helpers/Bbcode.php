@@ -303,8 +303,8 @@ class Bbcode
             $source
         );
 
-        // Youtube elements need to be replaced like this because the content inside the two tags
-        // has to be moved into an html attribute
+        // YouTube video elements need to be replaced like this because the content inside the two tags
+        // has to be moved into an HTML attribute
         $source = preg_replace_callback(
             '/\[youtube](.*?)\[\/youtube]/i',
             static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
@@ -321,7 +321,7 @@ class Bbcode
             $source
         );
 
-        // Common comparison syntax used in other torrent management systems is quite specific
+        // Common comparison syntax used in other torrent management systems is quite specific,
         // so it must be done here instead
         $source = preg_replace_callback(
             '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
@@ -425,11 +425,10 @@ class Bbcode
      * [/list]
      * ```
      *
-     * @param  String $source        Reference to the source text content currently being converted from bbcode to html.
-     * @param  int    $index         Reference to the current index of `$source` that the parser must keep track of.
-     * @param  int    $tagStartIndex The index of the first character of the tag being parsed inside of `$source`. Should be the `[` character.
-     * @param  int    $tagStopIndex  The index of the last character of the tag being parsed inside of `$source`. Should be the `]` character.
-     * @return void
+     * @param String $source        Reference to the source text content currently being converted from bbcode to html.
+     * @param int    $index         Reference to the current index of `$source` that the parser must keep track of.
+     * @param int    $tagStartIndex The index of the first character of the tag being parsed inside `$source`. Should be the `[` character.
+     * @param int    $tagStopIndex  The index of the last character of the tag being parsed inside `$source`. Should be the `]` character.
      */
     private function handleBlockElementSpacing(String &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
     {
