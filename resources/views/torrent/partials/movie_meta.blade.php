@@ -242,7 +242,9 @@
                 <a class="meta-chip" href="#">
                     <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
                     <h2 class="meta-chip__name">Primary Language</h2>
-                    <h3 class="meta-chip__value">{{ $meta->original_language }}</h3>
+                    <h3 class="meta-chip__value">
+                        {{ $meta->original_language ?? __('common.unknown') }}
+                    </h3>
                 </a>
             </article>
             @foreach ($meta?->companies ?? [] as $company)
