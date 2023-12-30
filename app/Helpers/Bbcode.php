@@ -284,22 +284,22 @@ class Bbcode
         $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
             '/\[url](.*?)\[\/url]/i',
-            fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
+            static fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
             $source
         );
         $source = preg_replace_callback(
             '/\[img](.*?)\[\/img]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img width=(\d+)](.*?)\[\/img]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
+            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
 
@@ -307,17 +307,17 @@ class Bbcode
         // has to be moved into an html attribute
         $source = preg_replace_callback(
             '/\[youtube](.*?)\[\/youtube]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
             '/\[video](.*?)\[\/video]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
             '/\[video="youtube"](.*?)\[\/video]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
 
@@ -325,7 +325,7 @@ class Bbcode
         // so it must be done here instead
         $source = preg_replace_callback(
             '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
-            function ($matches) {
+            static function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
                 $validatedUrls = collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
