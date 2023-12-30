@@ -15,6 +15,18 @@ namespace App\Helpers;
 
 class Bbcode
 {
+    /**
+     * @var array<
+     *     string,
+     *     array{
+     *         openBbcode: string,
+     *         closeBbcode: string,
+     *         openHtml: string,
+     *         closeHtml: string,
+     *         block: boolean
+     *     }
+     * > $parsers.
+     */
     private array $parsers = [
         'h1' => [
             'openBbcode'  => '/^\[h1\]/i',
@@ -266,7 +278,7 @@ class Bbcode
     /**
      * Parses the BBCode string.
      */
-    public function parse($source, $replaceLineBreaks = true): string
+    public function parse(?string $source, bool $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);
