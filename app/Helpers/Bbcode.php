@@ -283,22 +283,22 @@ class Bbcode
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
-            '/\[url\](.*?)\[\/url\]/i',
+            '/\[url](.*?)\[\/url]/i',
             fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img\](.*?)\[\/img\]/i',
+            '/\[img](.*?)\[\/img]/i',
             fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img width=(\d+)\](.*?)\[\/img\]/i',
+            '/\[img width=(\d+)](.*?)\[\/img]/i',
             fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
+            '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
             fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
@@ -306,17 +306,17 @@ class Bbcode
         // Youtube elements need to be replaced like this because the content inside the two tags
         // has to be moved into an html attribute
         $source = preg_replace_callback(
-            '/\[youtube\](.*?)\[\/youtube\]/i',
+            '/\[youtube](.*?)\[\/youtube]/i',
             fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[video\](.*?)\[\/video\]/i',
+            '/\[video](.*?)\[\/video]/i',
             fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[video="youtube"\](.*?)\[\/video\]/i',
+            '/\[video="youtube"](.*?)\[\/video]/i',
             fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             $source
         );
@@ -324,7 +324,7 @@ class Bbcode
         // Common comparison syntax used in other torrent management systems is quite specific
         // so it must be done here instead
         $source = preg_replace_callback(
-            '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
+            '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
             function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
