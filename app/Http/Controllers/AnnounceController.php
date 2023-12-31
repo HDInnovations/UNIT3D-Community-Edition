@@ -47,21 +47,9 @@ final class AnnounceController extends Controller
 
     // Port Blacklist
     private const BLACK_PORTS = [
-        // SSH Port
-        22,
-        // DNS queries
-        53,
         // Hyper Text Transfer Protocol (HTTP) - port used for web traffic
-        80,
-        81,
         8080,
         8081,
-        // 	Direct Connect Hub (unofficial)
-        411,
-        412,
-        413,
-        // HTTPS / SSL - encrypted web traffic, also used for VPN tunnels over HTTPS.
-        443,
         // Kazaa - peer-to-peer file sharing, some known vulnerabilities, and at least one worm (Benjamin) targeting it.
         1214,
         // IANA registered for Microsoft WBT Server, used for Windows Remote Desktop and Remote Assistance connections
@@ -283,7 +271,7 @@ final class AnnounceController extends Controller
 
         if (
             !is_numeric($queries['port'])
-            || $queries['port'] < 0
+            || $queries['port'] < 1024 // Block system-reserved ports since 99.9% of the time they're fake and thus not connectable
             || $queries['port'] > 0xFFFF
             || \in_array($queries['port'], self::BLACK_PORTS, true)
         ) {
