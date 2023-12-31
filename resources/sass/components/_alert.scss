@@ -1,0 +1,19 @@
+.alerts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--alert-gap-width);
+  background-color: var(--alert-gap-color);
+}
+
+.alert {
+  padding: 18px;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background-color: var(--alert-bg);
+  color: var(--alert-fg);
+}
+
+.alert__content {
+  text-align: center;
+}

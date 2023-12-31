@@ -25,6 +25,7 @@ mix.options({
     /*
      * Themes
      */
+    .sass('resources/sass/themes/light.scss', 'public/css/themes/light.css')
     .sass('resources/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
     .sass('resources/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
     .sass('resources/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')

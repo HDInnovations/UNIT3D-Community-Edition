@@ -32,6 +32,8 @@ For example dark blue,
 */
 
 :root {
+    --body-bg: var(--color-dark-blue);
+
     --torrent-row-fg: #ccc;
     --torrent-row-format-fg: #ccc;
     --torrent-row-format-bg: #3c3c3c;
@@ -53,14 +55,6 @@ For example dark blue,
     --torrent-row-bumped-fg: #ffb800;
 }
 
-body {
-    background-color: var(--color-dark-blue);
-}
-
-.nav-tabs > #active {
-    background-color: var(--color-dark-green);
-}
-
 .text-green {
     color: #3fb618;
 }
@@ -76,45 +70,8 @@ i.torrent-icon {
     background-color: var(--color-dark-blue);
 }
 
-.notify .point {
-    background-color: var(--color-A400);
-}
-
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #fff;
-}
-
-select,
-select option {
-    background-color: #454545 !important;
-}
-
-.form-control {
-    background-color: #2b2b2b;
-    color: #fff;
-    border: 2px solid rgba(0, 0, 0, 0.56);
-}
-.form-control:focus {
-    box-shadow: 0 0 5px var(--color-light-blue);
-    border: 1px solid var(--color-light-blue);
-}
-.form-control > option {
-    background-color: #616161;
-}
-
 .text-info,
-.footer-icon {
+.footer__icon {
     color: var(--color-400);
 }
 
@@ -135,8 +92,7 @@ a.text-bright:hover {
 .text-purple,
 .text-orange,
 .text-success,
-.text-pink,
-.fa-coins {
+.text-pink {
     color: var(--color-400);
 }
 
@@ -144,60 +100,7 @@ a.text-bright:hover {
     color: #996666;
 }
 
-.alert-danger,
-.panel-primary,
-.panel-primary > .panel-heading,
-.alert-info,
-.panel-info,
-.panel-info > .panel-heading {
-    background-color: var(--color-magenta) !important;
-}
-
-.alert {
-    color: #424242;
-}
-
-.alert > h2,
-.alert > h2 > strong,
-.panel > .panel-heading > h2,
-.panel > .panel-heading > h4,
-.panel > .panel-heading > div > h2,
-.panel > .panel-heading > div > h4,
-.movie-title > a {
-    color: #000;
-}
-
-.panel-chat > .panel-heading > h4 {
-    color: #fff;
-}
-
 .badge-user {
     border-radius: 0;
 }
 
-.container.box {
-    background: #1f1f1f;
-    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-}
-
-.list-inline {
-    color: inherit;
-}
-
-
-div.header.purple div.inner_content,
-div.header.green div.inner_content,
-div.header.blue div.inner_content,
-div.header.orange div.inner_content,
-div.header.yellow div.inner_content,
-div.header.red div.inner_content {
-    background-image: var(--background-pipe) !important;
-}
-
-/* history table restores */
-.table > tbody > tr > td.text-green {
-    color: #3fb618 !important;
-}
-.table > tbody > tr > td.text-red {
-    color: var(--color-light-red) !important;
-}

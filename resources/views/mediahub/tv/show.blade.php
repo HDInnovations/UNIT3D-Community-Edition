@@ -34,10 +34,10 @@
                             style="height: auto; margin-top: 0; margin-bottom: 20px"
                         >
                             <div class="card_head">
-                                <span class="badge-user text-bold" style="float: right">
+                                <span class="text-bold" style="float: right">
                                     {{ $season->episodes->count() }} Episodes
                                 </span>
-                                <span class="badge-user text-bold" style="float: right">
+                                <span class="text-bold" style="float: right">
                                     Season {{ $season->season_number }}
                                 </span>
                             </div>
@@ -73,7 +73,7 @@
                                     data-target="#{{ $season->season_number }}"
                                 >
                                     <i class="fas fa-chevron-double-down"></i>
-                                    <span class="badge-user text-bold">
+                                    <span class="text-bold">
                                         {{ $season->torrents->where('season_number', '=', $season->season_number)->count() }}
                                         Torrents Matched
                                     </span>
@@ -82,10 +82,8 @@
                             </div>
                             <div id="{{ $season->season_number }}" class="collapse">
                                 <div class="card_footer" style="height: auto">
-                                    <div class="table-responsive">
-                                        <table
-                                            class="table table-condensed table-bordered table-striped table-hover"
-                                        >
+                                    <div class="data-table-wrapper">
+                                        <table class="data-table">
                                             <thead>
                                                 <tr>
                                                     <th>{{ __('common.name') }}</th>
