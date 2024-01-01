@@ -310,7 +310,7 @@ class TorrentSearch extends Component
             ->where($this->filters())
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
 
         $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
@@ -362,7 +362,7 @@ class TorrentSearch extends Component
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
 
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
@@ -602,7 +602,7 @@ class TorrentSearch extends Component
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
 
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
