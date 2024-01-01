@@ -93,7 +93,7 @@
                     <div class="bbcode-rendered" style="text-align: left">
                         <pre
                             style="width: max-content"
-                        ><code style="white-space: pre;">{{ iconv('cp437', 'utf8', $torrent->nfo) }}</code></pre>
+                        ><code class="torrent__nfo" style="white-space: pre;">{{ iconv('cp437', 'utf8', $torrent->nfo) }}</code></pre>
                     </div>
                 </div>
             </dialog>
