@@ -305,10 +305,7 @@
                             "
                             x-bind:required="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
                         />
-                        <label class="form__label form__label--floating" for="imdb">
-                            IMDB ID
-                            <b>({{ __('torrent.optional') }})</b>
-                        </label>
+                        <label class="form__label form__label--floating" for="imdb">IMDB ID</label>
                     </p>
                     <p class="form__group" x-show="cats[cat].type === 'tv'">
                         <input type="hidden" name="tvdb" value="0" />
@@ -323,10 +320,7 @@
                             x-bind:value="cats[cat].type === 'tv' ? '{{ old('tvdb') ?? $torrent->tvdb }}' : '0'"
                             x-bind:required="cats[cat].type === 'tv'"
                         />
-                        <label class="form__label form__label--floating" for="tvdb">
-                            TVDB ID
-                            <b>({{ __('torrent.optional') }})</b>
-                        </label>
+                        <label class="form__label form__label--floating" for="tvdb">TVDB ID</label>
                     </p>
                     <p class="form__group">
                         <input type="hidden" name="mal" value="0" />
