@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95d1a4ca4b78c1620ccf8d6808fd6b31",
+    "content-hash": "9a06c7e1e5fb3bf96758a9a05992d035",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -8367,6 +8367,56 @@
                 }
             ],
             "time": "2023-06-22T14:22:36+00:00"
+        },
+        {
+            "name": "diverently/phpstan-livewire",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Diverently/phpstan-livewire.git",
+                "reference": "45ae761169ee2b083cbcedb32efb9e5368e7f0c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Diverently/phpstan-livewire/zipball/45ae761169ee2b083cbcedb32efb9e5368e7f0c5",
+                "reference": "45ae761169ee2b083cbcedb32efb9e5368e7f0c5",
+                "shasum": ""
+            },
+            "require": {
+                "phpstan/phpstan": "^1.10"
+            },
+            "require-dev": {
+                "livewire/livewire": "^2.12"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Diverently\\PhpstanLivewire\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Cordes",
+                    "email": "robert@diverently.com"
+                }
+            ],
+            "description": "Recognize Livewire computed properties",
+            "support": {
+                "issues": "https://github.com/Diverently/phpstan-livewire/issues",
+                "source": "https://github.com/Diverently/phpstan-livewire/tree/v1.0.2"
+            },
+            "time": "2023-05-03T04:30:35+00:00"
         },
         {
             "name": "fakerphp/faker",
