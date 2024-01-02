@@ -20,7 +20,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art',false) }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('bon.bon') }} {{ __('bon.earning') }}
         </h2>
         <div class="panel__body">
@@ -40,7 +40,7 @@
                         type="text"
                         maxlength="255"
                         value="{{ old('name') }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -54,7 +54,7 @@
                         type="text"
                         maxlength="255"
                         value="{{ old('description') }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="description">
                         {{ __('common.description') }}
                     </label>
@@ -69,22 +69,15 @@
                         required
                         type="text"
                         value="{{ old('position') }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <select
-                        id="variable"
-                        class="form__select"
-                        name="variable"
-                        required
-                    >
+                    <select id="variable" class="form__select" name="variable" required>
                         <option hidden selected disabled value=""></option>
-                        <option class="form__option" value="1">
-                            1 (Constant)
-                        </option>
+                        <option class="form__option" value="1">1 (Constant)</option>
                         <option class="form__option" value="age">
                             {{ __('torrent.age') }} (seconds)
                         </option>
@@ -113,9 +106,7 @@
                             Connectable (1 (true) or 0 (false))
                         </option>
                     </select>
-                    <label class="form__label form__label--floating" for="autocat">
-                        Variable
-                    </label>
+                    <label class="form__label form__label--floating" for="autocat">Variable</label>
                 </p>
                 <p class="form__group">
                     <input
@@ -127,7 +118,7 @@
                         required
                         type="text"
                         value="{{ old('multiplier') }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="multiplier">
                         Multiplier
                     </label>
@@ -141,12 +132,8 @@
                         value="{{ old('operation') }}"
                     >
                         <option hidden selected disabled value=""></option>
-                        <option class="form__option" value="append">
-                            Append
-                        </option>
-                        <option class="form__option" value="multiply">
-                            Multiply
-                        </option>
+                        <option class="form__option" value="append">Append</option>
+                        <option class="form__option" value="multiply">Multiply</option>
                     </select>
                     <label class="form__label form__label--floating" for="operation">
                         Operation
@@ -163,9 +150,7 @@
                                 required
                             >
                                 <option hidden selected disabled value=""></option>
-                                <option class="form__option" value="1">
-                                    1 (Constant)
-                                </option>
+                                <option class="form__option" value="1">1 (Constant)</option>
                                 <option class="form__option" value="age">
                                     {{ __('torrent.age') }} (seconds)
                                 </option>
@@ -230,7 +215,7 @@
                                 x-bind:name="'conditions[' + condition + '][operand2]'"
                                 required
                                 type="text"
-                            >
+                            />
                             <label
                                 class="form__label form__label--floating"
                                 x-bind:for="'condition' + condition + 'operand2'"
@@ -268,17 +253,15 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.information') }}</h2>
         <div class="panel__body">
-            Every hour, earnings are calculated and distributed to each user.
-            Each earning is calculated as "variable * multiplier". There exist
-            two types of earnings: "append", and "multiply". If the earning is
-            of the type "append", then it is added onto previous earnings. If
-            the earning is of the type "multiply", then it multiplies all
-            previous earnings (denoted by a position lower than this earning).
-            For example, if the order of the earnings was "append", "append",
-            "multiply", "append", then the sum of the first two earnings will
-            be multiplied by the third earning before being added to the fourth
-            earning. Conditions can also be added to specify if an earning
-            should be calculated or not.
+            Every hour, earnings are calculated and distributed to each user. Each earning is
+            calculated as "variable * multiplier". There exist two types of earnings: "append", and
+            "multiply". If the earning is of the type "append", then it is added onto previous
+            earnings. If the earning is of the type "multiply", then it multiplies all previous
+            earnings (denoted by a position lower than this earning). For example, if the order of
+            the earnings was "append", "append", "multiply", "append", then the sum of the first two
+            earnings will be multiplied by the third earning before being added to the fourth
+            earning. Conditions can also be added to specify if an earning should be calculated or
+            not.
         </div>
     </section>
 @endsection
