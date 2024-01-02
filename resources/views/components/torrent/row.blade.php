@@ -85,7 +85,7 @@
                     />
                 @else
                     <i
-                        class="{{ $torrent->category->icon }} torrent-icon"
+                        class="{{ $torrent->category->icon }} category__icon"
                         @style([
                             'font-size: 24px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,

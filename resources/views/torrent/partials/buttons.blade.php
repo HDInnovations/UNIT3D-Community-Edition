@@ -458,7 +458,7 @@
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
                         <span
-                            class="badge-user text-bold text-pink"
+                            class="text-bold text-pink"
                             style="background-image:url({{ url('/img/sparkels.gif') }};"
                         >
                             {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }}

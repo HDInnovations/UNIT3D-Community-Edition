@@ -230,12 +230,14 @@ final class AnnounceController extends Controller
             }
         }
 
-        foreach (['uploaded', 'downloaded', 'left'] as $item) {
+        foreach (['port', 'uploaded', 'downloaded', 'left'] as $item) {
             $itemData = $queries[$item];
 
             if (!is_numeric($itemData) || $itemData < 0) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
+
+            $queries[$item] = (int) $itemData;
         }
 
         // Part.2 Extract optional announce fields
@@ -252,6 +254,8 @@ final class AnnounceController extends Controller
             if (!is_numeric($queries[$item]) || $queries[$item] < 0) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
+
+            $queries[$item] = (int) $queries[$item];
         }
 
         $queries['event'] = strtolower($queries['event']);
@@ -307,7 +311,7 @@ final class AnnounceController extends Controller
         }
 
         // If User Download Rights Are Disabled Return Error to Client
-        if ($user->can_download === false && $queries['left'] !== '0') {
+        if ($user->can_download === false && $queries['left'] !== 0) {
             throw new TrackerException(142);
         }
 
@@ -506,7 +510,7 @@ final class AnnounceController extends Controller
 
         $isNewPeer = $peer === null;
         $isDeadPeer = $queries['event'] === 'stopped';
-        $isSeeder = $queries['left'] == 0;
+        $isSeeder = $queries['left'] === 0;
 
         $newLeech = $isNewPeer && !$isDeadPeer && !$isSeeder;
         $stoppedLeech = !$isNewPeer && $isDeadPeer && !$isSeeder;
@@ -553,11 +557,11 @@ final class AnnounceController extends Controller
          * For non `stopped` event only where either the torrent has at least one leech, or the user is a leech.
          * We query peers from database and send peerlist, otherwise just quick return.
          */
-        if ($queries['event'] !== 'stopped' && ($queries['left'] != 0 || $torrent->leechers !== 0)) {
+        if ($queries['event'] !== 'stopped' && ($queries['left'] !== 0 || $torrent->leechers !== 0)) {
             $limit = (min($queries['numwant'], 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            if ($queries['left'] == 0) {
+            if ($queries['left'] === 0) {
                 foreach ($torrent->peers as $peer) {
                     // Don't include other seeders, inactive peers, nor other peers belonging to the same user
                     if ($peer->seeder || !$peer->active || $peer->user_id === $user->id) {
@@ -715,7 +719,7 @@ final class AnnounceController extends Controller
             $queries['uploaded'],
             $queries['downloaded'],
             $queries['left'],
-            $queries['left'] == 0,
+            $queries['left'] === 0,
             $torrent->id,
             $user->id,
             $event !== 'stopped',
@@ -738,7 +742,7 @@ final class AnnounceController extends Controller
                 'downloaded'        => $event === 'started' ? 0 : $creditedDownloadedDelta,
                 'actual_downloaded' => $event === 'started' ? 0 : $downloadedDelta,
                 'client_downloaded' => $queries['downloaded'],
-                'seeder'            => $queries['left'] == 0,
+                'seeder'            => $queries['left'] === 0,
                 'active'            => $event !== 'stopped',
                 'seedtime'          => 0,
                 'immune'            => $group->is_immune,
@@ -774,7 +778,7 @@ final class AnnounceController extends Controller
 
         $isNewPeer = $isNewPeer || !$peer->active;
         $isDeadPeer = $event === 'stopped';
-        $isSeeder = $queries['left'] == 0;
+        $isSeeder = $queries['left'] === 0;
 
         $newSeed = $isNewPeer && !$isDeadPeer && $isSeeder;
         $newLeech = $isNewPeer && !$isDeadPeer && !$isSeeder;

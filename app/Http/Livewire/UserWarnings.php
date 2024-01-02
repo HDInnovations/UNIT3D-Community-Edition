@@ -38,7 +38,7 @@ class UserWarnings extends Component
 
     public int $perPage = 10;
 
-    public string $sortField = 'created_at';
+    public ?string $sortField = null;
 
     public string $sortDirection = 'desc';
 
@@ -66,7 +66,11 @@ class UserWarnings extends Component
             ->when($this->warningTab === 'automated', fn ($query) => $query->whereNotNull('torrent'))
             ->when($this->warningTab === 'manual', fn ($query) => $query->whereNull('torrent'))
             ->when($this->warningTab === 'deleted', fn ($query) => $query->onlyTrashed())
-            ->orderBy($this->sortField, $this->sortDirection)
+            ->when(
+                $this->sortField === null,
+                fn ($query) => $query->orderByDesc('active')->orderByDesc('created_at'),
+                fn ($query) => $query->orderBy($this->sortField, $this->sortDirection),
+            )
             ->paginate($this->perPage);
     }
 

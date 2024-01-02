@@ -18,6 +18,14 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous" />
 
     @switch(auth()->user()->style)
+        @case(0)
+            <link
+                rel="stylesheet"
+                href="{{ mix('css/themes/light.css') }}"
+                crossorigin="anonymous"
+            />
+
+            @break
         @case(1)
             <link
                 rel="stylesheet"

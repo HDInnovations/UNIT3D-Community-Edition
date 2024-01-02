@@ -554,4 +554,241 @@
     }
 }
 
+.pull-right {
+    float: right !important;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.list-group {
+    margin-bottom: 0;
+    padding-left: 0;
+    font-size: 17px;
+}
+
+.list-group-item-heading {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.nav-tabs > li > a {
+    background-color: #dcdcdc;
+    color: #696969;
+}
+
+.badge-extra,
+.badge-user {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    vertical-align: middle;
+    text-align: center;
+    background-color: transparent;
+    border-radius: 2px;
+    margin-left: 2px;
+    white-space: nowrap;
+}
+
+.badge-user {
+    border: 1px solid #b6daf2;
+    box-shadow: 0 5px 5px rgba(93, 93, 93, 0.2);
+    border-radius: 5px;
+}
+
+.badge-extra {
+    border: 1px solid rgba(186, 205, 225, 0.61);
+    border-radius: 10px;
+    background: rgba(76, 79, 80, 0.14);
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.button-holder {
+    line-height: normal !important;
+    display: table;
+    width: 100%;
+    margin: 0 0 5px 0 !important;
+    padding: 0 !important;
+}
+.button-center {
+    display: table-cell;
+    width: 100%;
+    text-align: center;
+}
+.button-left {
+    display: table-cell;
+    width: 50%;
+    text-align: left;
+}
+.button-right {
+    display: table-cell;
+    width: 50%;
+    text-align: right;
+}
+.button-right-small {
+    display: table-cell;
+    width: 30%;
+    text-align: right;
+}
+.no-space {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: initial !important;
+}
+@media screen and (max-width: 768px) {
+    .button-holder {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .button-left {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .button-right {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.circle {
+    border-radius: 100% !important;
+}
+
+.message {
+    padding: 10px;
+}
+
+#subject {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+.shoutbox {
+    width: 100%;
+    bottom: -1px;
+    margin-bottom: 10px;
+    border-radius: 0;
+}
+
+.shoutbox .list-group {
+    height: 610px;
+    overflow-y: auto;
+}
+
+.shoutbox .list-group-item-heading,
+.shoutbox p {
+    margin-top: 5px;
+}
+
+.panel-chat {
+    border-color: #ddd;
+}
+
+.panel-chat .close {
+    color: #fff;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+
+.width-table {
+    width: 100%;
+    display: table;
+}
+.width-75 {
+    width: 75%;
+    display: table-cell;
+    text-align: right;
+}
+
+@media screen and (max-width: 1440px) {
+    .width-75 {
+        width: 100%;
+        display: block;
+    }
+}
+
+/* Chat Message Bubbles
+============================================================================
+
+/* Message avatar */
+.sent > a {
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+}
+.sent > a > img {
+    display: block !important;
+    height: 100%;
+    position: absolute;
+    bottom: 4px;
+}
+/* Avatar */
+#frame .content .messages ul li.sent img.chat-user-image {
+    height: 40px;
+    width: 40px;
+}
+/* Message header */
+.sent > h4 {
+    display: block !important;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: var(--message-bubble-bg);
+    padding: 4px 12px 0 8px;
+    margin: 4px 12px 0 48px;
+}
+/* Message text */
+.sent > div {
+    display: block !important;
+    border-bottom-right-radius: 15px;
+    background-color: var(--message-bubble-bg);
+    padding: 0 12px 4px 8px !important;
+    margin: 0 12px 4px 48px !important;
+}
+/* Bot messages */
+.sent > .system {
+    border-bottom-left-radius: 15px;
+}
+/* Message triangle tip */
+.sent > div:not(.system):before {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 38px;
+    width: 0;
+    border-right: 10px solid var(--message-bubble-bg);
+    border-top: 10px solid transparent;
+    /* border-bottom: 10px solid transparent; */
+}
+/* Entire Message */
+#frame .content .messages ul li.sent {
+    border: 0;
+    display: table;
+    max-width: 85%;
+    width: auto;
+}
+/* Timestamp */
+#frame .content .messages ul li.sent h4 .text-muted {
+    float: none;
+}
+
+
 @import './_media-querys';

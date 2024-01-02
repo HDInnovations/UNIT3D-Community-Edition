@@ -339,6 +339,19 @@
                                 </tr>
                             @endforelse
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td
+                                    colspan="{{ 5 + (int) auth()->user()->group->is_modo + (int) config('announce.connectable_check') }}"
+                                >
+                                    If you don't recognize a torrent client or IP address in the
+                                    list, please
+                                    <a href="{{ route('tickets.index') }}">
+                                        create a helpdesk ticket
+                                    </a>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </section>

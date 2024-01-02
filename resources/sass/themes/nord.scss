@@ -30,6 +30,9 @@
   --achievement-fg: #d8dee9;
   --achievement-bg: #3b4252;
 
+  --alert-bg: #242933;
+  --alert-fg: #d8dee9;
+
   --article-card-bg: #3b4252;
   --article-card-fg: #d8dee9;
   --article-card-head-fg: #d8dee9;
@@ -55,6 +58,9 @@
   --bbcode-rendered-danger-fg: #bf616a;
   --bbcode-rendered-quote-bg: #6662;
   --bbcode-rendered-quote-border: #81a1c1;
+
+  --body-bg: #2e3440;
+  --body-fg: #d8dee9;
 
   --breadcrumb-fg: #d8dee9;
   --breadcrumb-active-fg: #e5e9f0;
@@ -135,6 +141,13 @@
   --legend-bg: transparent;
   --legend-border: none;
   --legend-border-radius: 0;
+
+  --mediahub-card-bg: #4C566A;
+  --mediahub-card-fg: #d8dee9;
+  --mediahub-card-hover-fg: #fff;
+  --mediahub-card-border: none;
+  --mediahub-card-border-radius: 10px;
+  --mediahub-card-box-shadow: none;
 
   --meta-backdrop-filter:  brightness(30%);
   --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
@@ -324,14 +337,6 @@
   --torrent-tag-hover-bg: #eceff477;
 }
 
-/* Background
----------------------------------------------------------------------------- */
-
-body {
-  background-color: #2e3440 !important;
-}
-
-
 /* Links
 ---------------------------------------------------------------------------- */
 
@@ -374,7 +379,7 @@ hr {
   overflow: hidden;
 }
 
-.panel__head,
+
 .panel__header,
 .panel__heading,
 .panel__actions,

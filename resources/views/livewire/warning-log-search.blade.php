@@ -83,7 +83,7 @@
             </div>
         </div>
     </header>
-    <table class="table table-condensed table-striped table-bordered table-hover">
+    <table class="data-table">
         <thead>
             <tr>
                 <th wire:click="sortBy('user_id')" role="columnheader button">

@@ -24,20 +24,6 @@
             {{ __('ticket.create-ticket') }}
         </h2>
         <div class="panel__body">
-            @if (session('errors'))
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h6><b>{{ __('ticket.fix-errors') }}</b></h6>
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <form class="form" action="{{ route('tickets.store') }}" method="POST">
                 @csrf
                 <p class="form__group">

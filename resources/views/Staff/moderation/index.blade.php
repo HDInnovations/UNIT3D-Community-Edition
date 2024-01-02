@@ -52,7 +52,7 @@
                             </td>
                             <td>
                                 <i
-                                    class="{{ $torrent->category->icon }} torrent-icon"
+                                    class="{{ $torrent->category->icon }} category__icon"
                                     data-original-title="{{ $torrent->category->name }} Torrent"
                                 ></i>
                             </td>
@@ -137,7 +137,7 @@
                             </td>
                             <td>
                                 <i
-                                    class="{{ $torrent->category->icon }} torrent-icon"
+                                    class="{{ $torrent->category->icon }} category__icon"
                                     title="{{ $torrent->category->name }} Torrent"
                                 ></i>
                             </td>
@@ -235,7 +235,7 @@
                             </td>
                             <td>
                                 <i
-                                    class="{{ $torrent->category->icon }} torrent-icon"
+                                    class="{{ $torrent->category->icon }} category__icon"
                                     title="{{ $torrent->category->name }} Torrent"
                                 ></i>
                             </td>

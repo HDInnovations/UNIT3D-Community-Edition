@@ -34,6 +34,11 @@
   --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
   --achievement-progress-bg: #8fbcbb;
 
+  --alert-bg: #232323;
+  --alert-fg: #aaa;
+  --alert-gap-color: transparent;
+  --alert-gap-width: 0;
+
   --article-card-bg: #232323;
   --article-card-fg: #aaa;
   --article-card-head-fg: #aaa;
@@ -59,6 +64,9 @@
   --bbcode-rendered-danger-fg: #ff141ccc;
   --bbcode-rendered-quote-bg: #6662;
   --bbcode-rendered-quote-border: var(--color-green);
+
+  --body-bg: #1A1A1A;
+  --body-fg: var(--text-color);
 
   --breadcrumb-fg: #777;
   --breadcrumb-active-fg: #aaa;
@@ -139,6 +147,13 @@
   --legend-bg: transparent;
   --legend-border: none;
   --legend-border-radius: 0;
+
+  --mediahub-card-bg: transparent;
+  --mediahub-card-fg: #aaa;
+  --mediahub-card-hover-fg: #ddd;
+  --mediahub-card-border: 1px solid #444;
+  --mediahub-card-border-radius: 0;
+  --mediahub-card-box-shadow: none;
 
   --meta-backdrop-filter:  brightness(30%);
   --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
@@ -331,24 +346,24 @@
 
 body {
   display: grid;
-  background-color: #1A1A1A !important;
   font-family: "Roboto";
   font-size: 12px;
   font-weight: 300;
   min-width: 1024px;
-  grid-template-areas: "header" "cookies" "main" "footer";
+  grid-template-areas: "header" "alerts" "main" "footer";
   grid-template-rows: auto auto auto auto;
   row-gap: 2px !important;
   align-content: flex-start;
 }
 
-/* Cookies */
+/* Alerts */
 
-body > section:first-child {
-  grid-area: cookies;
-  height: 38px;
-  padding: 0 12px;
-  line-height: 38px;
+.alerts {
+  grid-area: alerts;
+}
+
+.alert {
+  padding: 8px 12px;
   font-size: 11px;
   font-weight: 400;
   text-transform: uppercase;
@@ -358,6 +373,16 @@ body > section:first-child {
   width: 1024px;
   max-width: 1024px;
   margin: 0 auto;
+}
+
+.special-event-alert {
+  margin-top: 2px;
+}
+
+.cookie-consent {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 12px;
 }
 
 body > header {
@@ -594,16 +619,6 @@ a:hover {
 
 .ratio-bar__tokens i:before {
   content: "FL Tokens: ";
-  font-family: "Roboto";
-  font-weight: normal;
-}
-
-.ratio-bar__warnings {
-  grid-area: warnings;
-}
-
-.ratio-bar__warnings i:before {
-  content: "HnRs: ";
   font-family: "Roboto";
   font-weight: normal;
 }
