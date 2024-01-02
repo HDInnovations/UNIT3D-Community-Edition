@@ -1638,51 +1638,6 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:avg\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:basic\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:directoryPermissions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:disk\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:formatBytes\\(\\) has parameter \\$bytes with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:formatBytes\\(\\) has parameter \\$precision with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:getDirectoryPermission\\(\\) has parameter \\$path with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:memory\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:uptime\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\TorrentHelper\\:\\:approveHelper\\(\\) has parameter \\$id with no type specified\\.$#"
 			count: 1
 			path: app/Helpers/TorrentHelper.php
