@@ -102,17 +102,17 @@ class StoreTorrentRequest extends FormRequest
             ],
             'description' => [
                 'required',
-                'max:4294967296'
+                'max:2097152'
             ],
             'mediainfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'bdinfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'category_id' => [
                 'required',
