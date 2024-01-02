@@ -1638,26 +1638,6 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) has parameter \\$bytes with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) has parameter \\$precision with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:generateRandomString\\(\\) has parameter \\$length with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:ordinal\\(\\) has parameter \\$number with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:avg\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Helpers/SystemInformation.php
