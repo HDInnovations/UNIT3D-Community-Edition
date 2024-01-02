@@ -710,20 +710,51 @@ final class AnnounceController extends Controller
             ]);
         }
 
-        // Peer update
-        ProcessAnnounce::dispatch(
-            bin2hex($queries['peer_id']),
-            bin2hex($queries['ip-address']),
-            $queries['port'],
-            bin2hex($queries['user-agent']),
-            $queries['uploaded'],
-            $queries['downloaded'],
-            $queries['left'],
-            $queries['left'] === 0,
-            $torrent->id,
-            $user->id,
-            $event !== 'stopped',
-        );
+        // Peer Updates
+        // Don't Dispatch ProcessAnnounce Job To Queue If Connectable Check Is Disabled For Performance Reasons
+        if (config('announce.connectable_check')) {
+            /**
+             * Process Peers Job.
+             *
+             * @see \App\Jobs\ProcessAnnounce
+             */
+            ProcessAnnounce::dispatch(
+                bin2hex($queries['peer_id']),
+                bin2hex($queries['ip-address']),
+                $queries['port'],
+                bin2hex($queries['user-agent']),
+                $queries['uploaded'],
+                $queries['downloaded'],
+                $queries['left'],
+                $queries['left'] === 0,
+                $torrent->id,
+                $user->id,
+                $event !== 'stopped',
+            );
+        } else {
+            /**
+             * Peer batch upsert.
+             *
+             * @see \App\Console\Commands\AutoUpsertPeers
+             */
+            Redis::connection('announce')->command('RPUSH', [
+                config('cache.prefix').':peers:batch',
+                serialize([
+                    'peer_id'     => $queries['peer_id'],
+                    'ip'          => $queries['ip-address'],
+                    'port'        => $queries['port'],
+                    'agent'       => $queries['user-agent'],
+                    'uploaded'    => $queries['uploaded'],
+                    'downloaded'  => $queries['downloaded'],
+                    'left'        => $queries['left'],
+                    'seeder'      => $queries['left'] === 0,
+                    'torrent_id'  => $torrent->id,
+                    'user_id'     => $user->id,
+                    'active'      => $event !== 'stopped',
+                    'connectable' => false,
+                ])
+            ]);
+        }
 
         /**
          * History batch upsert.
