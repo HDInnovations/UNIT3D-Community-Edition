@@ -63,6 +63,17 @@ class BlockIpAddress extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ip Addresses Successfully Blocked!']);
     }
 
+    final public function destroy(BlockedIp $blockedIp): void
+    {
+        if (auth()->user()->group->is_modo) {
+            $blockedIp->delete();
+
+            $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'IP has successfully been deleted!']);
+        } else {
+            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+        }
+    }
+
     final public function getIpAddressesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return BlockedIp::query()
