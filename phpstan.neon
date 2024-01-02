@@ -7,3 +7,4 @@ parameters:
         - resources
         - routes
     level: 6
+    checkOctaneCompatibility: true
