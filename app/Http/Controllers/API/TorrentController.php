@@ -447,7 +447,7 @@ class TorrentController extends BaseController
                 ->when($request->filled('episodeNumber'), fn ($query) => $query->ofEpisode((int) $request->episodeNumber))
                 ->latest('sticky')
                 ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
-                ->cursorPaginate($request->input('perPage') ?? $this->perPage);
+                ->cursorPaginate(min($request->input('perPage') ?? $this->perPage, 100));
 
             $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
             $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
