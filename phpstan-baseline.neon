@@ -383,11 +383,6 @@ parameters:
 			path: app/Helpers/HiddenCaptcha.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Linkify\\:\\:linky\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Linkify.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCode\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Helpers/Markdown.php
