@@ -368,16 +368,6 @@ parameters:
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/CacheUser.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/CacheUser.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCode\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Helpers/Markdown.php
@@ -2901,11 +2891,6 @@ parameters:
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 2
 			path: app/Models/User.php
-
-		-
-			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
-			count: 1
-			path: app/Providers/CacheUserProvider.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
