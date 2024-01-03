@@ -378,11 +378,6 @@ parameters:
 			path: app/Helpers/CacheUser.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\HiddenCaptcha\\:\\:getToken\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/HiddenCaptcha.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCode\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Helpers/Markdown.php

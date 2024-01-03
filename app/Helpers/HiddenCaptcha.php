@@ -81,6 +81,8 @@ class HiddenCaptcha
 
     /**
      * Get and check the token values.
+     *
+     * @return bool|array<string, mixed>
      */
     private static function getToken(string $captcha): bool|array
     {
