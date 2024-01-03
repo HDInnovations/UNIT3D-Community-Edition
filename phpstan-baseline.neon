@@ -1638,11 +1638,6 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\TorrentHelper\\:\\:approveHelper\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentHelper.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendError\\(\\) has parameter \\$code with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
