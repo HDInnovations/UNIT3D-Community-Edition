@@ -75,7 +75,7 @@
         <div class="torrent-card__rating-and-genres">
             <span
                 class="torrent-card__rating"
-                title="{{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0}} {{ __('torrent.votes') }})"
+                title="{{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0 }} {{ __('torrent.votes') }})"
             >
                 <i class="{{ \config('other.font-awesome') }} fa-star"></i>
                 {{ $meta->vote_average ?? 0 }}
