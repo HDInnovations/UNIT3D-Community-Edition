@@ -13,9 +13,16 @@
         <h2 class="panel__heading">{{ __('page.blacklist-clients') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
                 @foreach ($clients as $client)
                     <tr>
                         <td>{{ $client->name }}</td>
+                        <td>{{ $client->reason }}</td>
                     </tr>
                 @endforeach
             </table>

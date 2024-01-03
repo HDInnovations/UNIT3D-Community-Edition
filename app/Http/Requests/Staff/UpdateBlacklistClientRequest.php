@@ -38,6 +38,11 @@ class UpdateBlacklistClientRequest extends FormRequest
                 'string',
                 'max:255',
             ],
+            'peer_id_prefix' => [
+                'required',
+                'string',
+                'unique:blacklist_clients',
+            ],
             'reason' => [
                 'required',
                 'string',

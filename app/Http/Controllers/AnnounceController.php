@@ -172,10 +172,14 @@ final class AnnounceController extends Controller
         }
 
         // Block Blacklisted Clients
-        $clientBlacklist = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('name')->toArray());
+        $blacklistedPeerIdPrefixes = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('peer_id_prefix')->toArray());
 
-        if (\in_array($userAgent, $clientBlacklist)) {
-            throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
+        $peerId = $request->query->get('peer_id');
+
+        foreach ($blacklistedPeerIdPrefixes as $blacklistedPeerIdPrefix) {
+            if (str_starts_with($peerId, $blacklistedPeerIdPrefix)) {
+                throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
+            }
         }
     }
 

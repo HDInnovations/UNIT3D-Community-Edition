@@ -71,8 +71,9 @@ test('store validates with a form request', function (): void {
 
 test('store returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->post(route('staff.blacklisted_clients.store'), [
-        'name'   => 'Test Name',
-        'reason' => 'Test Reason',
+        'name'           => 'Test Name',
+        'reason'         => 'Test Reason',
+        'peer_id_prefix' => 'Test Peer ID Prefix',
     ]);
     $response->assertRedirect(route('staff.blacklisted_clients.index'));
     $response->assertSessionHas('success', 'Blacklisted Client Stored Successfully!');
@@ -90,8 +91,9 @@ test('update returns an ok response', function (): void {
     $blacklistClient = BlacklistClient::factory()->create();
 
     $response = $this->actingAs($this->staffUser)->patch(route('staff.blacklisted_clients.update', [$blacklistClient]), [
-        'name'   => 'Test Name Updated',
-        'reason' => 'Test Reason Updated',
+        'name'           => 'Test Name Updated',
+        'reason'         => 'Test Reason Updated',
+        'peer_id_prefix' => 'Test Peer ID Prefix Updated',
     ]);
     $response->assertRedirect(route('staff.blacklisted_clients.index'));
     $response->assertSessionHas('success', 'Blacklisted Client Was Updated Successfully!');
