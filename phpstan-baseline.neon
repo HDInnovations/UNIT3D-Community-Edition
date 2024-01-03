@@ -383,36 +383,6 @@ parameters:
 			path: app/Helpers/HiddenCaptcha.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:censor\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:censor\\(\\) has parameter \\$source with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:isSpecial\\(\\) has parameter \\$c with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:matchWordIndexes\\(\\) has parameter \\$string with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:matchWordIndexes\\(\\) has parameter \\$word with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:matchWordIndexes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\Linkify\\:\\:linky\\(\\) has parameter \\$text with no type specified\\.$#"
 			count: 1
 			path: app/Helpers/Linkify.php
