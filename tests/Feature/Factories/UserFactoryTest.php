@@ -56,6 +56,7 @@ test('user factory returns correct values when created', function (): void {
             'custom_css',
             'ratings',
             'read_rules',
+            'can_announce',
             'can_chat',
             'can_comment',
             'can_download',

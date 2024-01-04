@@ -818,6 +818,10 @@
                         <dd>
                             {{ $externalUser['can_download'] ? __('common.yes') : __('common.no') }}
                         </dd>
+                        <dt>Can Announce</dt>
+                        <dd>
+                            {{ $externalUser['can_announce'] ? __('common.yes') : __('common.no') }}
+                        </dd>
                         <dt>{{ __('user.total-seeding') }}</dt>
                         <dd>{{ $externalUser['num_seeding'] }}</dd>
                         <dt>{{ __('user.total-leeching') }}</dt>
@@ -891,6 +895,14 @@
                             >
                                 {{ $user->last_action->diffForHumans() }}
                             </time>
+                        @endif
+                    </dd>
+                    <dt>Can Announce</dt>
+                    <dd>
+                        @if ($user->can_announce ?? $user->group->can_announce)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                         @endif
                     </dd>
                     <dt>{{ __('user.can-upload') }}</dt>

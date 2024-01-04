@@ -177,6 +177,7 @@ class Unit3dAnnounce
             'id'           => (int) $user->id,
             'group_id'     => (int) $user->group_id,
             'passkey'      => $user->passkey,
+            'can_announce' => $user->can_announce,
             'can_download' => !$user->has_reached_warning_limit,
             /** @phpstan-ignore-next-line  */
             'num_seeding' => (int) $peers->num_seeding,
@@ -199,6 +200,7 @@ class Unit3dAnnounce
      *     id: int,
      *     group_id: int,
      *     passkey: string,
+     *     can_announce: bool,
      *     can_download: bool,
      *     num_seeding: int,
      *     num_leeching: int,
@@ -232,6 +234,7 @@ class Unit3dAnnounce
             'id'               => $group->id,
             'slug'             => $group->slug,
             'download_slots'   => $group->download_slots,
+            'can_announce'     => (bool) $group->can_announce,
             'is_immune'        => (bool) $group->is_immune,
             'is_freeleech'     => (bool) $group->is_freeleech,
             'is_double_upload' => (bool) $group->is_double_upload,

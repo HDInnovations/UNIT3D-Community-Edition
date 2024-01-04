@@ -202,6 +202,17 @@
                                 @endif
                             </td>
                             <td>
+                                @if ($group->can_announce)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
                                 @if ($group->can_chat)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"

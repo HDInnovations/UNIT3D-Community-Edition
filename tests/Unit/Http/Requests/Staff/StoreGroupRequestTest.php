@@ -91,6 +91,10 @@ test('rules', function (): void {
             'required',
             'boolean',
         ],
+        'can_announce' => [
+            'required',
+            'boolean',
+        ],
         'can_download' => [
             'required',
             'boolean',

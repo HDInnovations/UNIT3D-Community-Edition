@@ -15,10 +15,12 @@ return new class () extends Migration {
             $table->boolean('can_request')->nullable()->change();
             $table->boolean('can_invite')->nullable()->change();
             $table->boolean('has_reached_warning_limit')->after('can_upload');
+            $table->boolean('can_announce')->nullable()->after('read_rules');
         });
 
         Schema::table('groups', function (Blueprint $table): void {
-            $table->boolean('can_chat')->after('is_refundable');
+            $table->boolean('can_announce')->after('is_refundable');
+            $table->boolean('can_chat')->after('can_announce');
             $table->boolean('can_comment')->after('can_chat');
             $table->boolean('can_download')->after('can_comment');
             $table->boolean('can_request')->after('can_download');
@@ -30,6 +32,7 @@ return new class () extends Migration {
         ]);
 
         DB::table('users')->update([
+            'can_announce' => null,
             'can_upload'   => null,
             'can_chat'     => null,
             'can_download' => null,
@@ -49,6 +52,7 @@ return new class () extends Migration {
                 'pruned',
             ])
             ->update([
+                'can_announce' => true,
                 'can_comment'  => true,
                 'can_chat'     => true,
                 'can_download' => true,

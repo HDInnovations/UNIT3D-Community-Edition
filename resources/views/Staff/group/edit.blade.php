@@ -242,6 +242,18 @@
                     <label class="form__label" for="is_incognito">Incognito</label>
                 </p>
                 <p class="form__group">
+                    <input name="can_announce" type="hidden" value="0" />
+                    <input
+                        id="can_announce"
+                        class="form__checkbox"
+                        name="can_announce"
+                        type="checkbox"
+                        value="1"
+                        @checked($group->can_announce)
+                    />
+                    <label class="form__label" for="can_announce">Announce</label>
+                </p>
+                <p class="form__group">
                     <input name="can_chat" type="hidden" value="0" />
                     <input
                         id="can_chat"

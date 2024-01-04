@@ -205,6 +205,17 @@
                     <label class="form__label" for="can_chat">Chat</label>
                 </p>
                 <p class="form__group">
+                    <input name="can_announce" type="hidden" value="0" />
+                    <input
+                        id="can_announce"
+                        class="form__checkbox"
+                        name="can_announce"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_announce">Chat</label>
+                </p>
+                <p class="form__group">
                     <input name="can_comment" type="hidden" value="0" />
                     <input
                         id="can_comment"

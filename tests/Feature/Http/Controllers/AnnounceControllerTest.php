@@ -5,7 +5,7 @@ use App\Models\User;
 
 test('index returns an ok response', function (): void {
     $user = User::factory()->create([
-        'can_download'              => true,
+        'can_announce'              => true,
         'has_reached_warning_limit' => false,
     ]);
 

@@ -96,6 +96,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'can_announce' => [
+                'required',
+                'boolean',
+            ],
             'can_chat' => [
                 'required',
                 'boolean',

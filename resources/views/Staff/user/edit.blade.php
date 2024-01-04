@@ -209,6 +209,7 @@
                 method="POST"
                 action="{{ route('staff.users.update_permissions', ['user' => $user]) }}"
                 x-data="{
+                    override_can_announce: @json($user->can_announce !== null),
                     override_can_upload: @json($user->can_upload !== null),
                     override_can_comment: @json($user->can_comment !== null),
                     override_can_download: @json($user->can_download !== null),
@@ -219,6 +220,35 @@
             >
                 @csrf
                 @method('PATCH')
+                <p class="form__group">
+                    <input
+                        id="override_can_announce"
+                        class="form__checkbox"
+                        type="checkbox"
+                        x-bind:checked="override_can_announce"
+                        x-model="override_can_announce"
+                    />
+                    <label for="override_can_announce">Override Group Can Announce</label>
+                </p>
+                <div class="form__group" x-show="override_can_announce" x-cloak>
+                    <fieldset class="form__fieldset">
+                        <input
+                            type="hidden"
+                            name="can_announce"
+                            x-bind:value="override_can_announce ? '0' : ''"
+                        />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="can_announce"
+                            name="can_announce"
+                            value="1"
+                            x-bind:checked="override_can_announce && $el.checked"
+                            @checked($user->can_announce)
+                        />
+                        <label for="can_announce">Can Announce?</label>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input
                         id="override_can_upload"

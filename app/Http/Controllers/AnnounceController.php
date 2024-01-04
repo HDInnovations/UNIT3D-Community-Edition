@@ -305,7 +305,7 @@ final class AnnounceController extends Controller
     {
         // Check Passkey Against Users Table
         $user = cache()->remember('user:'.$passkey, 8 * 3600, fn () => User::query()
-            ->select(['id', 'group_id', 'can_download', 'has_reached_warning_limit'])
+            ->select(['id', 'group_id', 'can_announce', 'has_reached_warning_limit'])
             ->where('passkey', '=', $passkey)
             ->first());
 
@@ -314,8 +314,13 @@ final class AnnounceController extends Controller
             throw new TrackerException(140);
         }
 
+        // If the user is not permitted to announce, return error to client
+        if ($user->can_announce === false) {
+            throw new TrackerException(142);
+        }
+
         // If User Download Rights Are Disabled Return Error to Client
-        if (($user->can_download === false || $user->has_reached_warning_limit) && $queries['left'] !== 0) {
+        if ($user->has_reached_warning_limit && $queries['left'] !== 0) {
             throw new TrackerException(142);
         }
 
@@ -330,42 +335,14 @@ final class AnnounceController extends Controller
      */
     private function checkGroup($user): object
     {
-        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, fn () => DB::table('groups')
-            ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
-            ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
-            ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
-            ->selectRaw("min(case when slug = 'pruned' then id end) as pruned_id")
-            ->selectRaw("min(case when slug = 'leech' then id end) as leech_id")
-            ->first());
-
         // Get The Users Group
         $group = cache()->remember('group:'.$user->group_id, 8 * 3600, fn () => Group::query()
-            ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
+            ->select(['id', 'name', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
             ->find($user->group_id));
 
         // If User Account Is Unactivated/Validating Return Error to Client
-        if ($user->group_id === $deniedGroups->validating_id) {
-            throw new TrackerException(141, [':status' => 'Unactivated/Validating']);
-        }
-
-        // If User Is Banned Return Error to Client
-        if ($user->group_id === $deniedGroups->banned_id) {
-            throw new TrackerException(141, [':status' => 'Banned']);
-        }
-
-        // If User Is Disabled Return Error to Client
-        if ($user->group_id === $deniedGroups->disabled_id) {
-            throw new TrackerException(141, [':status' => 'Disabled']);
-        }
-
-        // If User Is Pruned Return Error to Client
-        if ($user->group_id === $deniedGroups->pruned_id) {
-            throw new TrackerException(141, [':status' => 'Pruned']);
-        }
-
-        // If User Is Leech Return Error to Client
-        if ($user->group_id === $deniedGroups->leech_id) {
-            throw new TrackerException(141, [':status' => 'Leech']);
+        if (!$group->can_announce) {
+            throw new TrackerException(141, [':status' => $group->name]);
         }
 
         return $group;

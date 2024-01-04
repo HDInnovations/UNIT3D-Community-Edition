@@ -89,6 +89,7 @@ class UserController extends Controller
     public function permissions(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
         $user->update([
+            'can_announce' => $request->filled('can_announce') ? $request->boolean('can_announce') : null,
             'can_upload'   => $request->filled('can_upload') ? $request->boolean('can_upload') : null,
             'can_download' => $request->filled('can_download') ? $request->boolean('can_download') : null,
             'can_comment'  => $request->filled('can_comment') ? $request->boolean('can_comment') : null,
