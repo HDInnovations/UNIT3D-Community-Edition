@@ -17,6 +17,7 @@ use App\Enums\UserGroups;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateUserRequest;
 use App\Models\Comment;
+use App\Models\FailedLoginAttempt;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -166,6 +167,7 @@ class UserController extends Controller
         Thank::where('user_id', '=', $user->id)->delete();
         Peer::where('user_id', '=', $user->id)->delete();
         History::where('user_id', '=', $user->id)->delete();
+        FailedLoginAttempt::where('user_id', '=', $user->id)->delete();
 
         // Removes all follows for user
         $user->followers()->detach();
