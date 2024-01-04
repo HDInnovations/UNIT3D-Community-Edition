@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 
@@ -42,11 +42,11 @@ test('index aborts with a 403', function (): void {
     $this->seed(GroupsTableSeeder::class);
 
     $user = User::factory()->create([
-        'group_id' => UserGroups::MODERATOR->value,
+        'group_id' => UserGroup::MODERATOR->value,
     ]);
 
     $authUser = User::factory()->create([
-        'group_id' => UserGroups::USER->value,
+        'group_id' => UserGroup::USER->value,
     ]);
 
     $response = $this->actingAs($authUser)->get(route('users.earnings.index', [$user]));

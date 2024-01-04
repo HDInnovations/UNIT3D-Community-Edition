@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
@@ -41,10 +41,10 @@ class PrivacySettingController extends Controller
         $validGroups = Group::query()
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING->value)
-            ->where('id', '!=', UserGroups::PRUNED->value)
-            ->where('id', '!=', UserGroups::BANNED->value)
-            ->where('id', '!=', UserGroups::DISABLED->value)
+            ->where('id', '!=', UserGroup::VALIDATING->value)
+            ->where('id', '!=', UserGroup::PRUNED->value)
+            ->where('id', '!=', UserGroup::BANNED->value)
+            ->where('id', '!=', UserGroup::DISABLED->value)
             ->pluck('id');
 
         $request->validate([
@@ -154,10 +154,10 @@ class PrivacySettingController extends Controller
             'groups' => Group::query()
                 ->where('is_modo', '=', '0')
                 ->where('is_admin', '=', '0')
-                ->where('id', '!=', UserGroups::VALIDATING->value)
-                ->where('id', '!=', UserGroups::PRUNED->value)
-                ->where('id', '!=', UserGroups::BANNED->value)
-                ->where('id', '!=', UserGroups::DISABLED->value)
+                ->where('id', '!=', UserGroup::VALIDATING->value)
+                ->where('id', '!=', UserGroup::PRUNED->value)
+                ->where('id', '!=', UserGroup::BANNED->value)
+                ->where('id', '!=', UserGroup::DISABLED->value)
                 ->latest('level')
                 ->get(),
         ]);
