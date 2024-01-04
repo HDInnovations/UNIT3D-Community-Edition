@@ -215,7 +215,7 @@ class TorrentController extends Controller
 
         $keywords = [];
 
-        foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
+        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
             $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
@@ -363,7 +363,7 @@ class TorrentController extends Controller
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->input('mediainfo')),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->string('mediainfo')),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],

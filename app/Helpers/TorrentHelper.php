@@ -36,7 +36,7 @@ use Illuminate\Support\Carbon;
 
 class TorrentHelper
 {
-    public static function approveHelper($id): void
+    public static function approveHelper(int $id): void
     {
         $appurl = config('app.url');
         $appname = config('app.name');

@@ -7,5 +7,8 @@ parameters:
         - app
         - resources
         - routes
+    excludePaths:
+        - app/Helpers/Markdown
+        - app/Helpers/MarkdownExtra
     level: 6
     checkOctaneCompatibility: true

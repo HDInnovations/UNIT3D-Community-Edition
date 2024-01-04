@@ -11,14 +11,14 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 if (!\function_exists('appurl')) {
-    function appurl()
+    function appurl(): string
     {
         return config('app.url');
     }
 }
 
 if (!\function_exists('href_profile')) {
-    function href_profile($user)
+    function href_profile(App\Models\User $user): string
     {
         $appurl = appurl();
 
@@ -27,7 +27,7 @@ if (!\function_exists('href_profile')) {
 }
 
 if (!\function_exists('href_article')) {
-    function href_article($article)
+    function href_article(App\Models\Article $article): string
     {
         $appurl = appurl();
 
@@ -36,7 +36,7 @@ if (!\function_exists('href_article')) {
 }
 
 if (!\function_exists('href_torrent')) {
-    function href_torrent($torrent)
+    function href_torrent(App\Models\Torrent $torrent): string
     {
         $appurl = appurl();
 
@@ -45,7 +45,7 @@ if (!\function_exists('href_torrent')) {
 }
 
 if (!\function_exists('href_request')) {
-    function href_request($torrentRequest)
+    function href_request(App\Models\TorrentRequest $torrentRequest): string
     {
         $appurl = appurl();
 
@@ -54,7 +54,7 @@ if (!\function_exists('href_request')) {
 }
 
 if (!\function_exists('href_poll')) {
-    function href_poll($poll)
+    function href_poll(App\Models\Poll $poll): string
     {
         $appurl = appurl();
 
@@ -63,7 +63,7 @@ if (!\function_exists('href_poll')) {
 }
 
 if (!\function_exists('href_playlist')) {
-    function href_playlist($playlist)
+    function href_playlist(App\Models\Playlist $playlist): string
     {
         $appurl = appurl();
 
@@ -72,7 +72,7 @@ if (!\function_exists('href_playlist')) {
 }
 
 if (!\function_exists('href_collection')) {
-    function href_collection($collection)
+    function href_collection(App\Models\Collection $collection): string
     {
         $appurl = appurl();
 
@@ -81,7 +81,7 @@ if (!\function_exists('href_collection')) {
 }
 
 if (!\function_exists('tmdb_image')) {
-    function tmdb_image($type, $original)
+    function tmdb_image(string $type, ?string $original): string
     {
         $new = match ($type) {
             'back_big'     => 'w1280',
@@ -102,15 +102,8 @@ if (!\function_exists('tmdb_image')) {
     }
 }
 
-if (!\function_exists('modal_style')) {
-    function modal_style()
-    {
-        return (auth()->user()->style == 0) ? '' : ' modal-dark';
-    }
-}
-
 if (!\function_exists('rating_color')) {
-    function rating_color($number)
+    function rating_color(null|int|float $number): ?string
     {
         $rating = round((float) $number);
 
@@ -125,11 +118,13 @@ if (!\function_exists('rating_color')) {
         if ($rating >= 7 && $rating <= 10) {
             return 'text-success';
         }
+
+        return null;
     }
 }
 
 if (!\function_exists('language_flag')) {
-    function language_flag($language)
+    function language_flag(?string $language): ?string
     {
         $flag = match ($language) {
             'English', 'English (US)' => 'us',
