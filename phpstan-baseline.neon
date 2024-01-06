@@ -796,64 +796,9 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 2
-			path: app/Http/Controllers/Auth/ApplicationController.php
-
-		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 2
-			path: app/Http/Controllers/Auth/ApplicationController.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of class App\\\\Mail\\\\Contact constructor expects array\\{email\\: string\\}, array given\\.$#"
-			count: 1
-			path: app/Http/Controllers/ContactController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$show_forum\\.$#"
-			count: 1
-			path: app/Http/Controllers/ForumCategoryController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$show_forum\\.$#"
-			count: 1
-			path: app/Http/Controllers/ForumController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
 			count: 10
 			path: app/Http/Controllers/HomeController.php
-
-		-
-			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: "#^Cannot call method getError\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: "#^Cannot call method getRealPath\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$forum\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$latestPost\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:posts\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
 
 		-
 			message: "#^Cannot access property \\$alive on bool\\|stdClass\\.$#"
@@ -971,16 +916,6 @@ parameters:
 			path: app/Http/Controllers/RssController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\RssController\\:\\:index\\(\\) has parameter \\$hash with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\RssController\\:\\:show\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
@@ -989,31 +924,6 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
-
-		-
-			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ArticleController.php
-
-		-
-			message: "#^Cannot call method getRealPath\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ArticleController.php
-
-		-
-			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/CategoryController.php
-
-		-
-			message: "#^Cannot call method getRealPath\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/CategoryController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\ChatBotController\\:\\:index\\(\\) has parameter \\$hash with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/ChatBotController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
@@ -1026,84 +936,9 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
-			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 2
-			path: app/Http/Controllers/SubtitleController.php
-
-		-
-			message: "#^Cannot call method getSize\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 1
-			path: app/Http/Controllers/SubtitleController.php
-
-		-
-			message: "#^Parameter \\#1 \\$filename of function file_get_contents expects string, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
-			count: 1
-			path: app/Http/Controllers/SubtitleController.php
-
-		-
-			message: "#^Parameter \\#2 \\$contents of method Illuminate\\\\Filesystem\\\\FilesystemAdapter\\:\\:put\\(\\) expects Illuminate\\\\Http\\\\File\\|Illuminate\\\\Http\\\\UploadedFile\\|Psr\\\\Http\\\\Message\\\\StreamInterface\\|resource\\|string, string\\|false given\\.$#"
-			count: 1
-			path: app/Http/Controllers/SubtitleController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:\\$name\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:\\$refundable\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:save\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of function href_torrent expects App\\\\Models\\\\Torrent, App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\> given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Cannot call method getRealPath\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 4
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentController\\:\\:destroy\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$inputFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) expects Illuminate\\\\Http\\\\UploadedFile\\|null, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrentFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) expects Illuminate\\\\Http\\\\UploadedFile, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
 
 		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
@@ -1116,114 +951,9 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentDownloadController\\:\\:store\\(\\) has parameter \\$rsskey with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\<string, string\\>\\|bool given\\.$#"
 			count: 1
 			path: app/Http/Controllers/User/GeneralSettingController.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/SeedboxController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Post\\|App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Post\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Http/Controllers/User/TipController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Post\\|App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Post\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TipController.php
-
-		-
-			message: "#^Parameter \\#4 \\$post of class App\\\\Notifications\\\\NewPostTip constructor expects App\\\\Models\\\\Post, App\\\\Models\\\\Post\\|App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Post\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\> given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TipController.php
-
-		-
-			message: "#^Parameter \\#4 \\$torrent of class App\\\\Notifications\\\\NewUploadTip constructor expects App\\\\Models\\\\Torrent, App\\\\Models\\\\Post\\|App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Post\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\> given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TipController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$cost\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$description\\.$#"
-			count: 2
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$download\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$invite\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$personal_freeleech\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$upload\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\BonExchange\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\BonExchange\\>\\:\\:\\$value\\.$#"
-			count: 4
-			path: app/Http/Controllers/User/TransactionController.php
-
-		-
-			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 4
-			path: app/Http/Controllers/User/UserController.php
-
-		-
-			message: "#^Cannot call method getError\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/UserController.php
-
-		-
-			message: "#^Cannot call method getMimeType\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/UserController.php
-
-		-
-			message: "#^Cannot call method getRealPath\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/UserController.php
-
-		-
-			message: "#^Cannot call method getSize\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/UserController.php
-
-		-
-			message: "#^Cannot call method move\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/UserController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Wish\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Wish\\>\\:\\:\\$source\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/WishController.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:getAttachmentsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
@@ -2709,11 +2439,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Models/TicketPriority.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$read_topic\\.$#"
-			count: 1
-			path: app/Models/Topic.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"

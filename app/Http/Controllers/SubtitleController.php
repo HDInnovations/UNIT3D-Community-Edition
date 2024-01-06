@@ -73,6 +73,9 @@ class SubtitleController extends Controller
     {
         $user = $request->user();
         $subtitleFile = $request->file('subtitle_file');
+
+        abort_if(\is_array($subtitleFile), 400);
+
         $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
         $subtitle = Subtitle::create([
@@ -89,7 +92,7 @@ class SubtitleController extends Controller
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle
-        Storage::disk('subtitles')->put($filename, file_get_contents($subtitleFile));
+        Storage::disk('subtitles')->put($filename, $subtitleFile);
 
         // Announce To Shoutbox
         if (!$subtitle->anon) {

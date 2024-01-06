@@ -39,8 +39,7 @@ class ContactController extends Controller
         // Fetch owner account
         $user = User::where('username', config('unit3d.owner-username'))->first();
 
-        $input = $request->all();
-        Mail::to($user->email)->send(new Contact($input));
+        Mail::to($user->email)->send(new Contact($request->string('email')));
 
         return to_route('home.index')
             ->withSuccess('Your Message Was Successfully Sent');

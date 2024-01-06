@@ -197,6 +197,9 @@ class TorrentController extends Controller
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
@@ -205,6 +208,9 @@ class TorrentController extends Controller
         // Banner Image for No-Meta Torrents
         if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
@@ -248,7 +254,7 @@ class TorrentController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(Request $request, int $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'message' => [
@@ -355,6 +361,10 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
+        abort_if(\is_array($request->file('torrent')), 400);
+
+        abort_if(\is_array($request->file('nfo')), 400);
+
         $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
 
         $meta = Bencode::get_meta($decodedTorrent);
@@ -421,6 +431,9 @@ class TorrentController extends Controller
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
@@ -429,6 +442,9 @@ class TorrentController extends Controller
         // Banner Image for No-Meta Torrents
         if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);

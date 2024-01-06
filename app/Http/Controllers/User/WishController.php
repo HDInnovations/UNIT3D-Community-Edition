@@ -80,7 +80,7 @@ class WishController extends Controller
             'title'   => $meta['title'].' ('.$meta['release_date'].')',
             'type'    => 'Movie',
             'tmdb'    => $request->tmdb,
-            'source'  => $torrent === null ? Wish::find($request->tmdb)?->source : route('torrents.show', $torrent->id),
+            'source'  => $torrent === null ? Wish::find($request->integer('tmdb'))?->source : route('torrents.show', $torrent->id),
             'user_id' => $user->id,
         ]);
 

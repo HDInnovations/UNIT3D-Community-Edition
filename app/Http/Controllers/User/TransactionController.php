@@ -59,11 +59,9 @@ class TransactionController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        $request = (object) $request->validated();
-
         return DB::transaction(function () use ($request, $user) {
             $user->refresh();
-            $bonExchange = BonExchange::findOrFail($request->exchange);
+            $bonExchange = BonExchange::findOrFail($request->integer('exchange'));
 
             if ($bonExchange->cost > $user->seedbonus) {
                 return back()->withErrors('Not enough BON.');

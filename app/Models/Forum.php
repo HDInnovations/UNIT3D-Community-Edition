@@ -170,7 +170,7 @@ class Forum extends Model
     /**
      * Returns The Permission Field.
      */
-    public function getPermission(): object
+    public function getPermission(): ?Permission
     {
         $group = auth()->check() ? auth()->user()->group : Group::where('slug', 'guest')->first();
 

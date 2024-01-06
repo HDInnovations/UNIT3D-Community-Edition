@@ -276,7 +276,7 @@ class TorrentBuffController extends Controller
     /**
      * Set Torrents Refudable Status.
      */
-    public function setRefundable(Request $request, $id)
+    public function setRefundable(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
