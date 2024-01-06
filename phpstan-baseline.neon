@@ -16,21 +16,6 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserPassword.php
 
 		-
-			message: "#^Parameter \\#1 \\$stream of function fclose expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: app/Bots/IRCAnnounceBot.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fgets expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: app/Bots/IRCAnnounceBot.php
-
-		-
-			message: "#^Parameter \\#1 \\$stream of function fwrite expects resource, resource\\|false given\\.$#"
-			count: 1
-			path: app/Bots/IRCAnnounceBot.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoBanDisposableUsers.php
