@@ -16,7 +16,17 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserPassword.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoHighspeedTag.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
 
@@ -216,6 +226,11 @@ parameters:
 			path: app/Console/Commands/VendorCleanup.php
 
 		-
+			message: "#^Parameter \\#1 \\$array of function array_diff expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Console/Commands/VendorCleanup.php
+
+		-
 			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$excluded type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Console/Commands/VendorCleanup.php
@@ -269,6 +284,26 @@ parameters:
 			message: "#^Method App\\\\Exceptions\\\\TrackerException\\:\\:__construct\\(\\) has parameter \\$replace with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/TrackerException.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,string\\|false\\>\\:\\:filter\\(\\) expects \\(callable\\(string\\|false, int\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function collect expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<int, string\\>\\|iterable\\<int, string\\>\\|null, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(array\\<int\\|string, string\\>\\)\\: string, Closure\\(mixed\\)\\: \\(string\\|null\\) given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
 
 		-
 			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
@@ -361,6 +396,11 @@ parameters:
 			path: app/Helpers/Bencode.php
 
 		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Helpers/MediaInfo.php
+
+		-
 			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:computerSize\\(\\) has parameter \\$number with no type specified\\.$#"
 			count: 1
 			path: app/Helpers/MediaInfo.php
@@ -441,6 +481,11 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
+			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) should return array\\<int, array\\{name\\: string, size\\: int\\}\\> but returns array\\<int\\|string, array\\{name\\: mixed, size\\: mixed\\}\\>\\.$#"
+			count: 1
+			path: app/Helpers/TorrentTools.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendError\\(\\) has parameter \\$code with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
@@ -466,6 +511,31 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_nerdbot\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_systembot\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user_id\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
 			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
 			count: 6
 			path: app/Http/Controllers/API/ChatController.php
@@ -477,6 +547,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:createMessage\\(\\) should return App\\\\Http\\\\Resources\\\\ChatMessageResource\\|bool\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response but returns bool\\|Illuminate\\\\Contracts\\\\Foundation\\\\Application\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -499,6 +574,126 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
 			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$movie_meta\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$num_torrent\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$torrents_count\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$tv_meta\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:save\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Cannot call method getError\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$inputFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) expects Illuminate\\\\Http\\\\UploadedFile\\|null, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$torrentFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) expects Illuminate\\\\Http\\\\UploadedFile, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$nfo \\(string\\) does not accept bool\\|string\\|null\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$doubleup\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$download_slots\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$free\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 25
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$is_double_upload\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$is_freeleech\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$is_immune\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$leechers\\.$#"
+			count: 2
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$peers\\.$#"
+			count: 6
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$seeders\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$times_completed\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Binary operation \"\\-\" between float\\|int\\|string and 300 results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
+			count: 2
+			path: app/Http/Controllers/AnnounceController.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkAnnounceFields\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -546,19 +741,19 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Variable \\$response might not be defined\\.$#"
+			message: "#^Parameter \\#1 \\$haystack of function str_starts_with expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 2
-			path: app/Http/Controllers/Auth/ApplicationController.php
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 2
-			path: app/Http/Controllers/Auth/ApplicationController.php
+			message: "#^Variable \\$response might not be defined\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
@@ -566,28 +761,118 @@ parameters:
 			path: app/Http/Controllers/HomeController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$forum\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$latestPost\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:posts\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\RssController\\:\\:index\\(\\) has parameter \\$hash with no type specified\\.$#"
+			message: "#^Cannot access property \\$alive on bool\\|stdClass\\.$#"
 			count: 1
 			path: app/Http/Controllers/RssController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\RssController\\:\\:show\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Cannot access property \\$bookmark on bool\\|stdClass\\.$#"
 			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$categories on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$dead on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$description on bool\\|stdClass\\.$#"
+			count: 3
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$doubleupload on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$dying on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$featured on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$freeleech on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$genres on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$highspeed on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$imdb on bool\\|stdClass\\.$#"
+			count: 3
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$internal on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$mal on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$personalrelease on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$resolutions on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$sd on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$search on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$stream on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$tmdb on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$tvdb on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$types on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$uploader on bool\\|stdClass\\.$#"
+			count: 2
 			path: app/Http/Controllers/RssController.php
 
 		-
@@ -601,9 +886,9 @@ parameters:
 			path: app/Http/Controllers/SimilarTorrentController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\ChatBotController\\:\\:index\\(\\) has parameter \\$hash with no type specified\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/ChatBotController.php
+			path: app/Http/Controllers/Staff/UserController.php
 
 		-
 			message: "#^Offset 0 does not exist on Illuminate\\\\Http\\\\Client\\\\Response\\.$#"
@@ -616,21 +901,6 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentController\\:\\:destroy\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/TorrentController.php
@@ -641,9 +911,9 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentDownloadController\\:\\:store\\(\\) has parameter \\$rsskey with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\<string, string\\>\\|bool given\\.$#"
 			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
+			path: app/Http/Controllers/User/GeneralSettingController.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:getAttachmentsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
@@ -661,6 +931,11 @@ parameters:
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:getAuditsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
@@ -674,6 +949,11 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Cannot call method sizeInBytes\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/Http/Livewire/BackupPanel.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getBackupStatusesProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -741,6 +1021,11 @@ parameters:
 			path: app/Http/Livewire/CollectionSearch.php
 
 		-
+			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
+			count: 4
+			path: app/Http/Livewire/Comment.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\Comment\\:\\:taggedUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/Comment.php
@@ -794,6 +1079,11 @@ parameters:
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 2
 			path: app/Http/Livewire/Comment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
+			count: 3
+			path: app/Http/Livewire/Comments.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\Comments\\:\\:getCommentsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -936,12 +1226,22 @@ parameters:
 			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
+			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getEntriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getLogFilesProperty\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_shift expects array, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
@@ -1116,6 +1416,26 @@ parameters:
 			path: app/Http/Livewire/PostSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Movie\\>\\:\\:\\$release_date\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Movie\\>\\:\\:\\$title\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tv\\>\\:\\:\\$first_air_date\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tv\\>\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
@@ -1231,6 +1551,11 @@ parameters:
 			path: app/Http/Livewire/TicketSearch.php
 
 		-
+			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
+			count: 2
+			path: app/Http/Livewire/Top10.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/TopicPostSearch.php
@@ -1341,12 +1666,22 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$torrents\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$torrents\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
@@ -1441,11 +1776,6 @@ parameters:
 			path: app/Http/Livewire/UserActive.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
@@ -1472,11 +1802,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:getResurrectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
 
@@ -1516,11 +1841,6 @@ parameters:
 			path: app/Http/Livewire/UserTorrents.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserTorrents.php
@@ -1542,11 +1862,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:getUploadsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
 
@@ -1686,34 +2001,9 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: "#^Method App\\\\Jobs\\\\ProcessBackup\\:\\:__construct\\(\\) has parameter \\$option with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
 			count: 1
-			path: app/Jobs/ProcessBackup.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$receiverId with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$senderId with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$subject with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\SendActivationMail\\:\\:__construct\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/SendActivationMail.php
+			path: app/Models/Article.php
 
 		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
@@ -1721,9 +2011,19 @@ parameters:
 			path: app/Models/Article.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/Playlist.php
+
+		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Playlist.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/Post.php
 
 		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
@@ -1731,9 +2031,19 @@ parameters:
 			path: app/Models/Post.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Torrent.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
 
 		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
@@ -1741,9 +2051,44 @@ parameters:
 			path: app/Models/TorrentRequest.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 2
+			path: app/Models/User.php
+
+		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 2
 			path: app/Models/User.php
+
+		-
+			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$minLimit of static method App\\\\Helpers\\\\HiddenCaptcha\\:\\:check\\(\\) expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: "#^Parameter \\#3 \\$maxLimit of static method App\\\\Helpers\\\\HiddenCaptcha\\:\\:check\\(\\) expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$receiver_id\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:\\$censor\\.$#"
+			count: 3
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:delete\\(\\)\\.$#"
+			count: 2
+			path: app/Repositories/ChatRepository.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -2006,19 +2351,14 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
+			message: "#^Parameter \\#1 \\$message of class App\\\\Events\\\\MessageDeleted constructor expects App\\\\Models\\\\Message, App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> given\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
 			message: "#^Property App\\\\Rules\\\\EmailBlacklist\\:\\:\\$domains type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Rules/EmailBlacklist.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:delete\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:put\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
 
 		-
 			message: "#^Undefined variable\\: \\$this$#"

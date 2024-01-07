@@ -116,10 +116,10 @@ class ApplicationController extends Controller
 
         $application->save();
         // Map And Save IMG Proofs
-        $applicationImageProofs = collect($request->input('images'))->map(fn ($value) => new ApplicationImageProof(['image' => $value]));
+        $applicationImageProofs = $request->collect('images')->map(fn ($value) => new ApplicationImageProof(['image' => $value]));
         $application->imageProofs()->saveMany($applicationImageProofs);
         // Map And Save URL Proofs
-        $applicationUrlProofs = collect($request->input('links'))->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
+        $applicationUrlProofs = $request->collect('links')->map(fn ($value) => new ApplicationUrlProof(['url' => $value]));
         $application->urlProofs()->saveMany($applicationUrlProofs);
 
         return to_route('login')

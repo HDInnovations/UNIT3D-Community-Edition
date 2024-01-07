@@ -100,24 +100,24 @@ class Season
 
     /**
      * @return array{
-     *     id: int,
+     *     id: ?int,
      *     air_date: ?string,
      *     poster: ?string,
      *     name: ?string,
      *     overview: ?string,
-     *     season_number: int,
+     *     season_number: ?int,
      *     tv_id: int,
      * }
      */
     public function getSeason(): array
     {
         return [
-            'id'            => $this->data['id'],
+            'id'            => $this->data['id'] ?? null,
             'air_date'      => $this->data['air_date'] ?? null,
             'poster'        => $this->tmdb->image('poster', $this->data),
             'name'          => $this->data['name'] ?? null,
             'overview'      => $this->data['overview'] ?? null,
-            'season_number' => $this->data['season_number'],
+            'season_number' => $this->data['season_number'] ?? null,
             'tv_id'         => $this->tvId,
         ];
     }
@@ -126,8 +126,8 @@ class Season
      * @return array<
      *     int<0, max>,
      *     array{
-     *         id: int,
-     *         tv_id: int,
+     *         id: ?int,
+     *         tv_id: ?int,
      *         air_date: ?string,
      *         name: ?string,
      *         episode_number: ?int,
@@ -137,7 +137,7 @@ class Season
      *         season_number: ?int,
      *         vote_average: ?float,
      *         vote_count: ?int,
-     *         season_id: int,
+     *         season_id: ?int,
      *     }
      * >
      */
@@ -147,18 +147,18 @@ class Season
 
         foreach ($this->data['episodes'] as $episode) {
             $episodes[] = [
-                'id'              => $episode['id'],
-                'tv_id'           => $this->tvId,
+                'id'              => $episode['id'] ?? null,
+                'tv_id'           => $this->tvId ?? null,
                 'air_date'        => $this->tmdb->ifExists('air_date', $episode),
                 'name'            => Str::limit($this->tmdb->ifExists('name', $episode), 200),
-                'episode_number'  => $episode['episode_number'],
+                'episode_number'  => $episode['episode_number'] ?? null,
                 'overview'        => $this->tmdb->ifExists('overview', $episode),
                 'still'           => $this->tmdb->image('still', $episode),
-                'production_code' => $episode['production_code'],
-                'season_number'   => $episode['season_number'],
-                'vote_average'    => $episode['vote_average'],
-                'vote_count'      => $episode['vote_count'],
-                'season_id'       => $this->data['id'],
+                'production_code' => $episode['production_code'] ?? null,
+                'season_number'   => $episode['season_number'] ?? null,
+                'vote_average'    => $episode['vote_average'] ?? null,
+                'vote_count'      => $episode['vote_count'] ?? null,
+                'season_id'       => $this->data['id'] ?? null,
             ];
         }
 

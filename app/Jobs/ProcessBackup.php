@@ -27,7 +27,7 @@ class ProcessBackup implements ShouldQueue
 
     public int $timeout = 0;
 
-    public function __construct(protected $option = '')
+    public function __construct(protected string $option = '')
     {
     }
 
@@ -44,7 +44,7 @@ class ProcessBackup implements ShouldQueue
         }
 
         if (!empty($this->option)) {
-            $prefix = str_replace('_', '-', (string) $this->option).'-';
+            $prefix = str_replace('_', '-', $this->option).'-';
 
             $backupJob->setFilename($prefix.date('Y-m-d-H-i-s').'.zip');
         }

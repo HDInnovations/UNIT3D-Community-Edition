@@ -10,5 +10,5 @@ parameters:
     excludePaths:
         - app/Helpers/Markdown
         - app/Helpers/MarkdownExtra
-    level: 6
+    level: 7
     checkOctaneCompatibility: true

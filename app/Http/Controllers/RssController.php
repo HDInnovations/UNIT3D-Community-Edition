@@ -32,7 +32,7 @@ class RssController extends Controller
     /**
      * Display a listing of the RSS resource.
      */
-    public function index(Request $request, $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, ?string $hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('rss.index', [
             'hash'        => $hash,
@@ -126,7 +126,7 @@ class RssController extends Controller
      *
      * @throws Exception
      */
-    public function show(int $id, string $rsskey): array|\Illuminate\Http\Response
+    public function show(int $id, string $rsskey): \Illuminate\Http\Response
     {
         $user = User::where('rsskey', '=', $rsskey)->sole();
 

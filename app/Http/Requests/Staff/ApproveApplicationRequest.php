@@ -23,13 +23,15 @@ class ApproveApplicationRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\In|string>|string>
      */
     public function rules(): array
     {
         return [
-            'status' => Rule::in([Application::APPROVED]),
-            'email'  => [
+            'status' => [
+                Rule::in([Application::APPROVED]),
+            ],
+            'email' => [
                 'required',
                 'string',
                 'email',

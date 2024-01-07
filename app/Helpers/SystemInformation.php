@@ -43,7 +43,13 @@ class SystemInformation
     public function avg(): ?array
     {
         if (is_readable('/proc/loadavg')) {
-            $loads = explode(' ', file_get_contents('/proc/loadavg'));
+            $file = file_get_contents('/proc/loadavg');
+
+            if ($file === false) {
+                return null;
+            }
+
+            $loads = explode(' ', $file);
 
             return [
                 '1-minute'  => $loads[0],
@@ -56,17 +62,22 @@ class SystemInformation
     }
 
     /**
-     * @return array{
+     * @return null|array{
      *     total: string,
      *     available: string,
      *     used: string,
      * }
      */
-    public function memory(): array
+    public function memory(): ?array
     {
         if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
-            preg_match('#^MemTotal: \s*(\d*)#m', (string) $content, $matches);
+
+            if ($content === false) {
+                return null;
+            }
+
+            preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
             $total = ((int) $matches[1]) * 1_024;
             preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
             $available = ((int) $matches[1]) * 1_024;
@@ -85,7 +96,7 @@ class SystemInformation
         ];
     }
 
-    protected function formatBytes(int $bytes, int $precision = 2): string
+    protected function formatBytes(int|float $bytes, int $precision = 2): string
     {
         $bytes = max($bytes, 0);
         $pow = floor(($bytes ? log($bytes) : 0) / log(1_024));

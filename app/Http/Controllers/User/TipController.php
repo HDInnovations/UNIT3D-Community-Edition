@@ -58,14 +58,13 @@ class TipController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        $request = $request->safe()->collect();
         $tipable = match (true) {
-            $request->has('torrent') => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->get('torrent')),
-            $request->has('post')    => Post::findOrFail($request->get('post')),
-            default                  => abort(500, 'This is not one of: torrent, post.')
+            $request->integer('torrent') > 0 => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent')),
+            $request->integer('post') > 0    => Post::findOrFail($request->integer('post')),
+            default                          => abort(400),
         };
         $recipient = $tipable->user;
-        $tipAmount = $request->get('tip');
+        $tipAmount = $request->integer('tip');
 
         $user->decrement('seedbonus', $tipAmount);
         $recipient->increment('seedbonus', $tipAmount);
@@ -77,16 +76,21 @@ class TipController extends Controller
             'sender_id'       => $user->id,
             'receiver_id'     => $recipient->id,
             'comment'         => 'tip',
-            'post_id'         => $request->has('post') ? $tipable->id : null,
-            'torrent_id'      => $request->has('torrent') ? $tipable->id : null,
+            'post_id'         => $tipable instanceof Post ? $tipable->id : null,
+            'torrent_id'      => $tipable instanceof Torrent ? $tipable->id : null,
         ]);
 
-        if ($request->has('torrent')) {
-            if ($recipient->acceptsNotification($user, $recipient, 'torrent', 'show_torrent_tip')) {
-                $recipient->notify(new NewUploadTip('torrent', $user->username, $tipAmount, $tipable));
-            }
-        } elseif ($request->has('post')) {
-            $recipient->notify(new NewPostTip('forum', $user->username, $tipAmount, $tipable));
+        switch (true) {
+            case $tipable instanceof Torrent:
+                if ($recipient->acceptsNotification($user, $recipient, 'torrent', 'show_torrent_tip')) {
+                    $recipient->notify(new NewUploadTip('torrent', $user->username, $tipAmount, $tipable));
+                }
+
+                break;
+            case $tipable instanceof Post:
+                $recipient->notify(new NewPostTip('forum', $user->username, $tipAmount, $tipable));
+
+                break;
         }
 
         return redirect()->back()->withSuccess(trans('bon.success-tip'));

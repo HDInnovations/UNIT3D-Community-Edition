@@ -127,8 +127,12 @@ class UserController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
+
+            abort_if(\is_array($image), 400);
+
+            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
 
             if (!\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
                 return to_route('users.show', ['user' => $user])

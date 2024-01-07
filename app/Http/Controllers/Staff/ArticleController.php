@@ -53,6 +53,9 @@ class ArticleController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
+
+            abort_if(\is_array($image), 400);
+
             $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
@@ -81,6 +84,9 @@ class ArticleController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
+
+            abort_if(\is_array($image), 400);
+
             $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);

@@ -50,6 +50,9 @@ class CategoryController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
+
+            abort_if(\is_array($image), 400);
+
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
@@ -85,6 +88,9 @@ class CategoryController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
+
+            abort_if(\is_array($image), 400);
+
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);

@@ -70,7 +70,11 @@ class PlaylistController extends Controller
      */
     public function store(StorePlaylistRequest $request): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
+        if ($request->hasFile('cover_image')) {
+            abort_if(\is_array($request->file('cover_image')), 400);
+
+            abort_unless($request->file('cover_image')->getError() === UPLOAD_ERR_OK, 500);
+
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
@@ -133,8 +137,13 @@ class PlaylistController extends Controller
     {
         abort_unless($request->user()->id == $playlist->user_id || $request->user()->group->is_modo, 403);
 
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() === 0) {
+        if ($request->hasFile('cover_image')) {
             $image = $request->file('cover_image');
+
+            abort_if(\is_array($image), 400);
+
+            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
+
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);

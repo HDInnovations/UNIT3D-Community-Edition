@@ -28,19 +28,9 @@ class ProcessMassPM implements ShouldQueue
     use SerializesModels;
 
     /**
-     * @var mixed
-     */
-    public $sender_id;
-
-    /**
-     * @var mixed
-     */
-    public $receiver_id;
-
-    /**
      * ProcessMassPM Constructor.
      */
-    public function __construct(protected $senderId, protected $receiverId, protected $subject, protected $message)
+    public function __construct(protected int $senderId, protected int $receiverId, protected string $subject, protected string $message)
     {
     }
 
