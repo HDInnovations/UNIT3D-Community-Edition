@@ -232,10 +232,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'CacheUser'     => App\Helpers\CacheUser::class,
-        'CookieConsent' => BrianFaust\CookieConsent\Facades\CookieConsent::class,
-        'Image'         => Intervention\Image\Facades\Image::class,
-        'Irc'           => App\Bots\IRCAnnounceBot::class,
-        'Redis'         => Illuminate\Support\Facades\Redis::class,
+        'CacheUser' => App\Helpers\CacheUser::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'Irc'       => App\Bots\IRCAnnounceBot::class,
+        'Redis'     => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 ];
