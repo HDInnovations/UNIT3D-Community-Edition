@@ -5,6 +5,7 @@ includes:
 parameters:
     paths:
         - app
+        - config
         - resources
         - routes
     excludePaths:

@@ -2361,6 +2361,16 @@ parameters:
 			path: app/Rules/EmailBlacklist.php
 
 		-
+			message: "#^Class BrianFaust\\\\CookieConsent\\\\Facades\\\\CookieConsent not found\\.$#"
+			count: 1
+			path: config/app.php
+
+		-
+			message: "#^Array has 2 duplicate keys with value 'password' \\('password', 'password'\\)\\.$#"
+			count: 1
+			path: config/filesystems.php
+
+		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php
