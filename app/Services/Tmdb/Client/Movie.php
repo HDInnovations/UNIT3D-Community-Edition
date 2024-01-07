@@ -193,23 +193,26 @@ class Movie
      *     },
      *     recommendations: ?array{
      *         page: ?int,
-     *         results: ?array{
-     *             adult: ?boolean,
-     *             backdrop_path: ?string,
-     *             id: ?int,
-     *             title: ?string,
-     *             original_language: ?string,
-     *             original_name: ?string,
-     *             overview: ?string,
-     *             poster_path: ?string,
-     *             media_type: ?string,
-     *             genre_ids: ?array<int>,
-     *             popularity: ?float,
-     *             first_air_date: ?string,
-     *             vote_average: ?float,
-     *             vote_count: ?int,
-     *             origin_country: ?array<string>,
-     *         },
+     *         results: ?array<
+     *             int<0, max>,
+     *             ?array{
+     *                 adult: ?boolean,
+     *                 backdrop_path: ?string,
+     *                 id: ?int,
+     *                 title: ?string,
+     *                 original_language: ?string,
+     *                 original_name: ?string,
+     *                 overview: ?string,
+     *                 poster_path: ?string,
+     *                 media_type: ?string,
+     *                 genre_ids: ?array<int>,
+     *                 popularity: ?float,
+     *                 release_date: ?string,
+     *                 vote_average: ?float,
+     *                 vote_count: ?int,
+     *                 origin_country: ?array<string>,
+     *             }
+     *         >,
      *         total_pages: ?int,
      *         total_results: ?int,
      *     },
@@ -251,24 +254,24 @@ class Movie
     /**
      * @return null|array{
      *     adult: bool,
-     *     backdrop: string,
-     *     budget: int,
-     *     homepage: string,
-     *     imdb_id: string,
-     *     original_language: string,
-     *     original_title: string,
-     *     overview: string,
-     *     popularity: float,
-     *     poster: string,
-     *     release_date: string,
-     *     revenue: int,
-     *     runtime: int,
-     *     status: string,
-     *     tagline: string,
-     *     title: string,
-     *     title_sort: string,
-     *     vote_average: float,
-     *     vote_count: int,
+     *     backdrop: ?string,
+     *     budget: ?int,
+     *     homepage: ?string,
+     *     imdb_id: ?string,
+     *     original_language: ?string,
+     *     original_title: ?string,
+     *     overview: ?string,
+     *     popularity: ?float,
+     *     poster: ?string,
+     *     release_date: ?string,
+     *     revenue: ?int,
+     *     runtime: ?int,
+     *     status: ?string,
+     *     tagline: ?string,
+     *     title: ?string,
+     *     title_sort: ?string,
+     *     vote_average: ?float,
+     *     vote_count: ?int,
      * }
      */
     public function getMovie(): ?array
@@ -285,7 +288,7 @@ class Movie
             ));
 
             return [
-                'adult'             => $this->data['adult'] ?? 0,
+                'adult'             => $this->data['adult'] ?? false,
                 'backdrop'          => $this->tmdb->image('backdrop', $this->data),
                 'budget'            => $this->data['budget'] ?? null,
                 'homepage'          => $this->data['homepage'] ?? null,
@@ -312,8 +315,8 @@ class Movie
 
     /**
      * @return array<int, array{
-     *     id: int,
-     *     name: string,
+     *     id: ?int,
+     *     name: ?string,
      * }>
      */
     public function getGenres(): array
@@ -322,8 +325,8 @@ class Movie
 
         foreach ($this->data['genres'] as $genre) {
             $genres[] = [
-                'id'   => $genre['id'],
-                'name' => $genre['name'],
+                'id'   => $genre['id'] ?? null,
+                'name' => $genre['name'] ?? null,
             ];
         }
 
@@ -334,9 +337,9 @@ class Movie
      * @return array<
      *     int<0, max>,
      *     array{
-     *         movie_id: int,
-     *         person_id: int,
-     *         occupation_id: int,
+     *         movie_id: ?int,
+     *         person_id: ?int,
+     *         occupation_id: value-of<Occupation>,
      *         character: ?string,
      *         order: ?int,
      *     },
@@ -348,8 +351,8 @@ class Movie
 
         foreach ($this->data['credits']['cast'] ?? [] as $person) {
             $credits[] = [
-                'movie_id'      => $this->data['id'],
-                'person_id'     => $person['id'],
+                'movie_id'      => $this->data['id'] ?? null,
+                'person_id'     => $person['id'] ?? null,
                 'occupation_id' => Occupation::ACTOR->value,
                 'character'     => $person['character'] ?? '',
                 'order'         => $person['order'] ?? null
@@ -361,8 +364,8 @@ class Movie
 
             if ($job !== null) {
                 $credits[] = [
-                    'movie_id'      => $this->data['id'],
-                    'person_id'     => $person['id'],
+                    'movie_id'      => $this->data['id'] ?? null,
+                    'person_id'     => $person['id'] ?? null,
                     'occupation_id' => $job->value,
                     'character'     => null,
                     'order'         => null
@@ -377,12 +380,12 @@ class Movie
      * @return array<
      *     int<0, max>,
      *     array{
-     *         recommendation_movie_id: int,
-     *         movie_id: int,
-     *         title: string,
-     *         vote_average: float,
-     *         poster: string,
-     *         release_date: string,
+     *         recommendation_movie_id: ?int,
+     *         movie_id: ?int,
+     *         title: ?string,
+     *         vote_average: ?float,
+     *         poster: ?string,
+     *         release_date: ?string,
      *     }
      * >
      */
@@ -398,12 +401,12 @@ class Movie
         foreach ($this->data['recommendations']['results'] ?? [] as $recommendation) {
             if ($movie_ids->contains($recommendation['id'])) {
                 $recommendations[] = [
-                    'recommendation_movie_id' => $recommendation['id'],
-                    'movie_id'                => $this->data['id'],
-                    'title'                   => $recommendation['title'],
-                    'vote_average'            => $recommendation['vote_average'],
+                    'recommendation_movie_id' => $recommendation['id'] ?? null,
+                    'movie_id'                => $this->data['id'] ?? null,
+                    'title'                   => $recommendation['title'] ?? null,
+                    'vote_average'            => $recommendation['vote_average'] ?? null,
                     'poster'                  => $this->tmdb->image('poster', $recommendation),
-                    'release_date'            => $recommendation['release_date'],
+                    'release_date'            => $recommendation['release_date'] ?? null,
                 ];
             }
         }
