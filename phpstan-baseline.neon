@@ -2116,46 +2116,6 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: "#^Parameter \\#1 \\$hostname of function fsockopen expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessBackup\\:\\:__construct\\(\\) has parameter \\$option with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessBackup.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$receiverId with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$senderId with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$subject with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\SendActivationMail\\:\\:__construct\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/SendActivationMail.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
 			count: 1
 			path: app/Models/Article.php
