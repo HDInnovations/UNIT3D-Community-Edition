@@ -8,6 +8,7 @@ parameters:
         - bootstrap
         - config
         - database
+        - lang
         - resources
         - routes
     excludePaths:
