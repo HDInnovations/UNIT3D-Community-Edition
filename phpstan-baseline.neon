@@ -2361,6 +2361,11 @@ parameters:
 			path: app/Rules/EmailBlacklist.php
 
 		-
+			message: "#^Parameter \\#1 \\$basePath of class Illuminate\\\\Foundation\\\\Application constructor expects string\\|null, string\\|false given\\.$#"
+			count: 1
+			path: bootstrap/app.php
+
+		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php

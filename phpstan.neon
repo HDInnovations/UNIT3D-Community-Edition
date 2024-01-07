@@ -5,6 +5,7 @@ includes:
 parameters:
     paths:
         - app
+        - bootstrap
         - config
         - resources
         - routes
