@@ -2541,31 +2541,6 @@ parameters:
 			path: app/Rules/EmailBlacklist.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:delete\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:getStats\\(\\) should return array\\{created_at\\: float, last_request_at\\: float, last_announce_response_at\\: float, requests_per_1s\\: float, requests_per_10s\\: float, requests_per_60s\\: float, requests_per_900s\\: float, requests_per_7200s\\: float, \\.\\.\\.\\}\\|bool\\|null but returns array\\|bool\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:getTorrent\\(\\) should return array\\{id\\: int, status\\: string, is_deleted\\: bool, peers\\: array\\<string, array\\{ip_address\\: string, user_id\\: int, torrent_id\\: int, port\\: int, is_seeder\\: bool, is_active\\: bool, updated_at\\: int, uploaded\\: int, \\.\\.\\.\\}\\>, seeders\\: int, leechers\\: int, times_completed\\: int, download_factor\\: int, \\.\\.\\.\\}\\|bool\\|null but returns array\\|bool\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:getUser\\(\\) should return array\\{id\\: int, group_id\\: int, passkey\\: string, can_download\\: bool, num_seeding\\: int, num_leeching\\: int\\}\\|bool\\|null but returns array\\|bool\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:put\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Unit3dAnnounce.php
-
-		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php

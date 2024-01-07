@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Log;
 class Unit3dAnnounce
 {
     /**
-     * @return bool|null|array{
+     * @return bool|array{}|array{
      *     created_at: double,
      *     last_request_at: double,
      *     last_announce_response_at: double,
@@ -41,9 +41,34 @@ class Unit3dAnnounce
      *     announce_responses_per_second: double,
      * }
      */
-    public static function getStats(): null|bool|array
+    public static function getStats(): bool|array
     {
-        return self::get('stats');
+        $stats = self::get('stats');
+
+        if (\is_bool($stats)) {
+            return $stats;
+        }
+
+        if (
+            \array_key_exists('created_at', $stats) && \is_float($stats['created_at'])
+            && \array_key_exists('last_request_at', $stats) && \is_float($stats['last_request_at'])
+            && \array_key_exists('last_announce_response_at', $stats) && \is_float($stats['last_announce_response_at'])
+            && \array_key_exists('requests_per_1s', $stats) && \is_float($stats['requests_per_1s'])
+            && \array_key_exists('requests_per_10s', $stats) && \is_float($stats['requests_per_10s'])
+            && \array_key_exists('requests_per_60s', $stats) && \is_float($stats['requests_per_60s'])
+            && \array_key_exists('requests_per_900s', $stats) && \is_float($stats['requests_per_900s'])
+            && \array_key_exists('requests_per_7200s', $stats) && \is_float($stats['requests_per_7200s'])
+            && \array_key_exists('announce_responses_per_1s', $stats) && \is_float($stats['announce_responses_per_1s'])
+            && \array_key_exists('announce_responses_per_10s', $stats) && \is_float($stats['announce_responses_per_10s'])
+            && \array_key_exists('announce_responses_per_60s', $stats) && \is_float($stats['announce_responses_per_60s'])
+            && \array_key_exists('announce_responses_per_900s', $stats) && \is_float($stats['announce_responses_per_900s'])
+            && \array_key_exists('announce_responses_per_7200s', $stats) && \is_float($stats['announce_responses_per_7200s'])
+            && \array_key_exists('announce_responses_per_second', $stats) && \is_float($stats['announce_responses_per_second'])
+        ) {
+            return $stats;
+        }
+
+        return [];
     }
 
     public static function addTorrent(Torrent $torrent): bool
@@ -71,7 +96,7 @@ class Unit3dAnnounce
 
     /**
      * @param int $torrentId
-     * @return bool|null|array{
+     * @return bool|array{}|array{
      *         id: int,
      *         status: string,
      *         is_deleted: bool,
@@ -96,9 +121,45 @@ class Unit3dAnnounce
      *         upload_factor: int,
      *     }
      */
-    public static function getTorrent(int $torrentId): null|bool|array
+    public static function getTorrent(int $torrentId): bool|array
     {
-        return self::get('torrents', $torrentId);
+        $torrent = self::get('torrents', $torrentId);
+
+        if (\is_bool($torrent)) {
+            return $torrent;
+        }
+
+        if (
+            !\array_key_exists('id', $torrent) || !\is_int($torrent['id'])
+            || !\array_key_exists('status', $torrent) || !\is_string($torrent['status'])
+            || !\array_key_exists('is_deleted', $torrent) || !\is_bool($torrent['is_deleted'])
+            || !\array_key_exists('peers', $torrent) || !\is_array($torrent['peers'])
+            || !\array_key_exists('seeders', $torrent) || !\is_int($torrent['seeders'])
+            || !\array_key_exists('leechers', $torrent) || !\is_int($torrent['leechers'])
+            || !\array_key_exists('times_completed', $torrent) || !\is_int($torrent['times_completed'])
+            || !\array_key_exists('download_factor', $torrent) || !\is_int($torrent['download_factor'])
+            || !\array_key_exists('upload_factor', $torrent) || !\is_int($torrent['upload_factor'])
+        ) {
+            return [];
+        }
+
+        foreach ($torrent['peers'] as $peer) {
+            if (
+                !\array_key_exists('ip_address', $peer) || !\is_string($peer['ip_address'])
+                || !\array_key_exists('user_id', $peer) || !\is_int($peer['user_id'])
+                || !\array_key_exists('torrent_id', $peer) || !\is_int($peer['torrent_id'])
+                || !\array_key_exists('port', $peer) || !\is_int($peer['port'])
+                || !\array_key_exists('is_seeder', $peer) || !\is_bool($peer['is_seeder'])
+                || !\array_key_exists('is_active', $peer) || \is_bool($peer['is_active'])
+                || !\array_key_exists('updated_at', $peer) || \is_int($peer['updated_at'])
+                || !\array_key_exists('uploaded', $peer) || \is_int($peer['uploaded'])
+                || !\array_key_exists('downloaded', $peer) || \is_int($peer['downloaded'])
+            ) {
+                return [];
+            }
+        }
+
+        return $torrent;
     }
 
     public static function addUser(User $user): bool
@@ -134,7 +195,7 @@ class Unit3dAnnounce
 
     /**
      * @param int $userId
-     * @return bool|null|array{
+     * @return bool|array{}|array{
      *     id: int,
      *     group_id: int,
      *     passkey: string,
@@ -143,9 +204,26 @@ class Unit3dAnnounce
      *     num_leeching: int,
      * }
      */
-    public static function getUser(int $userId): null|bool|array
+    public static function getUser(int $userId): bool|array
     {
-        return self::get('users', $userId);
+        $user = self::get('users', $userId);
+
+        if (\is_bool($user)) {
+            return $user;
+        }
+
+        if (
+            \array_key_exists('id', $user) && \is_int($user['id'])
+            && \array_key_exists('group_id', $user) && \is_int($user['group_id'])
+            && \array_key_exists('passkey', $user) && \is_string($user['passkey'])
+            && \array_key_exists('can_download', $user) && \is_bool($user['can_download'])
+            && \array_key_exists('num_seeding', $user) && \is_int($user['num_seeding'])
+            && \array_key_exists('num_leeching', $user) && \is_int($user['num_leeching'])
+        ) {
+            return $user;
+        }
+
+        return [];
     }
 
     public static function addGroup(Group $group): bool
@@ -204,8 +282,6 @@ class Unit3dAnnounce
     }
 
     /**
-     * @param  string            $path
-     * @param  ?int              $id
      * @return bool|array<mixed>
      */
     private static function get(string $path, ?int $id = null): bool|array
@@ -242,6 +318,9 @@ class Unit3dAnnounce
         return true;
     }
 
+    /**
+     * @param array<mixed> $data
+     */
     private static function put(string $path, array $data): bool
     {
         if (
@@ -283,6 +362,9 @@ class Unit3dAnnounce
         return true;
     }
 
+    /**
+     * @param array<mixed> $data
+     */
     private static function delete(string $path, array $data): bool
     {
         if (
