@@ -18,7 +18,7 @@ use ByteUnits as ByteUnitsLibrary;
 
 class ByteUnits implements ByteUnitsInterface
 {
-    public function bytesFromUnit(string $units): int
+    public function bytesFromUnit(string $units): int|string
     {
         return ByteUnitsLibrary\parse($units)->numberOfBytes();
     }

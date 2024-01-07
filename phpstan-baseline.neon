@@ -396,16 +396,6 @@ parameters:
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\ByteUnits\\:\\:bytesFromUnit\\(\\) should return int but returns int\\|string\\.$#"
-			count: 1
-			path: app/Helpers/ByteUnits.php
-
-		-
-			message: "#^Cannot access offset 'must_be_empty' on non\\-empty\\-array\\<string, mixed\\>\\|true\\.$#"
-			count: 1
-			path: app/Helpers/HiddenCaptcha.php
-
-		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Helpers/MediaInfo.php
@@ -489,21 +479,6 @@ parameters:
 			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:stripPath\\(\\) has parameter \\$string with no type specified\\.$#"
 			count: 1
 			path: app/Helpers/MediaInfo.php
-
-		-
-			message: "#^Parameter \\#1 \\$bytes of method App\\\\Helpers\\\\SystemInformation\\:\\:formatBytes\\(\\) expects int, float\\|int given\\.$#"
-			count: 3
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of function preg_match expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
 
 		-
 			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) should return array\\<int, array\\{name\\: string, size\\: int\\}\\> but returns array\\<int\\|string, array\\{name\\: mixed, size\\: mixed\\}\\>\\.$#"
