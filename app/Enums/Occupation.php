@@ -28,7 +28,7 @@ enum Occupation: int
     case ART_DIRECTOR = 9;
     case ACTOR = 10;
 
-    public static function from_tmdb_job(string $job_name): Occupation
+    public static function from_tmdb_job(string $job_name): ?Occupation
     {
         return match ($job_name) {
             "Director"   => self::DIRECTOR,
