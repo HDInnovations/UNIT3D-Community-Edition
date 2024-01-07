@@ -13,7 +13,7 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
 use App\Models\FailedLoginAttempt;
@@ -75,7 +75,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                     'can_invite'   => false,
                     'can_request'  => false,
                     'can_chat'     => false,
-                    'group_id'     => UserGroups::PRUNED->value,
+                    'group_id'     => UserGroup::PRUNED->value,
                     'deleted_by'   => User::SYSTEM_USER_ID,
                 ]);
 
