@@ -153,16 +153,7 @@ class UserController extends Controller
             'receiver_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Invite::where('user_id', '=', $user->id)->update([
-            'user_id' => User::SYSTEM_USER_ID,
-        ]);
-
-        Invite::where('accepted_by', '=', $user->id)->update([
-            'accepted_by' => User::SYSTEM_USER_ID,
-        ]);
-
         Message::where('user_id', '=', $user->id)->delete();
-        Note::where('user_id', '=', $user->id)->delete();
         Like::where('user_id', '=', $user->id)->delete();
         Thank::where('user_id', '=', $user->id)->delete();
         Peer::where('user_id', '=', $user->id)->delete();
