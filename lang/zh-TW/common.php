@@ -234,4 +234,3 @@ return [
     'your'                 => '你的',
     'your-comment'         => '你的評論',
 ];
-
