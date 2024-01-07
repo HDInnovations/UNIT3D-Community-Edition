@@ -17,6 +17,7 @@ use App\Models\BlockedIp;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/** @extends Factory<BlockedIp> */
 class BlockedIpFactory extends Factory
 {
     /**

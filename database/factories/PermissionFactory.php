@@ -18,6 +18,7 @@ use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Permission;
 
+/** @extends Factory<Permission> */
 class PermissionFactory extends Factory
 {
     /**

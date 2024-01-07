@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Chatroom;
 
+/** @extends Factory<Chatroom> */
 class ChatroomFactory extends Factory
 {
     /**

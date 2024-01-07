@@ -21,6 +21,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentRequest;
 
+/** @extends Factory<TorrentRequest> */
 class TorrentRequestFactory extends Factory
 {
     /**

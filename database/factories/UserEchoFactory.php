@@ -19,6 +19,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserEcho;
 
+/** @extends Factory<UserEcho> */
 class UserEchoFactory extends Factory
 {
     /**

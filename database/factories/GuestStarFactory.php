@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\GuestStar;
 
+/** @extends Factory<GuestStar> */
 class GuestStarFactory extends Factory
 {
     /**

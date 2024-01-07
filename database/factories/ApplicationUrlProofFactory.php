@@ -17,6 +17,7 @@ use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationUrlProof;
 
+/** @extends Factory<ApplicationUrlProof> */
 class ApplicationUrlProofFactory extends Factory
 {
     /**

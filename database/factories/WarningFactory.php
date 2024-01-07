@@ -18,6 +18,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Warning;
 
+/** @extends Factory<Warning> */
 class WarningFactory extends Factory
 {
     /**

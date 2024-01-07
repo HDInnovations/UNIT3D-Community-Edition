@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketPriority;
 
+/** @extends Factory<TicketPriority> */
 class TicketPriorityFactory extends Factory
 {
     /**
