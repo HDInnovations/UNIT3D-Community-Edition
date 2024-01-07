@@ -1801,11 +1801,6 @@ parameters:
 			path: app/Http/Livewire/UserActive.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
@@ -1817,11 +1812,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$showMorePrecision has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
 
@@ -1841,22 +1831,12 @@ parameters:
 			path: app/Http/Livewire/UserResurrections.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
 
@@ -1886,11 +1866,6 @@ parameters:
 			path: app/Http/Livewire/UserTorrents.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserTorrents.php
@@ -1911,17 +1886,7 @@ parameters:
 			path: app/Http/Livewire/UserTorrents.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:getUploadsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
 
@@ -1942,11 +1907,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$status type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
 
