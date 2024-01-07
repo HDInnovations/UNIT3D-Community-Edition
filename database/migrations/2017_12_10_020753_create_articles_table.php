@@ -25,7 +25,7 @@ return new class () extends Migration {
             $table->string('title');
             $table->string('slug');
             $table->string('image')->nullable();
-            $table->text('content', 65535);
+            $table->text('content');
             $table->timestamps();
             $table->integer('user_id')->index('fk_articles_users1_idx');
         });

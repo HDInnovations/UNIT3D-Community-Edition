@@ -26,9 +26,9 @@ return new class () extends Migration {
             $table->integer('reporter_id')->index('reporter_id');
             $table->integer('staff_id')->nullable()->index('staff_id');
             $table->string('title');
-            $table->text('message', 65535);
+            $table->text('message');
             $table->integer('solved');
-            $table->text('verdict', 65535)->nullable();
+            $table->text('verdict')->nullable();
             $table->timestamps();
         });
     }

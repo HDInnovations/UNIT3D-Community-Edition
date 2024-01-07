@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Comment;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +17,7 @@ return new class () extends Migration {
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
         });
 
-        $comments = Comment::all();
+        $comments = DB::table('comments')->get();
 
         foreach ($comments as $comment) {
             if ($comment->torrent_id !== null) {
