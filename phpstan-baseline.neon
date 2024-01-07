@@ -2006,56 +2006,6 @@ parameters:
 			path: app/Http/Middleware/TrustHosts.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\Staff\\\\ApproveApplicationRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, Illuminate\\\\Validation\\\\ConditionalRules\\|string\\>\\|Illuminate\\\\Validation\\\\Rules\\\\In\\|string\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/Staff/ApproveApplicationRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\StorePollVoteRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, Illuminate\\\\Validation\\\\ConditionalRules\\|Illuminate\\\\Validation\\\\Rules\\\\Exists\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/StorePollVoteRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\StoreSubtitleRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, \\(Closure\\)\\|Illuminate\\\\Validation\\\\Rules\\\\Exists\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreSubtitleRequest.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Post\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Post\\>\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreTipRequest.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreTipRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\StoreTipRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, \\(Closure\\)\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreTipRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\StoreTorrentRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, \\(Closure\\)\\|Illuminate\\\\Validation\\\\ConditionalRules\\|Illuminate\\\\Validation\\\\Rules\\\\ProhibitedIf\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreTorrentRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\StoreTorrentRequestRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, Illuminate\\\\Validation\\\\ConditionalRules\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreTorrentRequestRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Requests\\\\UpdateTorrentRequest\\:\\:rules\\(\\) should return array\\<string, array\\<Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\>\\|Illuminate\\\\Contracts\\\\Validation\\\\Rule\\|string\\> but returns array\\<string, array\\<int, Illuminate\\\\Validation\\\\ConditionalRules\\|Illuminate\\\\Validation\\\\Rules\\\\Unique\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Http/Requests/UpdateTorrentRequest.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Illuminate\\\\Validation\\\\Rules\\\\Unique\\:\\:whereNot\\(\\) expects array\\|BackedEnum\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, object\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Http/Requests/UpdateTorrentRequest.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Resources\\\\BotResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Resources/BotResource.php

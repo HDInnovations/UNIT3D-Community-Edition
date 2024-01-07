@@ -17,6 +17,7 @@ use App\Models\Post;
 use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Closure;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
@@ -34,7 +35,7 @@ class StoreTipRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<Closure|string>|string>
      */
     public function rules(Request $request): array
     {
@@ -47,7 +48,7 @@ class StoreTipRequest extends FormRequest
                 'required_without:post',
                 'exists:torrents,id',
                 function ($attribute, $value, $fail) use ($user): void {
-                    if (Torrent::find($value)->user->is($user)) {
+                    if (Torrent::find((int) $value)->user->is($user)) {
                         $fail(trans('bon.failed-yourself'));
                     }
                 },
@@ -58,7 +59,7 @@ class StoreTipRequest extends FormRequest
                 'required_without:torrent',
                 'exists:posts,id',
                 function ($attribute, $value, $fail) use ($user): void {
-                    if (Post::find($value)->user->is($user)) {
+                    if (Post::find((int) $value)->user->is($user)) {
                         $fail(trans('bon.failed-yourself'));
                     }
                 },
