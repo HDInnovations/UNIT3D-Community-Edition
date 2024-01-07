@@ -121,33 +121,4 @@ class Post extends Model
 
         return (new Linkify())->linky($bbcode->parse($this->content));
     }
-
-    /**
-     * Post Trimming.t.
-     */
-    public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
-    {
-        $input = $this->content;
-
-        //strip tags, if desired
-        if ($stripHtml) {
-            $input = strip_tags((string) $input);
-        }
-
-        //no need to trim, already shorter than trim length
-        if (\strlen((string) $input) <= $length) {
-            return $input;
-        }
-
-        //find last space within length
-        $lastSpace = strrpos(substr((string) $input, 0, $length), ' ');
-        $trimmedText = substr((string) $input, 0, $lastSpace);
-
-        //add ellipses (...)
-        if ($ellipses) {
-            $trimmedText .= '...';
-        }
-
-        return $trimmedText;
-    }
 }

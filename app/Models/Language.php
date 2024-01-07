@@ -60,9 +60,10 @@ class Language
      *
      * @return bool|array<string, string>
      */
-    public static function allowed(string $locale = null): bool|array
+    public static function allowed(?string $locale = null): bool|array
     {
-        if ($locale) {
+        if ($locale !== null) {
+            /** @phpstan-ignore-next-line `self:allowed()` always returns array since it's passing `null` for the `locale` parameter */
             return \array_key_exists($locale, self::allowed());
         }
 

@@ -2121,19 +2121,9 @@ parameters:
 			path: app/Models/Article.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, int\\|false given\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Article.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, array\\<string, string\\>\\|bool given\\.$#"
-			count: 1
-			path: app/Models/Language.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
@@ -2151,27 +2141,12 @@ parameters:
 			path: app/Models/Post.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, int\\|false given\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Post.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Parameter \\#2 \\$comment of class App\\\\Notifications\\\\NewComment constructor expects App\\\\Models\\\\Comment, App\\\\Models\\\\Comment\\|App\\\\Models\\\\Thank given\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Parameter \\#2 \\$thank of class App\\\\Notifications\\\\NewThank constructor expects App\\\\Models\\\\Thank, App\\\\Models\\\\Comment\\|App\\\\Models\\\\Thank given\\.$#"
 			count: 1
 			path: app/Models/Torrent.php
 
