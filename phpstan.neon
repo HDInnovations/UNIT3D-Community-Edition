@@ -9,6 +9,7 @@ parameters:
         - config
         - database
         - lang
+        - public
         - resources
         - routes
     excludePaths:
