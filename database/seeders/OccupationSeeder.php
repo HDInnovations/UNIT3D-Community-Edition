@@ -19,26 +19,9 @@ use Illuminate\Database\Seeder;
 
 class OccupationSeeder extends Seeder
 {
-    private $occupations;
-
-    public function __construct()
-    {
-        $this->occupations = $this->getOccupations();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->occupations as $occupation) {
-            Occupation::updateOrCreate($occupation);
-        }
-    }
-
-    private function getOccupations(): array
-    {
-        return [
+        Occupation::upsert([
             [
                 'id'       => 1,
                 'position' => 1,
@@ -89,6 +72,6 @@ class OccupationSeeder extends Seeder
                 'position' => 10,
                 'name'     => 'Actor',
             ],
-        ];
+        ], ['id']);
     }
 }

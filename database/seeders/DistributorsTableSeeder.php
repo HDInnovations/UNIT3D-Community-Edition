@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class DistributorsTableSeeder extends Seeder
 {
-    private $distributors;
-
-    public function __construct()
-    {
-        $this->distributors = $this->getDistributors();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->distributors as $distributor) {
-            Distributor::updateOrCreate($distributor);
-        }
-    }
-
-    private function getDistributors(): array
-    {
-        return [
+        Distributor::upsert([
             [
                 'id'   => 1,
                 'name' => '01 Distribution',
@@ -3898,6 +3881,6 @@ class DistributorsTableSeeder extends Seeder
                 'id'   => 965,
                 'name' => 'Zyx Music',
             ],
-        ];
+        ], ['id']);
     }
 }

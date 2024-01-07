@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class ChatStatusSeeder extends Seeder
 {
-    private $statuses;
-
-    public function __construct()
-    {
-        $this->statuses = $this->getStatuses();
-    }
-
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        foreach ($this->statuses as $status) {
-            ChatStatus::updateOrCreate($status);
-        }
-    }
-
-    private function getStatuses(): array
-    {
-        return [
+        ChatStatus::upsert([
             [
                 'name'  => 'Online',
                 'color' => '#2ECC40',
@@ -58,6 +41,6 @@ class ChatStatusSeeder extends Seeder
                 'color' => '#AAAAAA',
                 'icon'  => config('other.font-awesome').' fa-comment-slash',
             ],
-        ];
+        ], ['name']);
     }
 }
