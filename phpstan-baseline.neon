@@ -2361,6 +2361,816 @@ parameters:
 			path: app/Rules/EmailBlacklist.php
 
 		-
+			message: "#^Class Database\\\\Factories\\\\ApplicationFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ApplicationFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ApplicationImageProofFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ApplicationImageProofFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ApplicationUrlProofFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ApplicationUrlProofFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ArticleFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ArticleFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\AuditFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/AuditFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BanFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BanFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BlacklistClientFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BlacklistClientFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BlockedIpFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BlockedIpFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BonExchangeFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BonExchangeFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BonTransactionsFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BonTransactionsFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BookmarkFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BookmarkFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BotFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BotFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\BotTransactionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/BotTransactionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\CategoryFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/CategoryFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ChatStatusFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ChatStatusFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ChatroomFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ChatroomFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\CollectionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/CollectionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\CommentFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/CommentFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\CompanyFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/CompanyFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\CreditFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/CreditFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\DistributorFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/DistributorFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\EpisodeFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/EpisodeFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\FailedLoginAttemptFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/FailedLoginAttemptFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\FeaturedTorrentFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/FeaturedTorrentFactory.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+			count: 2
+			path: database/factories/FollowFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\FollowFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/FollowFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ForumFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ForumFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\FreeleechTokenFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/FreeleechTokenFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\GenreFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/GenreFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\GitUpdateFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/GitUpdateFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\GroupFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/GroupFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\GuestStarFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/GuestStarFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\HistoryFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/HistoryFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\InternalFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/InternalFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\InviteFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/InviteFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\KeywordFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/KeywordFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\LikeFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/LikeFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\MediaLanguageFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/MediaLanguageFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\MessageFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/MessageFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\MovieFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/MovieFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\NetworkFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/NetworkFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\NoteFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/NoteFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\NotificationFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/NotificationFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\OccupationFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/OccupationFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\OptionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/OptionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PageFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PageFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PeerFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PeerFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PermissionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PermissionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PersonFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PersonFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PersonalFreeleechFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PersonalFreeleechFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PlaylistFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PlaylistFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PlaylistTorrentFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PlaylistTorrentFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PollFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PollFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PostFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PostFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\PrivateMessageFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/PrivateMessageFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\RecommendationFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/RecommendationFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\RegionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/RegionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ReportFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ReportFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ResolutionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ResolutionFactory.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Graveyard not found\\.$#"
+			count: 1
+			path: database/factories/ResurrectionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ResurrectionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ResurrectionFactory.php
+
+		-
+			message: "#^Property Database\\\\Factories\\\\ResurrectionFactory\\:\\:\\$model \\(class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) does not accept default value of type string\\.$#"
+			count: 1
+			path: database/factories/ResurrectionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\RssFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/RssFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\SeasonFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/SeasonFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\SeedboxFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/SeedboxFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\SubscriptionFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/SubscriptionFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\SubtitleFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/SubtitleFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\ThankFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/ThankFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TicketAttachmentFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TicketAttachmentFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TicketCategoryFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TicketCategoryFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TicketFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TicketFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TicketPriorityFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TicketPriorityFactory.php
+
+		-
+			message: "#^Call to an undefined method Faker\\\\Generator\\:\\:state\\(\\)\\.$#"
+			count: 1
+			path: database/factories/TopicFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TopicFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TopicFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TorrentDownloadFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TorrentDownloadFactory.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+			count: 4
+			path: database/factories/TorrentFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TorrentFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TorrentFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TorrentFileFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TorrentFileFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TorrentRequestBountyFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TorrentRequestBountyFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TorrentRequestClaimFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TorrentRequestClaimFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TorrentRequestFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TorrentRequestFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TvFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TvFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\TypeFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/TypeFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\UserActivationFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/UserActivationFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\UserAudibleFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/UserAudibleFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\UserEchoFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/UserEchoFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\UserFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/UserFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\UserNotificationFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/UserNotificationFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\UserPrivacyFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/UserPrivacyFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\VoterFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/VoterFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\WarningFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/WarningFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\WatchlistFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/WatchlistFactory.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\WishFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/WishFactory.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_articles_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: database/migrations/2017_12_10_020753_create_ban_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_bon_transactions_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_comments_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_forums_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_notifications_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: database/migrations/2017_12_10_020753_create_reports_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_requests_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: database/migrations/2017_12_10_020753_create_sessions_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_user_notes_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_users_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2017_12_10_020753_create_warnings_table.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:string\\(\\) expects int\\|null, string given\\.$#"
+			count: 1
+			path: database/migrations/2019_01_11_001150_alter_rss_table.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Schema\\\\ColumnDefinition\\:\\:signed\\(\\)\\.$#"
+			count: 2
+			path: database/migrations/2019_01_27_005216_create_user_privacy_table.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Schema\\\\ColumnDefinition\\:\\:signed\\(\\)\\.$#"
+			count: 2
+			path: database/migrations/2019_01_28_225127_create_user_notifications_table.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Schema\\\\ColumnDefinition\\:\\:signed\\(\\)\\.$#"
+			count: 2
+			path: database/migrations/2019_02_04_041644_create_user_echoes_table.php
+
+		-
+			message: "#^Method Illuminate\\\\Database\\\\Schema\\\\Blueprint\\:\\:text\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: database/migrations/2019_02_06_075938_create_bot_transactions_table.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Schema\\\\ColumnDefinition\\:\\:signed\\(\\)\\.$#"
+			count: 2
+			path: database/migrations/2019_02_07_022409_create_user_audibles_table.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$torrent_id\\.$#"
+			count: 1
+			path: database/migrations/2022_01_23_232931_update_comments_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
+
+		-
+			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$content\\.$#"
+			count: 1
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
+			count: 1
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 2
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
+			count: 2
+			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 1
+			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\AchievementDetailsTableSeeder\\:\\:getAchievementDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/AchievementDetailsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\AchievementDetailsTableSeeder\\:\\:\\$achievementDetails has no type specified\\.$#"
+			count: 1
+			path: database/seeders/AchievementDetailsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\ArticlesTableSeeder\\:\\:getArticles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/ArticlesTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\ArticlesTableSeeder\\:\\:\\$articles has no type specified\\.$#"
+			count: 1
+			path: database/seeders/ArticlesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\BonExchangeTableSeeder\\:\\:getBonExchanges\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/BonExchangeTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\BonExchangeTableSeeder\\:\\:\\$bonExchanges has no type specified\\.$#"
+			count: 1
+			path: database/seeders/BonExchangeTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\BotsTableSeeder\\:\\:getBots\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/BotsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\BotsTableSeeder\\:\\:\\$bots has no type specified\\.$#"
+			count: 1
+			path: database/seeders/BotsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\CategoriesTableSeeder\\:\\:getCategories\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/CategoriesTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\CategoriesTableSeeder\\:\\:\\$categories has no type specified\\.$#"
+			count: 1
+			path: database/seeders/CategoriesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\ChatStatusSeeder\\:\\:getStatuses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/ChatStatusSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\ChatStatusSeeder\\:\\:\\$statuses has no type specified\\.$#"
+			count: 1
+			path: database/seeders/ChatStatusSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\ChatroomTableSeeder\\:\\:getRooms\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/ChatroomTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\ChatroomTableSeeder\\:\\:\\$rooms has no type specified\\.$#"
+			count: 1
+			path: database/seeders/ChatroomTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\DistributorsTableSeeder\\:\\:getDistributors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/DistributorsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\DistributorsTableSeeder\\:\\:\\$distributors has no type specified\\.$#"
+			count: 1
+			path: database/seeders/DistributorsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\ForumsTableSeeder\\:\\:getForums\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/ForumsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\ForumsTableSeeder\\:\\:\\$forums has no type specified\\.$#"
+			count: 1
+			path: database/seeders/ForumsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\GroupsTableSeeder\\:\\:getGroups\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/GroupsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\GroupsTableSeeder\\:\\:\\$groups has no type specified\\.$#"
+			count: 1
+			path: database/seeders/GroupsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\MediaLanguagesSeeder\\:\\:getLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/MediaLanguagesSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\MediaLanguagesSeeder\\:\\:\\$languages has no type specified\\.$#"
+			count: 1
+			path: database/seeders/MediaLanguagesSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\OccupationSeeder\\:\\:getOccupations\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/OccupationSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\OccupationSeeder\\:\\:\\$occupations has no type specified\\.$#"
+			count: 1
+			path: database/seeders/OccupationSeeder.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\Page\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Page\\>\\:\\:update\\(\\)\\.$#"
+			count: 1
+			path: database/seeders/PagesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\PagesTableSeeder\\:\\:getPages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/PagesTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\PagesTableSeeder\\:\\:\\$pages has no type specified\\.$#"
+			count: 1
+			path: database/seeders/PagesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\PermissionsTableSeeder\\:\\:getPermissions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/PermissionsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\PermissionsTableSeeder\\:\\:\\$permissions has no type specified\\.$#"
+			count: 1
+			path: database/seeders/PermissionsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\RegionsTableSeeder\\:\\:getRegions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/RegionsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\RegionsTableSeeder\\:\\:\\$regions has no type specified\\.$#"
+			count: 1
+			path: database/seeders/RegionsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\ResolutionsTableSeeder\\:\\:getResolutions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/ResolutionsTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\ResolutionsTableSeeder\\:\\:\\$resolutions has no type specified\\.$#"
+			count: 1
+			path: database/seeders/ResolutionsTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\TicketCategoriesTableSeeder\\:\\:getTicketCategories\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/TicketCategoriesTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\TicketCategoriesTableSeeder\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/TicketCategoriesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\TicketPrioritiesTableSeeder\\:\\:getTicketPriorities\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/TicketPrioritiesTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\TicketPrioritiesTableSeeder\\:\\:\\$priorities type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/TicketPrioritiesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\TypesTableSeeder\\:\\:getTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/TypesTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\TypesTableSeeder\\:\\:\\$types has no type specified\\.$#"
+			count: 1
+			path: database/seeders/TypesTableSeeder.php
+
+		-
+			message: "#^Method Database\\\\Seeders\\\\UsersTableSeeder\\:\\:getUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: database/seeders/UsersTableSeeder.php
+
+		-
+			message: "#^Property Database\\\\Seeders\\\\UsersTableSeeder\\:\\:\\$users has no type specified\\.$#"
+			count: 1
+			path: database/seeders/UsersTableSeeder.php
+
+		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php
