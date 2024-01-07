@@ -2406,11 +2406,6 @@ parameters:
 			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
 
 		-
-			message: "#^Array has 2 duplicate keys with value 'connected' \\('connected', 'connected'\\)\\.$#"
-			count: 1
-			path: lang/de/common.php
-
-		-
 			message: "#^Undefined variable\\: \\$this$#"
 			count: 1
 			path: routes/console.php
