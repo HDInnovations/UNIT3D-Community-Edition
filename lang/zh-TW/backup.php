@@ -23,9 +23,9 @@ return [
     */
 
     'backup'                         => '備份',
-    'create_a_new_backup'            => '建立完整备份',
-    'create_a_new_db_backup'         => '建立数据库备份',
-    'create_a_new_files_backup'      => '建立文件备份',
+    'create_a_new_backup'            => '建立完整備份',
+    'create_a_new_db_backup'         => '建立數據庫備份',
+    'create_a_new_files_backup'      => '建立文件備份',
     'existing_backups'               => '存在的備份',
     'date'                           => '日期',
     'file_size'                      => '檔案大小',
