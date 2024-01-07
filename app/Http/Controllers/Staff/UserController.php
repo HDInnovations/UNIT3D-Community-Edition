@@ -17,6 +17,7 @@ use App\Enums\UserGroup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateUserRequest;
 use App\Models\Comment;
+use App\Models\FailedLoginAttempt;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -152,20 +153,12 @@ class UserController extends Controller
             'receiver_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Invite::where('user_id', '=', $user->id)->update([
-            'user_id' => User::SYSTEM_USER_ID,
-        ]);
-
-        Invite::where('accepted_by', '=', $user->id)->update([
-            'accepted_by' => User::SYSTEM_USER_ID,
-        ]);
-
         Message::where('user_id', '=', $user->id)->delete();
-        Note::where('user_id', '=', $user->id)->delete();
         Like::where('user_id', '=', $user->id)->delete();
         Thank::where('user_id', '=', $user->id)->delete();
         Peer::where('user_id', '=', $user->id)->delete();
         History::where('user_id', '=', $user->id)->delete();
+        FailedLoginAttempt::where('user_id', '=', $user->id)->delete();
 
         // Removes all follows for user
         $user->followers()->detach();
