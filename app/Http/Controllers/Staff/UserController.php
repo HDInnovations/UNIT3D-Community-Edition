@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateUserRequest;
 use App\Models\Comment;
@@ -120,7 +120,7 @@ class UserController extends Controller
             'can_invite'   => false,
             'can_request'  => false,
             'can_chat'     => false,
-            'group_id'     => UserGroups::PRUNED->value,
+            'group_id'     => UserGroup::PRUNED->value,
             'deleted_by'   => auth()->id(),
         ]);
 

@@ -27,7 +27,7 @@
                 <span class="torrent-search-grouped__directors-by">by</span>
                 @foreach ($media->directors as $director)
                     <a
-                        href="{{ route('mediahub.persons.show', ['id' => $director->id, 'occupationId' => App\Enums\Occupations::DIRECTOR->value]) }}"
+                        href="{{ route('mediahub.persons.show', ['id' => $director->id, 'occupationId' => App\Enums\Occupation::DIRECTOR->value]) }}"
                         class="torrent-search--grouped__director"
                     >
                         {{ $director->name }}

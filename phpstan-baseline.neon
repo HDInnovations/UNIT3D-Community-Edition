@@ -226,11 +226,6 @@ parameters:
 			path: app/Console/Commands/VendorCleanup.php
 
 		-
-			message: "#^Method App\\\\Enums\\\\Occupations\\:\\:from_tmdb_job\\(\\) has parameter \\$job_name with no type specified\\.$#"
-			count: 1
-			path: app/Enums/Occupations.php
-
-		-
 			message: "#^Method App\\\\Events\\\\Chatter\\:\\:__construct\\(\\) has parameter \\$payload with no type specified\\.$#"
 			count: 1
 			path: app/Events/Chatter.php
@@ -274,8 +269,6 @@ parameters:
 			message: "#^Method App\\\\Exceptions\\\\TrackerException\\:\\:__construct\\(\\) has parameter \\$replace with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/TrackerException.php
-
-
 
 		-
 			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
