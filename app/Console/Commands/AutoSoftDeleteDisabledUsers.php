@@ -13,8 +13,10 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\UserGroup;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
+use App\Models\FailedLoginAttempt;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
@@ -30,7 +32,6 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Exception;
 
 /**
@@ -61,107 +62,73 @@ class AutoSoftDeleteDisabledUsers extends Command
     {
         if (config('pruning.user_pruning')) {
             $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-            $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
-            $current = Carbon::now();
             $users = User::where('group_id', '=', $disabledGroup[0])
-                ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
+                ->where('disabled_at', '<', now()->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
             foreach ($users as $user) {
-                // Send Email
-                dispatch(new SendDeleteUserMail($user));
+                $user->update([
+                    'can_upload'   => false,
+                    'can_download' => false,
+                    'can_comment'  => false,
+                    'can_invite'   => false,
+                    'can_request'  => false,
+                    'can_chat'     => false,
+                    'group_id'     => UserGroup::PRUNED->value,
+                    'deleted_by'   => User::SYSTEM_USER_ID,
+                ]);
 
-                $user->can_upload = false;
-                $user->can_download = false;
-                $user->can_comment = false;
-                $user->can_invite = false;
-                $user->can_request = false;
-                $user->can_chat = false;
-                $user->group_id = $prunedGroup[0];
-                $user->deleted_by = 1;
-                $user->save();
+                Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([
+                    'user_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                cache()->forget('user:'.$user->passkey);
-                Unit3dAnnounce::addUser($user);
+                Comment::where('user_id', '=', $user->id)->update([
+                    'user_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                // Removes UserID from Torrents if any and replaces with System UserID (1)
-                foreach (Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->get() as $tor) {
-                    $tor->user_id = 1;
-                    $tor->save();
-                }
+                Post::where('user_id', '=', $user->id)->update([
+                    'user_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                // Removes UserID from Comments if any and replaces with System UserID (1)
-                foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-                    $com->user_id = 1;
-                    $com->save();
-                }
+                Topic::where('first_post_user_id', '=', $user->id)->update([
+                    'first_post_user_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                // Removes UserID from Posts if any and replaces with System UserID (1)
-                foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-                    $post->user_id = 1;
-                    $post->save();
-                }
+                Topic::where('last_post_user_id', '=', $user->id)->update([
+                    'last_post_user_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                // Removes UserID from Topic Creators if any and replaces with System UserID (1)
-                foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-                    $topic->first_post_user_id = 1;
-                    $topic->save();
-                }
+                PrivateMessage::where('sender_id', '=', $user->id)->update([
+                    'sender_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                // Removes UserID from Topic if any and replaces with System UserID (1)
-                foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-                    $topic->last_post_user_id = 1;
-                    $topic->save();
-                }
+                PrivateMessage::where('receiver_id', '=', $user->id)->update([
+                    'receiver_id' => User::SYSTEM_USER_ID,
+                ]);
 
-                // Removes UserID from PM if any and replaces with System UserID (1)
-                foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-                    $sent->sender_id = 1;
-                    $sent->save();
-                }
-
-                // Removes UserID from PM if any and replaces with System UserID (1)
-                foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
-                    $received->receiver_id = 1;
-                    $received->save();
-                }
-
-                // Removes all Posts made by User from the shoutbox
-                foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
-                    $shout->delete();
-                }
-
-                // Removes all likes for user
-                foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
-                    $like->delete();
-                }
-
-                // Removes all thanks for user
-                foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
-                    $thank->delete();
-                }
+                Message::where('user_id', '=', $user->id)->delete();
+                Like::where('user_id', '=', $user->id)->delete();
+                Thank::where('user_id', '=', $user->id)->delete();
+                Peer::where('user_id', '=', $user->id)->delete();
+                History::where('user_id', '=', $user->id)->delete();
+                FailedLoginAttempt::where('user_id', '=', $user->id)->delete();
 
                 // Removes all follows for user
                 $user->followers()->detach();
                 $user->following()->detach();
 
-                // Removes all Peers for user
-                foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
-                    $peer->delete();
-                }
-
-                // Remove all History records for user
-                foreach (History::where('user_id', '=', $user->id)->get() as $history) {
-                    $history->delete();
-                }
-
                 // Removes all FL Tokens for user
                 foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
                     $token->delete();
-
-                    cache()->forget('freeleech_token:'.$token->user_id.':'.$token->torrent_id);
+                    cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
                 }
+
+                cache()->forget('user:'.$user->passkey);
+
+                Unit3dAnnounce::removeUser($user);
+
+                dispatch(new SendDeleteUserMail($user));
 
                 $user->delete();
             }

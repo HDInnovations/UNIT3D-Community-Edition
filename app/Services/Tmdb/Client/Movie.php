@@ -14,7 +14,7 @@
 namespace App\Services\Tmdb\Client;
 
 use JsonException;
-use App\Enums\Occupations;
+use App\Enums\Occupation;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -350,14 +350,14 @@ class Movie
             $credits[] = [
                 'movie_id'      => $this->data['id'],
                 'person_id'     => $person['id'],
-                'occupation_id' => Occupations::ACTOR->value,
+                'occupation_id' => Occupation::ACTOR->value,
                 'character'     => $person['character'] ?? '',
                 'order'         => $person['order'] ?? null
             ];
         }
 
         foreach ($this->data['credits']['crew'] ?? [] as $person) {
-            $job = Occupations::from_tmdb_job($person['job']);
+            $job = Occupation::from_tmdb_job($person['job']);
 
             if ($job !== null) {
                 $credits[] = [

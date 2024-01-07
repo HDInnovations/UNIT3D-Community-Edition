@@ -14,7 +14,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Enums\Occupations;
+use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
@@ -53,7 +53,7 @@ class Movie extends Model
     public function directors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Person::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::DIRECTOR->value);
+            ->wherePivot('occupation_id', '=', Occupation::DIRECTOR->value);
     }
 
     /**

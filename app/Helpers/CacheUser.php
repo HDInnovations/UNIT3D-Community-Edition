@@ -17,12 +17,8 @@ use App\Models\User;
 
 class CacheUser
 {
-    public static function user($id)
+    public static function user(mixed $id): ?User
     {
-        if (!$id || $id <= 0 || !is_numeric($id)) {
-            return;
-        }
-
         return cache()->remember('cachedUser.'.$id, 30, fn () => User::find($id));
     }
 }

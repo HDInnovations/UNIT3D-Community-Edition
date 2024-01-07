@@ -13,22 +13,16 @@
 
 namespace App\Helpers;
 
+use Illuminate\Http\UploadedFile;
+
 class TorrentTools
 {
     /**
-     * Name of the file to be saved.
-     */
-    public static string $fileName = '';
-
-    /**
-     * Representative table of the decoded torrent.
-     */
-    public static array $decodedTorrent = [];
-
-    /**
      * Moves and decodes the torrent.
+     *
+     * @return array<mixed>>
      */
-    public static function normalizeTorrent($torrentFile)
+    public static function normalizeTorrent(UploadedFile $torrentFile)
     {
         $result = Bencode::bdecode_file($torrentFile);
 
@@ -66,43 +60,18 @@ class TorrentTools
     }
 
     /**
-     * Calculate the number of files in the torrent.
-     */
-    public static function getFileCount($decodedTorrent): int
-    {
-        // Multiple file torrent ?
-        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
-        }
-
-        return 1;
-    }
-
-    /**
-     * Returns the size of the torrent files.
-     */
-    public static function getTorrentSize($decodedTorrent): mixed
-    {
-        $size = 0;
-
-        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            foreach ($decodedTorrent['info']['files'] as $file) {
-                $dir = '';
-                $size += $file['length'];
-                $count = is_countable($file['path']) ? \count($file['path']) : 0;
-            }
-        } else {
-            $size = $decodedTorrent['info']['length'];
-            //$files[0] = $decodedTorrent['info']['name.utf-8'];
-        }
-
-        return $size;
-    }
-
-    /**
      * Returns the torrent file list.
+     *
+     * @param array<mixed> $decodedTorrent
+     * @return array<
+     *     int,
+     *     array{
+     *         name: string,
+     *         size: int,
+     *     }
+     * >
      */
-    public static function getTorrentFiles($decodedTorrent): array
+    public static function getTorrentFiles(array $decodedTorrent): array
     {
         $files = [];
 
@@ -133,8 +102,11 @@ class TorrentTools
 
     /**
      * Returns file and folder names from the torrent.
+     *
+     * @param  array<mixed>  $decodedTorrent
+     * @return array<string>
      */
-    public static function getFilenameArray($decodedTorrent): array
+    public static function getFilenameArray(array $decodedTorrent): array
     {
         $filenames = [];
 
@@ -156,30 +128,14 @@ class TorrentTools
     }
 
     /**
-     * Returns the sha1 (hash) of the torrent.
-     */
-    public static function getTorrentHash($decodedTorrent): string
-    {
-        return sha1((string) Bencode::bencode($decodedTorrent['info']));
-    }
-
-    /**
-     * Returns the number of the torrent file.
-     */
-    public static function getTorrentFileCount($decodedTorrent): int
-    {
-        if (\array_key_exists('files', $decodedTorrent['info'])) {
-            return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
-        }
-
-        return 1;
-    }
-
-    /**
      * Returns the NFO.
      */
-    public static function getNfo($inputFile): bool|string|null
+    public static function getNfo(?UploadedFile $inputFile): bool|string|null
     {
+        if ($inputFile === null) {
+            return null;
+        }
+
         $fileName = uniqid('', true).'.nfo';
         $inputFile->move(getcwd().'/files/tmp/', $fileName);
 
@@ -216,24 +172,24 @@ class TorrentTools
     /**
      * Anonymize A Torrent Media Info.
      */
-    public static function anonymizeMediainfo($mediainfo): array|string|null
+    public static function anonymizeMediainfo(?string $mediainfo): ?string
     {
         if ($mediainfo === null) {
             return null;
         }
 
-        $completeNameI = strpos((string) $mediainfo, 'Complete name');
+        $completeNameI = strpos($mediainfo, 'Complete name');
 
         if ($completeNameI !== false) {
-            $pathI = strpos((string) $mediainfo, ': ', $completeNameI);
+            $pathI = strpos($mediainfo, ': ', $completeNameI);
 
             if ($pathI !== false) {
                 $pathI += 2;
-                $endI = strpos((string) $mediainfo, "\n", $pathI);
-                $path = substr((string) $mediainfo, $pathI, $endI - $pathI);
+                $endI = strpos($mediainfo, "\n", $pathI);
+                $path = substr($mediainfo, $pathI, $endI - $pathI);
                 $newPath = MediaInfo::stripPath($path);
 
-                return substr_replace((string) $mediainfo, $newPath, $pathI, \strlen($path));
+                return substr_replace($mediainfo, $newPath, $pathI, \strlen($path));
             }
         }
 
@@ -242,9 +198,11 @@ class TorrentTools
 
     /**
      * Parse Torrent Keywords.
+     *
+     * @return array<string>
      */
-    public static function parseKeywords($text): array
+    public static function parseKeywords(string $text): array
     {
-        return array_filter(array_unique(array_map('trim', explode(',', (string) $text))));
+        return array_filter(array_unique(array_map('trim', explode(',', $text))));
     }
 }

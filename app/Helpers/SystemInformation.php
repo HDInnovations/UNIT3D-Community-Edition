@@ -13,7 +13,6 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
@@ -34,7 +33,14 @@ class SystemInformation
         'sqlsrv',
     ];
 
-    public function avg()
+    /**
+     * @return null|array{
+     *     '1-minute': string,
+     *     '5-minute': string,
+     *     '15-minute': string,
+     * }
+     */
+    public function avg(): ?array
     {
         if (is_readable('/proc/loadavg')) {
             $loads = explode(' ', file_get_contents('/proc/loadavg'));
@@ -45,8 +51,17 @@ class SystemInformation
                 '15-minute' => $loads[2],
             ];
         }
+
+        return null;
     }
 
+    /**
+     * @return array{
+     *     total: string,
+     *     available: string,
+     *     used: string,
+     * }
+     */
     public function memory(): array
     {
         if (is_readable('/proc/meminfo')) {
@@ -64,13 +79,13 @@ class SystemInformation
         }
 
         return [
-            'total'     => 0,
-            'available' => 0,
-            'used'      => 0,
+            'total'     => '0',
+            'available' => '0',
+            'used'      => '0',
         ];
     }
 
-    protected function formatBytes($bytes, $precision = 2): string
+    protected function formatBytes(int $bytes, int $precision = 2): string
     {
         $bytes = max($bytes, 0);
         $pow = floor(($bytes ? log($bytes) : 0) / log(1_024));
@@ -82,30 +97,42 @@ class SystemInformation
         return round($bytes, $precision).' '.self::UNITS[$pow];
     }
 
+    /**
+     * @return array{
+     *     total: string,
+     *     free: string,
+     *     used: string,
+     * }
+     */
     public function disk(): array
     {
         $total = disk_total_space(base_path());
         $free = disk_free_space(base_path());
 
         return [
-            'total' => $this->formatBytes($total),
-            'free'  => $this->formatBytes($free),
-            'used'  => $this->formatBytes($total - $free),
+            'total' => $this->formatBytes($total ?: 0),
+            'free'  => $this->formatBytes($free ?: 0),
+            'used'  => $this->formatBytes(($total ?: 0) - ($free ?: 0)),
         ];
     }
 
-    public function uptime()
+    public function uptime(): ?float
     {
         if (is_readable('/proc/uptime')) {
             return (float) file_get_contents('/proc/uptime');
         }
+
+        return null;
     }
 
-    public function systemTime(): Carbon
-    {
-        return Carbon::now();
-    }
-
+    /**
+     * @return array{
+     *     os: string,
+     *     php: string,
+     *     database: string,
+     *     laravel: string,
+     * }
+     */
     public function basic(): array
     {
         return [
@@ -127,6 +154,15 @@ class SystemInformation
 
     /**
      * Get all the directory permissions as well as the recommended ones.
+     *
+     * @return array<
+     *     int,
+     *     array{
+     *         directory: string,
+     *         permission: string,
+     *         recommended: string,
+     *     }
+     * >
      */
     public function directoryPermissions(): array
     {
@@ -157,7 +193,7 @@ class SystemInformation
     /**
      * Get the file permissions for a specific path/file.
      */
-    public function getDirectoryPermission($path): string|\Symfony\Component\Translation\TranslatorInterface
+    private function getDirectoryPermission(string $path): string
     {
         try {
             return substr(sprintf('%o', fileperms(base_path($path))), -4);

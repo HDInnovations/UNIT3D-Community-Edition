@@ -14,7 +14,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Enums\Occupations;
+use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
@@ -41,7 +41,7 @@ class Person extends Model
     public function createdTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::CREATOR)
+            ->wherePivot('occupation_id', '=', Occupation::CREATOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -52,7 +52,7 @@ class Person extends Model
     public function directedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::DIRECTOR)
+            ->wherePivot('occupation_id', '=', Occupation::DIRECTOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -63,7 +63,7 @@ class Person extends Model
     public function writtenTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::WRITER)
+            ->wherePivot('occupation_id', '=', Occupation::WRITER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -74,7 +74,7 @@ class Person extends Model
     public function producedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::PRODUCER)
+            ->wherePivot('occupation_id', '=', Occupation::PRODUCER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -85,7 +85,7 @@ class Person extends Model
     public function composedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::COMPOSER)
+            ->wherePivot('occupation_id', '=', Occupation::COMPOSER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -96,7 +96,7 @@ class Person extends Model
     public function cinematographedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::CINEMATOGRAPHER)
+            ->wherePivot('occupation_id', '=', Occupation::CINEMATOGRAPHER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -107,7 +107,7 @@ class Person extends Model
     public function editedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::EDITOR)
+            ->wherePivot('occupation_id', '=', Occupation::EDITOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -118,7 +118,7 @@ class Person extends Model
     public function productionDesignedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::PRODUCTION_DESIGNER)
+            ->wherePivot('occupation_id', '=', Occupation::PRODUCTION_DESIGNER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -129,7 +129,7 @@ class Person extends Model
     public function artDirectedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::ART_DIRECTOR)
+            ->wherePivot('occupation_id', '=', Occupation::ART_DIRECTOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -140,7 +140,7 @@ class Person extends Model
     public function actedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::ACTOR)
+            ->wherePivot('occupation_id', '=', Occupation::ACTOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -161,7 +161,7 @@ class Person extends Model
     public function directedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::DIRECTOR)
+            ->wherePivot('occupation_id', '=', Occupation::DIRECTOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -172,7 +172,7 @@ class Person extends Model
     public function writtenMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::WRITER)
+            ->wherePivot('occupation_id', '=', Occupation::WRITER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -183,7 +183,7 @@ class Person extends Model
     public function producedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::PRODUCER)
+            ->wherePivot('occupation_id', '=', Occupation::PRODUCER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -194,7 +194,7 @@ class Person extends Model
     public function composedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::COMPOSER)
+            ->wherePivot('occupation_id', '=', Occupation::COMPOSER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -205,7 +205,7 @@ class Person extends Model
     public function cinematographedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::CINEMATOGRAPHER)
+            ->wherePivot('occupation_id', '=', Occupation::CINEMATOGRAPHER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -216,7 +216,7 @@ class Person extends Model
     public function editedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::EDITOR)
+            ->wherePivot('occupation_id', '=', Occupation::EDITOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -227,7 +227,7 @@ class Person extends Model
     public function productionDesignedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::PRODUCTION_DESIGNER)
+            ->wherePivot('occupation_id', '=', Occupation::PRODUCTION_DESIGNER)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -238,7 +238,7 @@ class Person extends Model
     public function artDirectedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::ART_DIRECTOR)
+            ->wherePivot('occupation_id', '=', Occupation::ART_DIRECTOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }
@@ -249,7 +249,7 @@ class Person extends Model
     public function actedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class, 'credits')
-            ->wherePivot('occupation_id', '=', Occupations::ACTOR)
+            ->wherePivot('occupation_id', '=', Occupation::ACTOR)
             ->withPivot('character', 'occupation_id')
             ->as('credit');
     }

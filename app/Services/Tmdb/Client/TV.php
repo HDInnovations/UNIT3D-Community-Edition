@@ -14,7 +14,7 @@
 namespace App\Services\Tmdb\Client;
 
 use JsonException;
-use App\Enums\Occupations;
+use App\Enums\Occupation;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -406,7 +406,7 @@ class TV
                 $credits[] = [
                     'tv_id'         => $this->data['id'],
                     'person_id'     => $person['id'],
-                    'occupation_id' => Occupations::ACTOR->value,
+                    'occupation_id' => Occupation::ACTOR->value,
                     'character'     => $role['character'] ?? '',
                     'order'         => $person['order'] ?? null
                 ];
@@ -415,7 +415,7 @@ class TV
 
         foreach ($this->data['aggregate_credits']['crew'] ?? [] as $person) {
             foreach ($person['jobs'] as $job) {
-                $occupation = Occupations::from_tmdb_job($job['job']);
+                $occupation = Occupation::from_tmdb_job($job['job']);
 
                 if ($occupation !== null) {
                     $credits[] = [
@@ -433,7 +433,7 @@ class TV
             $credits[] = [
                 'tv_id'         => $this->data['id'],
                 'person_id'     => $person['id'],
-                'occupation_id' => Occupations::CREATOR->value,
+                'occupation_id' => Occupation::CREATOR->value,
                 'character'     => null,
                 'order'         => null,
             ];

@@ -26,27 +26,11 @@ class StringHelper
     final public const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
 
     /**
-     * @var string
-     */
-    private const CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
-
-    /**
      * @var string[]
      */
     private const ENDS = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
 
-    public static function generateRandomString($length = 20): string
-    {
-        $string = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $string .= self::CHARACTERS[random_int(0, \strlen(self::CHARACTERS) - 1)];
-        }
-
-        return $string;
-    }
-
-    public static function formatBytes($bytes = 0, $precision = 2): string
+    public static function formatBytes(int|float $bytes = 0, int $precision = 2): string
     {
         $minus = false;
 
@@ -194,7 +178,7 @@ class StringHelper
         return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
     }
 
-    public static function ordinal($number): string
+    public static function ordinal(int $number): string
     {
         if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
             return $number.'th';
