@@ -202,7 +202,7 @@
                     {{ __('torrent.votes') }}
                 </h3>
             </article>
-            @if($meta->trailer)
+            @if ($meta->trailer)
                 <article class="meta__trailer show-trailer">
                     <a class="meta-chip" href="#">
                         <i
