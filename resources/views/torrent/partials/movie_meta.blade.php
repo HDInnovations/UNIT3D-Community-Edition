@@ -202,7 +202,7 @@
                     {{ __('torrent.votes') }}
                 </h3>
             </article>
-            @isset($trailer)
+            @if($meta->trailer)
                 <article class="meta__trailer show-trailer">
                     <a class="meta-chip" href="#">
                         <i
@@ -212,7 +212,7 @@
                         <h3 class="meta-chip__value">View</h3>
                     </a>
                 </article>
-            @endisset
+            @endif
 
             <article class="meta__runtime">
                 <a class="meta-chip" href="#">
@@ -300,7 +300,7 @@
                     background: 'rgb(35,35,35)',
                     width: 970,
                     html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                    title: '<i style="color: #a5a5a5;">{{ $meta->title }}Trailer</i>',
+                    title: '<i style="color: #a5a5a5;">{{ $meta->title }} Trailer</i>',
                     text: '',
                 });
             });
