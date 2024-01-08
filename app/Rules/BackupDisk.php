@@ -13,19 +13,15 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class BackupDisk implements Rule
+class BackupDisk implements ValidationRule
 {
-    public function passes($attribute, $value): bool
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $configuredBackupDisks = config('backup.backup.destination.disks');
-
-        return \in_array($value, $configuredBackupDisks);
-    }
-
-    public function message(): string
-    {
-        return 'Current disk is not configured as a backup disk';
+        if (!\in_array($value, config('backup.backup.destination.disks'))) {
+            $fail('Current disk is not configured as a backup disk');
+        }
     }
 }
