@@ -87,7 +87,6 @@ class TorrentController extends Controller
             ->findOrFail($id);
 
         $meta = null;
-        $trailer = null;
         $platforms = null;
 
         if ($torrent->category->tv_meta && $torrent->tmdb) {
@@ -98,7 +97,6 @@ class TorrentController extends Controller
                 'networks',
                 'recommendedTv:id,name,poster,first_air_date'
             ])->find($torrent->tmdb);
-            $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
         if ($torrent->category->movie_meta && $torrent->tmdb) {
@@ -110,7 +108,6 @@ class TorrentController extends Controller
                 'recommendedMovies:id,title,poster,release_date'
             ])
                 ->find($torrent->tmdb);
-            $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {
@@ -124,7 +121,6 @@ class TorrentController extends Controller
                 'platforms', ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
-            $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
             $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
@@ -133,7 +129,6 @@ class TorrentController extends Controller
             'user'               => $user,
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'meta'               => $meta,
-            'trailer'            => $trailer,
             'platforms'          => $platforms,
             'total_tips'         => BonTransactions::where('torrent_id', '=', $id)->sum('cost'),
             'user_tips'          => BonTransactions::where('torrent_id', '=', $id)->where('sender_id', '=', $user->id)->sum('cost'),

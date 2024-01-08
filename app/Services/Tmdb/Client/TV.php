@@ -362,6 +362,7 @@ class TV
                 'status'             => $this->data['status'] ?? null,
                 'vote_average'       => $this->data['vote_average'] ?? null,
                 'vote_count'         => $this->data['vote_count'] ?? null,
+                'trailer'            => $this->data['videos']['results'][0]['key'] ?? null,
             ];
         }
 
@@ -506,14 +507,5 @@ class TV
         }
 
         return $recommendations;
-    }
-
-    public function get_trailer(): ?string
-    {
-        if (!empty($this->data['videos']['results'])) {
-            return 'https://www.youtube.com/embed/'.$this->data['videos']['results'][0]['key'];
-        }
-
-        return null;
     }
 }
