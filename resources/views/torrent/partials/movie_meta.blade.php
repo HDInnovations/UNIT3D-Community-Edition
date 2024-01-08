@@ -202,7 +202,7 @@
                     {{ __('torrent.votes') }}
                 </h3>
             </article>
-            @if ($meta->trailer)
+            @if ($meta?->trailer)
                 <article class="meta__trailer show-trailer">
                     <a class="meta-chip" href="#">
                         <i
@@ -290,7 +290,7 @@
 </section>
 
 @section('javascripts')
-    @if ($meta->trailer)
+    @if ($meta?->trailer)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
             document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
                 e.preventDefault();
