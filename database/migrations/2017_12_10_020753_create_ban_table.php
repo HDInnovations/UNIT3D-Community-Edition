@@ -24,8 +24,8 @@ return new class () extends Migration {
             $table->increments('id');
             $table->integer('owned_by')->index('owned_by');
             $table->integer('created_by')->nullable()->index('created_by');
-            $table->text('ban_reason', 65535)->nullable();
-            $table->text('unban_reason', 65535)->nullable();
+            $table->text('ban_reason')->nullable();
+            $table->text('unban_reason')->nullable();
             $table->dateTime('removed_at')->nullable();
             $table->timestamps();
         });

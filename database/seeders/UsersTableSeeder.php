@@ -20,45 +20,30 @@ use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
-    private $users;
-
-    public function __construct()
-    {
-        $this->users = $this->getUsers();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->users as $user) {
-            User::updateOrCreate($user);
-        }
-    }
-
-    private function getUsers(): array
-    {
-        return [
+        User::upsert([
             [
-                'username'  => 'System',
-                'email'     => config('unit3d.default-owner-email'),
-                'group_id'  => 9,
-                'password'  => Hash::make(config('unit3d.default-owner-password')),
-                'passkey'   => md5(random_bytes(60)),
-                'rsskey'    => md5(random_bytes(60)),
-                'api_token' => Str::random(100),
-                'active'    => 1,
+                'username'          => 'System',
+                'email'             => config('unit3d.default-owner-email'),
+                'email_verified_at' => now(),
+                'group_id'          => 9,
+                'password'          => Hash::make(config('unit3d.default-owner-password')),
+                'passkey'           => md5(random_bytes(60)),
+                'rsskey'            => md5(random_bytes(60)),
+                'api_token'         => Str::random(100),
+                'active'            => 1,
             ],
             [
-                'username'  => 'Bot',
-                'email'     => config('unit3d.default-owner-email'),
-                'group_id'  => 9,
-                'password'  => Hash::make(config('unit3d.default-owner-password')),
-                'passkey'   => md5(random_bytes(60)),
-                'rsskey'    => md5(random_bytes(60)),
-                'api_token' => Str::random(100),
-                'active'    => 1,
+                'username'          => 'Bot',
+                'email'             => config('unit3d.default-owner-email'),
+                'email_verified_at' => now(),
+                'group_id'          => 9,
+                'password'          => Hash::make(config('unit3d.default-owner-password')),
+                'passkey'           => md5(random_bytes(60)),
+                'rsskey'            => md5(random_bytes(60)),
+                'api_token'         => Str::random(100),
+                'active'            => 1,
             ],
             [
                 'username'          => config('unit3d.owner-username'),
@@ -71,6 +56,6 @@ class UsersTableSeeder extends Seeder
                 'api_token'         => Str::random(100),
                 'active'            => 1,
             ],
-        ];
+        ], ['username']);
     }
 }

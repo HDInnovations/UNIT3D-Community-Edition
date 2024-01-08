@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Distributor;
 
+/** @extends Factory<Distributor> */
 class DistributorFactory extends Factory
 {
     /**

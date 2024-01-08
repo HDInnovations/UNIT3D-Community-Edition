@@ -7,241 +7,757 @@ use Illuminate\Database\Seeder;
 
 class MediaLanguagesSeeder extends Seeder
 {
-    private $languages;
-
-    public function __construct()
-    {
-        $this->languages = $this->getLanguages();
-    }
-
-    /**
-     * Run the database seeder.
-     */
     public function run(): void
     {
-        foreach ($this->languages as $code => $language) {
-            MediaLanguage::updateOrCreate([
-                'code' => $code,
-                'name' => $language,
-            ]);
-        }
-    }
-
-    private function getLanguages(): array
-    {
-        return [
-            'aa' => 'Afar',
-            'ab' => 'Abkhazian',
-            'ae' => 'Avestan',
-            'af' => 'Afrikaans',
-            'ak' => 'Akan',
-            'am' => 'Amharic',
-            'an' => 'Aragonese',
-            'ar' => 'Arabic',
-            'as' => 'Assamese',
-            'av' => 'Avaric',
-            'ay' => 'Aymara',
-            'az' => 'Azerbaijani',
-
-            'ba' => 'Bashkir',
-            'be' => 'Belarusian',
-            'bg' => 'Bulgarian',
-            'bi' => 'Bislama',
-            'bm' => 'Bambara',
-            'bn' => 'Bengali',
-            'bo' => 'Tibetan',
-            'br' => 'Breton',
-            'bs' => 'Bosnian',
-
-            'ca' => 'Catalan',
-            'ce' => 'Chechen',
-            'ch' => 'Chamorro',
-            'cn' => 'Cantonese',
-            'co' => 'Corsican',
-            'cr' => 'Cree',
-            'cs' => 'Czech',
-            'cu' => 'Slavic',
-            'cv' => 'Chuvash',
-            'cy' => 'Welsh',
-
-            'da' => 'Danish',
-            'de' => 'German',
-            'dv' => 'Divehi',
-            'dz' => 'Dzongkha',
-
-            'ee' => 'Ewe',
-            'el' => 'Greek',
-            'en' => 'English',
-            'eo' => 'Esperanto',
-            'es' => 'Spanish',
-            'et' => 'Estonian',
-            'eu' => 'Basque',
-
-            'fa' => 'Persian',
-            'ff' => 'Fulah',
-            'fi' => 'Finnish',
-            'fj' => 'Fijian',
-            'fo' => 'Faroese',
-            'fr' => 'French',
-            'fy' => 'Frisian',
-
-            'ga' => 'Irish',
-            'gd' => 'Gaelic',
-            'gl' => 'Galician',
-            'gn' => 'Guarani',
-            'gu' => 'Gujarati',
-            'gv' => 'Manx',
-
-            'ha' => 'Hausa',
-            'he' => 'Hebrew',
-            'hi' => 'Hindi',
-            'ho' => 'Hiri Motu',
-            'hr' => 'Croatian',
-            'ht' => 'Haitian; Haitian Creole',
-            'hu' => 'Hungarian',
-            'hy' => 'Armenian',
-            'hz' => 'Herero',
-
-            'ia' => 'Interlingua',
-            'id' => 'Indonesian',
-            'ie' => 'Interlingue',
-            'ig' => 'Igbo',
-            'ii' => 'Yi',
-            'ik' => 'Inupiaq',
-            'io' => 'Ido',
-            'is' => 'Icelandic',
-            'it' => 'Italian',
-            'iu' => 'Inuktitut',
-
-            'ja' => 'Japanese',
-            'jv' => 'Javanese',
-
-            'ka' => 'Georgian',
-            'kg' => 'Kongo',
-            'ki' => 'Kikuyu',
-            'kj' => 'Kuanyama',
-            'kk' => 'Kazakh',
-            'kl' => 'Kalaallisut',
-            'km' => 'Khmer',
-            'kn' => 'Kannada',
-            'ko' => 'Korean',
-            'kr' => 'Kanuri',
-            'ks' => 'Kashmiri',
-            'ku' => 'Kurdish',
-            'kv' => 'Komi',
-            'kw' => 'Cornish',
-            'ky' => 'Kirghiz',
-
-            'la' => 'Latin',
-            'lb' => 'Letzeburgesch',
-            'lg' => 'Ganda',
-            'li' => 'Limburgish',
-            'ln' => 'Lingala',
-            'lo' => 'Lao',
-            'lt' => 'Lithuanian',
-            'lu' => 'Luba-Katanga',
-            'lv' => 'Latvian',
-
-            'mg' => 'Malagasy',
-            'mh' => 'Marshall',
-            'mi' => 'Maori',
-            'mk' => 'Macedonian',
-            'ml' => 'Malayalam',
-            'mn' => 'Mongolian',
-            'mo' => 'Moldavian',
-            'mr' => 'Marathi',
-            'ms' => 'Malay',
-            'mt' => 'Maltese',
-            'my' => 'Burmese',
-
-            'na' => 'Nauru',
-            'nb' => 'Norwegian Bokmål',
-            'nd' => 'Ndebele',
-            'ne' => 'Nepali',
-            'ng' => 'Ndonga',
-            'nl' => 'Dutch',
-            'nn' => 'Norwegian Nynorsk',
-            'no' => 'Norwegian',
-            'nr' => 'Ndebele',
-            'nv' => 'Navajo',
-            'ny' => 'Chichewa; Nyanja',
-
-            'oc' => 'Occitan',
-            'oj' => 'Ojibwa',
-            'om' => 'Oromo',
-            'or' => 'Oriya',
-            'os' => 'Ossetian; Ossetic',
-
-            'pa' => 'Punjabi',
-            'pi' => 'Pali',
-            'pl' => 'Polish',
-            'ps' => 'Pushto',
-            'pt' => 'Portuguese',
-
-            'qu' => 'Quechua',
-
-            'rm' => 'Raeto-Romance',
-            'rn' => 'Rundi',
-            'ro' => 'Romanian',
-            'ru' => 'Russian',
-            'rw' => 'Kinyarwanda',
-
-            'sa' => 'Sanskrit',
-            'sc' => 'Sardinian',
-            'sd' => 'Sindhi',
-            'se' => 'Northern Sami',
-            'sg' => 'Sango',
-            'sh' => 'Serbo-Croatian',
-            'si' => 'Sinhalese',
-            'sk' => 'Slovak',
-            'sl' => 'Slovenian',
-            'sm' => 'Samoan',
-            'sn' => 'Shona',
-            'so' => 'Somali',
-            'sq' => 'Albanian',
-            'sr' => 'Serbian',
-            'ss' => 'Swati',
-            'st' => 'Sotho',
-            'su' => 'Sundanese',
-            'sv' => 'Swedish',
-            'sw' => 'Swahili',
-
-            'ta' => 'Tamil',
-            'te' => 'Telugu',
-            'tg' => 'Tajik',
-            'th' => 'Thai',
-            'ti' => 'Tigrinya',
-            'tk' => 'Turkmen',
-            'tl' => 'Tagalog',
-            'tn' => 'Tswana',
-            'to' => 'Tonga',
-            'tr' => 'Turkish',
-            'ts' => 'Tsonga',
-            'tt' => 'Tatar',
-            'tw' => 'Twi',
-            'ty' => 'Tahitian',
-
-            'ug' => 'Uighur',
-            'uk' => 'Ukrainian',
-            'ur' => 'Urdu',
-            'uz' => 'Uzbek',
-
-            've' => 'Venda',
-            'vi' => 'Vietnamese',
-            'vo' => 'Volapük',
-
-            'wa' => 'Walloon',
-            'wo' => 'Wolof',
-
-            'xh' => 'Xhosa',
-            'xx' => 'No Language',
-
-            'yi' => 'Yiddish',
-            'yo' => 'Yoruba',
-
-            'za' => 'Zhuang',
-            'zh' => 'Mandarin',
-            'zu' => 'Zulu',
-        ];
+        MediaLanguage::upsert([
+            [
+                'code' => 'aa',
+                'name' => 'Afar',
+            ],
+            [
+                'code' => 'ab',
+                'name' => 'Abkhazian',
+            ],
+            [
+                'code' => 'ae',
+                'name' => 'Avestan',
+            ],
+            [
+                'code' => 'af',
+                'name' => 'Afrikaans',
+            ],
+            [
+                'code' => 'ak',
+                'name' => 'Akan',
+            ],
+            [
+                'code' => 'am',
+                'name' => 'Amharic',
+            ],
+            [
+                'code' => 'an',
+                'name' => 'Aragonese',
+            ],
+            [
+                'code' => 'ar',
+                'name' => 'Arabic',
+            ],
+            [
+                'code' => 'as',
+                'name' => 'Assamese',
+            ],
+            [
+                'code' => 'av',
+                'name' => 'Avaric',
+            ],
+            [
+                'code' => 'ay',
+                'name' => 'Aymara',
+            ],
+            [
+                'code' => 'az',
+                'name' => 'Azerbaijani',
+            ],
+            [
+                'code' => 'ba',
+                'name' => 'Bashkir',
+            ],
+            [
+                'code' => 'be',
+                'name' => 'Belarusian',
+            ],
+            [
+                'code' => 'bg',
+                'name' => 'Bulgarian',
+            ],
+            [
+                'code' => 'bi',
+                'name' => 'Bislama',
+            ],
+            [
+                'code' => 'bm',
+                'name' => 'Bambara',
+            ],
+            [
+                'code' => 'bn',
+                'name' => 'Bengali',
+            ],
+            [
+                'code' => 'bo',
+                'name' => 'Tibetan',
+            ],
+            [
+                'code' => 'br',
+                'name' => 'Breton',
+            ],
+            [
+                'code' => 'bs',
+                'name' => 'Bosnian',
+            ],
+            [
+                'code' => 'ca',
+                'name' => 'Catalan',
+            ],
+            [
+                'code' => 'ce',
+                'name' => 'Chechen',
+            ],
+            [
+                'code' => 'ch',
+                'name' => 'Chamorro',
+            ],
+            [
+                'code' => 'cn',
+                'name' => 'Cantonese',
+            ],
+            [
+                'code' => 'co',
+                'name' => 'Corsican',
+            ],
+            [
+                'code' => 'cr',
+                'name' => 'Cree',
+            ],
+            [
+                'code' => 'cs',
+                'name' => 'Czech',
+            ],
+            [
+                'code' => 'cu',
+                'name' => 'Slavic',
+            ],
+            [
+                'code' => 'cv',
+                'name' => 'Chuvash',
+            ],
+            [
+                'code' => 'cy',
+                'name' => 'Welsh',
+            ],
+            [
+                'code' => 'da',
+                'name' => 'Danish',
+            ],
+            [
+                'code' => 'de',
+                'name' => 'German',
+            ],
+            [
+                'code' => 'dv',
+                'name' => 'Divehi',
+            ],
+            [
+                'code' => 'dz',
+                'name' => 'Dzongkha',
+            ],
+            [
+                'code' => 'ee',
+                'name' => 'Ewe',
+            ],
+            [
+                'code' => 'el',
+                'name' => 'Greek',
+            ],
+            [
+                'code' => 'en',
+                'name' => 'English',
+            ],
+            [
+                'code' => 'eo',
+                'name' => 'Esperanto',
+            ],
+            [
+                'code' => 'es',
+                'name' => 'Spanish',
+            ],
+            [
+                'code' => 'et',
+                'name' => 'Estonian',
+            ],
+            [
+                'code' => 'eu',
+                'name' => 'Basque',
+            ],
+            [
+                'code' => 'fa',
+                'name' => 'Persian',
+            ],
+            [
+                'code' => 'ff',
+                'name' => 'Fulah',
+            ],
+            [
+                'code' => 'fi',
+                'name' => 'Finnish',
+            ],
+            [
+                'code' => 'fj',
+                'name' => 'Fijian',
+            ],
+            [
+                'code' => 'fo',
+                'name' => 'Faroese',
+            ],
+            [
+                'code' => 'fr',
+                'name' => 'French',
+            ],
+            [
+                'code' => 'fy',
+                'name' => 'Frisian',
+            ],
+            [
+                'code' => 'ga',
+                'name' => 'Irish',
+            ],
+            [
+                'code' => 'gd',
+                'name' => 'Gaelic',
+            ],
+            [
+                'code' => 'gl',
+                'name' => 'Galician',
+            ],
+            [
+                'code' => 'gn',
+                'name' => 'Guarani',
+            ],
+            [
+                'code' => 'gu',
+                'name' => 'Gujarati',
+            ],
+            [
+                'code' => 'gv',
+                'name' => 'Manx',
+            ],
+            [
+                'code' => 'ha',
+                'name' => 'Hausa',
+            ],
+            [
+                'code' => 'he',
+                'name' => 'Hebrew',
+            ],
+            [
+                'code' => 'hi',
+                'name' => 'Hindi',
+            ],
+            [
+                'code' => 'ho',
+                'name' => 'Hiri Motu',
+            ],
+            [
+                'code' => 'hr',
+                'name' => 'Croatian',
+            ],
+            [
+                'code' => 'ht',
+                'name' => 'Haitian; Haitian Creole',
+            ],
+            [
+                'code' => 'hu',
+                'name' => 'Hungarian',
+            ],
+            [
+                'code' => 'hy',
+                'name' => 'Armenian',
+            ],
+            [
+                'code' => 'hz',
+                'name' => 'Herero',
+            ],
+            [
+                'code' => 'ia',
+                'name' => 'Interlingua',
+            ],
+            [
+                'code' => 'id',
+                'name' => 'Indonesian',
+            ],
+            [
+                'code' => 'ie',
+                'name' => 'Interlingue',
+            ],
+            [
+                'code' => 'ig',
+                'name' => 'Igbo',
+            ],
+            [
+                'code' => 'ii',
+                'name' => 'Yi',
+            ],
+            [
+                'code' => 'ik',
+                'name' => 'Inupiaq',
+            ],
+            [
+                'code' => 'io',
+                'name' => 'Ido',
+            ],
+            [
+                'code' => 'is',
+                'name' => 'Icelandic',
+            ],
+            [
+                'code' => 'it',
+                'name' => 'Italian',
+            ],
+            [
+                'code' => 'iu',
+                'name' => 'Inuktitut',
+            ],
+            [
+                'code' => 'ja',
+                'name' => 'Japanese',
+            ],
+            [
+                'code' => 'jv',
+                'name' => 'Javanese',
+            ],
+            [
+                'code' => 'ka',
+                'name' => 'Georgian',
+            ],
+            [
+                'code' => 'kg',
+                'name' => 'Kongo',
+            ],
+            [
+                'code' => 'ki',
+                'name' => 'Kikuyu',
+            ],
+            [
+                'code' => 'kj',
+                'name' => 'Kuanyama',
+            ],
+            [
+                'code' => 'kk',
+                'name' => 'Kazakh',
+            ],
+            [
+                'code' => 'kl',
+                'name' => 'Kalaallisut',
+            ],
+            [
+                'code' => 'km',
+                'name' => 'Khmer',
+            ],
+            [
+                'code' => 'kn',
+                'name' => 'Kannada',
+            ],
+            [
+                'code' => 'ko',
+                'name' => 'Korean',
+            ],
+            [
+                'code' => 'kr',
+                'name' => 'Kanuri',
+            ],
+            [
+                'code' => 'ks',
+                'name' => 'Kashmiri',
+            ],
+            [
+                'code' => 'ku',
+                'name' => 'Kurdish',
+            ],
+            [
+                'code' => 'kv',
+                'name' => 'Komi',
+            ],
+            [
+                'code' => 'kw',
+                'name' => 'Cornish',
+            ],
+            [
+                'code' => 'ky',
+                'name' => 'Kirghiz',
+            ],
+            [
+                'code' => 'la',
+                'name' => 'Latin',
+            ],
+            [
+                'code' => 'lb',
+                'name' => 'Letzeburgesch',
+            ],
+            [
+                'code' => 'lg',
+                'name' => 'Ganda',
+            ],
+            [
+                'code' => 'li',
+                'name' => 'Limburgish',
+            ],
+            [
+                'code' => 'ln',
+                'name' => 'Lingala',
+            ],
+            [
+                'code' => 'lo',
+                'name' => 'Lao',
+            ],
+            [
+                'code' => 'lt',
+                'name' => 'Lithuanian',
+            ],
+            [
+                'code' => 'lu',
+                'name' => 'Luba-Katanga',
+            ],
+            [
+                'code' => 'lv',
+                'name' => 'Latvian',
+            ],
+            [
+                'code' => 'mg',
+                'name' => 'Malagasy',
+            ],
+            [
+                'code' => 'mh',
+                'name' => 'Marshall',
+            ],
+            [
+                'code' => 'mi',
+                'name' => 'Maori',
+            ],
+            [
+                'code' => 'mk',
+                'name' => 'Macedonian',
+            ],
+            [
+                'code' => 'ml',
+                'name' => 'Malayalam',
+            ],
+            [
+                'code' => 'mn',
+                'name' => 'Mongolian',
+            ],
+            [
+                'code' => 'mo',
+                'name' => 'Moldavian',
+            ],
+            [
+                'code' => 'mr',
+                'name' => 'Marathi',
+            ],
+            [
+                'code' => 'ms',
+                'name' => 'Malay',
+            ],
+            [
+                'code' => 'mt',
+                'name' => 'Maltese',
+            ],
+            [
+                'code' => 'my',
+                'name' => 'Burmese',
+            ],
+            [
+                'code' => 'na',
+                'name' => 'Nauru',
+            ],
+            [
+                'code' => 'nb',
+                'name' => 'Norwegian Bokmål',
+            ],
+            [
+                'code' => 'nd',
+                'name' => 'Ndebele',
+            ],
+            [
+                'code' => 'ne',
+                'name' => 'Nepali',
+            ],
+            [
+                'code' => 'ng',
+                'name' => 'Ndonga',
+            ],
+            [
+                'code' => 'nl',
+                'name' => 'Dutch',
+            ],
+            [
+                'code' => 'nn',
+                'name' => 'Norwegian Nynorsk',
+            ],
+            [
+                'code' => 'no',
+                'name' => 'Norwegian',
+            ],
+            [
+                'code' => 'nr',
+                'name' => 'Ndebele',
+            ],
+            [
+                'code' => 'nv',
+                'name' => 'Navajo',
+            ],
+            [
+                'code' => 'ny',
+                'name' => 'Chichewa; Nyanja',
+            ],
+            [
+                'code' => 'oc',
+                'name' => 'Occitan',
+            ],
+            [
+                'code' => 'oj',
+                'name' => 'Ojibwa',
+            ],
+            [
+                'code' => 'om',
+                'name' => 'Oromo',
+            ],
+            [
+                'code' => 'or',
+                'name' => 'Oriya',
+            ],
+            [
+                'code' => 'os',
+                'name' => 'Ossetian; Ossetic',
+            ],
+            [
+                'code' => 'pa',
+                'name' => 'Punjabi',
+            ],
+            [
+                'code' => 'pi',
+                'name' => 'Pali',
+            ],
+            [
+                'code' => 'pl',
+                'name' => 'Polish',
+            ],
+            [
+                'code' => 'ps',
+                'name' => 'Pushto',
+            ],
+            [
+                'code' => 'pt',
+                'name' => 'Portuguese',
+            ],
+            [
+                'code' => 'qu',
+                'name' => 'Quechua',
+            ],
+            [
+                'code' => 'rm',
+                'name' => 'Raeto-Romance',
+            ],
+            [
+                'code' => 'rn',
+                'name' => 'Rundi',
+            ],
+            [
+                'code' => 'ro',
+                'name' => 'Romanian',
+            ],
+            [
+                'code' => 'ru',
+                'name' => 'Russian',
+            ],
+            [
+                'code' => 'rw',
+                'name' => 'Kinyarwanda',
+            ],
+            [
+                'code' => 'sa',
+                'name' => 'Sanskrit',
+            ],
+            [
+                'code' => 'sc',
+                'name' => 'Sardinian',
+            ],
+            [
+                'code' => 'sd',
+                'name' => 'Sindhi',
+            ],
+            [
+                'code' => 'se',
+                'name' => 'Northern Sami',
+            ],
+            [
+                'code' => 'sg',
+                'name' => 'Sango',
+            ],
+            [
+                'code' => 'sh',
+                'name' => 'Serbo-Croatian',
+            ],
+            [
+                'code' => 'si',
+                'name' => 'Sinhalese',
+            ],
+            [
+                'code' => 'sk',
+                'name' => 'Slovak',
+            ],
+            [
+                'code' => 'sl',
+                'name' => 'Slovenian',
+            ],
+            [
+                'code' => 'sm',
+                'name' => 'Samoan',
+            ],
+            [
+                'code' => 'sn',
+                'name' => 'Shona',
+            ],
+            [
+                'code' => 'so',
+                'name' => 'Somali',
+            ],
+            [
+                'code' => 'sq',
+                'name' => 'Albanian',
+            ],
+            [
+                'code' => 'sr',
+                'name' => 'Serbian',
+            ],
+            [
+                'code' => 'ss',
+                'name' => 'Swati',
+            ],
+            [
+                'code' => 'st',
+                'name' => 'Sotho',
+            ],
+            [
+                'code' => 'su',
+                'name' => 'Sundanese',
+            ],
+            [
+                'code' => 'sv',
+                'name' => 'Swedish',
+            ],
+            [
+                'code' => 'sw',
+                'name' => 'Swahili',
+            ],
+            [
+                'code' => 'ta',
+                'name' => 'Tamil',
+            ],
+            [
+                'code' => 'te',
+                'name' => 'Telugu',
+            ],
+            [
+                'code' => 'tg',
+                'name' => 'Tajik',
+            ],
+            [
+                'code' => 'th',
+                'name' => 'Thai',
+            ],
+            [
+                'code' => 'ti',
+                'name' => 'Tigrinya',
+            ],
+            [
+                'code' => 'tk',
+                'name' => 'Turkmen',
+            ],
+            [
+                'code' => 'tl',
+                'name' => 'Tagalog',
+            ],
+            [
+                'code' => 'tn',
+                'name' => 'Tswana',
+            ],
+            [
+                'code' => 'to',
+                'name' => 'Tonga',
+            ],
+            [
+                'code' => 'tr',
+                'name' => 'Turkish',
+            ],
+            [
+                'code' => 'ts',
+                'name' => 'Tsonga',
+            ],
+            [
+                'code' => 'tt',
+                'name' => 'Tatar',
+            ],
+            [
+                'code' => 'tw',
+                'name' => 'Twi',
+            ],
+            [
+                'code' => 'ty',
+                'name' => 'Tahitian',
+            ],
+            [
+                'code' => 'ug',
+                'name' => 'Uighur',
+            ],
+            [
+                'code' => 'uk',
+                'name' => 'Ukrainian',
+            ],
+            [
+                'code' => 'ur',
+                'name' => 'Urdu',
+            ],
+            [
+                'code' => 'uz',
+                'name' => 'Uzbek',
+            ],
+            [
+                'code' => 've',
+                'name' => 'Venda',
+            ],
+            [
+                'code' => 'vi',
+                'name' => 'Vietnamese',
+            ],
+            [
+                'code' => 'vo',
+                'name' => 'Volapük',
+            ],
+            [
+                'code' => 'wa',
+                'name' => 'Walloon',
+            ],
+            [
+                'code' => 'wo',
+                'name' => 'Wolof',
+            ],
+            [
+                'code' => 'xh',
+                'name' => 'Xhosa',
+            ],
+            [
+                'code' => 'xx',
+                'name' => 'No Language',
+            ],
+            [
+                'code' => 'yi',
+                'name' => 'Yiddish',
+            ],
+            [
+                'code' => 'yo',
+                'name' => 'Yoruba',
+            ],
+            [
+                'code' => 'za',
+                'name' => 'Zhuang',
+            ],
+            [
+                'code' => 'zh',
+                'name' => 'Mandarin',
+            ],
+            [
+                'code' => 'zu',
+                'name' => 'Zulu',
+            ],
+        ], ['id']);
     }
 }

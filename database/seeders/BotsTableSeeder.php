@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class BotsTableSeeder extends Seeder
 {
-    private $bots;
-
-    public function __construct()
-    {
-        $this->bots = $this->getBots();
-    }
-
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        foreach ($this->bots as $bot) {
-            Bot::updateOrCreate($bot);
-        }
-    }
-
-    private function getBots(): array
-    {
-        return [
+        Bot::upsert([
             [
                 'name'     => 'SystemBot',
                 'emoji'    => '1f916',
@@ -134,6 +117,6 @@ None.
                 'is_protected' => 1,
                 'is_triviabot' => 1,
             ],
-        ];
+        ], ['id']);
     }
 }

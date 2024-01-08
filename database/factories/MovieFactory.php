@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Movie;
 
+/** @extends Factory<Movie> */
 class MovieFactory extends Factory
 {
     /**

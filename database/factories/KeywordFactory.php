@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Keyword;
 
+/** @extends Factory<Keyword> */
 class KeywordFactory extends Factory
 {
     /**

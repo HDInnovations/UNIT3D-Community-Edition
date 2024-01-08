@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Person;
 
+/** @extends Factory<Person> */
 class PersonFactory extends Factory
 {
     /**

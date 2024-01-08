@@ -5,6 +5,11 @@ includes:
 parameters:
     paths:
         - app
+        - bootstrap
+        - config
+        - database
+        - lang
+        - public
         - resources
         - routes
     excludePaths:

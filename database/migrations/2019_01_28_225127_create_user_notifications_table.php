@@ -22,8 +22,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('user_notifications', function (Blueprint $table): void {
-            $table->integer('id', true)->signed();
-            $table->integer('user_id')->signed()->unique();
+            $table->integer('id', true);
+            $table->integer('user_id')->unique();
             $table->boolean('show_bon_gift')->index()->default(1);
             $table->boolean('show_mention_forum_post')->index()->default(1);
             $table->boolean('show_mention_article_comment')->index()->default(1);

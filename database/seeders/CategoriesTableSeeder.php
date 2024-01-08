@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
 {
-    private $categories;
-
-    public function __construct()
-    {
-        $this->categories = $this->getCategories();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->categories as $category) {
-            Category::updateOrCreate($category);
-        }
-    }
-
-    private function getCategories(): array
-    {
-        return [
+        Category::upsert([
             [
                 'id'          => 1,
                 'name'        => 'Movies',
@@ -103,6 +86,6 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 0,
                 'no_meta'     => 1,
             ],
-        ];
+        ], ['id']);
     }
 }

@@ -15,7 +15,6 @@ return [
     'audit-log'                => '活動日誌',
     'articles'                 => '公告',
     'applications'             => '申請書',
-    'applications'             => '申請書',
     'application-type'         => '類型',
     'application-image-proofs' => '圖片證明',
     'application-referrer'     => 'Referrer',

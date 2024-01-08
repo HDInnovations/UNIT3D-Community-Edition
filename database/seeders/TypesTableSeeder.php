@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class TypesTableSeeder extends Seeder
 {
-    private $types;
-
-    public function __construct()
-    {
-        $this->types = $this->getTypes();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->types as $type) {
-            Type::updateOrCreate($type);
-        }
-    }
-
-    private function getTypes(): array
-    {
-        return [
+        Type::upsert([
             [
                 'id'       => 1,
                 'name'     => 'Full Disc',
@@ -104,6 +87,6 @@ class TypesTableSeeder extends Seeder
                 'name'     => 'Windows',
                 'position' => 13,
             ],
-        ];
+        ], ['id']);
     }
 }

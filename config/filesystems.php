@@ -76,7 +76,7 @@ return [
 
             // Settings for SSH key based authentication...
             'privateKey' => '/path/to/privateKey',
-            'password'   => 'encryption-password',
+            'passphrase' => 'encryption-password',
 
             // Optional SFTP Settings...
             // 'port' => 22,

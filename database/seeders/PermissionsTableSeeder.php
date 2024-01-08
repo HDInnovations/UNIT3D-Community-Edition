@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class PermissionsTableSeeder extends Seeder
 {
-    private $permissions;
-
-    public function __construct()
-    {
-        $this->permissions = $this->getPermissions();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->permissions as $permission) {
-            Permission::updateOrCreate($permission);
-        }
-    }
-
-    private function getPermissions(): array
-    {
-        return [
+        Permission::upsert([
             [
                 'id'          => 1,
                 'forum_id'    => 1,
@@ -416,6 +399,6 @@ class PermissionsTableSeeder extends Seeder
                 'reply_topic' => false,
                 'start_topic' => false,
             ],
-        ];
+        ], ['id']);
     }
 }

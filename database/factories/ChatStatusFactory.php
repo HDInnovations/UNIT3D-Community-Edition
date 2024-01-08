@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ChatStatus;
 
+/** @extends Factory<ChatStatus> */
 class ChatStatusFactory extends Factory
 {
     /**

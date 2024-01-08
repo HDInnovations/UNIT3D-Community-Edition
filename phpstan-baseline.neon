@@ -31,11 +31,6 @@ parameters:
 			path: app/Console/Commands/AutoHighspeedTag.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Console/Commands/DemoSeed.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/DemoSeed.php
@@ -2359,6 +2354,56 @@ parameters:
 			message: "#^Property App\\\\Rules\\\\EmailBlacklist\\:\\:\\$domains type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Rules/EmailBlacklist.php
+
+		-
+			message: "#^Class Database\\\\Factories\\\\FollowFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
+			count: 1
+			path: database/factories/FollowFactory.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
+
+		-
+			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$content\\.$#"
+			count: 1
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
+			count: 1
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 2
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
+			count: 2
+			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 1
+			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
 
 		-
 			message: "#^Undefined variable\\: \\$this$#"

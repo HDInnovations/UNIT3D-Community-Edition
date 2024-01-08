@@ -18,29 +18,9 @@ use Illuminate\Database\Seeder;
 
 class TicketPrioritiesTableSeeder extends Seeder
 {
-    private array $priorities;
-
-    public function __construct()
-    {
-        $this->priorities = $this->getTicketPriorities();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     final public function run(): void
     {
-        foreach ($this->priorities as $priority) {
-            TicketPriority::updateOrCreate($priority);
-        }
-    }
-
-    /**
-     * @return array[]
-     */
-    private function getTicketPriorities(): array
-    {
-        return [
+        TicketPriority::upsert([
             [
                 'name'     => 'Low',
                 'position' => 0,
@@ -53,6 +33,6 @@ class TicketPrioritiesTableSeeder extends Seeder
                 'name'     => 'High',
                 'position' => 2,
             ],
-        ];
+        ], ['id']);
     }
 }

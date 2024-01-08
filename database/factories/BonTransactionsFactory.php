@@ -20,6 +20,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BonTransactions;
 
+/** @extends Factory<BonTransactions> */
 class BonTransactionsFactory extends Factory
 {
     /**

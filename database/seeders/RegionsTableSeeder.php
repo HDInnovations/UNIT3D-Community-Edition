@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class RegionsTableSeeder extends Seeder
 {
-    private $regions;
-
-    public function __construct()
-    {
-        $this->regions = $this->getRegions();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->regions as $region) {
-            Region::updateOrCreate($region);
-        }
-    }
-
-    private function getRegions(): array
-    {
-        return [
+        Region::upsert([
             [
                 'id'       => 1,
                 'name'     => 'AFG',
@@ -1248,6 +1231,6 @@ class RegionsTableSeeder extends Seeder
                 'name'     => 'ZIM',
                 'position' => 241,
             ],
-        ];
+        ], ['id']);
     }
 }

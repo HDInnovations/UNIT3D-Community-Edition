@@ -18,6 +18,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Bookmark;
 
+/** @extends Factory<Bookmark> */
 class BookmarkFactory extends Factory
 {
     /**
