@@ -37,7 +37,7 @@ class EmailBlacklist implements ValidationRule
         $domain = Str::after(strtolower((string) $value), '@');
 
         // Run validation check
-        if (!\in_array($domain, $this->domains)) {
+        if (\in_array($domain, $this->domains)) {
             $fail('Email domain is not allowed. Throwaway email providers are blacklisted.');
         }
     }
