@@ -54,7 +54,7 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invites-disabled'));
         }
 
-        if (! ($user->can_invite ?? $user->group->can_invite)) {
+        if (!($user->can_invite ?? $user->group->can_invite)) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-banned'));
         }

@@ -97,7 +97,7 @@ class AutoWarning extends Command
             $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 
             foreach ($warnings as $warning) {
-                if (! $warning->warneduser->has_reached_warning_limit) {
+                if (!$warning->warneduser->has_reached_warning_limit) {
                     $warning->warneduser->has_reached_warning_limit = true;
                     $warning->warneduser->save();
 
