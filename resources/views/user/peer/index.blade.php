@@ -29,7 +29,9 @@
             <dt>{{ __('user.total-download') }}</dt>
             <dd>{{ App\Helpers\StringHelper::formatBytes($history->download ?? 0, 2) }}</dd>
             <dt>{{ __('user.total-download') }} ({{ __('user.credited-download') }})</dt>
-            <dd>{{ App\Helpers\StringHelper::formatBytes($history->credited_download ?? 0, 2) }}</dd>
+            <dd>
+                {{ App\Helpers\StringHelper::formatBytes($history->credited_download ?? 0, 2) }}
+            </dd>
             <dt>{{ __('user.total-upload') }}</dt>
             <dd>{{ App\Helpers\StringHelper::formatBytes($history->upload ?? 0, 2) }}</dd>
             <dt>{{ __('user.total-upload') }} ({{ __('user.credited-upload') }})</dt>
