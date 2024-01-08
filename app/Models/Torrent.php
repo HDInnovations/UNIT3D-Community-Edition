@@ -448,7 +448,7 @@ class Torrent extends Model
                 break;
             case $payload instanceof Comment:
                 if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
-                    $user->notify(new NewComment('torrent', $payload));
+                    $user->notify(new NewComment($this, $payload));
                 }
 
                 break;
