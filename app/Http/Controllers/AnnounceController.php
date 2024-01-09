@@ -127,7 +127,7 @@ final class AnnounceController extends Controller
     /**
      * Check Client Is Valid.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkClient(Request $request): void
@@ -186,7 +186,7 @@ final class AnnounceController extends Controller
     /**
      * Check Passkey Exist and Valid.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkPasskey($passkey): void
@@ -210,7 +210,7 @@ final class AnnounceController extends Controller
     /**
      * Extract and validate Announce fields.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkAnnounceFields(Request $request): array
@@ -298,7 +298,7 @@ final class AnnounceController extends Controller
     /**
      * Get User Via Validated Passkey.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkUser(string $passkey, array $queries): object
@@ -325,7 +325,7 @@ final class AnnounceController extends Controller
     /**
      * Get Users Group.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkGroup($user): object
@@ -362,7 +362,7 @@ final class AnnounceController extends Controller
     /**
      * Check If Torrent Exist In Database.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkTorrent(string $infoHash): object
@@ -411,7 +411,7 @@ final class AnnounceController extends Controller
     /**
      * Check If Peer Exist In Database.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkPeer(object $torrent, array $queries, object $user): void
@@ -430,7 +430,7 @@ final class AnnounceController extends Controller
     /**
      * Check A Peers Min Annnounce Interval.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Exception
      * @throws Throwable
      */
@@ -476,7 +476,7 @@ final class AnnounceController extends Controller
     /**
      * Check A Users Max Connections.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkMaxConnections(object $torrent, object $user): void
@@ -496,7 +496,7 @@ final class AnnounceController extends Controller
     /**
      * Check A Users Download Slots.
      *
-     * @throws TrackerException
+     * @throws \App\Exceptions\TrackerException
      * @throws Throwable
      */
     private function checkDownloadSlots(array $queries, object $torrent, object $user, object $group): void
@@ -720,7 +720,7 @@ final class AnnounceController extends Controller
             /**
              * Process Peers Job.
              *
-             * @see ProcessAnnounce
+             * @see \App\Jobs\ProcessAnnounce
              */
             ProcessAnnounce::dispatch(
                 bin2hex($queries['peer_id']),
