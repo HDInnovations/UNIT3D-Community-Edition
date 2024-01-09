@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\CheckForStaleTickets
+ * @see App\Console\Commands\CheckForStaleTickets
  */
 it('runs successfully', function (): void {
     $this->artisan('tickets:stale')

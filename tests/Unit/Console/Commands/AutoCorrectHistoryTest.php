@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoCorrectHistory
+ * @see App\Console\Commands\AutoCorrectHistory
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:correct_history')

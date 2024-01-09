@@ -26,13 +26,13 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // Default Laravel
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
+        Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
+        Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
-        \App\Http\Middleware\BlockIpAddress::class,
+        Middleware\BlockIpAddress::class,
     ];
 
     /**
@@ -42,14 +42,14 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
+            Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\UpdateLastAction::class,
+            Middleware\VerifyCsrfToken::class,
+            Middleware\UpdateLastAction::class,
             \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
             //'throttle:web',
         ],
@@ -72,18 +72,18 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'admin'            => \App\Http\Middleware\CheckForAdmin::class,
-        'auth'             => \App\Http\Middleware\Authenticate::class,
+        'admin'            => Middleware\CheckForAdmin::class,
+        'auth'             => Middleware\Authenticate::class,
         'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'banned'           => \App\Http\Middleware\CheckIfBanned::class,
+        'banned'           => Middleware\CheckIfBanned::class,
         'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'              => \Illuminate\Auth\Middleware\Authorize::class,
-        'csrf'             => \App\Http\Middleware\VerifyCsrfToken::class,
-        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'language'         => \App\Http\Middleware\SetLanguage::class,
-        'modo'             => \App\Http\Middleware\CheckForModo::class,
-        'owner'            => \App\Http\Middleware\CheckForOwner::class,
+        'csrf'             => Middleware\VerifyCsrfToken::class,
+        'guest'            => Middleware\RedirectIfAuthenticated::class,
+        'language'         => Middleware\SetLanguage::class,
+        'modo'             => Middleware\CheckForModo::class,
+        'owner'            => Middleware\CheckForOwner::class,
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
         'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

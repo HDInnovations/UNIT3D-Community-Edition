@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\TestMailSettings
+ * @see App\Console\Commands\TestMailSettings
  */
 it('runs successfully', function (): void {
     $this->artisan('test:email')

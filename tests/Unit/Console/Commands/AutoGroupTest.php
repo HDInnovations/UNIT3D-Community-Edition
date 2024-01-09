@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoGroup
+ * @see App\Console\Commands\AutoGroup
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:group')

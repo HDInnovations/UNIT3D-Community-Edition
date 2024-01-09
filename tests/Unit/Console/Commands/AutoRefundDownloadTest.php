@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRefundDownload
+ * @see App\Console\Commands\AutoRefundDownload
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:refund_download')

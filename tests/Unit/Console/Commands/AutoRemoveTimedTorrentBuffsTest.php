@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRemoveTimedTorrentBuffs
+ * @see App\Console\Commands\AutoRemoveTimedTorrentBuffs
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:remove_torrent_buffs')

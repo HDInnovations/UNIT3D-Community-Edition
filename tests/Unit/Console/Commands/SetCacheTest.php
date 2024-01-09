@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\SetCache
+ * @see App\Console\Commands\SetCache
  */
 it('runs successfully', function (): void {
     $this->artisan('set:all_cache')

@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRecycleClaimedTorrentRequests
+ * @see App\Console\Commands\AutoRecycleClaimedTorrentRequests
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:recycle_claimed_torrent_requests')
