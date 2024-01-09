@@ -75,10 +75,11 @@ test('messages', function (): void {
     $actual = $this->subject->messages();
 
     expect($actual)->toEqual([
-        'igdb.in' => "The IGBB ID must be 0 if the media doesn't exist on IGDB or you're not requesting a game.",
-        'tmdb.in' => "The TMDB ID must be 0 if the media doesn't exist on TMDB or you're not requesting a tv show or movie.",
-        'imdb.in' => "The IMDB ID must be 0 if the media doesn't exist on IMDB or you're not requesting a tv show or movie.",
-        'tvdb.in' => "The TVDB ID must be 0 if the media doesn't exist on TVDB or you're not requesting a tv show.",
-        'mal.in'  => "The MAL ID must be 0 if the media doesn't exist on MAL or you're not requesting a tv or movie.",
+        'igdb.in'    => 'The IGBB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not requesting a game.',
+        'tmdb.in'    => 'The TMDB ID must be 0 if the media doesn\'t exist on TMDB or you\'re not requesting a tv show or movie.',
+        'imdb.in'    => 'The IMDB ID must be 0 if the media doesn\'t exist on IMDB or you\'re not requesting a tv show or movie.',
+        'tvdb.in'    => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not requesting a tv show.',
+        'mal.in'     => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not requesting a tv or movie.',
+        'bounty.max' => 'You do not have enough BON to make this request.',
     ]);
 });
