@@ -27,59 +27,43 @@
             <div class="overview__welcome">
                 <h1>Thats A Wrap!</h1>
                 <h3>{{ $year }}</h3>
-                <span>Another strong year here at {{ config('app.name') }}. To every user who made a contribution big or small please accept our sincere thanks. Now, without further ado, here's the best and worst of the year!</span>
+                <span>
+                    Another strong year here at {{ config('app.name') }}. To every user who made a
+                    contribution big or small please accept our sincere thanks. Now, without further
+                    ado, here's the best and worst of the year!
+                </span>
             </div>
         </div>
 
         <h2 class="panel__heading">Top 10 Movies (Based on downloads count)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">5 Worst Movies (Based on downloads count)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 TV Shows (Based on downloads count)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">5 Worst TV Shows (Based on downloads count)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 Users (Based on number of torrent uploads made)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 Users (Based on number of torrent requests made)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 Users (Based on number of torrent requests filled)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 Users (Based on number of comments made)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 Users (Based on number of posts made)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Top 10 Users (Based on number of thanks given)</h2>
-        <div class="panel__body">
-
-        </div>
+        <div class="panel__body"></div>
 
         <h2 class="panel__heading">Overall</h2>
         <div class="panel__body">
@@ -130,6 +114,5 @@
                 @endforeach
             </div>
         </div>
-
     </section>
 @endsection

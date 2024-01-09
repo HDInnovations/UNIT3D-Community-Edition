@@ -24,13 +24,14 @@
         <h2 class="panel__heading">Yearly Overviews</h2>
         <div class="panel__body">
             <ul class="mediahub-card__list">
-                @foreach($siteYears as $siteYear)
+                @foreach ($siteYears as $siteYear)
                     <li class="mediahub-card__list-item">
-                        <a href="{{ route('yearly_overviews.show', ['year' => $siteYear]) }}" class="mediahub-card">
+                        <a
+                            href="{{ route('yearly_overviews.show', ['year' => $siteYear]) }}"
+                            class="mediahub-card"
+                        >
                             <h2 class="mediahub-card__heading">{{ $siteYear }}</h2>
-                            <h3 class="mediahub-card__subheading">
-                                Overview
-                            </h3>
+                            <h3 class="mediahub-card__subheading">Overview</h3>
                         </a>
                     </li>
                 @endforeach
