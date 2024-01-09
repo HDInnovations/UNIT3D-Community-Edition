@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoBanDisposableUsers
+ * @see App\Console\Commands\AutoBanDisposableUsers
  */
 
 use Database\Seeders\GroupsTableSeeder;

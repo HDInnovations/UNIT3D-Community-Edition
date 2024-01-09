@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\EmailBlacklistUpdate
+ * @see App\Console\Commands\EmailBlacklistUpdate
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:email-blacklist-update')
