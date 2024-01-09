@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\SyncTorrentSeasonEpisode
+ * @see App\Console\Commands\SyncTorrentSeasonEpisode
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:sync_torrent_season_episode')

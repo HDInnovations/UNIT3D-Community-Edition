@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRecycleInvites
+ * @see App\Console\Commands\AutoRecycleInvites
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:recycle_invites')

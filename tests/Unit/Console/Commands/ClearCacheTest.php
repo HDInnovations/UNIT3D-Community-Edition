@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\ClearCache
+ * @see App\Console\Commands\ClearCache
  */
 it('runs successfully', function (): void {
     $this->artisan('clear:all_cache')

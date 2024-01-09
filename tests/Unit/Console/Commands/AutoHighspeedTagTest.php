@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoHighspeedTag
+ * @see App\Console\Commands\AutoHighspeedTag
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:highspeed_tag')

@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\DbDump
+ * @see App\Console\Commands\DbDump
  */
 it('runs successfully', function (): void {
     $this->artisan('db:dump')

@@ -68,7 +68,7 @@ class BackupPanel extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     final public function getBackupsProperty(): array
     {
@@ -108,7 +108,7 @@ class BackupPanel extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     final public function downloadBackup(string $filePath): Response|StreamedResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -156,7 +156,7 @@ class BackupPanel extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     private function validateActiveDisk(): void
     {
@@ -179,7 +179,7 @@ class BackupPanel extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     private function validateFilePath(string $filePath): void
     {

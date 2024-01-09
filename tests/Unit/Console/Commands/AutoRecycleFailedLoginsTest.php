@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRecycleFailedLogins
+ * @see App\Console\Commands\AutoRecycleFailedLogins
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:recycle_failed_logins')
