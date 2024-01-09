@@ -175,7 +175,7 @@ class GroupsTableSeeder extends Seeder
                 'autogroup'    => 0,
                 'is_owner'     => 0,
                 'is_admin'     => 0,
-                'is_modo'      => 1,
+                'is_modo'      => 0,
                 'is_internal'  => 0,
                 'is_trusted'   => 1,
                 'is_freeleech' => 0,
