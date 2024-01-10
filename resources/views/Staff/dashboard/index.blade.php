@@ -205,24 +205,6 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.bon_exchanges.index') }}"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-coins"></i>
-                        {{ __('staff.bon-exchange') }}
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <a
-                        class="form__button form__button--text"
-                        href="{{ route('staff.blacklisted_clients.index') }}"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-ban"></i>
-                        {{ __('common.blacklist') }}
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <a
-                        class="form__button form__button--text"
                         href="{{ route('staff.blocked_ips.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
