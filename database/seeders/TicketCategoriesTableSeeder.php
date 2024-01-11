@@ -30,6 +30,7 @@ class TicketCategoriesTableSeeder extends Seeder
                 'position' => 1,
             ],
             [
+                'name'     => 'Forums',
                 'position' => 2,
             ],
             [
