@@ -1,0 +1,37 @@
+.collection__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.collection__list-item {
+  list-style: none;
+}
+
+.collection {
+  height: 300px;
+  padding: 16px;
+  border-radius: 16px;
+  background-blend-mode: multiply;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  color: var(--collection-fg);
+}
+
+.collection__link {
+  color: var(--collection-fg)
+}
+
+.collection__backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

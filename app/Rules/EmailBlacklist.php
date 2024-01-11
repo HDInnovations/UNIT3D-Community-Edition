@@ -1,13 +1,24 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace App\Rules;
 
 use App\Helpers\EmailBlacklistUpdater;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Str;
-use Psr\SimpleCache\InvalidArgumentException;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 
-class EmailBlacklist implements Rule
+class EmailBlacklist implements ValidationRule
 {
     /**
      * Array of blacklisted domains.
@@ -17,7 +28,7 @@ class EmailBlacklist implements Rule
     /**
      * Determine if the validation rule passes.
      */
-    public function passes($attribute, $value): bool
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Load blacklisted domains
         $this->refresh();
@@ -26,7 +37,9 @@ class EmailBlacklist implements Rule
         $domain = Str::after(strtolower((string) $value), '@');
 
         // Run validation check
-        return !\in_array($domain, $this->domains, true);
+        if (\in_array($domain, $this->domains)) {
+            $fail('Email domain is not allowed. Throwaway email providers are blacklisted.');
+        }
     }
 
     /**
@@ -46,11 +59,8 @@ class EmailBlacklist implements Rule
     {
         $autoupdate = config('email-blacklist.auto-update');
 
-        try {
-            if ($autoupdate && !cache()->has(config('email-blacklist.cache-key'))) {
-                EmailBlacklistUpdater::update();
-            }
-        } catch (InvalidArgumentException) {
+        if ($autoupdate && !cache()->has(config('email-blacklist.cache-key'))) {
+            EmailBlacklistUpdater::update();
         }
     }
 
@@ -67,13 +77,5 @@ class EmailBlacklist implements Rule
 
         $appendDomains = explode('|', strtolower((string) $appendList));
         $this->domains = array_merge($this->domains, $appendDomains);
-    }
-
-    /**
-     * Get the validation error message.
-     */
-    public function message(): string
-    {
-        return 'Email domain is not allowed. Throwaway email providers are blacklisted.';
     }
 }

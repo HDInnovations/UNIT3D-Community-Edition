@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRewardResurrection
+ * @see App\Console\Commands\AutoRewardResurrection
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:reward_resurrection')

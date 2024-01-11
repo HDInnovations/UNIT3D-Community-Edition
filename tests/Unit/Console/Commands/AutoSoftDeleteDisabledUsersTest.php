@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoSoftDeleteDisabledUsers
+ * @see App\Console\Commands\AutoSoftDeleteDisabledUsers
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:softdelete_disabled_users')

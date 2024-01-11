@@ -44,7 +44,6 @@ class SimilarTorrentController extends Controller
                     'companies'
                 ])
                     ->find($tmdbId);
-                $trailer = ( new \App\Services\Tmdb\Client\Movie($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
 
                 break;
@@ -60,7 +59,6 @@ class SimilarTorrentController extends Controller
                     'networks'
                 ])
                     ->find($tmdbId);
-                $trailer = ( new \App\Services\Tmdb\Client\TV($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
 
                 break;
@@ -80,7 +78,6 @@ class SimilarTorrentController extends Controller
                 ])
                     ->find($tmdbId);
                 $link = collect($meta->videos)->take(1)->pluck('video_id');
-                $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
                 $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
                 $igdb = $tmdbId;
 
@@ -94,7 +91,6 @@ class SimilarTorrentController extends Controller
         return view('torrent.similar', [
             'meta'               => $meta,
             'personal_freeleech' => $personalFreeleech,
-            'trailer'            => $trailer,
             'platforms'          => $platforms ?? null,
             'category'           => $category,
             'tmdb'               => $tmdb ?? null,

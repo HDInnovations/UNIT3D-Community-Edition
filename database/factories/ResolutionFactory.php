@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Resolution;
 
+/** @extends Factory<Resolution> */
 class ResolutionFactory extends Factory
 {
     /**

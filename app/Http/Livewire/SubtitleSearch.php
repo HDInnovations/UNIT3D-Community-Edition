@@ -50,6 +50,7 @@ class SubtitleSearch extends Component
     final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Subtitle::with(['user.group', 'torrent.category', 'language'])
+            ->whereHas('torrent')
             ->when($this->search, fn ($query) => $query->where('title', 'like', '%'.$this->search.'%'))
             ->when($this->categories, function ($query) {
                 $torrents = Torrent::whereIntegerInRaw('category_id', $this->categories)->pluck('id');

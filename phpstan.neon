@@ -1,9 +1,19 @@
 includes:
-    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/larastan/larastan/extension.neon
+    - ./vendor/diverently/phpstan-livewire/extension.neon
     - ./phpstan-baseline.neon
 parameters:
     paths:
         - app
+        - bootstrap
+        - config
+        - database
+        - lang
+        - public
         - resources
         - routes
-    level: 6
+    excludePaths:
+        - app/Helpers/Markdown
+        - app/Helpers/MarkdownExtra
+    level: 7
+    checkOctaneCompatibility: true

@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoPreWarning
+ * @see App\Console\Commands\AutoPreWarning
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:prewarning')

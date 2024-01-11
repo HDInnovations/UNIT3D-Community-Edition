@@ -56,19 +56,19 @@ class Company
      *      homepage: ?string,
      *      logo: ?string,
      *      name: ?string,
-     *      origin_country: string,
+     *      origin_country: ?string,
      * }
      */
     public function getCompany(): array
     {
         return [
-            'id'             => $this->data['id'],
+            'id'             => $this->data['id'] ?? null,
             'description'    => $this->data['description'] ?? null,
             'headquarters'   => $this->data['headquarters'] ?? null,
             'homepage'       => $this->data['homepage'] ?? null,
             'logo'           => $this->tmdb->image('logo', $this->data),
             'name'           => $this->data['name'] ?? null,
-            'origin_country' => $this->data['origin_country'],
+            'origin_country' => $this->data['origin_country'] ?? null,
         ];
     }
 }

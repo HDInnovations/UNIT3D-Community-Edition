@@ -18,6 +18,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentDownload;
 
+/** @extends Factory<TorrentDownload> */
 class TorrentDownloadFactory extends Factory
 {
     /**

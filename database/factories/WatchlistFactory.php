@@ -17,6 +17,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Watchlist;
 
+/** @extends Factory<Watchlist> */
 class WatchlistFactory extends Factory
 {
     /**

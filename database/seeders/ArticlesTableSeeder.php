@@ -18,26 +18,9 @@ use Illuminate\Database\Seeder;
 
 class ArticlesTableSeeder extends Seeder
 {
-    private $articles;
-
-    public function __construct()
-    {
-        $this->articles = $this->getArticles();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->articles as $article) {
-            Article::updateOrCreate($article);
-        }
-    }
-
-    private function getArticles(): array
-    {
-        return [
+        Article::upsert([
             [
                 'id'         => 1,
                 'title'      => 'Welcome To '.config('other.title').' .',
@@ -46,6 +29,6 @@ class ArticlesTableSeeder extends Seeder
                 'created_at' => '2017-02-28 17:22:37',
                 'updated_at' => '2017-04-21 12:21:06',
             ],
-        ];
+        ], ['id']);
     }
 }

@@ -18,29 +18,9 @@ use Illuminate\Database\Seeder;
 
 class TicketCategoriesTableSeeder extends Seeder
 {
-    private array $categories;
-
-    public function __construct()
-    {
-        $this->categories = $this->getTicketCategories();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     final public function run(): void
     {
-        foreach ($this->categories as $category) {
-            TicketCategory::updateOrCreate($category);
-        }
-    }
-
-    /**
-     * @return array[]
-     */
-    private function getTicketCategories(): array
-    {
-        return [
+        TicketCategory::upsert([
             [
                 'name'     => 'Accounts',
                 'position' => 0,
@@ -50,7 +30,6 @@ class TicketCategoriesTableSeeder extends Seeder
                 'position' => 1,
             ],
             [
-                'name'     => 'Forums',
                 'position' => 2,
             ],
             [
@@ -85,6 +64,6 @@ class TicketCategoriesTableSeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ];
+        ], ['id']);
     }
 }

@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum Occupations: int
+enum Occupation: int
 {
     case CREATOR = 1;
     case DIRECTOR = 2;
@@ -28,17 +28,17 @@ enum Occupations: int
     case ART_DIRECTOR = 9;
     case ACTOR = 10;
 
-    public static function from_tmdb_job($job_name): ?static
+    public static function from_tmdb_job(string $job_name): ?Occupation
     {
         return match ($job_name) {
-            "Director"   => static::DIRECTOR,
-            "Screenplay" => static::WRITER,
-            "Producer", "Co-Producer", "Associate Producer" => static::PRODUCER,
-            "Original Music Composer" => static::COMPOSER,
-            "Director of Photography" => static::CINEMATOGRAPHER,
-            "Editor"                  => static::EDITOR,
-            "Production Design"       => static::PRODUCTION_DESIGNER,
-            "Art Direction"           => static::ART_DIRECTOR,
+            "Director"   => self::DIRECTOR,
+            "Screenplay" => self::WRITER,
+            "Producer", "Co-Producer", "Associate Producer" => self::PRODUCER,
+            "Original Music Composer" => self::COMPOSER,
+            "Director of Photography" => self::CINEMATOGRAPHER,
+            "Editor"                  => self::EDITOR,
+            "Production Design"       => self::PRODUCTION_DESIGNER,
+            "Art Direction"           => self::ART_DIRECTOR,
             default                   => null,
         };
     }

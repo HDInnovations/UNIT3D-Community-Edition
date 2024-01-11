@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 class IRCAnnounceBot
 {
     /**
-     * @var false|resource
+     * @var resource
      */
     private $socket;
 
@@ -26,12 +26,13 @@ class IRCAnnounceBot
 
     public function __construct()
     {
-        $this->socket = fsockopen(config('irc-bot.server'), config('irc-bot.port'), $_, $_, 5);
+        $socket = fsockopen(config('irc-bot.server'), config('irc-bot.port'), $_, $_, 5);
 
-        if ($this->socket === false) {
+        if (!\is_resource($socket)) {
             return;
         }
 
+        $this->socket = $socket;
         $this->nick(config('irc-bot.username'));
         $this->user(config('irc-bot.username'), config('irc-bot.hostname'), config('irc-bot.server'), config('irc-bot.username'));
 
@@ -44,18 +45,18 @@ class IRCAnnounceBot
 
     public function __destruct()
     {
-        if ($this->socket) {
-            sleep(2);
+        sleep(2);
 
-            $this->quit();
+        $this->quit();
 
+        if (\is_resource($this->socket)) {
             fclose($this->socket);
         }
     }
 
     private function connect(): void
     {
-        while ($message = fgets($this->socket)) {
+        while (\is_resource($this->socket) && $message = fgets($this->socket)) {
             flush();
 
             if ($message[0] === ':') {
@@ -95,12 +96,14 @@ class IRCAnnounceBot
 
     private function send(string $data): void
     {
-        fwrite($this->socket, $data."\r\n");
+        if (\is_resource($this->socket)) {
+            fwrite($this->socket, $data."\r\n");
+        }
     }
 
     public function message(string $receiver, string $message): void
     {
-        if ($this->socket === false) {
+        if (!\is_resource($this->socket)) {
             return;
         }
 

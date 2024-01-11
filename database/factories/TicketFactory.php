@@ -19,6 +19,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Ticket;
 
+/** @extends Factory<Ticket> */
 class TicketFactory extends Factory
 {
     /**

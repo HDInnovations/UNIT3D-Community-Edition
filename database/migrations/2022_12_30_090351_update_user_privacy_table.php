@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
@@ -13,10 +13,10 @@ return new class () extends Migration {
         $allowedGroups = DB::table('groups')
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING->value)
-            ->where('id', '!=', UserGroups::PRUNED->value)
-            ->where('id', '!=', UserGroups::BANNED->value)
-            ->where('id', '!=', UserGroups::DISABLED->value)
+            ->where('id', '!=', UserGroup::VALIDATING->value)
+            ->where('id', '!=', UserGroup::PRUNED->value)
+            ->where('id', '!=', UserGroup::BANNED->value)
+            ->where('id', '!=', UserGroup::DISABLED->value)
             ->pluck('id')
             ->toArray();
 

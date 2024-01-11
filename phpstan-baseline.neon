@@ -16,14 +16,19 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserPassword.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
 			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Console/Commands/DemoSeed.php
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoHighspeedTag.php
 
 		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has no return type specified\\.$#"
@@ -216,6 +221,11 @@ parameters:
 			path: app/Console/Commands/VendorCleanup.php
 
 		-
+			message: "#^Parameter \\#1 \\$array of function array_diff expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Console/Commands/VendorCleanup.php
+
+		-
 			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$excluded type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Console/Commands/VendorCleanup.php
@@ -224,11 +234,6 @@ parameters:
 			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$patterns type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Enums\\\\Occupations\\:\\:from_tmdb_job\\(\\) has parameter \\$job_name with no type specified\\.$#"
-			count: 1
-			path: app/Enums/Occupations.php
 
 		-
 			message: "#^Method App\\\\Events\\\\Chatter\\:\\:__construct\\(\\) has parameter \\$payload with no type specified\\.$#"
@@ -275,7 +280,25 @@ parameters:
 			count: 1
 			path: app/Exceptions/TrackerException.php
 
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,string\\|false\\>\\:\\:filter\\(\\) expects \\(callable\\(string\\|false, int\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
 
+		-
+			message: "#^Parameter \\#1 \\$value of function collect expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<int, string\\>\\|iterable\\<int, string\\>\\|null, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(array\\<int\\|string, string\\>\\)\\: string, Closure\\(mixed\\)\\: \\(string\\|null\\) given\\.$#"
+			count: 1
+			path: app/Helpers/Bbcode.php
 
 		-
 			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
@@ -368,1309 +391,9 @@ parameters:
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) has no return type specified\\.$#"
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
-			path: app/Helpers/CacheUser.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/CacheUser.php
-
-		-
-			message: "#^Function appurl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_article\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_article\\(\\) has parameter \\$article with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_collection\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_collection\\(\\) has parameter \\$collection with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_playlist\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_playlist\\(\\) has parameter \\$playlist with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_poll\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_poll\\(\\) has parameter \\$poll with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_profile\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_profile\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_request\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_request\\(\\) has parameter \\$torrentRequest with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_torrent\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function href_torrent\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function language_flag\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function language_flag\\(\\) has parameter \\$language with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function modal_style\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function rating_color\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function rating_color\\(\\) has parameter \\$number with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function tmdb_image\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function tmdb_image\\(\\) has parameter \\$original with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Function tmdb_image\\(\\) has parameter \\$type with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Helpers.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\HiddenCaptcha\\:\\:getToken\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/HiddenCaptcha.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:censor\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:censor\\(\\) has parameter \\$source with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:isSpecial\\(\\) has parameter \\$c with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:matchWordIndexes\\(\\) has parameter \\$string with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:matchWordIndexes\\(\\) has parameter \\$word with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\LanguageCensor\\:\\:matchWordIndexes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/LanguageCensor.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Linkify\\:\\:linky\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Linkify.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCode\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCode\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCode\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCodeComplete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCodeComplete\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCodeContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCodeContinue\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCodeContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockComment\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockComment\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCommentContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCommentContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockCommentContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCode\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCode\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCodeComplete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCodeComplete\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCodeContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCodeContinue\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockFencedCodeContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockHeader\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockHeader\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockList\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockList\\(\\) has parameter \\$CurrentBlock with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockList\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockListComplete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockListComplete\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockListContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockListContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockListContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockMarkup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockMarkup\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockMarkupContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockMarkupContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockMarkupContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockQuote\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockQuote\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockQuoteContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockQuoteContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockQuoteContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockReference\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockReference\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockRule\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockRule\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockSetextHeader\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockSetextHeader\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockSetextHeader\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockTable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockTable\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockTable\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockTableContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockTableContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:blockTableContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:element\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:element\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementApplyRecursive\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementApplyRecursive\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementApplyRecursive\\(\\) has parameter \\$closure with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementApplyRecursiveDepthFirst\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementApplyRecursiveDepthFirst\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementApplyRecursiveDepthFirst\\(\\) has parameter \\$closure with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elements\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elements\\(\\) has parameter \\$Elements with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementsApplyRecursive\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementsApplyRecursive\\(\\) has parameter \\$Elements with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementsApplyRecursive\\(\\) has parameter \\$closure with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementsApplyRecursiveDepthFirst\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementsApplyRecursiveDepthFirst\\(\\) has parameter \\$Elements with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:elementsApplyRecursiveDepthFirst\\(\\) has parameter \\$closure with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:escape\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:escape\\(\\) has parameter \\$allowQuotes with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:escape\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:extractElement\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:extractElement\\(\\) has parameter \\$Component with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:filterUnsafeUrlInAttribute\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:filterUnsafeUrlInAttribute\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:filterUnsafeUrlInAttribute\\(\\) has parameter \\$attribute with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:handle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:handle\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:handleElementRecursive\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:handleElementRecursive\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:handleElementsRecursive\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:handleElementsRecursive\\(\\) has parameter \\$Elements with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineCode\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineCode\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineEmailTag\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineEmailTag\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineEmphasis\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineEmphasis\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineEscapeSequence\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineEscapeSequence\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineImage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineImage\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineLink\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineLink\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineMarkup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineMarkup\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineSpecialCharacter\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineSpecialCharacter\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineStrikethrough\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineStrikethrough\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineText\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineText\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineUrl\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineUrl\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineUrlTag\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:inlineUrlTag\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:instance\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:instance\\(\\) has parameter \\$name with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:isBlockCompletable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:isBlockCompletable\\(\\) has parameter \\$Type with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:isBlockContinuable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:isBlockContinuable\\(\\) has parameter \\$Type with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:li\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:li\\(\\) has parameter \\$lines with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:line\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:line\\(\\) has parameter \\$nonNestables with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:line\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:lineElements\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:lineElements\\(\\) has parameter \\$nonNestables with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:lineElements\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:lines\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:lines\\(\\) has parameter \\$lines with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:linesElements\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:linesElements\\(\\) has parameter \\$lines with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:paragraph\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:paragraph\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:paragraphContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:paragraphContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:paragraphContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:parse\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:parse\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:pregReplaceElements\\(\\) has parameter \\$Elements with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:pregReplaceElements\\(\\) has parameter \\$regexp with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:pregReplaceElements\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:pregReplaceElements\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:sanitiseElement\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:sanitiseElement\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setBreaksEnabled\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setBreaksEnabled\\(\\) has parameter \\$breaksEnabled with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setMarkupEscaped\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setMarkupEscaped\\(\\) has parameter \\$markupEscaped with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setSafeMode\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setSafeMode\\(\\) has parameter \\$safeMode with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setStrictMode\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setStrictMode\\(\\) has parameter \\$strictMode with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setUrlsLinked\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:setUrlsLinked\\(\\) has parameter \\$urlsLinked with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:striAtStart\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:striAtStart\\(\\) has parameter \\$needle with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:striAtStart\\(\\) has parameter \\$string with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:text\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:text\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:textElements\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:textElements\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:unmarkedText\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\Markdown\\:\\:unmarkedText\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$BlockTypes has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$DefinitionData has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$EmRegex has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$InlineTypes has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$StrongRegex has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$breaksEnabled has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$inlineMarkerList has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$instances type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$markupEscaped has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$regexHtmlAttribute has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$safeLinksWhitelist has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$safeMode has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$specialCharacters has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$strictMode has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$textLevelElements has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$unmarkedBlockTypes has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$urlsLinked has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\Markdown\\:\\:\\$voidElements has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 1
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Variable \\$text might not be defined\\.$#"
-			count: 2
-			path: app/Helpers/Markdown.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:addDdElement\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:addDdElement\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:addDdElement\\(\\) has parameter \\$Line with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockAbbreviation\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockAbbreviation\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockDefinitionList\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockDefinitionList\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockDefinitionList\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockDefinitionListContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockDefinitionListContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockDefinitionListContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnote\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnote\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnoteComplete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnoteComplete\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnoteContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnoteContinue\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockFootnoteContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockHeader\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockHeader\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkup\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkupComplete\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkupComplete\\(\\) has parameter \\$Block with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkupContinue\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkupContinue\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockMarkupContinue\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockSetextHeader\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockSetextHeader\\(\\) has parameter \\$Block with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:blockSetextHeader\\(\\) has parameter \\$Line with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:buildFootnoteElement\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:inlineFootnoteMarker\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:inlineFootnoteMarker\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:inlineLink\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:inlineLink\\(\\) has parameter \\$Excerpt with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:inlineText\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:inlineText\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:insertAbreviation\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:insertAbreviation\\(\\) has parameter \\$Element with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:parseAttributeData\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:parseAttributeData\\(\\) has parameter \\$attributeString with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:processTag\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:processTag\\(\\) has parameter \\$elementMarkup with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:sortFootnotes\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:sortFootnotes\\(\\) has parameter \\$A with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:sortFootnotes\\(\\) has parameter \\$B with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:text\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\MarkdownExtra\\:\\:text\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\MarkdownExtra\\:\\:\\$currentAbreviation has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\MarkdownExtra\\:\\:\\$currentMeaning has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\MarkdownExtra\\:\\:\\$regexAttribute has no type specified\\.$#"
-			count: 1
-			path: app/Helpers/MarkdownExtra.php
+			path: app/Helpers/MediaInfo.php
 
 		-
 			message: "#^Method App\\\\Helpers\\\\MediaInfo\\:\\:computerSize\\(\\) has parameter \\$number with no type specified\\.$#"
@@ -1753,152 +476,7 @@ parameters:
 			path: app/Helpers/MediaInfo.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) has parameter \\$bytes with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) has parameter \\$precision with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:generateRandomString\\(\\) has parameter \\$length with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\StringHelper\\:\\:ordinal\\(\\) has parameter \\$number with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/StringHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:avg\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:basic\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:directoryPermissions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:disk\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:formatBytes\\(\\) has parameter \\$bytes with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:formatBytes\\(\\) has parameter \\$precision with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:getDirectoryPermission\\(\\) has parameter \\$path with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:memory\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\SystemInformation\\:\\:uptime\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/SystemInformation.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentHelper\\:\\:approveHelper\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentHelper.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:anonymizeMediainfo\\(\\) has parameter \\$mediainfo with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:anonymizeMediainfo\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getFileCount\\(\\) has parameter \\$decodedTorrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getFilenameArray\\(\\) has parameter \\$decodedTorrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getFilenameArray\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) has parameter \\$inputFile with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFileCount\\(\\) has parameter \\$decodedTorrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) has parameter \\$decodedTorrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentHash\\(\\) has parameter \\$decodedTorrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentSize\\(\\) has parameter \\$decodedTorrent with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) has parameter \\$torrentFile with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:parseKeywords\\(\\) has parameter \\$text with no type specified\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:parseKeywords\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
-			message: "#^Property App\\\\Helpers\\\\TorrentTools\\:\\:\\$decodedTorrent type has no value type specified in iterable type array\\.$#"
+			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) should return array\\<int, array\\{name\\: string, size\\: int\\}\\> but returns array\\<int\\|string, array\\{name\\: mixed, size\\: mixed\\}\\>\\.$#"
 			count: 1
 			path: app/Helpers/TorrentTools.php
 
@@ -1928,6 +506,31 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_nerdbot\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_systembot\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user_id\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
 			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
 			count: 6
 			path: app/Http/Controllers/API/ChatController.php
@@ -1939,6 +542,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:createMessage\\(\\) should return App\\\\Http\\\\Resources\\\\ChatMessageResource\\|bool\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response but returns bool\\|Illuminate\\\\Contracts\\\\Foundation\\\\Application\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -1961,6 +569,126 @@ parameters:
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
 			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$movie_meta\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$num_torrent\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$torrents_count\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$tv_meta\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:save\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Cannot call method getError\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$inputFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) expects Illuminate\\\\Http\\\\UploadedFile\\|null, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$torrentFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) expects Illuminate\\\\Http\\\\UploadedFile, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$nfo \\(string\\) does not accept bool\\|string\\|null\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$doubleup\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$download_slots\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$free\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 25
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$is_double_upload\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$is_freeleech\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$is_immune\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$leechers\\.$#"
+			count: 2
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$peers\\.$#"
+			count: 6
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$seeders\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$times_completed\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Binary operation \"\\-\" between float\\|int\\|string and 300 results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
+			count: 2
+			path: app/Http/Controllers/AnnounceController.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkAnnounceFields\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -2008,19 +736,19 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Variable \\$response might not be defined\\.$#"
+			message: "#^Parameter \\#1 \\$haystack of function str_starts_with expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 2
-			path: app/Http/Controllers/Auth/ApplicationController.php
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 2
-			path: app/Http/Controllers/Auth/ApplicationController.php
+			message: "#^Variable \\$response might not be defined\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
@@ -2028,28 +756,118 @@ parameters:
 			path: app/Http/Controllers/HomeController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$forum\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$latestPost\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:posts\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/PostController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\RssController\\:\\:index\\(\\) has parameter \\$hash with no type specified\\.$#"
+			message: "#^Cannot access property \\$alive on bool\\|stdClass\\.$#"
 			count: 1
 			path: app/Http/Controllers/RssController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\RssController\\:\\:show\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Cannot access property \\$bookmark on bool\\|stdClass\\.$#"
 			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$categories on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$dead on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$description on bool\\|stdClass\\.$#"
+			count: 3
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$doubleupload on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$dying on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$featured on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$freeleech on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$genres on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$highspeed on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$imdb on bool\\|stdClass\\.$#"
+			count: 3
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$internal on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$mal on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$personalrelease on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$resolutions on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$sd on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$search on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$stream on bool\\|stdClass\\.$#"
+			count: 1
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$tmdb on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$tvdb on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$types on bool\\|stdClass\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
+			message: "#^Cannot access property \\$uploader on bool\\|stdClass\\.$#"
+			count: 2
 			path: app/Http/Controllers/RssController.php
 
 		-
@@ -2063,9 +881,9 @@ parameters:
 			path: app/Http/Controllers/SimilarTorrentController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\ChatBotController\\:\\:index\\(\\) has parameter \\$hash with no type specified\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/ChatBotController.php
+			path: app/Http/Controllers/Staff/UserController.php
 
 		-
 			message: "#^Offset 0 does not exist on Illuminate\\\\Http\\\\Client\\\\Response\\.$#"
@@ -2078,21 +896,6 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentBuffController\\:\\:setRefundable\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentController\\:\\:destroy\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/TorrentController.php
@@ -2103,14 +906,9 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\TorrentDownloadController\\:\\:store\\(\\) has parameter \\$rsskey with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\<string, string\\>\\|bool given\\.$#"
 			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachments\\.$#"
-			count: 1
-			path: app/Http/Livewire/AttachmentUpload.php
+			path: app/Http/Controllers/User/GeneralSettingController.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:getAttachmentsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
@@ -2128,12 +926,7 @@ parameters:
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$audits\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$modelNames\\.$#"
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
 
@@ -2153,17 +946,7 @@ parameters:
 			path: app/Http/Livewire/AuditLogSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$activeDisk\\.$#"
-			count: 4
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$backupStatuses\\.$#"
-			count: 3
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$backups\\.$#"
+			message: "#^Cannot call method sizeInBytes\\(\\) on class\\-string\\|object\\.$#"
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
@@ -2188,16 +971,6 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$content with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/BbcodeInput.php
@@ -2218,11 +991,6 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$ipAddresses\\.$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:getIpAddressesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/BlockIpAddress.php
@@ -2238,11 +1006,6 @@ parameters:
 			path: app/Http/Livewire/BlockIpAddress.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$collections\\.$#"
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:getCollectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/CollectionSearch.php
@@ -2251,6 +1014,11 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$search has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/CollectionSearch.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
+			count: 4
+			path: app/Http/Livewire/Comment.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\Comment\\:\\:taggedUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -2308,8 +1076,8 @@ parameters:
 			path: app/Http/Livewire/Comment.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\Comments\\:\\:\\$comments\\.$#"
-			count: 1
+			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
+			count: 3
 			path: app/Http/Livewire/Comments.php
 
 		-
@@ -2353,11 +1121,6 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:\\$companies\\.$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:getCompaniesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/CompanySearch.php
@@ -2366,16 +1129,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:\\$search has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLogins\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$failedLoginsTop10Ip\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2398,11 +1151,6 @@ parameters:
 			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/ForumCategoryTopicSearch.php
@@ -2411,11 +1159,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2458,11 +1201,6 @@ parameters:
 			path: app/Http/Livewire/HistorySearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:\\$invites\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:getInvitesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/InviteLogSearch.php
@@ -2483,12 +1221,22 @@ parameters:
 			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
+			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getEntriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getLogFilesProperty\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_shift expects array, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
@@ -2511,16 +1259,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$medias\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:getMediasProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2548,11 +1286,6 @@ parameters:
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:\\$networks\\.$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:getNetworksProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/NetworkSearch.php
@@ -2563,11 +1296,6 @@ parameters:
 			path: app/Http/Livewire/NetworkSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:\\$notes\\.$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:getNotesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/NoteSearch.php
@@ -2576,11 +1304,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:\\$notifications\\.$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:getNotificationsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2603,11 +1326,6 @@ parameters:
 			path: app/Http/Livewire/PasswordStrength.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:\\$peers\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:getPeersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/PeerSearch.php
@@ -2621,66 +1339,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$actedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$artDirectedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$cinematographedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$composedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$createdCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$directedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$editedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$medias\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$personalFreeleech\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$producedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$productionDesignedCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$writtenCount\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonCredit.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
@@ -2733,11 +1391,6 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:\\$persons\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:getPersonsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/PersonSearch.php
@@ -2746,11 +1399,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:\\$search has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:\\$posts\\.$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2763,18 +1411,23 @@ parameters:
 			path: app/Http/Livewire/PostSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$personalFreeleech\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Movie\\>\\:\\:\\$release_date\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrentRequests\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Movie\\>\\:\\:\\$title\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$torrents\\.$#"
-			count: 3
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tv\\>\\:\\:\\$first_air_date\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tv\\>\\:\\:\\$name\\.$#"
+			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
@@ -2843,29 +1496,14 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:\\$forums\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:getForumsProperty\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/SubscribedForum.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubscribedTopic\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedTopic\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:\\$subtitles\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:getSubtitlesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2908,9 +1546,9 @@ parameters:
 			path: app/Http/Livewire/TicketSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:\\$posts\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
+			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
+			count: 2
+			path: app/Http/Livewire/Top10.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -2921,16 +1559,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$forumCategories\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$topics\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:getForumCategoriesProperty\\(\\) has no return type specified\\.$#"
@@ -2946,21 +1574,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestBountyStat\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequestStat\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$torrentRequests\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:getTorrentRequestsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -3038,26 +1651,6 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedPosters\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$groupedTorrents\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$personalFreeleech\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$torrents\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
@@ -3068,12 +1661,22 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$torrents\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$torrents\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
@@ -3148,11 +1751,6 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$shows\\.$#"
-			count: 1
-			path: app/Http/Livewire/TvSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:getShowsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/TvSearch.php
@@ -3173,11 +1771,6 @@ parameters:
 			path: app/Http/Livewire/UserActive.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
@@ -3193,11 +1786,6 @@ parameters:
 			path: app/Http/Livewire/UserActive.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$notes\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserNotes.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:getNotesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/UserNotes.php
@@ -3208,17 +1796,7 @@ parameters:
 			path: app/Http/Livewire/UserNotes.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$resurrections\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:getResurrectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
 
@@ -3231,11 +1809,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:\\$users\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:getUsersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -3258,17 +1831,7 @@ parameters:
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$history\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:getHistoryProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserTorrents.php
 
@@ -3293,17 +1856,7 @@ parameters:
 			path: app/Http/Livewire/UserTorrents.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$uploads\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:getUploadsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:mount\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
 
@@ -3343,11 +1896,6 @@ parameters:
 			path: app/Http/Livewire/UserWarnings.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:\\$warnings\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:getWarningsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
@@ -3366,11 +1914,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:\\$users\\.$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:getUsersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
@@ -3453,34 +1996,9 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: "#^Method App\\\\Jobs\\\\ProcessBackup\\:\\:__construct\\(\\) has parameter \\$option with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
 			count: 1
-			path: app/Jobs/ProcessBackup.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$receiverId with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$senderId with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\ProcessMassPM\\:\\:__construct\\(\\) has parameter \\$subject with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/ProcessMassPM.php
-
-		-
-			message: "#^Method App\\\\Jobs\\\\SendActivationMail\\:\\:__construct\\(\\) has parameter \\$code with no type specified\\.$#"
-			count: 1
-			path: app/Jobs/SendActivationMail.php
+			path: app/Models/Article.php
 
 		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
@@ -3488,9 +2006,19 @@ parameters:
 			path: app/Models/Article.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/Playlist.php
+
+		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Playlist.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/Post.php
 
 		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
@@ -3498,9 +2026,19 @@ parameters:
 			path: app/Models/Post.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Torrent.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
 
 		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
@@ -3508,14 +2046,44 @@ parameters:
 			path: app/Models/TorrentRequest.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
+			count: 2
+			path: app/Models/User.php
+
+		-
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 2
 			path: app/Models/User.php
 
 		-
-			message: "#^Method App\\\\Providers\\\\CacheUserProvider\\:\\:retrieveByToken\\(\\) should return Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null but empty return statement found\\.$#"
+			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
 			count: 1
-			path: app/Providers/CacheUserProvider.php
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$minLimit of static method App\\\\Helpers\\\\HiddenCaptcha\\:\\:check\\(\\) expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: "#^Parameter \\#3 \\$maxLimit of static method App\\\\Helpers\\\\HiddenCaptcha\\:\\:check\\(\\) expects int, float\\|int\\|string given\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$receiver_id\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:\\$censor\\.$#"
+			count: 3
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:delete\\(\\)\\.$#"
+			count: 2
+			path: app/Repositories/ChatRepository.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -3778,19 +2346,64 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
+			message: "#^Parameter \\#1 \\$message of class App\\\\Events\\\\MessageDeleted constructor expects App\\\\Models\\\\Message, App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> given\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
 			message: "#^Property App\\\\Rules\\\\EmailBlacklist\\:\\:\\$domains type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Rules/EmailBlacklist.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:delete\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			message: "#^Class Database\\\\Factories\\\\FollowFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
 			count: 1
-			path: app/Services/Unit3dAnnounce.php
+			path: database/factories/FollowFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Unit3dAnnounce\\:\\:put\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
 			count: 1
-			path: app/Services/Unit3dAnnounce.php
+			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
+
+		-
+			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$content\\.$#"
+			count: 1
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
+			count: 1
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 2
+			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
+			count: 2
+			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 1
+			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
 
 		-
 			message: "#^Undefined variable\\: \\$this$#"

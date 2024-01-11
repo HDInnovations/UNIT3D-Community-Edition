@@ -73,10 +73,15 @@ class SubtitleController extends Controller
     {
         $user = $request->user();
         $subtitleFile = $request->file('subtitle_file');
+
+        abort_if(\is_array($subtitleFile), 400);
+
         $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'));
+
         $subtitle = Subtitle::create([
-            'title'        => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'))->name,
+            'title'        => $torrent->name,
             'file_name'    => $filename,
             'file_size'    => $subtitleFile->getSize(),
             'extension'    => '.'.$subtitleFile->getClientOriginalExtension(),
@@ -89,7 +94,7 @@ class SubtitleController extends Controller
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle
-        Storage::disk('subtitles')->put($filename, file_get_contents($subtitleFile));
+        Storage::disk('subtitles')->put($filename, $subtitleFile);
 
         // Announce To Shoutbox
         if (!$subtitle->anon) {
@@ -99,7 +104,7 @@ class SubtitleController extends Controller
                     href_profile($user),
                     $user->username,
                     $subtitle->language->name,
-                    href_torrent($subtitle->torrent),
+                    href_torrent($torrent),
                     $subtitle->torrent->name
                 )
             );
@@ -123,7 +128,7 @@ class SubtitleController extends Controller
                 sprintf(
                     'An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]',
                     $subtitle->language->name,
-                    href_torrent($subtitle->torrent),
+                    href_torrent($torrent),
                     $subtitle->torrent->name
                 )
             );

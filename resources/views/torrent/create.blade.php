@@ -567,7 +567,6 @@
                             {{ __('common.submit') }}
                         </button>
                     </p>
-                    <br />
                 </form>
             </div>
         </section>
@@ -588,11 +587,9 @@
                         {{ route('announce', ['passkey' => $user->passkey]) }}
                     </a>
                 </p>
-                <br />
                 <p>
                     {{ __('torrent.announce-url-desc', ['source' => config('torrent.source')]) }}
                 </p>
-                <br />
                 <p class="text-success">
                     {!! __('torrent.announce-url-desc-url', ['url' => config('other.upload-guide_url')]) !!}
                 </p>

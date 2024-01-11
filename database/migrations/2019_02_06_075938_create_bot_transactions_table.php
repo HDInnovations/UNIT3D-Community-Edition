@@ -29,7 +29,7 @@ return new class () extends Migration {
             $table->integer('bot_id')->default(0)->index();
             $table->boolean('to_user')->default(0)->index();
             $table->boolean('to_bot')->default(0)->index();
-            $table->text('comment', 65535);
+            $table->text('comment');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
             $table->foreign('bot_id')->references('id')->on('bots')->onUpdate('RESTRICT')->onDelete('CASCADE');

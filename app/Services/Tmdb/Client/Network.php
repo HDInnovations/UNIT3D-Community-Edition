@@ -86,7 +86,7 @@ class Network
                 'homepage'       => $this->tmdb->ifExists('homepage', $this->data),
                 'logo'           => $logo,
                 'name'           => $this->data['name'],
-                'origin_country' => $this->data['origin_country'],
+                'origin_country' => $this->data['origin_country'] ?? null,
             ];
         }
 

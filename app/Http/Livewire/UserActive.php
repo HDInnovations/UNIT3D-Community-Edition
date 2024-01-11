@@ -60,7 +60,7 @@ class UserActive extends Component
         'showMorePrecision' => ['except' => false],
     ];
 
-    final public function mount($userId): void
+    final public function mount(int $userId): void
     {
         $this->user = User::find($userId);
     }

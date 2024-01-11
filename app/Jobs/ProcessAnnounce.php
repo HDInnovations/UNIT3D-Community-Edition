@@ -48,41 +48,9 @@ class ProcessAnnounce implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function handle(): void
     {
-        // Check if peer is connectable
-
-        $connectable = false;
-
-        if (config('announce.connectable_check')) {
-            $ip = hex2bin($this->ip);
-            $ip = inet_ntop(pack('A'.\strlen($ip), $ip));
-
-            // IPv6 Check
-            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                $ip = '['.$ip.']';
-            }
-
-            $key = $ip.'-'.$this->port.'-'.hex2bin($this->agent);
-
-            if (cache()->has('peers:connectable-timer:'.$key)) {
-                $connectable = cache()->get('peers:connectable:'.$key) === true;
-            } else {
-                $connection = @fsockopen($ip, $this->port, $_, $_, 1);
-
-                if ($connectable = \is_resource($connection)) {
-                    fclose($connection);
-                }
-
-                cache()->put('peers:connectable:'.$key, $connectable, config('announce.connectable_check_interval'));
-                cache()->remember('peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
-            }
-        }
-
         /**
          * Peer batch upsert.
          *
@@ -102,8 +70,59 @@ class ProcessAnnounce implements ShouldQueue
                 'torrent_id'  => $this->torrentId,
                 'user_id'     => $this->userId,
                 'active'      => $this->active,
-                'connectable' => $connectable,
+                'connectable' => $this->getConnectableStatus(),
             ]),
         ]);
+    }
+
+    /**
+     * Check if peer is connectable.
+     *
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    private function getConnectableStatus(): bool
+    {
+        if (!config('announce.connectable_check')) {
+            return false;
+        }
+
+        // Unhex
+        $ip = hex2bin($this->ip);
+
+        if ($ip === false) {
+            return false;
+        }
+
+        // Pack
+        $ip = inet_ntop(pack('A'.\strlen($ip), $ip));
+
+        if ($ip === false) {
+            return false;
+        }
+
+        // IPv6 Check
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            $ip = '['.$ip.']';
+        }
+
+        $key = $ip.'-'.$this->port.'-'.hex2bin($this->agent);
+
+        // Check cache
+        if (cache()->has('peers:connectable-timer:'.$key)) {
+            return cache()->get('peers:connectable:'.$key) === true;
+        }
+
+        // Connect
+        $connection = @fsockopen($ip, $this->port, $_, $_, 1);
+
+        if ($connectable = \is_resource($connection)) {
+            fclose($connection);
+        }
+
+        cache()->put('peers:connectable:'.$key, $connectable, config('announce.connectable_check_interval'));
+        cache()->remember('peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
+
+        return $connectable;
     }
 }

@@ -18,6 +18,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Topic;
 
+/** @extends Factory<Topic> */
 class TopicFactory extends Factory
 {
     /**
@@ -32,7 +33,7 @@ class TopicFactory extends Factory
     {
         return [
             'name'                     => $this->faker->name(),
-            'state'                    => $this->faker->state(),
+            'state'                    => $this->faker->word(),
             'pinned'                   => $this->faker->boolean(),
             'approved'                 => $this->faker->boolean(),
             'denied'                   => $this->faker->boolean(),

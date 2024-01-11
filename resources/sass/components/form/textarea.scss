@@ -65,20 +65,12 @@
 
         & ~ .form__label--floating {
             color: var(--label-fg-error);
-
-            > strong {
-                color: inherit; /* Can be removed once site-wide <strong> styling is removed */
-            }
         }
 
         & ~ .form__hint {
             color: var(--label-fg-error);
             font-size: 12px;
             margin-left: 16px;
-
-            > strong {
-                color: inherit; /* Can be removed once site-wide <strong> styling is removed */
-            }
         }
     }
 }

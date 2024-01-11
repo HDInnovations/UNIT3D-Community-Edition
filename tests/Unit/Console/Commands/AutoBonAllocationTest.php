@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoBonAllocation
+ * @see App\Console\Commands\AutoBonAllocation
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:bon_allocation')

@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Region;
 
+/** @extends Factory<Region> */
 class RegionFactory extends Factory
 {
     /**

@@ -144,7 +144,7 @@
     <div class="meta__chips">
         <section class="meta__chip-container">
             <h2 class="meta__heading">Cast</h2>
-            @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupations::ACTOR->value)?->sortBy('order') ?? [] as $credit)
+            @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)?->sortBy('order') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}"
@@ -169,7 +169,7 @@
         </section>
         <section class="meta__chip-container" title="Crew">
             <h2 class="meta__heading">Crew</h2>
-            @foreach ($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupations::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
+            @foreach ($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupation::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}"
@@ -202,7 +202,7 @@
                     {{ __('torrent.votes') }}
                 </h3>
             </article>
-            @isset($trailer)
+            @if ($meta?->trailer)
                 <article class="meta__trailer show-trailer">
                     <a class="meta-chip" href="#">
                         <i
@@ -212,7 +212,7 @@
                         <h3 class="meta-chip__value">View</h3>
                     </a>
                 </article>
-            @endisset
+            @endif
 
             <article class="meta__runtime">
                 <a class="meta-chip" href="#">
@@ -288,3 +288,22 @@
         </section>
     </div>
 </section>
+
+@section('javascripts')
+    @if ($meta?->trailer)
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
+            document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
+                e.preventDefault();
+                Swal.fire({
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: 'rgb(35,35,35)',
+                    width: 970,
+                    html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                    title: '<i style="color: #a5a5a5;">{{ $meta->title }} Trailer</i>',
+                    text: '',
+                });
+            });
+        </script>
+    @endif
+@endsection

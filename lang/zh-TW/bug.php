@@ -20,7 +20,7 @@ return [
     'enter-username'         => '請輸入個人用戶名',
     'high'                   => '高',
     'low'                    => '低',
-    'priority'               => '級別',
-    'priority-description'   => '只有在影響站點穩定的情況下才選擇很高級別',
-    'very-high'              => '很高',
+    'priority'               => '優先度',
+    'priority-description'   => '只有在影響站點穩定的情況下才選擇非常高級別',
+    'very-high'              => '非常高',
 ];

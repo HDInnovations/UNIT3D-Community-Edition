@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Group;
 
+/** @extends Factory<Group> */
 class GroupFactory extends Factory
 {
     /**

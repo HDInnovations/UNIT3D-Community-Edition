@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BlacklistClient;
 
+/** @extends Factory<BlacklistClient> */
 class BlacklistClientFactory extends Factory
 {
     /**
@@ -29,8 +30,9 @@ class BlacklistClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'   => $this->faker->unique()->name(),
-            'reason' => $this->faker->text(),
+            'name'           => $this->faker->unique()->name(),
+            'reason'         => $this->faker->text(),
+            'peer_id_prefix' => $this->faker->unique()->text(5),
         ];
     }
 }

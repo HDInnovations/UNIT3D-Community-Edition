@@ -33,31 +33,34 @@ class UpdateTorrentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>|string>
      */
     public function rules(Request $request): array
     {
         $category = Category::findOrFail($request->integer('category_id'));
 
+        /** @var string $torrentId */
+        $torrentId = $request->route('id');
+
         return [
             'name' => [
                 'required',
-                Rule::unique('torrents')->whereNot('id', $request->route('id')),
+                Rule::unique('torrents')->whereNot('id', $torrentId),
                 'max:255',
             ],
             'description' => [
                 'required',
-                'max:4294967296'
+                'max:2097152'
             ],
             'mediainfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'bdinfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'category_id' => [
                 'required',

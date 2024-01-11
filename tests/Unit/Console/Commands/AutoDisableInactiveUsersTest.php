@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoDisableInactiveUsers
+ * @see App\Console\Commands\AutoDisableInactiveUsers
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:disable_inactive_users')

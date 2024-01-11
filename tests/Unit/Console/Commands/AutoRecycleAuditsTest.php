@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoRecycleAudits
+ * @see App\Console\Commands\AutoRecycleAudits
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:recycle_activity_log')

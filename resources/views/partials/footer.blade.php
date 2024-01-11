@@ -6,7 +6,7 @@
             </h2>
             <p>{{ config('other.meta_description') }}</p>
             <i
-                class="{{ config('other.font-awesome') }} fa-tv-retro footer-icon"
+                class="{{ config('other.font-awesome') }} fa-tv-retro footer__icon"
                 style="font-size: 90px"
             ></i>
         </section>

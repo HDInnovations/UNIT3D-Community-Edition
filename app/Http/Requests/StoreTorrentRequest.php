@@ -37,7 +37,7 @@ class StoreTorrentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<Closure|\Illuminate\Validation\ConditionalRules|string>|string>
      */
     public function rules(Request $request): array
     {
@@ -102,17 +102,17 @@ class StoreTorrentRequest extends FormRequest
             ],
             'description' => [
                 'required',
-                'max:4294967296'
+                'max:2097152'
             ],
             'mediainfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'bdinfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'category_id' => [
                 'required',

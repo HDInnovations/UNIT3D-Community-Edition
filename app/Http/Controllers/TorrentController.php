@@ -87,7 +87,6 @@ class TorrentController extends Controller
             ->findOrFail($id);
 
         $meta = null;
-        $trailer = null;
         $platforms = null;
 
         if ($torrent->category->tv_meta && $torrent->tmdb) {
@@ -98,7 +97,6 @@ class TorrentController extends Controller
                 'networks',
                 'recommendedTv:id,name,poster,first_air_date'
             ])->find($torrent->tmdb);
-            $trailer = ( new \App\Services\Tmdb\Client\TV($torrent->tmdb))->get_trailer();
         }
 
         if ($torrent->category->movie_meta && $torrent->tmdb) {
@@ -110,7 +108,6 @@ class TorrentController extends Controller
                 'recommendedMovies:id,title,poster,release_date'
             ])
                 ->find($torrent->tmdb);
-            $trailer = ( new \App\Services\Tmdb\Client\Movie($torrent->tmdb))->get_trailer();
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {
@@ -124,7 +121,6 @@ class TorrentController extends Controller
                 'platforms', ])
                 ->find($torrent->igdb);
             $link = collect($meta->videos)->take(1)->pluck('video_id');
-            $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
             $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
@@ -133,7 +129,6 @@ class TorrentController extends Controller
             'user'               => $user,
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'meta'               => $meta,
-            'trailer'            => $trailer,
             'platforms'          => $platforms,
             'total_tips'         => BonTransactions::where('torrent_id', '=', $id)->sum('cost'),
             'user_tips'          => BonTransactions::where('torrent_id', '=', $id)->where('sender_id', '=', $user->id)->sum('cost'),
@@ -197,6 +192,9 @@ class TorrentController extends Controller
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
@@ -205,6 +203,9 @@ class TorrentController extends Controller
         // Banner Image for No-Meta Torrents
         if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
@@ -215,7 +216,7 @@ class TorrentController extends Controller
 
         $keywords = [];
 
-        foreach (TorrentTools::parseKeywords($request->input('keywords')) as $keyword) {
+        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
             $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
@@ -248,7 +249,7 @@ class TorrentController extends Controller
      *
      * @throws Exception
      */
-    public function destroy(Request $request, int $id)
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'message' => [
@@ -355,6 +356,10 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
+        abort_if(\is_array($request->file('torrent')), 400);
+
+        abort_if(\is_array($request->file('nfo')), 400);
+
         $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
 
         $meta = Bencode::get_meta($decodedTorrent);
@@ -363,7 +368,7 @@ class TorrentController extends Controller
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->input('mediainfo')),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->string('mediainfo')),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],
@@ -421,6 +426,9 @@ class TorrentController extends Controller
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover')) {
             $image_cover = $request->file('torrent-cover');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
@@ -429,6 +437,9 @@ class TorrentController extends Controller
         // Banner Image for No-Meta Torrents
         if ($request->hasFile('torrent-banner')) {
             $image_cover = $request->file('torrent-banner');
+
+            abort_if(\is_array($image_cover), 400);
+
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = public_path('/files/img/'.$filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);

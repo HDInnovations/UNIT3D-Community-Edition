@@ -17,6 +17,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserActivation;
 
+/** @extends Factory<UserActivation> */
 class UserActivationFactory extends Factory
 {
     /**

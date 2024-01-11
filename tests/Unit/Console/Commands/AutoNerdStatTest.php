@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoNerdStat
+ * @see App\Console\Commands\AutoNerdStat
  */
 
 use Database\Seeders\BotsTableSeeder;

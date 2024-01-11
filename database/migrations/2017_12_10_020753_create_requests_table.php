@@ -28,7 +28,7 @@ return new class () extends Migration {
             $table->string('tvdb')->nullable()->index('tvdb');
             $table->string('tmdb')->nullable()->index('tmdb');
             $table->string('mal')->nullable()->index('mal');
-            $table->text('description', 65535);
+            $table->text('description');
             $table->integer('user_id')->index('requests_user_id_foreign');
             $table->float('bounty', 22);
             $table->integer('votes')->default(0);

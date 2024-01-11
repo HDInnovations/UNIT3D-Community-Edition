@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Audit;
 use JsonException;
 
+/** @extends Factory<Audit> */
 class AuditFactory extends Factory
 {
     /**

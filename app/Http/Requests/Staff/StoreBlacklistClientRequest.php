@@ -38,6 +38,11 @@ class StoreBlacklistClientRequest extends FormRequest
                 'string',
                 'unique:blacklist_clients',
             ],
+            'peer_id_prefix' => [
+                'required',
+                'string',
+                'unique:blacklist_clients',
+            ],
             'reason' => [
                 'sometimes',
                 'string',

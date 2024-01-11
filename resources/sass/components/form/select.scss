@@ -14,7 +14,7 @@
  */
 
 .form__select {
-    background-color: inherit !important; /* !important can be removed once site-wide `select` styling is removed */
+    background-color: inherit;
     background: var(--select-icon);
     background-size: 16px;
     background-position: calc(100% - 4px) center;
@@ -70,20 +70,12 @@
 
         & + .form__label--floating {
             color: var(--label-fg-error);
-
-            > strong {
-                color: inherit; /* Can be removed once site-wide <strong> styling is removed */
-            }
         }
 
         & ~ .form__hint {
             color: var(--label-fg-error);
             font-size: 12px;
             margin-left: 16px;
-
-            > strong {
-                color: inherit; /* Can be removed once site-wide <strong> styling is removed */
-            }
         }
     }
 }

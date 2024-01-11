@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoTorrentBalance
+ * @see App\Console\Commands\AutoTorrentBalance
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:torrent_balance')

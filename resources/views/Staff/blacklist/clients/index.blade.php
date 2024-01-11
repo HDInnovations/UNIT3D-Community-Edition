@@ -14,7 +14,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">Blacklisted Clients</h2>
             <div class="panel__actions">
-                <div class="panel_action">
+                <div class="panel__action">
                     <a
                         href="{{ route('staff.blacklisted_clients.create') }}"
                         class="form__button form__button--text"
@@ -28,7 +28,7 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>{{ __('common.name') }}</th>
+                        <th>Peer ID prefix</th>
                         <th>{{ __('common.reason') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>

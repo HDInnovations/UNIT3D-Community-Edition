@@ -37,7 +37,7 @@ class SendActivationMail implements ShouldQueue
     /**
      * SendActivationMail Constructor.
      */
-    public function __construct(public User $user, public $code)
+    public function __construct(public User $user, public string $code)
     {
     }
 

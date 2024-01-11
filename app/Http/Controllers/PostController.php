@@ -220,6 +220,7 @@ class PostController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
+        /** @var Topic $topic */
         $topic = $post->topic()->whereRelation('forumPermissions', [
             ['reply_topic', '=', 1],
             ['group_id', '=', $user->group_id],

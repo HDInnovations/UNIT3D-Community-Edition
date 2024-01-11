@@ -17,6 +17,7 @@ use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentFile;
 
+/** @extends Factory<TorrentFile> */
 class TorrentFileFactory extends Factory
 {
     /**

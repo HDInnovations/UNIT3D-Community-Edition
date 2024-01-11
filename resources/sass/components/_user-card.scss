@@ -18,6 +18,9 @@
 .user-card__username {
     font-size: 30px;
     color: #fff;
+    margin: 24px 0 12px 0;
+    padding: 0;
+    font-weight: normal;
 }
 
 .user-card__icon {
@@ -39,8 +42,12 @@
 
 .user-card__title {
     color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
 .user-card__group {
     color: #fff;
+    margin: 0;
+    padding: 0;
 }

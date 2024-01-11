@@ -27,13 +27,15 @@
         <h2 class="panel__heading">{{ __('user.statistics') }}</h2>
         <dl class="key-value">
             <dt>{{ __('user.total-download') }}</dt>
-            <dd>{{ App\Helpers\StringHelper::formatBytes($history->download, 2) }}</dd>
+            <dd>{{ App\Helpers\StringHelper::formatBytes($history->download ?? 0, 2) }}</dd>
             <dt>{{ __('user.total-download') }} ({{ __('user.credited-download') }})</dt>
-            <dd>{{ App\Helpers\StringHelper::formatBytes($history->credited_download, 2) }}</dd>
+            <dd>
+                {{ App\Helpers\StringHelper::formatBytes($history->credited_download ?? 0, 2) }}
+            </dd>
             <dt>{{ __('user.total-upload') }}</dt>
-            <dd>{{ App\Helpers\StringHelper::formatBytes($history->upload, 2) }}</dd>
+            <dd>{{ App\Helpers\StringHelper::formatBytes($history->upload ?? 0, 2) }}</dd>
             <dt>{{ __('user.total-upload') }} ({{ __('user.credited-upload') }})</dt>
-            <dd>{{ App\Helpers\StringHelper::formatBytes($history->credited_upload, 2) }}</dd>
+            <dd>{{ App\Helpers\StringHelper::formatBytes($history->credited_upload ?? 0, 2) }}</dd>
         </dl>
     </section>
 @endsection

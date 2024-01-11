@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\FetchReleaseYears
+ * @see App\Console\Commands\FetchReleaseYears
  */
 it('runs successfully', function (): void {
     $this->artisan('fetch:release_years')

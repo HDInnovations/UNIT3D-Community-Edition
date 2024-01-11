@@ -24,12 +24,12 @@
             <div class="col-md-12">
                 <div class="card is-torrent" style="height: 265px">
                     <div class="card_head">
-                        <span class="badge-user text-bold" style="float: right">
+                        <span class="text-bold" style="float: right">
                             {{ $show->seasons_count }} Seasons
                         </span>
                         @if ($show->networks)
                             @foreach ($show->networks as $network)
-                                <span class="badge-user text-bold" style="float: right">
+                                <span class="text-bold" style="float: right">
                                     {{ $network->name }}
                                 </span>
                             @endforeach

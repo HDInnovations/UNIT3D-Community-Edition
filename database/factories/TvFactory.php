@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Tv;
 
+/** @extends Factory<Tv> */
 class TvFactory extends Factory
 {
     /**

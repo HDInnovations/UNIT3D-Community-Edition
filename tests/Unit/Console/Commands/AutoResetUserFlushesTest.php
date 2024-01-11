@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoResetUserFlushes
+ * @see App\Console\Commands\AutoResetUserFlushes
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:reset_user_flushes')

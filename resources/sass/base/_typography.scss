@@ -1,5 +1,12 @@
 html {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+}
+
+.fa {
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .fa:before,

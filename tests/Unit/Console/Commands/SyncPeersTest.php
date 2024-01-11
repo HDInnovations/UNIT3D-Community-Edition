@@ -12,7 +12,7 @@
  */
 
 /**
- * @see \App\Console\Commands\SyncPeers
+ * @see App\Console\Commands\SyncPeers
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:sync_peers')

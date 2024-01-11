@@ -13,7 +13,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Enums\Occupations;
+use App\Enums\Occupation;
 use App\Models\Category;
 use App\Models\Person;
 use App\Models\Torrent;
@@ -33,16 +33,16 @@ class PersonCredit extends Component
     final public function mount(): void
     {
         $this->occupationId ??= match (true) {
-            0 < $this->createdCount            => Occupations::CREATOR->value,
-            0 < $this->directedCount           => Occupations::DIRECTOR->value,
-            0 < $this->writtenCount            => Occupations::WRITER->value,
-            0 < $this->producedCount           => Occupations::PRODUCER->value,
-            0 < $this->composedCount           => Occupations::COMPOSER->value,
-            0 < $this->cinematographedCount    => Occupations::CINEMATOGRAPHER->value,
-            0 < $this->editedCount             => Occupations::EDITOR->value,
-            0 < $this->productionDesignedCount => Occupations::PRODUCTION_DESIGNER->value,
-            0 < $this->artDirectedCount        => Occupations::ART_DIRECTOR->value,
-            0 < $this->actedCount              => Occupations::ACTOR->value,
+            0 < $this->createdCount            => Occupation::CREATOR->value,
+            0 < $this->directedCount           => Occupation::DIRECTOR->value,
+            0 < $this->writtenCount            => Occupation::WRITER->value,
+            0 < $this->producedCount           => Occupation::PRODUCER->value,
+            0 < $this->composedCount           => Occupation::COMPOSER->value,
+            0 < $this->cinematographedCount    => Occupation::CINEMATOGRAPHER->value,
+            0 < $this->editedCount             => Occupation::EDITOR->value,
+            0 < $this->productionDesignedCount => Occupation::PRODUCTION_DESIGNER->value,
+            0 < $this->artDirectedCount        => Occupation::ART_DIRECTOR->value,
+            0 < $this->actedCount              => Occupation::ACTOR->value,
             default                            => null,
         };
     }
@@ -57,7 +57,7 @@ class PersonCredit extends Component
      */
     public function updatingOccupation(&$value): void
     {
-        $value = Occupations::from($value);
+        $value = Occupation::from($value);
     }
 
     public function getDirectedCountProperty(): int
@@ -238,6 +238,7 @@ class PersonCredit extends Component
                                         ),
                                     'Specials' => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
+                                        ->sortKeys(SORT_NATURAL)
                                         ->map(
                                             fn ($episode) => $episode
                                                 ->sortBy('type.position')

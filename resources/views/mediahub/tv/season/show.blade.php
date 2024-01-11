@@ -39,7 +39,7 @@
                             style="margin-top: 0; margin-bottom: 20px; height: auto"
                         >
                             <div class="card_head">
-                                <span class="badge-user text-bold" style="float: right">
+                                <span class="text-bold" style="float: right">
                                     Episode {{ $episode->episode_number }}
                                 </span>
                             </div>

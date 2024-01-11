@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Comment;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -18,42 +17,42 @@ return new class () extends Migration {
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
         });
 
-        $comments = Comment::all();
+        $comments = DB::table('comments')->get();
 
         foreach ($comments as $comment) {
             if ($comment->torrent_id !== null) {
                 $comment->commentable_id = $comment->torrent_id;
-                $comment->commentable_type = \App\Models\Torrent::class;
+                $comment->commentable_type = App\Models\Torrent::class;
                 $comment->save();
             }
 
             if ($comment->article_id !== null) {
                 $comment->commentable_id = $comment->article_id;
-                $comment->commentable_type = \App\Models\Article::class;
+                $comment->commentable_type = App\Models\Article::class;
                 $comment->save();
             }
 
             if ($comment->requests_id !== null) {
                 $comment->commentable_id = $comment->requests_id;
-                $comment->commentable_type = \App\Models\TorrentRequest::class;
+                $comment->commentable_type = App\Models\TorrentRequest::class;
                 $comment->save();
             }
 
             if ($comment->collection_id !== null) {
                 $comment->commentable_id = $comment->collection_id;
-                $comment->commentable_type = \App\Models\Collection::class;
+                $comment->commentable_type = App\Models\Collection::class;
                 $comment->save();
             }
 
             if ($comment->playlist_id !== null) {
                 $comment->commentable_id = $comment->playlist_id;
-                $comment->commentable_type = \App\Models\Playlist::class;
+                $comment->commentable_type = App\Models\Playlist::class;
                 $comment->save();
             }
 
             if ($comment->ticket_id !== null) {
                 $comment->commentable_id = $comment->ticket_id;
-                $comment->commentable_type = \App\Models\Ticket::class;
+                $comment->commentable_type = App\Models\Ticket::class;
                 $comment->save();
             }
         }

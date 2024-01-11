@@ -16,6 +16,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Genre;
 
+/** @extends Factory<Genre> */
 class GenreFactory extends Factory
 {
     /**

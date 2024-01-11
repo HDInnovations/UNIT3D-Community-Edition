@@ -65,6 +65,26 @@
                                     Cosmic Void Theme
 
                                     @break
+                                @case('10')
+                                    Nord Theme
+
+                                    @break
+                                @case('11')
+                                    Revel Theme
+
+                                    @break
+                                @case('12')
+                                    Material Design 3 Light Theme
+
+                                    @break
+                                @case('13')
+                                    Material Design 3 Dark Theme
+
+                                    @break
+                                @case('14')
+                                    Material Design 3 Amoled Theme
+
+                                    @break
                             @endswitch
                         </td>
                         <td>Used By {{ $siteTheme->value }} Users</td>

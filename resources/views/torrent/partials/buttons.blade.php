@@ -93,7 +93,7 @@
                     <div class="bbcode-rendered" style="text-align: left">
                         <pre
                             style="width: max-content"
-                        ><code style="white-space: pre;">{{ iconv('cp437', 'utf8', $torrent->nfo) }}</code></pre>
+                        ><code class="torrent__nfo" style="white-space: pre;">{{ iconv('cp437', 'utf8', $torrent->nfo) }}</code></pre>
                     </div>
                 </div>
             </dialog>
@@ -458,7 +458,7 @@
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
                         <span
-                            class="badge-user text-bold text-pink"
+                            class="text-bold text-pink"
                             style="background-image:url({{ url('/img/sparkels.gif') }};"
                         >
                             {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }}
