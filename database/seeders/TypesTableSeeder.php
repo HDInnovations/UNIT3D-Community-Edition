@@ -51,42 +51,6 @@ class TypesTableSeeder extends Seeder
                 'name'     => 'HDTV',
                 'position' => 6,
             ],
-            [
-                'id'       => 7,
-                'name'     => 'FLAC',
-                'position' => 7,
-            ],
-            [
-                'id'       => 8,
-                'name'     => 'ALAC',
-                'position' => 8,
-            ],
-            [
-                'id'       => 9,
-                'name'     => 'AC3',
-                'position' => 9,
-            ],
-            [
-                'id'       => 10,
-                'name'     => 'AAC',
-                'position' => 10,
-            ],
-            [
-                'id'       => 11,
-                'name'     => 'MP3',
-                'position' => 11,
-            ],
-
-            [
-                'id'       => 12,
-                'name'     => 'Mac',
-                'position' => 12,
-            ],
-            [
-                'id'       => 13,
-                'name'     => 'Windows',
-                'position' => 13,
-            ],
         ], ['id']);
     }
 }
