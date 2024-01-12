@@ -1,0 +1,38 @@
+.user-stat-card-container {
+  display: grid;
+  gap: 12px 24px;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  align-items: center;
+}
+
+.user-stat-card {
+  background: var(--user-stat-card-bg);
+  border: var(--user-stat-card-border);
+  border-radius: var(--user-stat-card-border-radius);
+  box-shadow: var(--user-stat-card-box-shadow);
+  padding: 16px;
+  display: grid;
+  gap: 4px 16px;
+  grid-template-areas: 'avatar username' 'avatar stat';
+  grid-template-columns: auto 1fr;
+}
+
+.user-stat-card__username {
+  grid-area: username;
+  padding: 0;
+  margin: 0;
+}
+
+.user-stat-card__stat {
+  grid-area: stat;
+  padding: 0;
+  margin: 0;
+}
+
+.user-stat-card__avatar {
+  grid-area: avatar;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
