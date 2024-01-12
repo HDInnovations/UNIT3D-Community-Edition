@@ -51,7 +51,10 @@ class BlacklistClientController extends Controller
     {
         Unit3dAnnounce::removeBlacklistedAgent($blacklistClient);
 
-        $blacklistClient->update($request->validated());
+        $blacklistClient->update([
+            // Overriding is necessary to cast empty strings (converted to null by middleware) back into strings
+            'peer_id_prefix' => $request->string('peer_id_prefix'),
+        ] + $request->validated());
 
         Unit3dAnnounce::addBlacklistedAgent($blacklistClient);
 
@@ -74,7 +77,10 @@ class BlacklistClientController extends Controller
      */
     public function store(StoreBlacklistClientRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $client = BlacklistClient::create($request->validated());
+        $client = BlacklistClient::create([
+            // Overriding is necessary to cast empty strings (converted to null by middleware) back into strings
+            'peer_id_prefix' => $request->string('peer_id_prefix'),
+        ] + $request->validated());
 
         Unit3dAnnounce::addBlacklistedAgent($client);
 

@@ -48,7 +48,7 @@
                         id="peer_id_prefix"
                         class="form__text"
                         name="peer_id_prefix"
-                        required
+                        placeholder=" "
                         type="text"
                         value="{{ old('peer_id_prefix') }}"
                     />
