@@ -169,7 +169,7 @@
                     <img
                         src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
                         alt="{{ $user->username }}"
-                        class="img-circle profile__avatar"
+                        class="profile__avatar"
                     />
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_title') && $user->title)
                         <span class="profile__title">
