@@ -447,8 +447,10 @@
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-.torrent-search--grouped__title-name time {
+.torrent-search--grouped__title-year {
   color: inherit;
+  margin-left: -0.5ch;
+  margin-right: -0.5ch;
 }
 
 .torrent-search--grouped__plot {
