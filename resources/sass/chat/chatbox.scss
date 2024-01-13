@@ -442,9 +442,14 @@
                         }
 
                         h4 {
+                            .text-bold {
+                                font-weight: bold;
+                            }
+
                             .text-muted {
                                 color: #262929;
                                 font-size: 0.7em;
+                                font-weight: normal;
                             }
                         }
 
