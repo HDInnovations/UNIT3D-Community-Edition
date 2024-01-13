@@ -207,6 +207,12 @@
     margin-bottom: 0;
 }
 
+.post__author-join dd,
+.post__author-topics dd,
+.post__author-posts dd {
+    margin: 0;
+}
+
 .post__author-join dt,
 .post__author-topics dt,
 .post__author-posts dt {
