@@ -21,7 +21,7 @@ class TvSearch extends Component
 {
     use WithPagination;
 
-    public $search;
+    public string $search;
 
     final public function updatedPage(): void
     {

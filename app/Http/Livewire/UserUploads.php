@@ -31,13 +31,16 @@ class UserUploads extends Component
 
     public string $personalRelease = 'any';
 
+    /**
+     * @var string[]
+     */
     public array $status = [];
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    public bool $showMorePrecision = false;
 
     protected $queryString = [
         'perPage'         => ['except' => ''],

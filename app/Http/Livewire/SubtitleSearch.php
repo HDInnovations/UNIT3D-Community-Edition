@@ -27,6 +27,9 @@ class SubtitleSearch extends Component
 
     public string $search = '';
 
+    /**
+     * @var string[]
+     */
     public array $categories = [];
 
     public string $language = '';

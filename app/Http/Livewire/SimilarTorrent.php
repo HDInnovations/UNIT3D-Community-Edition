@@ -21,22 +21,28 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
+use App\Traits\CastLivewireProperties;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
+    use CastLivewireProperties;
+
     public Category $category;
 
     public Movie|Tv|Game $work;
 
-    public $tmdbId;
+    public int $tmdbId;
 
-    public $igdbId;
+    public int $igdbId;
 
-    public $reason;
+    public string $reason;
 
-    public $checked = [];
+    /**
+     * @var string[]
+     */
+    public array $checked = [];
 
     public bool $selectPage = false;
 
@@ -47,6 +53,11 @@ class SimilarTorrent extends Component
     public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
+
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
+    }
 
     final public function updatedSelectPage($value): void
     {

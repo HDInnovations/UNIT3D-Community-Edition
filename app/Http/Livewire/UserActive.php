@@ -45,7 +45,7 @@ class UserActive extends Component
 
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    public bool $showMorePrecision = false;
 
     protected $queryString = [
         'perPage'           => ['except' => 50],

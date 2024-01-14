@@ -52,32 +52,32 @@ class TorrentSearch extends Component
     public int $maxSizeMultiplier = 1;
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $categories = [];
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $types = [];
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $resolutions = [];
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $genres = [];
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $regions = [];
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $distributors = [];
 
@@ -103,7 +103,7 @@ class TorrentSearch extends Component
     public array $primaryLanguages = [];
 
     /**
-     * @var int[]
+     * @var string[]
      */
     public array $free = [];
 
