@@ -17,6 +17,7 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
 use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,6 +25,7 @@ use Livewire\WithPagination;
 class TorrentRequestSearch extends Component
 {
     use CastLivewireProperties;
+    use LivewireSort;
     use WithPagination;
 
     public string $name = '';
@@ -206,17 +208,6 @@ class TorrentRequestSearch extends Component
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

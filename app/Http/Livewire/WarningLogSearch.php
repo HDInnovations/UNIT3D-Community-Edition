@@ -16,11 +16,13 @@ namespace App\Http\Livewire;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class WarningLogSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public string $sender = '';
@@ -78,17 +80,6 @@ class WarningLogSearch extends Component
             ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

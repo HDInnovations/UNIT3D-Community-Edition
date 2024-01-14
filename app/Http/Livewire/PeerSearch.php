@@ -15,12 +15,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Peer;
 use App\Models\Torrent;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class PeerSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public bool $duplicateIpsOnly = false;
@@ -215,17 +217,6 @@ class PeerSearch extends Component
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'desc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -4,11 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Movie;
 use App\Models\Type;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class MissingMediaSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public array $categories = [];
@@ -47,16 +49,6 @@ class MissingMediaSearch extends Component
     final public function getTypesProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return Type::select('id', 'position', 'name')->orderBy('position')->get();
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

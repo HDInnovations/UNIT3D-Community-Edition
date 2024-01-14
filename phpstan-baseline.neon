@@ -1061,26 +1061,6 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:updatingGroupBy\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/InviteLogSearch.php
@@ -1106,19 +1086,9 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PasswordStrength\\:\\:updatedPassword\\(\\) has parameter \\$password with no type specified\\.$#"
@@ -1129,11 +1099,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\PasswordStrength\\:\\:\\$strengthLevels type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/PasswordStrength.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
@@ -1176,11 +1141,6 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:updatedSelectPage\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
@@ -1191,24 +1151,9 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
 			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
 			count: 2
 			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
@@ -1251,24 +1196,9 @@ parameters:
 			path: app/Http/Livewire/TwoFactorAuthForm.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$rules has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserNotes.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
@@ -1276,34 +1206,14 @@ parameters:
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:\\$rules has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserWarnings.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"

@@ -16,6 +16,7 @@ namespace App\Http\Livewire;
 use App\Models\History;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,6 +26,7 @@ use Livewire\WithPagination;
  */
 class HistorySearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public int $perPage = 25;
@@ -158,17 +160,6 @@ class HistorySearch extends Component
             ->when($this->seeder === 'exclude', fn ($query) => $query->where('seeder', '=', false))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

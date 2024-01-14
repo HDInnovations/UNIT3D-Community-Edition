@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\BonTransactions;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,7 @@ use Livewire\WithPagination;
  */
 class GiftLogSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public string $sender = '';
@@ -74,16 +76,5 @@ class GiftLogSearch extends Component
         return view('livewire.gift-log-search', [
             'gifts' => $this->gifts,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

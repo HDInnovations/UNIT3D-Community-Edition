@@ -19,6 +19,7 @@ use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
 use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,6 +28,7 @@ use Closure;
 class TorrentSearch extends Component
 {
     use CastLivewireProperties;
+    use LivewireSort;
     use WithPagination;
 
     public string $name = '';
@@ -669,17 +671,6 @@ class TorrentSearch extends Component
         });
 
         return $groups;
-    }
-
-    final public function sortBy(string $field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

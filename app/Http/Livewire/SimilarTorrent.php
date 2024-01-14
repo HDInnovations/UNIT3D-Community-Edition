@@ -22,12 +22,14 @@ use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
     use CastLivewireProperties;
+    use LivewireSort;
 
     public Category $category;
 
@@ -138,17 +140,6 @@ class SimilarTorrent extends Component
             ->where('category_id', '=', $this->category->id)
             ->latest()
             ->get();
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function alertConfirm(): void

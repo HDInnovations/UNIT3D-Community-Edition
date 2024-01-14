@@ -16,11 +16,13 @@ namespace App\Http\Livewire;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserUploads extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -97,16 +99,5 @@ class UserUploads extends Component
         return view('livewire.user-uploads', [
             'uploads' => $this->uploads,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

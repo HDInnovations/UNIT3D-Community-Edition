@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Ticket;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,7 @@ use Livewire\WithPagination;
  */
 class TicketSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -81,17 +83,6 @@ class TicketSearch extends Component
             ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
