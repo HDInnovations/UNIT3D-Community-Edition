@@ -18,6 +18,7 @@ use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
+use App\Traits\CastLivewireProperties;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,6 +26,7 @@ use Closure;
 
 class TorrentSearch extends Component
 {
+    use CastLivewireProperties;
     use WithPagination;
 
     public string $name = '';
@@ -37,9 +39,9 @@ class TorrentSearch extends Component
 
     public string $keywords = '';
 
-    public string $startYear = '';
+    public ?int $startYear = null;
 
-    public string $endYear = '';
+    public ?int $endYear = null;
 
     public ?int $minSize = null;
 
@@ -49,39 +51,60 @@ class TorrentSearch extends Component
 
     public int $maxSizeMultiplier = 1;
 
+    /**
+     * @var int[]
+     */
     public array $categories = [];
 
+    /**
+     * @var int[]
+     */
     public array $types = [];
 
+    /**
+     * @var int[]
+     */
     public array $resolutions = [];
 
+    /**
+     * @var int[]
+     */
     public array $genres = [];
 
+    /**
+     * @var int[]
+     */
     public array $regions = [];
 
+    /**
+     * @var int[]
+     */
     public array $distributors = [];
 
-    public string $tmdbId = '';
+    public ?int $tmdbId = null;
 
     public string $imdbId = '';
 
-    public string $tvdbId = '';
+    public ?int $tvdbId = null;
 
-    public string $malId = '';
+    public ?int $malId = null;
 
-    public string $playlistId = '';
+    public ?int $playlistId = null;
 
-    public string $collectionId = '';
+    public ?int $collectionId = null;
 
-    public string $networkId = '';
+    public ?int $networkId = null;
 
-    public string $companyId = '';
+    public ?int $companyId = null;
 
     /**
      * @var string[]
      */
     public array $primaryLanguages = [];
 
+    /**
+     * @var int[]
+     */
     public array $free = [];
 
     public bool $doubleup = false;
@@ -130,6 +153,9 @@ class TorrentSearch extends Component
 
     public string $view = 'list';
 
+    /**
+     * @var array<string, array<string, mixed>>
+     */
     protected $queryString = [
         'name'             => ['except' => ''],
         'description'      => ['except' => ''],
@@ -181,6 +207,11 @@ class TorrentSearch extends Component
         'view'             => ['except' => 'list'],
     ];
 
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
+    }
+
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
@@ -196,11 +227,14 @@ class TorrentSearch extends Component
         $this->perPage = \in_array($this->view, ['card', 'poster']) ? 24 : 25;
     }
 
-    final public function getPersonalFreeleechProperty()
+    final public function getPersonalFreeleechProperty(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
+    /**
+     * @return Closure(Builder<Torrent>): Builder<Torrent>
+     */
     final public function filters(): Closure
     {
         $user = auth()->user();
@@ -217,24 +251,24 @@ class TorrentSearch extends Component
             ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
             ->when($this->uploader !== '', fn ($query) => $query->ofUploader($this->uploader))
             ->when($this->keywords !== '', fn ($query) => $query->ofKeyword(array_map('trim', explode(',', $this->keywords))))
-            ->when($this->startYear !== '', fn ($query) => $query->releasedAfterOrIn((int) $this->startYear))
-            ->when($this->endYear !== '', fn ($query) => $query->releasedBeforeOrIn((int) $this->endYear))
-            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto((int) $this->minSize * $this->minSizeMultiplier))
-            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo((int) $this->maxSize * $this->maxSizeMultiplier))
+            ->when($this->startYear !== null, fn ($query) => $query->releasedAfterOrIn($this->startYear))
+            ->when($this->endYear !== null, fn ($query) => $query->releasedBeforeOrIn($this->endYear))
+            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto($this->minSize * $this->minSizeMultiplier))
+            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo($this->maxSize * $this->maxSizeMultiplier))
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
             ->when($this->genres !== [], fn ($query) => $query->ofGenre($this->genres))
             ->when($this->regions !== [], fn ($query) => $query->ofRegion($this->regions))
             ->when($this->distributors !== [], fn ($query) => $query->ofDistributor($this->distributors))
-            ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
+            ->when($this->tmdbId !== null, fn ($query) => $query->ofTmdb($this->tmdbId))
             ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
-            ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
-            ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
-            ->when($this->playlistId !== '', fn ($query) => $query->ofPlaylist((int) $this->playlistId))
-            ->when($this->collectionId !== '', fn ($query) => $query->ofCollection((int) $this->collectionId))
-            ->when($this->companyId !== '', fn ($query) => $query->ofCompany((int) $this->companyId))
-            ->when($this->networkId !== '', fn ($query) => $query->ofNetwork((int) $this->networkId))
+            ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb($this->tvdbId))
+            ->when($this->malId !== null, fn ($query) => $query->ofMal($this->malId))
+            ->when($this->playlistId !== null, fn ($query) => $query->ofPlaylist($this->playlistId))
+            ->when($this->collectionId !== null, fn ($query) => $query->ofCollection($this->collectionId))
+            ->when($this->companyId !== null, fn ($query) => $query->ofCompany($this->companyId))
+            ->when($this->networkId !== null, fn ($query) => $query->ofNetwork($this->networkId))
             ->when($this->primaryLanguages !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguages))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->doubleup, fn ($query) => $query->doubleup())
@@ -258,6 +292,9 @@ class TorrentSearch extends Component
             ->when($this->incomplete, fn ($query) => $query->uncompletedBy($user));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
     final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
@@ -338,6 +375,9 @@ class TorrentSearch extends Component
         return $torrents;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
     final public function getGroupedTorrentsProperty()
     {
         $user = auth()->user();
@@ -579,6 +619,9 @@ class TorrentSearch extends Component
         return $medias;
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
     final public function getGroupedPostersProperty()
     {
         // Whitelist which columns are allowed to be ordered by
@@ -628,7 +671,7 @@ class TorrentSearch extends Component
         return $groups;
     }
 
-    final public function sortBy($field): void
+    final public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
