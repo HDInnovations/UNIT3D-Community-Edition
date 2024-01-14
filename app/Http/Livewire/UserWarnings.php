@@ -16,7 +16,6 @@ namespace App\Http\Livewire;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
-use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,8 +28,6 @@ use Livewire\WithPagination;
  */
 class UserWarnings extends Component
 {
-    use LivewireSort;
-    use LivewireSort;
     use WithPagination;
 
     public User $user;
@@ -45,9 +42,6 @@ class UserWarnings extends Component
 
     public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'warningTab' => ['except' => 'automated'],
     ];
@@ -60,9 +54,6 @@ class UserWarnings extends Component
         ],
     ];
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
-     */
     final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->user
@@ -258,6 +249,17 @@ class UserWarnings extends Component
         Warning::withTrashed()->findOrFail($id)->restore();
 
         $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Restored']);
+    }
+
+    final public function sortBy(string $field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

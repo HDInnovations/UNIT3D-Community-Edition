@@ -14,13 +14,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
-use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class NotificationSearch extends Component
 {
-    use LivewireSort;
     use WithPagination;
 
     public bool $bon_gifts = false;
@@ -72,9 +70,6 @@ class NotificationSearch extends Component
         $this->emit('paginationChanged');
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
-     */
     final public function getNotificationsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return auth()->user()->notifications()
@@ -141,6 +136,17 @@ class NotificationSearch extends Component
             ->orderBy('is_read')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

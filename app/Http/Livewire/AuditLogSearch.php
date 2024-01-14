@@ -38,9 +38,6 @@ class AuditLogSearch extends Component
 
     public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'username'  => ['except' => ''],
         'modelName' => ['except' => ''],
@@ -56,9 +53,6 @@ class AuditLogSearch extends Component
         $this->emit('paginationChanged');
     }
 
-    /**
-     * @return string[]
-     */
     final public function getModelNamesProperty()
     {
         $modelList = [];
@@ -77,9 +71,6 @@ class AuditLogSearch extends Component
         return $modelList;
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Audit>
-     */
     final public function getAuditsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')

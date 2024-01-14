@@ -29,20 +29,17 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
-use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use voku\helper\AntiXSS;
 
 class Comment extends Component
 {
-    use CastLivewireProperties;
-
     protected ChatRepository $chatRepository;
 
     public $comment;
 
-    public bool $anon = false;
+    public $anon = false;
 
     public ?User $user;
 
@@ -74,11 +71,6 @@ class Comment extends Component
     final public function mount(): void
     {
         $this->user = auth()->user();
-    }
-
-    final public function updating(string $field, mixed &$value): void
-    {
-        $this->castLivewireProperties($field, $value);
     }
 
     final public function taggedUsers(): array

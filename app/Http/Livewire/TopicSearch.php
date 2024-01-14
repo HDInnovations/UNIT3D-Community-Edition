@@ -22,17 +22,14 @@ class TopicSearch extends Component
 {
     use WithPagination;
 
-    public string $search = '';
-    public string $sortField = 'last_reply_at';
-    public string $sortDirection = 'desc';
-    public string $label = '';
-    public string $state = '';
-    public string $subscribed = '';
+    public String $search = '';
+    public String $sortField = 'last_reply_at';
+    public String $sortDirection = 'desc';
+    public String $label = '';
+    public String $state = '';
+    public String $subscribed = '';
     public String $forumId = '';
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'search'        => ['except' => ''],
         'sortField'     => ['except' => 'last_reply_at'],
@@ -53,10 +50,7 @@ class TopicSearch extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Support\Collection<int, Forum>
-     */
-    final public function getForumCategoriesProperty(): \Illuminate\Support\Collection
+    final public function getForumCategoriesProperty()
     {
         return Forum::query()
             ->with(['forums' => fn ($query) => $query
@@ -68,9 +62,6 @@ class TopicSearch extends Component
             ->get();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
-     */
     final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()

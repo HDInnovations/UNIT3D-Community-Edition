@@ -16,13 +16,11 @@ namespace App\Http\Livewire;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserUploads extends Component
 {
-    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -33,20 +31,14 @@ class UserUploads extends Component
 
     public string $personalRelease = 'any';
 
-    /**
-     * @var string[]
-     */
     public array $status = [];
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
 
-    public bool $showMorePrecision = false;
+    public $showMorePrecision = false;
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'perPage'         => ['except' => ''],
         'name'            => ['except' => ''],
@@ -71,9 +63,6 @@ class UserUploads extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
-     */
     final public function getUploadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Torrent::query()
@@ -99,5 +88,16 @@ class UserUploads extends Component
         return view('livewire.user-uploads', [
             'uploads' => $this->uploads,
         ]);
+    }
+
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 }

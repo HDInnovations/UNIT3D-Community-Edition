@@ -22,13 +22,10 @@ class TopicPostSearch extends Component
 {
     use WithPagination;
 
-    public string $search = '';
+    public String $search = '';
 
     public Topic $topic;
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'search' => ['except' => ''],
     ];
@@ -48,9 +45,6 @@ class TopicPostSearch extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
-     */
     final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()

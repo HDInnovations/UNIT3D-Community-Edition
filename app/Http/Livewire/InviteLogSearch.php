@@ -15,14 +15,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Invite;
 use App\Models\User;
-use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class InviteLogSearch extends Component
 {
-    use LivewireSort;
     use WithPagination;
 
     public string $sender = '';
@@ -45,9 +43,6 @@ class InviteLogSearch extends Component
 
     public int $perPage = 25;
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'sender'        => ['except' => ''],
         'email'         => ['except' => ''],
@@ -83,9 +78,6 @@ class InviteLogSearch extends Component
         };
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Invite>
-     */
     final public function getInvitesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
@@ -144,5 +136,16 @@ class InviteLogSearch extends Component
         return view('livewire.invite-log-search', [
             'invites' => $this->invites,
         ]);
+    }
+
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 }

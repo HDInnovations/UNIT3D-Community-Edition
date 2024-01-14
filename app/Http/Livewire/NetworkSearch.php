@@ -21,7 +21,7 @@ class NetworkSearch extends Component
 {
     use WithPagination;
 
-    public string $search = '';
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -33,9 +33,6 @@ class NetworkSearch extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Network>
-     */
     final public function getNetworksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Network::withCount('tv')

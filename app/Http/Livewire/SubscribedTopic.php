@@ -21,9 +21,6 @@ class SubscribedTopic extends Component
 {
     use WithPagination;
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
-     */
     final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
