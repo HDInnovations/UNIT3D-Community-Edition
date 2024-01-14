@@ -1,5 +1,5 @@
 @props([
-    'movie',
+    'tv',
     'categoryId',
     'tmdb',
 ])
