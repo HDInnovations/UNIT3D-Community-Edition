@@ -33,6 +33,9 @@ class NetworkSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Network>
+     */
     final public function getNetworksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Network::withCount('tv')

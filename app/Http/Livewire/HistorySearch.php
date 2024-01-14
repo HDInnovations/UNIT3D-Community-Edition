@@ -85,6 +85,9 @@ class HistorySearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
     final public function getHistoriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()

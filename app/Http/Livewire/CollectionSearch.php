@@ -33,6 +33,9 @@ class CollectionSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Collection>
+     */
     final public function getCollectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Collection::withCount('movie')

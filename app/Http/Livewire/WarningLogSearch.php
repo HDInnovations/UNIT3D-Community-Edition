@@ -61,6 +61,9 @@ class WarningLogSearch extends Component
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
+     */
     final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Warning::query()

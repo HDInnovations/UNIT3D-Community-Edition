@@ -78,6 +78,9 @@ class InviteLogSearch extends Component
         };
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Invite>
+     */
     final public function getInvitesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()

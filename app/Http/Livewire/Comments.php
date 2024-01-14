@@ -204,6 +204,9 @@ class Comments extends Component
         $this->gotoPage(1);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Comment>
+     */
     final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model

@@ -139,6 +139,9 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentRequest>
+     */
     final public function getTorrentRequestsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();

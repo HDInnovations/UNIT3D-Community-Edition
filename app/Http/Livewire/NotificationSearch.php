@@ -70,6 +70,9 @@ class NotificationSearch extends Component
         $this->emit('paginationChanged');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
+     */
     final public function getNotificationsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return auth()->user()->notifications()

@@ -50,7 +50,10 @@ class TopicSearch extends Component
         $this->resetPage();
     }
 
-    final public function getForumCategoriesProperty()
+    /**
+     * @return \Illuminate\Support\Collection<int, Forum>
+     */
+    final public function getForumCategoriesProperty(): \Illuminate\Support\Collection
     {
         return Forum::query()
             ->with(['forums' => fn ($query) => $query
@@ -62,6 +65,9 @@ class TopicSearch extends Component
             ->get();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     */
     final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()

@@ -48,6 +48,9 @@ class FailedLoginSearch extends Component
         $this->emit('paginationChanged');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
+     */
     final public function getFailedLoginsTop10IpProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return FailedLoginAttempt::query()
@@ -60,6 +63,9 @@ class FailedLoginSearch extends Component
             ->get();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<FailedLoginAttempt>
+     */
     final public function getFailedLoginsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return FailedLoginAttempt::query()

@@ -84,6 +84,9 @@ class PeerSearch extends Component
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
     final public function getPeersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()

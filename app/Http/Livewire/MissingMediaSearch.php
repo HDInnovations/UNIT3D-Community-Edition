@@ -27,6 +27,9 @@ class MissingMediaSearch extends Component
         'perPage'       => ['except' => ''],
     ];
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Movie>
+     */
     final public function getMediasProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
@@ -35,6 +38,9 @@ class MissingMediaSearch extends Component
             ->paginate($this->perPage);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     */
     final public function getTypesProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return Type::select('id', 'position', 'name')->orderBy('position')->get();

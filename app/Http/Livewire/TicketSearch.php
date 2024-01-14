@@ -62,6 +62,9 @@ class TicketSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Ticket>
+     */
     final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Ticket::query()

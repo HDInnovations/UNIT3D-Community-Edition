@@ -75,6 +75,9 @@ class UserActive extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
     final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()

@@ -33,6 +33,9 @@ class CompanySearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Company>
+     */
     final public function getCompaniesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Company::withCount('tv', 'movie')

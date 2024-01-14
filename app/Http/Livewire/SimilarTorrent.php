@@ -80,6 +80,9 @@ class SimilarTorrent extends Component
         return \in_array($torrentId, $this->checked);
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<int, Torrent>
+     */
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
         $user = auth()->user();
@@ -124,7 +127,10 @@ class SimilarTorrent extends Component
             ->get();
     }
 
-    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
+     */
+    final public function getTorrentRequestsProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
@@ -249,9 +255,9 @@ class SimilarTorrent extends Component
         ]);
     }
 
-    final public function getPersonalFreeleechProperty()
+    final public function getPersonalFreeleechProperty(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

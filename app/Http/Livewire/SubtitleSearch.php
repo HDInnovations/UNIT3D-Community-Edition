@@ -50,6 +50,9 @@ class SubtitleSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Subtitle>
+     */
     final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Subtitle::with(['user.group', 'torrent.category', 'language'])

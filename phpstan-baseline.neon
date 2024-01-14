@@ -911,11 +911,6 @@ parameters:
 			path: app/Http/Controllers/User/GeneralSettingController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:getAttachmentsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/AttachmentUpload.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/AttachmentUpload.php
@@ -931,16 +926,6 @@ parameters:
 			path: app/Http/Livewire/AuditLogSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:getAuditsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:getModelNamesProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
@@ -951,17 +936,7 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getBackupStatusesProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getBackupsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getDisksProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
@@ -1004,11 +979,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$rules has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:getCollectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
@@ -1071,11 +1041,6 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\Comments\\:\\:getCommentsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\Comments\\:\\:taggedUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/Comments.php
@@ -1106,21 +1071,6 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:getCompaniesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsTop10IpProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/FailedLoginSearch.php
@@ -1131,29 +1081,14 @@ parameters:
 			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/ForumCategoryTopicSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:getGiftsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1166,11 +1101,6 @@ parameters:
 			path: app/Http/Livewire/GiftLogSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:getHistoriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/HistorySearch.php
@@ -1179,11 +1109,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:getInvitesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1226,16 +1151,6 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:getMediasProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:getTypesProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
@@ -1251,24 +1166,9 @@ parameters:
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:getNetworksProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:getNotesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:getNotificationsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1284,11 +1184,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\PasswordStrength\\:\\:\\$strengthLevels type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/PasswordStrength.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:getPeersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1321,16 +1216,6 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:getMediasProperty\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:updatingOccupation\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/PersonCredit.php
@@ -1351,44 +1236,9 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:getPersonsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentsProperty\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:isChecked\\(\\) has parameter \\$torrentId with no type specified\\.$#"
@@ -1411,29 +1261,9 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:getForumsProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedTopic\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:getSubtitlesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:getTicketsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1451,34 +1281,14 @@ parameters:
 			path: app/Http/Livewire/Top10.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TopicPostSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:getForumCategoriesProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:getTorrentRequestsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1526,19 +1336,9 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:getShowsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TvSearch.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$two_factor_confirmed_at\\.$#"
 			count: 1
 			path: app/Http/Livewire/TwoFactorAuthForm.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:getActivesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1551,19 +1351,9 @@ parameters:
 			path: app/Http/Livewire/UserActive.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:getNotesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserNotes.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$rules has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserNotes.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:getResurrectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1574,11 +1364,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:getUsersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1596,11 +1381,6 @@ parameters:
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:getHistoryProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserTorrents.php
@@ -1609,11 +1389,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:getUploadsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1626,11 +1401,6 @@ parameters:
 			path: app/Http/Livewire/UserUploads.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:getWarningsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserWarnings.php
@@ -1639,11 +1409,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:\\$rules has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:getWarningsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
@@ -1659,11 +1424,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:getUsersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"

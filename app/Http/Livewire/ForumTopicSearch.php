@@ -57,6 +57,9 @@ class ForumTopicSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     */
     final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()

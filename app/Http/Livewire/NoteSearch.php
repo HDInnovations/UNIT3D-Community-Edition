@@ -30,6 +30,9 @@ class NoteSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()

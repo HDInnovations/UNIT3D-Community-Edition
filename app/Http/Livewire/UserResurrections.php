@@ -57,6 +57,9 @@ class UserResurrections extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Resurrection>
+     */
     final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Resurrection::query()

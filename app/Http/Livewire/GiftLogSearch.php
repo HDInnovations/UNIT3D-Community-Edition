@@ -49,6 +49,9 @@ class GiftLogSearch extends Component
         $this->emit('paginationChanged');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<BonTransactions>
+     */
     final public function getGiftsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return BonTransactions::with([

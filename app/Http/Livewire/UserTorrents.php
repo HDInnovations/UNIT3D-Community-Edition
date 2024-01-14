@@ -87,6 +87,9 @@ class UserTorrents extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
     final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()

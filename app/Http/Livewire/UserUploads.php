@@ -66,6 +66,9 @@ class UserUploads extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
     final public function getUploadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Torrent::query()

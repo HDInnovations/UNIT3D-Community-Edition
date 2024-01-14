@@ -60,6 +60,9 @@ class UserSearch extends Component
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     */
     final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
