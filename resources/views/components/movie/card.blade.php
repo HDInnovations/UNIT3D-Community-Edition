@@ -1,3 +1,8 @@
+@props([
+    'media',
+    'personalFreeleech',
+])
+
 <article class="torrent-search--grouped__result">
     <header class="torrent-search--grouped__header">
         @if (auth()->user()->show_poster == 1)

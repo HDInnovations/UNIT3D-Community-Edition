@@ -1,3 +1,8 @@
+@props([
+    'torrent',
+    'meta',
+])
+
 <article class="torrent-card">
     <header class="torrent-card__header">
         <div class="torrent-card__left-header">

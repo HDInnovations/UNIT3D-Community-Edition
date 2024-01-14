@@ -1,3 +1,7 @@
+@props([
+    'post',
+])
+
 <article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
         <time
