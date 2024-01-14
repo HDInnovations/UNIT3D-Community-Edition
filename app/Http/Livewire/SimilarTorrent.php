@@ -21,30 +21,22 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
-use App\Traits\CastLivewireProperties;
-use App\Traits\LivewireSort;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
-    use CastLivewireProperties;
-    use LivewireSort;
-
     public Category $category;
 
     public Movie|Tv|Game $work;
 
-    public int $tmdbId;
+    public $tmdbId;
 
-    public int $igdbId;
+    public $igdbId;
 
-    public string $reason;
+    public $reason;
 
-    /**
-     * @var string[]
-     */
-    public array $checked = [];
+    public $checked = [];
 
     public bool $selectPage = false;
 
@@ -55,11 +47,6 @@ class SimilarTorrent extends Component
     public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
-
-    final public function updating(string $field, mixed &$value): void
-    {
-        $this->castLivewireProperties($field, $value);
-    }
 
     final public function updatedSelectPage($value): void
     {
@@ -82,9 +69,6 @@ class SimilarTorrent extends Component
         return \in_array($torrentId, $this->checked);
     }
 
-    /**
-     * @return \Illuminate\Support\Collection<int, Torrent>
-     */
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
         $user = auth()->user();
@@ -129,10 +113,7 @@ class SimilarTorrent extends Component
             ->get();
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
-     */
-    final public function getTorrentRequestsProperty(): \Illuminate\Database\Eloquent\Collection
+    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
     {
         return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
@@ -140,6 +121,17 @@ class SimilarTorrent extends Component
             ->where('category_id', '=', $this->category->id)
             ->latest()
             ->get();
+    }
+
+    final public function sortBy($field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 
     final public function alertConfirm(): void
@@ -246,9 +238,9 @@ class SimilarTorrent extends Component
         ]);
     }
 
-    final public function getPersonalFreeleechProperty(): bool
+    final public function getPersonalFreeleechProperty()
     {
-        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
+        return cache()->get('personal_freeleech:'.auth()->id());
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

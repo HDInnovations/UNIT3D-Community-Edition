@@ -58,9 +58,6 @@ class AttachmentUpload extends Component
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ticket Attachment Uploaded Successfully!']);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
-     */
     final public function getAttachmentsProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return Ticket::find($this->ticket)->attachments;

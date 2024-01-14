@@ -80,8 +80,6 @@
                             id="startYear"
                             wire:model="startYear"
                             class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="startYear">
@@ -93,8 +91,6 @@
                             id="endYear"
                             wire:model="endYear"
                             class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="endYear">
@@ -107,8 +103,6 @@
                                 id="minSize"
                                 wire:model="minSize"
                                 class="form__text"
-                                inputmode="numeric"
-                                pattern="[0-9]*"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="minSize">
@@ -146,8 +140,6 @@
                                 id="maxSize"
                                 wire:model="maxSize"
                                 class="form__text"
-                                inputmode="numeric"
-                                pattern="[0-9]*"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="maxSize">
@@ -210,8 +202,6 @@
                             id="playlistId"
                             wire:model="playlistId"
                             class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="playlistId">
@@ -223,8 +213,6 @@
                             id="collectionId"
                             wire:model="collectionId"
                             class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="collectionId">
@@ -236,8 +224,6 @@
                             id="companyId"
                             wire:model="companyId"
                             class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="companyId">
@@ -249,8 +235,6 @@
                             id="networkId"
                             wire:model="networkId"
                             class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="networkId">
@@ -260,53 +244,25 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input
-                            id="tmdbId"
-                            wire:model="tmdbId"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
+                        <input id="tmdbId" wire:model="tmdbId" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="tmdbId">
                             TMDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input
-                            id="imdbId"
-                            wire:model="imdbId"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
+                        <input id="imdbId" wire:model="imdbId" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="imdbId">
                             IMDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input
-                            id="tvdbId"
-                            wire:model="tvdbId"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
+                        <input id="tvdbId" wire:model="tvdbId" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="tvdbId">
                             TVDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input
-                            id="malId"
-                            wire:model="malId"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
+                        <input id="malId" wire:model="malId" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="malId">MAL ID</label>
                     </p>
                 </div>

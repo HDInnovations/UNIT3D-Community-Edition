@@ -13,7 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Traits\CastLivewireProperties;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
 use Livewire\Component;
@@ -26,25 +25,15 @@ use SplFileInfo;
  */
 class LaravelLogViewer extends Component
 {
-    use CastLivewireProperties;
     use WithPagination;
 
-    /**
-     * @var int[]|string[]
-     */
-    public array $logs = [0];
+    public $logs = [0];
 
-    public int $perPage = 5;
+    public $page = 1;
 
-    /**
-     * @var array<mixed>
-     */
+    public $perPage = 5;
+
     protected $queryString = ['page'];
-
-    final public function updating(string $field, mixed &$value): void
-    {
-        $this->castLivewireProperties($field, $value);
-    }
 
     final public function updatedPage(): void
     {

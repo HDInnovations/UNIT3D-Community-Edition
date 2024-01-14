@@ -15,7 +15,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Passkey;
 use App\Models\User;
-use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,7 +23,6 @@ use Livewire\WithPagination;
  */
 class PasskeySearch extends Component
 {
-    use LivewireSort;
     use WithPagination;
 
     public string $username = '';
@@ -38,7 +36,7 @@ class PasskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @var array<mixed>
+     * @var array<string, mixed>
      */
     protected $queryString = [
         'username' => ['except' => ''],
@@ -71,5 +69,16 @@ class PasskeySearch extends Component
         return view('livewire.passkey-search', [
             'passkeys' => $this->passkeys,
         ]);
+    }
+
+    final public function sortBy(string $field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 }

@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Announce;
-use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,7 +22,6 @@ use Livewire\WithPagination;
  */
 class AnnounceSearch extends Component
 {
-    use LivewireSort;
     use WithPagination;
 
     public int $perPage = 50;
@@ -37,7 +35,7 @@ class AnnounceSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var array<mixed>
+     * @var array<string, mixed>
      */
     protected $queryString = [
         'page'          => ['except' => 1],
@@ -73,6 +71,17 @@ class AnnounceSearch extends Component
             ->when($this->userId !== '', fn ($query) => $query->where('user_id', '=', $this->userId))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
             ->paginate($this->perPage);
+    }
+
+    final public function sortBy(string $field): void
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

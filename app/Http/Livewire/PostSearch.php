@@ -24,9 +24,6 @@ class PostSearch extends Component
 
     public String $search = '';
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'search' => ['except' => ''],
     ];
@@ -40,9 +37,6 @@ class PostSearch extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
-     */
     final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()

@@ -27,9 +27,6 @@ class BlockIpAddress extends Component
 
     public int $perPage = 25;
 
-    /**
-     * @var array<mixed>
-     */
     protected $queryString = [
         'page'    => ['except' => 1],
         'perPage' => ['except' => ''],

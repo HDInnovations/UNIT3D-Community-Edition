@@ -21,7 +21,7 @@ class PersonSearch extends Component
 {
     use WithPagination;
 
-    public string $search = '';
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -33,9 +33,6 @@ class PersonSearch extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Person>
-     */
     final public function getPersonsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Person::select(['id', 'still', 'name'])

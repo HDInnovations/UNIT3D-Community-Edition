@@ -21,7 +21,7 @@ class CollectionSearch extends Component
 {
     use WithPagination;
 
-    public string $search = '';
+    public $search = '';
 
     final public function updatedPage(): void
     {
@@ -33,9 +33,6 @@ class CollectionSearch extends Component
         $this->resetPage();
     }
 
-    /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Collection>
-     */
     final public function getCollectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Collection::withCount('movie')
