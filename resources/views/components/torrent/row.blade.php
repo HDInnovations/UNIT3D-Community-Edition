@@ -1,3 +1,9 @@
+@props([
+    'torrent',
+    'meta',
+    'personalFreeleech',
+])
+
 <tr
     @class([
         'torrent-search--list__row' => auth()->user()->show_poster,

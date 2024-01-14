@@ -1,3 +1,10 @@
+@props([
+    'style',
+    'anon',
+    'appendedIcons',
+    'user',
+])
+
 @if ($anon)
     @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
         <span
