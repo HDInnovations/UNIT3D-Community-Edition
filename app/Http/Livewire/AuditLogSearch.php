@@ -38,6 +38,9 @@ class AuditLogSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'username'  => ['except' => ''],
         'modelName' => ['except' => ''],

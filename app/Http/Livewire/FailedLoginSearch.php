@@ -35,6 +35,9 @@ class FailedLoginSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'username'  => ['except' => ''],
         'userId'    => ['except' => ''],

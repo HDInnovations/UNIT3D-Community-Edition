@@ -37,6 +37,9 @@ class GiftLogSearch extends Component
 
     public int $perPage = 25;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'sender'   => ['except' => ''],
         'receiver' => ['except' => ''],

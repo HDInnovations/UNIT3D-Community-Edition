@@ -34,6 +34,9 @@ class UserResurrections extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'       => ['except' => ''],
         'name'          => ['except' => ''],

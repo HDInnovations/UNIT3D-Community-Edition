@@ -30,6 +30,9 @@ class TopicSearch extends Component
     public string $subscribed = '';
     public String $forumId = '';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search'        => ['except' => ''],
         'sortField'     => ['except' => 'last_reply_at'],

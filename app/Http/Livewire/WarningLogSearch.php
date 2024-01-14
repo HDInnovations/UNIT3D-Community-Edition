@@ -39,6 +39,9 @@ class WarningLogSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'sender'   => ['except' => ''],
         'receiver' => ['except' => ''],

@@ -36,7 +36,7 @@ class RsskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @var array<string, mixed>
+     * @var array<mixed>
      */
     protected $queryString = [
         'username' => ['except' => ''],

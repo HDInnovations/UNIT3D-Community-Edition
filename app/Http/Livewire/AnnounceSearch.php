@@ -35,7 +35,7 @@ class AnnounceSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var array<string, mixed>
+     * @var array<mixed>
      */
     protected $queryString = [
         'page'          => ['except' => 1],

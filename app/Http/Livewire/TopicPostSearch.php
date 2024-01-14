@@ -26,6 +26,9 @@ class TopicPostSearch extends Component
 
     public Topic $topic;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search' => ['except' => ''],
     ];

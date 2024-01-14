@@ -19,6 +19,9 @@ class MissingMediaSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'categories'    => ['except' => []],
         'sortField'     => ['except' => 'created_at'],

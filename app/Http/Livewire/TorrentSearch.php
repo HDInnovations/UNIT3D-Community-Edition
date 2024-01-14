@@ -154,7 +154,7 @@ class TorrentSearch extends Component
     public string $view = 'list';
 
     /**
-     * @var array<string, array<string, mixed>>
+     * @var array<mixed>
      */
     protected $queryString = [
         'name'             => ['except' => ''],

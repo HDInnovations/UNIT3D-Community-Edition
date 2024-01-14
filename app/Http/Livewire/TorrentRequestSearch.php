@@ -82,6 +82,9 @@ class TorrentRequestSearch extends Component
 
     public bool $showFilters = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'name'          => ['except' => ''],
         'requestor'     => ['except' => ''],

@@ -55,6 +55,9 @@ class UserTorrents extends Component
 
     public bool $showMorePrecision = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'           => ['except' => ''],
         'name'              => ['except' => ''],

@@ -47,6 +47,9 @@ class UserActive extends Component
 
     public bool $showMorePrecision = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'           => ['except' => 50],
         'name'              => ['except' => ''],

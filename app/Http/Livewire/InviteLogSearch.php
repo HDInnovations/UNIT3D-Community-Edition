@@ -43,6 +43,9 @@ class InviteLogSearch extends Component
 
     public int $perPage = 25;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'sender'        => ['except' => ''],
         'email'         => ['except' => ''],

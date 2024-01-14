@@ -36,6 +36,9 @@ class LaravelLogViewer extends Component
 
     public int $perPage = 5;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = ['page'];
 
     final public function updating(string $field, mixed &$value): void

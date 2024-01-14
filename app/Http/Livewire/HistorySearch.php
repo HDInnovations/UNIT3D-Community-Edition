@@ -37,6 +37,9 @@ class HistorySearch extends Component
     public string $sortField = '';
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'page'          => ['except' => 1],
         'perPage'       => ['except' => 25],

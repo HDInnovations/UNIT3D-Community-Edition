@@ -24,6 +24,9 @@ class PostSearch extends Component
 
     public String $search = '';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search' => ['except' => ''],
     ];

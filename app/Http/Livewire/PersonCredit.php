@@ -26,6 +26,9 @@ class PersonCredit extends Component
 
     public ?int $occupationId = null;
 
+    /**
+     * @var array<mixed>
+     */
     public $queryString = [
         'occupationId',
     ];

@@ -36,6 +36,9 @@ class PeerSearch extends Component
     public string $sortField = 'created_at';
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'page'             => ['except' => 1],
         'duplicateIpsOnly' => ['except' => false],

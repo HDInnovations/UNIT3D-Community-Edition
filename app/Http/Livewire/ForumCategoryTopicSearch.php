@@ -30,6 +30,9 @@ class ForumCategoryTopicSearch extends Component
     public string $subscribed = '';
     public Forum $category;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search'        => ['except' => ''],
         'sortField'     => ['except' => 'last_reply_at'],

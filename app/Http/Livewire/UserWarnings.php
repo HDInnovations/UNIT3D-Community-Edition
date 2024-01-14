@@ -42,6 +42,9 @@ class UserWarnings extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'warningTab' => ['except' => 'automated'],
     ];
