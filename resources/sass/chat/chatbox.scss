@@ -442,9 +442,14 @@
                         }
 
                         h4 {
+                            .text-bold {
+                                font-weight: bold;
+                            }
+
                             .text-muted {
                                 color: #262929;
                                 font-size: 0.7em;
+                                font-weight: normal;
                             }
                         }
 
@@ -455,7 +460,9 @@
 
                             &.joypixels {
                                 padding: 0;
-                                margin: 0 5px 2px;
+                                margin: 0 2px -3px;
+                                width: 20px;
+                                height: 20px;
                             }
 
                             &.chat-user-image {

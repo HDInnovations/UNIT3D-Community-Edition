@@ -20,7 +20,9 @@
 
 .profile__avatar {
     grid-area: avatar;
-    align-self: start;
+    align-self: start;  border-radius: 50%;
+    width: 180px;
+    height: 180px;
 }
 
 .profile__registration {
