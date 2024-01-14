@@ -14,6 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\FailedLoginAttempt;
+use App\Traits\LivewireSort;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -21,6 +22,7 @@ use Livewire\WithPagination;
 
 class FailedLoginSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public string $username = '';
@@ -35,6 +37,9 @@ class FailedLoginSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'username'  => ['except' => ''],
         'userId'    => ['except' => ''],
@@ -48,6 +53,9 @@ class FailedLoginSearch extends Component
         $this->emit('paginationChanged');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
+     */
     final public function getFailedLoginsTop10IpProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return FailedLoginAttempt::query()
@@ -60,6 +68,9 @@ class FailedLoginSearch extends Component
             ->get();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<FailedLoginAttempt>
+     */
     final public function getFailedLoginsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return FailedLoginAttempt::query()
@@ -69,17 +80,6 @@ class FailedLoginSearch extends Component
             ->when($this->ipAddress, fn ($query) => $query->where('ip_address', 'LIKE', $this->ipAddress.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

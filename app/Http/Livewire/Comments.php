@@ -30,6 +30,7 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
+use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,6 +38,8 @@ use voku\helper\AntiXSS;
 
 class Comments extends Component
 {
+    use CastLivewireProperties;
+
     use WithPagination;
 
     protected ChatRepository $chatRepository;
@@ -45,7 +48,7 @@ class Comments extends Component
 
     public $model;
 
-    public $anon = false;
+    public bool $anon = false;
 
     public int $perPage = 10;
 
@@ -69,6 +72,11 @@ class Comments extends Component
     final public function mount(): void
     {
         $this->user = auth()->user();
+    }
+
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
     }
 
     final public function taggedUsers(): array
@@ -196,6 +204,9 @@ class Comments extends Component
         $this->gotoPage(1);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Comment>
+     */
     final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model
