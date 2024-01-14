@@ -242,30 +242,30 @@
 
                                 @for ($depth = $loop->index; $depth < $loop->count; $depth++)
                                     {{-- format-ignore-start --}}
-                                    <details style="@if ($depth != 0) margin-left: 20px; @endif">
+                                    <details style="margin-left: 20px;">
                                     {{-- format-ignore-end --}}
                                     <summary
-                                        style="padding: 8px; @if ($depth != $loop->count - 1) cursor: pointer; @endif"
+                                        @style([
+                                            'padding: 8px;',
+                                            'list-style-position: outside',
+                                            'cursor: pointer' => $depth !== $loop->count - 1,
+                                            'list-style-type: none' => $depth === $loop->count - 1,
+                                        ])
                                     >
                                         <span
                                             style="
                                                 display: grid;
-                                                grid-template-areas: 'icon1 icon2 folder count . size';
-                                                grid-template-columns: 24px 24px auto auto 1fr auto;
+                                                grid-template-areas: 'icon2 folder count . size';
+                                                grid-template-columns: 24px auto auto 1fr auto;
+                                                gap: 4px;
                                             "
                                         >
                                             @if ($depth == $loop->count - 1)
-                                                <i style="grid-area: icon1"></i>
                                                 <i
                                                     class="{{ config('other.font-awesome') }} fa-file"
-                                                    style="grid-area: icon2; padding-right: 4px"
+                                                    style="grid-area: icon2"
                                                 ></i>
-                                                <span
-                                                    style="
-                                                        padding-right: 4px;
-                                                        word-break: break-all;
-                                                    "
-                                                >
+                                                <span style="word-break: break-all">
                                                     {{ $nodes[$depth] }}
                                                 </span>
                                                 <span
@@ -280,14 +280,10 @@
                                                 </span>
                                             @else
                                                 <i
-                                                    class="{{ config('other.font-awesome') }} fa-caret-right"
-                                                    style="grid-area: icon1"
-                                                ></i>
-                                                <i
                                                     class="{{ config('other.font-awesome') }} fa-folder"
-                                                    style="grid-area: icon2; padding-right: 4px"
+                                                    style="grid-area: icon2"
                                                 ></i>
-                                                <span style="padding-right: 4px">
+                                                <span>
                                                     {{ $nodes[$depth] }}
                                                 </span>
                                                 @php
@@ -299,7 +295,7 @@
                                                     )
                                                 @endphp
 
-                                                <span style="grid-area: count; padding-right: 4px">
+                                                <span style="grid-area: count">
                                                     ({{ $filteredFiles->count() }})
                                                 </span>
                                                 <span

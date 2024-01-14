@@ -155,6 +155,9 @@
     --notification-unread: #444;
     --notification-read: transparent;
 
+    --option-bg: #303030;
+    --option-fg: #999;
+
     --paginate-bg: #19191b;
     --paginate-bg-hover: #222;
     --paginate-bg-current: #202020;
@@ -311,6 +314,12 @@
     --torrent-tag-bg: transparent;
     --torrent-tag-hover-fg: #fff;
     --torrent-tag-hover-bg: rgba(255,255,255,0.1);
+
+    --user-stat-card-bg: #1a1a1a;
+    --user-stat-card-fg: #ddd;
+    --user-stat-card-border: none;
+    --user-stat-card-border-radius: 0;
+    --user-stat-card-box-shadow: none;
 }
 
 .text-red {

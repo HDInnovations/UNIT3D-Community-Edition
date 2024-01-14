@@ -14,11 +14,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public bool $show = false;
@@ -31,6 +33,9 @@ class UserSearch extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search'  => ['except' => ''],
         'show'    => ['except' => false],
@@ -60,6 +65,9 @@ class UserSearch extends Component
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     */
     final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
@@ -76,17 +84,6 @@ class UserSearch extends Component
             ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

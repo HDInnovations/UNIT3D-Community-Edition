@@ -1,3 +1,7 @@
+@props([
+    'topic',
+])
+
 <article class="topic-listing">
     <header class="topic-listing__header">
         <h2 class="topic-listing__heading">

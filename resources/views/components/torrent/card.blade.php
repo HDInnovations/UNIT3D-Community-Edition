@@ -1,3 +1,8 @@
+@props([
+    'torrent',
+    'meta',
+])
+
 <article class="torrent-card">
     <header class="torrent-card__header">
         <div class="torrent-card__left-header">
@@ -75,14 +80,14 @@
         <div class="torrent-card__rating-and-genres">
             <span
                 class="torrent-card__rating"
-                title="{{ $meta->vote_average ?? 0 }}/10 ({{ $meta->vote_count ?? 0 }} {{ __('torrent.votes') }})"
+                title="{{ $meta?->vote_average ?? 0 }}/10 ({{ $meta?->vote_count ?? 0 }} {{ __('torrent.votes') }})"
             >
                 <i class="{{ \config('other.font-awesome') }} fa-star"></i>
-                {{ $meta->vote_average ?? 0 }}
+                {{ $meta?->vote_average ?? 0 }}
             </span>
             <span class="torrent-card__meta-seperator">&bull;</span>
             <ul class="torrent-card__genres">
-                @foreach ($meta->genres as $genre)
+                @foreach ($meta?->genres ?? [] as $genre)
                     <li class="torrent-card__genre-item">
                         <a
                             class="torrent-card__genre"
@@ -95,7 +100,7 @@
             </ul>
         </div>
         <p class="torrent-card__plot">
-            {{ Str::limit(strip_tags($meta->overview ?: $meta->summary), 350, '...') }}
+            {{ Str::limit(strip_tags($meta?->overview ?: $meta?->summary), 350, '...') }}
         </p>
     </div>
     <footer class="torrent-card__footer">

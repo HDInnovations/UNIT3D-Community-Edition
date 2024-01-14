@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Peer;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,7 @@ use Livewire\WithPagination;
  */
 class UserActive extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -45,8 +47,11 @@ class UserActive extends Component
 
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    public bool $showMorePrecision = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'           => ['except' => 50],
         'name'              => ['except' => ''],
@@ -75,6 +80,9 @@ class UserActive extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
     final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
@@ -122,16 +130,5 @@ class UserActive extends Component
         return view('livewire.user-active', [
             'actives' => $this->actives,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

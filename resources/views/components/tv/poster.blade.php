@@ -1,3 +1,9 @@
+@props([
+    'tv',
+    'categoryId',
+    'tmdb',
+])
+
 <article class="torrent-search--poster__result">
     <figure>
         <a

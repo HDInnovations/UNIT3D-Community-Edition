@@ -183,6 +183,9 @@
   --notification-read: transparent;
   --notification-unread: var(--color-green);
 
+  --option-bg: #2b2b2b;
+  --option-fg: #ccc;
+
   --paginate-bg: #232323;
   --paginate-bg-hover: #373737;
   --paginate-bg-current: #292929;
@@ -340,6 +343,12 @@
   --torrent-tag-bg: transparent;
   --torrent-tag-hover-fg: #fff;
   --torrent-tag-hover-bg: rgba(255,255,255,0.1);
+
+  --user-stat-card-bg: transparent;
+  --user-stat-card-fg: #aaa;
+  --user-stat-card-border: 1px solid #444;
+  --user-stat-card-border-radius: 0;
+  --user-stat-card-box-shadow: none;
 }
 
 /* Background */

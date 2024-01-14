@@ -177,6 +177,9 @@
   --notification-read: transparent;
   --notification-unread: #a3be8c;
 
+  --option-bg: #4c566a;
+  --option-fg: #d8dee9;
+
   --paginate-bg: #3b4252;
   --paginate-bg-hover: #434c5e;
   --paginate-bg-current: #4c566a;
@@ -335,6 +338,12 @@
   --torrent-tag-bg: #eceff4;
   --torrent-tag-hover-fg: #2e3440;
   --torrent-tag-hover-bg: #eceff477;
+
+  --user-stat-card-bg: #4C566A;
+  --user-stat-card-fg: #d8dee9;
+  --user-stat-card-border: none;
+  --user-stat-card-border-radius: 10px;
+  --user-stat-card-box-shadow: none;
 }
 
 /* Links

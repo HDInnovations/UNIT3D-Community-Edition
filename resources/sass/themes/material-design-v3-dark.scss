@@ -157,6 +157,9 @@
   --notification-read: transparent;
   --notification-unread: #2bb666;
 
+  --option-bg: #343338;
+  --option-fg: #212121;
+
   --paginate-bg: #2A292E;
   --paginate-bg-hover: #3A393E;
   --paginate-bg-current: #312F35;
@@ -314,6 +317,12 @@
   --torrent-tag-bg: transparent;
   --torrent-tag-hover-fg: #fff;
   --torrent-tag-hover-bg: rgba(255,255,255,0.1);
+
+  --user-stat-card-bg: #3b3942;
+  --user-stat-card-fg: #ddd;
+  --user-stat-card-border: none;
+  --user-stat-card-border-radius: 22px;
+  --user-stat-card-box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 }
 
 .panel__body {

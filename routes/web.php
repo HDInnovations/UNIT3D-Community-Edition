@@ -240,6 +240,14 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Yearly Overview
+        Route::prefix('yearly-overviews')->group(function (): void {
+            Route::name('yearly_overviews.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\YearlyOverviewController::class, 'index'])->name('index');
+                Route::get('/{year}', [App\Http\Controllers\YearlyOverviewController::class, 'show'])->name('show');
+            });
+        });
+
         // Subtitles System
         Route::prefix('subtitles')->group(function (): void {
             Route::name('subtitles.')->group(function (): void {

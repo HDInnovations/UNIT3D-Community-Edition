@@ -1,3 +1,7 @@
+@props([
+    'subforum',
+])
+
 <article class="subforum-listing">
     <header class="subforum-listing__header">
         <h3 class="subforum-listing__heading">

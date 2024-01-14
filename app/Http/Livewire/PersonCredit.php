@@ -26,6 +26,9 @@ class PersonCredit extends Component
 
     public ?int $occupationId = null;
 
+    /**
+     * @var array<mixed>
+     */
     public $queryString = [
         'occupationId',
     ];
@@ -47,9 +50,9 @@ class PersonCredit extends Component
         };
     }
 
-    final public function getPersonalFreeleechProperty()
+    final public function getPersonalFreeleechProperty(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
     }
 
     /*
@@ -110,6 +113,9 @@ class PersonCredit extends Component
         return $this->person->actedMovies()->count() + $this->person->actedTv()->count();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<int, Torrent>
+     */
     final public function getMediasProperty(): \Illuminate\Support\Collection
     {
         if ($this->occupationId === null) {

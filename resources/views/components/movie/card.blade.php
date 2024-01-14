@@ -1,3 +1,8 @@
+@props([
+    'media',
+    'personalFreeleech',
+])
+
 <article class="torrent-search--grouped__result">
     <header class="torrent-search--grouped__header">
         @if (auth()->user()->show_poster == 1)
@@ -18,7 +23,9 @@
                 href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}"
             >
                 {{ $media->title ?? '' }} (
-                <time>{{ substr($media->release_date ?? '', 0, 4) ?? '' }}</time>
+                <time class="torrent-search--grouped__title-year">
+                    {{ substr($media->release_date ?? '', 0, 4) ?? '' }}
+                </time>
                 )
             </a>
         </h2>
