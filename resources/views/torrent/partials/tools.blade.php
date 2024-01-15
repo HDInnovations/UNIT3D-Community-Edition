@@ -14,7 +14,7 @@
                 flex-wrap: wrap;
             "
         >
-            @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
+            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <li>
                     <menu
                         style="
