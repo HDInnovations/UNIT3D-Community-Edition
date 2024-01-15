@@ -131,7 +131,7 @@
     </td>
     <td class="torrent-search--list__buttons">
         <div>
-            @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
+            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <a
                     class="torrent-search--list__edit form__standard-icon-button"
                     href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"

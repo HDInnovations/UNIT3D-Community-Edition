@@ -1,6 +1,6 @@
 <td class="torrent-search--grouped__overview">
     <div>
-        @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
+        @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
             <a
                 href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                 title="{{ __('common.edit') }}"
