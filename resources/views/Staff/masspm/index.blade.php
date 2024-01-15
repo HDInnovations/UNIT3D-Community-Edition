@@ -31,7 +31,12 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('staff.mass-pm') }}</h2>
         <div class="panel__body">
-            <form class="form" action="{{ route('staff.mass-pm.store') }}" method="POST" x-data>
+            <form
+                class="form"
+                action="{{ route('staff.mass-pm.store') }}"
+                method="POST"
+                x-data="confirmation"
+            >
                 @csrf
                 <p class="form__group">
                     <input
@@ -49,20 +54,9 @@
                 @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.message'), 'required' => true])
                 <p class="form__group">
                     <button
-                        x-on:click.prevent="
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: 'Are you sure you want to send this private message to every user on the site?',
-                                icon: 'warning',
-                                showConfirmButton: true,
-                                showCancelButton: true,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $root.submit();
-                                }
-                            })
-                        "
+                        x-on:click.prevent="confirmAction"
                         class="form__button form__button--filled"
+                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to send this private message to every user on the site?') }}"
                     >
                         {{ __('pm.send') }}
                     </button>

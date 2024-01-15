@@ -51,26 +51,13 @@
                             <form
                                 action="{{ route('staff.users.destroy', ['user' => $user]) }}"
                                 method="POST"
-                                x-data
+                                x-data="confirmation"
                             >
                                 @csrf
                                 @method('DELETE')
                                 <button
-                                    x-on:click.prevent="
-                                        Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: `Are you sure you want to delete this user and all their associated records: ${atob(
-                                                '{{ base64_encode($user->username) }}'
-                                            )}?`,
-                                            icon: 'warning',
-                                            showConfirmButton: true,
-                                            showCancelButton: true,
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                $root.submit();
-                                            }
-                                        })
-                                    "
+                                    x-on:click.prevent="confirmAction"
+                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this user and all their associated records: ' . $user->username . '?') }}"
                                     class="form__button form__button--text"
                                 >
                                     {{ __('common.delete') }}
@@ -583,24 +570,13 @@
                                                 <form
                                                     action="{{ route('staff.watchlist.destroy', ['watchlist' => $watch]) }}"
                                                     method="POST"
-                                                    x-data
+                                                    x-data="confirmation"
                                                 >
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
-                                                        x-on:click.prevent="
-                                                            Swal.fire({
-                                                                title: 'Are you sure?',
-                                                                text: 'Are you sure you want to unwatch this user: {{ $watch->user->username }}?',
-                                                                icon: 'warning',
-                                                                showConfirmButton: true,
-                                                                showCancelButton: true,
-                                                            }).then((result) => {
-                                                                if (result.isConfirmed) {
-                                                                    $root.submit();
-                                                                }
-                                                            })
-                                                        "
+                                                        x-on:click.prevent="confirmAction"
+                                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to unwatch this user: ' . $watch->user->username . '?') }}"
                                                         class="form__button form__button--text"
                                                     >
                                                         Unwatch

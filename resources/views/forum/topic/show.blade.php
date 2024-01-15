@@ -156,28 +156,15 @@
                         class="form"
                         action="{{ route('topics.destroy', ['id' => $topic->id]) }}"
                         method="POST"
-                        x-data
+                        x-data="confirmation"
                     >
                         @csrf
                         @method('DELETE')
                         <p class="form__group form__group--horizontal">
                             <button
                                 class="form__button form__button--filled form__button--centered"
-                                x-on:click.prevent="
-                                    Swal.fire({
-                                        title: 'Are you sure?',
-                                        text: `Are you sure you want to delete this topic: ${atob(
-                                            '{{ base64_encode($topic->name) }}'
-                                        )}?`,
-                                        icon: 'warning',
-                                        showConfirmButton: true,
-                                        showCancelButton: true,
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            $root.submit();
-                                        }
-                                    })
-                                "
+                                x-on:click.prevent="confirmAction"
+                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this topic: ' . $topic->name . '?') }}"
                             >
                                 {{ __('common.delete') }}
                             </button>
