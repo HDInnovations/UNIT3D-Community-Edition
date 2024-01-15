@@ -60,7 +60,7 @@
                             </td>
                             <td>
                                 <form
-                                    x-data
+                                    x-data="confirmation"
                                     action="{{ route('staff.bon_exchanges.destroy', ['bonExchange' => $bonExchange->id]) }}"
                                     method="POST"
                                 >
@@ -73,19 +73,8 @@
                                         {{ __('common.edit') }}
                                     </a>
                                     <button
-                                        x-on:click.prevent="
-                                            Swal.fire({
-                                                title: 'Delete?',
-                                                text: 'Are you sure you want to delete?',
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })
-                                        "
+                                        x-on:click.prevent="confirmAction"
+                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this bon exchange: ' . $bonExchange->description . '?') }}"
                                         class="form__button form__button--filled"
                                     >
                                         {{ __('common.delete') }}

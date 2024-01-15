@@ -185,6 +185,26 @@
             });
         </script>
 
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('confirmation', () => ({
+                    confirmAction() {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: atob(this.$el.dataset.b64DeletionMessage),
+                            icon: 'warning',
+                            showConfirmButton: true,
+                            showCancelButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                this.$root.submit();
+                            }
+                        });
+                    },
+                }));
+            });
+        </script>
+
         @yield('javascripts')
         @yield('scripts')
         @livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])

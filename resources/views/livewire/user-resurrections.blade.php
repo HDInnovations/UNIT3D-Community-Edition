@@ -188,26 +188,13 @@
                                         <form
                                             action="{{ route('users.resurrections.destroy', ['user' => auth()->user(), 'resurrection' => $resurrection]) }}"
                                             method="POST"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="
-                                                    Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: `Are you sure you want to cancel this resurrection: ${atob(
-                                                            '{{ base64_encode($resurrection->torrent->name) }}'
-                                                        )}?`,
-                                                        icon: 'warning',
-                                                        showConfirmButton: true,
-                                                        showCancelButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            $root.submit();
-                                                        }
-                                                    })
-                                                "
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to cancel this resurrection: ' . $resurrection->torrent->name . '?') }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.cancel') }}

@@ -110,25 +110,12 @@
                                         <form
                                             action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             <button
-                                                x-on:click.prevent="
-                                                    Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: `Are you sure you want to resend the email to: ${atob(
-                                                            '{{ base64_encode($invite->email) }}'
-                                                        )}?`,
-                                                        icon: 'warning',
-                                                        showConfirmButton: true,
-                                                        showCancelButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            $root.submit();
-                                                        }
-                                                    })
-                                                "
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the email to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now())
                                             >
@@ -140,26 +127,13 @@
                                         <form
                                             action="{{ route('users.invites.destroy', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="
-                                                    Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: `Are you sure you want to retract the invite to: ${atob(
-                                                            '{{ base64_encode($invite->email) }}'
-                                                        )}? This will forfeit the invite.`,
-                                                        icon: 'warning',
-                                                        showConfirmButton: true,
-                                                        showCancelButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            $root.submit();
-                                                        }
-                                                    })
-                                                "
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to retract the invite to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
                                             >

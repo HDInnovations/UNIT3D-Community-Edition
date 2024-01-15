@@ -174,7 +174,7 @@
                                         <form
                                             method="POST"
                                             action="{{ route('subtitles.destroy', ['subtitle' => $subtitle]) }}"
-                                            x-data
+                                            x-data="confirmation"
                                             style="display: inline"
                                         >
                                             @csrf
@@ -186,21 +186,8 @@
                                                 value="{{ $torrent->id }}"
                                             />
                                             <button
-                                                x-on:click.prevent="
-                                                    Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: `Are you sure you want to delete this subtitle: ${atob(
-                                                            '{{ base64_encode($subtitle->language->name) }}'
-                                                        )}?`,
-                                                        icon: 'warning',
-                                                        showConfirmButton: true,
-                                                        showCancelButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            $root.submit();
-                                                        }
-                                                    })
-                                                "
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this subtitle: ' . $subtitle->language->name . '?') }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
