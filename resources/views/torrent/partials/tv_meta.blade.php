@@ -312,21 +312,19 @@
     </div>
 </section>
 
-@section('javascripts')
-    @if ($meta?->trailer)
-        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
-            document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
-                e.preventDefault();
-                Swal.fire({
-                    showConfirmButton: false,
-                    showCloseButton: true,
-                    background: 'rgb(35,35,35)',
-                    width: 970,
-                    html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                    title: '<i style="color: #a5a5a5;">{{ $meta->name }} Trailer</i>',
-                    text: '',
-                });
+@if ($meta?->trailer)
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
+        document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
+            e.preventDefault();
+            Swal.fire({
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: 'rgb(35,35,35)',
+                width: 970,
+                html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                title: '<i style="color: #a5a5a5;">{{ $meta->name }} Trailer</i>',
+                text: '',
             });
-        </script>
-    @endif
-@endsection
+        });
+    </script>
+@endif
