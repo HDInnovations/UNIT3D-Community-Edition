@@ -20,7 +20,6 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Notifications\NewRequestBounty;
 use App\Repositories\ChatRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 /**
