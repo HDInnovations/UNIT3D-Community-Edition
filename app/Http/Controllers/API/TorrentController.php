@@ -135,7 +135,7 @@ class TorrentController extends BaseController
         $torrent = app()->make(Torrent::class);
         $torrent->name = $request->input('name');
         $torrent->description = $request->input('description');
-        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->string('mediainfo'));
+        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null);
         $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
