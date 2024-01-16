@@ -68,7 +68,7 @@ trait TorrentFilter
     /**
      * @param Builder<Torrent|TorrentRequest> $query
      */
-    public function scopeOfUploader(Builder $query, string $username, User $authenticatedUser = null): void
+    public function scopeOfUploader(Builder $query, string $username, ?User $authenticatedUser = null): void
     {
         $authenticatedUser ??= auth()->user();
 
@@ -78,7 +78,7 @@ trait TorrentFilter
                 $authenticatedUser === null,
                 fn ($query) => $query->where('anon', '=', false),
                 fn ($query) => $query->when(
-                    !$authenticatedUser->group->is_modo,
+                    ! $authenticatedUser->group->is_modo,
                     fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', false)->orWhere('user_id', '=', $authenticatedUser->id))
                 )
             );

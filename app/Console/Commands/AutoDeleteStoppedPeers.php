@@ -14,8 +14,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Command;
 
 class AutoDeleteStoppedPeers extends Command
 {

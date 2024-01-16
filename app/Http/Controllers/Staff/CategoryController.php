@@ -17,8 +17,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreCategoryRequest;
 use App\Http\Requests\Staff\UpdateCategoryRequest;
 use App\Models\Category;
-use Intervention\Image\Facades\Image;
 use Exception;
+use Intervention\Image\Facades\Image;
 
 /**
  * @see \Tests\Feature\Http\Controllers\CategoryControllerTest

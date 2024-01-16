@@ -22,11 +22,12 @@ class PostSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
+    public string $search = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
     ];
+
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');

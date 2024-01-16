@@ -14,9 +14,9 @@
 namespace Database\Factories;
 
 use App\Models\Bot;
+use App\Models\BotTransaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\BotTransaction;
 
 /** @extends Factory<BotTransaction> */
 class BotTransactionFactory extends Factory

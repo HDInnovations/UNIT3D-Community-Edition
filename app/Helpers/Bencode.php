@@ -75,7 +75,7 @@ class Bencode
 
         $pos++;
 
-        if (!safe_int($lengthStr)) {
+        if (! safe_int($lengthStr)) {
             return;
         }
 
@@ -122,7 +122,7 @@ class Bencode
                 $key = self::bdecode($s, $pos);
                 $value = self::bdecode($s, $pos);
 
-                if (null === $key || null === $value) {
+                if ($key === null || $value === null) {
                     return;
                 }
 
@@ -146,7 +146,7 @@ class Bencode
             while ($pos < $len && $s[$pos] != 'e') {
                 $next = self::bdecode($s, $pos);
 
-                if (null !== $next) {
+                if ($next !== null) {
                     $list[] = $next;
                 } else {
                     return;
@@ -168,7 +168,7 @@ class Bencode
     {
         if (\is_array($d)) {
             $ret = 'l';
-            $isDict = !array_is_list($d);
+            $isDict = ! array_is_list($d);
 
             if ($isDict) {
                 $ret = 'd';

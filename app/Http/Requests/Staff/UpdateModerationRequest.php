@@ -46,7 +46,7 @@ class UpdateModerationRequest extends FormRequest
             ],
             'message' => [
                 Rule::requiredIf(\in_array($request->integer('status'), [Torrent::REJECTED, Torrent::POSTPONED])),
-            ]
+            ],
         ];
     }
 }

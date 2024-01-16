@@ -19,9 +19,9 @@ use App\Models\Warning;
 use App\Notifications\UserWarning;
 use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoWarningTest
@@ -62,7 +62,7 @@ class AutoWarning extends Command
                 ->get();
 
             foreach ($hitrun as $hr) {
-                if (!$hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
+                if (! $hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $hr->torrent->id)
                         ->where('user_id', '=', $hr->user->id)

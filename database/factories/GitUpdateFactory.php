@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\GitUpdate;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<GitUpdate> */
 class GitUpdateFactory extends Factory

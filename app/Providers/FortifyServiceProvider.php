@@ -34,7 +34,8 @@ class FortifyServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Handle redirects after successful login
-        $this->app->instance(LoginResponse::class, new class () implements LoginResponse {
+        $this->app->instance(LoginResponse::class, new class() implements LoginResponse
+        {
             public function toResponse($request): \Illuminate\Http\RedirectResponse
             {
                 $user = $request->user();
@@ -83,14 +84,16 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         // Handle redirects before the registration form is shown
-        $this->app->instance(RegisterViewResponse::class, new class () implements RegisterViewResponse {
+        $this->app->instance(RegisterViewResponse::class, new class() implements RegisterViewResponse
+        {
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
                 return view('auth.register', ['code' => $request->query('code')]);
             }
         });
 
-        $this->app->instance(VerifyEmailResponse::class, new class () implements VerifyEmailResponse {
+        $this->app->instance(VerifyEmailResponse::class, new class() implements VerifyEmailResponse
+        {
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
                 $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
@@ -143,7 +146,7 @@ class FortifyServiceProvider extends ServiceProvider
             $request->validate([
                 'username' => 'required|string',
                 'password' => 'required|string',
-                'captcha'  => Rule::when(config('captcha.enabled'), 'hiddencaptcha')
+                'captcha'  => Rule::when(config('captcha.enabled'), 'hiddencaptcha'),
             ]);
 
             $user = User::query()->where('username', $request->username)->first();

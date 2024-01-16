@@ -26,8 +26,8 @@ use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Carbon;
 use Exception;
+use Illuminate\Support\Carbon;
 
 class NerdBot
 {
@@ -239,7 +239,8 @@ class NerdBot
     /**
      * Send Bot Donation.
      *
-     * @param  array<string> $note
+     * @param array<string> $note
+     *
      * @throws Exception
      */
     public function putDonate(float $amount = 0, array $note = ['']): string
@@ -312,7 +313,7 @@ class NerdBot
         }
 
         if (\array_key_exists($x, $command)) {
-            $log = match($command[$x]) {
+            $log = match ($command[$x]) {
                 'banker'        => $this->getBanker(),
                 'bans'          => $this->getBans(),
                 'donations'     => $this->getDonations(),
@@ -354,7 +355,7 @@ class NerdBot
             $receiverDirty = false;
             $receiverEchoes = cache()->get('user-echoes'.$target->id);
 
-            if (!$receiverEchoes || !\is_array($receiverEchoes)) {
+            if (! $receiverEchoes || ! \is_array($receiverEchoes)) {
                 $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -368,7 +369,7 @@ class NerdBot
                 }
             }
 
-            if (!$receiverListening) {
+            if (! $receiverListening) {
                 $receiverPort = new UserEcho();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;
@@ -386,7 +387,7 @@ class NerdBot
             $receiverDirty = false;
             $receiverAudibles = cache()->get('user-audibles'.$target->id);
 
-            if (!$receiverAudibles || !\is_array($receiverAudibles)) {
+            if (! $receiverAudibles || ! \is_array($receiverAudibles)) {
                 $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
             }
 
@@ -400,7 +401,7 @@ class NerdBot
                 }
             }
 
-            if (!$receiverListening) {
+            if (! $receiverListening) {
                 $receiverPort = new UserAudible();
                 $receiverPort->user_id = $target->id;
                 $receiverPort->bot_id = $this->bot->id;

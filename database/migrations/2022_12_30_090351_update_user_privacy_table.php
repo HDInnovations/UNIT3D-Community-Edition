@@ -4,7 +4,8 @@ use App\Enums\UserGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -44,14 +45,14 @@ return new class () extends Migration {
 
             if (\is_object($old) && \is_object($old->default_groups)) {
                 foreach ($old->default_groups as $groupId => $isAllowed) {
-                    if (!$isAllowed && \in_array($groupId, $allowedGroups)) {
+                    if (! $isAllowed && \in_array($groupId, $allowedGroups)) {
                         $new[] = (int) $groupId;
                     }
                 }
             }
 
             return json_encode(array_values(array_unique($new)));
-        } ;
+        };
 
         foreach (DB::table('user_privacy')->get() as $user_privacy) {
             DB::table('user_privacy')

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use RuntimeException;
-use Exception;
 
 class DbLoad extends Command
 {

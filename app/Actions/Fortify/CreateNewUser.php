@@ -27,11 +27,12 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Validate and create a newly registered user.
      *
-     * @param  array<string, string> $input
+     * @param array<string, string> $input
+     *
      * @throws ValidationException
      * @throws Exception
      */
-    public function create(array $input): RedirectResponse | User
+    public function create(array $input): RedirectResponse|User
     {
         Validator::make($input, [
             'username' => 'required|alpha_dash|string|between:3,25|unique:users',
@@ -54,8 +55,8 @@ class CreateNewUser implements CreatesNewUsers
             ],
             'code' => [
                 Rule::when(config('other.invite-only') === true, 'required'),
-                Rule::when(config('other.invite-only') === true, Rule::exists('invites', 'code')->whereNull('accepted_by'))
-            ]
+                Rule::when(config('other.invite-only') === true, Rule::exists('invites', 'code')->whereNull('accepted_by')),
+            ],
         ])->validate();
 
         $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));

@@ -19,9 +19,9 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
-use Exception;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoNerdStatTest

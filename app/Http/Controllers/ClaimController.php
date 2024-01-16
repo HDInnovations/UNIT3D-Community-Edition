@@ -18,8 +18,8 @@ use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Notifications\NewRequestClaim;
 use App\Notifications\NewRequestUnclaim;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest

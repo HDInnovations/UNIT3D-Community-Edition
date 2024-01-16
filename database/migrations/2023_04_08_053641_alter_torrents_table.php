@@ -5,13 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE torrents ADD COLUMN info_hash2 BINARY(20) NOT NULL");
+        DB::statement('ALTER TABLE torrents ADD COLUMN info_hash2 BINARY(20) NOT NULL');
         DB::table('torrents')->update([
             'info_hash2' => DB::raw('UNHEX(info_hash)'),
             'updated_at' => DB::raw('updated_at'),

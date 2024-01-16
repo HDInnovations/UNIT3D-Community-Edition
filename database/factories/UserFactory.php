@@ -17,8 +17,8 @@ use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Group;
 use App\Models\Internal;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Str;
 

@@ -13,9 +13,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Option;
 use App\Models\Poll;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Option;
 
 /** @extends Factory<Option> */
 class OptionFactory extends Factory

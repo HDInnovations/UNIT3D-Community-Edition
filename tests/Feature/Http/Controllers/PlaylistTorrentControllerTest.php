@@ -64,7 +64,7 @@ test('mass upsert returns an ok response', function (): void {
 
     $response = $this->actingAs($user)->put(route('playlist_torrents.massUpsert'), [
         'playlist_id'  => $playlist->id,
-        'torrent_urls' => config('app.url').'/torrents/1'
+        'torrent_urls' => config('app.url').'/torrents/1',
     ]);
     $response->assertRedirect(route('playlists.show', ['playlist' => $playlist]));
     $response->assertSessionHas('success', trans('playlist.attached-success'));
@@ -78,7 +78,7 @@ test('mass upsert aborts with a 403', function (): void {
 
     $response = $this->actingAs($user)->put(route('playlist_torrents.massUpsert'), [
         'playlist_id'  => $playlist->id,
-        'torrent_urls' => config('app.url').'/torrents/1'
+        'torrent_urls' => config('app.url').'/torrents/1',
     ]);
     $response->assertForbidden();
 });

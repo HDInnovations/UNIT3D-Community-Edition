@@ -1,5 +1,5 @@
 {
-  "preset": "psr12",
+  "preset": "laravel",
   "rules": {
     "align_multiline_comment": true,
     "array_indentation": true,

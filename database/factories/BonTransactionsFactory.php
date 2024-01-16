@@ -14,11 +14,11 @@
 namespace Database\Factories;
 
 use App\Models\BonExchange;
+use App\Models\BonTransactions;
 use App\Models\Post;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\BonTransactions;
 
 /** @extends Factory<BonTransactions> */
 class BonTransactionsFactory extends Factory

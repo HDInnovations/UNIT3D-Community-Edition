@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BlacklistClient;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<BlacklistClient> */
 class BlacklistClientFactory extends Factory

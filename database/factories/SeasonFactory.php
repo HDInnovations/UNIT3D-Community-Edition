@@ -13,9 +13,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Season;
 use App\Models\Tv;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Season;
 
 /** @extends Factory<Season> */
 class SeasonFactory extends Factory

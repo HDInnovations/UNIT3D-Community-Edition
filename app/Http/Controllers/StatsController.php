@@ -21,9 +21,9 @@ use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\StatsControllerTest

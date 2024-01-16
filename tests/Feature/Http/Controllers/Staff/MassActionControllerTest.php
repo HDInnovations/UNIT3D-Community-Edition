@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Http\Controllers\Staff;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use PHPUnit\Framework\Attributes\Test;
 use App\Models\Group;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 /**

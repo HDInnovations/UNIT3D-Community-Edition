@@ -13,10 +13,10 @@
 
 namespace App\Helpers;
 
+use Exception;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
-use Exception;
 
 class HiddenCaptcha
 {
@@ -52,12 +52,12 @@ class HiddenCaptcha
         $formData = $validator->getData();
 
         // Check post values
-        if (!isset($formData['_captcha']) || !($token = self::getToken($formData['_captcha'])) || !\is_array($token)) {
+        if (! isset($formData['_captcha']) || ! ($token = self::getToken($formData['_captcha'])) || ! \is_array($token)) {
             return false;
         }
 
         // Hidden "must be empty" field check
-        if (!\array_key_exists($token['must_be_empty'], $formData) || !empty($formData[$token['must_be_empty']])) {
+        if (! \array_key_exists($token['must_be_empty'], $formData) || ! empty($formData[$token['must_be_empty']])) {
             return false;
         }
 
@@ -96,7 +96,7 @@ class HiddenCaptcha
         $token = @unserialize($token);
 
         // Token is null or unserializable
-        if (!$token || !\is_array($token)) {
+        if (! $token || ! \is_array($token)) {
             return false;
         }
 

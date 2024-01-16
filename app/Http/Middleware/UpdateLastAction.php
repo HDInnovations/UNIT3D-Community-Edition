@@ -25,7 +25,7 @@ class UpdateLastAction
     {
         $user = $request->user();
 
-        if (null === $user) {
+        if ($user === null) {
             return $next($request);
         }
 

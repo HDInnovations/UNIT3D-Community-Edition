@@ -19,8 +19,8 @@ use App\Http\Requests\Staff\UpdateForumRequest;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
-use Illuminate\Support\Str;
 use Exception;
+use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
@@ -65,7 +65,7 @@ class ForumController extends Controller
                     'name',
                     'position',
                     'description',
-                    'parent_id'
+                    'parent_id',
                 ]
             )
         );

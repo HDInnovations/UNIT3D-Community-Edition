@@ -13,11 +13,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Report;
 
 /** @extends Factory<Report> */
 class ReportFactory extends Factory

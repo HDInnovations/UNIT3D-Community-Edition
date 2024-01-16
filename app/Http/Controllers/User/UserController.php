@@ -134,12 +134,12 @@ class UserController extends Controller
 
             abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
 
-            if (!\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
+            if (! \in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Only .jpg, .bmp, .png, .tiff, and .gif are allowed.');
             }
 
-            if (!preg_match('#image/*#', (string) $image->getMimeType())) {
+            if (! preg_match('#image/*#', (string) $image->getMimeType())) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Incorrect mime type.');
             }
@@ -174,7 +174,7 @@ class UserController extends Controller
         $request->validate([
             'title'     => 'nullable|max:255',
             'about'     => 'nullable|max:1000',
-            'signature' => 'nullable|max:1000'
+            'signature' => 'nullable|max:1000',
         ]);
         $user->title = $request->input('title');
         $user->about = $request->input('about');

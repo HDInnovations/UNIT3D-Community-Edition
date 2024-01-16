@@ -17,10 +17,10 @@ use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest

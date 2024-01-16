@@ -13,9 +13,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Audit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Audit;
 use JsonException;
 
 /** @extends Factory<Audit> */
@@ -38,7 +38,7 @@ class AuditFactory extends Factory
             'model_name'     => $this->faker->word(),
             'model_entry_id' => $this->faker->randomDigitNotNull(),
             'action'         => $this->faker->word(),
-            'record'         => json_encode(["key" => "value"], JSON_THROW_ON_ERROR),
+            'record'         => json_encode(['key' => 'value'], JSON_THROW_ON_ERROR),
         ];
     }
 }

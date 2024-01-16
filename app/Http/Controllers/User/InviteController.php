@@ -18,11 +18,11 @@ use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\InviteControllerTest
@@ -49,7 +49,7 @@ class InviteController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        if (!config('other.invite-only')) {
+        if (! config('other.invite-only')) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled'));
         }
@@ -59,7 +59,7 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invites-banned'));
         }
 
-        if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
+        if (config('other.invites_restriced') && ! \in_array($user->group->name, config('other.invite_groups'), true)) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled-group'));
         }
@@ -76,7 +76,7 @@ class InviteController extends Controller
     {
         abort_unless($request->user()->is($user) && $user->can_invite, 403);
 
-        if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
+        if (config('other.invites_restriced') && ! \in_array($user->group->name, config('other.invite_groups'), true)) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled-group'));
         }
@@ -97,7 +97,7 @@ class InviteController extends Controller
                 'unique:invites',
                 'unique:users',
                 'unique:applications',
-                Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist())
+                Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist()),
             ],
         ]);
 

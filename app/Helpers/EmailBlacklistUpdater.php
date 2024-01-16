@@ -13,9 +13,9 @@
 
 namespace App\Helpers;
 
+use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
-use Exception;
 
 class EmailBlacklistUpdater
 {

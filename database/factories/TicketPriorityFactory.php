@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketPriority;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<TicketPriority> */
 class TicketPriorityFactory extends Factory

@@ -95,7 +95,6 @@ class Unit3dAnnounce
     }
 
     /**
-     * @param int $torrentId
      * @return bool|array{}|array{
      *         id: int,
      *         status: string,
@@ -130,30 +129,30 @@ class Unit3dAnnounce
         }
 
         if (
-            !\array_key_exists('id', $torrent) || !\is_int($torrent['id'])
-            || !\array_key_exists('status', $torrent) || !\is_string($torrent['status'])
-            || !\array_key_exists('is_deleted', $torrent) || !\is_bool($torrent['is_deleted'])
-            || !\array_key_exists('peers', $torrent) || !\is_array($torrent['peers'])
-            || !\array_key_exists('seeders', $torrent) || !\is_int($torrent['seeders'])
-            || !\array_key_exists('leechers', $torrent) || !\is_int($torrent['leechers'])
-            || !\array_key_exists('times_completed', $torrent) || !\is_int($torrent['times_completed'])
-            || !\array_key_exists('download_factor', $torrent) || !\is_int($torrent['download_factor'])
-            || !\array_key_exists('upload_factor', $torrent) || !\is_int($torrent['upload_factor'])
+            ! \array_key_exists('id', $torrent) || ! \is_int($torrent['id'])
+            || ! \array_key_exists('status', $torrent) || ! \is_string($torrent['status'])
+            || ! \array_key_exists('is_deleted', $torrent) || ! \is_bool($torrent['is_deleted'])
+            || ! \array_key_exists('peers', $torrent) || ! \is_array($torrent['peers'])
+            || ! \array_key_exists('seeders', $torrent) || ! \is_int($torrent['seeders'])
+            || ! \array_key_exists('leechers', $torrent) || ! \is_int($torrent['leechers'])
+            || ! \array_key_exists('times_completed', $torrent) || ! \is_int($torrent['times_completed'])
+            || ! \array_key_exists('download_factor', $torrent) || ! \is_int($torrent['download_factor'])
+            || ! \array_key_exists('upload_factor', $torrent) || ! \is_int($torrent['upload_factor'])
         ) {
             return [];
         }
 
         foreach ($torrent['peers'] as $peer) {
             if (
-                !\array_key_exists('ip_address', $peer) || !\is_string($peer['ip_address'])
-                || !\array_key_exists('user_id', $peer) || !\is_int($peer['user_id'])
-                || !\array_key_exists('torrent_id', $peer) || !\is_int($peer['torrent_id'])
-                || !\array_key_exists('port', $peer) || !\is_int($peer['port'])
-                || !\array_key_exists('is_seeder', $peer) || !\is_bool($peer['is_seeder'])
-                || !\array_key_exists('is_active', $peer) || \is_bool($peer['is_active'])
-                || !\array_key_exists('updated_at', $peer) || \is_int($peer['updated_at'])
-                || !\array_key_exists('uploaded', $peer) || \is_int($peer['uploaded'])
-                || !\array_key_exists('downloaded', $peer) || \is_int($peer['downloaded'])
+                ! \array_key_exists('ip_address', $peer) || ! \is_string($peer['ip_address'])
+                || ! \array_key_exists('user_id', $peer) || ! \is_int($peer['user_id'])
+                || ! \array_key_exists('torrent_id', $peer) || ! \is_int($peer['torrent_id'])
+                || ! \array_key_exists('port', $peer) || ! \is_int($peer['port'])
+                || ! \array_key_exists('is_seeder', $peer) || ! \is_bool($peer['is_seeder'])
+                || ! \array_key_exists('is_active', $peer) || \is_bool($peer['is_active'])
+                || ! \array_key_exists('updated_at', $peer) || \is_int($peer['updated_at'])
+                || ! \array_key_exists('uploaded', $peer) || \is_int($peer['uploaded'])
+                || ! \array_key_exists('downloaded', $peer) || \is_int($peer['downloaded'])
             ) {
                 return [];
             }
@@ -194,7 +193,6 @@ class Unit3dAnnounce
     }
 
     /**
-     * @param int $userId
      * @return bool|array{}|array{
      *     id: int,
      *     group_id: int,
@@ -245,7 +243,7 @@ class Unit3dAnnounce
         ]);
     }
 
-    public static function addBlacklistedAgent(String $blacklistedAgent): bool
+    public static function addBlacklistedAgent(string $blacklistedAgent): bool
     {
         return self::put('blacklisted-agents', [
             'name' => $blacklistedAgent,
@@ -263,7 +261,7 @@ class Unit3dAnnounce
     {
         return self::put('freeleech-tokens', [
             'user_id'    => $user_id,
-            'torrent_id' => $torrent_id
+            'torrent_id' => $torrent_id,
         ]);
     }
 
@@ -293,11 +291,11 @@ class Unit3dAnnounce
             && config('announce.external_tracker.key') !== null
         ) {
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
-            $route = rtrim($route, "/");
+            $route = rtrim($route, '/');
 
             $response = Http::acceptJson()->get($route);
 
-            if (!$response->ok()) {
+            if (! $response->ok()) {
                 Log::notice('External tracker error - GET', [
                     'status' => $response->status(),
                     'body'   => $response->body(),
@@ -333,12 +331,12 @@ class Unit3dAnnounce
             $attemptsLeft = 3;
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path;
 
-            while (!$isSuccess && $attemptsLeft > 0) {
+            while (! $isSuccess && $attemptsLeft > 0) {
                 $response = Http::put($route, $data);
 
                 $isSuccess = $response->ok();
 
-                if (!$isSuccess) {
+                if (! $isSuccess) {
                     $attemptsLeft -= 1;
 
                     if ($attemptsLeft > 0) {
@@ -347,7 +345,7 @@ class Unit3dAnnounce
                 }
             }
 
-            if (!$isSuccess) {
+            if (! $isSuccess) {
                 Log::notice('External tracker error - PUT', [
                     'status' => $response->status(),
                     'body'   => $response->body(),
@@ -377,12 +375,12 @@ class Unit3dAnnounce
             $attemptsLeft = 3;
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path;
 
-            while (!$isSuccess && $attemptsLeft > 0) {
+            while (! $isSuccess && $attemptsLeft > 0) {
                 $response = Http::delete($route, $data);
 
                 $isSuccess = $response->ok();
 
-                if (!$isSuccess) {
+                if (! $isSuccess) {
                     $attemptsLeft -= 1;
 
                     if ($attemptsLeft > 0) {
@@ -391,7 +389,7 @@ class Unit3dAnnounce
                 }
             }
 
-            if (!$isSuccess) {
+            if (! $isSuccess) {
                 Log::notice('External tracker error - DELETE', [
                     'status' => $response->status(),
                     'body'   => $response->body(),

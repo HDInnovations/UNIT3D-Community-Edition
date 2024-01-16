@@ -26,9 +26,9 @@ use App\Models\Tv;
 use App\Models\Type;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
+use Exception;
 use Illuminate\Http\Request;
 use MarcReichel\IGDBLaravel\Models\Game;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -63,14 +63,14 @@ class RequestController extends Controller
                     'genres',
                     'credits' => ['person', 'occupation'],
                     'networks',
-                    'seasons'
+                    'seasons',
                 ])
                     ->find($torrentRequest->tmdb),
                 ($torrentRequest->category->movie_meta && $torrentRequest->tmdb) => Movie::with([
                     'genres',
                     'credits' => ['person', 'occupation'],
                     'companies',
-                    'collection'
+                    'collection',
                 ])
                     ->find($torrentRequest->tmdb),
                 ($torrentRequest->category->game_meta && $torrentRequest->igdb) => Game::with([

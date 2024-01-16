@@ -22,7 +22,7 @@ class TopicPostSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
+    public string $search = '';
 
     public Topic $topic;
 

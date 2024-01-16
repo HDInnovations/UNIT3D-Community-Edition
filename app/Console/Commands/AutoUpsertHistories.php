@@ -14,10 +14,10 @@
 namespace App\Console\Commands;
 
 use App\Models\History;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Exception;
 
 class AutoUpsertHistories extends Command
 {

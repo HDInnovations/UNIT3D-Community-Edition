@@ -87,6 +87,6 @@ class Kernel extends HttpKernel
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
         'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
     ];
 }

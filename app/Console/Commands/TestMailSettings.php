@@ -14,9 +14,9 @@
 namespace App\Console\Commands;
 
 use App\Mail\TestEmail;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use Exception;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\TestMailSettingsTest

@@ -13,12 +13,12 @@
 
 namespace App\Services\Tmdb\Client;
 
-use JsonException;
 use App\Enums\Occupation;
 use App\Services\Tmdb\TMDB;
+use DateTime;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use DateTime;
+use JsonException;
 
 class Movie
 {
@@ -229,7 +229,7 @@ class Movie
      *     }
      *  }
      */
-    public null|array $data;
+    public ?array $data;
 
     public TMDB $tmdb;
 
@@ -356,7 +356,7 @@ class Movie
                 'person_id'     => $person['id'] ?? null,
                 'occupation_id' => Occupation::ACTOR->value,
                 'character'     => $person['character'] ?? '',
-                'order'         => $person['order'] ?? null
+                'order'         => $person['order'] ?? null,
             ];
         }
 
@@ -369,7 +369,7 @@ class Movie
                     'person_id'     => $person['id'] ?? null,
                     'occupation_id' => $job->value,
                     'character'     => null,
-                    'order'         => null
+                    'order'         => null,
                 ];
             }
         }

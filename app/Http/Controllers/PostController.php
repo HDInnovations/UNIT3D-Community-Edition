@@ -30,9 +30,9 @@ use App\Models\Topic;
 use App\Models\User;
 use App\Notifications\NewPostTag;
 use App\Repositories\ChatRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PostControllerTest
@@ -68,9 +68,9 @@ class PostController extends Controller
 
         $topic = Topic::whereRelation('forumPermissions', [
             ['reply_topic', '=', 1],
-            ['group_id', '=', $user->group_id]
+            ['group_id', '=', $user->group_id],
         ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($request->topic_id);
 
         $forum = $topic->forum;
@@ -157,7 +157,7 @@ class PostController extends Controller
                 ['reply_topic', '=', 1],
                 ['group_id', '=', $user->group_id],
             ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->sole();
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
@@ -195,7 +195,7 @@ class PostController extends Controller
                     ['reply_topic', '=', 1],
                     ['group_id', '=', $user->group_id],
                 ])
-                ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+                ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
                 ->exists(),
             403
         );

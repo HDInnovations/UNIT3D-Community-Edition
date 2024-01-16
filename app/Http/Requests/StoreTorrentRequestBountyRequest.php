@@ -44,7 +44,7 @@ class StoreTorrentRequestBountyRequest extends FormRequest
             'anon' => [
                 'required',
                 'boolean',
-            ]
+            ],
         ];
     }
 }

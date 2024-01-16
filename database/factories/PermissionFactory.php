@@ -15,8 +15,8 @@ namespace Database\Factories;
 
 use App\Models\Forum;
 use App\Models\Group;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Permission;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Permission> */
 class PermissionFactory extends Factory

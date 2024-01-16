@@ -14,8 +14,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserPrivacy;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<UserPrivacy> */
 class UserPrivacyFactory extends Factory

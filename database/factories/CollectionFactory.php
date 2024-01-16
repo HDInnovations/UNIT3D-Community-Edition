@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Collection> */
 class CollectionFactory extends Factory

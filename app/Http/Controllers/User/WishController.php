@@ -59,7 +59,7 @@ class WishController extends Controller
                 'not_in:0',
                 Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),
             ],
-            ''
+            '',
         ]);
 
         $meta = (new Movie($request->tmdb))->data;

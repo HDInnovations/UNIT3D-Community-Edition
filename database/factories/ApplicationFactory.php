@@ -13,9 +13,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Application;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Application;
 
 /** @extends Factory<Application> */
 class ApplicationFactory extends Factory

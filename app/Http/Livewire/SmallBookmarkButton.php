@@ -20,7 +20,9 @@ use Livewire\Component;
 class SmallBookmarkButton extends Component
 {
     public Torrent $torrent;
+
     public bool $isBookmarked;
+
     public User $user;
 
     final public function store(): void

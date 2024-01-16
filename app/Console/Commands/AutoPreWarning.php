@@ -17,8 +17,8 @@ use App\Models\History;
 use App\Models\Warning;
 use App\Notifications\UserPreWarning;
 use Carbon\Carbon;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Command;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoPreWarningTest
@@ -61,11 +61,11 @@ class AutoPreWarning extends Command
             foreach ($prewarn as $pre) {
                 // Skip Prewarning if Torrent is NULL
                 // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
-                if (null === $pre->torrent) {
+                if ($pre->torrent === null) {
                     continue;
                 }
 
-                if (!$pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
+                if (! $pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
                     $exsist = Warning::withTrashed()
                         ->where('torrent', '=', $pre->torrent->id)
                         ->where('user_id', '=', $pre->user->id)

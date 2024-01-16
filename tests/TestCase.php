@@ -17,7 +17,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         // For LARAVEL_START used in sub-footer
-        if (!\defined('LARAVEL_START')) {
+        if (! \defined('LARAVEL_START')) {
             \define('LARAVEL_START', microtime(true));
         }
     }

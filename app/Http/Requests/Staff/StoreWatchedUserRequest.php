@@ -42,7 +42,7 @@ class StoreWatchedUserRequest extends FormRequest
             'user_id' => [
                 'required',
                 Rule::exists('users', 'id'),
-            ]
+            ],
         ];
     }
 }

@@ -21,8 +21,8 @@ use App\Models\Rss;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -133,7 +133,7 @@ class RssController extends Controller
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-        abort_if($user->group_id == $bannedGroup[0] || $user->group_id == $disabledGroup[0] || !$user->active, 404);
+        abort_if($user->group_id == $bannedGroup[0] || $user->group_id == $disabledGroup[0] || ! $user->active, 404);
 
         $rss = Rss::query()
             ->where(
@@ -171,7 +171,7 @@ class RssController extends Controller
                 'user:id,username,rsskey',
                 'category:id,name,movie_meta,tv_meta',
                 'type:id,name',
-                'resolution:id,name'
+                'resolution:id,name',
             ])
             ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
             ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))

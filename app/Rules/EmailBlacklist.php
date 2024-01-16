@@ -14,9 +14,9 @@
 namespace App\Rules;
 
 use App\Helpers\EmailBlacklistUpdater;
-use Illuminate\Support\Str;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Str;
 
 class EmailBlacklist implements ValidationRule
 {
@@ -59,7 +59,7 @@ class EmailBlacklist implements ValidationRule
     {
         $autoupdate = config('email-blacklist.auto-update');
 
-        if ($autoupdate && !cache()->has(config('email-blacklist.cache-key'))) {
+        if ($autoupdate && ! cache()->has(config('email-blacklist.cache-key'))) {
             EmailBlacklistUpdater::update();
         }
     }

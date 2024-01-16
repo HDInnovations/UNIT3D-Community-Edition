@@ -28,13 +28,21 @@ class HistorySearch extends Component
     use WithPagination;
 
     public int $perPage = 25;
+
     public string $agent = '';
+
     public string $torrent = '';
+
     public string $user = '';
+
     public string $seeder = 'any';
+
     public string $active = 'any';
+
     public string $groupBy = 'none';
+
     public string $sortField = '';
+
     public string $sortDirection = 'desc';
 
     protected $queryString = [

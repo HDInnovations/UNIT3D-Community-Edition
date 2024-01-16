@@ -4,7 +4,8 @@ use App\Enums\UserGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -44,14 +45,14 @@ return new class () extends Migration {
 
             if (\is_object($old) && \is_object($old->default_groups)) {
                 foreach ($old->default_groups as $groupId => $acceptsNotifications) {
-                    if (!$acceptsNotifications && \in_array($groupId, $allowedGroups)) {
+                    if (! $acceptsNotifications && \in_array($groupId, $allowedGroups)) {
                         $new[] = (int) $groupId;
                     }
                 }
             }
 
             return json_encode(array_values(array_unique($new)));
-        } ;
+        };
 
         foreach (DB::table('user_notifications')->get() as $user_notification) {
             DB::table('user_notifications')

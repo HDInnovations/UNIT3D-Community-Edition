@@ -21,9 +21,9 @@ use App\Mail\InviteUser;
 use App\Models\Application;
 use App\Models\Invite;
 use App\Models\Scopes\ApprovedScope;
+use Exception;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
@@ -49,7 +49,7 @@ class ApplicationController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.application.show', [
-            'application' => Application::withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
+            'application' => Application::withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id),
         ]);
     }
 

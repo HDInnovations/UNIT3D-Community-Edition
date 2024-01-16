@@ -9,6 +9,7 @@
  *
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ *
  * @credits    Emanuil Rusev <https://erusev.com>
  */
 
@@ -123,7 +124,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockDefinitionList($Line, $Block)
     {
-        if (!isset($Block) || $Block['type'] !== 'Paragraph') {
+        if (! isset($Block) || $Block['type'] !== 'Paragraph') {
             return;
         }
 
@@ -271,7 +272,7 @@ class MarkdownExtra extends Markdown
 
     protected function blockMarkupComplete($Block)
     {
-        if (!isset($Block['void'])) {
+        if (! isset($Block['void'])) {
             $Block['element']['rawHtml'] = $this->processTag($Block['element']['rawHtml']);
         }
 
@@ -281,7 +282,7 @@ class MarkdownExtra extends Markdown
     //
     // Setext
 
-    protected function blockSetextHeader($Line, array $Block = null)
+    protected function blockSetextHeader($Line, ?array $Block = null)
     {
         $Block = parent::blockSetextHeader($Line, $Block);
 
@@ -308,13 +309,13 @@ class MarkdownExtra extends Markdown
         if (preg_match('#^\[\^(.+?)\]#', (string) $Excerpt['text'], $matches)) {
             $name = $matches[1];
 
-            if (!isset($this->DefinitionData['Footnote'][$name])) {
+            if (! isset($this->DefinitionData['Footnote'][$name])) {
                 return;
             }
 
             $this->DefinitionData['Footnote'][$name]['count']++;
 
-            if (!isset($this->DefinitionData['Footnote'][$name]['number'])) {
+            if (! isset($this->DefinitionData['Footnote'][$name]['number'])) {
                 $this->DefinitionData['Footnote'][$name]['number'] = ++$this->footnoteCount; // » &
             }
 
@@ -453,7 +454,7 @@ class MarkdownExtra extends Markdown
         uasort($this->DefinitionData['Footnote'], 'self::sortFootnotes');
 
         foreach ($this->DefinitionData['Footnote'] as $definitionId => $DefinitionData) {
-            if (!isset($DefinitionData['number'])) {
+            if (! isset($DefinitionData['number'])) {
                 continue;
             }
 
@@ -571,7 +572,7 @@ class MarkdownExtra extends Markdown
             foreach ($DOMDocument->documentElement->childNodes as $Node) {
                 $nodeMarkup = $DOMDocument->saveHTML($Node);
 
-                if ($Node instanceof DOMElement && !\in_array($Node->nodeName, $this->textLevelElements)) {
+                if ($Node instanceof DOMElement && ! \in_array($Node->nodeName, $this->textLevelElements)) {
                     $elementText .= $this->processTag($nodeMarkup);
                 } else {
                     $elementText .= $nodeMarkup;

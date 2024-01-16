@@ -22,13 +22,19 @@ class TopicSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
-    public String $sortField = 'last_reply_at';
-    public String $sortDirection = 'desc';
-    public String $label = '';
-    public String $state = '';
-    public String $subscribed = '';
-    public String $forumId = '';
+    public string $search = '';
+
+    public string $sortField = 'last_reply_at';
+
+    public string $sortDirection = 'desc';
+
+    public string $label = '';
+
+    public string $state = '';
+
+    public string $subscribed = '';
+
+    public string $forumId = '';
 
     protected $queryString = [
         'search'        => ['except' => ''],
@@ -54,7 +60,7 @@ class TopicSearch extends Component
     {
         return Forum::query()
             ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]]),
             ])
             ->whereNull('parent_id')
             ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])

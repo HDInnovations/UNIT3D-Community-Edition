@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Resurrection;
 use App\Models\History;
 use App\Models\PrivateMessage;
+use App\Models\Resurrection;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;

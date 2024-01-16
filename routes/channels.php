@@ -32,7 +32,7 @@ Broadcast::channel('chatroom.{id}', function ($user, $id) {
         'group_id',
         'image',
         'chatroom_id',
-        'chat_status_id'
+        'chat_status_id',
     ])
         ->with(['chatStatus:id,color', 'chatroom:id,name', 'group:id,color,effect,icon'])
         ->find($user->id);

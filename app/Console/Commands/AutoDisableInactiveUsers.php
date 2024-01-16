@@ -17,9 +17,9 @@ use App\Jobs\SendDisableUserMail;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
-use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest

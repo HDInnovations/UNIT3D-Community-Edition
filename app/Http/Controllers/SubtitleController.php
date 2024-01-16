@@ -34,9 +34,9 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Exception;
 
 class SubtitleController extends Controller
 {
@@ -97,7 +97,7 @@ class SubtitleController extends Controller
         Storage::disk('subtitles')->put($filename, $subtitleFile);
 
         // Announce To Shoutbox
-        if (!$subtitle->anon) {
+        if (! $subtitle->anon) {
             $this->chatRepository->systemMessage(
                 sprintf(
                     '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',

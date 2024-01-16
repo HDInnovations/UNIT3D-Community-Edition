@@ -13,10 +13,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Thank;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Thank;
 
 /** @extends Factory<Thank> */
 class ThankFactory extends Factory

@@ -13,11 +13,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Ticket;
 use App\Models\TicketCategory;
 use App\Models\TicketPriority;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Ticket;
 
 /** @extends Factory<Ticket> */
 class TicketFactory extends Factory

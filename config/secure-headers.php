@@ -476,7 +476,7 @@ return [
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/child-src
         'child-src' => [
             'allow' => [
-                'https://www.youtube-nocookie.com/embed/'
+                'https://www.youtube-nocookie.com/embed/',
             ],
         ],
 
@@ -502,7 +502,7 @@ return [
 
             'schemes' => [
                 'data:',
-                'https:'
+                'https:',
             ],
 
             'allow' => [
@@ -667,9 +667,9 @@ return [
             'allow' => [
                 'gitcdn.xyz',
                 'github.io',
-                "*.github.io",
+                '*.github.io',
                 'raw.githubusercontent.com',
-                'github.com'
+                'github.com',
             ],
         ],
 

@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BonExchange;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<BonExchange> */
 class BonExchangeFactory extends Factory

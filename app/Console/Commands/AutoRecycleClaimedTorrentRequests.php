@@ -16,9 +16,9 @@ namespace App\Console\Commands;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
-use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest

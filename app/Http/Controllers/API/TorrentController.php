@@ -28,11 +28,11 @@ use App\Models\Tv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -101,7 +101,7 @@ class TorrentController extends BaseController
 
         $requestFile = $request->file('torrent');
 
-        if (!$request->hasFile('torrent')) {
+        if (! $request->hasFile('torrent')) {
             return $this->sendError('Validation Error.', 'You Must Provide A Torrent File For Upload!');
         }
 
@@ -120,7 +120,7 @@ class TorrentController extends BaseController
         }
 
         foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
-            if (!TorrentTools::isValidFilename($name)) {
+            if (! TorrentTools::isValidFilename($name)) {
                 return $this->sendError('Validation Error.', 'Invalid Filenames In Torrent Files!');
             }
         }
@@ -260,7 +260,7 @@ class TorrentController extends BaseController
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 
-        foreach($files as &$file) {
+        foreach ($files as &$file) {
             $file['torrent_id'] = $torrent->id;
         }
 

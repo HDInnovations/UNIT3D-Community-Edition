@@ -24,16 +24,27 @@ class PeerSearch extends Component
     use WithPagination;
 
     public bool $duplicateIpsOnly = false;
+
     public bool $includeSeedsize = false;
+
     public int $perPage = 25;
+
     public string $ip = '';
+
     public string $port = '';
+
     public string $agent = '';
+
     public string $torrent = '';
+
     public string $connectivity = 'any';
+
     public string $active = 'any';
+
     public string $groupBy = 'none';
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
 
     protected $queryString = [

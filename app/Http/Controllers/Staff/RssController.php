@@ -21,8 +21,8 @@ use App\Models\Genre;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest

@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Notification;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Notification> */
 class NotificationFactory extends Factory

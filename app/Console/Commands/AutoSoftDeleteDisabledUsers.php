@@ -31,8 +31,8 @@ use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Command;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest

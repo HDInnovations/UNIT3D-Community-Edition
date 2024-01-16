@@ -19,8 +19,8 @@ use App\Models\History;
 use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Carbon;
 use Exception;
+use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest

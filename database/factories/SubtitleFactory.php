@@ -14,10 +14,10 @@
 namespace Database\Factories;
 
 use App\Models\MediaLanguage;
+use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Subtitle;
 
 /** @extends Factory<Subtitle> */
 class SubtitleFactory extends Factory

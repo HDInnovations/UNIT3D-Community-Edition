@@ -19,9 +19,9 @@ use App\Models\Movie;
 use App\Models\Playlist;
 use App\Models\Tv;
 use App\Repositories\ChatRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
@@ -43,7 +43,7 @@ class PlaylistController extends Controller
         return view('playlist.index', [
             'playlists' => Playlist::with([
                 'user:id,username,group_id,image',
-                'user.group'
+                'user.group',
             ])
                 ->withCount('torrents')
                 ->where(function ($query): void {
@@ -83,11 +83,11 @@ class PlaylistController extends Controller
 
         $playlist = Playlist::create([
             'user_id'     => $request->user()->id,
-            'cover_image' => $filename ?? null
+            'cover_image' => $filename ?? null,
         ] + $request->validated());
 
         // Announce To Shoutbox
-        if (!$playlist->is_private) {
+        if (! $playlist->is_private) {
             $this->chatRepository->systemMessage(
                 sprintf('User [url=%s/', config('app.url')).$request->user()->username.'.'.$request->user()->id.']'.$request->user()->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', config('app.url')).$playlist->id.']'.$playlist->name.'[/url] check it out now! :slight_smile:'
             );
@@ -108,7 +108,7 @@ class PlaylistController extends Controller
 
         return view('playlist.show', [
             'playlist' => $playlist,
-            'meta'     => match(true) {
+            'meta'     => match (true) {
                 $randomTorrent?->category?->tv_meta    => Tv::with('genres', 'networks', 'seasons')->find($randomTorrent->tmdb),
                 $randomTorrent?->category?->movie_meta => Movie::with('genres', 'companies', 'collection')->find($randomTorrent->tmdb),
                 default                                => null,

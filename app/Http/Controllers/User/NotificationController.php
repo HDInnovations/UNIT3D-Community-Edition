@@ -14,10 +14,10 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Notifications\DatabaseNotification;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\NotificationControllerTest

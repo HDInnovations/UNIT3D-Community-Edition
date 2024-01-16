@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Page;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Page> */
 class PageFactory extends Factory

@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\MediaLanguage;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<MediaLanguage> */
 class MediaLanguageFactory extends Factory

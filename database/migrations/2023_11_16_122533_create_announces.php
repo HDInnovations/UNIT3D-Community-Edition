@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     public function up(): void
     {
         Schema::create('announces', function (Blueprint $table): void {
@@ -24,6 +25,6 @@ return new class () extends Migration {
             $table->index(['user_id', 'torrent_id']);
         });
 
-        DB::statement("ALTER TABLE announces ADD COLUMN peer_id BINARY(20) NOT NULL AFTER corrupt");
+        DB::statement('ALTER TABLE announces ADD COLUMN peer_id BINARY(20) NOT NULL AFTER corrupt');
     }
 };

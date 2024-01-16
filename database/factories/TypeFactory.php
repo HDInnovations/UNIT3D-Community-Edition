@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Type> */
 class TypeFactory extends Factory

@@ -13,11 +13,11 @@
 
 namespace App\Services\Tmdb\Client;
 
-use JsonException;
 use App\Enums\Occupation;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use JsonException;
 
 class TV
 {
@@ -412,7 +412,7 @@ class TV
                     'person_id'     => $person['id'],
                     'occupation_id' => Occupation::ACTOR->value,
                     'character'     => $role['character'] ?? '',
-                    'order'         => $person['order'] ?? null
+                    'order'         => $person['order'] ?? null,
                 ];
             }
         }

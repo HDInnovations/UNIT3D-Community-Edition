@@ -35,7 +35,7 @@ class StoreBanRequest extends FormRequest
     {
         return [
             'owned_by' => [
-                Rule::exists('users', 'id')
+                Rule::exists('users', 'id'),
             ],
             'ban_reason' => [
                 'required',

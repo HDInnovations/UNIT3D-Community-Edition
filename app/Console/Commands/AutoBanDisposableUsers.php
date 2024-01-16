@@ -9,6 +9,7 @@
  *
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ *
  * @credit     PyR8zdl
  */
 
@@ -20,8 +21,8 @@ use App\Models\User;
 use App\Notifications\UserBan;
 use App\Rules\EmailBlacklist;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Command;
 
 /**
  * @see \Tests\Todo\Unit\Console\Commands\AutoBanDisposableUsersTest

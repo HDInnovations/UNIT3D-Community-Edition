@@ -36,7 +36,7 @@ class UpdateTorrentRequestBountyRequest extends FormRequest
             'anon' => [
                 'required',
                 'boolean',
-            ]
+            ],
         ];
     }
 }

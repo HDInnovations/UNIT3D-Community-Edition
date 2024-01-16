@@ -13,9 +13,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Seedbox;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Seedbox;
 
 /** @extends Factory<Seedbox> */
 class SeedboxFactory extends Factory

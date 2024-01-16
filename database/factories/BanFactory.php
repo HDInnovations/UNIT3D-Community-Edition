@@ -13,9 +13,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Ban;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Ban;
 
 /** @extends Factory<Ban> */
 class BanFactory extends Factory

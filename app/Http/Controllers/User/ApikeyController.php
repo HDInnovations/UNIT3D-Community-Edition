@@ -31,7 +31,7 @@ class ApikeyController extends Controller
 
         $changedByStaff = $request->user()->isNot($user);
 
-        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+        abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
 
         DB::transaction(function () use ($user, $changedByStaff): void {
             $user->apikeys()->latest()->first()?->update(['deleted_at' => now()]);
@@ -65,7 +65,7 @@ class ApikeyController extends Controller
 
         return view('user.apikey.index', [
             'user'    => $user,
-            'apikeys' => $user->apikeys()->latest()->get()
+            'apikeys' => $user->apikeys()->latest()->get(),
         ]);
     }
 }

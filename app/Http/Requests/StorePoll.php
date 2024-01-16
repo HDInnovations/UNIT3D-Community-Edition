@@ -38,20 +38,20 @@ class StorePoll extends FormRequest
         return [
             'title' => [
                 'required',
-                'min:10'
+                'min:10',
             ],
             'multiple_choice' => [
                 'required',
-                'boolean'
+                'boolean',
             ],
             'options.*.name' => [
                 'required',
-                'max:255'
+                'max:255',
             ],
             'options' => [
                 'array',
                 'min:2',
-                'max:20'
+                'max:20',
             ],
         ];
     }

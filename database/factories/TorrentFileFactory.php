@@ -14,8 +14,8 @@
 namespace Database\Factories;
 
 use App\Models\Torrent;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentFile;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<TorrentFile> */
 class TorrentFileFactory extends Factory

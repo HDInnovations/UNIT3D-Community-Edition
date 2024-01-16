@@ -39,14 +39,14 @@ use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
+use JsonException;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
-use Exception;
 use ReflectionException;
-use JsonException;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -95,7 +95,7 @@ class TorrentController extends Controller
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'networks',
-                'recommendedTv:id,name,poster,first_air_date'
+                'recommendedTv:id,name,poster,first_air_date',
             ])->find($torrent->tmdb);
         }
 
@@ -105,7 +105,7 @@ class TorrentController extends Controller
                 'credits' => ['person', 'occupation'],
                 'companies',
                 'collection',
-                'recommendedMovies:id,title,poster,release_date'
+                'recommendedMovies:id,title,poster,release_date',
             ])
                 ->find($torrent->tmdb);
         }
@@ -165,7 +165,7 @@ class TorrentController extends Controller
                             $cat->no_meta    => 'no',
                             default          => 'no',
                         },
-                    ]
+                    ],
                 ]),
             'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id']        => ['name'        => $type['name']]]),
             'resolutions'  => Resolution::orderBy('position')->get(),
@@ -388,7 +388,7 @@ class TorrentController extends Controller
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 
-        foreach($files as &$file) {
+        foreach ($files as &$file) {
             $file['torrent_id'] = $torrent->id;
         }
 
@@ -446,7 +446,7 @@ class TorrentController extends Controller
         }
 
         // check for trusted user and update torrent
-        if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {
+        if ($user->group->is_trusted && ! $request->boolean('mod_queue_opt_in')) {
             $appurl = config('app.url');
             $user = $torrent->user;
             $username = $user->username;

@@ -148,7 +148,7 @@ class Comments extends Component
             'playlist'        => href_playlist($this->model),
             'torrent request' => href_request($this->model),
             'torrent'         => href_torrent($this->model),
-            default           => "#"
+            default           => '#'
         };
 
         if ($modelName !== 'ticket') {

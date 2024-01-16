@@ -48,7 +48,7 @@ class TwoFactorAuthForm extends Component
     final public function mount(): void
     {
         if (Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm') &&
-            null === auth()->user()->two_factor_confirmed_at) {
+            auth()->user()->two_factor_confirmed_at === null) {
             app(DisableTwoFactorAuthentication::class)(auth()->user());
         }
     }
@@ -132,7 +132,7 @@ class TwoFactorAuthForm extends Component
      */
     final public function getEnabledProperty(): bool
     {
-        return !empty($this->user->two_factor_secret);
+        return ! empty($this->user->two_factor_secret);
     }
 
     /**

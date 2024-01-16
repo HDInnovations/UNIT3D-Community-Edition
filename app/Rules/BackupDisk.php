@@ -20,7 +20,7 @@ class BackupDisk implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!\in_array($value, config('backup.backup.destination.disks'))) {
+        if (! \in_array($value, config('backup.backup.destination.disks'))) {
             $fail('Current disk is not configured as a backup disk');
         }
     }

@@ -360,7 +360,7 @@ class Bbcode
             }
 
             // Is the potential tag opening or closing?
-            if ($source[$index + 1] === '/' && !empty($openedElements)) {
+            if ($source[$index + 1] === '/' && ! empty($openedElements)) {
                 $name = array_pop($openedElements);
                 $el = $this->parsers[$name];
                 $tag = substr((string) $source, $index, \strlen((string) $el['closeBbcode']));
@@ -401,7 +401,7 @@ class Bbcode
             $index++;
         }
 
-        while (!empty($openedElements)) {
+        while (! empty($openedElements)) {
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 

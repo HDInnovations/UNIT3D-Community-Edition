@@ -57,7 +57,7 @@ class SentPrivateMessageController extends Controller
 
         return view('user.sent-private-message.show', [
             'privateMessage' => $sentPrivateMessage,
-            'user'           => $user
+            'user'           => $user,
         ]);
     }
 
@@ -92,7 +92,7 @@ class SentPrivateMessageController extends Controller
             ],
             'receiver_username' => [
                 Rule::exists('users', 'username')->whereNot('username', $user->username),
-            ]
+            ],
         ]);
 
         $recipient = User::where('username', '=', $request->string('receiver_username'))->sole();

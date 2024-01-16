@@ -30,8 +30,8 @@ use App\Models\Post;
 use App\Models\Subscription;
 use App\Models\Topic;
 use App\Repositories\ChatRepository;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TopicControllerTest
@@ -189,9 +189,9 @@ class TopicController extends Controller
             ->whereRelation('forumPermissions', [
                 ['show_forum', '=', 1],
                 ['read_topic', '=', 1],
-                ['group_id', '=', $user->group_id]
+                ['group_id', '=', $user->group_id],
             ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -205,13 +205,13 @@ class TopicController extends Controller
                 'forums' => fn ($query) => $query->whereRelation('permissions', [
                     ['show_forum', '=', 1],
                     ['start_topic', '=', 1],
-                ])
+                ]),
             ])
             ->get();
 
         return view('forum.topic.edit', [
             'topic'      => $topic,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
@@ -228,7 +228,7 @@ class TopicController extends Controller
         ]);
 
         $topic = Topic::query()
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+            ->when(! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
@@ -383,7 +383,7 @@ class TopicController extends Controller
 
         return to_route('topics.show', [
             'id'   => $topicId,
-            'page' => intdiv($index, 25) + 1
+            'page' => intdiv($index, 25) + 1,
         ])
             ->withFragment('post-'.$postId);
     }
@@ -401,7 +401,7 @@ class TopicController extends Controller
 
         return to_route('topics.show', [
             'id'   => $id,
-            'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1
+            'page' => intdiv($post?->post_count === null ? 0 : $post->post_count - 1, 25) + 1,
         ])
             ->withFragment('post-'.($post->id ?? 0));
     }

@@ -65,7 +65,7 @@ class UserResurrections extends Component
                 'resurrections.created_at',
                 'resurrections.seedtime',
                 'resurrections.rewarded',
-                'resurrections.torrent_id'
+                'resurrections.torrent_id',
             ])
             ->with(['torrent', 'user'])
             ->leftJoin('torrents', 'torrents.id', '=', 'resurrections.torrent_id')

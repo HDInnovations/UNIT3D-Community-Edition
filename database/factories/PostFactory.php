@@ -13,10 +13,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Post;
 
 /** @extends Factory<Post> */
 class PostFactory extends Factory

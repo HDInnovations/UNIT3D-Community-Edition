@@ -9,6 +9,7 @@
  *
  * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ *
  * @credits    Rhilip <https://github.com/Rhilip> Roardom <roardom@protonmail.com>
  */
 
@@ -83,7 +84,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     private function getConnectableStatus(): bool
     {
-        if (!config('announce.connectable_check')) {
+        if (! config('announce.connectable_check')) {
             return false;
         }
 

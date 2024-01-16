@@ -15,9 +15,9 @@ namespace App\Http\Requests;
 
 use App\Models\Post;
 use App\Models\Torrent;
+use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use Closure;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest

@@ -16,8 +16,8 @@ namespace Database\Factories;
 use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserAudible;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<UserAudible> */
 class UserAudibleFactory extends Factory

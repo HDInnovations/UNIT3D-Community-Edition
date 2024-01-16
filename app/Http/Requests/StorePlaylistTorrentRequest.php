@@ -51,7 +51,7 @@ class StorePlaylistTorrentRequest extends FormRequest
                 'integer',
                 Rule::exists('torrents', 'id'),
                 Rule::unique('playlist_torrents')->where('playlist_id', $request->integer('playlist_id')),
-            ]
+            ],
         ];
     }
 }

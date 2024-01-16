@@ -41,7 +41,7 @@ class SimilarTorrentController extends Controller
                 $meta = Movie::with([
                     'genres',
                     'credits' => ['person', 'occupation'],
-                    'companies'
+                    'companies',
                 ])
                     ->find($tmdbId);
                 $tmdb = $tmdbId;
@@ -56,7 +56,7 @@ class SimilarTorrentController extends Controller
                     'genres',
                     'credits' => ['person', 'occupation'],
                     'companies',
-                    'networks'
+                    'networks',
                 ])
                     ->find($tmdbId);
                 $tmdb = $tmdbId;
@@ -114,7 +114,7 @@ class SimilarTorrentController extends Controller
                 /** @var Carbon $lastUpdated */
                 $lastUpdated = cache()->get($cacheKey);
 
-                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && !$request->user()->group->is_modo, 403);
+                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && ! $request->user()->group->is_modo, 403);
 
                 cache()->put($cacheKey, now(), now()->addDay());
 
@@ -127,7 +127,7 @@ class SimilarTorrentController extends Controller
                 /** @var Carbon $lastUpdated */
                 $lastUpdated = cache()->get($cacheKey);
 
-                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && !$request->user()->group->is_modo, 403);
+                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && ! $request->user()->group->is_modo, 403);
 
                 cache()->put($cacheKey, now(), now()->addDay());
 

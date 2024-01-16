@@ -33,7 +33,7 @@ test('index returns an ok response', function (): void {
         'downloaded' => 1,
         'compact'    => 1,
     ]));
-    $response ->assertOk();
+    $response->assertOk();
 
     $this->assertStringNotContainsString('failure reason', $response->getContent());
 });

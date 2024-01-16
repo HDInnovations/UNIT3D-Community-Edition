@@ -33,16 +33,16 @@ class PersonCredit extends Component
     final public function mount(): void
     {
         $this->occupationId ??= match (true) {
-            0 < $this->createdCount            => Occupation::CREATOR->value,
-            0 < $this->directedCount           => Occupation::DIRECTOR->value,
-            0 < $this->writtenCount            => Occupation::WRITER->value,
-            0 < $this->producedCount           => Occupation::PRODUCER->value,
-            0 < $this->composedCount           => Occupation::COMPOSER->value,
-            0 < $this->cinematographedCount    => Occupation::CINEMATOGRAPHER->value,
-            0 < $this->editedCount             => Occupation::EDITOR->value,
-            0 < $this->productionDesignedCount => Occupation::PRODUCTION_DESIGNER->value,
-            0 < $this->artDirectedCount        => Occupation::ART_DIRECTOR->value,
-            0 < $this->actedCount              => Occupation::ACTOR->value,
+            $this->createdCount > 0            => Occupation::CREATOR->value,
+            $this->directedCount > 0           => Occupation::DIRECTOR->value,
+            $this->writtenCount > 0            => Occupation::WRITER->value,
+            $this->producedCount > 0           => Occupation::PRODUCER->value,
+            $this->composedCount > 0           => Occupation::COMPOSER->value,
+            $this->cinematographedCount > 0    => Occupation::CINEMATOGRAPHER->value,
+            $this->editedCount > 0             => Occupation::EDITOR->value,
+            $this->productionDesignedCount > 0 => Occupation::PRODUCTION_DESIGNER->value,
+            $this->artDirectedCount > 0        => Occupation::ART_DIRECTOR->value,
+            $this->actedCount > 0              => Occupation::ACTOR->value,
             default                            => null,
         };
     }
@@ -204,7 +204,7 @@ class PersonCredit extends Component
                                         ->sortBy([
                                             ['resolution.position', 'asc'],
                                             ['internal', 'desc'],
-                                            ['size', 'desc']
+                                            ['size', 'desc'],
                                         ])
                                         ->values()
                                 );
@@ -232,7 +232,7 @@ class PersonCredit extends Component
                                                 ->sortBy([
                                                     ['resolution.position', 'asc'],
                                                     ['internal', 'desc'],
-                                                    ['size', 'desc']
+                                                    ['size', 'desc'],
                                                 ])
                                                 ->values()
                                         ),
@@ -249,7 +249,7 @@ class PersonCredit extends Component
                                                         ->sortBy([
                                                             ['resolution.position', 'asc'],
                                                             ['internal', 'desc'],
-                                                            ['size', 'desc']
+                                                            ['size', 'desc'],
                                                         ])
                                                         ->values()
                                                 )
@@ -270,7 +270,7 @@ class PersonCredit extends Component
                                                                 ->sortBy([
                                                                     ['resolution.position', 'asc'],
                                                                     ['internal', 'desc'],
-                                                                    ['size', 'desc']
+                                                                    ['size', 'desc'],
                                                                 ])
                                                                 ->values()
                                                         ),
@@ -287,7 +287,7 @@ class PersonCredit extends Component
                                                                         ->sortBy([
                                                                             ['resolution.position', 'asc'],
                                                                             ['internal', 'desc'],
-                                                                            ['size', 'desc']
+                                                                            ['size', 'desc'],
                                                                         ])
                                                                         ->values()
                                                                 )

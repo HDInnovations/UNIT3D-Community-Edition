@@ -14,9 +14,9 @@
 namespace Database\Factories;
 
 use App\Models\Movie;
+use App\Models\Recommendation;
 use App\Models\Tv;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Recommendation;
 
 /** @extends Factory<Recommendation> */
 class RecommendationFactory extends Factory

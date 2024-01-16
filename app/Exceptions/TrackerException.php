@@ -13,8 +13,8 @@
 
 namespace App\Exceptions;
 
-use Throwable;
 use Exception;
+use Throwable;
 
 class TrackerException extends Exception
 {
@@ -77,7 +77,7 @@ class TrackerException extends Exception
     /**
      * TrackerException constructor.
      */
-    public function __construct(int $code = 999, array $replace = null, Throwable $throwable = null)
+    public function __construct(int $code = 999, ?array $replace = null, ?Throwable $throwable = null)
     {
         $message = self::ERROR_MSG[$code];
 

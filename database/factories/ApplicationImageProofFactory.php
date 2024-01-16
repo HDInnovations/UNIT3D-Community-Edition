@@ -14,8 +14,8 @@
 namespace Database\Factories;
 
 use App\Models\Application;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationImageProof;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<ApplicationImageProof> */
 class ApplicationImageProofFactory extends Factory

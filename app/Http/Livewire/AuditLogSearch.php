@@ -56,7 +56,7 @@ class AuditLogSearch extends Component
     final public function getModelNamesProperty()
     {
         $modelList = [];
-        $path = app_path()."/Models";
+        $path = app_path().'/Models';
         $results = scandir($path);
 
         foreach ($results as $result) {

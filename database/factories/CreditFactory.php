@@ -13,12 +13,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Credit;
 use App\Models\Movie;
 use App\Models\Occupation;
 use App\Models\Person;
 use App\Models\Tv;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Credit;
 
 /** @extends Factory<Credit> */
 class CreditFactory extends Factory

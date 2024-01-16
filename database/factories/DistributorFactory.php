@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Distributor;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Distributor> */
 class DistributorFactory extends Factory

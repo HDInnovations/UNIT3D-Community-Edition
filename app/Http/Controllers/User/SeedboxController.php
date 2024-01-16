@@ -16,9 +16,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Seedbox;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\SeedboxControllerTest

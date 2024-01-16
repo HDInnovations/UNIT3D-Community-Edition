@@ -24,7 +24,9 @@ class Application extends Model
     use HasFactory;
 
     final public const PENDING = 0;
+
     final public const APPROVED = 1;
+
     final public const REJECTED = 2;
 
     /**

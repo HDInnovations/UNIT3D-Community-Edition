@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Internal;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Internal> */
 class InternalFactory extends Factory

@@ -15,9 +15,9 @@ namespace Database\Factories;
 
 use App\Models\Bot;
 use App\Models\Chatroom;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Message;
 
 /** @extends Factory<Message> */
 class MessageFactory extends Factory

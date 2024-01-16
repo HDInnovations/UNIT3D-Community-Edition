@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Bot;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Bot> */
 class BotFactory extends Factory

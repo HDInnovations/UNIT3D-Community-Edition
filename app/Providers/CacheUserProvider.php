@@ -30,7 +30,7 @@ class CacheUserProvider extends EloquentUserProvider
      */
     public function retrieveById($identifier)
     {
-        if (!$identifier || $identifier <= 0 || !is_numeric($identifier)) {
+        if (! $identifier || $identifier <= 0 || ! is_numeric($identifier)) {
             return;
         }
 
@@ -42,13 +42,13 @@ class CacheUserProvider extends EloquentUserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        if (!$identifier || $identifier <= 0 || !is_numeric($identifier)) {
+        if (! $identifier || $identifier <= 0 || ! is_numeric($identifier)) {
             return;
         }
 
         $model = CacheUser::user($identifier);
 
-        if (!$model) {
+        if (! $model) {
             return;
         }
 

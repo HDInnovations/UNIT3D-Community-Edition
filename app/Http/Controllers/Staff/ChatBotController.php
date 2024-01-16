@@ -16,8 +16,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateChatBotRequest;
 use App\Models\Bot;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\ChatBotControllerTest
@@ -53,7 +53,7 @@ class ChatBotController extends Controller
         $bot->update($request->validated());
 
         return to_route('staff.bots.index')
-            ->withSuccess("The Bot Has Been Updated");
+            ->withSuccess('The Bot Has Been Updated');
     }
 
     /**

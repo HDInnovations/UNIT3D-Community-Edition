@@ -13,8 +13,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Group;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Group> */
 class GroupFactory extends Factory

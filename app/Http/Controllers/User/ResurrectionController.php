@@ -14,8 +14,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Resurrection;
 use App\Models\History;
+use App\Models\Resurrection;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;

@@ -115,7 +115,7 @@ class TorrentTools
                 $count = is_countable($file['path']) ? \count($file['path']) : 0;
 
                 for ($i = 0; $i < $count; $i++) {
-                    if (!\in_array($file['path'][$i], $filenames)) {
+                    if (! \in_array($file['path'][$i], $filenames)) {
                         $filenames[] = $file['path'][$i];
                     }
                 }
@@ -154,7 +154,7 @@ class TorrentTools
      */
     public static function isValidFilename(string $filename): bool
     {
-        return !(
+        return ! (
             \strlen($filename) > 255
             // nodes containing: `\`, `/`, `?`, `<`, `>`, `:`, `8`, `|`, and ascii characters from 0 through 31
             || preg_match('/[\\\\\\/?<>:*|"\x00-\x1f]/', $filename)

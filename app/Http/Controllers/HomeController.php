@@ -25,10 +25,10 @@ use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
@@ -70,7 +70,7 @@ class HomeController extends Controller
                     ->where('last_action', '>', now()->subMinutes(5))
                     ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
                     ->get()
-                    ->sortBy(fn ($user) => $user->hidden || !$user->isVisible($user, 'other', 'show_online'))
+                    ->sortBy(fn ($user) => $user->hidden || ! $user->isVisible($user, 'other', 'show_online'))
             ),
             'groups' => cache()->remember(
                 'user-groups',
@@ -80,7 +80,7 @@ class HomeController extends Controller
                     'name',
                     'color',
                     'effect',
-                    'icon'
+                    'icon',
                 ])
                     ->oldest('position')
                     ->get()
@@ -464,7 +464,7 @@ class HomeController extends Controller
                 $expiresAt,
                 fn () => FeaturedTorrent::with([
                     'torrent' => ['resolution', 'type', 'category'],
-                    'user.group'
+                    'user.group',
                 ])->get()
             ),
             'poll'      => cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first()),

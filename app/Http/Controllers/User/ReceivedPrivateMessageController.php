@@ -16,8 +16,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\PrivateMessage;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PrivateMessageControllerTest
@@ -61,7 +61,7 @@ class ReceivedPrivateMessageController extends Controller
 
         return view('user.received-private-message.show', [
             'pm'   => $receivedPrivateMessage,
-            'user' => $user
+            'user' => $user,
         ]);
     }
 

@@ -35,7 +35,7 @@ class RequestFillController extends Controller
 
         if ($torrent === null) {
             return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-                ->withErrors("Submitted torrent link not found or not yet approved.");
+                ->withErrors('Submitted torrent link not found or not yet approved.');
         }
 
         $torrentRequest->update([

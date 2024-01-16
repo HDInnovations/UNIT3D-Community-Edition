@@ -82,7 +82,7 @@ class Comment extends Component
 
     final public function updatedIsEditing($isEditing): void
     {
-        if (!$isEditing) {
+        if (! $isEditing) {
             return;
         }
 
@@ -122,7 +122,7 @@ class Comment extends Component
             return;
         }
 
-        if (!$this->comment->isParent()) {
+        if (! $this->comment->isParent()) {
             return;
         }
 
@@ -149,7 +149,7 @@ class Comment extends Component
                     User::find($ticket->user_id)->notify(new NewComment($modelName, $reply));
                 }
 
-                if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
+                if (! \in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
                     User::find($this->comment->user_id)->notify(new NewComment($modelName, $reply));
                 }
 
@@ -178,7 +178,7 @@ class Comment extends Component
             'playlist'        => href_playlist($this->comment->commentable),
             'torrent request' => href_request($this->comment->commentable),
             'torrent'         => href_torrent($this->comment->commentable),
-            default           => "#"
+            default           => '#'
         };
 
         if ($modelName !== 'ticket') {

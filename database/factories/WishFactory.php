@@ -14,8 +14,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Wish;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<Wish> */
 class WishFactory extends Factory

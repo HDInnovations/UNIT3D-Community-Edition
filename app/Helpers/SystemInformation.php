@@ -13,8 +13,8 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class SystemInformation
 {
@@ -156,7 +156,7 @@ class SystemInformation
 
     private function getDatabase(): string
     {
-        if (!\in_array(config('database.default'), self::KNOWN_DATABASES, true)) {
+        if (! \in_array(config('database.default'), self::KNOWN_DATABASES, true)) {
             return 'Unkown';
         }
 

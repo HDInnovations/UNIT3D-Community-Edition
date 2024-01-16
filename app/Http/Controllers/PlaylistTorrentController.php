@@ -61,7 +61,7 @@ class PlaylistTorrentController extends Controller
         Validator::make($playlistTorrents, [
             '*.torrent_id' => Rule::exists('torrents', 'id'),
         ], [
-            '*.torrent_id.exists' => 'The torrent ID/URL ":input" entered was not found on site.'
+            '*.torrent_id.exists' => 'The torrent ID/URL ":input" entered was not found on site.',
         ])->validate();
 
         PlaylistTorrent::upsert($playlistTorrents, ['playlist_id', 'torrent_id', 'tmdb_id']);

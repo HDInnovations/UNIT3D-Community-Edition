@@ -30,7 +30,7 @@ class RsskeyController extends Controller
 
         $changedByStaff = $request->user()->isNot($user);
 
-        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+        abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
 
         DB::transaction(function () use ($user, $changedByStaff): void {
             $user->rsskeys()->latest()->first()?->update(['deleted_at' => now()]);

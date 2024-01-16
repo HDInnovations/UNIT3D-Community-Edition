@@ -65,8 +65,11 @@ class Torrent extends Model
     ];
 
     final public const PENDING = 0;
+
     final public const APPROVED = 1;
+
     final public const REJECTED = 2;
+
     final public const POSTPONED = 3;
 
     protected static function booted(): void
@@ -382,7 +385,7 @@ class Torrent extends Model
     /**
      * Torrent Is Freeleech.
      */
-    public function isFreeleech(User $user = null): bool
+    public function isFreeleech(?User $user = null): bool
     {
         $pfree = $user && ($user->group->is_freeleech || cache()->get('personal_freeleech:'.$user->id));
 

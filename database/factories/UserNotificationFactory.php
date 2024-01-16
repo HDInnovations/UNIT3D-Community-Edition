@@ -14,8 +14,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserNotification;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /** @extends Factory<UserNotification> */
 class UserNotificationFactory extends Factory

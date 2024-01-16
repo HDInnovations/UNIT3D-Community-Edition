@@ -14,10 +14,10 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Exception;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoFlushPeersTest
@@ -80,7 +80,7 @@ class AutoUpsertPeers extends Command
                         'torrent_id',
                         'user_id',
                         'connectable',
-                        'active'
+                        'active',
                     ],
                 );
             }, 5);

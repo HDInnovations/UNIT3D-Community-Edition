@@ -13,10 +13,10 @@
 
 namespace Database\Factories;
 
+use App\Models\FeaturedTorrent;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\FeaturedTorrent;
 
 /** @extends Factory<FeaturedTorrent> */
 class FeaturedTorrentFactory extends Factory

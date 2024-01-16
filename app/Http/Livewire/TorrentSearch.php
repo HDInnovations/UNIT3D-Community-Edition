@@ -18,10 +18,10 @@ use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Closure;
 
 class TorrentSearch extends Component
 {
@@ -263,14 +263,14 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (!\in_array($this->sortField, [
+        if (! \in_array($this->sortField, [
             'name',
             'size',
             'seeders',
             'leechers',
             'times_completed',
             'created_at',
-            'bumped_at'
+            'bumped_at',
         ])) {
             $this->reset('sortField');
         }
@@ -343,7 +343,7 @@ class TorrentSearch extends Component
         $user = auth()->user();
 
         // Whitelist which columns are allowed to be ordered by
-        if (!\in_array($this->sortField, [
+        if (! \in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {
@@ -452,7 +452,7 @@ class TorrentSearch extends Component
                                         ->sortBy([
                                             ['resolution.position', 'asc'],
                                             ['internal', 'desc'],
-                                            ['size', 'desc']
+                                            ['size', 'desc'],
                                         ])
                                         ->values()
                                 );
@@ -480,7 +480,7 @@ class TorrentSearch extends Component
                                                 ->sortBy([
                                                     ['resolution.position', 'asc'],
                                                     ['internal', 'desc'],
-                                                    ['size', 'desc']
+                                                    ['size', 'desc'],
                                                 ])
                                                 ->values()
                                         ),
@@ -497,7 +497,7 @@ class TorrentSearch extends Component
                                                         ->sortBy([
                                                             ['resolution.position', 'asc'],
                                                             ['internal', 'desc'],
-                                                            ['size', 'desc']
+                                                            ['size', 'desc'],
                                                         ])
                                                         ->values()
                                                 )
@@ -518,7 +518,7 @@ class TorrentSearch extends Component
                                                                 ->sortBy([
                                                                     ['resolution.position', 'asc'],
                                                                     ['internal', 'desc'],
-                                                                    ['size', 'desc']
+                                                                    ['size', 'desc'],
                                                                 ])
                                                                 ->values()
                                                         ),
@@ -535,7 +535,7 @@ class TorrentSearch extends Component
                                                                         ->sortBy([
                                                                             ['resolution.position', 'asc'],
                                                                             ['internal', 'desc'],
-                                                                            ['size', 'desc']
+                                                                            ['size', 'desc'],
                                                                         ])
                                                                         ->values()
                                                                 )
@@ -582,7 +582,7 @@ class TorrentSearch extends Component
     final public function getGroupedPostersProperty()
     {
         // Whitelist which columns are allowed to be ordered by
-        if (!\in_array($this->sortField, [
+        if (! \in_array($this->sortField, [
             'bumped_at',
             'times_completed',
         ])) {
