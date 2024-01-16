@@ -42,6 +42,7 @@ class GroupFactory extends Factory
             'is_owner'         => false,
             'is_admin'         => false,
             'is_modo'          => false,
+            'is_editor'        => false,
             'is_trusted'       => $this->faker->boolean(),
             'is_immune'        => $this->faker->boolean(),
             'is_freeleech'     => $this->faker->boolean(),
