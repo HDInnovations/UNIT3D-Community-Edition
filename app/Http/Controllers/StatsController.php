@@ -30,7 +30,7 @@ use Exception;
  */
 class StatsController extends Controller
 {
-    public \Illuminate\Support\Carbon $carbon;
+    public Carbon $carbon;
 
     /**
      * StatsController Constructor.
