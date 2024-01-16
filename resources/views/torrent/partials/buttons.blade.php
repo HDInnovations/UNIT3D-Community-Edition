@@ -36,41 +36,49 @@
                     action="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
                     method="POST"
                     style="display: contents"
-                    x-data
+                    x-data="freeleechTokenConfirmation"
                 >
                     @csrf
                     <button
                         class="form__button form__button--outlined form__button--centered"
                         title="{{ __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) }}!"
-                        x-on:click.prevent="
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: 'This will use one of your Freeleech Tokens!',
-                                icon: 'warning',
-                                showConfirmButton: true,
-                                showCloseButton: true,
-                            }).then((result) => {
-                                if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
-                                    Swal.fire({
-                                        title: 'Are you sure?',
-                                        text: 'This torrent has 0 seeders!',
-                                        icon: 'warning',
-                                        showConfirmButton: true,
-                                        showCancelButton: true,
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            $root.submit();
-                                        }
-                                    });
-                                } else if (result.isConfirmed) {
-                                    $root.submit();
-                                }
-                            });
-                        "
+                        x-on:click.prevent="confirmAction"
                     >
                         {{ __('torrent.use-fl-token') }}
                     </button>
                 </form>
+                <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.data('freeleechTokenConfirmation', () => ({
+                            confirmAction() {
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'This will use one of your Freeleech Tokens!',
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCloseButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: 'This torrent has 0 seeders!',
+                                            icon: 'warning',
+                                            showConfirmButton: true,
+                                            showCancelButton: true,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                this.$root.submit();
+                                            }
+                                        });
+                                    } else if (result.isConfirmed) {
+                                        this.$root.submit();
+                                    }
+                                });
+                            }
+                        }));
+                    });
+                        }
+                </script>
             </li>
         @endif
     @endif

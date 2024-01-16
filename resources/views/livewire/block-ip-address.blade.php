@@ -86,7 +86,7 @@
                     <th>{{ __('common.actions') }}</th>
                 </tr>
                 @forelse ($ipAddresses as $ipAddress)
-                    <tr>
+                    <tr x-data="blockedIp" data-blocked-ip-id="{{ $ipAddress->id }}">
                         <td>{{ $ipAddress->id }}</td>
                         <td>
                             <x-user_tag :anon="false" :user="$ipAddress->user" />
@@ -112,19 +112,10 @@
                         <td>
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
-                                    <form x-data>
+                                    <form>
                                         <button
-                                            x-on:click.prevent="Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: `Are you sure you want to delete this ip: {{ $ipAddress->ip_address }}`,
-                                            icon: 'warning',
-                                            showConfirmButton: true,
-                                            showCancelButton: true,
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                @this.destroy({{ $ipAddress->id }})
-                                            }
-                                        })"
+                                            x-on:click.prevent="destroy"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this ip: ' . $ipAddress->ip_address . '?') }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -143,4 +134,23 @@
         </table>
     </div>
     {{ $ipAddresses->links('partials.pagination') }}
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('blockedIp', () => ({
+                destroy() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: atob(this.$el.dataset.b64DeletionMessage),
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.$wire.destroy(this.$root.dataset.blockedIpId);
+                        }
+                    });
+                },
+            }));
+        });
+    </script>
 </section>

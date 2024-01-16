@@ -61,7 +61,7 @@
             </thead>
             <tbody>
                 @forelse ($notes as $note)
-                    <tr>
+                    <tr x-data="userNote" data-note-id="{{ $note->id }}">
                         <td>
                             <x-user_tag :anon="false" :user="$note->staffuser" />
                         </td>
@@ -77,19 +77,10 @@
                         <td>
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
-                                    <form x-data>
+                                    <form>
                                         <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    @this.destroy({{ $note->id }})
-                                                }
-                                            })"
+                                            x-on:click.prevent="destroy"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this note: ' . $note->message . '?') }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -107,4 +98,23 @@
             </tbody>
         </table>
     </div>
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('userNote', () => ({
+                destroy() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: atob(this.$el.dataset.b64DeletionMessage),
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.$wire.destroy(this.$root.dataset.noteId);
+                        }
+                    });
+                },
+            }));
+        });
+    </script>
 </section>
