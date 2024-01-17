@@ -61,10 +61,12 @@ class AutoRecycleClaimedTorrentRequests extends Command
             ->whereNull('torrent_id')
             ->get();
 
+        $requestClaims = TorrentRequestClaim::whereIn('request_id', $torrentRequests->pluck('id'))
+            ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
+            ->get();
+
         foreach ($torrentRequests as $torrentRequest) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
-                ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
-                ->first();
+            $requestClaim = $requestClaims->firstWhere('request_id', $torrentRequest->id);
 
             if ($requestClaim) {
                 $trUrl = href_request($torrentRequest);
