@@ -51,19 +51,14 @@ class AutoUpsertPeers extends Command
          * (`active`, `agent`, `connectable`, `created_at`, `downloaded`, `id`, `ip`, `left`, `peer_id`, `port`, `seeder`, `torrent_id`, `updated_at`, `uploaded`, `user_id`).
          */
         $peerPerCycle = intdiv(65_000, 15);
-
         $key = config('cache.prefix').':peers:batch';
         $peerCount = Redis::connection('announce')->command('LLEN', [$key]);
 
-        for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= $peerPerCycle) {
-            $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
+        $allPeers = Redis::connection('announce')->command('LPOP', [$key, $peerCount]);
+        $allPeers = array_map('unserialize', $allPeers);
+        $chunks = array_chunk($allPeers, $peerPerCycle);
 
-            if ($peers === false) {
-                break;
-            }
-
-            $peers = array_map('unserialize', $peers);
-
+        foreach ($chunks as $peers) {
             DB::transaction(function () use ($peers): void {
                 Peer::upsert(
                     $peers,
