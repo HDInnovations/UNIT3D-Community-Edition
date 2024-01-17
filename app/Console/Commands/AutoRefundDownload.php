@@ -16,7 +16,6 @@ namespace App\Console\Commands;
 use App\Models\History;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class AutoRefundDownload extends Command
 {
@@ -36,18 +35,15 @@ class AutoRefundDownload extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $now = Carbon::now();
         $MIN_SEEDTIME = config('hitrun.seedtime');
         $FULL_REFUND_SEEDTIME = 12 * 30 * 24 * 60 * 60 + $MIN_SEEDTIME;
         $COMMAND_RUN_PERIOD = 24 * 60 * 60; // This command is run every 24 hours
 
-        History::query()
-            ->selectRaw('LEAST(1, history.seedtime / ?) * torrents.size - history.refunded_download as refunded_download_delta', [$FULL_REFUND_SEEDTIME])
+        $histories = History::query()
             ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->join('users', 'users.id', '=', 'history.user_id')
             ->join('groups', 'groups.id', '=', 'users.group_id')
@@ -62,11 +58,19 @@ class AutoRefundDownload extends Command
                     ->where('groups.is_refundable', '=', 1)
                     ->orWhere('torrents.refundable', '=', 1)
             ))
-            ->update([
-                'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size - history.refunded_download)'),
-                'users.downloaded'          => DB::raw('users.downloaded - @delta'),
-                'history.updated_at'        => DB::raw('history.updated_at'),
-            ]);
+            ->get();
+
+        foreach ($histories as $history) {
+            $delta = min(
+                1,
+                $history->seedtime / $FULL_REFUND_SEEDTIME
+            ) * $history->torrent->size - $history->refunded_download;
+            $history->refunded_download += $delta;
+            $history->user->downloaded -= $delta;
+            $history->timestamps = false;
+            $history->save();
+            $history->user->save();
+        }
 
         $this->comment('Automated Download Refund Command Complete');
     }
