@@ -38,14 +38,7 @@ class AutoStatsClients extends Command
      */
     public function handle(): void
     {
-        $clients = Peer::selectRaw('agent, count(*) as count')
-            ->fromSub(
-                fn ($sub) => $sub
-                    ->select(['agent', 'user_id'])
-                    ->from('peers')
-                    ->groupBy('agent', 'user_id'),
-                'distinct_agent_user'
-            )
+        $clients = Peer::selectRaw('agent, COUNT(DISTINCT user_id) as count')
             ->groupBy('agent')
             ->orderBy('agent')
             ->get()
