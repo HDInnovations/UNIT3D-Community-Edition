@@ -55,11 +55,13 @@ class AutoRemoveFeaturedTorrent extends Command
         $current = Carbon::now();
         $featuredTorrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
 
+        $torrents = Torrent::whereIn('id', $featuredTorrents->pluck('torrent_id'))->where('featured', '=', 1)->get();
+
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
+            $torrent = $torrents->firstWhere('id', $featuredTorrent->torrent_id);
 
-            if (isset($torrent)) {
+            if ($torrent) {
                 $torrent->free = 0;
                 $torrent->doubleup = false;
                 $torrent->featured = false;
