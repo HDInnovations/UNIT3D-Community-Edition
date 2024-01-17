@@ -55,6 +55,7 @@ class AutoBonAllocation extends Command
 
         foreach ($peers as $peer) {
             $bonus = 0;
+
             if ($peer->seeder == 1 && $peer->active == 1 && $peer->created_at->diffInMinutes(now()) > 30) {
                 if ($peer->seeders == 1 && $peer->times_completed > 2) {
                     $bonus = 2;
@@ -75,6 +76,7 @@ class AutoBonAllocation extends Command
 
         foreach ($history as $record) {
             $bonus = 0;
+
             if ($record->active == 1) {
                 if ($record->seedtime >= 2592000 && $record->seedtime < 2592000 * 2) {
                     $bonus = 0.25;
