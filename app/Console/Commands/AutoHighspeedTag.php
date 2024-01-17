@@ -48,19 +48,20 @@ class AutoHighspeedTag extends Command
             ->pluck('ip')
             ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
 
-        Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->leftJoinSub(
-                Peer::where('seeder', '=', 1)
-                    ->where('active', '=', 1)
-                    ->distinct()
-                    ->select('torrent_id')
-                    ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
-                'highspeed_torrents',
-                fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
-            )
-            ->update([
-                'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
-            ]);
+        $peers = Peer::where('seeder', '=', 1)
+            ->where('active', '=', 1)
+            ->distinct()
+            ->select('torrent_id')
+            ->whereIn(DB::raw("INET6_NTOA(ip)"), $seedboxIps)
+            ->get();
+
+        $torrents = Torrent::withoutGlobalScope(ApprovedScope::class)
+            ->get();
+
+        foreach ($torrents as $torrent) {
+            $torrent->highspeed = $peers->contains('torrent_id', $torrent->id) ? 1 : 0;
+            $torrent->save();
+        }
 
         $this->comment('Automated High Speed Torrents Command Complete');
     }
