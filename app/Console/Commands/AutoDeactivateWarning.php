@@ -50,18 +50,18 @@ class AutoDeactivateWarning extends Command
             ->where('active', '=', 1)
             ->get();
 
-        foreach ($warnings as $warning) {
-            if ($warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= config('hitrun.seedtime'))) {
-                // Set Records Active To 0 in warnings table
-                $warning->active = false;
-                $warning->save();
+        $expiredWarnings = $warnings->filter(fn ($warning) => $warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= config('hitrun.seedtime')));
 
-                // Send Notifications
-                if ($warning->torrenttitle) {
-                    $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
-                } else {
-                    $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
-                }
+        foreach ($expiredWarnings as $warning) {
+            // Set Records Active To 0 in warnings table
+            $warning->active = false;
+            $warning->save();
+
+            // Send Notifications
+            if ($warning->torrenttitle) {
+                $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
+            } else {
+                $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
             }
         }
 
@@ -72,14 +72,14 @@ class AutoDeactivateWarning extends Command
             ->having('value', '<', config('hitrun.max_warnings'))
             ->get();
 
-        foreach ($warnings as $warning) {
-            if ($warning->warneduser->can_download === false) {
-                $warning->warneduser->can_download = 1;
-                $warning->warneduser->save();
+        $usersWithDownloadDisabled = $warnings->filter(fn ($warning) => $warning->warneduser->can_download === false);
 
-                cache()->forget('user:'.$warning->warneduser->passkey);
-                Unit3dAnnounce::addUser($warning->warneduser);
-            }
+        foreach ($usersWithDownloadDisabled as $warning) {
+            $warning->warneduser->can_download = 1;
+            $warning->warneduser->save();
+
+            cache()->forget('user:'.$warning->warneduser->passkey);
+            Unit3dAnnounce::addUser($warning->warneduser);
         }
 
         $this->comment('Automated Warning Deativation Command Complete');
