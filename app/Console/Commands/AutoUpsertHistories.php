@@ -64,19 +64,14 @@ class AutoUpsertHistories extends Command
          * - updated_at
          */
         $historiesPerCycle = intdiv(65_000, 16);
-
         $key = config('cache.prefix').':histories:batch';
         $historyCount = Redis::connection('announce')->command('LLEN', [$key]);
 
-        for ($historiesLeft = $historyCount; $historiesLeft > 0; $historiesLeft -= $historiesPerCycle) {
-            $histories = Redis::connection('announce')->command('LPOP', [$key, $historiesPerCycle]);
+        $allHistories = Redis::connection('announce')->command('LPOP', [$key, $historyCount]);
+        $allHistories = array_map('unserialize', $allHistories);
+        $chunks = array_chunk($allHistories, $historiesPerCycle);
 
-            if ($histories === false) {
-                break;
-            }
-
-            $histories = array_map('unserialize', $histories);
-
+        foreach ($chunks as $histories) {
             DB::transaction(function () use ($histories): void {
                 History::upsert(
                     $histories,
