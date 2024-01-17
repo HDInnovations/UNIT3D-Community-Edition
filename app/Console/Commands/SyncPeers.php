@@ -43,20 +43,18 @@ class SyncPeers extends Command
      */
     public function handle(): void
     {
-        Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->leftJoinSub(
-                Peer::query()
-                    ->select('torrent_id')
-                    ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1) AS updated_seeders'))
-                    ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1) AS updated_leechers'))
-                    ->groupBy('torrent_id'),
-                'seeders_leechers',
-                fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
-            )
-            ->update([
-                'seeders'  => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
-                'leechers' => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
-            ]);
+        DB::statement(
+            'UPDATE torrents
+        LEFT JOIN (
+            SELECT torrent_id,
+            SUM(IF(left = 0 AND active = 1, 1, 0)) AS updated_seeders,
+            SUM(IF(left != 0 AND active = 1, 1, 0)) AS updated_leechers
+            FROM peers
+            GROUP BY torrent_id
+        ) AS seeders_leechers ON torrents.id = seeders_leechers.torrent_id
+        SET seeders = COALESCE(seeders_leechers.updated_seeders, 0),
+        leechers = COALESCE(seeders_leechers.updated_leechers, 0)'
+        );
 
         $this->comment('Torrent Peer Syncing Command Complete');
     }
