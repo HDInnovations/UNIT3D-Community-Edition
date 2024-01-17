@@ -53,24 +53,31 @@ class AutoFlushPeers extends Command
             ->where('active', '=', 1)
             ->get();
 
-        foreach ($peers as $peer) {
-            History::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->update([
-                    'active'     => false,
-                    'updated_at' => DB::raw('updated_at')
-                ]);
+        $historyUpdateData = [];
+        $torrentUpdateData = [];
 
-            Torrent::where('id', '=', $peer->torrent_id)->update([
+        foreach ($peers as $peer) {
+            $historyUpdateData[] = [
+                'torrent_id' => $peer->torrent_id,
+                'user_id'    => $peer->user_id,
+                'active'     => false,
+                'updated_at' => DB::raw('updated_at')
+            ];
+
+            $torrentUpdateData[] = [
+                'id'       => $peer->torrent_id,
                 'seeders'  => DB::raw('seeders - '.((int) $peer->seeder)),
                 'leechers' => DB::raw('leechers - '.((int) !$peer->seeder)),
-            ]);
+            ];
 
             $peer->active = false;
             $peer->timestamps = false;
             $peer->save();
         }
+
+        // Batch update history and torrent data
+        DB::table('history')->upsert($historyUpdateData, ['torrent_id', 'user_id'], ['active', 'updated_at']);
+        DB::table('torrents')->upsert($torrentUpdateData, ['id'], ['seeders', 'leechers']);
 
         // Keep peers that stopped being announced without a `stopped` event
         // in case a user has internet issues and comes back online within the
