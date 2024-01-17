@@ -46,12 +46,14 @@ class AutoGroup extends Command
      */
     public function handle(ByteUnits $byteUnits): void
     {
-        // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();
         $groups = Group::where('autogroup', '=', 1)->pluck('id');
 
-        foreach (User::whereIntegerInRaw('group_id', $groups)->get() as $user) {
-            $hiscount = History::where('user_id', '=', $user->id)->count();
+        $users = User::whereIntegerInRaw('group_id', $groups)->get();
+        $histories = History::whereIn('user_id', $users->pluck('id'))->get();
+
+        foreach ($users as $user) {
+            $hiscount = $histories->where('user_id', $user->id)->count();
 
             // Temp Hard Coding of Group Requirements (Config Files To Come) (Upload in Bytes!) (Seedtime in Seconds!)
 
