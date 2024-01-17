@@ -58,6 +58,8 @@ class AutoPreWarning extends Command
                 ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
 
+            $warnings = Warning::withTrashed()->get();
+
             foreach ($prewarn as $pre) {
                 // Skip Prewarning if Torrent is NULL
                 // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
@@ -66,15 +68,10 @@ class AutoPreWarning extends Command
                 }
 
                 if (!$pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
-                    $exsist = Warning::withTrashed()
-                        ->where('torrent', '=', $pre->torrent->id)
-                        ->where('user_id', '=', $pre->user->id)
-                        ->first();
+                    $exsist = $warnings->where('torrent', $pre->torrent->id)->firstWhere('user_id', $pre->user->id);
 
-                    // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
+                    // Send Pre Warning PM If Actual Warning Doesn't Already Exsist
                     if ($exsist === null) {
-                        $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
-
                         // Send Notifications
                         $pre->user->notify(new UserPreWarning($pre->user, $pre->torrent));
 
