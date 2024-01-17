@@ -59,19 +59,14 @@ class AutoUpsertAnnounces extends Command
          * - key
          */
         $announcesPerCycle = intdiv(65_000, 11);
-
         $key = config('cache.prefix').':announces:batch';
         $announceCount = Redis::connection('announce')->command('LLEN', [$key]);
 
-        for ($announcesLeft = $announceCount; $announcesLeft > 0; $announcesLeft -= $announcesPerCycle) {
-            $announces = Redis::connection('announce')->command('LPOP', [$key, $announcesPerCycle]);
+        $allAnnounces = Redis::connection('announce')->command('LPOP', [$key, $announceCount]);
+        $allAnnounces = array_map('unserialize', $allAnnounces);
+        $chunks = array_chunk($allAnnounces, $announcesPerCycle);
 
-            if ($announces === false) {
-                break;
-            }
-
-            $announces = array_map('unserialize', $announces);
-
+        foreach ($chunks as $announces) {
             DB::transaction(static fn () => Announce::insert($announces), 5);
         }
 
