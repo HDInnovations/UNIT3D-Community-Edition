@@ -55,52 +55,56 @@ class AutoRewardResurrection extends Command
      */
     public function handle(): void
     {
-        foreach (Resurrection::where('rewarded', '!=', 1)->oldest()->get() as $resurrection) {
-            $user = User::find($resurrection->user_id);
+        $resurrections = Resurrection::where('rewarded', '!=', 1)->oldest()->get();
+        $users = User::whereIn('id', $resurrections->pluck('user_id'))->get();
+        $torrents = Torrent::whereIn('id', $resurrections->pluck('torrent_id'))->get();
+        $histories = History::whereIn('torrent_id', $resurrections->pluck('torrent_id'))
+            ->whereIn('user_id', $resurrections->pluck('user_id'))
+            ->where('seedtime', '>=', $resurrections->pluck('seedtime')->min())
+            ->get();
 
-            $torrent = Torrent::find($resurrection->torrent_id);
+        foreach ($resurrections as $resurrection) {
+            $user = $users->firstWhere('id', $resurrection->user_id);
+            $torrent = $torrents->firstWhere('id', $resurrection->torrent_id);
 
-            if (isset($user, $torrent)) {
-                $history = History::where('torrent_id', '=', $torrent->id)
-                    ->where('user_id', '=', $user->id)
-                    ->where('seedtime', '>=', $resurrection->seedtime)
-                    ->first();
-            }
+            if ($user && $torrent) {
+                $history = $histories->where('torrent_id', '=', $torrent->id)->firstWhere('user_id', '=', $user->id);
 
-            if (isset($history)) {
-                $resurrection->rewarded = true;
-                $resurrection->save();
+                if ($history) {
+                    $resurrection->rewarded = true;
+                    $resurrection->save();
 
-                $user->fl_tokens += config('graveyard.reward');
-                $user->save();
+                    $user->fl_tokens += config('graveyard.reward');
+                    $user->save();
 
-                // Auto Shout
-                $appurl = config('app.url');
+                    // Auto Shout
+                    $appurl = config('app.url');
 
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
-                );
+                    $this->chatRepository->systemMessage(
+                        sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url]. :zombie:', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
+                    );
 
-                // Bump Torrent With FL
-                $torrentUrl = href_torrent($torrent);
-                $torrent->bumped_at = Carbon::now();
-                $torrent->free = 100;
-                $torrent->fl_until = Carbon::now()->addDays(3);
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top. :stopwatch:', $torrentUrl, $torrent->name)
-                );
-                $torrent->save();
+                    // Bump Torrent With FL
+                    $torrentUrl = href_torrent($torrent);
+                    $torrent->bumped_at = Carbon::now();
+                    $torrent->free = 100;
+                    $torrent->fl_until = Carbon::now()->addDays(3);
+                    $this->chatRepository->systemMessage(
+                        sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top. :stopwatch:', $torrentUrl, $torrent->name)
+                    );
+                    $torrent->save();
 
-                Unit3dAnnounce::addTorrent($torrent);
+                    Unit3dAnnounce::addTorrent($torrent);
 
-                // Send Private Message
-                $pm = new PrivateMessage();
-                $pm->sender_id = 1;
-                $pm->receiver_id = $user->id;
-                $pm->subject = 'Successful Graveyard Resurrection';
-                $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
+                    // Send Private Message
+                    $pm = new PrivateMessage();
+                    $pm->sender_id = 1;
+                    $pm->receiver_id = $user->id;
+                    $pm->subject = 'Successful Graveyard Resurrection';
+                    $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                $pm->save();
+                    $pm->save();
+                }
             }
         }
 
