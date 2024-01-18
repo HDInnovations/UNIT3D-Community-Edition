@@ -30,6 +30,7 @@
         "livewire/livewire": "^2.12.6",
         "marcreichel/igdb-laravel": "^3.8.1",
         "paragonie/constant_time_encoding": "^2.6.3",
+        "prevailexcel/laravel-nowpayments": "^1.0",
         "spatie/laravel-backup": "^8.5.0",
         "spatie/laravel-cookie-consent": "^3.2.4",
         "spatie/laravel-image-optimizer": "^1.7.1",
