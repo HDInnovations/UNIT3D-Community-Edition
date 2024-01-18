@@ -7,26 +7,9 @@ use App\Models\DonationItem;
 
 class DonationItemsSeeder extends Seeder
 {
-    private $donationItems;
-
-    public function __construct()
-    {
-        $this->donationItems = $this->getDonationItems();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->donationItems as $donationItem) {
-            DonationItem::updateOrCreate($donationItem);
-        }
-    }
-
-    private function getDonationItems(): array
-    {
-        return [
+        DonationItem::upsert([
             [
                 'id'          => 0,
                 'type'        => 'Freeleech',
@@ -82,6 +65,6 @@ class DonationItemsSeeder extends Seeder
                 'days_active' => 365,
                 'price_usd'   => '41.40',
             ],
-        ];
+        ], ['id']);
     }
 }

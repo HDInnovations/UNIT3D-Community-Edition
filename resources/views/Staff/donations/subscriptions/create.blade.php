@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('staff.vips') }} - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="{{ __('staff.vips') }} - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -48,7 +48,7 @@
                         type="text"
                         name="username"
                         placeholder=" "
-                    >
+                    />
                     <label class="form__label form__label--floating" for="username">{{ __('common.username') }}<label>
                 </p>
                 <p class="form__group">
@@ -58,7 +58,7 @@
                         type="text"
                         name="donation_item_id"
                         placeholder=" "
-                    >
+                    />
                     <label class="form__label form__label--floating" for="donation_item_id">Item ID</label>
                 </p>
                 <p class="form__group">
@@ -68,7 +68,7 @@
                         type="text"
                         name="start_at"
                         placeholder=" "
-                    >
+                    />
                     <label class="form__label form__label--floating" for="start_at">Start date (yyyy-mm-dd)</label>
                 </p>
                 <p class="form__group">
@@ -78,7 +78,7 @@
                         type="text"
                         name="end_at"
                         placeholder=" "
-                    >
+                    />
                     <label class="form__label form__label--floating" for="end_at">End date (yyyy-mm-dd)</label>
                 </p>
                 <p class="form__group">
