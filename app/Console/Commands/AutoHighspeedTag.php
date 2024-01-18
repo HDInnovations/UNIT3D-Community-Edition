@@ -46,7 +46,8 @@ class AutoHighspeedTag extends Command
     {
         $seedboxIps = Seedbox::all()
             ->pluck('ip')
-            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP))
+            ->map(fn ($ip) => inet_pton($ip));
 
         Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
@@ -54,7 +55,7 @@ class AutoHighspeedTag extends Command
                     ->where('active', '=', 1)
                     ->distinct()
                     ->select('torrent_id')
-                    ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
+                    ->whereIn('ip', $seedboxIps),
                 'highspeed_torrents',
                 fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
             )
