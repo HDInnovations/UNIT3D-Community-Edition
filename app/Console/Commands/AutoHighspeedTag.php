@@ -60,7 +60,8 @@ class AutoHighspeedTag extends Command
                 fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
             )
             ->update([
-                'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
+                'highspeed'  => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
+                'updated_at' => DB::raw('updated_at'),
             ]);
 
         $this->comment('Automated High Speed Torrents Command Complete');

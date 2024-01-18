@@ -46,7 +46,10 @@ class AutoTorrentBalance extends Command
             'balances',
             fn ($join) => $join->on('balances.torrent_id', '=', 'torrents.id')
         )
-            ->update(['torrents.balance' => DB::raw('balances.balance')]);
+            ->update([
+                'torrents.balance' => DB::raw('balances.balance'),
+                'updated_at'       => DB::raw('updated_at'),
+            ]);
 
         $this->comment('Torrent balance calculations completed.');
     }
