@@ -127,6 +127,16 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
+        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
+        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-forgot-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-forgot-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-reset-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::requestPasswordResetLinkView(fn () => view('auth.passwords.email'));
         Fortify::resetPasswordView(fn (Request $request) => view('auth.passwords.reset', ['request' => $request]));
@@ -139,7 +149,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model {
+        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model | bool {
             $request->validate([
                 'username' => 'required|string',
                 'password' => 'required|string',
@@ -148,7 +158,7 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::query()->where('username', $request->username)->first();
 
-            if ($user == null) {
+            if ($user === null) {
                 throw ValidationException::withMessages([
                     Fortify::username() => __('auth.failed'),
                 ]);
@@ -197,9 +207,8 @@ class FortifyServiceProvider extends ServiceProvider
 
                 return $user;
             }
-        });
 
-        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
-        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
+            return false;
+        });
     }
 }
