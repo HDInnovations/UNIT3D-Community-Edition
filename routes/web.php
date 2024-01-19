@@ -46,11 +46,11 @@ Route::middleware('language')->group(function (): void {
     |---------------------------------------------------------------------------------
     */
     Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
-        ->middleware('fortify-login-get', ['guest:'.config('fortify.guard')])
+        ->middleware(['fortify-login-get', 'guest:'.config('fortify.guard')])
         ->name('login');
 
     Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
-        ->middleware(['fortify-register-get','guest:'.config('fortify.guard')])
+        ->middleware(['fortify-register-get', 'guest:'.config('fortify.guard')])
         ->name('register');
 
     Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
@@ -61,7 +61,7 @@ Route::middleware('language')->group(function (): void {
         ->name('password.request');
 
     Route::get(RoutePath::for('password.reset', '/reset-password/{token}'), [NewPasswordController::class, 'create'])
-        ->middleware('fortify-reset-password-get', ['guest:'.config('fortify.guard')])
+        ->middleware(['fortify-reset-password-get', 'guest:'.config('fortify.guard')])
         ->name('password.reset');
 
     Route::post(RoutePath::for('password.email', '/forgot-password'), [PasswordResetLinkController::class, 'store'])
