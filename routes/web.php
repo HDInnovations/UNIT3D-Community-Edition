@@ -33,6 +33,16 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 Route::middleware('language')->group(function (): void {
+
+    /*
+    |---------------------------------------------------------------------------------
+    | Laravel Fortify Login GET Override
+    |---------------------------------------------------------------------------------
+    */
+    Route::get( Laravel\Fortify\RoutePath::for('login', '/login'), [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'create'])
+        ->middleware(['login-get', 'guest:'.config('fortify.guard')])
+        ->name('login');
+
     /*
     |---------------------------------------------------------------------------------
     | Website (Not Authorized) (Alpha Ordered)
