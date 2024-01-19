@@ -69,7 +69,7 @@ Route::middleware('language')->group(function (): void {
         ->name('password.email');
 
     Route::post(RoutePath::for('password.update', '/reset-password'), [NewPasswordController::class, 'store'])
-        ->middleware(['throttle:' .config('fortify.limiters.fortify-forgot-password-post'), 'guest:'.config('fortify.guard')])
+        ->middleware(['throttle:' .config('fortify.limiters.fortify-reset-password-post'), 'guest:'.config('fortify.guard')])
         ->name('password.update');
 
     /*
