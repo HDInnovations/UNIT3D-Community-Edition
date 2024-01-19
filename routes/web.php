@@ -45,7 +45,7 @@ Route::middleware('language')->group(function (): void {
     | Don't update Fortify without first making sure this override works.
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('fortify-overide')->group(function (): void {
+    Route::middleware('fortify-override')->group(function (): void {
         Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
             ->middleware(['guest:'.config('fortify.guard')])
             ->name('login');
