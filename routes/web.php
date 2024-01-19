@@ -45,34 +45,32 @@ Route::middleware('language')->group(function (): void {
     | Don't update Fortify without first making sure this override works.
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('fortify-override')->group(function (): void {
-        Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('login');
+    Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
+        ->middleware('fortify-login-get', ['guest:'.config('fortify.guard')])
+        ->name('login');
 
-        Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('register');
+    Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
+        ->middleware(['fortify-register-get','guest:'.config('fortify.guard')])
+        ->name('register');
 
-        Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
-            ->middleware(['guest:'.config('fortify.guard')]);
+    Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
+        ->middleware(['fortify-register-post', 'guest:'.config('fortify.guard')]);
 
-        Route::get(RoutePath::for('password.request', '/forgot-password'), [PasswordResetLinkController::class, 'create'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('password.request');
+    Route::get(RoutePath::for('password.request', '/forgot-password'), [PasswordResetLinkController::class, 'create'])
+        ->middleware(['fortify-forgot-password-get', 'guest:'.config('fortify.guard')])
+        ->name('password.request');
 
-        Route::get(RoutePath::for('password.reset', '/reset-password/{token}'), [NewPasswordController::class, 'create'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('password.reset');
+    Route::get(RoutePath::for('password.reset', '/reset-password/{token}'), [NewPasswordController::class, 'create'])
+        ->middleware('fortify-reset-password-get', ['guest:'.config('fortify.guard')])
+        ->name('password.reset');
 
-        Route::post(RoutePath::for('password.email', '/forgot-password'), [PasswordResetLinkController::class, 'store'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('password.email');
+    Route::post(RoutePath::for('password.email', '/forgot-password'), [PasswordResetLinkController::class, 'store'])
+        ->middleware(['fortify-forgot-password-post', 'guest:'.config('fortify.guard')])
+        ->name('password.email');
 
-        Route::post(RoutePath::for('password.update', '/reset-password'), [NewPasswordController::class, 'store'])
-            ->middleware(['guest:'.config('fortify.guard')])
-            ->name('password.update');
-    });
+    Route::post(RoutePath::for('password.update', '/reset-password'), [NewPasswordController::class, 'store'])
+        ->middleware(['fortify-reset-password-post', 'guest:'.config('fortify.guard')])
+        ->name('password.update');
 
     /*
     |---------------------------------------------------------------------------------

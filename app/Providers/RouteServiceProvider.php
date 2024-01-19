@@ -63,7 +63,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('fortify-override', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-forgot-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-forgot-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-reset-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+
+
         RateLimiter::for('web', fn (Request $request): Limit => $request->user()
             ? Limit::perMinute(30)->by($request->user()->id)
             : Limit::perMinute(5)->by($request->ip()));
