@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function (): void {
             Route::prefix('api')
-                ->middleware(['web', 'auth'])
+                ->middleware(['chat'])
                 ->group(base_path('routes/vue.php'));
 
             Route::middleware('web')
@@ -68,6 +68,7 @@ class RouteServiceProvider extends ServiceProvider
             : Limit::perMinute(5)->by($request->ip()));
         RateLimiter::for('api', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
         RateLimiter::for('announce', fn (Request $request) => Limit::perMinute(500)->by($request->ip()));
+        RateLimiter::for('chat', fn (Request $request) => Limit::perMinute(60)->by($request->user()?->id ?? $request->ip()));
         RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
     }
 }
