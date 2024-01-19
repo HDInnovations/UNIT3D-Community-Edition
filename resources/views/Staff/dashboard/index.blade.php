@@ -287,6 +287,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.torrent_downloads.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Downloads
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.rss.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>

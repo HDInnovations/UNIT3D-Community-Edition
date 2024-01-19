@@ -958,6 +958,9 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Torrent Downloads
+        Route::get('/torrent-downloads', App\Http\Livewire\TorrentDownloadSearch::class)->name('torrent_downloads.index');
+
         // Types
         Route::prefix('types')->group(function (): void {
             Route::name('types.')->group(function (): void {
