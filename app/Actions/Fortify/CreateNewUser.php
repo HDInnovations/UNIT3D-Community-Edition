@@ -77,6 +77,8 @@ class CreateNewUser implements CreatesNewUsers
 
         $user->rsskeys()->create(['content' => $user->rsskey]);
 
+        $user->emailUpdates()->create();
+
         if (config('other.invite-only') === true) {
             Invite::where('code', '=', $input['code'])->update([
                 'accepted_by' => $user->id,
