@@ -518,4 +518,35 @@ trait TorrentFilter
                     )
             );
     }
+
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfAdult(Builder $query, ?bool $isAdult = null): void
+    {
+        // Currently, only movies have an `adult` column.
+        $query
+            ->when(
+                $isAdult === true,
+                fn ($query) => $query
+                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                    ->whereIn('tmdb', Movie::select('id')->where('adult', '=', true)),
+            )
+            ->when(
+                $isAdult === false,
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                                    ->whereIn('tmdb', Movie::select('id')->where('adult', '=', false))
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereNotIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            )
+                    )
+            );
+    }
 }
