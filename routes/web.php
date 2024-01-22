@@ -816,6 +816,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Email Updates
+        Route::prefix('email-updates')->group(function (): void {
+            Route::name('email_updates.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\EmailUpdateController::class, 'index'])->name('index');
+            });
+        });
+
         // Flush System
         Route::prefix('flush')->group(function (): void {
             Route::name('flush.')->group(function (): void {

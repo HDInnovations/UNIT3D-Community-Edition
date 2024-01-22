@@ -799,6 +799,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has many email updates.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<EmailUpdate>
+     */
+    public function emailUpdates(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(EmailUpdate::class);
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool
