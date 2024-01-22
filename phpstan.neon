@@ -15,6 +15,5 @@ parameters:
     excludePaths:
         - app/Helpers/Markdown
         - app/Helpers/MarkdownExtra
-        - app/Providers/FortifyServiceProvider
     level: 7
     checkOctaneCompatibility: true

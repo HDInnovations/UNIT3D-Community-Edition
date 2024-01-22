@@ -149,7 +149,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model | bool {
+        Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model {
             $request->validate([
                 'username' => 'required|string',
                 'password' => 'required|string',
@@ -207,8 +207,6 @@ class FortifyServiceProvider extends ServiceProvider
 
                 return $user;
             }
-
-            return false;
         });
     }
 }
