@@ -52,14 +52,14 @@
                                             {{ __('common.edit') }}
                                         </a>
                                     </li>
-                                    <li class="data-table__action" x-data>
+                                    <li class="data-table__action" x-data="dialog">
                                         <button
                                             class="form__button form__button--text"
-                                            x-on:click.stop="$refs.dialog.showModal()"
+                                            x-bind="showDialog"
                                         >
                                             {{ __('common.delete') }}
                                         </button>
-                                        <dialog class="dialog" x-ref="dialog">
+                                        <dialog class="dialog" x-bind="dialogElement">
                                             <h4 class="dialog__heading">
                                                 Delete Torrent Region: {{ $region->name }}
                                             </h4>
@@ -67,7 +67,7 @@
                                                 class="dialog__form"
                                                 method="POST"
                                                 action="{{ route('staff.regions.destroy', ['region' => $region]) }}"
-                                                x-on:click.outside="$refs.dialog.close()"
+                                                x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('DELETE')

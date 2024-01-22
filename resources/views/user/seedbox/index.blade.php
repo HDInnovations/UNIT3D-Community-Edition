@@ -28,14 +28,11 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.seedboxes') }}</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data>
-                    <button
-                        class="form__button form__button--text"
-                        x-on:click.stop="$refs.dialog.showModal()"
-                    >
+                <div class="panel__action" x-data="dialog">
+                    <button class="form__button form__button--text" x-bind="showDialog">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog">
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">
                             {{ __('user.add-seedbox') }}
                         </h3>
@@ -43,7 +40,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('users.seedboxes.store', ['user' => $user]) }}"
-                            x-on:click.outside="$refs.dialog.close()"
+                            x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">

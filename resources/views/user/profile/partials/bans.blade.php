@@ -2,21 +2,18 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('user.bans') }}</h2>
         <div class="panel__actions">
-            <div class="panel__action" x-data="{ open: false }">
+            <div class="panel__action" x-data="dialog">
                 @if ($user->group->id === 5)
-                    <button
-                        class="form__button form__button--text"
-                        x-on:click.stop="$refs.dialog.showModal();"
-                    >
+                    <button class="form__button form__button--text" x-bind="showDialog">
                         {{ __('user.unban') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog">
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">Unban user: {{ $user->username }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.unbans.store') }}"
-                            x-on:click.outside="$refs.dialog.close();"
+                            x-bind="dialogForm"
                         >
                             @csrf
                             <input type="hidden" name="owned_by" value="{{ $user->id }}" />
@@ -64,19 +61,16 @@
                         </form>
                     </dialog>
                 @else
-                    <button
-                        class="form__button form__button--text"
-                        x-on:click.stop="$refs.dialog.showModal();"
-                    >
+                    <button class="form__button form__button--text" x-bind="showDialog">
                         {{ __('user.ban') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog">
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">Ban user: {{ $user->username }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.bans.store') }}"
-                            x-on:click.outside="$refs.dialog.close();"
+                            x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">

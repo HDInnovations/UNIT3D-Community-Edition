@@ -3,20 +3,13 @@
         <h2 class="panel__heading">{{ __('user.warnings') }}</h2>
         @if (auth()->user()->group->is_modo)
             <div class="panel__actions" x-data="userWarnings">
-                <div class="panel__action" x-data>
-                    <button
-                        class="form__button form__button--text"
-                        x-on:click.stop="$refs.dialog.showModal();"
-                    >
+                <div class="panel__action" x-data="dialogLivewire">
+                    <button class="form__button form__button--text" x-bind="showDialog">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-cloak>
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">Warn user: {{ $user->username }}</h3>
-                        <form
-                            class="dialog__form"
-                            x-on:click.outside="$refs.dialog.close()"
-                            x-on:submit.prevent="$refs.dialog.close()"
-                        >
+                        <form class="dialog__form" x-bind="dialogForm">
                             <p class="form__group">
                                 <textarea
                                     id="warn_reason"
@@ -34,7 +27,7 @@
                                 <button
                                     class="form__button form__button--filled"
                                     wire:click="store"
-                                    x-on:click="$refs.dialog.close()"
+                                    x-bind="submitDialogForm"
                                 >
                                     {{ __('common.save') }}
                                 </button>
