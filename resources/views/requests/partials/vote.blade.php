@@ -1,11 +1,8 @@
-<li class="form__group form__group--short-horizontal" x-data>
-    <button
-        class="form__button form__button--filled form__button--centered"
-        x-on:click.stop="$refs.dialog.showModal()"
-    >
+<li class="form__group form__group--short-horizontal" x-data="dialog">
+    <button class="form__button form__button--filled form__button--centered" x-bind="showDialog">
         {{ __('request.vote') }}
     </button>
-    <dialog class="dialog" x-ref="dialog">
+    <dialog class="dialog" x-bind="dialogElement">
         <h3 class="dialog__heading">
             {{ __('request.vote-that') }}
         </h3>
@@ -13,7 +10,7 @@
             class="dialog__form"
             method="POST"
             action="{{ route('requests.bounties.store', ['torrentRequest' => $torrentRequest]) }}"
-            x-on:click.outside="$refs.dialog.close()"
+            x-bind="dialogForm"
         >
             @csrf
             <input id="type" type="hidden" name="request_id" value="{{ $torrentRequest->id }}" />

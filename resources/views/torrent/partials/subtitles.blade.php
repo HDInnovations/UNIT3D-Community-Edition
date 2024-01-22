@@ -61,15 +61,15 @@
                                 </li>
                                 @if (auth()->user()->group->is_modo || auth()->id() == $subtitle->user_id)
                                     <li class="data-table__action">
-                                        <span x-data>
+                                        <span x-data="dialog">
                                             <button
                                                 class="form__button form__button--text"
                                                 title="{{ __('common.edit') }}"
-                                                x-on:click.stop="$refs.dialog.showModal()"
+                                                x-bind="showDialog"
                                             >
                                                 {{ __('common.edit') }}
                                             </button>
-                                            <dialog class="dialog" x-ref="dialog">
+                                            <dialog class="dialog" x-bind="dialogElement">
                                                 <h4 class="dialog__heading">
                                                     {{ __('common.edit') }}
                                                     {{ __('common.subtitle') }}
@@ -78,7 +78,7 @@
                                                     class="dialog__form"
                                                     method="POST"
                                                     action="{{ route('subtitles.update', ['subtitle' => $subtitle]) }}"
-                                                    x-on:click.outside="$refs.dialog.close()"
+                                                    x-bind="dialogForm"
                                                 >
                                                     @csrf
                                                     @method('PATCH')
