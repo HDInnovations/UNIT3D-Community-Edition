@@ -74,10 +74,9 @@
                                         this.$root.submit();
                                     }
                                 });
-                            }
+                            },
                         }));
                     });
-                        }
                 </script>
             </li>
         @endif
