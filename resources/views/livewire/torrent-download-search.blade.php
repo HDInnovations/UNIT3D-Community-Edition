@@ -48,8 +48,15 @@
                         </label>
                     </div>
                     <div class="form__group">
-                        <input id="type" wire:model="type" class="form__text" placeholder=" " />
-                        <label class="form__label form__label--floating" for="type">Type</label>
+                        <input
+                            id="torrentDownloadType"
+                            wire:model="torrentDownloadType"
+                            class="form__text"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="torrentDownloadType">
+                            Type
+                        </label>
                     </div>
                     <div class="form__group">
                         <input
