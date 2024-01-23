@@ -72,6 +72,12 @@ class TorrentDownloadSearch extends Component
             'user_id' => 'distinct_torrent_count',
             default   => 'id',
         };
+
+        if ($value === 'user_id') {
+            // By default, set `from` to 1 week ago otherwise it takes 20 seconds
+            // to load the page if it gets the values for all time
+            $this->from = now()->subWeek()->format('Y-m-d');
+        }
     }
 
     final public function updatingFrom(string &$value): void
