@@ -76,14 +76,14 @@ class TorrentDownloadSearch extends Component
 
     final public function updatingFrom(string &$value): void
     {
-        $value = Carbon::parse($value)->format('Y-m-d');
+        $value = $value === '' ? '' : Carbon::parse($value)->format('Y-m-d');
 
         $this->from = $value;
     }
 
     final public function updatingUntil(string &$value): void
     {
-        $value = Carbon::parse($value)->format('Y-m-d');
+        $value = $value === '' ? '' : Carbon::parse($value)->format('Y-m-d');
 
         $this->until = $value;
     }
