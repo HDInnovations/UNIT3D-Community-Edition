@@ -221,7 +221,7 @@ class TorrentController extends Controller
         }
 
         foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         $category = $torrent->category;
@@ -420,7 +420,7 @@ class TorrentController extends Controller
         }
 
         foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         // Cover Image for No-Meta Torrents
