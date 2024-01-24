@@ -64,6 +64,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'is_editor' => [
+                'required',
+                'boolean',
+            ],
             'is_modo' => [
                 'required',
                 'boolean',

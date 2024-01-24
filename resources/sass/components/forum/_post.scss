@@ -196,6 +196,8 @@
 .post__author-title {
     font-size: 13px;
     text-align: center;
+    word-break: normal;
+    overflow-wrap: anywhere;
 }
 
 .post__author-join,

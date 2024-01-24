@@ -95,6 +95,17 @@
                     <label class="form__label" for="is_internal">Internal</label>
                 </p>
                 <p class="form__group">
+                    <input name="is_editor" type="hidden" value="0" />
+                    <input
+                        id="is_editor"
+                        class="form__checkbox"
+                        name="is_editor"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="is_editor">Editor</label>
+                </p>
+                <p class="form__group">
                     <input name="is_modo" type="hidden" value="0" />
                     <input
                         id="is_modo"

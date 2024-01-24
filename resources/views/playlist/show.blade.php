@@ -16,15 +16,15 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
-                <div class="form__group form__group--horizontal" x-data>
+                <div class="form__group form__group--horizontal" x-data="dialog">
                     <button
                         class="form__button form__button--filled form__button--centered"
-                        x-on:click.stop="$refs.dialog.showModal()"
+                        x-bind="showDialog"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.add-torrent') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog">
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h4 class="dialog__heading">
                             {{ __('playlist.add-to-playlist') }}
                         </h4>
@@ -32,7 +32,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('playlist_torrents.massUpsert') }}"
-                            x-on:click.outside="$refs.dialog.close()"
+                            x-bind="dialogForm"
                         >
                             @csrf
                             @method('PUT')
@@ -85,27 +85,14 @@
                 <form
                     action="{{ route('playlists.destroy', ['playlist' => $playlist]) }}"
                     method="POST"
-                    x-data
+                    x-data="confirmation"
                 >
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
                         <button
-                            x-on:click.prevent="
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: `Are you sure you want to delete this playlist: ${atob(
-                                        '{{ base64_encode($playlist->name) }}'
-                                    )}?`,
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })
-                            "
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this playlist: ' . $playlist->name . '?') }}"
                             class="form__button form__button--filled form__button--centered"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-trash"></i>

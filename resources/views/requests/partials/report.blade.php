@@ -1,17 +1,17 @@
-<div class="form__group form__group--short-horizontal" x-data>
+<div class="form__group form__group--short-horizontal" x-data="dialog">
     <button
         class="form__button form__button--outlined form__button--centered"
-        x-on:click.stop="$refs.dialog.showModal()"
+        x-bind="showDialog"
     >
         {{ __('common.report') }}
     </button>
-    <dialog class="dialog" x-ref="dialog">
+    <dialog class="dialog" x-bind="dialogElement">
         <h3 class="dialog__heading">{{ __('request.report') }}: {{ $torrentRequest->name }}</h3>
         <form
             class="dialog__form"
             method="POST"
             action="{{ route('report_request', ['id' => $torrentRequest->id]) }}"
-            x-on:click.outside="$refs.dialog.close()"
+            x-bind="dialogForm"
         >
             @csrf
             <input id="type" type="hidden" name="title" value="{{ $torrentRequest->name }}" />

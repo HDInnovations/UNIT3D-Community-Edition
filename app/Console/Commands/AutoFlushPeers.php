@@ -63,8 +63,9 @@ class AutoFlushPeers extends Command
                 ]);
 
             Torrent::where('id', '=', $peer->torrent_id)->update([
-                'seeders'  => DB::raw('seeders - '.((int) $peer->seeder)),
-                'leechers' => DB::raw('leechers - '.((int) !$peer->seeder)),
+                'seeders'    => DB::raw('seeders - '.((int) $peer->seeder)),
+                'leechers'   => DB::raw('leechers - '.((int) !$peer->seeder)),
+                'updated_at' => DB::raw('updated_at'),
             ]);
 
             $peer->active = false;

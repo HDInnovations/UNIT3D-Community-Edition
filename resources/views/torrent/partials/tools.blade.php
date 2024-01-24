@@ -14,7 +14,7 @@
                 flex-wrap: wrap;
             "
         >
-            @if (auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
+            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
                 <li>
                     <menu
                         style="
@@ -36,15 +36,15 @@
                             </a>
                         </li>
                         @if (auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
-                            <li x-data>
+                            <li x-data="dialog">
                                 <button
                                     class="form__button form__button--outlined"
-                                    x-on:click.stop="$refs.dialog.showModal()"
+                                    x-bind="showDialog"
                                 >
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i>
                                     {{ __('common.delete') }}
                                 </button>
-                                <dialog class="dialog" x-ref="dialog">
+                                <dialog class="dialog" x-bind="dialogElement">
                                     <h4 class="dialog__heading">
                                         {{ __('common.delete') }}: {{ $torrent->name }}
                                     </h4>
@@ -52,7 +52,7 @@
                                         class="dialog__form"
                                         method="POST"
                                         action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
-                                        x-on:click.outside="$refs.dialog.close()"
+                                        x-bind="dialogForm"
                                     >
                                         @csrf
                                         @method('DELETE')
@@ -118,17 +118,14 @@
                         flex-wrap: wrap;
                     "
                 >
-                    <li x-data>
-                        <button
-                            class="form__button form__button--outlined"
-                            x-on:click.stop="$refs.dialog.showModal()"
-                        >
+                    <li x-data="dialog">
+                        <button class="form__button form__button--outlined" x-bind="showDialog">
                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
                             Freeleech
                         </button>
-                        <dialog class="dialog" x-ref="dialog">
+                        <dialog class="dialog" x-bind="dialogElement">
                             <h4 class="dialog__heading">Edit Freeleech</h4>
-                            <div x-on:click.outside="$refs.dialog.close()">
+                            <div x-bind="dialogForm">
                                 <form
                                     class="dialog__form"
                                     action="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
@@ -199,17 +196,14 @@
                             </div>
                         </dialog>
                     </li>
-                    <li x-data>
-                        <button
-                            class="form__button form__button--outlined"
-                            x-on:click.stop="$refs.dialog.showModal()"
-                        >
+                    <li x-data="dialog">
+                        <button class="form__button form__button--outlined" x-bind="showDialog">
                             <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i>
                             Double Upload
                         </button>
-                        <dialog class="dialog" x-ref="dialog">
+                        <dialog class="dialog" x-bind="dialogElement">
                             <h4 class="dialog__heading">Edit Double Upload</h4>
-                            <div x-on:click.outside="$refs.dialog.close()">
+                            <div x-bind="dialogForm">
                                 <form
                                     class="dialog__form"
                                     action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
@@ -390,15 +384,15 @@
                     @endif
 
                     @if ($torrent->status !== \App\Models\Torrent::POSTPONED)
-                        <li x-data>
+                        <li x-data="dialog">
                             <button
                                 class="form__button form__button--outlined"
-                                x-on:click.stop="$refs.dialog.showModal()"
+                                x-bind="showDialog"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-pause"></i>
                                 {{ __('common.moderation-postpone') }}
                             </button>
-                            <dialog class="dialog" x-ref="dialog">
+                            <dialog class="dialog" x-bind="dialogElement">
                                 <h4 class="dialog__heading">
                                     {{ __('common.moderation-postpone') }}: {{ $torrent->name }}
                                 </h4>
@@ -406,7 +400,7 @@
                                     class="dialog__form"
                                     method="POST"
                                     action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-                                    x-on:click.outside="$refs.dialog.close()"
+                                    x-bind="dialogForm"
                                 >
                                     @csrf
                                     <input
@@ -463,17 +457,17 @@
                     @endif
 
                     @if ($torrent->status !== \App\Models\Torrent::REJECTED)
-                        <li x-data>
+                        <li x-data="dialog">
                             <button
                                 class="form__button form__button--outlined"
-                                x-on:click.stop="$refs.dialog.showModal()"
+                                x-bind="showDialog"
                             >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-fw fa-thumbs-down"
                                 ></i>
                                 {{ __('common.moderation-reject') }}
                             </button>
-                            <dialog class="dialog" x-ref="dialog">
+                            <dialog class="dialog" x-bind="dialogElement">
                                 <h4 class="dialog__heading">
                                     {{ __('common.moderation-reject') }}: {{ $torrent->name }}
                                 </h4>
@@ -481,7 +475,7 @@
                                     class="dialog__form"
                                     method="POST"
                                     action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-                                    x-on:click.outside="$refs.dialog.close()"
+                                    x-bind="dialogForm"
                                 >
                                     @csrf
                                     <input

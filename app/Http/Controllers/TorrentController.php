@@ -148,7 +148,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless($user->group->is_editor || $user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return view('torrent.edit', [
             'categories' => Category::query()
@@ -167,7 +167,7 @@ class TorrentController extends Controller
                         },
                     ]
                 ]),
-            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]),
+            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id']        => ['name'        => $type['name']]]),
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
@@ -185,7 +185,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless($user->group->is_editor || $user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         $torrent->update($request->validated());
 
@@ -368,7 +368,7 @@ class TorrentController extends Controller
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->string('mediainfo')),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],

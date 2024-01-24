@@ -96,22 +96,15 @@
                     </a>
                 </p>
                 <div class="form__group form__group--horizontal">
-                    <form method="POST" action="{{ route('staff.flush.chat') }}" x-data>
+                    <form
+                        method="POST"
+                        action="{{ route('staff.flush.chat') }}"
+                        x-data="confirmation"
+                    >
                         @csrf
                         <button
-                            x-on:click.prevent="
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'Are you sure you want to delete all chatbox messages in all chatrooms (including private chatbox messages)?',
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })
-                            "
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all chatbox messages in all chatrooms (including private chatbox messages)?') }}"
                             class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-broom"></i>
@@ -294,6 +287,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.torrent_downloads.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Downloads
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.rss.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
@@ -331,22 +333,15 @@
                 @endif
 
                 <div class="form__group form__group--horizontal">
-                    <form method="POST" action="{{ route('staff.flush.peers') }}" x-data>
+                    <form
+                        method="POST"
+                        action="{{ route('staff.flush.peers') }}"
+                        x-data="confirmation"
+                    >
                         @csrf
                         <button
-                            x-on:click.prevent="
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'Are you sure you want to delete all ghost peers?',
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })
-                            "
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all ghost peers?') }}"
                             class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
@@ -413,6 +408,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.email_updates.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.email-updates') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.watchlist.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
@@ -429,20 +433,15 @@
                     </a>
                 </p>
                 <div class="form__group form__group--horizontal">
-                    <form method="GET" action="{{ route('staff.mass-actions.validate') }}" x-data>
+                    <form
+                        method="GET"
+                        action="{{ route('staff.mass-actions.validate') }}"
+                        x-data="confirmation"
+                    >
                         @csrf
                         <button
-                            x-on:click.prevent="Swal.fire({
-                                title: 'Are you sure?',
-                                text: 'Are you sure you want to automatically validate all users even if their email address isn\'t confirmed?',
-                                icon: 'warning',
-                                showConfirmButton: true,
-                                showCancelButton: true,
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $root.submit();
-                                }
-                            })"
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to automatically validate all users even if their email address isn\'t confirmed?') }}"
                             class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-history"></i>

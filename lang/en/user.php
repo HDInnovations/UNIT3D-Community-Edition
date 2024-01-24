@@ -96,6 +96,7 @@ return [
     'downloads'                 => 'Downloads',
     'edit'                      => 'Edit User',
     'edit-profile'              => 'Edit Profile',
+    'email-updates'             => 'Email Updates',
     'enable-notifications'      => 'Enable Notifications',
     'expired'                   => 'Expired',
     'expires-on'                => 'Expires On',

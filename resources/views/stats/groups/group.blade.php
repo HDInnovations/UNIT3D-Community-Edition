@@ -16,7 +16,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('stat.group') }}
+        {{ $group->name }}
     </li>
 @endsection
 

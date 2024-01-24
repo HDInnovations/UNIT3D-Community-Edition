@@ -51,26 +51,13 @@
                             <form
                                 action="{{ route('staff.users.destroy', ['user' => $user]) }}"
                                 method="POST"
-                                x-data
+                                x-data="confirmation"
                             >
                                 @csrf
                                 @method('DELETE')
                                 <button
-                                    x-on:click.prevent="
-                                        Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: `Are you sure you want to delete this user and all their associated records: ${atob(
-                                                '{{ base64_encode($user->username) }}'
-                                            )}?`,
-                                            icon: 'warning',
-                                            showConfirmButton: true,
-                                            showCancelButton: true,
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                $root.submit();
-                                            }
-                                        })
-                                    "
+                                    x-on:click.prevent="confirmAction"
+                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this user and all their associated records: ' . $user->username . '?') }}"
                                     class="form__button form__button--text"
                                 >
                                     {{ __('common.delete') }}
@@ -79,20 +66,17 @@
                         </div>
                     @endif
                     @if (auth()->id() !== $user->id)
-                        <div class="panel__action" x-data>
-                            <button
-                                class="form__button form__button--text"
-                                x-on:click.stop="$refs.dialog.showModal();"
-                            >
+                        <div class="panel__action" x-data="dialog">
+                            <button class="form__button form__button--text" x-bind="showDialog">
                                 Report
                             </button>
-                            <dialog class="dialog" x-ref="dialog">
+                            <dialog class="dialog" x-bind="dialogElement">
                                 <h3 class="dialog__heading">Report user: {{ $user->username }}</h3>
                                 <form
                                     class="dialog__form"
                                     method="POST"
                                     action="{{ route('report_user', ['username' => $user->username]) }}"
-                                    x-on:click.outside="$refs.dialog.close();"
+                                    x-bind="dialogForm"
                                 >
                                     @csrf
                                     <p class="form__group">
@@ -475,17 +459,14 @@
                     <h2 class="panel__heading">Watchlist</h2>
                     <div class="panel__actions">
                         @if ($watch === null)
-                            <div class="panel__action" x-data="{ open: false }">
+                            <div class="panel__action" x-data="dialog">
                                 <button
                                     class="form__button form__button--text"
-                                    x-on:click.stop="
-                                        open = true;
-                                        $refs.dialog.showModal();
-                                    "
+                                    x-bind="showModal"
                                 >
                                     Watch
                                 </button>
-                                <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                                <dialog class="dialog" x-bind="dialogElement">
                                     <h3 class="dialog__heading">
                                         Watch user: {{ $user->username }}
                                     </h3>
@@ -493,10 +474,7 @@
                                         class="dialog__form"
                                         method="POST"
                                         action="{{ route('staff.watchlist.store') }}"
-                                        x-on:click.outside="
-                                            open = false;
-                                            $refs.dialog.close();
-                                        "
+                                        x-bind="dialogForm"
                                     >
                                         @csrf
                                         <input
@@ -523,10 +501,8 @@
                                                 {{ __('common.save') }}
                                             </button>
                                             <button
-                                                x-on:click.prevent="
-                                                    open = false;
-                                                    $refs.dialog.close();
-                                                "
+                                                formaction="dialog"
+                                                formnovalidate
                                                 class="form__button form__button--outlined"
                                             >
                                                 {{ __('common.cancel') }}
@@ -583,24 +559,13 @@
                                                 <form
                                                     action="{{ route('staff.watchlist.destroy', ['watchlist' => $watch]) }}"
                                                     method="POST"
-                                                    x-data
+                                                    x-data="confirmation"
                                                 >
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
-                                                        x-on:click.prevent="
-                                                            Swal.fire({
-                                                                title: 'Are you sure?',
-                                                                text: 'Are you sure you want to unwatch this user: {{ $watch->user->username }}?',
-                                                                icon: 'warning',
-                                                                showConfirmButton: true,
-                                                                showCancelButton: true,
-                                                            }).then((result) => {
-                                                                if (result.isConfirmed) {
-                                                                    $root.submit();
-                                                                }
-                                                            })
-                                                        "
+                                                        x-on:click.prevent="confirmAction"
+                                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to unwatch this user: ' . $watch->user->username . '?') }}"
                                                         class="form__button form__button--text"
                                                     >
                                                         Unwatch
@@ -956,26 +921,17 @@
                 <header class="panel__header">
                     <h2 class="panel__heading">{{ __('user.bon') }}</h2>
                     <div class="panel__actions">
-                        <div class="panel__action" x-data="{ open: false }">
-                            <button
-                                class="form__button form__button--text"
-                                x-on:click.stop="
-                                    open = true;
-                                    $refs.dialog.showModal();
-                                "
-                            >
+                        <div class="panel__action" x-data="dialog">
+                            <button class="form__button form__button--text" x-bind="showDialog">
                                 Gift BON
                             </button>
-                            <dialog class="dialog" x-ref="dialog" x-show="open" x-cloak>
+                            <dialog class="dialog" x-bind="dialogElement">
                                 <h3 class="dialog__heading">Note user: {{ $user->username }}</h3>
                                 <form
                                     class="dialog__form"
                                     method="POST"
                                     action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
-                                    x-on:click.outside="
-                                        open = false;
-                                        $refs.dialog.close();
-                                    "
+                                    x-bind="dialogForm"
                                 >
                                     @csrf
                                     <input

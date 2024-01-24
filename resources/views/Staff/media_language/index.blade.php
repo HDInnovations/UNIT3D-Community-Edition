@@ -62,26 +62,13 @@
                                         <form
                                             method="POST"
                                             action="{{ route('staff.media_languages.destroy', ['mediaLanguage' => $media_language]) }}"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="
-                                                    Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: `Are you sure you want to delete this media language: ${atob(
-                                                            '{{ base64_encode($media_language->name) }}'
-                                                        )}?`,
-                                                        icon: 'warning',
-                                                        showConfirmButton: true,
-                                                        showCancelButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            $root.submit();
-                                                        }
-                                                    })
-                                                "
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this media language: ' . $media_language->name . '?') }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

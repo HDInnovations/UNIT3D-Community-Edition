@@ -1,8 +1,8 @@
 // Vendor components
-@import 'vendor/font-awesome';
-@import '~sweetalert2/src/sweetalert2';
-@import 'vendor/virtual-select';
 @import 'vendor/alpinejs';
+@import 'vendor/font-awesome';
+@import 'vendor/virtual-select';
+@import '~sweetalert2/src/sweetalert2';
 
 // Base
 @import 'base/normalize';
@@ -10,16 +10,21 @@
 @import 'base/reset';
 @import 'base/scrollbar';
 
+// Layout
+@import 'layout/footer';
+@import 'layout/header';
+@import 'layout/main';
+@import 'layout/secondary-nav';
+@import 'layout/top_nav';
+
 // Components
-@import 'variables';
-@import 'main/main';
-@import 'chat/chatbox';
-@import 'main/tooltips';
 @import 'components/achievement';
 @import 'components/alert';
 @import 'components/article-preview';
 @import 'components/bbcode-input';
 @import 'components/bbcode-rendered';
+@import 'components/chat/chatbox';
+@import 'components/chat/media-queries';
 @import 'components/collection-card';
 @import 'components/comment';
 @import 'components/comparison';
@@ -31,8 +36,8 @@
 @import 'components/form/checkbox';
 @import 'components/form/fieldset.scss';
 @import 'components/form/file';
-@import 'components/form/form-group';
 @import 'components/form/form';
+@import 'components/form/form-group';
 @import 'components/form/label';
 @import 'components/form/legend';
 @import 'components/form/meter.scss';
@@ -53,6 +58,7 @@
 @import 'components/playlist';
 @import 'components/quick_search';
 @import 'components/swal';
+@import 'components/tooltips';
 @import 'components/torrent-card';
 @import 'components/user-active';
 @import 'components/user-card';
@@ -61,13 +67,6 @@
 @import 'components/user-tag';
 @import 'components/user-torrents';
 @import 'components/user-uploads';
-
-// Layout
-@import 'layout/footer';
-@import 'layout/header';
-@import 'layout/main';
-@import 'layout/secondary-nav';
-@import 'layout/top_nav';
 
 // Pages
 @import 'pages/error';
@@ -82,3 +81,6 @@
 @import 'pages/torrent';
 @import 'pages/torrents';
 @import 'pages/user';
+
+// Shame
+@import 'shame';

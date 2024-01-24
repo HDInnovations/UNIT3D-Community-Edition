@@ -195,6 +195,14 @@
 
                         <div id="distributors" wire:ignore></div>
                     </div>
+                    <p class="form__group">
+                        <select id="adult" wire:model="adult" class="form__select" placeholder=" ">
+                            <option value="any" selected>Any</option>
+                            <option value="include">Include</option>
+                            <option value="exclude">Exclude</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="adult">Adult</label>
+                    </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">

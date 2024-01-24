@@ -18,6 +18,7 @@ use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class EmailController extends Controller
@@ -44,18 +45,24 @@ class EmailController extends Controller
             ],
         ]);
 
-        $user->update([
-            'email' => $request->email,
-        ]);
+        DB::transaction(function () use ($request, $user, $changedByStaff): void {
+            $user->emailUpdates()->latest()->first()?->update(['deleted_at' => now()]);
 
-        if ($changedByStaff) {
-            PrivateMessage::create([
-                'sender_id'   => 1,
-                'receiver_id' => $user->id,
-                'subject'     => 'ATTENTION - Your email has been changed',
-                'message'     => "Your email has been changed by staff.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+            $user->update([
+                'email' => $request->email,
             ]);
-        }
+
+            $user->emailUpdates()->create();
+
+            if ($changedByStaff) {
+                PrivateMessage::create([
+                    'sender_id'   => 1,
+                    'receiver_id' => $user->id,
+                    'subject'     => 'ATTENTION - Your email has been changed',
+                    'message'     => "Your email has been changed by staff.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+                ]);
+            }
+        });
 
         return to_route('users.email.edit', ['user' => $user])
             ->withSuccess('Your email was updated successfully.');
@@ -68,6 +75,9 @@ class EmailController extends Controller
     {
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        return view('user.email.edit', ['user' => $user]);
+        return view('user.email.edit', [
+            'user'         => $user,
+            'emailUpdates' => $user->emailUpdates()->latest()->get(),
+        ]);
     }
 }

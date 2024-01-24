@@ -56,26 +56,13 @@
                                             <form
                                                 action="{{ route('users.notifications.destroy', ['user' => $user, 'notification' => $notification]) }}"
                                                 method="POST"
-                                                x-data
+                                                x-data="confirmation"
                                             >
                                                 @csrf
                                                 @method('DELETE')
                                                 <button
-                                                    x-on:click.prevent="
-                                                        Swal.fire({
-                                                            title: 'Are you sure?',
-                                                            text: `Are you sure you want to delete this notification: ${atob(
-                                                                '{{ base64_encode($notification->data['body']) }}'
-                                                            )}?`,
-                                                            icon: 'warning',
-                                                            showConfirmButton: true,
-                                                            showCancelButton: true,
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                $root.submit();
-                                                            }
-                                                        })
-                                                    "
+                                                    x-on:click.prevent="confirmAction"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this notification: ' . $notification->data['body'] . '?') }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('notification.delete') }}
@@ -374,25 +361,14 @@
                 <form
                     action="{{ route('users.notifications.mass_update', ['user' => $user]) }}"
                     method="POST"
-                    x-data
+                    x-data="confirmation"
                 >
                     @csrf
                     @method('PATCH')
                     <p class="form__group form__group--horizontal">
                         <button
-                            x-on:click.prevent="
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'Are you sure you want to mark all notifications as read?',
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })
-                            "
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to mark all notifications as read?') }}"
                             class="form__button form__button--filled form__button--centered"
                         >
                             {{ __('notification.mark-all-read') }}
@@ -402,25 +378,14 @@
                 <form
                     action="{{ route('users.notifications.mass_destroy', ['user' => $user]) }}"
                     method="POST"
-                    x-data
+                    x-data="confirmation"
                 >
                     @csrf
                     @method('DELETE')
                     <p class="form__group form__group--horizontal">
                         <button
-                            x-on:click.prevent="
-                                Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'Are you sure you want to delete all notifications?',
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })
-                            "
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all notifications?') }}"
                             class="form__button form__button--filled form__button--centered"
                         >
                             {{ __('notification.delete-all') }}

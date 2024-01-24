@@ -36,41 +36,48 @@
                     action="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
                     method="POST"
                     style="display: contents"
-                    x-data
+                    x-data="freeleechTokenConfirmation"
                 >
                     @csrf
                     <button
                         class="form__button form__button--outlined form__button--centered"
                         title="{{ __('torrent.fl-tokens-left', ['tokens' => $user->fl_tokens]) }}!"
-                        x-on:click.prevent="
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: 'This will use one of your Freeleech Tokens!',
-                                icon: 'warning',
-                                showConfirmButton: true,
-                                showCloseButton: true,
-                            }).then((result) => {
-                                if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
-                                    Swal.fire({
-                                        title: 'Are you sure?',
-                                        text: 'This torrent has 0 seeders!',
-                                        icon: 'warning',
-                                        showConfirmButton: true,
-                                        showCancelButton: true,
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            $root.submit();
-                                        }
-                                    });
-                                } else if (result.isConfirmed) {
-                                    $root.submit();
-                                }
-                            });
-                        "
+                        x-on:click.prevent="confirmAction"
                     >
                         {{ __('torrent.use-fl-token') }}
                     </button>
                 </form>
+                <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.data('freeleechTokenConfirmation', () => ({
+                            confirmAction() {
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: 'This will use one of your Freeleech Tokens!',
+                                    icon: 'warning',
+                                    showConfirmButton: true,
+                                    showCloseButton: true,
+                                }).then((result) => {
+                                    if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
+                                        Swal.fire({
+                                            title: 'Are you sure?',
+                                            text: 'This torrent has 0 seeders!',
+                                            icon: 'warning',
+                                            showConfirmButton: true,
+                                            showCancelButton: true,
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                this.$root.submit();
+                                            }
+                                        });
+                                    } else if (result.isConfirmed) {
+                                        this.$root.submit();
+                                    }
+                                });
+                            },
+                        }));
+                    });
+                </script>
             </li>
         @endif
     @endif
@@ -79,17 +86,17 @@
         @livewire('thank-button', ['torrent' => $torrent->id])
     </li>
     @if ($torrent->nfo)
-        <li x-data class="form__group form__group--short-horizontal">
+        <li x-data="dialog" class="form__group form__group--short-horizontal">
             <button
                 class="form__button form__button--outlined form__button--centered"
-                x-on:click.stop="$refs.dialog.showModal()"
+                x-bind="showDialog"
             >
                 <i class="{{ config('other.font-awesome') }} fa-info-circle"></i>
                 NFO
             </button>
-            <dialog class="dialog dialog--auto-width" x-ref="dialog">
+            <dialog class="dialog dialog--auto-width" x-bind="dialogElement">
                 <h4 class="dialog__heading">NFO</h4>
-                <div class="dialog__form" x-on:click.outside="$refs.dialog.close()">
+                <div class="dialog__form" x-bind="dialogForm">
                     <div class="bbcode-rendered" style="text-align: left">
                         <pre
                             style="width: max-content"
@@ -100,15 +107,15 @@
         </li>
     @endif
 
-    <li x-data class="form__group form__group--short-horizontal">
+    <li x-data="dialog" class="form__group form__group--short-horizontal">
         <button
             class="form__button form__button--outlined form__button--centered"
-            x-on:click.stop="$refs.dialog.showModal()"
+            x-bind="showDialog"
         >
             <i class="{{ config('other.font-awesome') }} fa-coins"></i>
             {{ __('torrent.leave-tip') }}
         </button>
-        <dialog class="dialog" x-ref="dialog">
+        <dialog class="dialog" x-bind="dialogElement">
             <h4 class="dialog__heading">
                 {{ __('torrent.tip-jar') }}
             </h4>
@@ -116,7 +123,7 @@
                 class="dialog__form"
                 method="POST"
                 action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
-                x-on:click.outside="$refs.dialog.close()"
+                x-bind="dialogForm"
             >
                 @csrf
                 <input type="hidden" name="torrent" value="{{ $torrent->id }}" />
@@ -156,16 +163,16 @@
             </form>
         </dialog>
     </li>
-    <li x-data="{ tab: 'hierarchy' }" class="form__group form__group--short-horizontal">
+    <li x-data="dialog" class="form__group form__group--short-horizontal">
         <button
             class="form__button form__button--outlined form__button--centered"
             title="{{ __('common.edit') }}"
-            x-on:click.stop="$refs.dialog.showModal()"
+            x-bind="showDialog"
         >
             <i class="{{ config('other.font-awesome') }} fa-file"></i>
             {{ __('torrent.show-files') }}
         </button>
-        <dialog class="dialog dialog--auto-width" x-ref="dialog">
+        <dialog class="dialog dialog--auto-width" x-bind="dialogElement">
             <header class="dialog__header">
                 <h4 class="dialog__heading">
                     {{ __('common.files') }}
@@ -177,7 +184,7 @@
                     </div>
                 </div>
             </header>
-            <div x-on:click.outside="$refs.dialog.close()">
+            <div x-bind="dialogForm" x-data="{ tab: 'hierarchy' }">
                 <menu class="panel__tabs">
                     <li
                         class="panel__tab"
@@ -348,21 +355,21 @@
         @livewire('bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()])
     </li>
     @if ($playlists->count() > 0)
-        <li x-data class="form__group form__group--short-horizontal">
+        <li x-data="dialog" class="form__group form__group--short-horizontal">
             <button
                 class="form__button form__button--outlined form__button--centered"
-                x-on:click.stop="$refs.dialog.showModal()"
+                x-bind="showDialog"
             >
                 <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
                 {{ __('torrent.add-to-playlist') }}
             </button>
-            <dialog class="dialog" x-ref="dialog">
+            <dialog class="dialog" x-bind="dialogElement">
                 <h4 class="dialog__heading">Add Torrent To Playlist</h4>
                 <form
                     class="dialog__form"
                     method="POST"
                     action="{{ route('playlist_torrents.store') }}"
-                    x-on:click.outside="$refs.dialog.close()"
+                    x-bind="dialogForm"
                 >
                     @csrf
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
@@ -420,15 +427,15 @@
             </button>
         </li>
     @elseif ($torrent->seeders == 0 && $torrent->created_at->lt(\Illuminate\Support\Carbon::now()->subDays(30)))
-        <li class="form__group form__group--short-horizontal" x-data>
+        <li class="form__group form__group--short-horizontal" x-data="dialog">
             <button
                 class="form__button form__button--outlined form__button--centered"
-                x-on:click.stop="$refs.dialog.showModal()"
+                x-bind="showDialog"
             >
                 <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
                 {{ __('graveyard.resurrect') }}
             </button>
-            <dialog class="dialog" x-ref="dialog">
+            <dialog class="dialog" x-bind="dialogElement">
                 <h4 class="dialog__heading">
                     {{ __('graveyard.resurrect') }} {{ strtolower(__('torrent.torrent')) }} ?
                 </h4>
@@ -436,7 +443,7 @@
                     class="dialog__form"
                     method="POST"
                     action="{{ route('users.resurrections.store', ['user' => auth()->user()]) }}"
-                    x-on:click.outside="$refs.dialog.close()"
+                    x-bind="dialogForm"
                 >
                     @csrf
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
@@ -477,15 +484,15 @@
             </dialog>
         </li>
     @endif
-    <li x-data class="form__group form__group--short-horizontal">
+    <li x-data="dialog" class="form__group form__group--short-horizontal">
         <button
             class="form__button form__button--outlined form__button--centered"
-            x-on:click.stop="$refs.dialog.showModal()"
+            x-bind="showDialog"
         >
             <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i>
             {{ __('common.report') }}
         </button>
-        <dialog class="dialog" x-ref="dialog">
+        <dialog class="dialog" x-bind="dialogElement">
             <h4 class="dialog__heading">
                 {{ __('common.report') }} {{ strtolower(__('torrent.torrent')) }}:
                 {{ $torrent->name }}
@@ -494,7 +501,7 @@
                 class="dialog__form"
                 method="POST"
                 action="{{ route('report_torrent', ['id' => $torrent->id]) }}"
-                x-on:click.outside="$refs.dialog.close()"
+                x-bind="dialogForm"
             >
                 @csrf
                 <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />

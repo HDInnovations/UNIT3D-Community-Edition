@@ -110,17 +110,17 @@
         @else
             <h2 class="panel__heading">{{ __('common.action') }}</h2>
             <div class="panel__body">
-                <div x-data>
+                <div x-data="dialog">
                     <p class="form__group form__group--horizontal">
                         <button
                             class="form__button form__button--filled form__button--centered"
-                            x-on:click.stop="$refs.dialog.showModal()"
+                            x-data="showDialog"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-check"></i>
                             {{ __('request.approve') }}
                         </button>
                     </p>
-                    <dialog class="dialog" x-ref="dialog">
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">
                             {{ __('request.approve') }}
                             {{ __('common.this') }}
@@ -130,7 +130,7 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
-                            x-on:click.outside="$refs.dialog.close()"
+                            x-bind="dialogForm"
                         >
                             @csrf
                             <input
@@ -167,17 +167,17 @@ Application Approved!</textarea
                         </form>
                     </dialog>
                 </div>
-                <div x-data>
+                <div x-data="dialog">
                     <p class="form__group form__group--horizontal">
                         <button
                             class="form__button form__button--filled form__button--centered"
-                            x-on:click.stop="$refs.dialog.showModal()"
+                            x-bind="showDialog"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ __('request.reject') }}
                         </button>
                     </p>
-                    <dialog class="dialog" x-ref="dialog">
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">
                             {{ __('request.reject') }}
                             {{ __('common.this') }}
@@ -187,7 +187,7 @@ Application Approved!</textarea
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
-                            x-on:click.outside="$refs.dialog.close()"
+                            x-bind="dialogForm"
                         >
                             @csrf
                             <input

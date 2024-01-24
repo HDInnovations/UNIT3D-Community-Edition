@@ -135,7 +135,7 @@ class TorrentController extends BaseController
         $torrent = app()->make(Torrent::class);
         $torrent->name = $request->input('name');
         $torrent->description = $request->input('description');
-        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->string('mediainfo'));
+        $torrent->mediainfo = TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null);
         $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
@@ -431,6 +431,7 @@ class TorrentController extends BaseController
                 ->when($request->filled('playlistId'), fn ($query) => $query->ofPlaylist((int) $request->playlistId))
                 ->when($request->filled('collectionId'), fn ($query) => $query->ofCollection((int) $request->collectionId))
                 ->when($request->filled('primaryLanguages'), fn ($query) => $query->ofOriginalLanguage($request->primaryLanguages))
+                ->when($request->filled('adult'), fn ($query) => $query->ofAdult($request->boolean('adult')))
                 ->when($request->filled('free'), fn ($query) => $query->ofFreeleech($request->free))
                 ->when($request->filled('doubleup'), fn ($query) => $query->doubleup())
                 ->when($request->filled('featured'), fn ($query) => $query->featured())
