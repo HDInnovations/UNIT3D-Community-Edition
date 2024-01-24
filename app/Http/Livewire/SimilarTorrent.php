@@ -35,9 +35,9 @@ class SimilarTorrent extends Component
 
     public Movie|Tv|Game $work;
 
-    public int $tmdbId;
+    public ?int $tmdbId;
 
-    public int $igdbId;
+    public ?int $igdbId;
 
     public string $reason;
 
