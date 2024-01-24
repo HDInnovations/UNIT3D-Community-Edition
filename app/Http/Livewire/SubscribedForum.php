@@ -21,6 +21,9 @@ class SubscribedForum extends Component
 {
     use WithPagination;
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Forum>
+     */
     final public function getForumsProperty()
     {
         return Forum::query()

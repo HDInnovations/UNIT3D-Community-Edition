@@ -21,11 +21,11 @@ use Livewire\Component;
 
 class ThankButton extends Component
 {
-    public $torrent;
+    public ?Torrent $torrent = null;
 
     public ?User $user = null;
 
-    final public function mount($torrent): void
+    final public function mount(int $torrent): void
     {
         $this->user = auth()->user();
         $this->torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($torrent);

@@ -39,6 +39,9 @@ class UserNotes extends Component
         ],
     ];
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()

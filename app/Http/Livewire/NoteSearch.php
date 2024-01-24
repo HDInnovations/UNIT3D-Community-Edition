@@ -14,6 +14,9 @@ class NoteSearch extends Component
 
     public string $search = '';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search'  => ['except' => ''],
         'page'    => ['except' => 1],
@@ -30,6 +33,9 @@ class NoteSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
