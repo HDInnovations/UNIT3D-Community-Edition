@@ -203,6 +203,9 @@ class TorrentTools
      */
     public static function parseKeywords(string $text): array
     {
-        return array_filter(array_unique(array_map('trim', explode(',', $text))));
+        $keywords = array_filter(array_map('trim', explode(',', $text)));
+
+        // unique keywords only (case insensitive)
+        return array_values(array_intersect_key($keywords, array_unique(array_map('strtolower', $keywords))));
     }
 }

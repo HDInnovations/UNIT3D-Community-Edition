@@ -288,7 +288,7 @@ class TorrentController extends BaseController
         }
 
         foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         // check for trusted user and update torrent
