@@ -58,8 +58,8 @@
                     </tr>
                 </thead>
                 @forelse ($entries as $message => $groupedEntry)
-                    <tbody x-data="{ expanded: false }" style="border-top: 0">
-                        <tr x-on:click="expanded = !expanded" style="cursor: pointer">
+                    <tbody x-data="toggle" style="border-top: 0">
+                        <tr x-on:click="toggle" style="cursor: pointer">
                             <td>{{ $groupedEntry[0]['date'] }}</td>
                             <td>
                                 @switch($groupedEntry[0]['level'])
@@ -97,7 +97,7 @@
                             <td>{{ $groupedEntry[0]['line'] }}</td>
                             <td>{{ count($groupedEntry) }}</td>
                         </tr>
-                        <tr x-cloak x-show="expanded">
+                        <tr x-cloak x-show="isToggledOn">
                             <td colspan="7" style="padding: 0 0 0 8px">
                                 <table class="data-table">
                                     <thead>
@@ -108,14 +108,8 @@
                                         </tr>
                                     </thead>
                                     @foreach ($groupedEntry as $entry)
-                                        <tbody
-                                            x-data="{ expanded: false }"
-                                            style="border-top: 0"
-                                        >
-                                            <tr
-                                                x-on:click="expanded = !expanded"
-                                                style="cursor: pointer"
-                                            >
+                                        <tbody x-data="toggle" style="border-top: 0">
+                                            <tr x-on:click="toggle" style="cursor: pointer">
                                                 <td>{{ $entry['date'] }}</td>
                                                 <td>{{ $entry['env'] }}</td>
                                                 <td>
@@ -127,7 +121,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr x-cloack x-show="expanded">
+                                            <tr x-cloack x-show="isToggledOn">
                                                 <td colspan="2">
                                                     <code>
                                                         <pre x-ref="stacktrace">

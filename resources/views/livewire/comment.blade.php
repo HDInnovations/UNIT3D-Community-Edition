@@ -132,11 +132,7 @@
             @endif
 
             @if ($isReplying || $comment->children()->exists())
-                <form
-                    wire:submit.prevent="postReply"
-                    class="form reply-comment"
-                    x-data="{ open: false }"
-                >
+                <form wire:submit.prevent="postReply" class="form reply-comment" x-data="toggle">
                     <p class="form__group">
                         <textarea
                             name="comment"
@@ -145,7 +141,7 @@
                             aria-describedby="reply-comment__textarea-hint"
                             wire:model.defer="replyState.content"
                             required
-                            x-on:focus="open = true"
+                            x-on:focus="toggleOn"
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
                             @error('editState.content')
@@ -160,7 +156,7 @@
                             </span>
                         @enderror
                     </p>
-                    <p class="form__group" x-show="open" x-cloak>
+                    <p class="form__group" x-show="isToggledOn" x-cloak>
                         <input
                             type="checkbox"
                             id="reply-anon"
@@ -171,7 +167,7 @@
                             {{ __('common.anonymous') }}?
                         </label>
                     </p>
-                    <p class="form__group" x-show="open" x-cloak>
+                    <p class="form__group" x-show="isToggledOn" x-cloak>
                         <button type="submit" class="form__button form__button--filled">
                             {{ __('common.comment') }}
                         </button>
