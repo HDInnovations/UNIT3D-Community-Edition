@@ -1,12 +1,12 @@
 <div class="page__torrents torrent-search__component">
-    <section class="panelV2 torrent-search__filters" x-data="{ open: false }">
+    <section class="panelV2 torrent-search__filters" x-data="toggle">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.search') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <button
                         class="form__button form__button--outlined form__button--centered"
-                        x-on:click="open = ! open"
+                        x-on:click="toggle"
                         x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
                     ></button>
                 </div>
@@ -27,7 +27,7 @@
                     </label>
                 </p>
             </div>
-            <form class="form" x-cloak x-show="open">
+            <form class="form" x-cloak x-show="isToggledOn">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
                         <input
