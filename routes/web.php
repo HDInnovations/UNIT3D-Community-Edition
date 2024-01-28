@@ -878,6 +878,13 @@ Route::middleware('language')->group(function (): void {
         // Laravel Log Viewer
         Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('laravellog.index');
 
+        // Leakers
+        Route::prefix('leakers')->group(function (): void {
+            Route::name('leakers.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\LeakerController::class, 'index'])->name('index');
+            });
+        });
+
         // Mass Actions
         Route::prefix('mass-actions')->group(function (): void {
             Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
