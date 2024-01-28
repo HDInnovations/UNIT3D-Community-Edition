@@ -15,11 +15,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Resurrection;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserResurrections extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -34,6 +36,9 @@ class UserResurrections extends Component
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'       => ['except' => ''],
         'name'          => ['except' => ''],
@@ -57,6 +62,9 @@ class UserResurrections extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Resurrection>
+     */
     final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Resurrection::query()
@@ -86,16 +94,5 @@ class UserResurrections extends Component
         return view('livewire.user-resurrections', [
             'resurrections' => $this->resurrections,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

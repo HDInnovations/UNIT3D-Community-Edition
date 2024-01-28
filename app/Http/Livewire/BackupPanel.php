@@ -32,6 +32,9 @@ class BackupPanel extends Component
 {
     protected $listeners = ['refreshBackups' => '$refresh'];
 
+    /**
+     * @return array<mixed>
+     */
     final public function getBackupStatusesProperty(): array
     {
         return BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
@@ -59,6 +62,9 @@ class BackupPanel extends Component
         return null;
     }
 
+    /**
+     * @return array<mixed>
+     */
     final public function getDisksProperty(): array
     {
         return collect($this->backupStatuses)

@@ -30,7 +30,7 @@ class Top10 extends Component
     public string $interval = 'day';
 
     /**
-     * @var array<string, mixed>
+     * @var array<mixed>
      */
     protected $queryString = [
         'metaType' => ['except' => 'movie_meta'],

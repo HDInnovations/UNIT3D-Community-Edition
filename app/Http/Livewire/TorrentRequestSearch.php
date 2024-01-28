@@ -16,49 +16,65 @@ namespace App\Http\Livewire;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
+use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class TorrentRequestSearch extends Component
 {
+    use CastLivewireProperties;
+    use LivewireSort;
     use WithPagination;
 
     public string $name = '';
 
     public string $requestor = '';
 
+    /**
+     * @var string[]
+     */
     public array $categories = [];
 
+    /**
+     * @var string[]
+     */
     public array $types = [];
 
+    /**
+     * @var string[]
+     */
     public array $resolutions = [];
 
+    /**
+     * @var string[]
+     */
     public array $genres = [];
 
-    public string $tmdbId = '';
+    public ?int $tmdbId = null;
 
     public string $imdbId = '';
 
-    public string $tvdbId = '';
+    public ?int $tvdbId = null;
 
-    public string $malId = '';
+    public ?int $malId = null;
 
-    public $unfilled;
+    public bool $unfilled = false;
 
-    public $claimed;
+    public bool $claimed = false;
 
-    public $pending;
+    public bool $pending = false;
 
-    public $filled;
+    public bool $filled = false;
 
-    public $myRequests;
+    public bool $myRequests = false;
 
-    public $myClaims;
+    public bool $myClaims = false;
 
-    public $myVoted;
+    public bool $myVoted = false;
 
-    public $myFilled;
+    public bool $myFilled = false;
 
     public int $perPage = 25;
 
@@ -68,6 +84,9 @@ class TorrentRequestSearch extends Component
 
     public bool $showFilters = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'name'          => ['except' => ''],
         'requestor'     => ['except' => ''],
@@ -91,6 +110,11 @@ class TorrentRequestSearch extends Component
         'sortDirection' => ['except' => 'desc'],
         'page'          => ['except' => 1],
     ];
+
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
+    }
 
     final public function updatedPage(): void
     {
@@ -120,6 +144,9 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentRequest>
+     */
     final public function getTorrentRequestsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
@@ -137,10 +164,10 @@ class TorrentRequestSearch extends Component
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
-            ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
+            ->when($this->tmdbId !== null, fn ($query) => $query->ofTmdb($this->tmdbId))
             ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
-            ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
-            ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
+            ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb((int) $this->tvdbId))
+            ->when($this->malId !== null, fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query): void {
                 $query->where(function ($query): void {
                     $query->where(function ($query): void {
@@ -181,17 +208,6 @@ class TorrentRequestSearch extends Component
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
