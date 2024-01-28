@@ -14,7 +14,7 @@
                 flex-wrap: wrap;
             "
         >
-            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
+            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && $canEdit))
                 <li>
                     <menu
                         style="
@@ -25,16 +25,21 @@
                             flex-wrap: wrap;
                         "
                     >
-                        <li>
-                            <a
-                                class="form__button form__button--outlined"
-                                href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
-                                role="button"
-                            >
-                                <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
-                                {{ __('common.edit') }}
-                            </a>
-                        </li>
+                        @if ($canEdit)
+                            <li>
+                                <a
+                                    class="form__button form__button--outlined"
+                                    href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
+                                    role="button"
+                                >
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-pencil-alt"
+                                    ></i>
+                                    {{ __('common.edit') }}
+                                </a>
+                            </li>
+                        @endif
+
                         @if (auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
                             <li x-data="dialog">
                                 <button

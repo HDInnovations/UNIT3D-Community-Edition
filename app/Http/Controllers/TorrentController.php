@@ -125,8 +125,17 @@ class TorrentController extends Controller
         }
 
         return view('torrent.show', [
-            'torrent'            => $torrent,
-            'user'               => $user,
+            'torrent' => $torrent,
+            'user'    => $user,
+            'canEdit' => $user->group->is_editor
+                || $user->group->is_modo
+                || (
+                    $user->id === $torrent->user_id
+                    && (
+                        $torrent->status !== Torrent::APPROVED
+                        || now()->isBefore($torrent->created_at->addDay())
+                    )
+                ),
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'meta'               => $meta,
             'platforms'          => $platforms,
@@ -185,7 +194,18 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        abort_unless($user->group->is_editor || $user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless(
+            $user->group->is_editor
+            || $user->group->is_modo
+            || (
+                $user->id === $torrent->user_id
+                && (
+                    $torrent->status !== Torrent::APPROVED
+                    || now()->isBefore($torrent->created_at->addDay())
+                )
+            ),
+            403
+        );
 
         $torrent->update($request->validated());
 
