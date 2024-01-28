@@ -382,7 +382,7 @@
   border-bottom: none;
 }
 
-.data-table tr td:first-of-type,
+.data-table tr td:first-of-type:not(.torrent-search--list__poster),
 .data-table tr th:first-of-type {
   padding-left: 20px;
 }

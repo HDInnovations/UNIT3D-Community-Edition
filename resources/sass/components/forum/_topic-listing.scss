@@ -83,6 +83,11 @@
     font-weight: normal;
 }
 
+.topic-listing__post-stats dd,
+.topic-listing__view-stats dd {
+    margin: 0;
+}
+
 .topic-listing__post-stats {
     grid-area: posts;
 }
