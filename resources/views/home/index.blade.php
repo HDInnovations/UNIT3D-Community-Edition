@@ -8,7 +8,7 @@
         <div id="vue">
             @include('blocks.chat')
         </div>
-        <script src="{{ mix('js/chat.js') }}" crossorigin="anonymous"></script>
+        @vite('resources/js/unit3d/chat.js')
     @endif
 
     @include('blocks.featured')

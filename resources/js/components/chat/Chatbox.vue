@@ -208,10 +208,10 @@
   </section>
 </template>
 <script>
-import ChatroomsDropdown from './ChatroomsDropdown';
-import ChatMessages from './ChatMessages';
-import ChatForm from './ChatForm';
-import ChatUserList from './ChatUserList';
+import ChatroomsDropdown from './ChatroomsDropdown.vue';
+import ChatMessages from './ChatMessages.vue';
+import ChatForm from './ChatForm.vue';
+import ChatUserList from './ChatUserList.vue';
 import ChatstatusesDropdown from "./ChatstatusesDropdown.vue";
 import axios from "axios"
 

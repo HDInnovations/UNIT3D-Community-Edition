@@ -67,10 +67,12 @@
         </main>
         @include('partials.footer')
 
-        <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
-        <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous"></script>
-        <script src="{{ mix('js/alpine.js') }}" crossorigin="anonymous" defer></script>
-        <script src="{{ mix('js/virtual-select.js') }}" crossorigin="anonymous"></script>
+        @vite('resources/js/app.js')
+        @vite('resources/js/unit3d/tmdb.js')
+        @vite('resources/js/unit3d/parser.js')
+        @vite('resources/js/unit3d/helper.js')
+        @vite('resources/js/vendor/alpine.js')
+        @vite('resources/js/vendor/virtual-select.js')
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">

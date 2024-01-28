@@ -16,7 +16,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous" />
+        @vite('resources/sass.css')
+        @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
         <main x-data="{ proofs: 2 }">
@@ -168,8 +169,8 @@
                 </form>
             </section>
         </main>
-        <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
-        <script src="{{ mix('js/alpine.js') }}" crossorigin="anonymous" defer></script>
+        @vite('resources/js/app.js')
+        @vite('resources/js/vendor/alpine.js')
         @livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
     </body>
 </html>

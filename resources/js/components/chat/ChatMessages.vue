@@ -68,7 +68,6 @@
 <script>
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import pmMethods from './mixins/pmMethods';
 
 export default {
   props: {
@@ -79,7 +78,6 @@ export default {
       editor: null,
     };
   },
-  mixins: [pmMethods],
   methods: {
     checkBot(e, message) {
       if (e.target.hasAttribute('trigger') && e.target.getAttribute('trigger') == 'bot') {
