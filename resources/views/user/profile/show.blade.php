@@ -462,7 +462,7 @@
                             <div class="panel__action" x-data="dialog">
                                 <button
                                     class="form__button form__button--text"
-                                    x-bind="showModal"
+                                    x-bind="showDialog"
                                 >
                                     Watch
                                 </button>
