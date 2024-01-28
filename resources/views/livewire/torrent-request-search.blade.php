@@ -125,7 +125,7 @@
         </section>
     </div>
     <aside>
-        <section x-data="{ open: false }" class="panelV2">
+        <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
             <div class="panel__body">
                 <form class="form">
