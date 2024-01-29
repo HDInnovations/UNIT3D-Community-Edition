@@ -1136,16 +1136,6 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:isChecked\\(\\) has parameter \\$torrentId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:updatedSelectPage\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$listeners has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
