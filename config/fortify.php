@@ -102,8 +102,15 @@ return [
     */
 
     'limiters' => [
-        'login'      => 'login',
-        'two-factor' => 'two-factor',
+        'login'                        => 'login',
+        'two-factor'                   => 'two-factor',
+        'fortify-login-get'            => 'fortify-login-get',
+        'fortify-register-get'         => 'fortify-register-get',
+        'fortify-register-post'        => 'fortify-register-post',
+        'fortify-forgot-password-get'  => 'fortify-forgot-password-get',
+        'fortify-forgot-password-post' => 'fortify-forgot-password-post',
+        'fortify-reset-password-get'   => 'fortify-reset-password-get',
+        'fortify-reset-password-post'  => 'fortify-reset-password-post',
     ],
 
     /*

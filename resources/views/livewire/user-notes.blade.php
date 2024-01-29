@@ -2,20 +2,13 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('staff.user-notes') }}</h2>
         <div class="panel__actions">
-            <div class="panel__action" x-data>
-                <button
-                    class="form__button form__button--text"
-                    x-on:click.stop="$refs.dialog.showModal()"
-                >
+            <div class="panel__action" x-data="dialogLivewire">
+                <button class="form__button form__button--text" x-bind="showDialog">
                     {{ __('common.add') }}
                 </button>
-                <dialog class="dialog" x-ref="dialog">
+                <dialog class="dialog" x-bind="dialogElement">
                     <h3 class="dialog__heading">Note user: {{ $user->username }}</h3>
-                    <form
-                        class="dialog__form"
-                        x-on:click.outside="$refs.dialog.close()"
-                        x-on:submit.prevent="$refs.dialog.close()"
-                    >
+                    <form class="dialog__form" x-bind="dialogForm">
                         <p class="form__group">
                             <textarea
                                 id="message"
@@ -32,7 +25,7 @@
                             <button
                                 class="form__button form__button--filled"
                                 wire:click="store"
-                                x-on:click="$refs.dialog.close()"
+                                x-bind="submitDialogForm"
                             >
                                 {{ __('common.save') }}
                             </button>
@@ -61,7 +54,7 @@
             </thead>
             <tbody>
                 @forelse ($notes as $note)
-                    <tr>
+                    <tr x-data="userNote" data-note-id="{{ $note->id }}">
                         <td>
                             <x-user_tag :anon="false" :user="$note->staffuser" />
                         </td>
@@ -77,19 +70,10 @@
                         <td>
                             <menu class="data-table__actions">
                                 <li class="data-table__action">
-                                    <form x-data>
+                                    <form>
                                         <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this note: ${atob('{{ base64_encode($note->message) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    @this.destroy({{ $note->id }})
-                                                }
-                                            })"
+                                            x-on:click.prevent="destroy"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this note: ' . $note->message . '?') }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -107,4 +91,23 @@
             </tbody>
         </table>
     </div>
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('userNote', () => ({
+                destroy() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: atob(this.$el.dataset.b64DeletionMessage),
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.$wire.destroy(this.$root.dataset.noteId);
+                        }
+                    });
+                },
+            }));
+        });
+    </script>
 </section>

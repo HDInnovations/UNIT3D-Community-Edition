@@ -61,6 +61,8 @@ class TorrentSearch extends Component
 
     public array $distributors = [];
 
+    public string $adult = 'any';
+
     public string $tmdbId = '';
 
     public string $imdbId = '';
@@ -237,6 +239,8 @@ class TorrentSearch extends Component
             ->when($this->networkId !== '', fn ($query) => $query->ofNetwork((int) $this->networkId))
             ->when($this->primaryLanguages !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguages))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
+            ->when($this->adult === 'include', fn ($query) => $query->ofAdult(true))
+            ->when($this->adult === 'exclude', fn ($query) => $query->ofAdult(false))
             ->when($this->doubleup, fn ($query) => $query->doubleup())
             ->when($this->featured, fn ($query) => $query->featured())
             ->when($this->refundable, fn ($query) => $query->refundable())

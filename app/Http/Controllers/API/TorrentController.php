@@ -431,6 +431,7 @@ class TorrentController extends BaseController
                 ->when($request->filled('playlistId'), fn ($query) => $query->ofPlaylist((int) $request->playlistId))
                 ->when($request->filled('collectionId'), fn ($query) => $query->ofCollection((int) $request->collectionId))
                 ->when($request->filled('primaryLanguages'), fn ($query) => $query->ofOriginalLanguage($request->primaryLanguages))
+                ->when($request->filled('adult'), fn ($query) => $query->ofAdult($request->boolean('adult')))
                 ->when($request->filled('free'), fn ($query) => $query->ofFreeleech($request->free))
                 ->when($request->filled('doubleup'), fn ($query) => $query->doubleup())
                 ->when($request->filled('featured'), fn ($query) => $query->featured())
