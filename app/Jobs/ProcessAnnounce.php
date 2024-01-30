@@ -83,10 +83,6 @@ class ProcessAnnounce implements ShouldQueue
      */
     private function getConnectableStatus(): bool
     {
-        if (!config('announce.connectable_check')) {
-            return false;
-        }
-
         // Unhex
         $ip = hex2bin($this->ip);
 
