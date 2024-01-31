@@ -51,7 +51,7 @@
 
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.message') }}</h2>
-        <div class="panel__body">{{ $report->message }}</div>
+        <div class="panel__body" style="white-space: pre-wrap">{{ $report->message }}</div>
     </section>
     @if (count($urls) > 0)
         <section class="panelV2">
@@ -71,7 +71,7 @@
     @if ($report->solved)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>
-            <div class="panel__body">{{ $report->verdict }}</div>
+            <div class="panel__body" style="white-space: pre-wrap">{{ $report->verdict }}</div>
         </section>
     @else
         <section class="panelV2">
