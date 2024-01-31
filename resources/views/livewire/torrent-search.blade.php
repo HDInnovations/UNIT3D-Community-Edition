@@ -7,7 +7,7 @@
                     <button
                         class="form__button form__button--outlined form__button--centered"
                         x-on:click="toggle"
-                        x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
+                        x-text="isToggledOn() ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
                     ></button>
                 </div>
             </div>
