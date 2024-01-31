@@ -94,9 +94,10 @@
                                         >
                                             <input
                                                 id="torrent_checkbox_{{ $torrent->id }}"
+                                                name="torrent_checkbox_{{ $torrent->id }}"
                                                 type="checkbox"
-                                                value="{{ $torrent->id }}"
-                                                wire:model="checked"
+                                                value="1"
+                                                wire:model="checked.{{ $torrent->id }}"
                                             />
                                         </td>
                                     </tr>

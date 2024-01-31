@@ -42,13 +42,14 @@ class SimilarTorrent extends Component
     public string $reason;
 
     /**
-     * @var string[]
+     * @var array<int, bool|string>
+     *
+     * Currently, in livewire v2, a checkbox type is false|string.
+     * In livewire v3, the type should be changed to array<int, bool>.
      */
     public array $checked = [];
 
     public bool $selectPage = false;
-
-    public bool $selectAll = false;
 
     public string $sortField = 'bumped_at';
 
@@ -61,25 +62,14 @@ class SimilarTorrent extends Component
         $this->castLivewireProperties($field, $value);
     }
 
-    final public function updatedSelectPage($value): void
+    final public function updatedSelectPage(bool $value): void
     {
-        $this->checked = $value ? $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray() : [];
-    }
-
-    final public function selectAll(): void
-    {
-        $this->selectAll = true;
-        $this->checked = $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+        $this->checked = $value ? $this->torrents->pluck('id')->mapWithKeys(fn ($id) => [(int) $id => true])->toArray() : [];
     }
 
     final public function updatedChecked(): void
     {
         $this->selectPage = false;
-    }
-
-    final public function isChecked($torrentId): bool
-    {
-        return \in_array($torrentId, $this->checked);
     }
 
     /**
@@ -150,7 +140,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
+        $torrents = Torrent::whereKey(array_keys($this->checked, true))->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
@@ -168,7 +158,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey($this->checked)->get();
+        $torrents = Torrent::whereKey(array_keys($this->checked, true))->get();
         $names = [];
         $users = [];
         $title = match (true) {
@@ -236,7 +226,6 @@ class SimilarTorrent extends Component
         }
 
         $this->checked = [];
-        $this->selectAll = false;
         $this->selectPage = false;
 
         $this->dispatchBrowserEvent('swal:modal', [
