@@ -33,6 +33,7 @@
                 action="{{ route('staff.wiki_categories.update', ['wikiCategory' => $wikiCategory]) }}"
             >
                 @csrf
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
