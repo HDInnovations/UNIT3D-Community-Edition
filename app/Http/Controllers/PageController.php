@@ -53,8 +53,8 @@ class PageController extends Controller
                 ->with('users.group')
                 ->where('is_modo', '=', 1)
                 ->orWhere('is_admin', '=', 1)
-                ->get()
-                ->sortByDesc('position'),
+                ->orderByDesc('position')
+                ->get(),
         ]);
     }
 

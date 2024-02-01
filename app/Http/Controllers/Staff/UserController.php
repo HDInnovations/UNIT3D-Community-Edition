@@ -57,7 +57,7 @@ class UserController extends Controller
 
         return view('Staff.user.edit', [
             'user'      => $user,
-            'groups'    => Group::when(!$group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->get(),
+            'groups'    => Group::when(!$group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->orderBy('position')->get(),
             'internals' => Internal::all(),
         ]);
     }

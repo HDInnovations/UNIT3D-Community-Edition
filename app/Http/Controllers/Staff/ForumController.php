@@ -47,7 +47,7 @@ class ForumController extends Controller
     {
         return view('Staff.forum.create', [
             'categories' => Forum::whereNull('parent_id')->get(),
-            'groups'     => Group::all(),
+            'groups'     => Group::orderBy('position')->get(),
         ]);
     }
 
@@ -107,7 +107,7 @@ class ForumController extends Controller
     {
         return view('Staff.forum.edit', [
             'categories' => Forum::whereNull('parent_id')->get(),
-            'groups'     => Group::all(),
+            'groups'     => Group::orderBy('position')->get(),
             'forum'      => $forum->load('permissions'),
         ]);
     }
