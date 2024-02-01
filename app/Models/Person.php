@@ -26,6 +26,14 @@ class Person extends Model
     public $timestamps = false;
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     */
+    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Credit::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
