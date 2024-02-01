@@ -76,7 +76,7 @@ class UserUploads extends Component
      */
     final public function getUploadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Torrent::query()
+        $uploads = Torrent::query()
             ->withCount('thanks')
             ->withSum('tips', 'cost')
             ->withoutGlobalScope(ApprovedScope::class)
@@ -92,6 +92,8 @@ class UserUploads extends Component
             ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+
+        return $uploads->setCollection($uploads->getCollection()->groupBy(fn ($torrent) => $torrent->created_at->format('Y-m')));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
