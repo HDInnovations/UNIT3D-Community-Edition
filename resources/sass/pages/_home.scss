@@ -13,3 +13,11 @@
 //         margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
 //     }
 // }
+
+.home__poster-slider {
+  display: grid;
+  grid-auto-columns: 150px;
+  grid-auto-flow: column;
+  gap: 12px 24px;
+  overflow-x: auto;
+}

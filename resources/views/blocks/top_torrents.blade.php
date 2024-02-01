@@ -1,6 +1,15 @@
-<section class="panelV2" x-data="{ tab: 'newest' }">
+<section class="panelV2" x-data="{ tab: 'downloaded' }">
     <h2 class="panel__heading">{{ __('blocks.top-torrents') }}</h2>
     <menu class="panel__tabs">
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === 'downloaded' && 'panel__tab--active'"
+            x-on:click="tab = 'downloaded'"
+            title="In the past 24 hours"
+        >
+            Most Recently Downloaded
+        </li>
         <li
             class="panel__tab"
             role="tab"
@@ -42,6 +51,46 @@
             {{ __('torrent.dead-torrents') }}
         </li>
     </menu>
+    <div class="panel__body home__poster-slider" x-show="tab === 'downloaded'">
+        @foreach ($recentlyDownloaded as $torrent)
+            @switch(get_class($torrent->meta))
+                @case(\App\Models\Movie::class)
+                    <figure class="top10-poster">
+                        <x-torrent.poster
+                            :id="$torrent->id"
+                            :name="$torrent->meta->title"
+                            :poster="$torrent->meta->poster"
+                            :release_date="$torrent->meta->release_date"
+                        />
+                        <figcaption
+                            class="top10-poster__download-count"
+                            title="{{ __('torrent.completed-times') }}"
+                        >
+                            {{ $torrent->download_count }}
+                        </figcaption>
+                    </figure>
+
+                    @break
+                @case(\App\Models\Tv::class)
+                    <figure class="top10-poster">
+                        <x-torrent.poster
+                            :id="$torrent->id"
+                            :name="$torrent->meta->name"
+                            :poster="$torrent->meta->poster"
+                            :release_date="$torrent->meta->first_air_date"
+                        />
+                        <figcaption
+                            class="top10-poster__download-count"
+                            title="{{ __('torrent.completed-times') }}"
+                        >
+                            {{ $torrent->download_count }}
+                        </figcaption>
+                    </figure>
+
+                    @break
+            @endswitch
+        @endforeach
+    </div>
     <div class="data-table-wrapper" x-show="tab === 'newest'">
         <table class="data-table">
             <tbody>

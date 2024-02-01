@@ -85,8 +85,58 @@ class HomeController extends Controller
                     ->oldest('position')
                     ->get()
             ),
-            'articles' => $articles,
-            'newest'   => cache()->remember(
+            'articles'           => $articles,
+            'recentlyDownloaded' => cache()->remember(
+                'most-recently-downloaded-torrents',
+                $expiresAt->addMinutes(60),
+                function () {
+                    $recentlyDownloaded = Torrent::query()
+                        ->select('torrents.id', 'torrents.tmdb', 'torrents.category_id', DB::raw('count(*) as download_count'))
+                        ->selectRaw("
+                            CASE
+                                WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                                WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                                WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                                WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                                WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                            END as meta
+                        ")
+                        ->join('history', 'torrents.id', '=', 'history.torrent_id')
+                        ->where('history.created_at', '>', now()->subHours(240))
+                        ->whereNotNull('history.completed_at')
+                        ->groupBy('history.torrent_id')
+                        ->orderByRaw('COUNT(*) DESC')
+                        ->take(10)
+                        ->get();
+
+                    $movieIds = $recentlyDownloaded->where('meta', '=', 'movie')->pluck('tmdb');
+                    $tvIds = $recentlyDownloaded->where('meta', '=', 'tv')->pluck('tmdb');
+                    $gameIds = $recentlyDownloaded->where('meta', '=', 'game')->pluck('igdb');
+
+                    $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+                    $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+                    $games = [];
+
+                    foreach ($gameIds as $gameId) {
+                        $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
+                    }
+
+                    $recentlyDownloaded = $recentlyDownloaded->map(function ($torrent) use ($movies, $tv, $games) {
+                        /** @phpstan-ignore-next-line */
+                        $torrent->meta = match ($torrent->meta) {
+                            'movie' => $movies[$torrent->tmdb] ?? null,
+                            'tv'    => $tv[$torrent->tmdb] ?? null,
+                            'game'  => $games[$torrent->igdb] ?? null,
+                            default => null,
+                        };
+
+                        return $torrent;
+                    });
+
+                    return $recentlyDownloaded;
+                },
+            ),
+            'newest' => cache()->remember(
                 'newest_torrents',
                 $expiresAt,
                 function () use ($user) {
