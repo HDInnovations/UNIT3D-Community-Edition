@@ -71,7 +71,7 @@ return [
     'featured-until'           => 'Це рекомендований торент до',
     'file'                     => 'Файл',
     'filters'                  => 'Фільтри',
-    'fl-tokens-left'           => 'Ти маєш <strong><i class="fal fa-star"></i> :</strong> залишені <strong>маркери</strong>',
+    'fl-tokens-left'           => 'Ви маєте <strong><i class="fal fa-star"></i> :</strong> залишені <strong>маркери</strong>',
     'freeleech'                => 'Фріліч',
     'freeleech-token'          => 'Токент фрілічу',
     'general'                  => 'Загальні',
