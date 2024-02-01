@@ -13,13 +13,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Group;
 use App\Models\User;
+use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserSearch extends Component
 {
+    use CastLivewireProperties;
     use LivewireSort;
     use WithPagination;
 
@@ -27,7 +30,17 @@ class UserSearch extends Component
 
     public int $perPage = 25;
 
-    public string $search = '';
+    public string $username = '';
+
+    public string $email = '';
+
+    public string $rsskey = '';
+
+    public string $apikey = '';
+
+    public string $passkey = '';
+
+    public ?int $groupId = null;
 
     public string $sortField = 'created_at';
 
@@ -37,20 +50,19 @@ class UserSearch extends Component
      * @var array<mixed>
      */
     protected $queryString = [
-        'search'  => ['except' => ''],
-        'show'    => ['except' => false],
-        'page'    => ['except' => 1],
-        'perPage' => ['except' => ''],
+        'username' => ['except' => ''],
+        'email'    => ['except' => ''],
+        'apikey'   => ['except' => ''],
+        'rsskey'   => ['except' => ''],
+        'passkey'  => ['except' => ''],
+        'show'     => ['except' => false],
+        'page'     => ['except' => 1],
+        'perPage'  => ['except' => ''],
     ];
 
     final public function updatedPage(): void
     {
         $this->emit('paginationChanged');
-    }
-
-    final public function updatingSearch(): void
-    {
-        $this->resetPage();
     }
 
     final public function updatingShow(): void
@@ -72,24 +84,30 @@ class UserSearch extends Component
     {
         return User::query()
             ->with('group')
-            ->when(
-                $this->search,
-                fn ($query) => $query
-                    ->where('username', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('email', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('rsskey', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('api_token', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('passkey', 'LIKE', '%'.$this->search.'%')
-            )
+            ->when($this->username !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->username.'%'))
+            ->when($this->email !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->email.'%'))
+            ->when($this->rsskey !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->rsskey.'%'))
+            ->when($this->apikey !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->apikey.'%'))
+            ->when($this->passkey !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->passkey.'%'))
+            ->when($this->groupId !== null, fn ($query) => $query->where('group_id', '=', $this->groupId))
             ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<int, Group>
+     */
+    final public function getGroupsProperty()
+    {
+        return Group::orderBy('position')->get();
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.user-search', [
-            'users' => $this->users,
+            'users'  => $this->users,
+            'groups' => $this->groups,
         ]);
     }
 }
