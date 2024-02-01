@@ -62,3 +62,11 @@
         {{ __('user.top-seeding-size') }}
     </a>
 </li>
+<li class="{{ Route::is('upload_snatches') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('upload_snatches') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('upload_snatches') }}"
+    >
+        Most Upload Snatches
+    </a>
+</li>

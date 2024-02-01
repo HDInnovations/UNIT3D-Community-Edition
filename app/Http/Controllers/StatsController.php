@@ -235,6 +235,19 @@ class StatsController extends Controller
     }
 
     /**
+     * Show Extra-Stats Users.
+     */
+    public function uploadSnatches(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return view('stats.users.upload-snatches', [
+            'users' => User::withCount('uploadSnatches')
+                ->orderByDesc('upload_snatches_count')
+                ->take(100)
+                ->get(),
+        ]);
+    }
+
+    /**
      * Show Extra-Stats Torrents.
      */
     public function seeded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
