@@ -1,4 +1,4 @@
-@if ($featured)
+@if ($featured->isNotEmpty())
     <section class="panelV2">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-star"></i>
