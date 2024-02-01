@@ -253,6 +253,14 @@
             <table class="data-table">
                 <thead>
                     <th
+                        class="user-uploads__name-header"
+                        wire:click="sortBy('created_at')"
+                        role="columnheader button"
+                    >
+                        {{ __('common.month') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    </th>
+                    <th
                         class="user-torrents__name-header"
                         wire:click="sortBy('name')"
                         role="columnheader button"
@@ -426,298 +434,317 @@
                     </th>
                 </thead>
                 <tbody>
-                    @foreach ($histories as $history)
-                        <tr>
-                            <td>
-                                <a
-                                    class="user-torrents__name"
-                                    href="{{ route('torrents.show', ['id' => $history->torrent_id]) }}"
-                                >
-                                    {{ $history->name }}
-                                </a>
-                            </td>
-                            <td class="user-torrents__seeders">
-                                <a href="{{ route('peers', ['id' => $history->torrent_id]) }}">
-                                    <span class="text-green">
-                                        {{ $history->seeders }}
-                                    </span>
-                                </a>
-                            </td>
-                            <td class="user-torrents__leechers">
-                                <a href="{{ route('peers', ['id' => $history->torrent_id]) }}">
-                                    <span class="text-red">
-                                        {{ $history->leechers }}
-                                    </span>
-                                </a>
-                            </td>
-                            <td class="user-torrents__times">
-                                <a href="{{ route('history', ['id' => $history->torrent_id]) }}">
-                                    <span class="text-orange">
-                                        {{ $history->times_completed }}
-                                    </span>
-                                </a>
-                            </td>
-                            <td class="user-torrents__agent text-purple">
-                                {{ $history->agent ?: __('common.unknown') }}
-                            </td>
-                            <td class="user-torrents__size">
-                                {{ App\Helpers\StringHelper::formatBytes($history->size) }}
-                            </td>
-                            <td
-                                class="user-torrents__upload"
-                                title="{{ __('user.actual-upload') }}"
-                            >
-                                <span class="text-green">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded, 2) }}
-                                </span>
-                                <br />
-                                <span class="text-blue" title="{{ __('user.credited-upload') }}">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->uploaded, 2) }}
-                                </span>
-                            </td>
-                            <td class="user-torrents__download">
-                                <span class="text-red" title="{{ __('user.actual-download') }}">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded, 2) }}
-                                </span>
-                                <br />
-                                <span
-                                    class="text-orange"
-                                    title="{{ __('user.credited-download') }}"
-                                >
-                                    {{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }}
-                                </span>
-                            </td>
-                            <td class="user-torrents__ratio">
-                                @php($ratio = $history->actual_ratio < 1000 ? \number_format($history->actual_ratio, 2) : INF)
-                                <span
-                                    @if ($ratio < 1)
-                                        class="ratio-0{{ \floor($ratio * 10) }}"
-                                    @elseif ($ratio < 2)
-                                        class="ratio-10"
-                                    @elseif ($ratio < 5)
-                                        class="ratio-20"
-                                    @elseif ($ratio <= INF)
-                                        class="ratio-50"
-                                    @endif
-                                    title="Actual ratio: {{ $history->actual_ratio }}"
-                                >
-                                    {{ $ratio }}
-                                </span>
-                                <br />
-                                @php($ratio = $history->ratio < 1000 ? \number_format($history->ratio, 2) : INF)
-                                <span
-                                    @if ($ratio < 1)
-                                        class="ratio-0{{ \floor($ratio * 10) }}"
-                                    @elseif ($ratio < 2)
-                                        class="ratio-10"
-                                    @elseif ($ratio < 5)
-                                        class="ratio-20"
-                                    @elseif ($ratio <= INF)
-                                        class="ratio-50"
-                                    @endif
-                                    title="Credited ratio: {{ $history->ratio }}"
-                                >
-                                    {{ $ratio }}
-                                </span>
-                            </td>
-                            @if ($showMorePrecision)
-                                <td class="user-torrents__leechtime">
-                                    @if ($history->leechtime === null)
-                                        N/A
-                                    @else
-                                        {{ App\Helpers\StringHelper::timeElapsed($history->leechtime) }}
-                                    @endif
-                                </td>
-                                <td class="user-torrents__seedtime">
-                                    <span
-                                        class="{{ ($history->seedtime ?? 0) < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
+                    @foreach ($histories as $month => $historyGroup)
+                        @foreach ($historyGroup as $history)
+                            <tr>
+                                @if ($loop->first)
+                                    <th
+                                        rowspan="{{ $historyGroup->count() }}"
+                                        style="vertical-align: top"
                                     >
+                                        {{ $month }}
+                                    </th>
+                                @endif
+
+                                <td>
+                                    <a
+                                        class="user-torrents__name"
+                                        href="{{ route('torrents.show', ['id' => $history->torrent_id]) }}"
+                                    >
+                                        {{ $history->name }}
+                                    </a>
+                                </td>
+                                <td class="user-torrents__seeders">
+                                    <a href="{{ route('peers', ['id' => $history->torrent_id]) }}">
+                                        <span class="text-green">
+                                            {{ $history->seeders }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="user-torrents__leechers">
+                                    <a href="{{ route('peers', ['id' => $history->torrent_id]) }}">
+                                        <span class="text-red">
+                                            {{ $history->leechers }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="user-torrents__times">
+                                    <a
+                                        href="{{ route('history', ['id' => $history->torrent_id]) }}"
+                                    >
+                                        <span class="text-orange">
+                                            {{ $history->times_completed }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="user-torrents__agent text-purple">
+                                    {{ $history->agent ?: __('common.unknown') }}
+                                </td>
+                                <td class="user-torrents__size">
+                                    {{ App\Helpers\StringHelper::formatBytes($history->size) }}
+                                </td>
+                                <td
+                                    class="user-torrents__upload"
+                                    title="{{ __('user.actual-upload') }}"
+                                >
+                                    <span class="text-green">
+                                        {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded, 2) }}
+                                    </span>
+                                    <br />
+                                    <span
+                                        class="text-blue"
+                                        title="{{ __('user.credited-upload') }}"
+                                    >
+                                        {{ App\Helpers\StringHelper::formatBytes($history->uploaded, 2) }}
+                                    </span>
+                                </td>
+                                <td class="user-torrents__download">
+                                    <span
+                                        class="text-red"
+                                        title="{{ __('user.actual-download') }}"
+                                    >
+                                        {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded, 2) }}
+                                    </span>
+                                    <br />
+                                    <span
+                                        class="text-orange"
+                                        title="{{ __('user.credited-download') }}"
+                                    >
+                                        {{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }}
+                                    </span>
+                                </td>
+                                <td class="user-torrents__ratio">
+                                    @php($ratio = $history->actual_ratio < 1000 ? \number_format($history->actual_ratio, 2) : INF)
+                                    <span
+                                        @if ($ratio < 1)
+                                            class="ratio-0{{ \floor($ratio * 10) }}"
+                                        @elseif ($ratio < 2)
+                                            class="ratio-10"
+                                        @elseif ($ratio < 5)
+                                            class="ratio-20"
+                                        @elseif ($ratio <= INF)
+                                            class="ratio-50"
+                                        @endif
+                                        title="Actual ratio: {{ $history->actual_ratio }}"
+                                    >
+                                        {{ $ratio }}
+                                    </span>
+                                    <br />
+                                    @php($ratio = $history->ratio < 1000 ? \number_format($history->ratio, 2) : INF)
+                                    <span
+                                        @if ($ratio < 1)
+                                            class="ratio-0{{ \floor($ratio * 10) }}"
+                                        @elseif ($ratio < 2)
+                                            class="ratio-10"
+                                        @elseif ($ratio < 5)
+                                            class="ratio-20"
+                                        @elseif ($ratio <= INF)
+                                            class="ratio-50"
+                                        @endif
+                                        title="Credited ratio: {{ $history->ratio }}"
+                                    >
+                                        {{ $ratio }}
+                                    </span>
+                                </td>
+                                @if ($showMorePrecision)
+                                    <td class="user-torrents__leechtime">
+                                        @if ($history->leechtime === null)
+                                            N/A
+                                        @else
+                                            {{ App\Helpers\StringHelper::timeElapsed($history->leechtime) }}
+                                        @endif
+                                    </td>
+                                    <td class="user-torrents__seedtime">
+                                        <span
+                                            class="{{ ($history->seedtime ?? 0) < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
+                                        >
+                                            @if ($history->seedtime === null)
+                                                N/A
+                                            @else
+                                                {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td class="user-torrents__created-at">
+                                        <time
+                                            datetime="{{ $history->created_at }}"
+                                            title="{{ $history->created_at }}"
+                                        >
+                                            {{ $history->created_at ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                    <td class="user-torrents__updated-at">
+                                        <time
+                                            datetime="{{ $history->updated_at }}"
+                                            title="{{ $history->updated_at }}"
+                                        >
+                                            {{ $history->updated_at ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                    <td class="user-torrents__completed-at">
+                                        <time
+                                            datetime="{{ $history->completed_at }}"
+                                            title="{{ $history->completed_at }}"
+                                        >
+                                            {{ $history->completed_at ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                @else
+                                    <td class="user-torrents__leechtime">
+                                        @if ($history->leechtime === null)
+                                            N/A
+                                        @else
+                                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
+                                        @endif
+                                    </td>
+                                    <td class="user-torrents__seedtime">
                                         @if ($history->seedtime === null)
                                             N/A
                                         @else
-                                            {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                            <span
+                                                class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
+                                            >
+                                                {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
+                                            </span>
                                         @endif
-                                    </span>
-                                </td>
-                                <td class="user-torrents__created-at">
-                                    <time
-                                        datetime="{{ $history->created_at }}"
-                                        title="{{ $history->created_at }}"
-                                    >
-                                        {{ $history->created_at ?? 'N/A' }}
-                                    </time>
-                                </td>
-                                <td class="user-torrents__updated-at">
-                                    <time
-                                        datetime="{{ $history->updated_at }}"
-                                        title="{{ $history->updated_at }}"
-                                    >
-                                        {{ $history->updated_at ?? 'N/A' }}
-                                    </time>
-                                </td>
-                                <td class="user-torrents__completed-at">
-                                    <time
-                                        datetime="{{ $history->completed_at }}"
-                                        title="{{ $history->completed_at }}"
-                                    >
-                                        {{ $history->completed_at ?? 'N/A' }}
-                                    </time>
-                                </td>
-                            @else
-                                <td class="user-torrents__leechtime">
-                                    @if ($history->leechtime === null)
-                                        N/A
-                                    @else
-                                        {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
-                                    @endif
-                                </td>
-                                <td class="user-torrents__seedtime">
-                                    @if ($history->seedtime === null)
-                                        N/A
-                                    @else
-                                        <span
-                                            class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
+                                    </td>
+                                    <td class="user-torrents__created-at">
+                                        <time
+                                            datetime="{{ $history->created_at }}"
+                                            title="{{ $history->created_at }}"
                                         >
-                                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
-                                        </span>
+                                            {{ $history->created_at === null ? 'N/A' : \explode(' ', $history->created_at)[0] }}
+                                        </time>
+                                    </td>
+                                    <td class="user-torrents__updated-at">
+                                        <time
+                                            datetime="{{ $history->updated_at }}"
+                                            title="{{ $history->updated_at }}"
+                                        >
+                                            {{ $history->updated_at === null ? 'N/A' : \explode(' ', $history->updated_at)[0] }}
+                                        </time>
+                                    </td>
+                                    <td class="user-torrents__completed-at">
+                                        <time
+                                            datetime="{{ $history->completed_at }}"
+                                            title="{{ $history->completed_at }}"
+                                        >
+                                            {{ $history->completed_at === null ? 'N/A' : \explode(' ', $history->completed_at)[0] }}
+                                        </time>
+                                    </td>
+                                @endif
+                                <td class="user-torrents__seeding">
+                                    @if ($history->seeding == 1)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                            title="{{ __('torrent.seeding') }}"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-times"
+                                            title="Not {{ __('torrent.seeding') }}"
+                                        ></i>
                                     @endif
                                 </td>
-                                <td class="user-torrents__created-at">
-                                    <time
-                                        datetime="{{ $history->created_at }}"
-                                        title="{{ $history->created_at }}"
-                                    >
-                                        {{ $history->created_at === null ? 'N/A' : \explode(' ', $history->created_at)[0] }}
-                                    </time>
+                                <td class="user-torrents__leeching">
+                                    @if ($history->leeching == 1)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                            title="{{ __('torrent.leeching') }}"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-times"
+                                            title="Not {{ __('torrent.leeching') }}"
+                                        ></i>
+                                    @endif
                                 </td>
-                                <td class="user-torrents__updated-at">
-                                    <time
-                                        datetime="{{ $history->updated_at }}"
-                                        title="{{ $history->updated_at }}"
-                                    >
-                                        {{ $history->updated_at === null ? 'N/A' : \explode(' ', $history->updated_at)[0] }}
-                                    </time>
-                                </td>
-                                <td class="user-torrents__completed-at">
-                                    <time
-                                        datetime="{{ $history->completed_at }}"
-                                        title="{{ $history->completed_at }}"
-                                    >
-                                        {{ $history->completed_at === null ? 'N/A' : \explode(' ', $history->completed_at)[0] }}
-                                    </time>
-                                </td>
-                            @endif
-                            <td class="user-torrents__seeding">
-                                @if ($history->seeding == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-green fa-check"
-                                        title="{{ __('torrent.seeding') }}"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-red fa-times"
-                                        title="Not {{ __('torrent.seeding') }}"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__leeching">
-                                @if ($history->leeching == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-green fa-check"
-                                        title="{{ __('torrent.leeching') }}"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-red fa-times"
-                                        title="Not {{ __('torrent.leeching') }}"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__prewarned">
-                                @if ($history->prewarn == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="Prewarned"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="Not prewarned"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__warned">
-                                @if ($history->hitrun == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="Warned"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="Not warned"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__immune">
-                                @if ($history->immune == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="Immune"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="Not immune"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__uploader">
-                                @if ($history->uploader == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-green fa-check"
-                                        title="{{ __('torrent.uploaded') }}"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-red fa-times"
-                                        title="Not {{ __('torrent.uploaded') }}"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__status">
-                                @switch($history->status)
-                                    @case(\App\Models\Torrent::PENDING)
-                                        <span
-                                            title="{{ __('torrent.pending') }}"
-                                            class="{{ config('other.font-awesome') }} fa-tasks text-orange"
-                                        ></span>
-
-                                        @break
-                                    @case(\App\Models\Torrent::APPROVED)
-                                        <span
-                                            title="{{ __('torrent.approved') }}"
+                                <td class="user-torrents__prewarned">
+                                    @if ($history->prewarn == 1)
+                                        <i
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        ></span>
-
-                                        @break
-                                    @case(\App\Models\Torrent::REJECTED)
-                                        <span
-                                            title="{{ __('torrent.rejected') }}"
+                                            title="Prewarned"
+                                        ></i>
+                                    @else
+                                        <i
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        ></span>
+                                            title="Not prewarned"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td class="user-torrents__warned">
+                                    @if ($history->hitrun == 1)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                            title="Warned"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-times text-red"
+                                            title="Not warned"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td class="user-torrents__immune">
+                                    @if ($history->immune == 1)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                            title="Immune"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-times text-red"
+                                            title="Not immune"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td class="user-torrents__uploader">
+                                    @if ($history->uploader == 1)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                            title="{{ __('torrent.uploaded') }}"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-times"
+                                            title="Not {{ __('torrent.uploaded') }}"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td class="user-torrents__status">
+                                    @switch($history->status)
+                                        @case(\App\Models\Torrent::PENDING)
+                                            <span
+                                                title="{{ __('torrent.pending') }}"
+                                                class="{{ config('other.font-awesome') }} fa-tasks text-orange"
+                                            ></span>
 
-                                        @break
-                                    @case(\App\Models\Torrent::POSTPONED)
-                                        <span
-                                            title="Postponed"
-                                            class="{{ config('other.font-awesome') }} fa-hourglass text-red"
-                                        ></span>
+                                            @break
+                                        @case(\App\Models\Torrent::APPROVED)
+                                            <span
+                                                title="{{ __('torrent.approved') }}"
+                                                class="{{ config('other.font-awesome') }} fa-check text-green"
+                                            ></span>
 
-                                        @break
-                                @endswitch
-                            </td>
-                        </tr>
+                                            @break
+                                        @case(\App\Models\Torrent::REJECTED)
+                                            <span
+                                                title="{{ __('torrent.rejected') }}"
+                                                class="{{ config('other.font-awesome') }} fa-times text-red"
+                                            ></span>
+
+                                            @break
+                                        @case(\App\Models\Torrent::POSTPONED)
+                                            <span
+                                                title="Postponed"
+                                                class="{{ config('other.font-awesome') }} fa-hourglass text-red"
+                                            ></span>
+
+                                            @break
+                                    @endswitch
+                                </td>
+                            </tr>
+                        @endforeach
                     @endforeach
                 </tbody>
             </table>

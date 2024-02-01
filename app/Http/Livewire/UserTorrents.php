@@ -97,7 +97,7 @@ class UserTorrents extends Component
      */
     final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return History::query()
+        $histories = History::query()
             ->join(
                 'torrents',
                 fn ($join) => $join
@@ -172,6 +172,8 @@ class UserTorrents extends Component
             ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+
+        return $histories->setCollection($histories->getCollection()->groupBy(fn ($history) => $history->created_at->format('Y-m')));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

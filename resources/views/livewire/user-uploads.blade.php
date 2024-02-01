@@ -121,6 +121,14 @@
                 <thead>
                     <th
                         class="user-uploads__name-header"
+                        wire:click="sortBy('created_at')"
+                        role="columnheader button"
+                    >
+                        {{ __('common.month') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    </th>
+                    <th
+                        class="user-uploads__name-header"
                         wire:click="sortBy('name')"
                         role="columnheader button"
                     >
@@ -208,111 +216,122 @@
                     </th>
                 </thead>
                 <tbody>
-                    @foreach ($uploads as $torrent)
-                        <tr>
-                            <td>
-                                @if ($torrent->internal)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-magic"
-                                        style="color: #baaf92"
-                                    ></i>
+                    @foreach ($uploads as $month => $uploadGroup)
+                        @foreach ($uploadGroup as $torrent)
+                            <tr>
+                                @if ($loop->first)
+                                    <th
+                                        rowspan="{{ $uploadGroup->count() }}"
+                                        style="vertical-align: top"
+                                    >
+                                        {{ $month }}
+                                    </th>
                                 @endif
 
-                                <a
-                                    class="user-uploads__name"
-                                    href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
-                                >
-                                    {{ $torrent->name }}
-                                </a>
-                            </td>
-                            <td class="user-uploads__size">
-                                {{ App\Helpers\StringHelper::formatBytes($torrent->size) }}
-                            </td>
-                            <td class="user-uploads__seeders">
-                                <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-                                    <span class="text-green">
-                                        {{ $torrent->seeders }}
-                                    </span>
-                                </a>
-                            </td>
-                            <td class="user-uploads__leechers">
-                                <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-                                    <span class="text-red">
-                                        {{ $torrent->leechers }}
-                                    </span>
-                                </a>
-                            </td>
-                            <td class="user-uploads__times">
-                                <a href="{{ route('history', ['id' => $torrent->id]) }}">
-                                    <span class="text-orange">
-                                        {{ $torrent->times_completed }}
-                                    </span>
-                                </a>
-                            </td>
-                            <td class="user-uploads__tips">
-                                {{ $torrent->tips_sum_cost ?? 0 }}
-                            </td>
-                            <td class="user-uploads__thanks">
-                                {{ $torrent->thanks_count ?? 0 }}
-                            </td>
-                            <td class="user-uploads__created-at">
-                                <time
-                                    datetime="{{ $torrent->created_at }}"
-                                    title="{{ $torrent->created_at }}"
-                                >
-                                    @if ($showMorePrecision)
-                                        {{ $torrent->created_at ?? 'N/A' }}
-                                    @else
-                                        {{ $torrent->created_at === null ? 'N/A' : \explode(' ', $torrent->created_at)[0] }}
+                                <td>
+                                    @if ($torrent->internal)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-magic"
+                                            style="color: #baaf92"
+                                        ></i>
                                     @endif
-                                </time>
-                            </td>
-                            <td class="user-uploads__personal-release">
-                                @if ($torrent->personal_release === 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="{{ __('torrent.personal-release') }}"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="{{ __('torrent.not-personal-release') }}"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-uploads__status">
-                                @switch($torrent->status)
-                                    @case(\App\Models\Torrent::PENDING)
-                                        <span
-                                            title="{{ __('torrent.pending') }}"
-                                            class="{{ config('other.font-awesome') }} fa-tasks text-orange"
-                                        ></span>
 
-                                        @break
-                                    @case(\App\Models\Torrent::APPROVED)
-                                        <span
-                                            title="{{ __('torrent.approved') }}"
+                                    <a
+                                        class="user-uploads__name"
+                                        href="{{ route('torrents.show', ['id' => $torrent->id]) }}"
+                                    >
+                                        {{ $torrent->name }}
+                                    </a>
+                                </td>
+                                <td class="user-uploads__size">
+                                    {{ App\Helpers\StringHelper::formatBytes($torrent->size) }}
+                                </td>
+                                <td class="user-uploads__seeders">
+                                    <a href="{{ route('peers', ['id' => $torrent->id]) }}">
+                                        <span class="text-green">
+                                            {{ $torrent->seeders }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="user-uploads__leechers">
+                                    <a href="{{ route('peers', ['id' => $torrent->id]) }}">
+                                        <span class="text-red">
+                                            {{ $torrent->leechers }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="user-uploads__times">
+                                    <a href="{{ route('history', ['id' => $torrent->id]) }}">
+                                        <span class="text-orange">
+                                            {{ $torrent->times_completed }}
+                                        </span>
+                                    </a>
+                                </td>
+                                <td class="user-uploads__tips">
+                                    {{ $torrent->tips_sum_cost ?? 0 }}
+                                </td>
+                                <td class="user-uploads__thanks">
+                                    {{ $torrent->thanks_count ?? 0 }}
+                                </td>
+                                <td class="user-uploads__created-at">
+                                    <time
+                                        datetime="{{ $torrent->created_at }}"
+                                        title="{{ $torrent->created_at }}"
+                                    >
+                                        @if ($showMorePrecision)
+                                            {{ $torrent->created_at ?? 'N/A' }}
+                                        @else
+                                            {{ $torrent->created_at === null ? 'N/A' : \explode(' ', $torrent->created_at)[0] }}
+                                        @endif
+                                    </time>
+                                </td>
+                                <td class="user-uploads__personal-release">
+                                    @if ($torrent->personal_release === 1)
+                                        <i
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        ></span>
-
-                                        @break
-                                    @case(\App\Models\Torrent::REJECTED)
-                                        <span
-                                            title="{{ __('torrent.rejected') }}"
+                                            title="{{ __('torrent.personal-release') }}"
+                                        ></i>
+                                    @else
+                                        <i
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        ></span>
+                                            title="{{ __('torrent.not-personal-release') }}"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td class="user-uploads__status">
+                                    @switch($torrent->status)
+                                        @case(\App\Models\Torrent::PENDING)
+                                            <span
+                                                title="{{ __('torrent.pending') }}"
+                                                class="{{ config('other.font-awesome') }} fa-tasks text-orange"
+                                            ></span>
 
-                                        @break
-                                    @case(\App\Models\Torrent::POSTPONED)
-                                        <span
-                                            title="Postponed"
-                                            class="{{ config('other.font-awesome') }} fa-hourglass text-red"
-                                        ></span>
+                                            @break
+                                        @case(\App\Models\Torrent::APPROVED)
+                                            <span
+                                                title="{{ __('torrent.approved') }}"
+                                                class="{{ config('other.font-awesome') }} fa-check text-green"
+                                            ></span>
 
-                                        @break
-                                @endswitch
-                            </td>
-                        </tr>
+                                            @break
+                                        @case(\App\Models\Torrent::REJECTED)
+                                            <span
+                                                title="{{ __('torrent.rejected') }}"
+                                                class="{{ config('other.font-awesome') }} fa-times text-red"
+                                            ></span>
+
+                                            @break
+                                        @case(\App\Models\Torrent::POSTPONED)
+                                            <span
+                                                title="Postponed"
+                                                class="{{ config('other.font-awesome') }} fa-hourglass text-red"
+                                            ></span>
+
+                                            @break
+                                    @endswitch
+                                </td>
+                            </tr>
+                        @endforeach
                     @endforeach
                 </tbody>
             </table>
