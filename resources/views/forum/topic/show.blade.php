@@ -43,7 +43,7 @@
         </p>
     @endif
 
-    @if (($topic->state === 'open' && $forum->getPermission()->reply_topic) || auth()->user()->group->is_modo)
+    @if (($topic->state === 'open' && $forum->getPermission()?->reply_topic) || auth()->user()->group->is_modo)
         <form id="forum_reply_form" method="POST" action="{{ route('posts.store') }}">
             @csrf
             <input type="hidden" name="topic_id" value="{{ $topic->id }}" />

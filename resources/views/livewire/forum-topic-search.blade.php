@@ -4,7 +4,7 @@
             <header class="panel__header">
                 <h2 class="panel__heading">{{ $forum->description }}</h2>
                 <div class="panel__actions">
-                    @if ($forum->getPermission()->start_topic == true)
+                    @if ($forum->getPermission()?->start_topic == true)
                         <div class="panel__action">
                             <div class="form__group">
                                 <a

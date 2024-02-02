@@ -132,7 +132,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $group->id }}][show_forum]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->show_forum)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->show_forum)
                                             />
                                         </td>
                                         <td>
@@ -140,7 +140,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $group->id }}][read_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->read_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->read_topic)
                                             />
                                         </td>
                                         <td>
@@ -148,7 +148,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $group->id }}][start_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->start_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->start_topic)
                                             />
                                         </td>
                                         <td>
@@ -156,7 +156,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $group->id }}][reply_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->reply_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->reply_topic)
                                             />
                                         </td>
                                     </tr>
