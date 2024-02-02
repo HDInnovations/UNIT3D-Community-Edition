@@ -65,9 +65,13 @@
         <dl class="key-value">
             <dt>{{ __('forum.author') }}</dt>
             <dd>
-                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                    {{ $topic->first_post_user_username }}
-                </a>
+                @if ($topic->user === null)
+                    {{ __('common.unknown') }}
+                @else
+                    <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                        {{ $topic->first_post_user_username }}
+                    </a>
+                @endif
             </dd>
             <dt>{{ __('forum.created-at') }}</dt>
             <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>

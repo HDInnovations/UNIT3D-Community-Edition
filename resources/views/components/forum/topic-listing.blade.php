@@ -76,12 +76,16 @@
     </dl>
     <article class="topic-listing__latest-post">
         <address class="topic-listing__latest-author">
-            <a
-                class="topic-listing__latest-author-link"
-                href="{{ route('users.show', ['user' => $topic->latestPoster]) }}"
-            >
-                {{ $topic->last_post_user_username }}
-            </a>
+            @if ($topic->latestPoster === null)
+                {{ __('common.unknown') }}
+            @else
+                <a
+                    class="topic-listing__latest-author-link"
+                    href="{{ route('users.show', ['user' => $topic->latestPoster]) }}"
+                >
+                    {{ $topic->last_post_user_username }}
+                </a>
+            @endif
         </address>
         <time
             class="topic-listing__latest-datetime"
