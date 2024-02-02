@@ -114,7 +114,7 @@
             </div>
         </div>
     </section>
-    <section class="panelV2">
+    <section class="panelV2 user-uploads">
         <h2 class="panel__heading">{{ __('user.uploads') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">

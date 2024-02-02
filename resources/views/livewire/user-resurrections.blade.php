@@ -39,7 +39,7 @@
             </form>
         </div>
     </section>
-    <section class="panelV2">
+    <section class="panelV2 user-resurrections">
         <h2 class="panel__heading">{{ __('user.resurrections') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
