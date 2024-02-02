@@ -55,7 +55,7 @@
                 </a>
             @endif
         </time>
-        @if ($subforum->last_topic_id !== null && $subforum->last_post_user_username !== null)
+        @if ($subforum->last_topic_id !== null && $subforum->latestPoster !== null)
             <address class="subforum-listing__latest-author">
                 <a
                     class="subforum-listing__latest-author-link"
