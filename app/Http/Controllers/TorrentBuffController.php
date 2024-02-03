@@ -139,12 +139,8 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         if ($torrent->featured == 0) {
-            $torrent->free = 100;
-            $torrent->doubleup = true;
             $torrent->featured = true;
             $torrent->save();
-
-            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
             Unit3dAnnounce::addTorrent($torrent);
 
@@ -152,6 +148,8 @@ class TorrentBuffController extends Controller
             $featured->user_id = $user->id;
             $featured->torrent_id = $torrent->id;
             $featured->save();
+
+            cache()->forget('featured-torrent-ids');
 
             $torrentUrl = href_torrent($torrent);
             $profileUrl = href_profile($user);
@@ -179,12 +177,8 @@ class TorrentBuffController extends Controller
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->free = 0;
-        $torrent->doubleup = false;
         $torrent->featured = false;
         $torrent->save();
-
-        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
 
@@ -195,6 +189,8 @@ class TorrentBuffController extends Controller
         );
 
         $featured_torrent->delete();
+
+        cache()->forget('featured-torrent-ids');
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Revoked featured from Torrent!');
