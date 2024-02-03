@@ -269,6 +269,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Automatic Torrent Freeleeches
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.peers.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>

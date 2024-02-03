@@ -26,6 +26,7 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
+use App\Models\AutomaticTorrentFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
@@ -47,6 +48,21 @@ class TorrentHelper
         $torrent->status = Torrent::APPROVED;
         $torrent->moderated_at = now();
         $torrent->moderated_by = auth()->id();
+
+        $autoFreeleech = AutomaticTorrentFreeleech::query()
+            ->orderBy('position')
+            ->where(fn ($query) => $query->whereNull('category_id')->orWhere('category_id', '=', $torrent->category_id))
+            ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
+            ->where(fn ($query) => $query->whereNull('resolution_id')->orWhere('resolution_id', '=', $torrent->resolution_id))
+            ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
+            ->first();
+
+        if (!$torrent->free && $autoFreeleech !== null) {
+            if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
+                $torrent->free = $autoFreeleech->freeleech_percentage;
+            }
+        }
+
         $torrent->save();
 
         $uploader = $torrent->user;

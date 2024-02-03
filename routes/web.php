@@ -666,6 +666,18 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Automatic Torrent Freeleeches
+        Route::prefix('automatic-torrent-freeleeches')->group(function (): void {
+            Route::name('automatic_torrent_freeleeches.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\AutomaticTorrentFreeleechController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\AutomaticTorrentFreeleechController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\AutomaticTorrentFreeleechController::class, 'store'])->name('store');
+                Route::get('/{automaticTorrentFreeleech}/edit', [App\Http\Controllers\Staff\AutomaticTorrentFreeleechController::class, 'edit'])->name('edit');
+                Route::patch('/{automaticTorrentFreeleech}', [App\Http\Controllers\Staff\AutomaticTorrentFreeleechController::class, 'update'])->name('update');
+                Route::delete('/{automaticTorrentFreeleech}', [App\Http\Controllers\Staff\AutomaticTorrentFreeleechController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Backup System
         Route::prefix('backups')->middleware('owner')->group(function (): void {
             Route::name('backups.')->group(function (): void {
