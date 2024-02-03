@@ -1,10 +1,9 @@
-<div class="bbcode-input" x-data="bbcodeInput">
+<div id="bbcode-input" class="bbcode-input" x-data="{{ $name }}BbcodeInput">
     <p class="bbcode-input__tabs">
         <input
             class="bbcode-input__tab-input"
             type="radio"
             id="{{ $name }}-bbcode-preview-disabled"
-            name="isPreviewEnabled"
             value="0"
             wire:model="isPreviewEnabled"
         />
@@ -15,7 +14,6 @@
             class="bbcode-input__tab-input"
             type="radio"
             id="{{ $name }}-bbcode-preview-enabled"
-            name="isPreviewEnabled"
             value="1"
             wire:model="isPreviewEnabled"
         />
@@ -234,7 +232,7 @@
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
-            Alpine.data('bbcodeInput', () => ({
+            Alpine.data('{{ $name }}BbcodeInput', () => ({
                 showButtons: false,
                 bbcodePreviewHeight: null,
                 isPreviewEnabled: @entangle('isPreviewEnabled'),
