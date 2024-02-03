@@ -276,6 +276,12 @@
     margin-top: 0.25em;
   }
 
+  /* Hack for when users use `[*]` without wrapping with `[list]` (producing invalid html) */
+  & > li,
+  :not(ul):not(ol) > li {
+    list-style-position: inside;
+  }
+
   /* Definition Lists */
 
   dl {
