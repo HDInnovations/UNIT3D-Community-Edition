@@ -20,6 +20,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\TrackerException;
 use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
+use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\Peer;
@@ -675,11 +676,22 @@ final class AnnounceController extends Controller
                 ->exists(),
         );
 
+        // Check if the torrent is featured
+        $isFeatured = \in_array(
+            $torrent->id,
+            cache()->rememberForever(
+                'featured-torrent-ids',
+                fn () => FeaturedTorrent::select('id')->pluck('id')->toArray(),
+            ),
+            true
+        );
+
         // Calculate credited Download
         if (
             $personalFreeleech
             || $group->is_freeleech
             || $freeleechToken
+            || $isFeatured
             || config('other.freeleech')
         ) {
             $creditedDownloadedDelta = 0;
@@ -699,6 +711,7 @@ final class AnnounceController extends Controller
         if (
             $torrent->doubleup
             || $group->is_double_upload
+            || $isFeatured
             || config('other.doubleup')
         ) {
             $creditedUploadedDelta = $uploadedDelta * 2;

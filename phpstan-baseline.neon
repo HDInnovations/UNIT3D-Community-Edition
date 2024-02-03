@@ -642,7 +642,7 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 25
+			count: 26
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
