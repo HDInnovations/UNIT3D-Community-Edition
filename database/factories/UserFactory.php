@@ -64,7 +64,6 @@ class UserFactory extends Factory
             'torrent_filters'     => $this->faker->boolean(),
             'custom_css'          => $this->faker->word(),
             'standalone_css'      => $this->faker->word(),
-            'ratings'             => $this->faker->boolean(),
             'read_rules'          => $this->faker->boolean(),
             'can_chat'            => $this->faker->boolean(),
             'can_comment'         => $this->faker->boolean(),

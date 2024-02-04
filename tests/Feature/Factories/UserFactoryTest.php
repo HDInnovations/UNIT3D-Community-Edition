@@ -44,7 +44,6 @@ test('user factory returns correct values when created', function (): void {
     $this->assertArrayHasKey('torrent_layout', $user);
     $this->assertArrayHasKey('torrent_filters', $user);
     $this->assertArrayHasKey('custom_css', $user);
-    $this->assertArrayHasKey('ratings', $user);
     $this->assertArrayHasKey('read_rules', $user);
     $this->assertArrayHasKey('can_chat', $user);
     $this->assertArrayHasKey('can_comment', $user);
