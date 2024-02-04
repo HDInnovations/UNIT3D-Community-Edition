@@ -1,9 +1,5 @@
 <section class="panelV2" x-data="toggle">
-    <h2
-        class="panel__heading"
-        style="cursor: pointer"
-        x-on:click="toggle"
-    >
+    <h2 class="panel__heading" style="cursor: pointer" x-on:click="toggle">
         <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
         Torrent File Downloads
         ({{ App\Models\TorrentDownload::where('torrent_id', '=', $torrent->id)->count() }} Total)
