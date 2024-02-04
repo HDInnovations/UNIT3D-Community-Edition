@@ -31,6 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:cache_user_leech_counts')->everyThirtyMinutes();
         $schedule->command('auto:group ')->daily();
         $schedule->command('auto:nerdstat ')->hourly();
+        $schedule->command('auto:cache_random_media')->hourly();
         $schedule->command('auto:reward_resurrection')->daily();
         $schedule->command('auto:highspeed_tag')->hourly();
         $schedule->command('auto:prewarning')->hourly();
