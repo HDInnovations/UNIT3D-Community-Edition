@@ -2,7 +2,7 @@
     <h2
         class="panel__heading"
         style="cursor: pointer"
-        x-on:click="show_downloads = !show_downloads"
+        x-on:click="toggle"
     >
         <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
         Torrent File Downloads
