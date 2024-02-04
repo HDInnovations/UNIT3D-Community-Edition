@@ -29,6 +29,7 @@
 .data-table > tfoot > tr > td {
     padding: 7px;
     font-size: 14px;
+    border: var(--data-table-tr-border);
 }
 
 .data-table tr:nth-child(even) > td {
