@@ -18,6 +18,7 @@ use App\DTO\AnnouncePeerDTO;
 use App\DTO\AnnounceQueryDTO;
 use App\DTO\AnnounceTorrentDTO;
 use App\DTO\AnnounceUserDTO;
+use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\PersonalFreeleech;
 use Illuminate\Bus\Queueable;
