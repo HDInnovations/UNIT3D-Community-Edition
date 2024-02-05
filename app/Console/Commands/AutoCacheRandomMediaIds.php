@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Movie;
-use App\Models\Tv;
+use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class AutoCacheRandomMediaIds extends Command
@@ -42,15 +42,15 @@ class AutoCacheRandomMediaIds extends Command
      */
     public function handle(): void
     {
-        $movieIds = Movie::query()
+        $movieIds = DB::table('movies')
             ->select('id')
-            ->whereHas('torrents')
+            ->whereIn('id', Torrent::select('id'))
             ->whereNotNull('backdrop')
             ->pluck('id');
 
-        $tvIds = Tv::query()
+        $tvIds = DB::table('tv')
             ->select('id')
-            ->whereHas('torrents')
+            ->whereIn('id', Torrent::select('id'))
             ->whereNotNull('backdrop')
             ->pluck('id');
 
