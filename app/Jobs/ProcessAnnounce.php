@@ -279,7 +279,7 @@ class ProcessAnnounce implements ShouldQueue
             $ip = '['.$ip.']';
         }
 
-        $key = $ip.'-'.$this->queries->port.'-'.hex2bin($this->queries->getAgent());
+        $key = $ip.'-'.$this->queries->port.'-'.$this->queries->getAgent();
 
         // Check cache
         if (cache()->has('peers:connectable-timer:'.$key)) {
