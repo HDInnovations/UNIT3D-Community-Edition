@@ -82,6 +82,13 @@
   --button-text-border-radius: 5px;
   --button-text-fg: currentColor;
 
+  --chatbox-message-bg: #4C566A;
+  --chatbox-button-fg: #88C0D0;
+  --chatbox-button-hover-fg: #fff;
+  --chatbox-users-bg: transparent;
+  --chatbox-tab-delete-fg: #c22222;
+  --chatbox-tab-delete-bg: #4c566a;
+
   --comparison-divider-fg: #fff;
   --comparison-button-fg: #fff;
 
@@ -524,58 +531,8 @@ svg > circle:last-child {
 /** Chat box
 ---------------------------------------------------------------------------- */
 
-/* messages */
-.panel-chat > .panel-body > #frame > .content {
-  background-color: #3b4252;
-}
-
-/* Message content */
-.sent .text-bright {
-  color: #e5e9f0;
-}
-
-/* Message timestamps */
-#frame .content .messages ul li.sent h4 .text-muted {
-  color: #d8dee9;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-/* Message user */
-.sent .badge-user {
-  background-color: transparent;
-  border: none;
-  margin: 0;
-}
-
-/* Heading */
-#chatbody h4 {
-  font-size: 12px;
-  font-weight: bold;
-}
-
-#chatbody .form__button {
-  font-size: 12px;
-}
-
-/* Chatbox wrappers */
-#frame {
-  background-color: transparent;
-}
-
-.panel-body {
-  background-color: transparent;
-}
-
-/* New message form containers */
-.panel-footer {
-  background-color: #3b4252;
-  border: none;
-}
-
-.message-input,
-.message-input > .row {
-  background-color: inherit;
+.chatbox__chatroom {
+  background-color: #3B4252;
 }
 
 /* Torrent page
