@@ -355,7 +355,12 @@
         </dialog>
     </li>
     <li class="form__group form__group--short-horizontal">
-        @livewire('bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()])
+        @livewire('bookmark-button', [
+            'torrent' => $torrent,
+            'isBookmarked' => $torrent->bookmarks_exists,
+            'user' => auth()->user(),
+            'bookmarksCount' => $torrent->bookmarks_count ?? 0,
+        ])
     </li>
     @if ($playlists->count() > 0)
         <li x-data="dialog" class="form__group form__group--short-horizontal">

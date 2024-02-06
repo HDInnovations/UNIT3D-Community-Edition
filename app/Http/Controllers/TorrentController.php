@@ -82,6 +82,7 @@ class TorrentController extends Controller
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
+            ->withCount('bookmarks')
             ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->withExists(['freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->findOrFail($id);
