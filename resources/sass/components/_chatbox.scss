@@ -3,7 +3,7 @@
     grid-template-areas: "messages users" "whispers users" "new-message users";
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr 18px auto;
-    height: 500px;
+    height: 700px;
     max-height: 90vh;
     background-color: inherit;
 }
@@ -55,7 +55,7 @@
     content: "";
     position: absolute;
     bottom: 0;
-    left: -8px;
+    left: -10px;
     width: 0;
     border-right: 10px solid var(--chatbox-message-bg);
     border-top: 10px solid transparent;
