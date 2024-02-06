@@ -46,6 +46,7 @@ class AutoCacheRandomMediaIds extends Command
             ->select('id')
             ->whereHas('torrents')
             ->whereNotNull('backdrop')
+            ->where('adult', '=', false)
             ->pluck('id');
 
         $tvIds = Tv::query()
