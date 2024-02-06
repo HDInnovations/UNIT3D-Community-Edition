@@ -12,4 +12,6 @@ window.Echo = new Echo({
     host: process.env.MIX_ECHO_ADDRESS,
     forceTLS: true,
     withCredentials: true,
+    transports: ['websocket'],
+    enabledTransports: ['wss'],
 });
