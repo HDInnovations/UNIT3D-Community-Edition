@@ -11,7 +11,7 @@
               <a
                 class="user-tag__link"
                 :class="message.user?.group?.icon"
-                :href="`/users/${message.users?.username}`"
+                :href="`/users/${message.user?.username}`"
                 :style="`color: ${message.user?.group?.color }`"
                 :title="message.user?.group?.name"
               >
