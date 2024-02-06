@@ -22,6 +22,7 @@ class BookmarkButton extends Component
     public Torrent $torrent;
     public User $user;
     public bool $isBookmarked;
+    public int $bookmarksCount;
 
     final public function store(): void
     {
@@ -33,6 +34,7 @@ class BookmarkButton extends Component
 
         $this->user->bookmarks()->attach($this->torrent->id);
         $this->isBookmarked = true;
+        $this->bookmarksCount++;
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Bookmarked Successfully!']);
     }
 
@@ -40,6 +42,7 @@ class BookmarkButton extends Component
     {
         $this->user->bookmarks()->detach($this->torrent->id);
         $this->isBookmarked = false;
+        $this->bookmarksCount--;
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
     }
 
