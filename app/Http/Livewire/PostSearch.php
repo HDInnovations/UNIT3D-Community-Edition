@@ -46,7 +46,7 @@ class PostSearch extends Component
     final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()
-            ->with('user', 'user.group', 'topic:id,name')
+            ->with('user', 'user.group', 'topic:id,name,state')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'cost')
             ->withExists([

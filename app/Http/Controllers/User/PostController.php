@@ -27,7 +27,7 @@ class PostController extends Controller
         return view('user.post.index', [
             'user'  => $user,
             'posts' => $user->posts()
-                ->with('user', 'user.group', 'topic:id,name')
+                ->with('user', 'user.group', 'topic:id,name,state')
                 ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
                 ->withSum('tips', 'cost')
                 ->whereNotIn(
