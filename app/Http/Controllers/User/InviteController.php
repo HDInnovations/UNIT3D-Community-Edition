@@ -64,6 +64,13 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invites-disabled-group'));
         }
 
+        $user->makeVisible(['two_factor_confirmed_at']);
+
+        if ($user->two_factor_confirmed_at === null) {
+            return to_route('home.index')
+                ->withErrors('Two-step authentication must be enabled to send invites');
+        }
+
         return view('user.invite.create', ['user' => $user]);
     }
 
@@ -84,6 +91,13 @@ class InviteController extends Controller
         if ($user->invites <= 0) {
             return to_route('users.invites.create', ['user' => $user])
                 ->withErrors(trans('user.not-enough-invites'));
+        }
+
+        $user->makeVisible(['two_factor_confirmed_at']);
+
+        if ($user->two_factor_confirmed_at === null) {
+            return to_route('home.index')
+                ->withErrors('Two-step authentication must be enabled to send invites');
         }
 
         $request->validate([
