@@ -17,6 +17,18 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Wish.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $title
+ * @property string                          $tmdb
+ * @property string                          $type
+ * @property string|null                     $source
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Wish extends Model
 {
     use Auditable;

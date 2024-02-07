@@ -17,6 +17,14 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Internal.
+ *
+ * @property int    $id
+ * @property string $name
+ * @property string $icon
+ * @property string $effect
+ */
 class Internal extends Model
 {
     use Auditable;

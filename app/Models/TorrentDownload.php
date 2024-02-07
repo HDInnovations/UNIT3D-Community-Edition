@@ -5,6 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TorrentDownload.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property string                          $type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class TorrentDownload extends Model
 {
     use HasFactory;

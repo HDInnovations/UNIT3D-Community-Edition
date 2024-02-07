@@ -17,6 +17,13 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Region.
+ *
+ * @property int    $id
+ * @property string $name
+ * @property int    $position
+ */
 class Region extends Model
 {
     use Auditable;

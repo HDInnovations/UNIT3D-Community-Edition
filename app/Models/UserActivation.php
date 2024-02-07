@@ -17,6 +17,9 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\UserActivation.
+ */
 class UserActivation extends Model
 {
     use Auditable;

@@ -15,6 +15,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Passkey.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $content
+ * @property string                          $created_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ */
 class Passkey extends Model
 {
     /**

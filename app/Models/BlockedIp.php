@@ -16,6 +16,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\BlockedIp.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $ip_address
+ * @property string|null                     $reason
+ * @property string|null                     $expires_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class BlockedIp extends Model
 {
     use HasFactory;

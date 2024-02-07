@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Ticket.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $category_id
+ * @property int                             $priority_id
+ * @property int|null                        $staff_id
+ * @property int|null                        $user_read
+ * @property int|null                        $staff_read
+ * @property string                          $subject
+ * @property string                          $body
+ * @property \Illuminate\Support\Carbon|null $closed_at
+ * @property \Illuminate\Support\Carbon|null $reminded_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null                     $deleted_at
+ */
 class Ticket extends Model
 {
     use Auditable;

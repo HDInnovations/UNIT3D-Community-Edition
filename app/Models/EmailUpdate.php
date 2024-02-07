@@ -15,6 +15,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\EmailUpdate.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property \Illuminate\Support\Carbon      $created_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ */
 class EmailUpdate extends Model
 {
     /**

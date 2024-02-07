@@ -18,6 +18,31 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Topic.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property string|null                     $state
+ * @property bool                            $pinned
+ * @property bool                            $approved
+ * @property bool                            $denied
+ * @property bool                            $solved
+ * @property bool                            $invalid
+ * @property bool                            $bug
+ * @property bool                            $suggestion
+ * @property bool                            $implemented
+ * @property int|null                        $num_post
+ * @property int|null                        $first_post_user_id
+ * @property int|null                        $last_post_user_id
+ * @property string|null                     $first_post_user_username
+ * @property string|null                     $last_post_user_username
+ * @property \Illuminate\Support\Carbon|null $last_reply_at
+ * @property int|null                        $views
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $forum_id
+ */
 class Topic extends Model
 {
     use Auditable;

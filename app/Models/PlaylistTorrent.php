@@ -17,6 +17,15 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * App\Models\PlaylistTorrent.
+ *
+ * @property int      $id
+ * @property int|null $position
+ * @property int      $playlist_id
+ * @property int      $torrent_id
+ * @property int      $tmdb_id
+ */
 class PlaylistTorrent extends Pivot
 {
     use Auditable;
