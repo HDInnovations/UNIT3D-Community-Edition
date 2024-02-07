@@ -636,49 +636,73 @@
         @endif
 
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_count'))
-            <section class="panelV2">
-                <h2 class="panel__heading">Torrent Count</h2>
-                <dl class="key-value">
-                    <dt>
-                        <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                            {{ __('user.total-uploads') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->torrents_count ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}"
-                        >
-                            {{ __('user.total-downloads') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $history->download_count ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}"
-                        >
-                            {{ __('user.total-seeding') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $peers->seeding ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}"
-                        >
-                            {{ __('user.total-leeching') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $peers->leeching ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
-                        >
-                            Total Inactive Peers
-                        </a>
-                    </dt>
-                    <dd>{{ $peers->inactive ?? 0 }}</dd>
-                </dl>
-            </section>
+            @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
+                <section class="panelV2">
+                    <h2 class="panel__heading">Torrent Count</h2>
+                    <dl class="key-value">
+                        <dt>
+                            <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
+                                {{ __('user.total-uploads') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}"
+                            >
+                                {{ __('user.total-downloads') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $history->download_count ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}"
+                            >
+                                {{ __('user.total-seeding') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $peers->seeding ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}"
+                            >
+                                {{ __('user.total-leeching') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $peers->leeching ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
+                            >
+                                Total Inactive Peers
+                            </a>
+                        </dt>
+                        <dd>{{ $peers->inactive ?? 0 }}</dd>
+                    </dl>
+                </section>
+            @else
+                <section class="panelV2">
+                    <h2 class="panel__heading">Torrent Count</h2>
+                    <dl class="key-value">
+                        <dt>
+                            <a
+                                href="{{ route('torrents.index', ['uploader' => $user->username]) }}"
+                            >
+                                {{ __('user.total-uploads') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                        <dt>{{ __('user.total-downloads') }}</dt>
+                        <dd>{{ $history->download_count ?? 0 }}</dd>
+                        <dt>{{ __('user.total-seeding') }}</dt>
+                        <dd>{{ $peers->seeding ?? 0 }}</dd>
+                        <dt>{{ __('user.total-leeching') }}</dt>
+                        <dd>{{ $peers->leeching ?? 0 }}</dd>
+                        <dt>Total Inactive Peers</dt>
+                        <dd>{{ $peers->inactive ?? 0 }}</dd>
+                    </dl>
+                </section>
+            @endif
         @endif
 
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_ratio'))
