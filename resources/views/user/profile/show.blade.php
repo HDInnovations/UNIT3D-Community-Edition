@@ -920,70 +920,80 @@
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">{{ __('user.bon') }}</h2>
-                    <div class="panel__actions">
-                        <div class="panel__action" x-data="dialog">
-                            <button class="form__button form__button--text" x-bind="showDialog">
-                                Gift BON
-                            </button>
-                            <dialog class="dialog" x-bind="dialogElement">
-                                <h3 class="dialog__heading">Note user: {{ $user->username }}</h3>
-                                <form
-                                    class="dialog__form"
-                                    method="POST"
-                                    action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
-                                    x-bind="dialogForm"
+                    @if (auth()->user()->isNot($user))
+                        <div class="panel__actions">
+                            <div class="panel__action" x-data="dialog">
+                                <button
+                                    class="form__button form__button--text"
+                                    x-bind="showDialog"
                                 >
-                                    @csrf
-                                    <input
-                                        type="hidden"
-                                        name="receiver_username"
-                                        value="{{ $user->username }}"
-                                    />
-                                    <p class="form__group">
+                                    Gift BON
+                                </button>
+                                <dialog class="dialog" x-bind="dialogElement">
+                                    <h3 class="dialog__heading">
+                                        Gift BON to: {{ $user->username }}
+                                    </h3>
+                                    <form
+                                        class="dialog__form"
+                                        method="POST"
+                                        action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
+                                        x-bind="dialogForm"
+                                    >
+                                        @csrf
                                         <input
-                                            id="cost"
-                                            class="form__text"
-                                            name="cost"
-                                            type="text"
-                                            pattern="[0-9]*"
-                                            inputmode="numeric"
-                                            placeholder=" "
+                                            type="hidden"
+                                            name="receiver_username"
+                                            value="{{ $user->username }}"
                                         />
-                                        <label class="form__label form__label--floating" for="cost">
-                                            {{ __('bon.amount') }}
-                                        </label>
-                                    </p>
+                                        <p class="form__group">
+                                            <input
+                                                id="cost"
+                                                class="form__text"
+                                                name="cost"
+                                                type="text"
+                                                pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                placeholder=" "
+                                            />
+                                            <label
+                                                class="form__label form__label--floating"
+                                                for="cost"
+                                            >
+                                                {{ __('bon.amount') }}
+                                            </label>
+                                        </p>
 
-                                    <p class="form__group">
-                                        <textarea
-                                            id="comment"
-                                            class="form__textarea"
-                                            name="comment"
-                                            placeholder=" "
-                                        ></textarea>
-                                        <label
-                                            class="form__label form__label--floating"
-                                            for="comment"
-                                        >
-                                            {{ __('pm.message') }}
-                                        </label>
-                                    </p>
-                                    <p class="form__group">
-                                        <button class="form__button form__button--filled">
-                                            {{ __('bon.gift') }}
-                                        </button>
-                                        <button
-                                            formmethod="dialog"
-                                            formnovalidate
-                                            class="form__button form__button--outlined"
-                                        >
-                                            {{ __('common.cancel') }}
-                                        </button>
-                                    </p>
-                                </form>
-                            </dialog>
+                                        <p class="form__group">
+                                            <textarea
+                                                id="comment"
+                                                class="form__textarea"
+                                                name="comment"
+                                                placeholder=" "
+                                            ></textarea>
+                                            <label
+                                                class="form__label form__label--floating"
+                                                for="comment"
+                                            >
+                                                {{ __('pm.message') }}
+                                            </label>
+                                        </p>
+                                        <p class="form__group">
+                                            <button class="form__button form__button--filled">
+                                                {{ __('bon.gift') }}
+                                            </button>
+                                            <button
+                                                formmethod="dialog"
+                                                formnovalidate
+                                                class="form__button form__button--outlined"
+                                            >
+                                                {{ __('common.cancel') }}
+                                            </button>
+                                        </p>
+                                    </form>
+                                </dialog>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </header>
                 <dl class="key-value">
                     <dt>
