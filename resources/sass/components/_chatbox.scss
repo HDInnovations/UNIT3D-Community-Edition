@@ -26,7 +26,8 @@
 
 .chatroom__users {
     grid-area: users;
-    width: 200px;
+    width: auto;
+    overflow-y: auto;
 }
 
 .chatroom__whispers {
@@ -218,6 +219,8 @@
   display: flex;
   list-style-type: none;
   align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .chatroom-users__button {

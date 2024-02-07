@@ -25,7 +25,7 @@
             <button
               class="chatroom-users__button"
               title="Gift user bon (/gift <username> <amount> <message>)"
-              @click.prevent="$parent.forceMessage(user.username)"
+              @click.prevent="$parent.forceGift(user.username)"
             >
               <i
                 class="fas fa-gift"
@@ -36,7 +36,7 @@
             <button
               class="chatroom-users__button"
               title="Send chat PM (/msg <username> <message>)"
-              @click.prevent="$parent.forceGift(user.username)"
+              @click.prevent="$parent.forceMessage(user.username)"
             >
               <i
                 class="fas fa-envelope"

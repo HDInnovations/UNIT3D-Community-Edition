@@ -15,7 +15,8 @@
                 :style="`color: ${message.user?.group?.color }`"
                 :title="message.user?.group?.name"
               >
-                {{ message.user?.username ?? 'Unknown' }}
+                <span v-if="message.user && message.user.id > 1">{{ message.user?.username ?? 'Unknown' }}</span>
+                <span v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)">{{ message.bot?.name ?? 'Unknown' }}</span>
               </a>
             </address>
             <time
@@ -29,10 +30,12 @@
           <aside class="chatbox-message__aside">
             <figure class="chatbox-message__figure">
               <a
+                v-if="message.user?.id != 1"
                 :href="`/users/${message.user?.username}`"
                 class="chatbox-message__avatar-link"
               >
                 <img
+                  v-if="message.user?.id != 1"
                   class="chatbox-message__avatar"
                   :src="message.user?.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
                   :style="`border: 2px solid ${message.user?.chat_status?.color};`"
@@ -90,7 +93,7 @@ export default {
     canMod(message) {
       /*
           A user can Mod his own messages
-          A user in a is_modo group can Mod messages
+          A user in an is_modo group can Mod messages
           A is_modo CAN NOT Mod another is_modo message
       */
 
