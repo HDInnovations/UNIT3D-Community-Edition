@@ -54,6 +54,25 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <label
+                        style="user-select: none"
+                        class="form__label"
+                        x-data="{ state: @entangle('visible'), ...ternaryCheckbox() }"
+                    >
+                        <input
+                            type="checkbox"
+                            class="user-peers__checkbox"
+                            x-init="updateTernaryCheckboxProperties($el, state)"
+                            x-on:click="
+                                state = getNextTernaryCheckboxState(state);
+                                updateTernaryCheckboxProperties($el, state)
+                            "
+                            x-bind:checked="state === 'include'"
+                        />
+                        Visible
+                    </label>
+                </p>
+                <p class="form__group">
                     <label class="form__label">
                         <input
                             type="checkbox"
@@ -163,6 +182,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'seeder'])
+                    </th>
+                    <th
+                        class="user-active__visible-header"
+                        wire:click="sortBy('visible')"
+                        role="columnheader button"
+                        title="Visible"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
+                        @include('livewire.includes._sort-icon', ['field' => 'visible'])
                     </th>
                     <th
                         class="user-active__size-header"
@@ -309,6 +337,22 @@
                                     <i
                                         class="{{ config('other.font-awesome') }} text-blue circle-stop"
                                         title="Stopped {{ __('torrent.seeding') }}"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td
+                                class="user-active__visible {{ $peer->visible ? 'text-green' : 'text-red' }}"
+                            >
+                                @if ($peer->visible)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} text-green eye"
+                                        title="Visible"
+                                    ></i>
+                                    {{ __('common.yes') }}
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} text-red eye-slash"
+                                        title="Invisible"
                                     ></i>
                                 @endif
                             </td>

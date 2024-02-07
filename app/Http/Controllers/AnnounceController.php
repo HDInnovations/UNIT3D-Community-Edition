@@ -113,14 +113,20 @@ final class AnnounceController extends Controller
 
             // Check Download Slots.
             if (config('announce.slots_system.enabled')) {
-                $this->checkDownloadSlots($queries, $torrent, $user, $group);
+                $visible = $this->checkDownloadSlots($queries, $torrent, $user, $group);
+            } else {
+                $visible = true;
             }
 
-            // Generate A Response For The Torrent Client.
-            $response = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
-
             // Process Annnounce Job.
-            $this->processAnnounceJob($queries, $user, $group, $torrent);
+            $this->processAnnounceJob($queries, $user, $group, $torrent, $visible);
+
+            if ($visible) {
+                // Generate A Response For The Torrent Client.
+                $response = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
+            } else {
+                $response = $this->generateFailedAnnounceResponse(new TrackerException(164, [':max' => $group->download_slots]));
+            }
         } catch (TrackerException $exception) {
             $response = $this->generateFailedAnnounceResponse($exception);
         } catch (Exception) {
@@ -407,7 +413,7 @@ final class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'ip', 'port', 'updated_at'])
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'port', 'updated_at'])
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
         );
@@ -506,7 +512,7 @@ final class AnnounceController extends Controller
      * @throws TrackerException
      * @throws Throwable
      */
-    private function checkDownloadSlots(AnnounceQueryDTO $queries, Torrent $torrent, User $user, Group $group): void
+    private function checkDownloadSlots(AnnounceQueryDTO $queries, Torrent $torrent, User $user, Group $group): bool
     {
         $max = $group->download_slots;
 
@@ -519,7 +525,7 @@ final class AnnounceController extends Controller
 
         $count = cache()->get($cacheKey, 0);
 
-        $isNewPeer = $peer === null;
+        $isNewPeer = $peer === null || !$peer->visible;
         $isDeadPeer = $queries->event === 'stopped';
         $isSeeder = $queries->left === 0;
 
@@ -529,7 +535,7 @@ final class AnnounceController extends Controller
         $seedBecomesLeech = !$isNewPeer && !$isDeadPeer && !$isSeeder && $peer->left === 0;
 
         if ($max !== null && $max >= 0 && ($newLeech || $seedBecomesLeech) && $count >= $max) {
-            throw new TrackerException(164, [':max' => $max]);
+            return false;
         }
 
         if ($newLeech || $seedBecomesLeech) {
@@ -537,6 +543,8 @@ final class AnnounceController extends Controller
         } elseif ($stoppedLeech || $leechBecomesSeed) {
             cache()->decrement($cacheKey);
         }
+
+        return true;
     }
 
     /**
@@ -574,8 +582,8 @@ final class AnnounceController extends Controller
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
             if ($queries->left === 0) {
                 foreach ($torrent->peers as $peer) {
-                    // Don't include other seeders, inactive peers, nor other peers belonging to the same user
-                    if ($peer->seeder || !$peer->active || $peer->user_id === $user->id) {
+                    // Don't include other seeders, inactive peers, invisible peers nor other peers belonging to the same user
+                    if ($peer->seeder || !$peer->active || !$peer->visible || $peer->user_id === $user->id) {
                         continue;
                     }
 
@@ -596,8 +604,8 @@ final class AnnounceController extends Controller
                 }
             } else {
                 foreach ($torrent->peers as $peer) {
-                    // Don't include inactive peers, nor other peers belonging to the same user
-                    if (!$peer->active || $peer->user_id === $user->id) {
+                    // Don't include inactive peers, invisible peers, nor other peers belonging to the same user
+                    if (!$peer->active || !$peer->visible || $peer->user_id === $user->id) {
                         continue;
                     }
 
@@ -632,7 +640,7 @@ final class AnnounceController extends Controller
     /**
      * Process Announce Database Queries.
      */
-    private function processAnnounceJob(AnnounceQueryDTO $queries, User $user, Group $group, Torrent $torrent): void
+    private function processAnnounceJob(AnnounceQueryDTO $queries, User $user, Group $group, Torrent $torrent, bool $visible): void
     {
         $peer = null;
 
@@ -649,7 +657,7 @@ final class AnnounceController extends Controller
         $torrentDto = new AnnounceTorrentDTO($torrent->id, $torrent->free, $torrent->doubleup);
         $previousPeerDto = $peer === null ? null : new AnnouncePeerDTO($peer->active, $peer->uploaded, $peer->downloaded, $peer->left);
 
-        ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $previousPeerDto);
+        ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $previousPeerDto, $visible);
     }
 
     private function generateFailedAnnounceResponse(TrackerException $trackerException): string
