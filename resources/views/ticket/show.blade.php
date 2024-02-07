@@ -57,7 +57,7 @@
                 @endswitch
                 {{ $ticket->priority->name }}
             </dd>
-            @if (! empty($ticket->closed_at))
+            @if ($ticket->closed_at !== null)
                 <dt>{{ __('ticket.closed') }}</dt>
                 <dd>
                     <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
@@ -100,7 +100,7 @@
                         </label>
                     </p>
                 </form>
-                @if (! empty($ticket->staff_id))
+                @if ($ticket->staff_id !== null)
                     <form
                         action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
                         method="POST"
@@ -117,18 +117,25 @@
                     </form>
                 @endif
 
-                <form action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <p class="form__group form__group--horizontal">
-                        <button class="form__button form__button--filled form__button--centered">
-                            {{ __('ticket.delete') }}
-                        </button>
-                    </p>
-                </form>
+                @if (auth()->user()->group->is_modo)
+                    <form
+                        action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}"
+                        method="POST"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <p class="form__group form__group--horizontal">
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                            >
+                                {{ __('ticket.delete') }}
+                            </button>
+                        </p>
+                    </form>
+                @endif
             @endif
 
-            @if (empty($ticket->closed_at))
+            @if ($ticket->closed_at === null)
                 <form action="{{ route('tickets.close', ['ticket' => $ticket]) }}" method="POST">
                     <p class="form__group form__group--horizontal">
                         @csrf
