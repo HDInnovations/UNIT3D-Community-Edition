@@ -17,6 +17,17 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Like.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $post_id
+ * @property bool|null                       $like
+ * @property bool|null                       $dislike
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Like extends Model
 {
     use Auditable;

@@ -16,6 +16,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Network.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string|null $description
+ * @property string|null $logo
+ * @property string|null $homepage
+ * @property string|null $headquarters
+ * @property string|null $origin_country
+ */
 class Network extends Model
 {
     use HasFactory;

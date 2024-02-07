@@ -17,6 +17,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Credit.
+ *
+ * @property int         $id
+ * @property int         $person_id
+ * @property int|null    $movie_id
+ * @property int|null    $tv_id
+ * @property int         $occupation_id
+ * @property int|null    $order
+ * @property string|null $character
+ */
 class Credit extends Model
 {
     use HasFactory;

@@ -21,6 +21,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Comment.
+ *
+ * @property int                             $id
+ * @property string                          $content
+ * @property int                             $anon
+ * @property int|null                        $user_id
+ * @property int|null                        $parent_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string                          $commentable_type
+ * @property int                             $commentable_id
+ */
 class Comment extends Model
 {
     use Auditable;

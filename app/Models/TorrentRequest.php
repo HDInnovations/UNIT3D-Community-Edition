@@ -21,6 +21,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\TorrentRequest.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property int                             $category_id
+ * @property int|null                        $imdb
+ * @property int|null                        $tvdb
+ * @property int|null                        $tmdb
+ * @property int|null                        $mal
+ * @property int                             $igdb
+ * @property string                          $description
+ * @property int                             $user_id
+ * @property float                           $bounty
+ * @property int                             $votes
+ * @property int|null                        $claimed
+ * @property int                             $anon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null                        $filled_by
+ * @property int|null                        $torrent_id
+ * @property \Illuminate\Support\Carbon|null $filled_when
+ * @property int                             $filled_anon
+ * @property int|null                        $approved_by
+ * @property \Illuminate\Support\Carbon|null $approved_when
+ * @property int                             $type_id
+ * @property int|null                        $resolution_id
+ */
 class TorrentRequest extends Model
 {
     use Auditable;

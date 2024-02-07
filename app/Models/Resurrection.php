@@ -17,6 +17,17 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Resurrection.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property int                             $seedtime
+ * @property bool                            $rewarded
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Resurrection extends Model
 {
     use Auditable;

@@ -18,6 +18,24 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Forum.
+ *
+ * @property int                             $id
+ * @property int|null                        $position
+ * @property int|null                        $num_topic
+ * @property int|null                        $num_post
+ * @property int|null                        $last_topic_id
+ * @property string|null                     $last_topic_name
+ * @property int|null                        $last_post_user_id
+ * @property string|null                     $last_post_user_username
+ * @property string|null                     $name
+ * @property string|null                     $slug
+ * @property string|null                     $description
+ * @property int|null                        $parent_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Forum extends Model
 {
     use Auditable;

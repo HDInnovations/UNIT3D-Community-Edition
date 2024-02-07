@@ -19,6 +19,27 @@ use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Subtitle.
+ *
+ * @property int                             $id
+ * @property string                          $title
+ * @property string                          $file_name
+ * @property int                             $file_size
+ * @property int                             $language_id
+ * @property string                          $extension
+ * @property string|null                     $note
+ * @property int|null                        $downloads
+ * @property int                             $verified
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property int                             $anon
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null                        $moderated_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Subtitle extends Model
 {
     use Auditable;

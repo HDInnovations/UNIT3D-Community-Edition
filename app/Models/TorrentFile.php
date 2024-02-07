@@ -17,6 +17,14 @@ use App\Helpers\StringHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TorrentFile.
+ *
+ * @property int    $id
+ * @property string $name
+ * @property int    $size
+ * @property int    $torrent_id
+ */
 class TorrentFile extends Model
 {
     use HasFactory;

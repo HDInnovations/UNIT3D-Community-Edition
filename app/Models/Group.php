@@ -17,6 +17,32 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Group.
+ *
+ * @property int      $id
+ * @property string   $name
+ * @property string   $slug
+ * @property int      $position
+ * @property int      $level
+ * @property int|null $download_slots
+ * @property string   $color
+ * @property string   $icon
+ * @property string   $effect
+ * @property int      $is_internal
+ * @property int      $is_editor
+ * @property int      $is_owner
+ * @property int      $is_admin
+ * @property int      $is_modo
+ * @property int      $is_trusted
+ * @property int      $is_immune
+ * @property int      $is_freeleech
+ * @property int      $is_double_upload
+ * @property int      $is_refundable
+ * @property int      $can_upload
+ * @property int      $is_incognito
+ * @property int      $autogroup
+ */
 class Group extends Model
 {
     use Auditable;

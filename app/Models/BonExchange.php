@@ -16,6 +16,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\BonExchange.
+ *
+ * @property int         $id
+ * @property string|null $description
+ * @property int         $value
+ * @property int         $cost
+ * @property bool        $upload
+ * @property bool        $download
+ * @property bool        $personal_freeleech
+ * @property bool        $invite
+ */
 class BonExchange extends Model
 {
     use HasFactory;

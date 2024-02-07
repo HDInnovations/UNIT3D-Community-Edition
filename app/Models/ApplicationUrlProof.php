@@ -17,6 +17,15 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\ApplicationUrlProof.
+ *
+ * @property int                             $id
+ * @property int                             $application_id
+ * @property string                          $url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class ApplicationUrlProof extends Model
 {
     use Auditable;

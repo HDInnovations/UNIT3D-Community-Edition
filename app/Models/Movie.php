@@ -17,6 +17,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Movie.
+ *
+ * @property int                             $id
+ * @property string|null                     $tmdb_id
+ * @property string|null                     $imdb_id
+ * @property string                          $title
+ * @property string                          $title_sort
+ * @property string|null                     $original_language
+ * @property int|null                        $adult
+ * @property string|null                     $backdrop
+ * @property string|null                     $budget
+ * @property string|null                     $homepage
+ * @property string|null                     $original_title
+ * @property string|null                     $overview
+ * @property string|null                     $popularity
+ * @property string|null                     $poster
+ * @property string|null                     $release_date
+ * @property string|null                     $revenue
+ * @property string|null                     $runtime
+ * @property string|null                     $status
+ * @property string|null                     $tagline
+ * @property string|null                     $vote_average
+ * @property int|null                        $vote_count
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null                     $trailer
+ */
 class Movie extends Model
 {
     use HasFactory;
