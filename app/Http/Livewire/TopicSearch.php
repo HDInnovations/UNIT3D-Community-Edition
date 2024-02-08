@@ -23,7 +23,7 @@ class TopicSearch extends Component
     use WithPagination;
 
     public string $search = '';
-    public string $sortField = 'last_reply_at';
+    public string $sortField = 'last_post_created_at';
     public string $sortDirection = 'desc';
     public string $label = '';
     public string $state = '';
@@ -35,7 +35,7 @@ class TopicSearch extends Component
      */
     protected $queryString = [
         'search'        => ['except' => ''],
-        'sortField'     => ['except' => 'last_reply_at'],
+        'sortField'     => ['except' => 'last_post_created_at'],
         'sortDirection' => ['except' => 'desc'],
         'label'         => ['except' => ''],
         'state'         => ['except' => ''],
@@ -75,7 +75,7 @@ class TopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster')
+            ->with('user', 'user.group', 'latestPoster', 'forum')
             ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))

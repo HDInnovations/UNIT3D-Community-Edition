@@ -69,7 +69,7 @@
                     {{ __('common.unknown') }}
                 @else
                     <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                        {{ $topic->first_post_user_username }}
+                        {{ $topic->user->username }}
                     </a>
                 @endif
             </dd>

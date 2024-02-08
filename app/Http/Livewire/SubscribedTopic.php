@@ -28,10 +28,10 @@ class SubscribedTopic extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster')
+            ->with('user', 'user.group', 'latestPoster', 'forum')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
-            ->orderBy('last_reply_at')
+            ->orderBy('last_post_created_at')
             ->paginate(25, ['*'], 'subscribedTopicsPage');
     }
 

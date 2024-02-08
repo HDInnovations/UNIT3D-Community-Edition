@@ -82,20 +82,19 @@ class PostController extends Controller
         ]);
 
         $topic->update([
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
-            'num_post'                => $topic->posts()->count(),
-            'last_reply_at'           => $post->created_at,
+            'last_post_id'         => $post->id,
+            'last_post_user_id'    => $user->id,
+            'num_post'             => $topic->posts()->count(),
+            'last_post_created_at' => $post->created_at,
         ]);
 
         $forum->update([
-            'num_post'                => $forum->posts()->count(),
-            'num_topic'               => $forum->topics()->count(),
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
-            'last_topic_id'           => $topic->id,
-            'last_topic_name'         => $topic->name,
-            'updated_at'              => $post->created_at,
+            'num_post'             => $forum->posts()->count(),
+            'num_topic'            => $forum->topics()->count(),
+            'last_post_user_id'    => $user->id,
+            'last_post_id'         => $post->id,
+            'last_topic_id'        => $topic->id,
+            'last_post_created_at' => $post->created_at,
         ]);
 
         // Post To Chatbox and Notify Subscribers
@@ -229,7 +228,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        $latestPost = $topic->latestPost;
+        $latestPost = $topic->latestPostSlow;
         $isTopicDeleted = false;
 
         if ($latestPost === null) {
@@ -238,26 +237,25 @@ class PostController extends Controller
         } else {
             $latestPoster = $latestPost->user;
             $topic->update([
-                'last_post_user_id'       => $latestPoster->id,
-                'last_post_user_username' => $latestPoster->username,
-                'num_post'                => $topic->posts()->count(),
-                'last_reply_at'           => $latestPost->created_at,
+                'last_post_id'         => $latestPost->id,
+                'last_post_user_id'    => $latestPoster->id,
+                'num_post'             => $topic->posts()->count(),
+                'last_post_created_at' => $latestPost->created_at,
             ]);
         }
 
         $forum = $topic->forum;
-        $lastRepliedTopic = $forum->lastRepliedTopic;
-        $latestPost = $lastRepliedTopic->latestPost;
+        $lastRepliedTopic = $forum->lastRepliedTopicSlow;
+        $latestPost = $lastRepliedTopic->latestPostSlow;
         $latestPoster = $latestPost->user;
 
         $forum->update([
-            'num_post'                => $forum->posts()->count(),
-            'num_topic'               => $forum->topics()->count(),
-            'last_post_user_id'       => $latestPoster->id,
-            'last_post_user_username' => $latestPoster->username,
-            'last_topic_id'           => $lastRepliedTopic->id,
-            'last_topic_name'         => $lastRepliedTopic->name,
-            'updated_at'              => $latestPost->created_at,
+            'num_post'             => $forum->posts()->count(),
+            'num_topic'            => $forum->topics()->count(),
+            'last_post_id'         => $latestPost->id,
+            'last_post_user_id'    => $latestPoster->id,
+            'last_topic_id'        => $lastRepliedTopic->id,
+            'last_post_created_at' => $latestPost->created_at,
         ]);
 
         if ($isTopicDeleted === true) {

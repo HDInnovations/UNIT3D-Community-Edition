@@ -75,9 +75,8 @@ final class ForumControllerTest extends TestCase
         // (and not a "Forum Category").
 
         $forum = Forum::factory()->create([
-            'parent_id'               => 0,
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
+            'parent_id'         => 0,
+            'last_post_user_id' => $user->id,
         ]);
 
         $permissions = Permission::factory()->create([
