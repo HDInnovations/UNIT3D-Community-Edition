@@ -55,6 +55,15 @@ class Group extends Model
     use HasFactory;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'system_required' => 'boolean',
+    ];
+
+    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
