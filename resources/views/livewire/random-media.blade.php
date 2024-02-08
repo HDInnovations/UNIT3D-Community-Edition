@@ -1,4 +1,4 @@
-<section class="panelV2">
+<section class="panelV2 blocks__random-media">
     <header class="panel__header">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-user-astronaut"></i>
