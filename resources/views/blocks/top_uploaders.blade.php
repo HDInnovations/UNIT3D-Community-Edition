@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: 'alltime' }">
+<section class="panelV2 blocks__uploaders" x-data="{ tab: 'alltime' }">
     <h2 class="panel__heading">Top Uploaders</h2>
     <menu class="panel__tabs">
         <li
