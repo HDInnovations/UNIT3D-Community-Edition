@@ -51,6 +51,11 @@
                         <th>Incognito</th>
                         <th>Upload</th>
                         <th>Autogroup</th>
+                        <th>Min Upload</th>
+                        <th>Min Ratio</th>
+                        <th>Min Age</th>
+                        <th>Min Avg Seedtime</th>
+                        <th>Min Seedsize</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -230,6 +235,28 @@
                                     ></i>
                                 @endif
                             </td>
+
+                            @if ($group->autogroup)
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded ?? 0) }}
+                                </td>
+                                <td>{{ $group->min_ratio }}</td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_age ?? 0) }}
+                                </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_avg_seedtime ?? 0) }}
+                                </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
+                                </td>
+                            @else
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
