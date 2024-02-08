@@ -69,6 +69,7 @@
                         <th>{{ __('torrent.started') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('common.status') }}</th>
+                        <th>Visible</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -140,6 +141,13 @@
                                     @endif
                                 @else
                                         Inactive
+                                @endif
+                            </td>
+                            <td class="{{ $peer->visible ? 'text-green' : 'text-red' }}">
+                                @if ($peer->visible)
+                                    {{ __('common.yes') }}
+                                @else
+                                    {{ __('common.no') }}
                                 @endif
                             </td>
                         </tr>

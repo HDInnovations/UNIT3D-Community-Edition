@@ -43,6 +43,8 @@ class UserActive extends Component
 
     public string $active = 'include';
 
+    public string $visible = 'any';
+
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
@@ -60,6 +62,7 @@ class UserActive extends Component
         'client'            => ['excpet' => ''],
         'seeding'           => ['except' => 'any'],
         'active'            => ['except' => 'any'],
+        'visible'           => ['except' => 'any'],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
         'showMorePrecision' => ['except' => false],
@@ -121,6 +124,8 @@ class UserActive extends Component
             ->when($this->seeding === 'exclude', fn ($query) => $query->where('seeder', '=', 0))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', 0))
+            ->when($this->visible === 'include', fn ($query) => $query->where('visible', '=', 1))
+            ->when($this->visible === 'exclude', fn ($query) => $query->where('visible', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

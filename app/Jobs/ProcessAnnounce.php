@@ -45,6 +45,7 @@ class ProcessAnnounce implements ShouldQueue
         public AnnounceUserDTO $user,
         public AnnounceTorrentDTO $torrent,
         public ?AnnouncePeerDTO $peer,
+        public bool $visible,
     ) {
     }
 
@@ -170,6 +171,7 @@ class ProcessAnnounce implements ShouldQueue
                 'torrent_id'  => $this->torrent->id,
                 'user_id'     => $this->user->id,
                 'active'      => $event !== 'stopped',
+                'visible'     => $this->visible,
                 'connectable' => $this->getConnectableStatus(),
             ]),
         ]);
