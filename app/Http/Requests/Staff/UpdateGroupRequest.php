@@ -13,6 +13,7 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -34,13 +35,16 @@ class UpdateGroupRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
+        /** @var Group $group */
+        $group = $request->route('group');
+
         return [
             'name' => [
-                Rule::when(!$this->group->system_required, [
+                Rule::when(!$group->system_required, [
                     'required',
                     'string',
                 ]),
-                Rule::prohibitedIf($this->group->system_required),
+                Rule::prohibitedIf($group->system_required),
             ],
             'position' => [
                 'required',
