@@ -242,7 +242,7 @@ class TorrentSearch extends Component
     final public function filters(): Closure
     {
         $user = auth()->user();
-        $isRegexAllowed = $user->group->is_modo;
+        $isRegexAllowed = $user->group->is_modo || $user->group->is_editor;
         $isRegex = fn ($field) => $isRegexAllowed
             && \strlen((string) $field) > 2
             && $field[0] === '/'
