@@ -15,6 +15,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateGroupRequest extends FormRequest
 {
@@ -31,12 +32,17 @@ class UpdateGroupRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
+        $group = $request->route('group');
+
         return [
             'name' => [
-                'required',
-                'string',
+                Rule::when(!$group->system_required, [
+                    'required',
+                    'string',
+                ]),
+                Rule::prohibitedIf($group->system_required),
             ],
             'position' => [
                 'required',
