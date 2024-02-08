@@ -30,19 +30,17 @@ class UpdateGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
     public function rules(Request $request): array
     {
-        $group = $request->route('group');
-
         return [
             'name' => [
-                Rule::when(!$group->system_required, [
+                Rule::when(!$this->group->system_required, [
                     'required',
                     'string',
                 ]),
-                Rule::prohibitedIf($group->system_required),
+                Rule::prohibitedIf($this->group->system_required),
             ],
             'position' => [
                 'required',
