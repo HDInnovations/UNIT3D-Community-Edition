@@ -42,11 +42,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $can_upload
  * @property int      $is_incognito
  * @property int      $autogroup
+ * @property bool     $system_required
+ * @property int      $min_uploaded
+ * @property int      $min_seedsize
+ * @property int      $min_avg_seedtime
+ * @property float    $min_ratio
+ * @property int      $min_age
  */
 class Group extends Model
 {
     use Auditable;
     use HasFactory;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'system_required' => 'boolean',
+    ];
 
     /**
      * The attributes that aren't mass assignable.

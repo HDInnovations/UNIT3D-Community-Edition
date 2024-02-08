@@ -136,6 +136,7 @@ final class GroupControllerTest extends TestCase
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
+            'system_required'  => $group->system_required,
         ]);
 
         $response->assertRedirect(route('staff.groups.index'));

@@ -13,8 +13,10 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateGroupRequest extends FormRequest
 {
@@ -29,14 +31,20 @@ class UpdateGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
+        /** @var Group $group */
+        $group = $request->route('group');
+
         return [
             'name' => [
-                'required',
-                'string',
+                Rule::when(!$group->system_required, [
+                    'required',
+                    'string',
+                ]),
+                Rule::prohibitedIf($group->system_required),
             ],
             'position' => [
                 'required',

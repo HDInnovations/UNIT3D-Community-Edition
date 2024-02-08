@@ -51,6 +51,7 @@ class GroupFactory extends Factory
             'can_upload'       => $this->faker->boolean(),
             'is_incognito'     => $this->faker->boolean(),
             'autogroup'        => $this->faker->boolean(),
+            'system_required'  => false,
         ];
     }
 }
