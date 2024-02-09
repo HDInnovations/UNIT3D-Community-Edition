@@ -113,20 +113,20 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table class="data-table">
+                        <table class="data-table" x-data="checkboxGrid">
                             <thead>
                                 <tr>
-                                    <th>Groups</th>
-                                    <th>View the forum</th>
-                                    <th>Read topics</th>
-                                    <th>Start new topic</th>
-                                    <th>Reply to topics</th>
+                                    <th x-bind="columnHeader">Groups</th>
+                                    <th x-bind="columnHeader">View the forum</th>
+                                    <th x-bind="columnHeader">Read topics</th>
+                                    <th x-bind="columnHeader">Start new topic</th>
+                                    <th x-bind="columnHeader">Reply to topics</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody x-ref="tbody">
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <td>{{ $group->name }}</td>
+                                        <th x-bind="rowHeader">{{ $group->name }}</th>
                                         <td>
                                             <input
                                                 type="checkbox"
