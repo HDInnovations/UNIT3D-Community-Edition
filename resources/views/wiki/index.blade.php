@@ -35,7 +35,6 @@
                                 <td>
                                     <a
                                         href="{{ route('wikis.show', ['wiki' => $wiki]) }}"
-                                        target="_blank"
                                     >
                                         {{ $wiki->name }}
                                     </a>
