@@ -85,21 +85,21 @@
                 </p>
                 <div class="form__group">
                     <h3>Permissions</h3>
-                    <div class="data-table-wrapper">
+                    <div class="data-table-wrapper" x-data="checkboxGrid">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Groups</th>
-                                    <th>View the forum</th>
-                                    <th>Read topics</th>
-                                    <th>Start new topic</th>
-                                    <th>Reply to topics</th>
+                                    <th x-bind="columnHeader">Groups</th>
+                                    <th x-bind="columnHeader">View the forum</th>
+                                    <th x-bind="columnHeader">Read topics</th>
+                                    <th x-bind="columnHeader">Start new topic</th>
+                                    <th x-bind="columnHeader">Reply to topics</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <th>{{ $group->name }}</th>
+                                        <th x-bind="rowHeader">{{ $group->name }}</th>
                                         <td>
                                             <label>
                                                 <input
