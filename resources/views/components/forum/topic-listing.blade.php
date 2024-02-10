@@ -39,9 +39,13 @@
             @endif
         </ul>
         <address class="topic-listing__author">
-            <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                {{ $topic->first_post_user_username }}
-            </a>
+            @if ($topic->user === null)
+                {{ __('common.unknown') }}
+            @else
+                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                    {{ $topic->user->username }}
+                </a>
+            @endif
         </address>
     </header>
     <figure class="topic-listing__figure">
@@ -83,20 +87,20 @@
                     class="topic-listing__latest-author-link"
                     href="{{ route('users.show', ['user' => $topic->latestPoster]) }}"
                 >
-                    {{ $topic->last_post_user_username }}
+                    {{ $topic->latestPoster->username }}
                 </a>
             @endif
         </address>
         <time
             class="topic-listing__latest-datetime"
-            datetime="{{ $topic->last_reply_at }}"
-            title="{{ $topic->last_reply_at }}"
+            datetime="{{ $topic->last_post_created_at }}"
+            title="{{ $topic->last_post_created_at }}"
         >
             <a
                 class="topic-listing__latest-post-link"
                 href="{{ route('topics.latestPermalink', ['id' => $topic->id]) }}"
             >
-                {{ $topic->last_reply_at?->diffForHumans() ?? __('common.unknown') }}
+                {{ $topic->last_post_created_at?->diffForHumans() ?? __('common.unknown') }}
             </a>
         </time>
     </article>

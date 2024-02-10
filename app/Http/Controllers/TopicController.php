@@ -120,32 +120,34 @@ class TopicController extends Controller
             ->findOrFail($id);
 
         $topic = Topic::create([
-            'name'                     => $request->title,
-            'state'                    => 'open',
-            'first_post_user_id'       => $user->id,
-            'last_post_user_id'        => $user->id,
-            'first_post_user_username' => $user->username,
-            'last_post_user_username'  => $user->username,
-            'views'                    => 0,
-            'pinned'                   => false,
-            'forum_id'                 => $forum->id,
-            'num_post'                 => 1,
-            'last_reply_at'            => now(),
+            'name'               => $request->title,
+            'state'              => 'open',
+            'first_post_user_id' => $user->id,
+            'last_post_user_id'  => $user->id,
+            'views'              => 0,
+            'pinned'             => false,
+            'forum_id'           => $forum->id,
+            'num_post'           => 1,
         ]);
 
-        Post::create([
+        $post = Post::create([
             'content'  => $request->input('content'),
             'user_id'  => $user->id,
             'topic_id' => $topic->id,
         ]);
 
         $forum->update([
-            'num_topic'               => $forum->topics()->count(),
-            'num_post'                => $forum->posts()->count(),
-            'last_topic_id'           => $topic->id,
-            'last_topic_name'         => $topic->name,
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
+            'num_topic'            => $forum->topics()->count(),
+            'num_post'             => $forum->posts()->count(),
+            'last_topic_id'        => $topic->id,
+            'last_post_id'         => $post->id,
+            'last_post_user_id'    => $user->id,
+            'last_post_created_at' => $post->created_at,
+        ]);
+
+        $topic->update([
+            'last_post_id'         => $post->id,
+            'last_post_created_at' => $post->created_at,
         ]);
 
         // Post To ShoutBox
@@ -248,42 +250,39 @@ class TopicController extends Controller
         ]);
 
         if ($oldForum->id === $newForum->id) {
-            $lastRepliedTopic = $newForum->lastRepliedTopic;
+            $lastRepliedTopic = $newForum->lastRepliedTopicSlow;
 
             if ($lastRepliedTopic->id === $newForum->last_topic_id) {
-                $latestPost = $lastRepliedTopic->latestPost;
+                $latestPost = $lastRepliedTopic->latestPostSlow;
 
-                $newForum->last_topic_name = $request->name;
                 $newForum->updated_at = $latestPost->created_at;
                 $newForum->save();
             }
         } else {
-            $lastRepliedTopic = $oldForum->lastRepliedTopic;
-            $latestPost = $lastRepliedTopic->latestPost;
+            $lastRepliedTopic = $oldForum->lastRepliedTopicSlow;
+            $latestPost = $lastRepliedTopic->latestPostSlow;
             $latestPoster = $latestPost->user;
 
             $oldForum->update([
-                'num_topic'               => $oldForum->topics()->count(),
-                'num_post'                => $oldForum->posts()->count(),
-                'last_topic_id'           => $lastRepliedTopic->id,
-                'last_topic_name'         => $lastRepliedTopic->name,
-                'last_post_user_id'       => $latestPoster->id,
-                'last_post_user_username' => $latestPoster->username,
-                'updated_at'              => $latestPost->created_at,
+                'num_topic'            => $oldForum->topics()->count(),
+                'num_post'             => $oldForum->posts()->count(),
+                'last_topic_id'        => $lastRepliedTopic->id,
+                'last_post_id'         => $latestPost->id,
+                'last_post_user_id'    => $latestPoster->id,
+                'last_post_created_at' => $latestPost->created_at,
             ]);
 
-            $lastRepliedTopic = $newForum->lastRepliedTopic;
-            $latestPost = $lastRepliedTopic->latestPost;
+            $lastRepliedTopic = $newForum->lastRepliedTopicSlow;
+            $latestPost = $lastRepliedTopic->latestPostSlow;
             $latestPoster = $latestPost->user;
 
             $newForum->update([
-                'num_topic'               => $newForum->topics()->count(),
-                'num_post'                => $newForum->posts()->count(),
-                'last_topic_id'           => $lastRepliedTopic->id,
-                'last_topic_name'         => $lastRepliedTopic->name,
-                'last_post_user_id'       => $latestPoster->id,
-                'last_post_user_username' => $latestPoster->username,
-                'updated_at'              => $latestPost->created_at,
+                'num_topic'            => $newForum->topics()->count(),
+                'num_post'             => $newForum->posts()->count(),
+                'last_topic_id'        => $lastRepliedTopic->id,
+                'last_post_id'         => $latestPost->id,
+                'last_post_user_id'    => $latestPoster->id,
+                'last_post_created_at' => $latestPost->created_at,
             ]);
         }
 
@@ -304,18 +303,17 @@ class TopicController extends Controller
         $topic->delete();
 
         $forum = $topic->forum;
-        $lastRepliedTopic = $forum->lastRepliedTopic;
-        $latestPost = $lastRepliedTopic->latestPost;
+        $lastRepliedTopic = $forum->lastRepliedTopicSlow;
+        $latestPost = $lastRepliedTopic->latestPostSlow;
         $latestPoster = $latestPost->user;
 
         $topic->forum()->update([
-            'num_topic'               => $forum->topics()->count(),
-            'num_post'                => $forum->posts()->count(),
-            'last_topic_id'           => $lastRepliedTopic->id,
-            'last_topic_name'         => $lastRepliedTopic->name,
-            'last_post_user_id'       => $latestPoster->id,
-            'last_post_user_username' => $latestPoster->username,
-            'updated_at'              => $latestPost->created_at,
+            'num_topic'            => $forum->topics()->count(),
+            'num_post'             => $forum->posts()->count(),
+            'last_topic_id'        => $lastRepliedTopic->id,
+            'last_post_id'         => $latestPost->id,
+            'last_post_user_id'    => $latestPoster->id,
+            'last_post_created_at' => $latestPost->created_at,
         ]);
 
         return to_route('forums.show', ['id' => $forum->id])

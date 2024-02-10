@@ -71,7 +71,7 @@
                             required
                             wire:model="sortField"
                         >
-                            <option value="last_reply_at">
+                            <option value="last_post_created_at">
                                 {{ __('forum.updated-at') }}
                             </option>
                             <option value="created_at">

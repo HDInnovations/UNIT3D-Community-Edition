@@ -39,9 +39,6 @@ class ForumCategoryController extends Controller
                 ->withErrors('You Do Not Have Access To This Category!');
         }
 
-        // Fetch topics->posts in descending order
-        // $topics = $forum->sub_topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
-
         return view('forum.category_topic.index', [
             'forum' => $forum,
         ]);

@@ -23,7 +23,7 @@ class ForumCategoryTopicSearch extends Component
     use WithPagination;
 
     public string $search = '';
-    public string $sortField = 'last_reply_at';
+    public string $sortField = 'last_post_created_at';
     public string $sortDirection = 'desc';
     public string $label = '';
     public string $state = '';
@@ -35,7 +35,7 @@ class ForumCategoryTopicSearch extends Component
      */
     protected $queryString = [
         'search'        => ['except' => ''],
-        'sortField'     => ['except' => 'last_reply_at'],
+        'sortField'     => ['except' => 'last_post_created_at'],
         'sortDirection' => ['except' => 'desc'],
         'label'         => ['except' => ''],
         'state'         => ['except' => ''],

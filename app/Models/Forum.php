@@ -26,9 +26,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $num_topic
  * @property int|null                        $num_post
  * @property int|null                        $last_topic_id
- * @property string|null                     $last_topic_name
+ * @property int|null                        $last_post_id
  * @property int|null                        $last_post_user_id
- * @property string|null                     $last_post_user_username
+ * @property \Illuminate\Support\Carbon|null $last_post_created_at
  * @property string|null                     $name
  * @property string|null                     $slug
  * @property string|null                     $description
@@ -105,9 +105,19 @@ class Forum extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic>
      */
-    public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function lastRepliedTopicSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Topic::class)->ofMany('last_reply_at', 'max');
+        return $this->hasOne(Topic::class)->ofMany('last_post_created_at', 'max');
+    }
+
+    /**
+     * Latest topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
+     */
+    public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Topic::class, 'last_post_topic_id');
     }
 
     /**

@@ -34,10 +34,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool                            $implemented
  * @property int|null                        $num_post
  * @property int|null                        $first_post_user_id
+ * @property int|null                        $last_post_id
  * @property int|null                        $last_post_user_id
- * @property string|null                     $first_post_user_username
- * @property string|null                     $last_post_user_username
- * @property \Illuminate\Support\Carbon|null $last_reply_at
+ * @property \Illuminate\Support\Carbon|null $last_post_created_at
  * @property int|null                        $views
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -49,15 +48,15 @@ class Topic extends Model
     use HasFactory;
 
     protected $casts = [
-        'last_reply_at' => 'datetime',
-        'pinned'        => 'boolean',
-        'approved'      => 'boolean',
-        'denied'        => 'boolean',
-        'solved'        => 'boolean',
-        'invalid'       => 'boolean',
-        'bug'           => 'boolean',
-        'suggestion'    => 'boolean',
-        'implemented'   => 'boolean',
+        'last_post_created_at' => 'datetime',
+        'pinned'               => 'boolean',
+        'approved'             => 'boolean',
+        'denied'               => 'boolean',
+        'solved'               => 'boolean',
+        'invalid'              => 'boolean',
+        'bug'                  => 'boolean',
+        'suggestion'           => 'boolean',
+        'implemented'          => 'boolean',
     ];
 
     protected $fillable = [
@@ -65,13 +64,12 @@ class Topic extends Model
         'state',
         'first_post_user_id',
         'last_post_user_id',
-        'first_post_user_username',
-        'last_post_user_username',
+        'last_post_id',
         'views',
         'pinned',
         'forum_id',
         'num_post',
-        'last_reply_at',
+        'last_post_created_at',
     ];
 
     /**
@@ -139,9 +137,19 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<Post>
      */
-    public function latestPost(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function latestPostSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Post::class)->latestOfMany();
+    }
+
+    /**
+     * Latest post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
+     */
+    public function latestPost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Post::class, 'last_post_id');
     }
 
     /**
