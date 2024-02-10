@@ -127,15 +127,15 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
-        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
-        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-forgot-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-forgot-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-reset-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by('fortify'.$request->ip()));
+        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by('fortify'.$request->session()->get('login.id')));
+        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
+        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
+        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
+        RateLimiter::for('fortify-forgot-password-get', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
+        RateLimiter::for('fortify-forgot-password-post', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
+        RateLimiter::for('fortify-reset-password-get', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
+        RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(3)->by('fortify'.$request->ip()));
 
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::requestPasswordResetLinkView(fn () => view('auth.passwords.email'));
