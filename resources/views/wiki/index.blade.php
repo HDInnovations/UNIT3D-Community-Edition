@@ -33,9 +33,7 @@
                         @forelse ($category->wikis->sortBy('name') as $wiki)
                             <tr>
                                 <td>
-                                    <a
-                                        href="{{ route('wikis.show', ['wiki' => $wiki]) }}"
-                                    >
+                                    <a href="{{ route('wikis.show', ['wiki' => $wiki]) }}">
                                         {{ $wiki->name }}
                                     </a>
                                 </td>
