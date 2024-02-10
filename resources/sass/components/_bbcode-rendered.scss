@@ -280,6 +280,7 @@
   & > li,
   :not(ul):not(ol) > li {
     list-style-position: inside;
+    list-style-type: circle;
   }
 
   /* Definition Lists */
