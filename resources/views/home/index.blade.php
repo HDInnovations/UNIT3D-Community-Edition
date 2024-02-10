@@ -10,6 +10,7 @@
         </div>
         <script src="{{ mix('js/chat.js') }}" crossorigin="anonymous"></script>
     @endif
+
     @include('blocks.featured')
     @livewire('random-media')
     @include('blocks.poll')
