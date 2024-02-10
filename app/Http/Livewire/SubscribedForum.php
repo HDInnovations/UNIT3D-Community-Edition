@@ -30,7 +30,7 @@ class SubscribedForum extends Component
             ->with('latestPoster', 'lastRepliedTopic')
             ->whereNotNull('parent_id')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
             ->paginate(25, ['*'], 'subscribedForumsPage');
     }

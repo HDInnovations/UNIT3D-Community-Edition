@@ -55,10 +55,6 @@ class StoreForumRequest extends FormRequest
                 'sometimes',
                 'exists:groups,id',
             ],
-            'permissions.*.show_forum' => [
-                'sometimes',
-                'boolean',
-            ],
             'permissions.*.read_topic' => [
                 'sometimes',
                 'boolean',

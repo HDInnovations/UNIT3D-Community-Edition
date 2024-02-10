@@ -82,12 +82,10 @@ class ForumController extends Controller
             $perm->group_id = $group->id;
 
             if (\array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
                 $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
                 $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
                 $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
-                $perm->show_forum = false;
                 $perm->read_topic = false;
                 $perm->reply_topic = false;
                 $perm->start_topic = false;
@@ -135,12 +133,10 @@ class ForumController extends Controller
             ]);
 
             if (\array_key_exists($group->id, $request->input('permissions'))) {
-                $permission->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
                 $permission->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
                 $permission->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
                 $permission->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
             } else {
-                $permission->show_forum = false;
                 $permission->read_topic = false;
                 $permission->reply_topic = false;
                 $permission->start_topic = false;

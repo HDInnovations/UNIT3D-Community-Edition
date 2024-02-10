@@ -90,7 +90,6 @@
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Groups</th>
-                                    <th x-bind="columnHeader">View the forum</th>
                                     <th x-bind="columnHeader">Read topics</th>
                                     <th x-bind="columnHeader">Start new topic</th>
                                     <th x-bind="columnHeader">Reply to topics</th>
@@ -100,16 +99,6 @@
                                 @foreach ($groups as $group)
                                     <tr>
                                         <th x-bind="rowHeader">{{ $group->name }}</th>
-                                        <td>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="permissions[{{ $group->id }}][show_forum]"
-                                                    value="1"
-                                                    checked
-                                                />
-                                            </label>
-                                        </td>
                                         <td>
                                             <label>
                                                 <input

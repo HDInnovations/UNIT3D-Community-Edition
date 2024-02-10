@@ -117,7 +117,6 @@
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Groups</th>
-                                    <th x-bind="columnHeader">View the forum</th>
                                     <th x-bind="columnHeader">Read topics</th>
                                     <th x-bind="columnHeader">Start new topic</th>
                                     <th x-bind="columnHeader">Reply to topics</th>
@@ -127,14 +126,6 @@
                                 @foreach ($groups as $group)
                                     <tr>
                                         <th x-bind="rowHeader">{{ $group->name }}</th>
-                                        <td>
-                                            <input
-                                                type="checkbox"
-                                                name="permissions[{{ $group->id }}][show_forum]"
-                                                value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->show_forum)
-                                            />
-                                        </td>
                                         <td>
                                             <input
                                                 type="checkbox"

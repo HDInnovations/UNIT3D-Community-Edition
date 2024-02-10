@@ -65,7 +65,6 @@ class TopicPostSearch extends Component
                 fn ($query) => $query
                     ->on('permissions.forum_id', '=', 'topics.forum_id')
                     ->where('permissions.group_id', '=', auth()->user()->group_id)
-                    ->where('permissions.show_forum', '=', 1)
                     ->where('permissions.read_topic', '=', 1)
             )
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))

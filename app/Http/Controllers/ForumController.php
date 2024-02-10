@@ -32,12 +32,12 @@ class ForumController extends Controller
             'categories' => Forum::query()
                 ->with([
                     'forums' => fn ($query) => $query
-                        ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]]),
+                        ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', $request->user()->group_id]]),
                     'forums.latestPoster' => fn ($query) => $query->withTrashed(),
                     'forums.lastRepliedTopic',
                 ])
                 ->whereNull('parent_id')
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
+                ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', $request->user()->group_id]])
                 ->orderBy('position')
                 ->get(),
             'num_posts'  => Post::count(),
@@ -60,7 +60,7 @@ class ForumController extends Controller
         }
 
         // Check if the user has permission to view the forum
-        if (!$forum->getPermission()?->show_forum) {
+        if (!$forum->getPermission()?->read_topic) {
             return to_route('forums.index')
                 ->withErrors('You Do Not Have Access To This Forum!');
         }
