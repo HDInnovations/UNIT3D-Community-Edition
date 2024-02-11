@@ -151,7 +151,6 @@ class PostController extends Controller
         $post = Post::find($id);
         $topic = $post->topic()
             ->whereRelation('forumPermissions', [
-                ['show_forum', '=', 1],
                 ['read_topic', '=', 1],
                 ['reply_topic', '=', 1],
                 ['group_id', '=', $user->group_id],

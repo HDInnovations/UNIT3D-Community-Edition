@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $forum_id
  * @property int $group_id
- * @property int $show_forum
  * @property int $read_topic
  * @property int $reply_topic
  * @property int $start_topic

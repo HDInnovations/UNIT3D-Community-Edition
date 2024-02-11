@@ -43,7 +43,7 @@ test('show returns an ok response', function (): void {
 
     Permission::factory()->create([
         'forum_id'   => $forum->id,
-        'show_forum' => true,
+        'read_topic' => true,
     ]);
 
     $response = $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]));

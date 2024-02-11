@@ -53,9 +53,6 @@ class UpdateForumRequest extends FormRequest
             'permissions.*' => [
                 'exists:groups,id',
             ],
-            'permissions.*.show_forum' => [
-                'boolean',
-            ],
             'permissions.*.read_topic' => [
                 'boolean',
             ],

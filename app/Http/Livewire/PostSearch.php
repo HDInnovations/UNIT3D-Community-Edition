@@ -60,11 +60,7 @@ class PostSearch extends Component
                         'forumPermissions',
                         fn ($query) => $query
                             ->where('group_id', '=', auth()->user()->group_id)
-                            ->where(
-                                fn ($query) => $query
-                                    ->where('show_forum', '!=', 1)
-                                    ->orWhere('read_topic', '!=', 1)
-                            )
+                            ->where('read_topic', '!=', 1)
                     )
                     ->select('id')
             )

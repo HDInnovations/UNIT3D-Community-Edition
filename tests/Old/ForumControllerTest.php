@@ -81,7 +81,7 @@ final class ForumControllerTest extends TestCase
 
         $permissions = Permission::factory()->create([
             'forum_id'   => $forum->id,
-            'show_forum' => true,
+            'read_topic' => true,
         ]);
 
         $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))
