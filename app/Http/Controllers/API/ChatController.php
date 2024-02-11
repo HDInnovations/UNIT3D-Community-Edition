@@ -48,6 +48,7 @@ class ChatController extends Controller
     public function user(Request $request)
     {
         $user = $request->user()->load(['chatStatus', 'chatroom', 'group']);
+
         return $user;
     }
 
