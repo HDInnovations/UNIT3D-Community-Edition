@@ -18,7 +18,7 @@ mix.options({
     /*
      * Sourced asset dependencies via node_modules and JS bootstrapping
      */
-    .js('resources/js/app.js', 'public/js').vue({ version: 2 })
+    .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/main.scss', 'public/css/app.css')
     .purgeCss()
 
@@ -66,4 +66,4 @@ mix.options({
     .js('resources/js/unit3d/imgbb.js', 'public/js')
     .js('resources/js/vendor/alpine.js', 'public/js')
     .js('resources/js/vendor/virtual-select.js', 'public/js')
-    .js('resources/js/unit3d/chat.js', 'public/js');
+    .js('resources/js/unit3d/chat-vue3.js', 'public/js').vue({version: 3});

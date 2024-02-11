@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'banned'])->group(function (): void {
     Route::prefix('chat')->group(function (): void {
+        Route::get('/user', [App\Http\Controllers\API\ChatController::class, 'user']);
         Route::get('/config', [App\Http\Controllers\API\ChatController::class, 'config']);
 
         /* Statuses */
