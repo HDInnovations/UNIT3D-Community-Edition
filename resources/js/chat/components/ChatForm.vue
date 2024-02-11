@@ -2,6 +2,9 @@
   <form class="form chatroom__new-message">
     <p class="form__group">
         <textarea
+          @keyup="keyup"
+          @keydown.enter.prevent="keydown"
+          v-model="input"
           id="chatbox__messages-create"
           class="form__textarea"
           name="message"
@@ -16,6 +19,8 @@
 </template>
 <script>
 
+import { state } from "../state";
+
 export default {
   data() {
     return {
@@ -26,46 +31,34 @@ export default {
   },
   computed: {
     receiver_id() {
-      return this.$parent.receiver_id;
+      return state.receiver_id;
     },
     bot_id() {
-      return this.$parent.bot_id;
+      return state.bot_id;
     },
   },
   methods: {
-    keyup(e) {
-      this.$emit('typing', this.user);
+    keyup() {
+      this.$emit('typing', state.user);
     },
     keydown(e) {
-      if (e.keyCode === 13 && !e.shiftKey) {
-        e.preventDefault();
+      if (!e.shiftKey) {
         this.sendMessage();
       }
     },
     sendMessage() {
-      let msg = this.input.value = this.input.value.trim();
-
+      let msg = this.input.trim();
       if (msg !== null && msg !== '') {
         this.$emit('message-sent', {
           message: msg,
           save: true,
-          user_id: this.user.id,
-          receiver_id: this.receiver_id,
-          bot_id: this.bot_id,
+          user_id: state.auth.id,
+          receiver_id: state.receiver_id,
+          bot_id: state.bot_id,
         });
-
-        this.input.value = '';
+        this.input = '';
       }
     },
-  },
-  created() {
-    this.user = this.$parent.auth;
-  },
-  mounted() {
-    this.editor = document.getElementById('chatbox__messages-create').value;
-    this.input = document.getElementById('chatbox__messages-create');
-    this.input.addEventListener("keyup", this.keyup);
-    this.input.addEventListener("keydown", this.keydown);
-  },
+  }
 };
 </script>

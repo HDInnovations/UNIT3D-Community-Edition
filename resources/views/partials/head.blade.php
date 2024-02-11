@@ -10,7 +10,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 @yield('meta')
-
+@if(config('app.debug'))
+    <script src="http://localhost:8098"></script>
+@endif
 <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
 

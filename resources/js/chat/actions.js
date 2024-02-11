@@ -1,5 +1,5 @@
 import axios from "axios";
-import state from "./state";
+import { state } from "./state";
 import { each, find, reverse } from "lodash";
 
 
@@ -8,9 +8,15 @@ export function loadUser() {
   axios.get('/api/chat/user')
     .then(d => {
       state.user = d.data
-      state.auth = d.data
+      state.auth = state.user
       state.activeRoom = state.auth.chatroom.name;
-      console.log(state.user)
+      fetchRooms();
+      fetchBots();
+      fetchStatuses();
+      fetchAudibles();
+      fetchEchoes();
+      listenForChatter();
+      attachAudible();
     })
 }
 export function isTyping(e) {
@@ -203,6 +209,7 @@ export function fetchRooms() {
       state.tab = response.data.data[0].name;
       state.activeTab = 'room' + state.room;
       fetchConfiguration();
+      fetchMessages()
   });
 }
 export function fetchConfiguration() {
@@ -253,7 +260,7 @@ export function leaveBot(id) {
       .then((response) => {
         // reassign the auth variable to the response data
         state.auth = response.data;
-        document.getElementById('currentChatroom').value = '1';
+        state.selectedRoom = 1
         fetchRooms();
       });
   }
@@ -306,7 +313,7 @@ export function leaveRoom(id) {
       .then((response) => {
         // reassign the auth variable to the response data
         state.auth = response.data;
-        document.getElementById('currentChatroom').value = '1';
+        state.selectedRoom = 1
         fetchRooms();
       });
   }
@@ -322,7 +329,7 @@ export function leaveTarget(id) {
       .then((response) => {
         // reassign the auth variable to the response data
         state.auth = response.data;
-        document.getElementById('currentChatroom').value = '1';
+        state.selectedRoom = 1;
         fetchRooms();
       });
   }

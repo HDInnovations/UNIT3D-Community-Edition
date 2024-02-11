@@ -30,12 +30,12 @@
           <aside class="chatbox-message__aside">
             <figure class="chatbox-message__figure">
               <a
-                v-if="message.user?.id != 1"
+                v-if="message.user?.id !== 1"
                 :href="`/users/${message.user?.username}`"
                 class="chatbox-message__avatar-link"
               >
                 <img
-                  v-if="message.user?.id != 1"
+                  v-if="message.user?.id !== 1"
                   class="chatbox-message__avatar"
                   :src="message.user?.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
                   :style="`border: 2px solid ${message.user?.chat_status?.color};`"
@@ -48,7 +48,7 @@
             <li class="chatbox-message__menu-item">
               <button
                 class="chatbox-message__delete-button"
-                v-if="message.user?.id != 1 && canMod(message)"
+                v-if="message.user?.id !== 1 && canMod(message)"
                 @click="deleteMessage(message.id)"
                 title="Delete message"
               >
@@ -68,7 +68,8 @@
 <script>
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import pmMethods from './mixins/pmMethods';
+import pmMethods from '../../components/chat/mixins/pmMethods';
+import { state } from "../state";
 
 export default {
   props: {
@@ -99,13 +100,13 @@ export default {
 
       return (
           /* Owner can mod all */
-          this.$parent.auth.group.is_owner ||
+          state.auth.group.is_owner ||
           /* User can mod his own message */
           message.user.id === this.$parent.auth.id ||
           /* is_admin can mod messages except for Owner messages */
-          (this.$parent.auth.group.is_admin && !message.user.group.is_owner) ||
+          (state.auth.group.is_admin && !message.user.group.is_owner) ||
           /* Mods CAN NOT mod other mods messages */
-          (this.$parent.auth.group.is_modo && !message.user.group.is_modo)
+          (state.auth.group.is_modo && !message.user.group.is_modo)
       );
     },
     editMessage(message) {},

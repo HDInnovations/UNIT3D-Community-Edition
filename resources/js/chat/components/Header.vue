@@ -1,5 +1,5 @@
 <script>
-import state from "../state";
+import { state } from "../state";
 import { changeAudible, changeRoom, changeStatus, changeTab, changeWhispers, startBot } from "../actions";
 import ChatroomsDropdown from "./ChatroomsDropdown.vue";
 import ChatstatusesDropdown from "./ChatstatusesDropdown.vue";

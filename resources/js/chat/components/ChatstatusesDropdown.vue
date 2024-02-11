@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import state from "../state";
+import { state } from "../state";
 import { changeStatus } from "../actions";
 
 export default {

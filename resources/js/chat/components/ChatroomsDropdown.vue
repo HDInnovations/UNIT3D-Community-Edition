@@ -1,11 +1,10 @@
 <template>
   <div class="form__group">
     <select
-      id="currentChatroom"
       class="form__select"
       :class="state.chatrooms.some(chatroom => chatroom.id === state.auth.chatroom.id) || 'form__select--default'"
-      v-model="selected"
-      @change="changeRoom(selected)"
+      v-model="state.selectedRoom"
+      @change="changeRoom(state.selectedRoom)"
     >
       <option v-for="chatroom in state.chatrooms" :value="chatroom.id" >
         {{ chatroom.name }}
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-import state from "../state";
+import { state } from "../state";
 import { changeRoom } from "../actions";
 
 export default {
@@ -28,13 +27,8 @@ export default {
       return state
     }
   },
-  data() {
-    return {
-      selected: 1,
-    };
-  },
   mounted() {
-    this.selected = state.auth.chatroom.id;
+    state.selectedRoom = state.auth.chatroom.id;
   },
 };
 </script>

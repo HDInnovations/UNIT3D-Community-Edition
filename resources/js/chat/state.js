@@ -1,11 +1,12 @@
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
+import { changeRoom, changeStatus, listenForEvents } from "./actions";
 
-export default reactive({
+export let state = reactive({
   audio: true,
   user: false,
   tab: '',
   fullscreen: 0,
-  connection: true,
+  connecting: true,
   auth: {},
   statuses: [],
   status: 0,
@@ -18,6 +19,7 @@ export default reactive({
   audibles: [],
   boot: 0,
   audioLoaded: 0,
+  selectedRoom: 1,
   room: 0,
   startup: 0,
   check: 0,
@@ -47,3 +49,24 @@ export default reactive({
   bot_id: null,
   showWhispers: 1,
 })
+
+export function startWatchers () {
+
+  watch( state.chatrooms, function() {
+    console.log("Chatrooms updated")
+    changeRoom(state.auth.chatroom.id);
+  })
+
+  watch( state.statuses, function() {
+    console.log("Statuses updated")
+    changeStatus(state.auth.chat_status.id)
+  })
+
+  watch( state.room, function(newVal, oldVal) {
+    console.log("Room updated")
+    window.Echo.leave(`chatroom.${oldVal}`);
+    state.channel = window.Echo.join(`chatroom.${newVal}`);
+    listenForEvents();
+  })
+
+}

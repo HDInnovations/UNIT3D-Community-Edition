@@ -209,9 +209,9 @@
 </template>
 <script>
 import ChatroomsDropdown from './ChatroomsDropdown';
-import ChatMessages from './ChatMessages';
-import ChatForm from './ChatForm';
-import ChatUserList from './ChatUserList';
+import ChatMessages from '../../chat/components/ChatMessages.vue';
+import ChatForm from '../../chat/components/ChatForm.vue';
+import ChatUserList from '../../chat/components/ChatUserList.vue';
 import ChatstatusesDropdown from "./ChatstatusesDropdown.vue";
 import axios from "axios"
 
