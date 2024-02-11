@@ -21,7 +21,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BotResource;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
-use App\Http\Resources\ChatUserResource;
 use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
 use App\Models\Bot;
@@ -49,6 +48,7 @@ class ChatController extends Controller
     public function user(Request $request)
     {
         $user = $request->user()->load(['chatStatus', 'chatroom', 'group']);
+
         return $user;
     }
 
