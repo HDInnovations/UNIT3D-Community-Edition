@@ -2,18 +2,18 @@
   <div class="chatroom__messages--wrapper">
     <ul class="chatroom__messages">
       <li v-for="message in messages">
-        <article class="chatbox-message">
+        <article v-if="message" class="chatbox-message">
           <header class="chatbox-message__header">
             <address
               class="chatbox-message__address user-tag"
-              :style="`background-image: ${message.user?.group?.effect};`"
+              :style="`background-image: ${message?.user?.group?.effect ?? 'none'};`"
             >
               <a
                 class="user-tag__link"
-                :class="message.user?.group?.icon"
-                :href="`/users/${message.user?.username}`"
-                :style="`color: ${message.user?.group?.color }`"
-                :title="message.user?.group?.name"
+                :class="message.user?.group?.icon ?? ''"
+                :href="`/users/${message?.user?.username}`"
+                :style="`color: ${message?.user?.group?.color }`"
+                :title="message?.user?.group?.name"
               >
                 <span v-if="message.user && message.user.id > 1">{{ message.user?.username ?? 'Unknown' }}</span>
                 <span v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)">{{ message.bot?.name ?? 'Unknown' }}</span>
@@ -24,7 +24,7 @@
               :datetime="message.created_at"
               :title="message.created_at"
             >
-              {{ message.created_at | diffForHumans }}
+              {{ diffForHumans(message.created_at) }}
             </time>
           </header>
           <aside class="chatbox-message__aside">
@@ -68,7 +68,6 @@
 <script>
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import pmMethods from '../../components/chat/mixins/pmMethods';
 import { state } from "../state";
 
 export default {
@@ -80,7 +79,6 @@ export default {
       editor: null,
     };
   },
-  mixins: [pmMethods],
   methods: {
     checkBot(e, message) {
       if (e.target.hasAttribute('trigger') && e.target.getAttribute('trigger') == 'bot') {
@@ -102,7 +100,7 @@ export default {
           /* Owner can mod all */
           state.auth.group.is_owner ||
           /* User can mod his own message */
-          message.user.id === this.$parent.auth.id ||
+          message.user.id === state.auth.id ||
           /* is_admin can mod messages except for Owner messages */
           (state.auth.group.is_admin && !message.user.group.is_owner) ||
           /* Mods CAN NOT mod other mods messages */
@@ -121,20 +119,16 @@ export default {
           ? `color: ${user.group.color};`
           : `cursor: pointer;`;
     },
-  },
-  created() {
-    dayjs.extend(relativeTime);
-    this.interval = setInterval(() => this.$forceUpdate(), 30000);
-  },
-
-  filters: {
     diffForHumans: (date) => {
       if (!date) {
         return null;
       }
-
       return dayjs(date).fromNow();
     },
+  },
+  created() {
+    dayjs.extend(relativeTime);
+    this.interval = setInterval(() => this.$forceUpdate(), 30000);
   },
   beforeDestroy() {
     clearInterval(this.interval);

@@ -48,25 +48,5 @@ export let state = reactive({
   receiver_id: null,
   bot_id: null,
   showWhispers: 1,
+  input: ''
 })
-
-export function startWatchers () {
-
-  watch( state.chatrooms, function() {
-    console.log("Chatrooms updated")
-    changeRoom(state.auth.chatroom.id);
-  })
-
-  watch( state.statuses, function() {
-    console.log("Statuses updated")
-    changeStatus(state.auth.chat_status.id)
-  })
-
-  watch( state.room, function(newVal, oldVal) {
-    console.log("Room updated")
-    window.Echo.leave(`chatroom.${oldVal}`);
-    state.channel = window.Echo.join(`chatroom.${newVal}`);
-    listenForEvents();
-  })
-
-}

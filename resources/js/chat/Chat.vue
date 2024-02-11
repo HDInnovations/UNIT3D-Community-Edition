@@ -9,7 +9,7 @@
 import axios from "axios";
 import { state, startWatchers } from "./state";
 import Header from "./components/Header.vue";
-import { loadUser } from "./actions";
+import { changeRoom, changeStatus, listenForEvents, loadUser } from "./actions";
 import Tabs from "./components/Tabs.vue";
 import Body from "./components/Body.vue";
 
@@ -22,11 +22,32 @@ export default {
     }
   },
   created() {
-      startWatchers()
       state.startup = Date.now();
       state.activeTarget = '';
       state.activeBot = '';
       loadUser()
+  },
+  watch: {
+    'state.chatrooms':{
+      handler(){
+        changeRoom(state.auth.chatroom.id);
+      },
+      deep: true
+    },
+    'state.statuses':{
+      handler(){
+        changeStatus(state.auth.chat_status.id);
+      },
+      deep: true
+    },
+    'state.room':{
+      handler(newVal, oldVal){
+        window.Echo.leave(`chatroom.${oldVal}`);
+        state.channel = window.Echo.join(`chatroom.${newVal}`);
+        listenForEvents();
+      },
+      deep: true
+    }
   }
 }
 </script>

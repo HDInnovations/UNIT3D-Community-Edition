@@ -209,7 +209,6 @@ export function fetchRooms() {
       state.tab = response.data.data[0].name;
       state.activeTab = 'room' + state.room;
       fetchConfiguration();
-      fetchMessages()
   });
 }
 export function fetchConfiguration() {
@@ -242,10 +241,10 @@ export function fetchStatuses() {
 }
 
 export function forceMessage(name) {
-  document.getElementById('chatbox__messages-create').value = '/msg ' + name + ' ';
+  state.input = '/msg ' + name + ' ';
 }
 export function  forceGift(name) {
-  document.getElementById('chatbox__messages-create').value = '/gift ' + name + ' ';
+  state.input = '/gift ' + name + ' ';
 }
 export function leaveBot(id) {
   if (id > 0) {
@@ -450,7 +449,7 @@ export function playSound() {
 }
 export function handleSound(type, id) {
   let i;
-  let audioState = document.getElementById('chatbody').getAttribute('audio');
+  let audioState = state.audio;
   if (type === 'room') {
     for (i = 0; i < state.audibles.length; i++) {
       if (
@@ -499,7 +498,7 @@ export function handleSound(type, id) {
 }
 export function handleMessage(type, id, message) {
   let i;
-  let audioState = document.getElementById('chatbody').getAttribute('audio');
+  let audioState = state.audio;
   if (type === 'room') {
     for (i = 0; i < state.audibles.length; i++) {
       if (
@@ -655,6 +654,7 @@ export function createMessage(message, save = true, user_id = 1, receiver_id = n
     })
     .then((response) => {
       if (state.activeTab.substring(0, 3) === 'bot' || state.activeTab.substring(0, 6) === 'target') {
+
         state.messages.push(response.data.data);
       }
       if (state.messages.length > state.config.message_limit) {
@@ -724,6 +724,7 @@ export function listenForEvents() {
       state.users = users;
     })
     .listen('.new.message', (e) => {
+      console.log(e)
       if (state.activeTab.substring(0, 4) !== 'room') return false;
       state.messages.push(e.message);
       handleMessage('room', state.room, e.message);

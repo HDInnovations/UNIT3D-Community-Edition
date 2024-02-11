@@ -20,12 +20,12 @@
               {{ user.username }}
             </a>
         </span>
-        <menu class="chatroom-users__buttons" v-if="$parent.auth.id !== user.id">
+        <menu class="chatroom-users__buttons" v-if="state.auth.id !== user.id">
           <li>
             <button
               class="chatroom-users__button"
               title="Gift user bon (/gift <username> <amount> <message>)"
-              @click.prevent="$parent.forceGift(user.username)"
+              @click.prevent="forceGift(user.username)"
             >
               <i
                 class="fas fa-gift"
@@ -36,7 +36,7 @@
             <button
               class="chatroom-users__button"
               title="Send chat PM (/msg <username> <message>)"
-              @click.prevent="$parent.forceMessage(user.username)"
+              @click.prevent="forceMessage(user.username)"
             >
               <i
                 class="fas fa-envelope"
@@ -50,7 +50,16 @@
 </template>
 <script>
 
+import { state } from "../state";
+import { forceGift, forceMessage } from "../actions";
+
 export default {
+  methods: { forceGift, forceMessage },
+  computed: {
+    state() {
+      return state
+    }
+  },
   props: {
     users: { required: true },
   },

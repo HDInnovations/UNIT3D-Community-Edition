@@ -29,6 +29,7 @@ use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
 use App\Repositories\ChatRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -45,11 +46,11 @@ class ChatController extends Controller
     }
 
     /* USER DATA */
-    public function user(Request $request)
+    public function user(Request $request): JsonResponse
     {
         $user = $request->user()->load(['chatStatus', 'chatroom', 'group']);
 
-        return $user;
+        return response()->json($user);
     }
 
     /* STATUSES */

@@ -4,7 +4,7 @@
         <textarea
           @keyup="keyup"
           @keydown.enter.prevent="keydown"
-          v-model="input"
+          v-model="state.input"
           id="chatbox__messages-create"
           class="form__textarea"
           name="message"
@@ -22,14 +22,11 @@
 import { state } from "../state";
 
 export default {
-  data() {
-    return {
-      user: null,
-      editor: null,
-      input: null,
-    };
-  },
+  emits: ['typing', 'message-sent'],
   computed: {
+    state() {
+      return state
+    },
     receiver_id() {
       return state.receiver_id;
     },
@@ -47,7 +44,7 @@ export default {
       }
     },
     sendMessage() {
-      let msg = this.input.trim();
+      let msg = state.input.trim();
       if (msg !== null && msg !== '') {
         this.$emit('message-sent', {
           message: msg,
@@ -56,7 +53,7 @@ export default {
           receiver_id: state.receiver_id,
           bot_id: state.bot_id,
         });
-        this.input = '';
+        state.input = '';
       }
     },
   }

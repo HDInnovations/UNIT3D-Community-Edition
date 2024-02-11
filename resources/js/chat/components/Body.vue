@@ -13,27 +13,17 @@ export default {
     state() {
       return state
     },
-    msgs() {
-      return filter(state.messages, (o) => {
-        return o;
-      });
-    },
     statusColor() {
       if (state.statuses.length > 0) {
         let i = findIndex(state.statuses, (o) => {
           return o.id === state.status;
         });
-
         return state.statuses[i].color;
       }
-
       return '';
     },
   },
   components: { ChatUserList, ChatMessages, ChatForm },
-  mounted() {
-    console.log(state)
-  }
 };
 </script>
 
@@ -45,7 +35,7 @@ export default {
     <chat-messages
       v-if="state.tab !== ''"
       @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
-      :messages="msgs"
+      :messages="state.messages"
     >
     </chat-messages>
     <chat-user-list
@@ -70,7 +60,6 @@ export default {
         </span>
     </section>
     <chat-form
-      @changedStatus="changeStatus"
       @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
       @typing="isTyping"
     >
