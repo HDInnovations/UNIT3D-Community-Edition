@@ -42,6 +42,10 @@ Available Bots:
 {bots}',
                 'is_protected' => 1,
                 'is_systembot' => 1,
+                'is_nerdbot'   => 0,
+                'is_casinobot' => 0,
+                'is_betbot'    => 0,
+                'is_triviabot' => 0,
             ],
             [
                 'name'     => 'NerdBot',
@@ -82,7 +86,11 @@ None.
 
 (All NerdBot statistics are cached for 60 minutes)',
                 'is_protected' => 1,
+                'is_systembot' => 0,
                 'is_nerdbot'   => 1,
+                'is_casinobot' => 0,
+                'is_betbot'    => 0,
+                'is_triviabot' => 0,
             ],
             [
                 'name'         => 'CasinoBot',
@@ -93,7 +101,11 @@ None.
                 'icon'         => 'fab fa-android',
                 'help'         => 'Coming soon',
                 'is_protected' => 1,
+                'is_systembot' => 0,
+                'is_nerdbot'   => 0,
                 'is_casinobot' => 1,
+                'is_betbot'    => 0,
+                'is_triviabot' => 0,
             ],
             [
                 'name'         => 'BetBot',
@@ -104,7 +116,11 @@ None.
                 'icon'         => 'fab fa-android',
                 'help'         => 'Coming soon',
                 'is_protected' => 1,
+                'is_systembot' => 0,
+                'is_nerdbot'   => 0,
+                'is_casinobot' => 0,
                 'is_betbot'    => 1,
+                'is_triviabot' => 0,
             ],
             [
                 'name'         => 'TriviaBot',
@@ -115,6 +131,10 @@ None.
                 'icon'         => 'fab fa-android',
                 'help'         => 'Coming soon',
                 'is_protected' => 1,
+                'is_systembot' => 0,
+                'is_nerdbot'   => 0,
+                'is_casinobot' => 0,
+                'is_betbot'    => 0,
                 'is_triviabot' => 1,
             ],
         ], ['id']);
