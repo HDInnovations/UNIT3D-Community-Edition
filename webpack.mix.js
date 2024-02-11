@@ -66,4 +66,4 @@ mix.options({
     .js('resources/js/unit3d/imgbb.js', 'public/js')
     .js('resources/js/vendor/alpine.js', 'public/js')
     .js('resources/js/vendor/virtual-select.js', 'public/js')
-    .js('resources/js/unit3d/chat-vue3.js', 'public/js').vue({version: 3});
+    .js('resources/js/unit3d/chat.js', 'public/js').vue({version: 3});

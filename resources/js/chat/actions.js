@@ -724,7 +724,6 @@ export function listenForEvents() {
       state.users = users;
     })
     .listen('.new.message', (e) => {
-      console.log(e)
       if (state.activeTab.substring(0, 4) !== 'room') return false;
       state.messages.push(e.message);
       handleMessage('room', state.room, e.message);

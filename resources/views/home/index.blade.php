@@ -6,7 +6,7 @@
     @include('blocks.news')
     @if (! auth()->user()->chat_hidden)
         <div id="chat"></div>
-        <script src="{{ mix('js/chat-vue3.js') }}" crossorigin="anonymous"></script>
+        <script src="{{ mix('js/chat.js') }}" crossorigin="anonymous"></script>
     @endif
 
     @include('blocks.featured')
