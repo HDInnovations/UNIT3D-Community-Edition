@@ -213,6 +213,7 @@ import ChatMessages from './ChatMessages';
 import ChatForm from './ChatForm';
 import ChatUserList from './ChatUserList';
 import ChatstatusesDropdown from "./ChatstatusesDropdown.vue";
+import axios from "axios"
 
 export default {
   props: {

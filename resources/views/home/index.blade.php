@@ -4,12 +4,11 @@
 
 @section('main')
     @include('blocks.news')
-
     @if (! auth()->user()->chat_hidden)
         <div id="vue">
-            <script src="{{ mix('js/chat.js') }}" crossorigin="anonymous"></script>
             @include('blocks.chat')
         </div>
+        <script src="{{ mix('js/chat.js') }}" crossorigin="anonymous"></script>
     @endif
 
     @include('blocks.featured')
