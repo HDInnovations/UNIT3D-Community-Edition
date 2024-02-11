@@ -44,9 +44,11 @@ class ChatController extends Controller
     {
     }
 
-    public function user(Request $request): \Illuminate\Http\JsonResponse
+    /* USER DATA */
+    public function user(Request $request)
     {
-        return response()->json($request->user()->load(['chatStatus', 'chatroom', 'group']));
+        $user = $request->user()->load(['chatStatus', 'chatroom', 'group']);
+        return $user;
     }
 
     /* STATUSES */

@@ -8,6 +8,7 @@
         <div id="chat"></div>
         <script src="{{ mix('js/chat-vue3.js') }}" crossorigin="anonymous"></script>
     @endif
+
     @include('blocks.featured')
     @livewire('random-media')
     @include('blocks.poll')
