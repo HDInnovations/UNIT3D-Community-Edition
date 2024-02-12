@@ -60,14 +60,12 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::with('user')
+        $topic = Topic::with('user', 'forum.category')
             ->whereRelation('forumPermissions', [
                 ['read_topic', '=', 1],
                 ['group_id', '=', $user->group_id],
             ])
             ->findOrFail($id);
-
-        $forum = $topic->forum->load('category');
 
         $subscription = Subscription::where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
 
@@ -76,7 +74,6 @@ class TopicController extends Controller
 
         return view('forum.topic.show', [
             'topic'        => $topic,
-            'forum'        => $forum,
             'subscription' => $subscription,
         ]);
     }
@@ -153,7 +150,7 @@ class TopicController extends Controller
         $topicUrl = sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
         $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
-        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $forum->notifyStaffers($user, $topic);
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
@@ -195,16 +192,14 @@ class TopicController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
-        $categories = Forum::whereRelation('permissions', [
-            ['start_topic', '=', 1],
-        ])
-            ->whereNull('parent_id')
-            ->with([
-                'forums' => fn ($query) => $query->whereRelation('permissions', [
-                    ['start_topic', '=', 1],
-                ])
+        $categories = Forum::with('category:id,name')
+            ->whereRelation('permissions', [
+                ['read_topic', '=', 1],
+                ['start_topic', '=', 1],
+                ['group_id', '=', $request->user()->group_id],
             ])
-            ->get();
+            ->get()
+            ->groupBy('category.name');
 
         return view('forum.topic.edit', [
             'topic'      => $topic,
@@ -225,6 +220,10 @@ class TopicController extends Controller
         ]);
 
         $topic = Topic::query()
+            ->whereRelation('forumPermissions', [
+                ['read_topic', '=', 1],
+                ['group_id', '=', $user->group_id],
+            ])
             ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
             ->findOrFail($id);
 

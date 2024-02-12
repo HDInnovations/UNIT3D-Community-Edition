@@ -14,19 +14,10 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class StoreForumRequest extends FormRequest
+class UpdateForumCategoryRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -38,42 +29,14 @@ class StoreForumRequest extends FormRequest
             'name' => [
                 'required',
             ],
-            'position' => [
+            'slug' => [
                 'required',
             ],
-            'slug' => [
+            'position' => [
                 'required',
             ],
             'description' => [
                 'required',
-            ],
-            'forum_category_id' => [
-                'required',
-                'exists:forum_categories,id',
-            ],
-            'permissions' => [
-                'required',
-                'array',
-            ],
-            'permissions.*' => [
-                'required',
-                'array:group_id,read_topic,reply_topic,start_topic',
-            ],
-            'permissions.*.group_id' => [
-                'required',
-                'exists:groups,id',
-            ],
-            'permissions.*.read_topic' => [
-                'required',
-                'boolean',
-            ],
-            'permissions.*.reply_topic' => [
-                'required',
-                'boolean',
-            ],
-            'permissions.*.start_topic' => [
-                'required',
-                'boolean',
             ],
         ];
     }

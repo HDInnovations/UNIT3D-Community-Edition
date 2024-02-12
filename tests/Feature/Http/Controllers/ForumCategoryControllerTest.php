@@ -18,21 +18,12 @@ use App\Models\User;
 test('show returns an ok response', function (): void {
     $user = User::factory()->create();
 
-    // This forum does not have a parent_id, which makes it a "Forum Category".
-    $parentForum = Forum::factory()->create([
-        'parent_id'     => null,
-        'last_topic_id' => null,
-    ]);
+    $forum = Forum::factory()->create();
 
     Permission::factory()->create([
-        'forum_id' => $parentForum->id,
+        'group_id' => $user->group_id,
+        'forum_id' => $forum->id,
     ]);
 
-    // This forum has a parent_id, which makes it a "Forum".
-    $forum = Forum::factory()->create([
-        'parent_id'     => $parentForum->id,
-        'last_topic_id' => null,
-    ]);
-
-    $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->id]));
+    $this->actingAs($user)->get(route('forums.categories.show', ['id' => $forum->forum_category_id]));
 });

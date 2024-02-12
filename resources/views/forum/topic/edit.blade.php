@@ -64,9 +64,9 @@
                 </p>
                 <p class="form__group">
                     <select id="forum_id" name="forum_id" class="form__select">
-                        @foreach ($categories as $category)
-                            <optgroup label="{{ $category->name }}">
-                                @foreach ($category->forums as $forum)
+                        @foreach ($categories as $name => $forums)
+                            <optgroup label="{{ $name }}">
+                                @foreach ($forums as $forum)
                                     <option
                                         value="{{ $forum->id }}"
                                         @selected($topic->forum_id === $forum->id)
