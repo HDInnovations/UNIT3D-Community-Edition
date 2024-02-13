@@ -844,9 +844,19 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Forums System
+        Route::prefix('forum-categories')->middleware('admin')->group(function (): void {
+            Route::name('forum_categories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\ForumCategoryController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\ForumCategoryController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\ForumCategoryController::class, 'store'])->name('store');
+                Route::get('/{forumCategory}/edit', [App\Http\Controllers\Staff\ForumCategoryController::class, 'edit'])->name('edit');
+                Route::patch('/{forumCategory}', [App\Http\Controllers\Staff\ForumCategoryController::class, 'update'])->name('update');
+                Route::delete('/{forumCategory}', [App\Http\Controllers\Staff\ForumCategoryController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         Route::prefix('forums')->middleware('admin')->group(function (): void {
             Route::name('forums.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\ForumController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
                 Route::get('/{forum}/edit', [App\Http\Controllers\Staff\ForumController::class, 'edit'])->name('edit');

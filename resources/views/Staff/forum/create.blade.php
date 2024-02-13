@@ -15,13 +15,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.forums.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
             {{ __('staff.forums') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__forums-admin--create')
@@ -33,41 +31,8 @@
             <form class="form" method="POST" action="{{ route('staff.forums.store') }}">
                 @csrf
                 <p class="form__group">
-                    <select id="forum_type" class="form__select" name="forum_type" required>
-                        <option class="form__option" value="category">Category</option>
-                        <option class="form__option" value="forum">Forum</option>
-                    </select>
-                    <label class="form__label form__label--floating" for="forum_type">
-                        Forum Type
-                    </label>
-                </p>
-                <p class="form__group">
                     <input id="name" class="form__text" type="text" name="name" required />
                     <label class="form__label form__label--floating" for="name">Title</label>
-                </p>
-                <p class="form__group">
-                    <textarea
-                        id="description"
-                        class="form__textarea"
-                        name="description"
-                        placeholder=" "
-                    ></textarea>
-                    <label class="form__label form__label--floating" for="description">
-                        Description
-                    </label>
-                </p>
-                <p class="form__group">
-                    <select id="parent_id" class="form__select" name="parent_id">
-                        <option value="">New Category</option>
-                        @foreach ($categories as $category)
-                            <option class="form__option" value="{{ $category->id }}">
-                                New Forum In {{ $category->name }} Category
-                            </option>
-                        @endforeach
-                    </select>
-                    <label class="form__label form__label--floating" for="parent_id">
-                        Parent forum
-                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -76,11 +41,46 @@
                         inputmode="numeric"
                         name="position"
                         pattern="[0-9]*"
-                        placeholder=" "
+                        required
                         type="text"
                     />
                     <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <textarea
+                        id="description"
+                        class="form__textarea"
+                        name="description"
+                        required
+                    ></textarea>
+                    <label class="form__label form__label--floating" for="description">
+                        Description
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select
+                        id="forum_category_id"
+                        name="forum_category_id"
+                        class="form__select"
+                        x-data="{ selected: {{ $forumCategoryId }} || '' }"
+                        x-model="selected"
+                        x-bind:class="selected === '' ? 'form__selected--default' : ''"
+                        required
+                    >
+                        <option disabled hidden></option>
+                        @foreach ($categories as $category)
+                            <option
+                                value="{{ $category->id }}"
+                                @selected($category->id === $forumCategoryId)
+                            >
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <label class="form__label form__label--floating" for="forum_category_id">
+                        Forum Category
                     </label>
                 </p>
                 <div class="form__group">
@@ -90,7 +90,6 @@
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Groups</th>
-                                    <th x-bind="columnHeader">View the forum</th>
                                     <th x-bind="columnHeader">Read topics</th>
                                     <th x-bind="columnHeader">Start new topic</th>
                                     <th x-bind="columnHeader">Reply to topics</th>
@@ -99,46 +98,52 @@
                             <tbody>
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <th x-bind="rowHeader">{{ $group->name }}</th>
+                                        <th x-bind="rowHeader">
+                                            {{ $group->name }}
+                                            <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][group_id]"
+                                                value="{{ $group->id }}"
+                                            />
+                                        </th>
                                         <td>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="permissions[{{ $group->id }}][show_forum]"
-                                                    value="1"
-                                                    checked
-                                                />
-                                            </label>
+                                            <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][read_topic]"
+                                                value="0"
+                                            />
+                                            <input
+                                                type="checkbox"
+                                                name="permissions[{{ $loop->index }}][read_topic]"
+                                                value="1"
+                                                checked
+                                            />
                                         </td>
                                         <td>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="permissions[{{ $group->id }}][read_topic]"
-                                                    value="1"
-                                                    checked
-                                                />
-                                            </label>
+                                            <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][start_topic]"
+                                                value="0"
+                                            />
+                                            <input
+                                                type="checkbox"
+                                                name="permissions[{{ $loop->index }}][start_topic]"
+                                                value="1"
+                                                checked
+                                            />
                                         </td>
                                         <td>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="permissions[{{ $group->id }}][start_topic]"
-                                                    value="1"
-                                                    checked
-                                                />
-                                            </label>
-                                        </td>
-                                        <td>
-                                            <label>
-                                                <input
-                                                    type="checkbox"
-                                                    name="permissions[{{ $group->id }}][reply_topic]"
-                                                    value="1"
-                                                    checked
-                                                />
-                                            </label>
+                                            <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][reply_topic]"
+                                                value="0"
+                                            />
+                                            <input
+                                                type="checkbox"
+                                                name="permissions[{{ $loop->index }}][reply_topic]"
+                                                value="1"
+                                                checked
+                                            />
                                         </td>
                                     </tr>
                                 @endforeach

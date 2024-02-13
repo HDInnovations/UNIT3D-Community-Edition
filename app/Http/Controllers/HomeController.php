@@ -424,7 +424,7 @@ class HomeController extends Controller
                 $expiresAt,
                 fn () => Topic::query()
                     ->with('user', 'user.group', 'latestPoster')
-                    ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                    ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
                     ->latest()
                     ->take(5)
                     ->get()
@@ -447,11 +447,7 @@ class HomeController extends Controller
                                 'forumPermissions',
                                 fn ($query) => $query
                                     ->where('group_id', '=', auth()->user()->group_id)
-                                    ->where(
-                                        fn ($query) => $query
-                                            ->where('show_forum', '!=', 1)
-                                            ->orWhere('read_topic', '!=', 1)
-                                    )
+                                    ->where('read_topic', '!=', 1)
                             )
                             ->select('id')
                     )

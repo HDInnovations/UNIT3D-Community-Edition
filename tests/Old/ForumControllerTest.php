@@ -71,17 +71,12 @@ final class ForumControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        // This Forum does not have a parent, which makes it a proper Forum
-        // (and not a "Forum Category").
-
-        $forum = Forum::factory()->create([
-            'parent_id'         => 0,
-            'last_post_user_id' => $user->id,
-        ]);
+        $forum = Forum::factory()->create();
 
         $permissions = Permission::factory()->create([
             'forum_id'   => $forum->id,
-            'show_forum' => true,
+            'group_id'   => $user->group_id,
+            'read_topic' => true,
         ]);
 
         $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))

@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $name
  * @property string|null                     $slug
  * @property string|null                     $description
- * @property int|null                        $parent_id
+ * @property int                             $forum_category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -59,35 +59,13 @@ class Forum extends Model
     }
 
     /**
-     * Has Many Sub Topics.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
-     */
-    public function sub_topics(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        $children = $this->forums->pluck('id')->toArray();
-
-        return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
-    }
-
-    /**
-     * Has Many Sub Forums.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
-     */
-    public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(self::class, 'parent_id', 'id');
-    }
-
-    /**
      * Returns The Category In Which The Forum Is Located.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ForumCategory, self>
      */
-    public function category(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasOne(self::class, 'id', 'parent_id');
+        return $this->belongsTo(ForumCategory::class, 'forum_category_id');
     }
 
     /**
@@ -117,7 +95,7 @@ class Forum extends Model
      */
     public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Topic::class, 'last_post_topic_id');
+        return $this->belongsTo(Topic::class, 'last_topic_id');
     }
 
     /**
@@ -200,8 +178,9 @@ class Forum extends Model
      */
     public function getPermission(): ?Permission
     {
-        $group = auth()->check() ? auth()->user()->group : Group::where('slug', 'guest')->first();
-
-        return $group->permissions->where('forum_id', $this->id)->first();
+        return Permission::query()
+            ->where('group_id', '=', auth()->user()->group_id)
+            ->where('forum_id', '=', $this->id)
+            ->first();
     }
 }

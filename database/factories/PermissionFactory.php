@@ -34,7 +34,6 @@ class PermissionFactory extends Factory
         return [
             'forum_id'    => Forum::factory(),
             'group_id'    => Group::factory(),
-            'show_forum'  => $this->faker->boolean(),
             'read_topic'  => $this->faker->boolean(),
             'reply_topic' => $this->faker->boolean(),
             'start_topic' => $this->faker->boolean(),

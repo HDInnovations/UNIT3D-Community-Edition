@@ -13,7 +13,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Forum;
+use App\Models\ForumCategory;
 use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -28,7 +28,7 @@ class TopicSearch extends Component
     public string $label = '';
     public string $state = '';
     public string $subscribed = '';
-    public String $forumId = '';
+    public string $forumId = '';
 
     /**
      * @var array<mixed>
@@ -54,18 +54,17 @@ class TopicSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, Forum>
+     * @return \Illuminate\Database\Eloquent\Collection<int, ForumCategory>
      */
-    final public function getForumCategoriesProperty(): \Illuminate\Support\Collection
+    final public function getForumCategoriesProperty(): \Illuminate\Database\Eloquent\Collection
     {
-        return Forum::query()
+        return ForumCategory::query()
             ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ])
-            ->whereNull('parent_id')
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
-            ->get();
+            ->get()
+            ->filter(fn ($category) => $category->forums->isNotEmpty());
     }
 
     /**
@@ -76,7 +75,7 @@ class TopicSearch extends Component
         return Topic::query()
             ->select('topics.*')
             ->with('user', 'user.group', 'latestPoster', 'forum')
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))
@@ -90,11 +89,7 @@ class TopicSearch extends Component
                 fn ($query) => $query
                     ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
             )
-            ->when($this->forumId !== '', fn ($query) => $query->where(
-                fn ($query) => $query
-                    ->where('forum_id', '=', $this->forumId)
-                    ->orWhereIn('forum_id', Forum::where('parent_id', '=', $this->forumId)->select('id'))
-            ))
+            ->when($this->forumId !== '', fn ($query) => $query->where('forum_id', '=', $this->forumId))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
     }

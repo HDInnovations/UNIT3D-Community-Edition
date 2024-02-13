@@ -103,7 +103,7 @@ class PostController extends Controller
         $realUrl = sprintf('/forums/topics/%s/posts/%s', $topic->id, $post->id);
         $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
-        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $topic->notifyStaffers($user, $topic, $post);
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
@@ -151,7 +151,6 @@ class PostController extends Controller
         $post = Post::find($id);
         $topic = $post->topic()
             ->whereRelation('forumPermissions', [
-                ['show_forum', '=', 1],
                 ['read_topic', '=', 1],
                 ['reply_topic', '=', 1],
                 ['group_id', '=', $user->group_id],

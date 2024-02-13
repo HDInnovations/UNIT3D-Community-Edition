@@ -27,7 +27,7 @@ class TopicController extends Controller
             'user'   => $user,
             'topics' => $user->topics()
                 ->with(['user.group', 'latestPoster', 'forum:id,name'])
-                ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
                 ->latest()
                 ->paginate(25),
         ]);

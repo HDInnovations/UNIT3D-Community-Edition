@@ -33,34 +33,39 @@ test('rules', function (): void {
         'position' => [
             'required',
         ],
+        'slug' => [
+            'required',
+        ],
         'description' => [
             'required',
         ],
-        'parent_id' => [
-            'sometimes',
-            'nullable',
-            'integer',
+        'forum_category_id' => [
+            'required',
+            'exists:forum_categories,id',
         ],
         'permissions' => [
+            'required',
             'array',
         ],
         'permissions.*' => [
+            'required',
+            'array:group_id,read_topic,reply_topic,start_topic',
+        ],
+        'permissions.*.group_id' => [
+            'required',
             'exists:groups,id',
         ],
-        'permissions.*.show_forum' => [
-            'boolean',
-        ],
         'permissions.*.read_topic' => [
+            'required',
             'boolean',
         ],
         'permissions.*.reply_topic' => [
+            'required',
             'boolean',
         ],
         'permissions.*.start_topic' => [
+            'required',
             'boolean',
-        ],
-        'forum_type' => [
-            'in:category,forum',
         ],
     ], $actual);
 });

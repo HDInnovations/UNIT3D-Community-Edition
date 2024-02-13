@@ -801,46 +801,6 @@ parameters:
 			path: app/Http/Controllers/Staff/FlushController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$read_topic \\(int\\) does not accept bool\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$read_topic \\(int\\) does not accept false\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$reply_topic \\(int\\) does not accept bool\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$reply_topic \\(int\\) does not accept false\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$show_forum \\(int\\) does not accept bool\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$show_forum \\(int\\) does not accept false\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$start_topic \\(int\\) does not accept bool\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Permission\\:\\:\\$start_topic \\(int\\) does not accept false\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ForumController.php
-
-		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
 			count: 3
 			path: app/Http/Controllers/Staff/RssController.php

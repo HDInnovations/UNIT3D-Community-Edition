@@ -42,15 +42,15 @@
                             wire:model="forumId"
                         >
                             <option value="">Any</option>
-                            @foreach ($forumCategories->sortBy('position') as $category)
-                                <option value="{{ $category->id }}">
-                                    {{ $category->name }}
-                                </option>
-                                @foreach ($category->forums->sortBy('position') as $forum)
-                                    <option value="{{ $forum->id }}">
-                                        &raquo; {{ $forum->name }}
-                                    </option>
-                                @endforeach
+
+                            @foreach ($forumCategories as $category)
+                                <optgroup label="{{ $category->name }}">
+                                    @foreach ($category->forums as $forum)
+                                        <option value="{{ $forum->id }}">
+                                            {{ $forum->name }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
                             @endforeach
                         </select>
                         <label class="form__label form__label--floating" for="category">

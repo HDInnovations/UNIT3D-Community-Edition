@@ -31,9 +31,9 @@
                     {{ $category->name }}
                 </a>
             </h2>
-            @if ($category->forums->count() > 0)
+            @if ($category->forums->isNotEmpty())
                 <ul class="subforum-listings">
-                    @foreach ($category->forums->sortBy('position') as $forum)
+                    @foreach ($category->forums as $forum)
                         <li class="subforum-listings__item">
                             <x-forum.subforum-listing :subforum="$forum" />
                         </li>

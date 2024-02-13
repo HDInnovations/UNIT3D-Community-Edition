@@ -7,23 +7,22 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 namespace Database\Factories;
 
-use App\Models\Application;
+use App\Models\ForumCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\ApplicationImageProof;
 
-/** @extends Factory<ApplicationImageProof> */
-class ApplicationImageProofFactory extends Factory
+/** @extends Factory<ForumCategory> */
+class ForumCategoryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = ApplicationImageProof::class;
+    protected $model = ForumCategory::class;
 
     /**
      * Define the model's default state.
@@ -31,8 +30,10 @@ class ApplicationImageProofFactory extends Factory
     public function definition(): array
     {
         return [
-            'application_id' => Application::factory(),
-            'image'          => $this->faker->imageUrl(),
+            'position'    => $this->faker->numberBetween(0, 65535),
+            'name'        => $this->faker->name(),
+            'slug'        => $this->faker->slug(),
+            'description' => $this->faker->text(),
         ];
     }
 }

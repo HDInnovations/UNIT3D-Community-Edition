@@ -46,7 +46,7 @@ class UserFactory extends Factory
             'active'              => true,
             'uploaded'            => $this->faker->randomNumber(),
             'downloaded'          => $this->faker->randomNumber(),
-            'image'               => $this->faker->image(),
+            'image'               => null,
             'title'               => $this->faker->sentence(),
             'about'               => $this->faker->text(),
             'signature'           => $this->faker->text(),
