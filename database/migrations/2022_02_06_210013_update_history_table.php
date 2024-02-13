@@ -16,10 +16,10 @@ return new class () extends Migration {
             $table->index(['user_id', 'torrent_id']);
         });
 
-        foreach (DB::table('history')->get() as $history) {
-            $torrent = DB::table('torrents')->where('info_hash', '=', $history->info_hash)->pluck('id');
-            $history->torrent_id = $torrent[0];
-            $history->save();
-        }
+        DB::table('history')
+            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->update([
+                'torrent_id' => DB::raw('torrents.id')
+            ]);
     }
 };

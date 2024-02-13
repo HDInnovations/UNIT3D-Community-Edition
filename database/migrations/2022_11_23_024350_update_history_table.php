@@ -29,12 +29,13 @@ return new class () extends Migration {
 
             $merged = $records->first();
 
-            $merged->seedtime = $records->sum('seedtime');
-            $merged->downloaded = $records->sum('downloaded');
-            $merged->actual_downloaded = $records->sum('actual_downloaded');
-            $merged->uploaded = $records->sum('uploaded');
-            $merged->actual_uploaded = $records->sum('actual_uploaded');
-            $merged->save();
+            DB::table('history')->where('id', '=', $merged->id)->update([
+                'seedtime'          => $records->sum('seedtime'),
+                'downloaded'        => $records->sum('downloaded'),
+                'actual_downloaded' => $records->sum('actual_downloaded'),
+                'uploaded'          => $records->sum('uploaded'),
+                'actual_uploaded'   => $records->sum('actual_uploaded'),
+            ]);
 
             foreach ($records->where('id', '!=', $merged->id) as $record) {
                 $record->delete();
