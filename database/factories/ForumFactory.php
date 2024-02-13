@@ -13,6 +13,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ForumCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Forum;
 
@@ -40,7 +41,7 @@ class ForumFactory extends Factory
             'name'                 => $this->faker->name(),
             'slug'                 => $this->faker->slug(),
             'description'          => $this->faker->text(),
-            'parent_id'            => $this->faker->randomDigitNotNull(),
+            'forum_category_id'    => ForumCategory::factory(),
         ];
     }
 }

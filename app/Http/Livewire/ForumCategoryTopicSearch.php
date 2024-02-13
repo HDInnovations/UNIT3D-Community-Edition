@@ -14,6 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Forum;
+use App\Models\ForumCategory;
 use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -28,7 +29,7 @@ class ForumCategoryTopicSearch extends Component
     public string $label = '';
     public string $state = '';
     public string $subscribed = '';
-    public Forum $category;
+    public ForumCategory $category;
 
     /**
      * @var array<mixed>
@@ -42,7 +43,7 @@ class ForumCategoryTopicSearch extends Component
         'subscribed'    => ['except' => ''],
     ];
 
-    final public function mount(Forum $category): void
+    final public function mount(ForumCategory $category): void
     {
         $this->category = $category;
     }
@@ -64,8 +65,8 @@ class ForumCategoryTopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster')
-            ->whereIn('forum_id', Forum::where('parent_id', '=', $this->category->id)->select('id'))
+            ->with('user', 'user.group', 'latestPoster', 'forum')
+            ->whereIn('forum_id', Forum::where('forum_category_id', '=', $this->category->id)->select('id'))
             ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))

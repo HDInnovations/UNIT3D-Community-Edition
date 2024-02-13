@@ -33,32 +33,38 @@ test('rules', function (): void {
         'position' => [
             'required',
         ],
+        'slug' => [
+            'required',
+        ],
         'description' => [
             'required',
         ],
-        'parent_id' => [
-            'sometimes',
-            'nullable',
-            'integer',
+        'forum_category_id' => [
+            'required',
+            'exists:forum_categories,id',
         ],
         'permissions' => [
-            'sometimes',
+            'required',
             'array',
         ],
         'permissions.*' => [
-            'sometimes',
+            'required',
+            'array:group_id,read_topic,reply_topic,start_topic',
+        ],
+        'permissions.*.group_id' => [
+            'required',
             'exists:groups,id',
         ],
         'permissions.*.read_topic' => [
-            'sometimes',
+            'required',
             'boolean',
         ],
         'permissions.*.reply_topic' => [
-            'sometimes',
+            'required',
             'boolean',
         ],
         'permissions.*.start_topic' => [
-            'sometimes',
+            'required',
             'boolean',
         ],
     ], $actual);
