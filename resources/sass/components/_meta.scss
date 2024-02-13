@@ -21,6 +21,7 @@
     max-height: 150px;
     overflow-y: auto;
     color: var(--meta-description-fg);
+    margin-top: 2px;
 }
 
 .meta__backdrop {
@@ -201,7 +202,7 @@
 .meta__ids {
     grid-area: ids;
     display: flex;
-    column-gap: 12px;
+    column-gap: 0;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -213,11 +214,10 @@
 }
 
 .meta-id-tag {
-    padding: 2px 8px;
     color: var(--meta-id-tag-fg);
-    font-size: 13px;
+    font-size: 20px;
     display: inline-block;
-    padding: 6px 8px;
+    padding: 0 10px;
     white-space: nowrap;
     background: var(--meta-id-tag-bg);
 }
