@@ -29,6 +29,7 @@ class TopicSearch extends Component
     public string $state = '';
     public string $subscribed = '';
     public string $forumId = '';
+    public string $read = '';
 
     /**
      * @var array<mixed>
@@ -37,6 +38,7 @@ class TopicSearch extends Component
         'search'        => ['except' => ''],
         'sortField'     => ['except' => 'last_post_created_at'],
         'sortDirection' => ['except' => 'desc'],
+        'read'          => ['except' => ''],
         'label'         => ['except' => ''],
         'state'         => ['except' => ''],
         'subscribed'    => ['except' => ''],
@@ -74,7 +76,12 @@ class TopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster', 'forum')
+            ->with([
+                'user.group',
+                'latestPoster',
+                'forum',
+                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+            ])
             ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
@@ -88,6 +95,31 @@ class TopicSearch extends Component
                 $this->subscribed === 'exclude',
                 fn ($query) => $query
                     ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
+            )
+            ->when(
+                $this->read === 'some',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '>', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'all',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '=', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'none',
+                fn ($query) => $query
+                    ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
             )
             ->when($this->forumId !== '', fn ($query) => $query->where('forum_id', '=', $this->forumId))
             ->orderBy($this->sortField, $this->sortDirection)

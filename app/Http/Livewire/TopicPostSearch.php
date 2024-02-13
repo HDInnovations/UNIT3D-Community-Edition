@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Post;
 use App\Models\Topic;
+use App\Models\TopicRead;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -53,7 +55,7 @@ class TopicPostSearch extends Component
      */
     final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Post::query()
+        $posts = Post::query()
             ->select('posts.*')
             ->with('user', 'user.group')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
@@ -70,6 +72,21 @@ class TopicPostSearch extends Component
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderBy('created_at')
             ->paginate(25);
+
+        if ($lastPost = $posts->getCollection()->last()) {
+            TopicRead::upsert([[
+                'topic_id'          => $this->topic->id,
+                'user_id'           => auth()->id(),
+                'last_read_post_id' => $lastPost->id,
+            ]], [
+                'topic_id',
+                'user_id'
+            ], [
+                'last_read_post_id' => DB::raw('GREATEST(last_read_post_id, VALUES(last_read_post_id))')
+            ]);
+        }
+
+        return $posts;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
