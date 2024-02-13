@@ -709,6 +709,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has Many Permissions through Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
+     */
+    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Permission::class, 'group_id', 'group_id');
+    }
+
+    /**
      * Has many free leech tokens.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken>
