@@ -13,7 +13,6 @@
 
 namespace App\Models;
 
-use App\Notifications\NewTopic;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -136,41 +135,6 @@ class Forum extends Model
     public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, Subscription::class);
-    }
-
-    /**
-     * Notify Subscribers Of A Forum When New Topic Is Made.
-     */
-    public function notifySubscribers(User $poster, Topic $topic): void
-    {
-        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
-            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
-            ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
-            ->where('subscriptions.forum_id', '=', $topic->forum_id)
-            ->whereRaw('(user_notifications.show_subscription_forum = 1 OR user_notifications.show_subscription_forum is null)')
-            ->groupBy('users.id')->get();
-
-        foreach ($subscribers as $subscriber) {
-            if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_forum')) {
-                $subscriber->notify(new NewTopic('forum', $poster, $topic));
-            }
-        }
-    }
-
-    /**
-     * Notify Staffers When New Staff Topic Is Made.
-     */
-    public function notifyStaffers(User $poster, Topic $topic): void
-    {
-        $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
-            ->select('users.id')
-            ->where('users.id', '<>', $poster->id)
-            ->where('groups.is_modo', 1)
-            ->get();
-
-        foreach ($staffers as $staffer) {
-            $staffer->notify(new NewTopic('staff', $poster, $topic));
-        }
     }
 
     /**

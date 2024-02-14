@@ -28,6 +28,7 @@ use App\Achievements\UserMadeFirstPost;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
+use App\Notifications\NewPost;
 use App\Notifications\NewPostTag;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
@@ -104,16 +105,41 @@ class PostController extends Controller
         $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
-            $topic->notifyStaffers($user, $topic, $post);
+            $staffers = User::query()
+                ->where('id', '!=', $user->id)
+                ->whereRelation('group', 'is_modo', '=', true)
+                ->get();
+
+            foreach ($staffers as $staffer) {
+                $staffer->notify(new NewPost('staff', $user, $post));
+            }
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
 
             // Notify All Subscribers Of New Reply
-            if ($topic->first_post_user_id != $user->id) {
-                $topic->notifyStarter($user, $topic, $post);
+            if ($topic->first_post_user_id !== $user->id && $user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
+                $user->notify(new NewPost('topic', $user, $post));
             }
 
-            $topic->notifySubscribers($user, $topic, $post);
+            $subscribers = User::query()
+                ->where('id', '!=', $user->id)
+                ->whereRelation('subscriptions', 'topic_id', '=', $topic->id)
+                ->whereRelation('forumPermissions', [
+                    ['read_topic', '=', 1],
+                    ['forum_id', '=', $topic->forum_id],
+                ])
+                ->where(
+                    fn ($query) => $query
+                        ->whereRelation('notification', 'show_subscription_topic', '=', true)
+                        ->orDoesntHave('notification')
+                )
+                ->get();
+
+            foreach ($subscribers as $subscriber) {
+                if ($subscriber->acceptsNotification($user, $subscriber, 'subscription', 'show_subscription_topic')) {
+                    $subscriber->notify(new NewPost('subscription', $user, $post));
+                }
+            }
 
             // Achievements
             $user->unlock(new UserMadeFirstPost());

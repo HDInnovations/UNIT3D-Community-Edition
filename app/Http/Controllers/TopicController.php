@@ -29,6 +29,8 @@ use App\Models\Forum;
 use App\Models\Post;
 use App\Models\Subscription;
 use App\Models\Topic;
+use App\Models\User;
+use App\Notifications\NewTopic;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Exception;
@@ -151,10 +153,36 @@ class TopicController extends Controller
         $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
-            $forum->notifyStaffers($user, $topic);
+            $staffers = User::query()
+                ->where('id', '!=', $user->id)
+                ->whereRelation('group', 'is_modo', '=', true)
+                ->get();
+
+            foreach ($staffers as $staffer) {
+                $staffer->notify(new NewTopic('staff', $user, $topic));
+            }
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
-            $forum->notifySubscribers($user, $topic);
+
+            $subscribers = User::query()
+                ->where('id', '!=', $topic->first_post_user_id)
+                ->whereRelation('subscriptions', 'forum_id', '=', $topic->forum_id)
+                ->whereRelation('forumPermissions', [
+                    ['read_topic', '=', 1],
+                    ['forum_id', '=', $topic->forum_id],
+                ])
+                ->where(
+                    fn ($query) => $query
+                        ->whereRelation('notification', 'show_subscription_forum', '=', true)
+                        ->orDoesntHave('notification')
+                )
+                ->get();
+
+            foreach ($subscribers as $subscriber) {
+                if ($subscriber->acceptsNotification($user, $subscriber, 'subscription', 'show_subscription_forum')) {
+                    $subscriber->notify(new NewTopic('forum', $user, $topic));
+                }
+            }
 
             //Achievements
             $user->unlock(new UserMadeFirstPost());
