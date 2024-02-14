@@ -398,6 +398,11 @@ Route::middleware('language')->group(function (): void {
             Route::post('/', [App\Http\Controllers\SubscriptionController::class, 'store'])->name('store');
             Route::post('/{id}', [App\Http\Controllers\SubscriptionController::class, 'destroy'])->name('destroy');
         });
+
+        // Catchup System
+        Route::prefix('topic-reads')->name('topic_reads.')->group(function (): void {
+            Route::put('/', [App\Http\Controllers\TopicReadController::class, 'update'])->name('update');
+        });
     });
 
     /*

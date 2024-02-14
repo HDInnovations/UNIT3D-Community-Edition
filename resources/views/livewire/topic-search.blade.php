@@ -19,6 +19,26 @@
     </div>
     <aside>
         <section class="panelV2">
+            <h2 class="panel__heading">
+                {{ __('common.actions') }}
+            </h2>
+            <div class="panel__body">
+                <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="catchup_type" value="all" />
+                    <p class="form__group form__group--horizontal">
+                        <button
+                            class="form__button form__button--filled form__button--centered"
+                            title="Mark all topics as read"
+                        >
+                            Mark all read
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </section>
+        <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
             <div class="panel__body">
                 <form class="form" x-data x-on:submit.prevent>
@@ -56,6 +76,15 @@
                         <label class="form__label form__label--floating" for="category">
                             {{ __('common.forum') }}
                         </label>
+                    </p>
+                    <p class="form__group">
+                        <select id="read" class="form__select" name="read" wire:model="read">
+                            <option value="" selected default>Any</option>
+                            <option value="some">With unread posts</option>
+                            <option value="none">Newly added</option>
+                            <option value="all">Fully read</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="read">Activity</label>
                     </p>
                     <p class="form__group">
                         <select id="sorting" class="form__select" name="sorting" wire:model="label">

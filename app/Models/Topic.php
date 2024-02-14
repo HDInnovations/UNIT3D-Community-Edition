@@ -102,6 +102,16 @@ class Topic extends Model
     }
 
     /**
+     * Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TopicRead>
+     */
+    public function reads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TopicRead::class);
+    }
+
+    /**
      * Has Many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>

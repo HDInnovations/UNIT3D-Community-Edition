@@ -2,12 +2,31 @@
     'topic',
 ])
 
-<article class="topic-listing">
+<article
+    @class([
+        'topic-listing',
+        'topic-listing--read' => $topic->reads->first()?->last_read_post_id === $topic->last_post_id || $topic->last_post_id < auth()->user()->catchup_post_id,
+        'topic-listing--unread' => $topic->reads->first()?->last_read_post_id !== $topic->last_post_id,
+    ])
+    class="topic-listing"
+>
     <header class="topic-listing__header">
         <h2 class="topic-listing__heading">
-            <a class="topic-listing__link" href="{{ route('topics.show', ['id' => $topic->id]) }}">
-                {{ $topic->name }}
-            </a>
+            @if ($topic->reads->isEmpty() || $topic->last_post_id > auth()->user()->catchup_post_id)
+                <a
+                    class="topic-listing__link"
+                    href="{{ route('topics.show', ['id' => $topic->id]) }}"
+                >
+                    {{ $topic->name }}
+                </a>
+            @else
+                <a
+                    class="topic-listing__link"
+                    href="{{ route('topics.permalink', ['topicId' => $topic->id, 'postId' => max(auth()->user()->catchup_post_id, $topic->reads->first()?->last_read_post_id ?? 0)]) }}"
+                >
+                    {{ $topic->name }}
+                </a>
+            @endif
         </h2>
         <ul class="topic-tags">
             @if ($topic->approved)
@@ -38,15 +57,29 @@
                 <li class="topic-tag topic-tag--implemented">{{ __('forum.implemented') }}</li>
             @endif
         </ul>
-        <address class="topic-listing__author">
-            @if ($topic->user === null)
-                {{ __('common.unknown') }}
-            @else
-                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                    {{ $topic->user->username }}
+        <article class="topic-listing__created-post">
+            <address class="topic-listing__created-author">
+                @if ($topic->user === null)
+                    {{ __('common.unknown') }}
+                @else
+                    <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                        {{ $topic->user->username }}
+                    </a>
+                @endif
+            </address>
+            <time
+                class="topic-listing__created-datetime"
+                datetime="{{ $topic->created_at }}"
+                title="{{ $topic->created_at }}"
+            >
+                <a
+                    class="topic-listing__created-link"
+                    href="{{ route('topics.show', ['id' => $topic->id]) }}"
+                >
+                    {{ $topic->created_at?->diffForHumans() ?? __('common.unknown') }}
                 </a>
-            @endif
-        </address>
+            </time>
+        </article>
     </header>
     <figure class="topic-listing__figure">
         @if ($topic->pinned || $topic->state === 'close')

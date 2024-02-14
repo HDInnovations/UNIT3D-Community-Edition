@@ -29,6 +29,7 @@ class ForumTopicSearch extends Component
     public string $label = '';
     public string $state = '';
     public string $subscribed = '';
+    public string $read = '';
     public Forum $forum;
     public ?Subscription $subscription;
 
@@ -39,6 +40,7 @@ class ForumTopicSearch extends Component
         'search'        => ['except' => ''],
         'sortField'     => ['except' => 'last_post_created_at'],
         'sortDirection' => ['except' => 'desc'],
+        'read'          => ['except' => ''],
         'label'         => ['except' => ''],
         'state'         => ['except' => ''],
         'subscribed'    => ['except' => ''],
@@ -67,7 +69,12 @@ class ForumTopicSearch extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster', 'forum:id,name')
+            ->with([
+                'user.group',
+                'latestPoster',
+                'forum:id,name',
+                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+            ])
             ->where('topics.forum_id', '=', $this->forum->id)
             ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
@@ -82,6 +89,31 @@ class ForumTopicSearch extends Component
                 $this->subscribed === 'exclude',
                 fn ($query) => $query
                     ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
+            )
+            ->when(
+                $this->read === 'some',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '>', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'all',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '=', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'none',
+                fn ($query) => $query
+                    ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
             )
             ->orderByDesc('pinned')
             ->orderBy($this->sortField, $this->sortDirection)

@@ -28,7 +28,12 @@ class SubscribedTopic extends Component
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster', 'forum')
+            ->with([
+                'user.group',
+                'latestPoster',
+                'forum',
+                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+            ])
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('last_post_created_at')
