@@ -14,12 +14,12 @@
 
 namespace App\Jobs;
 
-use App\DTO\AnnouncePeerDTO;
 use App\DTO\AnnounceQueryDTO;
 use App\DTO\AnnounceTorrentDTO;
 use App\DTO\AnnounceUserDTO;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
+use App\Models\Peer;
 use App\Models\PersonalFreeleech;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,7 +44,6 @@ class ProcessAnnounce implements ShouldQueue
         public AnnounceQueryDTO $queries,
         public AnnounceUserDTO $user,
         public AnnounceTorrentDTO $torrent,
-        public ?AnnouncePeerDTO $peer,
         public bool $visible,
     ) {
     }
@@ -67,11 +66,18 @@ class ProcessAnnounce implements ShouldQueue
         // Set Variables
         $event = $this->queries->event;
 
-        $isNewPeer = $this->peer === null;
+        $peer = Peer::query()
+            ->select(['active', 'left', 'uploaded', 'downloaded'])
+            ->where('user_id', '=', $this->user->id)
+            ->where('torrent_id', '=', $this->torrent->id)
+            ->where('peer_id', '=', $this->queries->getPeerId())
+            ->first();
+
+        $isNewPeer = $peer === null;
 
         // Calculate the change in upload/download compared to the last announce
-        $uploadedDelta = max($this->queries->uploaded - ($this->peer?->uploaded ?? 0), 0);
-        $downloadedDelta = max($this->queries->downloaded - ($this->peer?->downloaded ?? 0), 0);
+        $uploadedDelta = max($this->queries->uploaded - ($peer?->uploaded ?? 0), 0);
+        $downloadedDelta = max($this->queries->downloaded - ($peer?->downloaded ?? 0), 0);
 
         // If no peer record found then set deltas to 0 and change to `started` event
         if ($isNewPeer) {
@@ -229,7 +235,7 @@ class ProcessAnnounce implements ShouldQueue
 
         // Torrent updates
 
-        $isNewPeer = $isNewPeer || !$this->peer->active;
+        $isNewPeer = $isNewPeer || !$peer->active;
         $isDeadPeer = $event === 'stopped';
         $isSeeder = $this->queries->left === 0;
 
@@ -237,8 +243,8 @@ class ProcessAnnounce implements ShouldQueue
         $newLeech = $isNewPeer && !$isDeadPeer && !$isSeeder;
         $stoppedSeed = !$isNewPeer && $isDeadPeer && $isSeeder;
         $stoppedLeech = !$isNewPeer && $isDeadPeer && !$isSeeder;
-        $leechBecomesSeed = !$isNewPeer && !$isDeadPeer && $isSeeder && $this->peer->left > 0;
-        $seedBecomesLeech = !$isNewPeer && !$isDeadPeer && !$isSeeder && $this->peer->left === 0;
+        $leechBecomesSeed = !$isNewPeer && !$isDeadPeer && $isSeeder && $peer->left > 0;
+        $seedBecomesLeech = !$isNewPeer && !$isDeadPeer && !$isSeeder && $peer->left === 0;
 
         $seederCountDelta = ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
         $leecherCountDelta = ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);

@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DTO\AnnounceGroupDTO;
-use App\DTO\AnnouncePeerDTO;
 use App\DTO\AnnounceQueryDTO;
 use App\DTO\AnnounceTorrentDTO;
 use App\DTO\AnnounceUserDTO;
@@ -642,22 +641,11 @@ final class AnnounceController extends Controller
      */
     private function processAnnounceJob(AnnounceQueryDTO $queries, User $user, Group $group, Torrent $torrent, bool $visible): void
     {
-        $peer = null;
-
-        foreach ($torrent->peers as $torrentPeer) {
-            if ($torrentPeer->user_id === $user->id && $torrentPeer->peer_id === $queries->getPeerId()) {
-                $peer = $torrentPeer;
-
-                break;
-            }
-        }
-
         $groupDto = new AnnounceGroupDTO((bool) $group->is_freeleech, (bool) $group->is_double_upload, (bool) $group->is_immune);
         $userDto = new AnnounceUserDTO($user->id, $groupDto);
         $torrentDto = new AnnounceTorrentDTO($torrent->id, $torrent->free, $torrent->doubleup);
-        $previousPeerDto = $peer === null ? null : new AnnouncePeerDTO($peer->active, $peer->uploaded, $peer->downloaded, $peer->left);
 
-        ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $previousPeerDto, $visible);
+        ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $visible);
     }
 
     private function generateFailedAnnounceResponse(TrackerException $trackerException): string
