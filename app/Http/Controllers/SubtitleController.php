@@ -94,7 +94,7 @@ class SubtitleController extends Controller
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle
-        Storage::disk('subtitles')->put($filename, $subtitleFile);
+        Storage::disk('subtitles')->putFileAs('', $subtitleFile, $filename);
 
         // Announce To Shoutbox
         if (!$subtitle->anon) {
