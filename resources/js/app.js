@@ -35,3 +35,8 @@ if (token) {
 // Sweet Alert
 import Swal from 'sweetalert2';
 window.Swal = Swal;
+
+import.meta.glob([
+    '/public/img/pipes/**',
+    '/resources/sass/vendor/webfonts/font-awesome/**',
+]);
