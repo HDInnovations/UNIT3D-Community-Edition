@@ -16,7 +16,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        @vite('resources/sass.css')
         @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
