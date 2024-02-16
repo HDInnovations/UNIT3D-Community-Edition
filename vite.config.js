@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue2';
+import purge from '@erbelion/vite-plugin-laravel-purgecss'
 
 export default defineConfig({
   plugins: [
@@ -31,6 +32,10 @@ export default defineConfig({
         'resources/js/vendor/virtual-select.js',
       ],
       refresh: true,
+    }),
+    purge({
+      templates: ['blade'],
+      paths: ['resources/views/**/*.blade.php']
     }),
     vue({
       template: {
