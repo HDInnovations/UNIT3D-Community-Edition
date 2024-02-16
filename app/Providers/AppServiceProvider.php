@@ -85,5 +85,9 @@ class AppServiceProvider extends ServiceProvider
         Vite::useScriptTagAttributes([
             'crossorigin' => 'anonymous',
         ]);
+
+        Vite::useStyleTagAttributes([
+            'crossorigin' => 'anonymous',
+        ]);
     }
 }
