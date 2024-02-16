@@ -68,9 +68,7 @@
         @include('partials.footer')
 
         @vite('resources/js/app.js')
-        @vite('resources/js/unit3d/tmdb.js')
-        @vite('resources/js/unit3d/parser.js')
-        @vite('resources/js/unit3d/helper.js')
+        @vite('resources/js/unit3d/unit3d.js')
         @vite('resources/js/vendor/alpine.js')
         @vite('resources/js/vendor/virtual-select.js')
 
