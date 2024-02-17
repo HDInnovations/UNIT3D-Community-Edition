@@ -56,8 +56,8 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
       - name: Install NPM Dependencies
         run: npm install
-      - name: Build Assets Via Mix
-        run: npx mix -p
+      - name: Compile Assets (Vite)
+        run: npm run build
       - name: Generate Application Key
         run: php artisan key:generate
       - name: Clear Application Cache

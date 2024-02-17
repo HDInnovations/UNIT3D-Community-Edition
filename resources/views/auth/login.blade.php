@@ -20,7 +20,7 @@
         @show
         <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" crossorigin="anonymous" />
+        @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
         <!-- Do NOT Change! For Jackett Support -->

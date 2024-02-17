@@ -613,5 +613,5 @@
 @endif
 
 @section('javascripts')
-    <script src="{{ mix('js/imgbb.js') }}" crossorigin="anonymous"></script>
+    @vite('resources/js/unit3d/imgbb.js')
 @endsection

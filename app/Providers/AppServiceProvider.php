@@ -22,6 +22,7 @@ use App\Models\User;
 use App\Observers\TorrentObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
@@ -79,5 +80,14 @@ class AppServiceProvider extends ServiceProvider
                 return true;
             }
         );
+
+        // Add attributes to vite scripts and styles
+        Vite::useScriptTagAttributes([
+            'crossorigin' => 'anonymous',
+        ]);
+
+        Vite::useStyleTagAttributes([
+            'crossorigin' => 'anonymous',
+        ]);
     }
 }

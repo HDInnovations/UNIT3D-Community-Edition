@@ -15,167 +15,75 @@
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
 
 @if (auth()->user()->standalone_css === null)
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}" crossorigin="anonymous" />
+    @vite('resources/sass/main.scss')
 
     @switch(auth()->user()->style)
         @case(0)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/light.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_light.scss')
 
             @break
         @case(1)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
 
             @break
         @case(2)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-blue.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-blue.scss')
 
             @break
         @case(3)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-green.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-green.scss')
 
             @break
         @case(4)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-pink.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-pink.scss')
 
             @break
         @case(5)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-purple.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-purple.scss')
 
             @break
         @case(6)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-red.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-red.scss')
 
             @break
         @case(7)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-teal.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-teal.scss')
 
             @break
         @case(8)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/dark-yellow.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_dark-yellow.scss')
 
             @break
         @case(9)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/galactic.css') }}"
-                crossorigin="anonymous"
-            />
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/cosmic-void.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_galactic.scss')
+            @vite('resources/sass/themes/_cosmic-void.scss')
 
             @break
         @case(10)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/nord.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_nord.scss')
 
             @break
         @case(11)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/revel.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_revel.scss')
 
             @break
         @case(12)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/material-design-v3-light.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_material-design-v3-light.scss')
 
             @break
         @case(13)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/material-design-v3-dark.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_material-design-v3-dark.scss')
 
             @break
         @case(14)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/material-design-v3-amoled.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_material-design-v3-amoled.scss')
 
             @break
     @endswitch
