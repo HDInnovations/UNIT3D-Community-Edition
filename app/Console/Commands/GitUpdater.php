@@ -246,7 +246,7 @@ class GitUpdater extends Command
 
         $this->commands([
             'git add .',
-            'git checkout origin/master -- package-lock.json',
+            'git checkout origin/master -- bun.lockb',
             'git checkout origin/master -- composer.lock',
         ]);
     }

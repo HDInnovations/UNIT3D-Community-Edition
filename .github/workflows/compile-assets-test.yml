@@ -10,7 +10,11 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     steps:
       - uses: actions/checkout@v1
-      - name: Install NPM Dependencies
-        run: npm install
+      - name: Configure Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: Install JS Dependencies
+        run: bun install
       - name: Compile Assets (Vite)
-        run: npm run build
+        run: bun run build
