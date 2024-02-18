@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue2';
-import purge from '@erbelion/vite-plugin-laravel-purgecss'
+import purge from '@erbelion/vite-plugin-laravel-purgecss';
 
 export default defineConfig({
   plugins: [

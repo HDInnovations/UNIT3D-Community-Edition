@@ -156,7 +156,7 @@ class GitUpdater extends Command
 
                 $this->setCache();
 
-                if ($this->io->confirm('Compile assets (npx mix -p)', true)) {
+                if ($this->io->confirm('Compile assets (bun run build)', true)) {
                     $this->compile();
                 }
 
@@ -268,11 +268,8 @@ class GitUpdater extends Command
         $this->header('Compiling Assets ...');
 
         $this->commands([
-            'npm install npm -g',
-            'rm -rf node_modules',
-            'npm cache clean --force',
-            'npm install --no-audit',
-            'npx mix -p',
+            'bun install',
+            'bun run build',
         ]);
 
         $this->done();
