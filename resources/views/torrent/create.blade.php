@@ -613,5 +613,8 @@
 @endif
 
 @section('javascripts')
-    @vite('resources/js/unit3d/imgbb.js')
+    <script src="{{ asset('build/unit3d/tmdb.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/parser.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/helper.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/imgbb.js') }}" crossorigin="anonymous"></script>
 @endsection
