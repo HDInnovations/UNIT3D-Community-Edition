@@ -27,6 +27,13 @@ class TopicRead extends Model
     protected $guarded = [];
 
     /**
+     * Indicates If The Model Should Be Timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
