@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue2';
-import purge from '@erbelion/vite-plugin-laravel-purgecss'
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
@@ -26,16 +26,21 @@ export default defineConfig({
         'resources/sass/themes/_revel.scss',
         'resources/js/app.js',
         'resources/js/unit3d/chat.js',
-        'resources/js/unit3d/unit3d.js',
-        'resources/js/unit3d/imgbb.js',
         'resources/js/vendor/alpine.js',
-        'resources/js/vendor/virtual-select.js',
       ],
       refresh: true,
     }),
-    purge({
-      templates: ['blade'],
-      paths: ['resources/views/**/*.blade.php']
+    viteStaticCopy({
+      targets: [{
+        src: [
+          'resources/js/unit3d/tmdb.js',
+          'resources/js/unit3d/parser.js',
+          'resources/js/unit3d/helper.js',
+          'resources/js/unit3d/imgbb.js',
+          'resources/js/vendor/virtual-select.js',
+        ],
+        dest: 'unit3d'
+      }]
     }),
     vue({
       template: {

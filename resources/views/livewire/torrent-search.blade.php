@@ -1055,6 +1055,7 @@
         @endswitch
         {{ $torrents->links('partials.pagination') }}
     </section>
+    <script src="{{ asset('build/unit3d/virtual-select.js') }}" crossorigin="anonymous"></script>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:load', function () {
           let myRegions = [
