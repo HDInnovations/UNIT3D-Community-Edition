@@ -46,6 +46,8 @@ class TopicReadController extends Controller
                                 topic_reads
                         )
                     AND
+                        last_post_id IS NOT NULL
+                    AND
                         EXISTS (
                             SELECT
                                 *
@@ -87,6 +89,8 @@ class TopicReadController extends Controller
                                 topic_reads
                         )
                     AND
+                        last_post_id IS NOT NULL
+                    AND
                         forum_id = ?
                     ON DUPLICATE KEY UPDATE
                         last_read_post_id = last_post_id
@@ -116,6 +120,8 @@ class TopicReadController extends Controller
                             FROM
                                 topic_reads
                         )
+                    AND
+                        topics.last_post_id IS NOT NULL
                     AND
                         EXISTS (
                             SELECT
@@ -165,6 +171,8 @@ class TopicReadController extends Controller
                             FROM
                                 topic_reads
                         )
+                    AND
+                        topics.last_post_id IS NOT NULL
                     AND
                         EXISTS (
                             SELECT
