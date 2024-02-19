@@ -341,9 +341,9 @@
                                 @endif
                             </td>
                             <td
-                                class="user-active__visible {{ $peer->visible ? 'text-green' : 'text-red' }}"
+                                class="user-active__visible {{ $active->visible ? 'text-green' : 'text-red' }}"
                             >
-                                @if ($peer->visible)
+                                @if ($active->visible)
                                     <i
                                         class="{{ config('other.font-awesome') }} text-green eye"
                                         title="Visible"
