@@ -35,7 +35,7 @@ class ForumsTableSeeder extends Seeder
 
         Forum::upsert([
             [
-                'id'                   => 2,
+                'id'                   => 1,
                 'position'             => 2,
                 'num_topic'            => null,
                 'num_post'             => null,
