@@ -288,7 +288,7 @@ final class AnnounceController extends Controller
         }
 
         // Part.4 Get request ip and convert it to packed form
-        /** @var string */
+        /** @var string $ip */
         $ip = inet_pton($request->getClientIp());
 
         return new AnnounceQueryDTO(
@@ -472,7 +472,7 @@ final class AnnounceController extends Controller
 
         $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.$queries->getPeerId();
 
-        $randomMinInterval = intdiv(random_int(85, 95) * self::MIN, 100);
+        $randomMinInterval = random_int(intdiv(self::MIN * 85, 100), intdiv(self::MIN * 95, 100));
 
         $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$lastAnnouncedKey, $now, ['NX', 'GET', 'EX' => $randomMinInterval]]);
 
@@ -564,7 +564,7 @@ final class AnnounceController extends Controller
             .'e8:intervali'
             .random_int(self::MIN, self::MAX)
             .'e12:min intervali'
-            .self::MIN
+            .random_int(intdiv(self::MIN * 95, 100), self::MIN)
             .'e';
 
         $peersIpv4 = '';
