@@ -345,13 +345,13 @@
                             >
                                 @if ($active->visible)
                                     <i
-                                        class="{{ config('other.font-awesome') }} text-green eye"
+                                        class="{{ config('other.font-awesome') }} text-green fa-eye"
                                         title="Visible"
                                     ></i>
                                     {{ __('common.yes') }}
                                 @else
                                     <i
-                                        class="{{ config('other.font-awesome') }} text-red eye-slash"
+                                        class="{{ config('other.font-awesome') }} text-red fa-eye-slash"
                                         title="Invisible"
                                     ></i>
                                 @endif
