@@ -124,7 +124,7 @@ final class AnnounceController extends Controller
                 // Generate A Response For The Torrent Client.
                 $response = $this->generateSuccessAnnounceResponse($queries, $torrent, $user);
             } else {
-                $response = $this->generateFailedAnnounceResponse(new TrackerException(164, [':max' => $group->download_slots]));
+                $response = $this->generateWarningAnnounceResponse($torrent, new TrackerException(164, [':max' => $group->download_slots]));
             }
         } catch (TrackerException $exception) {
             $response = $this->generateFailedAnnounceResponse($exception);
@@ -634,6 +634,30 @@ final class AnnounceController extends Controller
             .\strlen($peersIpv4).':'.$peersIpv4
             .'6:peers6'
             .\strlen($peersIpv6).':'.$peersIpv6.'e';
+    }
+
+    /**
+     * Generate A Warning Announce Response For Client.
+     */
+    private function generateWarningAnnounceResponse(Torrent $torrent, TrackerException $trackerException): string
+    {
+        $message = $trackerException->getMessage();
+
+        return 'd8:completei'
+            .$torrent->seeders
+            .'e10:downloadedi'
+            .$torrent->times_completed
+            .'e10:incompletei'
+            .$torrent->leechers
+            .'e8:intervali'
+            .random_int(self::MIN, self::MAX)
+            .'e12:min intervali'
+            .random_int(intdiv(self::MIN * 95, 100), self::MIN)
+            .'e15:warning message'
+            .\strlen($message)
+            .':'
+            .$message
+            .'5:peers:0:e';
     }
 
     /**
