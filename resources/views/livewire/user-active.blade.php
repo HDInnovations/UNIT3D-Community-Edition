@@ -85,7 +85,7 @@
             </form>
         </div>
     </section>
-    <section class="panelV2">
+    <section class="panelV2 user-peers">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.active-torrents') }}</h2>
             <div class="panel__actions">
