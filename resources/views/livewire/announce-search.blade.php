@@ -70,7 +70,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'corrupt'])
                         </th>
                         <th wire:click="sortBy('peer_id')" role="columnheader button">
-                            Event
+                            Peer ID
                             @include('livewire.includes._sort-icon', ['field' => 'peer_id'])
                         </th>
                         <th wire:click="sortBy('port')" role="columnheader button">
