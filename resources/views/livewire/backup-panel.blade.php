@@ -151,21 +151,15 @@
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:load', function () {
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-          })
           @this.on('showErrorToast', function (message) {
-            Toast.fire({
-              text: message,
-              duration: 10000,
-              gravity: 'bottom',
-              position: 'right',
-              backgroundColor: 'red',
-              className: 'toastify-custom',
-            })
+              butterup.toast({
+                  title: '⚠️ Whoops!',
+                  message: 'message',
+                  location: 'top-right',
+                  dismissable: false,
+                  theme: 'glass',
+                  type: 'error',
+              });
           })
         })
         function backup(option = '') {

@@ -61,28 +61,22 @@
                                     '{{ base64_encode(auth()->user()->username) }}',
                                 )}/accept-rules`,
                             );
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 3000,
-                            });
-
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Thanks For Accepting Our Rules!',
+                            butterup.toast({
+                                title: '🎉 Hooray!',
+                                message: 'Thanks for accepting our rules!',
+                                location: 'top-right',
+                                dismissable: false,
+                                theme: 'glass',
+                                type: 'success',
                             });
                         } else {
-                            const Toast = Swal.mixin({
-                                toast: true,
-                                position: 'top-end',
-                                showConfirmButton: false,
-                                timer: 3000,
-                            });
-
-                            Toast.fire({
-                                icon: 'error',
-                                title: 'Something Went Wrong!',
+                            butterup.toast({
+                                title: '⚠️ Whoops!',
+                                message: 'Something went wrong!',
+                                location: 'top-right',
+                                dismissable: false,
+                                theme: 'glass',
+                                type: 'error',
                             });
                         }
                     });

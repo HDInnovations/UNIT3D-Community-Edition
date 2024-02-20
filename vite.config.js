@@ -38,6 +38,7 @@ export default defineConfig({
           'resources/js/unit3d/helper.js',
           'resources/js/unit3d/imgbb.js',
           'resources/js/vendor/virtual-select.js',
+          'resources/js/vendor/butterup.js',
         ],
         dest: 'unit3d'
       }]

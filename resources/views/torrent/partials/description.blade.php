@@ -31,13 +31,13 @@
                             .join(''),
                     );
                     navigator.clipboard.writeText(text.value);
-                    Swal.fire({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000,
-                        icon: 'success',
-                        title: 'Copied to clipboard!',
+                    butterup.toast({
+                        title: '🎉 Hooray!',
+                        message: 'Copied to clipboard!',
+                        location: 'top-right',
+                        dismissable: false,
+                        theme: 'glass',
+                        type: 'success',
                     });
                 },
             }));

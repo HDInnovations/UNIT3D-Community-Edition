@@ -1,0 +1,311 @@
+.toaster{
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
+    Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    outline: none;
+    z-index: 999999999;
+    position: fixed;
+    padding: 5px;
+}
+
+.toaster.bottom-right{
+    bottom: 20px;
+    right: 20px;
+}
+
+.toaster.bottom-left{
+    bottom: 20px;
+    left: 20px;
+}
+
+.toaster.top-right{
+    top: 20px;
+    right: 20px;
+}
+
+.toaster.top-left{
+    top: 20px;
+    left: 20px;
+}
+
+.toaster.bottom-center{
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toaster.top-center{
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toaster.top-center ol.rack{
+    flex-direction: column-reverse;
+}
+
+.toaster.top-left ol.rack{
+    flex-direction: column-reverse;
+}
+
+.toaster.top-right ol.rack{
+    flex-direction: column-reverse;
+}
+
+.toaster.bottom-center ol.rack{
+    flex-direction: column;
+}
+
+.toaster.bottom-left ol.rack{
+    flex-direction: column;
+}
+
+.toaster.bottom-right ol.rack{
+    flex-direction: column;
+}
+
+ol.rack{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* reverse the list order so that the newest items are at the top */
+    display: flex;
+}
+
+ol.rack li{
+    margin-bottom: 16px;
+}
+
+.butteruptoast{
+    border-radius: 8px;
+    box-shadow: 0 4px 12px #0000001a;
+    font-size: 13px;
+    align-items: center;
+    display: flex;
+    padding: 16px;
+    border: 1px solid hsl(0, 0%, 93%);
+    background-color: white;
+    gap: 6px;
+    color: #282828;
+    width: 325px;
+}
+
+.butteruptoast.dismissable{
+    cursor: pointer;
+
+}
+
+.butteruptoast .icon{
+    display: flex;
+    align-items: center;
+}
+
+.butteruptoast .icon svg{
+    width: 20px;
+    height: 20px;
+    fill: #282828;
+}
+
+.notif .desc{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.notif .desc .title{
+    font-weight: 500;
+    line-height: 1.5;
+
+}
+
+.notif .desc .message{
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.butteruptoast.success{
+    background-color: #ebfef2;
+    color: hsl(140, 100%, 27%);
+    border: solid 1px hsl(145, 92%, 91%);
+}
+
+.butteruptoast.success .icon svg{
+    fill: hsl(140, 100%, 27%);
+}
+
+.butteruptoast.error .icon svg{
+    fill: hsl(0, 100%, 27%);
+}
+
+.butteruptoast.warning .icon svg{
+    fill: hsl(50, 100%, 27%);
+}
+
+.butteruptoast.info .icon svg{
+    fill: hsl(210, 100%, 27%);
+}
+
+.butteruptoast.error{
+    background-color: #fef0f0;
+    color: hsl(0, 100%, 27%);
+    border: solid 1px hsl(0, 92%, 91%);
+}
+
+.butteruptoast.warning{
+    background-color: #fffdf0;
+    color: hsl(50, 100%, 27%);
+    border: solid 1px hsl(50, 92%, 91%);
+}
+
+.butteruptoast.info{
+    background-color: #f0f8ff;
+    color: hsl(210, 100%, 27%);
+    border: solid 1px hsl(210, 92%, 91%);
+}
+
+
+/* Entrance animations */
+/*  Note: These animations need to differ depending on the location of the toaster
+    Elements that are in the top should slide and fade down from the top
+    Elemennts that are in the bottom should slide and fade up from the bottom
+*/
+
+.toastUp{
+    animation: slideUp 0.5s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.toastDown{
+    animation: slideDown 0.5s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeOutToast{
+    animation: fadeOut 0.3s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*  Additional Styles
+    These styles are an alternative to the standard option. A user can choose to use these
+    styles by setting the theme: variable per toast
+*/
+
+/* Glass */
+
+.butteruptoast.glass{
+    background-color: rgba(255, 255, 255, 0.42) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: 0 4px 12px #0000001a;
+    color: #282828;
+}
+
+.butteruptoast.glass.success{
+    background-color: rgba(235, 254, 242, 0.42) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: 0 4px 12px #0000001a;
+    color: hsl(140, 100%, 27%);
+}
+
+.butteruptoast.glass.error{
+    background-color: rgba(254, 240, 240, 0.42) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: 0 4px 12px #0000001a;
+    color: hsl(0, 100%, 27%);
+}
+
+.butteruptoast.glass.warning{
+    background-color: rgba(255, 253, 240, 0.42) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: 0 4px 12px #0000001a;
+    color: hsl(50, 100%, 27%);
+}
+
+.butteruptoast.glass.info{
+    background-color: rgba(240, 248, 255, 0.42) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: none;
+    box-shadow: 0 4px 12px #0000001a;
+    color: hsl(210, 100%, 27%);
+}
+
+/* brutalist */
+.butteruptoast.brutalist{
+    border-radius: 0px;
+    box-shadow: 0 4px 12px #0000001a;
+    border: solid 2px #282828;
+    font-size: 13px;
+    align-items: center;
+    display: flex;
+    padding: 16px;
+    background-color: white;
+    gap: 6px;
+    color: #282828;
+    width: 325px;
+}
+
+.butteruptoast.brutalist.success{
+    background-color: #ebfef2;
+    color: hsl(140, 100%, 27%);
+    border: solid 2px hsl(140, 100%, 27%);
+}
+
+.butteruptoast.brutalist.error{
+    background-color: #fef0f0;
+    color: hsl(0, 100%, 27%);
+    border: solid 2px hsl(0, 100%, 27%);
+}
+
+.butteruptoast.brutalist.warning{
+    background-color: #fffdf0;
+    color: hsl(50, 100%, 27%);
+    border: solid 2px hsl(50, 100%, 27%);
+}
+
+.butteruptoast.brutalist.info{
+    background-color: #f0f8ff;
+    color: hsl(210, 100%, 27%);
+    border: solid 2px hsl(210, 100%, 27%);
+}

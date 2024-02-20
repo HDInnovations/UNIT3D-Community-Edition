@@ -127,16 +127,21 @@
         @foreach (['warning', 'success', 'info'] as $key)
             @if (Session::has($key))
                 <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-                    const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 3000,
-                    });
-
-                    Toast.fire({
-                        icon: '{{ $key }}',
-                        title: '{{ Session::get($key) }}',
+                    @php
+                        $title = match ($key) {
+                           'success' => '🎉 Hooray!',
+                           'warning' => '⚠️ Whoops!',
+                           'info' => 'ℹ️Attention!',
+                           default => '🚨Unknow Error',
+                       };
+                    @endphp
+                    butterup.toast({
+                        title: {{ $title }},
+                        message: {{ Session::get($key) }},
+                        location: 'top-right',
+                        dismissable: false,
+                        theme: 'glass',
+                        type: {{ $key }},
                     });
                 </script>
             @endif
@@ -158,16 +163,13 @@
 
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
             window.addEventListener('success', (event) => {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                });
-
-                Toast.fire({
-                    icon: 'success',
-                    title: event.detail.message,
+                butterup.toast({
+                    title: '🎉 Hooray!',
+                    message: event.detail.message,
+                    location: 'top-right',
+                    dismissable: false,
+                    theme: 'glass',
+                    type: 'success',
                 });
             });
         </script>
