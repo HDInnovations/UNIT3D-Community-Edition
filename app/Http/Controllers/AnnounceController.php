@@ -657,7 +657,7 @@ final class AnnounceController extends Controller
             .\strlen($message)
             .':'
             .$message
-            .'5:peers:0:e';
+            .'5:peers0:e';
     }
 
     /**
