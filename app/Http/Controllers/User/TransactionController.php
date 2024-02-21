@@ -113,7 +113,7 @@ class TransactionController extends Controller
             BonTransactions::create([
                 'bon_exchange_id' => $bonExchange->id,
                 'name'            => $bonExchange->description,
-                'cost'            => $bonExchange->value,
+                'cost'            => $bonExchange->cost,
                 'sender_id'       => $user->id,
                 'comment'         => $bonExchange->description,
                 'torrent_id'      => null,
