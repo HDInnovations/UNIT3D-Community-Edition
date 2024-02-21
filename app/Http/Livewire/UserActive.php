@@ -103,6 +103,7 @@ class UserActive extends Component
                 'peers.torrent_id',
                 'peers.user_id',
                 'peers.active',
+                'peers.visible',
                 'torrents.name',
                 'torrents.size',
                 'torrents.seeders',
