@@ -126,7 +126,7 @@
 
         @foreach (['warning', 'success', 'info'] as $key)
             @if (Session::has($key))
-                <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+                <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}" type="module">
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -143,7 +143,7 @@
         @endforeach
 
         @if (Session::has('errors'))
-            <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}" type="module">
                 Swal.fire({
                     title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
                     icon: 'error',
