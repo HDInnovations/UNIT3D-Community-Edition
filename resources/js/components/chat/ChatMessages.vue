@@ -19,16 +19,28 @@
                 <span v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)">{{ message.bot?.name ?? 'Unknown' }}</span>
               </a>
             </address>
+            <div v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" :style="`font-style: italic; white-space: nowrap;`" v-html="message.message"></div>
             <time
+              v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
+              :style="`margin-left: 10px; white-space: nowrap;`"
               class="chatbox-message__time"
               :datetime="message.created_at"
               :title="message.created_at"
             >
               {{ message.created_at | diffForHumans }}
             </time>
+            <time
+                v-else
+                class="chatbox-message__time"
+                :datetime="message.created_at"
+                :title="message.created_at"
+            >
+              {{ message.created_at | diffForHumans }}
+            </time>
           </header>
           <aside class="chatbox-message__aside">
             <figure class="chatbox-message__figure">
+              <i class="fa fa-bell" title="System Notification" v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"></i>
               <a
                 v-if="message.user?.id != 1"
                 :href="`/users/${message.user?.username}`"
@@ -56,7 +68,7 @@
               </button>
             </li>
           </menu>
-          <section class="chatbox-message__content" v-html="message.message"></section>
+          <section v-if="message.user && message.user.id > 1" class="chatbox-message__content" v-html="message.message"></section>
         </article>
       </li>
       <li v-if="messages.length === 0">
