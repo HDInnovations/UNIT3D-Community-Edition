@@ -304,21 +304,21 @@ class TorrentController extends BaseController
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
             }
 
             if ($anon == 1 && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can! :fire:'
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
                 );
             } elseif ($anon == 0 && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can! :fire:'
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can!'
                 );
             }
 
@@ -328,14 +328,14 @@ class TorrentController extends BaseController
                         sprintf(
                             'Ladies and Gents, [url=%s/torrents/',
                             $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can! :fire:'
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can!'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
                         sprintf(
                             'Ladies and Gents, [url=%s/torrents/',
                             $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days. :stopwatch:'
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days.'
                     );
                 }
             }
@@ -346,14 +346,14 @@ class TorrentController extends BaseController
                         sprintf(
                             'Ladies and Gents, [url=%s/torrents/',
                             $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can! :fire:'
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can!'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
                         sprintf(
                             'Ladies and Gents, [url=%s/torrents/',
                             $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:'
+                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days.'
                     );
                 }
             }
