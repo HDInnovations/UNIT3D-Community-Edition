@@ -802,21 +802,41 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
-    public function sentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'tip');
+        return $this->hasMany(PostTip::class, 'sender_id');
     }
 
     /**
      * Has many received tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
-    public function receivedTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'tip');
+        return $this->hasMany(PostTip::class, 'recipient_id');
+    }
+
+    /**
+     * Has many sent tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     */
+    public function sentTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentTip::class, 'sender_id');
+    }
+
+    /**
+     * Has many received tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     */
+    public function receivedTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentTip::class, 'recipient_id');
     }
 
     /**

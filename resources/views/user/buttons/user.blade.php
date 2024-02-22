@@ -358,7 +358,7 @@
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('users.earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            class="{{ Route::is('users.earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.post_tips.index', 'users.torrent_tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
             href="{{ route('users.earnings.index', ['user' => $user]) }}"
         >
             {{ __('bon.bonus') }} {{ __('bon.points') }}
@@ -393,12 +393,22 @@
                     {{ __('bon.gifts') }}
                 </a>
             </li>
-            <li class="{{ Route::is('users.tips.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+            <li class="{{ Route::is('users.post_tips.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
-                    class="{{ Route::is('users.tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                    href="{{ route('users.tips.index', ['user' => $user]) }}"
+                    class="{{ Route::is('users.post_tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.post_tips.index', ['user' => $user]) }}"
                 >
-                    {{ __('bon.tips') }}
+                    {{ __('forum.post') }} {{ __('bon.tips') }}
+                </a>
+            </li>
+            <li
+                class="{{ Route::is('users.torrent_tips.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+            >
+                <a
+                    class="{{ Route::is('users.torrent_tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.torrent_tips.index', ['user' => $user]) }}"
+                >
+                    {{ __('torrent.torrent') }} {{ __('bon.tips') }}
                 </a>
             </li>
         </ul>

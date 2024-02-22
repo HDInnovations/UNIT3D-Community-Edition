@@ -47,7 +47,7 @@ class PostSearch extends Component
         return Post::query()
             ->with('user', 'user.group', 'topic:id,name,state')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
-            ->withSum('tips', 'cost')
+            ->withSum('tips', 'bon')
             ->withExists([
                 'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),

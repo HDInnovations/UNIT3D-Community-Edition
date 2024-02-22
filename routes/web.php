@@ -566,10 +566,16 @@ Route::middleware('language')->group(function (): void {
             Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
         });
 
-        // Tips
-        Route::prefix('tips')->name('tips.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\TipController::class, 'index'])->name('index');
-            Route::post('/', [App\Http\Controllers\User\TipController::class, 'store'])->name('store');
+        // Post tips
+        Route::prefix('post-tips')->name('post_tips.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\PostTipController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\PostTipController::class, 'store'])->name('store');
+        });
+
+        // Torrent tips
+        Route::prefix('torrent-tips')->name('torrent_tips.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\TorrentTipController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\User\TorrentTipController::class, 'store'])->name('store');
         });
 
         // Topics

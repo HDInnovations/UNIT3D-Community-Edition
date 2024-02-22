@@ -93,24 +93,4 @@ class BonTransactions extends Model
             'cost'  => 0,
         ]);
     }
-
-    /**
-     * Belongs to Torrent.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
-     */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Torrent::class);
-    }
-
-    /**
-     * Belongs to Post.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
-     */
-    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Post::class);
-    }
 }

@@ -1028,11 +1028,11 @@
                     <dd>{{ $user->formatted_seedbonus }}</dd>
                     <dt>{{ __('user.tips-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.tips-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.gift-received') }}</dt>
                     <dd>

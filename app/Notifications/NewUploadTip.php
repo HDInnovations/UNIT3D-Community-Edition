@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Torrent;
+use App\Models\TorrentTip;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -25,7 +25,7 @@ class NewUploadTip extends Notification implements ShouldQueue
     /**
      * NewUploadTip Constructor.
      */
-    public function __construct(public string $type, public string $tipper, public int $amount, public Torrent $torrent)
+    public function __construct(public TorrentTip $tip)
     {
     }
 
@@ -46,10 +46,12 @@ class NewUploadTip extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $this->tip->load('sender');
+
         return [
-            'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
-            'body'  => $this->tipper.' has tipped one of your Uploaded Torrents '.$this->torrent->name,
-            'url'   => sprintf('/torrents/%s', $this->torrent->id),
+            'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For An Uploaded Torrent',
+            'body'  => $this->tip->sender->username.' has tipped one of your Uploaded Torrents '.$this->tip->torrent->name,
+            'url'   => sprintf('/torrents/%s', $this->tip->torrent_id),
         ];
     }
 }

@@ -253,11 +253,11 @@ class Torrent extends Model
     /**
      * Has Many Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
+        return $this->hasMany(TorrentTip::class);
     }
 
     /**
