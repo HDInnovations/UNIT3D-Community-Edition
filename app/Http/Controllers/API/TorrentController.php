@@ -163,6 +163,7 @@ class TorrentController extends BaseController
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
         $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
+        $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? $request->input('refundable') : 0;
         $du_until = $request->input('du_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
@@ -231,6 +232,7 @@ class TorrentController extends BaseController
             'featured'         => 'required',
             'free'             => 'required|between:0,100',
             'doubleup'         => 'required',
+            'refundable'       => 'required',
             'sticky'           => 'required',
         ]);
 
@@ -434,6 +436,7 @@ class TorrentController extends BaseController
                 ->when($request->filled('adult'), fn ($query) => $query->ofAdult($request->boolean('adult')))
                 ->when($request->filled('free'), fn ($query) => $query->ofFreeleech($request->free))
                 ->when($request->filled('doubleup'), fn ($query) => $query->doubleup())
+                ->when($request->filled('refundable'), fn ($query) => $query->ofRefundable($request->boolean('refundable')))
                 ->when($request->filled('featured'), fn ($query) => $query->featured())
                 ->when($request->filled('stream'), fn ($query) => $query->streamOptimized())
                 ->when($request->filled('sd'), fn ($query) => $query->sd())
