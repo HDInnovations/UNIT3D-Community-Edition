@@ -782,21 +782,21 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'gift');
+        return $this->hasMany(Gift::class, 'sender_id');
     }
 
     /**
      * Has many received gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'gift');
+        return $this->hasMany(Gift::class, 'recipient_id');
     }
 
     /**

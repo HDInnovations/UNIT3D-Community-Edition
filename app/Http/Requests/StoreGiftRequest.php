@@ -40,20 +40,20 @@ class StoreGiftRequest extends FormRequest
         $user = $request->user();
 
         return [
-            'receiver_username' => [
+            'recipient_username' => [
                 'required',
                 Rule::exists('users', 'username')->whereNot('username', $user->username),
             ],
-            'cost' => [
+            'bon' => [
                 'required',
                 'numeric',
                 'min:1',
                 'max:'.$user->seedbonus,
             ],
-            'comment' => [
+            'message' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
         ];
     }
