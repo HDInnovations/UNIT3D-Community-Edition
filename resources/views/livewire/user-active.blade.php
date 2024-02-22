@@ -348,7 +348,6 @@
                                         class="{{ config('other.font-awesome') }} text-green fa-eye"
                                         title="Visible"
                                     ></i>
-                                    {{ __('common.yes') }}
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} text-red fa-eye-slash"
