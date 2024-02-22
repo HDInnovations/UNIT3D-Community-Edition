@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
+        DB::table('password_resets as p1')
+            ->join('password_resets as p2', function ($join): void {
+                $join->on('p1.token', '<', 'p2.token')
+                    ->whereColumn('p1.email', '=', 'p2.email');
+            })
+            ->delete();
+
         Schema::table('password_resets', function (Blueprint $table): void {
             $table->string('email')->primary()->change();
         });
