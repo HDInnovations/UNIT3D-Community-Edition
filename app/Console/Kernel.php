@@ -55,6 +55,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:remove_torrent_buffs')->hourly();
         $schedule->command('auto:refund_download')->daily();
         $schedule->command('auto:torrent_balance')->hourly();
+        $schedule->command('auth:clear-resets')->daily();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run --only-db')->daily();
