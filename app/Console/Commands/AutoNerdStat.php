@@ -87,6 +87,7 @@ class AutoNerdStat extends Command
                 'bans'     => 'In The Last 24 Hours [color=#dd7e6b][b]'.Ban::whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Users Have Been Banned From '.config('other.title').'!',
                 'warnings' => 'In The Last 24 Hours [color=#dd7e6b][b]'.Warning::where('created_at', '>', now()->subDay())->count().'[/b][/color] Hit and Run Warnings Have Been Issued On '.config('other.title').'!',
                 'king'     => config('other.title').' Is King!',
+                default    => 'Nerd Stat Error!',
             };
 
             // Auto Shout Nerd Stat
