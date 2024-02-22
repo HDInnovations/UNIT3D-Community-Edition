@@ -24,7 +24,7 @@ return new class () extends Migration {
         });
 
         Schema::table('bon_transactions', function (Blueprint $table): void {
-            $table->decimal('cost', 12, 2)->default(0)->change();
+            $table->decimal('cost', 22, 2)->default(0)->change();
         });
 
         DB::statement('ALTER TABLE users ADD CONSTRAINT check_users_seedbonus CHECK (seedbonus >= 0);');
