@@ -319,6 +319,26 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many Seeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
+     */
+    public function seeds(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Peer::class)->where('seeder', '=', true);
+    }
+
+    /**
+     * Has Many Leeches.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
+     */
+    public function leeches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Peer::class)->where('seeder', '=', false);
+    }
+
+    /**
      * Has Many Subtitles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subtitle>
