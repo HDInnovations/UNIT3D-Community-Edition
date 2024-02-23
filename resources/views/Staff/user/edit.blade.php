@@ -124,25 +124,6 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <select id="internal_id" name="internal_id" class="form__select">
-                        @if ($user->internal != null)
-                            <option class="form__option" value="{{ $user->internal->id }}">
-                                {{ $user->internal->name }} (Default)
-                            </option>
-                        @endif
-
-                        <option class="form__option" value="">None</option>
-                        @foreach ($internals as $internal)
-                            <option class="form__option" value="{{ $internal->id }}">
-                                {{ $internal->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <label class="form__label form__label--floating" for="internal_id">
-                        Internal Group
-                    </label>
-                </p>
-                <p class="form__group">
                     <input
                         id="seedbonus"
                         class="form__text"

@@ -65,7 +65,9 @@ class PageController extends Controller
     {
         return view('page.internal', [
             'internals' => Internal::query()
-                ->with('users.group')
+                ->with([
+                    'users' => fn ($query) => $query->with('group')->orderByPivot('position', 'asc'),
+                ])
                 ->orderBy('name')
                 ->get(),
         ]);
