@@ -55,7 +55,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(30)];
+        return [new WithoutOverlapping($this->user->id.':'.$this->torrent->id)];
     }
 
     /**
