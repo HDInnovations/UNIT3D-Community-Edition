@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTorrentRequestBountyRequest;
 use App\Http\Requests\UpdateTorrentRequestBountyRequest;
-use App\Models\BonTransactions;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Notifications\NewRequestBounty;
@@ -52,14 +51,6 @@ class BountyController extends Controller
         $torrentRequest->bounty += $request->integer('seedbonus');
         $torrentRequest->created_at = Carbon::now();
         $torrentRequest->save();
-
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $request->integer('seedbonus'),
-            'sender_id'       => $user->id,
-            'comment'         => sprintf('adding bonus to %s', $torrentRequest->name),
-        ]);
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(

@@ -17,7 +17,6 @@ use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
-use App\Models\BonTransactions;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Notifications\NewRequestFillApprove;
@@ -50,14 +49,6 @@ class ApprovedRequestFillController extends Controller
         $torrentRequest->update([
             'approved_by'   => $approver->id,
             'approved_when' => Carbon::now(),
-        ]);
-
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $torrentRequest->bounty,
-            'receiver_id'     => $torrentRequest->filled_by,
-            'comment'         => sprintf('%s has filled %s and has been awarded %s BONUS.', $filler->username, $torrentRequest->name, $torrentRequest->bounty),
         ]);
 
         $filler->increment('seedbonus', $torrentRequest->bounty);
@@ -105,14 +96,6 @@ class ApprovedRequestFillController extends Controller
 
         // TODO: Change database column to signed from unsigned to handle negative bon.
         $refunded = min($torrentRequest->bounty, $filler->seedbonus);
-
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $refunded,
-            'sender_id'       => $torrentRequest->filled_by,
-            'comment'         => sprintf('%s has had %s unfilled and has forfeited %s BONUS.', $filler->username, $torrentRequest->name, $refunded),
-        ]);
 
         $filler->decrement('seedbonus', $refunded);
 

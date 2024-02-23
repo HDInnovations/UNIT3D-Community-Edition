@@ -1044,11 +1044,11 @@
                     </dd>
                     <dt>{{ __('user.bounty-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.bounty-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}
                     </dd>
                 </dl>
             </section>

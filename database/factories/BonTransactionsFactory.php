@@ -37,7 +37,6 @@ class BonTransactionsFactory extends Factory
             'cost'            => $this->faker->randomFloat(),
             'sender_id'       => User::factory(),
             'receiver_id'     => User::factory(),
-            'comment'         => $this->faker->text(),
             'created_at'      => $this->faker->dateTime(),
         ];
     }

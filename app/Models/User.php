@@ -494,7 +494,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
-    public function FilledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function filledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequest::class, 'filled_by');
     }
@@ -647,26 +647,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Like::class);
-    }
-
-    /**
-     * Has Given Many BON Tips.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
-     */
-    public function bonGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(BonTransactions::class, 'sender_id');
-    }
-
-    /**
-     * Has Received Many BON Tips.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
-     */
-    public function bonReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(BonTransactions::class, 'receiver_id');
     }
 
     /**
