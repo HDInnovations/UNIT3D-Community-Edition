@@ -39,7 +39,6 @@ use voku\helper\AntiXSS;
  * @property string|null                     $two_factor_confirmed_at
  * @property string                          $passkey
  * @property int                             $group_id
- * @property int|null                        $internal_id
  * @property int                             $active
  * @property int                             $uploaded
  * @property int                             $downloaded
@@ -171,11 +170,13 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Internal Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Internal, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal>
      */
-    public function internal(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function internals(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsTo(Internal::class, 'internal_id', 'id', 'name');
+        return $this->belongsToMany(Internal::class)
+            ->using(InternalUser::class)
+            ->withPivot('id', 'position', 'created_at');
     }
 
     /**

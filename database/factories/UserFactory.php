@@ -16,7 +16,6 @@ namespace Database\Factories;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Group;
-use App\Models\Internal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +41,6 @@ class UserFactory extends Factory
             'password'            => Hash::make('password'),
             'passkey'             => md5(random_bytes(60)),
             'group_id'            => Group::factory(),
-            'internal_id'         => Internal::factory(),
             'active'              => true,
             'uploaded'            => $this->faker->randomNumber(),
             'downloaded'          => $this->faker->randomNumber(),

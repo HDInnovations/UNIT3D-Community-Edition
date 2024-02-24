@@ -47,10 +47,12 @@ class Internal extends Model
     /**
      * Has Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class)
+            ->using(InternalUser::class)
+            ->withPivot('id', 'position', 'created_at');
     }
 }

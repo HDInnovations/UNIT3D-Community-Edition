@@ -1088,6 +1088,15 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Internal Useres
+        Route::prefix('internal-users')->group(function (): void {
+            Route::name('internal_users.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\Staff\InternalUserController::class, 'store'])->name('store');
+                Route::delete('/{internalUser}', [App\Http\Controllers\Staff\InternalUserController::class, 'destroy'])->name('destroy');
+                Route::patch('/{internalUser}', [App\Http\Controllers\Staff\InternalUserController::class, 'update'])->name('update');
+            });
+        });
+
         // Watchlist
         Route::prefix('watchlist')->group(function (): void {
             Route::name('watchlist.')->group(function (): void {
