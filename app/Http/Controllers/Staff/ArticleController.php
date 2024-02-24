@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreArticleRequest;
 use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Exception;
 
@@ -57,8 +58,8 @@ class ArticleController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            $file = Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100);
+            Storage::disk('article-images')->put($filename, $file);
         }
 
         Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
@@ -88,8 +89,18 @@ class ArticleController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            $file = Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100);
+            Storage::disk('article-images')->put($filename, $file);
+
+            if ($article->image !== $filename) {
+                $oldImage = $article->image;
+                $article->image = $filename;
+            }
+
+            // Remove old image file
+            if (isset($oldImage)) {
+                Storage::disk('article-images')->delete($oldImage);
+            }
         }
 
         $article->update(['image' => $filename ?? null,] + $request->validated());

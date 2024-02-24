@@ -84,24 +84,55 @@ return [
             // 'timeout' => 30,
         ],
 
+        // UNIT3D Custom Disks (Alphabetical Order)
+        'article-images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/articles'),
+        ],
+
+        'attachments' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/files/attachments'),
+        ],
+
+        'avatars' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/avatars'),
+        ],
+
         'backups' => [
             'driver' => 'local',
             'root'   => storage_path('backups'),
         ],
 
-        'torrents' => [
+        'category-images' => [
             'driver' => 'local',
-            'root'   => public_path('files/torrents'),
+            'root'   => storage_path('app/images/categories'),
+        ],
+
+        'playlist-images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/playlists'),
         ],
 
         'subtitles' => [
             'driver' => 'local',
-            'root'   => public_path('files/subtitles'),
+            'root'   => storage_path('app/files/subtitles'),
         ],
 
-        'attachments' => [
+        'torrent-banners' => [
             'driver' => 'local',
-            'root'   => public_path('files/attachments'),
+            'root'   => storage_path('app/images/torrents/banners'),
+        ],
+
+        'torrent-covers' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/torrents/covers'),
+        ],
+
+        'torrents' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/files/torrents'),
         ],
     ],
 
@@ -118,5 +149,6 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('images')  => storage_path('app/images'),
     ],
 ];

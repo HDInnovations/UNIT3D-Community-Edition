@@ -20,6 +20,7 @@ use App\Models\Playlist;
 use App\Models\Tv;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Exception;
 
@@ -71,14 +72,13 @@ class PlaylistController extends Controller
     public function store(StorePlaylistRequest $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->hasFile('cover_image')) {
-            abort_if(\is_array($request->file('cover_image')), 400);
-
-            abort_unless($request->file('cover_image')->getError() === UPLOAD_ERR_OK, 500);
-
             $image = $request->file('cover_image');
+            abort_if(\is_array($image), 400);
+            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
+
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+            $file = Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100);
+            Storage::disk('playlist-images')->put($filename, $file);
         }
 
         $playlist = Playlist::create([
@@ -145,8 +145,18 @@ class PlaylistController extends Controller
             abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
 
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+            $file = Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100);
+            Storage::disk('playlist-images')->put($filename, $file);
+
+            if ($playlist->cover_image !== $filename) {
+                $oldImage = $playlist->cover_image;
+                $playlist->cover_image = $filename;
+            }
+
+            // Remove old image file
+            if (isset($oldImage)) {
+                Storage::disk('playlist-images')->delete($oldImage);
+            }
         }
 
         $playlist->update(['cover_image' => $filename ?? null] + $request->validated());

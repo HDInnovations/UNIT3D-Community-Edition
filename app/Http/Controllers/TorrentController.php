@@ -41,6 +41,7 @@ use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
@@ -364,13 +365,13 @@ class TorrentController extends Controller
 
         $meta = Bencode::get_meta($decodedTorrent);
 
-        $fileName = uniqid('', true).'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+        $filename = uniqid('', true).'.torrent';
+        Storage::disk('torrents')->put($filename, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
             'mediainfo'    => TorrentTools::anonymizeMediainfo($request->string('mediainfo')),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
-            'file_name'    => $fileName,
+            'file_name'    => $filename,
             'num_file'     => $meta['count'],
             'folder'       => Bencode::get_name($decodedTorrent),
             'size'         => $meta['size'],
@@ -388,7 +389,7 @@ class TorrentController extends Controller
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 
-        foreach($files as &$file) {
+        foreach($files as $file) {
             $file['torrent_id'] = $torrent->id;
         }
 
@@ -425,24 +426,24 @@ class TorrentController extends Controller
 
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover')) {
-            $image_cover = $request->file('torrent-cover');
+            $image = $request->file('torrent-cover');
 
-            abort_if(\is_array($image_cover), 400);
+            abort_if(\is_array($image), 400);
 
-            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+            $filename = 'torrent-cover_'.$torrent->id.'.jpg';
+            $file = Image::make($image->getRealPath())->fit(400, 600)->encode('jpg', 100);
+            Storage::disk('torrent-covers')->put($filename, $file);
         }
 
         // Banner Image for No-Meta Torrents
         if ($request->hasFile('torrent-banner')) {
-            $image_cover = $request->file('torrent-banner');
+            $image = $request->file('torrent-banner');
 
-            abort_if(\is_array($image_cover), 400);
+            abort_if(\is_array($image), 400);
 
-            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+            $filename = 'torrent-banner_'.$torrent->id.'.jpg';
+            $file = Image::make($image->getRealPath())->fit(960, 540)->encode('jpg', 100);
+            Storage::disk('torrent-banners')->put($filename, $file);
         }
 
         // check for trusted user and update torrent

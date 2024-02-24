@@ -23,6 +23,7 @@ use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -149,24 +150,27 @@ class UserController extends Controller
                     ->withErrors('Your avatar is too large, max file size: '.(config('image.max_upload_size') / 1_000_000).' MB');
             }
 
-            $filename = $user->username.'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $filename = uniqid('', true).'.'.$image->getClientOriginalExtension();
 
             if ($image->getClientOriginalExtension() !== 'gif') {
-                Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
+                $file = Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100);
+                Storage::disk('avatars')->put($filename, $file);
             } else {
                 $request->validate([
                     'image' => 'dimensions:ratio=1/1',
                 ]);
 
-                $image->move(public_path('/files/img/'), $filename);
+                Storage::disk('avatars')->put($filename, $image);
             }
 
-            $avatar = $user->username.'.'.$image->getClientOriginalExtension();
-
-            if ($user->image !== $avatar) {
+            if ($user->image !== $filename) {
                 $oldAvatar = $user->image;
-                $user->image = $avatar;
+                $user->image = $filename;
+            }
+
+            // Remove old avatar file
+            if (isset($oldAvatar)) {
+                Storage::disk('avatars')->delete($oldAvatar);
             }
         }
 
@@ -180,11 +184,6 @@ class UserController extends Controller
         $user->about = $request->input('about');
         $user->signature = $request->input('signature');
         $user->save();
-
-        // Remove avatar's old file format
-        if (isset($oldAvatar)) {
-            File::delete(public_path('/files/img/').$oldAvatar);
-        }
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('Your Account Was Updated Successfully!');

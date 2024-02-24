@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreCategoryRequest;
 use App\Http\Requests\Staff\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Exception;
 
@@ -54,8 +55,8 @@ class CategoryController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
+            $file = Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100);
+            Storage::disk('category-images')->put($filename, $file);
         }
 
         Category::create([
@@ -92,8 +93,18 @@ class CategoryController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
-            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
+            $file = Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100);
+            Storage::disk('category-images')->put($filename, $file);
+
+            if ($category->image !== $filename) {
+                $oldImage = $category->image;
+                $category->image = $filename;
+            }
+
+            // Remove old image file
+            if (isset($oldImage)) {
+                Storage::disk('category-images')->delete($oldImage);
+            }
         }
 
         $category->update([
