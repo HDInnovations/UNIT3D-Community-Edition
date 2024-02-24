@@ -20,6 +20,7 @@ use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
+use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
@@ -212,7 +213,7 @@ class SimilarTorrent extends Component
 
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();
-            $pmuser->sender_id = 1;
+            $pmuser->sender_id = User::SYSTEM_USER_ID;
             $pmuser->receiver_id = $user;
             $pmuser->subject = 'Bulk Torrents Deleted - '.$title.'! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
