@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $reply_topic
  * @property int $start_topic
  */
-class Permission extends Model
+class ForumPermission extends Model
 {
     use Auditable;
     use HasFactory;

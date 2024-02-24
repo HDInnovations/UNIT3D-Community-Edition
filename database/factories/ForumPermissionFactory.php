@@ -16,15 +16,15 @@ namespace Database\Factories;
 use App\Models\Forum;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 
-/** @extends Factory<Permission> */
-class PermissionFactory extends Factory
+/** @extends Factory<ForumPermission> */
+class ForumPermissionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = Permission::class;
+    protected $model = ForumPermission::class;
 
     /**
      * Define the model's default state.

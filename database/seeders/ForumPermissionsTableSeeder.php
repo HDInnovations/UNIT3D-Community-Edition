@@ -13,14 +13,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use Illuminate\Database\Seeder;
 
-class PermissionsTableSeeder extends Seeder
+class ForumPermissionsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        Permission::upsert([
+        ForumPermission::upsert([
             [
                 'id'          => 1,
                 'forum_id'    => 1,
