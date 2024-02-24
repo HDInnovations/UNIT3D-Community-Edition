@@ -191,12 +191,12 @@
     </td>
     <td class="torrent-search--list__seeders">
         <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span>{{ $torrent->seeders }}</span>
+            <span>{{ $torrent->seeds_count ?? $torrent->seeders }}</span>
         </a>
     </td>
     <td class="torrent-search--list__leechers">
         <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span>{{ $torrent->leechers }}</span>
+            <span>{{ $torrent->leeches_count ?? $torrent->leechers }}</span>
         </a>
     </td>
     <td class="torrent-search--list__completed">

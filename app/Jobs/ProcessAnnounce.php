@@ -232,33 +232,6 @@ class ProcessAnnounce implements ShouldQueue
                 ])
             ]);
         }
-
-        // Torrent updates
-
-        $isNewPeer = $isNewPeer || !$peer->active;
-        $isDeadPeer = $event === 'stopped';
-        $isSeeder = $this->queries->left === 0;
-
-        $newSeed = $isNewPeer && !$isDeadPeer && $isSeeder;
-        $newLeech = $isNewPeer && !$isDeadPeer && !$isSeeder;
-        $stoppedSeed = !$isNewPeer && $isDeadPeer && $isSeeder;
-        $stoppedLeech = !$isNewPeer && $isDeadPeer && !$isSeeder;
-        $leechBecomesSeed = !$isNewPeer && !$isDeadPeer && $isSeeder && $peer->left > 0;
-        $seedBecomesLeech = !$isNewPeer && !$isDeadPeer && !$isSeeder && $peer->left === 0;
-
-        $seederCountDelta = ($newSeed || $leechBecomesSeed) <=> ($stoppedSeed || $seedBecomesLeech);
-        $leecherCountDelta = ($newLeech || $seedBecomesLeech) <=> ($stoppedLeech || $leechBecomesSeed);
-        $completedCountDelta = (int) ($event === 'completed');
-
-        if ($seederCountDelta !== 0 || $leecherCountDelta !== 0 || $completedCountDelta !== 0) {
-            DB::table('torrents')->where('id', '=', $this->torrent->id)->update([
-                'seeders'         => DB::raw('seeders + '.$seederCountDelta),
-                'leechers'        => DB::raw('leechers + '.$leecherCountDelta),
-                'times_completed' => DB::raw('times_completed + '.$completedCountDelta),
-            ]);
-
-            cache()->forget('announce-torrents:by-infohash:'.$this->queries->getInfoHash());
-        }
     }
 
     /**

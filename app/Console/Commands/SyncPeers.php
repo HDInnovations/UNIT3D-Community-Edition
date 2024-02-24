@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
@@ -43,21 +42,29 @@ class SyncPeers extends Command
      */
     public function handle(): void
     {
-        Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->leftJoinSub(
-                Peer::query()
-                    ->select('torrent_id')
-                    ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1) AS updated_seeders'))
-                    ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1) AS updated_leechers'))
-                    ->groupBy('torrent_id'),
-                'seeders_leechers',
-                fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
-            )
-            ->update([
-                'seeders'    => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
-                'leechers'   => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
-                'updated_at' => DB::raw('updated_at')
-            ]);
+        // Split up the update into 25 separate updates to avoid deadlocks
+        $maxId = Torrent::withoutGlobalScope(ApprovedScope::class)->max('id');
+        $interval = (int) ceil(Torrent::count() / 25);
+        $lowerId = 0;
+
+        while ($lowerId < $maxId) {
+            $upperId = Torrent::withoutGlobalScope(ApprovedScope::class)
+                ->where('id', '>', $lowerId)
+                ->offset($interval)
+                ->value('id') ?? $maxId;
+
+            Torrent::withoutTimestamps(
+                static fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
+                    ->where('id', '>', $lowerId)
+                    ->where('id', '<=', $upperId)
+                    ->update([
+                        'seeders'  => DB::raw('(SELECT COUNT(*) FROM peers WHERE `left` = 0 AND active AND visible and torrent_id = torrents.id)'),
+                        'leechers' => DB::raw('(SELECT COUNT(*) FROM peers WHERE `left` > 0 AND active AND visible and torrent_id = torrents.id)'),
+                    ])
+            );
+
+            $lowerId = $upperId;
+        }
 
         $this->comment('Torrent Peer Syncing Command Complete');
     }

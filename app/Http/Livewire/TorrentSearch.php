@@ -319,7 +319,12 @@ class TorrentSearch extends Component
         }
 
         $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
-            ->when($this->view === 'list', fn ($query) => $query->withCount(['thanks', 'comments']))
+            ->withCount([
+                'thanks',
+                'comments',
+                'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+            ])
             ->withExists([
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -418,6 +423,10 @@ class TorrentSearch extends Component
 
         $torrents = Torrent::query()
             ->with(['type:id,name,position', 'resolution:id,name,position'])
+            ->withCount([
+                'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+            ])
             ->withExists([
                 'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
