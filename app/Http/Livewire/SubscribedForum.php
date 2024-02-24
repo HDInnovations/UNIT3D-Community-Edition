@@ -21,13 +21,15 @@ class SubscribedForum extends Component
 {
     use WithPagination;
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Forum>
+     */
     final public function getForumsProperty()
     {
         return Forum::query()
-            ->with('latestPoster')
-            ->whereNotNull('parent_id')
+            ->with('latestPoster', 'lastRepliedTopic')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
             ->paginate(25, ['*'], 'subscribedForumsPage');
     }

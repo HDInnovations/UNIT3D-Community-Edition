@@ -58,7 +58,13 @@ class RequestController extends Controller
         return view('requests.show', [
             'torrentRequest' => $torrentRequest->load(['category', 'claim' => ['user'], 'bounties', 'torrent']),
             'user'           => $request->user(),
-            'meta'           => match (true) {
+            'canEdit'        => $request->user()->group->is_modo || TorrentRequest::query()
+                ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                ->whereNull('claimed')
+                ->whereNull('filled_by')
+                ->whereKey($torrentRequest)
+                ->exists(),
+            'meta' => match (true) {
                 ($torrentRequest->category->tv_meta && $torrentRequest->tmdb) => Tv::with([
                     'genres',
                     'credits' => ['person', 'occupation'],
@@ -198,7 +204,21 @@ class RequestController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->id === $torrentRequest->user_id, 403);
+        abort_unless(
+            (
+                $user->group->is_modo
+                || (
+                    $user->id === $torrentRequest->user_id
+                    && TorrentRequest::query()
+                        ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                        ->whereNull('claimed')
+                        ->whereNull('filled_by')
+                        ->whereKey($torrentRequest)
+                        ->exists()
+                )
+            ),
+            403
+        );
 
         $torrentRequest->update($request->validated());
 

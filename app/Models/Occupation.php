@@ -17,6 +17,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Occupation.
+ *
+ * @property int    $id
+ * @property int    $position
+ * @property string $name
+ */
 class Occupation extends Model
 {
     use Auditable;

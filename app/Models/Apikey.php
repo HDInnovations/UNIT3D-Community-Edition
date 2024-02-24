@@ -15,6 +15,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Apikey.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $content
+ * @property string|null                     $created_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ */
 class Apikey extends Model
 {
     /**

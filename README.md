@@ -62,7 +62,7 @@ UNIT3D currently offers the following features:
 ## <a name="requirements"></a> ☑️ Requirements
 
 - A Web server (NGINX is recommended)
-- PHP 8.1 + is required
+- PHP 8.2 + is required
 - Crontab access
 - A Redis server
 - MySQL 8.0 + or MariaDB 10.2 +

@@ -32,7 +32,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title'   => $this->faker->sentence(),
-            'image'   => $this->faker->image(),
+            'image'   => null,
             'content' => $this->faker->text(),
             'user_id' => User::factory(),
         ];

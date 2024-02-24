@@ -1,11 +1,11 @@
-<li class="form__group form__group--short-horizontal" x-data>
+<li class="form__group form__group--short-horizontal" x-data="dialog">
     <button
         class="form__button form__button--outlined form__button--centered"
-        x-on:click.stop="$refs.dialog.showModal()"
+        x-bind="showDialog"
     >
         {{ __('request.fulfill') }}
     </button>
-    <dialog class="dialog" x-ref="dialog">
+    <dialog class="dialog" x-bind="dialogElement">
         <h3 class="dialog__heading">
             {{ __('request.fill-request') }}
         </h3>
@@ -13,7 +13,7 @@
             class="dialog__form"
             method="POST"
             action="{{ route('requests.fills.store', ['torrentRequest' => $torrentRequest]) }}"
-            x-on:click.outside="$refs.dialog.close()"
+            x-bind="dialogForm"
         >
             @csrf
             <p class="form__group">

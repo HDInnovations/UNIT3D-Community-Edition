@@ -1,4 +1,4 @@
-name: Compile Assets (Mix)
+name: Compile Assets (Vite)
 on: [push, pull_request]
 jobs:
   build-assets:
@@ -10,8 +10,11 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     steps:
       - uses: actions/checkout@v1
-      - name: Start NPM
-        run: |
-          npm install
-          npx mix -p
-          cat public/mix-manifest.json # See asset versions in log
+      - name: Configure Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: Install JS Dependencies
+        run: bun install
+      - name: Compile Assets (Vite)
+        run: bun run build

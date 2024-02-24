@@ -41,11 +41,11 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th wire:click="sortBy('user_id')" role="columnheader button">
+                        <th wire:click="sortBy('id')" role="columnheader button">
                             ID
                             @include('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
-                        <th wire:click="sortBy('id')" role="columnheader button">
+                        <th wire:click="sortBy('user_id')" role="columnheader button">
                             User ID
                             @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                         </th>
@@ -70,7 +70,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'corrupt'])
                         </th>
                         <th wire:click="sortBy('peer_id')" role="columnheader button">
-                            Event
+                            Peer ID
                             @include('livewire.includes._sort-icon', ['field' => 'peer_id'])
                         </th>
                         <th wire:click="sortBy('port')" role="columnheader button">

@@ -151,7 +151,7 @@
                     <p class="form__group form__group--horizontal">
                         <a
                             class="form__button form__button--text"
-                            href="{{ route('staff.forums.index') }}"
+                            href="{{ route('staff.forum_categories.index') }}"
                         >
                             <i class="fab fa-wpforms"></i>
                             {{ __('staff.forums') }}
@@ -269,6 +269,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Automatic Torrent Freeleeches
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.peers.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
@@ -282,6 +291,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
                         Histories
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.torrent_downloads.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Downloads
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -399,6 +417,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.email_updates.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.email-updates') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.watchlist.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
@@ -438,6 +465,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>
                         {{ __('staff.possible-leech-cheaters') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.leakers.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-faucet-drip"></i>
+                        Leakers
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">

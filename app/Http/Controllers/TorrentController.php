@@ -83,6 +83,11 @@ class TorrentController extends Controller
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
             ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
+            ->withCount([
+                'bookmarks',
+                'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+            ])
             ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->withExists(['freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id)])
             ->findOrFail($id);
@@ -126,8 +131,17 @@ class TorrentController extends Controller
         }
 
         return view('torrent.show', [
-            'torrent'            => $torrent,
-            'user'               => $user,
+            'torrent' => $torrent,
+            'user'    => $user,
+            'canEdit' => $user->group->is_editor
+                || $user->group->is_modo
+                || (
+                    $user->id === $torrent->user_id
+                    && (
+                        $torrent->status !== Torrent::APPROVED
+                        || now()->isBefore($torrent->created_at->addDay())
+                    )
+                ),
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'meta'               => $meta,
             'platforms'          => $platforms,
@@ -149,7 +163,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless($user->group->is_editor || $user->group->is_modo || $user->id === $torrent->user_id, 403);
 
         return view('torrent.edit', [
             'categories' => Category::query()
@@ -186,7 +200,18 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        abort_unless($user->group->is_modo || $user->id === $torrent->user_id, 403);
+        abort_unless(
+            $user->group->is_editor
+            || $user->group->is_modo
+            || (
+                $user->id === $torrent->user_id
+                && (
+                    $torrent->status !== Torrent::APPROVED
+                    || now()->isBefore($torrent->created_at->addDay())
+                )
+            ),
+            403
+        );
 
         $torrent->update($request->validated());
 
@@ -222,7 +247,7 @@ class TorrentController extends Controller
         }
 
         foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         $category = $torrent->category;
@@ -369,7 +394,7 @@ class TorrentController extends Controller
         Storage::disk('torrents')->put($filename, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->string('mediainfo')),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $filename,
             'num_file'     => $meta['count'],
@@ -421,7 +446,7 @@ class TorrentController extends Controller
         }
 
         foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name'], []);
+            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         // Cover Image for No-Meta Torrents
@@ -456,17 +481,17 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
             }
 
             if ($torrent->free >= 1) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can! :fire:'
+                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
                 );
             }
 

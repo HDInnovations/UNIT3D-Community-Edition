@@ -22,7 +22,7 @@
 @section('page', 'page__groups--edit')
 
 @section('main')
-    <section class="panelV2">
+    <section class="panelV2" x-data="{ autogroup: {{ $group->autogroup }} }">
         <h2 class="panel__heading">Edit Group: {{ $group->name }}</h2>
         <div class="panel__body">
             <form
@@ -132,6 +132,18 @@
                         @checked($group->is_internal)
                     />
                     <label class="form__label" for="is_internal">Internal</label>
+                </p>
+                <p class="form__group">
+                    <input name="is_editor" type="hidden" value="0" />
+                    <input
+                        id="is_editor"
+                        class="form__checkbox"
+                        name="is_editor"
+                        type="checkbox"
+                        value="1"
+                        @checked($group->is_editor)
+                    />
+                    <label class="form__label" for="is_editor">Editor</label>
                 </p>
                 <p class="form__group">
                     <input name="is_modo" type="hidden" value="0" />
@@ -261,9 +273,75 @@
                         name="autogroup"
                         type="checkbox"
                         value="1"
+                        x-model="autogroup"
                         @checked($group->autogroup)
                     />
                     <label class="form__label" for="autogroup">Autogroup</label>
+                </p>
+                <p class="form__group" x-show="autogroup">
+                    <input
+                        id="min_uploaded"
+                        class="form__text"
+                        type="text"
+                        name="min_uploaded"
+                        placeholder=" "
+                        value="{{ $group->min_uploaded }}"
+                    />
+                    <label class="form__label form__label--floating" for="min_uploaded">
+                        Minimum upload required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup">
+                    <input
+                        id="min_ratio"
+                        class="form__text"
+                        type="text"
+                        name="min_ratio"
+                        placeholder=" "
+                        value="{{ $group->min_ratio }}"
+                    />
+                    <label class="form__label form__label--floating" for="min_ratio">
+                        Minimum ratio required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup">
+                    <input
+                        id="minimum_age"
+                        class="form__text"
+                        type="text"
+                        name="minimum_age"
+                        placeholder=" "
+                        value="{{ $group->min_age }}"
+                    />
+                    <label class="form__label form__label--floating" for="minimum_age">
+                        Minimum age required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup">
+                    <input
+                        id="min_avg_seedtime"
+                        class="form__text"
+                        type="text"
+                        name="min_avg_seedtime"
+                        placeholder=" "
+                        value="{{ $group->min_avg_seedtime }}"
+                    />
+                    <label class="form__label form__label--floating" for="min_avg_seedtime">
+                        Minimum average seedtime required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup">
+                    <input
+                        id="min_seedsize"
+                        class="form__text"
+                        type="text"
+                        name="min_seedsize"
+                        placeholder=" "
+                        value="{{ $group->min_seedsize }}"
+                    />
+                    <label class="form__label form__label--floating" for="min_seedsize">
+                        Minimum seedsize required
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

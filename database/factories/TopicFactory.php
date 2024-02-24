@@ -14,7 +14,6 @@
 namespace Database\Factories;
 
 use App\Models\Forum;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Topic;
 
@@ -32,24 +31,23 @@ class TopicFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'                     => $this->faker->name(),
-            'state'                    => $this->faker->word(),
-            'pinned'                   => $this->faker->boolean(),
-            'approved'                 => $this->faker->boolean(),
-            'denied'                   => $this->faker->boolean(),
-            'solved'                   => $this->faker->boolean(),
-            'invalid'                  => $this->faker->boolean(),
-            'bug'                      => $this->faker->boolean(),
-            'suggestion'               => $this->faker->boolean(),
-            'implemented'              => $this->faker->boolean(),
-            'num_post'                 => $this->faker->randomNumber(),
-            'first_post_user_id'       => User::factory(),
-            'last_post_user_id'        => User::factory(),
-            'first_post_user_username' => $this->faker->word(),
-            'last_post_user_username'  => $this->faker->word(),
-            'last_reply_at'            => $this->faker->dateTime(),
-            'views'                    => $this->faker->randomNumber(),
-            'forum_id'                 => Forum::factory(),
+            'name'                 => $this->faker->name(),
+            'state'                => $this->faker->word(),
+            'pinned'               => $this->faker->boolean(),
+            'approved'             => $this->faker->boolean(),
+            'denied'               => $this->faker->boolean(),
+            'solved'               => $this->faker->boolean(),
+            'invalid'              => $this->faker->boolean(),
+            'bug'                  => $this->faker->boolean(),
+            'suggestion'           => $this->faker->boolean(),
+            'implemented'          => $this->faker->boolean(),
+            'num_post'             => $this->faker->randomNumber(),
+            'first_post_user_id'   => null,
+            'last_post_id'         => null,
+            'last_post_user_id'    => null,
+            'last_post_created_at' => $this->faker->dateTime(),
+            'views'                => $this->faker->randomNumber(),
+            'forum_id'             => Forum::factory(),
         ];
     }
 }

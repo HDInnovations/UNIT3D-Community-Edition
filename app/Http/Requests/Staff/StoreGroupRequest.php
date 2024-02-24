@@ -64,6 +64,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'is_editor' => [
+                'required',
+                'boolean',
+            ],
             'is_modo' => [
                 'required',
                 'boolean',
@@ -103,6 +107,31 @@ class StoreGroupRequest extends FormRequest
             'autogroup' => [
                 'required',
                 'boolean',
+            ],
+            'min_uploaded' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
+            'min_ratio' => [
+                'sometimes',
+                'min:0',
+                'max:99.99',
+            ],
+            'min_age' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
+            'min_avg_seedtime' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
+            'min_seedtime' => [
+                'sometimes',
+                'integer',
+                'min:0',
             ],
         ];
     }

@@ -17,6 +17,12 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Distributor.
+ *
+ * @property int    $id
+ * @property string $name
+ */
 class Distributor extends Model
 {
     use Auditable;

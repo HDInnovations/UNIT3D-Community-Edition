@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Peer;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,6 +24,7 @@ use Livewire\WithPagination;
  */
 class UserActive extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -41,12 +43,17 @@ class UserActive extends Component
 
     public string $active = 'include';
 
+    public string $visible = 'any';
+
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    public bool $showMorePrecision = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'           => ['except' => 50],
         'name'              => ['except' => ''],
@@ -55,6 +62,7 @@ class UserActive extends Component
         'client'            => ['excpet' => ''],
         'seeding'           => ['except' => 'any'],
         'active'            => ['except' => 'any'],
+        'visible'           => ['except' => 'any'],
         'sortField'         => ['except' => 'created_at'],
         'sortDirection'     => ['except' => 'desc'],
         'showMorePrecision' => ['except' => false],
@@ -75,6 +83,9 @@ class UserActive extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
     final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
@@ -92,6 +103,7 @@ class UserActive extends Component
                 'peers.torrent_id',
                 'peers.user_id',
                 'peers.active',
+                'peers.visible',
                 'torrents.name',
                 'torrents.size',
                 'torrents.seeders',
@@ -113,6 +125,8 @@ class UserActive extends Component
             ->when($this->seeding === 'exclude', fn ($query) => $query->where('seeder', '=', 0))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', 0))
+            ->when($this->visible === 'include', fn ($query) => $query->where('visible', '=', 1))
+            ->when($this->visible === 'exclude', fn ($query) => $query->where('visible', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -122,16 +136,5 @@ class UserActive extends Component
         return view('livewire.user-active', [
             'actives' => $this->actives,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

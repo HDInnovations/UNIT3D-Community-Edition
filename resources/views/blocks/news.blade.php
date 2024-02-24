@@ -1,5 +1,5 @@
 @foreach ($articles as $article)
-    <section class="panelV2" x-data="{ show: {{ $article->newNews }} }">
+    <section class="panelV2 blocks__news" x-data="{ show: {{ $article->newNews }} }">
         <header class="panel__header" x-on:click="show = !show" style="cursor: pointer">
             <h2 class="panel__heading panel__heading--centered">
                 @if ($article->newNews)

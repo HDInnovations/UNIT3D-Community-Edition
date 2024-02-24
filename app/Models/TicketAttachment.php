@@ -6,6 +6,19 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TicketAttachment.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $ticket_id
+ * @property string|null                     $file_name
+ * @property string|null                     $file_size
+ * @property string|null                     $file_extension
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null                     $deleted_at
+ */
 class TicketAttachment extends Model
 {
     use Auditable;

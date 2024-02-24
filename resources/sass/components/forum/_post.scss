@@ -196,6 +196,8 @@
 .post__author-title {
     font-size: 13px;
     text-align: center;
+    word-break: normal;
+    overflow-wrap: anywhere;
 }
 
 .post__author-join,
@@ -247,6 +249,11 @@
 
 .post__signature {
     text-align: center;
+
+    img {
+        max-height: 200px;
+        max-width: 300px;
+    }
 }
 
 .post__like-animation {

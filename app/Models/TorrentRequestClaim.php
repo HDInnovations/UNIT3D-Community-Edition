@@ -18,6 +18,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * App\Models\TorrentRequestClaim.
+ *
+ * @property int                             $id
+ * @property int                             $request_id
+ * @property int                             $user_id
+ * @property int                             $anon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class TorrentRequestClaim extends Model
 {
     use Auditable;

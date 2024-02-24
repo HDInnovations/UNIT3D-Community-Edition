@@ -17,6 +17,21 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Category.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string|null $image
+ * @property int         $position
+ * @property string      $icon
+ * @property int         $no_meta
+ * @property bool        $music_meta
+ * @property bool        $game_meta
+ * @property bool        $tv_meta
+ * @property bool        $movie_meta
+ * @property int         $num_torrent
+ */
 class Category extends Model
 {
     use Auditable;

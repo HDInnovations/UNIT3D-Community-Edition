@@ -102,19 +102,16 @@
                                             {{ __('common.download') }}
                                         </a>
                                     </li>
-                                    <li class="data-table__action" x-data>
+                                    <li class="data-table__action" x-data="dialog">
                                         <button
                                             class="form__button form__button--text"
-                                            x-on:click.stop="$refs.dialog.showModal()"
+                                            x-bind="showDialog"
                                         >
                                             {{ __('common.delete') }}
                                         </button>
-                                        <dialog class="dialog" x-ref="dialog">
+                                        <dialog class="dialog" x-bind="dialogElement">
                                             <h3 class="dialog__heading">Delete backup</h3>
-                                            <form
-                                                class="dialog__form"
-                                                x-on:click.outside="$refs.dialog.close()"
-                                            >
+                                            <form class="dialog__form" x-bind="dialogForm">
                                                 @csrf
                                                 <p class="form__group">
                                                     Are you sure you want to delete the backup

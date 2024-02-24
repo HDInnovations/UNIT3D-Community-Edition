@@ -13,7 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Torrent;
 use App\Models\User;
@@ -21,14 +20,13 @@ use Livewire\Component;
 
 class ThankButton extends Component
 {
-    public $torrent;
+    public ?Torrent $torrent = null;
 
     public ?User $user = null;
 
-    final public function mount($torrent): void
+    final public function mount(): void
     {
         $this->user = auth()->user();
-        $this->torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($torrent);
     }
 
     final public function store(): void

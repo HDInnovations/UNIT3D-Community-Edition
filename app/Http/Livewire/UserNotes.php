@@ -26,19 +26,42 @@ class UserNotes extends Component
 
     public string $message = '';
 
+    /**
+     * @var array<int, string>
+     */
+    public array $messages = [];
+
     public int $perPage = 25;
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
 
+    /**
+     * @var array<mixed>
+     */
     protected $rules = [
         'message' => [
             'required',
             'filled',
         ],
+        'messages' => [
+            'array',
+        ],
+        'messages.*' => [
+            'required',
+            'filled',
+        ]
     ];
 
+    final public function mount(): void
+    {
+        $this->messages = Note::where('user_id', '=', $this->user->id)->pluck('message', 'id')->toArray();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
     final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
@@ -58,7 +81,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validate();
+        $this->validateOnly('message');
 
         Note::create([
             'user_id'  => $this->user->id,
@@ -69,6 +92,21 @@ class UserNotes extends Component
         $this->message = '';
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been posted!']);
+    }
+
+    final public function update(int $id): void
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $this->validateOnly('messages');
+        $this->validateOnly('messages.*');
+
+        Note::whereKey($id)->update([
+            'staff_id' => auth()->id(),
+            'message'  => $this->messages[$id],
+        ]);
+
+        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been updated!']);
     }
 
     final public function destroy(int $id): void

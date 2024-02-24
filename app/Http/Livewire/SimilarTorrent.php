@@ -21,26 +21,35 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Unit3dAnnounce;
+use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
+    use CastLivewireProperties;
+    use LivewireSort;
+
     public Category $category;
 
     public Movie|Tv|Game $work;
 
-    public $tmdbId;
+    public ?int $tmdbId;
 
-    public $igdbId;
+    public ?int $igdbId;
 
-    public $reason;
+    public string $reason;
 
-    public $checked = [];
+    /**
+     * @var array<int, bool|string>
+     *
+     * Currently, in livewire v2, a checkbox type is false|string.
+     * In livewire v3, the type should be changed to array<int, bool>.
+     */
+    public array $checked = [];
 
     public bool $selectPage = false;
-
-    public bool $selectAll = false;
 
     public string $sortField = 'bumped_at';
 
@@ -48,15 +57,14 @@ class SimilarTorrent extends Component
 
     protected $listeners = ['destroy' => 'deleteRecords'];
 
-    final public function updatedSelectPage($value): void
+    final public function updating(string $field, mixed &$value): void
     {
-        $this->checked = $value ? $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray() : [];
+        $this->castLivewireProperties($field, $value);
     }
 
-    final public function selectAll(): void
+    final public function updatedSelectPage(bool $value): void
     {
-        $this->selectAll = true;
-        $this->checked = $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+        $this->checked = $value ? $this->torrents->pluck('id')->mapWithKeys(fn ($id) => [(int) $id => true])->toArray() : [];
     }
 
     final public function updatedChecked(): void
@@ -64,11 +72,9 @@ class SimilarTorrent extends Component
         $this->selectPage = false;
     }
 
-    final public function isChecked($torrentId): bool
-    {
-        return \in_array($torrentId, $this->checked);
-    }
-
+    /**
+     * @return \Illuminate\Support\Collection<int, Torrent>
+     */
     final public function getTorrentsProperty(): \Illuminate\Support\Collection
     {
         $user = auth()->user();
@@ -113,7 +119,10 @@ class SimilarTorrent extends Component
             ->get();
     }
 
-    final public function getTorrentRequestsProperty(): array|\Illuminate\Database\Eloquent\Collection
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
+     */
+    final public function getTorrentRequestsProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
@@ -121,17 +130,6 @@ class SimilarTorrent extends Component
             ->where('category_id', '=', $this->category->id)
             ->latest()
             ->get();
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function alertConfirm(): void
@@ -142,7 +140,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
+        $torrents = Torrent::whereKey(array_keys($this->checked, true))->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatchBrowserEvent('swal:confirm', [
             'type'    => 'warning',
@@ -160,7 +158,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey($this->checked)->get();
+        $torrents = Torrent::whereKey(array_keys($this->checked, true))->get();
         $names = [];
         $users = [];
         $title = match (true) {
@@ -228,7 +226,6 @@ class SimilarTorrent extends Component
         }
 
         $this->checked = [];
-        $this->selectAll = false;
         $this->selectPage = false;
 
         $this->dispatchBrowserEvent('swal:modal', [
@@ -238,9 +235,9 @@ class SimilarTorrent extends Component
         ]);
     }
 
-    final public function getPersonalFreeleechProperty()
+    final public function getPersonalFreeleechProperty(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

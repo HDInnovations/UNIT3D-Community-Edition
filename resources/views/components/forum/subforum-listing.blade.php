@@ -28,13 +28,13 @@
         <dd>{{ $subforum->num_post ?: 0 }}</dd>
     </dl>
     <article class="subforum-listing__latest-topic">
-        @if ($subforum->last_topic_id !== null && $subforum->last_topic_name !== null)
+        @if ($subforum->lastRepliedTopic !== null)
             <p class="subforum-listing__latest-heading">
                 <a
                     class="subforum-listing__latest-link"
-                    href="{{ route('topics.show', ['id' => $subforum->last_topic_id ?? 1]) }}"
+                    href="{{ route('topics.show', ['id' => $subforum->lastRepliedTopic->id]) }}"
                 >
-                    {{ $subforum->last_topic_name }}
+                    {{ $subforum->lastRepliedTopic->name }}
                 </a>
             </p>
         @endif
@@ -44,24 +44,24 @@
             datetime="{{ $subforum->updated_at }}"
             title="{{ $subforum->updated_at }}"
         >
-            @if ($subforum->last_topic_id === null)
+            @if ($subforum->lastRepliedTopic === null)
                 {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
             @else
                 <a
                     class="subforum-listing__latest-post-link"
-                    href="{{ route('topics.latestPermalink', ['id' => $subforum->last_topic_id]) }}"
+                    href="{{ route('topics.latestPermalink', ['id' => $subforum->lastRepliedTopic->id]) }}"
                 >
                     {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
                 </a>
             @endif
         </time>
-        @if ($subforum->last_topic_id !== null && $subforum->last_post_user_username !== null)
+        @if ($subforum->lastRepliedTopic !== null && $subforum->latestPoster !== null)
             <address class="subforum-listing__latest-author">
                 <a
                     class="subforum-listing__latest-author-link"
                     href="{{ route('users.show', ['user' => $subforum->latestPoster]) }}"
                 >
-                    {{ $subforum->last_post_user_username }}
+                    {{ $subforum->latestPoster->username }}
                 </a>
             </address>
         @endif

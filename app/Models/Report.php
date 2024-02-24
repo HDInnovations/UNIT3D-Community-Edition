@@ -17,6 +17,23 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Report.
+ *
+ * @property int                             $id
+ * @property string                          $type
+ * @property int                             $reporter_id
+ * @property int|null                        $staff_id
+ * @property string                          $title
+ * @property string                          $message
+ * @property int                             $solved
+ * @property string|null                     $verdict
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null                        $reported_user
+ * @property int|null                        $torrent_id
+ * @property int|null                        $request_id
+ */
 class Report extends Model
 {
     use Auditable;

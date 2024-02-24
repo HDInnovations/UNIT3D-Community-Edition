@@ -20,6 +20,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\Post.
+ *
+ * @property int                             $id
+ * @property string                          $content
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $user_id
+ * @property int                             $topic_id
+ */
 class Post extends Model
 {
     use Auditable;

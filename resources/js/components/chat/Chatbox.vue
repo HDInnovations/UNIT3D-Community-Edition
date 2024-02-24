@@ -1,243 +1,219 @@
 <template>
-  <div
-      class="panelV2 chatbox"
-      :class="
-            this.fullscreen == 1
-                ? `panel-fullscreen`
-                : null
-        "
+  <section
       id="chatbody"
+      class="panelV2 chatbox"
+      :class="this.fullscreen && `chatbox--fullscreen`"
       audio="false"
   >
-    <div
-        :class="this.fullscreen == 1 ? `clearfix visible-sm-block panel-fullscreen` : `clearfix visible-sm-block`"
-    ></div>
-    <section :class="this.fullscreen == 1 ? `panelV2 panel panel-chat panel-fullscreen` : `panelV2 panel panel-chat`">
-      <header class="panel__heading" id="frameHeader">
-        <div class="button-holder no-space">
-          <div class="button-left">
-            <h4><i class="fas fa-comment-dots"></i> Chatbox v3.0</h4>
-          </div>
-          <div class="button-right">
-            <a href="" view="bot" @click.prevent="startBot()" class="form__button form__button--text">
-              <i class="fa fa-robot"></i> {{ helpName }}
-            </a>
-            <a
-                href=""
-                view="list"
-                v-if="target < 1 && bot < 1 && tab != 'userlist'"
-                @click.prevent="changeTab('list', 'userlist')"
-                class="form__button form__button--text"
-            >
-              <i class="fa fa-users"></i> Users In {{ tab }}: {{ users.length }}
-            </a>
-            <a
-                href="#"
-                id="panel-fullscreen"
-                role="button"
-                :class="`form__button form__button--text`"
-                title="Toggle Fullscreen"
-                @click.prevent="changeFullscreen()"
-            ><i
-                :class="
-                                    this.fullscreen == 1
-                                        ? `fas fa-compress`
-                                        : `fas fa-expand`
-                                "
-            ></i>
-            </a>
-          </div>
+    <header class="panel__header" id="chatbox_header">
+      <h2 class="panel__heading">
+        <i class="fas fa-comment-dots"></i>
+        Chatbox v3.0
+      </h2>
+      <div class="panel__actions">
+        <div class="panel__action">
+          <button
+            class="form__button form__button--text"
+            @click.prevent="startBot()"
+          >
+            <i class="fa fa-robot"></i>
+            {{ helpName }}
+          </button>
         </div>
-      </header>
-      <div class="panel-body" id="frameBody">
-        <div id="frame" @mouseover="freezeChat()" @mouseout="unfreezeChat()">
-          <div class="content no-space">
-            <div class="button-holder nav nav-tabs mb-5" id="frameTabs">
-              <div>
-                <ul role="tablist" class="panel__tabs no-border mb-0" v-if="boot == 1">
-                  <li
-                      v-for="echo in echoes"
-                      v-if="echo.room && echo.room.name.length > 0"
-                      :class="tab != '' && tab === echo.room.name ? 'panel__tab panel__tab--active' : 'panel__tab'"
-                  >
-                    <a
-                        href=""
-                        role="tab"
-                        view="room"
-                        @click.prevent="changeTab('room', echo.room.id)"
-                    >
-                      <i
-                          :class="
-                                                    checkPings('room', echo.room.id)
-                                                        ? 'fa fa-comment fa-beat text-success'
-                                                        : 'fa fa-comment text-danger'
-                                                "
-                      ></i>
-                      {{ echo.room.name }}
-                    </a>
-                  </li>
-                  <li
-                      v-for="echo in echoes"
-                      v-if="echo.target && echo.target.id >= 3 && echo.target.username.length > 0"
-                      :class="target >= 3 && target === echo.target.id ? 'panel__tab panel__tab--active' : 'panel__tab'"
-                  >
-                    <a
-                        href=""
-                        role="tab"
-                        view="target"
-                        @click.prevent="changeTab('target', echo.target.id)"
-                    >
-                      <i
-                          :class="
-                                                    checkPings('target', echo.target.id)
-                                                        ? 'fa fa-comment fa-beat text-success'
-                                                        : 'fa fa-comment text-danger'
-                                                "
-                      ></i>
-                      @{{ echo.target.username }}
-                    </a>
-                  </li>
-                  <li
-                      v-for="echo in echoes"
-                      v-if="echo.bot && echo.bot.id >= 1 && echo.bot.name.length > 0"
-                      :class="bot > 0 && bot === echo.bot.id ? 'panel__tab panel__tab--active' : 'panel__tab'"
-                  >
-                    <a href="" role="tab" view="bot" @click.prevent="changeTab('bot', echo.bot.id)">
-                      <i
-                          :class="
-                                                    checkPings('bot', echo.bot.id)
-                                                        ? 'fa fa-comment fa-beat text-success'
-                                                        : 'fa fa-comment text-danger'
-                                                "
-                      ></i>
-                      @{{ echo.bot.name }}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="button-right-small">
-                <div class="nav nav-tabs no-border mb-0 mt-5">
-                  <div class="mr-10">
-                    <a
-                        href=""
-                        v-if="bot > 0"
-                        view="exit"
-                        @click.prevent="leaveBot(bot)"
-                        class="btn btn-sm btn-danger"
-                    >
-                      <i class="fa fa-times"></i>
-                    </a>
-
-                    <a
-                        href=""
-                        v-if="bot < 1 && target > 0"
-                        view="exit"
-                        @click.prevent="leaveTarget(target)"
-                        class="btn btn-sm btn-danger"
-                    >
-                      <i class="fa fa-times"></i>
-                    </a>
-
-                    <a
-                        href=""
-                        v-if="bot < 1 && target < 1 && tab != '' && tab != 'userlist' && room != 1"
-                        view="exit"
-                        @click.prevent="leaveRoom(room)"
-                        class="btn btn-sm btn-danger"
-                    >
-                      <i class="fa fa-times"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <chat-messages
-                v-if="!state.connecting && tab != '' && tab != 'userlist'"
-                @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
-                :messages="msgs"
-            >
-            </chat-messages>
-            <chat-user-list
-                v-if="!state.connecting && tab === 'userlist'"
-                @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
-                :users="users"
-            >
-            </chat-user-list>
-          </div>
+        <div class="panel__action">
+          <button
+            class="form__button form__button--text"
+            v-if="target < 1 && bot < 1"
+            @click.prevent="changeTab('list', 'userlist')"
+          >
+            <i class="fa fa-users"></i>
+            Users: {{ users.length }}
+          </button>
         </div>
-      </div>
-      <div class="panel-footer" id="frameFooter">
-        <chat-form
+        <div class="panel__action">
+          <button
+            class="form__button form__standard-icon-button form__standard-icon-button--skinny"
+            v-if="
+              room &&
+              room > 0 &&
+              bot < 1 &&
+              target < 1 &&
+              tab != 'userlist'
+            "
+            @click.prevent="changeAudible('room', room, listening ? 0 : 1)"
+            :style="`color: ${listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+          >
+            <i :class="listening ? 'fa fa-bell' : 'fa fa-bell-slash'"></i>
+          </button>
+          <button
+            class="form__button form__standard-icon-button form__standard-icon-button--skinny"
+            v-if="bot && bot >= 1 && target < 1 && tab != 'userlist'"
+            @click.prevent="changeAudible('bot', bot, listening ? 0 : 1)"
+            :style="`color: ${listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+          >
+            <i :class="listening ? 'fa fa-bell' : 'fa fa-bell-slash'"></i>
+          </button>
+          <button
+            class="form__button form__standard-icon-button form__standard-icon-button--skinny"
+            v-if="target && target >= 1 && bot < 1 && tab != 'userlist'"
+            @click.prevent="changeAudible('target', target, listening ? 0 : 1)"
+            :style="`color: ${listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+          >
+            <i :class="listening ? 'fa fa-bell' : 'fa fa-bell-slash'"></i>
+          </button>
+        </div>
+        <div class="panel__action">
+          <button
+            class="form__button form__standard-icon-button form__standard-icon-button--skinny"
+            title="Toggle typing notifications"
+            @click.prevent="changeWhispers()"
+            :style="`color: ${this.showWhispers ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
+          >
+            <i :class="this.showWhispers ? `fas fa-keyboard` : `fa fa-keyboard`"></i>
+          </button>
+        </div>
+        <div class="panel__action">
+          <chatrooms-dropdown
+            :current="auth.chatroom.id"
+            :chatrooms="chatrooms"
+            @changedRoom="changeRoom"
+          >
+          </chatrooms-dropdown>
+        </div>
+        <div class="panel__action">
+          <chatstatuses-dropdown
+            :current="auth.chat_status.id"
+            :chatstatuses="statuses"
             @changedStatus="changeStatus"
-            @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
-            @typing="isTyping"
-        >
-        </chat-form>
+          >
+          </chatstatuses-dropdown>
+        </div>
+        <div class="panel__action">
+          <button
+              id="panel-fullscreen"
+              :class="`form__button form__standard-icon-button`"
+              title="Toggle Fullscreen"
+              @click.prevent="changeFullscreen()"
+          >
+            <i
+              :class="this.fullscreen ? `fas fa-compress` : `fas fa-expand`"
+            ></i>
+          </button>
+        </div>
       </div>
-    </section>
-  </div>
+    </header>
+    <menu id="chatbox_tabs" class="panel__tabs" role="tablist" v-if="boot == 1">
+      <li
+        v-for="echo in echoes"
+        v-if="echo.room && echo.room.name.length > 0"
+        class="panel__tab chatbox__tab"
+        role="tab"
+        :class="tab != '' && tab === echo.room.name && 'panel__tab--active'"
+        @click.prevent="changeTab('room', echo.room.id)"
+      >
+        <i
+          class="fa fa-comment"
+          :class="checkPings('room', echo.room.id) ? 'fa-beat text-success' : 'text-danger'"
+        ></i>
+        {{ echo.room.name }}
+        <button
+          v-if="tab != '' && tab === echo.room.name"
+          class="chatbox__tab-delete-button"
+          @click.prevent="leaveRoom(room)"
+        >
+          <i class="fa fa-times chatbox__tab-delete-icon"></i>
+        </button>
+      </li>
+      <li
+        v-for="echo in echoes"
+        v-if="echo.target && echo.target.id >= 3 && echo.target.username.length > 0"
+        class="panel__tab chatbox__tab"
+        :class="target >= 3 && target === echo.target.id && 'panel__tab--active'"
+        role="tab"
+        @click.prevent="changeTab('target', echo.target.id)"
+      >
+        <i
+          class="fa fa-comment"
+          :class="checkPings('target', echo.target.id) ? 'fa-beat text-success' : 'text-danger'"
+        ></i>
+        @{{ echo.target.username }}
+        <button
+          v-if="target >= 3 && target === echo.target.id"
+          class="chatbox__tab-delete-button"
+          @click.prevent="leaveTarget(target)"
+        >
+          <i class="fa fa-times chatbox__tab-delete-icon"></i>
+        </button>
+      </li>
+      <li
+        v-for="echo in echoes"
+        v-if="echo.bot && echo.bot.id >= 1 && echo.bot.name.length > 0"
+        class="panel__tab chatbox__tab"
+        :class="bot > 0 && bot === echo.bot.id && 'panel__tab--active'"
+        role="tab"
+        @click.prevent="changeTab('bot', echo.bot.id)"
+      >
+        <i
+          class="fa fa-comment"
+          :class="checkPings('bot', echo.bot.id) ? 'fa-beat text-success' : 'text-danger'"
+        ></i>
+        @{{ echo.bot.name }}
+        <button
+          v-if="bot > 0 && bot === echo.bot.id"
+          class="chatbox__tab-delete-button"
+          @click.prevent="leaveBot(bot)"
+        >
+          <i class="fa fa-times chatbox__tab-delete-icon"></i>
+        </button>
+      </li>
+    </menu>
+    <div
+      class="chatbox__chatroom"
+      v-if="!state.connecting"
+    >
+      <chat-messages
+        v-if="tab != ''"
+        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
+        :messages="msgs"
+      >
+      </chat-messages>
+      <chat-user-list
+        v-if="tab === 'userlist'"
+        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
+        :users="users"
+      >
+      </chat-user-list>
+      <section
+        class="chatroom__whispers"
+        v-if="showWhispers"
+      >
+        <span
+          v-if="
+            target < 1 &&
+            bot < 1 &&
+            activePeer &&
+            activePeer.username != ''
+          "
+        >
+          {{ activePeer ? activePeer.username + ' is typing ...' : '*'  }}
+        </span>
+      </section>
+      <chat-form
+        @changedStatus="changeStatus"
+        @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
+        @typing="isTyping"
+      >
+      </chat-form>
+    </div>
+  </section>
 </template>
-<style lang="scss" scoped>
-.panel-fullscreen {
-  z-index: 9999;
-  position: fixed;
-  width: 100%;
-  border: 0;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.panel-footer {
-  padding: 5px;
-  margin: 0;
-}
-.mr-10 {
-  margin-right: 10px;
-}
-.no-border {
-  border-bottom: none;
-  border-top: none;
-}
-.chatbox {
-  .nav-tabs {
-    overflow-y: hidden;
-  }
-
-  .typing {
-    height: 20px;
-
-    .badge-extra {
-      margin: 0;
-    }
-  }
-
-  .statuses {
-    i {
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .panel-body {
-    padding: 0;
-  }
-
-  .decoda-image {
-    min-height: 150px;
-    max-height: 300px;
-    max-width: 500px;
-  }
-}
-</style>
 <script>
-import ChatroomsDropdown from './ChatroomsDropdown';
-import ChatMessages from './ChatMessages';
-import ChatForm from './ChatForm';
-import ChatPms from './ChatPms';
-import ChatUserList from './ChatUserList';
+import ChatroomsDropdown from './ChatroomsDropdown.vue';
+import ChatMessages from './ChatMessages.vue';
+import ChatForm from './ChatForm.vue';
+import ChatUserList from './ChatUserList.vue';
+import ChatstatusesDropdown from "./ChatstatusesDropdown.vue";
+import axios from "axios"
 
 export default {
   props: {
@@ -247,11 +223,11 @@ export default {
     },
   },
   components: {
+    ChatstatusesDropdown,
     ChatroomsDropdown,
     ChatMessages,
     ChatForm,
     ChatUserList,
-    ChatPms,
   },
   data() {
     return {
@@ -299,6 +275,7 @@ export default {
       config: {},
       receiver_id: null,
       bot_id: null,
+      showWhispers: 1,
     };
   },
   watch: {
@@ -312,11 +289,6 @@ export default {
       window.Echo.leave(`chatroom.${oldVal}`);
       this.channel = window.Echo.join(`chatroom.${newVal}`);
       this.listenForEvents();
-    },
-    messages() {
-      this.$nextTick(function () {
-        this.scrollToBottom();
-      });
     },
   },
   computed: {
@@ -422,7 +394,6 @@ export default {
           }
         } else {
         }
-        this.scrollToBottom(true);
       } else if (typeVal == 'target') {
         this.bot = 0;
         this.tab = newVal;
@@ -454,7 +425,6 @@ export default {
           }
         } else {
         }
-        this.scrollToBottom(true);
       } else if (typeVal == 'bot') {
         this.target = 0;
         this.tab = newVal;
@@ -489,10 +459,8 @@ export default {
           }
         } else {
         }
-        this.scrollToBottom(true);
       } else if (typeVal == 'list') {
         this.tab = newVal;
-        this.scrollToBottom(true);
       }
     },
     fetchAudibles() {
@@ -546,7 +514,6 @@ export default {
     fetchBotMessages(id) {
       axios.get(`/api/chat/bot/${id}`).then((response) => {
         this.messages = _.reverse(response.data.data);
-        this.scrollToBottom();
         this.state.connecting = false;
       });
     },
@@ -554,14 +521,12 @@ export default {
       axios.get(`/api/chat/private/messages/${this.target}`).then((response) => {
         this.messages = _.reverse(response.data.data);
         this.state.connecting = false;
-        this.scrollToBottom(true);
       });
     },
     fetchMessages() {
       axios.get(`/api/chat/messages/${this.room}`).then((response) => {
         this.messages = _.reverse(response.data.data);
         this.state.connecting = false;
-        this.scrollToBottom(true);
       });
     },
     fetchStatuses() {
@@ -570,26 +535,10 @@ export default {
       });
     },
     forceMessage(name) {
-      document.getElementById('chat-message').value = '/msg ' + name + ' ';
-      document.getElementById('chat-message').value = '/msg ' + name + ' ';
+      document.getElementById('chatbox__messages-create').value = '/msg ' + name + ' ';
     },
     forceGift(name) {
-      document.getElementById('chat-message').value = '/gift ' + name + ' ';
-      document.getElementById('chat-message').value = '/gift ' + name + ' ';
-    },
-    freezeChat() {
-      this.frozen = true;
-    },
-    unfreezeChat() {
-      let container = document.querySelector('.messages .list-group');
-      let xy = Math.ceil(container.offsetHeight + container.scrollTop);
-      if (xy != undefined && this.frozen == true) {
-        if (
-            Math.ceil(container.scrollHeight - container.scrollTop) === container.clientHeight
-        ) {
-          this.frozen = false;
-        }
-      }
+      document.getElementById('chatbox__messages-create').value = '/gift ' + name + ' ';
     },
     leaveBot(id) {
       if (id > 0) {
@@ -679,55 +628,10 @@ export default {
       }
     },
     changeFullscreen() {
-      let frameBody = document.getElementById('frameBody');
-      let frameList = document.getElementById('frameList');
-      let frameHeader = document.getElementById('frameHeader');
-      let frameFooter = document.getElementById('frameFooter');
-      let frameWrap = document.getElementById('frameWrap');
-
-      if (this.fullscreen == 1) {
-        this.fullscreen = 0;
-
-        frameBody.style.height = '92vh';
-        frameBody.style.minHeight = '300px';
-        frameBody.style.maxHeight = '590px';
-
-        frameList.style.height = 'initial';
-        frameList.style.minHeight = '300px';
-        frameList.style.maxHeight = '535px';
-
-        frameHeader.style.height = 'initial';
-        frameHeader.style.minHeight = 'initial';
-        frameHeader.style.maxHeight = 'initial';
-
-        frameFooter.style.paddingTop = '10px';
-        frameFooter.style.height = 'initial';
-        frameFooter.style.minHeight = 'initial';
-        frameFooter.style.maxHeight = 'initial';
-
-        frameWrap.style.width = '100%';
-        frameWrap.style.paddingTop = '0px';
-      } else {
-        this.fullscreen = 1;
-
-        frameBody.style.height = '70vh';
-        frameBody.style.minHeight = '0px';
-        frameBody.style.maxHeight = '70vh';
-
-        frameList.style.height = frameBody.getBoundingClientRect().height - frameTabs.getBoundingClientRect().height - 20 + 'px';
-
-        frameHeader.style.height = '6vh';
-        frameHeader.style.minHeight = '0px';
-        frameHeader.style.maxHeight = '6vh';
-
-        frameFooter.style.paddingTop = '0px';
-        frameFooter.style.height = '24vh';
-        frameFooter.style.minHeight = '0px';
-        frameFooter.style.maxHeight = '24vh';
-
-        frameWrap.style.width = '100%';
-        frameWrap.style.paddingTop = '5px';
-      }
+      this.fullscreen = !this.fullscreen
+    },
+    changeWhispers() {
+      this.showWhispers = !this.showWhispers
     },
     changeStatus(status_id) {
       this.status = status_id;
@@ -779,7 +683,6 @@ export default {
         this.target = id;
         this.fetchPrivateMessages();
       } else {
-        this.scrollToBottom(true);
       }
     },
     changeBot(id) {
@@ -791,7 +694,6 @@ export default {
         this.receiver_id = 1;
         this.fetchBotMessages(this.bot);
       } else {
-        this.scrollToBottom(true);
       }
     },
     sortEchoes(obj) {
@@ -823,7 +725,6 @@ export default {
     startBot() {
       this.forced = false;
       if (this.bot == 9999) {
-        this.scrollToBottom(true);
       } else {
         this.tab = '@' + this.helpName;
         this.bot = this.helpId;
@@ -1066,25 +967,6 @@ export default {
             }
           });
     },
-    scrollToBottom(force = false) {
-      let container = document.querySelector('.messages .list-group');
-
-      if (container === null) return;
-
-      if (!this.forced && !force && this.frozen) return;
-
-      if (this.scroll || force) {
-        container.animate({
-          scrollTop: container.scrollHeight
-        }, {
-          duration: 0
-        });
-      }
-
-      container.scroll({
-        top: container.scrollHeight + 9999,
-      })
-    },
     listenForChatter() {
       this.chatter = window.Echo.private(`chatter.${this.auth.id}`);
       this.chatter.listen('Chatter', (e) => {
@@ -1181,7 +1063,6 @@ export default {
     this.fetchEchoes();
     this.listenForChatter();
     this.attachAudible();
-    this.scrollToBottom(true);
   },
 };
 </script>

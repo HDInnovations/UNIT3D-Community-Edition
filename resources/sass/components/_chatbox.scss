@@ -1,0 +1,243 @@
+.chatbox__chatroom {
+    display: grid;
+    grid-template-areas: "messages users" "whispers users" "new-message users";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr 18px auto;
+    height: 700px;
+    max-height: 90vh;
+    background-color: inherit;
+}
+.chatroom__messages--wrapper {
+    grid-area: messages;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-anchor: auto !important;
+}
+.chatroom__messages {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 8px;
+    padding: 0 10px;
+    margin: 0;
+    align-items: flex-start;
+}
+
+.chatroom__users {
+    grid-area: users;
+    width: auto;
+    overflow-y: auto;
+}
+
+.chatroom__whispers {
+    grid-area: whispers;
+    font-size: 12px;
+    padding: 2px 4px;
+}
+
+.chatroom__new-message {
+    grid-area: new-message;
+    margin: 0 10px 10px 10px;
+}
+
+.chatbox-message {
+    display: grid;
+    grid-template-areas: 'aside header . menu' 'aside content content content';
+    grid-template-columns: 0 auto 1fr auto;
+    border-radius: 15px 15px 15px 0;
+    background-color: var(--chatbox-message-bg);
+    position: relative;
+    margin-left: 40px;
+}
+
+.chatbox-message:before {
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    width: 0;
+    border-right: 10px solid var(--chatbox-message-bg);
+    border-top: 10px solid transparent;
+}
+
+.chatbox-message__aside {
+    grid-area: aside;
+    position: absolute;
+    left: -40px;
+    bottom: 0;
+}
+
+.chatbox-message__menu {
+    grid-area: menu;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+}
+
+.chatbox-message__header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+}
+
+.chatbox-message__address {
+    padding: 4px 8px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.chatbox-message__time {
+    display: block;
+    padding: 4px 8px 4px 2px;
+    font-size: 11px;
+}
+
+.chatbox-message__content {
+    grid-area: content;
+    padding: 0 8px 8px 8px;
+    font-size: 16px;
+
+    img {
+      max-width: 400px;
+      max-height: 400px;
+    }
+}
+
+.chatbox-message__avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 10%;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.chatbox-message__fallback-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 17px;
+}
+
+.chatbox-message__delete-button {
+    padding: 4px 12px;
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
+    border: none;
+    color: transparent;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.chatbox-message:hover .chatbox-message__delete-button {
+    color: var(--chatbox-button-fg);
+    width: auto;
+
+    &:hover {
+        color: var(--chatbox-button-hover-fg);
+        width: auto;
+    }
+}
+
+.chatroom__users {
+  background-color: var(--chatbox-users-bg);
+}
+
+.chatroom-users__heading {
+  font-size: 18px;
+  padding: 4px 8px;
+  margin: 0;
+}
+
+.chatroom-users__list {
+  list-style-type: none;
+  overflow-y: scroll;
+  padding: 0 0 0 20px;
+}
+
+.chatroom-users__user {
+  font-size: 13px;
+}
+
+.chatbox--fullscreen {
+  z-index: 9999;
+  position: fixed;
+  width: 100vw;
+  border: 0;
+  height: 100vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .chatbox__chatroom {
+    height: 100vh;
+  }
+}
+
+.chatbox__tab {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chatbox__tab-delete-button {
+  padding: 4px;
+  margin: -8px -16px -8px 0;
+  border: none;
+  background-color: transparent;
+  display: grid;
+  place-items: center;
+}
+
+.chatbox__tab-delete-icon {
+  color: var(--chatbox-tab-delete-fg);
+  display: block;
+  border-radius: 9999px;
+}
+
+.chatbox__tab-delete-icon:before {
+  width: 18px;
+  height: 18px;
+  display: block;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.chatbox__tab-delete-button:hover .chatbox__tab-delete-icon {
+  background-color: var(--chatbox-tab-delete-bg);
+}
+
+.chatroom-users__list-item {
+  display: flex;
+  align-items: center;
+}
+
+.chatroom-users__buttons {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.chatroom-users__button {
+  border: none;
+  background-color: transparent;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  color: transparent;
+  cursor: pointer;
+}
+
+.chatroom-users__list-item:hover .chatroom-users__button {
+  color: var(--chatbox-button-fg);
+
+  &:hover {
+    color: var(--chatbox-button-hover-fg);
+  }
+}

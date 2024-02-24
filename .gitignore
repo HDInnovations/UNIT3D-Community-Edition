@@ -28,6 +28,9 @@ npm-debug.log
 laravel-echo-server.json
 laravel-echo-server.lock
 
+# Vite
+/public/build
+
 # OS X
 .DS_store
 

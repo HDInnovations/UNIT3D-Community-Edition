@@ -21,7 +21,14 @@ class PersonSearch extends Component
 {
     use WithPagination;
 
-    public $search = '';
+    public string $search = '';
+
+    /**
+     * @var string[]
+     */
+    public array $occupationIds = [];
+
+    public string $firstCharacter = '';
 
     final public function updatedPage(): void
     {
@@ -33,19 +40,38 @@ class PersonSearch extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Person>
+     */
     final public function getPersonsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Person::select(['id', 'still', 'name'])
             ->whereNotNull('still')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->occupationIds !== [], fn ($query) => $query->whereHas('credits', fn ($query) => $query->whereIn('occupation_id', $this->occupationIds)))
+            ->when($this->firstCharacter !== '', fn ($query) => $query->where('name', 'LIKE', $this->firstCharacter.'%'))
             ->oldest('name')
             ->paginate(36);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Person>
+     */
+    final public function getFirstCharactersProperty()
+    {
+        return Person::selectRaw('substr(name, 1, 1) as alpha, count(*) as count')
+            ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->occupationIds !== [], fn ($query) => $query->whereHas('credits', fn ($query) => $query->whereIn('occupation_id', $this->occupationIds)))
+            ->groupBy('alpha')
+            ->orderBy('alpha')
+            ->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.person-search', [
-            'persons' => $this->persons,
+            'persons'         => $this->persons,
+            'firstCharacters' => $this->firstCharacters,
         ]);
     }
 }

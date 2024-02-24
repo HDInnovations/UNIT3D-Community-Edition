@@ -17,14 +17,14 @@ return [
     'delete-confirm' => 'Ви дійсно впевнені, що хочете видалити це?',
     'note'           => 'Примітка',
     'note-help'      => 'Додаткова інформація про ці субтитри',
-    'rules-title'    => 'Правила субтитр',
+    'rules-title'    => 'Правила субтитрів',
     'rules'          => '<ul>
-                                        <li>Only proper subtitles are allowed (correct frame rate, translation, spelling, timing)</li>
-                                        <li>No Google-translated, machine-translated and incorrect subtitles</li>
-                                        <li>Subtitles must be in sync with the video</li>
-                                        <li>ZIP archives are only allowed for SUB+IDX or as bundles of the same language for a TV season pack</li>
-                                        <li>Repeated uploads of junk subs will constitute a violation and subject to a disciplinary action</li>
-                                        <li>Keep the Note of the subtitle short, NO urls/links are allowed</li>
+                                        <li>Допускаються лише точні субтитри (правильна частота кадрів, переклад, орфографія, хронометраж)</li>
+                                        <li>Без гугл-перекладу, машинного перекладу та некоректних субтитрів</li>
+                                        <li>Субтитри повинні бути синхронізовані з відео</li>
+                                        <li>ZIP-архіви дозволені лише для SUB+IDX або як пакети однієї мови для пакету телесезонів</li>
+                                        <li>Повторне завантаження неякісного контенту буде вважатися порушенням і може призвести до дисциплінарних стягнень.</li>
+                                        <li>Зробіть примітку до субтитрів короткою, НІЯКІ URL-адреси/посилання не допускаються</li>
                                       </ul>',
     'size'                => 'Розмір',
     'subtitle-file'       => 'Файл субтитрів',

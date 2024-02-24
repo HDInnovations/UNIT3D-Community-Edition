@@ -12,15 +12,15 @@
     </li>
     <li class="breadcrumbV2">
         <a
-            href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}"
+            href="{{ route('forums.categories.show', ['id' => $topic->forum->category->id]) }}"
             class="breadcrumb__link"
         >
-            {{ $forum->category->name }}
+            {{ $topic->forum->category->name }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
-            {{ $forum->name }}
+        <a href="{{ route('forums.show', ['id' => $topic->forum->id]) }}" class="breadcrumb__link">
+            {{ $topic->forum->name }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -43,7 +43,7 @@
         </p>
     @endif
 
-    @if (($topic->state === 'open' && $forum->getPermission()->reply_topic) || auth()->user()->group->is_modo)
+    @if (($topic->state === 'open' && $topic->forum->getPermission()?->reply_topic) || auth()->user()->group->is_modo)
         <form id="forum_reply_form" method="POST" action="{{ route('posts.store') }}">
             @csrf
             <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
@@ -65,9 +65,13 @@
         <dl class="key-value">
             <dt>{{ __('forum.author') }}</dt>
             <dd>
-                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                    {{ $topic->first_post_user_username }}
-                </a>
+                @if ($topic->user === null)
+                    {{ __('common.unknown') }}
+                @else
+                    <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                        {{ $topic->user->username }}
+                    </a>
+                @endif
             </dd>
             <dt>{{ __('forum.created-at') }}</dt>
             <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>

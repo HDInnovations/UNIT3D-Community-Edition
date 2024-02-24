@@ -14,6 +14,8 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class StoreForumRequest extends FormRequest
 {
@@ -39,38 +41,50 @@ class StoreForumRequest extends FormRequest
             'position' => [
                 'required',
             ],
+            'slug' => [
+                'required',
+            ],
             'description' => [
                 'required',
             ],
-            'parent_id' => [
-                'sometimes',
-                'nullable',
-                'integer',
+            'forum_category_id' => [
+                'required',
+                'exists:forum_categories,id',
             ],
             'permissions' => [
-                'sometimes',
+                'required',
                 'array',
             ],
             'permissions.*' => [
-                'sometimes',
+                'required',
+                'array:group_id,read_topic,reply_topic,start_topic',
+            ],
+            'permissions.*.group_id' => [
+                'required',
                 'exists:groups,id',
             ],
-            'permissions.*.show_forum' => [
-                'sometimes',
-                'boolean',
-            ],
             'permissions.*.read_topic' => [
-                'sometimes',
+                'required',
                 'boolean',
             ],
             'permissions.*.reply_topic' => [
-                'sometimes',
+                'required',
                 'boolean',
             ],
             'permissions.*.start_topic' => [
-                'sometimes',
+                'required',
                 'boolean',
             ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug' => Str::slug($this->name),
+        ]);
     }
 }

@@ -71,7 +71,7 @@ class PollController extends Controller
         Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], []);
 
         $this->chatRepository->systemMessage(
-            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now! :slight_smile:', href_poll($poll), $poll->title)
+            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
         );
 
         return to_route('staff.polls.index')
@@ -103,7 +103,7 @@ class PollController extends Controller
         Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], ['name']);
 
         $this->chatRepository->systemMessage(
-            sprintf('A poll has been updated [url=%s]%s[/url] vote on it now! :slight_smile:', href_poll($poll), $poll->title)
+            sprintf('A poll has been updated [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
         );
 
         return to_route('staff.polls.index')

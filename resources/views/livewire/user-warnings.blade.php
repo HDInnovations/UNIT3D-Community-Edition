@@ -2,21 +2,14 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('user.warnings') }}</h2>
         @if (auth()->user()->group->is_modo)
-            <div class="panel__actions">
-                <div class="panel__action" x-data>
-                    <button
-                        class="form__button form__button--text"
-                        x-on:click.stop="$refs.dialog.showModal();"
-                    >
+            <div class="panel__actions" x-data="userWarnings">
+                <div class="panel__action" x-data="dialogLivewire">
+                    <button class="form__button form__button--text" x-bind="showDialog">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-ref="dialog" x-cloak>
+                    <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">Warn user: {{ $user->username }}</h3>
-                        <form
-                            class="dialog__form"
-                            x-on:click.outside="$refs.dialog.close()"
-                            x-on:submit.prevent="$refs.dialog.close()"
-                        >
+                        <form class="dialog__form" x-bind="dialogForm">
                             <p class="form__group">
                                 <textarea
                                     id="warn_reason"
@@ -34,7 +27,7 @@
                                 <button
                                     class="form__button form__button--filled"
                                     wire:click="store"
-                                    x-on:click="$refs.dialog.close()"
+                                    x-bind="submitDialogForm"
                                 >
                                     {{ __('common.save') }}
                                 </button>
@@ -52,17 +45,8 @@
                 <form class="panel__action">
                     @csrf
                     <button
-                        x-on:click.prevent="Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'Are you sure you want to delete all warnings?',
-                            icon: 'warning',
-                            showConfirmButton: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                @this.massDestroy()
-                            }
-                        })"
+                        x-on:click.prevent="massDestroy"
+                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all warnings?') }}"
                         class="form__button form__button--text"
                     >
                         {{ __('user.delete-all') }}
@@ -71,17 +55,8 @@
                 <form class="panel__action">
                     @csrf
                     <button
-                        x-on:click.prevent="Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'Are you sure you want to deactivate all warnings?',
-                            icon: 'warning',
-                            showConfirmButton: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                @this.massDeactivate()
-                            }
-                        })"
+                        x-on:click.prevent="massDeactivate"
+                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to deactivate all warnings?') }}"
                         class="form__button form__button--text"
                     >
                         {{ __('user.deactivate-all') }}
@@ -116,7 +91,7 @@
             Soft Deleted ({{ $deletedWarningsCount ?? 0 }})
         </li>
     </menu>
-    <div class="data-table-wrapper">
+    <div class="data-table-wrapper" x-data="userWarnings">
         <table class="data-table">
             <thead>
                 <tr>
@@ -152,7 +127,7 @@
             </thead>
             <tbody>
                 @forelse ($warnings as $warning)
-                    <tr>
+                    <tr x-ref="warning" data-warning-id="{{ $warning->id }}">
                         <td>
                             <x-user_tag :user="$warning->staffuser" :anon="false" />
                         </td>
@@ -207,17 +182,8 @@
                                                 @csrf
                                                 @method('PATCH')
                                                 <button
-                                                    x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to restore this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        @this.restore({{ $warning->id }})
-                                                    }
-                                                })"
+                                                    x-on:click.prevent="restoreWarning"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to restore this warning: ' . $warning->reason . '?') }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('user.restore') }}
@@ -231,17 +197,8 @@
                                                     <form>
                                                         @csrf
                                                         <button
-                                                            x-on:click.prevent="Swal.fire({
-                                                            title: 'Are you sure?',
-                                                            text: `Are you sure you want to deactivate this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
-                                                            icon: 'warning',
-                                                            showConfirmButton: true,
-                                                            showCancelButton: true,
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                @this.deactivate({{ $warning->id }})
-                                                            }
-                                                        })"
+                                                            x-on:click.prevent="deactivateWarning"
+                                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to deactivate this warning: ' . $warning->reason . '?') }}"
                                                             class="form__button form__button--text"
                                                         >
                                                             {{ __('user.deactivate') }}
@@ -253,17 +210,8 @@
                                                     <form>
                                                         @csrf
                                                         <button
-                                                            x-on:click.prevent="Swal.fire({
-                                                            title: 'Are you sure?',
-                                                            text: `Are you sure you want to reactivate this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
-                                                            icon: 'warning',
-                                                            showConfirmButton: true,
-                                                            showCancelButton: true,
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                @this.reactivate({{ $warning->id }})
-                                                            }
-                                                        })"
+                                                            x-on:click.prevent="reactivateWarning"
+                                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to reactivate this warning: ' . $warning->reason . '?') }}"
                                                             class="form__button form__button--text"
                                                         >
                                                             {{ __('user.reactivate') }}
@@ -277,17 +225,8 @@
                                             <form>
                                                 @csrf
                                                 <button
-                                                    x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this warning: ${atob('{{ base64_encode($warning->reason) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        @this.destroy({{ $warning->id }})
-                                                    }
-                                                })"
+                                                    x-on:click.prevent="destroyWarning"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this warning: ' . $warning->reason . '?') }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.delete') }}
@@ -312,4 +251,49 @@
         </table>
         {{ $warnings->links('partials.pagination') }}
     </div>
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('userWarnings', () => ({
+                massDestroy() {
+                    this.confirmAction(() => this.$wire.massDestroy());
+                },
+                massDeactivate() {
+                    this.confirmAction(() => this.$wire.massDeactivate());
+                },
+                destroyWarning() {
+                    this.confirmAction(() =>
+                        this.$wire.destroy(this.$refs.warning.dataset.warningId),
+                    );
+                },
+                reactivateWarning() {
+                    this.confirmAction(() =>
+                        this.$wire.reactivate(this.$refs.warning.dataset.warningId),
+                    );
+                },
+                deactivateWarning() {
+                    this.confirmAction(() =>
+                        this.$wire.deactivate(this.$refs.warning.dataset.warningId),
+                    );
+                },
+                restoreWarning() {
+                    this.confirmAction(() =>
+                        this.$wire.restore(this.$refs.warning.dataset.warningId),
+                    );
+                },
+                confirmAction(onConfirm) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: atob(this.$el.dataset.b64DeletionMessage),
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            onConfirm();
+                        }
+                    });
+                },
+            }));
+        });
+    </script>
 </section>

@@ -199,19 +199,6 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select id="ratings" class="form__select" name="ratings" required>
-                            <option class="form__option" value="0" @selected($user->ratings === 0)>
-                                TMDB
-                            </option>
-                            <option class="form__option" value="1" @selected($user->ratings === 1)>
-                                IMDB
-                            </option>
-                        </select>
-                        <label class="form__label form__label--floating" for="ratings">
-                            Ratings source
-                        </label>
-                    </p>
-                    <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_poster" value="0" />
                             <input

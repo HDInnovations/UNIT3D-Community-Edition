@@ -263,14 +263,14 @@
                                 <td>
                                     <menu class="data-table__actions">
                                         @if ($bounty->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                            <li class="data-table__action" x-data>
+                                            <li class="data-table__action" x-data="dialog">
                                                 <button
                                                     class="form__button form__button--text"
-                                                    x-on:click.stop="$refs.dialog.showModal()"
+                                                    x-bind="showDialog"
                                                 >
                                                     {{ __('common.edit') }}
                                                 </button>
-                                                <dialog class="dialog" x-ref="dialog">
+                                                <dialog class="dialog" x-bind="dialogElement">
                                                     <h4 class="dialog__heading">
                                                         {{ __('common.edit') }}
                                                         {{ __('request.vote') }}
@@ -279,7 +279,7 @@
                                                         class="dialog__form"
                                                         method="POST"
                                                         action="{{ route('requests.bounties.update', ['torrentRequest' => $torrentRequest, 'torrentRequestBounty' => $bounty]) }}"
-                                                        x-on:click.outside="$refs.dialog.close()"
+                                                        x-bind="dialogForm"
                                                     >
                                                         @csrf
                                                         @method('PATCH')

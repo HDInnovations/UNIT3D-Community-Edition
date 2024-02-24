@@ -17,6 +17,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Tv.
+ *
+ * @property int                             $id
+ * @property string|null                     $tmdb_id
+ * @property string|null                     $imdb_id
+ * @property string|null                     $tvdb_id
+ * @property string|null                     $type
+ * @property string                          $name
+ * @property string                          $name_sort
+ * @property string|null                     $overview
+ * @property int|null                        $number_of_episodes
+ * @property int|null                        $count_existing_episodes
+ * @property int|null                        $count_total_episodes
+ * @property int|null                        $number_of_seasons
+ * @property string|null                     $episode_run_time
+ * @property string|null                     $first_air_date
+ * @property string|null                     $status
+ * @property string|null                     $homepage
+ * @property int|null                        $in_production
+ * @property string|null                     $last_air_date
+ * @property string|null                     $next_episode_to_air
+ * @property string|null                     $origin_country
+ * @property string|null                     $original_language
+ * @property string|null                     $original_name
+ * @property string|null                     $popularity
+ * @property string|null                     $backdrop
+ * @property string|null                     $poster
+ * @property string|null                     $vote_average
+ * @property int|null                        $vote_count
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null                     $trailer
+ */
 class Tv extends Model
 {
     use HasFactory;

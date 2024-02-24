@@ -1,23 +1,19 @@
-<section class="panelV2" x-data="{ show_downloads: false }">
-    <h2
-        class="panel__heading"
-        style="cursor: pointer"
-        x-on:click="show_downloads = !show_downloads"
-    >
+<section class="panelV2" x-data="toggle">
+    <h2 class="panel__heading" style="cursor: pointer" x-on:click="toggle">
         <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
         Torrent File Downloads
         ({{ App\Models\TorrentDownload::where('torrent_id', '=', $torrent->id)->count() }} Total)
         <i
             class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
-            x-show="!show_downloads"
+            x-show="isToggledOff"
         ></i>
         <i
             class="{{ config('other.font-awesome') }} fa-minus-circle fa-pull-right"
-            x-show="show_downloads"
+            x-show="isToggledOn"
             x-cloak
         ></i>
     </h2>
-    <div class="data-table-wrapper" x-show="show_downloads" x-cloak>
+    <div class="data-table-wrapper" x-show="isToggledOn" x-cloak>
         <table class="data-table">
             <thead>
                 <tr>

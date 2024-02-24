@@ -17,6 +17,16 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Poll.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $title
+ * @property int                             $multiple_choice
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Poll extends Model
 {
     use Auditable;

@@ -21,7 +21,15 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.forums.index') }}" class="breadcrumb__link">
+        <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
+            Forum Categories
+        </a>
+    </li>
+    <li class="breadcrumbV2">
+        {{ $forum->category->name }}
+    </li>
+    <li class="breadcrumbV2">
+        <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
             {{ __('staff.forums') }}
         </a>
     </li>
@@ -53,46 +61,9 @@
                         type="text"
                         name="name"
                         value="{{ $forum->name }}"
+                        required
                     />
                     <label class="form__label form__label--floating" for="name">Title</label>
-                </p>
-                <p class="form__group">
-                    <textarea id="description" name="description" class="form__textarea">
-{{ $forum->description }}</textarea
-                    >
-                    <label class="form__label form__label--floating" for="description">
-                        Description
-                    </label>
-                </p>
-                <p class="form__group">
-                    <select id="forum_type" name="forum_type" class="form__select">
-                        @if ($forum->category == null)
-                            <option value="category" selected>Category (Current)</option>
-                            <option value="forum">Forum</option>
-                        @else
-                            <option value="category">Category</option>
-                            <option value="forum" selected>Forum (Current)</option>
-                        @endif
-                    </select>
-                    <label class="form__label form__label--floating" for="forum_type">
-                        Forum Type
-                    </label>
-                </p>
-                <p class="form__group">
-                    <select id="parent_id" name="parent_id" class="form__select">
-                        @if ($forum->category != null)
-                            <option value="{{ $forum->parent_id }}" selected>
-                                {{ $forum->category->name }} (Current)
-                            </option>
-                        @endif
-
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                    <label class="form__label form__label--floating" for="parent_id">
-                        Parent forum
-                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -110,53 +81,89 @@
                         {{ __('common.position') }}
                     </label>
                 </p>
+                <p class="form__group">
+                    <textarea id="description" name="description" class="form__textarea" required>
+{{ $forum->description }}</textarea
+                    >
+                    <label class="form__label form__label--floating" for="description">
+                        Description
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select id="forum_category_id" name="forum_category_id" class="form__select">
+                        @foreach ($categories as $category)
+                            <option
+                                value="{{ $category->id }}"
+                                @selected($category->id === $forum->category->id)
+                            >
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <label class="form__label form__label--floating" for="forum_category_id">
+                        Forum Category
+                    </label>
+                </p>
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table class="data-table">
+                        <table class="data-table" x-data="checkboxGrid">
                             <thead>
                                 <tr>
-                                    <th>Groups</th>
-                                    <th>View the forum</th>
-                                    <th>Read topics</th>
-                                    <th>Start new topic</th>
-                                    <th>Reply to topics</th>
+                                    <th x-bind="columnHeader">Groups</th>
+                                    <th x-bind="columnHeader">Read topics</th>
+                                    <th x-bind="columnHeader">Start new topic</th>
+                                    <th x-bind="columnHeader">Reply to topics</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody x-ref="tbody">
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <td>{{ $group->name }}</td>
+                                        <th x-bind="rowHeader">
+                                            {{ $group->name }}
+                                            <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][group_id]"
+                                                value="{{ $group->id }}"
+                                            />
+                                        </th>
                                         <td>
                                             <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][read_topic]"
+                                                value="0"
+                                            />
+                                            <input
                                                 type="checkbox"
-                                                name="permissions[{{ $group->id }}][show_forum]"
+                                                name="permissions[{{ $loop->index }}][read_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->show_forum)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->read_topic)
                                             />
                                         </td>
                                         <td>
                                             <input
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][start_topic]"
+                                                value="0"
+                                            />
+                                            <input
                                                 type="checkbox"
-                                                name="permissions[{{ $group->id }}][read_topic]"
+                                                name="permissions[{{ $loop->index }}][start_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->read_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->start_topic)
                                             />
                                         </td>
                                         <td>
                                             <input
-                                                type="checkbox"
-                                                name="permissions[{{ $group->id }}][start_topic]"
-                                                value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->start_topic)
+                                                type="hidden"
+                                                name="permissions[{{ $loop->index }}][reply_topic]"
+                                                value="0"
                                             />
-                                        </td>
-                                        <td>
                                             <input
                                                 type="checkbox"
-                                                name="permissions[{{ $group->id }}][reply_topic]"
+                                                name="permissions[{{ $loop->index }}][reply_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()->reply_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->reply_topic)
                                             />
                                         </td>
                                     </tr>

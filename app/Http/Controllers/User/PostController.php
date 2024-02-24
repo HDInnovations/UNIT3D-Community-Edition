@@ -27,7 +27,7 @@ class PostController extends Controller
         return view('user.post.index', [
             'user'  => $user,
             'posts' => $user->posts()
-                ->with('user', 'user.group', 'topic:id,name')
+                ->with('user', 'user.group', 'topic:id,name,state')
                 ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
                 ->withSum('tips', 'cost')
                 ->whereNotIn(
@@ -37,11 +37,7 @@ class PostController extends Controller
                             'forumPermissions',
                             fn ($query) => $query
                                 ->where('group_id', '=', auth()->user()->group_id)
-                                ->where(
-                                    fn ($query) => $query
-                                        ->where('show_forum', '!=', 1)
-                                        ->orWhere('read_topic', '!=', 1)
-                                )
+                                ->where('read_topic', '!=', 1)
                         )
                         ->select('id')
                 )

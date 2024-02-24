@@ -511,10 +511,7 @@ class ChatController extends Controller
         $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
         $status = $this->chatRepository->statusFindOrFail($request->input('status_id'));
 
-        $log = '[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]';
-
-        $message = $this->chatRepository->message($systemUser->id, $user->chatroom->id, $log, null);
-        $message->save();
+        $this->chatRepository->systemMessage('[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]');
 
         $user->chatStatus()->dissociate();
         $user->chatStatus()->associate($status);

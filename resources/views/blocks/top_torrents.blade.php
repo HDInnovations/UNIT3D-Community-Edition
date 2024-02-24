@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: 'newest' }">
+<section class="panelV2 blocks__top-torrents" x-data="{ tab: 'newest' }">
     <h2 class="panel__heading">{{ __('blocks.top-torrents') }}</h2>
     <menu class="panel__tabs">
         <li

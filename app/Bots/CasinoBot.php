@@ -29,7 +29,7 @@ class CasinoBot
 {
     private Bot $bot;
 
-    private ?\App\Models\User $target = null;
+    private ?User $target = null;
 
     private string $type;
 
@@ -37,7 +37,7 @@ class CasinoBot
 
     private ?string $log = null;
 
-    private readonly \Illuminate\Support\Carbon $expiresAt;
+    private readonly Carbon $expiresAt;
 
     /**
      * NerdBot Constructor.

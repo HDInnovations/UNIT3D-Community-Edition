@@ -28,7 +28,7 @@ class TestMailSettings extends Command
      *
      * @var string
      */
-    protected $signature = 'test:email';
+    protected $signature = 'test:email {--force}';
 
     /**
      * The console command description.
@@ -45,17 +45,18 @@ class TestMailSettings extends Command
         $owner = config('other.email');
 
         $this->info('Sending Test Email To '.$owner);
-        sleep(5);
 
-        try {
-            Mail::to($owner)->send(new TestEmail());
-        } catch (Exception) {
-            $this->error('Failed!');
-            $this->alert('Email failed to send. Please review your mail configs in the .env file.');
+        if ($this->option('force') || $this->confirm('Do you wish to continue?', true)) {
+            try {
+                Mail::to($owner)->send(new TestEmail());
+            } catch (Exception) {
+                $this->error('Failed!');
+                $this->alert('Email failed to send. Please review your mail configs in the .env file.');
 
-            exit(1);
+                exit(1);
+            }
+
+            $this->alert('Email Was Successfully Sent!');
         }
-
-        $this->alert('Email Was Successfully Sent!');
     }
 }

@@ -30,7 +30,7 @@ use Exception;
  */
 class StatsController extends Controller
 {
-    public \Illuminate\Support\Carbon $carbon;
+    public Carbon $carbon;
 
     /**
      * StatsController Constructor.
@@ -229,6 +229,19 @@ class StatsController extends Controller
         return view('stats.users.seedsize', [
             'users' => User::withSum('seedingTorrents as seedsize', 'size')
                 ->orderByDesc('seedsize')
+                ->take(100)
+                ->get(),
+        ]);
+    }
+
+    /**
+     * Show Extra-Stats Users.
+     */
+    public function uploadSnatches(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return view('stats.users.upload-snatches', [
+            'users' => User::withCount('uploadSnatches')
+                ->orderByDesc('upload_snatches_count')
                 ->take(100)
                 ->get(),
         ]);

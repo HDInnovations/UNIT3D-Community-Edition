@@ -60,10 +60,6 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'exists:groups,id',
             ],
-            'internal_id' => [
-                'nullable',
-                'exists:internals,id',
-            ],
             'seedbonus' => [
                 'required',
                 'decimal:0,2',

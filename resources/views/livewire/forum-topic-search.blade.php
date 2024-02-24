@@ -1,60 +1,7 @@
 <div class="sidebar2">
     <div>
         <section class="panelV2">
-            <header class="panel__header">
-                <h2 class="panel__heading">{{ $forum->description }}</h2>
-                <div class="panel__actions">
-                    @if ($forum->getPermission()->start_topic == true)
-                        <div class="panel__action">
-                            <div class="form__group">
-                                <a
-                                    href="{{ route('topics.create', ['id' => $forum->id]) }}"
-                                    class="panel__action form__button form__button--text"
-                                >
-                                    {{ __('forum.create-new-topic') }}
-                                </a>
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="panel__action">
-                        <div class="form__group">
-                            @if ($subscription === null)
-                                <form
-                                    class="panel__action"
-                                    action="{{ route('subscriptions.store') }}"
-                                    method="POST"
-                                >
-                                    @csrf
-                                    <input
-                                        type="hidden"
-                                        name="forum_id"
-                                        value="{{ $forum->id }}"
-                                    />
-                                    <button class="panel__action form__button form__button--text">
-                                        <i class="{{ config('other.font-awesome') }} fa-bell"></i>
-                                        {{ __('forum.subscribe') }}
-                                    </button>
-                                </form>
-                            @else
-                                <form
-                                    class="panel__action"
-                                    action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}"
-                                    method="POST"
-                                >
-                                    @csrf
-                                    <button class="panel__action form__button form__button--text">
-                                        <i
-                                            class="{{ config('other.font-awesome') }} fa-bell-slash"
-                                        ></i>
-                                        {{ __('forum.unsubscribe') }}
-                                    </button>
-                                </form>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <h2 class="panel__heading">{{ $forum->description }}</h2>
             {{ $topics->links('partials.pagination') }}
             @if ($topics->count() > 0)
                 <ul class="topic-listings">
@@ -72,6 +19,68 @@
     </div>
     <aside>
         <section class="panelV2">
+            <h2 class="panel__heading">
+                {{ __('common.actions') }}
+            </h2>
+            <div class="panel__body">
+                @if ($forum->getPermission()?->start_topic == true)
+                    <div class="form">
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                href="{{ route('topics.create', ['id' => $forum->id]) }}"
+                                class="form__button form__button--filled form__button--centered"
+                            >
+                                {{ __('forum.create-new-topic') }}
+                            </a>
+                        </p>
+                    </div>
+                @endif
+
+                @if ($subscription === null)
+                    <form class="form" action="{{ route('subscriptions.store') }}" method="POST">
+                        @csrf
+                        <p class="form__group form__group--horizontal">
+                            <input type="hidden" name="forum_id" value="{{ $forum->id }}" />
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                            >
+                                {{ __('forum.subscribe') }}
+                            </button>
+                        </p>
+                    </form>
+                @else
+                    <form
+                        class="form"
+                        action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}"
+                        method="POST"
+                    >
+                        @csrf
+                        <p class="form__group form__group--horizontal">
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                            >
+                                {{ __('forum.unsubscribe') }}
+                            </button>
+                        </p>
+                    </form>
+                @endif
+                <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="catchup_type" value="forum" />
+                    <input type="hidden" name="forum_id" value="{{ $forum->id }}" />
+                    <p class="form__group form__group--horizontal">
+                        <button
+                            class="form__button form__button--filled form__button--centered"
+                            title="Mark all topics in this forum as read"
+                        >
+                            Mark all read
+                        </button>
+                    </p>
+                </form>
+            </div>
+        </section>
+        <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.filters') }}</h2>
             <div class="panel__body">
                 <form class="form" x-data x-on:submit.prevent>
@@ -86,6 +95,15 @@
                         <label for="search" class="form__label form__label--floating">
                             {{ __('common.search') }}
                         </label>
+                    </p>
+                    <p class="form__group">
+                        <select id="read" class="form__select" name="read" wire:model="read">
+                            <option value="" selected default>Any</option>
+                            <option value="some">With unread posts</option>
+                            <option value="none">Newly added</option>
+                            <option value="all">Fully read</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="read">Activity</label>
                     </p>
                     <p class="form__group">
                         <select id="sorting" class="form__select" name="sorting" wire:model="label">
@@ -124,7 +142,7 @@
                             required
                             wire:model="sortField"
                         >
-                            <option value="last_reply_at">
+                            <option value="last_post_created_at">
                                 {{ __('forum.updated-at') }}
                             </option>
                             <option value="created_at">

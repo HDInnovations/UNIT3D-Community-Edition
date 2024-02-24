@@ -13,7 +13,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Forum;
+use App\Models\ForumCategory;
 use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -22,18 +22,23 @@ class TopicSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
-    public String $sortField = 'last_reply_at';
-    public String $sortDirection = 'desc';
-    public String $label = '';
-    public String $state = '';
-    public String $subscribed = '';
-    public String $forumId = '';
+    public string $search = '';
+    public string $sortField = 'last_post_created_at';
+    public string $sortDirection = 'desc';
+    public string $label = '';
+    public string $state = '';
+    public string $subscribed = '';
+    public string $forumId = '';
+    public string $read = '';
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'search'        => ['except' => ''],
-        'sortField'     => ['except' => 'last_reply_at'],
+        'sortField'     => ['except' => 'last_post_created_at'],
         'sortDirection' => ['except' => 'desc'],
+        'read'          => ['except' => ''],
         'label'         => ['except' => ''],
         'state'         => ['except' => ''],
         'subscribed'    => ['except' => ''],
@@ -50,24 +55,34 @@ class TopicSearch extends Component
         $this->resetPage();
     }
 
-    final public function getForumCategoriesProperty()
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, ForumCategory>
+     */
+    final public function getForumCategoriesProperty(): \Illuminate\Database\Eloquent\Collection
     {
-        return Forum::query()
+        return ForumCategory::query()
             ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ])
-            ->whereNull('parent_id')
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->orderBy('position')
-            ->get();
+            ->get()
+            ->filter(fn ($category) => $category->forums->isNotEmpty());
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     */
     final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster')
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->with([
+                'user.group',
+                'latestPoster',
+                'forum',
+                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+            ])
+            ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))
@@ -81,11 +96,32 @@ class TopicSearch extends Component
                 fn ($query) => $query
                     ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
             )
-            ->when($this->forumId !== '', fn ($query) => $query->where(
+            ->when(
+                $this->read === 'some',
                 fn ($query) => $query
-                    ->where('forum_id', '=', $this->forumId)
-                    ->orWhereIn('forum_id', Forum::where('parent_id', '=', $this->forumId)->select('id'))
-            ))
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '>', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'all',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '=', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'none',
+                fn ($query) => $query
+                    ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
+            )
+            ->when($this->forumId !== '', fn ($query) => $query->where('forum_id', '=', $this->forumId))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
     }

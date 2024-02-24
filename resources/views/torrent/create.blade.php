@@ -221,7 +221,8 @@
                                 x-model="distributor"
                                 x-bind:class="distributor === '' ? 'form__select--default' : ''"
                             >
-                                <option selected value=""></option>
+                                <option value="">{{ __('common.other') }}</option>
+                                <option selected disabled hidden value=""></option>
                                 @foreach ($distributors as $distributor)
                                     <option
                                         value="{{ $distributor->id }}"
@@ -244,7 +245,8 @@
                                 x-model="region"
                                 x-bind:class="region === '' ? 'form__select--default' : ''"
                             >
-                                <option selected value=""></option>
+                                <option value="">{{ __('common.other') }}</option>
+                                <option selected disabled hidden value=""></option>
                                 @foreach ($regions as $region)
                                     <option
                                         value="{{ $region->id }}"
@@ -274,6 +276,9 @@
                             <label class="form__label form__label--floating" for="season_number">
                                 {{ __('torrent.season-number') }}
                             </label>
+                            <span class="form__hint">
+                                Numeric digits only. Use 0 only for specials.
+                            </span>
                         </p>
                         <p class="form__group">
                             <input
@@ -287,8 +292,11 @@
                                 x-bind:required="cats[cat].type === 'tv'"
                             />
                             <label class="form__label form__label--floating" for="episode_number">
-                                {{ __('torrent.episode-number') }} (Use "0" For Season Packs.)
+                                {{ __('torrent.episode-number') }}
                             </label>
+                            <span class="form__hint">
+                                Numeric digits only. Use 0 only for season packs.
+                            </span>
                         </p>
                     </div>
                     <div
@@ -310,6 +318,7 @@
                             <label class="form__label form__label--floating" for="autotmdb">
                                 TMDB ID
                             </label>
+                            <span class="form__hint">Numeric digits only.</span>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
                         </p>
                         <p class="form__group">
@@ -327,6 +336,7 @@
                             <label class="form__label form__label--floating" for="autoimdb">
                                 IMDB ID
                             </label>
+                            <span class="form__hint">Numeric digits only. No leading zeros.</span>
                         </p>
                         <p class="form__group" x-show="cats[cat].type === 'tv'">
                             <input type="hidden" name="tvdb" value="0" />
@@ -343,6 +353,7 @@
                             <label class="form__label form__label--floating" for="autotvdb">
                                 TVDB ID
                             </label>
+                            <span class="form__hint">Numeric digits only.</span>
                         </p>
                         <p class="form__group">
                             <input type="hidden" name="mal" value="0" />
@@ -358,8 +369,11 @@
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="automal">
-                                MAL ID ({{ __('torrent.required-anime') }})
+                                MAL ID
                             </label>
+                            <span class="form__hint">
+                                Numeric digits only. Required for anime. Use 0 otherwise.
+                            </span>
                         </p>
                     </div>
                     <p class="form__group" x-show="cats[cat].type === 'game'">
@@ -599,5 +613,8 @@
 @endif
 
 @section('javascripts')
-    <script src="{{ mix('js/imgbb.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/tmdb.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/parser.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/helper.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('build/unit3d/imgbb.js') }}" crossorigin="anonymous"></script>
 @endsection

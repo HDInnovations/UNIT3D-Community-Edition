@@ -1,9 +1,9 @@
-<li class="data-table__action" x-data>
-    <button class="form__button form__button--filled" x-on:click.stop="$refs.dialog.showModal()">
+<li class="data-table__action" x-data="dialog">
+    <button class="form__button form__button--filled" x-bind="showDialog">
         <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
         {{ __('common.moderation-reject') }}
     </button>
-    <dialog class="dialog" x-ref="dialog">
+    <dialog class="dialog" x-bind="dialogElement">
         <h3 class="dialog__heading">
             {{ __('common.moderation-reject') }} {{ __('torrent.torrent') }}:
             {{ $torrent->name }}
@@ -12,7 +12,7 @@
             class="dialog__form"
             method="POST"
             action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-            x-on:click.outside="$refs.dialog.close()"
+            x-bind="dialogForm"
         >
             @csrf
             <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}" />

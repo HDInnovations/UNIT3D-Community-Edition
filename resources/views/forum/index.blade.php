@@ -31,9 +31,9 @@
                     {{ $category->name }}
                 </a>
             </h2>
-            @if ($category->forums->count() > 0)
+            @if ($category->forums->isNotEmpty())
                 <ul class="subforum-listings">
-                    @foreach ($category->forums->sortBy('position') as $forum)
+                    @foreach ($category->forums as $forum)
                         <li class="subforum-listings__item">
                             <x-forum.subforum-listing :subforum="$forum" />
                         </li>
@@ -57,5 +57,25 @@
             <dt>{{ __('forum.posts') }}</dt>
             <dd>{{ $num_posts }}</dd>
         </dl>
+    </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">
+            {{ __('common.actions') }}
+        </h2>
+        <div class="panel__body">
+            <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="catchup_type" value="all" />
+                <p class="form__group form__group--horizontal">
+                    <button
+                        class="form__button form__button--filled form__button--centered"
+                        title="Mark all topics as read"
+                    >
+                        Mark all read
+                    </button>
+                </p>
+            </form>
+        </div>
     </section>
 @endsection

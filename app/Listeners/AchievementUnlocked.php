@@ -43,7 +43,7 @@ class AchievementUnlocked
             $profileUrl = href_profile($user);
 
             $this->chatRepository->systemMessage(
-                sprintf('User [url=%s]%s[/url] has unlocked the %s achievement :medal:', $profileUrl, $user->username, $unlocked->progress->details->name)
+                sprintf('User [url=%s]%s[/url] has unlocked the %s achievement!', $profileUrl, $user->username, $unlocked->progress->details->name)
             );
         }
     }

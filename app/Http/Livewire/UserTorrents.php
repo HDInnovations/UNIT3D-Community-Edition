@@ -15,11 +15,13 @@ namespace App\Http\Livewire;
 
 use App\Models\History;
 use App\Models\User;
+use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserTorrents extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
@@ -44,14 +46,20 @@ class UserTorrents extends Component
 
     public string $downloaded = 'any';
 
+    /**
+     * @var string[]
+     */
     public array $status = [];
 
     public string $sortField = 'created_at';
 
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    public bool $showMorePrecision = false;
 
+    /**
+     * @var array<mixed>
+     */
     protected $queryString = [
         'perPage'           => ['except' => ''],
         'name'              => ['except' => ''],
@@ -84,9 +92,12 @@ class UserTorrents extends Component
         $this->resetPage();
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
     final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return History::query()
+        $histories = History::query()
             ->join(
                 'torrents',
                 fn ($join) => $join
@@ -161,6 +172,8 @@ class UserTorrents extends Component
             ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+
+        return $histories->setCollection($histories->getCollection()->groupBy(fn ($history) => $history->created_at->format('Y-m')));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -168,16 +181,5 @@ class UserTorrents extends Component
         return view('livewire.user-torrents', [
             'histories' => $this->history,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

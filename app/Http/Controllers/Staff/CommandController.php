@@ -122,7 +122,9 @@ class CommandController extends Controller
      */
     public function testEmail(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
-        Artisan::call('test:email');
+        Artisan::call('test:email', [
+            '--force' => true,
+        ]);
 
         return to_route('staff.commands.index')
             ->withInfo(trim(str_replace(["\r", "\n", '*'], '', Artisan::output())));

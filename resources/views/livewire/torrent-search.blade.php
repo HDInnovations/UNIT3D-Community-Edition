@@ -1,13 +1,13 @@
 <div class="page__torrents torrent-search__component">
-    <section class="panelV2 torrent-search__filters" x-data="{ open: false }">
+    <section class="panelV2 torrent-search__filters" x-data="toggle">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.search') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <button
                         class="form__button form__button--outlined form__button--centered"
-                        x-on:click="open = ! open"
-                        x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
+                        x-on:click="toggle"
+                        x-text="isToggledOn() ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
                     ></button>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     </label>
                 </p>
             </div>
-            <form class="form" x-cloak x-show="open">
+            <form class="form" x-cloak x-show="isToggledOn">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
                         <input
@@ -80,6 +80,8 @@
                             id="startYear"
                             wire:model="startYear"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="startYear">
@@ -91,6 +93,8 @@
                             id="endYear"
                             wire:model="endYear"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="endYear">
@@ -103,6 +107,8 @@
                                 id="minSize"
                                 wire:model="minSize"
                                 class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="minSize">
@@ -140,6 +146,8 @@
                                 id="maxSize"
                                 wire:model="maxSize"
                                 class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="maxSize">
@@ -195,6 +203,14 @@
 
                         <div id="distributors" wire:ignore></div>
                     </div>
+                    <p class="form__group">
+                        <select id="adult" wire:model="adult" class="form__select" placeholder=" ">
+                            <option value="any" selected>Any</option>
+                            <option value="include">Include</option>
+                            <option value="exclude">Exclude</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="adult">Adult</label>
+                    </p>
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
@@ -202,6 +218,8 @@
                             id="playlistId"
                             wire:model="playlistId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="playlistId">
@@ -213,6 +231,8 @@
                             id="collectionId"
                             wire:model="collectionId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="collectionId">
@@ -224,6 +244,8 @@
                             id="companyId"
                             wire:model="companyId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="companyId">
@@ -235,6 +257,8 @@
                             id="networkId"
                             wire:model="networkId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="networkId">
@@ -244,25 +268,53 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input id="tmdbId" wire:model="tmdbId" class="form__text" placeholder=" " />
+                        <input
+                            id="tmdbId"
+                            wire:model="tmdbId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="tmdbId">
                             TMDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="imdbId" wire:model="imdbId" class="form__text" placeholder=" " />
+                        <input
+                            id="imdbId"
+                            wire:model="imdbId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="imdbId">
                             IMDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="tvdbId" wire:model="tvdbId" class="form__text" placeholder=" " />
+                        <input
+                            id="tvdbId"
+                            wire:model="tvdbId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="tvdbId">
                             TVDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="malId" wire:model="malId" class="form__text" placeholder=" " />
+                        <input
+                            id="malId"
+                            wire:model="malId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="malId">MAL ID</label>
                     </p>
                 </div>
@@ -1003,6 +1055,7 @@
         @endswitch
         {{ $torrents->links('partials.pagination') }}
     </section>
+    <script src="{{ asset('build/unit3d/virtual-select.js') }}" crossorigin="anonymous"></script>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:load', function () {
           let myRegions = [

@@ -1,4 +1,4 @@
-<section class="panelV2">
+<section class="panelV2 blocks__online">
     <h2 class="panel__heading">
         <i class="{{ config('other.font-awesome') }} fa-users"></i>
         {{ __('blocks.users-online') }} ({{ $users->count() }})

@@ -86,29 +86,28 @@
         </ul>
     </div>
     <ul class="meta__ids">
-        @if ($meta->imdb_id ?? 0 > 0)
-            <li class="meta__imdb">
-                <a
-                    class="meta-id-tag"
-                    href="https://www.imdb.com/title/tt{{ \str_pad((int) $meta->imdb_id, \max(\strlen((int) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
-                    title="Internet Movie Database"
-                    target="_blank"
-                >
-                    IMDB:
-                    {{ \str_pad((int) $meta->imdb_id, \max(\strlen((int) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}
-                </a>
-            </li>
-        @endif
-
         @if ($meta->id ?? 0 > 0)
             <li class="meta__tmdb">
                 <a
                     class="meta-id-tag"
                     href="https://www.themoviedb.org/tv/{{ $meta->id }}"
-                    title="The Movie Database"
+                    title="The Movie Database: {{ $meta->id }}"
                     target="_blank"
                 >
-                    TMDB: {{ $meta->id }}
+                    <i class="fal fa-camera-movie"></i>
+                </a>
+            </li>
+        @endif
+
+        @if ($meta->imdb_id ?? 0 > 0)
+            <li class="meta__imdb">
+                <a
+                    class="meta-id-tag"
+                    href="https://www.imdb.com/title/tt{{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
+                    title="Internet Movie Database: {{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
+                    target="_blank"
+                >
+                    <i class="fal fa-film"></i>
                 </a>
             </li>
         @endif
@@ -118,26 +117,37 @@
                 <a
                     class="meta-id-tag"
                     href="https://myanimelist.net/anime/{{ $torrent->mal }}"
-                    title="MyAnimeList"
+                    title="My Anime List: {{ $torrent->mal }}"
                     target="_blank"
                 >
-                    MAL: {{ $torrent->mal }}
+                    <i class="fal fa-yin-yang"></i>
                 </a>
             </li>
         @endif
 
-        @if ($meta->tvdb_id ?? 0 > 0)
+        @if ($torrent->tvdb ?? 0 > 0)
             <li class="meta__tvdb">
                 <a
                     class="meta-id-tag"
-                    href="https://www.thetvdb.com/?tab=series&id={{ $meta->tvdb_id }}"
-                    title="TheTVDB"
+                    href="https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}"
+                    title="The TV Database: {{ $torrent->tvdb }}"
                     target="_blank"
                 >
-                    TVDB: {{ $meta->tvdb_id }}
+                    <i class="fal fa-tv-retro"></i>
                 </a>
             </li>
         @endif
+
+        <li class="meta__rotten">
+            <a
+                class="meta-id-tag"
+                href="https://duckduckgo.com/?q=\{{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
+                title="Rotten Tomatoes: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
+                target="_blank"
+            >
+                <i class="fal fa-tomato"></i>
+            </a>
+        </li>
     </ul>
     <p class="meta__description">{{ $meta?->overview }}</p>
     <div class="meta__chips">

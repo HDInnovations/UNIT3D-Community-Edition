@@ -17,6 +17,16 @@ use App\Helpers\Bbcode;
 use App\Helpers\MarkdownExtra;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Wiki.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property string                          $content
+ * @property int                             $category_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Wiki extends Model
 {
     protected $guarded = [];

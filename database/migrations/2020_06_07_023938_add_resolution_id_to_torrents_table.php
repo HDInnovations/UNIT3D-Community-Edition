@@ -11,8 +11,6 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Models\Resolution;
-use App\Models\Torrent;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -28,11 +26,11 @@ return new class () extends Migration {
         });
 
         if (Schema::hasColumn('torrents', 'resolution')) {
-            foreach (Torrent::all() as $torrent) {
-                $resolution_id = Resolution::where('name', '=', $torrent->resolution)->sole()->id;
-                $torrent->resolution_id = $resolution_id;
-                $torrent->save();
-            }
+            DB::table('torrents')
+                ->join('resolutions', 'resolutions.name', '=', 'torrents.resolution')
+                ->update([
+                    'resolution_id' => DB::raw('resolutions.id'),
+                ]);
 
             Schema::table('torrents', function (Blueprint $table): void {
                 $table->dropColumn('resolution');
