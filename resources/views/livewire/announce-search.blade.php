@@ -41,11 +41,11 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th wire:click="sortBy('user_id')" role="columnheader button">
+                        <th wire:click="sortBy('id')" role="columnheader button">
                             ID
                             @include('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
-                        <th wire:click="sortBy('id')" role="columnheader button">
+                        <th wire:click="sortBy('user_id')" role="columnheader button">
                             User ID
                             @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                         </th>
