@@ -18,7 +18,7 @@ use App\Http\Requests\Staff\StoreGroupRequest;
 use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Str;
 
@@ -53,7 +53,7 @@ class GroupController extends Controller
         $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
 
         foreach (Forum::pluck('id') as $collection) {
-            Permission::create([
+            ForumPermission::create([
                 'forum_id'    => $collection,
                 'group_id'    => $group->id,
                 'read_topic'  => 0,

@@ -12,7 +12,7 @@
  */
 
 use App\Models\Forum;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
@@ -40,7 +40,7 @@ test('show returns an ok response', function (): void {
         'last_topic_id'     => null,
     ]);
 
-    Permission::factory()->create([
+    ForumPermission::factory()->create([
         'group_id'   => $user->group_id,
         'forum_id'   => $forum->id,
         'read_topic' => true,

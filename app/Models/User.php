@@ -712,11 +712,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Permissions through Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
      */
     public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Permission::class, 'group_id', 'group_id');
+        return $this->hasMany(ForumPermission::class, 'group_id', 'group_id');
     }
 
     /**

@@ -124,11 +124,11 @@ class Topic extends Model
     /**
      * Has One Permissions through Forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
      */
     public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Permission::class, 'forum_id', 'forum_id');
+        return $this->hasMany(ForumPermission::class, 'forum_id', 'forum_id');
     }
 
     /**

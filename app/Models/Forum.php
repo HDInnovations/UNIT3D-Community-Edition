@@ -120,11 +120,11 @@ class Forum extends Model
     /**
      * Has Many Permissions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Permission::class);
+        return $this->hasMany(ForumPermission::class);
     }
 
     /**
@@ -140,9 +140,9 @@ class Forum extends Model
     /**
      * Returns The Permission Field.
      */
-    public function getPermission(): ?Permission
+    public function getPermission(): ?ForumPermission
     {
-        return Permission::query()
+        return ForumPermission::query()
             ->where('group_id', '=', auth()->user()->group_id)
             ->where('forum_id', '=', $this->id)
             ->first();

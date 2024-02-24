@@ -61,14 +61,18 @@ class TopicPostSearch extends Component
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'cost')
             ->where('topic_id', '=', $this->topic->id)
-            ->join('topics', 'topics.id', '=', 'posts.topic_id')
-            ->join(
-                'permissions',
-                fn ($query) => $query
-                    ->on('permissions.forum_id', '=', 'topics.forum_id')
-                    ->where('permissions.group_id', '=', auth()->user()->group_id)
-                    ->where('permissions.read_topic', '=', 1)
+            ->whereNotIn(
+                'topic_id',
+                Topic::query()
+                    ->whereRelation(
+                        'forumPermissions',
+                        fn ($query) => $query
+                            ->where('group_id', '=', auth()->user()->group_id)
+                            ->where('read_topic', '!=', 1)
+                    )
+                    ->select('id')
             )
+            ->join('topics', 'topics.id', '=', 'posts.topic_id')
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderBy('created_at')
             ->paginate(25);

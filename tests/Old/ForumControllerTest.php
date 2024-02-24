@@ -6,7 +6,7 @@ use App\Http\Livewire\PostSearch;
 use App\Http\Livewire\SubscribedForum;
 use App\Http\Livewire\TopicSearch;
 use App\Models\Forum;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
@@ -73,7 +73,7 @@ final class ForumControllerTest extends TestCase
 
         $forum = Forum::factory()->create();
 
-        $permissions = Permission::factory()->create([
+        $permissions = ForumPermission::factory()->create([
             'forum_id'   => $forum->id,
             'group_id'   => $user->group_id,
             'read_topic' => true,
