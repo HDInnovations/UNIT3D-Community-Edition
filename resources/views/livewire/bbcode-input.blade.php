@@ -69,7 +69,7 @@
         </li>
         <hr class="bbcode-input__icon-separator" />
         <li>
-            <button type="button" class="form__standard-icon-button" x-on:click="InsertImage">
+            <button type="button" class="form__standard-icon-button" x-on:click="insertImage">
                 <abbr title="Insert Image">
                     <i class="{{ config('other.font-awesome') }} fa-image"></i>
                 </abbr>
