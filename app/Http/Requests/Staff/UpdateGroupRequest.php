@@ -117,26 +117,31 @@ class UpdateGroupRequest extends FormRequest
             ],
             'min_uploaded' => [
                 'sometimes',
+                'nullable',
                 'integer',
                 'min:0',
             ],
             'min_ratio' => [
                 'sometimes',
+                'nullable',
                 'min:0',
                 'max:99.99',
             ],
             'min_age' => [
                 'sometimes',
+                'nullable',
                 'integer',
                 'min:0',
             ],
             'min_avg_seedtime' => [
                 'sometimes',
+                'nullable',
                 'integer',
                 'min:0',
             ],
             'min_seedtime' => [
                 'sometimes',
+                'nullable',
                 'integer',
                 'min:0',
             ],

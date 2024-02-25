@@ -80,7 +80,7 @@ class AutoBanDisposableUsers extends Command
                     $domain = substr(strrchr((string) $user->email, '@'), 1);
                     $logban = new Ban();
                     $logban->owned_by = $user->id;
-                    $logban->created_by = 1;
+                    $logban->created_by = User::SYSTEM_USER_ID;
                     $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
                     $logban->unban_reason = '';
                     $logban->save();
