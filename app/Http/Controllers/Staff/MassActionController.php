@@ -27,11 +27,6 @@ use Exception;
 class MassActionController extends Controller
 {
     /**
-     * @var int
-     */
-    private const SENDER_ID = 1;
-
-    /**
      * Mass PM Form.
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -53,7 +48,7 @@ class MassActionController extends Controller
             ->pluck('id');
 
         foreach ($users as $userId) {
-            ProcessMassPM::dispatch(self::SENDER_ID, $userId, $request->subject, $request->message);
+            ProcessMassPM::dispatch(User::SYSTEM_USER_ID, $userId, $request->subject, $request->message);
         }
 
         return to_route('staff.mass-pm.create')
