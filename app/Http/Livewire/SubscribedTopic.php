@@ -35,7 +35,7 @@ class SubscribedTopic extends Component
                 'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
             ])
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->authorized(canReadTopic: true)
             ->orderBy('last_post_created_at')
             ->paginate(25, ['*'], 'subscribedTopicsPage');
     }

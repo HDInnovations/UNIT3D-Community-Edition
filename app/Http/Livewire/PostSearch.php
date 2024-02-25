@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
-use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -53,17 +52,7 @@ class PostSearch extends Component
                 'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
             ])
-            ->whereNotIn(
-                'topic_id',
-                Topic::query()
-                    ->whereRelation(
-                        'forumPermissions',
-                        fn ($query) => $query
-                            ->where('group_id', '=', auth()->user()->group_id)
-                            ->where('read_topic', '!=', 1)
-                    )
-                    ->select('id')
-            )
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderByDesc('created_at')
             ->paginate(25);

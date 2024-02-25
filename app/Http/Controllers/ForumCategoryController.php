@@ -28,10 +28,7 @@ class ForumCategoryController extends Controller
     {
         return view('forum.category_topic.index', [
             'category' => ForumCategory::query()
-                ->whereHas('forums', fn ($query) => $query->whereRelation('permissions', [
-                    ['read_topic', '=', 1],
-                    ['group_id', '=', $request->user()->group_id],
-                ]))
+                ->whereHas('forums', fn ($query) => $query->authorized(canReadTopic: true))
                 ->findOrFail($id),
         ]);
     }

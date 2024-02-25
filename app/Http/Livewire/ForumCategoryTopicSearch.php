@@ -74,7 +74,7 @@ class ForumCategoryTopicSearch extends Component
                 'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
             ])
             ->whereIn('forum_id', Forum::where('forum_category_id', '=', $this->category->id)->select('id'))
-            ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))

@@ -61,8 +61,8 @@ class TopicSearch extends Component
     final public function getForumCategoriesProperty(): \Illuminate\Database\Eloquent\Collection
     {
         return ForumCategory::query()
-            ->with(['forums' => fn ($query) => $query
-                ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->with([
+                'forums' => fn ($query) => $query->authorized(canReadTopic: true)
             ])
             ->orderBy('position')
             ->get()
@@ -82,7 +82,7 @@ class TopicSearch extends Component
                 'forum',
                 'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
             ])
-            ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))

@@ -62,12 +62,7 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::with('user', 'forum.category')
-            ->whereRelation('forumPermissions', [
-                ['read_topic', '=', 1],
-                ['group_id', '=', $user->group_id],
-            ])
-            ->findOrFail($id);
+        $topic = Topic::with('user', 'forum.category')->authorized(canReadTopic: true)->findOrFail($id);
 
         $subscription = Subscription::where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
 
@@ -87,12 +82,7 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $forum = Forum::with('category')
-            ->whereRelation('permissions', [
-                ['start_topic', '=', 1],
-                ['group_id', '=', $user->group_id],
-            ])
-            ->findOrFail($id);
+        $forum = Forum::with('category')->authorized(canStartTopic: true)->findOrFail($id);
 
         return view('forum.forum_topic.create', [
             'forum' => $forum,
@@ -110,11 +100,7 @@ class TopicController extends Controller
         ]);
 
         $user = $request->user();
-        $forum = Forum::whereRelation('permissions', [
-            ['start_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
-            ->findOrFail($id);
+        $forum = Forum::authorized(canStartTopic: true)->findOrFail($id);
 
         $topic = Topic::create([
             'name'               => $request->title,
@@ -210,22 +196,12 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::with('forum.category')
-            ->whereRelation('forumPermissions', [
-                ['read_topic', '=', 1],
-                ['group_id', '=', $user->group_id]
-            ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-            ->findOrFail($id);
+        $topic = Topic::with('forum.category')->authorized(canReadTopic: true, canReplyTopic: true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
         $categories = Forum::with('category:id,name')
-            ->whereRelation('permissions', [
-                ['read_topic', '=', 1],
-                ['start_topic', '=', 1],
-                ['group_id', '=', $request->user()->group_id],
-            ])
+            ->authorized(canReadTopic: true, canStartTopic: true)
             ->get()
             ->groupBy('category.name');
 
@@ -247,22 +223,11 @@ class TopicController extends Controller
             'forum_id' => 'required|integer|exists:forums,id',
         ]);
 
-        $topic = Topic::query()
-            ->whereRelation('forumPermissions', [
-                ['read_topic', '=', 1],
-                ['group_id', '=', $user->group_id],
-            ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-            ->findOrFail($id);
+        $topic = Topic::query()->authorized(canReadTopic: true, canReplyTopic: true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
-        $newForum = Forum::whereRelation('permissions', [
-            ['start_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
-            ->whereKey($request->forum_id)
-            ->sole();
+        $newForum = Forum::authorized(canStartTopic: true)->whereKey($request->forum_id)->sole();
 
         $oldForum = $topic->forum;
 

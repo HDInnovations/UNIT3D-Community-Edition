@@ -172,6 +172,30 @@ class Topic extends Model
     }
 
     /**
+     * Only include topics a user is authorized to.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder<self> $query
+     * @return \Illuminate\Database\Eloquent\Builder<self>
+     */
+    public function scopeAuthorized(
+        \Illuminate\Database\Eloquent\Builder $query,
+        ?bool $canReadTopic = null,
+        ?bool $canReplyTopic = null,
+        ?bool $canStartTopic = null,
+    ): \Illuminate\Database\Eloquent\Builder {
+        return $query
+            ->whereRelation(
+                'forumPermissions',
+                fn ($query) => $query
+                    ->where('group_id', '=', auth()->user()->group_id)
+                    ->when($canReadTopic !== null, fn ($query) => $query->where('read_topic', '=', $canReadTopic))
+                    ->when($canReplyTopic !== null, fn ($query) => $query->where('reply_topic', '=', $canReplyTopic))
+                    ->when($canStartTopic !== null, fn ($query) => $query->where('start_topic', '=', $canStartTopic))
+            )
+            ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'));
+    }
+
+    /**
      * Does User Have Permission To View Topic.
      */
     public function viewable(): bool

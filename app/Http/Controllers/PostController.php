@@ -67,12 +67,7 @@ class PostController extends Controller
 
         $user = $request->user();
 
-        $topic = Topic::whereRelation('forumPermissions', [
-            ['reply_topic', '=', 1],
-            ['group_id', '=', $user->group_id]
-        ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-            ->findOrFail($request->topic_id);
+        $topic = Topic::authorized(canReplyTopic: true)->findOrFail($request->integer('topic_id'));
 
         $forum = $topic->forum;
 
@@ -175,14 +170,7 @@ class PostController extends Controller
         $user = $request->user();
 
         $post = Post::find($id);
-        $topic = $post->topic()
-            ->whereRelation('forumPermissions', [
-                ['read_topic', '=', 1],
-                ['reply_topic', '=', 1],
-                ['group_id', '=', $user->group_id],
-            ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-            ->sole();
+        $topic = Topic::whereKey($post->topic_id)->authorized(canReadTopic: true, canReplyTopic: true)->sole();
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
@@ -213,16 +201,7 @@ class PostController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
-        abort_unless(
-            $post->topic()
-                ->whereRelation('forumPermissions', [
-                    ['reply_topic', '=', 1],
-                    ['group_id', '=', $user->group_id],
-                ])
-                ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-                ->exists(),
-            403
-        );
+        abort_unless($post->topic()->authorized(canReplyTopic: true)->exists(), 403);
 
         $post->update([
             'content' => $request->input('content'),
@@ -244,12 +223,7 @@ class PostController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
-        /** @var Topic $topic */
-        $topic = $post->topic()->whereRelation('forumPermissions', [
-            ['reply_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
-            ->sole();
+        $topic = Topic::whereKey($post->topic_id)->authorized(canReplyTopic: true)->sole();
 
         $post->delete();
 
