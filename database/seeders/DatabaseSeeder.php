@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             TypesTableSeeder::class,
             ArticlesTableSeeder::class,
             ForumsTableSeeder::class,
-            PermissionsTableSeeder::class,
+            ForumPermissionsTableSeeder::class,
             ChatroomTableSeeder::class,
             ChatStatusSeeder::class,
             BotsTableSeeder::class,

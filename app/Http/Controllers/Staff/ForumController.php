@@ -19,7 +19,7 @@ use App\Http\Requests\Staff\UpdateForumRequest;
 use App\Models\Forum;
 use App\Models\ForumCategory;
 use App\Models\Group;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -47,7 +47,7 @@ class ForumController extends Controller
     {
         $forum = Forum::create($request->safe(['name', 'position', 'description', 'slug', 'forum_category_id']));
 
-        Permission::upsert(
+        ForumPermission::upsert(
             array_map(fn ($item) => ['forum_id' => $forum->id] + $item, $request->validated('permissions')),
             ['forum_id', 'group_id']
         );
@@ -75,7 +75,7 @@ class ForumController extends Controller
     {
         $forum->update($request->safe(['name', 'position', 'description', 'slug', 'forum_category_id']));
 
-        Permission::upsert(
+        ForumPermission::upsert(
             array_map(fn ($item) => ['forum_id' => $forum->id] + $item, $request->validated('permissions')),
             ['forum_id', 'group_id']
         );

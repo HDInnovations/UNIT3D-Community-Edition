@@ -90,10 +90,10 @@ class Group extends Model
     /**
      * Has Many Permissions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Permission::class);
+        return $this->hasMany(ForumPermission::class);
     }
 }

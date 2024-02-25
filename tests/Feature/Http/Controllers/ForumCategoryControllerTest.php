@@ -12,7 +12,7 @@
  */
 
 use App\Models\Forum;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use App\Models\User;
 
 test('show returns an ok response', function (): void {
@@ -20,7 +20,7 @@ test('show returns an ok response', function (): void {
 
     $forum = Forum::factory()->create();
 
-    Permission::factory()->create([
+    ForumPermission::factory()->create([
         'group_id' => $user->group_id,
         'forum_id' => $forum->id,
     ]);

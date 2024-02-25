@@ -54,7 +54,7 @@ class TopicReadController extends Controller
                             FROM
                                 permissions
                             WHERE
-                                topics.forum_id = permissions.forum_id
+                                topics.forum_id = forum_permissions.forum_id
                             AND
                                 read_topic = 1
                             AND
@@ -129,7 +129,7 @@ class TopicReadController extends Controller
                             FROM
                                 permissions
                             WHERE
-                                topics.forum_id = permissions.forum_id
+                                topics.forum_id = forum_permissions.forum_id
                             AND
                                 read_topic = 1
                             AND
@@ -180,7 +180,7 @@ class TopicReadController extends Controller
                             FROM
                                 permissions
                             WHERE
-                                topics.forum_id = permissions.forum_id
+                                topics.forum_id = forum_permissions.forum_id
                             AND
                                 read_topic = 1
                             AND
