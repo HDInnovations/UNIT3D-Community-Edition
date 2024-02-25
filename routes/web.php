@@ -1019,6 +1019,26 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Roles
+        Route::prefix('roles')->middleware('admin')->group(function (): void {
+            Route::name('roles.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\RoleController::class, 'index'])->name('index');
+                Route::post('/', [App\Http\Controllers\Staff\RoleController::class, 'store'])->name('store');
+                Route::get('/{role}/edit', [App\Http\Controllers\Staff\RoleController::class, 'edit'])->name('edit');
+                Route::patch('/{role}', [App\Http\Controllers\Staff\RoleController::class, 'update'])->name('update');
+                Route::delete('/{role}', [App\Http\Controllers\Staff\RoleController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // User Roles
+        Route::prefix('users-roles')->group(function (): void {
+            Route::name('role_user.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\Staff\RoleUserController::class, 'store'])->name('store');
+                Route::patch('/{roleUser}', [App\Http\Controllers\Staff\RoleUserController::class, 'update'])->name('update');
+                Route::delete('/{roleUser}', [App\Http\Controllers\Staff\RoleUserController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // RSS System
         Route::prefix('rss')->group(function (): void {
             Route::name('rss.')->group(function (): void {

@@ -49,7 +49,6 @@
                         <th>Double Upload</th>
                         <th>Refundable</th>
                         <th>Incognito</th>
-                        <th>Upload</th>
                         <th>Autogroup</th>
                         <th>Min Upload</th>
                         <th>Min Ratio</th>
@@ -204,17 +203,6 @@
                             </td>
                             <td>
                                 @if ($group->is_incognito)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-check text-green"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-times text-red"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($group->can_upload)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

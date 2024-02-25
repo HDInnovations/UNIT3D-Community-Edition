@@ -48,7 +48,6 @@ class GroupFactory extends Factory
             'is_freeleech'     => $this->faker->boolean(),
             'is_double_upload' => $this->faker->boolean(),
             'is_refundable'    => $this->faker->boolean(),
-            'can_upload'       => $this->faker->boolean(),
             'is_incognito'     => $this->faker->boolean(),
             'autogroup'        => $this->faker->boolean(),
             'system_required'  => false,

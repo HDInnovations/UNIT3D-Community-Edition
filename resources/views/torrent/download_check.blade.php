@@ -59,7 +59,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.download-check') }}</h2>
         <div class="panel__body">
-            @if ($user->ratio < config('other.ratio') || $user->can_download == 0)
+            @if ($user->ratio < config('other.ratio') || Gate::denies(\App\Enums\Permission::ANNOUNCE_PEER_VIEW->gate()))
                 <h4>{{ __('torrent.no-privileges') }}</h4>
             @else
                 <h4>{{ __('torrent.ready') }}</h4>
@@ -85,7 +85,7 @@
             </dd>
             <dt>{{ __('torrent.download-rights-active') }}</dt>
             <dd>
-                @if ($user->can_download == 0 && $torrent->user_id != $user->id)
+                @if (Gate::denies(\App\Enums\Permission::ANNOUNCE_PEER_VIEW->gate()) && $torrent->user_id != $user->id)
                     <span class="text-red">
                         <i class="{{ config('other.font-awesome') }} fa-times"></i>
                         {{ strtoupper(__('torrent.failed')) }}
@@ -119,7 +119,8 @@
         </dl>
         <div class="panel__body">
             @if ($user->ratio < config('other.ratio') ||
-                ($user->can_download == 0 && $torrent->user_id != $user->id))
+                (Gate::denies(\App\Enums\Permission::ANNOUNCE_PEER_VIEW->gate()) &&
+                    $torrent->user_id != $user->id))
                 <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
             @else
                 <p class="form__group form__group--horizontal">

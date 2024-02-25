@@ -25,11 +25,13 @@ use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
+use App\Enums\Permission;
 use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
 use App\Traits\CastLivewireProperties;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use voku\helper\AntiXSS;
@@ -124,7 +126,7 @@ class Comment extends Component
         // Set Polymorphic Model Name
         $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
-        if ($modelName !== 'ticket' && auth()->user()->can_comment === false) {
+        if ($modelName !== 'ticket' && Gate::denies(Permission::COMMENT_CREATE->gate())) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
 
             return;

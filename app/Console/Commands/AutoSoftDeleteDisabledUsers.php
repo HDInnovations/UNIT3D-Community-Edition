@@ -69,14 +69,8 @@ class AutoSoftDeleteDisabledUsers extends Command
 
             foreach ($users as $user) {
                 $user->update([
-                    'can_upload'   => false,
-                    'can_download' => false,
-                    'can_comment'  => false,
-                    'can_invite'   => false,
-                    'can_request'  => false,
-                    'can_chat'     => false,
-                    'group_id'     => UserGroup::PRUNED->value,
-                    'deleted_by'   => User::SYSTEM_USER_ID,
+                    'group_id'   => UserGroup::PRUNED->value,
+                    'deleted_by' => User::SYSTEM_USER_ID,
                 ]);
 
                 Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([

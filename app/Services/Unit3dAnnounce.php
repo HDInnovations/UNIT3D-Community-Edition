@@ -177,7 +177,7 @@ class Unit3dAnnounce
             'id'           => (int) $user->id,
             'group_id'     => (int) $user->group_id,
             'passkey'      => $user->passkey,
-            'can_download' => (bool) $user->can_download,
+            'can_download' => (bool) 'todo',
             /** @phpstan-ignore-next-line  */
             'num_seeding' => (int) $peers->num_seeding,
             /** @phpstan-ignore-next-line  */

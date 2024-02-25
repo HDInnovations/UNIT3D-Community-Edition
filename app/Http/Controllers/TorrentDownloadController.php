@@ -13,12 +13,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Permission;
 use App\Helpers\Bencode;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\TorrentDownload;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TorrentDownloadController extends Controller
 {
@@ -53,7 +55,7 @@ class TorrentDownloadController extends Controller
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && !($torrent->user_id === $user->id || $hasHistory)) {
+        if (Gate::denies(Permission::ANNOUNCE_PEER_VIEW->gate()) && !($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }

@@ -52,7 +52,7 @@
                     <input
                         id="username"
                         class="form__text"
-                        name="username"
+                        name="user[username]"
                         placeholder=" "
                         required
                         type="text"
@@ -67,7 +67,7 @@
                         id="uploaded"
                         class="form__text"
                         inputmode="numeric"
-                        name="uploaded"
+                        name="user[uploaded]"
                         pattern="[0-9]{1,}"
                         placeholder=" "
                         required
@@ -83,7 +83,7 @@
                         id="downloaded"
                         class="form__text"
                         inputmode="numeric"
-                        name="downloaded"
+                        name="user[downloaded]"
                         pattern="[0-9]{1,}"
                         placeholder=" "
                         required
@@ -98,7 +98,7 @@
                     <input
                         id="title"
                         class="form__text"
-                        name="title"
+                        name="user[title]"
                         placeholder=" "
                         type="text"
                         value="{{ $user->title }}"
@@ -107,9 +107,9 @@
                         {{ __('user.title') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about])
+                @livewire('bbcode-input', ['name' => 'user[about]', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about])
                 <p class="form__group">
-                    <select id="group_id" class="form__select" name="group_id">
+                    <select id="group_id" class="form__select" name="user[group_id]">
                         <option class="form__option" value="{{ $user->group->id }}">
                             {{ $user->group->name }} (Default)
                         </option>
@@ -123,12 +123,34 @@
                         {{ __('common.group') }}
                     </label>
                 </p>
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">{{ __('rbac.roles') }}</legend>
+                        <div class="form__fieldset-checkbox-container--expand">
+                            @foreach ($roles as $role)
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            id="{{ $role->name }}"
+                                            class="form__checkbox"
+                                            name="roles[]"
+                                            type="checkbox"
+                                            value="{{ $role->id }}"
+                                            @checked($user->roles->contains($role))
+                                        />
+                                        {{ $role->name }}
+                                    </label>
+                                </p>
+                            @endforeach
+                        </div>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input
                         id="seedbonus"
                         class="form__text"
                         inputmode="numeric"
-                        name="seedbonus"
+                        name="user[seedbonus]"
                         pattern="[0-9]{1,}(?:.[0-9]{1,2})?"
                         placeholder=" "
                         required
@@ -144,7 +166,7 @@
                         id="fl_tokens"
                         class="form__text"
                         inputmode="numeric"
-                        name="fl_tokens"
+                        name="user[fl_tokens]"
                         pattern="[0-9]{1,}"
                         placeholder=" "
                         required
@@ -160,7 +182,7 @@
                         id="invites"
                         class="form__text"
                         inputmode="numeric"
-                        name="invites"
+                        name="user[invites]"
                         pattern="[0-9]{1,}"
                         placeholder=" "
                         required
@@ -170,99 +192,6 @@
                     <label class="form__label form__label--floating" for="invites">
                         {{ __('user.invites') }}
                     </label>
-                </p>
-                <p class="form__group">
-                    <button class="form__button form__button--filled">
-                        {{ __('common.save') }}
-                    </button>
-                </p>
-            </form>
-        </div>
-    </section>
-@endsection
-
-@section('sidebar')
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('user.id-permissions') }}</h2>
-        <div class="panel__body">
-            <form
-                class="form"
-                method="POST"
-                action="{{ route('staff.users.update_permissions', ['user' => $user]) }}"
-            >
-                @csrf
-                @method('PATCH')
-                <p class="form__group">
-                    <input type="hidden" name="can_upload" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_upload"
-                        name="can_upload"
-                        value="1"
-                        @checked($user->can_upload)
-                    />
-                    <label for="can_upload">{{ __('user.can-upload') }}?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="can_download" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_download"
-                        name="can_download"
-                        value="1"
-                        @checked($user->can_download)
-                    />
-                    <label for="can_download">{{ __('user.can-download') }}?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="can_comment" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_comment"
-                        name="can_comment"
-                        value="1"
-                        @checked($user->can_comment)
-                    />
-                    <label for="can_comment">{{ __('user.can-comment') }}?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="can_invite" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_invite"
-                        name="can_invite"
-                        value="1"
-                        @checked($user->can_invite)
-                    />
-                    <label for="can_invite">{{ __('user.can-invite') }}?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="can_request" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_request"
-                        name="can_request"
-                        value="1"
-                        @checked($user->can_request)
-                    />
-                    <label for="can_request">{{ __('user.can-request') }}?</label>
-                </p>
-                <p class="form__group">
-                    <input type="hidden" name="can_chat" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="can_chat"
-                        name="can_chat"
-                        value="1"
-                        @checked($user->can_chat)
-                    />
-                    <label for="can_chat">{{ __('user.can-chat') }}?</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

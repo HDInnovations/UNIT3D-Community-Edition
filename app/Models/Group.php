@@ -39,7 +39,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $is_freeleech
  * @property int      $is_double_upload
  * @property int      $is_refundable
- * @property int      $can_upload
  * @property int      $is_incognito
  * @property int      $autogroup
  * @property bool     $system_required
@@ -95,5 +94,15 @@ class Group extends Model
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ForumPermission::class);
+    }
+
+    /**
+     * Has Many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Role>
+     */
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class)->using(RoleUser::class)->withTimestamps()->withPivot('id');
     }
 }

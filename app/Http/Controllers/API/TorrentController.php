@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\Permission;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
@@ -31,6 +32,7 @@ use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
@@ -97,7 +99,7 @@ class TorrentController extends BaseController
     {
         $user = $request->user();
 
-        abort_unless($user->can_upload, 403);
+        Gate::authorize(Permission::TORRENT_CREATE->gate());
 
         $requestFile = $request->file('torrent');
 

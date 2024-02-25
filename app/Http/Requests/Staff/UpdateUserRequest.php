@@ -33,47 +33,51 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => [
+            'user.username' => [
                 'required',
             ],
-            'uploaded' => [
-                'required',
-                'integer',
-            ],
-            'downloaded' => [
+            'user.uploaded' => [
                 'required',
                 'integer',
             ],
-            'title' => [
+            'user.downloaded' => [
+                'required',
+                'integer',
+            ],
+            'user.title' => [
                 'nullable',
                 'present',
                 'string',
                 'max:255',
             ],
-            'about' => [
+            'user.about' => [
                 'nullable',
                 'present',
                 'string',
                 'max:16777216',
             ],
-            'group_id' => [
+            'user.group_id' => [
                 'required',
                 'exists:groups,id',
             ],
-            'seedbonus' => [
+            'user.seedbonus' => [
                 'required',
                 'decimal:0,2',
                 'min:0',
             ],
-            'invites' => [
+            'user.invites' => [
                 'required',
                 'integer',
                 'min:0',
             ],
-            'fl_tokens' => [
+            'user.fl_tokens' => [
                 'required',
                 'integer',
                 'min:0',
+            ],
+            'roles.*' => [
+                'required',
+                'exists:roles,id',
             ],
         ];
     }

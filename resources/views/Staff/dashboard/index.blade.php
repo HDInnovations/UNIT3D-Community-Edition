@@ -503,17 +503,6 @@
                         Internals
                     </a>
                 </p>
-                @if (auth()->user()->group->is_admin)
-                    <p class="form__group form__group--horizontal">
-                        <a
-                            class="form__button form__button--text"
-                            href="{{ route('staff.groups.index') }}"
-                        >
-                            <i class="{{ config('other.font-awesome') }} fa-users"></i>
-                            {{ __('staff.groups') }}
-                        </a>
-                    </p>
-                @endif
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -611,6 +600,34 @@
                 </p>
             </div>
         </section>
+        @if (auth()->user()->group->is_admin)
+            <section class="panelV2 panel--grid-item">
+                <h2 class="panel__heading">
+                    <i class="{{ config('other.font-awesome') }} fa-file"></i>
+                    {{ __('rbac.role-based-access-control') }}
+                </h2>
+                <div class="panel__body">
+                    <p class="form__group form__group--horizontal">
+                        <a
+                            class="form__button form__button--text"
+                            href="{{ route('staff.groups.index') }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-users"></i>
+                            {{ __('staff.groups') }}
+                        </a>
+                    </p>
+                    <p class="form__group form__group--horizontal">
+                        <a
+                            class="form__button form__button--text"
+                            href="{{ route('staff.roles.index') }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-file"></i>
+                            {{ __('rbac.roles') }}
+                        </a>
+                    </p>
+                </div>
+            </section>
+        @endif
     </div>
 @endsection
 

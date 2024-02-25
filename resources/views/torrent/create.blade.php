@@ -54,7 +54,7 @@
 @endsection
 
 @section('main')
-    @if ($user->can_upload == 0 || $user->group->can_upload == 0)
+    @if (Gate::denies(\App\Enums\Permission::TORRENT_CREATE->gate()))
         <section class="panelV2">
             <h2 class="panel__heading">
                 <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
@@ -587,7 +587,7 @@
     @endif
 @endsection
 
-@if ($user->can_upload == 1 && $user->group->can_upload == 1)
+@if (Gate::allows(\App\Enums\Permission::TORRENT_CREATE->gate()))
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">

@@ -17,10 +17,8 @@ use App\Models\History;
 use App\Models\User;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
-use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Exception;
 
 /**
@@ -90,19 +88,6 @@ class AutoWarning extends Command
                         $hr->timestamps = false;
                         $hr->save();
                     }
-                }
-            }
-
-            // Calculate User Warning Count and Disable DL Priv If Required.
-            $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
-
-            foreach ($warnings as $warning) {
-                if ($warning->warneduser->can_download) {
-                    $warning->warneduser->can_download = 0;
-                    $warning->warneduser->save();
-
-                    cache()->forget('user:'.$warning->warneduser->passkey);
-                    Unit3dAnnounce::addUser($warning->warneduser);
                 }
             }
         }

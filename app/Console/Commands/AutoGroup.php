@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\UserGroup;
 use App\Helpers\ByteUnits;
 use App\Models\Group;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
@@ -54,6 +54,8 @@ class AutoGroup extends Command
             ->orderBy('position')
             ->get();
 
+        $roles = Role::where('auto', '=', true)->get();
+
         $users = User::query()
             ->whereIntegerInRaw('group_id', $groups->pluck('id'))
             ->get();
@@ -78,16 +80,15 @@ class AutoGroup extends Command
                 }
             }
 
-            // Leech ratio dropped below sites minimum
-            if ($user->group_id == UserGroup::LEECH->value) {
-                $user->can_request = false;
-                $user->can_invite = false;
-                $user->can_download = false;
-                $user->save();
-            } else {
-                $user->can_request = true;
-                $user->can_invite = true;
-                $user->can_download = true;
+            $warningsBalance = null;
+
+            foreach ($roles as $role) {
+                if (
+                    ($role->warnings_active_min === null || $role->warnings_active_min <= ($warningsBalance ??= $user->userwarning()->where('active', '=', true)->count()))
+                    && ($role->warnings_active_max === null || $role->warnings_active_max >= ($warningsBalance ??= $user->userwarning()->where('active', '=', true)->count()))
+                ) {
+                    $user->autoRoles()->attach($role);
+                }
             }
 
             $user->save();

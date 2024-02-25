@@ -21,12 +21,12 @@ use App\Models\FailedLoginAttempt;
 use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\History;
-use App\Models\Internal;
 use App\Models\Like;
 use App\Models\Message;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
+use App\Models\Role;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
 use App\Models\Topic;
@@ -56,9 +56,12 @@ class UserController extends Controller
         $group = $request->user()->group;
 
         return view('Staff.user.edit', [
-            'user'      => $user,
-            'groups'    => Group::when(!$group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->orderBy('position')->get(),
-            'internals' => Internal::all(),
+            'user'   => $user->load('roles'),
+            'groups' => Group::query()
+                ->when(!$group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))
+                ->orderBy('position')
+                ->get(),
+            'roles' => Role::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -69,40 +72,20 @@ class UserController extends Controller
     {
         $user->load('group');
         $staff = $request->user();
-        $group = Group::findOrFail($request->group_id);
+        $group = Group::findOrFail($request->integer('user.group_id'));
 
         abort_if(!($staff->group->is_owner || $staff->group->is_admin) && ($staff->group->level <= $user->group->level || $staff->group->level <= $group->level), 403);
 
         $user->update($request->validated());
+        $user->roles()->sync($request->validated('roles'));
 
         cache()->forget('user:'.$user->passkey);
+        cache()->forget('rbac-user-roles');
 
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('Account Was Updated Successfully!');
-    }
-
-    /**
-     * Edit A Users Permissions.
-     */
-    public function permissions(Request $request, User $user): \Illuminate\Http\RedirectResponse
-    {
-        $user->update([
-            'can_upload'   => $request->boolean('can_upload'),
-            'can_download' => $request->boolean('can_download'),
-            'can_comment'  => $request->boolean('can_comment'),
-            'can_invite'   => $request->boolean('can_invite'),
-            'can_request'  => $request->boolean('can_request'),
-            'can_chat'     => $request->boolean('can_chat'),
-        ]);
-
-        cache()->forget('user:'.$user->passkey);
-
-        Unit3dAnnounce::addUser($user);
-
-        return to_route('users.show', ['user' => $user])
-            ->withSuccess('Account Permissions Successfully Edited');
     }
 
     /**
@@ -113,14 +96,8 @@ class UserController extends Controller
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
-            'can_upload'   => false,
-            'can_download' => false,
-            'can_comment'  => false,
-            'can_invite'   => false,
-            'can_request'  => false,
-            'can_chat'     => false,
-            'group_id'     => UserGroup::PRUNED->value,
-            'deleted_by'   => auth()->id(),
+            'group_id'   => UserGroup::PRUNED->value,
+            'deleted_by' => auth()->id(),
         ]);
 
         Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([

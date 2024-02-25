@@ -28,7 +28,7 @@
             <div class="panel__body">{{ __('user.invites-disabled-desc') }}</div>
         </section>
     @endsection
-@elseif ($user->can_invite === false)
+@elseif (Gate::denies(\App\Enums\Permission::INVITE_CREATE->gate()))
     @section('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.invites-banned') }}</h2>

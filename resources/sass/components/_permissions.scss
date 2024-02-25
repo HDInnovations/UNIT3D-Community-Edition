@@ -1,0 +1,42 @@
+.permission__allow-header,
+.permission__deny-header,
+.permission__inherit-header {
+  width: 30px;
+  font-size: 10px;
+}
+
+.permission__allow-cell,
+.permission__deny-cell,
+.permission__inherit-cell {
+  font-size: 10px;
+  text-align: center;
+}
+
+.permission__name-header {
+  font-size: 10px;
+  text-align: left;
+}
+
+.permission__name-cell {
+  font-size: 13px;
+}
+
+.permission__allow-cell,
+.permission__deny-cell,
+.permission__inherit-cell,
+.permission__name-cell {
+  line-height: 16px;
+  font-size: 14px;
+}
+
+.permission__allow-cell {
+  accent-color: green;
+}
+
+.permission__deny-cell {
+  accent-color: red;
+}
+
+.permission__inherit-cell {
+  accent-color: grey;
+}

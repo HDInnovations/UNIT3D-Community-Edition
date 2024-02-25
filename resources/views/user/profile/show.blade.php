@@ -884,15 +884,15 @@
                     </dd>
                     <dt>{{ __('user.can-upload') }}</dt>
                     <dd>
-                        @if ($user->can_upload == 1)
+                        @can(\App\Enums\Permission::TORRENT_CREATE->gate())
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
+                        @endcan
                     </dd>
                     <dt>{{ __('user.can-download') }}</dt>
                     <dd>
-                        @if ($user->can_download == 1)
+                        @if (Gate::allows(Permission::ANNOUNCE_PEER_VIEW->gate()))
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
@@ -900,7 +900,7 @@
                     </dd>
                     <dt>{{ __('user.can-comment') }}</dt>
                     <dd>
-                        @if ($user->can_comment == 1)
+                        @if (Gate::allows(\App\Enums\Permission::COMMENT_CREATE->gate()))
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
@@ -916,7 +916,7 @@
                     </dd>
                     <dt>{{ __('user.can-chat') }}</dt>
                     <dd>
-                        @if ($user->can_chat == 1)
+                        @if (Gate::allows(\App\Enums\Permission::MESSAGE_CREATE->gate()))
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
@@ -924,7 +924,7 @@
                     </dd>
                     <dt>{{ __('user.can-invite') }}</dt>
                     <dd>
-                        @if ($user->can_invite == 1)
+                        @if (Gate::allows(\App\Enums\Permission::INVITE_CREATE->gate()))
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

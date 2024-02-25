@@ -99,7 +99,6 @@ final class GroupControllerTest extends TestCase
             'is_freeleech'     => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
             'is_refundable'    => $group->is_refundable,
-            'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
         ]);
@@ -133,7 +132,6 @@ final class GroupControllerTest extends TestCase
             'is_freeleech'     => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
             'is_refundable'    => $group->is_refundable,
-            'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
             'system_required'  => $group->system_required,

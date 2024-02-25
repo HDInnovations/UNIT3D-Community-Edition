@@ -100,10 +100,6 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
-            'can_upload' => [
-                'required',
-                'boolean',
-            ],
             'autogroup' => [
                 'required',
                 'boolean',

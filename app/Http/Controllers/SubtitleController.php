@@ -26,6 +26,7 @@ use App\Achievements\UserUploaded700Subtitles;
 use App\Achievements\UserUploaded800Subtitles;
 use App\Achievements\UserUploaded900Subtitles;
 use App\Achievements\UserUploadedFirstSubtitle;
+use App\Enums\Permission;
 use App\Http\Requests\StoreSubtitleRequest;
 use App\Http\Requests\UpdateSubtitleRequest;
 use App\Models\MediaLanguage;
@@ -35,6 +36,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 
@@ -180,7 +182,7 @@ class SubtitleController extends Controller
         $user = $request->user();
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && $subtitle->user_id != $user->id) {
+        if (Gate::denies(Permission::ANNOUNCE_PEER_VIEW->gate()) && $subtitle->user_id != $user->id) {
             return to_route('torrents.show', ['id' => $subtitle->torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }

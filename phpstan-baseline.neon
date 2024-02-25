@@ -791,11 +791,6 @@ parameters:
 			path: app/Http/Controllers/Staff/RssController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/UserController.php
-
-		-
 			message: "#^Offset 0 does not exist on Illuminate\\\\Http\\\\Client\\\\Response\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/VersionController.php

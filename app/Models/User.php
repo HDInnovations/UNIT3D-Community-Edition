@@ -61,12 +61,6 @@ use voku\helper\AntiXSS;
  * @property string|null                     $custom_css
  * @property string|null                     $standalone_css
  * @property int                             $read_rules
- * @property bool                            $can_chat
- * @property bool                            $can_comment
- * @property bool                            $can_download
- * @property bool                            $can_request
- * @property bool                            $can_invite
- * @property bool                            $can_upload
  * @property int                             $show_poster
  * @property int                             $peer_hidden
  * @property int                             $private_profile
@@ -118,15 +112,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<string, string>
      */
     protected $casts = [
-        'last_login'   => 'datetime',
-        'last_action'  => 'datetime',
-        'hidden'       => 'boolean',
-        'can_comment'  => 'boolean',
-        'can_download' => 'boolean',
-        'can_request'  => 'boolean',
-        'can_invite'   => 'boolean',
-        'can_upload'   => 'boolean',
-        'can_chat'     => 'boolean',
+        'last_login'  => 'datetime',
+        'last_action' => 'datetime',
+        'hidden'      => 'boolean',
     ];
 
     /**
@@ -162,7 +150,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'is_internal'  => config('user.group.defaults.is_internal'),
             'is_modo'      => config('user.group.defaults.is_modo'),
             'is_trusted'   => config('user.group.defaults.is_trusted'),
-            'can_upload'   => config('user.group.defaults.can_upload'),
             'level'        => config('user.group.defaults.level'),
         ]);
     }
@@ -877,6 +864,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public function emailUpdates(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(EmailUpdate::class);
+    }
+
+    /**
+     * Belongs to many roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Role>
+     */
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class)->using(RoleUser::class)->withTimestamps()->withPivot('id');
+    }
+
+    /**
+     * Belongs to many roles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Role>
+     */
+    public function autoRoles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'auto_role_user')->using(AutoRoleUser::class)->withTimestamps()->withPivot('id');
     }
 
     /**

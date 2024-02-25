@@ -13,12 +13,14 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\Permission;
 use App\Http\Controllers\Controller;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
@@ -54,7 +56,7 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invites-disabled'));
         }
 
-        if ($user->can_invite == 0) {
+        if (Gate::denies(Permission::INVITE_CREATE->gate())) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-banned'));
         }
@@ -79,7 +81,9 @@ class InviteController extends Controller
      */
     public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user) && $user->can_invite, 403);
+        Gate::authorize(Permission::INVITE_CREATE->gate());
+
+        abort_unless($request->user()->is($user), 403);
 
         if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
             return to_route('home.index')
@@ -132,7 +136,7 @@ class InviteController extends Controller
      */
     public function destroy(Request $request, User $user, Invite $sentInvite): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo || ($request->user()->is($user) && $user->can_invite), 403);
+        abort_unless($request->user()->group->is_modo || ($request->user()->is($user) && Gate::allows(Permission::INVITE_CREATE->gate())), 403);
 
         if ($sentInvite->accepted_by !== null) {
             return to_route('users.invites.index', ['user' => $user])
@@ -155,7 +159,7 @@ class InviteController extends Controller
      */
     public function send(Request $request, User $user, Invite $sentInvite): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo || ($request->user()->is($user) && $user->can_invite), 403);
+        abort_unless($request->user()->group->is_modo || ($request->user()->is($user) && Gate::allows(Permission::INVITE_CREATE->gate())), 403);
 
         if ($sentInvite->accepted_by !== null) {
             return to_route('users.invites.index', ['user' => $user])

@@ -19,8 +19,8 @@ use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\ForumPermission;
+use App\Models\Role;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
@@ -50,7 +50,8 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
+        $group = Group::create($request->validated());
+        $group->roles()->sync($request->validated('roles'));
 
         foreach (Forum::pluck('id') as $collection) {
             ForumPermission::create([
@@ -74,7 +75,8 @@ class GroupController extends Controller
     public function edit(Group $group): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.group.edit', [
-            'group' => $group,
+            'group' => $group->load('roles'),
+            'roles' => Role::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -83,9 +85,11 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): \Illuminate\Http\RedirectResponse
     {
-        $group->update(['slug' => Str::slug($request->name)] + $request->validated());
+        $group->update($request->validated('group'));
+        $group->roles()->sync($request->validated('roles'));
 
         cache()->forget('group:'.$group->id);
+        cache()->forget('rbac-group-roles');
 
         Unit3dAnnounce::addGroup($group);
 

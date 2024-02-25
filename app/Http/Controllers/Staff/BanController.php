@@ -51,13 +51,7 @@ class BanController extends Controller
         abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
-            'group_id'     => $bannedGroup[0],
-            'can_upload'   => 0,
-            'can_download' => 0,
-            'can_comment'  => 0,
-            'can_invite'   => 0,
-            'can_request'  => 0,
-            'can_chat'     => 0,
+            'group_id' => $bannedGroup[0],
         ]);
 
         $ban = Ban::create(['created_by' => $staff->id] + $request->validated());

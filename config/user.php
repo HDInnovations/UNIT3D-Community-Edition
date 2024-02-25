@@ -35,7 +35,6 @@ return [
             'is_internal'  => false,
             'is_modo'      => false,
             'is_trusted'   => false,
-            'can_upload'   => false,
             'level'        => 0,
             'position'     => 0,
         ],

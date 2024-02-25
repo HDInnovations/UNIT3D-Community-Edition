@@ -25,6 +25,7 @@ use App\Traits\GroupedLastScope;
 use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use voku\helper\AntiXSS;
 
 /**
@@ -85,6 +86,7 @@ class Torrent extends Model
     use Auditable;
     use GroupedLastScope;
     use HasFactory;
+    use SoftDeletes;
     use TorrentFilter;
 
     protected $guarded = [];

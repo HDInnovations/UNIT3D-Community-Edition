@@ -43,6 +43,10 @@ class DatabaseSeeder extends Seeder
             DistributorsTableSeeder::class,
             RegionsTableSeeder::class,
             OccupationSeeder::class,
+            PermissionsTableSeeder::class,
+            RolesTableSeeder::class,
+            GroupRoleTableSeeder::class,
+            PermissionRoleTableSeeder::class,
         ]);
     }
 }
