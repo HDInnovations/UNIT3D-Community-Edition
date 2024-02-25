@@ -56,23 +56,11 @@ class TopicPostSearch extends Component
     final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $posts = Post::query()
-            ->select('posts.*')
             ->with('user', 'user.group')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'cost')
             ->where('topic_id', '=', $this->topic->id)
-            ->whereNotIn(
-                'topic_id',
-                Topic::query()
-                    ->whereRelation(
-                        'forumPermissions',
-                        fn ($query) => $query
-                            ->where('group_id', '=', auth()->user()->group_id)
-                            ->where('read_topic', '!=', 1)
-                    )
-                    ->select('id')
-            )
-            ->join('topics', 'topics.id', '=', 'posts.topic_id')
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderBy('created_at')
             ->paginate(25);

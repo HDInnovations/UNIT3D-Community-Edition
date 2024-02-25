@@ -52,10 +52,7 @@ class SubscriptionController extends Controller
                 abort_unless(
                     Forum::query()
                         ->where('id', '=', $request->forum_id)
-                        ->whereRelation('permissions', [
-                            ['read_topic', '=', 1],
-                            ['group_id', '=', $user->group_id],
-                        ])
+                        ->authorized(canReadTopic: true)
                         ->exists(),
                     403
                 );
@@ -68,10 +65,7 @@ class SubscriptionController extends Controller
                 abort_unless(
                     Topic::query()
                         ->where('id', '=', $request->topic_id)
-                        ->whereRelation('forumPermissions', [
-                            ['read_topic', '=', 1],
-                            ['group_id', '=', $user->group_id],
-                        ])
+                        ->authorized(canReadTopic: true)
                         ->exists(),
                     403
                 );

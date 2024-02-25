@@ -32,7 +32,7 @@ class TopicController extends Controller
                     'forum:id,name',
                     'reads' => fn ($query) => $query->whereBelongsTo(auth()->user()),
                 ])
-                ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                ->authorized(canReadTopic: true)
                 ->latest()
                 ->paginate(25),
         ]);

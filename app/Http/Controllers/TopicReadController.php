@@ -66,11 +66,7 @@ class TopicReadController extends Controller
 
                 return back()->withSuccess('All caught up!');
             case 'forum':
-                $forum = Forum::whereRelation('permissions', [
-                    ['start_topic', '=', 1],
-                    ['group_id', '=', $request->user()->group_id],
-                ])
-                    ->findOrFail($request->integer('forum_id'));
+                $forum = Forum::authorized(canStartTopic: true)->findOrFail($request->integer('forum_id'));
 
                 DB::insert('
                     INSERT INTO

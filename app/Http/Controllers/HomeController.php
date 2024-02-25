@@ -424,7 +424,7 @@ class HomeController extends Controller
                 $expiresAt,
                 fn () => Topic::query()
                     ->with('user', 'user.group', 'latestPoster')
-                    ->whereRelation('forumPermissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+                    ->authorized(canReadTopic: true)
                     ->latest()
                     ->take(5)
                     ->get()
@@ -440,17 +440,7 @@ class HomeController extends Controller
                         'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                         'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
                     ])
-                    ->whereNotIn(
-                        'topic_id',
-                        Topic::query()
-                            ->whereRelation(
-                                'forumPermissions',
-                                fn ($query) => $query
-                                    ->where('group_id', '=', auth()->user()->group_id)
-                                    ->where('read_topic', '!=', 1)
-                            )
-                            ->select('id')
-                    )
+                    ->authorized(canReadTopic: true)
                     ->latest()
                     ->take(5)
                     ->get()

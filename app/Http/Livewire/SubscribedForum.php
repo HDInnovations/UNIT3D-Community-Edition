@@ -29,7 +29,7 @@ class SubscribedForum extends Component
         return Forum::query()
             ->with('latestPoster', 'lastRepliedTopic')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->authorized(canReadTopic: true)
             ->orderBy('position')
             ->paginate(25, ['*'], 'subscribedForumsPage');
     }

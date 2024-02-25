@@ -1301,11 +1301,6 @@ parameters:
 			path: app/Models/Post.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Topic\\:\\:viewable\\(\\) should return bool but returns int\\|null\\.$#"
-			count: 1
-			path: app/Models/Topic.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
 			count: 1
 			path: app/Models/Torrent.php

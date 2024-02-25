@@ -32,9 +32,7 @@ class ForumController extends Controller
         return view('forum.index', [
             'categories' => ForumCategory::query()
                 ->with([
-                    'forums' => fn ($query) => $query
-                        ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', $request->user()->group_id]])
-                        ->orderBy('position'),
+                    'forums'              => fn ($query) => $query->authorized(canReadTopic: true)->orderBy('position'),
                     'forums.latestPoster' => fn ($query) => $query->withTrashed(),
                     'forums.lastRepliedTopic',
                 ])
@@ -55,7 +53,7 @@ class ForumController extends Controller
         return view('forum.forum_topic.index', [
             'forum' => Forum::query()
                 ->with('category')
-                ->whereRelation('permissions', [['read_topic', '=', 1], ['group_id', '=', $request->user()->group_id]])
+                ->authorized(canReadTopic: true)
                 ->findOrFail($id),
         ]);
     }

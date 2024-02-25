@@ -20,12 +20,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Permission.
  *
- * @property int $id
- * @property int $forum_id
- * @property int $group_id
- * @property int $read_topic
- * @property int $reply_topic
- * @property int $start_topic
+ * @property int  $id
+ * @property int  $forum_id
+ * @property int  $group_id
+ * @property bool $read_topic
+ * @property bool $reply_topic
+ * @property bool $start_topic
  */
 class ForumPermission extends Model
 {
@@ -40,6 +40,17 @@ class ForumPermission extends Model
     public $timestamps = false;
 
     public $guarded = [];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'read_topic'  => 'boolean',
+        'reply_topic' => 'boolean',
+        'start_topic' => 'boolean',
+    ];
 
     /**
      * Belongs To A Group.

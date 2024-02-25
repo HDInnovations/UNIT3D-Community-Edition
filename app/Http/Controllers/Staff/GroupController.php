@@ -56,9 +56,9 @@ class GroupController extends Controller
             ForumPermission::create([
                 'forum_id'    => $collection,
                 'group_id'    => $group->id,
-                'read_topic'  => 0,
-                'reply_topic' => 0,
-                'start_topic' => 0,
+                'read_topic'  => false,
+                'reply_topic' => false,
+                'start_topic' => false,
             ]);
         }
 
