@@ -1106,6 +1106,16 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Whitelisted Image Domains
+        Route::prefix('whitelisted-image-domains')->group(function (): void {
+            Route::name('whitelisted_image_domains.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'index'])->name('index');
+                Route::post('/store', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'store'])->name('store');
+                Route::patch('/{whitelistedImageDomain}/update', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'update'])->name('update');
+                Route::delete('/{whitelistedImageDomain}/destroy', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Wiki Categories System
         Route::prefix('wiki_categories')->group(function (): void {
             Route::name('wiki_categories.')->group(function (): void {
