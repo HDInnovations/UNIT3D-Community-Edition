@@ -52,7 +52,7 @@ class TopicReadController extends Controller
                             SELECT
                                 *
                             FROM
-                                permissions
+                                forum_permissions
                             WHERE
                                 topics.forum_id = forum_permissions.forum_id
                             AND
@@ -123,7 +123,7 @@ class TopicReadController extends Controller
                             SELECT
                                 *
                             FROM
-                                permissions
+                                forum_permissions
                             WHERE
                                 topics.forum_id = forum_permissions.forum_id
                             AND
@@ -174,7 +174,7 @@ class TopicReadController extends Controller
                             SELECT
                                 *
                             FROM
-                                permissions
+                                forum_permissions
                             WHERE
                                 topics.forum_id = forum_permissions.forum_id
                             AND
