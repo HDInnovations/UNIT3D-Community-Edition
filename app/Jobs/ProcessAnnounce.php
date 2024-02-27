@@ -110,7 +110,7 @@ class ProcessAnnounce implements ShouldQueue
             $this->torrent->id,
             cache()->rememberForever(
                 'featured-torrent-ids',
-                fn () => FeaturedTorrent::select('id')->pluck('id')->toArray(),
+                fn () => FeaturedTorrent::select('torrent_id')->pluck('torrent_id')->toArray(),
             ),
             true
         );
