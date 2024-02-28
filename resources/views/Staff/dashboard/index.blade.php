@@ -180,6 +180,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.whitelisted_image_domains.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-globe"></i>
+                        Whitelisted Image Domains
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.wiki_categories.index') }}"
                     >
                         <i class="fab fa-wikipedia-w"></i>

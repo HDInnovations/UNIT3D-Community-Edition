@@ -296,26 +296,6 @@ parameters:
 			path: app/Exceptions/TrackerException.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,string\\|false\\>\\:\\:filter\\(\\) expects \\(callable\\(string\\|false, int\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function collect expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<int, string\\>\\|iterable\\<int, string\\>\\|null, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(array\\<int\\|string, string\\>\\)\\: string, Closure\\(mixed\\)\\: \\(string\\|null\\) given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
 			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Helpers/Bencode.php
