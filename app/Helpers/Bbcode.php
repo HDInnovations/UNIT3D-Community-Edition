@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-use App\Models\WhitelistedImageDomain;
+use App\Models\WhitelistedImageUrl;
 
 class Bbcode
 {
@@ -496,15 +496,16 @@ class Bbcode
         }
 
         if ($isImage) {
-            $host = parse_url($url, PHP_URL_HOST);
+            $whitelistedImageUrls = cache()->rememberForever(
+                'whitelisted-image-urls',
+                fn () => WhitelistedImageUrl::query()->pluck('pattern'),
+            );
 
-            if (!\is_string($host)) {
-                return 'Broken link';
-            }
+            $isWhitelisted = $whitelistedImageUrls->contains(function (string $pattern) use ($url) {
+                $pattern = str_replace('\*', '.*', preg_quote($pattern, '/'));
 
-            $whitelistedImageDomains = cache()->rememberForever('whitelisted-image-domains', fn () => WhitelistedImageDomain::query()->pluck('domain'));
-
-            $isWhitelisted = $whitelistedImageDomains->firstWhere(fn ($domain) => str_ends_with($host, $domain)) !== null;
+                return preg_match('/^'.$pattern.'$/i', $url);
+            });
 
             if (!$isWhitelisted) {
                 $url = 'https://wsrv.nl/?url='.urlencode($url);

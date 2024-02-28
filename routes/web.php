@@ -1106,13 +1106,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        // Whitelisted Image Domains
-        Route::prefix('whitelisted-image-domains')->group(function (): void {
-            Route::name('whitelisted_image_domains.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'store'])->name('store');
-                Route::patch('/{whitelistedImageDomain}/update', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'update'])->name('update');
-                Route::delete('/{whitelistedImageDomain}/destroy', [App\Http\Controllers\Staff\WhitelistedImageDomainController::class, 'destroy'])->name('destroy');
+        // Whitelisted Image URL Patterns
+        Route::prefix('whitelisted-image-urls')->group(function (): void {
+            Route::name('whitelisted_image_urls.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'index'])->name('index');
+                Route::post('/store', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'store'])->name('store');
+                Route::patch('/{whitelistedImageUrl}/update', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'update'])->name('update');
+                Route::delete('/{whitelistedImageUrl}/destroy', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'destroy'])->name('destroy');
             });
         });
 

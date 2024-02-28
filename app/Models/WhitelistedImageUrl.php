@@ -18,12 +18,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\WhitelistedImageDomain.
+ * App\Models\WhitelistedImageUrl.
  *
  * @property int    $id
- * @property string $domain
+ * @property string $pattern
  */
-class WhitelistedImageDomain extends Model
+class WhitelistedImageUrl extends Model
 {
     use Auditable;
     use HasFactory;

@@ -15,7 +15,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateWhitelistedImageDomainRequest extends FormRequest
+class UpdateWhitelistedImageUrlRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -25,11 +25,11 @@ class UpdateWhitelistedImageDomainRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'domain' => [
+            'pattern' => [
                 'required',
                 'string',
                 'max:255',
-                'unique:whitelisted_image_domains',
+                'unique:whitelisted_image_urls',
             ],
         ];
     }
