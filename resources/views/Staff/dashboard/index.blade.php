@@ -180,10 +180,10 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.whitelisted_image_domains.index') }}"
+                        href="{{ route('staff.whitelisted_image_urls.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-globe"></i>
-                        Whitelisted Image Domains
+                        Whitelisted Image URLs
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">

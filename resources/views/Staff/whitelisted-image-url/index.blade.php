@@ -6,15 +6,15 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Whitelisted Image Domains</li>
+    <li class="breadcrumb--active">Whitelisted Image URLs</li>
 @endsection
 
-@section('page', 'page__whitelisted-image-domains--index')
+@section('page', 'page__whitelisted-image-urls--index')
 
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Whitelisted Image Domains</h2>
+            <h2 class="panel__heading">Whitelisted Image URLs</h2>
             <div class="panel__actions">
                 <div class="panel__action" x-data="dialog">
                     <button class="form__button form__button--text" x-bind="showDialog">
@@ -25,21 +25,21 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('staff.whitelisted_image_domains.store') }}"
+                            action="{{ route('staff.whitelisted_image_urls.store') }}"
                             x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">
                                 <input
-                                    id="domain"
+                                    id="pattern"
                                     class="form__text"
-                                    name="domain"
+                                    name="pattern"
                                     placeholder=" "
                                     required
                                     type="text"
                                 />
-                                <label class="form__label form__label--floating" for="domain">
-                                    Domain
+                                <label class="form__label form__label--floating" for="pattern">
+                                    URL pattern
                                 </label>
                             </p>
                             <p class="form__group">
@@ -63,30 +63,30 @@
             <table class="data-table">
                 <thead>
                     <th>ID</th>
-                    <th>Domain</th>
+                    <th>URL Pattern</th>
                     <th>{{ __('common.created_at') }}</th>
                     <th>{{ __('forum.updated-at') }}</th>
                     <th>{{ __('common.actions') }}</th>
                 </thead>
                 <tbody>
-                    @forelse ($whitelistedImageDomains as $whitelistedImageDomain)
+                    @forelse ($whitelistedImageUrls as $whitelistedImageUrl)
                         <tr>
-                            <td>{{ $whitelistedImageDomain->id }}</td>
-                            <td>{{ $whitelistedImageDomain->domain }}</td>
+                            <td>{{ $whitelistedImageUrl->id }}</td>
+                            <td>{{ $whitelistedImageUrl->pattern }}</td>
                             <td>
                                 <time
-                                    datetime="{{ $whitelistedImageDomain->created_at }}"
-                                    title="{{ $whitelistedImageDomain->created_at }}"
+                                    datetime="{{ $whitelistedImageUrl->created_at }}"
+                                    title="{{ $whitelistedImageUrl->created_at }}"
                                 >
-                                    {{ $whitelistedImageDomain->created_at }}
+                                    {{ $whitelistedImageUrl->created_at }}
                                 </time>
                             </td>
                             <td>
                                 <time
-                                    datetime="{{ $whitelistedImageDomain->updated_at }}"
-                                    title="{{ $whitelistedImageDomain->updated_at }}"
+                                    datetime="{{ $whitelistedImageUrl->updated_at }}"
+                                    title="{{ $whitelistedImageUrl->updated_at }}"
                                 >
-                                    {{ $whitelistedImageDomain->updated_at }}
+                                    {{ $whitelistedImageUrl->updated_at }}
                                 </time>
                             </td>
                             <td>
@@ -105,26 +105,26 @@
                                             <form
                                                 class="dialog__form"
                                                 method="POST"
-                                                action="{{ route('staff.whitelisted_image_domains.update', ['whitelistedImageDomain' => $whitelistedImageDomain]) }}"
+                                                action="{{ route('staff.whitelisted_image_urls.update', ['whitelistedImageUrl' => $whitelistedImageUrl]) }}"
                                                 x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('PATCH')
                                                 <p class="form__group">
                                                     <input
-                                                        id="domain"
+                                                        id="pattern"
                                                         class="form__text"
-                                                        name="domain"
+                                                        name="pattern"
                                                         placeholder=" "
                                                         required
                                                         type="text"
-                                                        value="{{ $whitelistedImageDomain->domain }}"
+                                                        value="{{ $whitelistedImageUrl->pattern }}"
                                                     />
                                                     <label
                                                         class="form__label form__label--floating"
-                                                        for="domain"
+                                                        for="pattern"
                                                     >
-                                                        {{ __('common.position') }}
+                                                        URL Pattern
                                                     </label>
                                                 </p>
                                                 <p class="form__group">
@@ -146,7 +146,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.whitelisted_image_domains.destroy', ['whitelistedImageDomain' => $whitelistedImageDomain]) }}"
+                                            action="{{ route('staff.whitelisted_image_urls.destroy', ['whitelistedImageUrl' => $whitelistedImageUrl]) }}"
                                             method="POST"
                                             x-data="confirmation"
                                         >
@@ -155,7 +155,7 @@
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to remove this whitelisted image domain: ' . $whitelistedImageDomain->domain . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to remove this whitelisted image url: ' . $whitelistedImageUrl->pattern . '?') }}"
                                             >
                                                 {{ __('common.delete') }}
                                             </button>
@@ -166,7 +166,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2">No whitelisted image domains.</td>
+                            <td colspan="2">No whitelisted image urls.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -181,36 +181,15 @@
         <div class="panel__body">
             <p>
                 When users add images via BBCode, other users will load the image on page load. This
-                means whoever operates the image domain can view the connecting IPs. Therefore, all
-                images entered via BBCode are proxied.
+                means whoever operates the website of the image url can view the connecting IPs.
+                Therefore, all images entered via BBCode are proxied.
             </p>
             <p>
-                In exception cases where the proxy blocks a popular image host, that image host
-                domain should be whitelisted here. Any trusted image domains can also be included
-                here to increase client image loading speeds.
-            </p>
-        </div>
-    </section>
-    <section class="panelV2">
-        <h2 class="panel__heading">Warning</h2>
-        <div class="panel__body">
-            <p>
-                Note: if you whitelist
-                <code>xyz.com</code>
-                , it will also whitelist
-                <code>abcxyz.com</code>
-                since they share the same suffix. To prevent this, whitelist
-                <code>https://xyz.com</code>
-                instead.
-            </p>
-            <p>
-                Alternatively, if you wish to allow all subdomains of
-                <code>xyz.com</code>
-                , e.g.
-                <code>image1.xyz.com</code>
-                , then whitelist
-                <code>.xyz.com</code>
-                .
+                In exception cases where the proxy blocks a popular image host, that image url
+                should be whitelisted here. Any trusted image urls can also be included here to
+                increase client image loading speeds. You can use
+                <code>*</code>
+                as a wildcard when matching urls.
             </p>
         </div>
     </section>
