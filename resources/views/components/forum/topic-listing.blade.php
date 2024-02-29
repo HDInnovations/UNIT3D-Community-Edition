@@ -5,14 +5,14 @@
 <article
     @class([
         'topic-listing',
-        'topic-listing--read' => $topic->reads->first()?->last_read_post_id === $topic->last_post_id || $topic->last_post_id < auth()->user()->catchup_post_id,
+        'topic-listing--read' => $topic->reads->first()?->last_read_post_id === $topic->last_post_id,
         'topic-listing--unread' => $topic->reads->first()?->last_read_post_id !== $topic->last_post_id,
     ])
     class="topic-listing"
 >
     <header class="topic-listing__header">
         <h2 class="topic-listing__heading">
-            @if ($topic->reads->isEmpty() || $topic->last_post_id > auth()->user()->catchup_post_id)
+            @if ($topic->reads->isEmpty())
                 <a
                     class="topic-listing__link"
                     href="{{ route('topics.show', ['id' => $topic->id]) }}"
@@ -22,7 +22,7 @@
             @else
                 <a
                     class="topic-listing__link"
-                    href="{{ route('topics.permalink', ['topicId' => $topic->id, 'postId' => max(auth()->user()->catchup_post_id, $topic->reads->first()?->last_read_post_id ?? 0)]) }}"
+                    href="{{ route('topics.permalink', ['topicId' => $topic->id, 'postId' => $topic->reads->first()?->last_read_post_id ?? 0]) }}"
                 >
                     {{ $topic->name }}
                 </a>
