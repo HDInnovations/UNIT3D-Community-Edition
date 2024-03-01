@@ -91,6 +91,8 @@ class AutoRewardResurrection extends Command
                 );
                 $torrent->save();
 
+                cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
                 Unit3dAnnounce::addTorrent($torrent);
 
                 // Send Private Message
