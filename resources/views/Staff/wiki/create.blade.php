@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.wikis.index') }}" class="breadcrumb__link">Wikis</a>
+        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">Wikis</a>
     </li>
     <li class="breadcrumb--active">
         {{ __('common.new-adj') }}
@@ -32,9 +32,21 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <select id="category_id" name="category_id" class="form__select">
+                    <select
+                        id="category_id"
+                        name="category_id"
+                        class="form__select"
+                        x-data="{ selected: {{ $wikiCategoryId }} || '' }"
+                        x-model="selected"
+                        x-bind:class="selected === '' ? 'form__selected--default' : ''"
+                        required
+                    >
+                        <option disabled hidden></option>
                         @foreach ($wikiCategories as $wikiCategory)
-                            <option value="{{ $wikiCategory->id }}">
+                            <option
+                                value="{{ $wikiCategory->id }}"
+                                @selected($wikiCategory->id === $wikiCategoryId)
+                            >
                                 {{ $wikiCategory->name }}
                             </option>
                         @endforeach

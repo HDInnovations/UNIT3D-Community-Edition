@@ -26,7 +26,10 @@ class WikiCategoryController extends Controller
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('Staff.wiki_category.index', [
-            'wikiCategories' => WikiCategory::orderBy('position')->get(),
+            'wikiCategories' => WikiCategory::query()
+                ->with(['wikis' => fn ($query) => $query->orderBy('name')])
+                ->orderBy('position')
+                ->get(),
         ]);
     }
 

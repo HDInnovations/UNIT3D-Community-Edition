@@ -18,25 +18,17 @@ use App\Http\Requests\Staff\StoreWikiRequest;
 use App\Http\Requests\Staff\UpdateWikiRequest;
 use App\Models\Wiki;
 use App\Models\WikiCategory;
+use Illuminate\Http\Request;
 
 class WikiController extends Controller
 {
     /**
-     * Display All Pages.
-     */
-    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('Staff.wiki.index', [
-            'wikis' => Wiki::with(['category'])->get(),
-        ]);
-    }
-
-    /**
      * Page Add Form.
      */
-    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function create(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('Staff.wiki.create', [
+            'wikiCategoryId' => $request->integer('wikiCategoryId'),
             'wikiCategories' => WikiCategory::query()->orderBy('position')->get(),
         ]);
     }
@@ -48,7 +40,7 @@ class WikiController extends Controller
     {
         Wiki::create($request->validated());
 
-        return to_route('staff.wikis.index')
+        return to_route('staff.wiki_categories.index')
             ->withSuccess('Wiki has been created successfully');
     }
 
@@ -70,7 +62,7 @@ class WikiController extends Controller
     {
         $wiki->update($request->validated());
 
-        return to_route('staff.wikis.index')
+        return to_route('staff.wiki_categories.index')
             ->withSuccess('Wiki has been edited successfully');
     }
 
@@ -81,7 +73,7 @@ class WikiController extends Controller
     {
         $wiki->delete();
 
-        return to_route('staff.wikis.index')
+        return to_route('staff.wiki_categories.index')
             ->withSuccess('Wiki has been deleted successfully');
     }
 }

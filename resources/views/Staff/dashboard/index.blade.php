@@ -192,15 +192,6 @@
                         href="{{ route('staff.wiki_categories.index') }}"
                     >
                         <i class="fab fa-wikipedia-w"></i>
-                        Wiki Categories
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <a
-                        class="form__button form__button--text"
-                        href="{{ route('staff.wikis.index') }}"
-                    >
-                        <i class="fab fa-wikipedia-w"></i>
                         Wikis
                     </a>
                 </p>
