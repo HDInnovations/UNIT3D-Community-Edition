@@ -7,7 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.wikis.index') }}" class="breadcrumb__link">Wikis</a>
+        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">Wikis</a>
     </li>
     <li class="breadcrumbV2">
         {{ $wiki->name }}
