@@ -29,13 +29,17 @@
                             <x-user_tag :user="$download->user" :anon="false" />
                         </td>
                         <td>
-                            <time
-                                datetime="{{ $download->created_at }}"
-                                title="{{ $download->created_at }}"
-                            >
-                                {{ $download->created_at }}
-                                ({{ $download->created_at->diffForHumans() }})
-                            </time>
+                           @if ($download->created_at == null)
+                               {{ __('common.unknown') }}
+                           @else
+                                <time
+                                    datetime="{{ $download->created_at }}"
+                                    title="{{ $download->created_at }}"
+                                >
+                                    {{ $download->created_at }}
+                                    ({{ $download->created_at->diffForHumans() }})
+                                </time>
+                           @endif
                         </td>
                         <td>{{ $download->type }}</td>
                     </tr>

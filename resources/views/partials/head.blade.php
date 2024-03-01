@@ -86,6 +86,14 @@
             @vite('resources/sass/themes/_material-design-v3-amoled.scss')
 
             @break
+        @case(15)
+            <link
+                rel="stylesheet"
+                href="{{ mix('css/themes/mint_cream.css') }}"
+                crossorigin="anonymous"
+            />
+
+            @break
     @endswitch
 
     @if (isset(auth()->user()->custom_css))

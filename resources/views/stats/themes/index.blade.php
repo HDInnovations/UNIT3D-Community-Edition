@@ -85,6 +85,10 @@
                                     Material Design 3 Amoled Theme
 
                                     @break
+                                @case('15')
+                                    Cinematik Mint Cream Theme
+
+                                    @break
                             @endswitch
                         </td>
                         <td>Used By {{ $siteTheme->value }} Users</td>

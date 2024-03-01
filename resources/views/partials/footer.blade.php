@@ -6,7 +6,7 @@
             </h2>
             <p>{{ config('other.meta_description') }}</p>
             <i
-                class="{{ config('other.font-awesome') }} fa-tv-retro footer__icon"
+                class="fad fa-disc-drive footer__icon"
                 style="font-size: 90px"
             ></i>
         </section>
@@ -97,7 +97,7 @@
                 </li>
                 <li>
                     <a
-                        href="https://github.com/HDInnovations/UNIT3D"
+                        href="https://github.com/EkoNesLeg/UNIT3D-Cinematik-Edition/tree/remote"
                         target="_blank"
                         class="form__button form__button--outlined"
                     >

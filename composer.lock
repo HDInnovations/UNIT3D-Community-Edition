@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14f9d0d60fec1528deba52035075b718",
+    "content-hash": "d27030f46e814585e4d279cbb5235ac0",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -8662,6 +8662,61 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "hdinnovations/tbdev-to-unit3d",
+            "version": "v0.0.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/HDVinnie/TEST.git",
+                "reference": "e09f40e91860edae08e75c3aa14aab8e9a65ea38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/HDVinnie/TEST/zipball/e09f40e91860edae08e75c3aa14aab8e9a65ea38",
+                "reference": "e09f40e91860edae08e75c3aa14aab8e9a65ea38",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "HDInnovations\\TbdevToUnit3d\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "HDInnovations\\TbdevToUnit3d\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "HDInnovations (HDVinnie)",
+                    "homepage": "https://github.com/HDInnovations",
+                    "role": "Founder, Developer"
+                }
+            ],
+            "description": "An artisan package to import a tbdev database into UNIT3D.",
+            "keywords": [
+                "UNIT3D",
+                "database",
+                "import",
+                "laravel",
+                "tbdev"
+            ],
+            "support": {
+                "issues": "https://github.com/HDVinnie/TEST/issues",
+                "source": "https://github.com/HDVinnie/TEST/tree/v0.0.17"
+            },
+            "time": "2024-01-28T15:32:09+00:00"
         },
         {
             "name": "jasonmccreary/laravel-test-assertions",

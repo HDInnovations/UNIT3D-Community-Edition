@@ -42,10 +42,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:remove_personal_freeleech')->hourly();
         $schedule->command('auto:remove_featured_torrent')->hourly();
         $schedule->command('auto:recycle_invites')->daily();
-        $schedule->command('auto:recycle_activity_log')->daily();
-        $schedule->command('auto:recycle_failed_logins')->daily();
-        $schedule->command('auto:disable_inactive_users')->daily();
-        $schedule->command('auto:softdelete_disabled_users')->daily();
+        //$schedule->command('auto:recycle_activity_log')->daily();
+        //$schedule->command('auto:recycle_failed_logins')->daily();
+        //$schedule->command('auto:disable_inactive_users')->daily();
+        //$schedule->command('auto:softdelete_disabled_users')->daily();
         $schedule->command('auto:recycle_claimed_torrent_requests')->daily();
         $schedule->command('auto:correct_history')->daily();
         $schedule->command('auto:sync_peers')->everyFiveMinutes();
@@ -57,8 +57,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:torrent_balance')->hourly();
         $schedule->command('auth:clear-resets')->daily();
         //$schedule->command('auto:ban_disposable_users')->weekends();
-        //$schedule->command('backup:clean')->daily();
-        //$schedule->command('backup:run --only-db')->daily();
+        $schedule->command('backup:clean')->daily();
+        $schedule->command('backup:run --only-db')->daily();
+        $schedule->command('backup:run --only-files')->daily();
     }
 
     /**

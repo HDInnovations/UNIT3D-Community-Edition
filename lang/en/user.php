@@ -374,7 +374,7 @@ return [
     'total-upload'             => 'Total Upload',
     'total-uploads'            => 'Total Uploads',
     'two-step-auth'            => [
-        'title'                     => 'Two-Step Authentication',
+        'title'                     => 'Two-Factor Authentication',
         'totp'                      => 'Time-based One-time Password (TOTP) Authentication',
         'email'                     => 'Email Authentication',
         'totp-is-enabled'           => 'TOTP Authentication is currently enabled. To disable it, please click the \'Disable\' button below.',

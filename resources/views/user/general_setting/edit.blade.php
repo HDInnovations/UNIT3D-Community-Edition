@@ -52,6 +52,9 @@
                     <legend class="form__legend">Style</legend>
                     <p class="form__group">
                         <select id="style" class="form__select" name="style" required>
+                            <option class="form__option" value="15" @selected($user->style === 15)>
+                                Cinematik Mint Cream
+                            </option>
                             <option class="form__option" value="0" @selected($user->style === 0)>
                                 Light
                             </option>

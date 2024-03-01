@@ -150,7 +150,7 @@
                 </p>
                 <div
                     class="form__group--horizontal"
-                    x-show="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && types[type].name === 'Full Disc'"
+                    x-show="(cats[cat].type === 'movie' || cats[cat].type === 'tv')"
                 >
                     <p class="form__group">
                         <select id="distributor_id" name="distributor_id" class="form__select">
@@ -162,7 +162,7 @@
                             @else
                                 <option
                                     x-bind:value="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') && types[type].name === 'Full Disc'
+                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv')
                                             ? '{{ $torrent->distributor->id }}'
                                             : ''
                                     "
@@ -176,7 +176,7 @@
                             @foreach ($distributors as $distributor)
                                 <option
                                     x-bind:value="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') && types[type].name === 'Full Disc'
+                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv')
                                             ? '{{ $distributor->id }}'
                                             : ''
                                     "
@@ -201,7 +201,7 @@
                             @else
                                 <option
                                     x-bind:value="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') && types[type].name === 'Full Disc'
+                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv')
                                             ? '{{ $torrent->region->id }}'
                                             : ''
                                     "
@@ -214,7 +214,7 @@
                             @foreach ($regions as $region)
                                 <option
                                     x-bind:value="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') && types[type].name === 'Full Disc'
+                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv')
                                             ? '{{ $region->id }}'
                                             : ''
                                     "

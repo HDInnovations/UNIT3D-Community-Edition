@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'title' => 'UNIT3D',
+    'title' => 'cinematik.net',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'subTitle' => 'Built On Laravel',
+    'subTitle' => 'Art in Discs',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'email' => env('DEFAULT_OWNER_EMAIL', 'unit3d@none.com'),
+    'email' => env('DEFAULT_OWNER_EMAIL', 'sysop@cinematik.net'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'meta_description' => 'Built On Laravel',
+    'meta_description' => 'Built with Laravel, Livewire, and Alpine.js',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     | Date Site Was Born
     |
     */
-    'birthdate' => 'December 30th 2017',
+    'birthdate' => 'March 22nd 2006',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,13 +120,17 @@ return [
     | Restricted mode for invites. If set to true, invites will be restricted
     | Exempt these groups from the invite restrictions
     */
-    'invite-only'   => true,
-    'invite_expire' => '14',
+    'invite-only' => true,
+    'invite_expire' => '3',
 
-    'invites_restriced' => false,
-    'invite_groups'     => [
+    'invites_restriced' => true,
+    'invite_groups' => [
         'Administrator',
-        'Owner',
+        'Sysop',
+        'Supermoderator',
+        'Moderator',
+        'Developer',
+        'Consigliere',
     ],
     'max_unused_user_invites' => 1,
 
@@ -159,7 +163,7 @@ return [
     | 11 = Revel
     | 12 = Material Design v3 Light
     */
-    'default_style' => 12,
+    'default_style' => 15,
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +190,7 @@ return [
     |--------------------------------------------------------------------------
     | Example: 1
     */
-    'rules_url' => env('APP_URL').'/pages/1',
+    'rules_url' => env('APP_URL').'/articles/379',
 
     /*
     |--------------------------------------------------------------------------
@@ -212,7 +216,7 @@ return [
     | 0 = Disabled
     | If enabled, Staff members get notifications instead of posting being announced in chat.
     */
-    'staff-forum-notify' => '0',
+    'staff-forum-notify' => '1',
 
     /*
     |--------------------------------------------------------------------------
@@ -221,7 +225,7 @@ return [
     | Example: 2
     | The ID value of staff forum area. Should be the main / parent ID.
     */
-    'staff-forum-id' => '',
+    'staff-forum-id' => '106',
 
     /*
     |--------------------------------------------------------------------------
@@ -237,6 +241,6 @@ return [
         | True = Enabled
         | False = Disabled
         */
-        'is-enabled' => true,
+        'is-enabled' => false,
     ],
 ];

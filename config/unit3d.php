@@ -55,7 +55,7 @@ return [
     */
 
     'owner-username'         => env('DEFAULT_OWNER_NAME', 'UNIT3D'),
-    'default-owner-email'    => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
+    'default-owner-email'    => env('DEFAULT_OWNER_EMAIL', 'sysop@cinematik.net'),
     'default-owner-password' => env('DEFAULT_OWNER_PASSWORD', 'UNIT3D'),
 
     // If using a Reverse Proxy for HTTPS set the 'PROXY_SCHEME' value in your .env file to `https` or adjust the below value
@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'chat-link-name' => 'Discord',
-    'chat-link-icon' => 'fab fa-discord',
-    'chat-link-url'  => '',
+    'chat-link-name' => 'IRC',
+    'chat-link-icon' => 'fas fa-comments',
+    'chat-link-url'  => '/wikis/6',
 ];

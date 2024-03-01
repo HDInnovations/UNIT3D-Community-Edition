@@ -181,7 +181,7 @@
                             datetime="{{ $torrentRequest->filled_when }}"
                             title="{{ $torrentRequest->filled_when }}"
                         >
-                            {{ $torrentRequest->filled_when->diffForHumans() }}
+                            {{ $torrentRequest->filled_when?->diffForHumans() ?? __('common.unknown') }}
                         </time>
                     </dd>
                     <dt>{{ __('request.filled') }} with</dt>

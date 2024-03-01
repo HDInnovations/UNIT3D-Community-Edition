@@ -36,5 +36,5 @@ return [
     | Size: "bytes"
     */
 
-    'max_upload_size' => '2000000',
+    'max_upload_size' => '200000',
 ];

@@ -1,7 +1,7 @@
 <nav class="top-nav" x-data="{ expanded: false }" x-bind:class="expanded && 'mobile'">
     <div class="top-nav__left">
         <a class="top-nav__branding" href="{{ route('home.index') }}">
-            <i class="fal fa-tv-retro"></i>
+            <i class="fas fa-disc-drive"></i>
             <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
         </a>
         <livewire:quick-search-dropdown />

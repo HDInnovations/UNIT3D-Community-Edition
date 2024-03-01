@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'source' => 'UNIT3D',
+    'source' => 'TiK',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'comment' => 'This torrent was downloaded from UNIT3D',
+    'comment' => 'This torrent was downloaded from TiK',
 
     /*
     |--------------------------------------------------------------------------

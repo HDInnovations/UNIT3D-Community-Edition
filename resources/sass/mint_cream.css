@@ -1,0 +1,341 @@
+:root {
+    --message-bubble-bg: #F4FAF5;
+    --message-bubble-fg: #533824;
+    --message-bubble-box-shadow: none;
+    --message-bubble-border-radius: 0;
+    --message-bubble-border: 1px solid #ccc;
+    --message-box-shadow: none;
+
+
+    --achievement-fg: inherit;
+    --achievement-bg: #F4FAF5;
+    --achievement-box-shadow: none;
+    --achievement-progress-bg: #8FCC9B;
+
+    --article-card-bg: #F4FAF5;
+    --article-card-fg: inherit;
+    --article-card-head-fg: inherit;
+    --article-card-time-fg: inherit;
+    --article-box-shadow: none;
+
+    --bbcode-input-header-bg: #e2e2e2;
+    --bbcode-input-body-bg: white;
+    --bbcode-input-border: 1px #ccc solid;
+    --bbcode-input-border-radius: 0;
+    --message-bubble-avatar-border-radius: 0;
+
+    --bbcode-rendered-fg-default: #24292f;
+    --bbcode-rendered-fg-muted: #57606a;
+    --bbcode-rendered-fg-subtle: #667788;
+    --bbcode-rendered-canvas-default: transparent;
+    --bbcode-rendered-canvas-subtle: #ececec;
+    --bbcode-rendered-border-default: #bebebe;
+    --bbcode-rendered-border-muted: #babbbd;
+    --bbcode-rendered-neutral-muted: #aeb3b833;
+    --bbcode-rendered-accent-fg: #8FCC9B;
+    --bbcode-rendered-accent-emphasis: #8FCC9B;
+    --bbcode-rendered-attention-subtle: #7289da;
+    --bbcode-rendered-danger-fg: #A31621;
+    --bbcode-rendered-quote-bg: #6662;
+    --bbcode-rendered-quote-border: #707070;
+
+    --breadcrumb-fg: inherit;
+    --breadcrumb-active-fg: inherit;
+    --breadcrumb-hover-fg: inherit;
+    --breadcrumb-inactive-text-decoration: underline currentColor 2px;
+
+    --button-filled-bg: #8FCC9B;
+    --button-filled-border: none;
+    --button-filled-border-radius: 0;
+    --button-filled-fg: white;
+
+    --button-outlined-bg: inherit;
+    --button-outlined-border: 1px solid #555;
+    --button-outlined-border-radius: 0;
+    --button-outlined-fg: currentColor;
+
+    --button-text-bg: inherit;
+    --button-text-border: none;
+    --button-text-border-radius: 0;
+    --button-text-fg: currentColor;
+
+    --comparison-divider-fg: #533824;
+    --comparison-button-fg: #533824;
+
+    --data-table-fg: inherit;
+    --data-table-th-bg: #fff;
+    --data-table-thead-border: 1px solid currentColor;
+    --data-table-tr-border: 1px #a49c96 dashed;
+    --data-table-tr-even-bg: #F4FAF5;
+    --data-table-tr-hover-bg: #E4EAE5;
+    --data-table-tr-odd-bg: #F4FAF5;
+    --data-table-tfoot-border: 1px solid currentColor;
+
+    --dialog-bg: #F4FAF5;
+    --dialog-border: none;
+    --dialog-border-radius: 0;
+    --dialog-box-shadow: none;
+    --dialog-fg: #533824;
+    --dialog-head-bg: #E6F6E6;
+    --dialog-head-fg: #533824;
+
+    --fieldset-bg: #fbfef4;
+    --fieldset-border-radius: 4px;
+    --fieldset-border: 1px #bbb solid;
+
+    --icon-button-bg: inherit;
+    --icon-button-border: none;
+    --icon-button-border-radius: 9999px;
+    --icon-button-fg: currentColor;
+
+    --icon-button-filled-bg: #8FCC9B;
+    --icon-button-filled-fg: white;
+    --icon-button-filled-border: none;
+
+    --input-text-border: 1px solid #ccc;
+    --input-text-border-active: 2px solid currentColor;
+    --input-text-border-error: 1px solid #A31621;
+    --input-text-border-hover: 2px solid currentColor;
+    --input-text-border-radius: 0;
+    --input-text-fg: inherit;
+    --input-text-padding: 12px;
+    --input-text-padding-active: 11px;
+    --input-text-padding-hover: 11px;
+
+    --key-value-even-bg: #fff;
+    --key-value-fg: inherit;
+    --key-value-odd-bg: #fff;
+    --key-value-padding: 10px;
+
+    --label-bg: #fff;
+    --label-fg: inherit;
+    --label-fg-active: #3B5249;
+    --label-fg-error: #A31621;
+    --label-fg-hover: #63474D;
+
+    --legend-fg: inherit;
+    --legend-bg: #eff5d8 !important;
+    --legend-border: 1px #ccc solid !important;
+    --legend-border-radius: 2px !important;
+
+    --meta-backdrop-filter:  brightness(150%) contrast(30%);
+    --meta-dropdown-backdrop-filter:  brightness(130%) blur(10px);
+    --meta-dropdown-bg: #4449;
+    --meta-dropdown-backdrop-filter-hover:  brightness(130%) blur(10px);
+    --meta-dropdown-hover-bg: rgba(255,255,255,0.1);
+    --meta-dropdown-fg: #533824;
+    --meta-dropdown-hover-fg: #533824;
+    --meta-description-fg: #533824;
+    --meta-id-tag-fg: #533824;
+    --meta-id-tag-bg: transparent;
+    --meta-id-tag-hover-fg: #533824;
+    --meta-id-tag-hover-bg: rgba(255,255,255,0.4);
+    --meta-chips-heading-fg: #533824;
+    --meta-chip-backdrop-filter-hover:  brightness(130%) blur(10px);
+    --meta-chip-hover-bg: rgba(255,255,255,0.4);
+    --meta-chip-icon-fg: #533824;
+    --meta-chip-icon-hover-bg: #fff;
+    --meta-chip-icon-bg: #e2e2e2;
+    --meta-chip-name-fg: #533824;
+    --meta-chip-value-fg: #533824;
+    --meta-chip-value-hover-fg: inherit;
+
+    --meter-fg: #E6F6E6;
+    --meter-bg: #8FCC9B;
+
+    --notification-read: transparent;
+    --notification-unread: #8FCC9B;
+
+    --paginate-bg: transparent;
+    --paginate-bg-hover: #0001;
+    --paginate-bg-current: transparent;
+    --paginate-fg: inherit;
+    --paginate-fg-disabled: inherit;
+    --paginate-divider: inherit;
+
+    --panel-action-fg: inherit;
+    --panel-border: 1px #eee solid;
+    --panel-bg: #fff;
+    --panel-fg: inherit;
+    --panel-box-shadow: none;
+    --panel-border-radius: 4px;
+    --panel-head-bg: #fff;
+    --panel-head-fg: inherit;
+
+    --post-bg: #F4FAF5;
+    --post-fg: inherit;
+    --post-shadow: none;
+    --post-head-fg: var(--panel-fg);
+    --post-head-bg: none;
+    --post-toolbar-bg: #F4FAF5;
+    --post-toolbar-fg: inherit;
+    --post-toolbar-hover-bg: #777;
+    --post-toolbar-hover-fg: inherit;
+    --post-like-fg: green;
+    --post-dislike-fg: red;
+    --post-aside-bg: #F4FAF5;
+    --post-aside-fg: #533824;
+    --post-footer-fg: var(--panel-fg);
+
+    --quick-search-bg: #F4FAF5;
+    --quick-search-fg: #533824;
+    --quick-search-border: 1px dashed #533824;
+    --quick-search-border-radius: 0;
+    --quick-search-box-shadow: none;
+    --quick-search-selector-fg: #533824;
+    --quick-search-selector-hover-bg: #E6F6E6;
+    --quick-search-selector-hover-fg: #533824;
+    --quick-search-selector-selected-bg: #E6F6E6;
+    --quick-search-selector-selected-fg: #533824;
+    --quick-search-result-bg: #F4FAF5;
+    --quick-search-result-fg: #533824;
+    --quick-search-result-hover-bg: #E6F6E6;
+    --quick-search-result-hover-fg: #533824;
+    --quick-search-result-image-border-radius: 5px;
+    --quick-search-result-year-fg: rgb(136, 136, 136);
+    --quick-search-result-border: 1px dashed #533824;
+
+    --scrollbar-color: #E6F6E6;
+
+    --secondary-nav-bg: #FFFEF4;
+    --secondary-nav-tab-fg: #533824;
+    --secondary-nav-tab-bg: transparent;
+    --secondary-nav-tab-hover-fg: #533824;
+    --secondary-nav-tab-hover-bg: transparent;
+    --secondary-nav-tab-underline: currentColor;
+    --secondary-nav-tab-menu-bg: #F4FAF5;
+    --secondary-nav-tab-menu-fg: #533824;
+    --secondary-nav-tab-menu-border: 1px dashed #533824;
+    --secondary-nav-tab-menu-border-radius: 0;
+    --secondary-nav-tab-menu-box-shadow: none;
+
+    --select-border: 1px solid #ccc;
+    --select-border-active: 2px solid #3B5249;
+    --select-border-error: 1px solid #A31621;
+    --select-border-hover: 2px solid #63474D;
+    --select-border-radius: 0;
+    --select-fg: inherit;
+    --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%23444' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+    --select-padding: 11px 23px 11px 11px;
+    --select-padding-active: 10px 22px 10px 10px;
+    --select-padding-hover: 10px 22px 10px 10px;
+
+    --subforum-listing-odd-bg: #F4FAF5;
+    --subforum-listing-even-bg: #F4FAF5;
+    --subforum-listing-border: 1px dashed #533824;
+
+    --textarea-border: 1px solid #ccc;
+    --textarea-border-active: 2px solid #3B5249;
+    --textarea-border-error: 1px solid #A31621;
+    --textarea-border-hover: 2px solid #63474D;
+    --textarea-border-radius: 0;
+    --textarea-fg: inherit;
+    --textarea-padding: 4px;
+    --textarea-padding-active: 3px;
+    --textarea-padding-hover: 3px;
+
+    --top-nav-bg: #FFFEF4;
+    --top-nav-box-shadow: none;
+    --top-nav-dropdown-fg: #533824;
+    --top-nav-dropdown-hover-fg: #533824;
+    --top-nav-dropdown-hover-bg: transparent;
+    --top-nav-dropdown-menu-bg: #F4FAF5;
+    --top-nav-dropdown-hover-text-decoration: underline 2px #533824;
+    --top-nav-dropdown-menu-border: 1px dashed #533824;
+    --top-nav-dropdown-menu-border-radius: 0;
+    --top-nav-dropdown-menu-box-shadow: none;
+    --top-nav-dropdown-menu-item-fg: #533824;
+    --top-nav-dropdown-menu-item-bg: transparent;
+    --top-nav-dropdown-menu-item-hover-fg: #533824;
+    --top-nav-dropdown-menu-item-hover-bg: #F4FAF5;
+    --top-nav-dropdown-menu-item-hover-text-decoration: underline #533824 2px;
+    --top-nav-dropdown-menu-item-icon-fg: #533824;
+    --top-nav-dropdown-menu-item-icon-bg: #F4FAF5;
+    --top-nav-ratio-bar-fg: #533824;
+    --top-nav-icon-bar-icon-bg: #E6F6E6;
+    --top-nav-icon-bar-icon-fg: #533824;
+    --top-nav-icon-bar-icon-border-radius: 0;
+    --top-nav-icon-bar-icon-hover-bg: #E6F6E6;
+    --top-nav-icon-bar-icon-hover-fg: #533824;
+    --top-nav-stats-fg: #533824;
+    --top-nav-toggle-fg: #533824;
+
+    --torrent-card-bg: #fff;
+    --torrent-card-fg: inherit;
+    --torrent-card-border: 1px solid #ddd;
+    --torrent-card-head-bg: #F4FAF5;
+    --torrent-card-head-fg: inherit;
+    --torrent-card-link-fg: #3b3b3b;
+    --torrent-card-genre-fg: #444;
+
+    --torrent-group-bg: #E6F6E6;
+    --torrent-group-header-bg: #F4FAF5;
+    --torrent-group-text: inherit;
+    --torrent-group-text-muted: rgb(136, 136, 136);
+    --torrent-group-table-stripe: rgba(0, 0, 0, 0.05);
+    --torrent-group-hover-brightness-emphasis: 0.95;
+    --torrent-group-chip-border: #ddd;
+
+    --torrent-row-fg: inherit;
+    --torrent-row-visited-fg: inherit;
+    --torrent-row-sticky-bg: #E6F6E6;
+    --torrent-row-format-fg: inherit;
+    --torrent-row-format-bg: transparent;
+    --torrent-row-buttons-fg: currentColor;
+    --torrent-row-seeders-fg: #3fb618;
+    --torrent-row-leechers-fg: #ff0039;
+    --torrent-row-completed-fg: #42a5f5;
+    --torrent-row-thanks-fg: #f92672;
+    --torrent-row-comments-fg: #3fb618;
+    --torrent-row-internal-fg: #baaf94;
+    --torrent-row-personal-fg: #865be9;
+    --torrent-row-stream-optimized-fg: #ff0039;
+    --torrent-row-featured-fg: #f92672;
+    --torrent-row-freeleech-fg: #ffb800;
+    --torrent-row-double-upload-fg: #4cb828;
+    --torrent-row-sticky-fg: #111111;
+    --torrent-row-highspeed-fg: #ff0039;
+    --torrent-row-sd-fg: #ff7518;
+    --torrent-row-bumped-fg: #f9ba13;
+
+    --torrent-tag-fg: #533824;
+    --torrent-tag-bg: #FFFEF4;
+    --torrent-tag-hover-fg: #533824;
+    --torrent-tag-hover-bg: rgba(255,255,255,0.4);
+}
+
+
+body {
+	font-family: myriad, tahoma, arial, helvetica, sans-serif;
+	/* font-size: 10pt; */
+    background-color: #FFFEF4;
+    color: #533824;
+}
+
+.top-nav__branding {
+    font-size: 0;
+    background-image: url(https://hostik.cinematik.net/pic/logo.png);
+    background-repeat: no-repeat;
+    width: 200px;
+}
+
+.top-nav__site-logo {
+    font-size: 0;
+}
+
+.meta__backdrop {
+    display: none;
+}
+
+.meta__poster {
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.meta-chip__image {
+    border-radius: 0;
+}
+
+.meta-chip__icon {
+    border-radius: 0;
+}

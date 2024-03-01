@@ -12,27 +12,20 @@
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Welcome PM
-    |--------------------------------------------------------------------------
-    |
-    | Subject
-    |
-    */
-
-    'subject' => 'Welcome to UNIT3D',
+    'subject' => 'Welcome to TiK',
 
     /*
-    |--------------------------------------------------------------------------
-    | Welcome PM
-    |--------------------------------------------------------------------------
-    |
-    | Message
-    |
-    */
+|--------------------------------------------------------------------------
+| Welcome PM
+|--------------------------------------------------------------------------
+|
+| Message
+|
+*/
 
-    'message' => 'Welcome To [b]UNIT3D[/b].
+    'message' => 'Welcome to [b]TiK[/b]!
 
-    - UNIT3D :space_invader:',
+Thank you for joining us at Cinematik. To ensure a great experience for everyone, we kindly ask you to familiarise yourself with our [url=/articles/379]rules[/url] and [url=/forums/topics/66]introduce yourself[/url] to the community.
+
+- The Cinematik Team',
 ];

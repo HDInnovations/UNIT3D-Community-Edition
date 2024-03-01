@@ -19,7 +19,20 @@ html, body {
 }
 
 .footer__section-title {
-    font-size: 22px;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(
+                  90deg,
+                  #4E342E 0%,
+                  #4E342E 75%,
+                  #2E7D32 75%,
+                  #2E7D32 100%
+  );
+  font-weight: 400;
+  font-size: 3.0rem;
+  font-family: 'HelveticaNeueLT Pro 35 Th', sans-serif;
+  text-transform: lowercase;
+  transition: background-image 0.5s ease-in-out;
 }
 
 .footer__section-list {
@@ -33,7 +46,7 @@ html, body {
 }
 
 .footer__icon {
-    color: rgba(102, 204, 153, 1);
+    color: rgb(57, 96, 23);
 }
 
 .footer button {

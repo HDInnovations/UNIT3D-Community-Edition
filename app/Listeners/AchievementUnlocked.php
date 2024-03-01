@@ -42,9 +42,11 @@ class AchievementUnlocked
         if ($user->private_profile == 0) {
             $profileUrl = href_profile($user);
 
+            /* Temporarily disabled after migration to the unit3d site as spamming chatbox. Feel free to uncomment once it has died down.
             $this->chatRepository->systemMessage(
                 sprintf('User [url=%s]%s[/url] has unlocked the %s achievement!', $profileUrl, $user->username, $unlocked->progress->details->name)
             );
+            */
         }
     }
 }
