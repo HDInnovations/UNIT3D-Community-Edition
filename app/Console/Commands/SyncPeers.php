@@ -62,7 +62,7 @@ class SyncPeers extends Command
                     'leechers'   => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
                     'updated_at' => DB::raw('updated_at')
                 ]);
-        });
+        }, 5);
 
         DB::transaction(function (): void {
             DB::statement("
