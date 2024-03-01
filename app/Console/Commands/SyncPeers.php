@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\History;
 use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
