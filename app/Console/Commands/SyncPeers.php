@@ -73,7 +73,7 @@ class SyncPeers extends Command
                         WHERE `completed_at` IS NOT NULL AND torrent_id = torrents.id
                     )
             ");
-        });
+        }, 5);
 
         $this->info('Torrent Seeders/Leechers/Times Completed Count Synced Successfully!');
     }
