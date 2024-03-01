@@ -14,6 +14,7 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreArticleRequest extends FormRequest
 {
@@ -46,6 +47,20 @@ class StoreArticleRequest extends FormRequest
             'image' => [
                 'max:10240',
             ],
+            'user_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+        ]);
     }
 }

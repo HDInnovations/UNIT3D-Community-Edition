@@ -16,6 +16,7 @@ namespace App\Http\Requests\Staff;
 use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateGroupRequest extends FormRequest
@@ -45,6 +46,10 @@ class UpdateGroupRequest extends FormRequest
                     'string',
                 ]),
                 Rule::prohibitedIf($group->system_required),
+            ],
+            'slug' => [
+                'required',
+                Rule::unique('groups', 'slug')->ignoreModel($group)
             ],
             'position' => [
                 'required',
@@ -146,5 +151,15 @@ class UpdateGroupRequest extends FormRequest
                 'min:0',
             ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug' => Str::slug($this->name),
+        ]);
     }
 }

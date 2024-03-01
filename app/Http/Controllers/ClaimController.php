@@ -36,7 +36,7 @@ class ClaimController extends Controller
                 ->withErrors(trans('request.already-claimed'));
         }
 
-        $torrentRequest->claim()->create(['user_id' => $request->user()->id] + $request->validated());
+        $torrentRequest->claim()->create($request->validated());
 
         $torrentRequest->update([
             'claimed' => true,

@@ -20,7 +20,6 @@ use App\Models\Forum;
 use App\Models\Group;
 use App\Models\ForumPermission;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
@@ -50,7 +49,7 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
+        $group = Group::create($request->validated());
 
         foreach (Forum::pluck('id') as $collection) {
             ForumPermission::create([
@@ -83,7 +82,7 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): \Illuminate\Http\RedirectResponse
     {
-        $group->update(['slug' => Str::slug($request->name)] + $request->validated());
+        $group->update($request->validated());
 
         cache()->forget('group:'.$group->id);
 

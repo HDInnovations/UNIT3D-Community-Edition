@@ -51,18 +51,16 @@ class ReportController extends Controller
      */
     public function update(UpdateReportRequest $request, Report $report): \Illuminate\Http\RedirectResponse
     {
-        $staff = auth()->user();
-
         if ($report->solved == 1) {
             return to_route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
-        $report->update(['solved' => 1, 'staff_id' => $staff->id] + $request->validated());
+        $report->update(['solved' => 1] + $request->validated());
 
         // Send Private Message
         PrivateMessage::create([
-            'sender_id'   => $staff->id,
+            'sender_id'   => $request->staff_id,
             'receiver_id' => $report->reporter_id,
             'subject'     => 'Your Report Has A New Verdict',
             'message'     => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,

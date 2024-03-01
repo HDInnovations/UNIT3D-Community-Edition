@@ -42,7 +42,21 @@ class StoreWatchedUserRequest extends FormRequest
             'user_id' => [
                 'required',
                 Rule::exists('users', 'id'),
-            ]
+            ],
+            'staff_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'staff_id' => $this->user()->id,
+        ]);
     }
 }

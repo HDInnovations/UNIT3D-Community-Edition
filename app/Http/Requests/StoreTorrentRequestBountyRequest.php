@@ -15,6 +15,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreTorrentRequestBountyRequest extends FormRequest
 {
@@ -44,7 +45,20 @@ class StoreTorrentRequestBountyRequest extends FormRequest
             'anon' => [
                 'required',
                 'boolean',
-            ]
+            ],
+            'user_id' => [
+                Rule::exists('users', 'id'),
+            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+        ]);
     }
 }

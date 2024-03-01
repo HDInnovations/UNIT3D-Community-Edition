@@ -53,6 +53,20 @@ class StoreTicketRequest extends FormRequest
                 'required',
                 'max:65535',
             ],
+            'user_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+        ]);
     }
 }

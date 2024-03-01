@@ -117,6 +117,14 @@ class StoreTorrentRequestRequest extends FormRequest
                 'boolean',
                 'required',
             ],
+            'user_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ],
+            'votes' => [
+                'required',
+                Rule::in([1]),
+            ],
         ];
     }
 
@@ -135,5 +143,16 @@ class StoreTorrentRequestRequest extends FormRequest
             'mal.in'     => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not requesting a tv or movie.',
             'bounty.max' => 'You do not have enough BON to make this request.',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+            'votes'   => 1,
+        ]);
     }
 }

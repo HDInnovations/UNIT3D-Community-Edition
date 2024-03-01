@@ -14,6 +14,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
@@ -48,6 +49,20 @@ class StorePlaylistRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'user_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+        ]);
     }
 }

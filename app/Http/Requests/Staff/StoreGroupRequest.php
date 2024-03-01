@@ -15,6 +15,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class StoreGroupRequest extends FormRequest
 {
@@ -37,6 +38,10 @@ class StoreGroupRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
+                'unique:groups',
+            ],
+            'slug' => [
+                'required',
                 'unique:groups',
             ],
             'position' => [
@@ -134,5 +139,15 @@ class StoreGroupRequest extends FormRequest
                 'min:0',
             ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug' => Str::slug($this->name),
+        ]);
     }
 }

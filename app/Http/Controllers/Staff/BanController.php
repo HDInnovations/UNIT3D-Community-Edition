@@ -60,7 +60,7 @@ class BanController extends Controller
             'can_chat'     => 0,
         ]);
 
-        $ban = Ban::create(['created_by' => $staff->id] + $request->validated());
+        $ban = Ban::create($request->validated());
 
         cache()->forget('user:'.$user->passkey);
 

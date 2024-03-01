@@ -34,8 +34,11 @@ class StoreBanRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'created_by' => [
+                Rule::exists('users', 'id'),
+            ],
             'owned_by' => [
-                Rule::exists('users', 'id')
+                Rule::exists('users', 'id'),
             ],
             'ban_reason' => [
                 'required',
@@ -43,5 +46,15 @@ class StoreBanRequest extends FormRequest
                 'max:65536',
             ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'created_by' => $this->user()->id,
+        ]);
     }
 }

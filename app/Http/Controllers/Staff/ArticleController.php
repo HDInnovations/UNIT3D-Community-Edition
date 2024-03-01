@@ -61,7 +61,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
-        Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
+        Article::create(['image' => $filename ?? null] + $request->validated());
 
         return to_route('staff.articles.index')
             ->withSuccess('Your article has successfully published!');

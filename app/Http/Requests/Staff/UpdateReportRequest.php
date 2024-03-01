@@ -14,6 +14,7 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateReportRequest extends FormRequest
 {
@@ -37,6 +38,20 @@ class UpdateReportRequest extends FormRequest
                 'required',
                 'min:3',
             ],
+            'staff_id' => [
+                'required',
+                Rule::exists('users', 'id'),
+            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'staff_id' => $this->user()->id,
+        ]);
     }
 }

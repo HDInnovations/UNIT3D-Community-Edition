@@ -82,7 +82,6 @@ class PlaylistController extends Controller
         }
 
         $playlist = Playlist::create([
-            'user_id'     => $request->user()->id,
             'cover_image' => $filename ?? null
         ] + $request->validated());
 
