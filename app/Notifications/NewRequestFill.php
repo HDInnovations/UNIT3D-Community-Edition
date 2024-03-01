@@ -25,7 +25,7 @@ class NewRequestFill extends Notification implements ShouldQueue
     /**
      * NewRequestFill Constructor.
      */
-    public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
+    public function __construct(public TorrentRequest $torrentRequest)
     {
     }
 
@@ -46,9 +46,11 @@ class NewRequestFill extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $this->torrentRequest->load('filler');
+
         return [
-            'title' => $this->sender.' Has Filled One Of Your Torrent Requests',
-            'body'  => $this->sender.' has filled one of your Requested Torrents '.$this->torrentRequest->name,
+            'title' => ($this->torrentRequest->filled_anon ? 'Anonymous' : $this->torrentRequest->filler->username).' Has Filled One Of Your Torrent Requests',
+            'body'  => ($this->torrentRequest->filled_anon ? 'Anonymous' : $this->torrentRequest->filler->username).' has filled one of your Requested Torrents '.$this->torrentRequest->name,
             'url'   => sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }

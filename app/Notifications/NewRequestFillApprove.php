@@ -25,7 +25,7 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
     /**
      * NewRequestFillApprove Constructor.
      */
-    public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
+    public function __construct(public TorrentRequest $torrentRequest)
     {
     }
 
@@ -47,9 +47,11 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         if ($this->torrentRequest->anon == 0) {
+            $this->torrentRequest->load('approver');
+
             return [
-                'title' => $this->sender.' Has Approved Your Fill Of A Requested Torrent',
-                'body'  => $this->sender.' has approved your fill of Requested Torrent '.$this->torrentRequest->name,
+                'title' => $this->torrentRequest->approver->username.' Has Approved Your Fill Of A Requested Torrent',
+                'body'  => $this->torrentRequest->approver->username.' has approved your fill of Requested Torrent '.$this->torrentRequest->name,
                 'url'   => sprintf('/requests/%s', $this->torrentRequest->id),
             ];
         }

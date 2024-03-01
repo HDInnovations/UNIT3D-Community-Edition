@@ -36,17 +36,16 @@ class ClaimController extends Controller
                 ->withErrors(trans('request.already-claimed'));
         }
 
-        $torrentRequest->claim()->create(['user_id' => $request->user()->id] + $request->validated());
+        $claim = $torrentRequest->claim()->create(['user_id' => $request->user()->id] + $request->validated());
 
         $torrentRequest->update([
             'claimed' => true,
         ]);
 
-        $claimer = $request->boolean('anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
-            $requester->notify(new NewRequestClaim('torrent', $claimer, $torrentRequest));
+            $requester->notify(new NewRequestClaim($claim));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
