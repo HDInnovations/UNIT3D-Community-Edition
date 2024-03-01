@@ -13,10 +13,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\History;
+use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 /**
  * @see \Tests\Unit\Console\Commands\SyncPeersTest
@@ -35,37 +38,44 @@ class SyncPeers extends Command
      *
      * @var string
      */
-    protected $description = 'Sync Torrent Seeders/Leechers (Peers) Count.';
+    protected $description = 'Sync Torrent Seeders/Leechers/Times Completed Count.';
 
     /**
      * Execute the console command.
+     *
+     * @throws Throwable
      */
     public function handle(): void
     {
-        // Split up the update into 25 separate updates to avoid deadlocks
-        $maxId = Torrent::withoutGlobalScope(ApprovedScope::class)->max('id');
-        $interval = (int) ceil(Torrent::count() / 25);
-        $lowerId = 0;
+        DB::transaction(function (): void {
+            Torrent::withoutGlobalScope(ApprovedScope::class)
+                ->leftJoinSub(
+                    Peer::query()
+                        ->select('torrent_id')
+                        ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1 AND peers.visible = 1) AS updated_seeders'))
+                        ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1 AND peers.visible = 1) AS updated_leechers'))
+                        ->groupBy('torrent_id'),
+                    'seeders_leechers',
+                    fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
+                )
+                ->update([
+                    'seeders'    => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
+                    'leechers'   => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
+                    'updated_at' => DB::raw('updated_at')
+                ]);
+        });
 
-        while ($lowerId < $maxId) {
-            $upperId = Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->where('id', '>', $lowerId)
-                ->offset($interval)
-                ->value('id') ?? $maxId;
+        DB::transaction(function (): void {
+            DB::statement("
+                UPDATE torrents
+                    SET times_completed = (
+                        SELECT COUNT(*)
+                        FROM history
+                        WHERE `completed_at` IS NOT NULL AND torrent_id = torrents.id
+                    )
+            ");
+        });
 
-            Torrent::withoutTimestamps(
-                static fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
-                    ->where('id', '>', $lowerId)
-                    ->where('id', '<=', $upperId)
-                    ->update([
-                        'seeders'  => DB::raw('(SELECT COUNT(*) FROM peers WHERE `left` = 0 AND active AND visible and torrent_id = torrents.id)'),
-                        'leechers' => DB::raw('(SELECT COUNT(*) FROM peers WHERE `left` > 0 AND active AND visible and torrent_id = torrents.id)'),
-                    ])
-            );
-
-            $lowerId = $upperId;
-        }
-
-        $this->comment('Torrent Peer Syncing Command Complete');
+        $this->info('Torrent Seeders/Leechers/Times Completed Count Synced Successfully!');
     }
 }
