@@ -85,13 +85,13 @@ class Post extends Model
     }
 
     /**
-     * A Post Has Many Tips.
+     * Has Many Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class);
+        return $this->hasMany(PostTip::class);
     }
 
     /**

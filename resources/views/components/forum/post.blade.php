@@ -20,10 +20,10 @@
             </span>
         @endif
 
-        @if ($post->tips_sum_cost > 0)
+        @if ($post->tips_sum_bon > 0)
             <dl class="post__tip-stats">
                 <dt>{{ __('torrent.bon-tipped') }}</dt>
-                <dd>{{ $post->tips_sum_cost ?? 0 }}</dd>
+                <dd>{{ $post->tips_sum_bon ?? 0 }}</dd>
             </dl>
         @endif
 
@@ -33,16 +33,15 @@
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
+                    action="{{ route('users.post_tips.store', ['user' => auth()->user()]) }}"
                 >
                     @csrf
-                    <input type="hidden" name="recipient" value="{{ $post->user->id }}" />
-                    <input type="hidden" name="post" value="{{ $post->id }}" />
+                    <input type="hidden" name="post_id" value="{{ $post->id }}" />
                     <input
                         class="post__tip-input"
                         inputmode="numeric"
                         list="quick-tip-values"
-                        name="tip"
+                        name="bon"
                         pattern="[0-9]*"
                         placeholder="0"
                         type="text"
@@ -56,13 +55,13 @@
                         Tip
                     </button>
                     <datalist id="quick-tip-values">
-                        <option value="10"></option>
-                        <option value="20"></option>
-                        <option value="50"></option>
-                        <option value="100"></option>
-                        <option value="200"></option>
-                        <option value="500"></option>
                         <option value="1000"></option>
+                        <option value="2000"></option>
+                        <option value="5000"></option>
+                        <option value="10000"></option>
+                        <option value="20000"></option>
+                        <option value="50000"></option>
+                        <option value="100000"></option>
                     </datalist>
                 </form>
             </li>

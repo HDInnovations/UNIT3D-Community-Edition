@@ -16,8 +16,8 @@ namespace App\Bots;
 use App\Events\Chatter;
 use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
-use App\Models\BonTransactions;
 use App\Models\Bot;
+use App\Models\Gift;
 use App\Models\User;
 use App\Models\UserAudible;
 use App\Models\UserEcho;
@@ -96,18 +96,15 @@ class SystemBot
             $this->target->seedbonus -= $value;
             $this->target->save();
 
-            $bonTransactions = new BonTransactions();
-            $bonTransactions->bon_exchange_id = 0;
-            $bonTransactions->name = 'gift';
-            $bonTransactions->cost = $value;
-            $bonTransactions->sender_id = $this->target->id;
-            $bonTransactions->receiver_id = $recipient->id;
-            $bonTransactions->comment = $output;
-            $bonTransactions->torrent_id = null;
-            $bonTransactions->save();
+            $gift = Gift::create([
+                'sender_id'    => $this->target->id,
+                'recipient_id' => $recipient->id,
+                'bon'          => $value,
+                'message'      => $output,
+            ]);
 
             if ($this->target->id !== $recipient->id && $recipient->acceptsNotification($this->target, $recipient, 'bon', 'show_bon_gift')) {
-                $recipient->notify(new NewBon('gift', $this->target->username, $bonTransactions));
+                $recipient->notify(new NewBon($gift));
             }
 
             $profileUrl = href_profile($this->target);

@@ -36,6 +36,7 @@
                         <th>{{ __('bon.sender') }}</th>
                         <th>{{ __('bon.receiver') }}</th>
                         <th>{{ __('bon.points') }}</th>
+                        <th>{{ __('torrent.torrent') }}</th>
                         <th>{{ __('bon.date') }}</th>
                     </tr>
                 </thead>
@@ -43,33 +44,42 @@
                     @foreach ($tips as $tip)
                         <tr>
                             <td>
-                                <x-user_tag :user="$tip->sender" :anon="false" />
+                                @if ($tip->sender === null)
+                                    Deleted user
+                                @else
+                                    <x-user_tag :user="$tip->sender" :anon="false" />
+                                @endif
                             </td>
                             <td>
-                                @switch(true)
-                                    @case($tip->torrent_id !== null)
-                                        @if ($tip->torrent === null)
-                                            Torrent Deleted
-                                        @else
-                                            <x-user_tag
-                                                :user="$tip->receiver"
-                                                :anon="$tip->torrent->anon"
-                                            />
-                                        @endif
-
-                                        @break
-                                    @case($tip->post_id !== null)
-                                        @if ($tip->post === null)
-                                            Post Deleted
-                                        @else
-                                            <x-user_tag :user="$tip->receiver" :anon="false" />
-                                        @endif
-
-                                        @break
-                                @endswitch
+                                @if ($tip->torrent === null)
+                                    Torrent Deleted
+                                @else
+                                    <x-user_tag
+                                        :user="$tip->recipient"
+                                        :anon="$tip->torrent->anon"
+                                    />
+                                @endif
                             </td>
-                            <td>{{ $tip->cost }}</td>
-                            <td>{{ $tip->created_at }}</td>
+                            <td>{{ $tip->bon }}</td>
+                            <td>
+                                @if ($tip->torrent === null)
+                                    Torrent Deleted
+                                @else
+                                    <a
+                                        href="{{ route('torrents.show', ['id' => $tip->torrent->id]) }}"
+                                    >
+                                        {{ $tip->torrent->name }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                <time
+                                    datetime="{{ $tip->created_at }}"
+                                    title="{{ $tip->created_at }}"
+                                >
+                                    {{ $tip->created_at->format('Y-m-d') }}
+                                </time>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

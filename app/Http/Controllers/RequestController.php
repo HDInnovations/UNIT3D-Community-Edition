@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
-use App\Models\BonTransactions;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Resolution;
@@ -143,14 +142,6 @@ class RequestController extends Controller
             'seedbonus'   => $request->bounty,
             'requests_id' => $torrentRequest->id,
             'anon'        => $request->anon,
-        ]);
-
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $request->bounty,
-            'sender_id'       => $user->id,
-            'comment'         => sprintf('new request - %s', $request->name),
         ]);
 
         // Auto Shout

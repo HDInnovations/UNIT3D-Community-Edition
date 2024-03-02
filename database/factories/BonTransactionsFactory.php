@@ -14,8 +14,6 @@
 namespace Database\Factories;
 
 use App\Models\BonExchange;
-use App\Models\Post;
-use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BonTransactions;
@@ -39,9 +37,6 @@ class BonTransactionsFactory extends Factory
             'cost'            => $this->faker->randomFloat(),
             'sender_id'       => User::factory(),
             'receiver_id'     => User::factory(),
-            'torrent_id'      => Torrent::factory(),
-            'post_id'         => Post::factory(),
-            'comment'         => $this->faker->text(),
             'created_at'      => $this->faker->dateTime(),
         ];
     }

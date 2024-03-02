@@ -966,14 +966,14 @@
                                         @csrf
                                         <input
                                             type="hidden"
-                                            name="receiver_username"
+                                            name="recipient_username"
                                             value="{{ $user->username }}"
                                         />
                                         <p class="form__group">
                                             <input
-                                                id="cost"
+                                                id="bon"
                                                 class="form__text"
-                                                name="cost"
+                                                name="bon"
                                                 type="text"
                                                 pattern="[0-9]*"
                                                 inputmode="numeric"
@@ -981,7 +981,7 @@
                                             />
                                             <label
                                                 class="form__label form__label--floating"
-                                                for="cost"
+                                                for="bon"
                                             >
                                                 {{ __('bon.amount') }}
                                             </label>
@@ -989,14 +989,14 @@
 
                                         <p class="form__group">
                                             <textarea
-                                                id="comment"
+                                                id="message"
                                                 class="form__textarea"
-                                                name="comment"
+                                                name="message"
                                                 placeholder=" "
                                             ></textarea>
                                             <label
                                                 class="form__label form__label--floating"
-                                                for="comment"
+                                                for="message"
                                             >
                                                 {{ __('pm.message') }}
                                             </label>
@@ -1028,27 +1028,27 @@
                     <dd>{{ $user->formatted_seedbonus }}</dd>
                     <dt>{{ __('user.tips-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.tips-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.gift-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->receivedGifts()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.gift-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->sentGifts()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.bounty-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.bounty-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}
                     </dd>
                 </dl>
             </section>

@@ -88,13 +88,21 @@
                 @forelse ($gifts as $gift)
                     <tr>
                         <td>
-                            <x-user_tag :anon="false" :user="$gift->sender" />
+                            @if ($gift->sender === null)
+                                Deleted user
+                            @else
+                                <x-user_tag :user="$gift->sender" :anon="false" />
+                            @endif
                         </td>
                         <td>
-                            <x-user_tag :anon="false" :user="$gift->receiver" />
+                            @if ($gift->recipient === null)
+                                Deleted user
+                            @else
+                                <x-user_tag :user="$gift->recipient" :anon="false" />
+                            @endif
                         </td>
-                        <td>{{ $gift->cost }}</td>
-                        <td>{{ $gift->comment }}</td>
+                        <td>{{ $gift->bon }}</td>
+                        <td>{{ $gift->message }}</td>
                         <td>
                             <time
                                 datetime="{{ $gift->created_at }}"

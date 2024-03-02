@@ -78,7 +78,7 @@ class UserUploads extends Component
     {
         $uploads = Torrent::query()
             ->withCount('thanks')
-            ->withSum('tips', 'cost')
+            ->withSum('tips', 'bon')
             ->withoutGlobalScope(ApprovedScope::class)
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)

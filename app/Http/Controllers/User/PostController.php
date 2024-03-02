@@ -28,7 +28,7 @@ class PostController extends Controller
             'posts' => $user->posts()
                 ->with('user', 'user.group', 'topic:id,name,state')
                 ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
-                ->withSum('tips', 'cost')
+                ->withSum('tips', 'bon')
                 ->authorized(canReadTopic: true)
                 ->latest()
                 ->paginate(25),

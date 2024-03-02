@@ -172,12 +172,12 @@
                     </th>
                     <th
                         class="user-uploads__tips-header"
-                        wire:click="sortBy('tips_sum_cost')"
+                        wire:click="sortBy('tips_sum_bon')"
                         role="columnheader button"
                         title="{{ __('bon.tips') }}"
                     >
                         <i class="fas fa-coins"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'tips_sum_cost'])
+                        @include('livewire.includes._sort-icon', ['field' => 'tips_sum_bon'])
                     </th>
                     <th
                         class="user-uploads__thanks-header"
@@ -268,7 +268,7 @@
                                     </a>
                                 </td>
                                 <td class="user-uploads__tips">
-                                    {{ $torrent->tips_sum_cost ?? 0 }}
+                                    {{ $torrent->tips_sum_bon ?? 0 }}
                                 </td>
                                 <td class="user-uploads__thanks">
                                     {{ $torrent->thanks_count ?? 0 }}

@@ -115,7 +115,6 @@ class TransactionController extends Controller
                 'name'            => $bonExchange->description,
                 'cost'            => $bonExchange->value,
                 'sender_id'       => $user->id,
-                'comment'         => $bonExchange->description,
                 'torrent_id'      => null,
             ]);
 
