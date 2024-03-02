@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Models\TorrentRequest;
+use App\Models\TorrentRequestClaim;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -25,7 +25,7 @@ class NewRequestClaim extends Notification implements ShouldQueue
     /**
      * NewRequestClaim Constructor.
      */
-    public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
+    public function __construct(public TorrentRequestClaim $claim)
     {
     }
 
@@ -46,10 +46,12 @@ class NewRequestClaim extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $this->claim->load('user');
+
         return [
-            'title' => $this->sender.' Has Claimed One Of Your Requested Torrents',
-            'body'  => $this->sender.' has claimed your Requested Torrent '.$this->torrentRequest->name,
-            'url'   => sprintf('/requests/%s', $this->torrentRequest->id),
+            'title' => ($this->claim->anon ? 'Anonymous' : $this->claim->user->username).' Has Claimed One Of Your Requested Torrents',
+            'body'  => ($this->claim->anon ? 'Anonymous' : $this->claim->user->username).' has claimed your Requested Torrent '.$this->claim->request->name,
+            'url'   => sprintf('/requests/%s', $this->claim->request_id),
         ];
     }
 }

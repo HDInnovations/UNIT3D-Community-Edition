@@ -73,7 +73,7 @@ class ApprovedRequestFillController extends Controller
         }
 
         if ($filler->acceptsNotification($approver, $filler, 'request', 'show_request_fill_approve')) {
-            $filler->notify(new NewRequestFillApprove('torrent', $approver->username, $torrentRequest));
+            $filler->notify(new NewRequestFillApprove($torrentRequest));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])

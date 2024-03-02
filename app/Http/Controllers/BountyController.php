@@ -45,7 +45,7 @@ class BountyController extends Controller
 
         $user->decrement('seedbonus', $request->integer('seedbonus'));
 
-        $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
+        $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
         $torrentRequest->votes++;
         $torrentRequest->bounty += $request->integer('seedbonus');
@@ -74,11 +74,10 @@ class BountyController extends Controller
             );
         }
 
-        $sender = $request->boolean('anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-            $requester->notify(new NewRequestBounty('torrent', $sender, $request->integer('seedbonus'), $torrentRequest));
+            $requester->notify(new NewRequestBounty($bounty));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
