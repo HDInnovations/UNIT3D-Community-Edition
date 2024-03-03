@@ -502,7 +502,7 @@ class Bbcode
             );
 
             $isWhitelisted = $whitelistedImageUrls->contains(function (string $pattern) use ($url) {
-                $pattern = str_replace('\*', '.*', preg_quote($pattern, '/'));
+                $pattern = str_replace(['\*\*', '\*'], ['.*', '[^\/]*'], preg_quote($pattern, '/'));
 
                 return preg_match('/^'.$pattern.'$/i', $url);
             });

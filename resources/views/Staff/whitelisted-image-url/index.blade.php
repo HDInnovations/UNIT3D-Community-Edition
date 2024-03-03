@@ -181,15 +181,29 @@
         <div class="panel__body">
             <p>
                 When users add images via BBCode, other users will load the image on page load. This
-                means whoever operates the website of the image url can view the connecting IPs.
+                means whoever operates the website of the image URL can view the connecting IPs.
                 Therefore, all images entered via BBCode are proxied.
             </p>
             <p>
-                In exception cases where the proxy blocks a popular image host, that image url
-                should be whitelisted here. Any trusted image urls can also be included here to
-                increase client image loading speeds. You can use
+                In exception cases where the proxy blocks a popular image host, that image URL
+                should be whitelisted here. This will bypass the proxy and directly link the image.
+                Any trusted image URLs can also be included here to increase client image loading
+                speeds.
+            </p>
+            <p>
+                You can use
                 <code>*</code>
-                as a wildcard when matching urls.
+                as a wildcard when matching URLs. A
+                <code>*</code>
+                wildcard will match everything except for
+                <code>/</code>
+                in the URL. You can also use
+                <code>**</code>
+                to match any character. You must never use
+                <code>**</code>
+                for matching subdomains as any user can register their own domain and link
+                <code>https://evil.example/subdomain.whitelisted-domain.example/image.png</code>
+                to bypass the proxy.
             </p>
         </div>
     </section>
