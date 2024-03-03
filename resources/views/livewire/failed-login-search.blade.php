@@ -105,7 +105,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">No failed logins</td>
+                        <td colspan="5">No failed logins</td>
                     </tr>
                 @endforelse
             </tbody>

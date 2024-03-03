@@ -321,7 +321,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8">No invites</td>
+                                    <td colspan="10">No invites</td>
                                 </tr>
                             @endforelse
                         </tbody>

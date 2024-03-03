@@ -139,7 +139,7 @@
                 @empty
                     <tbody>
                         <tr>
-                            <td colspan="8">No logs have been created yet.</td>
+                            <td colspan="7">No logs have been created yet.</td>
                         </tr>
                     </tbody>
                 @endforelse

@@ -166,7 +166,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2">No whitelisted image urls.</td>
+                            <td colspan="5">No whitelisted image urls.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -100,7 +100,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No automated torrent freeleeches</td>
+                            <td colspan="10">No automated torrent freeleeches</td>
                         </tr>
                     @endforelse
                 </tbody>

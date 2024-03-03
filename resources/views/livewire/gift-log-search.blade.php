@@ -114,7 +114,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">No gifts</td>
+                        <td colspan="5">No gifts</td>
                     </tr>
                 @endforelse
             </tbody>

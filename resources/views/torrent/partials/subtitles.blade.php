@@ -200,7 +200,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">No External Subtitles Available</td>
+                        <td colspan="8">No External Subtitles Available</td>
                     </tr>
                 @endforelse
             </tbody>

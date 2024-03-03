@@ -71,7 +71,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No email updates</td>
+                        <td colspan="3">No email updates</td>
                     </tr>
                 @endforelse
             </tbody>

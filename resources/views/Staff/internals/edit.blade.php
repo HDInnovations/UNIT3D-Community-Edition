@@ -243,7 +243,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2">No members.</td>
+                            <td colspan="4">No members.</td>
                         </tr>
                     @endforelse
                 </tbody>
