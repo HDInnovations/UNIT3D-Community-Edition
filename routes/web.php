@@ -396,7 +396,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('subscriptions')->name('subscriptions.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\SubscriptionController::class, 'store'])->name('store');
-            Route::post('/{id}', [App\Http\Controllers\SubscriptionController::class, 'destroy'])->name('destroy');
+            Route::post('/{subscription}', [App\Http\Controllers\SubscriptionController::class, 'destroy'])->name('destroy');
         });
 
         // Catchup System

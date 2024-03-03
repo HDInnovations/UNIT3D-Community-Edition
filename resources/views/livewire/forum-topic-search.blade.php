@@ -51,7 +51,7 @@
                 @else
                     <form
                         class="form"
-                        action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}"
+                        action="{{ route('subscriptions.destroy', ['subscription' => $subscription]) }}"
                         method="POST"
                     >
                         @csrf
