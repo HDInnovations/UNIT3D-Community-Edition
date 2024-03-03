@@ -57,11 +57,11 @@ class TorrentBuffController extends Controller
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
-            $appname = config('app.name');
-            $ircAnnounceBot = new IRCAnnounceBot();
-            $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
-            $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-            $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s]', $torrentUrl));
+            (new IRCAnnounceBot())
+                ->to(config('irc-bot.channel'))
+                ->say('['.config('app.name').'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!')
+                ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']')
+                ->say(sprintf('[Link: %s]', $torrentUrl));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
