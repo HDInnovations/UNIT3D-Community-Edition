@@ -84,17 +84,17 @@ class StatsController extends Controller
             'disabled_user' => cache()->remember(
                 'disabled_user',
                 $this->carbon,
-                fn () => User::whereIn('group_id', Group::select('id')->where('slug', '=', 'disabled'))->count()
+                fn () => User::whereRelation('group', 'slug', '=', 'disabled')->count()
             ),
             'pruned_user' => cache()->remember(
                 'pruned_user',
                 $this->carbon,
-                fn () => User::onlyTrashed()->whereIn('group_id', Group::select('id')->where('slug', '=', 'pruned'))->count()
+                fn () => User::onlyTrashed()->whereRelation('group', 'slug', '=', 'pruned')->count()
             ),
             'banned_user' => cache()->remember(
                 'banned_user',
                 $this->carbon,
-                fn () => User::whereIn('group_id', Group::select('id')->where('slug', '=', 'banned'))->count()
+                fn () => User::whereRelation('group', 'slug', '=', 'banned')->count()
             ),
             'num_torrent'       => $numTorrent,
             'categories'        => Category::withCount('torrents')->orderBy('position')->get(),

@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Invite;
-use App\Models\User;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -90,10 +89,10 @@ class InviteLogSearch extends Component
     {
         return Invite::withTrashed()
             ->with(['sender.group', 'receiver.group'])
-            ->when($this->sender, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->sender)))
+            ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))
-            ->when($this->receiver, fn ($query) => $query->whereIn('accepted_by', User::select('id')->where('username', '=', $this->receiver)))
+            ->when($this->receiver, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->receiver))
             ->when($this->custom, fn ($query) => $query->where('custom', 'LIKE', '%'.$this->custom.'%'))
             ->when(
                 $this->groupBy === 'user_id',

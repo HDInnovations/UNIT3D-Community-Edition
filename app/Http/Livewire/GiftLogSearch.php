@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Gift;
-use App\Models\User;
 use App\Traits\LivewireSort;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -63,8 +62,8 @@ class GiftLogSearch extends Component
             'sender'    => fn ($query) => $query->withTrashed()->with('group'),
             'recipient' => fn ($query) => $query->withTrashed()->with('group'),
         ])
-            ->when($this->sender, fn ($query) => $query->whereIn('sender_id', User::select('id')->where('username', '=', $this->sender)))
-            ->when($this->receiver, fn ($query) => $query->whereIn('recipient_id', User::select('id')->where('username', '=', $this->receiver)))
+            ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
+            ->when($this->receiver, fn ($query) => $query->whereRelation('recipient', 'username', '=', $this->receiver))
             ->when($this->comment, fn ($query) => $query->where('comment', 'LIKE', '%'.$this->comment.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
