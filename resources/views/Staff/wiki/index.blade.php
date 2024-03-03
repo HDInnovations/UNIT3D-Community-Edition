@@ -76,7 +76,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2">No Wikis</td>
+                            <td colspan="5">No Wikis</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -65,7 +65,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No distributors</td>
+                            <td colspan="2">No distributors</td>
                         </tr>
                     @endforelse
                 </tbody>

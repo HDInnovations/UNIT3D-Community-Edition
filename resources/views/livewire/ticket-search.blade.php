@@ -181,7 +181,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">{{ __('common.no-result') }}</td>
+                        <td colspan="9">{{ __('common.no-result') }}</td>
                     </tr>
                 @endforelse
             </tbody>
