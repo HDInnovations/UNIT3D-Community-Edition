@@ -37,23 +37,18 @@ class ThankButton extends Component
             return;
         }
 
-        $thank = Thank::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
-
-        if ($thank) {
+        if (Thank::query()->whereBelongsTo($this->user)->whereBelongsTo($this->torrent)->exists()) {
             $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Thanked!']);
 
             return;
         }
 
-        $thank = new Thank();
-        $thank->user_id = $this->user->id;
-        $thank->torrent_id = $this->torrent->id;
-        $thank->save();
+        $thank = Thank::create([
+            'user_id'    => $this->user->id,
+            'torrent_id' => $this->torrent->id,
+        ]);
 
-        //Notification
-        if ($this->user->id !== $this->torrent->user_id) {
-            $this->torrent->notifyUploader('thank', $thank);
-        }
+        $this->torrent->notifyUploader('thank', $thank);
 
         $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Thank Was Successfully Applied!']);
     }

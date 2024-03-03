@@ -31,6 +31,8 @@ class Thank extends Model
     use Auditable;
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * Belongs To A Torrent.
      *
