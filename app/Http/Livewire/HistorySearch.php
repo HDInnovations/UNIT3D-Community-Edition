@@ -14,8 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\History;
-use App\Models\Torrent;
-use App\Models\User;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -145,14 +143,8 @@ class HistorySearch extends Component
                         'immune',
                     ])
             )
-            ->when($this->torrent !== '', fn ($query) => $query->whereIn(
-                'history.torrent_id',
-                Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
-            ))
-            ->when($this->user !== '', fn ($query) => $query->whereIn(
-                'history.user_id',
-                User::select('id')->where('username', 'LIKE', $this->user)
-            ))
+            ->when($this->torrent !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%'))
+            ->when($this->user !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', $this->user))
             ->when($this->agent !== '', fn ($query) => $query->where('history.agent', 'LIKE', $this->agent.'%'))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))

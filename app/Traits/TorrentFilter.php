@@ -73,7 +73,7 @@ trait TorrentFilter
         $authenticatedUser ??= auth()->user();
 
         $query
-            ->whereIn('user_id', User::select('id')->where('username', '=', $username))
+            ->whereRelation('user', 'username', '=', $username)
             ->when(
                 $authenticatedUser === null,
                 fn ($query) => $query->where('anon', '=', false),

@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Audit;
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -83,7 +82,7 @@ class AuditLogSearch extends Component
     final public function getAuditsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')
-            ->when($this->username, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->username)))
+            ->whereRelation('user', 'username', '=', $this->username)
             ->when($this->modelName, fn ($query) => $query->where('model_name', '=', $this->modelName))
             ->when($this->modelId, fn ($query) => $query->where('model_entry_id', '=', $this->modelId))
             ->when($this->action, fn ($query) => $query->where('action', '=', $this->action))

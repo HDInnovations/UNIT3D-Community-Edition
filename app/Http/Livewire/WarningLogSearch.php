@@ -13,8 +13,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Torrent;
-use App\Models\User;
 use App\Models\Warning;
 use App\Traits\LivewireSort;
 use Livewire\Component;
@@ -73,9 +71,9 @@ class WarningLogSearch extends Component
     {
         return Warning::query()
             ->with(['warneduser.group', 'staffuser.group', 'torrenttitle'])
-            ->when($this->sender, fn ($query) => $query->whereIn('warned_by', User::select('id')->where('username', '=', $this->sender)))
-            ->when($this->receiver, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->receiver)))
-            ->when($this->torrent, fn ($query) => $query->whereIn('torrent', Torrent::select('id')->where('name', 'LIKE', '%'.$this->torrent.'%')))
+            ->when($this->sender, fn ($query) => $query->whereRelation('staffuser', 'username', '=', $this->sender))
+            ->when($this->receiver, fn ($query) => $query->whereRelation('warneduser', 'username', '=', $this->receiver))
+            ->when($this->torrent, fn ($query) => $query->whereRelation('torrenttitle', 'name', 'LIKE', '%'.$this->torrent.'%'))
             ->when($this->reason, fn ($query) => $query->where('reason', 'LIKE', '%'.$this->reason.'%'))
             ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)

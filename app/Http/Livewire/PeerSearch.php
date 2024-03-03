@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Peer;
-use App\Models\Torrent;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -207,10 +206,7 @@ class PeerSearch extends Component
             ->when($this->ip !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ip)'), 'LIKE', $this->ip.'%'))
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
-            ->when($this->torrent !== '', fn ($query) => $query->whereIn(
-                'peers.torrent_id',
-                Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
-            ))
+            ->when($this->torrent !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%'))
             ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', true))
             ->when($this->connectivity === 'unconnectable', fn ($query) => $query->where('connectable', '=', false))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
