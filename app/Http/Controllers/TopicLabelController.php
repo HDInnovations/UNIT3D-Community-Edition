@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateTopicLabelRequest;
 use App\Models\Topic;
 
 /**
@@ -23,89 +24,9 @@ class TopicLabelController extends Controller
     /**
      * Apply/Remove Approved Label.
      */
-    public function approve(int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTopicLabelRequest $request, Topic $topic): \Illuminate\Http\RedirectResponse
     {
-        $topic = Topic::findOrFail($id);
-        $topic->approved = !$topic->approved;
-        $topic->save();
-
-        return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
-    }
-
-    /**
-     * Apply/Remove Denied Label.
-     */
-    public function deny(int $id): \Illuminate\Http\RedirectResponse
-    {
-        $topic = Topic::findOrFail($id);
-        $topic->denied = !$topic->denied;
-        $topic->save();
-
-        return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
-    }
-
-    /**
-     * Apply/Remove Solved Label.
-     */
-    public function solve(int $id): \Illuminate\Http\RedirectResponse
-    {
-        $topic = Topic::findOrFail($id);
-        $topic->solved = !$topic->solved;
-        $topic->save();
-
-        return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
-    }
-
-    /**
-     * Apply/Remove Invalid Label.
-     */
-    public function invalid(int $id): \Illuminate\Http\RedirectResponse
-    {
-        $topic = Topic::findOrFail($id);
-        $topic->invalid = !$topic->invalid;
-        $topic->save();
-
-        return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
-    }
-
-    /**
-     * Apply/Remove Bug Label.
-     */
-    public function bug(int $id): \Illuminate\Http\RedirectResponse
-    {
-        $topic = Topic::findOrFail($id);
-        $topic->bug = !$topic->bug;
-        $topic->save();
-
-        return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
-    }
-
-    /**
-     * Apply/Remove Suggestion Label.
-     */
-    public function suggest(int $id): \Illuminate\Http\RedirectResponse
-    {
-        $topic = Topic::findOrFail($id);
-        $topic->suggestion = !$topic->suggestion;
-        $topic->save();
-
-        return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
-    }
-
-    /**
-     * Apply/Remove Implemented Label.
-     */
-    public function implement(int $id): \Illuminate\Http\RedirectResponse
-    {
-        $topic = Topic::findOrFail($id);
-        $topic->implemented = !$topic->implemented;
-        $topic->save();
+        $topic->update($request->validated());
 
         return to_route('topics.show', ['id' => $topic->id])
             ->withInfo('Label Change Has Been Applied');

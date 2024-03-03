@@ -383,13 +383,7 @@ Route::middleware('language')->group(function (): void {
 
         // Topic Label System
         Route::prefix('topics')->name('topics.')->middleware('modo')->group(function (): void {
-            Route::post('/{id}/approve', [App\Http\Controllers\TopicLabelController::class, 'approve'])->name('approve');
-            Route::post('/{id}/deny', [App\Http\Controllers\TopicLabelController::class, 'deny'])->name('deny');
-            Route::post('/{id}/solve', [App\Http\Controllers\TopicLabelController::class, 'solve'])->name('solve');
-            Route::post('/{id}/invalid', [App\Http\Controllers\TopicLabelController::class, 'invalid'])->name('invalid');
-            Route::post('/{id}/bug', [App\Http\Controllers\TopicLabelController::class, 'bug'])->name('bug');
-            Route::post('/{id}/suggest', [App\Http\Controllers\TopicLabelController::class, 'suggest'])->name('suggest');
-            Route::post('/{id}/implement', [App\Http\Controllers\TopicLabelController::class, 'implement'])->name('implement');
+            Route::patch('/{topic}/labels', [App\Http\Controllers\TopicLabelController::class, 'update'])->name('labels');
         });
 
         // Subscription System
