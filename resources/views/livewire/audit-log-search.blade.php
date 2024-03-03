@@ -133,17 +133,9 @@
                                         "
                                     >
                                         {{ $key }}:
-                                        @if (is_array($value['old']))
-                                            @json($value['old'])
-                                        @else
-                                            {{ $value['old'] ?? 'null' }}
-                                        @endif
+                                        @json($value['old'])
                                         &rarr;
-                                        @if (is_array($value['new']))
-                                            @json($value['new'])
-                                        @else
-                                            {{ $value['new'] ?? 'null' }}
-                                        @endif
+                                        @json($value['new'])
                                     </li>
                                 @endforeach
                             </ul>
