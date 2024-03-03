@@ -58,18 +58,7 @@ class Topic extends Model
         'implemented'          => 'boolean',
     ];
 
-    protected $fillable = [
-        'name',
-        'state',
-        'first_post_user_id',
-        'last_post_user_id',
-        'last_post_id',
-        'views',
-        'pinned',
-        'forum_id',
-        'num_post',
-        'last_post_created_at',
-    ];
+    protected $guarded = [];
 
     /**
      * Belongs To A Forum.
