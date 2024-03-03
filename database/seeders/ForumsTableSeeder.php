@@ -16,6 +16,7 @@ namespace Database\Seeders;
 use App\Models\Forum;
 use App\Models\ForumCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ForumsTableSeeder extends Seeder
 {
@@ -31,7 +32,7 @@ class ForumsTableSeeder extends Seeder
                 'created_at'  => '2017-01-03 18:29:21',
                 'updated_at'  => '2017-01-03 18:29:21',
             ],
-        ], ['id']);
+        ], ['id'], []);
 
         Forum::upsert([
             [
@@ -50,6 +51,6 @@ class ForumsTableSeeder extends Seeder
                 'created_at'           => '2017-04-01 20:16:06',
                 'updated_at'           => '2017-12-27 18:19:07',
             ],
-        ], ['id']);
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

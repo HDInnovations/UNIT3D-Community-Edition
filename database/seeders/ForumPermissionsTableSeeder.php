@@ -189,6 +189,6 @@ class ForumPermissionsTableSeeder extends Seeder
                 'reply_topic' => false,
                 'start_topic' => false,
             ],
-        ], ['id']);
+        ], ['id'], []);
     }
 }

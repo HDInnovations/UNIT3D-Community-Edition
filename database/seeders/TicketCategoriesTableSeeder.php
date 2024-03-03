@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\TicketCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TicketCategoriesTableSeeder extends Seeder
 {
@@ -65,6 +66,6 @@ class TicketCategoriesTableSeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ], ['id']);
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

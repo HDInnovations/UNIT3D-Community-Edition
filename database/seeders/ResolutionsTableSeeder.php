@@ -71,6 +71,6 @@ class ResolutionsTableSeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ], ['id']);
+        ], ['id'], []);
     }
 }

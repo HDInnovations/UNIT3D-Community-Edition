@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\Chatroom;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChatroomTableSeeder extends Seeder
 {
@@ -27,6 +28,6 @@ class ChatroomTableSeeder extends Seeder
             [
                 'name' => 'Trivia',
             ],
-        ], ['name']);
+        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }
 }
