@@ -51,6 +51,6 @@ class TypesTableSeeder extends Seeder
                 'name'     => 'HDTV',
                 'position' => 6,
             ],
-        ], ['id']);
+        ], ['id'], []);
     }
 }

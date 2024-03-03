@@ -72,6 +72,6 @@ class OccupationSeeder extends Seeder
                 'position' => 10,
                 'name'     => 'Actor',
             ],
-        ], ['id']);
+        ], ['id'], []);
     }
 }

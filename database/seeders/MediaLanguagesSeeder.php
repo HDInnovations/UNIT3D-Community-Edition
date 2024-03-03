@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\MediaLanguage;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MediaLanguagesSeeder extends Seeder
 {
@@ -758,6 +759,6 @@ class MediaLanguagesSeeder extends Seeder
                 'code' => 'zu',
                 'name' => 'Zulu',
             ],
-        ], ['id']);
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

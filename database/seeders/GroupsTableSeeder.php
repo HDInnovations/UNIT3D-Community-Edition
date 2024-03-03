@@ -571,6 +571,6 @@ class GroupsTableSeeder extends Seeder
                 'min_ratio'        => null,
                 'min_age'          => null,
             ],
-        ], ['slug']);
+        ], ['slug'], []);
     }
 }

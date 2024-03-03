@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\ChatStatus;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChatStatusSeeder extends Seeder
 {
@@ -41,6 +42,6 @@ class ChatStatusSeeder extends Seeder
                 'color' => '#AAAAAA',
                 'icon'  => config('other.font-awesome').' fa-comment-slash',
             ],
-        ], ['name']);
+        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }
 }
