@@ -179,15 +179,18 @@
                         <i class="fas fa-coins"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'tips_sum_bon'])
                     </th>
-                    <th
-                        class="user-uploads__thanks-header"
-                        wire:click="sortBy('thanks_count')"
-                        role="columnheader button"
-                        title="{{ __('torrent.thanks') }}"
-                    >
-                        <i class="fas fa-heart"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'thanks_count'])
-                    </th>
+                    @if (config('other.thanks-system.is-enabled'))
+                        <th
+                            class="user-uploads__thanks-header"
+                            wire:click="sortBy('thanks_count')"
+                            role="columnheader button"
+                            title="{{ __('torrent.thanks') }}"
+                        >
+                            <i class="fas fa-heart"></i>
+                            @include('livewire.includes._sort-icon', ['field' => 'thanks_count'])
+                        </th>
+                    @endif
+
                     <th
                         class="user-uploads__created-at-header"
                         wire:click="sortBy('created_at')"
@@ -270,9 +273,12 @@
                                 <td class="user-uploads__tips">
                                     {{ $torrent->tips_sum_bon ?? 0 }}
                                 </td>
-                                <td class="user-uploads__thanks">
-                                    {{ $torrent->thanks_count ?? 0 }}
-                                </td>
+                                @if (config('other.thanks-system.is-enabled'))
+                                    <td class="user-uploads__thanks">
+                                        {{ $torrent->thanks_count ?? 0 }}
+                                    </td>
+                                @endif
+
                                 <td class="user-uploads__created-at">
                                     <time
                                         datetime="{{ $torrent->created_at }}"

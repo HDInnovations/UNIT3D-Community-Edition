@@ -286,20 +286,23 @@
                                 {{ __('notification.reseed-requests') }}
                             </label>
                         </p>
-                        <p class="form__group">
-                            <label class="form__label">
-                                <input
-                                    class="form__checkbox"
-                                    type="checkbox"
-                                    wire:model.prefetch="thanks"
-                                    value="1"
-                                />
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-heart text-success"
-                                ></i>
-                                {{ __('torrent.thanks') }}
-                            </label>
-                        </p>
+                        @if (config('other.thanks-system.is-enabled'))
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        class="form__checkbox"
+                                        type="checkbox"
+                                        wire:model.prefetch="thanks"
+                                        value="1"
+                                    />
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-heart text-success"
+                                    ></i>
+                                    {{ __('torrent.thanks') }}
+                                </label>
+                            </p>
+                        @endif
+
                         <p class="form__group">
                             <label class="form__label">
                                 <input

@@ -1060,10 +1060,14 @@
                 <dl class="key-value">
                     <dt>{{ __('common.fl_tokens') }}</dt>
                     <dd>{{ $user->fl_tokens }}</dd>
-                    <dt>{{ __('user.thanks-received') }}</dt>
-                    <dd>{{ $user->thanksReceived()->count() }}</dd>
-                    <dt>{{ __('user.thanks-given') }}</dt>
-                    <dd>{{ $user->thanksGiven()->count() }}</dd>
+
+                    @if (config('other.thanks-system.is-enabled'))
+                        <dt>{{ __('user.thanks-received') }}</dt>
+                        <dd>{{ $user->thanksReceived()->count() }}</dd>
+                        <dt>{{ __('user.thanks-given') }}</dt>
+                        <dd>{{ $user->thanksGiven()->count() }}</dd>
+                    @endif
+
                     <dt>{{ __('user.upload-snatches') }}</dt>
                     <dd>{{ $user->uploadSnatches()->count() }}</dd>
                 </dl>
