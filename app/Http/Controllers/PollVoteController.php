@@ -18,7 +18,6 @@ use App\Models\Option;
 use App\Models\Poll;
 use App\Models\Voter;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
@@ -42,11 +41,9 @@ class PollVoteController extends Controller
                 ->withErrors(trans('poll.already-voted-error'));
         }
 
-        Option::whereIn('id', $request->safe()['options'])->update([
-            'votes' => DB::raw('votes + 1'),
-        ]);
+        Option::whereIn('id', $request->validated('options'))->increment('votes');
 
-        $poll->voters()->create(['user_id' => $request->user()->id]);
+        $poll->users()->attach($request->user());
 
         $this->chatRepository->systemMessage(
             sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', href_profile($request->user()), $request->user()->username, href_poll($poll), $poll->title)
@@ -62,8 +59,7 @@ class PollVoteController extends Controller
     public function index(Poll $poll): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('poll.result', [
-            'poll'        => $poll,
-            'total_votes' => $poll->totalVotes(),
+            'poll' => $poll,
         ]);
     }
 }

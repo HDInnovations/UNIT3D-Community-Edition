@@ -65,9 +65,19 @@ class Poll extends Model
     /**
      * A Poll Has Many Voters.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     */
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'voters')->withTimestamps();
+    }
+
+    /**
+     * A Poll Has Many Votes.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Voter>
      */
-    public function voters(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function votes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Voter::class);
     }
@@ -78,19 +88,5 @@ class Poll extends Model
     public function setTitleAttribute(string $title): void
     {
         $this->attributes['title'] = $title;
-    }
-
-    /**
-     * Get Total Votes On A Poll Option.
-     */
-    public function totalVotes(): int
-    {
-        $result = 0;
-
-        foreach ($this->options as $option) {
-            $result += $option->votes;
-        }
-
-        return $result;
     }
 }
