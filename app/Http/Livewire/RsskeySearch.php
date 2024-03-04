@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Rsskey;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,35 +29,31 @@ class RsskeySearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $rsskey = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'rsskey'   => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Rsskey>
      */
-    final public function getRsskeysProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function rsskeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Rsskey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

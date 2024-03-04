@@ -89,7 +89,7 @@
                             id="search"
                             class="form__text"
                             type="text"
-                            wire:model="search"
+                            wire:model.live="search"
                             placeholder=" "
                         />
                         <label for="search" class="form__label form__label--floating">
@@ -97,7 +97,7 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select id="read" class="form__select" name="read" wire:model="read">
+                        <select id="read" class="form__select" name="read" wire:model.live="read">
                             <option value="" selected default>Any</option>
                             <option value="some">With unread posts</option>
                             <option value="none">Newly added</option>
@@ -106,7 +106,7 @@
                         <label class="form__label form__label--floating" for="read">Activity</label>
                     </p>
                     <p class="form__group">
-                        <select id="sorting" class="form__select" name="sorting" wire:model="label">
+                        <select id="sorting" class="form__select" name="sorting" wire:model.live="label">
                             <option value="" selected default>Any</option>
                             <option value="approved">
                                 {{ __('forum.approved') }}
@@ -140,7 +140,7 @@
                             class="form__select"
                             name="sorting"
                             required
-                            wire:model="sortField"
+                            wire:model.live="sortField"
                         >
                             <option value="last_post_created_at">
                                 {{ __('forum.updated-at') }}
@@ -159,7 +159,7 @@
                             class="form__select"
                             name="direction"
                             required
-                            wire:model="sortDirection"
+                            wire:model.live="sortDirection"
                         >
                             <option value="desc">
                                 {{ __('common.descending') }}
@@ -177,7 +177,7 @@
                             id="direction"
                             class="form__select"
                             name="direction"
-                            wire:model="state"
+                            wire:model.live="state"
                         >
                             <option value="" selected default>Any</option>
                             <option value="open">
@@ -196,7 +196,7 @@
                             id="direction"
                             class="form__select"
                             name="direction"
-                            wire:model="subscribed"
+                            wire:model.live="subscribed"
                         >
                             <option value="" selected default>Any</option>
                             <option value="include">

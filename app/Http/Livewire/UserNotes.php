@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Note;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,23 +26,28 @@ class UserNotes extends Component
 
     public User $user;
 
+    #[Url]
     public string $message = '';
 
     /**
      * @var array<int, string>
      */
+    #[Url]
     public array $messages = [];
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     /**
      * @var array<mixed>
      */
-    protected $rules = [
+    protected array $rules = [
         'message' => [
             'required',
             'filled',
@@ -62,7 +69,8 @@ class UserNotes extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
      */
-    final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with('staffuser', 'staffuser.group')
@@ -91,7 +99,7 @@ class UserNotes extends Component
 
         $this->message = '';
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been posted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been posted!');
     }
 
     final public function update(int $id): void
@@ -106,7 +114,7 @@ class UserNotes extends Component
             'message'  => $this->messages[$id],
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been updated!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been updated!');
     }
 
     final public function destroy(int $id): void
@@ -115,6 +123,6 @@ class UserNotes extends Component
 
         Note::findOrFail($id)->delete();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }
 }

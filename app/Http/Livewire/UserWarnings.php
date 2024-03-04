@@ -18,6 +18,8 @@ use App\Models\User;
 use App\Models\Warning;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -35,24 +37,22 @@ class UserWarnings extends Component
 
     public User $user;
 
+    #[Url]
     public string $warningTab = 'automated';
 
+    #[Url]
     public string $message = '';
 
+    #[Url]
     public int $perPage = 10;
 
+    #[Url]
     public ?string $sortField = null;
 
+    #[Url]
     public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'warningTab' => ['except' => 'automated'],
-    ];
-
-    protected $rules = [
+    protected array $rules = [
         'message' => [
             'required',
             'filled',
@@ -63,7 +63,8 @@ class UserWarnings extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
      */
-    final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->user
             ->userwarning()
@@ -83,17 +84,20 @@ class UserWarnings extends Component
             ->paginate($this->perPage);
     }
 
-    final public function getAutomatedWarningsCountProperty(): int
+    #[Computed]
+    final public function automatedWarningsCount(): int
     {
         return $this->user->userwarning()->whereNotNull('torrent')->count();
     }
 
-    final public function getManualWarningsCountProperty(): int
+    #[Computed]
+    final public function manualWarningsCount(): int
     {
         return $this->user->userwarning()->whereNull('torrent')->count();
     }
 
-    final public function getDeletedWarningsCountProperty(): int
+    #[Computed]
+    final public function deletedWarningsCount(): int
     {
         return $this->user->userwarning()->onlyTrashed()->count();
     }
@@ -125,7 +129,7 @@ class UserWarnings extends Component
 
         $this->message = '';
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning issued successfully!']);
+        $this->dispatch('success', type: 'success', message: 'Warning issued successfully!');
     }
 
     /**
@@ -149,7 +153,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to deactivate your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deactivated']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deactivated');
     }
 
     /**
@@ -164,7 +168,7 @@ class UserWarnings extends Component
             'active'     => true,
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Reactivated']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Reactivated');
     }
 
     /**
@@ -191,7 +195,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to deactivate all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deactivated']);
+        $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deactivated');
     }
 
     /**
@@ -218,7 +222,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deleted']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deleted');
     }
 
     /**
@@ -245,7 +249,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deleted']);
+        $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deleted');
     }
 
     /**
@@ -257,7 +261,7 @@ class UserWarnings extends Component
 
         Warning::withTrashed()->findOrFail($id)->restore();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Restored']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Restored');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

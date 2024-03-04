@@ -1,3 +1,4 @@
+<div>
 <div style="display: flex; flex-direction: column; gap: 16px">
     @if ($checked && $user->group->is_modo)
         <menu style="list-style-type: none; padding: 0; margin: 0">
@@ -16,7 +17,7 @@
                     <th>
                         <input
                             type="checkbox"
-                            wire:model="selectPage"
+                            wire:model.live="selectPage"
                             style="vertical-align: middle"
                         />
                     </th>
@@ -97,7 +98,7 @@
                                                 name="torrent_checkbox_{{ $torrent->id }}"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model="checked.{{ $torrent->id }}"
+                                                wire:model.live="checked.{{ $torrent->id }}"
                                             />
                                         </td>
                                     </tr>
@@ -194,6 +195,7 @@
         </table>
     </div>
 </section>
+</div>
 
 @section('javascripts')
     @if ($user->group->is_modo)

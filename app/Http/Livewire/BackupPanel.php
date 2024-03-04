@@ -110,7 +110,7 @@ class BackupPanel extends Component
             ->first(fn (Backup $backup) => $backup->path() === $deletingFile['path'])
             ->delete();
 
-        $this->emit('refreshBackups');
+        $this->dispatch('refreshBackups');
     }
 
     /**
@@ -178,7 +178,7 @@ class BackupPanel extends Component
             )->validate();
         } catch (ValidationException $e) {
             $message = $e->validator->errors()->get('activeDisk')[0];
-            $this->emitSelf('showErrorToast', $message);
+            $this->dispatch('showErrorToast', message: $message)->self();
 
             throw $e;
         }
@@ -201,7 +201,7 @@ class BackupPanel extends Component
             )->validate();
         } catch (ValidationException $e) {
             $message = $e->validator->errors()->get('file')[0];
-            $this->emitSelf('showErrorToast', $message);
+            $this->dispatch('showErrorToast', message: $message)->self();
 
             throw $e;
         }

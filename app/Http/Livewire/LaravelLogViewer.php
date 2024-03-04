@@ -48,7 +48,7 @@ class LaravelLogViewer extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingLogs(): void

@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: @entangle('occupationId') }">
+<section class="panelV2" x-data="{ tab: @entangle('occupationId').live }">
     <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
     <menu class="panel__tabs">
         <li

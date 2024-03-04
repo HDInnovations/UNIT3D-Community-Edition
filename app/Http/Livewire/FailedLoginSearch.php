@@ -17,6 +17,8 @@ use App\Models\FailedLoginAttempt;
 use App\Traits\LivewireSort;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,38 +27,34 @@ class FailedLoginSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $userId = '';
 
+    #[Url]
     public string $ipAddress = '';
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'username'  => ['except' => ''],
-        'userId'    => ['except' => ''],
-        'ipAddress' => ['except' => ''],
-        'page'      => ['except' => 1],
-        'perPage'   => ['except' => ''],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
      */
-    final public function getFailedLoginsTop10IpProperty(): \Illuminate\Database\Eloquent\Collection
+    #[Computed]
+    final public function failedLoginsTop10Ip(): \Illuminate\Database\Eloquent\Collection
     {
         return FailedLoginAttempt::query()
             ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
@@ -71,7 +69,8 @@ class FailedLoginSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<FailedLoginAttempt>
      */
-    final public function getFailedLoginsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function failedLogins(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return FailedLoginAttempt::query()
             ->with('user.group')

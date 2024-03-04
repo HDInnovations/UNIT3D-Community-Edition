@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\BlockedIp;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,21 +23,16 @@ class BlockIpAddress extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $ipAddress = '';
 
+    #[Url]
     public string $reason = '';
 
+    #[Url]
     public int $perPage = 25;
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'page'    => ['except' => 1],
-        'perPage' => ['except' => ''],
-    ];
-
-    protected $rules = [
+    protected array $rules = [
         'reason' => [
             'required',
             'filled',
@@ -44,7 +41,7 @@ class BlockIpAddress extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function store(): void
@@ -63,7 +60,7 @@ class BlockIpAddress extends Component
 
         cache()->forget('blocked-ips');
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ip Addresses Successfully Blocked!']);
+        $this->dispatch('success', type: 'success', message: 'Ip Addresses Successfully Blocked!');
     }
 
     final public function destroy(BlockedIp $blockedIp): void
@@ -71,13 +68,14 @@ class BlockIpAddress extends Component
         if (auth()->user()->group->is_modo) {
             $blockedIp->delete();
 
-            $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'IP has successfully been deleted!']);
+            $this->dispatch('success', type: 'success', message: 'IP has successfully been deleted!');
         } else {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatch('error', type:  'error', message: 'Permission Denied!');
         }
     }
 
-    final public function getIpAddressesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function ipAddresses(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return BlockedIp::query()
             ->latest()

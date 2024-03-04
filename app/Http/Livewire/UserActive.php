@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Peer;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -29,44 +31,38 @@ class UserActive extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $ip = '';
 
+    #[Url]
     public string $port = '';
 
+    #[Url]
     public string $client = '';
 
+    #[Url]
     public string $seeding = 'any';
 
+    #[Url]
     public string $active = 'include';
 
+    #[Url]
     public string $visible = 'any';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public bool $showMorePrecision = false;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'perPage'           => ['except' => 50],
-        'name'              => ['except' => ''],
-        'ip'                => ['except' => ''],
-        'port'              => ['except' => ''],
-        'client'            => ['excpet' => ''],
-        'seeding'           => ['except' => 'any'],
-        'active'            => ['except' => 'any'],
-        'visible'           => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
-        'showMorePrecision' => ['except' => false],
-    ];
 
     final public function mount(int $userId): void
     {
@@ -75,7 +71,7 @@ class UserActive extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -86,7 +82,8 @@ class UserActive extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
      */
-    final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function actives(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')

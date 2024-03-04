@@ -11,7 +11,7 @@
                             id="username"
                             class="form__text"
                             type="text"
-                            wire:model="username"
+                            wire:model.live="username"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="username">
@@ -23,7 +23,7 @@
                             id="email"
                             class="form__text"
                             type="text"
-                            wire:model="email"
+                            wire:model.live="email"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="email">
@@ -35,7 +35,7 @@
                             id="apikey"
                             class="form__text"
                             type="text"
-                            wire:model="apikey"
+                            wire:model.live="apikey"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="apikey">
@@ -47,7 +47,7 @@
                             id="rsskey"
                             class="form__text"
                             type="text"
-                            wire:model="rsskey"
+                            wire:model.live="rsskey"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="rsskey">
@@ -59,7 +59,7 @@
                             id="passkey"
                             class="form__text"
                             type="text"
-                            wire:model="passkey"
+                            wire:model.live="passkey"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="passkey">
@@ -70,7 +70,7 @@
                         <select
                             id="groupId"
                             class="form__select"
-                            wire:model="groupId"
+                            wire:model.live="groupId"
                             x-data="{ groupId: '' }"
                             x-model="groupId"
                             x-bind:class="groupId === '' ? 'form__select--default' : ''"
@@ -96,7 +96,7 @@
                         <label class="form__label" for="show">Show Soft Deletes</label>
                     </p>
                     <p class="form__group">
-                        <select id="quantity" class="form__select" wire:model="perPage" required>
+                        <select id="quantity" class="form__select" wire:model.live="perPage" required>
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>

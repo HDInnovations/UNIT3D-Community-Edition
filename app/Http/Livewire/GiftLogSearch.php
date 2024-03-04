@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Gift;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,37 +28,34 @@ class GiftLogSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $sender = '';
 
+    #[Url]
     public string $receiver = '';
 
+    #[Url]
     public string $comment = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'sender'   => ['except' => ''],
-        'receiver' => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Gift>
      */
-    final public function getGiftsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function gifts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Gift::with([
             'sender'    => fn ($query) => $query->withTrashed()->with('group'),

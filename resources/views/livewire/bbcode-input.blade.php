@@ -5,7 +5,7 @@
             type="radio"
             id="{{ $name }}-bbcode-preview-disabled"
             value="0"
-            wire:model="isPreviewEnabled"
+            wire:model.live="isPreviewEnabled"
         />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">
             Write
@@ -15,7 +15,7 @@
             type="radio"
             id="{{ $name }}-bbcode-preview-enabled"
             value="1"
-            wire:model="isPreviewEnabled"
+            wire:model.live="isPreviewEnabled"
         />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-enabled">
             {{ __('common.preview') }}
@@ -222,7 +222,7 @@
                 class="form__textarea bbcode-input__input"
                 placeholder=" "
                 x-bind="textarea"
-                wire:model.defer="contentBbcode"
+                wire:model="contentBbcode"
                 @required($isRequired)
             ></textarea>
             <label class="form__label form__label--floating" for="bbcode-{{ $name }}">
@@ -235,7 +235,7 @@
             Alpine.data('{{ $name }}BbcodeInput', () => ({
                 showButtons: false,
                 bbcodePreviewHeight: null,
-                isPreviewEnabled: @entangle('isPreviewEnabled'),
+                isPreviewEnabled: @entangle('isPreviewEnabled').live,
                 isOverInput: false,
                 previousActiveElement: document.activeElement,
                 toggleButtonVisibility() {

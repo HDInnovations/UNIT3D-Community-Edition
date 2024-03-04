@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\History;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,35 +29,37 @@ class HistorySearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public int $perPage = 25;
+
+    #[Url]
     public string $agent = '';
+
+    #[Url]
     public string $torrent = '';
+
+    #[Url]
     public string $user = '';
+
+    #[Url]
     public string $seeder = 'any';
+
+    #[Url]
     public string $active = 'any';
+
+    #[Url]
     public string $groupBy = 'none';
+
+    #[Url]
     public string $sortField = '';
+
+    #[Url]
     public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'page'          => ['except' => 1],
-        'perPage'       => ['except' => 25],
-        'agent'         => ['except' => ''],
-        'torrent'       => ['except' => ''],
-        'user'          => ['except' => ''],
-        'seeder'        => ['except' => 'any'],
-        'active'        => ['except' => 'any'],
-        'groupBy'       => ['except' => 'none'],
-        'sortField'     => ['except' => ''],
-        'sortDirection' => ['except' => 'desc'],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingUser(): void
@@ -91,7 +95,8 @@ class HistorySearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
      */
-    final public function getHistoriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function histories(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->with('user', 'torrent:id,name')

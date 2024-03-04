@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,25 +29,23 @@ class TicketSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public ?User $user = null;
 
+    #[Url]
     public string $tab = 'open';
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
 
+    #[Url]
     public string $sortField = 'updated_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'tab'    => ['except' => 'open'],
-    ];
 
     final public function mount(): void
     {
@@ -54,7 +54,7 @@ class TicketSearch extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -70,7 +70,8 @@ class TicketSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Ticket>
      */
-    final public function getTicketsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function tickets(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])

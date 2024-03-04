@@ -24,6 +24,8 @@ use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -43,17 +45,18 @@ class SimilarTorrent extends Component
     public string $reason;
 
     /**
-     * @var array<int, bool|string>
-     *
-     * Currently, in livewire v2, a checkbox type is false|string.
-     * In livewire v3, the type should be changed to array<int, bool>.
+     * @var array<int, bool>
      */
+    #[Url]
     public array $checked = [];
 
+    #[Url]
     public bool $selectPage = false;
 
+    #[Url]
     public string $sortField = 'bumped_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
@@ -76,7 +79,8 @@ class SimilarTorrent extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Torrent>
      */
-    final public function getTorrentsProperty(): \Illuminate\Support\Collection
+    #[Computed]
+    final public function torrents(): \Illuminate\Support\Collection
     {
         $user = auth()->user();
 
@@ -123,7 +127,8 @@ class SimilarTorrent extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
      */
-    final public function getTorrentRequestsProperty(): \Illuminate\Database\Eloquent\Collection
+    #[Computed]
+    final public function torrentRequests(): \Illuminate\Database\Eloquent\Collection
     {
         return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
@@ -136,25 +141,26 @@ class SimilarTorrent extends Component
     final public function alertConfirm(): void
     {
         if (!auth()->user()->group->is_modo) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
 
             return;
         }
 
         $torrents = Torrent::whereKey(array_keys($this->checked, true))->pluck('name')->toArray();
         $names = $torrents;
-        $this->dispatchBrowserEvent('swal:confirm', [
-            'type'    => 'warning',
-            'message' => 'Are you sure?',
-            'body'    => 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
+        $this->dispatch(
+            'swal:confirm',
+            type: 'warning',
+           message: 'Are you sure?',
+            body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
                         .nl2br(implode("\n", $names)),
-        ]);
+        );
     }
 
     final public function deleteRecords(): void
     {
         if (!auth()->user()->group->is_modo) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
 
             return;
         }
@@ -229,14 +235,16 @@ class SimilarTorrent extends Component
         $this->checked = [];
         $this->selectPage = false;
 
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type'    => 'success',
-            'message' => 'Torrents Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded these torrents.',
-        ]);
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Torrents Deleted Successfully!',
+            text: 'A personal message has been sent to all users that have downloaded these torrents.',
+        );
     }
 
-    final public function getPersonalFreeleechProperty(): bool
+    #[Computed]
+    final public function personalFreeleech(): bool
     {
         return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }

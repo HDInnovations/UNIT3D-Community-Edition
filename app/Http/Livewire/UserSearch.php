@@ -17,6 +17,8 @@ use App\Models\Group;
 use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,43 +28,39 @@ class UserSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public bool $show = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $email = '';
 
+    #[Url]
     public string $rsskey = '';
 
+    #[Url]
     public string $apikey = '';
 
+    #[Url]
     public string $passkey = '';
 
+    #[Url]
     public ?int $groupId = null;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'email'    => ['except' => ''],
-        'apikey'   => ['except' => ''],
-        'rsskey'   => ['except' => ''],
-        'passkey'  => ['except' => ''],
-        'show'     => ['except' => false],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingShow(): void
@@ -80,7 +78,8 @@ class UserSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
      */
-    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
             ->with('group')
@@ -98,7 +97,8 @@ class UserSearch extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Group>
      */
-    final public function getGroupsProperty()
+    #[Computed]
+    final public function groups()
     {
         return Group::orderBy('position')->get();
     }

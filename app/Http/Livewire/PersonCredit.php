@@ -18,20 +18,16 @@ use App\Models\Category;
 use App\Models\Person;
 use App\Models\Torrent;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class PersonCredit extends Component
 {
     public Person $person;
 
+    #[Url]
     public ?int $occupationId = null;
-
-    /**
-     * @var array<mixed>
-     */
-    public $queryString = [
-        'occupationId',
-    ];
 
     final public function mount(): void
     {
@@ -50,7 +46,8 @@ class PersonCredit extends Component
         };
     }
 
-    final public function getPersonalFreeleechProperty(): bool
+    #[Computed]
+    final public function personallFreeleech(): bool
     {
         return cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
     }
@@ -63,51 +60,61 @@ class PersonCredit extends Component
         $value = Occupation::from($value);
     }
 
+    #[Computed]
     public function getDirectedCountProperty(): int
     {
         return $this->person->directedMovies()->count() + $this->person->directedTv()->count();
     }
 
+    #[Computed]
     public function getCreatedCountProperty(): int
     {
         return $this->person->createdTv()->count();
     }
 
+    #[Computed]
     public function getWrittenCountProperty(): int
     {
         return $this->person->writtenMovies()->count() + $this->person->writtenTv()->count();
     }
 
+    #[Computed]
     public function getProducedCountProperty(): int
     {
         return $this->person->producedMovies()->count() + $this->person->producedTv()->count();
     }
 
+    #[Computed]
     public function getComposedCountProperty(): int
     {
         return $this->person->composedMovies()->count() + $this->person->composedTv()->count();
     }
 
+    #[Computed]
     public function getCinematographedCountProperty(): int
     {
         return $this->person->cinematographedMovies()->count() + $this->person->cinematographedTv()->count();
     }
 
+    #[Computed]
     public function getEditedCountProperty(): int
     {
         return $this->person->editedMovies()->count() + $this->person->editedTv()->count();
     }
 
+    #[Computed]
     public function getProductionDesignedCountProperty(): int
     {
         return $this->person->productionDesignedMovies()->count() + $this->person->productionDesignedTv()->count();
     }
 
+    #[Computed]
     public function getArtDirectedCountProperty(): int
     {
         return $this->person->artDirectedMovies()->count() + $this->person->artDirectedTv()->count();
     }
 
+    #[Computed]
     public function getActedCountProperty(): int
     {
         return $this->person->actedMovies()->count() + $this->person->actedTv()->count();
@@ -116,7 +123,8 @@ class PersonCredit extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Torrent>
      */
-    final public function getMediasProperty(): \Illuminate\Support\Collection
+    #[Computed]
+    final public function medias(): \Illuminate\Support\Collection
     {
         if ($this->occupationId === null) {
             return collect();

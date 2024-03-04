@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Audit;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,44 +23,40 @@ class AuditLogSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $modelName = '';
 
+    #[Url]
     public string $modelId = '';
 
+    #[Url]
     public string $action = '';
 
+    #[Url]
     public string $record = '';
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'username'  => ['except' => ''],
-        'modelName' => ['except' => ''],
-        'modelId'   => ['except' => ''],
-        'action'    => ['except' => ''],
-        'record'    => ['except' => ''],
-        'page'      => ['except' => 1],
-        'perPage'   => ['except' => ''],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return string[]
      */
-    final public function getModelNamesProperty()
+    #[Computed]
+    final public function modelNames(): array
     {
         $modelList = [];
         $path = app_path()."/Models";
@@ -78,8 +76,10 @@ class AuditLogSearch extends Component
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Audit>
+     * @throws \JsonException
      */
-    final public function getAuditsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function audits(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')
             ->whereRelation('user', 'username', '=', $this->username)

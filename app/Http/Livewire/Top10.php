@@ -17,6 +17,8 @@ use App\Models\Category;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 /**
@@ -25,22 +27,16 @@ use Livewire\Component;
  */
 class Top10 extends Component
 {
+    #[Url]
     public string $metaType = 'movie_meta';
 
+    #[Url]
     public string $interval = 'day';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'metaType' => ['except' => 'movie_meta'],
-        'interval' => ['except' => 'day'],
-    ];
 
     /**
      * @var array<string, string>
      */
-    protected $rules = [
+    protected array $rules = [
         'metaType' => 'in:movie_meta,tv_meta',
         'interval' => 'in:day,week,month,year,all',
     ];
@@ -48,7 +44,8 @@ class Top10 extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Torrent>
      */
-    final public function getWorksProperty(): Collection
+    #[Computed]
+    final public function works(): Collection
     {
         $this->validate();
 
@@ -86,7 +83,8 @@ class Top10 extends Component
     /**
      * @return array<string, string>
      */
-    final public function getMetaTypesProperty(): array
+    #[Computed]
+    final public function metaTypes(): array
     {
         $metaTypes = [];
 

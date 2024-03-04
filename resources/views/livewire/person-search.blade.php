@@ -45,7 +45,7 @@
                             class="form__text"
                             placeholder=" "
                             type="text"
-                            wire:model.debounce.250ms="search"
+                            wire:model.live.debounce.250ms="search"
                         />
                         <label class="form__label form__label--floating" for="name">
                             {{ __('torrent.search-by-name') }}
@@ -55,7 +55,7 @@
                         <select
                             id="firstCharacter"
                             class="form__select"
-                            wire:model="firstCharacter"
+                            wire:model.live="firstCharacter"
                             x-data="{ firstCharacter: '' }"
                             x-model="firstCharacter"
                             x-bind:class="firstCharacter === '' ? 'form__select--default' : ''"
@@ -83,7 +83,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $occupation->id }}"
-                                                wire:model="occupationIds"
+                                                wire:model.live="occupationIds"
                                             />
                                             {{ $occupation->name }}
                                         </label>

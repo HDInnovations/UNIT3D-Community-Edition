@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Company;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,11 +23,12 @@ class CompanySearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -36,7 +39,8 @@ class CompanySearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Company>
      */
-    final public function getCompaniesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function companies(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Company::withCount('tv', 'movie')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

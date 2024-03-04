@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Watchlist;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,12 +27,16 @@ class WatchlistSearch extends Component
 
     public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     final public function mount(): void
@@ -40,7 +46,7 @@ class WatchlistSearch extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -51,7 +57,8 @@ class WatchlistSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\User>
      */
-    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Watchlist::query()
             ->with(['user.group', 'author.group'])

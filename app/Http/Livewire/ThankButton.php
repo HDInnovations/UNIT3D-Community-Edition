@@ -32,13 +32,13 @@ class ThankButton extends Component
     final public function store(): void
     {
         if ($this->user->id === $this->torrent->user_id) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Thank Your Own Content!']);
+            $this->dispatch('error', type: 'error', message: 'You Cannot Thank Your Own Content!');
 
             return;
         }
 
         if (Thank::query()->whereBelongsTo($this->user)->whereBelongsTo($this->torrent)->exists()) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Thanked!']);
+            $this->dispatch('error', type: 'error', message: 'You Have Already Thanked!');
 
             return;
         }
@@ -50,7 +50,7 @@ class ThankButton extends Component
 
         $this->torrent->notifyUploader('thank', $thank);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Thank Was Successfully Applied!']);
+        $this->dispatch('success', type: 'success', message: 'Your Thank Was Successfully Applied!');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

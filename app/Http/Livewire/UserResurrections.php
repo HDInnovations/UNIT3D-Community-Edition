@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Resurrection;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,26 +28,20 @@ class UserResurrections extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $rewarded = 'any';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'perPage'       => ['except' => ''],
-        'name'          => ['except' => ''],
-        'rewarded'      => ['except' => 'any'],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-    ];
 
     final public function mount(int $userId): void
     {
@@ -54,7 +50,7 @@ class UserResurrections extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -65,7 +61,8 @@ class UserResurrections extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Resurrection>
      */
-    final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function resurrections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Resurrection::query()
             ->select([

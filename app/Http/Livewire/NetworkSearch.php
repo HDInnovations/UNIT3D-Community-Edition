@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Network;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,11 +23,12 @@ class NetworkSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -36,7 +39,8 @@ class NetworkSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Network>
      */
-    final public function getNetworksProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function networks(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Network::withCount('tv')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

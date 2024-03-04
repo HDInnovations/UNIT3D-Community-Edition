@@ -68,7 +68,6 @@
         @include('partials.footer')
 
         @vite('resources/js/app.js')
-        @vite('resources/js/vendor/alpine.js')
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
@@ -211,16 +210,7 @@
 
         @yield('javascripts')
         @yield('scripts')
-        @livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
+        @livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
 
-        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-            Livewire.on('paginationChanged', () => {
-                window.scrollTo({
-                    top: 15,
-                    left: 15,
-                    behavior: 'smooth',
-                });
-            });
-        </script>
     </body>
 </html>

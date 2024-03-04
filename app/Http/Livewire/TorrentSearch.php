@@ -21,6 +21,8 @@ use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Closure;
@@ -31,185 +33,182 @@ class TorrentSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $description = '';
 
+    #[Url]
     public string $mediainfo = '';
 
+    #[Url]
     public string $uploader = '';
 
+    #[Url]
     public string $keywords = '';
 
+    #[Url]
     public ?int $startYear = null;
 
+    #[Url]
     public ?int $endYear = null;
 
+    #[Url]
     public ?int $minSize = null;
 
+    #[Url]
     public int $minSizeMultiplier = 1;
 
+    #[Url]
     public ?int $maxSize = null;
 
+    #[Url]
     public int $maxSizeMultiplier = 1;
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $categories = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $types = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $resolutions = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $genres = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $regions = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $distributors = [];
 
+    #[Url]
     public string $adult = 'any';
 
+    #[Url]
     public ?int $tmdbId = null;
 
+    #[Url]
     public string $imdbId = '';
 
+    #[Url]
     public ?int $tvdbId = null;
 
+    #[Url]
     public ?int $malId = null;
 
+    #[Url]
     public ?int $playlistId = null;
 
+    #[Url]
     public ?int $collectionId = null;
 
+    #[Url]
     public ?int $networkId = null;
 
+    #[Url]
     public ?int $companyId = null;
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $primaryLanguages = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $free = [];
 
+    #[Url]
     public bool $doubleup = false;
 
+    #[Url]
     public bool $featured = false;
 
+    #[Url]
     public bool $refundable = false;
 
+    #[Url]
     public bool $stream = false;
 
+    #[Url]
     public bool $sd = false;
 
+    #[Url]
     public bool $highspeed = false;
 
+    #[Url]
     public bool $bookmarked = false;
 
+    #[Url]
     public bool $wished = false;
 
+    #[Url]
     public bool $internal = false;
 
+    #[Url]
     public bool $personalRelease = false;
 
+    #[Url]
     public bool $alive = false;
 
+    #[Url]
     public bool $dying = false;
 
+    #[Url]
     public bool $dead = false;
 
+    #[Url]
     public bool $graveyard = false;
 
+    #[Url]
     public bool $notDownloaded = false;
 
+    #[Url]
     public bool $downloaded = false;
 
+    #[Url]
     public bool $seeding = false;
 
+    #[Url]
     public bool $leeching = false;
 
+    #[Url]
     public bool $incomplete = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'bumped_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public string $view = 'list';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'name'             => ['except' => ''],
-        'description'      => ['except' => ''],
-        'mediainfo'        => ['except' => ''],
-        'uploader'         => ['except' => ''],
-        'keywords'         => ['except' => ''],
-        'startYear'        => ['except' => ''],
-        'endYear'          => ['except' => ''],
-        'minSize'          => ['except' => ''],
-        'maxSize'          => ['except' => ''],
-        'categories'       => ['except' => []],
-        'types'            => ['except' => []],
-        'resolutions'      => ['except' => []],
-        'genres'           => ['except' => []],
-        'regions'          => ['except' => []],
-        'distributors'     => ['except' => []],
-        'tmdbId'           => ['except' => ''],
-        'imdbId'           => ['except' => ''],
-        'tvdbId'           => ['except' => ''],
-        'malId'            => ['except' => ''],
-        'playlistId'       => ['except' => ''],
-        'collectionId'     => ['except' => ''],
-        'companyId'        => ['except' => ''],
-        'networkId'        => ['except' => ''],
-        'primaryLanguages' => ['except' => []],
-        'free'             => ['except' => []],
-        'doubleup'         => ['except' => false],
-        'featured'         => ['except' => false],
-        'refundable'       => ['except' => false],
-        'stream'           => ['except' => false],
-        'sd'               => ['except' => false],
-        'highspeed'        => ['except' => false],
-        'bookmarked'       => ['except' => false],
-        'wished'           => ['except' => false],
-        'internal'         => ['except' => false],
-        'personalRelease'  => ['except' => false],
-        'alive'            => ['except' => false],
-        'dying'            => ['except' => false],
-        'dead'             => ['except' => false],
-        'graveyard'        => ['except' => false],
-        'downloaded'       => ['except' => false],
-        'seeding'          => ['except' => false],
-        'leeching'         => ['except' => false],
-        'incomplete'       => ['except' => false],
-        'page'             => ['except' => 1],
-        'perPage'          => ['except' => ''],
-        'sortField'        => ['except' => 'bumped_at'],
-        'sortDirection'    => ['except' => 'desc'],
-        'view'             => ['except' => 'list'],
-    ];
 
     final public function updating(string $field, mixed &$value): void
     {
@@ -218,7 +217,7 @@ class TorrentSearch extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingName(): void
@@ -231,7 +230,8 @@ class TorrentSearch extends Component
         $this->perPage = \in_array($this->view, ['card', 'poster']) ? 24 : 25;
     }
 
-    final public function getPersonalFreeleechProperty(): bool
+    #[Computed]
+    final public function personalFreeleech(): bool
     {
         return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
@@ -301,7 +301,8 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
      */
-    final public function getTorrentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
 
@@ -389,7 +390,8 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
      */
-    final public function getGroupedTorrentsProperty()
+    #[Computed]
+    final public function groupedTorrents()
     {
         $user = auth()->user();
 
@@ -637,7 +639,8 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
      */
-    final public function getGroupedPostersProperty()
+    #[Computed]
+    final public function groupedPosters()
     {
         // Whitelist which columns are allowed to be ordered by
         if (!\in_array($this->sortField, [

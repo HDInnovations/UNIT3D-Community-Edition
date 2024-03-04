@@ -18,6 +18,8 @@ use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,40 +29,34 @@ class LeakerSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public int $perPage = 50;
 
+    #[Url]
     public string $torrentIds = '';
 
+    #[Url]
     public ?int $minutesLeakedWithin = null;
 
+    #[Url]
     public string $agent = '';
 
+    #[Url]
     public string $sortField = 'leak_count';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'page'                => ['except' => 1],
-        'perPage'             => ['except' => 25],
-        'torrentIds'          => ['except' => ''],
-        'agent'               => ['except' => ''],
-        'minutesLeakedWithin' => ['except' => null],
-        'sortField'           => ['except' => ''],
-        'sortDirection'       => ['except' => 'desc'],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
      */
-    final public function getLeakersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function leakers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->select([
@@ -86,7 +82,8 @@ class LeakerSearch extends Component
             ->paginate($this->perPage);
     }
 
-    final public function getTorrentIdCountProperty(): int
+    #[Computed]
+    final public function torrentIdCount(): int
     {
         return \count(array_filter(array_map('trim', explode(',', $this->torrentIds))));
     }

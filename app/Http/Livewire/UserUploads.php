@@ -17,6 +17,8 @@ use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,34 +29,29 @@ class UserUploads extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $personalRelease = 'any';
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $status = [];
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public bool $showMorePrecision = false;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'perPage'         => ['except' => ''],
-        'name'            => ['except' => ''],
-        'personalRelease' => ['except' => 'any'],
-        'sortField'       => ['except' => 'created_at'],
-        'sortDirection'   => ['except' => 'desc'],
-        'status'          => ['except' => []],
-    ];
 
     final public function mount(int $userId): void
     {
@@ -63,7 +60,7 @@ class UserUploads extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -74,7 +71,8 @@ class UserUploads extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
      */
-    final public function getUploadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function uploads(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $uploads = Torrent::query()
             ->withCount('thanks')

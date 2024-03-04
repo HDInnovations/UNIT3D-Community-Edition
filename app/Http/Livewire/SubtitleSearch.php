@@ -17,6 +17,8 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,26 +27,33 @@ class SubtitleSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $categories = [];
 
+    #[Url]
     public string $language = '';
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -55,7 +64,8 @@ class SubtitleSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Subtitle>
      */
-    final public function getSubtitlesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function subtitles(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Subtitle::with(['user.group', 'torrent.category', 'language'])
             ->whereHas('torrent')

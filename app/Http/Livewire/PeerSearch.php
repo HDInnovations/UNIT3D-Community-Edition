@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Peer;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,41 +26,45 @@ class PeerSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public bool $duplicateIpsOnly = false;
-    public bool $includeSeedsize = false;
-    public int $perPage = 25;
-    public string $ip = '';
-    public string $port = '';
-    public string $agent = '';
-    public string $torrent = '';
-    public string $connectivity = 'any';
-    public string $active = 'any';
-    public string $groupBy = 'none';
-    public string $sortField = 'created_at';
-    public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'page'             => ['except' => 1],
-        'duplicateIpsOnly' => ['except' => false],
-        'includeSeedsize'  => ['except' => false],
-        'perPage'          => ['except' => 25],
-        'ip'               => ['except' => ''],
-        'port'             => ['except' => ''],
-        'agent'            => ['except' => ''],
-        'torrent'          => ['except' => ''],
-        'connectivity'     => ['except' => 'any'],
-        'active'           => ['except' => 'any'],
-        'groupBy'          => ['except' => 'none'],
-        'sortField'        => ['except' => 'created_at'],
-        'sortDirection'    => ['except' => 'desc'],
-    ];
+    #[Url]
+    public bool $includeSeedsize = false;
+
+    #[Url]
+    public int $perPage = 25;
+
+    #[Url]
+    public string $ip = '';
+
+    #[Url]
+    public string $port = '';
+
+    #[Url]
+    public string $agent = '';
+
+    #[Url]
+    public string $torrent = '';
+
+    #[Url]
+    public string $connectivity = 'any';
+
+    #[Url]
+    public string $active = 'any';
+
+    #[Url]
+    public string $groupBy = 'none';
+
+    #[Url]
+    public string $sortField = 'created_at';
+
+    #[Url]
+    public string $sortDirection = 'desc';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingIp(): void
@@ -91,7 +97,8 @@ class PeerSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
      */
-    final public function getPeersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function peers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->when(

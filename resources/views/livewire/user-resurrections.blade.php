@@ -7,7 +7,7 @@
                     <p class="form__group">
                         <input
                             id="name"
-                            wire:model="name"
+                            wire:model.live="name"
                             class="form__text"
                             placeholder=" "
                             autofocus=""
@@ -21,7 +21,7 @@
                     <label
                         style="user-select: none"
                         class="form__label"
-                        x-data="{ state: @entangle('rewarded'), ...ternaryCheckbox() }"
+                        x-data="{ state: @entangle('rewarded').live, ...ternaryCheckbox() }"
                     >
                         <input
                             type="checkbox"

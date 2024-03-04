@@ -17,6 +17,8 @@ use App\Models\Post;
 use App\Models\Topic;
 use App\Models\TopicRead;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,16 +26,10 @@ class TopicPostSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
 
     public Topic $topic;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'search' => ['except' => ''],
-    ];
 
     final public function mount(Topic $topic): void
     {
@@ -42,7 +38,7 @@ class TopicPostSearch extends Component
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -53,7 +49,8 @@ class TopicPostSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
      */
-    final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $posts = Post::query()
             ->with('user', 'user.group')

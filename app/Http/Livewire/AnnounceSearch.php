@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Announce;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,31 +28,24 @@ class AnnounceSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    public int $perPage = 50;
-
+    #[Url]
     public string $torrentId = '';
 
+    #[Url]
     public string $userId = '';
 
+    #[Url]
     public string $sortField = '';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'page'          => ['except' => 1],
-        'perPage'       => ['except' => 25],
-        'torrentId'     => ['except' => ''],
-        'userId'        => ['except' => ''],
-        'sortField'     => ['except' => ''],
-        'sortDirection' => ['except' => 'desc'],
-    ];
+    #[Url]
+    public int $perPage = 50;
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingUserId(): void
@@ -66,7 +61,8 @@ class AnnounceSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Announce>
      */
-    final public function getAnnouncesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function announces(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Announce::query()
             ->when($this->torrentId !== '', fn ($query) => $query->where('torrent_id', '=', $this->torrentId))

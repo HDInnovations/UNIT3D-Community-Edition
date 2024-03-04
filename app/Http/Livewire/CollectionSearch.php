@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Collection;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,11 +23,12 @@ class CollectionSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -36,7 +39,8 @@ class CollectionSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Collection>
      */
-    final public function getCollectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function collections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Collection::withCount('movie')
             ->with('movie')

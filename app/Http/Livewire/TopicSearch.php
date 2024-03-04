@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\ForumCategory;
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,32 +24,33 @@ class TopicSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
-    public string $sortField = 'last_post_created_at';
-    public string $sortDirection = 'desc';
-    public string $label = '';
-    public string $state = '';
-    public string $subscribed = '';
-    public string $forumId = '';
-    public string $read = '';
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'search'        => ['except' => ''],
-        'sortField'     => ['except' => 'last_post_created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'read'          => ['except' => ''],
-        'label'         => ['except' => ''],
-        'state'         => ['except' => ''],
-        'subscribed'    => ['except' => ''],
-        'forumId'       => ['except' => ''],
-    ];
+    #[Url]
+    public string $sortField = 'last_post_created_at';
+
+    #[Url]
+    public string $sortDirection = 'desc';
+
+    #[Url]
+    public string $label = '';
+
+    #[Url]
+    public string $state = '';
+
+    #[Url]
+    public string $subscribed = '';
+
+    #[Url]
+    public string $forumId = '';
+
+    #[Url]
+    public string $read = '';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -58,7 +61,8 @@ class TopicSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, ForumCategory>
      */
-    final public function getForumCategoriesProperty(): \Illuminate\Database\Eloquent\Collection
+    #[Computed]
+    final public function forumCategories(): \Illuminate\Database\Eloquent\Collection
     {
         return ForumCategory::query()
             ->with([
@@ -72,7 +76,8 @@ class TopicSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
      */
-    final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')

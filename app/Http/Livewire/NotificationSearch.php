@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,61 +25,84 @@ class NotificationSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public bool $bon_gifts = false;
 
+    #[Url]
     public bool $comment = false;
 
+    #[Url]
     public bool $comment_tags = false;
 
+    #[Url]
     public bool $followers = false;
 
+    #[Url]
     public bool $posts = false;
 
+    #[Url]
     public bool $post_tags = false;
 
+    #[Url]
     public bool $post_tips = false;
 
+    #[Url]
     public bool $request_bounties = false;
 
+    #[Url]
     public bool $request_claims = false;
 
+    #[Url]
     public bool $request_fills = false;
 
+    #[Url]
     public bool $request_approvals = false;
 
+    #[Url]
     public bool $request_rejections = false;
 
+    #[Url]
     public bool $request_unclaims = false;
 
+    #[Url]
     public bool $reseed_requests = false;
 
+    #[Url]
     public bool $thanks = false;
 
+    #[Url]
     public bool $upload_tips = false;
 
+    #[Url]
     public bool $topics = false;
 
+    #[Url]
     public bool $unfollows = false;
 
+    #[Url]
     public bool $uploads = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
      */
-    final public function getNotificationsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function notifications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return auth()->user()->notifications()
+        return auth()->user()?->notifications()
             ->select('*')
             ->selectRaw("CASE WHEN read_at IS NULL THEN 'FALSE' ELSE 'TRUE' END as is_read")
             ->where(function ($query): void {

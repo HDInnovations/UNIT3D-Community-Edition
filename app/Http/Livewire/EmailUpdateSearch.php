@@ -15,39 +15,39 @@ namespace App\Http\Livewire;
 
 use App\Models\EmailUpdate;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\LivewireSort;
 
 class EmailUpdateSearch extends Component
 {
     use WithPagination;
+    use LivewireSort;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
 
     final public function updatedPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<EmailUpdate>
      */
-    final public function getEmailUpdatesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function emailUpdates(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return EmailUpdate::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),
@@ -62,16 +62,5 @@ class EmailUpdateSearch extends Component
         return view('livewire.email-update-search', [
             'emailUpdates' => $this->emailUpdates,
         ]);
-    }
-
-    final public function sortBy(string $field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

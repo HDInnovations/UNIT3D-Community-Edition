@@ -14,6 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,7 +25,8 @@ class SubscribedTopic extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
      */
-    final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')
@@ -42,7 +44,7 @@ class SubscribedTopic extends Component
 
     final public function updatedSubscribedTopicsPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

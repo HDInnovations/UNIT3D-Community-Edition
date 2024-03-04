@@ -32,6 +32,7 @@ use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
 use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;
@@ -98,13 +99,13 @@ class Comments extends Component
         $modelName = str()->snake(class_basename($this->model), ' ');
 
         if ($modelName !== 'ticket' && $this->user->can_comment === false) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+            $this->dispatch('error', type: 'error', message: __('comment.rights-revoked'));
 
             return;
         }
 
         if (strtolower(class_basename($this->model)) === 'torrent' && $this->model->status !== Torrent::APPROVED) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.torrent-status')]);
+            $this->dispatch('error', type: 'error', message: __('comment.torrent-status'));
 
             return;
         }
@@ -207,7 +208,8 @@ class Comments extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Comment>
      */
-    final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function comments(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model
             ->comments()
