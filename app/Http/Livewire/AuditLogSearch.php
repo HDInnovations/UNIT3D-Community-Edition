@@ -61,7 +61,7 @@ class AuditLogSearch extends Component
     final public function getModelNamesProperty()
     {
         $modelList = [];
-        $path = app_path()."/Models";
+        $path = app_path().'/Models';
         $results = scandir($path);
 
         foreach ($results as $result) {
@@ -82,7 +82,7 @@ class AuditLogSearch extends Component
     final public function getAuditsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')
-            ->whereRelation('user', 'username', '=', $this->username)
+            ->when($this->username, fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))
             ->when($this->modelName, fn ($query) => $query->where('model_name', '=', $this->modelName))
             ->when($this->modelId, fn ($query) => $query->where('model_entry_id', '=', $this->modelId))
             ->when($this->action, fn ($query) => $query->where('action', '=', $this->action))
