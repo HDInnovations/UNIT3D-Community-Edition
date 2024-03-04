@@ -47,7 +47,7 @@ class PersonCredit extends Component
     }
 
     #[Computed]
-    final public function personallFreeleech(): bool
+    final public function personalFreeleech(): bool
     {
         return cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
     }
@@ -61,61 +61,61 @@ class PersonCredit extends Component
     }
 
     #[Computed]
-    public function getDirectedCountProperty(): int
+    public function directedCount(): int
     {
         return $this->person->directedMovies()->count() + $this->person->directedTv()->count();
     }
 
     #[Computed]
-    public function getCreatedCountProperty(): int
+    public function createdCount(): int
     {
         return $this->person->createdTv()->count();
     }
 
     #[Computed]
-    public function getWrittenCountProperty(): int
+    public function writtenCount(): int
     {
         return $this->person->writtenMovies()->count() + $this->person->writtenTv()->count();
     }
 
     #[Computed]
-    public function getProducedCountProperty(): int
+    public function producedCount(): int
     {
         return $this->person->producedMovies()->count() + $this->person->producedTv()->count();
     }
 
     #[Computed]
-    public function getComposedCountProperty(): int
+    public function composedCount(): int
     {
         return $this->person->composedMovies()->count() + $this->person->composedTv()->count();
     }
 
     #[Computed]
-    public function getCinematographedCountProperty(): int
+    public function cinematographedCount(): int
     {
         return $this->person->cinematographedMovies()->count() + $this->person->cinematographedTv()->count();
     }
 
     #[Computed]
-    public function getEditedCountProperty(): int
+    public function editedCount(): int
     {
         return $this->person->editedMovies()->count() + $this->person->editedTv()->count();
     }
 
     #[Computed]
-    public function getProductionDesignedCountProperty(): int
+    public function productionDesignedCount(): int
     {
         return $this->person->productionDesignedMovies()->count() + $this->person->productionDesignedTv()->count();
     }
 
     #[Computed]
-    public function getArtDirectedCountProperty(): int
+    public function artDirectedCount(): int
     {
         return $this->person->artDirectedMovies()->count() + $this->person->artDirectedTv()->count();
     }
 
     #[Computed]
-    public function getActedCountProperty(): int
+    public function actedCount(): int
     {
         return $this->person->actedMovies()->count() + $this->person->actedTv()->count();
     }
