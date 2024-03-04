@@ -169,6 +169,6 @@
             </section>
         </main>
         @vite('resources/js/app.js')
-        @livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
+        @livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
     </body>
 </html>
