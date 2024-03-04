@@ -204,7 +204,12 @@
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
-                        <select id="adult" wire:model.live="adult" class="form__select" placeholder=" ">
+                        <select
+                            id="adult"
+                            wire:model.live="adult"
+                            class="form__select"
+                            placeholder=" "
+                        >
                             <option value="any" selected>Any</option>
                             <option value="include">Include</option>
                             <option value="exclude">Exclude</option>
@@ -775,7 +780,12 @@
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="perPage" class="form__select" wire:model.live="perPage" required>
+                        <select
+                            id="perPage"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             @if (\in_array($view, ['card', 'poster']))
                                 <option>24</option>
                                 <option>48</option>

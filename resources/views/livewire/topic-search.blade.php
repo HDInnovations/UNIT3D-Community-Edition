@@ -87,7 +87,12 @@
                         <label class="form__label form__label--floating" for="read">Activity</label>
                     </p>
                     <p class="form__group">
-                        <select id="sorting" class="form__select" name="sorting" wire:model.live="label">
+                        <select
+                            id="sorting"
+                            class="form__select"
+                            name="sorting"
+                            wire:model.live="label"
+                        >
                             <option value="" selected default>Any</option>
                             <option value="approved">
                                 {{ __('forum.approved') }}

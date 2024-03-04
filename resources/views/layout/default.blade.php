@@ -211,6 +211,5 @@
         @yield('javascripts')
         @yield('scripts')
         @livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
-
     </body>
 </html>

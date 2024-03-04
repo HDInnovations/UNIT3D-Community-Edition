@@ -18,11 +18,21 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="user" wire:model.live="user" class="form__text" placeholder=" " />
+                        <input
+                            id="user"
+                            wire:model.live="user"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="user">Username</label>
                     </p>
                     <p class="form__group">
-                        <input id="agent" wire:model.live="agent" class="form__text" placeholder=" " />
+                        <input
+                            id="agent"
+                            wire:model.live="agent"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">

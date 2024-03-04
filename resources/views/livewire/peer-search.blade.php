@@ -22,11 +22,21 @@
                         <label class="form__label form__label--floating" for="ip">IP Address</label>
                     </p>
                     <p class="form__group">
-                        <input id="port" wire:model.live="port" class="form__text" placeholder=" " />
+                        <input
+                            id="port"
+                            wire:model.live="port"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="port">Port</label>
                     </p>
                     <p class="form__group">
-                        <input id="agent" wire:model.live="agent" class="form__text" placeholder=" " />
+                        <input
+                            id="agent"
+                            wire:model.live="agent"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">

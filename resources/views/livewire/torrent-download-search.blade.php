@@ -102,7 +102,12 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="quantity" class="form__select" wire:model.live="perPage" required>
+                        <select
+                            id="quantity"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>
