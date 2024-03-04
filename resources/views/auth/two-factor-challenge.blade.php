@@ -115,6 +115,6 @@
                 </form>
             </section>
         </main>
-        @vite('resources/js/vendor/alpine.js')
+        @vite('resources/js/app.js')
     </body>
 </html>
