@@ -120,11 +120,11 @@ return [
     | Restricted mode for invites. If set to true, invites will be restricted
     | Exempt these groups from the invite restrictions
     */
-    'invite-only' => true,
+    'invite-only'   => true,
     'invite_expire' => '3',
 
     'invites_restriced' => true,
-    'invite_groups' => [
+    'invite_groups'     => [
         'Administrator',
         'Sysop',
         'Supermoderator',

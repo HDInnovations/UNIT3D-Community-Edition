@@ -34,11 +34,10 @@ class UserBanExpire extends Notification
     {
         return (new MailMessage())
             ->greeting('Notice of Account Reinstatement')
-            ->line('We are pleased to inform you that your account on ' . config('other.title') . ' has been reinstated.')
-            ->line('We appreciate your understanding and cooperation with our community guidelines. We hope you continue to enjoy and contribute positively to ' . config('other.title') . '.')
+            ->line('We are pleased to inform you that your account on '.config('other.title').' has been reinstated.')
+            ->line('We appreciate your understanding and cooperation with our community guidelines. We hope you continue to enjoy and contribute positively to '.config('other.title').'.')
             ->line('Thank you for being a valued member of our community.')
             ->line('Sincerely,')
-            ->line('The ' . config('other.title') . ' Team');
-
-            }
+            ->line('The '.config('other.title').' Team');
+    }
 }

@@ -41,26 +41,25 @@ class UserPreWarning extends Notification
             ->line('This message serves as a warning that one or more of your downloads has beenflagged for a hit and run. It is essential to maintain a healthy share ratio to contribute to our  community’ssustainability.')
             ->action('View Unsatisfied Torrents', $profileUrl)
             ->line('You can resolve this warning by seeding the affected torrents until you meet the required seeding criteria or wait for the warning to expire as per our community guidelines.')
-            ->line('We appreciate your prompt attention to this matter and your continued support of ' . config('other.title') . '.')
+            ->line('We appreciate your prompt attention to this matter and your continued support of '.config('other.title').'.')
             ->line('Thank you for being an integral part of our community.')
             ->line('Sincerely,')
-            ->line('The ' . config('other.title') . ' Team');
-        }
+            ->line('The '.config('other.title').' Team');
+    }
 
     /**
      * Ge t the array re presentati
-    on of the
-        notific ation.
+     * on of the
+     * notific ation.
      *
-                 * @ ret urn array<string, mix ed >
+     * @ ret urn array<string, mix ed >
      */
-     public function toArray(object $notifiable): array
-     {
-         return [
-             'title' => 'Pre Warning: ' . $this->torrent->name,
-             'body'  => 'An automated pre-warning has been issued to your account due to non-compliance with the Hit and Run rules for the torrent: ' . $this->torrent->name . '. It is crucial to seed back to the community to avoid further actions.',
-             'url'   => sprintf('/torrents/%s', $this->torrent->id),
-         ];
-     }
-
+    public function toArray(object $notifiable): array
+    {
+        return [
+            'title' => 'Pre Warning: '.$this->torrent->name,
+            'body'  => 'An automated pre-warning has been issued to your account due to non-compliance with the Hit and Run rules for the torrent: '.$this->torrent->name.'. It is crucial to seed back to the community to avoid further actions.',
+            'url'   => sprintf('/torrents/%s', $this->torrent->id),
+        ];
+    }
 }

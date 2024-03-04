@@ -13,7 +13,6 @@
 
 namespace Database\Factories;
 
-use App\Models\ForumCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Forum;
 

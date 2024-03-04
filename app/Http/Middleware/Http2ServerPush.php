@@ -24,7 +24,7 @@ class Http2ServerPush
     /**
      * The DomCrawler instance.
      */
-    protected ?\Symfony\Component\DomCrawler\Crawler $crawler = null;
+    protected ?Crawler $crawler = null;
 
     /**
      * @var string[]
