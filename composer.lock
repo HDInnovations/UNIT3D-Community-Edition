@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eca6759d11d83096a87819847dc5835a",
+    "content-hash": "7b1a0dac9695ee9c63ca897520728edb",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -8340,24 +8340,27 @@
             "time": "2024-02-02T09:37:18+00:00"
         },
         {
-            "name": "diverently/phpstan-livewire",
-            "version": "v1.0.2",
+            "name": "calebdw/larastan-livewire",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Diverently/phpstan-livewire.git",
-                "reference": "45ae761169ee2b083cbcedb32efb9e5368e7f0c5"
+                "url": "https://github.com/calebdw/larastan-livewire.git",
+                "reference": "0df392fc3e95f1f27975ef81a3d6c9b2b7a718bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Diverently/phpstan-livewire/zipball/45ae761169ee2b083cbcedb32efb9e5368e7f0c5",
-                "reference": "45ae761169ee2b083cbcedb32efb9e5368e7f0c5",
+                "url": "https://api.github.com/repos/calebdw/larastan-livewire/zipball/0df392fc3e95f1f27975ef81a3d6c9b2b7a718bf",
+                "reference": "0df392fc3e95f1f27975ef81a3d6c9b2b7a718bf",
                 "shasum": ""
             },
             "require": {
+                "illuminate/support": "^10.0 || ^11.0",
+                "livewire/livewire": "^3.3",
+                "php": "^8.1",
                 "phpstan/phpstan": "^1.10"
             },
             "require-dev": {
-                "livewire/livewire": "^2.12"
+                "phpunit/phpunit": "^10.5"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -8369,7 +8372,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Diverently\\PhpstanLivewire\\": "src/"
+                    "CalebDW\\LarastanLivewire\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -8378,16 +8381,23 @@
             ],
             "authors": [
                 {
-                    "name": "Robert Cordes",
-                    "email": "robert@diverently.com"
+                    "name": "Caleb White",
+                    "email": "cdwhite3@pm.me"
                 }
             ],
-            "description": "Recognize Livewire computed properties",
+            "description": "A Larastan / PHPStan extension for Livewire.",
+            "homepage": "https://github.com/calebdw/larastan-livewire",
+            "keywords": [
+                "PHPStan",
+                "larastan",
+                "livewire",
+                "static analysis"
+            ],
             "support": {
-                "issues": "https://github.com/Diverently/phpstan-livewire/issues",
-                "source": "https://github.com/Diverently/phpstan-livewire/tree/v1.0.2"
+                "issues": "https://github.com/calebdw/larastan-livewire/issues",
+                "source": "https://github.com/calebdw/larastan-livewire/tree/v1.0.1"
             },
-            "time": "2023-05-03T04:30:35+00:00"
+            "time": "2023-12-22T05:33:24+00:00"
         },
         {
             "name": "fakerphp/faker",

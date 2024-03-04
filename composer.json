@@ -41,7 +41,7 @@
     },
     "require-dev": {
         "brianium/paratest": "v7.4.0",
-        "diverently/phpstan-livewire": "^1.0.2",
+        "calebdw/larastan-livewire": "^1.0",
         "fakerphp/faker": "^1.23.1",
         "jasonmccreary/laravel-test-assertions": "^2.4",
         "larastan/larastan": "^2.9.2",
