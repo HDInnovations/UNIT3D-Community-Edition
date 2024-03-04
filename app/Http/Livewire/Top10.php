@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 /**
@@ -28,18 +29,12 @@ use Livewire\Component;
 class Top10 extends Component
 {
     #[Url]
+    #[Validate('in:movie_meta,tv_meta')]
     public string $metaType = 'movie_meta';
 
     #[Url]
+    #[Validate('in:day,week,month,year,all')]
     public string $interval = 'day';
-
-    /**
-     * @var array<string, string>
-     */
-    protected array $rules = [
-        'metaType' => 'in:movie_meta,tv_meta',
-        'interval' => 'in:day,week,month,year,all',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Torrent>

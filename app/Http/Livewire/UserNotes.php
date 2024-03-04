@@ -17,6 +17,7 @@ use App\Models\Note;
 use App\Models\User;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,12 +28,14 @@ class UserNotes extends Component
     public User $user;
 
     #[Url]
+    #[Validate('required|filled')]
     public string $message = '';
 
     /**
      * @var array<int, string>
      */
     #[Url]
+    #[Validate('array')]
     public array $messages = [];
 
     #[Url]
@@ -43,23 +46,6 @@ class UserNotes extends Component
 
     #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected array $rules = [
-        'message' => [
-            'required',
-            'filled',
-        ],
-        'messages' => [
-            'array',
-        ],
-        'messages.*' => [
-            'required',
-            'filled',
-        ]
-    ];
 
     final public function mount(): void
     {
@@ -89,7 +75,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validateOnly('message');
+        $this->validate();
 
         Note::create([
             'user_id'  => $this->user->id,
@@ -106,8 +92,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validateOnly('messages');
-        $this->validateOnly('messages.*');
+        $this->validate();
 
         Note::whereKey($id)->update([
             'staff_id' => auth()->id(),

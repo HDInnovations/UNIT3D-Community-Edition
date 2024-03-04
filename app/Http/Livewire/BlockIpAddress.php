@@ -16,6 +16,7 @@ namespace App\Http\Livewire;
 use App\Models\BlockedIp;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,17 +28,11 @@ class BlockIpAddress extends Component
     public string $ipAddress = '';
 
     #[Url]
+    #[Validate('required|filled')]
     public string $reason = '';
 
     #[Url]
     public int $perPage = 25;
-
-    protected array $rules = [
-        'reason' => [
-            'required',
-            'filled',
-        ],
-    ];
 
     final public function updatedPage(): void
     {

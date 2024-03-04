@@ -16,6 +16,7 @@ namespace App\Http\Livewire;
 use App\Traits\CastLivewireProperties;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 use SplFileInfo;
@@ -56,7 +57,8 @@ class LaravelLogViewer extends Component
         $this->page = 1;
     }
 
-    final public function getLogFilesProperty()
+    #[Computed]
+    final public function logFiles()
     {
         $directory = storage_path('logs');
 
@@ -64,7 +66,8 @@ class LaravelLogViewer extends Component
             ->sortByDesc(fn (SplFileInfo $file) => $file->getMTime())->values();
     }
 
-    final public function getEntriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function entries(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $files = $this->logFiles;
         $logString = '';

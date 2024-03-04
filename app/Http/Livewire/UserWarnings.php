@@ -20,6 +20,7 @@ use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -41,6 +42,7 @@ class UserWarnings extends Component
     public string $warningTab = 'automated';
 
     #[Url]
+    #[Validate('required|filled|max:255')]
     public string $message = '';
 
     #[Url]
@@ -51,14 +53,6 @@ class UserWarnings extends Component
 
     #[Url]
     public string $sortDirection = 'desc';
-
-    protected array $rules = [
-        'message' => [
-            'required',
-            'filled',
-            'max:255',
-        ],
-    ];
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
