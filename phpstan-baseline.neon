@@ -891,7 +891,7 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getBackupsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:backups\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
@@ -927,11 +927,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$rules type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/BlockIpAddress.php
 
@@ -1046,12 +1041,12 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getEntriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:entries\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getLogFilesProperty\\(\\) has no return type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:logFiles\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
@@ -1168,11 +1163,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 7
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:\\$rules type has no value type specified in iterable type array\\.$#"
-			count: 1
 			path: app/Http/Livewire/UserWarnings.php
 
 		-
