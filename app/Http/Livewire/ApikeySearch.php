@@ -44,11 +44,6 @@ class ApikeySearch extends Component
     #[Url]
     public int $perPage = 25;
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Apikey>
      */

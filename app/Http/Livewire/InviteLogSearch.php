@@ -64,11 +64,6 @@ class InviteLogSearch extends Component
         };
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingGroupBy($value): void
     {
         $this->sortField = match ($value) {

@@ -48,11 +48,6 @@ class TopicSearch extends Component
     #[Url]
     public string $read = '';
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

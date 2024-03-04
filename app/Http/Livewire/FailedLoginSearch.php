@@ -45,11 +45,6 @@ class FailedLoginSearch extends Component
     #[Url]
     public string $sortDirection = 'desc';
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
      */

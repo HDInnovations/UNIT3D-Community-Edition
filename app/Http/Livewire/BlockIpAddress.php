@@ -34,11 +34,6 @@ class BlockIpAddress extends Component
     #[Url]
     public int $perPage = 25;
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function store(): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);

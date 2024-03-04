@@ -47,11 +47,6 @@ class LaravelLogViewer extends Component
         $this->castLivewireProperties($field, $value);
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingLogs(): void
     {
         $this->page = 1;

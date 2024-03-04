@@ -53,11 +53,6 @@ class ForumCategoryTopicSearch extends Component
         $this->category = $category;
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

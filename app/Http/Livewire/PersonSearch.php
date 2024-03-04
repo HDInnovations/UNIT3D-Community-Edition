@@ -35,11 +35,6 @@ class PersonSearch extends Component
     #[Url]
     public string $firstCharacter = '';
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

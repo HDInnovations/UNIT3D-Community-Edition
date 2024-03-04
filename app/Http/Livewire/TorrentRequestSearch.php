@@ -113,11 +113,6 @@ class TorrentRequestSearch extends Component
         $this->castLivewireProperties($field, $value);
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function toggleShowFilters(): void
     {
         $this->showFilters = !$this->showFilters;

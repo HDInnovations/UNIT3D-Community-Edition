@@ -56,11 +56,6 @@ class ForumTopicSearch extends Component
         $this->subscription = Subscription::where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

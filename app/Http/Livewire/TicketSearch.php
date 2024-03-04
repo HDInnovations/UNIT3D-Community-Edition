@@ -52,11 +52,6 @@ class TicketSearch extends Component
         $this->user = auth()->user();
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

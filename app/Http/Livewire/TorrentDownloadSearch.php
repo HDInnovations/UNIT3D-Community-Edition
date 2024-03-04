@@ -58,11 +58,6 @@ class TorrentDownloadSearch extends Component
     #[Url]
     public string $sortDirection = 'desc';
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingGroupBy(string $value): void
     {
         $this->sortField = match ($value) {

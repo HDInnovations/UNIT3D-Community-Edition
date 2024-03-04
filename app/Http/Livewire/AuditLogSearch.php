@@ -48,11 +48,6 @@ class AuditLogSearch extends Component
     #[Url]
     public string $sortDirection = 'desc';
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     /**
      * @return string[]
      */
@@ -83,7 +78,7 @@ class AuditLogSearch extends Component
     final public function audits(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')
-            ->whereRelation('user', 'username', '=', $this->username)
+            ->when($this->username, fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))
             ->when($this->modelName, fn ($query) => $query->where('model_name', '=', $this->modelName))
             ->when($this->modelId, fn ($query) => $query->where('model_entry_id', '=', $this->modelId))
             ->when($this->action, fn ($query) => $query->where('action', '=', $this->action))

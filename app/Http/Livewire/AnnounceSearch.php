@@ -43,11 +43,6 @@ class AnnounceSearch extends Component
     #[Url]
     public int $perPage = 50;
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingUserId(): void
     {
         $this->resetPage();

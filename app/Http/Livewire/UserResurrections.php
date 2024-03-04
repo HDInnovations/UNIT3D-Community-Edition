@@ -48,11 +48,6 @@ class UserResurrections extends Component
         $this->user = User::find($userId);
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

@@ -18,11 +18,6 @@ class NoteSearch extends Component
     #[Url]
     public string $search = '';
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();

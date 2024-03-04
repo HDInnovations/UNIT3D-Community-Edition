@@ -36,11 +36,6 @@ class TopicPostSearch extends Component
         $this->topic = $topic;
     }
 
-    final public function updatedPage(): void
-    {
-        $this->dispatch('paginationChanged');
-    }
-
     final public function updatingSearch(): void
     {
         $this->resetPage();
