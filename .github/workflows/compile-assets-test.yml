@@ -11,7 +11,20 @@ jobs:
     name: ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1
+          ini-values: error_reporting=E_ALL
+          coverage: pcov
+          tools: composer:v2
+        env:
+          REDIS_CONFIGURE_OPTS: --enable-redis
       - name: Configure Bun
         uses: oven-sh/setup-bun@v1
         with:
