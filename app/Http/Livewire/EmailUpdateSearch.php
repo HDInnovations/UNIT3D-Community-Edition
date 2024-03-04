@@ -23,8 +23,8 @@ use App\Traits\LivewireSort;
 
 class EmailUpdateSearch extends Component
 {
-    use WithPagination;
     use LivewireSort;
+    use WithPagination;
 
     #[Url]
     public string $username = '';

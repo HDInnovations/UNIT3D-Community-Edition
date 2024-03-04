@@ -151,7 +151,7 @@ class SimilarTorrent extends Component
         $this->dispatch(
             'swal:confirm',
             type: 'warning',
-           message: 'Are you sure?',
+            message: 'Are you sure?',
             body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
                         .nl2br(implode("\n", $names)),
         );

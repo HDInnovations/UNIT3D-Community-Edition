@@ -56,7 +56,6 @@ class HistorySearch extends Component
     #[Url]
     public string $sortDirection = 'desc';
 
-
     final public function updatedPage(): void
     {
         $this->dispatch('paginationChanged');

@@ -18,6 +18,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use JsonException;
 
 class AuditLogSearch extends Component
 {
@@ -75,8 +76,8 @@ class AuditLogSearch extends Component
     }
 
     /**
+     * @throws JsonException
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Audit>
-     * @throws \JsonException
      */
     #[Computed]
     final public function audits(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

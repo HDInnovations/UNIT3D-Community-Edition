@@ -28,8 +28,8 @@ use Livewire\WithPagination;
  */
 class TorrentDownloadSearch extends Component
 {
-    use WithPagination;
     use LivewireSort;
+    use WithPagination;
 
     #[Url]
     public int $perPage = 50;
