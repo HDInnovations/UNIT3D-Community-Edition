@@ -309,14 +309,14 @@
                         </p>
                         <p class="form__group">
                             <input
-                                id="minimum_age"
+                                id="min_age"
                                 class="form__text"
                                 type="text"
-                                name="minimum_age"
+                                name="min_age"
                                 placeholder=" "
                                 value="{{ $group->min_age }}"
                             />
-                            <label class="form__label form__label--floating" for="minimum_age">
+                            <label class="form__label form__label--floating" for="min_age">
                                 Minimum age
                             </label>
                         </p>

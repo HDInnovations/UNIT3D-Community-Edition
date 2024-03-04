@@ -128,7 +128,7 @@ class StoreGroupRequest extends FormRequest
                 'integer',
                 'min:0',
             ],
-            'min_seedtime' => [
+            'min_seedsize' => [
                 'sometimes',
                 'integer',
                 'min:0',
