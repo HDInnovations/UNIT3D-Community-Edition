@@ -87,11 +87,7 @@
 
             @break
         @case(15)
-            <link
-                rel="stylesheet"
-                href="{{ mix('css/themes/mint_cream.css') }}"
-                crossorigin="anonymous"
-            />
+            @vite('resources/sass/themes/_mint_cream.scss')
 
             @break
     @endswitch

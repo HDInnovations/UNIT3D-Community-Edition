@@ -24,6 +24,7 @@ export default defineConfig({
         'resources/sass/themes/_material-design-v3-light.scss',
         'resources/sass/themes/_nord.scss',
         'resources/sass/themes/_revel.scss',
+        'resources/sass/themes/_mint_cream.scss',
         'resources/js/app.js',
         'resources/js/unit3d/chat.js',
         'resources/js/vendor/alpine.js',

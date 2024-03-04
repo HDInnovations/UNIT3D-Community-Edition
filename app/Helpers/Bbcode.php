@@ -156,6 +156,13 @@ class Bbcode
             'closeHtml'   => '</p></blockquote>',
             'block'       => true,
         ],
+        'namedlink' => [
+            'openBbcode'  => '/^\[url=(.*?)\]/i',
+            'closeBbcode' => '[/url]',
+            'openHtml'    => '<a href="$1">',
+            'closeHtml'   => '</a>',
+            'block'       => false,
+        ],
         'orderedlistnumerical' => [
             'openBbcode'  => '/^\[list=1\]/i',
             'closeBbcode' => '[/list]',

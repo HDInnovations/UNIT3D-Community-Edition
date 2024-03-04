@@ -37,5 +37,5 @@ window.Swal = Swal;
 
 import.meta.glob([
     '/public/img/pipes/**',
-    '/resources/sass/vendor/webfonts/font-awesome/**',
+    '../sass/vendor/webfonts/font-awesome/**',
 ]);

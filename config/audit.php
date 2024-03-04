@@ -25,12 +25,14 @@ return [
         'created_at',
         'deleted_at',
         'first_post_user_id',
+        'first_post_user_username',
         'ip',
         'last_action',
         'last_post_created_at',
-        'last_post_id',
         'last_post_user_id',
+        'last_post_username',
         'last_topic_id',
+        'last_topic_name',
         'nfo',
         'num_post',
         'num_topic',
@@ -53,5 +55,5 @@ return [
     |
     */
 
-    'recycle' => 30,
+    'recycle' => 999999,
 ];

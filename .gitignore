@@ -45,5 +45,20 @@ laravel-echo-server.lock
 .*.swp
 _ide_helper.php
 
+# Other
 supervisor.ini
 /.phpunit.cache/
+/mysql-unit3d_cinematik.sql
+/config/
+
+/public/pic/
+/img/
+/fonts/
+/resources/sass/vendor/css/
+/resources/sass/vendor/fontawesome/
+/resources/sass/vendor/js/
+/resources/sass/vendor/metadata/
+/resources/sass/vendor/scss/
+/resources/sass/vendor/sprites/
+/resources/sass/vendor/webfonts/
+/resources/sass/vendor/fontawesome/scss/

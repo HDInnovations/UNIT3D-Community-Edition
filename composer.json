@@ -43,7 +43,6 @@
         "brianium/paratest": "7.2.2",
         "diverently/phpstan-livewire": "^1.0.2",
         "fakerphp/faker": "^1.23.1",
-        "hdinnovations/tbdev-to-unit3d": "^0.0.17",
         "jasonmccreary/laravel-test-assertions": "^2.3",
         "larastan/larastan": "^2.8.1",
         "laravel/pint": "^1.13.9",

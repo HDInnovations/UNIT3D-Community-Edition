@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v7.2.5',
+    'powered-by' => 'Powered By UNIT3D Cinematik Edition v7.x.x',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition',
+    'codebase' => 'UNIT3D Cinematik Edition',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'version' => 'v7.2.5',
+    'version' => 'v7.x.x',
 
     /*
     |--------------------------------------------------------------------------
