@@ -39,7 +39,7 @@ class AutoRefundDownload extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $now = Carbon::now();
         $MIN_SEEDTIME = config('hitrun.seedtime');
