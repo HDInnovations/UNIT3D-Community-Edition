@@ -9,7 +9,7 @@
                         class="form__text"
                         placeholder=" "
                         type="text"
-                        wire:model.debounce.250ms="search"
+                        wire:model.live.debounce.250ms="search"
                     />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('torrent.search-by-name') }}

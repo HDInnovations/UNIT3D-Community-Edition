@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Passkey;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,35 +29,26 @@ class PasskeySearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $passkey = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'passkey'  => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Passkey>
      */
-    final public function getPasskeysProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function passkeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Passkey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

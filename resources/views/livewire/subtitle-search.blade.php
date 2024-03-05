@@ -111,7 +111,7 @@
                     <p class="form__group">
                         <input
                             id="search"
-                            wire:model="search"
+                            wire:model.live="search"
                             type="search"
                             class="form__text"
                             placeholder=" "
@@ -124,7 +124,7 @@
                         <select
                             id="language_id"
                             class="form__select"
-                            wire:model="language"
+                            wire:model.live="language"
                             x-data="{ language: '' }"
                             x-model="language"
                             x-bind:class="language === '' ? 'form__select--default' : ''"
@@ -151,7 +151,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                wire:model="categories"
+                                                wire:model.live="categories"
                                             />
                                             {{ $category->name }}
                                         </label>
@@ -163,7 +163,7 @@
                     <p class="form__group">
                         <input
                             id="username"
-                            wire:model="username"
+                            wire:model.live="username"
                             type="search"
                             class="form__text"
                             placeholder=" "
@@ -173,7 +173,12 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select id="quantity" class="form__select" wire:model="perPage" required>
+                        <select
+                            id="quantity"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>

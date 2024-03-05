@@ -9,7 +9,7 @@
                     <p class="form__group">
                         <input
                             id="torrent"
-                            wire:model="torrent"
+                            wire:model.live="torrent"
                             class="form__text"
                             placeholder=" "
                         />
@@ -18,21 +18,31 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="ip" wire:model="ip" class="form__text" placeholder=" " />
+                        <input id="ip" wire:model.live="ip" class="form__text" placeholder=" " />
                         <label class="form__label form__label--floating" for="ip">IP Address</label>
                     </p>
                     <p class="form__group">
-                        <input id="port" wire:model="port" class="form__text" placeholder=" " />
+                        <input
+                            id="port"
+                            wire:model.live="port"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="port">Port</label>
                     </p>
                     <p class="form__group">
-                        <input id="agent" wire:model="agent" class="form__text" placeholder=" " />
+                        <input
+                            id="agent"
+                            wire:model.live="agent"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">
                         <select
                             id="connectivity"
-                            wire:model="connectivity"
+                            wire:model.live="connectivity"
                             class="form__select"
                             placeholder=" "
                         >
@@ -47,7 +57,7 @@
                     <p class="form__group">
                         <select
                             id="active"
-                            wire:model="active"
+                            wire:model.live="active"
                             class="form__select"
                             placeholder=" "
                         >
@@ -60,7 +70,7 @@
                     <p class="form__group">
                         <select
                             id="groupBy"
-                            wire:model="groupBy"
+                            wire:model.live="groupBy"
                             class="form__select"
                             placeholder=" "
                         >
@@ -76,7 +86,7 @@
                     <p class="form__group">
                         <label class="form__label">
                             <input
-                                wire:model="duplicateIpsOnly"
+                                wire:model.live="duplicateIpsOnly"
                                 type="checkbox"
                                 class="form__checkbox"
                             />
@@ -86,7 +96,7 @@
                     <p class="form__group">
                         <label class="form__label">
                             <input
-                                wire:model="includeSeedsize"
+                                wire:model.live="includeSeedsize"
                                 type="checkbox"
                                 class="form__checkbox"
                             />

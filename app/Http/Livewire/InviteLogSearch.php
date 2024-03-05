@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Invite;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,42 +26,35 @@ class InviteLogSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $sender = '';
 
+    #[Url]
     public string $email = '';
 
+    #[Url]
     public string $code = '';
 
+    #[Url]
     public string $receiver = '';
 
+    #[Url]
     public string $custom = '';
 
+    #[Url]
     public string $groupBy = 'none';
 
+    #[Url]
     public int $threshold = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'sender'        => ['except' => ''],
-        'email'         => ['except' => ''],
-        'code'          => ['except' => ''],
-        'receiver'      => ['except' => ''],
-        'custom'        => ['except' => ''],
-        'groupBy'       => ['except' => 'none'],
-        'threshold'     => ['except' => 25],
-        'page'          => ['except' => 1],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'perPage'       => ['except' => ''],
-    ];
 
     final public function mount(): void
     {
@@ -67,11 +62,6 @@ class InviteLogSearch extends Component
             'user_id' => 'created_at_max',
             default   => 'created_at',
         };
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingGroupBy($value): void
@@ -85,7 +75,8 @@ class InviteLogSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Invite>
      */
-    final public function getInvitesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function invites(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
             ->with(['sender.group', 'receiver.group'])

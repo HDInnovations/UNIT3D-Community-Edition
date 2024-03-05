@@ -7,7 +7,7 @@
                     <div class="form__group">
                         <input
                             id="torrent"
-                            wire:model="torrentId"
+                            wire:model.live="torrentId"
                             class="form__text"
                             placeholder=" "
                         />
@@ -18,13 +18,23 @@
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <input id="user" wire:model="userId" class="form__text" placeholder=" " />
+                        <input
+                            id="user"
+                            wire:model.live="userId"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="user">User ID</label>
                     </div>
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="quantity" class="form__select" wire:model="perPage" required>
+                        <select
+                            id="quantity"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>

@@ -15,6 +15,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Warning;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,39 +25,29 @@ class WarningLogSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $sender = '';
 
+    #[Url]
     public string $receiver = '';
 
+    #[Url]
     public string $torrent = '';
 
+    #[Url]
     public string $reason = '';
 
+    #[Url]
     public bool $show = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'sender'   => ['except' => ''],
-        'receiver' => ['except' => ''],
-        'torrent'  => ['except' => ''],
-        'reason'   => ['except' => ''],
-        'show'     => ['except' => false],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function toggleProperties($property): void
     {
@@ -67,7 +59,8 @@ class WarningLogSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
      */
-    final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Warning::query()
             ->with(['warneduser.group', 'staffuser.group', 'torrenttitle'])

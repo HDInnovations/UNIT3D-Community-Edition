@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Note;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,23 +12,11 @@ class NoteSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $search = '';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'search'  => ['except' => ''],
-        'page'    => ['except' => 1],
-        'perPage' => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function updatingSearch(): void
     {
@@ -36,7 +26,8 @@ class NoteSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
      */
-    final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with([
@@ -59,6 +50,6 @@ class NoteSearch extends Component
     {
         $note->delete();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }
 }

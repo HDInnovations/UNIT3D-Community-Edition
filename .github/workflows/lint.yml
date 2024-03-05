@@ -9,10 +9,10 @@ jobs:
     name: ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     steps:
-      - name: Code Checkout
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - name: Run Pint
         uses: aglipanci/laravel-pint-action@2.0.0
         with:

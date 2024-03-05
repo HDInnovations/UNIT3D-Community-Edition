@@ -28,7 +28,7 @@
                     <div class="form__group">
                         <input
                             id="username"
-                            wire:model="username"
+                            wire:model.live="username"
                             class="form__text"
                             placeholder=" "
                         />
@@ -39,7 +39,7 @@
                     <div class="form__group">
                         <input
                             id="torrentName"
-                            wire:model="torrentName"
+                            wire:model.live="torrentName"
                             class="form__text"
                             placeholder=" "
                         />
@@ -50,7 +50,7 @@
                     <div class="form__group">
                         <input
                             id="torrentDownloadType"
-                            wire:model="torrentDownloadType"
+                            wire:model.live="torrentDownloadType"
                             class="form__text"
                             placeholder=" "
                         />
@@ -62,7 +62,7 @@
                         <input
                             id="from"
                             type="date"
-                            wire:model="from"
+                            wire:model.live="from"
                             class="form__text"
                             placeholder=" "
                         />
@@ -72,7 +72,7 @@
                         <input
                             id="until"
                             type="date"
-                            wire:model="until"
+                            wire:model.live="until"
                             class="form__text"
                             placeholder=" "
                         />
@@ -81,7 +81,7 @@
                     <div class="form__group">
                         <select
                             id="groupBy"
-                            wire:model="groupBy"
+                            wire:model.live="groupBy"
                             class="form__select"
                             placeholder=" "
                         >
@@ -102,7 +102,12 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="quantity" class="form__select" wire:model="perPage" required>
+                        <select
+                            id="quantity"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>

@@ -19,6 +19,8 @@ use App\Models\TorrentRequestClaim;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,97 +30,87 @@ class TorrentRequestSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $requestor = '';
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $categories = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $types = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $resolutions = [];
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $genres = [];
 
+    #[Url]
     public ?int $tmdbId = null;
 
+    #[Url]
     public string $imdbId = '';
 
+    #[Url]
     public ?int $tvdbId = null;
 
+    #[Url]
     public ?int $malId = null;
 
+    #[Url]
     public bool $unfilled = false;
 
+    #[Url]
     public bool $claimed = false;
 
+    #[Url]
     public bool $pending = false;
 
+    #[Url]
     public bool $filled = false;
 
+    #[Url]
     public bool $myRequests = false;
 
+    #[Url]
     public bool $myClaims = false;
 
+    #[Url]
     public bool $myVoted = false;
 
+    #[Url]
     public bool $myFilled = false;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public bool $showFilters = false;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'name'          => ['except' => ''],
-        'requestor'     => ['except' => ''],
-        'categories'    => ['except' => []],
-        'types'         => ['except' => []],
-        'resolutions'   => ['except' => []],
-        'genres'        => ['except' => []],
-        'tmdbId'        => ['except' => ''],
-        'imdbId'        => ['except' => ''],
-        'tvdbId'        => ['except' => ''],
-        'malId'         => ['except' => ''],
-        'unfilled'      => ['except' => false],
-        'claimed'       => ['except' => false],
-        'pending'       => ['except' => false],
-        'filled'        => ['except' => false],
-        'myRequests'    => ['except' => false],
-        'myClaims'      => ['except' => false],
-        'myVoted'       => ['except' => false],
-        'myFilled'      => ['except' => false],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'page'          => ['except' => 1],
-    ];
 
     final public function updating(string $field, mixed &$value): void
     {
         $this->castLivewireProperties($field, $value);
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function toggleShowFilters(): void
@@ -126,7 +118,8 @@ class TorrentRequestSearch extends Component
         $this->showFilters = !$this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty(): ?object
+    #[Computed]
+    final public function torrentRequestStat(): ?object
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -135,7 +128,8 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty(): ?object
+    #[Computed]
+    final public function torrentRequestBountyStat(): ?object
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
@@ -147,7 +141,8 @@ class TorrentRequestSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentRequest>
      */
-    final public function getTorrentRequestsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function torrentRequests(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;

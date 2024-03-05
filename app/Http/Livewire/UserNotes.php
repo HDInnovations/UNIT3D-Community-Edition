@@ -15,6 +15,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Note;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,35 +27,25 @@ class UserNotes extends Component
 
     public User $user;
 
+    #[Url]
+    #[Validate('required|filled')]
     public string $message = '';
 
     /**
      * @var array<int, string>
      */
+    #[Url]
+    #[Validate('array')]
     public array $messages = [];
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $rules = [
-        'message' => [
-            'required',
-            'filled',
-        ],
-        'messages' => [
-            'array',
-        ],
-        'messages.*' => [
-            'required',
-            'filled',
-        ]
-    ];
 
     final public function mount(): void
     {
@@ -62,7 +55,8 @@ class UserNotes extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
      */
-    final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with('staffuser', 'staffuser.group')
@@ -81,7 +75,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validateOnly('message');
+        $this->validate();
 
         Note::create([
             'user_id'  => $this->user->id,
@@ -91,22 +85,21 @@ class UserNotes extends Component
 
         $this->message = '';
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been posted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been posted!');
     }
 
     final public function update(int $id): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validateOnly('messages');
-        $this->validateOnly('messages.*');
+        $this->validate();
 
         Note::whereKey($id)->update([
             'staff_id' => auth()->id(),
             'message'  => $this->messages[$id],
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been updated!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been updated!');
     }
 
     final public function destroy(int $id): void
@@ -115,6 +108,6 @@ class UserNotes extends Component
 
         Note::findOrFail($id)->delete();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }
 }

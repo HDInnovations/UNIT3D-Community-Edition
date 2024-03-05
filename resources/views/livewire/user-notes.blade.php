@@ -15,7 +15,7 @@
                                 class="form__textarea"
                                 name="message"
                                 placeholder=" "
-                                wire:model.defer="message"
+                                wire:model="message"
                             ></textarea>
                             <label class="form__label form__label--floating" for="message">
                                 Note
@@ -91,7 +91,7 @@
                                                     class="form__textarea"
                                                     name="message"
                                                     placeholder=" "
-                                                    wire:model.defer="messages.{{ $note->id }}"
+                                                    wire:model="messages.{{ $note->id }}"
                                                 ></textarea>
                                                 <label
                                                     class="form__label form__label--floating"

@@ -36,7 +36,7 @@ class LikeButton extends Component
     final public function store(): void
     {
         if ($this->user->id === $this->post->user_id) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Like Your Own Post!']);
+            $this->dispatch('error', type: 'error', message: 'You Cannot Like Your Own Post!');
 
             return;
         }
@@ -44,7 +44,7 @@ class LikeButton extends Component
         $exist = Like::where('user_id', '=', $this->user->id)->where('post_id', '=', $this->post->id)->first();
 
         if ($exist) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Liked Or Disliked This Post!']);
+            $this->dispatch('error', type: 'error', message: 'You Have Already Liked Or Disliked This Post!');
 
             return;
         }
@@ -57,7 +57,7 @@ class LikeButton extends Component
 
         $this->likesCount += 1;
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Like Was Successfully Applied!']);
+        $this->dispatch('success', type: 'success', message: 'Your Like Was Successfully Applied!');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Apikey;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,35 +29,26 @@ class ApikeySearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $apikey = '';
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public int $perPage = 25;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'apikey'   => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Apikey>
      */
-    final public function getApikeysProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function apikeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Apikey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

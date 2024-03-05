@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Forum;
 use App\Models\Subscription;
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,38 +25,35 @@ class ForumTopicSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
-    public string $sortField = 'last_post_created_at';
-    public string $sortDirection = 'desc';
-    public string $label = '';
-    public string $state = '';
-    public string $subscribed = '';
-    public string $read = '';
-    public Forum $forum;
-    public ?Subscription $subscription;
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'search'        => ['except' => ''],
-        'sortField'     => ['except' => 'last_post_created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'read'          => ['except' => ''],
-        'label'         => ['except' => ''],
-        'state'         => ['except' => ''],
-        'subscribed'    => ['except' => ''],
-    ];
+    #[Url]
+    public string $sortField = 'last_post_created_at';
+
+    #[Url]
+    public string $sortDirection = 'desc';
+
+    #[Url]
+    public string $label = '';
+
+    #[Url]
+    public string $state = '';
+
+    #[Url]
+    public string $subscribed = '';
+
+    #[Url]
+    public string $read = '';
+
+    public Forum $forum;
+
+    public ?Subscription $subscription;
 
     final public function mount(Forum $forum): void
     {
         $this->forum = $forum;
         $this->subscription = Subscription::where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -65,7 +64,8 @@ class ForumTopicSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
      */
-    final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')

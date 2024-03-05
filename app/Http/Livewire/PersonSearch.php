@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Person;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,19 +23,17 @@ class PersonSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public string $search = '';
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $occupationIds = [];
 
+    #[Url]
     public string $firstCharacter = '';
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function updatingSearch(): void
     {
@@ -43,7 +43,8 @@ class PersonSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Person>
      */
-    final public function getPersonsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function persons(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Person::select(['id', 'still', 'name'])
             ->whereNotNull('still')
@@ -57,7 +58,8 @@ class PersonSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Person>
      */
-    final public function getFirstCharactersProperty()
+    #[Computed]
+    final public function firstCharacters()
     {
         return Person::selectRaw('substr(name, 1, 1) as alpha, count(*) as count')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

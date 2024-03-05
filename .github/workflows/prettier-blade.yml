@@ -9,10 +9,10 @@ jobs:
     name: ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     steps:
-      - name: Code Checkout
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - name: Configure Bun
         uses: oven-sh/setup-bun@v1
         with:

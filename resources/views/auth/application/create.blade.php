@@ -169,7 +169,6 @@
             </section>
         </main>
         @vite('resources/js/app.js')
-        @vite('resources/js/vendor/alpine.js')
-        @livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
+        @livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
     </body>
 </html>

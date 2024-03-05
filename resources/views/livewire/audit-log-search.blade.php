@@ -8,7 +8,7 @@
                         id="username"
                         class="form__text"
                         type="text"
-                        wire:model="username"
+                        wire:model.live="username"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="username">Username</label>
@@ -22,7 +22,7 @@
                         x-model="selected"
                         x-bind:class="selected === '' ? 'form__select--default' : ''"
                         class="form__select"
-                        wire:model="modelName"
+                        wire:model.live="modelName"
                         required
                     >
                         <option selected value="">All</option>
@@ -39,7 +39,7 @@
                         id="modelId"
                         class="form__text"
                         type="text"
-                        wire:model="modelId"
+                        wire:model.live="modelId"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="modelId">Model Id</label>
@@ -50,7 +50,7 @@
                     <select
                         id="action"
                         class="form__select"
-                        wire:model="action"
+                        wire:model.live="action"
                         required
                         x-data="{ selected: '' }"
                         x-model="selected"
@@ -70,7 +70,7 @@
                         id="record"
                         class="form__text"
                         type="text"
-                        wire:model="record"
+                        wire:model.live="record"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="record">Record</label>
@@ -78,7 +78,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>

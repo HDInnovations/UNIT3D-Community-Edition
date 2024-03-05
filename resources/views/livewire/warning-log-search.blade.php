@@ -19,7 +19,7 @@
                         id="receiver"
                         class="form__text"
                         type="text"
-                        wire:model="receiver"
+                        wire:model.live="receiver"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="receiver">
@@ -33,7 +33,7 @@
                         id="sender"
                         class="form__text"
                         type="text"
-                        wire:model="sender"
+                        wire:model.live="sender"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="sender">
@@ -47,7 +47,7 @@
                         id="torrent"
                         class="form__text"
                         type="text"
-                        wire:model="torrent"
+                        wire:model.live="torrent"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="torrent">
@@ -61,7 +61,7 @@
                         id="reason"
                         class="form__text"
                         type="text"
-                        wire:model="reason"
+                        wire:model.live="reason"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="reason">
@@ -71,7 +71,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>

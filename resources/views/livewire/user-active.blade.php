@@ -6,7 +6,7 @@
                 <p class="form__group">
                     <input
                         id="name"
-                        wire:model="name"
+                        wire:model.live="name"
                         class="form__text"
                         placeholder=" "
                         autofocus=""
@@ -19,7 +19,7 @@
                     <label
                         style="user-select: none"
                         class="form__label"
-                        x-data="{ state: @entangle('seeding'), ...ternaryCheckbox() }"
+                        x-data="{ state: @entangle('seeding').live, ...ternaryCheckbox() }"
                     >
                         <input
                             type="checkbox"
@@ -38,7 +38,7 @@
                     <label
                         style="user-select: none"
                         class="form__label"
-                        x-data="{ state: @entangle('active'), ...ternaryCheckbox() }"
+                        x-data="{ state: @entangle('active').live, ...ternaryCheckbox() }"
                     >
                         <input
                             type="checkbox"
@@ -77,7 +77,7 @@
                         <input
                             type="checkbox"
                             class="user-peers__checkbox"
-                            wire:model="showMorePrecision"
+                            wire:model.live="showMorePrecision"
                         />
                         Show more precision
                     </label>
@@ -91,7 +91,7 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="perPage" wire:model="perPage" class="form__select">
+                        <select id="perPage" wire:model.live="perPage" class="form__select">
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>

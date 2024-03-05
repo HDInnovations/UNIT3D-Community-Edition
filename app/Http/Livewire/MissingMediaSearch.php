@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\Movie;
 use App\Models\Type;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,29 +15,23 @@ class MissingMediaSearch extends Component
     use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public array $categories = [];
 
-    public int $perPage = 50;
-
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'categories'    => ['except' => []],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'page'          => ['except' => 1],
-        'perPage'       => ['except' => ''],
-    ];
+    #[Url]
+    public int $perPage = 50;
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Movie>
      */
-    final public function getMediasProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function medias(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
             ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereNull('claimed')])
@@ -46,7 +42,8 @@ class MissingMediaSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    final public function getTypesProperty(): \Illuminate\Database\Eloquent\Collection
+    #[Computed]
+    final public function types(): \Illuminate\Database\Eloquent\Collection
     {
         return Type::select('id', 'position', 'name')->orderBy('position')->get();
     }

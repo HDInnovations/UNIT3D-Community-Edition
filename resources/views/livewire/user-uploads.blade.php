@@ -6,7 +6,7 @@
                 <p class="form__group">
                     <input
                         id="name"
-                        wire:model="name"
+                        wire:model.live="name"
                         class="form__text"
                         placeholder=" "
                         autofocus=""
@@ -25,7 +25,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('personalRelease'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('personalRelease').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -53,7 +53,7 @@
                                         class="user-uploads__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::PENDING }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     {{ __('torrent.pending') }}
                                 </label>
@@ -64,7 +64,7 @@
                                         class="user-uploads__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::APPROVED }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     {{ __('torrent.approved') }}
                                 </label>
@@ -75,7 +75,7 @@
                                         class="user-uploads__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::REJECTED }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     {{ __('torrent.rejected') }}
                                 </label>
@@ -86,7 +86,7 @@
                                         class="user-uploads__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::POSTPONED }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     Postponed
                                 </label>
@@ -103,7 +103,7 @@
                                     <input
                                         type="checkbox"
                                         class="user-uploads__checkbox"
-                                        wire:model="showMorePrecision"
+                                        wire:model.live="showMorePrecision"
                                     />
                                     Show more precision
                                 </label>

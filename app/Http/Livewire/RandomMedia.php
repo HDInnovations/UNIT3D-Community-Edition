@@ -16,6 +16,7 @@ namespace App\Http\Livewire;
 use App\Models\Tv;
 use App\Models\Movie;
 use Illuminate\Support\Facades\Redis;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class RandomMedia extends Component
@@ -23,7 +24,8 @@ class RandomMedia extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Movie>
      */
-    final public function getMoviesProperty(): \Illuminate\Support\Collection
+    #[Computed]
+    final public function movies(): \Illuminate\Support\Collection
     {
         $cacheKey = config('cache.prefix').':random-media-movie-ids';
 
@@ -38,7 +40,8 @@ class RandomMedia extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Movie>
      */
-    final public function getMovies2Property(): \Illuminate\Support\Collection
+    #[Computed]
+    final public function movies2(): \Illuminate\Support\Collection
     {
         $cacheKey = config('cache.prefix').':random-media-movie-ids';
 
@@ -53,7 +56,8 @@ class RandomMedia extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Tv>
      */
-    final public function getTvsProperty(): \Illuminate\Support\Collection
+    #[Computed]
+    final public function tvs(): \Illuminate\Support\Collection
     {
         $cacheKey = config('cache.prefix').':random-media-tv-ids';
 

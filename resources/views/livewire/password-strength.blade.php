@@ -10,7 +10,7 @@
             required
             type="password"
             value="{{ old('new_password') }}"
-            wire:model="password"
+            wire:model.live="password"
         />
         <label class="form__label form__label--floating" for="new_password">New Password</label>
     </p>

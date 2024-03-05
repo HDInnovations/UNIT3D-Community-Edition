@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,18 +23,8 @@ class PostSearch extends Component
 {
     use WithPagination;
 
+    #[Url]
     public String $search = '';
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'search' => ['except' => ''],
-    ];
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function updatingSearch(): void
     {
@@ -42,7 +34,8 @@ class PostSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
      */
-    final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()
             ->with('user', 'user.group', 'topic:id,name,state')

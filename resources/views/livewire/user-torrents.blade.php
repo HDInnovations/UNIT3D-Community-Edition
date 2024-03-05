@@ -6,7 +6,7 @@
                 <p class="form__group">
                     <input
                         id="name"
-                        wire:model="name"
+                        wire:model.live="name"
                         class="form__text"
                         placeholder=" "
                         autofocus=""
@@ -25,7 +25,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('unsatisfied'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('unsatisfied').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -44,7 +44,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('active'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('active').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -63,7 +63,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('completed'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('completed').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -82,7 +82,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('prewarn'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('prewarn').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -101,7 +101,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('hitrun'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('hitrun').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -120,7 +120,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('immune'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('immune').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -139,7 +139,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('uploaded'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('uploaded').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -158,7 +158,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('downloaded'), ...ternaryCheckbox() }"
+                                    x-data="{ state: @entangle('downloaded').live, ...ternaryCheckbox() }"
                                 >
                                     <input
                                         type="checkbox"
@@ -186,7 +186,7 @@
                                         class="user-torrents__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::PENDING }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     {{ __('torrent.pending') }}
                                 </label>
@@ -197,7 +197,7 @@
                                         class="user-torrents__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::APPROVED }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     {{ __('torrent.approved') }}
                                 </label>
@@ -208,7 +208,7 @@
                                         class="user-torrents__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::REJECTED }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     {{ __('torrent.rejected') }}
                                 </label>
@@ -219,7 +219,7 @@
                                         class="user-torrents__checkbox"
                                         type="checkbox"
                                         value="{{ \App\Models\Torrent::POSTPONED }}"
-                                        wire:model="status"
+                                        wire:model.live="status"
                                     />
                                     Postponed
                                 </label>
@@ -236,7 +236,7 @@
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        wire:model="showMorePrecision"
+                                        wire:model.live="showMorePrecision"
                                     />
                                     Show more precision
                                 </label>

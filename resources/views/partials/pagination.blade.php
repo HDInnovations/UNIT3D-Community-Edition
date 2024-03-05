@@ -1,3 +1,16 @@
+@php
+    if (! isset($scrollTo)) {
+        $scrollTo = 'body';
+    }
+
+    $scrollIntoViewJsSnippet =
+        $scrollTo !== false
+            ? <<<JS
+       (\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).scrollIntoView()
+    JS
+            : '';
+@endphp
+
 @if ($paginator->hasPages())
     <nav class="pagination" role="navigation" aria-label="Pagination Navigation">
         <ul class="pagination__items">
@@ -11,6 +24,7 @@
                         class="pagination__previous"
                         href="{{ $paginator->previousPageUrl() }}"
                         wire:click.prevent="previousPage"
+                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
                         rel="prev"
                     >
                         &lsaquo; {{ __('common.previous') }}
@@ -27,6 +41,7 @@
                                 class="pagination__link"
                                 href="{{ $paginator->url(1) }}"
                                 wire:click.prevent="gotoPage(1, '{{ $paginator->getPageName() }}')"
+                                x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 rel="prev"
                             >
                                 1
@@ -40,6 +55,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url(2) }}"
                                     wire:click.prevent="gotoPage(2, '{{ $paginator->getPageName() }}')"
+                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 >
                                     2
                                 </a>
@@ -58,6 +74,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url($page) }}"
                                     wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 >
                                     {{ $page }}
                                 </a>
@@ -72,6 +89,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url($paginator->currentPage() + 4) }}"
                                     wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }}, '{{ $paginator->getPageName() }}')"
+                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 >
                                     {{ $paginator->currentPage() + 4 }}
                                 </a>
@@ -87,6 +105,7 @@
                                 class="pagination__link"
                                 href="{{ $paginator->url($paginator->lastPage()) }}"
                                 wire:click.prevent="gotoPage({{ $paginator->lastPage() }}, '{{ $paginator->getPageName() }}')"
+                                x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 rel="next"
                             >
                                 {{ $paginator->lastPage() }}
@@ -104,6 +123,7 @@
                         class="pagination__next"
                         href="{{ $paginator->nextPageUrl() }}"
                         wire:click.prevent="nextPage"
+                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
                         rel="next"
                     >
                         {{ __('common.next') }} &rsaquo;

@@ -15,8 +15,11 @@ namespace App\Http\Livewire;
 
 use App\Models\Announce;
 use App\Models\TorrentDownload;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,46 +28,35 @@ use Livewire\WithPagination;
  */
 class TorrentDownloadSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #[Url]
     public int $perPage = 50;
 
+    #[Url]
     public string $torrentName = '';
 
+    #[Url]
     public string $username = '';
 
+    #[Url]
     public string $torrentDownloadType = '';
 
+    #[Url]
     public string $from = '';
 
+    #[Url]
     public string $until = '';
 
+    #[Url]
     public string $groupBy = 'none';
 
+    #[Url]
     public string $sortField = 'id';
 
+    #[Url]
     public string $sortDirection = 'desc';
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected $queryString = [
-        'page'                => ['except' => 1],
-        'perPage'             => ['except' => 25],
-        'torrentName'         => ['except' => ''],
-        'username'            => ['except' => ''],
-        'torrentDownloadType' => ['except' => ''],
-        'from'                => ['except' => null],
-        'until'               => ['except' => null],
-        'groupBy'             => ['except' => 'none'],
-        'sortField'           => ['except' => 'id'],
-        'sortDirection'       => ['except' => 'desc'],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function updatingGroupBy(string $value): void
     {
@@ -97,7 +89,8 @@ class TorrentDownloadSearch extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentDownload>
      */
-    final public function getTorrentDownloadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function torrentDownloads(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return TorrentDownload::query()
             ->with([
@@ -126,17 +119,6 @@ class TorrentDownloadSearch extends Component
                     ])
             )
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy(string $field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'desc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

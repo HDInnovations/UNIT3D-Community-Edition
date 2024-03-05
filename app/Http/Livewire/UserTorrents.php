@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\History;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,65 +28,54 @@ class UserTorrents extends Component
 
     public ?User $user = null;
 
+    #[Url]
     public int $perPage = 25;
 
+    #[Url]
     public string $name = '';
 
+    #[Url]
     public string $unsatisfied = 'any';
 
+    #[Url]
     public string $active = 'any';
 
+    #[Url]
     public string $completed = 'any';
 
+    #[Url]
     public string $uploaded = 'any';
 
+    #[Url]
     public string $hitrun = 'any';
 
+    #[Url]
     public string $prewarn = 'any';
 
+    #[Url]
     public string $immune = 'any';
 
+    #[Url]
     public string $downloaded = 'any';
 
     /**
      * @var string[]
      */
+    #[Url]
     public array $status = [];
 
+    #[Url]
     public string $sortField = 'created_at';
 
+    #[Url]
     public string $sortDirection = 'desc';
 
+    #[Url]
     public bool $showMorePrecision = false;
-
-    /**
-     * @var array<mixed>
-     */
-    protected $queryString = [
-        'perPage'           => ['except' => ''],
-        'name'              => ['except' => ''],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
-        'unsatisfied'       => ['except' => 'any'],
-        'active'            => ['except' => 'any'],
-        'completed'         => ['except' => 'any'],
-        'prewarn'           => ['except' => 'any'],
-        'hitrun'            => ['except' => 'any'],
-        'immune'            => ['except' => 'any'],
-        'uploaded'          => ['except' => 'any'],
-        'downloaded'        => ['except' => 'any'],
-        'status'            => ['except' => []],
-        'showMorePrecision' => ['except' => false],
-    ];
 
     final public function mount(int $userId): void
     {
         $this->user = User::find($userId);
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -95,7 +86,8 @@ class UserTorrents extends Component
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
      */
-    final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function history(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $histories = History::query()
             ->join(
