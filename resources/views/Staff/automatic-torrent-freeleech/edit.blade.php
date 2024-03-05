@@ -81,7 +81,7 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <select id="category_id" name="category_id" class="form__select" required>
+                    <select id="category_id" name="category_id" class="form__select">
                         <option hidden selected disabled value=""></option>
                         @foreach ($categories as $category)
                             <option
@@ -98,7 +98,7 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <select id="type_id" name="type_id" class="form__select" required>
+                    <select id="type_id" name="type_id" class="form__select">
                         <option hidden disabled selected value="">Any</option>
                         @foreach ($types as $type)
                             <option
