@@ -20,11 +20,6 @@ use App\Models\Company;
 class CompanyFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Company::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

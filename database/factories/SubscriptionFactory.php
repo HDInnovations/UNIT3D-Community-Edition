@@ -23,11 +23,6 @@ use App\Models\Subscription;
 class SubscriptionFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Subscription::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

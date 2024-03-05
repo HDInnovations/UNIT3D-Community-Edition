@@ -22,11 +22,6 @@ use App\Models\History;
 class HistoryFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = History::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

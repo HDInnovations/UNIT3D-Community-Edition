@@ -20,11 +20,6 @@ use App\Models\TicketCategory;
 class TicketCategoryFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = TicketCategory::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

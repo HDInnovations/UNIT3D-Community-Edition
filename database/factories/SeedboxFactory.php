@@ -21,11 +21,6 @@ use App\Models\Seedbox;
 class SeedboxFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Seedbox::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
