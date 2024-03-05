@@ -170,17 +170,17 @@ class AutoBonAllocation extends Command
 
         foreach ($legendaryTorrent as $value) {
             if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1.5;
+                $array[$value->user_id] += $value->value * 0.2;
             } else {
-                $array[$value->user_id] = $value->value * 1.5;
+                $array[$value->user_id] = $value->value * 0.2;
             }
         }
 
         foreach ($oldTorrent as $value) {
             if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1;
+                $array[$value->user_id] += $value->value * 0.1;
             } else {
-                $array[$value->user_id] = $value->value * 1;
+                $array[$value->user_id] = $value->value * 0.1;
             }
         }
 
