@@ -55,15 +55,6 @@ class Group extends Model
     use HasFactory;
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'system_required' => 'boolean',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
@@ -82,6 +73,18 @@ class Group extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'system_required' => 'boolean',
+        ];
+    }
+
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(User::class);

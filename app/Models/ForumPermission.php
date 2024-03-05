@@ -42,21 +42,24 @@ class ForumPermission extends Model
     public $guarded = [];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'read_topic'  => 'boolean',
-        'reply_topic' => 'boolean',
-        'start_topic' => 'boolean',
-    ];
-
-    /**
      * Belongs To A Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, self>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'read_topic'  => 'boolean',
+            'reply_topic' => 'boolean',
+            'start_topic' => 'boolean',
+        ];
+    }
+
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Group::class);

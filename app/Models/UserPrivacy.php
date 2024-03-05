@@ -80,29 +80,32 @@ class UserPrivacy extends Model
     protected $table = 'user_privacy';
 
     /**
-     * The Attributes That Should Be Cast To Native Values.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'json_profile_groups'     => 'array',
-        'json_torrent_groups'     => 'array',
-        'json_forum_groups'       => 'array',
-        'json_bon_groups'         => 'array',
-        'json_comment_groups'     => 'array',
-        'json_wishlist_groups'    => 'array',
-        'json_follower_groups'    => 'array',
-        'json_achievement_groups' => 'array',
-        'json_rank_groups'        => 'array',
-        'json_request_groups'     => 'array',
-        'json_other_groups'       => 'array',
-    ];
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'json_profile_groups'     => 'array',
+            'json_torrent_groups'     => 'array',
+            'json_forum_groups'       => 'array',
+            'json_bon_groups'         => 'array',
+            'json_comment_groups'     => 'array',
+            'json_wishlist_groups'    => 'array',
+            'json_follower_groups'    => 'array',
+            'json_achievement_groups' => 'array',
+            'json_rank_groups'        => 'array',
+            'json_request_groups'     => 'array',
+            'json_other_groups'       => 'array',
+        ];
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([

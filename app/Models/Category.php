@@ -45,18 +45,6 @@ class Category extends Model
     public $timestamps = false;
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
-     *
-     * @var array<string, string>
-     */
-    public $casts = [
-        'music_meta' => 'boolean',
-        'game_meta'  => 'boolean',
-        'tv_meta'    => 'boolean',
-        'movie_meta' => 'boolean',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
@@ -68,6 +56,21 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'music_meta' => 'boolean',
+            'game_meta'  => 'boolean',
+            'tv_meta'    => 'boolean',
+            'movie_meta' => 'boolean',
+        ];
+    }
+
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class);

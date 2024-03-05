@@ -30,17 +30,20 @@ class Ticket extends Model
     use Auditable;
     use HasFactory;
 
-    protected $casts = [
-        'closed_at'   => 'datetime',
-        'reminded_at' => 'datetime',
-    ];
-
     protected $guarded = [];
 
     /**
      * @param  Builder<Ticket> $query
      * @return Builder<Ticket>
      */
+    protected function casts(): array
+    {
+        return [
+            'closed_at'   => 'datetime',
+            'reminded_at' => 'datetime',
+        ];
+    }
+
     public function scopeStatus(Builder $query, string $status): Builder
     {
         if ($status === 'closed') {

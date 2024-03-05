@@ -40,20 +40,23 @@ class EmailUpdate extends Model
     protected $guarded = ['id'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'created_at' => 'datetime',
-        'deleted_at' => 'datetime',
-    ];
-
-    /**
      * Belongs to a user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+            'deleted_at' => 'datetime',
+        ];
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

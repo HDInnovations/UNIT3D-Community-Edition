@@ -63,26 +63,29 @@ class UserNotification extends Model
     public $timestamps = false;
 
     /**
-     * The Attributes That Should Be Cast To Native Values.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'json_account_groups'      => 'array',
-        'json_mention_groups'      => 'array',
-        'json_request_groups'      => 'array',
-        'json_torrent_groups'      => 'array',
-        'json_forum_groups'        => 'array',
-        'json_following_groups'    => 'array',
-        'json_subscription_groups' => 'array',
-        'json_bon_groups'          => 'array',
-    ];
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'json_account_groups'      => 'array',
+            'json_mention_groups'      => 'array',
+            'json_request_groups'      => 'array',
+            'json_torrent_groups'      => 'array',
+            'json_forum_groups'        => 'array',
+            'json_following_groups'    => 'array',
+            'json_subscription_groups' => 'array',
+            'json_bon_groups'          => 'array',
+        ];
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([

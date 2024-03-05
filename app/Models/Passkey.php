@@ -41,19 +41,22 @@ class Passkey extends Model
     protected $guarded = ['id'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'deleted_at' => 'datetime',
-    ];
-
-    /**
      * Has Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'deleted_at' => 'datetime',
+        ];
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -46,18 +46,6 @@ class Topic extends Model
     use Auditable;
     use HasFactory;
 
-    protected $casts = [
-        'last_post_created_at' => 'datetime',
-        'pinned'               => 'boolean',
-        'approved'             => 'boolean',
-        'denied'               => 'boolean',
-        'solved'               => 'boolean',
-        'invalid'              => 'boolean',
-        'bug'                  => 'boolean',
-        'suggestion'           => 'boolean',
-        'implemented'          => 'boolean',
-    ];
-
     protected $guarded = [];
 
     /**
@@ -65,6 +53,21 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, self>
      */
+    protected function casts(): array
+    {
+        return [
+            'last_post_created_at' => 'datetime',
+            'pinned'               => 'boolean',
+            'approved'             => 'boolean',
+            'denied'               => 'boolean',
+            'solved'               => 'boolean',
+            'invalid'              => 'boolean',
+            'bug'                  => 'boolean',
+            'suggestion'           => 'boolean',
+            'implemented'          => 'boolean',
+        ];
+    }
+
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Forum::class);

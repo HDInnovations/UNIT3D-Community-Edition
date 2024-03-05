@@ -41,19 +41,22 @@ class Peer extends Model
     use HasFactory;
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'active'      => 'boolean',
-        'seeder'      => 'boolean',
-        'connectable' => 'boolean',
-    ];
-
-    /**
      * Prepare a date for array / JSON serialization.
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'active'      => 'boolean',
+            'seeder'      => 'boolean',
+            'connectable' => 'boolean',
+        ];
+    }
+
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');

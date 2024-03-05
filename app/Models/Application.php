@@ -52,16 +52,19 @@ class Application extends Model
         'moderated_at',
     ];
 
-    protected $casts = [
-        'moderated_at' => 'datetime',
-    ];
-
     /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected function casts(): array
+    {
+        return [
+            'moderated_at' => 'datetime',
+        ];
+    }
 
     protected static function booted(): void
     {

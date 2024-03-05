@@ -54,17 +54,6 @@ class Rss extends Model
     public $timestamps = true;
 
     /**
-     * The Attributes That Should Be Cast To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name'            => 'string',
-        'json_torrent'    => 'array',
-        'expected_fields' => 'array',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
@@ -76,6 +65,20 @@ class Rss extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'name'            => 'string',
+            'json_torrent'    => 'array',
+            'expected_fields' => 'array',
+        ];
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
