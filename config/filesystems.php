@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'disks' => [
         'ftp' => [
             'driver'   => 'ftp',
@@ -53,5 +52,4 @@ return [
             'root'   => public_path('files/attachments'),
         ],
     ],
-
 ];
