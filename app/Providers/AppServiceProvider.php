@@ -84,5 +84,7 @@ class AppServiceProvider extends ServiceProvider
         Vite::useStyleTagAttributes([
             'crossorigin' => 'anonymous',
         ]);
+
+        \Illuminate\Foundation\Console\VendorPublishCommand::dontUpdateMigrationDates();
     }
 }
