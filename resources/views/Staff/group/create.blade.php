@@ -253,13 +253,13 @@
                 </p>
                 <p class="form__group" x-show="autogroup" x-cloak>
                     <input
-                        id="minimum_age"
+                        id="min_age"
                         class="form__text"
                         type="text"
-                        name="minimum_age"
+                        name="min_age"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="minimum_age">
+                    <label class="form__label form__label--floating" for="min_age">
                         Minimum age required
                     </label>
                 </p>

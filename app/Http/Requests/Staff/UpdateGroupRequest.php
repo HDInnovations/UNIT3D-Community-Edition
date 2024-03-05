@@ -139,7 +139,7 @@ class UpdateGroupRequest extends FormRequest
                 'integer',
                 'min:0',
             ],
-            'min_seedtime' => [
+            'min_seedsize' => [
                 'sometimes',
                 'nullable',
                 'integer',

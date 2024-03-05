@@ -277,7 +277,7 @@
                                 {{ __('torrent.season-number') }}
                             </label>
                             <span class="form__hint">
-                                Numeric digits only. Use 0 only for specials.
+                                Numeric digits only. Use 0 only for specials and complete packs.
                             </span>
                         </p>
                         <p class="form__group">
@@ -295,7 +295,7 @@
                                 {{ __('torrent.episode-number') }}
                             </label>
                             <span class="form__hint">
-                                Numeric digits only. Use 0 only for season packs.
+                                Numeric digits only. Use 0 only for season packs and complete packs.
                             </span>
                         </p>
                     </div>
