@@ -167,7 +167,7 @@ class TorrentController extends Controller
                         },
                     ]
                 ]),
-            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id']        => ['name'        => $type['name']]]),
+            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]),
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
