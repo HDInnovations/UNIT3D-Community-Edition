@@ -135,8 +135,8 @@ class EarningController extends Controller
 
         //Total points per hour
         $total = 2.00 * $dying
-            + 1.50 * $legendary
-            + 1.00 * $old
+            + 0.20 * $legendary
+            + 0.10 * $old
             + 0.75 * $huge
             + 0.50 * $large
             + 0.25 * $regular
