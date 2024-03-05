@@ -97,6 +97,7 @@ class Kernel extends HttpKernel
         'modo'             => Middleware\CheckForModo::class,
         'owner'            => Middleware\CheckForOwner::class,
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
+        'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class
