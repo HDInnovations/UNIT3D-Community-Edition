@@ -68,5 +68,10 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->dontReport([
+            \Illuminate\Queue\MaxAttemptsExceededException::class,
+        ]);
+
+        $exceptions->reportable(function (Throwable $e): void {
+        });
     })->create();
