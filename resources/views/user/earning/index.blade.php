@@ -63,9 +63,9 @@
                         </td>
                         <td>1.50 &times; {{ $legendary }}</td>
                         <td>{{ $legendary * 1.5 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legendary * 1.5 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legendary * 1.5 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legendary * 1.5 * 24 * 30 }}</td>
+                        <td x-cloak x-show="isToggledOn">{{ $legendary * 0.2 * 24 }}</td>
+                        <td x-cloak x-show="isToggledOn">{{ $legendary * 0.2 * 24 * 7 }}</td>
+                        <td x-cloak x-show="isToggledOn">{{ $legendary * 0.2 * 24 * 30 }}</td>
                     </tr>
                     <tr>
                         <td>{{ __('torrent.old-torrent') }}</td>
@@ -74,9 +74,9 @@
                         </td>
                         <td>1.00 &times; {{ $old }}</td>
                         <td>{{ $old * 1 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $old * 1 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $old * 1 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $old * 1 * 24 * 30 }}</td>
+                        <td x-cloak x-show="isToggledOn">{{ $old * 0.1 * 24 }}</td>
+                        <td x-cloak x-show="isToggledOn">{{ $old * 0.1 * 24 * 7 }}</td>
+                        <td x-cloak x-show="isToggledOn">{{ $old * 0.1 * 24 * 30 }}</td>
                     </tr>
                     <tr>
                         <td>{{ __('common.huge') }} {{ __('torrent.torrents') }}</td>
