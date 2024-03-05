@@ -54,4 +54,4 @@ return [
     'username-sent'       => 'We’ve sent your username to your email address.',
     'disabled-header'     => 'Account Deactivation Notification',
     'pruned-header'       => 'Account Removal Notification',
-    ];
+];
