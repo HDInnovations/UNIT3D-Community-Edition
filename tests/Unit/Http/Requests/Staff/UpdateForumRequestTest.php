@@ -12,6 +12,7 @@
  */
 
 use App\Http\Requests\Staff\UpdateForumRequest;
+use Illuminate\Validation\Rule;
 
 beforeEach(function (): void {
     $this->subject = new UpdateForumRequest();
@@ -27,21 +28,26 @@ test('rules', function (): void {
     $actual = $this->subject->rules();
 
     $this->assertValidationRules([
-        'name' => [
+        'forum.name' => [
             'required',
         ],
-        'position' => [
+        'forum.position' => [
             'required',
         ],
-        'slug' => [
+        'forum.slug' => [
             'required',
         ],
-        'description' => [
+        'forum.description' => [
             'required',
         ],
-        'forum_category_id' => [
+        'forum.forum_category_id' => [
             'required',
             'exists:forum_categories,id',
+        ],
+        'forum.default_topic_state_filter' => [
+            'sometimes',
+            'nullable',
+            Rule::in(['close', 'open', null]),
         ],
         'permissions' => [
             'required',

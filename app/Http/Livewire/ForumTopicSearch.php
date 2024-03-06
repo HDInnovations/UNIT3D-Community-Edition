@@ -56,6 +56,7 @@ class ForumTopicSearch extends Component
     {
         $this->forum = $forum;
         $this->subscription = Subscription::where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
+        $this->state = $this->forum->default_topic_state_filter ?: '';
     }
 
     final public function updatingSearch(): void
