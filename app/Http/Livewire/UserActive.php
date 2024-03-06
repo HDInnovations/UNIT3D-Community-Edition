@@ -31,37 +31,39 @@ class UserActive extends Component
 
     public ?User $user = null;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $name = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $ip = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $port = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $client = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $seeding = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $active = 'include';
 
-    #[Url]
+    #[Url(history: true)]
     public string $visible = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url]
+    #[Url(history: true)]
     public bool $showMorePrecision = false;
 
     final public function mount(int $userId): void

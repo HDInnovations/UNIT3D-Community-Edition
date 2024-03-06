@@ -26,7 +26,9 @@ class TopicPostSearch extends Component
 {
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $search = '';
 
     public Topic $topic;

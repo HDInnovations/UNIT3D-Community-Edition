@@ -29,31 +29,33 @@ class HistorySearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $agent = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $torrent = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $user = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $seeder = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $active = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $groupBy = 'none';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     final public function updatingUser(): void

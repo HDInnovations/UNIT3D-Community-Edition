@@ -30,82 +30,84 @@ class TorrentRequestSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $name = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $requestor = '';
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $categories = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $types = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $resolutions = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $genres = [];
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $tmdbId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public string $imdbId = '';
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $tvdbId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $malId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $unfilled = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $claimed = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $pending = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $filled = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $myRequests = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $myClaims = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $myVoted = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $myFilled = false;
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url]
+    #[Url(history: true)]
     public bool $showFilters = false;
 
     final public function updating(string $field, mixed &$value): void

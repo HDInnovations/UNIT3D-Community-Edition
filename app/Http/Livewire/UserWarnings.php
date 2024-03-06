@@ -38,20 +38,22 @@ class UserWarnings extends Component
 
     public User $user;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $warningTab = 'automated';
 
-    #[Url]
+    #[Url(history: true)]
     #[Validate('required|filled|max:255')]
     public string $message = '';
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 10;
 
-    #[Url]
+    #[Url(history: true)]
     public ?string $sortField = null;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     /**

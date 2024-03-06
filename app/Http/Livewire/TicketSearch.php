@@ -29,22 +29,24 @@ class TicketSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public ?User $user = null;
 
-    #[Url]
+    #[Url(history: true)]
     public string $tab = 'open';
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $search = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'updated_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     final public function mount(): void

@@ -12,10 +12,12 @@ class NoteSearch extends Component
 {
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $search = '';
 
     final public function updatingSearch(): void

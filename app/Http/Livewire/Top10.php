@@ -28,11 +28,13 @@ use Livewire\Component;
  */
 class Top10 extends Component
 {
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     #[Validate('in:movie_meta,tv_meta')]
     public string $metaType = 'movie_meta';
 
-    #[Url]
+    #[Url(history: true)]
     #[Validate('in:day,week,month,year,all')]
     public string $interval = 'day';
 

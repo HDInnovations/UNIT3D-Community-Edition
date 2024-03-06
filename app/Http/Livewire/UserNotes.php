@@ -27,24 +27,26 @@ class UserNotes extends Component
 
     public User $user;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     #[Validate('required|filled')]
     public string $message = '';
 
     /**
      * @var array<int, string>
      */
-    #[Url]
+    #[Url(history: true)]
     #[Validate('array')]
     public array $messages = [];
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     final public function mount(): void

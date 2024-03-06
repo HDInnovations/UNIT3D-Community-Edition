@@ -29,22 +29,24 @@ class LeakerSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 50;
 
-    #[Url]
+    #[Url(history: true)]
     public string $torrentIds = '';
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $minutesLeakedWithin = null;
 
-    #[Url]
+    #[Url(history: true)]
     public string $agent = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'leak_count';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     /**

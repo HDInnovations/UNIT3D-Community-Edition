@@ -28,49 +28,51 @@ class UserTorrents extends Component
 
     public ?User $user = null;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $name = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $unsatisfied = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $active = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $completed = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $uploaded = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $hitrun = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $prewarn = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $immune = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public string $downloaded = 'any';
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $status = [];
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url]
+    #[Url(history: true)]
     public bool $showMorePrecision = false;
 
     final public function mount(int $userId): void
