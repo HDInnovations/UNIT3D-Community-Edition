@@ -31,7 +31,7 @@
             <form class="form" method="POST" action="{{ route('staff.forums.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input id="name" class="form__text" type="text" name="name" required />
+                    <input id="name" class="form__text" type="text" name="forum[name]" required />
                     <label class="form__label form__label--floating" for="name">Title</label>
                 </p>
                 <p class="form__group">
@@ -39,7 +39,7 @@
                         id="position"
                         class="form__text"
                         inputmode="numeric"
-                        name="position"
+                        name="forum[position]"
                         pattern="[0-9]*"
                         required
                         type="text"
@@ -52,7 +52,7 @@
                     <textarea
                         id="description"
                         class="form__textarea"
-                        name="description"
+                        name="forum[description]"
                         required
                     ></textarea>
                     <label class="form__label form__label--floating" for="description">
@@ -62,7 +62,7 @@
                 <p class="form__group">
                     <select
                         id="forum_category_id"
-                        name="forum_category_id"
+                        name="forum[forum_category_id]"
                         class="form__select"
                         x-data="{ selected: {{ $forumCategoryId }} || '' }"
                         x-model="selected"
@@ -81,6 +81,24 @@
                     </select>
                     <label class="form__label form__label--floating" for="forum_category_id">
                         Forum Category
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select
+                        id="default_topic_state_filter"
+                        name="forum[default_topic_state_filter]"
+                        class="form__select"
+                        required
+                    >
+                        <option default selected>None</option>
+                        <option value="open">{{ __('forum.open') }}</option>
+                        <option value="close">{{ __('forum.closed') }}</option>
+                    </select>
+                    <label
+                        class="form__label form__label--floating"
+                        for="default_topic_state_filter"
+                    >
+                        Default Topic State Filter
                     </label>
                 </p>
                 <div class="form__group">

@@ -15,6 +15,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UpdateForumRequest extends FormRequest
 {
@@ -34,21 +35,26 @@ class UpdateForumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'forum.name' => [
                 'required',
             ],
-            'position' => [
+            'forum.position' => [
                 'required',
             ],
-            'slug' => [
+            'forum.slug' => [
                 'required',
             ],
-            'description' => [
+            'forum.description' => [
                 'required',
             ],
-            'forum_category_id' => [
+            'forum.forum_category_id' => [
                 'required',
                 'exists:forum_categories,id',
+            ],
+            'forum.default_topic_state_filter' => [
+                'sometimes',
+                'nullable',
+                Rule::in(['close', 'open', null]),
             ],
             'permissions' => [
                 'required',
@@ -82,8 +88,10 @@ class UpdateForumRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->merge([
-            'slug' => Str::slug($this->name),
-        ]);
+        $data = $this->toArray();
+
+        data_set($data, 'forum.slug', Str::slug($this->input('forum.name')));
+
+        $this->merge($data);
     }
 }

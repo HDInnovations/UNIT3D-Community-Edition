@@ -59,7 +59,7 @@
                         id="name"
                         class="form__text"
                         type="text"
-                        name="name"
+                        name="forum[name]"
                         value="{{ $forum->name }}"
                         required
                     />
@@ -70,7 +70,7 @@
                         id="position"
                         class="form__text"
                         inputmode="numeric"
-                        name="position"
+                        name="forum[position]"
                         pattern="[0-9]*"
                         placeholder=" "
                         type="text"
@@ -82,7 +82,12 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <textarea id="description" name="description" class="form__textarea" required>
+                    <textarea
+                        id="description"
+                        name="forum[description]"
+                        class="form__textarea"
+                        required
+                    >
 {{ $forum->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
@@ -90,7 +95,11 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <select id="forum_category_id" name="forum_category_id" class="form__select">
+                    <select
+                        id="forum_category_id"
+                        name="forum[forum_category_id]"
+                        class="form__select"
+                    >
                         @foreach ($categories as $category)
                             <option
                                 value="{{ $category->id }}"
@@ -102,6 +111,33 @@
                     </select>
                     <label class="form__label form__label--floating" for="forum_category_id">
                         Forum Category
+                    </label>
+                </p>
+                <p class="form__group">
+                    <select
+                        id="default_topic_state_filter"
+                        name="forum[default_topic_state_filter]"
+                        class="form__select"
+                    >
+                        <option default selected value="">None</option>
+                        <option
+                            value="open"
+                            @selected($forum->default_topic_state_filter === 'open')
+                        >
+                            {{ __('forum.open') }}
+                        </option>
+                        <option
+                            value="close"
+                            @selected($forum->default_topic_state_filter === 'close')
+                        >
+                            {{ __('forum.closed') }}
+                        </option>
+                    </select>
+                    <label
+                        class="form__label form__label--floating"
+                        for="default_topic_state_filter"
+                    >
+                        Topic State Filter
                     </label>
                 </p>
                 <div class="form__group">

@@ -73,7 +73,7 @@ class ForumController extends Controller
      */
     public function update(UpdateForumRequest $request, Forum $forum): \Illuminate\Http\RedirectResponse
     {
-        $forum->update($request->safe(['name', 'position', 'description', 'slug', 'forum_category_id']));
+        $forum->update($request->validated('forum'));
 
         ForumPermission::upsert(
             array_map(fn ($item) => ['forum_id' => $forum->id] + $item, $request->validated('permissions')),
