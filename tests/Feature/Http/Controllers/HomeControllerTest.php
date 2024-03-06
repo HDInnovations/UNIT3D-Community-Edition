@@ -24,11 +24,6 @@ test('index returns an ok response', function (): void {
     $response->assertViewHas('users');
     $response->assertViewHas('groups');
     $response->assertViewHas('articles');
-    $response->assertViewHas('newest');
-    $response->assertViewHas('seeded');
-    $response->assertViewHas('dying');
-    $response->assertViewHas('leeched');
-    $response->assertViewHas('dead');
     $response->assertViewHas('topics');
     $response->assertViewHas('posts');
     $response->assertViewHas('featured');
