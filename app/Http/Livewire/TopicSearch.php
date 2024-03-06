@@ -24,28 +24,30 @@ class TopicSearch extends Component
 {
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $search = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'last_post_created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url]
+    #[Url(history: true)]
     public string $label = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $state = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $subscribed = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $forumId = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $read = '';
 
     final public function updatingSearch(): void

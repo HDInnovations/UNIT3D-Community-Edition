@@ -26,34 +26,36 @@ class InviteLogSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $sender = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $email = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $code = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $receiver = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $custom = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $groupBy = 'none';
 
-    #[Url]
+    #[Url(history: true)]
     public int $threshold = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 25;
 
     final public function mount(): void

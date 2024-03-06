@@ -23,16 +23,18 @@ class PersonSearch extends Component
 {
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $search = '';
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $occupationIds = [];
 
-    #[Url]
+    #[Url(history: true)]
     public string $firstCharacter = '';
 
     final public function updatingSearch(): void

@@ -25,70 +25,72 @@ class NotificationSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public bool $bon_gifts = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $comment = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $comment_tags = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $followers = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $posts = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $post_tags = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $post_tips = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $request_bounties = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $request_claims = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $request_fills = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $request_approvals = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $request_rejections = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $request_unclaims = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $reseed_requests = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $thanks = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $upload_tips = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $topics = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $unfollows = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $uploads = false;
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     /**

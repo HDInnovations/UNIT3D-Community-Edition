@@ -44,19 +44,21 @@ class SimilarTorrent extends Component
 
     public string $reason;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
     /**
      * @var array<int, bool>
      */
-    #[Url]
+    #[Url(history: true)]
     public array $checked = [];
 
-    #[Url]
+    #[Url(history: true)]
     public bool $selectPage = false;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'bumped_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];

@@ -33,181 +33,183 @@ class TorrentSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $name = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $description = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $mediainfo = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $uploader = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $keywords = '';
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $startYear = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $endYear = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $minSize = null;
 
-    #[Url]
+    #[Url(history: true)]
     public int $minSizeMultiplier = 1;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $maxSize = null;
 
-    #[Url]
+    #[Url(history: true)]
     public int $maxSizeMultiplier = 1;
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $categories = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $types = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $resolutions = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $genres = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $regions = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $distributors = [];
 
-    #[Url]
+    #[Url(history: true)]
     public string $adult = 'any';
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $tmdbId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public string $imdbId = '';
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $tvdbId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $malId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $playlistId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $collectionId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $networkId = null;
 
-    #[Url]
+    #[Url(history: true)]
     public ?int $companyId = null;
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $primaryLanguages = [];
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $free = [];
 
-    #[Url]
+    #[Url(history: true)]
     public bool $doubleup = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $featured = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $refundable = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $stream = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $sd = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $highspeed = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $bookmarked = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $wished = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $internal = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $personalRelease = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $alive = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $dying = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $dead = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $graveyard = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $notDownloaded = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $downloaded = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $seeding = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $leeching = false;
 
-    #[Url]
+    #[Url(history: true)]
     public bool $incomplete = false;
 
-    #[Url]
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'bumped_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url]
+    #[Url(history: true)]
     public string $view = 'list';
 
     final public function updating(string $field, mixed &$value): void

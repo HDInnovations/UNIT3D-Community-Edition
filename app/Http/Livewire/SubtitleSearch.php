@@ -27,28 +27,30 @@ class SubtitleSearch extends Component
     use LivewireSort;
     use WithPagination;
 
-    #[Url]
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url]
+    #[Url(history: true)]
     public string $search = '';
 
     /**
      * @var string[]
      */
-    #[Url]
+    #[Url(history: true)]
     public array $categories = [];
 
-    #[Url]
+    #[Url(history: true)]
     public string $language = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $username = '';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
-    #[Url]
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     final public function updatingSearch(): void
