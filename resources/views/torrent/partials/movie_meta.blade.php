@@ -74,7 +74,7 @@
                         @method('PATCH')
 
                         <button
-                            @if (cache()->has('tmdb-tv-scraper:' . $meta->id) && ! auth()->user()->group->is_modo)
+                            @if (cache()->has('tmdb-movie-scraper:' . $meta->id) && ! auth()->user()->group->is_modo)
                                 disabled
                                 title="This item was recently updated. Try again tomorrow."
                             @endif
