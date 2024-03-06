@@ -47,15 +47,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="action"
-                        class="form__select"
-                        wire:model.live="action"
-                        required
-                        x-data="{ selected: '' }"
-                        x-model="selected"
-                        x-bind:class="selected === '' ? 'form__select--default' : ''"
-                    >
+                    <select id="action" class="form__select" wire:model.live="action">
                         <option selected value="">All</option>
                         <option value="create">Create</option>
                         <option value="update">Update</option>
