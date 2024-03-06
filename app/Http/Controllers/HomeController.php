@@ -90,7 +90,23 @@ class HomeController extends Controller
                 'newest_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $newest = Torrent::with(['user.group', 'category', 'type', 'resolution'])
+                    $newest = Torrent::query()
+                        ->select([
+                            'id',
+                            'name',
+                            'user_id',
+                            'category_id',
+                            'type_id',
+                            'resolution_id',
+                            'tmdb',
+                            'igdb',
+                            'size',
+                            'seeders',
+                            'leechers',
+                            'times_completed',
+                            'created_at'
+                        ])
+                        ->with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -122,7 +138,7 @@ class HomeController extends Controller
                     END as meta
                 ")
                         ->withCount(['thanks', 'comments'])
-                        ->latest()
+                        ->orderByDesc('id')
                         ->take(5)
                         ->get();
 
@@ -156,7 +172,23 @@ class HomeController extends Controller
                 'seeded_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $seeded = Torrent::with(['user.group', 'category', 'type', 'resolution'])
+                    $seeded = Torrent::query()
+                        ->select([
+                            'id',
+                            'name',
+                            'user_id',
+                            'category_id',
+                            'type_id',
+                            'resolution_id',
+                            'tmdb',
+                            'igdb',
+                            'size',
+                            'seeders',
+                            'leechers',
+                            'times_completed',
+                            'created_at'
+                        ])
+                        ->with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -188,7 +220,7 @@ class HomeController extends Controller
                     END as meta
                 ")
                         ->withCount(['thanks', 'comments'])
-                        ->latest('seeders')
+                        ->orderByDesc('seeders')
                         ->take(5)
                         ->get();
 
@@ -222,7 +254,23 @@ class HomeController extends Controller
                 'dying_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $dying = Torrent::with(['user.group', 'category', 'type', 'resolution'])
+                    $dying = Torrent::query()
+                        ->select([
+                            'id',
+                            'name',
+                            'user_id',
+                            'category_id',
+                            'type_id',
+                            'resolution_id',
+                            'tmdb',
+                            'igdb',
+                            'size',
+                            'seeders',
+                            'leechers',
+                            'times_completed',
+                            'created_at'
+                        ])
+                        ->with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -256,7 +304,7 @@ class HomeController extends Controller
                         ->withCount(['thanks', 'comments'])
                         ->where('seeders', '=', 1)
                         ->where('times_completed', '>=', 1)
-                        ->latest('leechers')
+                        ->orderByDesc('leechers')
                         ->take(5)
                         ->get();
 
@@ -290,7 +338,23 @@ class HomeController extends Controller
                 'leeched_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $leeched = Torrent::with(['user.group', 'category', 'type', 'resolution'])
+                    $leeched = Torrent::query()
+                        ->select([
+                            'id',
+                            'name',
+                            'user_id',
+                            'category_id',
+                            'type_id',
+                            'resolution_id',
+                            'tmdb',
+                            'igdb',
+                            'size',
+                            'seeders',
+                            'leechers',
+                            'times_completed',
+                            'created_at'
+                        ])
+                        ->with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -322,7 +386,7 @@ class HomeController extends Controller
                     END as meta
                 ")
                         ->withCount(['thanks', 'comments'])
-                        ->latest('leechers')
+                        ->orderByDesc('leechers')
                         ->take(5)
                         ->get();
 
@@ -356,7 +420,23 @@ class HomeController extends Controller
                 'dead_torrents',
                 $expiresAt,
                 function () use ($user) {
-                    $dead = Torrent::with(['user.group', 'category', 'type', 'resolution'])
+                    $dead = Torrent::query()
+                        ->select([
+                            'id',
+                            'name',
+                            'user_id',
+                            'category_id',
+                            'type_id',
+                            'resolution_id',
+                            'tmdb',
+                            'igdb',
+                            'size',
+                            'seeders',
+                            'leechers',
+                            'times_completed',
+                            'created_at'
+                        ])
+                        ->with(['user.group', 'category', 'type', 'resolution'])
                         ->withExists([
                             'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                             'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
@@ -389,7 +469,7 @@ class HomeController extends Controller
                 ")
                         ->withCount(['thanks', 'comments'])
                         ->where('seeders', '=', 0)
-                        ->latest('leechers')
+                        ->orderByDesc('leechers')
                         ->take(5)
                         ->get();
 
