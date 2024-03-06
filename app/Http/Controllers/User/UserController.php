@@ -23,6 +23,7 @@ use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -155,9 +156,11 @@ class UserController extends Controller
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
             } else {
-                $request->validate([
-                    'image' => 'dimensions:ratio=1/1',
-                ]);
+                Validator::make($request->all(), [
+                    'image' => 'required|dimensions:ratio=1/1',
+                ], [
+                    'image.dimensions' => 'Only square avatars are accepted.',
+                ])->validate();
 
                 $image->move(public_path('/files/img/'), $filename);
             }
