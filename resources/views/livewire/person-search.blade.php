@@ -14,16 +14,17 @@
                 @forelse ($persons as $person)
                     <figure style="display: flex; flex-direction: column; align-items: center">
                         <a href="{{ route('mediahub.persons.show', ['id' => $person->id]) }}">
-                            <img
-                                alt="{{ $person->name }}"
-                                src="{{ isset($person->still) ? tmdb_image('cast_mid', $person->still) : 'https://via.placeholder.com/160x240' }}"
-                                style="
-                                    width: 140px;
-                                    height: 140px;
-                                    object-fit: cover;
-                                    border-radius: 50%;
-                                "
-                            />
+                            @if ($person->still === null)
+                                <div class="person--no-still">
+                                    {{ $person->name[0] ?? '' }}{{ str($person->name)->explode(' ')->last()[0] ?? '' }}
+                                </div>
+                            @else
+                                <img
+                                    alt="{{ $person->name }}"
+                                    src="{{ tmdb_image('cast_mid', $person->still) }}"
+                                    class="person--still"
+                                />
+                            @endif
                         </a>
                         <figcaption>{{ $person->name }}</figcaption>
                     </figure>

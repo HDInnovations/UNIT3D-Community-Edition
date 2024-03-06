@@ -1,0 +1,19 @@
+.person--no-still {
+  width: 140px;
+  height: 140px;
+  line-height: 140px;
+  text-align: center;
+  background: linear-gradient(to bottom, #A5ABB8 0%, #848993 100%);
+  color: white;
+  font-size: 50px;
+  box-shadow: 0 7px 7px -5px rgba(0, 0, 0, .3);
+  border-radius: 50%;
+}
+
+.person--still {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 7px 7px -5px rgba(0,0,0,.3);
+}
