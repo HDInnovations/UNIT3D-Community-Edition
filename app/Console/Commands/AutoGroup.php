@@ -51,7 +51,7 @@ class AutoGroup extends Command
         $current = Carbon::now();
         $groups = Group::query()
             ->where('autogroup', '=', 1)
-            ->orderBy('position')
+            ->orderBy('position', 'desc')
             ->get();
 
         $users = User::query()
