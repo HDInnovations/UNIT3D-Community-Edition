@@ -33,9 +33,11 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 // Torrents System
-Route::middleware(['auth:api', 'banned'])->prefix('torrents')->group(function (): void {
-    Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('api.torrents.index');
-    Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter']);
-    Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');
-    Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
-});
+//Route::middleware(['auth:api', 'banned'])->prefix('torrents')->group(function (): void {
+//    Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('api.torrents.index');
+//    Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter']);
+//    Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');
+//    Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
+//});
+
+Route::get('/torznab', [App\Http\Controllers\API\TorznabController::class, 'index'])->name('api.torznab.index');
