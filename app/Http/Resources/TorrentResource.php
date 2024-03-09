@@ -51,6 +51,7 @@ class TorrentResource extends JsonResource
                 'num_file'        => $this->num_file,
                 'freeleech'       => $this->free.'%',
                 'double_upload'   => $this->doubleup,
+                'refundable'      => $this->refundable,
                 'internal'        => $this->internal,
                 'uploader'        => $this->anon ? 'Anonymous' : $this->user->username,
                 'seeders'         => $this->seeders,
