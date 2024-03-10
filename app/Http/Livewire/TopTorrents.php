@@ -48,6 +48,7 @@ class TopTorrents extends Component
                 'tmdb',
                 'igdb',
                 'size',
+                'anon',
                 'seeders',
                 'leechers',
                 'times_completed',
