@@ -292,14 +292,14 @@ class GitUpdater extends Command
     private function clearCache(): void
     {
         $this->header('Clearing Application Cache');
-        $this->call('optimize:clear');
+        $this->call('clear:all_cache');
         $this->done();
     }
 
     private function setCache(): void
     {
         $this->header('Setting Cache');
-        $this->call('optimize');
+        $this->call('set:all_cache');
         $this->done();
     }
 
@@ -328,7 +328,7 @@ class GitUpdater extends Command
     private function php(): void
     {
         $this->header('Restarting PHP');
-        $this->process('systemctl restart php8.2-fpm');
+        $this->process('systemctl restart php8.3-fpm');
         $this->done();
     }
 
