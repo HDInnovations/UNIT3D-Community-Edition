@@ -34,7 +34,7 @@ class TorrentResource extends JsonResource
             'attributes' => [
                 'meta' => [
                     'poster' => isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135',
-                    'genres' => isset($meta->genres) ? $meta->genres->pluck('name')->implode(', ') : 'None',
+                    'genres' => isset($meta->genres) ? $meta->genres->pluck('name')->implode(', ') : '',
                 ],
                 'name'            => $this->name,
                 'release_year'    => $this->release_year,
