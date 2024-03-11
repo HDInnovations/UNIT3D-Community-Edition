@@ -279,7 +279,11 @@ trait TorrentFilter
      */
     public function scopeOfFreeleech(Builder $query, int|array $free): void
     {
-        $query->whereIntegerInRaw('free', (array) $free);
+        $query->when(
+            config('other.freeleech'),
+            fn ($query) => $query->whereBetween('free', [0, 100]),
+            fn ($query) => $query->whereIntegerInRaw('free', (array) $free)
+        );
     }
 
     /**
