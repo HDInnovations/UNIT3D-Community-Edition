@@ -51,17 +51,6 @@ class FetchReleaseYears extends Command
             ->whereNull('release_year')
             ->get();
 
-        $withyear = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->whereNotNull('release_year')
-            ->count();
-
-        $withoutyear = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->whereNull('release_year')
-            ->count();
-
-        $this->alert(sprintf('%s Torrents Already Have A Release Year Value!', $withyear));
-        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value!', $withoutyear));
-
         foreach ($torrents as $torrent) {
             $meta = null;
 
