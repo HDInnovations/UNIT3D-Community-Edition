@@ -1,6 +1,4 @@
-<p align="center">
-    <img src="https://i.postimg.cc/c4zVJKG6/Screen-Shot-2023-11-20-at-10-21-19-AM.png" alt="UNIT3D-Community-Edition Cover Image">
-</p>
+<h1 align="center">UNIT3D Community Edition</h1>
 
 <p align="center">
     <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-10-f4645f.svg" /></a> 
@@ -22,10 +20,9 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Updating](#updating)
-4. [Version Support Information](#versions)
-5. [Support UNIT3D](#support)
-6. [Funding Issues/Requests](#funding)
-7. [Special Thanks](#thanks)
+4. [Support UNIT3D](#support)
+5. [Funding Issues/Requests](#funding)
+6. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
@@ -45,18 +42,6 @@ Use this command to generate demo users and torrents for testing purposes in a d
 ## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
 
-## <a name="versions"></a> 🚨 Version Support Information
- Version     | Status                   | PHP Version Required
-:------------|:-------------------------|:------------
- 7.x.x       |  Active Support :rocket: | >= 8.2
- 6.x.x       |  End Of Life :skull: | >= 8.1
- 5.x.x       |  End Of Life :skull: | >= 8.0
- 4.x.x       |  End Of Life :skull: | >= 7.4
- 3.x.x       |  End Of Life :skull: | >= 7.4
- 2.3.0 to 2.7.0|  End Of Life :skull: | >= 7.4
- 2.0.0 to 2.2.7|  End Of Life :skull: | >= 7.3
- 1.0 to 1.9.4|  End Of Life :skull:     | >= 7.1.3
-
 ## <a name="support"></a> ✨ Support UNIT3D
 
 You can support our work if you are enjoying UNIT3D. Sponsors will recieve an email with a Discord invite link to UNIT3Ds Discord server which is used for support and more.
@@ -64,7 +49,7 @@ You can support our work if you are enjoying UNIT3D. Sponsors will recieve an em
 <a href="https://polar.sh/HDInnovations"><picture><source media="(prefers-color-scheme: dark)" srcset="https://polar.sh/embed/subscribe.svg?org=HDInnovations&label=Subscribe&darkmode"><img alt="Subscribe on Polar" src="https://polar.sh/embed/subscribe.svg?org=HDInnovations&label=Subscribe"></picture></a>
 
 Some folks have asked me if it's possible to do a donation via Crypto. Yes!
-
+```
 Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
@@ -82,6 +67,7 @@ USDC - 0xB32102d9104d2bfd0D4E3E4069618ADD985a4e2E
 USDT (ERC-20) - 0x24c79c41EEAd9d81203ee567fE4bA3a6c81374DB
 
 DOGE - DJ78fQspiu879y3adLbTZVSFABKhKqHE7B
+```
 
 ## <a name="funding"></a> ✨ Funding issues and feature requests
 
