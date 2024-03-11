@@ -15,6 +15,6 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in unit3d-community-edition please disclose it via [our huntr page](https://huntr.dev/repos/hdinnovations/unit3d-community-edition/). Information about bounties, CVEs, response times and past reports are all there..
+Please email us at hdinnovations@protonmail.com
 
 Thank you for improving the security of unit3d-community-edition.
