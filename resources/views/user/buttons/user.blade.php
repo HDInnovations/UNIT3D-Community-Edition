@@ -256,13 +256,50 @@
                         {{ __('staff.flush-ghost-peers') }}
                     </button>
                 </form>
-                <li class="nav-tabV2">
+                <li class="nav-tabV2" x-data="dialog">
                     <a
                         class="nav-tab__link"
-                        href="{{ route('users.torrent_zip.show', ['user' => $user]) }}"
+                        x-bind="showDialog"
                     >
-                        {{ __('torrent.download-all') }}
+                        Download Torrent Files
                     </a>
+
+                    <dialog class="dialog" x-bind="dialogElement">
+                        <h3 class="dialog__heading">
+                            Download Torrent Files
+                        </h3>
+                        <form
+                            class="dialog__form"
+                            action="{{ route('users.torrent_zip.show', ['user' => $user]) }}"
+                            x-bind="dialogForm"
+                        >
+                            <fieldset>
+                                <legend>Select download type:</legend>
+
+                                <div>
+                                    <input class="form__radio" type="radio" id="history" name="type" value="false" checked />
+                                    <label for="history">All History</label>
+                                </div>
+
+                                <div>
+                                    <input class="form__radio" type="radio" id="peer" name="type" value="true"/>
+                                    <label for="peer">Active Peers</label>
+                                </div>
+                            </fieldset>
+                                <p class="form__group">
+                                    <button class="form__button form__button--filled">
+                                        {{ __('common.download') }}
+                                    </button>
+                                    <button
+                                        formmethod="dialog"
+                                        formnovalidate
+                                        class="form__button form__button--outlined"
+                                    >
+                                        {{ __('common.cancel') }}
+                                </button>
+                            </p>
+                        </form>
+                    </dialog>
                 </li>
             @endif
         </ul>
