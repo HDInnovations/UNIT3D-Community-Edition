@@ -32,7 +32,7 @@ class ApplicationSearch extends Component
     public string $email = '';
 
     #[Url(history: true)]
-    public bool $show = false;
+    public string $status = '';
 
     #[Url(history: true)]
     public string $sortField = 'created_at';
@@ -43,13 +43,6 @@ class ApplicationSearch extends Component
     #[Url(history: true)]
     public int $perPage = 25;
 
-    final public function toggleProperties($property): void
-    {
-        if ($property === 'show') {
-            $this->show = !$this->show;
-        }
-    }
-
     #[Computed]
     final public function applications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
@@ -57,9 +50,21 @@ class ApplicationSearch extends Component
             'user.group', 'moderated.group', 'imageProofs', 'urlProofs'
         ])
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
-            ->when($this->show === true, fn ($query) => $query->where('status', '=', Application::PENDING))
+            ->when($this->status, fn ($query) => $query->where('status', '=', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    final public function destroy(int $id): void
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $application = Application::withoutGlobalScopes()->findOrFail($id);
+        $application->urlProofs()->delete();
+        $application->imageProofs()->delete();
+        $application->delete();
+
+        $this->dispatch('success', type: 'success', message: 'Application has successfully been deleted!');
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

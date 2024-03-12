@@ -866,6 +866,16 @@ parameters:
 			path: app/Http/Controllers/User/WarningController.php
 
 		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\ApplicationSearch\\:\\:applications\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			count: 1
+			path: app/Http/Livewire/ApplicationSearch.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 1
+			path: app/Http/Livewire/ApplicationSearch.php
+
+		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/AttachmentUpload.php

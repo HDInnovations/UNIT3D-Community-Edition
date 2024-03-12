@@ -4,13 +4,13 @@
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
-                    <input
-                        id="show"
-                        class="form__checkbox"
-                        type="checkbox"
-                        wire:click="toggleProperties('show')"
-                    />
-                    <label class="form__label" for="show">Show Pending Only</label>
+                    <select id="status" class="form__select" wire:model.live="status">
+                        <option selected value="">All</option>
+                        <option value="1">Approved</option>
+                        <option value="0">Pending</option>
+                        <option value="2">Rejected</option>
+                    </select>
+                    <label class="form__label form__label--floating" for="status">Status</label>
                 </div>
             </div>
             <div class="panel__action">
@@ -59,7 +59,7 @@
             </thead>
             <tbody>
                 @forelse ($applications as $application)
-                    <tr>
+                    <tr x-data="application" data-application-id="{{ $application->id }}">
                         <td>{{ $application->id }}</td>
                         <td>
                             @if ($application->user === null)
@@ -115,6 +115,17 @@
                                         {{ __('common.view') }}
                                     </a>
                                 </li>
+                                <li class="data-table__action">
+                                    <form>
+                                        <button
+                                            x-on:click.prevent="destroy"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this application from: ' . $application->email . '?') }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.delete') }}
+                                        </button>
+                                    </form>
+                                </li>
                             </menu>
                         </td>
                     </tr>
@@ -127,4 +138,23 @@
         </table>
     </div>
     {{ $applications->links('partials.pagination') }}
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('application', () => ({
+                destroy() {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: atob(this.$el.dataset.b64DeletionMessage),
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.$wire.destroy(this.$root.dataset.applicationId);
+                        }
+                    });
+                },
+            }));
+        });
+    </script>
 </section>
