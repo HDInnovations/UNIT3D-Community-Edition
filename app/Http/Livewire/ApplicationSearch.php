@@ -1,0 +1,71 @@
+<?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+namespace App\Http\Livewire;
+
+use App\Models\Application;
+use App\Models\Scopes\ApprovedScope;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithPagination;
+
+class ApplicationSearch extends Component
+{
+    use LivewireSort;
+    use WithPagination;
+
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
+    public string $email = '';
+
+    #[Url(history: true)]
+    public bool $show = false;
+
+    #[Url(history: true)]
+    public string $sortField = 'created_at';
+
+    #[Url(history: true)]
+    public string $sortDirection = 'desc';
+
+    #[Url(history: true)]
+    public int $perPage = 25;
+
+    final public function toggleProperties($property): void
+    {
+        if ($property === 'show') {
+            $this->show = !$this->show;
+        }
+    }
+
+    #[Computed]
+    final public function applications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return Application::withoutGlobalScope(ApprovedScope::class)->with([
+            'user.group', 'moderated.group', 'imageProofs', 'urlProofs'
+        ])
+            ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
+            ->when($this->show === true, fn ($query) => $query->where('status', '=', Application::PENDING))
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+    }
+
+    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('livewire.application-search', [
+            'applications' => $this->applications
+        ]);
+    }
+}

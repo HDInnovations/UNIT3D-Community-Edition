@@ -35,12 +35,7 @@ class ApplicationController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('Staff.application.index', [
-            'applications' => Application::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user.group', 'moderated.group', 'imageProofs', 'urlProofs'])
-                ->latest()
-                ->paginate(25),
-        ]);
+        return view('Staff.application.index');
     }
 
     /**
