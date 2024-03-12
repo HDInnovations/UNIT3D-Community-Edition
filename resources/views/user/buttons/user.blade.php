@@ -257,17 +257,10 @@
                     </button>
                 </form>
                 <li class="nav-tabV2" x-data="dialog">
-                    <a
-                        class="nav-tab__link"
-                        x-bind="showDialog"
-                    >
-                        Download Torrent Files
-                    </a>
+                    <a class="nav-tab__link" x-bind="showDialog">Download Torrent Files</a>
 
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h3 class="dialog__heading">
-                            Download Torrent Files
-                        </h3>
+                        <h3 class="dialog__heading">Download Torrent Files</h3>
                         <form
                             class="dialog__form"
                             action="{{ route('users.torrent_zip.show', ['user' => $user]) }}"
@@ -277,25 +270,38 @@
                                 <legend>Select download type:</legend>
 
                                 <div>
-                                    <input class="form__radio" type="radio" id="history" name="type" value="false" checked />
+                                    <input
+                                        class="form__radio"
+                                        type="radio"
+                                        id="history"
+                                        name="type"
+                                        value="false"
+                                        checked
+                                    />
                                     <label for="history">All History</label>
                                 </div>
 
                                 <div>
-                                    <input class="form__radio" type="radio" id="peer" name="type" value="true"/>
+                                    <input
+                                        class="form__radio"
+                                        type="radio"
+                                        id="peer"
+                                        name="type"
+                                        value="true"
+                                    />
                                     <label for="peer">Active Peers</label>
                                 </div>
                             </fieldset>
-                                <p class="form__group">
-                                    <button class="form__button form__button--filled">
-                                        {{ __('common.download') }}
-                                    </button>
-                                    <button
-                                        formmethod="dialog"
-                                        formnovalidate
-                                        class="form__button form__button--outlined"
-                                    >
-                                        {{ __('common.cancel') }}
+                            <p class="form__group">
+                                <button class="form__button form__button--filled">
+                                    {{ __('common.download') }}
+                                </button>
+                                <button
+                                    formmethod="dialog"
+                                    formnovalidate
+                                    class="form__button form__button--outlined"
+                                >
+                                    {{ __('common.cancel') }}
                                 </button>
                             </p>
                         </form>
