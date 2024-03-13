@@ -23,11 +23,6 @@ use App\Models\Subtitle;
 class SubtitleFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Subtitle::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

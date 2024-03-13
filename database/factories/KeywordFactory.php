@@ -20,11 +20,6 @@ use App\Models\Keyword;
 class KeywordFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Keyword::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

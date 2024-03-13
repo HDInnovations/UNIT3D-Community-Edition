@@ -22,11 +22,6 @@ use App\Models\ForumPermission;
 class ForumPermissionFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = ForumPermission::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

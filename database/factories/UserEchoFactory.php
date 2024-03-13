@@ -23,11 +23,6 @@ use App\Models\UserEcho;
 class UserEchoFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = UserEcho::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
