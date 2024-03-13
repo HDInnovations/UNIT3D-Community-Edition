@@ -19,13 +19,27 @@ use App\Interfaces\ByteUnitsInterface;
 use App\Models\Page;
 use App\Models\User;
 use App\Observers\UserObserver;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The path to the "home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect users after login.
+     *
+     * @var string
+     */
+    final public const HOME = '/';
+
     /**
      * Register any application services.
      *
@@ -84,5 +98,26 @@ class AppServiceProvider extends ServiceProvider
         Vite::useStyleTagAttributes([
             'crossorigin' => 'anonymous',
         ]);
+
+        $this->bootAuth();
+        $this->bootRoute();
+    }
+
+    public function bootAuth(): void
+    {
+        Auth::provider('cache-user', fn () => resolve(CacheUserProvider::class));
+    }
+
+    public function bootRoute(): void
+    {
+        RateLimiter::for('web', fn (Request $request): Limit => $request->user()
+            ? Limit::perMinute(30)->by('web'.$request->user()->id)
+            : Limit::perMinute(5)->by('web'.$request->ip()));
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(30)->by('api'.$request->ip()));
+        RateLimiter::for('announce', fn (Request $request) => Limit::perMinute(500)->by('announce'.$request->ip()));
+        RateLimiter::for('chat', fn (Request $request) => Limit::perMinute(60)->by('chat'.($request->user()?->id ?? $request->ip())));
+        RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by('rss'.$request->ip()));
+
+
     }
 }
