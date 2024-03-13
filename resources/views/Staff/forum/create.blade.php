@@ -88,9 +88,8 @@
                         id="default_topic_state_filter"
                         name="forum[default_topic_state_filter]"
                         class="form__select"
-                        required
                     >
-                        <option default selected>None</option>
+                        <option value="" selected>None</option>
                         <option value="open">{{ __('forum.open') }}</option>
                         <option value="close">{{ __('forum.closed') }}</option>
                     </select>

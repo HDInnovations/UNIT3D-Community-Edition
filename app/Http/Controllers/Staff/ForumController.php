@@ -45,7 +45,7 @@ class ForumController extends Controller
      */
     public function store(StoreForumRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $forum = Forum::create($request->safe(['name', 'position', 'description', 'slug', 'forum_category_id']));
+        $forum = Forum::create($request->validated('forum'));
 
         ForumPermission::upsert(
             array_map(fn ($item) => ['forum_id' => $forum->id] + $item, $request->validated('permissions')),
