@@ -19,28 +19,6 @@ return [
 
     'meta_locale' => 'en_US',
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Laravel Framework Service Providers...
-         */
-
-        /*
-         * Package Service Providers...
-         */
-        Assada\Achievements\AchievementsServiceProvider::class,
-        Spatie\CookieConsent\CookieConsentServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-
-        /*
-         * Application Service Providers...
-         */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\FortifyServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-    ])->toArray(),
 
     'aliases' => Facade::defaultAliases()->merge([
         'CacheUser' => App\Helpers\CacheUser::class,
