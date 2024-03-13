@@ -45,23 +45,26 @@ class Category extends Model
     public $timestamps = false;
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
-     *
-     * @var array<string, string>
-     */
-    public $casts = [
-        'music_meta' => 'boolean',
-        'game_meta'  => 'boolean',
-        'tv_meta'    => 'boolean',
-        'movie_meta' => 'boolean',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
      */
     protected $guarded = ['id'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'music_meta' => 'boolean',
+            'game_meta'  => 'boolean',
+            'tv_meta'    => 'boolean',
+            'movie_meta' => 'boolean',
+        ];
+    }
 
     /**
      * Has Many Torrents.

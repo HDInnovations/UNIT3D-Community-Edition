@@ -58,18 +58,21 @@ class Bot extends Model
     public $timestamps = true;
 
     /**
-     * The Attributes That Should Be Cast To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name' => 'string',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'name' => 'string',
+        ];
+    }
 }

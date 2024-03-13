@@ -90,22 +90,6 @@ class Torrent extends Model
     protected $guarded = [];
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'igdb'         => 'integer',
-        'fl_until'     => 'datetime',
-        'du_until'     => 'datetime',
-        'doubleup'     => 'boolean',
-        'refundable'   => 'boolean',
-        'featured'     => 'boolean',
-        'moderated_at' => 'datetime',
-        'sticky'       => 'boolean',
-    ];
-
-    /**
      * The attributes that should not be included in audit log.
      *
      * @var string[]
@@ -113,6 +97,25 @@ class Torrent extends Model
     protected $discarded = [
         'info_hash',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'igdb'         => 'integer',
+            'fl_until'     => 'datetime',
+            'du_until'     => 'datetime',
+            'doubleup'     => 'boolean',
+            'refundable'   => 'boolean',
+            'featured'     => 'boolean',
+            'moderated_at' => 'datetime',
+            'sticky'       => 'boolean',
+        ];
+    }
 
     final public const PENDING = 0;
     final public const APPROVED = 1;

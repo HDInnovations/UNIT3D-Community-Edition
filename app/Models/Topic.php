@@ -46,19 +46,22 @@ class Topic extends Model
     use Auditable;
     use HasFactory;
 
-    protected $casts = [
-        'last_post_created_at' => 'datetime',
-        'pinned'               => 'boolean',
-        'approved'             => 'boolean',
-        'denied'               => 'boolean',
-        'solved'               => 'boolean',
-        'invalid'              => 'boolean',
-        'bug'                  => 'boolean',
-        'suggestion'           => 'boolean',
-        'implemented'          => 'boolean',
-    ];
-
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'last_post_created_at' => 'datetime',
+            'pinned'               => 'boolean',
+            'approved'             => 'boolean',
+            'denied'               => 'boolean',
+            'solved'               => 'boolean',
+            'invalid'              => 'boolean',
+            'bug'                  => 'boolean',
+            'suggestion'           => 'boolean',
+            'implemented'          => 'boolean',
+        ];
+    }
 
     /**
      * Belongs To A Forum.

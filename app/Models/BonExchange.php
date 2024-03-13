@@ -40,21 +40,24 @@ class BonExchange extends Model
     public $timestamps = false;
 
     /**
-     * The Attributes That Should Be Casted To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'upload'             => 'boolean',
-        'download'           => 'boolean',
-        'personal_freeleech' => 'boolean',
-        'invite'             => 'boolean',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
      */
     protected $guarded = ['id'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'upload'             => 'boolean',
+            'download'           => 'boolean',
+            'personal_freeleech' => 'boolean',
+            'invite'             => 'boolean',
+        ];
+    }
 }

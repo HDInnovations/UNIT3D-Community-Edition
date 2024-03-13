@@ -113,28 +113,31 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'last_login'   => 'datetime',
-        'last_action'  => 'datetime',
-        'hidden'       => 'boolean',
-        'can_comment'  => 'boolean',
-        'can_download' => 'boolean',
-        'can_request'  => 'boolean',
-        'can_invite'   => 'boolean',
-        'can_upload'   => 'boolean',
-        'can_chat'     => 'boolean',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'last_login'   => 'datetime',
+            'last_action'  => 'datetime',
+            'hidden'       => 'boolean',
+            'can_comment'  => 'boolean',
+            'can_download' => 'boolean',
+            'can_request'  => 'boolean',
+            'can_invite'   => 'boolean',
+            'can_upload'   => 'boolean',
+            'can_chat'     => 'boolean',
+        ];
+    }
 
     /**
      * ID of the system user.

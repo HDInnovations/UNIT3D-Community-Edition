@@ -55,15 +55,6 @@ class Group extends Model
     use HasFactory;
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'system_required' => 'boolean',
-    ];
-
-    /**
      * The attributes that aren't mass assignable.
      *
      * @var string[]
@@ -76,6 +67,18 @@ class Group extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'system_required' => 'boolean',
+        ];
+    }
 
     /**
      * Has Many Users.
