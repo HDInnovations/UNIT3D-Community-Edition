@@ -40,7 +40,6 @@ class Peer extends Model
 {
     use HasFactory;
 
-
     /**
      * Get the attributes that should be cast.
      *

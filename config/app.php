@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -16,9 +15,7 @@ use Illuminate\Support\Facades\Facade;
  */
 
 return [
-
     'meta_locale' => 'en_US',
-
 
     'aliases' => Facade::defaultAliases()->merge([
         'CacheUser' => App\Helpers\CacheUser::class,
@@ -26,5 +23,4 @@ return [
         'Irc'       => App\Bots\IRCAnnounceBot::class,
         'Redis'     => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
-
 ];

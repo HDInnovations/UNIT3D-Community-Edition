@@ -29,7 +29,6 @@ Artisan::command('inspire', function (): void {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-
 Schedule::command('auto:upsert_peers')->everyFiveSeconds();
 Schedule::command('auto:upsert_histories')->everyFiveSeconds();
 Schedule::command('auto:upsert_announces')->everyFiveSeconds();

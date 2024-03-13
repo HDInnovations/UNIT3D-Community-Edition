@@ -33,7 +33,6 @@ class Like extends Model
     use Auditable;
     use HasFactory;
 
-
     /**
      * Get the attributes that should be cast.
      *

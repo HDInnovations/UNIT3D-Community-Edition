@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'guards' => [
         'api' => [
             'driver'   => 'token',
@@ -20,5 +19,4 @@ return [
     'verification' => [
         'expire' => 1440,
     ],
-
 ];
