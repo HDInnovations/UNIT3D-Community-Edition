@@ -14,7 +14,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Application;
-use App\Models\Scopes\ApprovedScope;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -46,11 +45,13 @@ class ApplicationSearch extends Component
     #[Computed]
     final public function applications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Application::withoutGlobalScope(ApprovedScope::class)->with([
+        return Application::withoutGlobalScopes()->with([
             'user.group', 'moderated.group', 'imageProofs', 'urlProofs'
         ])
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
-            ->when($this->status, fn ($query) => $query->where('status', '=', $this->status))
+            ->when($this->status === '1', fn ($query) => $query->where('status', '=', Application::APPROVED))
+            ->when($this->status === '0', fn ($query) => $query->where('status', '=', Application::PENDING))
+            ->when($this->status === '2', fn ($query) => $query->where('status', '=', Application::REJECTED))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
