@@ -46,7 +46,7 @@ class UserEmailChange extends Notification
     {
         return (new MailMessage())
             ->greeting('Your Email Address Has Been Changed!')
-            ->line('Your email address regarding account '.$this->user->username.' has been changed from '.$this->oldEmail.' to '.$this->newEmail.'. If you feel this was done in error, please create a helpdesk ticket.')
+            ->line('Your email address regarding account '.$this->user->username.' has been changed to '.$this->newEmail.'. If you feel this was done in error, please create a helpdesk ticket.')
             ->action('Helpdesk', route('tickets.index'))
             ->line('Thank you for using 🚀'.config('other.title'));
     }
