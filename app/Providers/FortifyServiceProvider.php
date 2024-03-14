@@ -100,7 +100,6 @@ class FortifyServiceProvider extends ServiceProvider
                 $user = $request->user();
 
                 if ($user->group_id !== $bannedGroup[0]) {
-
                     if ($user->group_id === $validatingGroup[0]) {
                         $user->can_upload = 1;
                         $user->can_download = 1;
