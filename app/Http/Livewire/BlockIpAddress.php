@@ -26,12 +26,17 @@ class BlockIpAddress extends Component
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    #[Url(history: true)]
+    #[Validate('required|filled|ip')]
     public string $ipAddress = '';
 
-    #[Url(history: true)]
-    #[Validate('required|filled')]
+    #[Validate('required|filled|string')]
     public string $reason = '';
+
+    #[Url(history: true)]
+    public string $ipSearch = '';
+
+    #[Url(history: true)]
+    public string $reasonSearch = '';
 
     #[Url(history: true)]
     public int $perPage = 25;
@@ -70,6 +75,8 @@ class BlockIpAddress extends Component
     final public function ipAddresses(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return BlockedIp::query()
+            ->when($this->ipSearch, fn ($query) => $query->where('ip_address', 'LIKE', '%'.$this->ipSearch.'%'))
+            ->when($this->reasonSearch, fn ($query) => $query->where('reason', 'LIKE', '%'.$this->reasonSearch.'%'))
             ->latest()
             ->paginate($this->perPage);
     }
