@@ -15,9 +15,7 @@
             {{ __('stat.groups') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.groups') }} Requirements
-    </li>
+    <li class="breadcrumb--active">{{ __('common.groups') }} Requirements</li>
 @endsection
 
 @section('nav-tabs')
@@ -40,7 +38,7 @@
                 <tbody>
                     @foreach ($groups as $group)
                         <tr>
-                            <td style="min-width: 20%;">
+                            <td style="min-width: 20%">
                                 <a
                                     href="{{ route('group', ['id' => $group->id]) }}"
                                     style="color: {{ $group->color }}"
@@ -71,9 +69,13 @@
                                                 </td>
                                                 <td>
                                                     @if ($user->uploaded >= $group->min_uploaded ?? 0)
-                                                        <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
                                                     @else
-                                                        <i class="{{ config('other.font-awesome') }} fa-x text-red"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -85,9 +87,13 @@
                                                 </td>
                                                 <td>
                                                     @if ($user->ratio >= $group->min_ratio ?? 0)
-                                                        <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
                                                     @else
-                                                        <i class="{{ config('other.font-awesome') }} fa-x text-red"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -105,9 +111,13 @@
                                                 </td>
                                                 <td>
                                                     @if ($user->created_at->addRealSeconds($group->min_age ?? 0)->isBefore($current))
-                                                        <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
                                                     @else
-                                                        <i class="{{ config('other.font-awesome') }} fa-x text-red"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -121,9 +131,13 @@
                                                 </td>
                                                 <td>
                                                     @if ($group->min_avg_seedtime <= $user_avg_seedtime)
-                                                        <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
                                                     @else
-                                                        <i class="{{ config('other.font-awesome') }} fa-x text-red"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -137,9 +151,13 @@
                                                 </td>
                                                 <td>
                                                     @if ($group->min_seedsize <= $user_seed_size)
-                                                        <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
                                                     @else
-                                                        <i class="{{ config('other.font-awesome') }} fa-x text-red"></i>
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
                                                     @endif
                                                 </td>
                                             </tr>
