@@ -5,7 +5,6 @@
             <tr>
                 <th
                     wire:click="sortBy('title')"
-                    :direction="$sortField === 'title' ? $sortDirection : null"
                     role="columnheader button"
                 >
                     {{ __('common.name') }}
@@ -13,7 +12,6 @@
                 </th>
                 <th
                     wire:click="sortBy('requests_count')"
-                    :direction="$sortField === 'requests_count' ? $sortDirection : null"
                     role="columnheader button"
                 >
                     {{ __('request.requests') }}
