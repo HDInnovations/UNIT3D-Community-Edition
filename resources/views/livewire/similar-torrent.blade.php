@@ -31,38 +31,23 @@
                         {{ __('common.name') }}
                         @include('livewire.includes._sort-icon', ['field' => 'name'])
                     </th>
-                    <th
-                        wire:click="sortBy('created_at')"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('common.created_at') }}
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
-                    <th
-                        wire:click="sortBy('size')"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('size')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'size'])
                     </th>
-                    <th
-                        wire:click="sortBy('seeders')"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('seeders')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-arrow-alt-circle-up"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                     </th>
-                    <th
-                        wire:click="sortBy('leechers')"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('leechers')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-arrow-alt-circle-down"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                     </th>
-                    <th
-                        wire:click="sortBy('times_completed')"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('times_completed')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                     </th>
