@@ -592,7 +592,7 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$movie_meta\\.$#"
-			count: 1
+			count: 2
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
@@ -607,7 +607,12 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$tv_meta\\.$#"
-			count: 2
+			count: 6
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
+			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
@@ -622,6 +627,21 @@ parameters:
 
 		-
 			message: "#^Cannot call method getError\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
@@ -1116,6 +1136,21 @@ parameters:
 			path: app/Http/Livewire/Top10.php
 
 		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
@@ -1147,6 +1182,21 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:ofName\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
