@@ -40,7 +40,9 @@ class ApproveApplicationRequest extends FormRequest
                 'unique:users',
                 Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist()),
             ],
-            'approve' => 'required',
+            'approve' => [
+                'required',
+            ],
         ];
     }
 }
