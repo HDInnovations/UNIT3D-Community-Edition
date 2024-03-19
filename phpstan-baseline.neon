@@ -956,11 +956,6 @@ parameters:
 			path: app/Http/Livewire/BlockIpAddress.php
 
 		-
-			message: "#^Call to an undefined method App\\\\Http\\\\Livewire\\\\Comment\\:\\:emitUp\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comment.php
-
-		-
 			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
 			count: 4
 			path: app/Http/Livewire/Comment.php
