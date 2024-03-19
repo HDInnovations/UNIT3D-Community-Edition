@@ -20,7 +20,7 @@
 <div
     style="
         display: grid;
-        grid-template-columns: 1fr max-content;
+        grid-template-columns: minmax(0, 1fr) 225px;
         gap: 12px;
         align-items: flex-start;
     "
@@ -123,11 +123,9 @@
                                             </tr>
                                             <tr x-cloack x-show="isToggledOn">
                                                 <td colspan="2">
-                                                    <code>
-                                                        <pre x-ref="stacktrace">
-{{ $entry['stacktrace'] }}</pre
-                                                        >
-                                                    </code>
+                                                    <div class="bbcode-rendered">
+                                                        <pre><code x-ref="stacktrace">{{ $entry['stacktrace'] }}</code></pre>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -145,7 +143,13 @@
                 @endforelse
             </table>
         </div>
-        {{ $entries->links('partials.pagination') }}
+        @if ($entries->hasMorePages())
+            <div class="text-center">
+                <button class="form__button form__button--filled" wire:click.prevent="loadMore">
+                    Load More Entries
+                </button>
+            </div>
+        @endif
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Entries</h2>
