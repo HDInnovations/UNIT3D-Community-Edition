@@ -28,7 +28,8 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Peer ID prefix</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>Peer ID Prefix</th>
                         <th>{{ __('common.reason') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
@@ -37,6 +38,7 @@
                     @foreach ($clients as $client)
                         <tr>
                             <td>{{ $client->name }}</td>
+                            <td>{{ $client->peer_id_prefix }}</td>
                             <td>{{ $client->reason }}</td>
                             <td>
                                 <menu class="data-table__actions">
