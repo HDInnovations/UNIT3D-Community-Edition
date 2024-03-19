@@ -1,13 +1,4 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\Http\Controllers\NewPasswordController;
-use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
-use Laravel\Fortify\Http\Controllers\RegisteredUserController;
-use Laravel\Fortify\RoutePath;
-
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,6 +10,14 @@ use Laravel\Fortify\RoutePath;
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
+
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
+use Laravel\Fortify\RoutePath;
 
 /*
 |--------------------------------------------------------------------------

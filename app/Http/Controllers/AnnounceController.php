@@ -1,7 +1,4 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,6 +11,8 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @credits    Rhilip <https://github.com/Rhilip> Roardom <roardom@protonmail.com>
  */
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
