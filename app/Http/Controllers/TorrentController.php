@@ -343,6 +343,9 @@ class TorrentController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $user = $request->user();
+        abort_if($user->can_upload === false || $user->group->can_upload == 0, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
+
         return view('torrent.create', [
             'categories' => Category::orderBy('position')
                 ->get()
@@ -379,6 +382,7 @@ class TorrentController extends Controller
     public function store(StoreTorrentRequest $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
+        abort_if($user->can_upload === false || $user->group->can_upload == 0, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
         abort_if(\is_array($request->file('torrent')), 400);
 

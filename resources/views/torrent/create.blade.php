@@ -54,15 +54,6 @@
 @endsection
 
 @section('main')
-    @if ($user->can_upload == 0 || $user->group->can_upload == 0)
-        <section class="panelV2">
-            <h2 class="panel__heading">
-                <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
-                {{ __('torrent.cant-upload') }}!
-            </h2>
-            <p class="panel__body">{{ __('torrent.cant-upload-desc') }}!</p>
-        </section>
-    @else
         <section
             class="upload panelV2"
             x-data="{
@@ -584,7 +575,6 @@
                 </form>
             </div>
         </section>
-    @endif
 @endsection
 
 @if ($user->can_upload == 1 && $user->group->can_upload == 1)
