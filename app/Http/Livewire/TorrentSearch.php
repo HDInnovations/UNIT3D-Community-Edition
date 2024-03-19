@@ -20,6 +20,7 @@ use App\Models\Tv;
 use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
+use App\Traits\TorrentMeta;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -31,6 +32,7 @@ class TorrentSearch extends Component
 {
     use CastLivewireProperties;
     use LivewireSort;
+    use TorrentMeta;
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
@@ -358,28 +360,8 @@ class TorrentSearch extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(min($this->perPage, 100));
 
-        $movieIds = $torrents->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
-        $tvIds = $torrents->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
-        $gameIds = $torrents->getCollection()->where('meta', '=', 'game')->pluck('igdb');
-
-        $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-        $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-        $games = [];
-
-        foreach ($gameIds as $gameId) {
-            $games[] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
-        }
-
-        $torrents = $torrents->through(function ($torrent) use ($movies, $tv, $games) {
-            $torrent->meta = match ($torrent->meta) {
-                'movie' => $movies[$torrent->tmdb] ?? null,
-                'tv'    => $tv[$torrent->tmdb] ?? null,
-                'game'  => $games[$torrent->igdb] ?? null,
-                default => null,
-            };
-
-            return $torrent;
-        });
+        // See app/Traits/TorrentMeta.php
+        $this->scopeMeta($torrents);
 
         return $torrents;
     }

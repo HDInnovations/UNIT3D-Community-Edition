@@ -14,14 +14,15 @@
 namespace App\Http\Livewire;
 
 use App\Models\Torrent;
-use App\Models\Tv;
-use App\Models\Movie;
 use App\Models\User;
+use App\Traits\TorrentMeta;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class TopTorrents extends Component
 {
+    use TorrentMeta;
+
     public ?User $user = null;
 
     public string $tab = 'newest';
@@ -105,28 +106,8 @@ class TopTorrents extends Component
             ->take(5)
             ->get();
 
-        $movieIds = $torrents->where('meta', '=', 'movie')->pluck('tmdb');
-        $tvIds = $torrents->where('meta', '=', 'tv')->pluck('tmdb');
-        $gameIds = $torrents->where('meta', '=', 'game')->pluck('igdb');
-
-        $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-        $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-        $games = [];
-
-        foreach ($gameIds as $gameId) {
-            $games[$gameId] = \MarcReichel\IGDBLaravel\Models\Game::with(['cover' => ['url', 'image_id']])->find($gameId);
-        }
-
-        $torrents = $torrents->map(function ($torrent) use ($movies, $tv, $games) {
-            $torrent->meta = match ($torrent->meta) {
-                'movie' => $movies[$torrent->tmdb] ?? null,
-                'tv'    => $tv[$torrent->tmdb] ?? null,
-                'game'  => $games[$torrent->igdb] ?? null,
-                default => null,
-            };
-
-            return $torrent;
-        });
+        // See app/Traits/TorrentMeta.php
+        $this->scopeMeta($torrents);
 
         return $torrents;
     }
