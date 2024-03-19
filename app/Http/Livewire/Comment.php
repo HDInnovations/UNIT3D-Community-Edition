@@ -113,7 +113,7 @@ class Comment extends Component
     {
         if ((auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) && $this->comment->children()->doesntExist()) {
             $this->comment->delete();
-            $this->emitUp('refresh');
+            $this->dispatch('refresh');
         } else {
             $this->dispatch('error', type: 'error', message: 'Permission Denied!');
         }
