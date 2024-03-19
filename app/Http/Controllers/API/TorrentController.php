@@ -21,22 +21,28 @@ use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
+use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
+use App\Models\Tv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
+use App\Traits\TorrentMeta;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Exception;
+use Illuminate\Validation\Rule;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
  */
 class TorrentController extends BaseController
 {
+    use TorrentMeta;
+
     public int $perPage = 25;
 
     public string $sortField = 'bumped_at';
@@ -55,24 +61,40 @@ class TorrentController extends BaseController
      */
     public function index(): TorrentsResource
     {
-        $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files'])
-            ->latest('sticky')
-            ->latest('bumped_at')
-            ->paginate(25);
+        $torrents = cache()->remember('torrent-api-index', 300, function () {
+            $torrents = Torrent::with(
+                ['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files']
+            )
+                ->select('*')
+                ->selectRaw(
+                    "
+                CASE
+                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                END as meta
+            "
+                )
+                ->latest('sticky')
+                ->latest('bumped_at')
+                ->paginate(25);
+
+            // See app/Traits/TorrentMeta.php
+            return $this->scopeMeta($torrents);
+        });
 
         return new TorrentsResource($torrents);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
-
-        abort_unless($user->can_upload, 403);
+        abort_if($user->can_upload === false || $user->group->can_upload == 0, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
         $requestFile = $request->file('torrent');
 
@@ -135,22 +157,22 @@ class TorrentController extends BaseController
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
         $torrent->personal_release = $request->input('personal_release') ?? 0;
-        $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
-        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
-        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
-        $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? $request->input('refundable') : 0;
+        $torrent->internal = $user->group->is_modo || $user->group->is_internal ? ($request->input('internal') ?? 0) : 0;
+        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? ($request->input('featured') ?? 0) : 0;
+        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? ($request->input('doubleup') ?? 0) : 0;
+        $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? ($request->input('refundable') ?? 0) : 0;
         $du_until = $request->input('du_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
             $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
         }
-        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
+        $torrent->free = $user->group->is_modo || $user->group->is_internal ? ($request->input('free') ?? 0) : 0;
         $fl_until = $request->input('fl_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
         }
-        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? $request->input('sticky') : 0;
+        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
@@ -160,55 +182,122 @@ class TorrentController extends BaseController
             $torrent->doubleup = true;
         }
 
-        $resolutionRule = 'nullable|exists:resolutions,id';
-
-        if ($category->movie_meta || $category->tv_meta) {
-            $resolutionRule = 'required|exists:resolutions,id';
-        }
-
-        $episodeRule = 'nullable|numeric';
-
-        if ($category->tv_meta) {
-            $episodeRule = 'required|numeric';
-        }
-
-        $seasonRule = 'nullable|numeric';
-
-        if ($category->tv_meta) {
-            $seasonRule = 'required|numeric';
-        }
-
         // Validation
         $v = validator($torrent->toArray(), [
-            'name'             => 'required|unique:torrents',
-            'description'      => 'required',
-            'info_hash'        => 'required|unique:torrents',
-            'file_name'        => 'required',
-            'num_file'         => 'required|numeric',
-            'size'             => 'required',
-            'category_id'      => 'required|exists:categories,id',
-            'type_id'          => 'required|exists:types,id',
-            'resolution_id'    => $resolutionRule,
-            'region_id'        => 'nullable|exists:regions,id',
-            'distributor_id'   => 'nullable|exists:distributors,id',
-            'user_id'          => 'required|exists:users,id',
-            'imdb'             => 'required|numeric',
-            'tvdb'             => 'required|numeric',
-            'tmdb'             => 'required|numeric',
-            'mal'              => 'required|numeric',
-            'igdb'             => 'required|numeric',
-            'season_number'    => $seasonRule,
-            'episode_number'   => $episodeRule,
-            'anon'             => 'required',
-            'stream'           => 'required',
-            'sd'               => 'required',
-            'personal_release' => 'nullable',
-            'internal'         => 'required',
-            'featured'         => 'required',
-            'free'             => 'required|between:0,100',
-            'doubleup'         => 'required',
-            'refundable'       => 'required',
-            'sticky'           => 'required',
+            'name' => [
+                'required',
+                'unique:torrents',
+                'max:255',
+            ],
+            'description' => [
+                'required',
+            ],
+            'info_hash' => [
+                'required',
+                'unique:torrents',
+            ],
+            'file_name' => [
+                'required',
+            ],
+            'num_file' => [
+                'required',
+                'numeric',
+            ],
+            'size' => [
+                'required',
+            ],
+            'category_id' => [
+                'required',
+                'exists:categories,id',
+            ],
+            'type_id' => [
+                'required',
+                'exists:types,id',
+            ],
+            'resolution_id' => [
+                Rule::when($category->movie_meta || $category->tv_meta, 'required'),
+                Rule::when(!$category->movie_meta && !$category->tv_meta, 'nullable'),
+                'exists:resolutions,id',
+            ],
+            'region_id' => [
+                'nullable',
+                'exists:regions,id',
+            ],
+            'distributor_id' => [
+                'nullable',
+                'exists:distributors,id',
+            ],
+            'user_id' => [
+                'required',
+                'exists:users,id',
+            ],
+            'imdb' => [
+                'required',
+                'numeric',
+            ],
+            'tvdb' => [
+                'required',
+                'numeric',
+            ],
+            'tmdb' => [
+                'required',
+                'numeric',
+            ],
+            'mal' => [
+                'required',
+                'numeric',
+            ],
+            'igdb' => [
+                'required',
+                'numeric',
+            ],
+            'season_number' => [
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::prohibitedIf(!$category->tv_meta),
+            ],
+            'episode_number' => [
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'numeric',
+                    'integer',
+                ]),
+                Rule::prohibitedIf(!$category->tv_meta),
+            ],
+            'anon' => [
+                'required',
+            ],
+            'stream' => [
+                'required',
+            ],
+            'sd' => [
+                'required',
+            ],
+            'personal_release' => [
+                'nullable',
+            ],
+            'internal' => [
+                'required',
+            ],
+            'featured' => [
+                'required',
+            ],
+            'free' => [
+                'required',
+                'between:0,100',
+            ],
+            'doubleup' => [
+                'required',
+            ],
+            'refundable' => [
+                'required',
+            ],
+            'sticky' => [
+                'required',
+            ],
         ]);
 
         if ($v->fails()) {
@@ -346,7 +435,35 @@ class TorrentController extends BaseController
      */
     public function show(int $id): TorrentResource
     {
-        $torrent = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files'])->findOrFail($id);
+        $torrent = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files'])
+            ->select('*')
+            ->selectRaw("
+                CASE
+                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                END as meta
+            ")
+            ->findOrFail($id);
+
+        $torrent->meta = null;
+
+        if ($torrent->category->tv_meta && $torrent->tmdb) {
+            $torrent->meta = Tv::with(['genres'])
+                ->find($torrent->tmdb);
+        }
+
+        if ($torrent->category->movie_meta && $torrent->tmdb) {
+            $torrent->meta = Movie::with(['genres'])
+                ->find($torrent->tmdb);
+        }
+
+        if ($torrent->category->game_meta && $torrent->igdb) {
+            $torrent->meta = Game::with([ 'genres' => ['name']])
+                ->find($torrent->igdb);
+        }
 
         TorrentResource::withoutWrapping();
 
@@ -382,7 +499,17 @@ class TorrentController extends BaseController
         $cacheKey = $url.'?'.$queryString;
 
         $torrents = cache()->remember($cacheKey, 300, function () use ($request, $isRegex) {
-            return Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region'])
+            $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region'])
+                ->select('*')
+                ->selectRaw("
+                    CASE
+                        WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                        WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                        WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                        WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                        WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                    END as meta
+                ")
                 ->when($request->filled('name'), fn ($query) => $query->ofName($request->name, $isRegex($request->name)))
                 ->when($request->filled('description'), fn ($query) => $query->ofDescription($request->description, $isRegex($request->description)))
                 ->when($request->filled('mediainfo'), fn ($query) => $query->ofMediainfo($request->mediainfo, $isRegex($request->mediainfo)))
@@ -419,7 +546,10 @@ class TorrentController extends BaseController
                 ->when($request->filled('episodeNumber'), fn ($query) => $query->ofEpisode((int) $request->episodeNumber))
                 ->latest('sticky')
                 ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
-                ->cursorPaginate(min($request->input('perPage') ?? $this->perPage, 100));
+                ->paginate(min($request->input('perPage') ?? $this->perPage, 100));
+
+            // See app/Traits/TorrentMeta.php
+            return $this->scopeMeta($torrents);
         });
 
         if ($torrents !== null) {
