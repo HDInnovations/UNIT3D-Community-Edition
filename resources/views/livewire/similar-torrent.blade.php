@@ -26,7 +26,6 @@
                     <th
                         class="torrents-filename"
                         wire:click="sortBy('name')"
-                        :direction="$sortField === 'name' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         {{ __('common.name') }}
@@ -34,7 +33,6 @@
                     </th>
                     <th
                         wire:click="sortBy('created_at')"
-                        :direction="$sortField === 'created_at' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         {{ __('common.created_at') }}
@@ -42,7 +40,6 @@
                     </th>
                     <th
                         wire:click="sortBy('size')"
-                        :direction="$sortField === 'size' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
@@ -50,7 +47,6 @@
                     </th>
                     <th
                         wire:click="sortBy('seeders')"
-                        :direction="$sortField === 'seeders' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-arrow-alt-circle-up"></i>
@@ -58,7 +54,6 @@
                     </th>
                     <th
                         wire:click="sortBy('leechers')"
-                        :direction="$sortField === 'leechers' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-arrow-alt-circle-down"></i>
@@ -66,7 +61,6 @@
                     </th>
                     <th
                         wire:click="sortBy('times_completed')"
-                        :direction="$sortField === 'times_completed' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
@@ -94,11 +88,9 @@
                                                 x-on:click.self="$el.firstElementChild.click()"
                                             >
                                                 <input
-                                                    id="torrent_checkbox_{{ $torrent->id }}"
-                                                    name="torrent_checkbox_{{ $torrent->id }}"
                                                     type="checkbox"
-                                                    value="1"
-                                                    wire:model.live="checked.{{ $torrent->id }}"
+                                                    value="{{ $torrent->id }}"
+                                                    wire:model.live="checked"
                                                 />
                                             </td>
                                         </tr>
@@ -234,7 +226,7 @@
               }).then((result) => {
                 if (result.isConfirmed) {
                 @this.set('reason', result.value);
-                  Livewire.emit('destroy')
+                  Livewire.dispatch('destroy')
                 }
               })
             })
