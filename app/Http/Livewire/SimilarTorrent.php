@@ -49,10 +49,8 @@ class SimilarTorrent extends Component
     /**
      * @var array<int, bool>
      */
-    #[Url(history: true)]
     public array $checked = [];
 
-    #[Url(history: true)]
     public bool $selectPage = false;
 
     #[Url(history: true)]
@@ -70,7 +68,7 @@ class SimilarTorrent extends Component
 
     final public function updatedSelectPage(bool $value): void
     {
-        $this->checked = $value ? $this->torrents->pluck('id')->mapWithKeys(fn ($id) => [(int) $id => true])->toArray() : [];
+        $this->checked = $value ? $this->torrents->pluck('id')->toArray() : [];
     }
 
     final public function updatedChecked(): void
@@ -148,7 +146,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey(array_keys($this->checked, true))->pluck('name')->toArray();
+        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatch(
             'swal:confirm',
@@ -167,7 +165,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey(array_keys($this->checked, true))->get();
+        $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
         $title = match (true) {

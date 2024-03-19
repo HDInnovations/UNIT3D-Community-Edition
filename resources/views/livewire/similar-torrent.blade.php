@@ -26,49 +26,28 @@
                     <th
                         class="torrents-filename"
                         wire:click="sortBy('name')"
-                        :direction="$sortField === 'name' ? $sortDirection : null"
                         role="columnheader button"
                     >
                         {{ __('common.name') }}
                         @include('livewire.includes._sort-icon', ['field' => 'name'])
                     </th>
-                    <th
-                        wire:click="sortBy('created_at')"
-                        :direction="$sortField === 'created_at' ? $sortDirection : null"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('common.created_at') }}
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
-                    <th
-                        wire:click="sortBy('size')"
-                        :direction="$sortField === 'size' ? $sortDirection : null"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('size')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'size'])
                     </th>
-                    <th
-                        wire:click="sortBy('seeders')"
-                        :direction="$sortField === 'seeders' ? $sortDirection : null"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('seeders')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-arrow-alt-circle-up"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                     </th>
-                    <th
-                        wire:click="sortBy('leechers')"
-                        :direction="$sortField === 'leechers' ? $sortDirection : null"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('leechers')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-arrow-alt-circle-down"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                     </th>
-                    <th
-                        wire:click="sortBy('times_completed')"
-                        :direction="$sortField === 'times_completed' ? $sortDirection : null"
-                        role="columnheader button"
-                    >
+                    <th wire:click="sortBy('times_completed')" role="columnheader button">
                         <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                     </th>
@@ -94,11 +73,9 @@
                                                 x-on:click.self="$el.firstElementChild.click()"
                                             >
                                                 <input
-                                                    id="torrent_checkbox_{{ $torrent->id }}"
-                                                    name="torrent_checkbox_{{ $torrent->id }}"
                                                     type="checkbox"
-                                                    value="1"
-                                                    wire:model.live="checked.{{ $torrent->id }}"
+                                                    value="{{ $torrent->id }}"
+                                                    wire:model.live="checked"
                                                 />
                                             </td>
                                         </tr>
@@ -234,7 +211,7 @@
               }).then((result) => {
                 if (result.isConfirmed) {
                 @this.set('reason', result.value);
-                  Livewire.emit('destroy')
+                  Livewire.dispatch('destroy')
                 }
               })
             })
