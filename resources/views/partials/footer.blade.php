@@ -76,7 +76,7 @@
                 </li>
                 <li>
                     <a
-                        href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v7.0.0)"
+                        href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v8.x.x)"
                     >
                         API Documentation
                     </a>
@@ -88,11 +88,11 @@
             <ul class="footer__section-list">
                 <li>
                     <a
-                        href="https://github.com/sponsors/HDVinnie"
+                        href="https://polar.sh/HDInnovations"
                         target="_blank"
                         class="form__button form__button--outlined"
                     >
-                        {{ __('common.sponsor') }}
+                        Support UNIT3D Development
                     </a>
                 </li>
                 <li>
