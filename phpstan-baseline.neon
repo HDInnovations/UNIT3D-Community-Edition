@@ -831,6 +831,11 @@ parameters:
 			path: app/Http/Controllers/TicketController.php
 
 		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 2
+			path: app/Http/Controllers/TicketNoteController.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
