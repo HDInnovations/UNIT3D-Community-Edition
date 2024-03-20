@@ -22,6 +22,66 @@
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
         <div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>
     </section>
+    @if ($user->group->is_modo)
+        <section class="panelV2">
+            <h2 class="panel__heading">{{ __('ticket.staff-notes') }}</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>{{ __('common.staff') }}</th>
+                            <th>{{ __('user.note') }}</th>
+                            <th>{{ __('user.created-on') }}</th>
+                            <th>{{ __('common.action') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($ticket->notes as $note)
+                            <tr>
+                                <td>
+                                    <x-user_tag :anon="false" :user="$note->user" />
+                                </td>
+                                <td style="white-space: pre-wrap">{{ $note->message }}</td>
+                                <td>
+                                    <time
+                                        datetime="{{ $note->created_at }}"
+                                        title="{{ $note->created_at }}"
+                                    >
+                                        {{ $note->created_at->diffForHumans() }}
+                                    </time>
+                                </td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <form
+                                                action="{{ route('tickets.note.destroy', ['ticket' => $ticket]) }}"
+                                                method="POST"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <p class="form__group form__group--horizontal">
+                                                    <button
+                                                        class="form__button form__button--filled form__button--centered"
+                                                    >
+                                                        {{ __('ticket.delete') }}
+                                                    </button>
+                                                </p>
+                                            </form>
+                                        </li>
+                                    </menu>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">No notes</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    @endif
+
     <livewire:comments :model="$ticket" />
 @endsection
 
@@ -100,6 +160,50 @@
                         </label>
                     </p>
                 </form>
+
+                <div class="form__group form__group--horizontal" x-data="dialog">
+                    <button
+                        class="form__button form__button--filled form__button--centered"
+                        x-bind="showDialog"
+                    >
+                        Staff Note
+                    </button>
+                    <dialog class="dialog" x-bind="dialogElement">
+                        <h4 class="dialog__heading">Add Staff Note</h4>
+                        <form
+                            class="dialog__form"
+                            method="POST"
+                            action="{{ route('tickets.note.store', ['ticket' => $ticket]) }}"
+                            x-bind="dialogForm"
+                        >
+                            @csrf
+                            <p class="form__group">
+                                <textarea
+                                    id="message"
+                                    class="form__textarea"
+                                    name="message"
+                                    type="text"
+                                    required
+                                ></textarea>
+                                <label class="form__label form__label--floating" for="message">
+                                    Message
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <button class="form__button form__button--filled">
+                                    {{ __('common.add') }}
+                                </button>
+                                <button
+                                    formmethod="dialog"
+                                    formnovalidate
+                                    class="form__button form__button--outlined"
+                                >
+                                    {{ __('common.cancel') }}
+                                </button>
+                            </p>
+                        </form>
+                    </dialog>
+                </div>
                 @if ($ticket->staff_id !== null)
                     <form
                         action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
@@ -117,22 +221,15 @@
                     </form>
                 @endif
 
-                @if (auth()->user()->group->is_modo)
-                    <form
-                        action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}"
-                        method="POST"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <p class="form__group form__group--horizontal">
-                            <button
-                                class="form__button form__button--filled form__button--centered"
-                            >
-                                {{ __('ticket.delete') }}
-                            </button>
-                        </p>
-                    </form>
-                @endif
+                <form action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <p class="form__group form__group--horizontal">
+                        <button class="form__button form__button--filled form__button--centered">
+                            {{ __('ticket.delete') }}
+                        </button>
+                    </p>
+                </form>
             @endif
 
             @if ($ticket->closed_at === null)

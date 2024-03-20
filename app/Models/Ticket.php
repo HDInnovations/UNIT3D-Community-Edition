@@ -150,4 +150,14 @@ class Ticket extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    /**
+     * Has Many Ticket Notes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketNote>
+     */
+    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TicketNote::class);
+    }
 }
