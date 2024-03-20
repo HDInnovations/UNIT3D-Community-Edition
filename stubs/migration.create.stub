@@ -18,12 +18,10 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): viod
     {
-        Schema::create('{{ table }}', function (Blueprint $table) {
+        Schema::create('{{ table }}', function (Blueprint $table): void {
             $table->increments('id');
             $table->timestamps();
         });
