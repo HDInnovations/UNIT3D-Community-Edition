@@ -202,7 +202,7 @@
             </button>
         </li>
         <li>
-            <button type="button" class="form__standard-icon-button" x-on:click="InsertEmoji">
+            <button type="button" class="form__standard-icon-button" x-on:click="insertEmoji">
                 <abbr
                     title="If using MacOS, press Ctrl + Cmd + Space bar&NewLine;If using Windows or Linux, press Windows logo key + ."
                 >
@@ -334,7 +334,7 @@
                     this.insert('[table]\n[tr]\n[td]', '[/td]\n[/tr]\n[/table]');
                 },
                 insertEmoji() {
-                    this.Swal.fire({
+                    Swal.fire({
                         title: 'Emoji Picker',
                         html: 'If using macOS, press Ctrl + Cmd + Space bar<br>If using Windows or Linux, press Windows logo key + .',
                         icon: 'info',
