@@ -42,7 +42,10 @@
                             <td style="min-width: 20%">
                                 <a
                                     href="{{ route('group', ['id' => $group->id]) }}"
-                                    style="color: {{ $group->color }};background-image: {{ $group->effect }};"
+                                    style="
+                                        color: {{ $group->color }};
+                                        background-image: {{ $group->effect }};
+                                    "
                                 >
                                     <i class="{{ $group->icon }}"></i>
                                     {{ $group->name }}
@@ -178,10 +181,12 @@
                                                     <i
                                                         class="{{ config('other.font-awesome') }} fa-upload text-success"
                                                     ></i>
-                                                    {{ __('common.upload') }} {{ __('torrent.torrents') }}
+                                                    {{ __('common.upload') }}
+                                                    {{ __('torrent.torrents') }}
                                                 </td>
                                             </tr>
                                         @endif
+
                                         @if ($group->is_freeleech)
                                             <tr>
                                                 <td>
@@ -192,6 +197,7 @@
                                                 </td>
                                             </tr>
                                         @endif
+
                                         @if ($group->is_double_upload)
                                             <tr>
                                                 <td>
@@ -202,16 +208,16 @@
                                                 </td>
                                             </tr>
                                         @endif
+
                                         @if ($group->is_refundable)
                                             <tr>
                                                 <td>
-                                                    <i
-                                                        class="fas fa-percentage"
-                                                    ></i>
+                                                    <i class="fas fa-percentage"></i>
                                                     {{ __('torrent.refundable') }}
                                                 </td>
                                             </tr>
                                         @endif
+
                                         @if ($group->is_immune)
                                             <tr>
                                                 <td>
@@ -222,12 +228,11 @@
                                                 </td>
                                             </tr>
                                         @endif
+
                                         @if ($group->is_trusted)
                                             <tr>
                                                 <td>
-                                                    <i
-                                                        class="fas fa-tasks"
-                                                    ></i>
+                                                    <i class="fas fa-tasks"></i>
                                                     {{ __('staff.torrent-moderation') }} bypass
                                                 </td>
                                             </tr>
