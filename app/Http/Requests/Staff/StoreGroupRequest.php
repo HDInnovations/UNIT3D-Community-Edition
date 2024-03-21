@@ -51,6 +51,9 @@ class StoreGroupRequest extends FormRequest
                 'nullable',
                 'integer',
             ],
+            'description' => [
+                'nullable',
+            ],
             'color' => [
                 'required',
             ],
