@@ -163,7 +163,7 @@
                                     $history = App\Models\History::select(['seedtime'])
                                         ->where('user_id', '=', $user->id)
                                         ->where('torrent_id', '=', $resurrection->torrent_id)
-                                        ->first();
+                                        ->first()
                                 @endphp
 
                                 {{ empty($history) ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}

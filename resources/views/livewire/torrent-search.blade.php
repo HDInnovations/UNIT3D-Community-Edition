@@ -187,7 +187,7 @@
                                 'regions',
                                 3_600,
                                 fn () => App\Models\Region::orderBy('position')->get()
-                            );
+                            )
                         @endphp
 
                         <div id="regions" wire:ignore></div>
@@ -198,7 +198,7 @@
                                 'distributors',
                                 3_600,
                                 fn () => App\Models\Distributor::orderBy('name')->get()
-                            );
+                            )
                         @endphp
 
                         <div id="distributors" wire:ignore></div>
@@ -333,7 +333,7 @@
                                         'categories',
                                         3_600,
                                         fn () => App\Models\Category::orderBy('position')->get()
-                                    );
+                                    )
                                 @endphp
 
                                 @foreach ($categories as $category)
@@ -361,7 +361,7 @@
                                         'types',
                                         3_600,
                                         fn () => App\Models\Type::orderBy('position')->get()
-                                    );
+                                    )
                                 @endphp
 
                                 @foreach ($types as $type)
@@ -389,7 +389,7 @@
                                         'resolutions',
                                         3_600,
                                         fn () => App\Models\Resolution::orderBy('position')->get()
-                                    );
+                                    )
                                 @endphp
 
                                 @foreach ($resolutions as $resolution)
@@ -417,7 +417,7 @@
                                         'genres',
                                         3_600,
                                         fn () => App\Models\Genre::orderBy('name')->get()
-                                    );
+                                    )
                                 @endphp
 
                                 @foreach ($genres as $genre)
@@ -740,7 +740,7 @@
                                             ->distinct()
                                             ->orderBy('original_language')
                                             ->pluck('original_language')
-                                    );
+                                    )
                                 @endphp
 
                                 @foreach ($primaryLanguages as $primaryLanguage)

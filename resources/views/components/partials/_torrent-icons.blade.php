@@ -72,7 +72,7 @@
     @endif
 
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech');
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
     @endphp
 
     @if ($alwaysFreeleech || $torrent->free)
