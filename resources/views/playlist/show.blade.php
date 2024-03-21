@@ -134,7 +134,7 @@
         @php
             $tmdb_backdrop = isset($meta->backdrop)
                 ? tmdb_image('back_big', $meta->backdrop)
-                : 'https://via.placeholder.com/1280x350'
+                : 'https://via.placeholder.com/1280x350';
         @endphp
 
         <div class="playlist__backdrop" style="background-image: url('{{ $tmdb_backdrop }}')">

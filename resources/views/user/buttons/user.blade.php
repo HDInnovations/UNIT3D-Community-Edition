@@ -2,7 +2,7 @@
     $isModo = auth()->user()->group->is_modo;
     $isProfileOwner = auth()
         ->user()
-        ->is($user)
+        ->is($user);
 @endphp
 
 <li class="nav-tab-menu">
@@ -312,9 +312,11 @@
     </li>
 @endif
 
-@if (auth()
-    ->user()
-    ->isAllowed($user, 'achievement', 'show_achievement') ||
+@if (
+
+    auth()
+        ->user()
+        ->isAllowed($user, 'achievement', 'show_achievement') ||
     auth()
         ->user()
         ->isAllowed($user, 'forum', 'show_topic') ||

@@ -514,7 +514,7 @@
                                     </span>
                                 </td>
                                 <td class="user-torrents__ratio">
-                                    @php($ratio = $history->actual_ratio < 1000 ? \number_format($history->actual_ratio, 2) : INF)
+                                    @php(($ratio = $history->actual_ratio < 1000 ? \number_format($history->actual_ratio, 2) : INF))
                                     <span
                                         @if ($ratio < 1)
                                             class="ratio-0{{ \floor($ratio * 10) }}"
@@ -530,7 +530,7 @@
                                         {{ $ratio }}
                                     </span>
                                     <br />
-                                    @php($ratio = $history->ratio < 1000 ? \number_format($history->ratio, 2) : INF)
+                                    @php(($ratio = $history->ratio < 1000 ? \number_format($history->ratio, 2) : INF))
                                     <span
                                         @if ($ratio < 1)
                                             class="ratio-0{{ \floor($ratio * 10) }}"

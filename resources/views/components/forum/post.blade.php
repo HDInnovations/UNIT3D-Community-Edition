@@ -66,10 +66,10 @@
                 </form>
             </li>
             <li class="post__toolbar-item">
-                @livewire('like-button', ['post' => $post, 'likesCount' => $post->likes_count], key('like-'.$post->id))
+                @livewire('like-button', ['post' => $post, 'likesCount' => $post->likes_count], key('like-' . $post->id))
             </li>
             <li class="post__toolbar-item">
-                @livewire('dislike-button', ['post' => $post, 'dislikesCount' => $post->dislikes_count], key('dislike-'.$post->id))
+                @livewire('dislike-button', ['post' => $post, 'dislikesCount' => $post->dislikes_count], key('dislike-' . $post->id))
             </li>
             <li class="post__toolbar-item">
                 <a

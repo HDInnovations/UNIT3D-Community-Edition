@@ -54,12 +54,12 @@
                 </tr>
             </thead>
         </table>
-        @foreach ($torrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
+        @foreach ($torrents->sortBy('type.position')->values()->groupBy('type.name')as $type => $torrents)
             <section class="panelV2" x-data>
                 <h2 class="panel__heading">{{ $type }}</h2>
                 <div class="data-table-wrapper">
                     <table class="data-table">
-                        @foreach ($torrents->sortBy('resolution.position')->values()->groupBy('resolution.name') as $resolution => $torrents)
+                        @foreach ($torrents->sortBy('resolution.position')->values()->groupBy('resolution.name')as $resolution => $torrents)
                             <tbody>
                                 <tr>
                                     <th colspan="100">{{ $resolution }}</th>

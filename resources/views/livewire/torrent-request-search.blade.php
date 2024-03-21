@@ -205,7 +205,7 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('torrent.category') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @foreach (App\Models\Category::select(['id', 'name', 'position'])->orderBy('position')->get() as $category)
+                                    @foreach (App\Models\Category::select(['id', 'name', 'position'])->orderBy('position')->get()as $category)
                                         <p class="form__group">
                                             <label class="form__label">
                                                 <input
@@ -225,7 +225,7 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.type') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @foreach (App\Models\Type::select(['id', 'name', 'position'])->orderBy('position')->get() as $type)
+                                    @foreach (App\Models\Type::select(['id', 'name', 'position'])->orderBy('position')->get()as $type)
                                         <p class="form__group">
                                             <label class="form__label">
                                                 <input
@@ -245,7 +245,7 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.resolution') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @foreach (App\Models\Resolution::select(['id', 'name', 'position'])->orderBy('position')->get() as $resolution)
+                                    @foreach (App\Models\Resolution::select(['id', 'name', 'position'])->orderBy('position')->get()as $resolution)
                                         <p class="form__group">
                                             <label class="form__label">
                                                 <input

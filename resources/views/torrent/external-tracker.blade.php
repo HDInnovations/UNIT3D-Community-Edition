@@ -108,7 +108,7 @@
                                         Torrent size not available
                                     @else
                                         @php
-                                            $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size
+                                            $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size;
                                         @endphp
 
                                         @if (0 < $progress && $progress < 1)
@@ -139,7 +139,7 @@
                                 @endif
                                 <td>
                                     @php
-                                        $updatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($peer['updated_at'])
+                                        $updatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($peer['updated_at']);
                                     @endphp
 
                                     <time datetime="{{ $updatedAt }}" title="{{ $updatedAt }}">

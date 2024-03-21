@@ -144,7 +144,7 @@
                     </section>
                 @endisset
 
-                @isset($mediaInfo['video'], array_merge(... $mediaInfo['video'])['encoding_settings'])
+                @isset($mediaInfo['video'], array_merge(...$mediaInfo['video'])['encoding_settings'])
                     <section class="mediainfo__encode-settings">
                         <h3>Encode Settings</h3>
                         @foreach ($mediaInfo['video'] as $key => $videoElement)
