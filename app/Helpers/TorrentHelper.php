@@ -50,17 +50,21 @@ class TorrentHelper
         $torrent->moderated_at = now();
         $torrent->moderated_by = auth()->id();
 
-        $autoFreeleech = AutomaticTorrentFreeleech::query()
-            ->orderBy('position')
-            ->where(fn ($query) => $query->whereNull('category_id')->orWhere('category_id', '=', $torrent->category_id))
-            ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
-            ->where(fn ($query) => $query->whereNull('resolution_id')->orWhere('resolution_id', '=', $torrent->resolution_id))
-            ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
-            ->first();
+        if (!$torrent->free) {
+            $autoFreeleechs = AutomaticTorrentFreeleech::query()
+                ->orderBy('position')
+                ->where(fn ($query) => $query->whereNull('category_id')->orWhere('category_id', '=', $torrent->category_id))
+                ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
+                ->where(fn ($query) => $query->whereNull('resolution_id')->orWhere('resolution_id', '=', $torrent->resolution_id))
+                ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
+                ->get();
 
-        if (!$torrent->free && $autoFreeleech !== null) {
-            if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
-                $torrent->free = $autoFreeleech->freeleech_percentage;
+            foreach ($autoFreeleechs as $autoFreeleech) {
+                if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
+                    $torrent->free = $autoFreeleech->freeleech_percentage;
+
+                    break;
+                }
             }
         }
 
