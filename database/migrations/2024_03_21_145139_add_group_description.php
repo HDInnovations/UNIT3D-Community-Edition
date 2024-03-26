@@ -11,9 +11,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- use Illuminate\Database\Migrations\Migration;
- use Illuminate\Database\Schema\Blueprint;
- use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
     /**
@@ -23,13 +23,6 @@ return new class () extends Migration {
     {
         Schema::table('groups', function (Blueprint $table): void {
             $table->string('description')->nullable()->after('download_slots');
-        });
-    }
-
-    public function down(): void
-    {
-        Schema::table('groups', function (Blueprint $table): void {
-            $table->dropColumn('description');
         });
     }
 };
