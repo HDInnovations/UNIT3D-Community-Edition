@@ -31,6 +31,9 @@ class TorrentZipController extends Controller
         //  Extend The Maximum Execution Time
         set_time_limit(1200);
 
+        // Extend The Maximum Memory Limit
+        ini_set('memory_limit', '1024M');
+
         // Authorized User
         abort_unless($request->user()->is($user), 403);
 
