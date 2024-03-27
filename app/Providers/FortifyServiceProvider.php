@@ -152,7 +152,6 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(5)->by('fortify-reset-password'.$request->ip()));
         RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by('fortify-two-factor'.$request->session()->get('login.id')));
 
-
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::requestPasswordResetLinkView(fn () => view('auth.passwords.email'));
         Fortify::resetPasswordView(fn (Request $request) => view('auth.passwords.reset', ['request' => $request]));
