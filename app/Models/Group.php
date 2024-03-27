@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $position
  * @property int      $level
  * @property int|null $download_slots
+ * @property string   $description
  * @property string   $color
  * @property string   $icon
  * @property string   $effect

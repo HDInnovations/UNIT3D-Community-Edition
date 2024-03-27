@@ -47,6 +47,19 @@
                 </p>
                 <p class="form__group">
                     <input
+                        id="description"
+                        class="form__text"
+                        type="text"
+                        name="description"
+                        placeholder=" "
+                        value="{{ $group->description }}"
+                    />
+                    <label class="form__label form__label--floating" for="description">
+                        {{ __('common.description') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
                         id="position"
                         class="form__text"
                         type="text"

@@ -33,6 +33,7 @@
                     <tr>
                         <th>{{ __('common.group') }}</th>
                         <th>Requirement</th>
+                        <th>Perks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +42,10 @@
                             <td style="min-width: 20%">
                                 <a
                                     href="{{ route('group', ['id' => $group->id]) }}"
-                                    style="color: {{ $group->color }}"
+                                    style="
+                                        color: {{ $group->color }};
+                                        background-image: {{ $group->effect }};
+                                    "
                                 >
                                     <i class="{{ $group->icon }}"></i>
                                     {{ $group->name }}
@@ -156,7 +160,85 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                @else
+                                    {{ $group->description ?? '' }}
                                 @endif
+                            </td>
+                            <td>
+                                <table class="data-table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <i
+                                                    class="{{ config('other.font-awesome') }} fa-arrow-down-short-wide text-blue"
+                                                ></i>
+                                                DL Slots: {{ $group->download_slots ?? '∞' }}
+                                            </td>
+                                        </tr>
+                                        @if ($group->can_upload)
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="{{ config('other.font-awesome') }} fa-upload text-success"
+                                                    ></i>
+                                                    {{ __('common.upload') }}
+                                                    {{ __('torrent.torrents') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if ($group->is_freeleech)
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="{{ config('other.font-awesome') }} fa-star text-gold"
+                                                    ></i>
+                                                    {{ __('torrent.freeleech') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if ($group->is_double_upload)
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="fas fa-chevron-double-up torrent-icons__double-upload"
+                                                    ></i>
+                                                    {{ __('torrent.double-upload') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if ($group->is_refundable)
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-percentage"></i>
+                                                    {{ __('torrent.refundable') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if ($group->is_immune)
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="{{ config('other.font-awesome') }} fa-syringe"
+                                                    ></i>
+                                                    Immune to automated HnR warnings
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if ($group->is_trusted)
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-tasks"></i>
+                                                    {{ __('staff.torrent-moderation') }} bypass
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                     @endforeach

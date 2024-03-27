@@ -58,6 +58,9 @@ class UpdateGroupRequest extends FormRequest
                 'nullable',
                 'integer',
             ],
+            'description' => [
+                'nullable',
+            ],
             'color' => [
                 'required',
             ],

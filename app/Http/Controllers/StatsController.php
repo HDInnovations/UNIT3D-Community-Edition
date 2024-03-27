@@ -351,7 +351,7 @@ class StatsController extends Controller
             'user_avg_seedtime' => $user_avg_seedtime,
             'user_account_age'  => $user_account_age,
             'user_seed_size'    => $user_seed_size,
-            'groups'            => Group::orderBy('position')->where('autogroup', 1)->get(),
+            'groups'            => Group::orderBy('position')->where('autogroup', '=', 1)->get(),
         ]);
     }
 
