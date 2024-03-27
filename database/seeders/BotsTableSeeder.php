@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\Bot;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BotsTableSeeder extends Seeder
 {
@@ -117,6 +118,6 @@ None.
                 'is_protected' => 1,
                 'is_triviabot' => 1,
             ],
-        ], ['id']);
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

@@ -15,6 +15,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Passkey;
 use App\Models\User;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,37 +26,31 @@ use Livewire\WithPagination;
  */
 class PasskeySearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $username = '';
 
+    #[Url(history: true)]
     public string $passkey = '';
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
+    #[Url(history: true)]
     public int $perPage = 25;
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'passkey'  => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Passkey>
      */
-    final public function getPasskeysProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function passkeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Passkey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),
@@ -69,16 +66,5 @@ class PasskeySearch extends Component
         return view('livewire.passkey-search', [
             'passkeys' => $this->passkeys,
         ]);
-    }
-
-    final public function sortBy(string $field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

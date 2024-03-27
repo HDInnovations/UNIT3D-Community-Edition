@@ -13,41 +13,52 @@
 
 namespace App\Models;
 
-use App\Notifications\NewPost;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Topic.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property string|null                     $state
+ * @property bool                            $pinned
+ * @property bool                            $approved
+ * @property bool                            $denied
+ * @property bool                            $solved
+ * @property bool                            $invalid
+ * @property bool                            $bug
+ * @property bool                            $suggestion
+ * @property bool                            $implemented
+ * @property int|null                        $num_post
+ * @property int|null                        $first_post_user_id
+ * @property int|null                        $last_post_id
+ * @property int|null                        $last_post_user_id
+ * @property \Illuminate\Support\Carbon|null $last_post_created_at
+ * @property int|null                        $views
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $forum_id
+ */
 class Topic extends Model
 {
     use Auditable;
     use HasFactory;
 
     protected $casts = [
-        'last_reply_at' => 'datetime',
-        'pinned'        => 'boolean',
-        'approved'      => 'boolean',
-        'denied'        => 'boolean',
-        'solved'        => 'boolean',
-        'invalid'       => 'boolean',
-        'bug'           => 'boolean',
-        'suggestion'    => 'boolean',
-        'implemented'   => 'boolean',
+        'last_post_created_at' => 'datetime',
+        'pinned'               => 'boolean',
+        'approved'             => 'boolean',
+        'denied'               => 'boolean',
+        'solved'               => 'boolean',
+        'invalid'              => 'boolean',
+        'bug'                  => 'boolean',
+        'suggestion'           => 'boolean',
+        'implemented'          => 'boolean',
     ];
 
-    protected $fillable = [
-        'name',
-        'state',
-        'first_post_user_id',
-        'last_post_user_id',
-        'first_post_user_username',
-        'last_post_user_username',
-        'views',
-        'pinned',
-        'forum_id',
-        'num_post',
-        'last_reply_at',
-    ];
+    protected $guarded = [];
 
     /**
      * Belongs To A Forum.
@@ -80,6 +91,16 @@ class Topic extends Model
     }
 
     /**
+     * Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TopicRead>
+     */
+    public function reads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TopicRead::class);
+    }
+
+    /**
      * Has Many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
@@ -92,11 +113,11 @@ class Topic extends Model
     /**
      * Has One Permissions through Forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Permission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
      */
     public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Permission::class, 'forum_id', 'forum_id');
+        return $this->hasMany(ForumPermission::class, 'forum_id', 'forum_id');
     }
 
     /**
@@ -114,9 +135,19 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<Post>
      */
-    public function latestPost(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function latestPostSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Post::class)->latestOfMany();
+    }
+
+    /**
+     * Latest post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
+     */
+    public function latestPost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Post::class, 'last_post_id');
     }
 
     /**
@@ -130,38 +161,27 @@ class Topic extends Model
     }
 
     /**
-     * Notify Subscribers Of A Topic When New Post Is Made.
+     * Only include topics a user is authorized to.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder<self> $query
+     * @return \Illuminate\Database\Eloquent\Builder<self>
      */
-    public function notifySubscribers(User $poster, Topic $topic, Post $post): void
-    {
-        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
-            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
-            ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
-            ->where('subscriptions.topic_id', '=', $topic->id)
-            ->whereRaw('(user_notifications.show_subscription_topic = 1 OR user_notifications.show_subscription_topic is null)')
-            ->groupBy('users.id')->get();
-
-        foreach ($subscribers as $subscriber) {
-            if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_topic')) {
-                $subscriber->notify(new NewPost('subscription', $poster, $post));
-            }
-        }
-    }
-
-    /**
-     * Notify Staffers When New Staff Post Is Made.
-     */
-    public function notifyStaffers(User $poster, Topic $topic, Post $post): void
-    {
-        $staffers = User::leftJoin('groups', 'users.group_id', '=', 'groups.id')
-            ->select('users.id')
-            ->where('users.id', '<>', $poster->id)
-            ->where('groups.is_modo', 1)
-            ->get();
-
-        foreach ($staffers as $staffer) {
-            $staffer->notify(new NewPost('staff', $poster, $post));
-        }
+    public function scopeAuthorized(
+        \Illuminate\Database\Eloquent\Builder $query,
+        ?bool $canReadTopic = null,
+        ?bool $canReplyTopic = null,
+        ?bool $canStartTopic = null,
+    ): \Illuminate\Database\Eloquent\Builder {
+        return $query
+            ->whereRelation(
+                'forumPermissions',
+                fn ($query) => $query
+                    ->where('group_id', '=', auth()->user()->group_id)
+                    ->when($canReadTopic !== null, fn ($query) => $query->where('read_topic', '=', $canReadTopic))
+                    ->when($canReplyTopic !== null, fn ($query) => $query->where('reply_topic', '=', $canReplyTopic))
+                    ->when($canStartTopic !== null, fn ($query) => $query->where('start_topic', '=', $canStartTopic))
+            )
+            ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'));
     }
 
     /**
@@ -173,20 +193,6 @@ class Topic extends Model
             return true;
         }
 
-        return $this->forum->getPermission()->read_topic;
-    }
-
-    /**
-     * Notify Starter When An Action Is Taken.
-     */
-    public function notifyStarter(User $poster, Topic $topic, Post $post): bool
-    {
-        $user = User::find($topic->first_post_user_id);
-
-        if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
-            $user->notify(new NewPost('topic', $poster, $post));
-        }
-
-        return true;
+        return $this->forum->getPermission()?->read_topic;
     }
 }

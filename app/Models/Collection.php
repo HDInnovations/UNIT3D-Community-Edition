@@ -16,6 +16,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Collection.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string      $name_sort
+ * @property string|null $parts
+ * @property string|null $overview
+ * @property string|null $poster
+ * @property string|null $backdrop
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ */
 class Collection extends Model
 {
     use HasFactory;

@@ -15,39 +15,36 @@ namespace App\Http\Livewire;
 
 use App\Models\EmailUpdate;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Traits\LivewireSort;
 
 class EmailUpdateSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $username = '';
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
+    #[Url(history: true)]
     public int $perPage = 25;
-
-    /**
-     * @var array<string, mixed>
-     */
-    protected $queryString = [
-        'username' => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<EmailUpdate>
      */
-    final public function getEmailUpdatesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function emailUpdates(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return EmailUpdate::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),
@@ -62,16 +59,5 @@ class EmailUpdateSearch extends Component
         return view('livewire.email-update-search', [
             'emailUpdates' => $this->emailUpdates,
         ]);
-    }
-
-    final public function sortBy(string $field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

@@ -13,8 +13,10 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\BonTransactions;
-use App\Models\User;
+use App\Models\Gift;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,41 +25,41 @@ use Livewire\WithPagination;
  */
 class GiftLogSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $sender = '';
 
+    #[Url(history: true)]
     public string $receiver = '';
 
+    #[Url(history: true)]
     public string $comment = '';
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    protected $queryString = [
-        'sender'   => ['except' => ''],
-        'receiver' => ['except' => ''],
-        'page'     => ['except' => 1],
-        'perPage'  => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Gift>
+     */
+    #[Computed]
+    final public function gifts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $this->emit('paginationChanged');
-    }
-
-    final public function getGiftsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return BonTransactions::with([
-            'sender'   => fn ($query) => $query->withTrashed()->with('group'),
-            'receiver' => fn ($query) => $query->withTrashed()->with('group'),
+        return Gift::with([
+            'sender'    => fn ($query) => $query->withTrashed()->with('group'),
+            'recipient' => fn ($query) => $query->withTrashed()->with('group'),
         ])
-            ->where('name', '=', 'gift')
-            ->when($this->sender, fn ($query) => $query->whereIn('sender_id', User::select('id')->where('username', '=', $this->sender)))
-            ->when($this->receiver, fn ($query) => $query->whereIn('receiver_id', User::select('id')->where('username', '=', $this->receiver)))
+            ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
+            ->when($this->receiver, fn ($query) => $query->whereRelation('recipient', 'username', '=', $this->receiver))
             ->when($this->comment, fn ($query) => $query->where('comment', 'LIKE', '%'.$this->comment.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
@@ -68,16 +70,5 @@ class GiftLogSearch extends Component
         return view('livewire.gift-log-search', [
             'gifts' => $this->gifts,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

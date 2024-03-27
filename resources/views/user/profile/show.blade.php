@@ -462,7 +462,7 @@
                             <div class="panel__action" x-data="dialog">
                                 <button
                                     class="form__button form__button--text"
-                                    x-bind="showModal"
+                                    x-bind="showDialog"
                                 >
                                     Watch
                                 </button>
@@ -636,49 +636,73 @@
         @endif
 
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_count'))
-            <section class="panelV2">
-                <h2 class="panel__heading">Torrent Count</h2>
-                <dl class="key-value">
-                    <dt>
-                        <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                            {{ __('user.total-uploads') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->torrents_count ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}"
-                        >
-                            {{ __('user.total-downloads') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $history->download_count ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}"
-                        >
-                            {{ __('user.total-seeding') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $peers->seeding ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}"
-                        >
-                            {{ __('user.total-leeching') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $peers->leeching ?? 0 }}</dd>
-                    <dt>
-                        <a
-                            href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
-                        >
-                            Total Inactive Peers
-                        </a>
-                    </dt>
-                    <dd>{{ $peers->inactive ?? 0 }}</dd>
-                </dl>
-            </section>
+            @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
+                <section class="panelV2">
+                    <h2 class="panel__heading">Torrent Count</h2>
+                    <dl class="key-value">
+                        <dt>
+                            <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
+                                {{ __('user.total-uploads') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}"
+                            >
+                                {{ __('user.total-downloads') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $history->download_count ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}"
+                            >
+                                {{ __('user.total-seeding') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $peers->seeding ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}"
+                            >
+                                {{ __('user.total-leeching') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $peers->leeching ?? 0 }}</dd>
+                        <dt>
+                            <a
+                                href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
+                            >
+                                Total Inactive Peers
+                            </a>
+                        </dt>
+                        <dd>{{ $peers->inactive ?? 0 }}</dd>
+                    </dl>
+                </section>
+            @else
+                <section class="panelV2">
+                    <h2 class="panel__heading">Torrent Count</h2>
+                    <dl class="key-value">
+                        <dt>
+                            <a
+                                href="{{ route('torrents.index', ['uploader' => $user->username]) }}"
+                            >
+                                {{ __('user.total-uploads') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                        <dt>{{ __('user.total-downloads') }}</dt>
+                        <dd>{{ $history->download_count ?? 0 }}</dd>
+                        <dt>{{ __('user.total-seeding') }}</dt>
+                        <dd>{{ $peers->seeding ?? 0 }}</dd>
+                        <dt>{{ __('user.total-leeching') }}</dt>
+                        <dd>{{ $peers->leeching ?? 0 }}</dd>
+                        <dt>Total Inactive Peers</dt>
+                        <dd>{{ $peers->inactive ?? 0 }}</dd>
+                    </dl>
+                </section>
+            @endif
         @endif
 
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_ratio'))
@@ -920,70 +944,80 @@
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">{{ __('user.bon') }}</h2>
-                    <div class="panel__actions">
-                        <div class="panel__action" x-data="dialog">
-                            <button class="form__button form__button--text" x-bind="showDialog">
-                                Gift BON
-                            </button>
-                            <dialog class="dialog" x-bind="dialogElement">
-                                <h3 class="dialog__heading">Note user: {{ $user->username }}</h3>
-                                <form
-                                    class="dialog__form"
-                                    method="POST"
-                                    action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
-                                    x-bind="dialogForm"
+                    @if (auth()->user()->isNot($user))
+                        <div class="panel__actions">
+                            <div class="panel__action" x-data="dialog">
+                                <button
+                                    class="form__button form__button--text"
+                                    x-bind="showDialog"
                                 >
-                                    @csrf
-                                    <input
-                                        type="hidden"
-                                        name="receiver_username"
-                                        value="{{ $user->username }}"
-                                    />
-                                    <p class="form__group">
+                                    Gift BON
+                                </button>
+                                <dialog class="dialog" x-bind="dialogElement">
+                                    <h3 class="dialog__heading">
+                                        Gift BON to: {{ $user->username }}
+                                    </h3>
+                                    <form
+                                        class="dialog__form"
+                                        method="POST"
+                                        action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
+                                        x-bind="dialogForm"
+                                    >
+                                        @csrf
                                         <input
-                                            id="cost"
-                                            class="form__text"
-                                            name="cost"
-                                            type="text"
-                                            pattern="[0-9]*"
-                                            inputmode="numeric"
-                                            placeholder=" "
+                                            type="hidden"
+                                            name="recipient_username"
+                                            value="{{ $user->username }}"
                                         />
-                                        <label class="form__label form__label--floating" for="cost">
-                                            {{ __('bon.amount') }}
-                                        </label>
-                                    </p>
+                                        <p class="form__group">
+                                            <input
+                                                id="bon"
+                                                class="form__text"
+                                                name="bon"
+                                                type="text"
+                                                pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                placeholder=" "
+                                            />
+                                            <label
+                                                class="form__label form__label--floating"
+                                                for="bon"
+                                            >
+                                                {{ __('bon.amount') }}
+                                            </label>
+                                        </p>
 
-                                    <p class="form__group">
-                                        <textarea
-                                            id="comment"
-                                            class="form__textarea"
-                                            name="comment"
-                                            placeholder=" "
-                                        ></textarea>
-                                        <label
-                                            class="form__label form__label--floating"
-                                            for="comment"
-                                        >
-                                            {{ __('pm.message') }}
-                                        </label>
-                                    </p>
-                                    <p class="form__group">
-                                        <button class="form__button form__button--filled">
-                                            {{ __('bon.gift') }}
-                                        </button>
-                                        <button
-                                            formmethod="dialog"
-                                            formnovalidate
-                                            class="form__button form__button--outlined"
-                                        >
-                                            {{ __('common.cancel') }}
-                                        </button>
-                                    </p>
-                                </form>
-                            </dialog>
+                                        <p class="form__group">
+                                            <textarea
+                                                id="message"
+                                                class="form__textarea"
+                                                name="message"
+                                                placeholder=" "
+                                            ></textarea>
+                                            <label
+                                                class="form__label form__label--floating"
+                                                for="message"
+                                            >
+                                                {{ __('pm.message') }}
+                                            </label>
+                                        </p>
+                                        <p class="form__group">
+                                            <button class="form__button form__button--filled">
+                                                {{ __('bon.gift') }}
+                                            </button>
+                                            <button
+                                                formmethod="dialog"
+                                                formnovalidate
+                                                class="form__button form__button--outlined"
+                                            >
+                                                {{ __('common.cancel') }}
+                                            </button>
+                                        </p>
+                                    </form>
+                                </dialog>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </header>
                 <dl class="key-value">
                     <dt>
@@ -994,27 +1028,27 @@
                     <dd>{{ $user->formatted_seedbonus }}</dd>
                     <dt>{{ __('user.tips-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.tips-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.gift-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->receivedGifts()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.gift-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->sentGifts()->sum('bon'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.bounty-received') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}
                     </dd>
                     <dt>{{ __('user.bounty-given') }}</dt>
                     <dd>
-                        {{ \number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 0, null,"\u{202F}") }}
+                        {{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}
                     </dd>
                 </dl>
             </section>
@@ -1026,10 +1060,14 @@
                 <dl class="key-value">
                     <dt>{{ __('common.fl_tokens') }}</dt>
                     <dd>{{ $user->fl_tokens }}</dd>
-                    <dt>{{ __('user.thanks-received') }}</dt>
-                    <dd>{{ $user->thanksReceived()->count() }}</dd>
-                    <dt>{{ __('user.thanks-given') }}</dt>
-                    <dd>{{ $user->thanksGiven()->count() }}</dd>
+
+                    @if (config('other.thanks-system.is-enabled'))
+                        <dt>{{ __('user.thanks-received') }}</dt>
+                        <dd>{{ $user->thanksReceived()->count() }}</dd>
+                        <dt>{{ __('user.thanks-given') }}</dt>
+                        <dd>{{ $user->thanksGiven()->count() }}</dd>
+                    @endif
+
                     <dt>{{ __('user.upload-snatches') }}</dt>
                     <dd>{{ $user->uploadSnatches()->count() }}</dd>
                 </dl>

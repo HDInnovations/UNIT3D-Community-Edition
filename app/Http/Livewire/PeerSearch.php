@@ -14,48 +14,55 @@
 namespace App\Http\Livewire;
 
 use App\Models\Peer;
-use App\Models\Torrent;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class PeerSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public bool $duplicateIpsOnly = false;
+
+    #[Url(history: true)]
     public bool $includeSeedsize = false;
+
+    #[Url(history: true)]
     public int $perPage = 25;
+
+    #[Url(history: true)]
     public string $ip = '';
+
+    #[Url(history: true)]
     public string $port = '';
+
+    #[Url(history: true)]
     public string $agent = '';
+
+    #[Url(history: true)]
     public string $torrent = '';
+
+    #[Url(history: true)]
     public string $connectivity = 'any';
+
+    #[Url(history: true)]
     public string $active = 'any';
+
+    #[Url(history: true)]
     public string $groupBy = 'none';
+
+    #[Url(history: true)]
     public string $sortField = 'created_at';
+
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'page'             => ['except' => 1],
-        'duplicateIpsOnly' => ['except' => false],
-        'includeSeedsize'  => ['except' => false],
-        'perPage'          => ['except' => 25],
-        'ip'               => ['except' => ''],
-        'port'             => ['except' => ''],
-        'agent'            => ['except' => ''],
-        'torrent'          => ['except' => ''],
-        'connectivity'     => ['except' => 'any'],
-        'active'           => ['except' => 'any'],
-        'groupBy'          => ['except' => 'none'],
-        'sortField'        => ['except' => 'created_at'],
-        'sortDirection'    => ['except' => 'desc'],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function updatingIp(): void
     {
@@ -84,7 +91,11 @@ class PeerSearch extends Component
         }
     }
 
-    final public function getPeersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
+    #[Computed]
+    final public function peers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->when(
@@ -199,27 +210,13 @@ class PeerSearch extends Component
             ->when($this->ip !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ip)'), 'LIKE', $this->ip.'%'))
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
-            ->when($this->torrent !== '', fn ($query) => $query->whereIn(
-                'peers.torrent_id',
-                Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
-            ))
+            ->when($this->torrent !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%'))
             ->when($this->connectivity === 'connectable', fn ($query) => $query->where('connectable', '=', true))
             ->when($this->connectivity === 'unconnectable', fn ($query) => $query->where('connectable', '=', false))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'desc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

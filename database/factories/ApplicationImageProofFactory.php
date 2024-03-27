@@ -32,7 +32,7 @@ class ApplicationImageProofFactory extends Factory
     {
         return [
             'application_id' => Application::factory(),
-            'image'          => $this->faker->image(),
+            'image'          => $this->faker->imageUrl(),
         ];
     }
 }

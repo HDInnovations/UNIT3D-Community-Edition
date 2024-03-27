@@ -27,11 +27,11 @@
         ></i>
     @endif
 
-    @isset($torrent->thanks_count)
+    @if (config('other.thanks-system.is-enabled') && isset($torrent->thanks_count))
         <i class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks">
             {{ $torrent->thanks_count }}
         </i>
-    @endisset
+    @endif
 
     @isset($torrent->comments_count)
         <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
@@ -92,6 +92,7 @@
                             __('torrent.freeleech-token') => $torrent->freeleech_tokens_exists,
                             __('torrent.special-freeleech') => auth()->user()->group->is_freeleech,
                             __('torrent.global-freeleech') => config('other.freeleech'),
+                            __('torrent.featured') . ' - 100%' . __('torrent.freeleech') => $torrent->featured,
                             $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
                         ],
                         true
@@ -104,7 +105,20 @@
     @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
         <i
             class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
-            title="@if(config('other.doubleup')){{ __('torrent.global-double-upload') }}&NewLine;@endif&ZeroWidthSpace;@if(auth()->user()->group->is_double_upload){{ __('torrent.special-double_upload') }}&NewLine;@endif&ZeroWidthSpace;@if($torrent->doubleup > 0)100% {{ __('torrent.double-upload') }}@if($torrent->du_until !== null) (expires {{ $torrent->du_until->diffForHumans() }})@endif&ZeroWidthSpace;@endif"
+            title="{{
+                implode(
+                    "\n",
+                    array_keys(
+                        [
+                            __('torrent.global-double-upload') => config('other.doubleup'),
+                            __('torrent.special-double_upload') => auth()->user()->group->is_double_upload,
+                            __('torrent.featured') . ' - ' . __('torrent.double-upload') => $torrent->featured,
+                            '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' (expires ' . $torrent->du_until->diffForHumans() . ')' : '') => $torrent->doubleup > 0,
+                        ],
+                        true
+                    )
+                )
+            }}"
         ></i>
     @endif
 

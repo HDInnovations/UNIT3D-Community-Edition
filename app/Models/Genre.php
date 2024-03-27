@@ -16,6 +16,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Genre.
+ *
+ * @property int    $id
+ * @property string $name
+ */
 class Genre extends Model
 {
     use HasFactory;

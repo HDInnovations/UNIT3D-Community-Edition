@@ -9,7 +9,7 @@
                     <p class="form__group">
                         <input
                             id="torrent"
-                            wire:model="torrent"
+                            wire:model.live="torrent"
                             class="form__text"
                             placeholder=" "
                         />
@@ -18,17 +18,27 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="user" wire:model="user" class="form__text" placeholder=" " />
+                        <input
+                            id="user"
+                            wire:model.live="user"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="user">Username</label>
                     </p>
                     <p class="form__group">
-                        <input id="agent" wire:model="agent" class="form__text" placeholder=" " />
+                        <input
+                            id="agent"
+                            wire:model.live="agent"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
                     </p>
                     <p class="form__group">
                         <select
                             id="seeder"
-                            wire:model="seeder"
+                            wire:model.live="seeder"
                             class="form__select"
                             placeholder=" "
                         >
@@ -43,7 +53,7 @@
                     <p class="form__group">
                         <select
                             id="active"
-                            wire:model="active"
+                            wire:model.live="active"
                             class="form__select"
                             placeholder=" "
                         >
@@ -56,7 +66,7 @@
                     <p class="form__group">
                         <select
                             id="groupBy"
-                            wire:model="groupBy"
+                            wire:model.live="groupBy"
                             class="form__select"
                             placeholder=" "
                         >

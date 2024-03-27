@@ -14,8 +14,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\PrivateMessage;
 use App\Models\User;
+use App\Notifications\UserEmailChange;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,24 +45,23 @@ class EmailController extends Controller
             ],
         ]);
 
-        DB::transaction(function () use ($request, $user, $changedByStaff): void {
+        $oldEmail = $user->email;
+        $newEmail = $request->email;
+
+        $user->notify(new UserEmailChange($user, $oldEmail, $newEmail));
+
+        DB::transaction(function () use ($user, $newEmail): void {
             $user->emailUpdates()->latest()->first()?->update(['deleted_at' => now()]);
 
             $user->update([
-                'email' => $request->email,
+                'email'             => $newEmail,
+                'email_verified_at' => null,
             ]);
 
             $user->emailUpdates()->create();
-
-            if ($changedByStaff) {
-                PrivateMessage::create([
-                    'sender_id'   => 1,
-                    'receiver_id' => $user->id,
-                    'subject'     => 'ATTENTION - Your email has been changed',
-                    'message'     => "Your email has been changed by staff.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-                ]);
-            }
         });
+
+        $user->sendEmailVerificationNotification();
 
         return to_route('users.email.edit', ['user' => $user])
             ->withSuccess('Your email was updated successfully.');

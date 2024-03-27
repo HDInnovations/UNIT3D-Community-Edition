@@ -12,6 +12,7 @@
  */
 
 use App\Http\Requests\Staff\StoreForumRequest;
+use Illuminate\Validation\Rule;
 
 beforeEach(function (): void {
     $this->subject = new StoreForumRequest();
@@ -27,42 +28,49 @@ test('rules', function (): void {
     $actual = $this->subject->rules();
 
     $this->assertValidationRules([
-        'name' => [
+        'forum.name' => [
             'required',
         ],
-        'position' => [
+        'forum.position' => [
             'required',
         ],
-        'description' => [
+        'forum.slug' => [
             'required',
         ],
-        'parent_id' => [
+        'forum.description' => [
+            'required',
+        ],
+        'forum.forum_category_id' => [
+            'required',
+            'exists:forum_categories,id',
+        ],
+        'forum.default_topic_state_filter' => [
             'sometimes',
             'nullable',
-            'integer',
+            Rule::in(['close', 'open', null]),
         ],
         'permissions' => [
-            'sometimes',
+            'required',
             'array',
         ],
         'permissions.*' => [
-            'sometimes',
+            'required',
+            'array:group_id,read_topic,reply_topic,start_topic',
+        ],
+        'permissions.*.group_id' => [
+            'required',
             'exists:groups,id',
         ],
-        'permissions.*.show_forum' => [
-            'sometimes',
-            'boolean',
-        ],
         'permissions.*.read_topic' => [
-            'sometimes',
+            'required',
             'boolean',
         ],
         'permissions.*.reply_topic' => [
-            'sometimes',
+            'required',
             'boolean',
         ],
         'permissions.*.start_topic' => [
-            'sometimes',
+            'required',
             'boolean',
         ],
     ], $actual);

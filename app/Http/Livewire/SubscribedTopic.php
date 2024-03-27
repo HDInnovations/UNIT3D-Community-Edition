@@ -14,6 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,20 +22,29 @@ class SubscribedTopic extends Component
 {
     use WithPagination;
 
-    final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     */
+    #[Computed]
+    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster')
+            ->with([
+                'user.group',
+                'latestPoster',
+                'forum',
+                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+            ])
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
-            ->orderBy('last_reply_at')
+            ->authorized(canReadTopic: true)
+            ->orderBy('last_post_created_at')
             ->paginate(25, ['*'], 'subscribedTopicsPage');
     }
 
     final public function updatedSubscribedTopicsPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

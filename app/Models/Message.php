@@ -18,6 +18,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\Message.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $chatroom_id
+ * @property int|null                        $receiver_id
+ * @property int|null                        $bot_id
+ * @property string                          $message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Message extends Model
 {
     use HasFactory;

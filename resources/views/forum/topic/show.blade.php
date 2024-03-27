@@ -12,15 +12,15 @@
     </li>
     <li class="breadcrumbV2">
         <a
-            href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}"
+            href="{{ route('forums.categories.show', ['id' => $topic->forum->category->id]) }}"
             class="breadcrumb__link"
         >
-            {{ $forum->category->name }}
+            {{ $topic->forum->category->name }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
-            {{ $forum->name }}
+        <a href="{{ route('forums.show', ['id' => $topic->forum->id]) }}" class="breadcrumb__link">
+            {{ $topic->forum->name }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -43,7 +43,7 @@
         </p>
     @endif
 
-    @if (($topic->state === 'open' && $forum->getPermission()->reply_topic) || auth()->user()->group->is_modo)
+    @if (($topic->state === 'open' && $topic->forum->getPermission()?->reply_topic) || auth()->user()->group->is_modo)
         <form id="forum_reply_form" method="POST" action="{{ route('posts.store') }}">
             @csrf
             <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
@@ -65,9 +65,13 @@
         <dl class="key-value">
             <dt>{{ __('forum.author') }}</dt>
             <dd>
-                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                    {{ $topic->first_post_user_username }}
-                </a>
+                @if ($topic->user === null)
+                    {{ __('common.unknown') }}
+                @else
+                    <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                        {{ $topic->user->username }}
+                    </a>
+                @endif
             </dd>
             <dt>{{ __('forum.created-at') }}</dt>
             <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
@@ -91,7 +95,7 @@
             @else
                 <form
                     class="form"
-                    action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}"
+                    action="{{ route('subscriptions.destroy', ['subscription' => $subscription]) }}"
                     method="POST"
                 >
                     @csrf
@@ -212,121 +216,99 @@
             <div class="panel__body">
                 <form
                     class="form"
-                    action="{{ route('topics.approve', ['id' => $topic->id]) }}"
+                    action="{{ route('topics.labels', ['topic' => $topic]) }}"
                     method="POST"
                 >
                     @csrf
+                    @method('PATCH')
                     <p class="form__group">
+                        <input type="hidden" name="approved" value="0" />
                         <input
                             id="approved-label"
                             class="form__checkbox"
+                            name="approved"
                             type="checkbox"
+                            value="1"
                             @checked($topic->approved)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="approved-label">{{ __('forum.approved') }}</label>
                     </p>
-                </form>
-                <form
-                    class="form"
-                    action="{{ route('topics.deny', ['id' => $topic->id]) }}"
-                    method="POST"
-                >
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="denied" value="0" />
                         <input
                             id="denied-label"
                             class="form__checkbox"
+                            name="denied"
                             type="checkbox"
+                            value="1"
                             @checked($topic->denied)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="denied-label">{{ __('forum.denied') }}</label>
                     </p>
-                </form>
-                <form
-                    class="form"
-                    action="{{ route('topics.solve', ['id' => $topic->id]) }}"
-                    method="POST"
-                >
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="solved" value="0" />
                         <input
                             id="solved-label"
                             class="form__checkbox"
+                            name="solved"
                             type="checkbox"
+                            value="1"
                             @checked($topic->solved)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="solved-label">{{ __('forum.solved') }}</label>
                     </p>
-                </form>
-                <form
-                    class="form"
-                    action="{{ route('topics.invalid', ['id' => $topic->id]) }}"
-                    method="POST"
-                >
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="invalid" value="0" />
                         <input
                             id="invalid-label"
                             class="form__checkbox"
+                            name="invalid"
                             type="checkbox"
+                            value="1"
                             @checked($topic->invalid)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="invalid-label">{{ __('forum.invalid') }}</label>
                     </p>
-                </form>
-                <form
-                    class="form"
-                    action="{{ route('topics.bug', ['id' => $topic->id]) }}"
-                    method="POST"
-                >
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="bug" value="0" />
                         <input
                             id="bug-label"
                             class="form__checkbox"
+                            name="bug"
                             type="checkbox"
+                            value="1"
                             @checked($topic->bug)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="bug-label">{{ __('forum.bug') }}</label>
                     </p>
-                </form>
-                <form
-                    class="form"
-                    action="{{ route('topics.suggest', ['id' => $topic->id]) }}"
-                    method="POST"
-                >
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="suggestion" value="0" />
                         <input
                             id="suggestion-label"
                             class="form__checkbox"
+                            name="suggestion"
                             type="checkbox"
+                            value="1"
                             @checked($topic->suggestion)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="suggestion-label">{{ __('forum.suggestion') }}</label>
                     </p>
-                </form>
-                <form
-                    class="form"
-                    action="{{ route('topics.implement', ['id' => $topic->id]) }}"
-                    method="POST"
-                >
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="implemented" value="0" />
                         <input
                             id="implemented-label"
                             class="form__checkbox"
+                            name="implemented"
                             type="checkbox"
+                            value="1"
                             @checked($topic->implemented)
-                            x-on:change="$el.form.submit()"
                         />
                         <label for="implemented-label">{{ __('forum.implemented') }}</label>
+                    </p>
+                    <p class="form__group">
+                        <button class="form__button form__button--filled">
+                            {{ __('common.save') }}
+                        </button>
                     </p>
                 </form>
             </div>

@@ -84,17 +84,17 @@ class StatsController extends Controller
             'disabled_user' => cache()->remember(
                 'disabled_user',
                 $this->carbon,
-                fn () => User::whereIn('group_id', Group::select('id')->where('slug', '=', 'disabled'))->count()
+                fn () => User::whereRelation('group', 'slug', '=', 'disabled')->count()
             ),
             'pruned_user' => cache()->remember(
                 'pruned_user',
                 $this->carbon,
-                fn () => User::onlyTrashed()->whereIn('group_id', Group::select('id')->where('slug', '=', 'pruned'))->count()
+                fn () => User::onlyTrashed()->whereRelation('group', 'slug', '=', 'pruned')->count()
             ),
             'banned_user' => cache()->remember(
                 'banned_user',
                 $this->carbon,
-                fn () => User::whereIn('group_id', Group::select('id')->where('slug', '=', 'banned'))->count()
+                fn () => User::whereRelation('group', 'slug', '=', 'banned')->count()
             ),
             'num_torrent'       => $numTorrent,
             'categories'        => Category::withCount('torrents')->orderBy('position')->get(),
@@ -235,6 +235,19 @@ class StatsController extends Controller
     }
 
     /**
+     * Show Extra-Stats Users.
+     */
+    public function uploadSnatches(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return view('stats.users.upload-snatches', [
+            'users' => User::withCount('uploadSnatches')
+                ->orderByDesc('upload_snatches_count')
+                ->take(100)
+                ->get(),
+        ]);
+    }
+
+    /**
      * Show Extra-Stats Torrents.
      */
     public function seeded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -319,6 +332,26 @@ class StatsController extends Controller
         return view('stats.groups.group', [
             'group' => Group::findOrFail($id),
             'users' => User::with(['group'])->withTrashed()->where('group_id', '=', $id)->latest()->paginate(100),
+        ]);
+    }
+
+    /**
+     * Show Group Requirements.
+     */
+    public function groupsRequirements(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $user = auth()->user();
+        $user_avg_seedtime = DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime');
+        $user_account_age = Carbon::now()->diffInSeconds($user->created_at);
+        $user_seed_size = $user->seedingTorrents()->sum('size');
+
+        return view('stats.groups.groups-requirements', [
+            'current'           => Carbon::now(),
+            'user'              => auth()->user(),
+            'user_avg_seedtime' => $user_avg_seedtime,
+            'user_account_age'  => $user_account_age,
+            'user_seed_size'    => $user_seed_size,
+            'groups'            => Group::orderBy('position')->where('is_modo', '=', 0)->get(),
         ]);
     }
 

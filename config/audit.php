@@ -22,9 +22,26 @@ return [
     */
 
     'global_discards' => [
-        'password', 'passkey', 'rsskey', 'ip', 'remember_token',
-        'views', 'num_post', 'read', 'nfo',
-        'last_reply_at', 'last_action', 'created_at', 'updated_at', 'deleted_at',
+        'created_at',
+        'deleted_at',
+        'first_post_user_id',
+        'ip',
+        'last_action',
+        'last_post_created_at',
+        'last_post_id',
+        'last_post_user_id',
+        'last_topic_id',
+        'nfo',
+        'num_post',
+        'num_topic',
+        'num_torrent',
+        'passkey',
+        'password',
+        'read',
+        'remember_token',
+        'rsskey',
+        'updated_at',
+        'views',
     ],
 
     /*

@@ -9,7 +9,7 @@
                         class="form__select"
                         type="date"
                         name="interval"
-                        wire:model="interval"
+                        wire:model.live="interval"
                     >
                         <option value="day">Past Day</option>
                         <option value="week">Past Week</option>
@@ -27,7 +27,7 @@
                         class="form__select"
                         type="date"
                         name="metaType"
-                        wire:model="metaType"
+                        wire:model.live="metaType"
                     >
                         @foreach ($metaTypes as $name => $type)
                             <option value="{{ $type }}">{{ $name }}</option>

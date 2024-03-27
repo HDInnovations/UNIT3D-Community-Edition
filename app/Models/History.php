@@ -17,6 +17,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
 
+/**
+ * App\Models\History.
+ *
+ * @property int    $id
+ * @property int    $user_id
+ * @property int    $torrent_id
+ * @property string $agent
+ * @property int    $uploaded
+ * @property int    $actual_uploaded
+ * @property int    $client_uploaded
+ * @property int    $downloaded
+ * @property int    $refunded_download
+ * @property int    $actual_downloaded
+ * @property int    $client_downloaded
+ * @property int    $seeder
+ * @property int    $active
+ * @property int    $seedtime
+ * @property int    $immune
+ * @property bool   $hitrun
+ * @property bool   $prewarn
+ */
 class History extends Model
 {
     use HasFactory;

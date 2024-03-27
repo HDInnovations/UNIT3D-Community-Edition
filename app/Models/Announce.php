@@ -15,6 +15,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Announce.
+ *
+ * @property int    $id
+ * @property int    $user_id
+ * @property int    $torrent_id
+ * @property int    $uploaded
+ * @property int    $downloaded
+ * @property int    $left
+ * @property int    $corrupt
+ * @property mixed  $peer_id
+ * @property int    $port
+ * @property int    $numwant
+ * @property string $created_at
+ * @property string $event
+ * @property string $key
+ */
 class Announce extends Model
 {
     /**

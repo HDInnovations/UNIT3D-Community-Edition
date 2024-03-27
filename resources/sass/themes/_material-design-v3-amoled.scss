@@ -62,6 +62,13 @@
   --button-text-border-radius: 6px;
   --button-text-fg: currentColor;
 
+  --chatbox-message-bg: #000;
+  --chatbox-button-fg: #555;
+  --chatbox-button-hover-fg: #666;
+  --chatbox-users-bg: #000;
+  --chatbox-tab-delete-fg: #444;
+  --chatbox-tab-delete-bg: #000;
+
   --comparison-divider-fg: #000;
   --comparison-button-fg: #000;
 
@@ -382,7 +389,7 @@
   border-bottom: none;
 }
 
-.data-table tr td:first-of-type,
+.data-table tr td:first-of-type:not(.torrent-search--list__poster),
 .data-table tr th:first-of-type {
   padding-left: 20px;
 }
@@ -410,61 +417,24 @@ a:hover {
   color: #fff;
 }
 
-#frame {
-  background-color: #000;
-}
-
-#frameFooter {
-  background-color: #000;
-  border-bottom-left-radius: var(--panel-border-radius);
-  border-bottom-right-radius: var(--panel-border-radius);
-  padding: 10px;
-}
-
-.sent > div,
-.sent > .system {
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
-  color: #bbb;
-  padding: 0 12px 4px 15px !important;
-  border-left: 1px solid #262626;
-  border-bottom: 1px solid #262626;
-  border-right: 1px solid #262626;
-  background-color: #000;
-}
-
-#frame .content .messages ul li.sent h4 .text-muted {
-  color: #aaa;
-}
-
-.sent > div:not(.system)::before {
-  display: none;
-}
-
-.sent > h4 {
-  border-top-left-radius: 26px;
-  border-top-right-radius: 26px;
-  border-left: 1px solid #262626;
-  border-top: 1px solid #262626;
-  border-right: 1px solid #262626;
-  background-color: #000;
-}
-
-.sent .badge-user {
-  box-shadow: none;
-  border: none;
-}
-
-#frameFooter.panel-footer {
+.chatroom__whispers {
   border-top: 1px solid #3c3c3c;
 }
 
-#currentChatroom {
-  background-color: transparent;
-  border-radius: 22px;
-  border: 1px solid #444;
-  font-size: 13px;
-  padding: 5px 12px;
+.chatbox-message{
+  border: 1px solid #222;
+  border-radius: 26px;
+  padding: 0 8px;
+  color: #aaa;
+}
+
+.chatbox__chatroom {
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+}
+
+.chatbox-message::before {
+  border-color: transparent;
 }
 
 .torrent-search--grouped__result {

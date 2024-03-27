@@ -68,8 +68,13 @@
 
         & ~ .form__hint {
             color: var(--label-fg-error);
-            font-size: 12px;
-            margin-left: 16px;
         }
+    }
+
+    & ~ .form__hint {
+        display: block;
+        color: var(--label-fg);
+        font-size: 12px;
+        margin-left: 16px;
     }
 }

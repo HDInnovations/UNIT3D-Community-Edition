@@ -94,7 +94,6 @@
                                         <form
                                             action="{{ route('users.received_messages.destroy', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}"
                                             method="POST"
-                                            x-data
                                         >
                                             @csrf
                                             @method('DELETE')

@@ -12,7 +12,7 @@
  */
 
 use App\Models\Forum;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
@@ -36,17 +36,16 @@ test('show returns an ok response', function (): void {
     $user = User::factory()->create();
 
     $forum = Forum::factory()->create([
-        'parent_id'               => null, // This Forum does not have a parent, which makes it a proper Forum and not a "Forum Category".
-        'last_post_user_id'       => $user->id,
-        'last_post_user_username' => $user->username,
-        'last_topic_id'           => null,
+        'last_post_user_id' => $user->id,
+        'last_topic_id'     => null,
     ]);
 
-    Permission::factory()->create([
+    ForumPermission::factory()->create([
+        'group_id'   => $user->group_id,
         'forum_id'   => $forum->id,
-        'show_forum' => true,
+        'read_topic' => true,
     ]);
 
     $response = $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]));
-    $response->assertRedirect(route('forums.categories.show', ['id' => $forum->id]));
+    $response->assertViewIs('forum.forum_topic.index');
 });

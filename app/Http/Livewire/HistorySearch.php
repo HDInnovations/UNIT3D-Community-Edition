@@ -14,9 +14,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\History;
-use App\Models\Torrent;
-use App\Models\User;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,35 +26,37 @@ use Livewire\WithPagination;
  */
 class HistorySearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
+
+    #[Url(history: true)]
     public string $agent = '';
+
+    #[Url(history: true)]
     public string $torrent = '';
+
+    #[Url(history: true)]
     public string $user = '';
+
+    #[Url(history: true)]
     public string $seeder = 'any';
+
+    #[Url(history: true)]
     public string $active = 'any';
+
+    #[Url(history: true)]
     public string $groupBy = 'none';
+
+    #[Url(history: true)]
     public string $sortField = '';
+
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'page'          => ['except' => 1],
-        'perPage'       => ['except' => 25],
-        'agent'         => ['except' => ''],
-        'torrent'       => ['except' => ''],
-        'user'          => ['except' => ''],
-        'seeder'        => ['except' => 'any'],
-        'active'        => ['except' => 'any'],
-        'groupBy'       => ['except' => 'none'],
-        'sortField'     => ['except' => ''],
-        'sortDirection' => ['except' => 'desc'],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function updatingUser(): void
     {
@@ -85,7 +88,11 @@ class HistorySearch extends Component
         $this->resetPage();
     }
 
-    final public function getHistoriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
+    #[Computed]
+    final public function histories(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->with('user', 'torrent:id,name')
@@ -137,14 +144,8 @@ class HistorySearch extends Component
                         'immune',
                     ])
             )
-            ->when($this->torrent !== '', fn ($query) => $query->whereIn(
-                'history.torrent_id',
-                Torrent::select('id')->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%')
-            ))
-            ->when($this->user !== '', fn ($query) => $query->whereIn(
-                'history.user_id',
-                User::select('id')->where('username', 'LIKE', $this->user)
-            ))
+            ->when($this->torrent !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%'))
+            ->when($this->user !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', $this->user))
             ->when($this->agent !== '', fn ($query) => $query->where('history.agent', 'LIKE', $this->agent.'%'))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))
@@ -152,17 +153,6 @@ class HistorySearch extends Component
             ->when($this->seeder === 'exclude', fn ($query) => $query->where('seeder', '=', false))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

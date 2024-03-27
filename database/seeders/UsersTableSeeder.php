@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -56,6 +57,6 @@ class UsersTableSeeder extends Seeder
                 'api_token'         => Str::random(100),
                 'active'            => 1,
             ],
-        ], ['username']);
+        ], ['username'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

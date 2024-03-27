@@ -17,6 +17,14 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Internal.
+ *
+ * @property int    $id
+ * @property string $name
+ * @property string $icon
+ * @property string $effect
+ */
 class Internal extends Model
 {
     use Auditable;
@@ -39,10 +47,12 @@ class Internal extends Model
     /**
      * Has Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class)
+            ->using(InternalUser::class)
+            ->withPivot('id', 'position', 'created_at');
     }
 }

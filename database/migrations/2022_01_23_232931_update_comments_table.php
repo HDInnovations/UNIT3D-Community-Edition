@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,45 +28,47 @@ return new class () extends Migration {
             $table->foreignId('parent_id')->after('user_id')->nullable()->constrained('comments')->onDelete('cascade');
         });
 
-        $comments = DB::table('comments')->get();
+        DB::table('comments')
+            ->whereNotNull('torrent_id')
+            ->update([
+                'commentable_id'   => DB::raw('torrent_id'),
+                'commentable_type' => 'App\Models\Torrent',
+            ]);
 
-        foreach ($comments as $comment) {
-            if ($comment->torrent_id !== null) {
-                $comment->commentable_id = $comment->torrent_id;
-                $comment->commentable_type = App\Models\Torrent::class;
-                $comment->save();
-            }
+        DB::table('comments')
+            ->whereNotNull('article_id')
+            ->update([
+                'commentable_id'   => DB::raw('article_id'),
+                'commentable_type' => 'App\Models\Article',
+            ]);
 
-            if ($comment->article_id !== null) {
-                $comment->commentable_id = $comment->article_id;
-                $comment->commentable_type = App\Models\Article::class;
-                $comment->save();
-            }
+        DB::table('comments')
+            ->whereNotNull('requests_id')
+            ->update([
+                'commentable_id'   => DB::raw('requests_id'),
+                'commentable_type' => 'App\Models\TorrentRequest',
+            ]);
 
-            if ($comment->requests_id !== null) {
-                $comment->commentable_id = $comment->requests_id;
-                $comment->commentable_type = App\Models\TorrentRequest::class;
-                $comment->save();
-            }
+        DB::table('comments')
+            ->whereNotNull('collection_id')
+            ->update([
+                'commentable_id'   => DB::raw('collection_id'),
+                'commentable_type' => 'App\Models\Collection',
+            ]);
 
-            if ($comment->collection_id !== null) {
-                $comment->commentable_id = $comment->collection_id;
-                $comment->commentable_type = App\Models\Collection::class;
-                $comment->save();
-            }
+        DB::table('comments')
+            ->whereNotNull('playlist_id')
+            ->update([
+                'commentable_id'   => DB::raw('playlist_id'),
+                'commentable_type' => 'App\Models\Playlist',
+            ]);
 
-            if ($comment->playlist_id !== null) {
-                $comment->commentable_id = $comment->playlist_id;
-                $comment->commentable_type = App\Models\Playlist::class;
-                $comment->save();
-            }
-
-            if ($comment->ticket_id !== null) {
-                $comment->commentable_id = $comment->ticket_id;
-                $comment->commentable_type = App\Models\Ticket::class;
-                $comment->save();
-            }
-        }
+        DB::table('comments')
+            ->whereNotNull('ticket_id')
+            ->update([
+                'commentable_id'   => DB::raw('ticket_id'),
+                'commentable_type' => 'App\Models\Ticket',
+            ]);
 
         Schema::table('comments', function (Blueprint $table): void {
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');

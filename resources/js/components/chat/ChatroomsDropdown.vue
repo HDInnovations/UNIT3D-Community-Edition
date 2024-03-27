@@ -1,8 +1,24 @@
 <template>
-  <select id="currentChatroom" v-model="selected" @change="changedRoom">
-    <option value="0" selected disabled>Join a room</option>
-    <option v-for="chatroom in chatrooms" :value="chatroom.id">{{ chatroom.name }}</option>
-  </select>
+  <div class="form__group">
+    <select
+      id="currentChatroom"
+      class="form__select"
+      :class="chatrooms.some(chatroom => chatroom.id == current) || 'form__select--default'"
+      v-model="selected"
+      @change="changedRoom"
+    >
+      <option
+        v-for="chatroom in chatrooms"
+        :value="chatroom.id"
+        :selected="selected == chatroom.id"
+      >
+        {{ chatroom.name }}
+      </option>
+    </select>
+    <label class="form__label form__label--floating" for="currentChatroom">
+      Room
+    </label>
+  </div>
 </template>
 
 <script>
@@ -19,11 +35,10 @@ export default {
   methods: {
     changedRoom(event) {
       this.$emit('changedRoom', this.selected);
-      this.selected = 0;
     },
   },
   created() {
-    this.selected = 0;
+    this.selected = this.current;
   },
 };
 </script>

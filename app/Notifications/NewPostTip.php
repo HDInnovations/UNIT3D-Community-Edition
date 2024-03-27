@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\PostTip;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -25,7 +25,7 @@ class NewPostTip extends Notification implements ShouldQueue
     /**
      * NewPostTip Constructor.
      */
-    public function __construct(public string $type, public string $tipper, public int $amount, public Post $post)
+    public function __construct(public PostTip $tip)
     {
     }
 
@@ -46,10 +46,12 @@ class NewPostTip extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $this->tip->load('sender');
+
         return [
-            'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
-            'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
-            'url'   => sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
+            'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For A Forum Post',
+            'body'  => $this->tip->sender->username.' has tipped one of your Forum posts in '.$this->tip->post->topic->name,
+            'url'   => sprintf('/forums/topics/%s/posts/%s', $this->tip->post->topic_id, $this->tip->post_id),
         ];
     }
 }

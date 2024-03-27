@@ -11,8 +11,8 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\User\TipController;
-use App\Http\Requests\StoreTipRequest;
+use App\Http\Controllers\User\PostTipController;
+use App\Http\Requests\User\StorePostTipRequest;
 use App\Models\BonTransactions;
 use App\Models\Post;
 use App\Models\Torrent;
@@ -25,10 +25,10 @@ test('index returns an ok response', function (): void {
     $bonTransactions = BonTransactions::factory()->times(3)->create();
     $authUser = User::factory()->create();
 
-    $response = $this->actingAs($authUser)->get(route('users.tips.index', [$user]));
+    $response = $this->actingAs($authUser)->get(route('users.post_tips.index', [$user]));
 
     $response->assertOk();
-    $response->assertViewIs('user.tip.index');
+    $response->assertViewIs('user.post-tip.index');
     $response->assertViewHas('user', $user);
     $response->assertViewHas('tips');
     $response->assertViewHas('bon');
@@ -47,16 +47,16 @@ test('index aborts with a 403', function (): void {
 
     // TODO: perform additional setup to trigger `abort_unless(403)`...
 
-    $response = $this->actingAs($authUser)->get(route('users.tips.index', [$user]));
+    $response = $this->actingAs($authUser)->get(route('users.post_tips.index', [$user]));
 
     $response->assertForbidden();
 });
 
 test('store validates with a form request', function (): void {
     $this->assertActionUsesFormRequest(
-        TipController::class,
+        PostTipController::class,
         'store',
-        StoreTipRequest::class
+        StorePostTipRequest::class
     );
 });
 
@@ -68,7 +68,7 @@ test('store returns an ok response', function (): void {
     $post = Post::factory()->create();
     $authUser = User::factory()->create();
 
-    $response = $this->actingAs($authUser)->post(route('users.tips.store', [$user]), [
+    $response = $this->actingAs($authUser)->post(route('users.post_tips.store', [$user]), [
         // TODO: send request data
     ]);
 
@@ -87,7 +87,7 @@ test('store aborts with a 403', function (): void {
 
     // TODO: perform additional setup to trigger `abort_unless(403)`...
 
-    $response = $this->actingAs($authUser)->post(route('users.tips.store', [$user]), [
+    $response = $this->actingAs($authUser)->post(route('users.post_tips.store', [$user]), [
         // TODO: send request data
     ]);
 

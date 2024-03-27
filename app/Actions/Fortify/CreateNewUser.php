@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace App\Actions\Fortify;
 
@@ -90,13 +101,13 @@ class CreateNewUser implements CreatesNewUsers
         $profileUrl = href_profile($user);
 
         $welcomeArray = [
-            sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
-            sprintf("[url=%s]%s[/url], We've been expecting you :space_invader:", $profileUrl, $user->username),
-            sprintf("[url=%s]%s[/url] has arrived. Party's over. :cry:", $profileUrl, $user->username),
+            sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
+            sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
+            sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
             sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
             sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
             sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profileUrl, $user->username),
+            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
         ];
 
         $this->chatRepository->systemMessage(

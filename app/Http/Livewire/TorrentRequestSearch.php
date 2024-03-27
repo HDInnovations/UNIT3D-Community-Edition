@@ -16,85 +16,103 @@ namespace App\Http\Livewire;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\TorrentRequestClaim;
+use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class TorrentRequestSearch extends Component
 {
+    use CastLivewireProperties;
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $name = '';
 
+    #[Url(history: true)]
     public string $requestor = '';
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
     public array $categories = [];
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
     public array $types = [];
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
     public array $resolutions = [];
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
     public array $genres = [];
 
-    public string $tmdbId = '';
+    #[Url(history: true)]
+    public ?int $tmdbId = null;
 
+    #[Url(history: true)]
     public string $imdbId = '';
 
-    public string $tvdbId = '';
+    #[Url(history: true)]
+    public ?int $tvdbId = null;
 
-    public string $malId = '';
+    #[Url(history: true)]
+    public ?int $malId = null;
 
-    public $unfilled;
+    #[Url(history: true)]
+    public bool $unfilled = false;
 
-    public $claimed;
+    #[Url(history: true)]
+    public bool $claimed = false;
 
-    public $pending;
+    #[Url(history: true)]
+    public bool $pending = false;
 
-    public $filled;
+    #[Url(history: true)]
+    public bool $filled = false;
 
-    public $myRequests;
+    #[Url(history: true)]
+    public bool $myRequests = false;
 
-    public $myClaims;
+    #[Url(history: true)]
+    public bool $myClaims = false;
 
-    public $myVoted;
+    #[Url(history: true)]
+    public bool $myVoted = false;
 
-    public $myFilled;
+    #[Url(history: true)]
+    public bool $myFilled = false;
 
+    #[Url(history: true)]
     public int $perPage = 25;
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
+    #[Url(history: true)]
     public bool $showFilters = false;
 
-    protected $queryString = [
-        'name'          => ['except' => ''],
-        'requestor'     => ['except' => ''],
-        'categories'    => ['except' => []],
-        'types'         => ['except' => []],
-        'resolutions'   => ['except' => []],
-        'genres'        => ['except' => []],
-        'tmdbId'        => ['except' => ''],
-        'imdbId'        => ['except' => ''],
-        'tvdbId'        => ['except' => ''],
-        'malId'         => ['except' => ''],
-        'unfilled'      => ['except' => false],
-        'claimed'       => ['except' => false],
-        'pending'       => ['except' => false],
-        'filled'        => ['except' => false],
-        'myRequests'    => ['except' => false],
-        'myClaims'      => ['except' => false],
-        'myVoted'       => ['except' => false],
-        'myFilled'      => ['except' => false],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'page'          => ['except' => 1],
-    ];
-
-    final public function updatedPage(): void
+    final public function updating(string $field, mixed &$value): void
     {
-        $this->emit('paginationChanged');
+        $this->castLivewireProperties($field, $value);
     }
 
     final public function toggleShowFilters(): void
@@ -102,7 +120,8 @@ class TorrentRequestSearch extends Component
         $this->showFilters = !$this->showFilters;
     }
 
-    final public function getTorrentRequestStatProperty(): ?object
+    #[Computed]
+    final public function torrentRequestStat(): ?object
     {
         return DB::table('requests')
             ->selectRaw('count(*) as total')
@@ -111,7 +130,8 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestBountyStatProperty(): ?object
+    #[Computed]
+    final public function torrentRequestBountyStat(): ?object
     {
         return DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
@@ -120,7 +140,11 @@ class TorrentRequestSearch extends Component
             ->first();
     }
 
-    final public function getTorrentRequestsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentRequest>
+     */
+    #[Computed]
+    final public function torrentRequests(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;
@@ -137,10 +161,10 @@ class TorrentRequestSearch extends Component
             ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
             ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
             ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
-            ->when($this->tmdbId !== '', fn ($query) => $query->ofTmdb((int) $this->tmdbId))
+            ->when($this->tmdbId !== null, fn ($query) => $query->ofTmdb($this->tmdbId))
             ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
-            ->when($this->tvdbId !== '', fn ($query) => $query->ofTvdb((int) $this->tvdbId))
-            ->when($this->malId !== '', fn ($query) => $query->ofMal((int) $this->malId))
+            ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb((int) $this->tvdbId))
+            ->when($this->malId !== null, fn ($query) => $query->ofMal((int) $this->malId))
             ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query): void {
                 $query->where(function ($query): void {
                     $query->where(function ($query): void {
@@ -181,17 +205,6 @@ class TorrentRequestSearch extends Component
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

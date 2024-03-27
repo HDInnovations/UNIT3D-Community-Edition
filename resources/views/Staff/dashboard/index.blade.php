@@ -151,7 +151,7 @@
                     <p class="form__group form__group--horizontal">
                         <a
                             class="form__button form__button--text"
-                            href="{{ route('staff.forums.index') }}"
+                            href="{{ route('staff.forum_categories.index') }}"
                         >
                             <i class="fab fa-wpforms"></i>
                             {{ __('staff.forums') }}
@@ -180,16 +180,16 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.wiki_categories.index') }}"
+                        href="{{ route('staff.whitelisted_image_urls.index') }}"
                     >
-                        <i class="fab fa-wikipedia-w"></i>
-                        Wiki Categories
+                        <i class="{{ config('other.font-awesome') }} fa-globe"></i>
+                        Whitelisted Image URLs
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.wikis.index') }}"
+                        href="{{ route('staff.wiki_categories.index') }}"
                     >
                         <i class="fab fa-wikipedia-w"></i>
                         Wikis
@@ -264,6 +264,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
                         Torrent Distributors
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        Automatic Torrent Freeleeches
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -456,6 +465,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>
                         {{ __('staff.possible-leech-cheaters') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.leakers.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-faucet-drip"></i>
+                        Leakers
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">

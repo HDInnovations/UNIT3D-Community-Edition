@@ -53,8 +53,8 @@ class PageController extends Controller
                 ->with('users.group')
                 ->where('is_modo', '=', 1)
                 ->orWhere('is_admin', '=', 1)
-                ->get()
-                ->sortByDesc('position'),
+                ->orderByDesc('position')
+                ->get(),
         ]);
     }
 
@@ -65,7 +65,9 @@ class PageController extends Controller
     {
         return view('page.internal', [
             'internals' => Internal::query()
-                ->with('users.group')
+                ->with([
+                    'users' => fn ($query) => $query->with('group')->orderByPivot('position', 'asc'),
+                ])
                 ->orderBy('name')
                 ->get(),
         ]);

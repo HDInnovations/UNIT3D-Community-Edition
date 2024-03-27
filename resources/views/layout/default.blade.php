@@ -67,10 +67,7 @@
         </main>
         @include('partials.footer')
 
-        <script src="{{ mix('js/app.js') }}" crossorigin="anonymous"></script>
-        <script src="{{ mix('js/unit3d.js') }}" crossorigin="anonymous"></script>
-        <script src="{{ mix('js/alpine.js') }}" crossorigin="anonymous" defer></script>
-        <script src="{{ mix('js/virtual-select.js') }}" crossorigin="anonymous"></script>
+        @vite('resources/js/app.js')
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
@@ -128,7 +125,10 @@
 
         @foreach (['warning', 'success', 'info'] as $key)
             @if (Session::has($key))
-                <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+                <script
+                    nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}"
+                    type="module"
+                >
                     const Toast = Swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -145,7 +145,10 @@
         @endforeach
 
         @if (Session::has('errors'))
-            <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            <script
+                nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}"
+                type="module"
+            >
                 Swal.fire({
                     title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
                     icon: 'error',
@@ -207,16 +210,6 @@
 
         @yield('javascripts')
         @yield('scripts')
-        @livewireScripts(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
-
-        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-            Livewire.on('paginationChanged', () => {
-                window.scrollTo({
-                    top: 15,
-                    left: 15,
-                    behavior: 'smooth',
-                });
-            });
-        </script>
+        @livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
     </body>
 </html>

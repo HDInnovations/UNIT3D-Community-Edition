@@ -8,7 +8,7 @@
                         id="sender"
                         class="form__text"
                         type="text"
-                        wire:model="sender"
+                        wire:model.live="sender"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="sender">
@@ -22,7 +22,7 @@
                         id="receiver"
                         class="form__text"
                         type="text"
-                        wire:model="receiver"
+                        wire:model.live="receiver"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="receiver">
@@ -36,7 +36,7 @@
                         id="comment"
                         class="form__text"
                         type="text"
-                        wire:model="comment"
+                        wire:model.live="comment"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="comment">
@@ -46,7 +46,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -88,13 +88,21 @@
                 @forelse ($gifts as $gift)
                     <tr>
                         <td>
-                            <x-user_tag :anon="false" :user="$gift->sender" />
+                            @if ($gift->sender === null)
+                                Deleted user
+                            @else
+                                <x-user_tag :user="$gift->sender" :anon="false" />
+                            @endif
                         </td>
                         <td>
-                            <x-user_tag :anon="false" :user="$gift->receiver" />
+                            @if ($gift->recipient === null)
+                                Deleted user
+                            @else
+                                <x-user_tag :user="$gift->recipient" :anon="false" />
+                            @endif
                         </td>
-                        <td>{{ $gift->cost }}</td>
-                        <td>{{ $gift->comment }}</td>
+                        <td>{{ $gift->bon }}</td>
+                        <td>{{ $gift->message }}</td>
                         <td>
                             <time
                                 datetime="{{ $gift->created_at }}"
@@ -106,7 +114,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">No gifts</td>
+                        <td colspan="5">No gifts</td>
                     </tr>
                 @endforelse
             </tbody>

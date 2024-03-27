@@ -7,7 +7,7 @@
                     <div class="form__group">
                         <input
                             id="torrent"
-                            wire:model="torrentId"
+                            wire:model.live="torrentId"
                             class="form__text"
                             placeholder=" "
                         />
@@ -18,13 +18,23 @@
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <input id="user" wire:model="userId" class="form__text" placeholder=" " />
+                        <input
+                            id="user"
+                            wire:model.live="userId"
+                            class="form__text"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="user">User ID</label>
                     </div>
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="quantity" class="form__select" wire:model="perPage" required>
+                        <select
+                            id="quantity"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>
@@ -41,11 +51,11 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th wire:click="sortBy('user_id')" role="columnheader button">
+                        <th wire:click="sortBy('id')" role="columnheader button">
                             ID
                             @include('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
-                        <th wire:click="sortBy('id')" role="columnheader button">
+                        <th wire:click="sortBy('user_id')" role="columnheader button">
                             User ID
                             @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                         </th>
@@ -70,7 +80,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'corrupt'])
                         </th>
                         <th wire:click="sortBy('peer_id')" role="columnheader button">
-                            Event
+                            Peer ID
                             @include('livewire.includes._sort-icon', ['field' => 'peer_id'])
                         </th>
                         <th wire:click="sortBy('port')" role="columnheader button">

@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -24,14 +23,6 @@ use Illuminate\Support\Carbon;
  */
 class AutoRemoveTimedTorrentBuffs extends Command
 {
-    /**
-     * AutoRemoveTimedTorrentBuffs Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -51,8 +42,6 @@ class AutoRemoveTimedTorrentBuffs extends Command
      */
     public function handle(): void
     {
-        $appurl = config('app.url');
-
         $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now()->toDateTimeString())->get();
 
         foreach ($flTorrents as $torrent) {
@@ -60,11 +49,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
             $torrent->fl_until = null;
             $torrent->save();
 
-            // Announce To Chat
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed freeleech buff has expired.', $appurl, $torrent->id, $torrent->name)
-            );
-
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
             Unit3dAnnounce::addTorrent($torrent);
         }
 
@@ -75,11 +60,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
             $torrent->du_until = null;
             $torrent->save();
 
-            // Announce To Chat
-            $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed double upload buff has expired.', $appurl, $torrent->id, $torrent->name)
-            );
-
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
             Unit3dAnnounce::addTorrent($torrent);
         }
 

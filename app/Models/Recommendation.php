@@ -16,6 +16,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Recommendation.
+ *
+ * @property int         $id
+ * @property string      $title
+ * @property string|null $poster
+ * @property string|null $vote_average
+ * @property string|null $release_date
+ * @property string|null $first_air_date
+ * @property int|null    $movie_id
+ * @property int|null    $recommendation_movie_id
+ * @property int|null    $tv_id
+ * @property int|null    $recommendation_tv_id
+ */
 class Recommendation extends Model
 {
     use HasFactory;

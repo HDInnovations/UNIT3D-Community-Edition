@@ -19,7 +19,7 @@
 @section('page', 'page__groups--create')
 
 @section('main')
-    <section class="panelV2">
+    <section class="panelV2" x-data="{ autogroup: false }">
         <h2 class="panel__heading">Add New Group</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.groups.store') }}">
@@ -28,6 +28,18 @@
                     <input id="name" class="form__text" type="text" name="name" placeholder=" " />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="description"
+                        class="form__text"
+                        type="text"
+                        name="description"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="description">
+                        {{ __('common.description') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -222,9 +234,70 @@
                         class="form__checkbox"
                         name="autogroup"
                         type="checkbox"
+                        x-model="autogroup"
                         value="1"
                     />
                     <label class="form__label" for="autogroup">Autogroup</label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_uploaded"
+                        class="form__text"
+                        type="text"
+                        name="min_uploaded"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_uploaded">
+                        Minimum upload required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_ratio"
+                        class="form__text"
+                        type="text"
+                        name="min_ratio"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_ratio">
+                        Minimum ratio required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_age"
+                        class="form__text"
+                        type="text"
+                        name="min_age"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_age">
+                        Minimum age required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_avg_seedtime"
+                        class="form__text"
+                        type="text"
+                        name="min_avg_seedtime"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_avg_seedtime">
+                        Minimum average seedtime required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_seedsize"
+                        class="form__text"
+                        type="text"
+                        name="min_seedsize"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_seedsize">
+                        Minimum seedsize required
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

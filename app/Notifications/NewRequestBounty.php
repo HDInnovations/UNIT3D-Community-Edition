@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -25,7 +25,7 @@ class NewRequestBounty extends Notification implements ShouldQueue
     /**
      * NewRequestBounty Constructor.
      */
-    public function __construct(public string $type, public string $sender, public int $amount, public TorrentRequest $torrentRequest)
+    public function __construct(public TorrentRequestBounty $bounty)
     {
     }
 
@@ -46,10 +46,12 @@ class NewRequestBounty extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $this->bounty->load('user');
+
         return [
-            'title' => $this->sender.' Has Added A Bounty Of '.$this->amount.' To A Requested Torrent',
-            'body'  => $this->sender.' has added a bounty to one of your Requested Torrents '.$this->torrentRequest->name,
-            'url'   => sprintf('/requests/%s', $this->torrentRequest->id),
+            'title' => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' Has Added A Bounty Of '.$this->bounty->seedbonus.' To A Requested Torrent',
+            'body'  => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' has added a bounty to one of your Requested Torrents '.$this->bounty->request->name,
+            'url'   => sprintf('/requests/%s', $this->bounty->requests_id),
         ];
     }
 }

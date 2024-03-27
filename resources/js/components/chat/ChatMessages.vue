@@ -1,93 +1,85 @@
 <template>
-  <div class="messages">
-    <ul class="list-group">
-      <li class="sent" v-for="message in messages">
-        <a target="_blank" :href="`/users/${message.user.username}`">
-          <img
-              v-if="message.user.id !== 1"
-              class="chat-user-image"
-              :style="`border: 3px solid ${message.user.chat_status.color};`"
-              :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
-              alt=""
-          />
-        </a>
-
-        <h4 class="list-group-item-heading bot">
-                    <span class="badge-user text-bold" :style="userStyles(message.user)">
-                        <i
-                            v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)"
-                            :class="message.user.group.icon"
-                        >
-                        </i>
-                        <i
-                            v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)"
-                            class="fas fa-bell"
-                        >
-                        </i>
-
-                        <a
-                            v-if="message.user && message.user.id > 1"
-                            @click="pmUser(message.user)"
-                            :style="groupColor(message.user)"
-                        >
-                            {{ message.user.username }}
-                        </a>
-
-                        <a
-                            v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
-                            :style="groupColor(message.user)"
-                        >
-                            {{ message.bot.name }}
-                        </a>
-
-                        <i
-                            v-if="message.user.id != 1 && canMod(message)"
-                            @click="deleteMessage(message.id)"
-                            title="Delete message"
-                            class="fa fa-times text-red"
-                        >
-                        </i>
-                    </span>
-          <a
-              v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
-              @click.prevent="$parent.forceMessage(message.user.username)"
-              title="Send chat PM (/msg <username> <message>)"
-          >
-            <i class="fas fa-envelope pointee"></i>
-          </a>
-          <a
-              v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id"
-              @click.prevent="$parent.forceGift(message.user.username)"
-              title="Gift user bon (/gift <username> <amount> <message>)"
-          >
-            <i class="fas fa-gift pointee"></i>
-          </a>
-          <span v-if="message.user.id !== 1" class="text-muted">
-                        {{ message.created_at | diffForHumans }}
-                    </span>
-        </h4>
-        <div
-            @click="checkBot($event, message)"
-            :class="message.user.id === 1 ? 'system text-bright bot' : 'text-bright'"
-            v-html="message.message"
-        ></div>
+  <div class="chatroom__messages--wrapper">
+    <ul class="chatroom__messages">
+      <li v-for="message in messages">
+        <article class="chatbox-message">
+          <header class="chatbox-message__header">
+            <address
+              class="chatbox-message__address user-tag"
+              :style="`background-image: ${message.user?.group?.effect};`"
+            >
+              <a
+                class="user-tag__link"
+                :class="message.user?.group?.icon"
+                :href="`/users/${message.user?.username}`"
+                :style="`color: ${message.user?.group?.color }`"
+                :title="message.user?.group?.name"
+              >
+                <span v-if="message.user && message.user.id > 1">{{ message.user?.username ?? 'Unknown' }}</span>
+                <span v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)">{{ message.bot?.name ?? 'Unknown' }}</span>
+              </a>
+            </address>
+            <div v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" :style="`font-style: italic; white-space: nowrap;`" v-html="message.message"></div>
+            <time
+              v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
+              :style="`margin-left: 10px; white-space: nowrap;`"
+              class="chatbox-message__time"
+              :datetime="message.created_at"
+              :title="message.created_at"
+            >
+              {{ message.created_at | diffForHumans }}
+            </time>
+            <time
+                v-else
+                class="chatbox-message__time"
+                :datetime="message.created_at"
+                :title="message.created_at"
+            >
+              {{ message.created_at | diffForHumans }}
+            </time>
+          </header>
+          <aside class="chatbox-message__aside">
+            <figure class="chatbox-message__figure">
+              <i class="fa fa-bell" title="System Notification" v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"></i>
+              <a
+                v-if="message.user?.id != 1"
+                :href="`/users/${message.user?.username}`"
+                class="chatbox-message__avatar-link"
+              >
+                <img
+                  v-if="message.user?.id != 1"
+                  class="chatbox-message__avatar"
+                  :src="message.user?.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
+                  :style="`border: 2px solid ${message.user?.chat_status?.color};`"
+                  :title="message.user?.chat_status?.name"
+                />
+              </a>
+            </figure>
+          </aside>
+          <menu class="chatbox-message__menu">
+            <li class="chatbox-message__menu-item">
+              <button
+                class="chatbox-message__delete-button"
+                v-if="message.user?.id != 1 && canMod(message)"
+                @click="deleteMessage(message.id)"
+                title="Delete message"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </li>
+          </menu>
+          <section v-if="message.user && message.user.id > 1" class="chatbox-message__content" v-html="message.message"></section>
+        </article>
+      </li>
+      <li v-if="messages.length === 0">
+        There is no chat history here. Send a message!
       </li>
     </ul>
   </div>
 </template>
-<style lang="scss" scoped>
-.pointee {
-  cursor: pointer;
-}
-.bot {
-  display: inline-block;
-  vertical-align: top;
-}
-</style>
 <script>
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import pmMethods from './mixins/pmMethods';
 
 export default {
   props: {
@@ -98,7 +90,6 @@ export default {
       editor: null,
     };
   },
-  mixins: [pmMethods],
   methods: {
     checkBot(e, message) {
       if (e.target.hasAttribute('trigger') && e.target.getAttribute('trigger') == 'bot') {
@@ -112,17 +103,17 @@ export default {
     canMod(message) {
       /*
           A user can Mod his own messages
-          A user in a is_modo group can Mod messages
+          A user in an is_modo group can Mod messages
           A is_modo CAN NOT Mod another is_modo message
       */
 
       return (
           /* Owner can mod all */
-          this.$parent.auth.group.id === 10 ||
+          this.$parent.auth.group.is_owner ||
           /* User can mod his own message */
           message.user.id === this.$parent.auth.id ||
           /* is_admin can mod messages except for Owner messages */
-          (this.$parent.auth.group.is_admin && message.user.group.id !== 10) ||
+          (this.$parent.auth.group.is_admin && !message.user.group.is_owner) ||
           /* Mods CAN NOT mod other mods messages */
           (this.$parent.auth.group.is_modo && !message.user.group.is_modo)
       );

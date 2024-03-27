@@ -18,6 +18,7 @@ use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 /**
  * @see \Tests\Unit\Console\Commands\SyncPeersTest
@@ -36,29 +37,44 @@ class SyncPeers extends Command
      *
      * @var string
      */
-    protected $description = 'Sync Torrent Seeders/Leechers (Peers) Count.';
+    protected $description = 'Sync Torrent Seeders/Leechers/Times Completed Count.';
 
     /**
      * Execute the console command.
+     *
+     * @throws Throwable
      */
     public function handle(): void
     {
-        Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->leftJoinSub(
-                Peer::query()
-                    ->select('torrent_id')
-                    ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1) AS updated_seeders'))
-                    ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1) AS updated_leechers'))
-                    ->groupBy('torrent_id'),
-                'seeders_leechers',
-                fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
-            )
-            ->update([
-                'seeders'    => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
-                'leechers'   => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
-                'updated_at' => DB::raw('updated_at')
-            ]);
+        DB::transaction(function (): void {
+            Torrent::withoutGlobalScope(ApprovedScope::class)
+                ->leftJoinSub(
+                    Peer::query()
+                        ->select('torrent_id')
+                        ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = 1 AND peers.visible = 1) AS updated_seeders'))
+                        ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = 1 AND peers.visible = 1) AS updated_leechers'))
+                        ->groupBy('torrent_id'),
+                    'seeders_leechers',
+                    fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
+                )
+                ->update([
+                    'seeders'    => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
+                    'leechers'   => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
+                    'updated_at' => DB::raw('updated_at')
+                ]);
+        }, 5);
 
-        $this->comment('Torrent Peer Syncing Command Complete');
+        DB::transaction(function (): void {
+            DB::statement("
+                UPDATE torrents
+                    SET times_completed = (
+                        SELECT COUNT(*)
+                        FROM history
+                        WHERE `completed_at` IS NOT NULL AND torrent_id = torrents.id
+                    )
+            ");
+        }, 5);
+
+        $this->info('Torrent Seeders/Leechers/Times Completed Count Synced Successfully!');
     }
 }

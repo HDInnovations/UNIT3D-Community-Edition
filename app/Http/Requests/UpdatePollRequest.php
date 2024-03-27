@@ -25,11 +25,26 @@ class UpdatePollRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'           => 'required|min:10',
-            'multiple_choice' => 'required|boolean',
-            'options.*.name'  => 'required|max:255',
-            'options.*.id'    => 'required|integer',
-            'options'         => 'array|min:2',
+            'title' => [
+                'required',
+                'min:10',
+            ],
+            'multiple_choice' => [
+                'required',
+                'boolean',
+            ],
+            'options.*.name' => [
+                'required',
+                'max:255',
+            ],
+            'options.*.id' => [
+                'required',
+                'integer',
+            ],
+            'options' => [
+                'array',
+                'min:2',
+            ],
         ];
     }
 

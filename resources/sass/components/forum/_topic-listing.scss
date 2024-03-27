@@ -35,14 +35,34 @@
 .topic-listing__heading {
     display: inline;
     font-size: 15px;
-    font-weight: 600;
     margin: 0;
+
+    .topic-listing--unread & {
+        font-weight: 600;
+    }
+
+    .topic-listing--read & {
+        font-weight: 300;
+    }
 }
 
-.topic-listing__author {
+.topic-listing__created-post {
+    display: flex;
+    align-items: flex-end;
+}
+
+.topic-listing__created-datetime {
     font-size: 12px;
-    margin: 0;
+}
+
+.topic-listing__created-author {
+    margin: 0 0.5ch 0 0;
+    font-size: 12px;
     font-style: normal;
+}
+
+.topic-listing__created-author:after {
+    content: '\2022'
 }
 
 .topic-listing__figure {
@@ -81,6 +101,11 @@
 .topic-listing__post-stats dt,
 .topic-listing__view-stats dt {
     font-weight: normal;
+}
+
+.topic-listing__post-stats dd,
+.topic-listing__view-stats dd {
+    margin: 0;
 }
 
 .topic-listing__post-stats {

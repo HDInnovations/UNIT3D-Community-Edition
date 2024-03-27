@@ -14,6 +14,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Forum;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,20 +22,23 @@ class SubscribedForum extends Component
 {
     use WithPagination;
 
-    final public function getForumsProperty()
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Forum>
+     */
+    #[Computed]
+    final public function forums()
     {
         return Forum::query()
-            ->with('latestPoster')
-            ->whereNotNull('parent_id')
+            ->with('latestPoster', 'lastRepliedTopic')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
-            ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->authorized(canReadTopic: true)
             ->orderBy('position')
             ->paginate(25, ['*'], 'subscribedForumsPage');
     }
 
     final public function updatedSubscribedForumsPage(): void
     {
-        $this->emit('paginationChanged');
+        $this->dispatch('paginationChanged');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

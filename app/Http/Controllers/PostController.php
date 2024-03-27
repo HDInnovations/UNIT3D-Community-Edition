@@ -28,6 +28,7 @@ use App\Achievements\UserMadeFirstPost;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
+use App\Notifications\NewPost;
 use App\Notifications\NewPostTag;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
@@ -66,12 +67,7 @@ class PostController extends Controller
 
         $user = $request->user();
 
-        $topic = Topic::whereRelation('forumPermissions', [
-            ['reply_topic', '=', 1],
-            ['group_id', '=', $user->group_id]
-        ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-            ->findOrFail($request->topic_id);
+        $topic = Topic::authorized(canReplyTopic: true)->findOrFail($request->integer('topic_id'));
 
         $forum = $topic->forum;
 
@@ -82,20 +78,19 @@ class PostController extends Controller
         ]);
 
         $topic->update([
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
-            'num_post'                => $topic->posts()->count(),
-            'last_reply_at'           => $post->created_at,
+            'last_post_id'         => $post->id,
+            'last_post_user_id'    => $user->id,
+            'num_post'             => $topic->posts()->count(),
+            'last_post_created_at' => $post->created_at,
         ]);
 
         $forum->update([
-            'num_post'                => $forum->posts()->count(),
-            'num_topic'               => $forum->topics()->count(),
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
-            'last_topic_id'           => $topic->id,
-            'last_topic_name'         => $topic->name,
-            'updated_at'              => $post->created_at,
+            'num_post'             => $forum->posts()->count(),
+            'num_topic'            => $forum->topics()->count(),
+            'last_post_user_id'    => $user->id,
+            'last_post_id'         => $post->id,
+            'last_topic_id'        => $topic->id,
+            'last_post_created_at' => $post->created_at,
         ]);
 
         // Post To Chatbox and Notify Subscribers
@@ -104,17 +99,42 @@ class PostController extends Controller
         $realUrl = sprintf('/forums/topics/%s/posts/%s', $topic->id, $post->id);
         $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
 
-        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->parent_id == config('other.staff-forum-id'))) {
-            $topic->notifyStaffers($user, $topic, $post);
+        if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
+            $staffers = User::query()
+                ->where('id', '!=', $user->id)
+                ->whereRelation('group', 'is_modo', '=', true)
+                ->get();
+
+            foreach ($staffers as $staffer) {
+                $staffer->notify(new NewPost('staff', $user, $post));
+            }
         } else {
             $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
 
             // Notify All Subscribers Of New Reply
-            if ($topic->first_post_user_id != $user->id) {
-                $topic->notifyStarter($user, $topic, $post);
+            if ($topic->first_post_user_id !== $user->id && $user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
+                $user->notify(new NewPost('topic', $user, $post));
             }
 
-            $topic->notifySubscribers($user, $topic, $post);
+            $subscribers = User::query()
+                ->where('id', '!=', $user->id)
+                ->whereRelation('subscriptions', 'topic_id', '=', $topic->id)
+                ->whereRelation('forumPermissions', [
+                    ['read_topic', '=', 1],
+                    ['forum_id', '=', $topic->forum_id],
+                ])
+                ->where(
+                    fn ($query) => $query
+                        ->whereRelation('notification', 'show_subscription_topic', '=', true)
+                        ->orDoesntHave('notification')
+                )
+                ->get();
+
+            foreach ($subscribers as $subscriber) {
+                if ($subscriber->acceptsNotification($user, $subscriber, 'subscription', 'show_subscription_topic')) {
+                    $subscriber->notify(new NewPost('subscription', $user, $post));
+                }
+            }
 
             // Achievements
             $user->unlock(new UserMadeFirstPost());
@@ -150,15 +170,7 @@ class PostController extends Controller
         $user = $request->user();
 
         $post = Post::find($id);
-        $topic = $post->topic()
-            ->whereRelation('forumPermissions', [
-                ['show_forum', '=', 1],
-                ['read_topic', '=', 1],
-                ['reply_topic', '=', 1],
-                ['group_id', '=', $user->group_id],
-            ])
-            ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-            ->sole();
+        $topic = Topic::whereKey($post->topic_id)->authorized(canReadTopic: true, canReplyTopic: true)->sole();
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
@@ -189,16 +201,7 @@ class PostController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
-        abort_unless(
-            $post->topic()
-                ->whereRelation('forumPermissions', [
-                    ['reply_topic', '=', 1],
-                    ['group_id', '=', $user->group_id],
-                ])
-                ->when(!$user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-                ->exists(),
-            403
-        );
+        abort_unless($post->topic()->authorized(canReplyTopic: true)->exists(), 403);
 
         $post->update([
             'content' => $request->input('content'),
@@ -220,16 +223,11 @@ class PostController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
-        /** @var Topic $topic */
-        $topic = $post->topic()->whereRelation('forumPermissions', [
-            ['reply_topic', '=', 1],
-            ['group_id', '=', $user->group_id],
-        ])
-            ->sole();
+        $topic = Topic::whereKey($post->topic_id)->authorized(canReplyTopic: true)->sole();
 
         $post->delete();
 
-        $latestPost = $topic->latestPost;
+        $latestPost = $topic->latestPostSlow;
         $isTopicDeleted = false;
 
         if ($latestPost === null) {
@@ -238,26 +236,25 @@ class PostController extends Controller
         } else {
             $latestPoster = $latestPost->user;
             $topic->update([
-                'last_post_user_id'       => $latestPoster->id,
-                'last_post_user_username' => $latestPoster->username,
-                'num_post'                => $topic->posts()->count(),
-                'last_reply_at'           => $latestPost->created_at,
+                'last_post_id'         => $latestPost->id,
+                'last_post_user_id'    => $latestPoster->id,
+                'num_post'             => $topic->posts()->count(),
+                'last_post_created_at' => $latestPost->created_at,
             ]);
         }
 
         $forum = $topic->forum;
-        $lastRepliedTopic = $forum->lastRepliedTopic;
-        $latestPost = $lastRepliedTopic->latestPost;
+        $lastRepliedTopic = $forum->lastRepliedTopicSlow;
+        $latestPost = $lastRepliedTopic->latestPostSlow;
         $latestPoster = $latestPost->user;
 
         $forum->update([
-            'num_post'                => $forum->posts()->count(),
-            'num_topic'               => $forum->topics()->count(),
-            'last_post_user_id'       => $latestPoster->id,
-            'last_post_user_username' => $latestPoster->username,
-            'last_topic_id'           => $lastRepliedTopic->id,
-            'last_topic_name'         => $lastRepliedTopic->name,
-            'updated_at'              => $latestPost->created_at,
+            'num_post'             => $forum->posts()->count(),
+            'num_topic'            => $forum->topics()->count(),
+            'last_post_id'         => $latestPost->id,
+            'last_post_user_id'    => $latestPoster->id,
+            'last_topic_id'        => $lastRepliedTopic->id,
+            'last_post_created_at' => $latestPost->created_at,
         ]);
 
         if ($isTopicDeleted === true) {

@@ -82,9 +82,12 @@
         @endif
     @endif
 
-    <li class="form__group form__group--short-horizontal">
-        @livewire('thank-button', ['torrent' => $torrent->id])
-    </li>
+    @if (config('other.thanks-system.is-enabled'))
+        <li class="form__group form__group--short-horizontal">
+            @livewire('thank-button', ['torrent' => $torrent])
+        </li>
+    @endif
+
     @if ($torrent->nfo)
         <li x-data="dialog" class="form__group form__group--short-horizontal">
             <button
@@ -122,27 +125,27 @@
             <form
                 class="dialog__form"
                 method="POST"
-                action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
+                action="{{ route('users.torrent_tips.store', ['user' => auth()->user()]) }}"
                 x-bind="dialogForm"
             >
                 @csrf
-                <input type="hidden" name="torrent" value="{{ $torrent->id }}" />
+                <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                 <div>
                     {!! __('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}.
                     <span>({{ __('torrent.torrent-tips-desc') }})</span>
                 </div>
                 <div class="form__group">
                     <input
-                        id="tip"
+                        id="bon"
                         class="form__text"
                         list="torrent_quick_tips"
-                        name="tip"
+                        name="bon"
                         placeholder=" "
                         type="text"
                         pattern="[0-9]*"
                         inputmode="numeric"
                     />
-                    <label class="form__label form__label--floating" for="tip">
+                    <label class="form__label form__label--floating" for="bon">
                         {{ __('torrent.define-tip-amount') }}
                     </label>
                     <datalist id="torrent_quick_tips">
@@ -352,7 +355,12 @@
         </dialog>
     </li>
     <li class="form__group form__group--short-horizontal">
-        @livewire('bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()])
+        @livewire('bookmark-button', [
+            'torrent' => $torrent,
+            'isBookmarked' => $torrent->bookmarks_exists,
+            'user' => auth()->user(),
+            'bookmarksCount' => $torrent->bookmarks_count ?? 0,
+        ])
     </li>
     @if ($playlists->count() > 0)
         <li x-data="dialog" class="form__group form__group--short-horizontal">

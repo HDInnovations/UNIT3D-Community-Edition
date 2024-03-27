@@ -8,7 +8,7 @@
                         id="passkey"
                         class="form__text"
                         type="text"
-                        wire:model="passkey"
+                        wire:model.live="passkey"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="passkey">
@@ -22,7 +22,7 @@
                         id="username"
                         class="form__text"
                         type="text"
-                        wire:model="username"
+                        wire:model.live="username"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="username">
@@ -32,7 +32,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>

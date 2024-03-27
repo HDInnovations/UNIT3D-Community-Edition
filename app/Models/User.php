@@ -27,6 +27,65 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\User.
+ *
+ * @property int                             $id
+ * @property string                          $username
+ * @property string                          $email
+ * @property string                          $password
+ * @property string|null                     $two_factor_secret
+ * @property string|null                     $two_factor_recovery_codes
+ * @property string|null                     $two_factor_confirmed_at
+ * @property string                          $passkey
+ * @property int                             $group_id
+ * @property int                             $active
+ * @property int                             $uploaded
+ * @property int                             $downloaded
+ * @property string|null                     $image
+ * @property string|null                     $title
+ * @property string|null                     $about
+ * @property string|null                     $signature
+ * @property int                             $fl_tokens
+ * @property float                           $seedbonus
+ * @property int                             $invites
+ * @property int                             $hitandruns
+ * @property string                          $rsskey
+ * @property int                             $chatroom_id
+ * @property int                             $censor
+ * @property int                             $chat_hidden
+ * @property bool                            $hidden
+ * @property int                             $style
+ * @property int                             $torrent_layout
+ * @property int                             $torrent_filters
+ * @property string|null                     $custom_css
+ * @property string|null                     $standalone_css
+ * @property int                             $read_rules
+ * @property bool                            $can_chat
+ * @property bool                            $can_comment
+ * @property bool                            $can_download
+ * @property bool                            $can_request
+ * @property bool                            $can_invite
+ * @property bool                            $can_upload
+ * @property int                             $show_poster
+ * @property int                             $peer_hidden
+ * @property int                             $private_profile
+ * @property int                             $block_notifications
+ * @property int                             $stat_hidden
+ * @property string|null                     $remember_token
+ * @property string|null                     $api_token
+ * @property \Illuminate\Support\Carbon|null $last_login
+ * @property \Illuminate\Support\Carbon|null $last_action
+ * @property string|null                     $disabled_at
+ * @property int|null                        $deleted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string                          $locale
+ * @property int                             $chat_status_id
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property int                             $own_flushes
+ * @property string|null                     $email_verified_at
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Achiever;
@@ -111,11 +170,13 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Internal Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Internal, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal>
      */
-    public function internal(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function internals(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsTo(Internal::class, 'internal_id', 'id', 'name');
+        return $this->belongsToMany(Internal::class)
+            ->using(InternalUser::class)
+            ->withPivot('id', 'position', 'created_at');
     }
 
     /**
@@ -433,7 +494,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
      */
-    public function FilledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function filledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentRequest::class, 'filled_by');
     }
@@ -589,26 +650,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has Given Many BON Tips.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
-     */
-    public function bonGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(BonTransactions::class, 'sender_id');
-    }
-
-    /**
-     * Has Received Many BON Tips.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
-     */
-    public function bonReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(BonTransactions::class, 'receiver_id');
-    }
-
-    /**
      * Has Many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
@@ -646,6 +687,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Topic::class, 'subscriptions');
+    }
+
+    /**
+     * Has Many Permissions through Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
+     */
+    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ForumPermission::class, 'group_id', 'group_id');
     }
 
     /**
@@ -711,41 +762,61 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'gift');
+        return $this->hasMany(Gift::class, 'sender_id');
     }
 
     /**
      * Has many received gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'gift');
+        return $this->hasMany(Gift::class, 'recipient_id');
     }
 
     /**
      * Has many sent tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
-    public function sentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'sender_id')->where('name', '=', 'tip');
+        return $this->hasMany(PostTip::class, 'sender_id');
     }
 
     /**
      * Has many received tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
-    public function receivedTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'receiver_id')->where('name', '=', 'tip');
+        return $this->hasMany(PostTip::class, 'recipient_id');
+    }
+
+    /**
+     * Has many sent tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     */
+    public function sentTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentTip::class, 'sender_id');
+    }
+
+    /**
+     * Has many received tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     */
+    public function receivedTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentTip::class, 'recipient_id');
     }
 
     /**

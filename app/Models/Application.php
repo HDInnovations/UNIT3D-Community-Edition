@@ -18,6 +18,20 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Application.
+ *
+ * @property int                             $id
+ * @property string                          $type
+ * @property string                          $email
+ * @property string|null                     $referrer
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null                        $moderated_by
+ * @property int|null                        $accepted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Application extends Model
 {
     use Auditable;

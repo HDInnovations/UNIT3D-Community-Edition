@@ -19,6 +19,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Warning.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $warned_by
+ * @property int|null                        $torrent
+ * @property string                          $reason
+ * @property string|null                     $expires_on
+ * @property bool                            $active
+ * @property int|null                        $deleted_by
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Warning extends Model
 {
     use Auditable;

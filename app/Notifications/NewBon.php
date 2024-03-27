@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Models\BonTransactions;
+use App\Models\Gift;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -25,7 +25,7 @@ class NewBon extends Notification implements ShouldQueue
     /**
      * NewBon Constructor.
      */
-    public function __construct(public string $type, public string $sender, public BonTransactions $bonTransactions)
+    public function __construct(public Gift $gift)
     {
     }
 
@@ -46,10 +46,12 @@ class NewBon extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+        $this->gift->load('sender');
+
         return [
-            'title' => $this->sender.' Has Gifted You '.$this->bonTransactions->cost.' BON',
-            'body'  => $this->sender.' has gifted you '.$this->bonTransactions->cost.' BON with the following note: '.$this->bonTransactions->comment,
-            'url'   => sprintf('/users/%s', $this->bonTransactions->sender->username),
+            'title' => $this->gift->sender->username.' Has Gifted You '.$this->gift->bon.' BON',
+            'body'  => $this->gift->sender->username.' has gifted you '.$this->gift->bon.' BON with the following note: '.$this->gift->message,
+            'url'   => sprintf('/users/%s', $this->gift->sender->username),
         ];
     }
 }

@@ -11,16 +11,10 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Requests\StoreTipRequest;
+use App\Http\Requests\User\StorePostTipRequest;
 
 beforeEach(function (): void {
-    $this->subject = new StoreTipRequest();
-});
-
-test('authorize', function (): void {
-    $actual = $this->subject->authorize();
-
-    expect($actual)->toBeTrue();
+    $this->subject = new StorePostTipRequest();
 });
 
 test('rules', function (): void {

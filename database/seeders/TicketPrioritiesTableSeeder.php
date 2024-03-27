@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use App\Models\TicketPriority;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TicketPrioritiesTableSeeder extends Seeder
 {
@@ -33,6 +34,6 @@ class TicketPrioritiesTableSeeder extends Seeder
                 'name'     => 'High',
                 'position' => 2,
             ],
-        ], ['id']);
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

@@ -156,7 +156,7 @@ class GitUpdater extends Command
 
                 $this->setCache();
 
-                if ($this->io->confirm('Compile assets (npx mix -p)', true)) {
+                if ($this->io->confirm('Compile assets (bun run build)', true)) {
                     $this->compile();
                 }
 
@@ -246,7 +246,7 @@ class GitUpdater extends Command
 
         $this->commands([
             'git add .',
-            'git checkout origin/master -- package-lock.json',
+            'git checkout origin/master -- bun.lockb',
             'git checkout origin/master -- composer.lock',
         ]);
     }
@@ -268,11 +268,8 @@ class GitUpdater extends Command
         $this->header('Compiling Assets ...');
 
         $this->commands([
-            'npm install npm -g',
-            'rm -rf node_modules',
-            'npm cache clean --force',
-            'npm install --no-audit',
-            'npx mix -p',
+            'bun install',
+            'bun run build',
         ]);
 
         $this->done();
@@ -295,14 +292,14 @@ class GitUpdater extends Command
     private function clearCache(): void
     {
         $this->header('Clearing Application Cache');
-        $this->call('optimize:clear');
+        $this->call('clear:all_cache');
         $this->done();
     }
 
     private function setCache(): void
     {
         $this->header('Setting Cache');
-        $this->call('optimize');
+        $this->call('set:all_cache');
         $this->done();
     }
 
@@ -331,7 +328,7 @@ class GitUpdater extends Command
     private function php(): void
     {
         $this->header('Restarting PHP');
-        $this->process('systemctl restart php8.2-fpm');
+        $this->process('systemctl restart php8.3-fpm');
         $this->done();
     }
 

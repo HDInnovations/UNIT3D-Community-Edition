@@ -13,40 +13,52 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Group;
 use App\Models\User;
+use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserSearch extends Component
 {
+    use CastLivewireProperties;
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public bool $show = false;
 
+    #[Url(history: true)]
     public int $perPage = 25;
 
-    public string $search = '';
+    #[Url(history: true)]
+    public string $username = '';
 
+    #[Url(history: true)]
+    public string $email = '';
+
+    #[Url(history: true)]
+    public string $rsskey = '';
+
+    #[Url(history: true)]
+    public string $apikey = '';
+
+    #[Url(history: true)]
+    public string $passkey = '';
+
+    #[Url(history: true)]
+    public ?int $groupId = null;
+
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'search'  => ['except' => ''],
-        'show'    => ['except' => false],
-        'page'    => ['except' => 1],
-        'perPage' => ['except' => ''],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
-
-    final public function updatingSearch(): void
-    {
-        $this->resetPage();
-    }
 
     final public function updatingShow(): void
     {
@@ -60,39 +72,39 @@ class UserSearch extends Component
         }
     }
 
-    final public function getUsersProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     */
+    #[Computed]
+    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return User::query()
             ->with('group')
-            ->when(
-                $this->search,
-                fn ($query) => $query
-                    ->where('username', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('email', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('rsskey', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('api_token', 'LIKE', '%'.$this->search.'%')
-                    ->orWhere('passkey', 'LIKE', '%'.$this->search.'%')
-            )
+            ->when($this->username !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->username.'%'))
+            ->when($this->email !== '', fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
+            ->when($this->rsskey !== '', fn ($query) => $query->where('rsskey', 'LIKE', '%'.$this->rsskey.'%'))
+            ->when($this->apikey !== '', fn ($query) => $query->where('api_token', 'LIKE', '%'.$this->apikey.'%'))
+            ->when($this->passkey !== '', fn ($query) => $query->where('passkey', 'LIKE', '%'.$this->passkey.'%'))
+            ->when($this->groupId !== null, fn ($query) => $query->where('group_id', '=', $this->groupId))
             ->when($this->show === true, fn ($query) => $query->onlyTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
-    final public function sortBy($field): void
+    /**
+     * @return \Illuminate\Support\Collection<int, Group>
+     */
+    #[Computed]
+    final public function groups()
     {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
+        return Group::orderBy('position')->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.user-search', [
-            'users' => $this->users,
+            'users'  => $this->users,
+            'groups' => $this->groups,
         ]);
     }
 }

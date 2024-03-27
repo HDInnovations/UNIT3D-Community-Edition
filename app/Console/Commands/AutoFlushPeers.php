@@ -15,7 +15,6 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\Peer;
-use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
@@ -61,12 +60,6 @@ class AutoFlushPeers extends Command
                     'active'     => false,
                     'updated_at' => DB::raw('updated_at')
                 ]);
-
-            Torrent::where('id', '=', $peer->torrent_id)->update([
-                'seeders'    => DB::raw('seeders - '.((int) $peer->seeder)),
-                'leechers'   => DB::raw('leechers - '.((int) !$peer->seeder)),
-                'updated_at' => DB::raw('updated_at'),
-            ]);
 
             $peer->active = false;
             $peer->timestamps = false;

@@ -40,6 +40,10 @@
     text-align: center;
 }
 
+.panel__header-link {
+    color: var(--panel-head-fg);
+}
+
 .panel__actions {
     display: flex;
     flex-direction: row;

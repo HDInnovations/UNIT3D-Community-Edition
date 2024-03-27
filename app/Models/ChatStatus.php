@@ -17,6 +17,16 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\ChatStatus.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property string                          $color
+ * @property string|null                     $icon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class ChatStatus extends Model
 {
     use Auditable;

@@ -17,10 +17,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreForumRequest;
 use App\Http\Requests\Staff\UpdateForumRequest;
 use App\Models\Forum;
+use App\Models\ForumCategory;
 use App\Models\Group;
-use App\Models\Permission;
-use Illuminate\Support\Str;
+use App\Models\ForumPermission;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ForumControllerTest
@@ -28,26 +29,14 @@ use Exception;
 class ForumController extends Controller
 {
     /**
-     * Display All Forums.
-     */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('Staff.forum.index', [
-            'categories' => Forum::orderBy('position')
-                ->whereNull('parent_id')
-                ->with(['forums' => fn ($query) => $query->orderBy('position')])
-                ->get(),
-        ]);
-    }
-
-    /**
      * Show Forum Create Form.
      */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.forum.create', [
-            'categories' => Forum::whereNull('parent_id')->get(),
-            'groups'     => Group::all(),
+            'forumCategoryId' => $request->integer('forumCategoryId'),
+            'categories'      => ForumCategory::orderBy('position')->get(),
+            'groups'          => Group::orderBy('position')->get(),
         ]);
     }
 
@@ -56,47 +45,14 @@ class ForumController extends Controller
      */
     public function store(StoreForumRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $groups = Group::all();
+        $forum = Forum::create($request->validated('forum'));
 
-        $forum = Forum::create(
-            ['slug' => Str::slug($request->title)]
-            + $request->safe()->only(
-                [
-                    'name',
-                    'position',
-                    'description',
-                    'parent_id'
-                ]
-            )
+        ForumPermission::upsert(
+            array_map(fn ($item) => ['forum_id' => $forum->id] + $item, $request->validated('permissions')),
+            ['forum_id', 'group_id']
         );
 
-        // Permissions
-        foreach ($groups as $group) {
-            $perm = Permission::where('forum_id', '=', $forum->id)->where('group_id', '=', $group->id)->first();
-
-            if ($perm == null) {
-                $perm = new Permission();
-            }
-
-            $perm->forum_id = $forum->id;
-            $perm->group_id = $group->id;
-
-            if (\array_key_exists($group->id, $request->input('permissions'))) {
-                $perm->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
-                $perm->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
-                $perm->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
-                $perm->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
-            } else {
-                $perm->show_forum = false;
-                $perm->read_topic = false;
-                $perm->reply_topic = false;
-                $perm->start_topic = false;
-            }
-
-            $perm->save();
-        }
-
-        return to_route('staff.forums.index')
+        return to_route('staff.forum_categories.index')
             ->withSuccess('Forum has been created successfully');
     }
 
@@ -106,9 +62,9 @@ class ForumController extends Controller
     public function edit(Forum $forum): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.forum.edit', [
-            'categories' => Forum::whereNull('parent_id')->get(),
-            'groups'     => Group::all(),
-            'forum'      => $forum->load('permissions'),
+            'categories' => ForumCategory::orderBy('position')->get(),
+            'groups'     => Group::orderBy('position')->get(),
+            'forum'      => $forum->load(['permissions', 'category']),
         ]);
     }
 
@@ -117,39 +73,14 @@ class ForumController extends Controller
      */
     public function update(UpdateForumRequest $request, Forum $forum): \Illuminate\Http\RedirectResponse
     {
-        $groups = Group::all();
+        $forum->update($request->validated('forum'));
 
-        $forum->update(
-            [
-                'slug'      => Str::slug($request->title),
-                'parent_id' => $request->forum_type === 'category' ? null : $request->parent_id,
-            ]
-            + $request->safe()->only(['name', 'position', 'description'])
+        ForumPermission::upsert(
+            array_map(fn ($item) => ['forum_id' => $forum->id] + $item, $request->validated('permissions')),
+            ['forum_id', 'group_id']
         );
 
-        // Permissions
-        foreach ($groups as $group) {
-            $permission = Permission::whereBelongsTo($forum)->whereBelongsTo($group)->firstOrNew([
-                'forum_id' => $forum->id,
-                'group_id' => $group->id,
-            ]);
-
-            if (\array_key_exists($group->id, $request->input('permissions'))) {
-                $permission->show_forum = isset($request->input('permissions')[$group->id]['show_forum']);
-                $permission->read_topic = isset($request->input('permissions')[$group->id]['read_topic']);
-                $permission->reply_topic = isset($request->input('permissions')[$group->id]['reply_topic']);
-                $permission->start_topic = isset($request->input('permissions')[$group->id]['start_topic']);
-            } else {
-                $permission->show_forum = false;
-                $permission->read_topic = false;
-                $permission->reply_topic = false;
-                $permission->start_topic = false;
-            }
-
-            $permission->save();
-        }
-
-        return to_route('staff.forums.index')
+        return to_route('staff.forum_categories.index')
             ->withSuccess('Forum has been edited successfully');
     }
 
@@ -160,26 +91,9 @@ class ForumController extends Controller
      */
     public function destroy(Forum $forum): \Illuminate\Http\RedirectResponse
     {
-        $forum->permissions()->delete();
+        $forum->delete();
 
-        if ($forum->parent_id === null) {
-            $category = $forum;
-
-            foreach ($category->forums as $forum) {
-                $forum->permissions()->delete();
-                $forum->posts()->delete();
-                $forum->topics()->delete();
-                $forum->delete();
-            }
-
-            $category->delete();
-        } else {
-            $forum->posts()->delete();
-            $forum->topics()->delete();
-            $forum->delete();
-        }
-
-        return to_route('staff.forums.index')
+        return to_route('staff.forum_categories.index')
             ->withSuccess('Forum has been deleted successfully');
     }
 }

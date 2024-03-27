@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSubscriptionRequest;
 use App\Models\Forum;
 use App\Models\Subscription;
 use App\Models\Topic;
@@ -24,38 +25,24 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     /**
-     * Search For Subscribed Forums & Topics.
+     * View Subscribed Forums & Topics.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
-
-        return view('forum.subscriptions', [
-            'user' => $user,
-        ]);
+        return view('forum.subscriptions');
     }
 
     /**
      * Store a subscription.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreSubscriptionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        $request->validate([
-            'forum_id' => 'sometimes|prohibits:topic_id,required_without:topic_id,exists:forums,id',
-            'topic_id' => 'sometimes|prohibits:forum_id,required_without:forum_id,exists:topics,id',
-        ]);
-
         switch (true) {
             case $request->has('forum_id') === true:
                 abort_unless(
                     Forum::query()
                         ->where('id', '=', $request->forum_id)
-                        ->whereRelation('permissions', [
-                            ['show_forum', '=', 1],
-                            ['group_id', '=', $user->group_id],
-                        ])
+                        ->authorized(canReadTopic: true)
                         ->exists(),
                     403
                 );
@@ -68,10 +55,7 @@ class SubscriptionController extends Controller
                 abort_unless(
                     Topic::query()
                         ->where('id', '=', $request->topic_id)
-                        ->whereRelation('forumPermissions', [
-                            ['read_topic', '=', 1],
-                            ['group_id', '=', $user->group_id],
-                        ])
+                        ->authorized(canReadTopic: true)
                         ->exists(),
                     403
                 );
@@ -89,13 +73,9 @@ class SubscriptionController extends Controller
     /**
      * Destroy a subscription.
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Subscription $subscription): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        $subscription = Subscription::findOrFail($id);
-
-        abort_unless($subscription->user_id === $user->id, 403);
+        abort_unless($subscription->user_id === $request->user()->id, 403);
 
         $subscription->delete();
 

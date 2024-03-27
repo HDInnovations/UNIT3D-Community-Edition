@@ -14,48 +14,49 @@
 namespace App\Http\Livewire;
 
 use App\Models\Invite;
-use App\Models\User;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class InviteLogSearch extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $sender = '';
 
+    #[Url(history: true)]
     public string $email = '';
 
+    #[Url(history: true)]
     public string $code = '';
 
+    #[Url(history: true)]
     public string $receiver = '';
 
+    #[Url(history: true)]
     public string $custom = '';
 
+    #[Url(history: true)]
     public string $groupBy = 'none';
 
+    #[Url(history: true)]
     public int $threshold = 25;
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
+    #[Url(history: true)]
     public int $perPage = 25;
-
-    protected $queryString = [
-        'sender'        => ['except' => ''],
-        'email'         => ['except' => ''],
-        'code'          => ['except' => ''],
-        'receiver'      => ['except' => ''],
-        'custom'        => ['except' => ''],
-        'groupBy'       => ['except' => 'none'],
-        'threshold'     => ['except' => 25],
-        'page'          => ['except' => 1],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'perPage'       => ['except' => ''],
-    ];
 
     final public function mount(): void
     {
@@ -63,11 +64,6 @@ class InviteLogSearch extends Component
             'user_id' => 'created_at_max',
             default   => 'created_at',
         };
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingGroupBy($value): void
@@ -78,14 +74,18 @@ class InviteLogSearch extends Component
         };
     }
 
-    final public function getInvitesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Invite>
+     */
+    #[Computed]
+    final public function invites(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
             ->with(['sender.group', 'receiver.group'])
-            ->when($this->sender, fn ($query) => $query->whereIn('user_id', User::select('id')->where('username', '=', $this->sender)))
+            ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))
-            ->when($this->receiver, fn ($query) => $query->whereIn('accepted_by', User::select('id')->where('username', '=', $this->receiver)))
+            ->when($this->receiver, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->receiver))
             ->when($this->custom, fn ($query) => $query->where('custom', 'LIKE', '%'.$this->custom.'%'))
             ->when(
                 $this->groupBy === 'user_id',
@@ -136,16 +136,5 @@ class InviteLogSearch extends Component
         return view('livewire.invite-log-search', [
             'invites' => $this->invites,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

@@ -41,19 +41,19 @@ class FetchMeta extends Command
         $this->alert('Meta Fetcher Started');
 
         $tmdbScraper = new TMDBScraper();
-        $torrents = Torrent::with('category')->select('tmdb', 'category_id')->whereNotNull('tmdb')->where('tmdb', '!=', 0)->oldest()->get();
+        $torrents = Torrent::with('category')->select('tmdb', 'category_id', 'name')->whereNotNull('tmdb')->where('tmdb', '!=', 0)->oldest()->get();
 
         foreach ($torrents as $torrent) {
             sleep(3);
 
             if ($torrent->category->tv_meta) {
                 $tmdbScraper->tv($torrent->tmdb);
-                $this->info('TV Fetched');
+                $this->info(sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
             }
 
             if ($torrent->category->movie_meta) {
                 $tmdbScraper->movie($torrent->tmdb);
-                $this->info('Movie Fetched');
+                $this->info(sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
             }
         }
 

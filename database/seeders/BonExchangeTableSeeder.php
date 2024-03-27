@@ -82,6 +82,6 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 1,
                 'invite'             => 0,
             ],
-        ], ['id']);
+        ], ['id'], []);
     }
 }

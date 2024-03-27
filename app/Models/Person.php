@@ -17,6 +17,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Person.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string|null $imdb_id
+ * @property string|null $known_for_department
+ * @property string|null $place_of_birth
+ * @property string|null $popularity
+ * @property string|null $profile
+ * @property string|null $still
+ * @property string|null $adult
+ * @property string|null $also_known_as
+ * @property string|null $biography
+ * @property string|null $birthday
+ * @property string|null $deathday
+ * @property string|null $gender
+ * @property string|null $homepage
+ */
 class Person extends Model
 {
     use HasFactory;
@@ -24,6 +43,14 @@ class Person extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     */
+    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Credit::class);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>

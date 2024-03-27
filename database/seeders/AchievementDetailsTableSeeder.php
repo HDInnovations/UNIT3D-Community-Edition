@@ -15,6 +15,7 @@ namespace Database\Seeders;
 
 use Assada\Achievements\Model\AchievementDetails as AchievementDetail;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AchievementDetailsTableSeeder extends Seeder
 {
@@ -421,6 +422,6 @@ class AchievementDetailsTableSeeder extends Seeder
                 'created_at'  => '2017-08-28 23:55:56',
                 'updated_at'  => '2017-08-28 23:55:56',
             ],
-        ], ['id']);
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup PHP 8.2
+      - name: Setup PHP 8.3
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
@@ -46,18 +46,18 @@ jobs:
           REDIS_CONFIGURE_OPTS: --enable-redis
       - name: Prepare The Laravel Environment
         run: cp .env.example .env
-      - name: Configure NPM
-        uses: actions/setup-node@v1
+      - name: Configure Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18.x'
+          bun-version: latest
       - name: Install Composer Dependencies
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
-      - name: Install NPM Dependencies
-        run: npm install
-      - name: Build Assets Via Mix
-        run: npx mix -p
+      - name: Install JS Dependencies
+        run: bun install
+      - name: Compile Assets (Vite)
+        run: bun run build
       - name: Generate Application Key
         run: php artisan key:generate
       - name: Clear Application Cache

@@ -8,7 +8,7 @@
                         id="username"
                         class="form__text"
                         type="text"
-                        wire:model="username"
+                        wire:model.live="username"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="username">
@@ -18,7 +18,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -71,7 +71,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No email updates</td>
+                        <td colspan="3">No email updates</td>
                     </tr>
                 @endforelse
             </tbody>

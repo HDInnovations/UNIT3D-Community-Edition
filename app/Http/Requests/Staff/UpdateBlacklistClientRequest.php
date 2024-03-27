@@ -42,7 +42,7 @@ class UpdateBlacklistClientRequest extends FormRequest
                 Rule::unique('blacklist_clients')->ignore($request->route('blacklistClient')),
             ],
             'peer_id_prefix' => [
-                'unique:blacklist_clients',
+                Rule::unique('blacklist_clients')->ignore($request->route('blacklistClient')),
             ],
             'reason' => [
                 'required',

@@ -2,7 +2,7 @@
 @import 'vendor/alpinejs';
 @import 'vendor/font-awesome';
 @import 'vendor/virtual-select';
-@import '~sweetalert2/src/sweetalert2';
+@import 'sweetalert2/src/sweetalert2';
 
 // Base
 @import 'base/normalize';
@@ -23,8 +23,7 @@
 @import 'components/article-preview';
 @import 'components/bbcode-input';
 @import 'components/bbcode-rendered';
-@import 'components/chat/chatbox';
-@import 'components/chat/media-queries';
+@import 'components/chatbox';
 @import 'components/collection-card';
 @import 'components/comment';
 @import 'components/comparison';
@@ -55,8 +54,10 @@
 @import 'components/meta';
 @import 'components/pagination';
 @import 'components/panel';
+@import 'components/person';
 @import 'components/playlist';
 @import 'components/quick_search';
+@import 'components/random-media';
 @import 'components/swal';
 @import 'components/tooltips';
 @import 'components/torrent-card';

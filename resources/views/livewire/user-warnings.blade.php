@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: @entangle('warningTab') }">
+<section class="panelV2" x-data="{ tab: @entangle('warningTab').live }">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('user.warnings') }}</h2>
         @if (auth()->user()->group->is_modo)
@@ -17,7 +17,7 @@
                                     name="message"
                                     maxlength="255"
                                     required
-                                    wire:model.defer="message"
+                                    wire:model="message"
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="warn_reason">
                                     Reason

@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,12 +40,13 @@ return new class () extends Migration {
 
             $merged = $records->first();
 
-            $merged->seedtime = $records->sum('seedtime');
-            $merged->downloaded = $records->sum('downloaded');
-            $merged->actual_downloaded = $records->sum('actual_downloaded');
-            $merged->uploaded = $records->sum('uploaded');
-            $merged->actual_uploaded = $records->sum('actual_uploaded');
-            $merged->save();
+            DB::table('history')->where('id', '=', $merged->id)->update([
+                'seedtime'          => $records->sum('seedtime'),
+                'downloaded'        => $records->sum('downloaded'),
+                'actual_downloaded' => $records->sum('actual_downloaded'),
+                'uploaded'          => $records->sum('uploaded'),
+                'actual_uploaded'   => $records->sum('actual_uploaded'),
+            ]);
 
             foreach ($records->where('id', '!=', $merged->id) as $record) {
                 $record->delete();

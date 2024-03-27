@@ -15,41 +15,39 @@ namespace App\Http\Livewire;
 
 use App\Models\Resurrection;
 use App\Models\User;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserResurrections extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
+    #[Url(history: true)]
     public string $name = '';
 
+    #[Url(history: true)]
     public string $rewarded = 'any';
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
-
-    protected $queryString = [
-        'perPage'       => ['except' => ''],
-        'name'          => ['except' => ''],
-        'rewarded'      => ['except' => 'any'],
-        'sortField'     => ['except' => 'created_at'],
-        'sortDirection' => ['except' => 'desc'],
-    ];
 
     final public function mount(int $userId): void
     {
         $this->user = User::find($userId);
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -57,7 +55,11 @@ class UserResurrections extends Component
         $this->resetPage();
     }
 
-    final public function getResurrectionsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Resurrection>
+     */
+    #[Computed]
+    final public function resurrections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Resurrection::query()
             ->select([
@@ -86,16 +88,5 @@ class UserResurrections extends Component
         return view('livewire.user-resurrections', [
             'resurrections' => $this->resurrections,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

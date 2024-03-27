@@ -1,12 +1,11 @@
-<div class="bbcode-input" x-data="bbcodeInput">
+<div id="bbcode-input" class="bbcode-input" x-data="{{ $name }}BbcodeInput">
     <p class="bbcode-input__tabs">
         <input
             class="bbcode-input__tab-input"
             type="radio"
             id="{{ $name }}-bbcode-preview-disabled"
-            name="isPreviewEnabled"
             value="0"
-            wire:model="isPreviewEnabled"
+            wire:model.live="isPreviewEnabled"
         />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">
             Write
@@ -15,9 +14,8 @@
             class="bbcode-input__tab-input"
             type="radio"
             id="{{ $name }}-bbcode-preview-enabled"
-            name="isPreviewEnabled"
             value="1"
-            wire:model="isPreviewEnabled"
+            wire:model.live="isPreviewEnabled"
         />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-enabled">
             {{ __('common.preview') }}
@@ -71,7 +69,7 @@
         </li>
         <hr class="bbcode-input__icon-separator" />
         <li>
-            <button type="button" class="form__standard-icon-button" x-on:click="InsertImage">
+            <button type="button" class="form__standard-icon-button" x-on:click="insertImage">
                 <abbr title="Insert Image">
                     <i class="{{ config('other.font-awesome') }} fa-image"></i>
                 </abbr>
@@ -204,7 +202,7 @@
             </button>
         </li>
         <li>
-            <button type="button" class="form__standard-icon-button" x-on:click="InsertEmoji">
+            <button type="button" class="form__standard-icon-button" x-on:click="insertEmoji">
                 <abbr
                     title="If using MacOS, press Ctrl + Cmd + Space bar&NewLine;If using Windows or Linux, press Windows logo key + ."
                 >
@@ -224,7 +222,7 @@
                 class="form__textarea bbcode-input__input"
                 placeholder=" "
                 x-bind="textarea"
-                wire:model.defer="contentBbcode"
+                wire:model="contentBbcode"
                 @required($isRequired)
             ></textarea>
             <label class="form__label form__label--floating" for="bbcode-{{ $name }}">
@@ -234,10 +232,10 @@
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
-            Alpine.data('bbcodeInput', () => ({
+            Alpine.data('{{ $name }}BbcodeInput', () => ({
                 showButtons: false,
                 bbcodePreviewHeight: null,
-                isPreviewEnabled: @entangle('isPreviewEnabled'),
+                isPreviewEnabled: @entangle('isPreviewEnabled').live,
                 isOverInput: false,
                 previousActiveElement: document.activeElement,
                 toggleButtonVisibility() {
@@ -336,7 +334,7 @@
                     this.insert('[table]\n[tr]\n[td]', '[/td]\n[/tr]\n[/table]');
                 },
                 insertEmoji() {
-                    this.Swal.fire({
+                    Swal.fire({
                         title: 'Emoji Picker',
                         html: 'If using macOS, press Ctrl + Cmd + Space bar<br>If using Windows or Linux, press Windows logo key + .',
                         icon: 'info',

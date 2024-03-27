@@ -1,4 +1,4 @@
-<section class="panelV2">
+<section class="panelV2 blocks__posts">
     <header class="panel__header">
         <h2 class="panel__heading">
             <a href="{{ route('posts.index') }}">

@@ -51,6 +51,9 @@ class StoreGroupRequest extends FormRequest
                 'nullable',
                 'integer',
             ],
+            'description' => [
+                'nullable',
+            ],
             'color' => [
                 'required',
             ],
@@ -107,6 +110,31 @@ class StoreGroupRequest extends FormRequest
             'autogroup' => [
                 'required',
                 'boolean',
+            ],
+            'min_uploaded' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
+            'min_ratio' => [
+                'sometimes',
+                'min:0',
+                'max:99.99',
+            ],
+            'min_age' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
+            'min_avg_seedtime' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
+            'min_seedsize' => [
+                'sometimes',
+                'integer',
+                'min:0',
             ],
         ];
     }

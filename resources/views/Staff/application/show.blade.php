@@ -114,7 +114,7 @@
                     <p class="form__group form__group--horizontal">
                         <button
                             class="form__button form__button--filled form__button--centered"
-                            x-data="showDialog"
+                            x-bind="showDialog"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-check"></i>
                             {{ __('request.approve') }}

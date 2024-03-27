@@ -16,6 +16,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Episode.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property string|null                     $overview
+ * @property string|null                     $production_code
+ * @property int                             $season_number
+ * @property int                             $season_id
+ * @property string|null                     $still
+ * @property int                             $tv_id
+ * @property string|null                     $type
+ * @property string|null                     $vote_average
+ * @property int|null                        $vote_count
+ * @property string|null                     $air_date
+ * @property int|null                        $episode_number
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Episode extends Model
 {
     use HasFactory;

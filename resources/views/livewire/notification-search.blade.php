@@ -95,7 +95,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="bon_gifts"
+                                    wire:model.live.prefetch="bon_gifts"
                                     value="1"
                                 />
                                 <i
@@ -109,7 +109,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="comment"
+                                    wire:model.live.prefetch="comment"
                                     value="1"
                                 />
                                 <i
@@ -123,7 +123,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="comment_tags"
+                                    wire:model.live.prefetch="comment_tags"
                                     value="1"
                                 />
                                 <i
@@ -137,7 +137,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="followers"
+                                    wire:model.live.prefetch="followers"
                                     value="1"
                                 />
                                 <i
@@ -151,7 +151,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="posts"
+                                    wire:model.live.prefetch="posts"
                                     value="1"
                                 />
                                 <i
@@ -165,7 +165,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="post_tags"
+                                    wire:model.live.prefetch="post_tags"
                                     value="1"
                                 />
                                 <i
@@ -179,7 +179,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="post_tips"
+                                    wire:model.live.prefetch="post_tips"
                                     value="1"
                                 />
                                 <i
@@ -193,7 +193,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="request_bounties"
+                                    wire:model.live.prefetch="request_bounties"
                                     value="1"
                                 />
                                 <i
@@ -207,7 +207,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="request_claims"
+                                    wire:model.live.prefetch="request_claims"
                                     value="1"
                                 />
                                 <i
@@ -221,7 +221,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="request_fills"
+                                    wire:model.live.prefetch="request_fills"
                                     value="1"
                                 />
                                 <i
@@ -235,7 +235,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="request_approvals"
+                                    wire:model.live.prefetch="request_approvals"
                                     value="1"
                                 />
                                 <i
@@ -249,7 +249,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="request_rejections"
+                                    wire:model.live.prefetch="request_rejections"
                                     value="1"
                                 />
                                 <i
@@ -263,7 +263,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="request_unclaims"
+                                    wire:model.live.prefetch="request_unclaims"
                                     value="1"
                                 />
                                 <i
@@ -277,7 +277,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="reseed_requests"
+                                    wire:model.live.prefetch="reseed_requests"
                                     value="1"
                                 />
                                 <i
@@ -286,26 +286,29 @@
                                 {{ __('notification.reseed-requests') }}
                             </label>
                         </p>
+                        @if (config('other.thanks-system.is-enabled'))
+                            <p class="form__group">
+                                <label class="form__label">
+                                    <input
+                                        class="form__checkbox"
+                                        type="checkbox"
+                                        wire:model.live.prefetch="thanks"
+                                        value="1"
+                                    />
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-heart text-success"
+                                    ></i>
+                                    {{ __('torrent.thanks') }}
+                                </label>
+                            </p>
+                        @endif
+
                         <p class="form__group">
                             <label class="form__label">
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="thanks"
-                                    value="1"
-                                />
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-heart text-success"
-                                ></i>
-                                {{ __('torrent.thanks') }}
-                            </label>
-                        </p>
-                        <p class="form__group">
-                            <label class="form__label">
-                                <input
-                                    class="form__checkbox"
-                                    type="checkbox"
-                                    wire:model.prefetch="upload_tips"
+                                    wire:model.live.prefetch="upload_tips"
                                     value="1"
                                 />
                                 <i
@@ -328,7 +331,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="unfollows"
+                                    wire:model.live.prefetch="unfollows"
                                     value="1"
                                 />
                                 <i
@@ -342,7 +345,7 @@
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    wire:model.prefetch="uploads"
+                                    wire:model.live.prefetch="uploads"
                                     value="1"
                                 />
                                 <i

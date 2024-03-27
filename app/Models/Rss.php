@@ -19,6 +19,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use stdClass;
 
+/**
+ * App\Models\Rss.
+ *
+ * @property int                             $id
+ * @property int                             $position
+ * @property string                          $name
+ * @property int                             $user_id
+ * @property int                             $is_private
+ * @property int                             $is_torrent
+ * @property array                           $json_torrent
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Rss extends Model
 {
     use Auditable;

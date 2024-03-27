@@ -19,6 +19,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\PrivateMessage.
+ *
+ * @property int                             $id
+ * @property int                             $sender_id
+ * @property int                             $receiver_id
+ * @property string                          $subject
+ * @property string                          $message
+ * @property int                             $read
+ * @property int|null                        $related_to
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class PrivateMessage extends Model
 {
     use HasFactory;

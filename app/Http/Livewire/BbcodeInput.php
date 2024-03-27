@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Helpers\Bbcode;
 use Livewire\Component;
+use voku\helper\AntiXSS;
 
 class BbcodeInput extends Component
 {
@@ -41,7 +42,7 @@ class BbcodeInput extends Component
     final public function updatedIsPreviewEnabled(): void
     {
         if ($this->isPreviewEnabled) {
-            $this->contentHtml = (new Bbcode())->parse($this->contentBbcode);
+            $this->contentHtml = (new Bbcode())->parse(htmlspecialchars((new AntiXSS())->xss_clean($this->contentBbcode), ENT_NOQUOTES));
         }
     }
 

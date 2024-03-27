@@ -60,20 +60,20 @@
         <a
             class="torrent__seeders-link text-green"
             href="{{ route('peers', ['id' => $torrent->id]) }}"
-            title="{{ $torrent->seeders }} {{ __('torrent.seeders') }}"
+            title="{{ $torrent->seeds_count }} {{ __('torrent.seeders') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-            {{ $torrent->seeders }}
+            {{ $torrent->seeds_count }}
         </a>
     </li>
     <li class="torrent__leechers">
         <a
             class="torrent__leechers-link text-red"
             href="{{ route('peers', ['id' => $torrent->id]) }}"
-            title="{{ $torrent->leechers }} {{ __('torrent.leechers') }}"
+            title="{{ $torrent->leeches_count }} {{ __('torrent.leechers') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-            {{ $torrent->leechers }}
+            {{ $torrent->leeches_count }}
         </a>
     </li>
     <li class="torrent__completed">

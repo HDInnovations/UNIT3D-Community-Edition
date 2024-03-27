@@ -13,7 +13,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
+        @vite('resources/sass/main.scss')
     </head>
     <body>
         <main>

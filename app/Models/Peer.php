@@ -17,6 +17,25 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Peer.
+ *
+ * @property int                             $id
+ * @property mixed                           $peer_id
+ * @property mixed                           $ip
+ * @property int                             $port
+ * @property string                          $agent
+ * @property int                             $uploaded
+ * @property int                             $downloaded
+ * @property int                             $left
+ * @property bool                            $seeder
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $torrent_id
+ * @property int                             $user_id
+ * @property bool                            $connectable
+ * @property bool                            $active
+ */
 class Peer extends Model
 {
     use HasFactory;

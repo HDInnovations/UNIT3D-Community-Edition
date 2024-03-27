@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace App\Models;
 
@@ -7,6 +18,24 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Ticket.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $category_id
+ * @property int                             $priority_id
+ * @property int|null                        $staff_id
+ * @property int|null                        $user_read
+ * @property int|null                        $staff_read
+ * @property string                          $subject
+ * @property string                          $body
+ * @property \Illuminate\Support\Carbon|null $closed_at
+ * @property \Illuminate\Support\Carbon|null $reminded_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null                     $deleted_at
+ */
 class Ticket extends Model
 {
     use Auditable;
@@ -120,5 +149,15 @@ class Ticket extends Model
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    /**
+     * Has Many Ticket Notes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketNote>
+     */
+    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TicketNote::class);
     }
 }

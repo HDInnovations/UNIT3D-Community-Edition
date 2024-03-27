@@ -30,13 +30,17 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
+use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;
 
 class Comments extends Component
 {
+    use CastLivewireProperties;
+
     use WithPagination;
 
     protected ChatRepository $chatRepository;
@@ -45,7 +49,7 @@ class Comments extends Component
 
     public $model;
 
-    public $anon = false;
+    public bool $anon = false;
 
     public int $perPage = 10;
 
@@ -71,6 +75,11 @@ class Comments extends Component
         $this->user = auth()->user();
     }
 
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
+    }
+
     final public function taggedUsers(): array
     {
         preg_match_all('/@([\w\-]+)/', implode('', $this->newCommentState), $matches);
@@ -90,13 +99,13 @@ class Comments extends Component
         $modelName = str()->snake(class_basename($this->model), ' ');
 
         if ($modelName !== 'ticket' && $this->user->can_comment === false) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+            $this->dispatch('error', type: 'error', message: __('comment.rights-revoked'));
 
             return;
         }
 
         if (strtolower(class_basename($this->model)) === 'torrent' && $this->model->status !== Torrent::APPROVED) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.torrent-status')]);
+            $this->dispatch('error', type: 'error', message: __('comment.torrent-status'));
 
             return;
         }
@@ -196,7 +205,11 @@ class Comments extends Component
         $this->gotoPage(1);
     }
 
-    final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Comment>
+     */
+    #[Computed]
+    final public function comments(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model
             ->comments()

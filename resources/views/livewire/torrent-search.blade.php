@@ -1,13 +1,13 @@
 <div class="page__torrents torrent-search__component">
-    <section class="panelV2 torrent-search__filters" x-data="{ open: false }">
+    <section class="panelV2 torrent-search__filters" x-data="toggle">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.search') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <button
                         class="form__button form__button--outlined form__button--centered"
-                        x-on:click="open = ! open"
-                        x-text="open ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
+                        x-on:click="toggle"
+                        x-text="isToggledOn() ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
                     ></button>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <p class="form__group">
                     <input
                         id="name"
-                        wire:model="name"
+                        wire:model.live="name"
                         class="form__text"
                         placeholder=" "
                         autofocus
@@ -27,12 +27,12 @@
                     </label>
                 </p>
             </div>
-            <form class="form" x-cloak x-show="open">
+            <form class="form" x-cloak x-show="isToggledOn">
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
                         <input
                             id="description"
-                            wire:model="description"
+                            wire:model.live="description"
                             class="form__text"
                             placeholder=" "
                         />
@@ -43,7 +43,7 @@
                     <p class="form__group">
                         <input
                             id="mediainfo"
-                            wire:model="mediainfo"
+                            wire:model.live="mediainfo"
                             class="form__text"
                             placeholder=" "
                         />
@@ -54,7 +54,7 @@
                     <p class="form__group">
                         <input
                             id="keywords"
-                            wire:model="keywords"
+                            wire:model.live="keywords"
                             class="form__text"
                             placeholder=" "
                         />
@@ -65,7 +65,7 @@
                     <p class="form__group">
                         <input
                             id="uploader"
-                            wire:model="uploader"
+                            wire:model.live="uploader"
                             class="form__text"
                             placeholder=" "
                         />
@@ -78,8 +78,10 @@
                     <p class="form__group">
                         <input
                             id="startYear"
-                            wire:model="startYear"
+                            wire:model.live="startYear"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="startYear">
@@ -89,8 +91,10 @@
                     <p class="form__group">
                         <input
                             id="endYear"
-                            wire:model="endYear"
+                            wire:model.live="endYear"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="endYear">
@@ -101,8 +105,10 @@
                         <p class="form__group">
                             <input
                                 id="minSize"
-                                wire:model="minSize"
+                                wire:model.live="minSize"
                                 class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="minSize">
@@ -112,7 +118,7 @@
                         <p class="form__group">
                             <select
                                 id="minSizeMultiplier"
-                                wire:model="minSizeMultiplier"
+                                wire:model.live="minSizeMultiplier"
                                 class="form__select"
                                 placeholder=" "
                             >
@@ -138,8 +144,10 @@
                         <p class="form__group">
                             <input
                                 id="maxSize"
-                                wire:model="maxSize"
+                                wire:model.live="maxSize"
                                 class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="maxSize">
@@ -149,7 +157,7 @@
                         <p class="form__group">
                             <select
                                 id="maxSizeMultiplier"
-                                wire:model="maxSizeMultiplier"
+                                wire:model.live="maxSizeMultiplier"
                                 class="form__select"
                                 placeholder=" "
                             >
@@ -196,7 +204,12 @@
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
-                        <select id="adult" wire:model="adult" class="form__select" placeholder=" ">
+                        <select
+                            id="adult"
+                            wire:model.live="adult"
+                            class="form__select"
+                            placeholder=" "
+                        >
                             <option value="any" selected>Any</option>
                             <option value="include">Include</option>
                             <option value="exclude">Exclude</option>
@@ -208,8 +221,10 @@
                     <p class="form__group">
                         <input
                             id="playlistId"
-                            wire:model="playlistId"
+                            wire:model.live="playlistId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="playlistId">
@@ -219,8 +234,10 @@
                     <p class="form__group">
                         <input
                             id="collectionId"
-                            wire:model="collectionId"
+                            wire:model.live="collectionId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="collectionId">
@@ -230,8 +247,10 @@
                     <p class="form__group">
                         <input
                             id="companyId"
-                            wire:model="companyId"
+                            wire:model.live="companyId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="companyId">
@@ -241,8 +260,10 @@
                     <p class="form__group">
                         <input
                             id="networkId"
-                            wire:model="networkId"
+                            wire:model.live="networkId"
                             class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="networkId">
@@ -252,25 +273,53 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input id="tmdbId" wire:model="tmdbId" class="form__text" placeholder=" " />
+                        <input
+                            id="tmdbId"
+                            wire:model.live="tmdbId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="tmdbId">
                             TMDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="imdbId" wire:model="imdbId" class="form__text" placeholder=" " />
+                        <input
+                            id="imdbId"
+                            wire:model.live="imdbId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="imdbId">
                             IMDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="tvdbId" wire:model="tvdbId" class="form__text" placeholder=" " />
+                        <input
+                            id="tvdbId"
+                            wire:model.live="tvdbId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="tvdbId">
                             TVDb ID
                         </label>
                     </p>
                     <p class="form__group">
-                        <input id="malId" wire:model="malId" class="form__text" placeholder=" " />
+                        <input
+                            id="malId"
+                            wire:model.live="malId"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                        />
                         <label class="form__label form__label--floating" for="malId">MAL ID</label>
                     </p>
                 </div>
@@ -294,7 +343,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                wire:model="categories"
+                                                wire:model.live="categories"
                                             />
                                             {{ $category->name }}
                                         </label>
@@ -322,7 +371,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $type->id }}"
-                                                wire:model="types"
+                                                wire:model.live="types"
                                             />
                                             {{ $type->name }}
                                         </label>
@@ -350,7 +399,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $resolution->id }}"
-                                                wire:model="resolutions"
+                                                wire:model.live="resolutions"
                                             />
                                             {{ $resolution->name }}
                                         </label>
@@ -378,7 +427,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $genre->id }}"
-                                                wire:model="genres"
+                                                wire:model.live="genres"
                                             />
                                             {{ $genre->name }}
                                         </label>
@@ -397,7 +446,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="0"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         />
                                         0% Freeleech
                                     </label>
@@ -408,7 +457,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="25"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         />
                                         25% Freeleech
                                     </label>
@@ -419,7 +468,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="50"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         />
                                         50% Freeleech
                                     </label>
@@ -430,7 +479,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="75"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         />
                                         75% Freeleech
                                     </label>
@@ -441,7 +490,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="100"
-                                            wire:model="free"
+                                            wire:model.live="free"
                                         />
                                         100% Freeleech
                                     </label>
@@ -452,7 +501,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="doubleup"
+                                            wire:model.live="doubleup"
                                         />
                                         Double Upload
                                     </label>
@@ -463,7 +512,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="featured"
+                                            wire:model.live="featured"
                                         />
                                         Featured
                                     </label>
@@ -474,7 +523,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="refundable"
+                                            wire:model.live="refundable"
                                         />
                                         Refundable
                                     </label>
@@ -492,7 +541,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="internal"
+                                            wire:model.live="internal"
                                         />
                                         {{ __('torrent.internal') }}
                                     </label>
@@ -503,7 +552,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="personalRelease"
+                                            wire:model.live="personalRelease"
                                         />
                                         {{ __('torrent.personal-release') }}
                                     </label>
@@ -514,7 +563,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="stream"
+                                            wire:model.live="stream"
                                         />
                                         {{ __('torrent.stream-optimized') }}
                                     </label>
@@ -525,7 +574,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="sd"
+                                            wire:model.live="sd"
                                         />
                                         {{ __('torrent.sd-content') }}
                                     </label>
@@ -536,7 +585,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="highspeed"
+                                            wire:model.live="highspeed"
                                         />
                                         {{ __('common.high-speeds') }}
                                     </label>
@@ -547,7 +596,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="bookmarked"
+                                            wire:model.live="bookmarked"
                                         />
                                         {{ __('common.bookmarked') }}
                                     </label>
@@ -558,7 +607,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="wished"
+                                            wire:model.live="wished"
                                         />
                                         {{ __('common.wished') }}
                                     </label>
@@ -576,7 +625,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="alive"
+                                            wire:model.live="alive"
                                         />
                                         {{ __('torrent.alive') }}
                                     </label>
@@ -587,7 +636,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="dying"
+                                            wire:model.live="dying"
                                         />
                                         Dying
                                     </label>
@@ -598,7 +647,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="dead"
+                                            wire:model.live="dead"
                                         />
                                         Dead
                                     </label>
@@ -609,7 +658,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="graveyard"
+                                            wire:model.live="graveyard"
                                         />
                                         {{ __('graveyard.graveyard') }}
                                     </label>
@@ -627,7 +676,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="notDownloaded"
+                                            wire:model.live="notDownloaded"
                                         />
                                         Not Downloaded
                                     </label>
@@ -638,7 +687,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="downloaded"
+                                            wire:model.live="downloaded"
                                         />
                                         Downloaded
                                     </label>
@@ -649,7 +698,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="seeding"
+                                            wire:model.live="seeding"
                                         />
                                         Seeding
                                     </label>
@@ -660,7 +709,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="leeching"
+                                            wire:model.live="leeching"
                                         />
                                         Leeching
                                     </label>
@@ -671,7 +720,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
-                                            wire:model="incomplete"
+                                            wire:model.live="incomplete"
                                         />
                                         Incomplete
                                     </label>
@@ -701,7 +750,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $primaryLanguage }}"
-                                                wire:model="primaryLanguages"
+                                                wire:model.live="primaryLanguages"
                                             />
                                             {{ $primaryLanguage }}
                                         </label>
@@ -720,7 +769,7 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="view" class="form__select" wire:model="view" required>
+                        <select id="view" class="form__select" wire:model.live="view" required>
                             <option value="list">{{ __('torrent.list') }}</option>
                             <option value="card">{{ __('torrent.cards') }}</option>
                             <option value="group">{{ __('torrent.groupings') }}</option>
@@ -731,7 +780,12 @@
                 </div>
                 <div class="panel__action">
                     <div class="form__group">
-                        <select id="perPage" class="form__select" wire:model="perPage" required>
+                        <select
+                            id="perPage"
+                            class="form__select"
+                            wire:model.live="perPage"
+                            required
+                        >
                             @if (\in_array($view, ['card', 'poster']))
                                 <option>24</option>
                                 <option>48</option>
@@ -1011,8 +1065,9 @@
         @endswitch
         {{ $torrents->links('partials.pagination') }}
     </section>
+    <script src="{{ asset('build/unit3d/virtual-select.js') }}" crossorigin="anonymous"></script>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        document.addEventListener('livewire:load', function () {
+        document.addEventListener('livewire:init', function () {
           let myRegions = [
               @foreach($regions as $region)
               {

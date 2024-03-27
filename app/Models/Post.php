@@ -20,6 +20,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\Post.
+ *
+ * @property int                             $id
+ * @property string                          $content
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $user_id
+ * @property int                             $topic_id
+ */
 class Post extends Model
 {
     use Auditable;
@@ -75,13 +85,13 @@ class Post extends Model
     }
 
     /**
-     * A Post Has Many Tips.
+     * Has Many Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class);
+        return $this->hasMany(PostTip::class);
     }
 
     /**
@@ -102,6 +112,38 @@ class Post extends Model
     public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Topic::class, 'first_post_user_id', 'user_id');
+    }
+
+    /**
+     * Only include posts a user is authorized to.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder<self> $query
+     * @return \Illuminate\Database\Eloquent\Builder<self>
+     */
+    public function scopeAuthorized(
+        \Illuminate\Database\Eloquent\Builder $query,
+        ?bool $canReadTopic = null,
+        ?bool $canReplyTopic = null,
+        ?bool $canStartTopic = null,
+    ): \Illuminate\Database\Eloquent\Builder {
+        return $query->whereNotIn(
+            'topic_id',
+            Topic::query()
+                ->whereRelation(
+                    'forumPermissions',
+                    fn ($query) => $query
+                        ->where('group_id', '=', auth()->user()->group_id)
+                        ->where(
+                            fn ($query) => $query
+                                ->whereRaw('1 = 0')
+                                ->when($canReadTopic !== null, fn ($query) => $query->orWhere('read_topic', '!=', $canReadTopic))
+                                ->when($canReplyTopic !== null, fn ($query) => $query->orWhere('reply_topic', '!=', $canReplyTopic))
+                                ->when($canStartTopic !== null, fn ($query) => $query->orWhere('start_topic', '!=', $canStartTopic))
+                        )
+                )
+                ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+                ->select('id')
+        );
     }
 
     /**

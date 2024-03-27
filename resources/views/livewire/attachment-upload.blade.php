@@ -8,7 +8,7 @@
                         id="attachment"
                         class="form__file"
                         type="file"
-                        wire:model="attachment"
+                        wire:model.live="attachment"
                         wire:change="upload"
                         style="display: none"
                     />

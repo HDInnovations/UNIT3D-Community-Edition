@@ -3,19 +3,11 @@
     <table class="data-table" id="missing-media-table">
         <thead>
             <tr>
-                <th
-                    wire:click="sortBy('title')"
-                    :direction="$sortField === 'title' ? $sortDirection : null"
-                    role="columnheader button"
-                >
+                <th wire:click="sortBy('title')" role="columnheader button">
                     {{ __('common.name') }}
                     @include('livewire.includes._sort-icon', ['field' => 'title'])
                 </th>
-                <th
-                    wire:click="sortBy('requests_count')"
-                    :direction="$sortField === 'requests_count' ? $sortDirection : null"
-                    role="columnheader button"
-                >
+                <th wire:click="sortBy('requests_count')" role="columnheader button">
                     {{ __('request.requests') }}
                     @include('livewire.includes._sort-icon', ['field' => 'requests_count'])
                 </th>

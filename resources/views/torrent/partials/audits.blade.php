@@ -1,18 +1,18 @@
-<div class="panelV2" x-data="{ show: false }">
-    <h2 class="panel__heading" style="cursor: pointer" @click="show = !show">
+<div class="panelV2" x-data="toggle">
+    <h2 class="panel__heading" style="cursor: pointer" x-on:click="toggle">
         <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
         Audits
         <i
             class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
-            x-show="!show"
+            x-show="isToggledOff"
         ></i>
         <i
             class="{{ config('other.font-awesome') }} fa-minus-circle fa-pull-right"
-            x-show="show"
+            x-show="isToggledOn"
             x-cloak
         ></i>
     </h2>
-    <div class="data-table-wrapper" x-show="show" x-cloak>
+    <div class="data-table-wrapper" x-show="isToggledOn" x-cloak>
         <table class="data-table">
             <thead>
                 <tr>

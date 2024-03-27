@@ -24,6 +24,10 @@ class IRCAnnounceBot
 
     private const RPL_WELCOME = 001;
 
+    private string $recipient;
+
+    private bool $isInChannel = false;
+
     public function __construct()
     {
         $socket = fsockopen(config('irc-bot.server'), config('irc-bot.port'), $_, $_, 5);
@@ -46,6 +50,10 @@ class IRCAnnounceBot
     public function __destruct()
     {
         sleep(2);
+
+        if ($this->isInChannel) {
+            $this->part($this->recipient);
+        }
 
         $this->quit();
 
@@ -98,23 +106,40 @@ class IRCAnnounceBot
     {
         if (\is_resource($this->socket)) {
             fwrite($this->socket, $data."\r\n");
+        } else {
+            Log::error('Tried to send data while not connected.');
         }
     }
 
-    public function message(string $receiver, string $message): void
+    public function to(string $recipient): self
     {
-        if (!\is_resource($this->socket)) {
-            return;
+        $this->recipient = $recipient;
+
+        if (config('irc-bot.joinchannel')) {
+            if ($this->isValidChannelName($recipient)) {
+                $this->join($recipient);
+                $this->isInChannel = true;
+            } else {
+                Log::error('Tried to channel with invalid name.', [
+                    'name' => $this->recipient,
+                ]);
+            }
         }
 
-        // Messages an specific IRC Channel
-        if (config('irc-bot.joinchannel') && $this->isValidChannelName($receiver)) {
-            $this->join($receiver);
-            $this->privmsg($receiver, $message);
-            $this->part($receiver);
-        } else {
-            $this->privmsg($receiver, $message);
+        return $this;
+    }
+
+    public function say(string $message): self
+    {
+        if (! isset($this->recipient)) {
+            Log::error('Tried to say a message without specifying a recipient.');
+
+            return $this;
         }
+
+        $this->privmsg($this->recipient, $message);
+
+        return $this;
     }
 
     /**

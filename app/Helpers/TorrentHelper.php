@@ -26,9 +26,11 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
+use App\Models\AutomaticTorrentFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
 use App\Services\Unit3dAnnounce;
@@ -47,6 +49,25 @@ class TorrentHelper
         $torrent->status = Torrent::APPROVED;
         $torrent->moderated_at = now();
         $torrent->moderated_by = auth()->id();
+
+        if (!$torrent->free) {
+            $autoFreeleechs = AutomaticTorrentFreeleech::query()
+                ->orderBy('position')
+                ->where(fn ($query) => $query->whereNull('category_id')->orWhere('category_id', '=', $torrent->category_id))
+                ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
+                ->where(fn ($query) => $query->whereNull('resolution_id')->orWhere('resolution_id', '=', $torrent->resolution_id))
+                ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
+                ->get();
+
+            foreach ($autoFreeleechs as $autoFreeleech) {
+                if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
+                    $torrent->free = $autoFreeleech->freeleech_percentage;
+
+                    break;
+                }
+            }
+        }
+
         $torrent->save();
 
         $uploader = $torrent->user;
@@ -59,7 +80,7 @@ class TorrentHelper
 
             // Send Private Message
             $pm = new PrivateMessage();
-            $pm->sender_id = 1;
+            $pm->sender_id = User::SYSTEM_USER_ID;
             $pm->receiver_id = $wish->user_id;
             $pm->subject = 'Wish List Notice!';
             $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
@@ -97,17 +118,11 @@ class TorrentHelper
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
-            $appname = config('app.name');
-            $ircAnnounceBot = new IRCAnnounceBot();
-
-            if ($anon == 0) {
-                $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
-                $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-            } else {
-                $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
-                $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']');
-            }
-            $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s/torrents/', $appurl).$id.']');
+            (new IRCAnnounceBot())
+                ->to(config('irc-bot.channel'))
+                ->say('['.config('app.name').'] '.($anon ? 'An anonymous user' : $username).' has uploaded '.$torrent->name.' grab it now!')
+                ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']')
+                ->say(sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);

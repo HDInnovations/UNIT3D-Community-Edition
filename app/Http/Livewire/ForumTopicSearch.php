@@ -16,6 +16,8 @@ namespace App\Http\Livewire;
 use App\Models\Forum;
 use App\Models\Subscription;
 use App\Models\Topic;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,33 +25,38 @@ class ForumTopicSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
-    public String $sortField = 'last_reply_at';
-    public String $sortDirection = 'desc';
-    public String $label = '';
-    public String $state = '';
-    public String $subscribed = '';
-    public Forum $forum;
-    public ?Subscription $subscription;
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    protected $queryString = [
-        'search'        => ['except' => ''],
-        'sortField'     => ['except' => 'last_reply_at'],
-        'sortDirection' => ['except' => 'desc'],
-        'label'         => ['except' => ''],
-        'state'         => ['except' => ''],
-        'subscribed'    => ['except' => ''],
-    ];
+    #[Url(history: true)]
+    public string $search = '';
+
+    #[Url(history: true)]
+    public string $sortField = 'last_post_created_at';
+
+    #[Url(history: true)]
+    public string $sortDirection = 'desc';
+
+    #[Url(history: true)]
+    public string $label = '';
+
+    #[Url(history: true)]
+    public string $state = '';
+
+    #[Url(history: true)]
+    public string $subscribed = '';
+
+    #[Url(history: true)]
+    public string $read = '';
+
+    public Forum $forum;
+
+    public ?Subscription $subscription;
 
     final public function mount(Forum $forum): void
     {
         $this->forum = $forum;
         $this->subscription = Subscription::where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
+        $this->state = $this->forum->default_topic_state_filter ?: '';
     }
 
     final public function updatingSearch(): void
@@ -57,13 +64,22 @@ class ForumTopicSearch extends Component
         $this->resetPage();
     }
 
-    final public function getTopicsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     */
+    #[Computed]
+    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')
-            ->with('user', 'user.group', 'latestPoster', 'forum:id,name')
+            ->with([
+                'user.group',
+                'latestPoster',
+                'forum:id,name',
+                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+            ])
             ->where('topics.forum_id', '=', $this->forum->id)
-            ->whereRelation('forumPermissions', [['show_forum', '=', 1], ['group_id', '=', auth()->user()->group_id]])
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))
             ->when($this->state !== '', fn ($query) => $query->where('state', '=', $this->state))
@@ -76,6 +92,31 @@ class ForumTopicSearch extends Component
                 $this->subscribed === 'exclude',
                 fn ($query) => $query
                     ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
+            )
+            ->when(
+                $this->read === 'some',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '>', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'all',
+                fn ($query) => $query
+                    ->whereHas(
+                        'reads',
+                        fn ($query) => $query
+                            ->whereBelongsto(auth()->user())
+                            ->whereColumn('last_post_id', '=', 'last_read_post_id')
+                    )
+            )
+            ->when(
+                $this->read === 'none',
+                fn ($query) => $query
+                    ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
             )
             ->orderByDesc('pinned')
             ->orderBy($this->sortField, $this->sortDirection)

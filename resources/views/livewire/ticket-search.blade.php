@@ -1,10 +1,10 @@
-<section class="panelV2" x-data="{ tab: @entangle('tab') }">
+<section class="panelV2" x-data="{ tab: @entangle('tab').live }">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('ticket.helpdesk') }}</h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -20,7 +20,7 @@
                         id="search"
                         class="form__text"
                         type="text"
-                        wire:model="search"
+                        wire:model.live="search"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="search">
@@ -181,7 +181,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">{{ __('common.no-result') }}</td>
+                        <td colspan="9">{{ __('common.no-result') }}</td>
                     </tr>
                 @endforelse
             </tbody>

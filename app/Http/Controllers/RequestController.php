@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
-use App\Models\BonTransactions;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Resolution;
@@ -58,7 +57,13 @@ class RequestController extends Controller
         return view('requests.show', [
             'torrentRequest' => $torrentRequest->load(['category', 'claim' => ['user'], 'bounties', 'torrent']),
             'user'           => $request->user(),
-            'meta'           => match (true) {
+            'canEdit'        => $request->user()->group->is_modo || TorrentRequest::query()
+                ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                ->whereNull('claimed')
+                ->whereNull('filled_by')
+                ->whereKey($torrentRequest)
+                ->exists(),
+            'meta' => match (true) {
                 ($torrentRequest->category->tv_meta && $torrentRequest->tmdb) => Tv::with([
                     'genres',
                     'credits' => ['person', 'occupation'],
@@ -139,14 +144,6 @@ class RequestController extends Controller
             'anon'        => $request->anon,
         ]);
 
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $request->bounty,
-            'sender_id'       => $user->id,
-            'comment'         => sprintf('new request - %s', $request->name),
-        ]);
-
         // Auto Shout
         if ($torrentRequest->anon == 0) {
             $this->chatRepository->systemMessage(
@@ -198,7 +195,21 @@ class RequestController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->id === $torrentRequest->user_id, 403);
+        abort_unless(
+            (
+                $user->group->is_modo
+                || (
+                    $user->id === $torrentRequest->user_id
+                    && TorrentRequest::query()
+                        ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                        ->whereNull('claimed')
+                        ->whereNull('filled_by')
+                        ->whereKey($torrentRequest)
+                        ->exists()
+                )
+            ),
+            403
+        );
 
         $torrentRequest->update($request->validated());
 

@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace App\Providers;
 
@@ -94,18 +105,22 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
                 $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
+                $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
                 $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
 
                 $user = $request->user();
 
-                if ($user->id && $user->group->id != $bannedGroup[0]) {
-                    $user->active = 1;
-                    $user->can_upload = 1;
-                    $user->can_download = 1;
-                    $user->can_request = 1;
-                    $user->can_comment = 1;
-                    $user->can_invite = 1;
-                    $user->group_id = $memberGroup[0];
+                if ($user->group_id !== $bannedGroup[0]) {
+                    if ($user->group_id === $validatingGroup[0]) {
+                        $user->can_upload = 1;
+                        $user->can_download = 1;
+                        $user->can_request = 1;
+                        $user->can_comment = 1;
+                        $user->can_invite = 1;
+                        $user->group_id = $memberGroup[0];
+                        $user->active = 1;
+                    }
+
                     $user->save();
 
                     Unit3dAnnounce::addUser($user);
@@ -127,15 +142,15 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
-        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
-        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-forgot-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-forgot-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-reset-password-get', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
-        RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(3)->by($request->ip()));
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by('fortify-login'.$request->ip()));
+        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-login'.$request->ip()));
+        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-register'.$request->ip()));
+        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(5)->by('fortify-register'.$request->ip()));
+        RateLimiter::for('fortify-forgot-password-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-forgot-password'.$request->ip()));
+        RateLimiter::for('fortify-forgot-password-post', fn (Request $request) => Limit::perMinute(5)->by('fortify-forgot-password'.$request->ip()));
+        RateLimiter::for('fortify-reset-password-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-reset-password'.$request->ip()));
+        RateLimiter::for('fortify-reset-password-post', fn (Request $request) => Limit::perMinute(5)->by('fortify-reset-password'.$request->ip()));
+        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by('fortify-two-factor'.$request->session()->get('login.id')));
 
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::requestPasswordResetLinkView(fn () => view('auth.passwords.email'));

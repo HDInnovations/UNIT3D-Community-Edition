@@ -16,6 +16,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Audit.
+ *
+ * @property int                             $id
+ * @property int|null                        $user_id
+ * @property string                          $model_name
+ * @property int                             $model_entry_id
+ * @property string                          $action
+ * @property mixed                           $record
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Audit extends Model
 {
     use HasFactory;

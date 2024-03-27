@@ -14,6 +14,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\BlockedIp;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,28 +24,22 @@ class BlockIpAddress extends Component
 {
     use WithPagination;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Validate('required|filled|ip')]
     public string $ipAddress = '';
 
+    #[Validate('required|filled|string')]
     public string $reason = '';
 
+    #[Url(history: true)]
+    public string $ipSearch = '';
+
+    #[Url(history: true)]
+    public string $reasonSearch = '';
+
+    #[Url(history: true)]
     public int $perPage = 25;
-
-    protected $queryString = [
-        'page'    => ['except' => 1],
-        'perPage' => ['except' => ''],
-    ];
-
-    protected $rules = [
-        'reason' => [
-            'required',
-            'filled',
-        ],
-    ];
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
 
     final public function store(): void
     {
@@ -60,7 +57,7 @@ class BlockIpAddress extends Component
 
         cache()->forget('blocked-ips');
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ip Addresses Successfully Blocked!']);
+        $this->dispatch('success', type: 'success', message: 'Ip Addresses Successfully Blocked!');
     }
 
     final public function destroy(BlockedIp $blockedIp): void
@@ -68,15 +65,18 @@ class BlockIpAddress extends Component
         if (auth()->user()->group->is_modo) {
             $blockedIp->delete();
 
-            $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'IP has successfully been deleted!']);
+            $this->dispatch('success', type: 'success', message: 'IP has successfully been deleted!');
         } else {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatch('error', type:  'error', message: 'Permission Denied!');
         }
     }
 
-    final public function getIpAddressesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function ipAddresses(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return BlockedIp::query()
+            ->when($this->ipSearch, fn ($query) => $query->where('ip_address', 'LIKE', '%'.$this->ipSearch.'%'))
+            ->when($this->reasonSearch, fn ($query) => $query->where('reason', 'LIKE', '%'.$this->reasonSearch.'%'))
             ->latest()
             ->paginate($this->perPage);
     }

@@ -37,7 +37,6 @@ class GeneralSettingController extends Controller
             'standalone_css' => 'nullable|url',
             'torrent_layout' => ['required', Rule::in([0, 1, 2, 3])],
             'show_poster'    => 'required|boolean',
-            'ratings'        => ['required', Rule::in([0, 1])],
         ]);
 
         // General Settings
@@ -50,7 +49,6 @@ class GeneralSettingController extends Controller
             'standalone_css' => $request->standalone_css,
             'torrent_layout' => $request->torrent_layout,
             'show_poster'    => $request->show_poster,
-            'ratings'        => $request->ratings,
         ]);
 
         return to_route('users.general_settings.edit', ['user' => $user])

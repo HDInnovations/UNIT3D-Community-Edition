@@ -1,5 +1,5 @@
-@if ($featured)
-    <section class="panelV2">
+@if ($featured->isNotEmpty())
+    <section class="panelV2 blocks__featured">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-star"></i>
             {{ __('blocks.featured-torrents') }}

@@ -8,7 +8,7 @@
                         id="username"
                         class="form__text"
                         type="text"
-                        wire:model="username"
+                        wire:model.live="username"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="username">
@@ -24,7 +24,7 @@
                         type="text"
                         inputmode="numeric"
                         pattern="[0-9]*"
-                        wire:model="userId"
+                        wire:model.live="userId"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="userId">
@@ -38,7 +38,7 @@
                         id="ipAddress"
                         class="form__text"
                         type="text"
-                        wire:model="ipAddress"
+                        wire:model.live="ipAddress"
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="ipAddress">
@@ -48,7 +48,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>
@@ -105,7 +105,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">No failed logins</td>
+                        <td colspan="5">No failed logins</td>
                     </tr>
                 @endforelse
             </tbody>

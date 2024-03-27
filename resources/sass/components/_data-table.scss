@@ -31,6 +31,13 @@
     font-size: 14px;
 }
 
+.data-table > tr:not(:last-child) > td,
+.data-table > thead > tr:not(:last-child) > td,
+.data-table > tbody > tr:not(:last-child) > td,
+.data-table > tfoot > tr:not(:last-child) > td {
+    border-bottom: var(--data-table-tr-border);
+}
+
 .data-table tr:nth-child(even) > td {
     background-color: var(--data-table-tr-even-bg);
 }

@@ -16,6 +16,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\UserAudible.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int|null                        $room_id
+ * @property int|null                        $target_id
+ * @property int|null                        $bot_id
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class UserAudible extends Model
 {
     use HasFactory;

@@ -28,7 +28,57 @@ use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
 /**
- * @property string $info_hash
+ * App\Models\Torrent.
+ *
+ * @property string                                                                     $info_hash
+ * @property int                                                                        $id
+ * @property string                                                                     $name
+ * @property string                                                                     $description
+ * @property string|null                                                                $mediainfo
+ * @property string|null                                                                $bdinfo
+ * @property string                                                                     $file_name
+ * @property int                                                                        $num_file
+ * @property string|null                                                                $folder
+ * @property float                                                                      $size
+ * @property mixed|null                                                                 $nfo
+ * @property int                                                                        $leechers
+ * @property int                                                                        $seeders
+ * @property int                                                                        $times_completed
+ * @property int|null                                                                   $category_id
+ * @property int                                                                        $user_id
+ * @property int                                                                        $imdb
+ * @property int                                                                        $tvdb
+ * @property int                                                                        $tmdb
+ * @property int                                                                        $mal
+ * @property int                                                                        $igdb
+ * @property int|null                                                                   $season_number
+ * @property int|null                                                                   $episode_number
+ * @property int                                                                        $stream
+ * @property int                                                                        $free
+ * @property bool                                                                       $doubleup
+ * @property bool                                                                       $refundable
+ * @property int                                                                        $highspeed
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\FeaturedTorrent> $featured
+ * @property int                                                                        $status
+ * @property \Illuminate\Support\Carbon|null                                            $moderated_at
+ * @property int|null                                                                   $moderated_by
+ * @property int                                                                        $anon
+ * @property bool                                                                       $sticky
+ * @property int                                                                        $sd
+ * @property int                                                                        $internal
+ * @property \Illuminate\Support\Carbon|null                                            $created_at
+ * @property \Illuminate\Support\Carbon|null                                            $updated_at
+ * @property string|null                                                                $bumped_at
+ * @property \Illuminate\Support\Carbon|null                                            $fl_until
+ * @property \Illuminate\Support\Carbon|null                                            $du_until
+ * @property string|null                                                                $release_year
+ * @property int                                                                        $type_id
+ * @property int|null                                                                   $resolution_id
+ * @property int|null                                                                   $distributor_id
+ * @property int|null                                                                   $region_id
+ * @property int                                                                        $personal_release
+ * @property int|null                                                                   $balance
+ * @property int|null                                                                   $balance_offset
  */
 class Torrent extends Model
 {
@@ -203,11 +253,11 @@ class Torrent extends Model
     /**
      * Has Many Tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<BonTransactions>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
+        return $this->hasMany(TorrentTip::class);
     }
 
     /**
@@ -266,6 +316,26 @@ class Torrent extends Model
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Peer::class);
+    }
+
+    /**
+     * Has Many Seeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
+     */
+    public function seeds(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Peer::class)->where('seeder', '=', true);
+    }
+
+    /**
+     * Has Many Leeches.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
+     */
+    public function leeches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Peer::class)->where('seeder', '=', false);
     }
 
     /**

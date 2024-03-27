@@ -11,9 +11,24 @@ parameters:
 			path: app/Actions/Fortify/ResetUserPassword.php
 
 		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$active \\(int\\) does not accept true\\.$#"
+			count: 1
+			path: app/Actions/Fortify/ResetUserPassword.php
+
+		-
 			message: "#^Method App\\\\Actions\\\\Fortify\\\\UpdateUserPassword\\:\\:passwordRules\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Actions/Fortify/UpdateUserPassword.php
+
+		-
+			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(int\\) does not accept true\\.$#"
+			count: 1
+			path: app/Bots/CasinoBot.php
+
+		-
+			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(int\\) does not accept true\\.$#"
+			count: 1
+			path: app/Bots/NerdBot.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
@@ -21,14 +36,14 @@ parameters:
 			path: app/Console/Commands/AutoBanDisposableUsers.php
 
 		-
-			message: "#^Called 'pluck' on Laravel collection, but could have been retrieved as a query\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\FeaturedTorrent\\>\\) does not accept false\\.$#"
 			count: 1
-			path: app/Console/Commands/AutoHighspeedTag.php
+			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
 
 		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has no return type specified\\.$#"
@@ -181,6 +196,11 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
+			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(string\\)\\: bool\\)\\|null, 'strlen' given\\.$#"
+			count: 2
+			path: app/Console/Commands/GitUpdater.php
+
+		-
 			message: "#^Property Illuminate\\\\Console\\\\Command\\:\\:\\$output \\(Illuminate\\\\Console\\\\OutputStyle\\) does not accept Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
@@ -279,26 +299,6 @@ parameters:
 			message: "#^Method App\\\\Exceptions\\\\TrackerException\\:\\:__construct\\(\\) has parameter \\$replace with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Exceptions/TrackerException.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,string\\|false\\>\\:\\:filter\\(\\) expects \\(callable\\(string\\|false, int\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function collect expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<int, string\\>\\|iterable\\<int, string\\>\\|null, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function preg_replace_callback expects callable\\(array\\<int\\|string, string\\>\\)\\: string, Closure\\(mixed\\)\\: \\(string\\|null\\) given\\.$#"
-			count: 1
-			path: app/Helpers/Bbcode.php
 
 		-
 			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
@@ -571,13 +571,28 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
+			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept bool\\.$#"
+			count: 3
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept false\\.$#"
+			count: 2
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept true\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$movie_meta\\.$#"
-			count: 1
+			count: 2
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
@@ -592,7 +607,12 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$tv_meta\\.$#"
-			count: 2
+			count: 6
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
+			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
@@ -611,6 +631,21 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
 			message: "#^Parameter \\#1 \\$inputFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) expects Illuminate\\\\Http\\\\UploadedFile\\|null, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -621,139 +656,9 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$nfo \\(string\\) does not accept bool\\|string\\|null\\.$#"
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$doubleup\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$download_slots\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$free\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 25
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$is_double_upload\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$is_freeleech\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$is_immune\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$leechers\\.$#"
-			count: 2
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$peers\\.$#"
-			count: 6
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$seeders\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$times_completed\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Binary operation \"\\-\" between float\\|int\\|string and 300 results in an error\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:update\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkAnnounceFields\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkDownloadSlots\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkGroup\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkMinInterval\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPasskey\\(\\) has parameter \\$passkey with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkPeer\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:generateSuccessAnnounceResponse\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:processAnnounceJob\\(\\) has parameter \\$queries with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function str_starts_with expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strtolower expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Variable \\$response might not be defined\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
-			count: 10
-			path: app/Http/Controllers/HomeController.php
+			path: app/Http/Controllers/ApprovedRequestFillController.php
 
 		-
 			message: "#^Cannot access property \\$alive on bool\\|stdClass\\.$#"
@@ -871,6 +776,11 @@ parameters:
 			path: app/Http/Controllers/RssController.php
 
 		-
+			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(int\\) does not accept true\\.$#"
+			count: 2
+			path: app/Http/Controllers/RssController.php
+
+		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
@@ -879,6 +789,26 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/ChatBotController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\History\\:\\:\\$active \\(int\\) does not accept false\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/FlushController.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
+			count: 3
+			path: app/Http/Controllers/Staff/RssController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(int\\) does not accept false\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/RssController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
@@ -891,9 +821,54 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 2
+			path: app/Http/Controllers/TicketAssigneeController.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 1
+			path: app/Http/Controllers/TicketController.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 2
+			path: app/Http/Controllers/TicketNoteController.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
+
+		-
+			message: "#^Comparison operation \"\\=\\=\" between Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\FeaturedTorrent\\> and 0 results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\FeaturedTorrent\\>\\) does not accept false\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$featured \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\FeaturedTorrent\\>\\) does not accept true\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$refundable \\(bool\\) does not accept int\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: "#^Comparison operation \"\\=\\=\" between Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\FeaturedTorrent\\> and 1 results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentController.php
 
 		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
@@ -911,9 +886,19 @@ parameters:
 			path: app/Http/Controllers/User/GeneralSettingController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:getAttachmentsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 4
+			path: app/Http/Controllers/User/WarningController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\ApplicationSearch\\:\\:applications\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
-			path: app/Http/Livewire/AttachmentUpload.php
+			path: app/Http/Livewire/ApplicationSearch.php
+
+		-
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 1
+			path: app/Http/Livewire/ApplicationSearch.php
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
@@ -931,37 +916,12 @@ parameters:
 			path: app/Http/Livewire/AuditLogSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:getAuditsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:getModelNamesProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\AuditLogSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
 			message: "#^Cannot call method sizeInBytes\\(\\) on class\\-string\\|object\\.$#"
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getBackupStatusesProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getBackupsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:getDisksProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:backups\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
@@ -991,29 +951,14 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:getIpAddressesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:ipAddresses\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/BlockIpAddress.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$queryString has no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 1
 			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:\\$rules has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:getCollectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\CollectionSearch\\:\\:\\$search has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:notify\\(\\)\\.$#"
@@ -1027,11 +972,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\Comment\\:\\:updatedIsEditing\\(\\) has parameter \\$isEditing with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\Comment\\:\\:\\$anon has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/Comment.php
 
@@ -1081,17 +1021,7 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\Comments\\:\\:getCommentsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\Comments\\:\\:taggedUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\Comments\\:\\:\\$anon has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/Comments.php
 
@@ -1121,102 +1051,7 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:getCompaniesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\CompanySearch\\:\\:\\$search has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:getFailedLoginsTop10IpProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\ForumCategoryTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\ForumTopicSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:getGiftsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:getHistoriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:getInvitesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:updatingGroupBy\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/InviteLogSearch.php
 
@@ -1226,12 +1061,12 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getEntriesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:entries\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:getLogFilesProperty\\(\\) has no return type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:logFiles\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
@@ -1241,79 +1076,9 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$logs has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$page has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$perPage has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:getMediasProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:getTypesProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:getNetworksProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\NetworkSearch\\:\\:\\$search has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:getNotesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\NoteSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:getNotificationsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\NotificationSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PasswordStrength\\:\\:updatedPassword\\(\\) has parameter \\$password with no type specified\\.$#"
@@ -1324,21 +1089,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\PasswordStrength\\:\\:\\$strengthLevels type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/PasswordStrength.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:getPeersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\PeerSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
@@ -1361,22 +1111,7 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:getMediasProperty\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:updatingOccupation\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:\\$queryString has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/PersonCredit.php
 
@@ -1391,159 +1126,9 @@ parameters:
 			path: app/Http/Livewire/PersonCredit.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:getPersonsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:\\$search has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Movie\\>\\:\\:\\$release_date\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Movie\\>\\:\\:\\$title\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tv\\>\\:\\:\\$first_air_date\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tv\\>\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type has no value type specified in iterable type array\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentRequestsProperty\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:getTorrentsProperty\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:isChecked\\(\\) has parameter \\$torrentId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:updatedSelectPage\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$checked has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$igdbId has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$listeners has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$reason has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:\\$tmdbId has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:getForumsProperty\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedTopic\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:getSubtitlesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ThankButton\\:\\:mount\\(\\) has parameter \\$torrent with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/ThankButton.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\ThankButton\\:\\:\\$torrent has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/ThankButton.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:getTicketsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
 
 		-
 			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
@@ -1551,104 +1136,19 @@ parameters:
 			path: app/Http/Livewire/Top10.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:getPostsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
 			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
+			path: app/Http/Livewire/TopTorrents.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:\\$queryString has no type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
+			path: app/Http/Livewire/TopTorrents.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:getForumCategoriesProperty\\(\\) has no return type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
 			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:getTopicsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:getTorrentRequestsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$claimed has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$filled has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$genres type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$myClaims has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$myFilled has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$myRequests has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$myVoted has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$pending has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$resolutions type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$types type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:\\$unfilled has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
+			path: app/Http/Livewire/TopTorrents.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
@@ -1686,139 +1186,24 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:getGroupedPostersProperty\\(\\) has no return type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:getGroupedTorrentsProperty\\(\\) has no return type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:getPersonalFreeleechProperty\\(\\) has no return type specified\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:getTorrentsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$distributors type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$free type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$genres type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$regions type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$resolutions type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:\\$types type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:getShowsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/TvSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\TvSearch\\:\\:\\$search has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TvSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$two_factor_confirmed_at\\.$#"
-			count: 1
-			path: app/Http/Livewire/TwoFactorAuthForm.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:getActivesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$showMorePrecision has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:getNotesProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 3
 			path: app/Http/Livewire/UserNotes.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserNotes\\:\\:\\$rules has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserNotes.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:getResurrectionsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:getUsersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
@@ -1826,84 +1211,9 @@ parameters:
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:getHistoryProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$showMorePrecision has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$status type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:getUploadsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$showMorePrecision has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$status type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:getWarningsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
+			count: 7
 			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:\\$queryString has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserWarnings\\:\\:\\$rules has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:getWarningsProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
@@ -1911,19 +1221,19 @@ parameters:
 			path: app/Http/Livewire/WarningLogSearch.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:\\$queryString has no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
+			path: app/Http/Middleware/CheckForAdmin.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:getUsersProperty\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
+			path: app/Http/Middleware/CheckForModo.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:sortBy\\(\\) has parameter \\$field with no type specified\\.$#"
+			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
+			path: app/Http/Middleware/CheckForOwner.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"
@@ -1996,6 +1306,21 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Application\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Application.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ApplicationImageProof\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/ApplicationImageProof.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ApplicationUrlProof\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/ApplicationUrlProof.php
+
+		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
 			count: 1
 			path: app/Models/Article.php
@@ -2004,6 +1329,36 @@ parameters:
 			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
 			count: 1
 			path: app/Models/Article.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Audit\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Audit.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Chatroom\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Chatroom.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\FailedLoginAttempt\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/FailedLoginAttempt.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Keyword\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Keyword.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Message\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Message.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Option\\:\\:\\$fillable is not covariant with PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fillable\\.$#"
+			count: 1
+			path: app/Models/Option.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"

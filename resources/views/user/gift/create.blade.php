@@ -40,41 +40,41 @@
                 @csrf
                 <p class="form__group">
                     <input
-                        id="receiver_username"
+                        id="recipient_username"
                         class="form__text"
-                        name="receiver_username"
+                        name="recipient_username"
                         placeholder=" "
                         required
                         type="text"
                     />
-                    <label class="form__label form__label--floating" for="receiver_username">
+                    <label class="form__label form__label--floating" for="recipient_username">
                         {{ __('pm.select') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <input
-                        id="cost"
+                        id="bon"
                         class="form__text"
                         inputmode="numeric"
-                        name="cost"
+                        name="bon"
                         pattern="[0-9]*"
                         placeholder=" "
                         required
                         type="text"
                     />
-                    <label class="form__label form__label--floating" for="cost">
+                    <label class="form__label form__label--floating" for="bon">
                         {{ __('bon.amount') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <textarea
-                        id="comment"
+                        id="message"
                         class="form__textarea"
-                        name="comment"
+                        name="message"
                         placeholder=" "
                         required
                     ></textarea>
-                    <label class="form__label form__label--floating" for="comment">
+                    <label class="form__label form__label--floating" for="message">
                         {{ __('pm.message') }}
                     </label>
                 </p>

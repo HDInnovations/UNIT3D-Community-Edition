@@ -13,6 +13,8 @@
 
 namespace App\Helpers;
 
+use App\Models\WhitelistedImageUrl;
+
 class Bbcode
 {
     /**
@@ -154,13 +156,6 @@ class Bbcode
             'closeHtml'   => '</p></blockquote>',
             'block'       => true,
         ],
-        'namedlink' => [
-            'openBbcode'  => '/^\[url=(.*?)\]/i',
-            'closeBbcode' => '[/url]',
-            'openHtml'    => '<a href="$1">',
-            'closeHtml'   => '</a>',
-            'block'       => false,
-        ],
         'orderedlistnumerical' => [
             'openBbcode'  => '/^\[list=1\]/i',
             'closeBbcode' => '[/list]',
@@ -284,22 +279,27 @@ class Bbcode
         $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
             '/\[url](.*?)\[\/url]/i',
-            static fn ($matches) => '<a href="'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'">'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'</a>',
+            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$this->sanitizeUrl($matches[1]).'</a>',
+            $source
+        );
+        $source = preg_replace_callback(
+            '/\[url=(.*?)](.*?)\[\/url]/i',
+            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.e($matches[2]).'</a>',
             $source
         );
         $source = preg_replace_callback(
             '/\[img](.*?)\[\/img]/i',
-            static fn ($matches) => '<img src="'.htmlspecialchars($matches[1], ENT_QUOTES | ENT_HTML5).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[1], isImage: true).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img width=(\d+)](.*?)\[\/img]/i',
-            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2], ENT_QUOTES | ENT_HTML5).'" loading="lazy" width="'.$matches[1].'px">',
+            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
         $source = preg_replace_callback(
             '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
-            static fn ($matches) => '<img src="'.htmlspecialchars($matches[2], ENT_QUOTES | ENT_HTML5).'" loading="lazy" width="'.$matches[1].'px">',
+            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
             $source
         );
 
@@ -325,13 +325,22 @@ class Bbcode
         // so it must be done here instead
         $source = preg_replace_callback(
             '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
-            static function ($matches) {
+            function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
-                $validatedUrls = collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
+
+                if ($comparates === false || $urls === false) {
+                    return 'Broken comparison';
+                }
+
+                $validatedUrls = collect($urls)->map(fn ($url) => $this->sanitizeUrl($url, isImage: true));
                 $chunkedUrls = $validatedUrls->chunk(\count($comparates));
                 $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
                 $html = preg_replace('/\s+/', ' ', $html);
+
+                if (!\is_string($html)) {
+                    return 'Broken html';
+                }
 
                 return $html;
             },
@@ -461,5 +470,48 @@ class Bbcode
             $source = substr_replace($source, '', $tagStartIndex - 1, 1);
             $index -= 1;
         }
+    }
+
+    private function sanitizeUrl(string $url, ?bool $isImage = null): string
+    {
+        // Do NOT add `javascript`, `data` or `vbscript` here
+        // or else you will allow an XSS vulnerability!
+        $protocolWhitelist = [
+            'http',
+            'https',
+            'irc',
+            'ftp',
+            'sftp',
+            'magnet',
+        ];
+
+        if (str_starts_with($url, '/')) {
+            $url = config('app.url').'/'.ltrim($url, '/');
+        } elseif (!\in_array(parse_url($url, PHP_URL_SCHEME), $protocolWhitelist)) {
+            $url = 'https://'.$url;
+        }
+
+        if (false === filter_var($url, FILTER_VALIDATE_URL)) {
+            return 'Broken link';
+        }
+
+        if ($isImage) {
+            $whitelistedImageUrls = cache()->rememberForever(
+                'whitelisted-image-urls',
+                fn () => WhitelistedImageUrl::query()->pluck('pattern'),
+            );
+
+            $isWhitelisted = $whitelistedImageUrls->contains(function (string $pattern) use ($url) {
+                $pattern = str_replace(['\*\*', '\*'], ['.*', '[^\/]*'], preg_quote($pattern, '/'));
+
+                return preg_match('/^'.$pattern.'$/i', $url);
+            });
+
+            if (!$isWhitelisted) {
+                $url = 'https://wsrv.nl/?n=-1&url='.urlencode($url);
+            }
+        }
+
+        return htmlspecialchars($url, ENT_QUOTES | ENT_HTML5);
     }
 }

@@ -15,68 +15,69 @@ namespace App\Http\Livewire;
 
 use App\Models\History;
 use App\Models\User;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserTorrents extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
     public ?User $user = null;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
+    #[Url(history: true)]
     public string $name = '';
 
+    #[Url(history: true)]
     public string $unsatisfied = 'any';
 
+    #[Url(history: true)]
     public string $active = 'any';
 
+    #[Url(history: true)]
     public string $completed = 'any';
 
+    #[Url(history: true)]
     public string $uploaded = 'any';
 
+    #[Url(history: true)]
     public string $hitrun = 'any';
 
+    #[Url(history: true)]
     public string $prewarn = 'any';
 
+    #[Url(history: true)]
     public string $immune = 'any';
 
+    #[Url(history: true)]
     public string $downloaded = 'any';
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
     public array $status = [];
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
-
-    protected $queryString = [
-        'perPage'           => ['except' => ''],
-        'name'              => ['except' => ''],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
-        'unsatisfied'       => ['except' => 'any'],
-        'active'            => ['except' => 'any'],
-        'completed'         => ['except' => 'any'],
-        'prewarn'           => ['except' => 'any'],
-        'hitrun'            => ['except' => 'any'],
-        'immune'            => ['except' => 'any'],
-        'uploaded'          => ['except' => 'any'],
-        'downloaded'        => ['except' => 'any'],
-        'status'            => ['except' => []],
-        'showMorePrecision' => ['except' => false],
-    ];
+    #[Url(history: true)]
+    public bool $showMorePrecision = false;
 
     final public function mount(int $userId): void
     {
         $this->user = User::find($userId);
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -84,9 +85,13 @@ class UserTorrents extends Component
         $this->resetPage();
     }
 
-    final public function getHistoryProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     */
+    #[Computed]
+    final public function history(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return History::query()
+        $histories = History::query()
             ->join(
                 'torrents',
                 fn ($join) => $join
@@ -161,6 +166,8 @@ class UserTorrents extends Component
             ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+
+        return $histories->setCollection($histories->getCollection()->groupBy(fn ($history) => $history->created_at->format('Y-m')));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -168,16 +175,5 @@ class UserTorrents extends Component
         return view('livewire.user-torrents', [
             'histories' => $this->history,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

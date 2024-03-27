@@ -57,7 +57,7 @@
                             inputmode="numeric"
                             autofocus
                             autocomplete="one-time-code"
-                            wire:model="code"
+                            wire:model.live="code"
                             wire:keydown.enter="confirmTwoFactorAuthentication"
                         />
 

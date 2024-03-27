@@ -1,4 +1,15 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
 
 namespace Tests\Old;
 
@@ -6,7 +17,7 @@ use App\Http\Livewire\PostSearch;
 use App\Http\Livewire\SubscribedForum;
 use App\Http\Livewire\TopicSearch;
 use App\Models\Forum;
-use App\Models\Permission;
+use App\Models\ForumPermission;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
 use Database\Seeders\UsersTableSeeder;
@@ -71,18 +82,12 @@ final class ForumControllerTest extends TestCase
 
         $user = User::factory()->create();
 
-        // This Forum does not have a parent, which makes it a proper Forum
-        // (and not a "Forum Category").
+        $forum = Forum::factory()->create();
 
-        $forum = Forum::factory()->create([
-            'parent_id'               => 0,
-            'last_post_user_id'       => $user->id,
-            'last_post_user_username' => $user->username,
-        ]);
-
-        $permissions = Permission::factory()->create([
+        $permissions = ForumPermission::factory()->create([
             'forum_id'   => $forum->id,
-            'show_forum' => true,
+            'group_id'   => $user->group_id,
+            'read_topic' => true,
         ]);
 
         $this->actingAs($user)->get(route('forums.show', ['id' => $forum->id]))

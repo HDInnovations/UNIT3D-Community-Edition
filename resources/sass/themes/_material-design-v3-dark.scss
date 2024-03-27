@@ -62,6 +62,13 @@
   --button-text-border-radius: 6px;
   --button-text-fg: currentColor;
 
+  --chatbox-message-bg: #373737;
+  --chatbox-button-fg: #888;
+  --chatbox-button-hover-fg: #aaa;
+  --chatbox-users-bg: #302F34;
+  --chatbox-tab-delete-fg: #c22222;
+  --chatbox-tab-delete-bg: #444;
+
   --comparison-divider-fg: #000;
   --comparison-button-fg: #000;
 
@@ -382,7 +389,7 @@
   border-bottom: none;
 }
 
-.data-table tr td:first-of-type,
+.data-table tr td:first-of-type:not(.torrent-search--list__poster),
 .data-table tr th:first-of-type {
   padding-left: 20px;
 }
@@ -408,53 +415,23 @@ a {
   color: #4991F6;
 }
 
-#frame {
-  background-color: #2A292E;
-}
-
-#frameFooter {
-  background-color: #2A292E;
-  border-bottom-left-radius: var(--panel-border-radius);
-  border-bottom-right-radius: var(--panel-border-radius);
-  padding: 10px;
-}
-
-.sent > div,
-.sent > .system {
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
-  color: #bbb;
-  padding: 0 12px 4px 15px !important;
-}
-
-#frame .content .messages ul li.sent h4 .text-muted {
-  color: #aaa;
-}
-
-.sent > div:not(.system)::before {
-  display: none;
-}
-
-.sent > h4 {
-  border-top-left-radius: 26px;
-  border-top-right-radius: 26px;
-}
-
-.sent .badge-user {
-  box-shadow: none;
-  border: none;
-}
-
-#frameFooter.panel-footer {
+.chatroom__whispers {
   border-top: 1px solid #3c3c3c;
 }
 
-#currentChatroom {
-  background-color: transparent;
-  border-radius: 22px;
-  border: 1px solid #444;
-  font-size: 13px;
-  padding: 5px 12px;
+.chatbox-message{
+  border-radius: 26px;
+  padding: 0 4px;
+  color: #bbb;
+}
+
+.chatbox-message::before {
+  border-color: transparent;
+}
+
+.chatbox__chatroom {
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
 }
 
 .torrent-search--grouped__result {

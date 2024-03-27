@@ -20,7 +20,7 @@ test('destroy returns an ok response', function (): void {
     $subscription = Subscription::factory()->create();
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post(route('subscriptions.destroy', ['id' => $subscription->id]), [
+    $response = $this->actingAs($user)->post(route('subscriptions.destroy', ['subscription' => $subscription]), [
         // TODO: send request data
     ]);
 
@@ -37,7 +37,7 @@ test('destroy aborts with a 403', function (): void {
 
     // TODO: perform additional setup to trigger `abort_unless(403)`...
 
-    $response = $this->actingAs($user)->post(route('subscriptions.destroy', ['id' => $subscription->id]), [
+    $response = $this->actingAs($user)->post(route('subscriptions.destroy', ['subscription' => $subscription]), [
         // TODO: send request data
     ]);
 

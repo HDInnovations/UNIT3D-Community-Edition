@@ -14,6 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Company;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,19 +23,21 @@ class CompanySearch extends Component
 {
     use WithPagination;
 
-    public $search = '';
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
+    #[Url(history: true)]
+    public string $search = '';
 
     final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    final public function getCompaniesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Company>
+     */
+    #[Computed]
+    final public function companies(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Company::withCount('tv', 'movie')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

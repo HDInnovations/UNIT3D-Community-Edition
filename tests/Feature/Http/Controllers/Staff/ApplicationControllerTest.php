@@ -12,6 +12,7 @@
  */
 
 use App\Http\Controllers\Staff\ApplicationController;
+use App\Http\Livewire\ApplicationSearch;
 use App\Http\Requests\Staff\ApproveApplicationRequest;
 use App\Http\Requests\Staff\RejectApplicationRequest;
 use App\Models\Application;
@@ -56,7 +57,7 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->get(route('staff.applications.index'));
     $response->assertOk();
     $response->assertViewIs('Staff.application.index');
-    $response->assertViewHas('applications');
+    $response->assertSeeLivewire(ApplicationSearch::class);
 });
 
 test('reject validates with a form request', function (): void {

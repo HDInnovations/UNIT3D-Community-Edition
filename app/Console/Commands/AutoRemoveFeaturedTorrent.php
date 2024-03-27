@@ -60,8 +60,6 @@ class AutoRemoveFeaturedTorrent extends Command
             $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
 
             if (isset($torrent)) {
-                $torrent->free = 0;
-                $torrent->doubleup = false;
                 $torrent->featured = false;
                 $torrent->save();
 
@@ -69,7 +67,7 @@ class AutoRemoveFeaturedTorrent extends Command
                 $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
                 );
 
                 Unit3dAnnounce::addTorrent($torrent);
@@ -78,6 +76,8 @@ class AutoRemoveFeaturedTorrent extends Command
             // Delete The Record From DB
             $featuredTorrent->delete();
         }
+
+        cache()->forget('featured-torrent-ids');
 
         $this->comment('Automated Removal Featured Torrents Command Complete');
     }

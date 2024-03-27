@@ -15,6 +15,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Post;
 use App\Models\Topic;
+use App\Models\TopicRead;
+use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,22 +26,16 @@ class TopicPostSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
+    public string $search = '';
 
     public Topic $topic;
-
-    protected $queryString = [
-        'search' => ['except' => ''],
-    ];
 
     final public function mount(Topic $topic): void
     {
         $this->topic = $topic;
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -45,26 +43,36 @@ class TopicPostSearch extends Component
         $this->resetPage();
     }
 
-    final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
+     */
+    #[Computed]
+    final public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Post::query()
-            ->select('posts.*')
+        $posts = Post::query()
             ->with('user', 'user.group')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
-            ->withSum('tips', 'cost')
+            ->withSum('tips', 'bon')
             ->where('topic_id', '=', $this->topic->id)
-            ->join('topics', 'topics.id', '=', 'posts.topic_id')
-            ->join(
-                'permissions',
-                fn ($query) => $query
-                    ->on('permissions.forum_id', '=', 'topics.forum_id')
-                    ->where('permissions.group_id', '=', auth()->user()->group_id)
-                    ->where('permissions.show_forum', '=', 1)
-                    ->where('permissions.read_topic', '=', 1)
-            )
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderBy('created_at')
             ->paginate(25);
+
+        if ($lastPost = $posts->getCollection()->last()) {
+            TopicRead::upsert([[
+                'topic_id'          => $this->topic->id,
+                'user_id'           => auth()->id(),
+                'last_read_post_id' => $lastPost->id,
+            ]], [
+                'topic_id',
+                'user_id'
+            ], [
+                'last_read_post_id' => DB::raw('GREATEST(last_read_post_id, VALUES(last_read_post_id))')
+            ]);
+        }
+
+        return $posts;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -15,11 +15,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGiftRequest;
-use App\Models\BonTransactions;
+use App\Models\Gift;
 use App\Models\User;
 use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GiftController extends Controller
 {
@@ -39,15 +40,17 @@ class GiftController extends Controller
 
         return view('user.gift.index', [
             'user'  => $user,
-            'gifts' => BonTransactions::query()
-                ->with(['sender.group', 'receiver.group'])
-                ->where(fn ($query) => $query->where('sender_id', '=', $user->id)->orwhere('receiver_id', '=', $user->id))
-                ->where('name', '=', 'gift')
+            'gifts' => Gift::with([
+                'sender'    => fn ($query) => $query->withTrashed()->with('group'),
+                'recipient' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
+                ->where('sender_id', '=', $user->id)
+                ->orWhere('recipient_id', '=', $user->id)
                 ->latest()
                 ->paginate(25),
             'bon'           => $user->formatted_seedbonus,
-            'sentGifts'     => $user->sentGifts()->sum('cost'),
-            'receivedGifts' => $user->receivedGifts()->sum('cost'),
+            'sentGifts'     => $user->sentGifts()->sum('bon'),
+            'receivedGifts' => $user->receivedGifts()->sum('bon'),
         ]);
     }
 
@@ -70,31 +73,30 @@ class GiftController extends Controller
     public function store(StoreGiftRequest $request): \Illuminate\Http\RedirectResponse
     {
         $sender = $request->user();
-        $receiver = User::where('username', '=', $request->receiver_username)->sole();
+        $receiver = User::where('username', '=', $request->recipient_username)->sole();
 
-        $sender->decrement('seedbonus', $request->cost);
-        $receiver->increment('seedbonus', $request->cost);
+        DB::transaction(function () use ($sender, $receiver, $request): void {
+            $sender->decrement('seedbonus', $request->bon);
+            $receiver->increment('seedbonus', $request->bon);
 
-        $bonTransactions = BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'gift',
-            'cost'            => $request->cost,
-            'sender_id'       => $sender->id,
-            'receiver_id'     => $receiver->id,
-            'comment'         => $request->comment,
-            'torrent_id'      => null,
-        ]);
+            $gift = Gift::create([
+                'bon'          => $request->bon,
+                'sender_id'    => $sender->id,
+                'recipient_id' => $receiver->id,
+                'message'      => $request->message,
+            ]);
 
-        if ($receiver->acceptsNotification($sender, $receiver, 'bon', 'show_bon_gift')) {
-            $receiver->notify(new NewBon('gift', $sender->username, $bonTransactions));
-        }
+            if ($receiver->acceptsNotification($sender, $receiver, 'bon', 'show_bon_gift')) {
+                $receiver->notify((new NewBon($gift))->afterCommit());
+            }
+        });
 
         $this->chatRepository->systemMessage(
             sprintf(
                 '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
                 href_profile($sender),
                 $sender->username,
-                $request->cost,
+                $request->bon,
                 href_profile($receiver),
                 $receiver->username
             )

@@ -15,7 +15,7 @@
                                 class="form__text"
                                 name="ipAddress"
                                 placeholder=" "
-                                wire:model.defer="ipAddress"
+                                wire:model="ipAddress"
                             />
                             <label class="form__label form__label--floating" for="ipAddress">
                                 Ip Address
@@ -27,7 +27,7 @@
                                 class="form__textarea"
                                 name="reason"
                                 placeholder=" "
-                                wire:model.defer="reason"
+                                wire:model="reason"
                             ></textarea>
                             <label class="form__label form__label--floating" for="reason">
                                 Reason
@@ -54,7 +54,35 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select id="quantity" class="form__select" wire:model="perPage" required>
+                    <input
+                        id="ipSearch"
+                        class="form__text"
+                        type="text"
+                        wire:model.live="ipSearch"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="ipSearch">
+                        {{ __('common.ip') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        id="reasonSearch"
+                        class="form__text"
+                        type="text"
+                        wire:model.live="reasonSearch"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="reasonSearch">
+                        {{ __('common.reason') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <select id="quantity" class="form__select" wire:model.live="perPage" required>
                         <option>25</option>
                         <option>50</option>
                         <option>100</option>

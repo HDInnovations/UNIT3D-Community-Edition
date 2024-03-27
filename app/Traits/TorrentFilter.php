@@ -73,7 +73,7 @@ trait TorrentFilter
         $authenticatedUser ??= auth()->user();
 
         $query
-            ->whereIn('user_id', User::select('id')->where('username', '=', $username))
+            ->whereRelation('user', 'username', '=', $username)
             ->when(
                 $authenticatedUser === null,
                 fn ($query) => $query->where('anon', '=', false),
@@ -279,7 +279,11 @@ trait TorrentFilter
      */
     public function scopeOfFreeleech(Builder $query, int|array $free): void
     {
-        $query->whereIntegerInRaw('free', (array) $free);
+        $query->when(
+            config('other.freeleech'),
+            fn ($query) => $query->whereBetween('free', [0, 100]),
+            fn ($query) => $query->whereIntegerInRaw('free', (array) $free)
+        );
     }
 
     /**
@@ -304,6 +308,14 @@ trait TorrentFilter
     public function scopeRefundable(Builder $query): void
     {
         $query->where('refundable', '=', 1);
+    }
+
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeOfRefundable(Builder $query, int $refundable): void
+    {
+        $query->where('refundable', '=', $refundable);
     }
 
     /**

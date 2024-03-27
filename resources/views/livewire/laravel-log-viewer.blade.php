@@ -20,7 +20,7 @@
 <div
     style="
         display: grid;
-        grid-template-columns: 1fr max-content;
+        grid-template-columns: minmax(0, 1fr) 225px;
         gap: 12px;
         align-items: flex-start;
     "
@@ -58,8 +58,8 @@
                     </tr>
                 </thead>
                 @forelse ($entries as $message => $groupedEntry)
-                    <tbody x-data="{ expanded: false }" style="border-top: 0">
-                        <tr x-on:click="expanded = !expanded" style="cursor: pointer">
+                    <tbody x-data="toggle" style="border-top: 0">
+                        <tr x-on:click="toggle" style="cursor: pointer">
                             <td>{{ $groupedEntry[0]['date'] }}</td>
                             <td>
                                 @switch($groupedEntry[0]['level'])
@@ -97,7 +97,7 @@
                             <td>{{ $groupedEntry[0]['line'] }}</td>
                             <td>{{ count($groupedEntry) }}</td>
                         </tr>
-                        <tr x-cloak x-show="expanded">
+                        <tr x-cloak x-show="isToggledOn">
                             <td colspan="7" style="padding: 0 0 0 8px">
                                 <table class="data-table">
                                     <thead>
@@ -108,14 +108,8 @@
                                         </tr>
                                     </thead>
                                     @foreach ($groupedEntry as $entry)
-                                        <tbody
-                                            x-data="{ expanded: false }"
-                                            style="border-top: 0"
-                                        >
-                                            <tr
-                                                x-on:click="expanded = !expanded"
-                                                style="cursor: pointer"
-                                            >
+                                        <tbody x-data="toggle" style="border-top: 0">
+                                            <tr x-on:click="toggle" style="cursor: pointer">
                                                 <td>{{ $entry['date'] }}</td>
                                                 <td>{{ $entry['env'] }}</td>
                                                 <td>
@@ -127,13 +121,11 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr x-cloack x-show="expanded">
+                                            <tr x-cloack x-show="isToggledOn">
                                                 <td colspan="2">
-                                                    <code>
-                                                        <pre x-ref="stacktrace">
-{{ $entry['stacktrace'] }}</pre
-                                                        >
-                                                    </code>
+                                                    <div class="bbcode-rendered">
+                                                        <pre><code x-ref="stacktrace">{{ $entry['stacktrace'] }}</code></pre>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -145,19 +137,25 @@
                 @empty
                     <tbody>
                         <tr>
-                            <td colspan="8">No logs have been created yet.</td>
+                            <td colspan="7">No logs have been created yet.</td>
                         </tr>
                     </tbody>
                 @endforelse
             </table>
         </div>
-        {{ $entries->links('partials.pagination') }}
+        @if ($entries->hasMorePages())
+            <div class="text-center">
+                <button class="form__button form__button--filled" wire:click.prevent="loadMore">
+                    Load More Entries
+                </button>
+            </div>
+        @endif
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">Entries</h2>
         <select
             multiple
-            wire:model="logs"
+            wire:model.live="logs"
             style="height: 320px; padding: 8px; border-radius: 4px; width: 100%"
         >
             @foreach ($files as $file)

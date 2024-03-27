@@ -61,6 +61,13 @@
   --button-text-border-radius: 6px;
   --button-text-fg: currentColor;
 
+  --chatbox-message-bg: #F1EFF2;
+  --chatbox-button-fg: #888;
+  --chatbox-button-hover-fg: #666;
+  --chatbox-users-bg: #d3d3d3;
+  --chatbox-tab-delete-fg: #c22222;
+  --chatbox-tab-delete-bg: #bbb;
+
   --comparison-divider-fg: #000;
   --comparison-button-fg: #000;
 
@@ -379,7 +386,7 @@
   border-bottom: none;
 }
 
-.data-table tr td:first-of-type,
+.data-table tr td:first-of-type:not(.torrent-search--list__poster),
 .data-table tr th:first-of-type {
   padding-left: 20px;
 }
@@ -414,28 +421,19 @@ a {
   color: #0099FF;
 }
 
-#frame {
-  background-color: #fff;
+.chatbox-message{
+  border-radius: 26px;
+  padding: 0 4px;
+  color: #050505;
 }
 
-#frameFooter {
-  background-color: #fff;
-  border-bottom-left-radius: var(--panel-border-radius);
-  border-bottom-right-radius: var(--panel-border-radius);
-  padding: 10px;
+.chatbox-message::before {
+  border-color: transparent;
 }
 
-.sent > div {
-  border-bottom-left-radius: 15px;
-}
-
-.sent > div:not(.system)::before {
-  display: none;
-}
-
-.sent .badge-user {
-  box-shadow: none;
-  border: none;
+.chatbox__chatroom {
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
 }
 
 .torrent-search--grouped__result {

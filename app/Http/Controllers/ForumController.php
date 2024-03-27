@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Forum;
+use App\Models\ForumCategory;
 use App\Models\Post;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -29,16 +30,15 @@ class ForumController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('forum.index', [
-            'categories' => Forum::query()
+            'categories' => ForumCategory::query()
                 ->with([
-                    'forums' => fn ($query) => $query
-                        ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]]),
+                    'forums'              => fn ($query) => $query->authorized(canReadTopic: true)->orderBy('position'),
                     'forums.latestPoster' => fn ($query) => $query->withTrashed(),
+                    'forums.lastRepliedTopic',
                 ])
-                ->whereNull('parent_id')
-                ->whereRelation('permissions', [['show_forum', '=', 1], ['group_id', '=', $request->user()->group_id]])
                 ->orderBy('position')
-                ->get(),
+                ->get()
+                ->filter(fn ($category) => $category->forums->isNotEmpty()),
             'num_posts'  => Post::count(),
             'num_forums' => Forum::count(),
             'num_topics' => Topic::count(),
@@ -48,24 +48,13 @@ class ForumController extends Controller
     /**
      * Show Forums And Topics Inside.
      */
-    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
-        // Find the topic
-        $forum = Forum::findOrFail($id);
-
-        // Check if this is a category or forum
-        if ($forum->parent_id === null) {
-            return to_route('forums.categories.show', ['id' => $forum->id]);
-        }
-
-        // Check if the user has permission to view the forum
-        if (!$forum->getPermission()->show_forum) {
-            return to_route('forums.index')
-                ->withErrors('You Do Not Have Access To This Forum!');
-        }
-
         return view('forum.forum_topic.index', [
-            'forum' => $forum,
+            'forum' => Forum::query()
+                ->with('category')
+                ->authorized(canReadTopic: true)
+                ->findOrFail($id),
         ]);
     }
 }

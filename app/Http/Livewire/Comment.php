@@ -29,17 +29,20 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
+use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use voku\helper\AntiXSS;
 
 class Comment extends Component
 {
+    use CastLivewireProperties;
+
     protected ChatRepository $chatRepository;
 
     public $comment;
 
-    public $anon = false;
+    public bool $anon = false;
 
     public ?User $user;
 
@@ -73,6 +76,11 @@ class Comment extends Component
         $this->user = auth()->user();
     }
 
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
+    }
+
     final public function taggedUsers(): array
     {
         preg_match_all('/@([\w\-]+)/', implode('', $this->editState), $matches);
@@ -97,7 +105,7 @@ class Comment extends Component
             $this->comment->update((new AntiXSS())->xss_clean($this->editState));
             $this->isEditing = false;
         } else {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
         }
     }
 
@@ -105,9 +113,9 @@ class Comment extends Component
     {
         if ((auth()->id() == $this->comment->user_id || auth()->user()->group->is_modo) && $this->comment->children()->doesntExist()) {
             $this->comment->delete();
-            $this->emitUp('refresh');
+            $this->dispatch('refresh');
         } else {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Permission Denied!']);
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
         }
     }
 
@@ -117,7 +125,7 @@ class Comment extends Component
         $modelName = str()->snake(class_basename($this->comment->commentable_type), ' ');
 
         if ($modelName !== 'ticket' && auth()->user()->can_comment === false) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+            $this->dispatch('error', type: 'error', message: __('comment.rights-revoked'));
 
             return;
         }
@@ -225,7 +233,7 @@ class Comment extends Component
 
         $this->isReplying = false;
 
-        $this->emitSelf('refresh');
+        $this->dispatch('refresh')->self();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

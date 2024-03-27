@@ -14,7 +14,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
-use App\Models\Topic;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -22,46 +23,31 @@ class PostSearch extends Component
 {
     use WithPagination;
 
-    public String $search = '';
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    protected $queryString = [
-        'search' => ['except' => ''],
-    ];
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
+    #[Url(history: true)]
+    public String $search = '';
 
     final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    final public function getPostsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
+     */
+    #[Computed]
+    final public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Post::query()
-            ->with('user', 'user.group', 'topic:id,name')
+            ->with('user', 'user.group', 'topic:id,name,state')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
-            ->withSum('tips', 'cost')
+            ->withSum('tips', 'bon')
             ->withExists([
                 'likes'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
             ])
-            ->whereNotIn(
-                'topic_id',
-                Topic::query()
-                    ->whereRelation(
-                        'forumPermissions',
-                        fn ($query) => $query
-                            ->where('group_id', '=', auth()->user()->group_id)
-                            ->where(
-                                fn ($query) => $query
-                                    ->where('show_forum', '!=', 1)
-                                    ->orWhere('read_topic', '!=', 1)
-                            )
-                    )
-                    ->select('id')
-            )
+            ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
             ->orderByDesc('created_at')
             ->paginate(25);

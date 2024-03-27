@@ -16,6 +16,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Keyword.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property int         $torrent_id
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ */
 class Keyword extends Model
 {
     use HasFactory;

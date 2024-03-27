@@ -50,7 +50,7 @@ class RequestFillController extends Controller
         $requester = $torrentRequest->user;
 
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
-            $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
+            $requester->notify(new NewRequestFill($torrentRequest));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
