@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are **welcome**. Please make all pull requests agaist the development branch (currently 7.x.x) and NOT master which is only for releases.
+Contributions are **welcome**. Please make all pull requests agaist the development branch (currently 8.x.x) and NOT master which is only for releases.
 
 We accept contributions via Pull Requests on [Github](https://github.com/HDInnovations/UNIT3D).
 
