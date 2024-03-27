@@ -20,9 +20,10 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Updating](#updating)
-4. [Support UNIT3D](#support)
-5. [Funding Issues/Requests](#funding)
-6. [Special Thanks](#thanks)
+4. [Demo Site](#demo)
+5. [Support UNIT3D](#support)
+6. [Funding Issues/Requests](#funding)
+7. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
@@ -41,6 +42,9 @@ Use this command to generate demo users and torrents for testing purposes in a d
 
 ## <a name="updating"></a> 🖥️ Updating
 `php artisan git:update`
+
+## <a name="demo"></a> 🖥️ Demo Site
+https://unit3d.dev
 
 ## <a name="support"></a> ✨ Support UNIT3D
 
