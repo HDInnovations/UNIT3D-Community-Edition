@@ -39,19 +39,18 @@ class TicketAttachmentController extends Controller
             return;
         }
 
-        foreach($request->attachments as $file)
-        {
+        foreach($request->attachments as $file) {
             if ($file->getSize() > 1000000) {
                 continue;
             }
 
             $allowedMimes = ['image/jpeg', 'image/jpg', 'image/bmp', 'image/gif', 'image/png', 'image/webp'];
 
-            if (! in_array($file->getMimeType(), $allowedMimes)) {
+            if (! \in_array($file->getMimeType(), $allowedMimes)) {
                 continue;
             }
 
-            $fileName = \uniqid('', true).'.'.$file->getClientOriginalExtension();
+            $fileName = uniqid('', true).'.'.$file->getClientOriginalExtension();
             $file->storeAs('attachments', $fileName, 'attachments');
 
             $attachment = new TicketAttachment();
