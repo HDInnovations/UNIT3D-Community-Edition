@@ -174,7 +174,9 @@
     </td>
 
     @if ($torrent->category->game_meta)
-        <td class="torrent-search--list__rating {{ rating_color($meta->rating ?? 0) ?? 'text-white' }}">
+        <td
+            class="torrent-search--list__rating {{ rating_color($meta->rating ?? 0) ?? 'text-white' }}"
+        >
             <span>{{ round($meta->rating ?? 0) }}%</span>
         </td>
     @elseif ($torrent->category->movie_meta || $torrent->category->tv_meta)
