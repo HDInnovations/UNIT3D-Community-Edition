@@ -40,7 +40,7 @@ class AttachmentUpload extends Component
         $this->ticket = $id;
     }
 
-    final public function upload(): void
+    final public function updatedAttachment(): void
     {
         $this->validate();
 
