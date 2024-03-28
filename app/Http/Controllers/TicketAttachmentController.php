@@ -28,4 +28,38 @@ class TicketAttachmentController extends Controller
 
         return response()->download(getcwd().'/files/attachments/attachments/'.$attachment->file_name)->deleteFileAfterSend(false);
     }
+
+    /**
+     * Stores one or multiple ticket attachments from the ticket create form.
+     */
+    public static function storeTicketAttachments(Request $request, $user, $ticket)
+    {
+        if(! $request->hasfile('attachment')) {
+            return;
+        }
+
+        foreach($request->file('attachment') as $file)
+        {
+            if ($file->getSize() > 1000000) {
+                continue;
+            }
+
+            $allowedMimes = ['image/jpeg', 'image/jpg', 'image/bmp', 'image/gif', 'image/png', 'image/webp'];
+
+            if (! in_array($file->getMimeType(), $allowedMimes)) {
+                continue;
+            }
+
+            $fileName = \uniqid('', true).'.'.$file->getClientOriginalExtension();
+            $file->storeAs('attachments', $fileName, 'attachments');
+
+            $attachment = new TicketAttachment();
+            $attachment->user_id = $user->id;
+            $attachment->ticket_id = $ticket->id;
+            $attachment->file_name = $fileName;
+            $attachment->file_size = $file->getSize();
+            $attachment->file_extension = $file->getMimeType();
+            $attachment->save();
+        }
+    }
 }
