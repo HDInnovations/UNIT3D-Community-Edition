@@ -69,7 +69,7 @@
                     <label for="attachments" class="form__label">
                         {{ __('ticket.attachments') }}
                         <span class="text-danger small">
-                            {{ __('animeworld.ticket-attachment-limit') }}
+                            {{ __('ticket.attachment-limit') }}
                         </span>
                     </label>
                     <input
