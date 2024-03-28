@@ -75,7 +75,7 @@
                     <input
                         id="attachments"
                         type="file"
-                        name="attachment[]"
+                        name="attachments[]"
                         class="upload-form-file form__file"
                         multiple
                     />

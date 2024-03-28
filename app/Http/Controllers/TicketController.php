@@ -47,7 +47,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::create(['user_id' => $request->user()->id] + $request->validated());
 
-        TicketAttachmentController::storeTicketAttachments($request, $request->user(), $ticket);
+        TicketAttachmentController::storeTicketAttachments($request, $ticket, $request->user());
 
         return to_route('tickets.show', ['ticket' => $ticket])
             ->withSuccess(trans('ticket.created-success'));

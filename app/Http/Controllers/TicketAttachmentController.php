@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use Illuminate\Http\Request;
@@ -32,13 +33,13 @@ class TicketAttachmentController extends Controller
     /**
      * Stores one or multiple ticket attachments from the ticket create form.
      */
-    public static function storeTicketAttachments(Request $request, $user, $ticket)
+    public static function storeTicketAttachments(Request $request, Ticket $ticket, User $user): void
     {
-        if(! $request->hasfile('attachment')) {
+        if(! $request->hasfile('attachments')) {
             return;
         }
 
-        foreach($request->file('attachment') as $file)
+        foreach($request->attachments as $file)
         {
             if ($file->getSize() > 1000000) {
                 continue;
