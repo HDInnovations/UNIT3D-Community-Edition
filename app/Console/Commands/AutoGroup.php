@@ -73,29 +73,26 @@ class AutoGroup extends Command
                     && ($group->min_seedsize ? $group->min_seedsize <= ($seedsize ??= $user->seedingTorrents()->sum('size')) : true)
                 ) {
                     $user->group_id = $group->id;
-                } else {
-                    break;
+
+                    // Leech ratio dropped below sites minimum
+
+                    if ($user->group_id == UserGroup::LEECH->value) {
+                        $user->can_request = false;
+                        $user->can_invite = false;
+                        $user->can_download = false;
+                    } else {
+                        $user->can_request = true;
+                        $user->can_invite = true;
+                        $user->can_download = true;
+                    }
+                    $user->save();
+
+                    if ($user->wasChanged()) {
+                        cache()->forget('user:'.$user->passkey);
+
+                        Unit3dAnnounce::addUser($user);
+                    }
                 }
-            }
-
-            // Leech ratio dropped below sites minimum
-            if ($user->group_id == UserGroup::LEECH->value) {
-                $user->can_request = false;
-                $user->can_invite = false;
-                $user->can_download = false;
-                $user->save();
-            } else {
-                $user->can_request = true;
-                $user->can_invite = true;
-                $user->can_download = true;
-            }
-
-            $user->save();
-
-            if ($user->wasChanged()) {
-                cache()->forget('user:'.$user->passkey);
-
-                Unit3dAnnounce::addUser($user);
             }
         }
 
