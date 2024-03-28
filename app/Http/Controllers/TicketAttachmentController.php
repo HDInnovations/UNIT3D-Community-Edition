@@ -35,10 +35,6 @@ class TicketAttachmentController extends Controller
      */
     public static function storeTicketAttachments(Request $request, Ticket $ticket, User $user): void
     {
-        if(! $request->hasfile('attachments')) {
-            return;
-        }
-
         foreach($request->attachments as $file) {
             if ($file->getSize() > 1000000) {
                 continue;
