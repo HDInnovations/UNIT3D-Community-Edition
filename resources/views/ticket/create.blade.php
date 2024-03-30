@@ -24,7 +24,12 @@
             {{ __('ticket.create-ticket') }}
         </h2>
         <div class="panel__body">
-            <form class="form" action="{{ route('tickets.store') }}" method="POST">
+            <form
+                class="form"
+                action="{{ route('tickets.store') }}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
                 @csrf
                 <p class="form__group">
                     <select id="category_id" class="form__text" name="category_id" required>
@@ -59,6 +64,21 @@
                     <label for="body" class="form__label form__label--floating">
                         {{ __('ticket.body') }}
                     </label>
+                </p>
+                <p class="form__group">
+                    <label for="attachments" class="form__label">
+                        {{ __('ticket.attachments') }}
+                        <span class="text-danger small">
+                            {{ __('ticket.attachment-limit') }}
+                        </span>
+                    </label>
+                    <input
+                        id="attachments"
+                        type="file"
+                        name="attachments[]"
+                        class="upload-form-file form__file"
+                        multiple
+                    />
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

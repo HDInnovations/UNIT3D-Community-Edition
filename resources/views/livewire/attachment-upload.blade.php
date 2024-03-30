@@ -9,7 +9,6 @@
                         class="form__file"
                         type="file"
                         wire:model.live="attachment"
-                        wire:change="upload"
                         style="display: none"
                     />
                     <label class="form__button form__button--text" for="attachment">

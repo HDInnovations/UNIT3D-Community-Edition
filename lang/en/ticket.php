@@ -15,6 +15,7 @@ return [
     'assign'               => 'Assign',
     'assigned-staff'       => 'Assigned Staff',
     'assigned-success'     => 'Helpdesk Ticket Was Assigned Successfully!',
+    'attachment-limit'     => '(max. 1MB per image)',
     'attachments'          => 'Attachments',
     'attachments-save'     => 'Save Attachments',
     'body'                 => 'Body',
