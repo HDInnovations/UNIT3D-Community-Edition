@@ -305,7 +305,7 @@ class ProcessAnnounce implements ShouldQueue
 
         // Either Client does not have IPv4 or
         // IPv4 announce will come in next request (qBittorrent)
-        return hex2bin('');
+        return (string) hex2bin('');
     }
 
     /**
@@ -324,6 +324,6 @@ class ProcessAnnounce implements ShouldQueue
             return $peer->ipv6;
         }
 
-        return hex2bin('');
+        return (string) hex2bin('');
     }
 }

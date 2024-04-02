@@ -75,11 +75,19 @@ readonly class AnnounceQueryDTO
 
     public function isIPv6(): bool
     {
+        if (!$this->ip) {
+            return false;
+        }
+
         return (bool) (filter_var(inet_ntop(hex2bin($this->ip)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
     }
 
     public function isReportedIPv4(): bool
     {
+        if (!$this->ipReported) {
+            return false;
+        }
+
         return (bool) (filter_var(inet_ntop(hex2bin($this->ipReported)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4));
     }
 }
