@@ -65,10 +65,47 @@
                     </form>
                 @endif
             </li>
-            <li class="nav-tabV2">
-                <button class="nav-tab__link" data-toggle="modal" data-target="#modal_user_report">
+            <li class="nav-tabV2" x-data="dialog">
+                <button class="nav-tab__link" x-bind="showDialog">
                     {{ __('user.report') }}
                 </button>
+                <dialog class="dialog" x-bind="dialogElement">
+                    <h3 class="dialog__heading">Report user: {{ $user->username }}</h3>
+                    <form
+                        class="dialog__form"
+                        method="POST"
+                        action="{{ route('report_user', ['username' => $user->username]) }}"
+                        x-bind="dialogForm"
+                    >
+                        @csrf
+                        <p class="form__group">
+                                        <textarea
+                                            id="report_reason"
+                                            class="form__textarea"
+                                            name="message"
+                                            required
+                                        ></textarea>
+                            <label
+                                class="form__label form__label--floating"
+                                for="report_reason"
+                            >
+                                Reason
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <button class="form__button form__button--filled">
+                                {{ __('common.save') }}
+                            </button>
+                            <button
+                                formmethod="dialog"
+                                formnovalidate
+                                class="form__button form__button--outlined"
+                            >
+                                {{ __('common.cancel') }}
+                            </button>
+                        </p>
+                    </form>
+                </dialog>
             </li>
         @endif
     </ul>
