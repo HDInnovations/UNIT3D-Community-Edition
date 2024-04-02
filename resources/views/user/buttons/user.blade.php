@@ -79,16 +79,13 @@
                     >
                         @csrf
                         <p class="form__group">
-                                        <textarea
-                                            id="report_reason"
-                                            class="form__textarea"
-                                            name="message"
-                                            required
-                                        ></textarea>
-                            <label
-                                class="form__label form__label--floating"
-                                for="report_reason"
-                            >
+                            <textarea
+                                id="report_reason"
+                                class="form__textarea"
+                                name="message"
+                                required
+                            ></textarea>
+                            <label class="form__label form__label--floating" for="report_reason">
                                 Reason
                             </label>
                         </p>
