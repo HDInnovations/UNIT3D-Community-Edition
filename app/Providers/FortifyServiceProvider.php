@@ -66,7 +66,7 @@ class FortifyServiceProvider extends ServiceProvider
                     $user->save();
 
                     return to_route('home.index')
-                        ->withSuccess('auth.welcome-restore');
+                        ->withSuccess(trans('auth.welcome-restore'));
                 }
 
                 // Check if user has read the rules
