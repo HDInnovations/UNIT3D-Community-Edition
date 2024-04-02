@@ -552,34 +552,30 @@ final class AnnounceController extends Controller
      */
     private function generateSuccessAnnounceResponse(AnnounceQueryDTO $queries, Torrent $torrent, User $user): string
     {
-        // Build Response For Bittorrent Client
-        // Keys must be ordered alphabetically
-        $response = 'd8:completei'
-            .$torrent->seeders
-            .'e10:downloadedi'
-            .$torrent->times_completed
-            .'e10:incompletei'
-            .$torrent->leechers
-            .'e8:intervali'
-            .random_int(self::MIN, self::MAX)
-            .'e12:min intervali'
-            .random_int(intdiv(self::MIN * 95, 100), self::MIN)
-            .'e';
-
         $peersIpv4 = '';
         $peersIpv6 = '';
         $peerCount = 0;
+        $seederCount = 0;
+        $leecherCount = 0;
 
         /**
          * For non `stopped` event only where either the torrent has at least one leech, or the user is a leech.
          * We query peers from database and send peerlist, otherwise just quick return.
          */
-        if ($queries->event !== 'stopped' && ($queries->left !== 0 || $torrent->leechers !== 0)) {
+        if ($queries->event !== 'stopped') {
             $limit = (min($queries->numwant, 25));
 
             // Get Torrents Peers (Only include leechers in a seeder's peerlist)
             if ($queries->left === 0) {
                 foreach ($torrent->peers as $peer) {
+                    if ($peer->active && $peer->seeder) {
+                        $seederCount++;
+                    }
+
+                    if ($peer->active && ! $peer->seeder) {
+                        $leecherCount++;
+                    }
+
                     // Don't include other seeders, inactive peers, invisible peers nor other peers belonging to the same user
                     if ($peer->seeder || !$peer->active || !$peer->visible || $peer->user_id === $user->id) {
                         continue;
@@ -602,6 +598,14 @@ final class AnnounceController extends Controller
                 }
             } else {
                 foreach ($torrent->peers as $peer) {
+                    if ($peer->active && $peer->seeder) {
+                        $seederCount++;
+                    }
+
+                    if ($peer->active && ! $peer->seeder) {
+                        $leecherCount++;
+                    }
+
                     // Don't include inactive peers, invisible peers, nor other peers belonging to the same user
                     if (!$peer->active || !$peer->visible || $peer->user_id === $user->id) {
                         continue;
@@ -624,6 +628,20 @@ final class AnnounceController extends Controller
                 }
             }
         }
+
+        // Build Response For Bittorrent Client
+        // Keys must be ordered alphabetically
+        $response = 'd8:completei'
+            .$seederCount
+            .'e10:downloadedi'
+            .$torrent->times_completed
+            .'e10:incompletei'
+            .$leecherCount
+            .'e8:intervali'
+            .random_int(self::MIN, self::MAX)
+            .'e12:min intervali'
+            .random_int(intdiv(self::MIN * 95, 100), self::MIN)
+            .'e';
 
         if ($peersIpv6 === '') {
             return $response.'5:peers'.\strlen($peersIpv4).':'.$peersIpv4.'e';
