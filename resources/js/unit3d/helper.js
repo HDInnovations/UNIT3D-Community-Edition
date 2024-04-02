@@ -74,6 +74,7 @@ class uploadExtensionBuilder {
         // Remux fix
         title = title.replace(/( +remux)( *)/i, ' REMUX$2');
         if (title.includes(' REMUX')) {
+            let lowerTitle;
             title = title.replace(/ Blu-ray /i, ' BluRay ');
             lowerTitle = title.toLowerCase();
             if (
