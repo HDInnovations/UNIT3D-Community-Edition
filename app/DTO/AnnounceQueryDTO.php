@@ -19,6 +19,7 @@ readonly class AnnounceQueryDTO
     private string $infoHash;
     private string $peerId;
     private string $ip;
+    private string $ipReported;
 
     public function __construct(
         public int $port,
@@ -33,11 +34,13 @@ readonly class AnnounceQueryDTO
         string $infoHash,
         string $peerId,
         string $ip,
+        string $ipReported,
     ) {
         $this->agent = bin2hex($agent);
         $this->infoHash = bin2hex($infoHash);
         $this->peerId = bin2hex($peerId);
         $this->ip = bin2hex($ip);
+        $this->ipReported = bin2hex($ipReported);
     }
 
     public function getAgent(): string
@@ -62,5 +65,21 @@ readonly class AnnounceQueryDTO
     {
         /** @var string */
         return hex2bin($this->ip);
+    }
+
+    public function getReportedIp(): string
+    {
+        /** @var string */
+        return hex2bin($this->ipReported);
+    }
+
+    public function isIPv6(): bool
+    {
+        return (bool) (filter_var(inet_ntop(hex2bin($this->ip)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
+    }
+
+    public function isReportedIPv4(): bool
+    {
+        return (bool) (filter_var(inet_ntop(hex2bin($this->ipReported)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4));
     }
 }

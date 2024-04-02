@@ -289,6 +289,7 @@ final class AnnounceController extends Controller
         // Part.4 Get request ip and convert it to packed form
         /** @var string $ip */
         $ip = inet_pton($request->getClientIp());
+        $ipReported = $request->query->get('ip') ? inet_pton($request->query->get('ip')) : '';
 
         return new AnnounceQueryDTO(
             (int) $queries['port'],
@@ -303,6 +304,7 @@ final class AnnounceController extends Controller
             (string) $queries['info_hash'],
             (string) $queries['peer_id'],
             $ip,
+            $ipReported,
         );
     }
 
@@ -411,7 +413,7 @@ final class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'port', 'updated_at'])
+            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'ipv6', 'port', 'updated_at'])
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
         );
@@ -581,15 +583,14 @@ final class AnnounceController extends Controller
                         continue;
                     }
 
-                    switch (\strlen((string) $peer['ip'])) {
-                        case 4:
-                            $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
-                            $peerCount++;
+                    if (\strlen((string) $peer['ip']) === 4) {
+                        $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
+                        $peerCount++;
+                    }
 
-                            break;
-                        case 16:
-                            $peersIpv6 .= $peer['ip'].pack('n', (int) $peer['port']);
-                            $peerCount++;
+                    if (\strlen((string) $peer['ipv6']) === 16) {
+                        $peersIpv6 .= $peer['ipv6'].pack('n', (int) $peer['port']);
+                        $peerCount++;
                     }
 
                     if ($peerCount >= $limit) {
@@ -611,15 +612,14 @@ final class AnnounceController extends Controller
                         continue;
                     }
 
-                    switch (\strlen((string) $peer['ip'])) {
-                        case 4:
-                            $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
-                            $peerCount++;
+                    if (\strlen((string) $peer['ip']) === 4) {
+                        $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
+                        $peerCount++;
+                    }
 
-                            break;
-                        case 16:
-                            $peersIpv6 .= $peer['ip'].pack('n', (int) $peer['port']);
-                            $peerCount++;
+                    if (\strlen((string) $peer['ipv6']) === 16) {
+                        $peersIpv6 .= $peer['ipv6'].pack('n', (int) $peer['port']);
+                        $peerCount++;
                     }
 
                     if ($peerCount >= $limit) {

@@ -55,7 +55,7 @@ class ProcessAnnounce implements ShouldQueue
      */
     public function middleware(): array
     {
-        return [new WithoutOverlapping($this->user->id.':'.$this->torrent->id)];
+        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(10)];
     }
 
     /**
@@ -67,7 +67,7 @@ class ProcessAnnounce implements ShouldQueue
         $event = $this->queries->event;
 
         $peer = Peer::query()
-            ->select(['active', 'left', 'uploaded', 'downloaded'])
+            ->select(['active', 'left', 'uploaded', 'downloaded', 'ip', 'ipv6'])
             ->where('user_id', '=', $this->user->id)
             ->where('torrent_id', '=', $this->torrent->id)
             ->where('peer_id', '=', $this->queries->getPeerId())
@@ -167,7 +167,8 @@ class ProcessAnnounce implements ShouldQueue
             config('cache.prefix').':peers:batch',
             serialize([
                 'peer_id'     => $this->queries->getPeerId(),
-                'ip'          => $this->queries->getIp(),
+                'ip'          => $this->getClientIPv4($peer),
+                'ipv6'        => $this->getClientIPv6($peer),
                 'port'        => $this->queries->port,
                 'agent'       => $this->queries->getAgent(),
                 'uploaded'    => $this->queries->uploaded,
@@ -278,5 +279,51 @@ class ProcessAnnounce implements ShouldQueue
         cache()->remember('peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
 
         return $connectable;
+    }
+
+    /**
+     * Get IPv4 Address from Client.
+     */
+    private function getClientIPv4(Peer $peer = null): string
+    {
+        // Announce received IPv4 only
+        if (!$this->queries->isIPv6()) {
+            return $this->queries->getIp();
+        }
+
+        // Announce received via IPv6
+        // IPv4 received via extra header (ruTorrent)
+        if ($this->queries->isReportedIPv4()) {
+            return $this->queries->getReportedIp();
+        }
+
+        // Announce received via IPv6 (qBittorrent)
+        // so we try to re-use the old IPv4 if available
+        if ($peer && $peer->ip) {
+            return $peer->ip;
+        }
+
+        // Either Client does not have IPv4 or
+        // IPv4 announce will come in next request (qBittorrent)
+        return hex2bin('');
+    }
+
+    /**
+     * Get IPv6 Address from Client.
+     */
+    private function getClientIPv6(Peer $peer = null): string
+    {
+        // Announce received via IPv6
+        if ($this->queries->isIPv6()) {
+            return $this->queries->getIp();
+        }
+
+        // Announce received via IPv4 (qBittorrent)
+        // so we try to re-use the old IPv6 if available
+        if ($peer && $peer->ipv6) {
+            return $peer->ipv6;
+        }
+
+        return hex2bin('');
     }
 }

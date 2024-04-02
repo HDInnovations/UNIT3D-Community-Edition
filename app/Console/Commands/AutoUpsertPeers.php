@@ -71,6 +71,7 @@ class AutoUpsertPeers extends Command
                     [
                         'peer_id',
                         'ip',
+                        'ipv6',
                         'port',
                         'agent',
                         'uploaded',
