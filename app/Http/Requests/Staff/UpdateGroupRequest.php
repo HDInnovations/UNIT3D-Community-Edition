@@ -44,7 +44,7 @@ class UpdateGroupRequest extends FormRequest
                     'required',
                     'string',
                 ]),
-                Rule::prohibitedIf($group->system_required),
+                Rule::prohibitedIf($group->system_required && $request->name !== $group->name),
             ],
             'position' => [
                 'required',
@@ -148,6 +148,18 @@ class UpdateGroupRequest extends FormRequest
                 'integer',
                 'min:0',
             ],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.prohibited' => 'You cannot change the name of a system required group.',
         ];
     }
 }
