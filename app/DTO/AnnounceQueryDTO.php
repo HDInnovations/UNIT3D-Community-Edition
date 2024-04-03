@@ -79,7 +79,10 @@ readonly class AnnounceQueryDTO
             return false;
         }
 
-        return (bool) (filter_var(inet_ntop(hex2bin((string) $this->ip)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
+        $ip = inet_ntop((string) hex2bin((string) $this->ip));
+
+        return ! (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
+        ;
     }
 
     public function isReportedIPv4(): bool
@@ -92,20 +95,17 @@ readonly class AnnounceQueryDTO
             return false;
         }
 
-        $ip = inet_ntop(hex2bin((string) $this->ipReported));
-
-        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
-            return false;
-        }
-
-        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
-            return false;
-        }
+        $ip = inet_ntop((string) hex2bin((string) $this->ipReported));
 
         if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             return false;
         }
 
-        return true;
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+            return false;
+        }
+
+        return ! (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE))
+        ;
     }
 }
