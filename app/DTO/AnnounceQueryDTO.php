@@ -79,15 +79,33 @@ readonly class AnnounceQueryDTO
             return false;
         }
 
-        return (bool) (filter_var(inet_ntop(hex2bin($this->ip)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
+        return (bool) (filter_var(inet_ntop(hex2bin((string) $this->ip)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6));
     }
 
     public function isReportedIPv4(): bool
     {
+        if (!config('announce.parse_extra_ip_field')) {
+            return false;
+        }
+
         if (!$this->ipReported) {
             return false;
         }
 
-        return (bool) (filter_var(inet_ntop(hex2bin($this->ipReported)), FILTER_VALIDATE_IP, FILTER_FLAG_IPV4));
+        $ip = inet_ntop(hex2bin((string) $this->ipReported));
+
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+            return false;
+        }
+
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE)) {
+            return false;
+        }
+
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            return false;
+        }
+
+        return true;
     }
 }
