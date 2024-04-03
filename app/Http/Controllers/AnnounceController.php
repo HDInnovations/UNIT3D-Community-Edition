@@ -458,10 +458,12 @@ final class AnnounceController extends Controller
 
         $now = (int) now()->timestamp;
 
+        $ip = $queries->isIPv6() ? 'ipv6' : 'ipv4';
+
         // Detect broken (namely qBittorrent) clients sending duplicate announces
         // and eliminate them from screwing up stats.
 
-        $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.$queries->getPeerId().'-'.$event;
+        $duplicateAnnounceKey = config('cache.prefix').'announce-lock:'.$user->id.'-'.$torrent->id.'-'.$queries->getPeerId().'-'.$event.'-'.$ip;
 
         $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$duplicateAnnounceKey, $now, ['NX', 'GET', 'EX' => 30]]);
 
@@ -471,7 +473,7 @@ final class AnnounceController extends Controller
 
         // Block clients disrespecting the min interval
 
-        $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.$queries->getPeerId();
+        $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.$queries->getPeerId().'-'.$ip;
 
         $randomMinInterval = random_int(intdiv(self::MIN * 85, 100), intdiv(self::MIN * 95, 100));
 
