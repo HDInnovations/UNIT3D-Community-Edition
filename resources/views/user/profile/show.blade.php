@@ -252,6 +252,7 @@
                             <tr>
                                 <th>{{ __('torrent.client') }}</th>
                                 <th>{{ __('common.ip') }}</th>
+                                <th>{{ __('common.ipv6') }}</th>
                                 <th>{{ __('common.port') }}</th>
                                 <th>{{ __('torrent.started') }}</th>
                                 <th>{{ __('torrent.last-update') }}</th>
@@ -267,13 +268,32 @@
                                     <td>{{ $client->agent }}</td>
                                     <td>
                                         @if (auth()->user()->group->is_modo)
-                                            <a
-                                                href="{{ route('staff.peers.index', ['ip' => $client->ip, 'groupBy' => 'user_ip']) }}"
-                                            >
-                                                {{ $client->ip }}
-                                            </a>
+                                            @if ($client->ip)
+                                                <a
+                                                    href="{{ route('staff.peers.index', ['ip' => $client->ip, 'groupBy' => 'user_ip']) }}"
+                                                >
+                                                    {{ $client->ip }}
+                                                </a>
+                                            @else
+                                                {{ __('common.unknown') }}
+                                            @endif
                                         @elseif (auth()->id() === $user->id)
-                                            {{ $client->ip }}
+                                            {{ $client->ip ?: __('common.unknown') }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if (auth()->user()->group->is_modo)
+                                            @if ($client->ipv6)
+                                                <a
+                                                    href="{{ route('staff.peers.index', ['ipv6' => $client->ipv6, 'groupBy' => 'user_ip']) }}"
+                                                >
+                                                    {{ $client->ipv6 }}
+                                                </a>
+                                            @else
+                                                {{ __('common.unknown') }}
+                                            @endif
+                                        @elseif (auth()->id() === $user->id)
+                                            {{ $client->ipv6 ?: __('common.unknown') }}
                                         @endif
                                     </td>
                                     <td>{{ $client->port }}</td>
@@ -295,7 +315,7 @@
                                     </td>
                                     <td>
                                         <a
-                                            href="{{ route('users.peers.index', ['user' => $user, 'ip' => $client->ip, 'port' => $client->port, 'client' => $client->agent]) }}"
+                                            href="{{ route('users.peers.index', ['user' => $user, 'ip' => $client->ip, 'ipv6' => $client->ipv6, 'port' => $client->port, 'client' => $client->agent]) }}"
                                         >
                                             {{ $client->num_peers }}
                                         </a>

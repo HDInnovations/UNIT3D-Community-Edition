@@ -43,6 +43,9 @@ class UserActive extends Component
     public string $ip = '';
 
     #[Url(history: true)]
+    public string $ipv6 = '';
+
+    #[Url(history: true)]
     public string $port = '';
 
     #[Url(history: true)]
@@ -105,6 +108,7 @@ class UserActive extends Component
                 'torrents.times_completed',
             )
             ->selectRaw('INET6_NTOA(ip) as ip')
+            ->selectRaw('INET6_NTOA(ipv6) as ipv6')
             ->selectRaw('(1 - (peers.left / NULLIF(torrents.size, 0))) AS progress')
             ->where('peers.user_id', '=', $this->user->id)
             ->when(
@@ -113,6 +117,7 @@ class UserActive extends Component
                     ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when($this->ip !== '', fn ($query) => $query->having('ip', '=', $this->ip))
+            ->when($this->ipv6 !== '', fn ($query) => $query->having('ipv6', '=', $this->ipv6))
             ->when($this->port !== '', fn ($query) => $query->where('port', '=', $this->port))
             ->when($this->client !== '', fn ($query) => $query->where('agent', '=', $this->client))
             ->when($this->seeding === 'include', fn ($query) => $query->where('seeder', '=', 1))

@@ -90,8 +90,8 @@ class UserController extends Controller
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->select('agent', 'port')
-                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
-                ->groupBy(['ip', 'port', 'agent'])
+                ->selectRaw('INET6_NTOA(ip) as ip, INET6_NTOA(ipv6) as ipv6, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
+                ->groupBy(['ip', 'ipv6', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
             'achievements' => AchievementProgress::with('details')

@@ -61,6 +61,7 @@
                         <th>{{ __('torrent.left') }}</th>
                         <th>{{ __('torrent.client') }}</th>
                         <th>{{ __('common.ip') }}</th>
+                        <th>{{ __('common.ipv6') }}</th>
                         <th>{{ __('common.port') }}</th>
                         @if (\config('announce.connectable_check') == true)
                             <th>Connectable</th>
@@ -95,12 +96,55 @@
                             </td>
                             <td>{{ \App\Helpers\StringHelper::formatBytes($peer->left, 2) }}</td>
                             <td>{{ $peer->agent }}</td>
-
                             @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
-                                <td>{{ $peer->ip }}</td>
+                                <td>
+                                    @if ($peer->ip)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                        ></i>
+                                        {{ $peer->ip }}
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-x"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($peer->ipv6)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                        ></i>
+                                        {{ $peer->ipv6 }}
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-x"
+                                        ></i>
+                                    @endif
+                                </td>
                                 <td>{{ $peer->port }}</td>
                             @else
-                                <td>---</td>
+                                <td>
+                                    @if ($peer->ip)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-x"
+                                        ></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($peer->ipv6)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} text-red fa-x"
+                                        ></i>
+                                    @endif
+                                </td>
                                 <td>---</td>
                             @endif
                             @if (\config('announce.connectable_check') == true)
