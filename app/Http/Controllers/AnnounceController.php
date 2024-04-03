@@ -289,7 +289,7 @@ final class AnnounceController extends Controller
         // Part.4 Get request ip and convert it to packed form
         /** @var string $ip */
         $ip = inet_pton($request->getClientIp());
-        $ipReported = $request->query->get('ip') ? (string) inet_pton($request->query->get('ip')) : '';
+        $ipReported = $request->query->get('ip') ? (string) inet_pton((string) $request->query->get('ip')) : '';
 
         return new AnnounceQueryDTO(
             (int) $queries['port'],
