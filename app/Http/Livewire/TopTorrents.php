@@ -87,21 +87,39 @@ class TopTorrents extends Component
                 END as meta
             ")
             ->withCount(['thanks', 'comments'])
-            ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('id'))
-            ->when($this->tab === 'seeded', fn ($query) => $query->orderByDesc('seeders'))
+            ->when(
+                $this->tab === 'newest',
+                fn ($query) => $query
+                    ->orderByDesc('id')
+            )
+            ->when(
+                $this->tab === 'seeded',
+                fn ($query) => $query
+                    ->orderByDesc('seeders')
+            )
             ->when(
                 $this->tab === 'dying',
                 fn ($query) => $query
-                    ->where('seeders', '=', 1)
+                    ->where('seeders', '>=', 1)
                     ->where('times_completed', '>=', 1)
-                    ->orderByDesc('leechers')
+                    ->orderBy('seeders', 'asc')
+                    ->orderBy('leechers', 'desc')
+                    ->orderBy('times_completed', 'desc')
             )
-            ->when($this->tab === 'leeched', fn ($query) => $query->orderByDesc('leechers'))
+            ->when(
+                $this->tab === 'leeched',
+                fn ($query) => $query
+                    ->orderBy('leechers', 'desc')
+                    ->orderBy('seeders', 'desc')
+                    ->orderBy('times_completed', 'desc')
+            )
             ->when(
                 $this->tab === 'dead',
                 fn ($query) => $query
                     ->where('seeders', '=', 0)
-                    ->orderByDesc('leechers')
+                    ->orderBy('leechers', 'desc')
+                    ->orderBy('times_completed','desc')
+                    ->orderBy('id','asc')
             )
             ->take(5)
             ->get();
