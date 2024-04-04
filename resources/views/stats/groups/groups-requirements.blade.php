@@ -175,6 +175,7 @@
                                                 DL Slots: {{ $group->download_slots ?? '∞' }}
                                             </td>
                                         </tr>
+
                                         @if ($group->can_upload)
                                             <tr>
                                                 <td>
@@ -183,6 +184,17 @@
                                                     ></i>
                                                     {{ __('common.upload') }}
                                                     {{ __('torrent.torrents') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if (\in_array($group->name, config('other.invite_groups'), true))
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="{{ config('other.font-awesome') }} fa-paper-plane"
+                                                    ></i>
+                                                    {{ __('user.send-invite') }}
                                                 </td>
                                             </tr>
                                         @endif
