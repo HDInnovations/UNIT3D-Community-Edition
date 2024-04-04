@@ -165,7 +165,7 @@
                                 @endif
                             </td>
                             <td>
-                                <table class="data-table">
+                                <table class="data-table perks-table">
                                     <tbody>
                                         <tr>
                                             <td>
