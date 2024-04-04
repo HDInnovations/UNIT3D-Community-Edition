@@ -21,5 +21,10 @@ return new class () extends Migration {
     public function up(): void
     {
         DB::statement('ALTER TABLE `peers` MODIFY `ipv6` VARBINARY(16) NOT NULL');
+
+        // Migrate existing IPv6 addresses to new column
+        DB::statement('UPDATE `peers` SET `ipv6` = `ip` WHERE LENGTH(`ip`) = 16');
+        // Remove old IPv6 addresses from old column
+        DB::statement('UPDATE `peers` SET `ip` = "" WHERE LENGTH(`ip`) = 16');
     }
 };
