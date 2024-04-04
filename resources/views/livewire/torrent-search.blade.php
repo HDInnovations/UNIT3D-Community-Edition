@@ -76,30 +76,25 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
-                        <input
-                            id="startYear"
-                            wire:model.live="startYear"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
-                        <label class="form__label form__label--floating" for="startYear">
-                            {{ __('torrent.start-year') }}
-                        </label>
+                        <label :class="{'label-float': selectedStartYear}" for="startYear">{{ __('torrent.start-year') }}</label>
+                        <select id="startYear" wire:model.live="startYear" class="form__select">
+                            <option value="">{{ __('') }}</option>
+                            @php
+                            $currentYear = date('Y');
+                            @endphp
+                            @for ($year = $currentYear; $year >= 1888; $year--)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                            @endfor
+                        </select>
                     </p>
                     <p class="form__group">
-                        <input
-                            id="endYear"
-                            wire:model.live="endYear"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
-                        <label class="form__label form__label--floating" for="endYear">
-                            {{ __('torrent.end-year') }}
-                        </label>
+                        <label :class="{'label-float': selectedendYear}" for="endYear">{{ __('torrent.end-year') }}</label>
+                        <select id="endYear" wire:model.live="endYear" class="form__select">
+                            <option value="">{{ __('') }}</option>
+                            @for ($year = $currentYear; $year >= 1888; $year--)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                            @endfor
+                        </select>
                     </p>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
