@@ -15,3 +15,21 @@
     display: table;
     table-layout: fixed;
 }
+
+@media only screen and (max-width: 806px) {
+    .data-table > thead {
+        display: none;
+    }
+
+    .data-table:not(.requirements-table):not(.perks-table) > tbody > tr {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        margin-bottom: 20px;
+    }
+
+    .data-table > tbody > tr > td {
+        text-align: center;
+    }
+}
