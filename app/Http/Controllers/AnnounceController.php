@@ -569,64 +569,38 @@ final class AnnounceController extends Controller
         if ($queries->event !== 'stopped') {
             $limit = (min($queries->numwant, 25));
 
-            // Get Torrents Peers (Only include leechers in a seeder's peerlist)
-            if ($queries->left === 0) {
-                foreach ($torrent->peers as $peer) {
-                    if ($peer->active && $peer->seeder) {
-                        $seederCount++;
-                    }
-
-                    if ($peer->active && ! $peer->seeder) {
-                        $leecherCount++;
-                    }
-
-                    // Don't include other seeders, inactive peers, invisible peers nor other peers belonging to the same user
-                    if ($peer->seeder || !$peer->active || !$peer->visible || $peer->user_id === $user->id) {
-                        continue;
-                    }
-
-                    if (\strlen((string) $peer['ip']) === 4) {
-                        $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
-                        $peerCount++;
-                    }
-
-                    if (\strlen((string) $peer['ipv6']) === 16) {
-                        $peersIpv6 .= $peer['ipv6'].pack('n', (int) $peer['port']);
-                        $peerCount++;
-                    }
-
-                    if ($peerCount >= $limit) {
-                        break;
-                    }
+            foreach ($torrent->peers as $peer) {
+                if ($peer->active && $peer->seeder && $peer->visible) {
+                    $seederCount++;
                 }
-            } else {
-                foreach ($torrent->peers as $peer) {
-                    if ($peer->active && $peer->seeder) {
-                        $seederCount++;
-                    }
 
-                    if ($peer->active && ! $peer->seeder) {
-                        $leecherCount++;
-                    }
+                if ($peer->active && ! $peer->seeder && $peer->visible) {
+                    $leecherCount++;
+                }
 
-                    // Don't include inactive peers, invisible peers, nor other peers belonging to the same user
-                    if (!$peer->active || !$peer->visible || $peer->user_id === $user->id) {
-                        continue;
-                    }
+                // Only include leechers in a seeder's peerlist
+                // Seeders: Don't include other seeders, inactive peers, invisible peers nor other peers belonging to the same user
+                if ($queries->left === 0 && ($peer->seeder || !$peer->active || !$peer->visible || $peer->user_id === $user->id)) {
+                    continue;
+                }
 
-                    if (\strlen((string) $peer['ip']) === 4) {
-                        $peersIpv4 .= $peer['ip'].pack('n', (int) $peer['port']);
-                        $peerCount++;
-                    }
+                // Leechers: Don't include inactive peers, invisible peers, nor other peers belonging to the same user
+                if ($queries->left !== 0 && (!$peer->active || !$peer->visible || $peer->user_id === $user->id)) {
+                    continue;
+                }
 
-                    if (\strlen((string) $peer['ipv6']) === 16) {
-                        $peersIpv6 .= $peer['ipv6'].pack('n', (int) $peer['port']);
-                        $peerCount++;
-                    }
+                if (\strlen((string) $peer->ip) === 4) {
+                    $peersIpv4 .= $peer->ip.pack('n', (int) $peer->port);
+                    $peerCount++;
+                }
 
-                    if ($peerCount >= $limit) {
-                        break;
-                    }
+                if (\strlen((string) $peer->ipv6) === 16) {
+                    $peersIpv6 .= $peer->ipv6.pack('n', (int) $peer->port);
+                    $peerCount++;
+                }
+
+                if ($peerCount >= $limit) {
+                    break;
                 }
             }
         }
