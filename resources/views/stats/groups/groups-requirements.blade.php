@@ -188,7 +188,7 @@
                                             </tr>
                                         @endif
 
-                                        @if (!config('other.invites_restriced') || (config('other.invites_restriced') && \in_array($group->name, config('other.invite_groups'), true)))
+                                        @if (! config('other.invites_restriced') || (config('other.invites_restriced') && \in_array($group->name, config('other.invite_groups'), true)))
                                             <tr>
                                                 <td>
                                                     <i
