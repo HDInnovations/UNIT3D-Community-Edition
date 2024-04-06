@@ -50,6 +50,8 @@ class TorrentHelper
         $torrent->moderated_at = now();
         $torrent->moderated_by = auth()->id();
 
+        $uploader = $torrent->user;
+
         if (!$torrent->free) {
             $autoFreeleechs = AutomaticTorrentFreeleech::query()
                 ->orderBy('position')
@@ -57,20 +59,19 @@ class TorrentHelper
                 ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
                 ->where(fn ($query) => $query->whereNull('resolution_id')->orWhere('resolution_id', '=', $torrent->resolution_id))
                 ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
+                ->where(fn ($query) => $query->whereNull('group_id')->orWhere('group_id', '=', $uploader->group_id))
                 ->get();
 
             foreach ($autoFreeleechs as $autoFreeleech) {
                 if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
                     $torrent->free = $autoFreeleech->freeleech_percentage;
-
+                    $torrent->doubleup = $autoFreeleech->is_double_upload;
                     break;
                 }
             }
         }
 
         $torrent->save();
-
-        $uploader = $torrent->user;
 
         $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
 

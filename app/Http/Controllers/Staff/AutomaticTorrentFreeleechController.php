@@ -18,6 +18,7 @@ use App\Http\Requests\Staff\StoreAutomaticTorrentFreeleechRequest;
 use App\Http\Requests\Staff\UpdateAutomaticTorrentFreeleechRequest;
 use App\Models\AutomaticTorrentFreeleech;
 use App\Models\Category;
+use App\Models\Group;
 use App\Models\Resolution;
 use App\Models\Type;
 
@@ -36,6 +37,7 @@ class AutomaticTorrentFreeleechController extends Controller
             'categories'  => Category::orderBy('position')->get(),
             'resolutions' => Resolution::orderBy('position')->get(),
             'types'       => Type::orderBy('position')->get(),
+            'groups'      => Group::orderBy('position')->get(),
         ]);
     }
 
@@ -54,6 +56,7 @@ class AutomaticTorrentFreeleechController extends Controller
             'categories'                => Category::orderBy('position')->get(),
             'resolutions'               => Resolution::orderBy('position')->get(),
             'types'                     => Type::orderBy('position')->get(),
+            'groups'                    => Group::orderBy('position')->get(),
         ]);
     }
 

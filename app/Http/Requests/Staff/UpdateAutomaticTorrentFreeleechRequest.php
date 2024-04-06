@@ -39,7 +39,9 @@ class UpdateAutomaticTorrentFreeleechRequest extends FormRequest
             'category_id'          => ['nullable', 'integer', 'exists:categories,id'],
             'type_id'              => ['nullable', 'integer', 'exists:types,id'],
             'resolution_id'        => ['nullable', 'integer', 'exists:resolutions,id'],
+            'group_id'             => ['nullable', 'integer', 'exists:groups,id'],
             'freeleech_percentage' => ['required', 'integer', 'max:100', 'min:0'],
+            'is_double_upload'     => ['required', 'boolean'],
         ];
     }
 }

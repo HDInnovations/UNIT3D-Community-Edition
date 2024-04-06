@@ -124,6 +124,22 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <select id="group_id" name="group_id" class="form__select">
+                        <option hidden disabled selected value="">Any</option>
+                        @foreach ($groups as $group)
+                            <option
+                                value="{{ $group->id }}"
+                                @selected(old('group_id') == $group->id)
+                            >
+                                {{ $group->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <label class="form__label form__label--floating" for="group_id">
+                        {{ __('common.group') }}
+                    </label>
+                </p>
+                <p class="form__group">
                     <input
                         type="text"
                         name="freeleech_percentage"
@@ -136,6 +152,19 @@
                     />
                     <label class="form__label form__label--floating" for="freeleech_percentage">
                         Freeleech Percentage
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input name="is_double_upload" type="hidden" value="0" />
+                    <input
+                        id="is_double_upload"
+                        class="form__checkbox"
+                        name="is_double_upload"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="is_double_upload">
+                        Double Upload
                     </label>
                 </p>
                 <p class="form__group">
@@ -153,7 +182,7 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
             When a torrent is uploaded that meets the given criteria, the specified freeleech
-            percentage will be automatically applied.
+            percentage and double upload will be automatically applied.
         </div>
     </section>
 @endsection
