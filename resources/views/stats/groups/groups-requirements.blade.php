@@ -28,7 +28,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.groups') }}</h2>
         <div class="data-table-wrapper">
-            <table class="data-table">
+            <table class="data-table stats__groups-table">
                 <thead>
                     <tr>
                         <th>{{ __('common.group') }}</th>
@@ -53,7 +53,7 @@
                             </td>
                             <td>
                                 @if ($group->autogroup)
-                                    <table class="data-table requirements-table">
+                                    <table class="stats__requirements-table">
                                         <thead>
                                             <tr>
                                                 <td></td>
@@ -165,7 +165,7 @@
                                 @endif
                             </td>
                             <td>
-                                <table class="data-table perks-table">
+                                <table class="stats__perks-table">
                                     <tbody>
                                         <tr>
                                             <td>
