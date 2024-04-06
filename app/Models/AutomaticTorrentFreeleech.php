@@ -51,4 +51,14 @@ class AutomaticTorrentFreeleech extends Model
     {
         return $this->belongsTo(Resolution::class);
     }
+
+    /**
+     * Belongs To A Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
+     */
+    public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
 }

@@ -34,7 +34,9 @@
                         <th>{{ __('common.category') }}</th>
                         <th>{{ __('common.type') }}</th>
                         <th>{{ __('common.resolution') }}</th>
+                        <th>{{ __('common.group') }}</th>
                         <th>Freeleech Percentage</th>
+                        <th>Double Upload</th>
                         <th>{{ __('common.created_at') }}</th>
                         <th>{{ __('torrent.updated_at') }}</th>
                         <th>{{ __('common.actions') }}</th>
@@ -51,7 +53,19 @@
                             <td>{{ $automaticTorrentFreeleech->category?->name ?? 'Any' }}</td>
                             <td>{{ $automaticTorrentFreeleech->type?->name ?? 'Any' }}</td>
                             <td>{{ $automaticTorrentFreeleech->resolution?->name ?? 'Any' }}</td>
+                            <td>{{ $automaticTorrentFreeleech->group?->name ?? 'Any' }}</td>
                             <td>{{ $automaticTorrentFreeleech->freeleech_percentage }}</td>
+                            <td>
+                                @if ($automaticTorrentFreeleech->is_double_upload)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $automaticTorrentFreeleech->created_at }}"
@@ -114,7 +128,7 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
             When a torrent is uploaded that meets the given criteria, the specified freeleech
-            percentage will be automatically applied.
+            percentage and double upload will be automatically applied.
         </div>
     </section>
 @endsection
