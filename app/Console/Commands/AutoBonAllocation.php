@@ -56,9 +56,7 @@ class AutoBonAllocation extends Command
         $bonAllocations = [];
 
         foreach ($peersWithTorrents as $peerSeedingTorrent) {
-            $seederBonus = calculateSeederBonus($peerSeedingTorrent->seeder_count);
-            $sizeInGB = ceil($byteUnits->toGigabytes($peerSeedingTorrent->size));
-            $totalBON = $seederBonus * $sizeInGB;
+            $totalBON = $this->calculateBonusForTorrent($peerSeedingTorrent->seeder_count, $peerSeedingTorrent->size, $byteUnits);
         
             // Accumulate bonuses per user
             if (isset($bonAllocations[$peerSeedingTorrent->user_id])) {
@@ -90,6 +88,28 @@ class AutoBonAllocation extends Command
     }
 
     /**
+     * Calculate bonus points for a single torrent based on seeder scarcity and size.
+     *
+     * @param int $seederCount The number of seeders for the torrent.
+     * @param int $size The size of the torrent in bytes.
+     * @param ByteUnits $byteUnits ByteUnits service for converting bytes to gigabytes.
+     * @return float The calculated bonus points for the torrent.
+     */
+    protected function calculateBonusForTorrent(int $seederCount, int $size, $byteUnits): float
+    {
+        $seederBonus = $this->calculateSeederBonus($seederCount);
+        // Ensure size is at least 1 GB for calculation, converting size to GB
+        $sizeInGB = max(1, ceil($this->byteUnits->toGigabytes($size)));
+
+        // Apply logarithmic scaling factor
+        $scale = 0.5;
+        $sizeMultiplier = log(max(1, $sizeInGB)) + 1; // Ensure a minimum value for multiplier
+        $sizeMultiplier = $sizeMultiplier * $scale; // Adjust multiplier by scale
+
+        return $seederBonus * $sizeMultiplier;
+    }
+
+    /**
      * Calculate the bonus points based on the number of seeders.
      */
     protected function calculateSeederBonus(int $seederCount): float
@@ -109,7 +129,6 @@ class AutoBonAllocation extends Command
         } elseif ($seederCount >= 36 && $seederCount <= 49) {
             return 0.75;
         }
-
 
         return 0.5; // Base amount for 50 or more seeders
     }

@@ -23,177 +23,68 @@
 @section('page', 'page__bonus--index')
 
 @section('main')
-    <section class="panelV2" x-data="toggle">
+    <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('bon.earnings') }}</h2>
-            <div class="panel__actions">
-                <label class="panel__action">
-                    {{ __('bon.extended-stats') }}
-                    <input type="checkbox" x-model="toggleState" />
-                </label>
-            </div>
         </header>
+        <div class="panel__body">
+            <p>
+                {{ __('Your bonus earnings are influenced by the number of seeders a torrent has and the size of the torrent you're seeding. Below, you will find detailed explanations on how these factors affect your bonuses:') }}
+            </p>
+            <p>
+                <strong>{{ __('Seeder Bonus Calculation:') }}</strong>
+                {{ __('Bonus points vary based on the scarcity of seeders:') }}
+                <ul>
+                    <li>1 seeder: <strong>10 points</strong></li>
+                    <li>2 seeders: <strong>5 points</strong></li>
+                    <li>3-5 seeders: <strong>3 points</strong></li>
+                    <li>6-9 seeders: <strong>2 points</strong></li>
+                    <li>10-19 seeders: <strong>1.5 points</strong></li>
+                    <li>20-35 seeders: <strong>1 point</strong></li>
+                    <li>36-49 seeders: <strong>0.75 points</strong></li>
+                    <li>50+ seeders: <strong>0.5 points</strong>, the base amount</li>
+                </ul>
+            </p>
+            <p>
+                <strong>{{ __('Size Multiplier Formula:') }}</strong>
+                {{ __('The size of the torrent also plays a significant role in determining your bonus. Torrent sizes are rounded up to the nearest GB, with a formula applied to calculate the size multiplier as follows:') }}
+                <br>
+                <em>Size Multiplier = (log(sizeInGB) + 1) * 0.5</em>
+                <br>
+                {{ __('This adjustment, with a scale factor set at 0.5, ensures an equitable reward system across different torrent sizes.') }}
+            </p>
+            <p>
+                <strong>{{ __('Examples with Updated Scale Factor:') }}</strong>
+                Assuming a base seeder bonus of 1 (for simplicity), here's how different torrent sizes would affect your bonus:
+                <ul>
+                    <li>1GB torrent: Size Multiplier = (log(1) + 1) * 0.5 ≈ 0.5</li>
+                    <li>10GB torrent: Size Multiplier = (log(10) + 1) * 0.5 ≈ 1.65</li>
+                    <li>20GB torrent: Size Multiplier = (log(20) + 1) * 0.5 ≈ 2</li>
+                    <li>50GB torrent: Size Multiplier = (log(50) + 1) * 0.5 ≈ 2.45</li>
+                    <li>100GB torrent: Size Multiplier = (log(100) + 1) * 0.5 ≈ 2.80</li>
+                </ul>
+                {{ __('These multipliers, when applied alongside the seeder bonus, calculate the total bonus for seeding each torrent, rewarding your contributions to the community.') }}
+            </p>
+        </div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>{{ __('common.name') }}</th>
-                        <th>{{ __('common.description') }}</th>
-                        <th>Per {{ __('torrent.torrent') }}</th>
                         <th>Hourly</th>
-                        <th x-cloak x-show="isToggledOn">Daily</th>
-                        <th x-cloak x-show="isToggledOn">Weekly</th>
-                        <th x-cloak x-show="isToggledOn">Monthly</th>
+                        <th>Daily</th>
+                        <th>Weekly</th>
+                        <th>Monthly</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Simplified Display Row for Total Earnings -->
                     <tr>
-                        <td>{{ __('torrent.dying-torrent') }}</td>
-                        <td>{{ __('torrent.last-seeder') }}</td>
-                        <td>2.00 &times; {{ $dying }}</td>
-                        <td>{{ $dying * 2 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $dying * 2 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $dying * 2 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $dying * 2 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.legendary-torrent') }}</td>
-                        <td>
-                            {{ __('common.older-than') }} 12 {{ strtolower(__('common.months')) }}
-                        </td>
-                        <td>1.50 &times; {{ $legendary }}</td>
-                        <td>{{ $legendary * 1.5 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legendary * 1.5 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legendary * 1.5 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legendary * 1.5 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.old-torrent') }}</td>
-                        <td>
-                            {{ __('common.older-than') }} 6 {{ strtolower(__('common.months')) }}
-                        </td>
-                        <td>1.00 &times; {{ $old }}</td>
-                        <td>{{ $old * 1 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $old * 1 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $old * 1 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $old * 1 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('common.huge') }} {{ __('torrent.torrents') }}</td>
-                        <td>
-                            {{ __('torrent.torrent') }} {{ __('torrent.size') }} &gt; 100&nbsp;GiB
-                        </td>
-                        <td>0.75 &times; {{ $huge }}</td>
-                        <td>{{ $huge * 0.75 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $huge * 0.75 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $huge * 0.75 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $huge * 0.75 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('common.large') }} {{ __('torrent.torrents') }}</td>
-                        <td>
-                            {{ __('torrent.torrent') }} {{ __('torrent.size') }} &ge; 25&nbsp;GiB
-                            {{ strtolower(__('common.but')) }} < 100GiB
-                        </td>
-                        <td>0.50 &times; {{ $large }}</td>
-                        <td>{{ $large * 0.5 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $large * 0.5 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $large * 0.5 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $large * 0.5 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('common.everyday') }} {{ __('torrent.torrents') }}</td>
-                        <td>
-                            {{ __('torrent.torrent') }} {{ __('torrent.size') }} &ge; 1&nbsp;GiB
-                            {{ strtolower(__('common.but')) }} < 25GiB
-                        </td>
-                        <td>0.25 &times; {{ $regular }}</td>
-                        <td>{{ $regular * 0.25 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $regular * 0.25 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $regular * 0.25 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $regular * 0.25 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.legendary-seeder') }}</td>
-                        <td>
-                            {{ __('torrent.seed-time') }} &ge; 1
-                            {{ strtolower(__('common.year')) }}
-                        </td>
-                        <td>2.00 &times; {{ $legend }}</td>
-                        <td>{{ $legend * 2 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legend * 2 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legend * 2 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $legend * 2 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.mvp') }} {{ __('torrent.seeder') }}</td>
-                        <td>
-                            {{ __('torrent.seed-time') }} &ge; 6
-                            {{ strtolower(__('common.months')) }}
-                            {{ strtolower(__('common.but')) }} < 1
-                            {{ strtolower(__('common.year')) }}
-                        </td>
-                        <td>1.00 &times; {{ $mvp }}</td>
-                        <td>{{ $mvp * 1 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $mvp * 1 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $mvp * 1 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $mvp * 1 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.commited') }} {{ __('torrent.seeder') }}</td>
-                        <td>
-                            {{ __('torrent.seed-time') }} &ge; 3
-                            {{ strtolower(__('common.months')) }}
-                            {{ strtolower(__('common.but')) }} < 6
-                            {{ strtolower(__('common.months')) }}
-                        </td>
-                        <td>0.75 &times; {{ $committed }}</td>
-                        <td>{{ $committed * 0.75 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $committed * 0.75 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $committed * 0.75 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $committed * 0.75 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.team-player') }} {{ __('torrent.seeder') }}</td>
-                        <td>
-                            {{ __('torrent.seed-time') }} &ge; 2
-                            {{ strtolower(__('common.months')) }}
-                            {{ strtolower(__('common.but')) }} < 3
-                            {{ strtolower(__('common.months')) }}
-                        </td>
-                        <td>0.50 &times; {{ $teamplayer }}</td>
-                        <td>{{ $teamplayer * 0.5 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $teamplayer * 0.5 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $teamplayer * 0.5 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $teamplayer * 0.5 * 24 * 30 }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ __('torrent.participant') }} {{ __('torrent.seeder') }}</td>
-                        <td>
-                            {{ __('torrent.seed-time') }} &ge; 1
-                            {{ strtolower(__('common.month')) }}
-                            {{ strtolower(__('common.but')) }} < 2
-                            {{ strtolower(__('common.months')) }}
-                        </td>
-                        <td>0.25 &times; {{ $participant }}</td>
-                        <td>{{ $participant * 0.25 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $participant * 0.25 * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $participant * 0.25 * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">
-                            {{ $participant * 0.25 * 24 * 30 }}
-                        </td>
+                        <td>{{ number_format($total, 2) }}</td>
+                        <td>{{ number_format($total * 24, 2) }}</td>
+                        <td>{{ number_format($total * 24 * 7, 2) }}</td>
+                        <td>{{ number_format($total * 24 * 30, 2) }}</td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2">{{ __('bon.total') }}</td>
-                        <td></td>
-                        <td>{{ $total }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $total * 24 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $total * 24 * 7 }}</td>
-                        <td x-cloak x-show="isToggledOn">{{ $total * 24 * 30 }}</td>
-                    </tr>
-                </tfoot>
             </table>
         </div>
     </section>
