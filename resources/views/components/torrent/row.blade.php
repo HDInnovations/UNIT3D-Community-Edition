@@ -18,7 +18,7 @@
     data-mal-id="{{ $torrent->mal }}"
     data-category-id="{{ $torrent->category_id }}"
     data-type-id="{{ $torrent->type_id }}"
-    data-type-id="{{ $torrent->resolution_id }}"
+    data-resolution-id="{{ $torrent->resolution_id }}"
 >
     @if (auth()->user()->show_poster == 1)
         <td class="torrent-search--list__poster">
