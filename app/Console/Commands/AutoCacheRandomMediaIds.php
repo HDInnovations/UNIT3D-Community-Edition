@@ -56,11 +56,11 @@ class AutoCacheRandomMediaIds extends Command
 
         $cacheKey = config('cache.prefix').':random-media-movie-ids';
 
-        Redis::connection('cache')->command('SADD', [$cacheKey, ...$movieIds]);
+        Redis::connection('cache')->sadd($cacheKey, ...$movieIds);
 
         $cacheKey = config('cache.prefix').':random-media-tv-ids';
 
-        Redis::connection('cache')->command('SADD', [$cacheKey, ...$tvIds]);
+        Redis::connection('cache')->sadd($cacheKey, ...$tvIds);
 
         $this->comment($movieIds->count().' movie ids and '.$tvIds->count().' tv ids cached.');
     }
