@@ -79,10 +79,12 @@ class TorrentController extends BaseController
                 )
                 ->latest('sticky')
                 ->latest('bumped_at')
-                ->paginate(25);
+                ->cursorPaginate(25);
 
             // See app/Traits/TorrentMeta.php
-            return $this->scopeMeta($torrents);
+            $this->scopeMeta($torrents);
+
+            return $torrents;
         });
 
         return new TorrentsResource($torrents);
@@ -499,7 +501,7 @@ class TorrentController extends BaseController
         $cacheKey = $url.'?'.$queryString;
 
         $torrents = cache()->remember($cacheKey, 300, function () use ($request, $isRegex) {
-            $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region'])
+            $torrents = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region', 'files'])
                 ->select('*')
                 ->selectRaw("
                     CASE
@@ -546,10 +548,12 @@ class TorrentController extends BaseController
                 ->when($request->filled('episodeNumber'), fn ($query) => $query->ofEpisode((int) $request->episodeNumber))
                 ->latest('sticky')
                 ->orderBy($request->input('sortField') ?? $this->sortField, $request->input('sortDirection') ?? $this->sortDirection)
-                ->paginate(min($request->input('perPage') ?? $this->perPage, 100));
+                ->cursorPaginate(min($request->input('perPage') ?? $this->perPage, 100));
 
             // See app/Traits/TorrentMeta.php
-            return $this->scopeMeta($torrents);
+            $this->scopeMeta($torrents);
+
+            return $torrents;
         });
 
         if ($torrents !== null) {
