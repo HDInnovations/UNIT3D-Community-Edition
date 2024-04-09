@@ -809,6 +809,43 @@
 
         @switch(true)
             @case($view === 'list')
+                @if ($checked && $user->group->is_owner)
+                    <menu style="list-style-type: none; padding: 0; margin: 0">
+                        <li>
+                            <button
+                                class="form__button form__button--filled"
+                                wire:click="alertConfirm()"
+                            >
+                                Delete ({{ count($checked) }})
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="form__button form__button--filled"
+                                wire:click="alertConfirm()"
+                            >
+                                Edit Category ({{ count($checked) }})
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="form__button form__button--filled"
+                                wire:click="alertConfirm()"
+                            >
+                                Freeleech ({{ count($checked) }})
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="form__button form__button--filled"
+                                wire:click="alertConfirm()"
+                            >
+                                Double Upload ({{ count($checked) }})
+                            </button>
+                        </li>
+                    </menu>
+                @endif
+
                 <div class="data-table-wrapper torrent-search--list__results">
                     <table class="data-table">
                         <thead>
@@ -878,6 +915,15 @@
                                     {{ __('torrent.age') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
+                                @if ($user->group->is_owner)
+                                    <th>
+                                        <input
+                                            type="checkbox"
+                                            wire:model.live="selectPage"
+                                            style="vertical-align: middle"
+                                        />
+                                    </th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -1065,52 +1111,144 @@
         @endswitch
         {{ $torrents->links('partials.pagination') }}
     </section>
-    <script src="{{ asset('build/unit3d/virtual-select.js') }}" crossorigin="anonymous"></script>
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        document.addEventListener('livewire:init', function () {
-          let myRegions = [
-              @foreach($regions as $region)
-              {
-                  label: "{{ $region->name }} ({{ __('regions.'.$region->name) }})", value: "{{ $region->id }}"
-              },
-              @endforeach
-          ]
-          VirtualSelect.init({
-            ele: '#regions',
-            options: myRegions,
-            multiple: true,
-            search: true,
-            placeholder: "{{ __('Select Regions') }}",
-            noOptionsText: "{{ __('No results found') }}",
-          })
 
-          let regions = document.querySelector('#regions')
-          regions.addEventListener('change', () => {
-            let data = regions.value
-            @this.set('regions', data)
-          })
+    @section('javascripts')
+        <script
+            src="{{ asset('build/unit3d/virtual-select.js') }}"
+            crossorigin="anonymous"
+        ></script>
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('livewire:init', function () {
+              let myRegions = [
+                  @foreach($regions as $region)
+                  {
+                      label: "{{ $region->name }} ({{ __('regions.'.$region->name) }})", value: "{{ $region->id }}"
+                  },
+                  @endforeach
+              ]
+              VirtualSelect.init({
+                ele: '#regions',
+                options: myRegions,
+                multiple: true,
+                search: true,
+                placeholder: "{{ __('Select Regions') }}",
+                noOptionsText: "{{ __('No results found') }}",
+              })
 
-          let myDistributors = [
-              @foreach($distributors as $distributor)
-              {
-                  label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
-              },
-              @endforeach
-          ]
-          VirtualSelect.init({
-            ele: '#distributors',
-            options: myDistributors,
-            multiple: true,
-            search: true,
-            placeholder: "{{ __('Select Distributor') }}",
-            noOptionsText: "{{ __('No results found') }}",
-          })
+              let regions = document.querySelector('#regions')
+              regions.addEventListener('change', () => {
+                let data = regions.value
+                @this.set('regions', data)
+              })
 
-          let distributors = document.querySelector('#distributors')
-          distributors.addEventListener('change', () => {
-            let data = distributors.value
-            @this.set('distributors', data)
-          })
-        })
-    </script>
+              let myDistributors = [
+                  @foreach($distributors as $distributor)
+                  {
+                      label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
+                  },
+                  @endforeach
+              ]
+              VirtualSelect.init({
+                ele: '#distributors',
+                options: myDistributors,
+                multiple: true,
+                search: true,
+                placeholder: "{{ __('Select Distributor') }}",
+                noOptionsText: "{{ __('No results found') }}",
+              })
+
+              let distributors = document.querySelector('#distributors')
+              distributors.addEventListener('change', () => {
+                let data = distributors.value
+                @this.set('distributors', data)
+              })
+            })
+        </script>
+
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            window.addEventListener('swal:modal', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                })
+            })
+
+            window.addEventListener('swal:delete-confirm', event => {
+                const { value: text } = Swal.fire({
+                    input: 'textarea',
+                    inputLabel: 'Delete Reason',
+                    inputPlaceholder: 'Type your reason here...',
+                    inputAttributes: {
+                        'aria-label': 'Type your reason here'
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to write something!'
+                        }
+                    },
+                    title: event.detail.message,
+                    html: event.detail.body,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.set('reason', result.value);
+                        Livewire.dispatch('destroy')
+                    }
+                })
+            })
+
+            window.addEventListener('swal:freeleech-confirm', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    html: event.detail.body,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, freeleech it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('updateFreeleech')
+                    }
+                })
+            })
+
+            window.addEventListener('swal:doubleupload-confirm', event => {
+                 Swal.fire({
+                    title: event.detail.message,
+                    html: event.detail.body,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, double upload it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('updateDoubleUpload')
+                    }
+                })
+            })
+
+            window.addEventListener('swal:category-confirm', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    html: event.detail.body,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change category!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.dispatch('updateCategory')
+                    }
+                })
+            })
+        </script>
+    @endsection
 </div>
