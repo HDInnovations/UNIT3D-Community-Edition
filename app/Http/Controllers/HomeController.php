@@ -234,6 +234,19 @@ class HomeController extends Controller
                     ->take(8)
                     ->get()
             ),
+            'personals' => cache()->remember(
+                'top-users:personals',
+                3_600,
+                fn () => Torrent::with(['user' , 'user.group'])
+                    ->select(DB::raw('user_id, COUNT(user_id) as value'))
+                    ->where('user_id', '!=', User::SYSTEM_USER_ID)
+                    ->where('anon', '=', false)
+                    ->where('personal_release', '=', 1)
+                    ->groupBy('user_id')
+                    ->orderByDesc('value')
+                    ->take(8)
+                    ->get()
+            ),
             'freeleech_tokens' => FreeleechToken::where('user_id', $user->id)->get(),
             'bookmarks'        => Bookmark::where('user_id', $user->id)->get(),
         ]);

@@ -81,6 +81,14 @@
         >
             Thankers
         </li>
+        <li
+            class="panel__tab"
+            role="tab"
+            x-bind:class="tab === 'personals' && 'panel__tab--active'"
+            x-on:click="tab = 'personals'"
+        >
+            Personal Releases
+        </li>
     </menu>
     <div class="panel__body">
         <div class="user-stat-card-container" x-show="tab === 'uploaders'">
@@ -376,6 +384,36 @@
                             class="user-stat-card__avatar"
                             alt="avatar"
                             src="{{ url($thanker->user->image === null ? 'img/profile.png' : 'files/img/' . $thanker->user->image) }}"
+                        />
+                    @endif
+                </article>
+            @endforeach
+        </div>
+        <div class="user-stat-card-container" x-show="tab === 'personals'">
+            @foreach ($personals as $personal)
+                <article class="user-stat-card">
+                    <h3 class="user-stat-card__username">
+                        <x-user_tag
+                            :user="$personal->user"
+                            :anon="$personal->user->private_profile"
+                        />
+                        <div title="Place" class="top-users__place">
+                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                        </div>
+                    </h3>
+                    <h4 class="user-stat-card__stat">{{ $uploader->value }} Personal Releases</h4>
+
+                    @if ($personal->user->private_profile)
+                        <img
+                            class="user-stat-card__avatar"
+                            alt="avatar"
+                            src="{{ url('img/profile.png') }}"
+                        />
+                    @else
+                        <img
+                            class="user-stat-card__avatar"
+                            alt="avatar"
+                            src="{{ url($personal->user->image === null ? 'img/profile.png' : 'files/img/' . $personal->user->image) }}"
                         />
                     @endif
                 </article>

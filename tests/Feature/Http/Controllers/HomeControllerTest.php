@@ -38,6 +38,7 @@ test('index returns an ok response', function (): void {
     $response->assertViewHas('commenters');
     $response->assertViewHas('posters');
     $response->assertViewHas('thankers');
+    $response->assertViewHas('personals');
     $response->assertViewHas('freeleech_tokens');
     $response->assertViewHas('bookmarks');
 });
