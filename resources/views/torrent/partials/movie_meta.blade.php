@@ -95,7 +95,7 @@
                     title="The Movie Database: {{ $meta->id }}"
                     target="_blank"
                 >
-                    <i class="fal fa-camera-movie"></i>
+                    <img src="{{ url('/img/tmdb.svg') }}" style="width: 20px" />
                 </a>
             </li>
         @endif
@@ -108,7 +108,7 @@
                     title="Internet Movie Database: {{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
                     target="_blank"
                 >
-                    <i class="fal fa-film"></i>
+                    <i class="fa-brands fa-imdb"></i>
                 </a>
             </li>
         @endif
