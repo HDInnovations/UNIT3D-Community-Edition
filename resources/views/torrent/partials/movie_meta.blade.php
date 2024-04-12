@@ -95,7 +95,7 @@
                     title="The Movie Database: {{ $meta->id }}"
                     target="_blank"
                 >
-                    <img class="" src="{{ url('/img/tmdb.svg') }}" style="width: 20px" />
+                    <img src="{{ url('/img/tmdb.svg') }}" style="width: 20px" />
                 </a>
             </li>
         @endif
