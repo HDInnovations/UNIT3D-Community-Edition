@@ -82,8 +82,12 @@ class AutoGroup extends Command
                         $user->can_download = false;
                     } else {
                         $user->can_request = true;
-                        $user->can_invite = true;
                         $user->can_download = true;
+                        // Check if 2FA is enabled
+                        if ($user->two_factor_confirmed_at === null) {
+                            $user->can_invite = false; // Disable invite ability
+                        } else {
+                        $user->can_invite = true;
                     }
                     $user->save();
 
