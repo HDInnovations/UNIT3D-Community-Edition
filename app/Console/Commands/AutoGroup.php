@@ -75,19 +75,14 @@ class AutoGroup extends Command
                     $user->group_id = $group->id;
 
                     // Leech ratio dropped below sites minimum
-
                     if ($user->group_id == UserGroup::LEECH->value) {
                         $user->can_request = false;
                         $user->can_invite = false;
                         $user->can_download = false;
                     } else {
                         $user->can_request = true;
+                        $user->can_invite = (bool) $user->two_factor_confirmed_at;
                         $user->can_download = true;
-                        // Check if 2FA is enabled
-                        if ($user->two_factor_confirmed_at === null) {
-                            $user->can_invite = false; // Disable invite ability
-                        } else {
-                        $user->can_invite = true;
                     }
                     $user->save();
 
