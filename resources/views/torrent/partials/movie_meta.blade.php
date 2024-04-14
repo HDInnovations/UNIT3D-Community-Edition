@@ -95,7 +95,7 @@
                     title="The Movie Database: {{ $meta->id }}"
                     target="_blank"
                 >
-                    <i class="fal fa-camera-movie"></i>
+                    <img src="{{ url('/img/meta/tmdb.svg') }}" style="width: 40px" />
                 </a>
             </li>
         @endif
@@ -108,7 +108,7 @@
                     title="Internet Movie Database: {{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
                     target="_blank"
                 >
-                    <i class="fal fa-film"></i>
+                    <img src="{{ url('/img/meta/imdb.svg') }}" style="width: 35px" />
                 </a>
             </li>
         @endif
@@ -121,7 +121,7 @@
                     title="My Anime List: {{ $torrent->mal }}"
                     target="_blank"
                 >
-                    <i class="fal fa-yin-yang"></i>
+                    <img src="{{ url('/img/meta/anidb.svg') }}" style="width: 45px" />
                 </a>
             </li>
         @endif
@@ -134,7 +134,7 @@
                     title="The TV Database: {{ $torrent->tvdb }}"
                     target="_blank"
                 >
-                    <i class="fal fa-tv-retro"></i>
+                    <img src="{{ url('/img/meta/tvdb.svg') }}" style="width: 32px" />
                 </a>
             </li>
         @endif
@@ -147,7 +147,16 @@
                     title="Rotten Tomatoes: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
                 >
-                    <i class="fal fa-tomato"></i>
+                    <i
+                        class="fad fa-tomato"
+                        style="
+                            --fa-secondary-opacity: 1;
+                            --fa-primary-color: green;
+                            --fa-secondary-color: red;
+                            font-size: 23px;
+                            bottom: 2px;
+                        "
+                    ></i>
                 </a>
             </li>
         @endif
