@@ -30,7 +30,7 @@ class StoreGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
     public function rules(Request $request): array
     {
@@ -113,35 +113,35 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'min_uploaded' => [
-                Rule::when($request->autogroup, [
+                Rule::when((bool) $request->integer('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ]),
             ],
             'min_ratio' => [
-                Rule::when($request->autogroup, [
+                Rule::when((bool) $request->integer('autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ]),
             ],
             'min_age' => [
-                Rule::when($request->autogroup, [
+                Rule::when((bool) $request->integer('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ]),
             ],
             'min_avg_seedtime' => [
-                Rule::when($request->autogroup, [
+                Rule::when((bool) $request->integer('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ]),
             ],
             'min_seedsize' => [
-                Rule::when($request->autogroup, [
+                Rule::when((bool) $request->integer('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
