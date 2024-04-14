@@ -15,6 +15,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreGroupRequest extends FormRequest
 {
@@ -31,7 +32,7 @@ class StoreGroupRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
             'name' => [
@@ -112,29 +113,39 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'min_uploaded' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
             'min_ratio' => [
-                'sometimes',
-                'min:0',
-                'max:99.99',
+                Rule::when($request->autogroup, [
+                    'sometimes',
+                    'min:0',
+                    'max:99.99',
+                ]),
             ],
             'min_age' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
             'min_avg_seedtime' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
             'min_seedsize' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
         ];
     }

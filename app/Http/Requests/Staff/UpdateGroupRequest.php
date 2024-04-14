@@ -40,7 +40,7 @@ class UpdateGroupRequest extends FormRequest
 
         return [
             'name' => [
-                Rule::when(!$group->system_required, [
+                Rule::when(! $group->system_required, [
                     'required',
                     'string',
                 ]),
@@ -119,34 +119,39 @@ class UpdateGroupRequest extends FormRequest
                 'boolean',
             ],
             'min_uploaded' => [
-                'sometimes',
-                'nullable',
-                'integer',
-                'min:0',
+                Rule::when($group->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
             'min_ratio' => [
-                'sometimes',
-                'nullable',
-                'min:0',
-                'max:99.99',
+                Rule::when($group->autogroup, [
+                    'sometimes',
+                    'min:0',
+                    'max:99.99',
+                ]),
             ],
             'min_age' => [
-                'sometimes',
-                'nullable',
-                'integer',
-                'min:0',
+                Rule::when($group->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
             'min_avg_seedtime' => [
-                'sometimes',
-                'nullable',
-                'integer',
-                'min:0',
+                Rule::when($group->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
             'min_seedsize' => [
-                'sometimes',
-                'nullable',
-                'integer',
-                'min:0',
+                Rule::when($group->autogroup, [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ]),
             ],
         ];
     }
