@@ -81,7 +81,7 @@ class AutoGroup extends Command
                         $user->can_download = false;
                     } else {
                         $user->can_request = true;
-                        $user->can_invite = (bool) $user->two_factor_confirmed_at;
+                        $user->can_invite = true;
                         $user->can_download = true;
                     }
                     $user->save();
