@@ -13,7 +13,6 @@
 
 namespace App\Notifications;
 
-use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -26,7 +25,7 @@ class UserWarning extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user, public Torrent $torrent)
+    public function __construct(public User $user)
     {
     }
 
@@ -45,12 +44,10 @@ class UserWarning extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $profileUrl = href_profile($this->user);
-
         return (new MailMessage())
-            ->greeting('Hit and Run Warning!')
-            ->line('You have received a hit and run warning on one or more torrents!')
-            ->action('View Unsatisfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
+            ->greeting('Hit and Run Warning Received!')
+            ->line('You have received an automated hit and run WARNING on one or more torrents!')
+            ->action('View your unsatisfied torrents and seed off your warnings or wait until they expire!', route('users.history.index', ['user' => $this->user]))
             ->line('Thank you for using 🚀'.config('other.title'));
     }
 
@@ -62,9 +59,9 @@ class UserWarning extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->torrent->name.' Warning Received',
-            'body'  => 'You have received an automated WARNING from the system because you failed to follow the Hit and Run rules in relation to Torrent '.$this->torrent->name,
-            'url'   => sprintf('/torrents/%s', $this->torrent->id),
+            'title' => 'Hit and Run Warning Received!',
+            'body'  => 'You have received an automated hit and run WARNING on one or more torrents! View your unsatisfied torrents and seed off your warnings or wait until they expire!',
+            'url'   => route('users.history.index', ['user' => $this->user]),
         ];
     }
 }
