@@ -113,39 +113,39 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'min_uploaded' => [
-                Rule::when((bool) $request->integer('autogroup'), [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'prohibited'),
             ],
             'min_ratio' => [
-                Rule::when((bool) $request->integer('autogroup'), [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
-                ]),
+                ], 'prohibited'),
             ],
             'min_age' => [
-                Rule::when((bool) $request->integer('autogroup'), [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'prohibited'),
             ],
             'min_avg_seedtime' => [
-                Rule::when((bool) $request->integer('autogroup'), [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'prohibited'),
             ],
             'min_seedsize' => [
-                Rule::when((bool) $request->integer('autogroup'), [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'prohibited'),
             ],
         ];
     }

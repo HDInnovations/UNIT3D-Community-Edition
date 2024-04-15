@@ -119,39 +119,39 @@ class UpdateGroupRequest extends FormRequest
                 'boolean',
             ],
             'min_uploaded' => [
-                Rule::when((bool) $group->autogroup, [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'nullable'),
             ],
             'min_ratio' => [
-                Rule::when((bool) $group->autogroup, [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
-                ]),
+                ], 'nullable'),
             ],
             'min_age' => [
-                Rule::when((bool) $group->autogroup, [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'nullable'),
             ],
             'min_avg_seedtime' => [
-                Rule::when((bool) $group->autogroup, [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'nullable'),
             ],
             'min_seedsize' => [
-                Rule::when((bool) $group->autogroup, [
+                Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
-                ]),
+                ], 'nullable'),
             ],
         ];
     }
