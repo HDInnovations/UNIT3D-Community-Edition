@@ -228,11 +228,13 @@ class TorrentSearch extends Component
 
     public bool $selectPage = false;
 
+    public string $reason;
+
     public int $category;
 
     public int $freeleech;
 
-    public int $doubleupload;
+    public bool $doubleupload;
 
     protected $listeners = [
         'destroy'            => 'delete',
@@ -715,9 +717,13 @@ class TorrentSearch extends Component
 
         $torrents = Torrent::whereKey($this->checked)->get();
 
-        $torrents->each(fn ($torrent) => $torrent->update([
-            'free' => $this->freeleech,
-        ]));
+        $torrents->each(function ($torrent): void {
+            $torrent->update([
+                'free' => $this->freeleech,
+            ]);
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+        });
 
         $this->checked = [];
         $this->selectPage = false;
@@ -793,12 +799,6 @@ class TorrentSearch extends Component
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
-        $title = match (true) {
-            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date.')',
-            $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
-            $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
-            default                     => $torrents->pluck('name')->join(', '),
-        };
 
         foreach ($torrents as $torrent) {
             $names[] = $torrent->name;
@@ -846,7 +846,7 @@ class TorrentSearch extends Component
             $pmuser = new PrivateMessage();
             $pmuser->sender_id = User::SYSTEM_USER_ID;
             $pmuser->receiver_id = $user;
-            $pmuser->subject = 'Bulk Torrents Deleted - '.$title.'! ';
+            $pmuser->subject = 'Bulk Torrents Deleted! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
             [list]
                 [*]'.implode(' [*]', $names).'
