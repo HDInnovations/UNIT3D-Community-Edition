@@ -1,10 +1,45 @@
 <section class="panelV2">
-    <h1 class="panel__heading">Missing Media</h1>
+    <header class="panel__header">
+        <h2 class="panel__heading">Missing Media</h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        id="name"
+                        class="form__text"
+                        type="text"
+                        wire:model.live="name"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('torrent.title') }}
+                    </label>
+                </div>
+            </div>
+            <div class="panel__action">
+                <div class="form__group">
+                    <input
+                        type="text"
+                        name="year"
+                        id="year"
+                        class="form__text"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                        wire:model.live="year"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="year">
+                        {{ __('common.year') }}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </header>
     <table class="data-table" id="missing-media-table">
         <thead>
             <tr>
                 <th wire:click="sortBy('title')" role="columnheader button">
-                    {{ __('common.name') }}
+                    {{ __('torrent.title') }}
                     @include('livewire.includes._sort-icon', ['field' => 'title'])
                 </th>
                 <th wire:click="sortBy('requests_count')" role="columnheader button">

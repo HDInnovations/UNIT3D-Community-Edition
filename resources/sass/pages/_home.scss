@@ -13,3 +13,20 @@
 //         margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
 //     }
 // }
+
+.top-users__place {
+  border-radius: 50%;
+  background: #212125;
+  border: 2px solid #934042;
+  height: 30px;
+  line-height: 27px;
+  width: 30px;
+  box-shadow:
+          0 8px 10px 1px #00000024,
+          0 3px 14px 2px #0000001f,
+          0 5px 5px -3px #0003;
+  font-size: 11px;
+  text-align: center;
+  float: right;
+  display: inline-block;
+}
