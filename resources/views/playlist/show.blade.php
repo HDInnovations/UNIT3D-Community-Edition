@@ -11,8 +11,8 @@
     </li>
 @endsection
 
-@if (auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
-    @section('sidebar')
+@section('sidebar')
+    @if (auth()->id() === $playlist->user_id || auth()->user()->group->is_modo)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
@@ -102,31 +102,32 @@
                 </form>
             </div>
         </section>
-        <section class="panelV2">
-            <h2 class="panel__heading">{{ __('common.download') }}</h2>
-            <div class="panel__body">
-                <p class="form__group form__group--horizontal">
-                    <a
-                        href="{{ route('playlist_zips.show', ['playlist' => $playlist]) }}"
-                        class="form__button form__button--filled form__button--centered"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                        {{ __('playlist.download-all') }}
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <a
-                        href="{{ route('torrents.index', ['playlistId' => $playlist->id]) }}"
-                        class="form__button form__button--filled form__button--centered"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                        Playlist Torrents List
-                    </a>
-                </p>
-            </div>
-        </section>
-    @endsection
-@endif
+    @endif
+
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.download') }}</h2>
+        <div class="panel__body">
+            <p class="form__group form__group--horizontal">
+                <a
+                    href="{{ route('playlist_zips.show', ['playlist' => $playlist]) }}"
+                    class="form__button form__button--filled form__button--centered"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                    {{ __('playlist.download-all') }}
+                </a>
+            </p>
+            <p class="form__group form__group--horizontal">
+                <a
+                    href="{{ route('torrents.index', ['playlistId' => $playlist->id]) }}"
+                    class="form__button form__button--filled form__button--centered"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-eye"></i>
+                    Playlist Torrents List
+                </a>
+            </p>
+        </div>
+    </section>
+@endsection
 
 @section('main')
     <section class="panelV2">
@@ -179,7 +180,7 @@
 
                 <div class="playlist__torrent-container">
                     <x-torrent.card :meta="$meta" :torrent="$torrent" />
-                    @if (auth()->id() == $playlist->user_id || auth()->user()->group->is_modo)
+                    @if (auth()->id() === $playlist->user_id || auth()->user()->group->is_modo)
                         <form
                             action="{{ route('playlist_torrents.destroy', ['playlistTorrent' => $torrent->pivot]) }}"
                             method="POST"
