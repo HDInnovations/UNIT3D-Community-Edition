@@ -37,7 +37,7 @@ class AutoPreWarning extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Sends Pre Warning PM To Users';
+    protected $description = 'Automatically Sends Pre Warning Notifications To Users';
 
     /**
      * Execute the console command.
@@ -58,9 +58,9 @@ class AutoPreWarning extends Command
                 ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
 
+            $usersWithPreWarnings = [];
+
             foreach ($prewarn as $pre) {
-                // Skip Prewarning if Torrent is NULL
-                // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
                 if (null === $pre->torrent) {
                     continue;
                 }
@@ -71,19 +71,20 @@ class AutoPreWarning extends Command
                         ->where('user_id', '=', $pre->user->id)
                         ->first();
 
-                    // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
                     if ($exsist === null) {
-                        $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
-
-                        // Send Notifications
-                        $pre->user->notify(new UserPreWarning($pre->user, $pre->torrent));
-
-                        // Set History Prewarn
                         $pre->prewarn = true;
                         $pre->timestamps = false;
                         $pre->save();
+
+                        // Add user to usersWithWarnings array
+                        $usersWithPreWarnings[$pre->user->id] = $pre->user;
                     }
                 }
+            }
+
+            // Send a single notification for each user with warnings
+            foreach ($usersWithPreWarnings as $user) {
+                $user->notify(new UserPreWarning($user));
             }
         }
 
