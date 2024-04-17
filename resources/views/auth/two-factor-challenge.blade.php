@@ -80,6 +80,13 @@
                             autofocus
                             inputmode="numeric"
                             name="code"
+                            inputmode="numeric"
+                            autocomplete="one-time-code"
+                            autocapitalize="off"
+                            autocorrect="off"
+                            spellcheck="false"
+                            aria-invalid="false"
+                            aria-label="Enter verification code"
                             x-bind:required="!recovery"
                             type="tel"
                             value="{{ old('code') }}"
@@ -95,8 +102,13 @@
                             class="auth-form__text-input"
                             autocomplete="one-time-code"
                             name="recovery_code"
+                            autocomplete="off"
+                            autocapitalize="off"
+                            autocorrect="off"
+                            spellcheck="false"
+                            aria-invalid="false"
                             x-bind:required="recovery"
-                            type="tel"
+                            type="text"
                             x-ref="recovery_code"
                         />
                     </p>
