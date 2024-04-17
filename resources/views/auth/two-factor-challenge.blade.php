@@ -81,7 +81,7 @@
                             inputmode="numeric"
                             name="code"
                             x-bind:required="!recovery"
-                            type="text"
+                            type="tel"
                             value="{{ old('code') }}"
                             x-ref="code"
                         />
@@ -96,7 +96,7 @@
                             autocomplete="one-time-code"
                             name="recovery_code"
                             x-bind:required="recovery"
-                            type="text"
+                            type="tel"
                             x-ref="recovery_code"
                         />
                     </p>
