@@ -212,6 +212,7 @@
                                             fn () => App\Models\Category::orderBy('position')->get()
                                         )
                                     @endphp
+
                                     @foreach ($categories as $category)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -239,6 +240,7 @@
                                             fn () => App\Models\Type::orderBy('position')->get()
                                         )
                                     @endphp
+
                                     @foreach ($types as $type)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -266,6 +268,7 @@
                                             fn () => App\Models\Resolution::orderBy('position')->get()
                                         )
                                     @endphp
+
                                     @foreach ($resolutions as $resolution)
                                         <p class="form__group">
                                             <label class="form__label">
