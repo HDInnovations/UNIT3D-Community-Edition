@@ -80,8 +80,11 @@
                             autofocus
                             inputmode="numeric"
                             name="code"
+                            autocapitalize="off"
+                            autocorrect="off"
+                            spellcheck="false"
                             x-bind:required="!recovery"
-                            type="text"
+                            type="tel"
                             value="{{ old('code') }}"
                             x-ref="code"
                         />
@@ -93,8 +96,11 @@
                         <input
                             id="recovery_code"
                             class="auth-form__text-input"
-                            autocomplete="one-time-code"
+                            autocomplete="off"
                             name="recovery_code"
+                            autocapitalize="off"
+                            autocorrect="off"
+                            spellcheck="false"
                             x-bind:required="recovery"
                             type="text"
                             x-ref="recovery_code"
