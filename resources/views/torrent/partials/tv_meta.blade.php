@@ -256,7 +256,7 @@
                 </article>
             @endif
 
-            <article class="meta__runtime">
+            <article class="meta__language">
                 <a class="meta-chip" href="#">
                     <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
                     <h2 class="meta-chip__name">Primary Language</h2>
