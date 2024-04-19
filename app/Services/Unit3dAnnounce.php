@@ -63,7 +63,6 @@ class Unit3dAnnounce
             && \array_key_exists('announce_responses_per_60s', $stats) && \is_float($stats['announce_responses_per_60s'])
             && \array_key_exists('announce_responses_per_900s', $stats) && \is_float($stats['announce_responses_per_900s'])
             && \array_key_exists('announce_responses_per_7200s', $stats) && \is_float($stats['announce_responses_per_7200s'])
-            && \array_key_exists('announce_responses_per_second', $stats) && \is_float($stats['announce_responses_per_second'])
         ) {
             return $stats;
         }
@@ -150,10 +149,10 @@ class Unit3dAnnounce
                 || !\array_key_exists('torrent_id', $peer) || !\is_int($peer['torrent_id'])
                 || !\array_key_exists('port', $peer) || !\is_int($peer['port'])
                 || !\array_key_exists('is_seeder', $peer) || !\is_bool($peer['is_seeder'])
-                || !\array_key_exists('is_active', $peer) || \is_bool($peer['is_active'])
-                || !\array_key_exists('updated_at', $peer) || \is_int($peer['updated_at'])
-                || !\array_key_exists('uploaded', $peer) || \is_int($peer['uploaded'])
-                || !\array_key_exists('downloaded', $peer) || \is_int($peer['downloaded'])
+                || !\array_key_exists('is_active', $peer) || !\is_bool($peer['is_active'])
+                || !\array_key_exists('updated_at', $peer) || !\is_int($peer['updated_at'])
+                || !\array_key_exists('uploaded', $peer) || !\is_int($peer['uploaded'])
+                || !\array_key_exists('downloaded', $peer) || !\is_int($peer['downloaded'])
             ) {
                 return [];
             }
