@@ -34,7 +34,7 @@ class UserController extends Controller
     /**
      * Show A User.
      */
-    public function show(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user->load([
             'application',
@@ -105,7 +105,7 @@ class UserController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch'        => $user->watchlist,
-            'externalUser' => $user->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
+            'externalUser' => $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
         ]);
     }
 
