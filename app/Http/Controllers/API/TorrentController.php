@@ -316,6 +316,10 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
+        if ($torrent->featured) {
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
+        }
+
         // Set torrent to featured
         if ($torrent->featured == 1) {
             $featuredTorrent = new FeaturedTorrent();

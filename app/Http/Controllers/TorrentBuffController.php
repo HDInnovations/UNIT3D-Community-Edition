@@ -142,7 +142,7 @@ class TorrentBuffController extends Controller
             $torrent->featured = true;
             $torrent->save();
 
-            Unit3dAnnounce::addTorrent($torrent);
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
 
             $featured = new FeaturedTorrent();
             $featured->user_id = $user->id;
@@ -180,7 +180,7 @@ class TorrentBuffController extends Controller
         $torrent->featured = false;
         $torrent->save();
 
-        Unit3dAnnounce::addTorrent($torrent);
+        Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
         $appurl = config('app.url');
 
