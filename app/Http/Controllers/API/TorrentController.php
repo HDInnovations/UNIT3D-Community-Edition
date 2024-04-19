@@ -28,6 +28,7 @@ use App\Models\Tv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
+use App\Services\Unit3dAnnounce;
 use App\Traits\TorrentMeta;
 use Exception;
 use Illuminate\Http\Request;
@@ -312,6 +313,8 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+
+        Unit3dAnnounce::addTorrent($torrent);
 
         // Set torrent to featured
         if ($torrent->featured == 1) {
