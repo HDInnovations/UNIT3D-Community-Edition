@@ -127,4 +127,30 @@ return [
     */
 
     'log_announces' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | IPv4 Announce Field !!! Read carefully !!!
+    |--------------------------------------------------------------------------
+    |
+    | The announce supports both IPv4 and IPv6 within the same peer.
+    | According to Bittorrent spec, each IP should be announced in seperated requests
+    | -> See: https://github.com/bittorrent/bittorrent.org/pull/101
+    | Older torrent clients (ruTorrent) which have not implemented this, will use an
+    | extra `ip` field for the IPv4 address within the request.
+    |
+    | !!! The `ip` field can be spoofed / changed easily and thus be used for DDoS !!!
+    |
+    | This setting is ONLY relevant for you, if:
+    | 1. Your tracker supports both IPv4 and IPv6
+    | 2. You trust your users to not abuse this
+    | 3. You want to allow ruTorrent clients to have an IPv4 address, IF they use IPv6
+    |
+    | It's safer to ask the user to switch to qBittorrent or any other modern client
+    | which supports seperated requests for each IP.
+    |
+    | !!! KEEP `false` if you don't understand. !!!
+    */
+
+    'parse_extra_ip_field' => false,
 ];

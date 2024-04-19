@@ -32,6 +32,7 @@ class TorrentPeerController extends Controller
                 ->with('user')
                 ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'port', 'agent', 'created_at', 'updated_at', 'seeder', 'active', 'visible'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
+                ->selectRaw('INET6_NTOA(ipv6) as ipv6')
                 ->where('torrent_id', '=', $id)
                 ->orderByDesc('active')
                 ->orderByDesc('seeder')

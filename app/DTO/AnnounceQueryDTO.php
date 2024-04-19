@@ -19,6 +19,7 @@ readonly class AnnounceQueryDTO
     private string $infoHash;
     private string $peerId;
     private string $ip;
+    private string $ipReported;
 
     public function __construct(
         public int $port,
@@ -33,11 +34,13 @@ readonly class AnnounceQueryDTO
         string $infoHash,
         string $peerId,
         string $ip,
+        string $ipReported,
     ) {
         $this->agent = bin2hex($agent);
         $this->infoHash = bin2hex($infoHash);
         $this->peerId = bin2hex($peerId);
         $this->ip = bin2hex($ip);
+        $this->ipReported = bin2hex($ipReported);
     }
 
     public function getAgent(): string
@@ -62,5 +65,47 @@ readonly class AnnounceQueryDTO
     {
         /** @var string */
         return hex2bin($this->ip);
+    }
+
+    public function getReportedIp(): string
+    {
+        /** @var string */
+        return hex2bin($this->ipReported);
+    }
+
+    public function isIPv6(): bool
+    {
+        if (!$this->ip) {
+            return false;
+        }
+
+        $ip = inet_ntop((string) hex2bin((string) $this->ip));
+
+        return ! (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
+        ;
+    }
+
+    public function isReportedIPv4(): bool
+    {
+        if (!config('announce.parse_extra_ip_field')) {
+            return false;
+        }
+
+        if (!$this->ipReported) {
+            return false;
+        }
+
+        $ip = inet_ntop((string) hex2bin((string) $this->ipReported));
+
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            return false;
+        }
+
+        if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)) {
+            return false;
+        }
+
+        return ! (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_RES_RANGE))
+        ;
     }
 }

@@ -158,6 +158,14 @@
                         @include('livewire.includes._sort-icon', ['field' => 'ip'])
                     </th>
                     <th
+                        class="user-active__ip-header"
+                        wire:click="sortBy('ipv6')"
+                        role="columnheader button"
+                    >
+                        {{ __('common.ipv6') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'ipv6'])
+                    </th>
+                    <th
                         class="user-active__port-header"
                         wire:click="sortBy('port')"
                         role="columnheader button"
@@ -286,6 +294,9 @@
                             </td>
                             <td class="user-active__ip">
                                 {{ $active->ip ?: __('common.unknown') }}
+                            </td>
+                            <td class="user-active__ip">
+                                {{ $active->ipv6 ?: __('common.unknown') }}
                             </td>
                             <td class="user-active__port">
                                 {{ $active->port ?: __('common.unknown') }}

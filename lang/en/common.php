@@ -107,6 +107,7 @@ return [
     'info'                 => 'Info',
     'internal'             => 'Internal',
     'ip'                   => 'IP',
+    'ipv6'                 => 'IPv6',
     'is-allowed'           => 'is allowed',
     'language'             => 'Language',
     'languages'            => 'Languages',

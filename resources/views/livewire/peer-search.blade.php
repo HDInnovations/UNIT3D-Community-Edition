@@ -22,6 +22,12 @@
                         <label class="form__label form__label--floating" for="ip">IP Address</label>
                     </p>
                     <p class="form__group">
+                        <input id="ip" wire:model.live="ipv6" class="form__text" placeholder=" " />
+                        <label class="form__label form__label--floating" for="ip">
+                            IPv6 Address
+                        </label>
+                    </p>
+                    <p class="form__group">
                         <input
                             id="port"
                             wire:model.live="port"
@@ -156,6 +162,18 @@
                                 IPs
                             @endif
                             @include('livewire.includes._sort-icon', ['field' => 'ip'])
+                        </th>
+                        <th
+                            wire:click="sortBy('ipv6')"
+                            role="columnheader button"
+                            style="text-align: right"
+                        >
+                            @if ($groupBy === 'none' || $groupBy === 'user_ip' || $groupBy === 'user_session')
+                                IPv6
+                            @else
+                                IPv6s
+                            @endif
+                            @include('livewire.includes._sort-icon', ['field' => 'ipv6'])
                         </th>
                         <th
                             wire:click="sortBy('port')"
@@ -347,6 +365,9 @@
                             @endif
                             <td style="text-align: right">
                                 {{ $peer->ip }}
+                            </td>
+                            <td style="text-align: right">
+                                {{ $peer->ipv6 }}
                             </td>
                             <td style="text-align: right">
                                 {{ $peer->port }}

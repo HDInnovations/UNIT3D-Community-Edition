@@ -41,6 +41,9 @@ class PeerSearch extends Component
     public string $ip = '';
 
     #[Url(history: true)]
+    public string $ipv6 = '';
+
+    #[Url(history: true)]
     public string $port = '';
 
     #[Url(history: true)]
@@ -116,6 +119,7 @@ class PeerSearch extends Component
                         'peers.connectable',
                     ])
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
+                    ->selectRaw('INET6_NTOA(peers.ipv6) as ipv6')
                     ->with(['user', 'user.group', 'torrent:id,name,size'])
             )
             ->when(
@@ -124,6 +128,7 @@ class PeerSearch extends Component
                     ->select(['peers.user_id', 'peers.port', 'peers.agent'])
                     ->selectRaw('COUNT(DISTINCT(peers.torrent_id)) as torrent_id')
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
+                    ->selectRaw('INET6_NTOA(peers.ipv6) as ipv6')
                     ->selectRaw('SUM(peers.uploaded) as uploaded')
                     ->selectRaw('SUM(peers.downloaded) as downloaded')
                     ->selectRaw('SUM(peers.`left`) as `left`')
@@ -134,7 +139,7 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
                     ->selectRaw('SUM(peers.active = 1) as active_count')
                     ->selectRaw('SUM(peers.active = 0) as inactive_count')
-                    ->groupBy(['peers.user_id', 'peers.agent', 'peers.ip', 'peers.port'])
+                    ->groupBy(['peers.user_id', 'peers.agent', 'peers.ip', 'peers.ipv6', 'peers.port'])
                     ->with(['user', 'user.group'])
             )
             ->when(
@@ -144,6 +149,7 @@ class PeerSearch extends Component
                     ->selectRaw('COUNT(DISTINCT(peers.torrent_id)) as torrent_id')
                     ->selectRaw('COUNT(DISTINCT(peers.agent)) as agent')
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
+                    ->selectRaw('INET6_NTOA(peers.ipv6) as ipv6')
                     ->selectRaw('COUNT(DISTINCT(peers.port)) as port')
                     ->selectRaw('SUM(peers.uploaded) as uploaded')
                     ->selectRaw('SUM(peers.downloaded) as downloaded')
@@ -155,7 +161,7 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
                     ->selectRaw('SUM(peers.active = 1) as active_count')
                     ->selectRaw('SUM(peers.active = 0) as inactive_count')
-                    ->groupBy(['peers.user_id', 'peers.ip'])
+                    ->groupBy(['peers.user_id', 'peers.ip', 'peers.ipv6'])
                     ->with(['user', 'user.group'])
             )
             ->when(
@@ -165,6 +171,7 @@ class PeerSearch extends Component
                     ->selectRaw('COUNT(DISTINCT(peers.torrent_id)) as torrent_id')
                     ->selectRaw('COUNT(DISTINCT(peers.agent)) as agent')
                     ->selectRaw('COUNT(DISTINCT(peers.ip)) as ip')
+                    ->selectRaw('COUNT(DISTINCT(peers.ipv6)) as ipv6')
                     ->selectRaw('COUNT(DISTINCT(peers.port)) as port')
                     ->selectRaw('SUM(peers.uploaded) as uploaded')
                     ->selectRaw('SUM(peers.downloaded) as downloaded')
@@ -208,6 +215,7 @@ class PeerSearch extends Component
                     )
             )
             ->when($this->ip !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ip)'), 'LIKE', $this->ip.'%'))
+            ->when($this->ipv6 !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ipv6)'), 'LIKE', $this->ipv6.'%'))
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))
             ->when($this->agent !== '', fn ($query) => $query->where('peers.agent', 'LIKE', $this->agent.'%'))
             ->when($this->torrent !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.str_replace(' ', '%', $this->torrent).'%'))
