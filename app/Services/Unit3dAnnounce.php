@@ -280,6 +280,20 @@ class Unit3dAnnounce
         ]);
     }
 
+    public static function addFeaturedTorrent(int $torrent_id): bool
+    {
+        return self::put('featured-torrents', [
+            'torrent_id' => $torrent_id,
+        ]);
+    }
+
+    public static function removeFeaturedTorrent(int $torrent_id): bool
+    {
+        return self::delete('featured-torrents', [
+            'torrent_id' => $torrent_id,
+        ]);
+    }
+
     /**
      * @return bool|array<mixed>
      */
