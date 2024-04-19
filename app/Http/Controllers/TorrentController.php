@@ -408,6 +408,8 @@ class TorrentController extends Controller
             'moderated_by' => User::SYSTEM_USER_ID,
         ] + $request->safe()->except(['torrent']));
 
+        Unit3dAnnounce::addTorrent($torrent);
+
         // Count and save the torrent number in this category
         $category = Category::findOrFail($request->integer('category_id'));
         $category->num_torrent = $category->torrents()->count();
