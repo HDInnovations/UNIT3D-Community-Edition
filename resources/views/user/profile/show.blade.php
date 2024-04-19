@@ -303,7 +303,9 @@
                                     @if (\config('announce.connectable_check') == true)
                                         @php
                                             $connectable = false;
-                                            if (cache()->has('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent)) {
+                                            if (config('announce.external_tracker.is_enabled')) {
+                                                $connectable = $client->connectable;
+                                            } elseif (cache()->has('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent)) {
                                                 $connectable = cache()->get('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent);
                                             }
                                         @endphp

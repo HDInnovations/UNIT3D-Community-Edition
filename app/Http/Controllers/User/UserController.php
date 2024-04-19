@@ -90,7 +90,7 @@ class UserController extends Controller
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->select('agent', 'port')
-                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
+                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers, MAX(connectable) as connectable')
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),

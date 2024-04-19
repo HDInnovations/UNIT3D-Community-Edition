@@ -106,7 +106,9 @@
                             @if (\config('announce.connectable_check') == true)
                                 @php
                                     $connectable = false;
-                                    if (cache()->has('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent)) {
+                                    if (config('announce.external_tracker.is_enabled')) {
+                                        $connectable = $peer->connectable;
+                                    } elseif (cache()->has('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent)) {
                                         $connectable = cache()->get('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent);
                                     }
                                 @endphp
