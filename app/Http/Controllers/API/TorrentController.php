@@ -314,6 +314,9 @@ class TorrentController extends BaseController
         // Save The Torrent
         $torrent->save();
 
+        // Populate the status/seeders/leechers/times_completed fields for the external tracker
+        $torrent->refresh();
+
         Unit3dAnnounce::addTorrent($torrent);
 
         if ($torrent->featured) {
