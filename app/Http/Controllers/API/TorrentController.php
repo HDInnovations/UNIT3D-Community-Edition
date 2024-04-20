@@ -319,12 +319,12 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        if ($torrent->featured) {
+        if ($torrent->getAttribute('featured')) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
         // Set torrent to featured
-        if ($torrent->featured == 1) {
+        if ($torrent->getAttribute('featured')) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -375,7 +375,7 @@ class TorrentController extends BaseController
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = $torrent->featured;
+            $featured = $torrent->getAttribute('featured');
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 
