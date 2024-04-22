@@ -138,25 +138,40 @@
             </li>
         @endif
 
-        <li class="meta__rotten">
-            <a
-                class="meta-id-tag"
-                href="https://duckduckgo.com/?q=\{{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
-                title="Rotten Tomatoes: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
-                target="_blank"
-            >
-                <i
-                    class="fad fa-tomato"
-                    style="
-                        --fa-secondary-opacity: 1;
-                        --fa-primary-color: green;
-                        --fa-secondary-color: red;
-                        font-size: 23px;
-                        bottom: 2px;
-                    "
-                ></i>
-            </a>
-        </li>
+        @if ($meta->id ?? 0 > 0)
+            <li class="meta__rotten">
+                <a
+                    class="meta-id-tag"
+                    href="https://duckduckgo.com/?q=\{{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
+                    title="Rotten Tomatoes: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
+                    target="_blank"
+                >
+                    <i
+                        class="fad fa-tomato"
+                        style="
+                            --fa-secondary-opacity: 1;
+                            --fa-primary-color: green;
+                            --fa-secondary-color: red;
+                            font-size: 23px;
+                            bottom: 2px;
+                        "
+                    ></i>
+                </a>
+            </li>
+        @endif
+
+        @if ($meta->imdb_id ?? 0 > 0)
+            <li class="meta__bluray">
+                <a
+                    class="meta-id-tag"
+                    href="https://www.blu-ray.com/search/?quicksearch=1&quicksearch_keyword=tt{{ $meta->imdb_id ?? '' }}&section=theatrical"
+                    title="Blu-ray: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
+                    target="_blank"
+                >
+                    <img class="" src="{{ url('/img/meta/bluray.svg') }}" style="width: 40px" />
+                </a>
+            </li>
+        @endif
     </ul>
     <p class="meta__description">{{ $meta?->overview }}</p>
     <div class="meta__chips">
