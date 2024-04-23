@@ -36,10 +36,8 @@ class AutoRefundDownload extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $now = Carbon::now();
         $MIN_SEEDTIME = config('hitrun.seedtime');

@@ -47,22 +47,18 @@ class Rss extends Model
     protected $table = 'rss';
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Get the attributes that should be cast.
      *
-     * @var bool
+     * @return array<string, string>
      */
-    public $timestamps = true;
-
-    /**
-     * The Attributes That Should Be Cast To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name'            => 'string',
-        'json_torrent'    => 'array',
-        'expected_fields' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'name'            => 'string',
+            'json_torrent'    => 'array',
+            'expected_fields' => 'array',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.

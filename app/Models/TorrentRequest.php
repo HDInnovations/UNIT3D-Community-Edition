@@ -56,17 +56,6 @@ class TorrentRequest extends Model
     use TorrentFilter;
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'filled_when'   => 'datetime',
-        'approved_when' => 'datetime',
-        'igdb'          => 'integer',
-    ];
-
-    /**
      * The Database Table Used By The Model.
      *
      * @var string
@@ -79,6 +68,20 @@ class TorrentRequest extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'filled_when'   => 'datetime',
+            'approved_when' => 'datetime',
+            'igdb'          => 'integer',
+        ];
+    }
 
     /**
      * Belongs To A User.

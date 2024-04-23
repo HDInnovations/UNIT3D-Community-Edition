@@ -34,14 +34,17 @@ class Like extends Model
     use HasFactory;
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    public $casts = [
-        'like'    => 'boolean',
-        'dislike' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'like'    => 'boolean',
+            'dislike' => 'boolean',
+        ];
+    }
 
     /**
      * Belongs To A User.

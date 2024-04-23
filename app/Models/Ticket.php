@@ -41,12 +41,20 @@ class Ticket extends Model
     use Auditable;
     use HasFactory;
 
-    protected $casts = [
-        'closed_at'   => 'datetime',
-        'reminded_at' => 'datetime',
-    ];
-
     protected $guarded = [];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'closed_at'   => 'datetime',
+            'reminded_at' => 'datetime',
+        ];
+    }
 
     /**
      * @param  Builder<Ticket> $query
