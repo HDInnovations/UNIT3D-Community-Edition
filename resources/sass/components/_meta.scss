@@ -204,7 +204,7 @@
     display: flex;
     column-gap: 0;
     list-style-type: none;
-    margin: 0;
+    margin: -10px;
     padding: 0;
 
     @media screen and (max-width: 480px) {
@@ -215,7 +215,7 @@
 
 .meta-id-tag {
     color: var(--meta-id-tag-fg);
-    font-size: 20px;
+    font-size: 25px;
     display: inline-block;
     padding: 0 10px;
     white-space: nowrap;

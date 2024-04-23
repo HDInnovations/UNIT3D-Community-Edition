@@ -160,6 +160,19 @@
                 </a>
             </li>
         @endif
+
+        @if ($meta->imdb_id ?? 0 > 0)
+            <li class="meta__bluray">
+                <a
+                    class="meta-id-tag"
+                    href="https://www.blu-ray.com/search/?quicksearch=1&quicksearch_keyword=tt{{ $meta->imdb_id ?? '' }}&section=theatrical"
+                    title="Blu-ray: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
+                    target="_blank"
+                >
+                    <img class="" src="{{ url('/img/meta/bluray.svg') }}" style="width: 40px" />
+                </a>
+            </li>
+        @endif
     </ul>
     <p class="meta__description">{{ $meta?->overview }}</p>
     <div class="meta__chips">
