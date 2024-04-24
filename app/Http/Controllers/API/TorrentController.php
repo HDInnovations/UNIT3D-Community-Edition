@@ -167,13 +167,13 @@ class TorrentController extends BaseController
         $du_until = $request->input('du_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
-            $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
+            $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
         }
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? ($request->input('free') ?? 0) : 0;
         $fl_until = $request->input('fl_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
-            $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
+            $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
         $torrent->moderated_at = Carbon::now();
