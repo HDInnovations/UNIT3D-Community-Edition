@@ -41,13 +41,16 @@ class Resurrection extends Model
     protected $guarded = [];
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'rewarded' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'rewarded' => 'boolean',
+        ];
+    }
 
     /**
      * Belongs To A User.

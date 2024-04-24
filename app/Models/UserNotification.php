@@ -63,20 +63,23 @@ class UserNotification extends Model
     public $timestamps = false;
 
     /**
-     * The Attributes That Should Be Cast To Native Values.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'json_account_groups'      => 'array',
-        'json_mention_groups'      => 'array',
-        'json_request_groups'      => 'array',
-        'json_torrent_groups'      => 'array',
-        'json_forum_groups'        => 'array',
-        'json_following_groups'    => 'array',
-        'json_subscription_groups' => 'array',
-        'json_bon_groups'          => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'json_account_groups'      => 'array',
+            'json_mention_groups'      => 'array',
+            'json_request_groups'      => 'array',
+            'json_torrent_groups'      => 'array',
+            'json_forum_groups'        => 'array',
+            'json_following_groups'    => 'array',
+            'json_subscription_groups' => 'array',
+            'json_bon_groups'          => 'array',
+        ];
+    }
 
     /**
      * Belongs To A User.

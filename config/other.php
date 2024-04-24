@@ -121,7 +121,7 @@ return [
     | Exempt these groups from the invite restrictions
     */
     'invite-only'   => true,
-    'invite_expire' => '14',
+    'invite_expire' => 14,
 
     'invites_restriced' => false,
     'invite_groups'     => [

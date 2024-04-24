@@ -163,7 +163,7 @@ DROP TABLE IF EXISTS `automatic_torrent_freeleeches`;
 CREATE TABLE `automatic_torrent_freeleeches` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `position` int unsigned NOT NULL,
-  `name_regex` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_regex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `size` bigint unsigned DEFAULT NULL,
   `category_id` int DEFAULT NULL,
   `type_id` int DEFAULT NULL,
@@ -622,9 +622,9 @@ DROP TABLE IF EXISTS `forum_categories`;
 CREATE TABLE `forum_categories` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `position` smallint unsigned NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -666,7 +666,7 @@ CREATE TABLE `forums` (
   `forum_category_id` smallint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `default_topic_state_filter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `default_topic_state_filter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `forums_last_post_user_id_foreign` (`last_post_user_id`),
   KEY `forums_last_topic_id_foreign` (`last_topic_id`),
@@ -737,7 +737,7 @@ CREATE TABLE `gifts` (
   `sender_id` int unsigned DEFAULT NULL,
   `recipient_id` int unsigned DEFAULT NULL,
   `bon` decimal(22,2) NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `gifts_sender_id_foreign` (`sender_id`),
@@ -770,6 +770,7 @@ CREATE TABLE `groups` (
   `position` int NOT NULL,
   `level` int NOT NULL DEFAULT '0',
   `download_slots` int DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `effect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
@@ -1674,7 +1675,7 @@ CREATE TABLE `ticket_notes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `ticket_id` int unsigned NOT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2283,7 +2284,7 @@ DROP TABLE IF EXISTS `whitelisted_image_urls`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `whitelisted_image_urls` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `pattern` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pattern` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2632,3 +2633,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (289,'2024_02_26_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (290,'2024_03_06_062526_add_open_topics_to_forums',5);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (291,'2024_03_06_154000_add_user_indexes_to_torrents_table',5);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (292,'2024_03_19_211512_create_ticket_notes_table',5);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (293,'2024_03_21_145139_add_group_description',6);

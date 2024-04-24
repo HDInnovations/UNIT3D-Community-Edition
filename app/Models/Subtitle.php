@@ -49,9 +49,17 @@ class Subtitle extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'moderated_at' => 'datetime',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'moderated_at' => 'datetime',
+        ];
+    }
 
     protected static function booted(): void
     {
