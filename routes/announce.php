@@ -26,5 +26,8 @@ if (config('unit3d.proxy_scheme')) {
 if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
+
 // Announce System
-Route::get('{passkey}', [App\Http\Controllers\AnnounceController::class, 'index'])->name('announce');
+if (!config('announce.external_tracker.is_enabled')) {
+    Route::get('{passkey}', [App\Http\Controllers\AnnounceController::class, 'index'])->name('announce');
+}
