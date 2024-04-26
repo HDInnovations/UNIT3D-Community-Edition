@@ -17,7 +17,6 @@
     color: var(--textarea-fg);
     font-size: 14px;
     font-weight: normal;
-    height: 40px;
     max-width: 100%;
     outline: none;
     padding: var(--textarea-padding);
@@ -25,6 +24,25 @@
 
     @media screen and (prefers-reduced-motion: no-preference) {
         transition: border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    @supports (field-sizing: content) {
+        field-sizing: content;
+        max-height: calc(85vh - /* top-nav */ 48px - /* secondary-nav */ 30px);
+    }
+
+    @supports not (field-sizing: content) {
+        height: 40px;
+
+        &:focus,
+        &:focus:hover {
+            height: 140px;
+        }
+
+        &:valid:not(:placeholder-shown),
+        &:focus:placeholder-shown {
+            height: 140px;
+        }
     }
 
     &:hover {
@@ -36,7 +54,6 @@
     &:focus:hover {
         border: var(--textarea-border-active);
         padding: var(--textarea-padding-active);
-        height: 140px;
 
         & ~ .form__label--floating {
             top: -5px;
@@ -49,8 +66,6 @@
 
     &:valid:not(:placeholder-shown),
     &:focus:placeholder-shown {
-        height: 140px;
-
         & ~ .form__label--floating {
             top: -5px;
             font-size: 11px;
