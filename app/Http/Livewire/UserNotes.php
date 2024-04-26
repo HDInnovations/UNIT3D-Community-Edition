@@ -17,7 +17,6 @@ use App\Models\Note;
 use App\Models\User;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -29,15 +28,11 @@ class UserNotes extends Component
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    #[Url(history: true)]
-    #[Validate('required|filled')]
     public string $message = '';
 
     /**
      * @var array<int, string>
      */
-    #[Url(history: true)]
-    #[Validate('array')]
     public array $messages = [];
 
     #[Url(history: true)]
@@ -48,6 +43,23 @@ class UserNotes extends Component
 
     #[Url(history: true)]
     public string $sortDirection = 'desc';
+
+    /**
+     * @var array<mixed>
+     */
+    protected array $rules = [
+        'message' => [
+            'required',
+            'filled',
+        ],
+        'messages' => [
+            'array',
+        ],
+        'messages.*' => [
+            'required',
+            'filled',
+        ]
+    ];
 
     final public function mount(): void
     {
@@ -73,11 +85,14 @@ class UserNotes extends Component
         ]);
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     final public function store(): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validate();
+        $this->validateOnly('message');
 
         Note::create([
             'user_id'  => $this->user->id,
@@ -90,11 +105,15 @@ class UserNotes extends Component
         $this->dispatch('success', type: 'success', message: 'Note has successfully been posted!');
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     final public function update(int $id): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validate();
+        $this->validateOnly('messages');
+        $this->validateOnly('messages.*');
 
         Note::whereKey($id)->update([
             'staff_id' => auth()->id(),
