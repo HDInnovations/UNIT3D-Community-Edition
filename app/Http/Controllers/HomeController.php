@@ -88,16 +88,12 @@ class HomeController extends Controller
                     ->get()
             ),
             'articles' => $articles,
-            'topics'   => cache()->remember(
-                'latest_topics:by-group:'.auth()->user()->group_id,
-                $expiresAt,
-                fn () => Topic::query()
-                    ->with('user', 'user.group', 'latestPoster')
-                    ->authorized(canReadTopic: true)
-                    ->latest()
-                    ->take(5)
-                    ->get()
-            ),
+            'topics'   => Topic::query()
+                ->with(['user', 'user.group', 'latestPoster', 'reads' => fn ($query) => $query->whereBelongsto($user)])
+                ->authorized(canReadTopic: true)
+                ->latest()
+                ->take(5)
+                ->get(),
             'posts' => cache()->remember(
                 'latest_posts:by-group:'.auth()->user()->group_id,
                 $expiresAt,
