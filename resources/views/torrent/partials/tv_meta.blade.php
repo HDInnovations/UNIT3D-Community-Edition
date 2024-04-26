@@ -94,7 +94,7 @@
                     title="The Movie Database: {{ $meta->id }}"
                     target="_blank"
                 >
-                    <i class="fal fa-camera-movie"></i>
+                    <img src="{{ url('/img/meta/tmdb.svg') }}" style="width: 40px" />
                 </a>
             </li>
         @endif
@@ -107,7 +107,7 @@
                     title="Internet Movie Database: {{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
                     target="_blank"
                 >
-                    <i class="fal fa-film"></i>
+                    <img src="{{ url('/img/meta/imdb.svg') }}" style="width: 35px" />
                 </a>
             </li>
         @endif
@@ -120,7 +120,7 @@
                     title="My Anime List: {{ $torrent->mal }}"
                     target="_blank"
                 >
-                    <i class="fal fa-yin-yang"></i>
+                    <img src="{{ url('/img/meta/anidb.svg') }}" style="width: 45px" />
                 </a>
             </li>
         @endif
@@ -133,21 +133,45 @@
                     title="The TV Database: {{ $torrent->tvdb }}"
                     target="_blank"
                 >
-                    <i class="fal fa-tv-retro"></i>
+                    <img src="{{ url('/img/meta/tvdb.svg') }}" style="width: 32px" />
                 </a>
             </li>
         @endif
 
-        <li class="meta__rotten">
-            <a
-                class="meta-id-tag"
-                href="https://duckduckgo.com/?q=\{{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
-                title="Rotten Tomatoes: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
-                target="_blank"
-            >
-                <i class="fal fa-tomato"></i>
-            </a>
-        </li>
+        @if ($meta->id ?? 0 > 0)
+            <li class="meta__rotten">
+                <a
+                    class="meta-id-tag"
+                    href="https://duckduckgo.com/?q=\{{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
+                    title="Rotten Tomatoes: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
+                    target="_blank"
+                >
+                    <i
+                        class="fad fa-tomato"
+                        style="
+                            --fa-secondary-opacity: 1;
+                            --fa-primary-color: green;
+                            --fa-secondary-color: red;
+                            font-size: 23px;
+                            bottom: 2px;
+                        "
+                    ></i>
+                </a>
+            </li>
+        @endif
+
+        @if ($meta->imdb_id ?? 0 > 0)
+            <li class="meta__bluray">
+                <a
+                    class="meta-id-tag"
+                    href="https://www.blu-ray.com/search/?quicksearch=1&quicksearch_keyword=tt{{ $meta->imdb_id ?? '' }}&section=theatrical"
+                    title="Blu-ray: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
+                    target="_blank"
+                >
+                    <img class="" src="{{ url('/img/meta/bluray.svg') }}" style="width: 40px" />
+                </a>
+            </li>
+        @endif
     </ul>
     <p class="meta__description">{{ $meta?->overview }}</p>
     <div class="meta__chips">
@@ -247,7 +271,7 @@
                 </article>
             @endif
 
-            <article class="meta__runtime">
+            <article class="meta__language">
                 <a class="meta-chip" href="#">
                     <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
                     <h2 class="meta-chip__name">Primary Language</h2>

@@ -32,13 +32,6 @@ class UserEcho extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = true;
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>

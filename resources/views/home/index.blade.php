@@ -15,7 +15,7 @@
     @livewire('random-media')
     @include('blocks.poll')
     @livewire('top-torrents')
-    @include('blocks.top_uploaders')
+    @include('blocks.top_users')
     @include('blocks.latest_topics')
     @include('blocks.latest_posts')
     @include('blocks.online')

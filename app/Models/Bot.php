@@ -51,20 +51,16 @@ class Bot extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Get the attributes that should be cast.
      *
-     * @var bool
+     * @return array<string, string>
      */
-    public $timestamps = true;
-
-    /**
-     * The Attributes That Should Be Cast To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name' => 'string',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'name' => 'string',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.

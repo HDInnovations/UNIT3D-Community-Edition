@@ -70,7 +70,7 @@ class AutoRemoveFeaturedTorrent extends Command
                     sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
                 );
 
-                Unit3dAnnounce::addTorrent($torrent);
+                Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
             }
 
             // Delete The Record From DB

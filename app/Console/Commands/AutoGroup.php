@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use App\Enums\UserGroup;
-use App\Helpers\ByteUnits;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
@@ -44,11 +43,11 @@ class AutoGroup extends Command
     /**
      * Execute the console command.
      */
-    public function handle(ByteUnits $byteUnits): void
+    public function handle(): void
     {
         $now = now();
-        // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();
+
         $groups = Group::query()
             ->where('autogroup', '=', 1)
             ->orderBy('position')
@@ -64,19 +63,25 @@ class AutoGroup extends Command
             $seedtime = null;
 
             foreach ($groups as $group) {
+                $seedtime ??= DB::table('history')
+                    ->whereNull('deleted_at')
+                    ->where('user_id', '=', $user->id)
+                    ->avg('seedtime') ?? 0;
+
+                $seedsize ??= $user->seedingTorrents()->sum('size');
+
                 if (
                     //short circuit when the values are 0 or null
-                    ($group->min_uploaded ? $group->min_uploaded <= $user->uploaded : true)
-                    && ($group->min_ratio ? $group->min_ratio <= $user->ratio : true)
-                    && ($group->min_age ? $user->created_at->addRealSeconds($group->min_age)->isBefore($current) : true)
-                    && ($group->min_avg_seedtime ? $group->min_avg_seedtime <= ($seedtime ??= DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime') ?? 0) : true)
-                    && ($group->min_seedsize ? $group->min_seedsize <= ($seedsize ??= $user->seedingTorrents()->sum('size')) : true)
+                    (!$group->min_uploaded || $group->min_uploaded <= $user->uploaded)
+                    && (!$group->min_ratio || $group->min_ratio <= $user->ratio)
+                    && (!$group->min_age || $user->created_at->addSeconds($group->min_age)->isBefore($current))
+                    && (!$group->min_avg_seedtime || $group->min_avg_seedtime <= ($seedtime))
+                    && (!$group->min_seedsize || $group->min_seedsize <= ($seedsize))
                 ) {
                     $user->group_id = $group->id;
 
                     // Leech ratio dropped below sites minimum
-
-                    if ($user->group_id == UserGroup::LEECH->value) {
+                    if ($user->group_id === UserGroup::LEECH->value) {
                         $user->can_request = false;
                         $user->can_invite = false;
                         $user->can_download = false;
@@ -96,7 +101,7 @@ class AutoGroup extends Command
             }
         }
 
-        $elapsed = now()->floatDiffInSeconds($now);
+        $elapsed = now()->diffInSeconds($now);
         $this->comment('Automated User Group Command Complete ('.$elapsed.')');
     }
 }

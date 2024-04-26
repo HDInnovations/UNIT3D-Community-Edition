@@ -34,7 +34,7 @@ class UserController extends Controller
     /**
      * Show A User.
      */
-    public function show(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user->load([
             'application',
@@ -90,7 +90,7 @@ class UserController extends Controller
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->select('agent', 'port')
-                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
+                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers, MAX(connectable) as connectable')
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
@@ -105,7 +105,7 @@ class UserController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch'        => $user->watchlist,
-            'externalUser' => $user->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
+            'externalUser' => $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
         ]);
     }
 

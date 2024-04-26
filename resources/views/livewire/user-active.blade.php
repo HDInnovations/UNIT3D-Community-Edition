@@ -294,7 +294,9 @@
                                 <td class="user-active__connectable">
                                     @php
                                         $connectable = null;
-                                        if (cache()->has('peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent)) {
+                                        if (config('announce.external_tracker.is_enabled')) {
+                                            $connectable = $active->connectable;
+                                        } elseif (cache()->has('peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent)) {
                                             $connectable = cache()->get('peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent);
                                         }
                                     @endphp

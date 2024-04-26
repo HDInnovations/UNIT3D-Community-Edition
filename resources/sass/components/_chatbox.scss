@@ -41,6 +41,10 @@
     margin: 0 10px 10px 10px;
 }
 
+#chatbox__messages-create {
+    max-height: 60vh;
+}
+
 .chatbox-message {
     display: grid;
     grid-template-areas: 'aside header . menu' 'aside content content content';

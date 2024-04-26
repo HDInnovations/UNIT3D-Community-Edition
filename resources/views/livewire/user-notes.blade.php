@@ -92,6 +92,7 @@
                                                     name="message"
                                                     placeholder=" "
                                                     wire:model="messages.{{ $note->id }}"
+                                                    value="{{ $note->message }}"
                                                 ></textarea>
                                                 <label
                                                     class="form__label form__label--floating"

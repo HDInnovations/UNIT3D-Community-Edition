@@ -28,7 +28,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.groups') }}</h2>
         <div class="data-table-wrapper">
-            <table class="data-table">
+            <table class="data-table stats__groups-table">
                 <thead>
                     <tr>
                         <th>{{ __('common.group') }}</th>
@@ -53,7 +53,7 @@
                             </td>
                             <td>
                                 @if ($group->autogroup)
-                                    <table class="data-table requirements-table">
+                                    <table class="stats__requirements-table">
                                         <thead>
                                             <tr>
                                                 <td></td>
@@ -165,7 +165,7 @@
                                 @endif
                             </td>
                             <td>
-                                <table class="data-table">
+                                <table class="stats__perks-table">
                                     <tbody>
                                         <tr>
                                             <td>
@@ -175,6 +175,7 @@
                                                 DL Slots: {{ $group->download_slots ?? '∞' }}
                                             </td>
                                         </tr>
+
                                         @if ($group->can_upload)
                                             <tr>
                                                 <td>
@@ -183,6 +184,17 @@
                                                     ></i>
                                                     {{ __('common.upload') }}
                                                     {{ __('torrent.torrents') }}
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        @if (! config('other.invites_restriced') || (config('other.invites_restriced') && \in_array($group->name, config('other.invite_groups'), true)))
+                                            <tr>
+                                                <td>
+                                                    <i
+                                                        class="{{ config('other.font-awesome') }} fa-paper-plane"
+                                                    ></i>
+                                                    {{ __('user.send-invite') }}
                                                 </td>
                                             </tr>
                                         @endif

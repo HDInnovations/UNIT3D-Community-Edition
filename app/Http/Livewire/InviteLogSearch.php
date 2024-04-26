@@ -85,7 +85,7 @@ class InviteLogSearch extends Component
             ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))
-            ->when($this->receiver, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->receiver))
+            ->when($this->receiver, fn ($query) => $query->whereRelation('receiver', 'username', '=', $this->receiver))
             ->when($this->custom, fn ($query) => $query->where('custom', 'LIKE', '%'.$this->custom.'%'))
             ->when(
                 $this->groupBy === 'user_id',

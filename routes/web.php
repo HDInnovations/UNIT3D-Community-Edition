@@ -306,7 +306,7 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\TicketController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\TicketController::class, 'store'])->name('store');
                 Route::get('/{ticket}', [App\Http\Controllers\TicketController::class, 'show'])->name('show');
-                Route::delete('/{ticket}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('destroy')->middleware('is_modo');
+                Route::delete('/{ticket}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('destroy')->middleware('modo');
                 Route::post('/{ticket}/note', [App\Http\Controllers\TicketNoteController::class, 'store'])->name('note.store');
                 Route::delete('/{ticket}/note', [App\Http\Controllers\TicketNoteController::class, 'destroy'])->name('note.destroy');
                 Route::post('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'store'])->name('assignee.store');

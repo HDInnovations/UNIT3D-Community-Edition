@@ -29,6 +29,12 @@ class MissingMediaSearch extends Component
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
     #[Url(history: true)]
+    public string $name = '';
+
+    #[Url(history: true)]
+    public ?int $year = null;
+
+    #[Url(history: true)]
     public array $categories = [];
 
     #[Url(history: true)]
@@ -47,6 +53,8 @@ class MissingMediaSearch extends Component
     final public function medias(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
+            ->when($this->name, fn ($query) => $query->where('title', 'LIKE', '%'.$this->name.'%'))
+            ->when($this->year, fn ($query) => $query->where('release_date', 'LIKE', '%'.$this->year.'%'))
             ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereNull('claimed')])
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

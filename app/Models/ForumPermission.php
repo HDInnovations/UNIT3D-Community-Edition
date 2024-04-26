@@ -42,15 +42,18 @@ class ForumPermission extends Model
     public $guarded = [];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'read_topic'  => 'boolean',
-        'reply_topic' => 'boolean',
-        'start_topic' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'read_topic'  => 'boolean',
+            'reply_topic' => 'boolean',
+            'start_topic' => 'boolean',
+        ];
+    }
 
     /**
      * Belongs To A Group.

@@ -93,7 +93,7 @@
                             type="checkbox"
                             wire:click="toggleProperties('show')"
                         />
-                        <label class="form__label" for="show">Show Soft Deletes</label>
+                        <label class="form__label" for="show">Include Soft Deletes</label>
                     </p>
                     <p class="form__group">
                         <select
