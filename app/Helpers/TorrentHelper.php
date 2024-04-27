@@ -27,9 +27,11 @@ use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
 use App\Models\AutomaticTorrentFreeleech;
+use App\Models\Movie;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Models\Tv;
 use App\Models\User;
 use App\Models\Wish;
 use App\Notifications\NewUpload;
@@ -118,10 +120,27 @@ class TorrentHelper
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
+            $meta = null;
+            $category = $torrent->category;
+
+            if ($torrent->tmdb > 0) {
+                $meta = match (true) {
+                    $category->tv_meta    => Tv::find($torrent->tmdb),
+                    $category->movie_meta => Movie::find($torrent->tmdb),
+                    default               => null,
+                };
+            }
+
             (new IRCAnnounceBot())
                 ->to(config('irc-bot.channel'))
                 ->say('['.config('app.name').'] '.($anon ? 'An anonymous user' : $username).' has uploaded '.$torrent->name.' grab it now!')
-                ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size: '.$torrent->getSize().']')
+                ->say(
+                    '[Category: '.$category->name.'] '
+                    .'[Type: '.$torrent->type->name.'] '
+                    .'[Size: '.$torrent->getSize().'] '
+                    .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
+                    .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
+                )
                 ->say(sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
 
