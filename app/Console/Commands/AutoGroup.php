@@ -64,7 +64,6 @@ class AutoGroup extends Command
 
             foreach ($groups as $group) {
                 $seedtime ??= DB::table('history')
-                    ->whereNull('deleted_at')
                     ->where('user_id', '=', $user->id)
                     ->avg('seedtime') ?? 0;
 
