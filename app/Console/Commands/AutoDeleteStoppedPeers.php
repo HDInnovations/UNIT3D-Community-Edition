@@ -13,10 +13,17 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Peer;
 use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
+/**
+ * Class AutoDeleteStoppedPeers.
+ *
+ * This class is a Laravel command that deletes all stopped peers from the database.
+ * It uses the DB facade to directly interact with the 'peers' table in the database.
+ */
 class AutoDeleteStoppedPeers extends Command
 {
     /**
@@ -36,12 +43,22 @@ class AutoDeleteStoppedPeers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * This method is the entry point of the command. It deletes all records from the 'peers' table
+     * where 'active' is 0 and 'updated_at' is more than 2 hours ago.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
     public function handle(): void
     {
-        Peer::where('active', '=', 0)->where('updated_at', '>', now()->subHours(2))->delete();
+        // Start a database transaction.
+        DB::transaction(static function (): void {
+            DB::table('peers')
+                ->where('active', '=', 0)
+                ->where('updated_at', '>', now()->subHours(2))
+                ->delete();
+        }, 5); // 5 is the number of attempts if deadlock occurs.
 
+        // Output a message to the console.
         $this->comment('Automated delete stopped peers command complete');
     }
 }
