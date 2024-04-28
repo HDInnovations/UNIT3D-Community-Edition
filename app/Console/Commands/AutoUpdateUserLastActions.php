@@ -13,11 +13,18 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Exception;
+use Throwable;
 
+/**
+ * Class AutoUpdateUserLastActions.
+ *
+ * This class is a Laravel command that updates the 'last_action' field of users in batches.
+ * It fetches user IDs from a Redis list and updates the 'last_action' field for these users in the database.
+ */
 class AutoUpdateUserLastActions extends Command
 {
     /**
@@ -37,20 +44,34 @@ class AutoUpdateUserLastActions extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * This method is the entry point of the command. It fetches user IDs from a Redis list,
+     * then updates the 'last_action' field for these users in the database.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
     public function handle(): void
     {
+        // The key of the Redis list that contains the user IDs.
         $key = config('cache.prefix').':user-last-actions:batch';
-        $userIdCount = Redis::command('LLEN', [$key]);
-        $userIds = Redis::command('LPOP', [$key, $userIdCount]);
 
-        if ($userIds !== false) {
-            User::whereIntegerInRaw('id', $userIds)->update([
-                'last_action' => now(),
-            ]);
+        // Get the number of user IDs in the Redis list.
+        $userIdCount = Redis::command('LLEN', [$key]);
+
+        // Fetch and remove the user IDs from the Redis list.
+        $userIds = array_map('intval', Redis::command('LPOP', [$key, $userIdCount]));
+
+        // If there are user IDs, update the 'last_action' field for these users in the database.
+        if ($userIds !== []) {
+            DB::transaction(static function () use ($userIds): void {
+                DB::table('users')
+                    ->whereIntegerInRaw('id', $userIds)
+                    ->update([
+                        'last_action' => now(),
+                    ]);
+            }, 5); // 5 is the number of attempts if deadlock occurs.
         }
 
+        // Output a message to the console.
         $this->comment('Automated upsert histories command complete');
     }
 }
