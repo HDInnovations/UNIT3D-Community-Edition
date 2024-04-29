@@ -211,51 +211,6 @@ parameters:
 			path: app/Console/Commands/IrcMessage.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:arrayFind\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:arrayFind\\(\\) has parameter \\$needle with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:delTree\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:expandDirectoryTree\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:out\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:prepareWord\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_diff expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$excluded type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$patterns type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
 			message: "#^Method App\\\\Events\\\\Chatter\\:\\:__construct\\(\\) has parameter \\$payload with no type specified\\.$#"
 			count: 1
 			path: app/Events/Chatter.php
