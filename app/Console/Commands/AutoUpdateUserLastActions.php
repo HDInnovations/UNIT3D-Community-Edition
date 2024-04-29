@@ -22,7 +22,7 @@ use Throwable;
 /**
  * Class AutoUpdateUserLastActions.
  *
- * This class is a Laravel command that updates the 'last_action' field of users in batches.
+ * This class is responsible for updating the 'last_action' field of users in batches.
  * It fetches user IDs from a Redis list and updates the 'last_action' field for these users in the database.
  */
 class AutoUpdateUserLastActions extends Command

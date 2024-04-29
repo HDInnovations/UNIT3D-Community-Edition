@@ -21,7 +21,7 @@ use Throwable;
 /**
  * Class AutoDeleteStoppedPeers.
  *
- * This class is a Laravel command that deletes all stopped peers from the database.
+ * TThis class is responsible for deleting all stopped peers from the database.
  * It uses the DB facade to directly interact with the 'peers' table in the database.
  */
 class AutoDeleteStoppedPeers extends Command

@@ -21,7 +21,7 @@ use Throwable;
 /**
  * Class AutoTorrentBalance.
  *
- * This class is a Laravel command that is responsible for calculating the balance for all torrents.
+ * This class is responsible for calculating the balance for all torrents.
  * It is a console command that can be executed manually or scheduled.
  */
 class AutoTorrentBalance extends Command

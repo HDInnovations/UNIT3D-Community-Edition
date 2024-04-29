@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class AutoNerdStat.
  *
- * This class is a Laravel command that  is responsible for posting daily nerd stats to the chatbox.
+ * This class is responsible for posting daily nerd stats to the chatbox.
  * It is a console command that can be executed manually or scheduled.
  *
  * @package App\Console\Commands
