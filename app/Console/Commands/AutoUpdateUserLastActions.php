@@ -58,10 +58,10 @@ class AutoUpdateUserLastActions extends Command
         $userIdCount = Redis::command('LLEN', [$key]);
 
         // Fetch and remove the user IDs from the Redis list.
-        $userIds = array_map('intval', Redis::command('LPOP', [$key, $userIdCount]));
+        $userIds = Redis::command('LPOP', [$key, $userIdCount]);
 
         // If there are user IDs, update the 'last_action' field for these users in the database.
-        if ($userIds !== []) {
+        if ($userIds !== false) {
             DB::transaction(static function () use ($userIds): void {
                 DB::table('users')
                     ->whereIntegerInRaw('id', $userIds)
