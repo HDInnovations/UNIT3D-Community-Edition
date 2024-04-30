@@ -45,11 +45,13 @@
                             @foreach ($groups as $group)
                                 <p class="form__group">
                                     <label class="form__label">
-                                        <input class="form__checkbox"
-                                               type="checkbox"
-                                               id="group{{ $group->id }}"
-                                               name="groups[]"
-                                               value="{{ $group->id }}">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            id="group{{ $group->id }}"
+                                            name="groups[]"
+                                            value="{{ $group->id }}"
+                                        />
                                         {{ $group->name }}
                                     </label>
                                 </p>
