@@ -18,7 +18,6 @@ use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
 use App\Models\Ban;
 use App\Models\Bot;
-use App\Models\BotTransaction;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
@@ -27,7 +26,6 @@ use App\Models\UserEcho;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
-use Exception;
 
 class NerdBot
 {
@@ -204,28 +202,6 @@ class NerdBot
         return sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations).config('other.title').'!';
     }
 
-    /**
-     * Get Bot Donations.
-     */
-    public function getDonations(): string
-    {
-        $donations = cache()->remember(
-            'nerdbot-donations',
-            $this->expiresAt,
-            fn () => BotTransaction::with('user', 'bot')->where('to_bot', '=', 1)->latest()->limit(10)->get()
-        );
-
-        $donationDump = '';
-        $i = 1;
-
-        foreach ($donations as $donation) {
-            $donationDump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->bot->name.' '.$donation->cost.' '.$donation->forHumans().".\n";
-            $i++;
-        }
-
-        return "The Most Recent Donations To All Bots Are As Follows:\n\n".trim($donationDump);
-    }
-
     public function getHelp(): string
     {
         return $this->replaceVars($this->bot->help);
@@ -234,47 +210,6 @@ class NerdBot
     public function getKing(): string
     {
         return config('other.title').' Is King!';
-    }
-
-    /**
-     * Send Bot Donation.
-     *
-     * @param  array<string> $note
-     * @throws Exception
-     */
-    public function putDonate(float $amount = 0, array $note = ['']): string
-    {
-        $output = implode(' ', $note);
-        $v = validator(['bot_id' => $this->bot->id, 'amount' => $amount, 'note' => $output], [
-            'bot_id' => 'required|exists:bots,id|max:999',
-            'amount' => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
-            'note'   => 'required|string',
-        ]);
-
-        if ($v->passes()) {
-            $value = $amount;
-            $this->bot->seedbonus += $value;
-            $this->bot->save();
-
-            $this->target->seedbonus -= $value;
-            $this->target->save();
-
-            $botTransaction = new BotTransaction();
-            $botTransaction->type = 'bon';
-            $botTransaction->cost = $value;
-            $botTransaction->user_id = $this->target->id;
-            $botTransaction->bot_id = $this->bot->id;
-            $botTransaction->to_bot = true;
-            $botTransaction->comment = $output;
-            $botTransaction->save();
-
-            $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
-            cache()->put('casinobot-donations', $donations, $this->expiresAt);
-
-            return 'Your donation to '.$this->bot->name.' for '.$amount.' BON has been sent!';
-        }
-
-        return 'Your donation to '.$output.' could not be sent.';
     }
 
     /**
@@ -300,7 +235,6 @@ class NerdBot
 
         $command = @explode(' ', $message);
 
-        $wildcard = null;
         $params = $command[$y] ?? null;
 
         if ($params) {
@@ -308,15 +242,12 @@ class NerdBot
             array_shift($clone);
             array_shift($clone);
             array_shift($clone);
-            $wildcard = $clone;
         }
 
         if (\array_key_exists($x, $command)) {
             $log = match($command[$x]) {
                 'banker'        => $this->getBanker(),
                 'bans'          => $this->getBans(),
-                'donations'     => $this->getDonations(),
-                'donate'        => $this->putDonate((float) $params, $wildcard),
                 'doubleupload'  => $this->getDoubleUpload(),
                 'freeleech'     => $this->getFreeleech(),
                 'help'          => $this->getHelp(),

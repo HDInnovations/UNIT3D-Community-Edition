@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Bots\CasinoBot;
 use App\Bots\NerdBot;
 use App\Bots\SystemBot;
 use App\Events\Chatter;
@@ -230,8 +229,6 @@ class ChatController extends Controller
                 $runbot = new SystemBot($this->chatRepository);
             } elseif ($bot->is_nerdbot) {
                 $runbot = new NerdBot($this->chatRepository);
-            } elseif ($bot->is_casinobot) {
-                $runbot = new CasinoBot($this->chatRepository);
             }
         }
 
