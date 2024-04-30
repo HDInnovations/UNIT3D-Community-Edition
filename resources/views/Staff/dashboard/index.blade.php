@@ -60,6 +60,26 @@
                         </a>
                     </p>
                 @endif
+                @if (auth()->user()->id === 3)
+                    <p class="form__group form__group--horizontal">
+                        <a class="form__button form__button--text" href="{{ route('staff.donations.index') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                            Donations
+                        </a>
+                    </p>
+                    <p class="form__group form__group--horizontal">
+                        <a class="form__button form__button--text" href="{{ route('staff.gateways.index') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                            Gateways
+                        </a>
+                    </p>
+                    <p class="form__group form__group--horizontal">
+                        <a class="form__button form__button--text" href="{{ route('staff.packages.index') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                            Packages
+                        </a>
+                    </p>
+                @endif
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -439,6 +459,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-envelope-square"></i>
                         {{ __('staff.mass-pm') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.mass_email.create') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-paper-plane"></i>
+                        {{ __('staff.mass-email') }}
                     </a>
                 </p>
                 <div class="form__group form__group--horizontal">

@@ -279,6 +279,10 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Pool System
+        Route::get('/pool', [App\Http\Controllers\PoolController::class, 'index'])->name('pool');
+        Route::post('/pool/contribute/{id}', [App\Http\Controllers\PoolController::class, 'store'])->name('contribute');
+
         // Yearly Overview
         Route::prefix('yearly-overviews')->group(function (): void {
             Route::name('yearly_overviews.')->group(function (): void {
@@ -286,6 +290,10 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{year}', [App\Http\Controllers\YearlyOverviewController::class, 'show'])->name('show');
             });
         });
+
+        // Donation System
+        Route::get('/donations', [App\Http\Controllers\DonationsController::class, 'index'])->name('donations.index');
+        Route::post('/donations', [App\Http\Controllers\DonationsController::class, 'store'])->name('donations.store');
 
         // Subtitles System
         Route::prefix('subtitles')->group(function (): void {
@@ -921,6 +929,14 @@ Route::middleware('language')->group(function (): void {
             Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('mass-pm.store');
         });
 
+        // Mass Email
+        Route::prefix('mass-email')->group(function (): void {
+            Route::name('mass_email.')->group(function (): void {
+                Route::get('/create', [App\Http\Controllers\Staff\MassEmailController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\MassEmailController::class, 'store'])->name('store');
+            });
+        });
+
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
         Route::prefix('media-languages')->group(function (): void {
             Route::name('media_languages.')->group(function (): void {
@@ -1139,6 +1155,47 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');
                 Route::patch('/{wiki}/update', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
                 Route::delete('/{wiki}/destroy', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Donations
+        Route::group(['prefix' => 'donations'], function (): void {
+            Route::name('donations.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationsController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\DonationsController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DonationsController::class, 'store'])->name('store');
+                Route::get('/reverse/{id}', [App\Http\Controllers\Staff\DonationsController::class, 'reverseForm'])->name('reverse_form');
+                Route::post('/reverse/{id}', [App\Http\Controllers\Staff\DonationsController::class, 'reverse'])->name('reverse');
+                Route::get('/approve/{id}', [App\Http\Controllers\Staff\DonationsController::class, 'approveForm'])->name('approve_form');
+                Route::post('/approve/{id}', [App\Http\Controllers\Staff\DonationsController::class, 'approve'])->name('approve');
+                Route::get('/reject/{id}', [App\Http\Controllers\Staff\DonationsController::class, 'rejectForm'])->name('reject_form');
+                Route::post('/reject/{id}', [App\Http\Controllers\Staff\DonationsController::class, 'reject'])->name('reject');
+            });
+        });
+
+        // Packages
+        Route::group(['prefix' => 'packages'], function (): void {
+            Route::name('packages.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PackagesController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\PackagesController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\PackagesController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\PackagesController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\PackagesController::class, 'update'])->name('update');
+                Route::get('/{id}/delete', [App\Http\Controllers\Staff\PackagesController::class, 'delete'])->name('delete');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\PackagesController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Gateways
+        Route::group(['prefix' => 'gateways'], function (): void {
+            Route::name('gateways.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\GatewaysController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\GatewaysController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\GatewaysController::class, 'store'])->name('store');
+                Route::get('/{id}/edit', [App\Http\Controllers\Staff\GatewaysController::class, 'edit'])->name('edit');
+                Route::patch('/{id}/update', [App\Http\Controllers\Staff\GatewaysController::class, 'update'])->name('update');
+                Route::get('/{id}/delete', [App\Http\Controllers\Staff\GatewaysController::class, 'delete'])->name('delete');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\Staff\GatewaysController::class, 'destroy'])->name('destroy');
             });
         });
     });
