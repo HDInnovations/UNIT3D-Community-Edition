@@ -21,16 +21,6 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserPassword.php
 
 		-
-			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(int\\) does not accept true\\.$#"
-			count: 1
-			path: app/Bots/CasinoBot.php
-
-		-
-			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(int\\) does not accept true\\.$#"
-			count: 1
-			path: app/Bots/NerdBot.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoBanDisposableUsers.php
