@@ -63,7 +63,6 @@ Public, Echo & Private commands:
 
 (! | / | @)nerdbot banker - Displays who is currently top BON holder.
 (! | / | @)nerdbot bans - Displays # of bans from site in past 24 hours.
-(! | / | @)nerdbot donations - Displays the 10 most recent donations to all bots.
 (! | / | @)nerdbot doubleupload - Displays # of double upload torrents available on the site.
 (! | / | @)nerdbot freeleech - Displays # of freeleech torrents available on the site.
 (! | / | @)nerdbot king - Displays who is the one and only king.
@@ -84,39 +83,6 @@ None.
 (All NerdBot statistics are cached for 60 minutes)',
                 'is_protected' => 1,
                 'is_nerdbot'   => 1,
-            ],
-            [
-                'name'         => 'CasinoBot',
-                'command'      => 'casinobot',
-                'emoji'        => '1f3b0',
-                'position'     => 3,
-                'color'        => '#f1c40f',
-                'icon'         => 'fab fa-android',
-                'help'         => 'Coming soon',
-                'is_protected' => 1,
-                'is_casinobot' => 1,
-            ],
-            [
-                'name'         => 'BetBot',
-                'command'      => 'betbot',
-                'emoji'        => '1f3b2',
-                'position'     => 4,
-                'color'        => '#f1c40f',
-                'icon'         => 'fab fa-android',
-                'help'         => 'Coming soon',
-                'is_protected' => 1,
-                'is_betbot'    => 1,
-            ],
-            [
-                'name'         => 'TriviaBot',
-                'command'      => 'triviabot',
-                'emoji'        => '2753',
-                'position'     => 5,
-                'color'        => '#f1c40f',
-                'icon'         => 'fab fa-android',
-                'help'         => 'Coming soon',
-                'is_protected' => 1,
-                'is_triviabot' => 1,
             ],
         ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }

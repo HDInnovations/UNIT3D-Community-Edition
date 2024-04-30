@@ -25,9 +25,6 @@ class ChatroomTableSeeder extends Seeder
             [
                 'name' => 'General',
             ],
-            [
-                'name' => 'Trivia',
-            ],
         ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }
 }
