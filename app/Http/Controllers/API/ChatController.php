@@ -567,11 +567,4 @@ class ChatController extends Controller
 
         return response($user);
     }
-
-    public function updateBotTarget(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-    {
-        $user = $request->user()->load(['chatStatus', 'chatroom', 'group', 'echoes']);
-
-        return response($user);
-    }
 }
