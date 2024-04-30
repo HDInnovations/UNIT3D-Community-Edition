@@ -54,7 +54,7 @@ class ChatController extends Controller
     {
         $user = $request->user()->load(['echoes']);
 
-        if (!$user->echoes || (is_countable($user->echoes->toArray()) ? \count($user->echoes->toArray()) : 0) < 1) {
+        if ($user->echoes->isEmpty()) {
             $userEcho = new UserEcho();
             $userEcho->user_id = $request->user()->id;
             $userEcho->room_id = 1;
@@ -69,7 +69,7 @@ class ChatController extends Controller
     {
         $user = $request->user()->load(['audibles']);
 
-        if (!$user->audibles || (is_countable($user->audibles->toArray()) ? \count($user->audibles->toArray()) : 0) < 1) {
+        if ($user->audibles->isEmpty()) {
             $userAudible = new UserAudible();
             $userAudible->user_id = $request->user()->id;
             $userAudible->room_id = 1;

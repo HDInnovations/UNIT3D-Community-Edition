@@ -526,11 +526,6 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
@@ -553,11 +548,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:privateMessages\\(\\) has parameter \\$targetId with no type specified\\.$#"
 			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
