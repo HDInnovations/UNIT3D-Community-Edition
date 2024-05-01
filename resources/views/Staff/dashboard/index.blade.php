@@ -441,6 +441,15 @@
                         {{ __('staff.mass-pm') }}
                     </a>
                 </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.mass_email.create') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-paper-plane"></i>
+                        {{ __('staff.mass-email') }}
+                    </a>
+                </p>
                 <div class="form__group form__group--horizontal">
                     <form
                         method="GET"

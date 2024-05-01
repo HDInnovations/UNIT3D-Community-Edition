@@ -20,6 +20,18 @@
                     </p>
                     <p class="form__group">
                         <input
+                            id="soundexUsername"
+                            class="form__text"
+                            type="text"
+                            wire:model.live="soundexUsername"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="soundexUsername">
+                            Soundex {{ __('common.username') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
                             id="email"
                             class="form__text"
                             type="text"
@@ -28,6 +40,18 @@
                         />
                         <label class="form__label form__label--floating" for="email">
                             {{ __('common.email') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="soundexEmail"
+                            class="form__text"
+                            type="text"
+                            wire:model.live="soundexEmail"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="soundexEmail">
+                            Soundex {{ __('common.email') }}
                         </label>
                     </p>
                     <p class="form__group">

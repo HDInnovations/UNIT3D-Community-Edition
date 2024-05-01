@@ -521,16 +521,6 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
-			count: 6
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
@@ -556,18 +546,8 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept bool\\.$#"
 			count: 3
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept false\\.$#"
-			count: 2
 			path: app/Http/Controllers/API/ChatController.php
 
 		-

@@ -41,6 +41,7 @@ return [
     'link'                     => 'Link',
     'links'                    => 'Links',
     'logs'                     => 'Logs',
+    'mass-email'               => 'Mass Email',
     'mass-pm'                  => 'Mass PM',
     'mass-validate-users'      => 'Mass Validate Users',
     'media-languages-desc'     => '(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)',
