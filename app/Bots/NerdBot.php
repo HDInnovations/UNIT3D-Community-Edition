@@ -43,11 +43,14 @@ class NerdBot
 
     private Carbon $current;
 
+    private string $site;
+
     public function __construct(private readonly ChatRepository $chatRepository)
     {
         $this->bot = Bot::findOrFail(2);
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();
+        $this->site = config('other.title');
     }
 
     public function replaceVars(string $output): string
@@ -56,7 +59,7 @@ class NerdBot
 
         if (str_contains((string) $output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position')->get();
 
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
@@ -76,7 +79,7 @@ class NerdBot
             fn () => User::orderByDesc('seedbonus')->first()
         );
 
-        return sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).config('other.title').'!';
+        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] is the top BON holder on {$this->site}!";
     }
 
     public function getSnatched(): string
@@ -87,7 +90,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('times_completed')->first()
         );
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).config('other.title').'!';
+        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] is the most snatched torrent on {$this->site}!";
     }
 
     public function getLeeched(): string
@@ -98,7 +101,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('leechers')->first()
         );
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).config('other.title').'!';
+        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] is the most leeched torrent on {$this->site}!";
     }
 
     public function getSeeded(): string
@@ -109,7 +112,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('seeders')->first()
         );
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).config('other.title').'!';
+        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] is the most seeded torrent on {$this->site}!";
     }
 
     public function getFreeleech(): string
@@ -120,7 +123,7 @@ class NerdBot
             fn () => Torrent::where('free', '=', 1)->count()
         );
 
-        return sprintf('There Are Currently %s Freeleech Torrents On ', $freeleech).config('other.title').'!';
+        return "There are currently {$freeleech} freeleech torrents on {$this->site}!";
     }
 
     public function getDoubleUpload(): string
@@ -131,7 +134,7 @@ class NerdBot
             fn () => Torrent::where('doubleup', '=', 1)->count()
         );
 
-        return sprintf('There Are Currently %s Double Upload Torrents On ', $doubleUpload).config('other.title').'!';
+        return "There are currently {$doubleUpload} double upload torrents on {$this->site}!";
     }
 
     public function getPeers(): string
@@ -142,7 +145,7 @@ class NerdBot
             fn () => Peer::where('active', '=', 1)->count()
         );
 
-        return sprintf('Currently There Are %s Peers On ', $peers).config('other.title').'!';
+        return "Currently there are {$peers} peers on {$this->site}!";
     }
 
     public function getBans(): string
@@ -155,7 +158,7 @@ class NerdBot
                 ->where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).config('other.title').'!';
+        return "In the last 24 hours, {$bans} users have been banned from {$this->site}";
     }
 
     public function getWarnings(): string
@@ -166,7 +169,7 @@ class NerdBot
             fn () => Warning::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!';
+        return "In the last 24 hours, {$warnings} hit and run warnings have been issued on {$this->site}!";
     }
 
     public function getUploads(): string
@@ -177,7 +180,7 @@ class NerdBot
             fn () => Torrent::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).config('other.title').'!';
+        return "In the last 24 hours, {$uploads} torrents have been uploaded to {$this->site}!";
     }
 
     public function getLogins(): string
@@ -188,7 +191,7 @@ class NerdBot
             fn () => User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).config('other.title').'!';
+        return "In The Last 24 Hours, {$logins} Unique Users Have Logged Into {$this->site}!";
     }
 
     public function getRegistrations(): string
@@ -199,7 +202,7 @@ class NerdBot
             fn () => User::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations).config('other.title').'!';
+        return "In the last 24 hours, {$registrations} users have registered to {$this->site}!";
     }
 
     public function getHelp(): string
