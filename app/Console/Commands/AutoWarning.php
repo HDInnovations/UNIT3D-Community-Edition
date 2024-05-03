@@ -93,11 +93,11 @@ class AutoWarning extends Command
                         $usersWithWarnings[$hr->user->id] = $hr->user;
                     }
                 }
+            }
 
-                // Send a single notification for each user with warnings
-                foreach ($usersWithWarnings as $user) {
-                    $user->notify(new UserWarning($user));
-                }
+            // Send a single notification for each user with warnings
+            foreach ($usersWithWarnings as $user) {
+                $user->notify(new UserWarning($user));
             }
 
             // Calculate User Warning Count and Disable DL Priv If Required.
