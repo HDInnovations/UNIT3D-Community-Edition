@@ -146,6 +146,7 @@
                     href="https://html.duckduckgo.com/html/?q=\{{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
                     title="Rotten Tomatoes: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
+                    rel="noreferrer"
                 >
                     <i
                         class="fad fa-tomato"
