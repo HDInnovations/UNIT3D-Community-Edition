@@ -55,11 +55,17 @@ class AutoCacheRandomMediaIds extends Command
             ->whereNotNull('backdrop')
             ->pluck('id');
 
-        $cacheKey = config('cache.prefix').':random-media-movie-ids';
-        Redis::connection('cache')->command('SADD', [$cacheKey, ...$movieIds]);
+        if ($movieIds->isNotEmpty()) {
+            $cacheKey = config('cache.prefix').':random-media-movie-ids';
 
-        $cacheKey = config('cache.prefix').':random-media-tv-ids';
-        Redis::connection('cache')->command('SADD', [$cacheKey, ...$tvIds]);
+            Redis::connection('cache')->command('SADD', [$cacheKey, ...$movieIds]);
+        }
+
+        if ($tvIds->isNotEmpty()) {
+            $cacheKey = config('cache.prefix').':random-media-tv-ids';
+
+            Redis::connection('cache')->command('SADD', [$cacheKey, ...$tvIds]);
+        }
 
         $this->comment($movieIds->count().' movie ids and '.$tvIds->count().' tv ids cached.');
     }
