@@ -16,16 +16,43 @@
                         <option value="month">Past Month</option>
                         <option value="year">Past Year</option>
                         <option value="all">All-time</option>
+                        <option value="custom">Custom</option>
                     </select>
                     <label class="form__label form__label--floating" for="interval">Interval</label>
                 </div>
             </div>
+            @if ($this->interval === 'custom')
+                <div class="panel__action">
+                    <div class="form__group">
+                        <input
+                            id="from"
+                            class="form__text"
+                            name="from"
+                            type="date"
+                            wire:model.live="from"
+                        />
+                        <label class="form__label form__label--floating" for="from">From</label>
+                    </div>
+                </div>
+                <div class="panel__action">
+                    <div class="form__group">
+                        <input
+                            id="until"
+                            class="form__text"
+                            name="until"
+                            type="date"
+                            wire:model.live="until"
+                        />
+                        <label class="form__label form__label--floating" for="until">Until</label>
+                    </div>
+                </div>
+            @endif
+
             <div class="panel__action">
                 <div class="form__group">
                     <select
                         id="metaType"
                         class="form__select"
-                        type="date"
                         name="metaType"
                         wire:model.live="metaType"
                     >
