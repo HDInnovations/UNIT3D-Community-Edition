@@ -15,12 +15,11 @@ namespace App\Console\Commands;
 
 use App\Models\Torrent;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoRemoveTimedTorrentBuffs
- */
 class AutoRemoveTimedTorrentBuffs extends Command
 {
     /**
@@ -39,8 +38,10 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now()->toDateTimeString())->get();
 

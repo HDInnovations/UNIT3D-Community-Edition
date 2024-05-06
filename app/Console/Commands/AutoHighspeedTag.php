@@ -17,12 +17,11 @@ use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Seedbox;
 use App\Models\Torrent;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoHighspeedTagTest
- */
 class AutoHighspeedTag extends Command
 {
     /**
@@ -41,8 +40,10 @@ class AutoHighspeedTag extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $seedboxIps = Seedbox::all()
             ->pluck('ip')

@@ -18,10 +18,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoCorrectHistoryTest
- */
 class AutoCorrectHistory extends Command
 {
     /**
@@ -41,9 +39,9 @@ class AutoCorrectHistory extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         History::select(['id', 'active', 'updated_at'])
             ->where('active', '=', 1)

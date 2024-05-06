@@ -14,12 +14,11 @@
 namespace App\Console\Commands;
 
 use App\Models\Audit;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoRecycleAuditsTest
- */
 class AutoRecycleAudits extends Command
 {
     /**
@@ -38,8 +37,10 @@ class AutoRecycleAudits extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $current = Carbon::now();
         $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle'))->toDateTimeString())->get();

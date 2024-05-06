@@ -22,10 +22,8 @@ use App\Rules\EmailBlacklist;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\AutoBanDisposableUsersTest
- */
 class AutoBanDisposableUsers extends Command
 {
     /**
@@ -45,9 +43,9 @@ class AutoBanDisposableUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 

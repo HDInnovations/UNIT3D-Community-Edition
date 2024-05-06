@@ -14,8 +14,10 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
 class AutoStatsClients extends Command
 {
@@ -35,8 +37,10 @@ class AutoStatsClients extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $clients = Peer::selectRaw('agent, count(*) as count')
             ->fromSub(

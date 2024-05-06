@@ -17,21 +17,12 @@ use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * Class AutoNerdStat.
- *
- * This class is responsible for posting daily nerd stats to the chatbox.
- * It is a console command that can be executed manually or scheduled.
- *
- * @package App\Console\Commands
- */
 class AutoNerdStat extends Command
 {
     /**
      * AutoNerdStat Constructor.
-     *
-     * @param ChatRepository $chatRepository The chat repository instance.
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
@@ -55,11 +46,9 @@ class AutoNerdStat extends Command
     /**
      * Execute the console command.
      *
-     * This method is the entry point of the command. It posts a random nerd stat to the shoutbox.
-     *
-     * @throws Exception If there is an error during the execution of the command.
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         // Check if the nerd bot is enabled in the configuration.
         if (config('chat.nerd_bot')) {

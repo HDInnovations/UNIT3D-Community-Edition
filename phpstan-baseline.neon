@@ -46,17 +46,7 @@ parameters:
 			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/DemoSeed.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/DemoSeed.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchTv\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/DemoSeed.php
 
@@ -81,32 +71,7 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertDanger\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertInfo\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertSuccess\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertWarning\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:backup\\(\\) has parameter \\$paths with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:blue\\(\\) has parameter \\$line with no type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
@@ -121,37 +86,7 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:commands\\(\\) has parameter \\$silent with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:createBackupPath\\(\\) has parameter \\$path with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:cyan\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:green\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:header\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:magenta\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:manualUpdate\\(\\) has parameter \\$updating with no type specified\\.$#"
+			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:manualUpdate\\(\\) has parameter \\$updating with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
@@ -161,37 +96,7 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:process\\(\\) has parameter \\$command with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:process\\(\\) has parameter \\$silent with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:red\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:restore\\(\\) has parameter \\$paths with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:updateFile\\(\\) has parameter \\$file with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:validatePath\\(\\) has parameter \\$path with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:white\\(\\) has parameter \\$line with no type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
