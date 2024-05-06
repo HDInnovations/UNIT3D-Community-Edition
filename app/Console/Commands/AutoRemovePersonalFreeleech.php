@@ -17,12 +17,11 @@ use App\Models\PersonalFreeleech;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoRemovePersonalFreeleechTest
- */
 class AutoRemovePersonalFreeleech extends Command
 {
     /**
@@ -41,8 +40,10 @@ class AutoRemovePersonalFreeleech extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $current = Carbon::now();
         $personalFreeleech = PersonalFreeleech::where('created_at', '<', $current->copy()->subDays(1)->toDateTimeString())->get();

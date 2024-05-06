@@ -17,13 +17,12 @@ use App\Enums\UserGroup;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoGroupTest
- */
 class AutoGroup extends Command
 {
     /**
@@ -42,8 +41,10 @@ class AutoGroup extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $now = now();
         $current = Carbon::now();

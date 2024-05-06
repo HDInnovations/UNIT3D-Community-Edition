@@ -186,6 +186,4 @@ return [
             'read_write_timeout' => -1,
         ],
     ],
-
-    'pristine-db-file' => env('PRISTINE_DB_FILE'),
 ];

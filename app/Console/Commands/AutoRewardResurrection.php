@@ -20,16 +20,15 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoGraveyardTest
- */
 class AutoRewardResurrection extends Command
 {
     /**
-     * AutoRewardResurrection's Constructor.
+     * AutoRewardResurrection Constructor.
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
@@ -52,8 +51,10 @@ class AutoRewardResurrection extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         foreach (Resurrection::where('rewarded', '!=', 1)->oldest()->get() as $resurrection) {
             $user = User::find($resurrection->user_id);

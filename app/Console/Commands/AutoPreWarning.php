@@ -19,10 +19,8 @@ use App\Notifications\UserPreWarning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoPreWarningTest
- */
 class AutoPreWarning extends Command
 {
     /**
@@ -42,9 +40,9 @@ class AutoPreWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         if (config('hitrun.enabled') === true) {
             $carbon = new Carbon();

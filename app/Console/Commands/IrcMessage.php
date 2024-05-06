@@ -14,8 +14,10 @@
 namespace App\Console\Commands;
 
 use App\Bots\IRCAnnounceBot;
+use Exception;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Throwable;
 
 class IrcMessage extends Command
 {
@@ -35,8 +37,10 @@ class IrcMessage extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $this->info('Messaging '.$this->argument('channel').': '.$this->argument('message'));
 

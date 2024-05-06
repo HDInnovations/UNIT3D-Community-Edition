@@ -20,6 +20,7 @@ use App\Services\Tmdb\Client\TV;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
+use Throwable;
 
 class DemoSeed extends Command
 {
@@ -39,8 +40,10 @@ class DemoSeed extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $this->alert('Demo Seeder v2.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -473,7 +476,7 @@ Menu
         }
     }
 
-    private function fetchMovie($id)
+    private function fetchMovie($id): mixed
     {
         sleep(2);
         $tmdbScraper = new TMDBScraper();
@@ -482,7 +485,7 @@ Menu
         return (new Movie($id))->data;
     }
 
-    private function fetchTv($id)
+    private function fetchTv($id): mixed
     {
         sleep(2);
         $tmdbScraper = new TMDBScraper();

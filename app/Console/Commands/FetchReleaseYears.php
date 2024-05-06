@@ -17,11 +17,10 @@ use App\Models\Movie;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Tv;
+use Exception;
 use Illuminate\Console\Command;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\FetchReleaseYearsTest
- */
 class FetchReleaseYears extends Command
 {
     /**
@@ -40,8 +39,10 @@ class FetchReleaseYears extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $appurl = config('app.url');
 
