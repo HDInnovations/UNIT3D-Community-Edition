@@ -21,16 +21,6 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserPassword.php
 
 		-
-			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(int\\) does not accept true\\.$#"
-			count: 1
-			path: app/Bots/CasinoBot.php
-
-		-
-			message: "#^Property App\\\\Models\\\\BotTransaction\\:\\:\\$to_bot \\(int\\) does not accept true\\.$#"
-			count: 1
-			path: app/Bots/NerdBot.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoBanDisposableUsers.php
@@ -46,17 +36,7 @@ parameters:
 			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/DemoSeed.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchMovie\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/DemoSeed.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\DemoSeed\\:\\:fetchTv\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/DemoSeed.php
 
@@ -81,32 +61,7 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertDanger\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertInfo\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertSuccess\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:alertWarning\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:backup\\(\\) has parameter \\$paths with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:blue\\(\\) has parameter \\$line with no type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
@@ -121,37 +76,7 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:commands\\(\\) has parameter \\$silent with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:createBackupPath\\(\\) has parameter \\$path with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:cyan\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:green\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:header\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:magenta\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:manualUpdate\\(\\) has parameter \\$updating with no type specified\\.$#"
+			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:manualUpdate\\(\\) has parameter \\$updating with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
@@ -161,37 +86,7 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:process\\(\\) has parameter \\$command with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:process\\(\\) has parameter \\$silent with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:red\\(\\) has parameter \\$line with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
 			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:restore\\(\\) has parameter \\$paths with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:updateFile\\(\\) has parameter \\$file with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:validatePath\\(\\) has parameter \\$path with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/GitUpdater.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:white\\(\\) has parameter \\$line with no type specified\\.$#"
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
@@ -209,51 +104,6 @@ parameters:
 			message: "#^Method App\\\\Console\\\\Commands\\\\IrcMessage\\:\\:getArguments\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Console/Commands/IrcMessage.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:arrayFind\\(\\) has parameter \\$haystack with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:arrayFind\\(\\) has parameter \\$needle with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:delTree\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:expandDirectoryTree\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:out\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:prepareWord\\(\\) has parameter \\$matches with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_diff expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$excluded type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
-
-		-
-			message: "#^Property App\\\\Console\\\\Commands\\\\VendorCleanup\\:\\:\\$patterns type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Console/Commands/VendorCleanup.php
 
 		-
 			message: "#^Method App\\\\Events\\\\Chatter\\:\\:__construct\\(\\) has parameter \\$payload with no type specified\\.$#"
@@ -531,16 +381,6 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
-			count: 6
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
@@ -566,18 +406,8 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept bool\\.$#"
 			count: 3
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept false\\.$#"
-			count: 2
 			path: app/Http/Controllers/API/ChatController.php
 
 		-

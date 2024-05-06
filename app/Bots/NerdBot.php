@@ -18,7 +18,6 @@ use App\Http\Resources\UserAudibleResource;
 use App\Http\Resources\UserEchoResource;
 use App\Models\Ban;
 use App\Models\Bot;
-use App\Models\BotTransaction;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\User;
@@ -27,7 +26,6 @@ use App\Models\UserEcho;
 use App\Models\Warning;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
-use Exception;
 
 class NerdBot
 {
@@ -45,11 +43,14 @@ class NerdBot
 
     private Carbon $current;
 
+    private string $site;
+
     public function __construct(private readonly ChatRepository $chatRepository)
     {
         $this->bot = Bot::findOrFail(2);
         $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();
+        $this->site = config('other.title');
     }
 
     public function replaceVars(string $output): string
@@ -58,7 +59,7 @@ class NerdBot
 
         if (str_contains((string) $output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position')->get();
 
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
@@ -78,7 +79,7 @@ class NerdBot
             fn () => User::orderByDesc('seedbonus')->first()
         );
 
-        return sprintf('Currently [url=/users/%s]%s[/url] Is The Top BON Holder On ', $banker->username, $banker->username).config('other.title').'!';
+        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] is the top BON holder on {$this->site}!";
     }
 
     public function getSnatched(): string
@@ -89,7 +90,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('times_completed')->first()
         );
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Snatched Torrent On ', $snatched->id, $snatched->name).config('other.title').'!';
+        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] is the most snatched torrent on {$this->site}!";
     }
 
     public function getLeeched(): string
@@ -100,7 +101,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('leechers')->first()
         );
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Leeched Torrent On ', $leeched->id, $leeched->name).config('other.title').'!';
+        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] is the most leeched torrent on {$this->site}!";
     }
 
     public function getSeeded(): string
@@ -111,7 +112,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('seeders')->first()
         );
 
-        return sprintf('Currently [url=/torrents/%s]%s[/url] Is The Most Seeded Torrent On ', $seeded->id, $seeded->name).config('other.title').'!';
+        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] is the most seeded torrent on {$this->site}!";
     }
 
     public function getFreeleech(): string
@@ -122,7 +123,7 @@ class NerdBot
             fn () => Torrent::where('free', '=', 1)->count()
         );
 
-        return sprintf('There Are Currently %s Freeleech Torrents On ', $freeleech).config('other.title').'!';
+        return "There are currently {$freeleech} freeleech torrents on {$this->site}!";
     }
 
     public function getDoubleUpload(): string
@@ -133,7 +134,7 @@ class NerdBot
             fn () => Torrent::where('doubleup', '=', 1)->count()
         );
 
-        return sprintf('There Are Currently %s Double Upload Torrents On ', $doubleUpload).config('other.title').'!';
+        return "There are currently {$doubleUpload} double upload torrents on {$this->site}!";
     }
 
     public function getPeers(): string
@@ -144,7 +145,7 @@ class NerdBot
             fn () => Peer::where('active', '=', 1)->count()
         );
 
-        return sprintf('Currently There Are %s Peers On ', $peers).config('other.title').'!';
+        return "Currently there are {$peers} peers on {$this->site}!";
     }
 
     public function getBans(): string
@@ -157,7 +158,7 @@ class NerdBot
                 ->where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Users Have Been Banned From ', $bans).config('other.title').'!';
+        return "In the last 24 hours, {$bans} users have been banned from {$this->site}";
     }
 
     public function getWarnings(): string
@@ -168,7 +169,7 @@ class NerdBot
             fn () => Warning::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Hit and Run Warnings Have Been Issued On ', $warnings).config('other.title').'!';
+        return "In the last 24 hours, {$warnings} hit and run warnings have been issued on {$this->site}!";
     }
 
     public function getUploads(): string
@@ -179,7 +180,7 @@ class NerdBot
             fn () => Torrent::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Torrents Have Been Uploaded To ', $uploads).config('other.title').'!';
+        return "In the last 24 hours, {$uploads} torrents have been uploaded to {$this->site}!";
     }
 
     public function getLogins(): string
@@ -190,7 +191,7 @@ class NerdBot
             fn () => User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Unique Users Have Logged Into ', $logins).config('other.title').'!';
+        return "In The Last 24 Hours, {$logins} Unique Users Have Logged Into {$this->site}!";
     }
 
     public function getRegistrations(): string
@@ -201,29 +202,7 @@ class NerdBot
             fn () => User::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations).config('other.title').'!';
-    }
-
-    /**
-     * Get Bot Donations.
-     */
-    public function getDonations(): string
-    {
-        $donations = cache()->remember(
-            'nerdbot-donations',
-            $this->expiresAt,
-            fn () => BotTransaction::with('user', 'bot')->where('to_bot', '=', 1)->latest()->limit(10)->get()
-        );
-
-        $donationDump = '';
-        $i = 1;
-
-        foreach ($donations as $donation) {
-            $donationDump .= '#'.$i.'. '.$donation->user->username.' sent '.$donation->bot->name.' '.$donation->cost.' '.$donation->forHumans().".\n";
-            $i++;
-        }
-
-        return "The Most Recent Donations To All Bots Are As Follows:\n\n".trim($donationDump);
+        return "In the last 24 hours, {$registrations} users have registered to {$this->site}!";
     }
 
     public function getHelp(): string
@@ -234,47 +213,6 @@ class NerdBot
     public function getKing(): string
     {
         return config('other.title').' Is King!';
-    }
-
-    /**
-     * Send Bot Donation.
-     *
-     * @param  array<string> $note
-     * @throws Exception
-     */
-    public function putDonate(float $amount = 0, array $note = ['']): string
-    {
-        $output = implode(' ', $note);
-        $v = validator(['bot_id' => $this->bot->id, 'amount' => $amount, 'note' => $output], [
-            'bot_id' => 'required|exists:bots,id|max:999',
-            'amount' => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
-            'note'   => 'required|string',
-        ]);
-
-        if ($v->passes()) {
-            $value = $amount;
-            $this->bot->seedbonus += $value;
-            $this->bot->save();
-
-            $this->target->seedbonus -= $value;
-            $this->target->save();
-
-            $botTransaction = new BotTransaction();
-            $botTransaction->type = 'bon';
-            $botTransaction->cost = $value;
-            $botTransaction->user_id = $this->target->id;
-            $botTransaction->bot_id = $this->bot->id;
-            $botTransaction->to_bot = true;
-            $botTransaction->comment = $output;
-            $botTransaction->save();
-
-            $donations = BotTransaction::with('user', 'bot')->where('bot_id', '=', $this->bot->id)->where('to_bot', '=', 1)->latest()->limit(10)->get();
-            cache()->put('casinobot-donations', $donations, $this->expiresAt);
-
-            return 'Your donation to '.$this->bot->name.' for '.$amount.' BON has been sent!';
-        }
-
-        return 'Your donation to '.$output.' could not be sent.';
     }
 
     /**
@@ -300,7 +238,6 @@ class NerdBot
 
         $command = @explode(' ', $message);
 
-        $wildcard = null;
         $params = $command[$y] ?? null;
 
         if ($params) {
@@ -308,15 +245,12 @@ class NerdBot
             array_shift($clone);
             array_shift($clone);
             array_shift($clone);
-            $wildcard = $clone;
         }
 
         if (\array_key_exists($x, $command)) {
             $log = match($command[$x]) {
                 'banker'        => $this->getBanker(),
                 'bans'          => $this->getBans(),
-                'donations'     => $this->getDonations(),
-                'donate'        => $this->putDonate((float) $params, $wildcard),
                 'doubleupload'  => $this->getDoubleUpload(),
                 'freeleech'     => $this->getFreeleech(),
                 'help'          => $this->getHelp(),
@@ -351,70 +285,48 @@ class NerdBot
         $message = $this->message;
 
         if ($type === 'message' || $type === 'private') {
-            $receiverDirty = false;
-            $receiverEchoes = cache()->get('user-echoes'.$target->id);
+            // Create echo for user if missing
+            $echoes = cache()->remember(
+                'user-echoes'.$target->id,
+                3600,
+                fn () => UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
+            );
 
-            if (!$receiverEchoes || !\is_array($receiverEchoes)) {
-                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+            if ($echoes->doesntContain(fn ($echo) => $echo->bot_id == $this->bot->id)) {
+                UserEcho::create([
+                    'user_id'   => $target->id,
+                    'target_id' => $this->bot->id,
+                ]);
+
+                $echoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+
+                cache()->put('user-echoes'.$target->id, $echoes, 3600);
+
+                Chatter::dispatch('echo', $target->id, UserEchoResource::collection($echoes));
             }
 
-            $receiverListening = false;
+            // Create audible for user if missing
+            $audibles = cache()->remember(
+                'user-audibles'.$target->id,
+                3600,
+                fn () => UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
+            );
 
-            foreach ($receiverEchoes as $receiverEcho) {
-                if ($receiverEcho->bot_id === $this->bot->id) {
-                    $receiverListening = true;
+            if ($audibles->doesntContain(fn ($audible) => $audible->bot_id == $this->bot->id)) {
+                UserAudible::create([
+                    'user_id'   => $target->id,
+                    'target_id' => $this->bot->id,
+                    'status'    => false,
+                ]);
 
-                    break;
-                }
+                $audibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+
+                cache()->put('user-audibles'.$target->id, $audibles, 3600);
+
+                Chatter::dispatch('audible', $target->id, UserAudibleResource::collection($audibles));
             }
 
-            if (!$receiverListening) {
-                $receiverPort = new UserEcho();
-                $receiverPort->user_id = $target->id;
-                $receiverPort->bot_id = $this->bot->id;
-                $receiverPort->save();
-                $receiverEchoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
-                $receiverDirty = true;
-            }
-
-            if ($receiverDirty) {
-                $expiresAt = Carbon::now()->addMinutes(60);
-                cache()->put('user-echoes'.$target->id, $receiverEchoes, $expiresAt);
-                event(new Chatter('echo', $target->id, UserEchoResource::collection($receiverEchoes)));
-            }
-
-            $receiverDirty = false;
-            $receiverAudibles = cache()->get('user-audibles'.$target->id);
-
-            if (!$receiverAudibles || !\is_array($receiverAudibles)) {
-                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
-            }
-
-            $receiverListening = false;
-
-            foreach ($receiverAudibles as $receiverEcho) {
-                if ($receiverEcho->bot_id === $this->bot->id) {
-                    $receiverListening = true;
-
-                    break;
-                }
-            }
-
-            if (!$receiverListening) {
-                $receiverPort = new UserAudible();
-                $receiverPort->user_id = $target->id;
-                $receiverPort->bot_id = $this->bot->id;
-                $receiverPort->save();
-                $receiverAudibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
-                $receiverDirty = true;
-            }
-
-            if ($receiverDirty) {
-                $expiresAt = Carbon::now()->addMinutes(60);
-                cache()->put('user-audibles'.$target->id, $receiverAudibles, $expiresAt);
-                event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiverAudibles)));
-            }
-
+            // Create message
             if ($txt !== '') {
                 $roomId = 0;
                 $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);

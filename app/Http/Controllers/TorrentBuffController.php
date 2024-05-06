@@ -102,7 +102,7 @@ class TorrentBuffController extends Controller
 
         if ($request->freeleech != 0) {
             if ($request->fl_until !== null) {
-                $torrent->fl_until = Carbon::now()->addDays($request->fl_until);
+                $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
                 );
@@ -142,7 +142,7 @@ class TorrentBuffController extends Controller
             $torrent->featured = true;
             $torrent->save();
 
-            Unit3dAnnounce::addTorrent($torrent);
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
 
             $featured = new FeaturedTorrent();
             $featured->user_id = $user->id;
@@ -180,7 +180,7 @@ class TorrentBuffController extends Controller
         $torrent->featured = false;
         $torrent->save();
 
-        Unit3dAnnounce::addTorrent($torrent);
+        Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
         $appurl = config('app.url');
 
@@ -212,7 +212,7 @@ class TorrentBuffController extends Controller
             $du_until = $request->input('du_until');
 
             if ($du_until !== null) {
-                $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
+                $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
                 $this->chatRepository->systemMessage(
                     sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
                 );

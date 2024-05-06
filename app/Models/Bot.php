@@ -32,11 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $help
  * @property int                             $active
  * @property int                             $is_protected
- * @property int                             $is_triviabot
  * @property int                             $is_nerdbot
  * @property int                             $is_systembot
- * @property int                             $is_casinobot
- * @property int                             $is_betbot
  * @property int                             $uploaded
  * @property int                             $downloaded
  * @property int                             $fl_tokens
@@ -51,20 +48,16 @@ class Bot extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Get the attributes that should be cast.
      *
-     * @var bool
+     * @return array<string, string>
      */
-    public $timestamps = true;
-
-    /**
-     * The Attributes That Should Be Cast To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name' => 'string',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'name' => 'string',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.

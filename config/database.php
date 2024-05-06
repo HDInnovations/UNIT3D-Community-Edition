@@ -33,7 +33,7 @@ return [
     'connections' => [
         'sqlite' => [
             'driver'                  => 'sqlite',
-            'url'                     => env('DATABASE_URL'),
+            'url'                     => env('DB_URL'),
             'database'                => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix'                  => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
@@ -41,7 +41,7 @@ return [
 
         'mysql' => [
             'driver'         => 'mysql',
-            'url'            => env('DATABASE_URL'),
+            'url'            => env('DB_URL'),
             'host'           => env('DB_HOST', '127.0.0.1'),
             'port'           => env('DB_PORT', '3306'),
             'database'       => env('DB_DATABASE', 'forge'),
@@ -67,7 +67,7 @@ return [
 
         'pgsql' => [
             'driver'         => 'pgsql',
-            'url'            => env('DATABASE_URL'),
+            'url'            => env('DB_URL'),
             'host'           => env('DB_HOST', '127.0.0.1'),
             'port'           => env('DB_PORT', '5432'),
             'database'       => env('DB_DATABASE', 'forge'),
@@ -107,7 +107,10 @@ return [
     |
     */
 
-    'migrations' => 'migrations',
+    'migrations' => [
+        'table'                  => 'migrations',
+        'update_date_on_publish' => false, // disable to preserve original behavior for existing applications
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +186,4 @@ return [
             'read_write_timeout' => -1,
         ],
     ],
-
-    'pristine-db-file' => env('PRISTINE_DB_FILE'),
 ];

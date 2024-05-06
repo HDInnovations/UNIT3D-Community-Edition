@@ -401,7 +401,7 @@
                             {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
                         </div>
                     </h3>
-                    <h4 class="user-stat-card__stat">{{ $uploader->value }} Personal Releases</h4>
+                    <h4 class="user-stat-card__stat">{{ $personal->value }} Personal Releases</h4>
 
                     @if ($personal->user->private_profile)
                         <img

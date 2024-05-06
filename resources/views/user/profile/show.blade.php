@@ -303,7 +303,9 @@
                                     @if (\config('announce.connectable_check') == true)
                                         @php
                                             $connectable = false;
-                                            if (cache()->has('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent)) {
+                                            if (config('announce.external_tracker.is_enabled')) {
+                                                $connectable = $client->connectable;
+                                            } elseif (cache()->has('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent)) {
                                                 $connectable = cache()->get('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent);
                                             }
                                         @endphp
@@ -924,7 +926,7 @@
                     </dd>
                     <dt>{{ __('user.can-invite') }}</dt>
                     <dd>
-                        @if ($user->can_invite == 1 && user->two_factor_confirmed_at !== null)
+                        @if ($user->can_invite == 1 && $user->two_factor_confirmed_at !== null)
                             <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
                         @else
                             <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>

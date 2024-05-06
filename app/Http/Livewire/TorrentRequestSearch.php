@@ -62,6 +62,12 @@ class TorrentRequestSearch extends Component
     #[Url(history: true)]
     public array $genres = [];
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
+    public array $primaryLanguages = [];
+
     #[Url(history: true)]
     public ?int $tmdbId = null;
 
@@ -107,17 +113,9 @@ class TorrentRequestSearch extends Component
     #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url(history: true)]
-    public bool $showFilters = false;
-
     final public function updating(string $field, mixed &$value): void
     {
         $this->castLivewireProperties($field, $value);
-    }
-
-    final public function toggleShowFilters(): void
-    {
-        $this->showFilters = !$this->showFilters;
     }
 
     #[Computed]
@@ -165,6 +163,8 @@ class TorrentRequestSearch extends Component
             ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
             ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb((int) $this->tvdbId))
             ->when($this->malId !== null, fn ($query) => $query->ofMal((int) $this->malId))
+            ->when($this->genres !== [], fn ($query) => $query->ofGenre($this->genres))
+            ->when($this->primaryLanguages !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguages))
             ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query): void {
                 $query->where(function ($query): void {
                     $query->where(function ($query): void {

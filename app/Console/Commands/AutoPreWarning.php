@@ -19,10 +19,8 @@ use App\Notifications\UserPreWarning;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoPreWarningTest
- */
 class AutoPreWarning extends Command
 {
     /**
@@ -37,14 +35,14 @@ class AutoPreWarning extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Sends Pre Warning PM To Users';
+    protected $description = 'Automatically Sends Pre Warning Notifications To Users';
 
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         if (config('hitrun.enabled') === true) {
             $carbon = new Carbon();
@@ -58,9 +56,9 @@ class AutoPreWarning extends Command
                 ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
 
+            $usersWithPreWarnings = [];
+
             foreach ($prewarn as $pre) {
-                // Skip Prewarning if Torrent is NULL
-                // e.g. Torrent has been Rejected by a Moderator after it has been downloaded and not deleted
                 if (null === $pre->torrent) {
                     continue;
                 }
@@ -71,19 +69,20 @@ class AutoPreWarning extends Command
                         ->where('user_id', '=', $pre->user->id)
                         ->first();
 
-                    // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
                     if ($exsist === null) {
-                        $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
-
-                        // Send Notifications
-                        $pre->user->notify(new UserPreWarning($pre->user, $pre->torrent));
-
-                        // Set History Prewarn
                         $pre->prewarn = true;
                         $pre->timestamps = false;
                         $pre->save();
+
+                        // Add user to usersWithWarnings array
+                        $usersWithPreWarnings[$pre->user->id] = $pre->user;
                     }
                 }
+            }
+
+            // Send a single notification for each user with warnings
+            foreach ($usersWithPreWarnings as $user) {
+                $user->notify(new UserPreWarning($user));
             }
         }
 

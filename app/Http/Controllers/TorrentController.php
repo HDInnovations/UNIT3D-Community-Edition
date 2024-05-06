@@ -408,6 +408,15 @@ class TorrentController extends Controller
             'moderated_by' => User::SYSTEM_USER_ID,
         ] + $request->safe()->except(['torrent']));
 
+        // Populate the status/seeders/leechers/times_completed fields for the external tracker
+        $torrent->refresh();
+
+        Unit3dAnnounce::addTorrent($torrent);
+
+        if ($torrent->getAttribute('featured')) {
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
+        }
+
         // Count and save the torrent number in this category
         $category = Category::findOrFail($request->integer('category_id'));
         $category->num_torrent = $category->torrents()->count();

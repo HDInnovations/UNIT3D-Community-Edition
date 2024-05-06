@@ -22,10 +22,8 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoWarningTest
- */
 class AutoWarning extends Command
 {
     /**
@@ -45,9 +43,9 @@ class AutoWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         if (config('hitrun.enabled') === true) {
             $carbon = new Carbon();
@@ -60,6 +58,8 @@ class AutoWarning extends Command
                 ->where('seedtime', '<', config('hitrun.seedtime'))
                 ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
                 ->get();
+
+            $usersWithWarnings = [];
 
             foreach ($hitrun as $hr) {
                 if (!$hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
@@ -84,13 +84,18 @@ class AutoWarning extends Command
                         $hr->user->hitandruns++;
                         $hr->user->save();
 
-                        // Send Notifications
-                        $hr->user->notify(new UserWarning($hr->user, $hr->torrent));
-
                         $hr->timestamps = false;
                         $hr->save();
+
+                        // Add user to usersWithWarnings array
+                        $usersWithWarnings[$hr->user->id] = $hr->user;
                     }
                 }
+            }
+
+            // Send a single notification for each user with warnings
+            foreach ($usersWithWarnings as $user) {
+                $user->notify(new UserWarning($user));
             }
 
             // Calculate User Warning Count and Disable DL Priv If Required.

@@ -143,9 +143,10 @@
             <li class="meta__rotten">
                 <a
                     class="meta-id-tag"
-                    href="https://duckduckgo.com/?q=\{{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
+                    href="https://html.duckduckgo.com/html/?q=\{{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
                     title="Rotten Tomatoes: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
+                    rel="noreferrer"
                 >
                     <i
                         class="fad fa-tomato"
@@ -157,6 +158,19 @@
                             bottom: 2px;
                         "
                     ></i>
+                </a>
+            </li>
+        @endif
+
+        @if ($meta->imdb_id ?? 0 > 0)
+            <li class="meta__bluray">
+                <a
+                    class="meta-id-tag"
+                    href="https://www.blu-ray.com/search/?quicksearch=1&quicksearch_keyword=tt{{ $meta->imdb_id ?? '' }}&section=theatrical"
+                    title="Blu-ray: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
+                    target="_blank"
+                >
+                    <img class="" src="{{ url('/img/meta/bluray.svg') }}" style="width: 40px" />
                 </a>
             </li>
         @endif
@@ -259,7 +273,7 @@
                 </article>
             @endif
 
-            <article class="meta__runtime">
+            <article class="meta__language">
                 <a class="meta-chip" href="#">
                     <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
                     <h2 class="meta-chip__name">Primary Language</h2>

@@ -40,7 +40,13 @@ class UserSearch extends Component
     public string $username = '';
 
     #[Url(history: true)]
+    public string $soundexUsername = '';
+
+    #[Url(history: true)]
     public string $email = '';
+
+    #[Url(history: true)]
+    public string $soundexEmail = '';
 
     #[Url(history: true)]
     public string $rsskey = '';
@@ -81,12 +87,24 @@ class UserSearch extends Component
         return User::query()
             ->with('group')
             ->when($this->username !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->username.'%'))
+            ->when(
+                $this->soundexUsername !== '',
+                fn ($query) => $query->whereRaw('SOUNDEX(username) = SOUNDEX(?)', [$this->soundexUsername]),
+            )
             ->when($this->email !== '', fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
+            ->when(
+                $this->soundexEmail !== '',
+                fn ($query) => $query->when(
+                    str_contains($this->soundexEmail, '@'),
+                    fn ($query) => $query->whereRaw('SOUNDEX(email) = SOUNDEX(?)', [$this->soundexEmail]),
+                    fn ($query) => $query->whereRaw("SOUNDEX(SUBSTRING_INDEX(email, '@', 1)) = SOUNDEX(SUBSTRING_INDEX(?, '@', 1))", [$this->soundexEmail])
+                )
+            )
             ->when($this->rsskey !== '', fn ($query) => $query->where('rsskey', 'LIKE', '%'.$this->rsskey.'%'))
             ->when($this->apikey !== '', fn ($query) => $query->where('api_token', 'LIKE', '%'.$this->apikey.'%'))
             ->when($this->passkey !== '', fn ($query) => $query->where('passkey', 'LIKE', '%'.$this->passkey.'%'))
             ->when($this->groupId !== null, fn ($query) => $query->where('group_id', '=', $this->groupId))
-            ->when($this->show === true, fn ($query) => $query->onlyTrashed())
+            ->when($this->show === true, fn ($query) => $query->withTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

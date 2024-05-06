@@ -18,6 +18,7 @@ use App\Models\Tv;
 use Illuminate\Console\Command;
 use Exception;
 use Illuminate\Support\Facades\Redis;
+use Throwable;
 
 class AutoCacheRandomMediaIds extends Command
 {
@@ -38,9 +39,9 @@ class AutoCacheRandomMediaIds extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $movieIds = Movie::query()
             ->select('id')
@@ -55,11 +56,9 @@ class AutoCacheRandomMediaIds extends Command
             ->pluck('id');
 
         $cacheKey = config('cache.prefix').':random-media-movie-ids';
-
         Redis::connection('cache')->command('SADD', [$cacheKey, ...$movieIds]);
 
         $cacheKey = config('cache.prefix').':random-media-tv-ids';
-
         Redis::connection('cache')->command('SADD', [$cacheKey, ...$tvIds]);
 
         $this->comment($movieIds->count().' movie ids and '.$tvIds->count().' tv ids cached.');

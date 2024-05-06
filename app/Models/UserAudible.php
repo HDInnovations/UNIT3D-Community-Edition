@@ -33,11 +33,11 @@ class UserAudible extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * The attributes that aren't mass assignable.
      *
-     * @var bool
+     * @var string[]
      */
-    public $timestamps = true;
+    protected $guarded = [];
 
     /**
      * Belongs To A User.

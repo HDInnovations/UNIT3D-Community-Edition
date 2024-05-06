@@ -921,6 +921,14 @@ Route::middleware('language')->group(function (): void {
             Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('mass-pm.store');
         });
 
+        // Mass Email
+        Route::prefix('mass-email')->group(function (): void {
+            Route::name('mass_email.')->group(function (): void {
+                Route::get('/create', [App\Http\Controllers\Staff\MassEmailController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\MassEmailController::class, 'store'])->name('store');
+            });
+        });
+
         // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
         Route::prefix('media-languages')->group(function (): void {
             Route::name('media_languages.')->group(function (): void {

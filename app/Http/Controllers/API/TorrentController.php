@@ -28,6 +28,7 @@ use App\Models\Tv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
+use App\Services\Unit3dAnnounce;
 use App\Traits\TorrentMeta;
 use Exception;
 use Illuminate\Http\Request;
@@ -166,13 +167,13 @@ class TorrentController extends BaseController
         $du_until = $request->input('du_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
-            $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
+            $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
         }
         $torrent->free = $user->group->is_modo || $user->group->is_internal ? ($request->input('free') ?? 0) : 0;
         $fl_until = $request->input('fl_until');
 
         if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
-            $torrent->fl_until = Carbon::now()->addDays($request->input('fl_until'));
+            $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
         $torrent->moderated_at = Carbon::now();
@@ -313,8 +314,17 @@ class TorrentController extends BaseController
         // Save The Torrent
         $torrent->save();
 
+        // Populate the status/seeders/leechers/times_completed fields for the external tracker
+        $torrent->refresh();
+
+        Unit3dAnnounce::addTorrent($torrent);
+
+        if ($torrent->getAttribute('featured')) {
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
+        }
+
         // Set torrent to featured
-        if ($torrent->featured == 1) {
+        if ($torrent->getAttribute('featured')) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -365,7 +375,7 @@ class TorrentController extends BaseController
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = $torrent->featured;
+            $featured = $torrent->getAttribute('featured');
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 

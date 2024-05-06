@@ -90,20 +90,23 @@ class Torrent extends Model
     protected $guarded = [];
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'igdb'         => 'integer',
-        'fl_until'     => 'datetime',
-        'du_until'     => 'datetime',
-        'doubleup'     => 'boolean',
-        'refundable'   => 'boolean',
-        'featured'     => 'boolean',
-        'moderated_at' => 'datetime',
-        'sticky'       => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'igdb'         => 'integer',
+            'fl_until'     => 'datetime',
+            'du_until'     => 'datetime',
+            'doubleup'     => 'boolean',
+            'refundable'   => 'boolean',
+            'featured'     => 'boolean',
+            'moderated_at' => 'datetime',
+            'sticky'       => 'boolean',
+        ];
+    }
 
     /**
      * The attributes that should not be included in audit log.

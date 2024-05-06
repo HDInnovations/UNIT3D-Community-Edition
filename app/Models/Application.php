@@ -52,9 +52,17 @@ class Application extends Model
         'moderated_at',
     ];
 
-    protected $casts = [
-        'moderated_at' => 'datetime',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'moderated_at' => 'datetime',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.

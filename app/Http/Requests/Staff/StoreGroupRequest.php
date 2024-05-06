@@ -15,6 +15,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreGroupRequest extends FormRequest
 {
@@ -29,9 +30,9 @@ class StoreGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
             'name' => [
@@ -112,29 +113,39 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'min_uploaded' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
             ],
             'min_ratio' => [
-                'sometimes',
-                'min:0',
-                'max:99.99',
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'min:0',
+                    'max:99.99',
+                ], 'prohibited'),
             ],
             'min_age' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
             ],
             'min_avg_seedtime' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
             ],
             'min_seedsize' => [
-                'sometimes',
-                'integer',
-                'min:0',
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
             ],
         ];
     }
