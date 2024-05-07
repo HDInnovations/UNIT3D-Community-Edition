@@ -86,6 +86,11 @@
                             x-bind:required="!recovery"
                             type="tel"
                             value="{{ old('code') }}"
+                            x-on:input="
+                                if ($el.value.length === 6) {
+                                    $el.form.submit();
+                                }
+                            "
                             x-ref="code"
                         />
                     </p>
