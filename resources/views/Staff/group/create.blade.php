@@ -299,6 +299,18 @@
                         Minimum seedsize required
                     </label>
                 </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_uploads"
+                        class="form__text"
+                        type="text"
+                        name="min_uploads"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_uploads">
+                        Minimum uploads required
+                    </label>
+                </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.add') }}

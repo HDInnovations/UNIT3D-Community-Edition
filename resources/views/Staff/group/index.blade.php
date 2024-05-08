@@ -250,7 +250,9 @@
                                 <td>
                                     {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
                                 </td>
+                                <td>{{ $group->min_uploads }}</td>
                             @else
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
