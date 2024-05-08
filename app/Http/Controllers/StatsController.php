@@ -341,16 +341,14 @@ class StatsController extends Controller
     public function groupsRequirements(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = auth()->user();
-        $user_avg_seedtime = DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime');
-        $user_account_age = Carbon::now()->diffInSeconds($user->created_at);
-        $user_seed_size = $user->seedingTorrents()->sum('size');
 
         return view('stats.groups.groups-requirements', [
             'current'           => Carbon::now(),
-            'user'              => auth()->user(),
-            'user_avg_seedtime' => $user_avg_seedtime,
-            'user_account_age'  => $user_account_age,
-            'user_seed_size'    => $user_seed_size,
+            'user'              => $user,
+            'user_avg_seedtime' => DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime'),
+            'user_account_age'  => Carbon::now()->diffInSeconds($user->created_at),
+            'user_seed_size'    => $user->seedingTorrents()->sum('size'),
+            'user_uploads'      => $user->torrents()->count(),
             'groups'            => Group::orderBy('position')->where('is_modo', '=', 0)->get(),
         ]);
     }

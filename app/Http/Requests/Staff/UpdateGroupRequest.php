@@ -153,6 +153,13 @@ class UpdateGroupRequest extends FormRequest
                     'min:0',
                 ], 'nullable'),
             ],
+            'min_uploads' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
         ];
     }
 

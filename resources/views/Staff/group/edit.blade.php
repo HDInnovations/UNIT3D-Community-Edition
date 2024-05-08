@@ -359,6 +359,19 @@
                                 Minimum seedsize
                             </label>
                         </p>
+                        <p class="form__group">
+                            <input
+                                id="min_uploads"
+                                class="form__text"
+                                type="text"
+                                name="min_uploads"
+                                placeholder=" "
+                                value="{{ $group->min_uploads }}"
+                            />
+                            <label class="form__label form__label--floating" for="min_uploads">
+                                Minimum uploads
+                            </label>
+                        </p>
                     </fieldset>
                 </div>
                 <p class="form__group">

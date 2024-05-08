@@ -60,8 +60,9 @@ class AutoGroup extends Command
 
         foreach ($users as $user) {
             // memoize when necessary
-            $seedsize = null;
             $seedtime = null;
+            $seedsize = null;
+            $uploads = null;
 
             foreach ($groups as $group) {
                 $seedtime ??= DB::table('history')
@@ -70,6 +71,8 @@ class AutoGroup extends Command
 
                 $seedsize ??= $user->seedingTorrents()->sum('size');
 
+                $uploads ??= $user->torrents()->count();
+
                 if (
                     //short circuit when the values are 0 or null
                     (!$group->min_uploaded || $group->min_uploaded <= $user->uploaded)
@@ -77,6 +80,7 @@ class AutoGroup extends Command
                     && (!$group->min_age || $user->created_at->addSeconds($group->min_age)->isBefore($current))
                     && (!$group->min_avg_seedtime || $group->min_avg_seedtime <= ($seedtime))
                     && (!$group->min_seedsize || $group->min_seedsize <= ($seedsize))
+                    && (!$group->min_uploads || $group->min_uploads <= ($uploads))
                 ) {
                     $user->group_id = $group->id;
 

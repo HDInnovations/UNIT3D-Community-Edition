@@ -49,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $min_avg_seedtime
  * @property float    $min_ratio
  * @property int      $min_age
+ * @property int      $min_uploads
  */
 class Group extends Model
 {
