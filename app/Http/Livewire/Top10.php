@@ -75,7 +75,7 @@ class Top10 extends Component
         $this->validate();
 
         return cache()->remember(
-            'top10-'.$this->interval.'-'.($this->from ?? '').'-'.($this->to ?? '').'-'.$this->metaType,
+            'top10-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
             3600,
             fn () => Torrent::query()
                 ->when(
