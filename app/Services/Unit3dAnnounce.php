@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class Unit3dAnnounce
 {
@@ -308,7 +309,11 @@ class Unit3dAnnounce
             $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
             $route = rtrim($route, "/");
 
-            $response = Http::acceptJson()->get($route);
+            try {
+                $response = Http::acceptJson()->get($route);
+            } catch (Throwable) {
+                return [];
+            }
 
             if (!$response->ok()) {
                 Log::notice('External tracker error - GET', [
