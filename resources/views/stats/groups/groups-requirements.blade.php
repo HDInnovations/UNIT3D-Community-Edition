@@ -154,7 +154,7 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize + $user_seed_size) }}
+                                                        {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize - $user_seed_size) }}
                                                     @endif
                                                 </td>
                                             </tr>
