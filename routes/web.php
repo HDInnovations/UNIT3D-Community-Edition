@@ -1103,6 +1103,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Uploader System
+        Route::prefix('uploader')->group(function (): void {
+            Route::name('uploader.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\UploaderController::class, 'index'])->name('index');
+            });
+        });
+
         // Watchlist
         Route::prefix('watchlist')->group(function (): void {
             Route::name('watchlist.')->group(function (): void {

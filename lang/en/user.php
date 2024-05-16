@@ -375,6 +375,7 @@ return [
     'total-seedtime'           => 'Total Seedtime',
     'total-upload'             => 'Total Upload',
     'total-uploads'            => 'Total Uploads',
+    'total-personal-releases'  => 'Total Personal Releases',
     'two-step-auth'            => [
         'title'                     => 'Two-Factor Authentication',
         'totp'                      => 'Time-based One-time Password (TOTP) Authentication',
@@ -401,6 +402,7 @@ return [
     'upload-true'                 => 'True Upload',
     'uploads'                     => 'Uploads',
     'uploads-table'               => 'Uploads Table',
+    'personal-releases'           => 'Personal Releases',
     'user'                        => 'User',
     'user-id'                     => 'User ID',
     'username-seedbox'            => 'Username Seedbox',
