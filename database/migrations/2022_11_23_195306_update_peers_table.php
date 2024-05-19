@@ -42,9 +42,9 @@ return new class () extends Migration {
 
             $first = $records->first();
 
-            foreach ($records->where('id', '!=', $first->id) as $record) {
-                $record->delete();
-            }
+            DB::table('peers')
+                ->whereIn('id', $records->where('id', '!=', $first->id)->pluck('id'))
+                ->delete();
         }
 
         Schema::table('peers', function (Blueprint $table): void {
