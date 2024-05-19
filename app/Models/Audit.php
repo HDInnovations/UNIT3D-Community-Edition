@@ -33,9 +33,9 @@ class Audit extends Model
     use HasFactory;
 
     /**
-     * The Attributes That Are Mass Assignable.
+     * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'user_id', 'model_name', 'model_entry_id', 'action', 'record',
