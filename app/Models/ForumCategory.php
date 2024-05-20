@@ -21,12 +21,19 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Forum.
  *
  * @property int                             $id
- * @property int|null                        $position
- * @property string                          $name
+ * @property int                             $position
  * @property string                          $slug
+ * @property string                          $name
  * @property string                          $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Forum> $forums
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Topic> $topics
+ * @method static \Database\Factories\ForumCategoryFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|ForumCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ForumCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ForumCategory query()
+ * @mixin \Eloquent
  */
 class ForumCategory extends Model
 {

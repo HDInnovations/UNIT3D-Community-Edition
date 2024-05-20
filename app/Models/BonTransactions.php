@@ -22,13 +22,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $id
  * @property int      $bon_exchange_id
  * @property string   $name
- * @property float    $cost
+ * @property string   $cost
  * @property int|null $sender_id
  * @property int|null $receiver_id
- * @property int|null $torrent_id
- * @property int|null $post_id
- * @property string   $comment
  * @property string   $created_at
+ * @property-read BonExchange|null $exchange
+ * @property-read User|null $receiver
+ * @property-read User|null $sender
+ * @method static \Database\Factories\BonTransactionsFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|BonTransactions newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BonTransactions newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BonTransactions query()
+ * @mixin \Eloquent
  */
 class BonTransactions extends Model
 {

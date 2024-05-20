@@ -30,6 +30,13 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int                             $user_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read User $user
+ * @method static \Database\Factories\ArticleFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Article newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Article newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Article query()
+ * @mixin \Eloquent
  */
 class Article extends Model
 {

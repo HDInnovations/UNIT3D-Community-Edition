@@ -26,6 +26,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $message
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $author
+ * @property-read User $user
+ * @method static \Database\Factories\WatchlistFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Watchlist newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Watchlist newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Watchlist query()
+ * @mixin \Eloquent
  */
 class Watchlist extends Model
 {

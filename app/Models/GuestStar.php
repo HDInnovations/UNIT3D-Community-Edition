@@ -34,6 +34,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $deathday
  * @property string|null $gender
  * @property string|null $homepage
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Episode> $episode
+ * @method static \Database\Factories\GuestStarFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|GuestStar newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|GuestStar newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|GuestStar query()
+ * @mixin \Eloquent
  */
 class GuestStar extends Model
 {

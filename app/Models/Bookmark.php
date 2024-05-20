@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $torrent_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\BookmarkFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Bookmark newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bookmark newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Bookmark query()
+ * @mixin \Eloquent
  */
 class Bookmark extends Model
 {

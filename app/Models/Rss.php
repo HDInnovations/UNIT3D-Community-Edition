@@ -32,6 +32,18 @@ use stdClass;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read array<string, null> $expected_fields
+ * @property-read stdClass|bool $object_torrent
+ * @property-read User|null $staff
+ * @property-read User $user
+ * @method static \Database\Factories\RssFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Rss newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rss newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rss onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rss query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rss withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rss withoutTrashed()
+ * @mixin \Eloquent
  */
 class Rss extends Model
 {

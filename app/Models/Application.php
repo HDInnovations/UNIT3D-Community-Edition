@@ -31,6 +31,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $accepted_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ApplicationImageProof> $imageProofs
+ * @property-read User|null $moderated
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ApplicationUrlProof> $urlProofs
+ * @property-read User|null $user
+ * @method static \Database\Factories\ApplicationFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Application newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Application newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Application query()
+ * @mixin \Eloquent
  */
 class Application extends Model
 {

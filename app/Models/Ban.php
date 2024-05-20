@@ -27,6 +27,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $removed_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $banneduser
+ * @property-read User|null $staffuser
+ * @method static \Database\Factories\BanFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Ban query()
+ * @mixin \Eloquent
  */
 class Ban extends Model
 {

@@ -19,14 +19,19 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\BonExchange.
  *
- * @property int         $id
- * @property string|null $description
- * @property int         $value
- * @property int         $cost
- * @property bool        $upload
- * @property bool        $download
- * @property bool        $personal_freeleech
- * @property bool        $invite
+ * @property        int                                               $id
+ * @property        string|null                                       $description
+ * @property        int                                               $value
+ * @property        int                                               $cost
+ * @property        bool                                              $upload
+ * @property        bool                                              $download
+ * @property        bool                                              $personal_freeleech
+ * @property        bool                                              $invite
+ * @method   static \Database\Factories\BonExchangeFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|BonExchange newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|BonExchange newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|BonExchange query()
+ * @mixin \Eloquent
  */
 class BonExchange extends Model
 {

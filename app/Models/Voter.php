@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Poll $poll
+ * @property-read User $user
+ * @method static \Database\Factories\VoterFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Voter newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Voter newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Voter query()
+ * @mixin \Eloquent
  */
 class Voter extends Model
 {

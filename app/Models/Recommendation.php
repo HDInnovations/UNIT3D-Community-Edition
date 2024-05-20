@@ -29,6 +29,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null    $recommendation_movie_id
  * @property int|null    $tv_id
  * @property int|null    $recommendation_tv_id
+ * @property-read Movie|null $movie
+ * @property-read Tv|null $tv
+ * @method static \Database\Factories\RecommendationFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Recommendation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Recommendation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Recommendation query()
+ * @mixin \Eloquent
  */
 class Recommendation extends Model
 {

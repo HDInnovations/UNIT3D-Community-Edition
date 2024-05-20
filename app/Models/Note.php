@@ -26,6 +26,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $message
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $noteduser
+ * @property-read User $staffuser
+ * @method static \Database\Factories\NoteFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Note newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Note newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Note query()
+ * @mixin \Eloquent
  */
 class Note extends Model
 {

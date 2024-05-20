@@ -22,6 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $icon
  * @property int    $position
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wiki> $wikis
+ * @method static \Illuminate\Database\Eloquent\Builder|WikiCategory newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WikiCategory newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|WikiCategory query()
+ * @mixin \Eloquent
  */
 class WikiCategory extends Model
 {

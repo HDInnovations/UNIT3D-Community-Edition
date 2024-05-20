@@ -24,9 +24,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $model_name
  * @property int                             $model_entry_id
  * @property string                          $action
- * @property mixed                           $record
+ * @property string                          $record
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User|null $user
+ * @method static \Database\Factories\AuditFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Audit newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Audit newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Audit query()
+ * @mixin \Eloquent
  */
 class Audit extends Model
 {

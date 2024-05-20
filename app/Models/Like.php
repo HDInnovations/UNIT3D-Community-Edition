@@ -27,6 +27,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool|null                       $dislike
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Post|null $post
+ * @property-read User $user
+ * @method static \Database\Factories\LikeFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Like newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Like newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Like query()
+ * @mixin \Eloquent
  */
 class Like extends Model
 {

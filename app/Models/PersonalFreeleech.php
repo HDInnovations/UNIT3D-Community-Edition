@@ -20,10 +20,15 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\PersonalFreeleech.
  *
- * @property int                             $id
- * @property int                             $user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                                     $id
+ * @property        int                                                     $user_id
+ * @property        \Illuminate\Support\Carbon|null                         $created_at
+ * @property        \Illuminate\Support\Carbon|null                         $updated_at
+ * @method   static \Database\Factories\PersonalFreeleechFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|PersonalFreeleech newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|PersonalFreeleech newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|PersonalFreeleech query()
+ * @mixin \Eloquent
  */
 class PersonalFreeleech extends Model
 {

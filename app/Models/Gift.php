@@ -19,11 +19,17 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Gift.
  *
  * @property int                        $id
- * @property ?int                       $sender_id
- * @property ?int                       $recipient_id
+ * @property int|null                   $sender_id
+ * @property int|null                   $recipient_id
  * @property string                     $bon
  * @property string                     $message
  * @property \Illuminate\Support\Carbon $created_at
+ * @property-read User|null $recipient
+ * @property-read User|null $sender
+ * @method static \Illuminate\Database\Eloquent\Builder|Gift newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Gift newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Gift query()
+ * @mixin \Eloquent
  */
 class Gift extends Model
 {

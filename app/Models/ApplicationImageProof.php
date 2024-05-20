@@ -25,6 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $image
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Application|null $application
+ * @method static \Database\Factories\ApplicationImageProofFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicationImageProof newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicationImageProof newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicationImageProof query()
+ * @mixin \Eloquent
  */
 class ApplicationImageProof extends Model
 {

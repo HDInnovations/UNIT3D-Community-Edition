@@ -29,6 +29,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $deleted_at
+ * @property-read Ticket|null $ticket
+ * @property-read User $user
+ * @method static \Database\Factories\TicketAttachmentFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketAttachment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketAttachment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketAttachment query()
+ * @mixin \Eloquent
  */
 class TicketAttachment extends Model
 {

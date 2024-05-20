@@ -60,6 +60,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $json_rank_groups
  * @property array $json_request_groups
  * @property array $json_other_groups
+ * @property-read \App\Models\array{} $expected_fields
+ * @property-read \App\Models\array{} $expected_groups
+ * @property-read User $user
+ * @method static \Database\Factories\UserPrivacyFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|UserPrivacy newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserPrivacy newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserPrivacy query()
+ * @mixin \Eloquent
  */
 class UserPrivacy extends Model
 {

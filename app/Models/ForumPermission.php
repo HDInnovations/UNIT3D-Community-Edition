@@ -26,6 +26,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $read_topic
  * @property bool $reply_topic
  * @property bool $start_topic
+ * @property-read Forum $forum
+ * @property-read Group|null $group
+ * @method static \Database\Factories\ForumPermissionFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|ForumPermission newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ForumPermission newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ForumPermission query()
+ * @mixin \Eloquent
  */
 class ForumPermission extends Model
 {

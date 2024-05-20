@@ -35,6 +35,33 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $deathday
  * @property string|null $gender
  * @property string|null $homepage
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $actedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $actedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $artDirectedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $artDirectedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $cinematographedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $cinematographedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $composedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $composedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $createdTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Credit> $credits
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $directedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $directedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $editedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $editedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $movie
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $producedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $producedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $productionDesignedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $productionDesignedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $tv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $writtenMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $writtenTv
+ * @method static \Database\Factories\PersonFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Person newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Person newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Person query()
+ * @mixin \Eloquent
  */
 class Person extends Model
 {

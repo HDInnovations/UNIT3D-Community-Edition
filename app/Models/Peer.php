@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Peer.
  *
  * @property int                             $id
- * @property mixed                           $peer_id
- * @property mixed                           $ip
+ * @property string                          $peer_id
+ * @property string                          $ip
  * @property int                             $port
  * @property string                          $agent
  * @property int                             $uploaded
@@ -35,6 +35,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $user_id
  * @property bool                            $connectable
  * @property bool                            $active
+ * @property int                             $visible
+ * @property-read Torrent|null $seed
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\PeerFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Peer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Peer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Peer query()
+ * @mixin \Eloquent
  */
 class Peer extends Model
 {

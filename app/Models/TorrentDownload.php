@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $type
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\TorrentDownloadFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentDownload newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentDownload newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentDownload query()
+ * @mixin \Eloquent
  */
 class TorrentDownload extends Model
 {

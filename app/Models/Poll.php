@@ -26,6 +26,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $multiple_choice
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Option> $options
+ * @property-read User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Voter> $votes
+ * @method static \Database\Factories\PollFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Poll newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Poll newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Poll query()
+ * @mixin \Eloquent
  */
 class Poll extends Model
 {

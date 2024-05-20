@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int      $playlist_id
  * @property int      $torrent_id
  * @property int      $tmdb_id
+ * @property-read Playlist|null $playlist
+ * @property-read Torrent $torrent
+ * @method static \Database\Factories\PlaylistTorrentFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|PlaylistTorrent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlaylistTorrent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PlaylistTorrent query()
+ * @mixin \Eloquent
  */
 class PlaylistTorrent extends Pivot
 {

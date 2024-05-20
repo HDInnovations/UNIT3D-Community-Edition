@@ -23,6 +23,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $id
  * @property string $name
  * @property int    $position
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\ResolutionFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Resolution newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Resolution newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Resolution query()
+ * @mixin \Eloquent
  */
 class Resolution extends Model
 {

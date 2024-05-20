@@ -16,6 +16,25 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int                             $id
+ * @property int                             $position
+ * @property string|null                     $name_regex
+ * @property int|null                        $size
+ * @property int|null                        $category_id
+ * @property int|null                        $type_id
+ * @property int|null                        $resolution_id
+ * @property int                             $freeleech_percentage
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Category|null $category
+ * @property-read Resolution|null $resolution
+ * @property-read Type|null $type
+ * @method static \Illuminate\Database\Eloquent\Builder|AutomaticTorrentFreeleech newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AutomaticTorrentFreeleech newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AutomaticTorrentFreeleech query()
+ * @mixin \Eloquent
+ */
 class AutomaticTorrentFreeleech extends Model
 {
     use Auditable;

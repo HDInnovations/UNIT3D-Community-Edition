@@ -27,13 +27,29 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $last_topic_id
  * @property int|null                        $last_post_id
  * @property int|null                        $last_post_user_id
- * @property \Illuminate\Support\Carbon|null $last_post_created_at
+ * @property string|null                     $last_post_created_at
  * @property string|null                     $name
  * @property string|null                     $slug
  * @property string|null                     $description
  * @property int                             $forum_category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null                     $default_topic_state_filter
+ * @property-read ForumCategory $category
+ * @property-read Topic|null $lastRepliedTopic
+ * @property-read Topic|null $lastRepliedTopicSlow
+ * @property-read User|null $latestPoster
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ForumPermission> $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $subscribedUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Topic> $topics
+ * @method static \Illuminate\Database\Eloquent\Builder|Forum authorized(?bool $canReadTopic = null, ?bool $canReplyTopic = null, ?bool $canStartTopic = null)
+ * @method static \Database\Factories\ForumFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Forum newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Forum newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Forum query()
+ * @mixin \Eloquent
  */
 class Forum extends Model
 {

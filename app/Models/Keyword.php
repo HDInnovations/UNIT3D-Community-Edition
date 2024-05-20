@@ -24,6 +24,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int         $torrent_id
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\KeywordFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Keyword query()
+ * @mixin \Eloquent
  */
 class Keyword extends Model
 {

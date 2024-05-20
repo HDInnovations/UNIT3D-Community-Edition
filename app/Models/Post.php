@@ -29,6 +29,19 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int                             $user_id
  * @property int                             $topic_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $authorPosts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Topic> $authorTopics
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $dislikes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostTip> $tips
+ * @property-read Topic $topic
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Post authorized(?bool $canReadTopic = null, ?bool $canReplyTopic = null, ?bool $canStartTopic = null)
+ * @method static \Database\Factories\PostFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post query()
+ * @mixin \Eloquent
  */
 class Post extends Model
 {

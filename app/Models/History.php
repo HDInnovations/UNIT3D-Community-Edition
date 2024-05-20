@@ -20,23 +20,33 @@ use DateTimeInterface;
 /**
  * App\Models\History.
  *
- * @property int    $id
- * @property int    $user_id
- * @property int    $torrent_id
- * @property string $agent
- * @property int    $uploaded
- * @property int    $actual_uploaded
- * @property int    $client_uploaded
- * @property int    $downloaded
- * @property int    $refunded_download
- * @property int    $actual_downloaded
- * @property int    $client_downloaded
- * @property int    $seeder
- * @property int    $active
- * @property int    $seedtime
- * @property int    $immune
- * @property bool   $hitrun
- * @property bool   $prewarn
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property string                          $agent
+ * @property int                             $uploaded
+ * @property int                             $actual_uploaded
+ * @property int                             $client_uploaded
+ * @property int                             $downloaded
+ * @property int                             $refunded_download
+ * @property int                             $actual_downloaded
+ * @property int                             $client_downloaded
+ * @property int                             $seeder
+ * @property int                             $active
+ * @property int                             $seedtime
+ * @property int                             $immune
+ * @property bool                            $hitrun
+ * @property bool                            $prewarn
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $completed_at
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\HistoryFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|History newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|History newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|History query()
+ * @mixin \Eloquent
  */
 class History extends Model
 {

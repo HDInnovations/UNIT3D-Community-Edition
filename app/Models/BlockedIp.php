@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $expires_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $user
+ * @method static \Database\Factories\BlockedIpFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|BlockedIp newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlockedIp newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BlockedIp query()
+ * @mixin \Eloquent
  */
 class BlockedIp extends Model
 {

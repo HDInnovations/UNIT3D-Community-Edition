@@ -21,6 +21,13 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int    $id
  * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $movie
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $tv
+ * @method static \Database\Factories\GenreFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Genre newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Genre newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Genre query()
+ * @mixin \Eloquent
  */
 class Genre extends Model
 {

@@ -31,6 +31,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool        $tv_meta
  * @property bool        $movie_meta
  * @property int         $num_torrent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\CategoryFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category query()
+ * @mixin \Eloquent
  */
 class Category extends Model
 {

@@ -34,7 +34,7 @@ use voku\helper\AntiXSS;
  * @property int                             $igdb
  * @property string                          $description
  * @property int                             $user_id
- * @property float                           $bounty
+ * @property string                          $bounty
  * @property int                             $votes
  * @property int|null                        $claimed
  * @property int                             $anon
@@ -48,6 +48,70 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $approved_when
  * @property int                             $type_id
  * @property int|null                        $resolution_id
+ * @property-read User|null $approver
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequestBounty> $bounties
+ * @property-read Category|null $category
+ * @property-read TorrentRequestClaim|null $claim
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read User|null $filler
+ * @property-read Resolution|null $resolution
+ * @property-read Torrent|null $torrent
+ * @property-read Type|null $type
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest alive()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest bookmarkedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest dead()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest doubleup()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest downloadedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest dying()
+ * @method static \Database\Factories\TorrentRequestFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest featured()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest graveyard()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest highSpeed()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest internal()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest leechedby(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest notDownloadedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofAdult(?bool $isAdult = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofCategory(array $categories)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofCollection(int $collectionId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofCompany(int $companyId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofDescription(string $description, bool $isRegex = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofDistributor(array $distributors)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofEpisode(int $episodeNumber)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofFilename(string $filename)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofFreeleech(array|int $free)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofGenre(array $genres)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofImdb(int $tvdbId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofKeyword(array $keywords)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofMal(int $malId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofMediainfo(string $mediainfo, bool $isRegex = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofName(string $name, bool $isRegex = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofNetwork(int $networkId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofPlaylist(int $playlistId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofPrimaryLanguage(array $languages)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofRefundable(int $refundable)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofRegion(array $regions)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofResolution(array $resolutions)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofSeason(int $seasonNumber)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofSizeGreaterOrEqualTo(int $size)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofSizeLesserOrEqualTo(int $size)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofTmdb(int $tvdbId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofTvdb(int $tvdbId)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofType(array $types)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest ofUploader(string $username, ?\App\Models\User $authenticatedUser = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest personalRelease()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest refundable()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest releasedAfterOrIn(int $year)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest releasedBeforeOrIn(int $year)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest sd()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest seededBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest streamOptimized()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest uncompletedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequest wishedBy(\App\Models\User $user)
+ * @mixin \Eloquent
  */
 class TorrentRequest extends Model
 {

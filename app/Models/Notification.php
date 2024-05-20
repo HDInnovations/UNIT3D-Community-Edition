@@ -20,14 +20,19 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Notification.
  *
- * @property int                             $id
- * @property string                          $type
- * @property int                             $notifiable_id
- * @property string                          $notifiable_type
- * @property string                          $data
- * @property string|null                     $read_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                                $id
+ * @property        string                                             $type
+ * @property        int                                                $notifiable_id
+ * @property        string                                             $notifiable_type
+ * @property        string                                             $data
+ * @property        string|null                                        $read_at
+ * @property        \Illuminate\Support\Carbon|null                    $created_at
+ * @property        \Illuminate\Support\Carbon|null                    $updated_at
+ * @method   static \Database\Factories\NotificationFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|Notification newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|Notification newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|Notification query()
+ * @mixin \Eloquent
  */
 class Notification extends Model
 {

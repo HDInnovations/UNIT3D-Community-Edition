@@ -25,6 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $torrent_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\ThankFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Thank newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Thank newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Thank query()
+ * @mixin \Eloquent
  */
 class Thank extends Model
 {

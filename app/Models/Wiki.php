@@ -26,6 +26,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $category_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read WikiCategory $category
+ * @method static \Illuminate\Database\Eloquent\Builder|Wiki newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Wiki newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Wiki query()
+ * @mixin \Eloquent
  */
 class Wiki extends Model
 {

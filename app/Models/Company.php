@@ -26,6 +26,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $homepage
  * @property string|null $logo
  * @property string|null $origin_country
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $movie
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $tv
+ * @method static \Database\Factories\CompanyFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company query()
+ * @mixin \Eloquent
  */
 class Company extends Model
 {
