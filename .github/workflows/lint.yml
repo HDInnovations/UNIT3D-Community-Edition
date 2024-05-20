@@ -1,5 +1,5 @@
 name: PHP Lint (Pint)
-on: [push, pull_request]
+on: [pull_request, push]
 jobs:
   phplint:
     strategy:

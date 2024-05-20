@@ -1,5 +1,5 @@
 name: Format Blade Files
-on: [push, pull_request]
+on: [pull_request, push]
 jobs:
   format-blade-files:
     strategy:
