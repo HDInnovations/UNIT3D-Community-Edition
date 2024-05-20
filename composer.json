@@ -41,6 +41,7 @@
         "vstelmakh/url-highlight": "^3.0.3"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0",
         "brianium/paratest": "v7.4.0",
         "calebdw/larastan-livewire": "^1.0.1",
         "fakerphp/faker": "^1.23.1",
