@@ -15,15 +15,7 @@ namespace App\Helpers;
 
 class StringHelper
 {
-    final public const KIB = 1_024;
-
-    final public const MIB = 1_024 * 1_024;
-
-    final public const GIB = 1_024 * 1_024 * 1_024;
-
-    final public const TIB = 1_024 * 1_024 * 1_024 * 1_024;
-
-    final public const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
+    private const array units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
 
     public static function formatBytes(int|float $bytes = 0, int $precision = 2): string
     {
@@ -34,33 +26,17 @@ class StringHelper
             $bytes *= -1;
         }
 
-        $suffix = 'B';
-        $value = $bytes;
-
-        if ($bytes >= self::PIB) {
-            $suffix = 'PiB';
-            $value = $bytes / self::PIB;
-        } elseif ($bytes >= self::TIB) {
-            $suffix = 'TiB';
-            $value = $bytes / self::TIB;
-        } elseif ($bytes >= self::GIB) {
-            $suffix = 'GiB';
-            $value = $bytes / self::GIB;
-        } elseif ($bytes >= self::MIB) {
-            $suffix = 'MiB';
-            $value = $bytes / self::MIB;
-        } elseif ($bytes >= self::KIB) {
-            $suffix = 'KiB';
-            $value = $bytes / self::KIB;
+        for ($i = 0; ($bytes / 1024) > 0.9 && ($i < \count(self::units) - 1); $i++) {
+            $bytes /= 1024;
         }
 
-        $result = round($value, $precision);
+        $result = round($bytes, $precision);
 
         if ($minus) {
             $result *= -1;
         }
 
-        return $result."\u{a0}".$suffix;
+        return $result."\u{a0}".self::units[$i];
     }
 
     public static function timeElapsed(int $seconds): string
