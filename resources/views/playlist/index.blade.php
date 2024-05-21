@@ -22,7 +22,7 @@
         <div class="panel__body playlists">
             @forelse ($playlists as $playlist)
                 <article class="playlists__playlist">
-                    @if (isset($playlist->cover_image))
+                    @if (isset($playlist->cover_image) && file_exists(public_path() . '/files/img/' . $playlist->cover_image))
                         <a
                             class="playlists__playlist-image-link"
                             href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
@@ -67,7 +67,7 @@
                         href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
                     >
                         <p class="playlists__playlist-titles">
-                            {{ $playlist->torrents_count }} {{ __('playlist.titles') }}
+                            {{ $playlist->torrents_count }} {{ __('torrent.torrents') }}
                         </p>
                     </a>
                 </article>

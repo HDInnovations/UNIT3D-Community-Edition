@@ -8,6 +8,7 @@
     border-radius: 4px;
     contain: content;
     display: grid;
+    box-sizing: content-box;
     grid-template-rows: 40px 220px 40px;
     grid-template-areas: "header header" "poster body" "footer footer";
 }
@@ -104,4 +105,9 @@
     padding: 0;
     display: inline;
     font-style: normal;
+}
+
+.torrent-card__right-footer {
+    margin-top: -12px;
+    margin-bottom: -12px;
 }

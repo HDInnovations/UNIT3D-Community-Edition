@@ -203,6 +203,14 @@
   --panel-head-bg: transparent;
   --panel-head-fg: #fff;
 
+  --playlist-card-bg: #434c5e;
+  --playlist-card-border: none;
+  --playlist-card-border-radius: 10px;
+  --playlist-card-box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+  --playlist-card-fg: #d8dee9;
+  --playlist-card-missing-image-bg: #4c566a;
+  --playlist-card-missing-image-fg: #3B4252;
+
   --post-bg: #4c566a;
   --post-fg: #d8dee9;
   --post-shadow: none;
@@ -512,18 +520,6 @@ svg > circle:last-child {
 
 /* Playlists
 ---------------------------------------------------------------------------- */
-.playlists__playlist {
-  background-color: #434c5e;
-}
-
-.playlists__playlist-image--none {
-  background-color: #4c566a;
-}
-
-.playlists__playlist-name {
-  color: #d8dee9;
-}
-
 .playlist__description.playlist__description.playlist__description {
   background-color: transparent;
 }
