@@ -63,22 +63,30 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.stats') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('forum.author') }}</dt>
-            <dd>
-                @if ($topic->user === null)
-                    {{ __('common.unknown') }}
-                @else
-                    <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                        {{ $topic->user->username }}
-                    </a>
-                @endif
-            </dd>
-            <dt>{{ __('forum.created-at') }}</dt>
-            <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
-            <dt>{{ __('forum.replies') }}</dt>
-            <dd>{{ $topic->num_post - 1 }}</dd>
-            <dt>{{ __('forum.views') }}</dt>
-            <dd>{{ $topic->views }}</dd>
+            <div class="key-value__group">
+                <dt>{{ __('forum.author') }}</dt>
+                <dd>
+                    @if ($topic->user === null)
+                        {{ __('common.unknown') }}
+                    @else
+                        <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                            {{ $topic->user->username }}
+                        </a>
+                    @endif
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.created-at') }}</dt>
+                <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.replies') }}</dt>
+                <dd>{{ $topic->num_post - 1 }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.views') }}</dt>
+                <dd>{{ $topic->views }}</dd>
+            </div>
         </dl>
         <div class="panel__body">
             @if ($subscription === null)

@@ -29,10 +29,14 @@
             style="max-width: 100%"
         />
         <dl class="key-value">
-            <dt>{{ __('mediahub.born') }}</dt>
-            <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
-            <dt>Place of Birth</dt>
-            <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
+            <div class="key-value__group">
+                <dt>{{ __('mediahub.born') }}</dt>
+                <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Place of Birth</dt>
+                <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
+            </div>
         </dl>
         <div class="panel__body">{{ $person->biography ?? 'No biography' }}</div>
     </section>

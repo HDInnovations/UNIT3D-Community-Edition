@@ -169,22 +169,36 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('common.moderation') }}</dt>
-                    <dd>{{ $externalTorrent['status'] }}</dd>
-                    <dt>{{ __('torrent.seeders') }}</dt>
-                    <dd>{{ $externalTorrent['seeders'] }}</dd>
-                    <dt>{{ __('torrent.leechers') }}</dt>
-                    <dd>{{ $externalTorrent['leechers'] }}</dd>
-                    <dt>{{ __('torrent.completed-times') }}</dt>
-                    <dd>{{ $externalTorrent['times_completed'] }}</dd>
-                    <dt>Download Factor</dt>
-                    <dd>{{ $externalTorrent['download_factor'] }}</dd>
-                    <dt>Upload Factor</dt>
-                    <dd>{{ $externalTorrent['upload_factor'] }}</dd>
-                    <dt>Deleted</dt>
-                    <dd>
-                        {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
-                    </dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.moderation') }}</dt>
+                        <dd>{{ $externalTorrent['status'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.seeders') }}</dt>
+                        <dd>{{ $externalTorrent['seeders'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.leechers') }}</dt>
+                        <dd>{{ $externalTorrent['leechers'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.completed-times') }}</dt>
+                        <dd>{{ $externalTorrent['times_completed'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Download Factor</dt>
+                        <dd>{{ $externalTorrent['download_factor'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Upload Factor</dt>
+                        <dd>{{ $externalTorrent['upload_factor'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Deleted</dt>
+                        <dd>
+                            {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endsection

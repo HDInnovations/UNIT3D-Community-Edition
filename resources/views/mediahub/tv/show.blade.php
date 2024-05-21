@@ -131,53 +131,67 @@
             alt="{{ $show->name }}"
         />
         <dl class="key-value">
-            <dt>Seasons</dt>
-            <dd>{{ $show->number_of_seasons }}</dd>
-            <dt>Status</dt>
-            <dd>{{ $show->status }}</dd>
-            <dt>Networks</dt>
-            <dd>
-                @foreach ($show->networks as $network)
-                    <a
-                        href="{{ route('torrents.index', ['view' => 'group', 'networkId' => $network->id]) }}"
-                    >
-                        {{ $network->name }}
-                    </a>
-                    @if (! $loop->last)
-                        ,
-                    @endif
-                @endforeach
-            </dd>
-            <dt>Companies</dt>
-            <dd>
-                @foreach ($show->companies as $company)
-                    <a
-                        href="{{ route('torrents.index', ['view' => 'group', 'companyId' => $company->id]) }}"
-                    >
-                        {{ $company->name }}
-                    </a>
-                    @if (! $loop->last)
-                        ,
-                    @endif
-                @endforeach
-            </dd>
-            <dt>Runtime</dt>
-            <dd>{{ $show->episode_run_time }}</dd>
-            <dt>Torrents</dt>
-            <dd>{{ $show->torrents_count }}</dd>
-            <dt>Genres</dt>
-            <dd>
-                @foreach ($show->genres as $genre)
-                    <a
-                        href="{{ route('torrents.index', ['view' => 'group', 'genres' => $genre->id]) }}"
-                    >
-                        {{ $genre->name }}
-                    </a>
-                    @if (! $loop->last)
-                        ,
-                    @endif
-                @endforeach
-            </dd>
+            <div class="key-value__group">
+                <dt>Seasons</dt>
+                <dd>{{ $show->number_of_seasons }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Status</dt>
+                <dd>{{ $show->status }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Networks</dt>
+                <dd>
+                    @foreach ($show->networks as $network)
+                        <a
+                            href="{{ route('torrents.index', ['view' => 'group', 'networkId' => $network->id]) }}"
+                        >
+                            {{ $network->name }}
+                        </a>
+                        @if (! $loop->last)
+                            ,
+                        @endif
+                    @endforeach
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Companies</dt>
+                <dd>
+                    @foreach ($show->companies as $company)
+                        <a
+                            href="{{ route('torrents.index', ['view' => 'group', 'companyId' => $company->id]) }}"
+                        >
+                            {{ $company->name }}
+                        </a>
+                        @if (! $loop->last)
+                            ,
+                        @endif
+                    @endforeach
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Runtime</dt>
+                <dd>{{ $show->episode_run_time }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Torrents</dt>
+                <dd>{{ $show->torrents_count }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Genres</dt>
+                <dd>
+                    @foreach ($show->genres as $genre)
+                        <a
+                            href="{{ route('torrents.index', ['view' => 'group', 'genres' => $genre->id]) }}"
+                        >
+                            {{ $genre->name }}
+                        </a>
+                        @if (! $loop->last)
+                            ,
+                        @endif
+                    @endforeach
+                </dd>
+            </div>
         </dl>
     </section>
 @endsection

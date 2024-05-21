@@ -67,38 +67,46 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('common.email') }}</dt>
-            <dd>{{ $application->email }}</dd>
-            <dt>{{ __('staff.application-type') }}</dt>
-            <dd>{{ $application->type }}</dd>
-            <dt>{{ __('common.created_at') }}</dt>
-            <dd>
-                <time
-                    datetime="{{ $application->created_at }}"
-                    title="{{ $application->created_at }}"
-                >
-                    {{ $application->created_at->diffForHumans() }}
-                </time>
-            </dd>
-            <dt>{{ __('common.status') }}</dt>
-            <dd>
-                @switch($application->status)
-                    @case(\App\Models\Application::PENDING)
-                        <span class="application--pending">Pending</span>
+            <div class="key-value__group">
+                <dt>{{ __('common.email') }}</dt>
+                <dd>{{ $application->email }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('staff.application-type') }}</dt>
+                <dd>{{ $application->type }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('common.created_at') }}</dt>
+                <dd>
+                    <time
+                        datetime="{{ $application->created_at }}"
+                        title="{{ $application->created_at }}"
+                    >
+                        {{ $application->created_at->diffForHumans() }}
+                    </time>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('common.status') }}</dt>
+                <dd>
+                    @switch($application->status)
+                        @case(\App\Models\Application::PENDING)
+                            <span class="application--pending">Pending</span>
 
-                        @break
-                    @case(\App\Models\Application::APPROVED)
-                        <span class="application--approved">Approved</span>
+                            @break
+                        @case(\App\Models\Application::APPROVED)
+                            <span class="application--approved">Approved</span>
 
-                        @break
-                    @case(\App\Models\Application::REJECTED)
-                        <span class="application--rejected">Rejected</span>
+                            @break
+                        @case(\App\Models\Application::REJECTED)
+                            <span class="application--rejected">Rejected</span>
 
-                        @break
-                    @default
-                        <span class="application--unknown">Unknown</span>
-                @endswitch
-            </dd>
+                            @break
+                        @default
+                            <span class="application--unknown">Unknown</span>
+                    @endswitch
+                </dd>
+            </div>
         </dl>
     </section>
     <section class="panelV2">

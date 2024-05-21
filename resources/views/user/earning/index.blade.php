@@ -207,20 +207,34 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bon.your-points') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('bon.per-second') }}</dt>
-            <dd>{{ number_format($total / 60 / 60, 2) }}</dd>
-            <dt>{{ __('bon.per-minute') }}</dt>
-            <dd>{{ number_format($total / 60, 2) }}</dd>
-            <dt>{{ __('bon.per-hour') }}</dt>
-            <dd>{{ number_format($total, 2) }}</dd>
-            <dt>{{ __('bon.per-day') }}</dt>
-            <dd>{{ number_format($total * 24, 2) }}</dd>
-            <dt>{{ __('bon.per-week') }}</dt>
-            <dd>{{ number_format($total * 24 * 7, 2) }}</dd>
-            <dt>{{ __('bon.per-month') }}</dt>
-            <dd>{{ number_format($total * 24 * 30, 2) }}</dd>
-            <dt>{{ __('bon.per-year') }}</dt>
-            <dd>{{ number_format($total * 24 * 365, 2) }}</dd>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-second') }}</dt>
+                <dd>{{ number_format($total / 60 / 60, 2) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-minute') }}</dt>
+                <dd>{{ number_format($total / 60, 2) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-hour') }}</dt>
+                <dd>{{ number_format($total, 2) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-day') }}</dt>
+                <dd>{{ number_format($total * 24, 2) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-week') }}</dt>
+                <dd>{{ number_format($total * 24 * 7, 2) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-month') }}</dt>
+                <dd>{{ number_format($total * 24 * 30, 2) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('bon.per-year') }}</dt>
+                <dd>{{ number_format($total * 24 * 365, 2) }}</dd>
+            </div>
         </dl>
         <div class="panel__body">
             <p class="form__group form__group--horizontal">
