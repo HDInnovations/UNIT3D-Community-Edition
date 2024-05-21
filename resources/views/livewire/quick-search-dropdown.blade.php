@@ -1,11 +1,7 @@
 <div
     class="quick-search"
     x-data="{ ...quickSearchKeyboardNavigation() }"
-    x-on:keydown.escape.window="
-        $refs.movieSearch.blur();
-        $refs.seriesSearch.blur();
-        $refs.personSearch.blur()
-    "
+    x-on:keydown.escape.window="$refs.quickSearch.blur();"
 >
     <div class="quick-search__inputs">
         <div class="quick-search__radios">
