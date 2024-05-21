@@ -17,6 +17,16 @@ class StringHelper
 {
     private const array units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
 
+    private const array secondsPer = [
+        'year'   => 3600 * 24 * 365,
+        'month'  => 3600 * 24 * 30,
+        'week'   => 3600 * 24 * 7,
+        'day'    => 3600 * 24,
+        'hour'   => 3600,
+        'minute' => 60,
+        'second' => 1,
+    ];
+
     public static function formatBytes(int|float $bytes = 0, int $precision = 2): string
     {
         $minus = false;
@@ -41,55 +51,18 @@ class StringHelper
 
     public static function timeElapsed(int $seconds): string
     {
-        $minutes = 0;
-        $hours = 0;
-        $days = 0;
-        $weeks = 0;
-        $months = 0;
-        $years = 0;
-
         if ($seconds == 0) {
             return 'N/A';
         }
 
-        while ($seconds >= 31_536_000) {
-            $years++;
-            $seconds -= 31_536_000;
+        $units = [];
+
+        foreach (self::secondsPer as $unit => $secondsPer) {
+            $magnitude = intdiv($seconds, $secondsPer);
+            $seconds -= $magnitude * $secondsPer;
+            $units[$unit] = $magnitude.trans('common.abbrev-'.$unit.'s');
         }
 
-        while ($seconds >= 2_592_000) {
-            $months++;
-            $seconds -= 2_592_000;
-        }
-
-        while ($seconds >= 604_800) {
-            $weeks++;
-            $seconds -= 604_800;
-        }
-
-        while ($seconds >= 86_400) {
-            $days++;
-            $seconds -= 86_400;
-        }
-
-        while ($seconds >= 3_600) {
-            $hours++;
-            $seconds -= 3_600;
-        }
-
-        while ($seconds >= 60) {
-            $minutes++;
-            $seconds -= 60;
-        }
-
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
-
-        return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
+        return implode($units);
     }
 }
