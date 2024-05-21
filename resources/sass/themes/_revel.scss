@@ -212,6 +212,14 @@
   --panel-head-bg: #232323;
   --panel-head-fg: #fff;
 
+  --playlist-card-bg: #2c2c2c;
+  --playlist-card-border: none;
+  --playlist-card-border-radius: 0;
+  --playlist-card-box-shadow: none;
+  --playlist-card-fg: #aaa;
+  --playlist-card-missing-image-bg: #333;
+  --playlist-card-missing-image-fg: #4c4c4c;
+
   --post-bg: #2b2b2b;
   --post-fg: #ccc;
   --post-shadow: none;
@@ -1231,14 +1239,6 @@ a:hover {
 
 .stats__panels {
   gap: 2px;
-}
-
-/* Playlists
----------------------------------------------------------------------------- */
-
-.playlists__playlist {
-  border-radius: 0;
-  box-shadow: none;
 }
 
 /* Articles
