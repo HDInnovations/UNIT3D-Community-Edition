@@ -7,8 +7,8 @@
   --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
   --achievement-progress-bg: #8fbcbb;
 
-  --alert-bg: #292929;
-  --alert-fg: #aaa;
+  --alert-bg: #e2e2e2;
+  --alert-fg: #222;
   --alert-gap-color: #444;
   --alert-gap-width: 1px;
 
@@ -41,9 +41,9 @@
   --body-fg: #696969;
   --body-bg: #CFCFCF;
 
-  --breadcrumb-fg: #777;
-  --breadcrumb-active-fg: #aaa;
-  --breadcrumb-hover-fg: #ddd;
+  --breadcrumb-fg: #292929;
+  --breadcrumb-active-fg: #111;
+  --breadcrumb-hover-fg: #000;
   --breadcrumb-inactive-text-decoration: none;
 
   --button-filled-bg: #5cb579 linear-gradient(to bottom right, #0ba360, #2bb673);
@@ -202,34 +202,34 @@
   --post-aside-fg: #696969;
   --post-footer-fg: var(--panel-fg);
 
-  --quick-search-bg: #444;
-  --quick-search-fg: #b6b6b6;
-  --quick-search-border: 1px solid transparent;
+  --quick-search-bg: #e5e5e5;
+  --quick-search-fg: #444;
+  --quick-search-border: none;
   --quick-search-border-radius: 16px;
   --quick-search-box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
   --quick-search-selector-fg: #b6b6b6;
-  --quick-search-selector-hover-bg: #4b4b4b;
-  --quick-search-selector-hover-fg: #ddd;
-  --quick-search-selector-selected-bg: #555;
-  --quick-search-selector-selected-fg: #ddd;
-  --quick-search-result-bg: #444;
-  --quick-search-result-fg: #ccc;
-  --quick-search-result-hover-bg: #555;
-  --quick-search-result-hover-fg: #ccc;
+  --quick-search-selector-hover-bg: #d6d6d6;
+  --quick-search-selector-hover-fg: #616266;
+  --quick-search-selector-selected-bg: #d8d8d8;
+  --quick-search-selector-selected-fg: #67686B;
+  --quick-search-result-bg: #e5e5e5;
+  --quick-search-result-fg: #080808;
+  --quick-search-result-hover-bg: #e0e0e0;
+  --quick-search-result-hover-fg: #050505;
   --quick-search-result-image-border-radius: 5px;
-  --quick-search-result-year-fg: #888;
+  --quick-search-result-year-fg: #161616;
   --quick-search-result-border: none;
 
   --scrollbar-color: #0004;
 
-  --secondary-nav-bg: #292929;
-  --secondary-nav-tab-fg: #aaa;
+  --secondary-nav-bg: #e2e2e2;
+  --secondary-nav-tab-fg: #222;
   --secondary-nav-tab-bg: inherit;
-  --secondary-nav-tab-active-text-decoration: underline #777 2px;
-  --secondary-nav-tab-hover-fg: #ddd;
+  --secondary-nav-tab-active-text-decoration: underline #222 2px;
+  --secondary-nav-tab-hover-fg: #0a0a0a;
   --secondary-nav-tab-hover-bg: transparent;
-  --secondary-nav-tab-hover-text-decoration: underline #777 2px;
-  --secondary-nav-tab-menu-bg: #333;
+  --secondary-nav-tab-hover-text-decoration: underline #0a0a0a 2px;
+  --secondary-nav-tab-menu-bg: #e8e8e8;
   --secondary-nav-tab-menu-fg: inherit;
   --secondary-nav-tab-menu-border: none;
   --secondary-nav-tab-menu-border-radius: 6px;
@@ -260,31 +260,31 @@
   --textarea-padding-active: 11px;
   --textarea-padding-hover: 11px;
 
-  --top-nav-bg: #363636;
+  --top-nav-bg: #eee;
   --top-nav-box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
-  --top-nav-dropdown-fg: #bbb;
-  --top-nav-dropdown-hover-fg: #eee;
-  --top-nav-dropdown-hover-bg: #404040;
+  --top-nav-dropdown-fg: #050505;
+  --top-nav-dropdown-hover-fg: #080808;
+  --top-nav-dropdown-hover-bg: #e2e2e2;
   --top-nav-dropdown-hover-text-decoration: none;
-  --top-nav-dropdown-menu-bg: #3c3c3c;
+  --top-nav-dropdown-menu-bg: #eee;
   --top-nav-dropdown-menu-border: none;
   --top-nav-dropdown-menu-border-radius: 6px;
   --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
-  --top-nav-dropdown-menu-item-fg: #bbb;
+  --top-nav-dropdown-menu-item-fg: #050505;
   --top-nav-dropdown-menu-item-bg: transparent;
   --top-nav-dropdown-menu-item-hover-fg: inherit;
-  --top-nav-dropdown-menu-item-hover-bg: #424242;
+  --top-nav-dropdown-menu-item-hover-bg: #e2e2e2;
   --top-nav-dropdown-menu-item-hover-text-decoration: none;
-  --top-nav-dropdown-menu-item-icon-fg: #ccc;
-  --top-nav-dropdown-menu-item-icon-bg: #484848;
-  --top-nav-ratio-bar-fg: #ddd;
-  --top-nav-icon-bar-icon-bg: #424242;
-  --top-nav-icon-bar-icon-fg: #bbb;
+  --top-nav-dropdown-menu-item-icon-fg: #1F2525;
+  --top-nav-dropdown-menu-item-icon-bg: #e5e5e5;
+  --top-nav-ratio-bar-fg: #050505;
+  --top-nav-icon-bar-icon-bg: #e5e5e5;
+  --top-nav-icon-bar-icon-fg: #1F2525;
   --top-nav-icon-bar-icon-border-radius: 50%;
-  --top-nav-icon-bar-icon-hover-bg: #424242;
-  --top-nav-icon-bar-icon-hover-fg: #b6b6b6;
-  --top-nav-stats-fg: #999;
-  --top-nav-toggle-fg: #999;
+  --top-nav-icon-bar-icon-hover-bg: #d8d8d8;
+  --top-nav-icon-bar-icon-hover-fg: #080808;
+  --top-nav-stats-fg: #050505;
+  --top-nav-toggle-fg: #050505;
 
   --torrent-card-bg: #e2e2e2;
   --torrent-card-fg: inherit;
