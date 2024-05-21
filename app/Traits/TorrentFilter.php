@@ -227,9 +227,23 @@ trait TorrentFilter
     /**
      * @param Builder<Torrent> $query
      */
-    public function scopeOfPlaylist(Builder $query, int $playlistId): void
+    public function scopeOfPlaylist(Builder $query, int $playlistId, ?User $authenticatedUser = null): void
     {
-        $query->whereIn('id', PlaylistTorrent::select('torrent_id')->where('playlist_id', '=', $playlistId));
+        $authenticatedUser ??= auth()->user();
+
+        $query->whereIn(
+            'id',
+            PlaylistTorrent::select('torrent_id')
+                ->where('playlist_id', '=', $playlistId)
+                ->when(
+                    $authenticatedUser === null,
+                    fn ($query) => $query->where('is_private', '=', false),
+                    fn ($query) => $query->when(
+                        ! $authenticatedUser->group->is_modo,
+                        fn ($query) => $query->where(fn ($query) => $query->where('is_private', '=', false)->orWhere('user_id', '=', $authenticatedUser->id))
+                    )
+                )
+        );
     }
 
     /**
