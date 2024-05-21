@@ -120,6 +120,9 @@
   --fieldset-border-radius: 0;
   --fieldset-border: 1px solid #424242;
 
+  --footer-bg: transparent;
+  --footer-hr-fg: #4c566a;
+
   --icon-button-bg: inherit;
   --icon-button-border: none;
   --icon-button-border-radius: 2px;
@@ -1388,6 +1391,9 @@ a:hover {
 
 .footer {
   color: #ccc;
+  width: 1024px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 /* Searches
