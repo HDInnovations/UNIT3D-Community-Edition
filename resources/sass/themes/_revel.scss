@@ -797,6 +797,7 @@ a:hover {
 
 .breadcrumbsV2 {
   font-size: 11px;
+  overflow-y: hidden;
 }
 
 .nav-tab__link, .nav-tab--active__link {
@@ -1071,6 +1072,14 @@ a:hover {
 
 .bbcode-rendered.bbcode-rendered {
   font-size: 13px;
+}
+
+.bbcode-rendered.bbcode-rendered pre {
+  border-radius: 0;
+}
+
+.bbcode-rendered.bbcode-rendered blockquote {
+  border-radius: 0;
 }
 
 /* BBCode input
