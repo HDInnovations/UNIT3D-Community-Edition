@@ -30,7 +30,7 @@
             <img
                 class="meta__backdrop"
                 src="{{ tmdb_image('back_big', $collection->backdrop) }}"
-                alt="Backdrop"
+                alt=""
             />
         @endif
 

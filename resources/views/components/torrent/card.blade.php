@@ -63,7 +63,7 @@
                             @break
                     @endswitch
 
-                    alt="{{ __('torrent.poster') }}"
+                    alt="{{ __('torrent.similar') }}"
                 />
             </figure>
         </a>

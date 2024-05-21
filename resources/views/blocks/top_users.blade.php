@@ -108,13 +108,13 @@
                     @if ($uploader->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($uploader->user->image === null ? 'img/profile.png' : 'files/img/' . $uploader->user->image) }}"
                         />
                     @endif
@@ -138,13 +138,13 @@
                     @if ($downloader->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($downloader->user->image === null ? 'img/profile.png' : 'files/img/' . $downloader->user->image) }}"
                         />
                     @endif
@@ -167,13 +167,13 @@
                     @if ($upload->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($upload->image === null ? 'img/profile.png' : 'files/img/' . $upload->image) }}"
                         />
                     @endif
@@ -197,13 +197,13 @@
                     @if ($download->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($download->image === null ? 'img/profile.png' : 'files/img/' . $download->image) }}"
                         />
                     @endif
@@ -227,13 +227,13 @@
                     @if ($seeder->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($seeder->user->image === null ? 'img/profile.png' : 'files/img/' . $seeder->user->image) }}"
                         />
                     @endif
@@ -257,13 +257,13 @@
                     @if ($seedtime->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($seedtime->image === null ? 'img/profile.png' : 'files/img/' . $seedtime->image) }}"
                         />
                     @endif
@@ -286,13 +286,13 @@
                     @if ($serve->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($serve->image === null ? 'img/profile.png' : 'files/img/' . $serve->image) }}"
                         />
                     @endif
@@ -316,13 +316,13 @@
                     @if ($commenter->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($commenter->user->image === null ? 'img/profile.png' : 'files/img/' . $commenter->user->image) }}"
                         />
                     @endif
@@ -346,13 +346,13 @@
                     @if ($poster->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($poster->user->image === null ? 'img/profile.png' : 'files/img/' . $poster->user->image) }}"
                         />
                     @endif
@@ -376,13 +376,13 @@
                     @if ($thanker->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($thanker->user->image === null ? 'img/profile.png' : 'files/img/' . $thanker->user->image) }}"
                         />
                     @endif
@@ -406,13 +406,13 @@
                     @if ($personal->user->private_profile)
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url('img/profile.png') }}"
                         />
                     @else
                         <img
                             class="user-stat-card__avatar"
-                            alt="avatar"
+                            alt=""
                             src="{{ url($personal->user->image === null ? 'img/profile.png' : 'files/img/' . $personal->user->image) }}"
                         />
                     @endif

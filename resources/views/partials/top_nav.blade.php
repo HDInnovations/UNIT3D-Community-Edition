@@ -425,14 +425,14 @@
                 >
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/' . auth()->user()->image : 'img/profile.png') }}"
-                        alt="{{ auth()->user()->username }}"
+                        alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
                 </a>
                 <a class="top-nav__dropdown--touch" tabindex="0">
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/' . auth()->user()->image : 'img/profile.png') }}"
-                        alt="{{ auth()->user()->username }}"
+                        alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
                 </a>

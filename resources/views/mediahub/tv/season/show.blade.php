@@ -77,7 +77,7 @@
         <h2 class="panel__heading">{{ $season->name }} ({{ $season->air_date }})</h2>
         <img
             src="{{ isset($season->poster) ? tmdb_image('cast_big', $season->poster) : 'https://via.placeholder.com/300x450' }}"
-            alt="{{ $show->name }}"
+            alt=""
         />
         <div class="panel__body">
             {{ $season->overview }}

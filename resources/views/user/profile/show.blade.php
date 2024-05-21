@@ -152,7 +152,7 @@
                     </time>
                     <img
                         src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
-                        alt="{{ $user->username }}"
+                        alt=""
                         class="profile__avatar"
                     />
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_title') && $user->title)
