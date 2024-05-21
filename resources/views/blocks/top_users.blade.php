@@ -100,7 +100,7 @@
                             :anon="$uploader->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $uploader->value }} Uploads</h4>
@@ -130,7 +130,7 @@
                             :anon="$downloader->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $downloader->value }} Downloads</h4>
@@ -157,7 +157,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag :user="$upload" :anon="$upload->private_profile" />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">
@@ -186,7 +186,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag :user="$download" :anon="$download->private_profile" />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">
@@ -219,7 +219,7 @@
                             :anon="$seeder->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $seeder->value }} Seeds</h4>
@@ -246,7 +246,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag :user="$seedtime" :anon="$seedtime->private_profile" />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">
@@ -276,7 +276,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag :user="$serve" :anon="$serve->private_profile" />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">
@@ -308,7 +308,7 @@
                             :anon="$commenter->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $commenter->value }} Comments Made</h4>
@@ -338,7 +338,7 @@
                             :anon="$poster->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $poster->value }} Posts Made</h4>
@@ -368,7 +368,7 @@
                             :anon="$thanker->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $thanker->value }} Thanks Given</h4>
@@ -398,7 +398,7 @@
                             :anon="$personal->user->private_profile"
                         />
                         <div title="Place" class="top-users__place">
-                            {{ App\Helpers\StringHelper::ordinal($loop->iteration) }}
+                            {{ Number::ordinal($loop->iteration) }}
                         </div>
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $personal->value }} Personal Releases</h4>
