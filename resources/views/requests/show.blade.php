@@ -144,22 +144,26 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.claimed') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('request.claimed') }} by</dt>
-                    <dd>
-                        <x-user_tag
-                            :user="$torrentRequest->claim->user"
-                            :anon="$torrentRequest->claim->anon"
-                        />
-                    </dd>
-                    <dt>{{ __('request.claimed') }} at</dt>
-                    <dd>
-                        <time
-                            datetime="{{ $torrentRequest->claim->created_at }}"
-                            title="{{ $torrentRequest->claim->created_at }}"
-                        >
-                            {{ $torrentRequest->claim->created_at->diffForHumans() }}
-                        </time>
-                    </dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('request.claimed') }} by</dt>
+                        <dd>
+                            <x-user_tag
+                                :user="$torrentRequest->claim->user"
+                                :anon="$torrentRequest->claim->anon"
+                            />
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('request.claimed') }} at</dt>
+                        <dd>
+                            <time
+                                datetime="{{ $torrentRequest->claim->created_at }}"
+                                title="{{ $torrentRequest->claim->created_at }}"
+                            >
+                                {{ $torrentRequest->claim->created_at->diffForHumans() }}
+                            </time>
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -168,34 +172,40 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.filled') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('request.filled') }} by</dt>
-                    <dd>
-                        <x-user_tag
-                            :user="$torrentRequest->filler"
-                            :anon="$torrentRequest->filled_anon"
-                        />
-                    </dd>
-                    <dt>{{ __('request.filled') }} at</dt>
-                    <dd>
-                        <time
-                            datetime="{{ $torrentRequest->filled_when }}"
-                            title="{{ $torrentRequest->filled_when }}"
-                        >
-                            {{ $torrentRequest->filled_when->diffForHumans() }}
-                        </time>
-                    </dd>
-                    <dt>{{ __('request.filled') }} with</dt>
-                    <dd>
-                        @if ($torrentRequest->torrent === null)
-                            Filled torrent has been deleted
-                        @else
-                            <a
-                                href="{{ route('torrents.show', ['id' => $torrentRequest->torrent->id]) }}"
+                    <div class="key-value__group">
+                        <dt>{{ __('request.filled') }} by</dt>
+                        <dd>
+                            <x-user_tag
+                                :user="$torrentRequest->filler"
+                                :anon="$torrentRequest->filled_anon"
+                            />
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('request.filled') }} at</dt>
+                        <dd>
+                            <time
+                                datetime="{{ $torrentRequest->filled_when }}"
+                                title="{{ $torrentRequest->filled_when }}"
                             >
-                                {{ $torrentRequest->torrent->name }}
-                            </a>
-                        @endif
-                    </dd>
+                                {{ $torrentRequest->filled_when->diffForHumans() }}
+                            </time>
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('request.filled') }} with</dt>
+                        <dd>
+                            @if ($torrentRequest->torrent === null)
+                                Filled torrent has been deleted
+                            @else
+                                <a
+                                    href="{{ route('torrents.show', ['id' => $torrentRequest->torrent->id]) }}"
+                                >
+                                    {{ $torrentRequest->torrent->name }}
+                                </a>
+                            @endif
+                        </dd>
+                    </div>
                 </dl>
                 @if ($torrentRequest->approved_by === null && ($torrentRequest->user_id == $user->id || auth()->user()->group->is_modo))
                     <div class="panel__body">

@@ -83,8 +83,10 @@
             {{ $season->overview }}
         </div>
         <dl class="key-value">
-            <dt>Air date</dt>
-            <dd>{{ $season->air_date }}</dd>
+            <div class="key-value__group">
+                <dt>Air date</dt>
+                <dd>{{ $season->air_date }}</dd>
+            </div>
         </dl>
     </section>
 @endsection

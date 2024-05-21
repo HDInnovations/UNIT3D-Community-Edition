@@ -51,20 +51,26 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('pm.from') }}</dt>
-            <dd>
-                <x-user_tag :user="$pm->sender" :anon="false" />
-            </dd>
-            <dt>{{ __('pm.to') }}</dt>
-            <dd>
-                <x-user_tag :user="$pm->receiver" :anon="false" />
-            </dd>
-            <dt>{{ __('pm.sent') }}</dt>
-            <dd>
-                <time datetime="{{ $pm->created_at }}" title="{{ $pm->created_at }}">
-                    {{ $pm->created_at->diffForHumans() }}
-                </time>
-            </dd>
+            <div class="key-value__group">
+                <dt>{{ __('pm.from') }}</dt>
+                <dd>
+                    <x-user_tag :user="$pm->sender" :anon="false" />
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('pm.to') }}</dt>
+                <dd>
+                    <x-user_tag :user="$pm->receiver" :anon="false" />
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('pm.sent') }}</dt>
+                <dd>
+                    <time datetime="{{ $pm->created_at }}" title="{{ $pm->created_at }}">
+                        {{ $pm->created_at->diffForHumans() }}
+                    </time>
+                </dd>
+            </div>
         </dl>
     </section>
     <section class="panelV2">
