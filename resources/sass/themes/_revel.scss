@@ -362,7 +362,7 @@
 
 body {
   display: grid;
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-size: 12px;
   font-weight: 300;
   min-width: 1024px;
@@ -528,7 +528,7 @@ a:hover {
   color: white;
   background: none;
   text-shadow: none;
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   -webkit-text-fill-color: inherit;
   color: #fff;
 }
@@ -565,7 +565,7 @@ a:hover {
 
 .ratio-bar__uploaded i:before {
   content: "Upload: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -575,7 +575,7 @@ a:hover {
 
 .ratio-bar__downloaded i:before {
   content: "Download: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -585,7 +585,7 @@ a:hover {
 
 .ratio-bar__seeding i:before {
   content: "Seeding: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -595,7 +595,7 @@ a:hover {
 
 .ratio-bar__leeching i:before {
   content: "Leeching: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -605,7 +605,7 @@ a:hover {
 
 .ratio-bar__buffer i:before {
   content: "Buffer: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -615,7 +615,7 @@ a:hover {
 
 .ratio-bar__points i:before {
   content: "BON: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -625,7 +625,7 @@ a:hover {
 
 .ratio-bar__ratio i:before {
   content: "Ratio: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
@@ -635,7 +635,7 @@ a:hover {
 
 .ratio-bar__tokens i:before {
   content: "FL Tokens: ";
-  font-family: "Roboto";
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   font-weight: normal;
 }
 
