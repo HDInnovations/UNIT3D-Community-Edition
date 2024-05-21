@@ -30,7 +30,7 @@
                         src="{{ isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
-                        alt="{{ __('torrent.poster') }}"
+                        alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
@@ -40,7 +40,7 @@
                         src="{{ isset($meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $meta->cover['image_id'] . '.png' : 'https://via.placeholder.com/90x135' }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
-                        alt="{{ __('torrent.poster') }}"
+                        alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
@@ -49,7 +49,7 @@
                         src="https://via.placeholder.com/90x135"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
-                        alt="{{ __('torrent.poster') }}"
+                        alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
@@ -59,14 +59,14 @@
                             src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
-                            alt="{{ __('torrent.poster') }}"
+                            alt="{{ __('torrent.similar') }}"
                         />
                     @else
                         <img
                             src="https://via.placeholder.com/400x600"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
-                            alt="{{ __('torrent.poster') }}"
+                            alt="{{ __('torrent.similar') }}"
                         />
                     @endif
                 @endif

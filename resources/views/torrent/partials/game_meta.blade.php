@@ -3,7 +3,7 @@
         <img
             class="meta__backdrop"
             src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{ $meta->artworks[0]['image_id'] }}.jpg"
-            alt="Backdrop"
+            alt=""
         />
     @endif
 
@@ -105,7 +105,7 @@
                                 class="meta-chip__image"
                                 style="object-fit: scale-down"
                                 src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $company['company']['logo']['image_id'] }}.png"
-                                alt="logo"
+                                alt=""
                             />
                         @else
                             <i

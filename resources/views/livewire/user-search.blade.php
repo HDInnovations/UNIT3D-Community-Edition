@@ -177,7 +177,7 @@
                                 <td>
                                     <img
                                         src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
-                                        alt="{{ $user->username }}"
+                                        alt=""
                                         class="user-search__avatar"
                                     />
                                 </td>

@@ -128,7 +128,7 @@
         <h2 class="panel__heading">{{ $show->name }}</h2>
         <img
             src="{{ isset($show->poster) ? tmdb_image('cast_big', $show->poster) : 'https://via.placeholder.com/300x450' }}"
-            alt="{{ $show->name }}"
+            alt=""
         />
         <dl class="key-value">
             <dt>Seasons</dt>

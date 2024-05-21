@@ -1,10 +1,6 @@
 <section class="meta">
     @if ($meta?->backdrop)
-        <img
-            class="meta__backdrop"
-            src="{{ tmdb_image('back_big', $meta->backdrop) }}"
-            alt="Backdrop"
-        />
+        <img class="meta__backdrop" src="{{ tmdb_image('back_big', $meta->backdrop) }}" alt="" />
     @endif
 
     <a
@@ -293,7 +289,7 @@
                                 class="meta-chip__image"
                                 style="object-fit: scale-down"
                                 src="{{ tmdb_image('logo_small', $company->logo) }}"
-                                alt="logo"
+                                alt=""
                             />
                         @else
                             <i

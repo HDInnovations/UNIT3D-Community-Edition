@@ -9,7 +9,7 @@
                     <img
                         class="playlists__playlist-image"
                         src="{{ url('files/img/' . $playlist->cover_image) }}"
-                        alt="Cover Image"
+                        alt=""
                     />
                 </a>
             @else

@@ -12,7 +12,7 @@
             >
                 <img
                     src="{{ isset($media->poster) ? tmdb_image('poster_small', $media->poster) : 'https://via.placeholder.com/90x135' }}"
-                    alt="{{ __('torrent.poster') }}"
+                    alt="{{ __('torrent.similar') }}"
                     loading="lazy"
                 />
             </a>

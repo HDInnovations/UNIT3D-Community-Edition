@@ -141,7 +141,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($uploader->user->image === null ? 'img/profile.png' : 'files/img/' . $uploader->user->image) }}"
                     />
                 </article>
@@ -161,7 +161,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($requester->user->image === null ? 'img/profile.png' : 'files/img/' . $requester->user->image) }}"
                     />
                 </article>
@@ -181,7 +181,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($filler->filler->image === null ? 'img/profile.png' : 'files/img/' . $filler->filler->image) }}"
                     />
                 </article>
@@ -201,7 +201,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($commenter->user->image === null ? 'img/profile.png' : 'files/img/' . $commenter->user->image) }}"
                     />
                 </article>
@@ -221,7 +221,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($poster->user->image === null ? 'img/profile.png' : 'files/img/' . $poster->user->image) }}"
                     />
                 </article>
@@ -241,7 +241,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($thanker->user->image === null ? 'img/profile.png' : 'files/img/' . $thanker->user->image) }}"
                     />
                 </article>

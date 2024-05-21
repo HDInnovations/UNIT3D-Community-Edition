@@ -57,10 +57,7 @@
                             </td>
                             <td>
                                 @if ($category->image != null)
-                                    <img
-                                        alt="{{ $category->name }}"
-                                        src="{{ url('files/img/' . $category->image) }}"
-                                    />
+                                    <img alt="" src="{{ url('files/img/' . $category->image) }}" />
                                 @else
                                     <span>N/A</span>
                                 @endif

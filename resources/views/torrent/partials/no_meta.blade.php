@@ -3,7 +3,7 @@
         <img
             class="meta__backdrop"
             src="{{ url('/files/img/torrent-banner_' . $torrent->id . '.jpg') }}"
-            alt="Backdrop"
+            alt=""
         />
     @endif
 
