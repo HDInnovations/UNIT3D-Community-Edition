@@ -60,16 +60,6 @@
                     </a>
                 @endif
                 <div class="playlists__playlist-author">
-                    <a
-                        class="playlists__playlist-author-link"
-                        href="{{ route('users.show', ['user' => $playlist->user]) }}"
-                    >
-                        <img
-                            class="playlists__playlist-avatar"
-                            src="{{ url($playlist->user->image ? 'files/img/' . $playlist->user->image : 'img/profile.png') }}"
-                            alt="{{ $playlist->user->username }}"
-                        />
-                    </a>
                     <x-user_tag :user="$playlist->user" :anon="false" />
                 </div>
                 <a
