@@ -30,7 +30,7 @@ trait TorrentMeta
         $games = [];
 
         foreach ($gameIds as $gameId) {
-            $games[$gameId] = Game::with(['cover' => ['url', 'image_id']])->find($gameId);
+            $games[$gameId] = Game::with(['cover' => ['url', 'image_id'], 'genres' => ['name']])->find($gameId);
         }
 
         return $torrents->map(function ($torrent) use ($movies, $tv, $games) {
