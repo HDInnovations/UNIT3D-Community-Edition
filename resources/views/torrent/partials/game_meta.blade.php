@@ -100,7 +100,7 @@
             @foreach ($meta?->involved_companies ?? [] as $company)
                 <article class="meta__company">
                     <a class="meta-chip" href="{{ $company['company']['url'] }}" target="_blank">
-                        @if (array_key_exists('logo', $company['company']))
+                        @if ($company['company']['logo'])
                             <img
                                 class="meta-chip__image"
                                 style="object-fit: scale-down"
