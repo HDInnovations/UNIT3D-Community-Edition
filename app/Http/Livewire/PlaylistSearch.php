@@ -15,7 +15,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Playlist;
 use App\Traits\LivewireSort;
-use App\Traits\TorrentMeta;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -24,7 +23,6 @@ use Livewire\WithPagination;
 class PlaylistSearch extends Component
 {
     use LivewireSort;
-    use TorrentMeta;
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
