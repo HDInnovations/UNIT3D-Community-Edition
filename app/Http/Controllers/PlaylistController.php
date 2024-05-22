@@ -40,21 +40,7 @@ class PlaylistController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('playlist.index', [
-            'playlists' => Playlist::with([
-                'user:id,username,group_id,image',
-                'user.group'
-            ])
-                ->withCount('torrents')
-                ->where(function ($query): void {
-                    $query->where('is_private', '=', 0)
-                        ->orWhere(function ($query): void {
-                            $query->where('is_private', '=', 1)->where('user_id', '=', auth()->id());
-                        });
-                })
-                ->oldest('name')
-                ->paginate(24),
-        ]);
+        return view('playlist.index');
     }
 
     /**
