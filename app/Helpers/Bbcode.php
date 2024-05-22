@@ -324,25 +324,29 @@ class Bbcode
         // Common comparison syntax used in other torrent management systems is quite specific,
         // so it must be done here instead
         $source = preg_replace_callback(
-            '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
+            '/\[code](.*?)\[\/code]|(\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison])/is',
             function ($matches) {
-                $comparates = preg_split('/\s*,\s*/', $matches[1]);
-                $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
-
-                if ($comparates === false || $urls === false) {
-                    return 'Broken comparison';
+                if (!empty($matches[1])) {
+                    return $matches[0];
+                } else {
+                    $comparates = preg_split('/\s*,\s*/', $matches[3]);
+                    $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[4]);
+        
+                    if ($comparates === false || $urls === false) {
+                        return 'Broken comparison';
+                    }
+        
+                    $validatedUrls = collect($urls)->map(fn ($url) => $this->sanitizeUrl($url, isImage: true));
+                    $chunkedUrls = $validatedUrls->chunk(\count($comparates));
+                    $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
+                    $html = preg_replace('/\s+/', ' ', $html);
+        
+                    if (!\is_string($html)) {
+                        return 'Broken html';
+                    }
+        
+                    return $html;
                 }
-
-                $validatedUrls = collect($urls)->map(fn ($url) => $this->sanitizeUrl($url, isImage: true));
-                $chunkedUrls = $validatedUrls->chunk(\count($comparates));
-                $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
-                $html = preg_replace('/\s+/', ' ', $html);
-
-                if (!\is_string($html)) {
-                    return 'Broken html';
-                }
-
-                return $html;
             },
             $source
         );
