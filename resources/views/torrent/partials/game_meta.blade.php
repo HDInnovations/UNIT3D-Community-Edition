@@ -147,7 +147,7 @@
                     ></i>
                     <h2 class="meta-chip__name">Genres</h2>
                     <h3 class="meta-chip__value">
-                        {{ implode(' / ', array_map(fn ($genre) => $genre['name'], $meta->genres)) }}
+                        {{ implode(' / ', array_map(fn ($genre) => $genre['name'], $meta->genres->toArray())) }}
                     </h3>
                 </article>
             @endif
