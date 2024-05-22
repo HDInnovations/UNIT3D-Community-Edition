@@ -59,8 +59,11 @@ class StringHelper
 
         foreach (self::secondsPer as $unit => $secondsPer) {
             $magnitude = intdiv($seconds, $secondsPer);
-            $seconds -= $magnitude * $secondsPer;
-            $units[$unit] = $magnitude.trans('common.abbrev-'.$unit.'s');
+
+            if ($magnitude > 0) {
+                $units[] = $magnitude.trans('common.abbrev-'.$unit.'s');
+                $seconds -= $magnitude * $secondsPer;
+            }
         }
 
         return implode($units);
