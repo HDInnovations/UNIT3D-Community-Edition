@@ -50,7 +50,7 @@ use voku\helper\AntiXSS;
  * @property string|null                     $about
  * @property string|null                     $signature
  * @property int                             $fl_tokens
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $invites
  * @property int                             $hitandruns
  * @property string                          $rsskey
@@ -140,6 +140,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'can_invite'   => 'boolean',
             'can_upload'   => 'boolean',
             'can_chat'     => 'boolean',
+            'seedbonus'    => 'decimal:2',
         ];
     }
 

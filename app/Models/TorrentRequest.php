@@ -37,7 +37,7 @@ use voku\helper\AntiXSS;
  * @property int                             $igdb
  * @property string                          $description
  * @property int                             $user_id
- * @property float                           $bounty
+ * @property string                          $bounty
  * @property int                             $votes
  * @property int|null                        $claimed
  * @property int                             $anon
@@ -83,6 +83,7 @@ class TorrentRequest extends Model
             'filled_when'   => 'datetime',
             'approved_when' => 'datetime',
             'igdb'          => 'integer',
+            'bounty'        => 'decimal:2',
         ];
     }
 
