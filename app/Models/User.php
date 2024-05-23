@@ -1050,7 +1050,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setSignatureAttribute(?string $value): void
     {
-        $this->attributes['signature'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['signature'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -1068,7 +1068,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setAboutAttribute(?string $value): void
     {
-        $this->attributes['about'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['about'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -1090,7 +1090,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedSeedbonusAttribute(): string
     {
-        return number_format($this->seedbonus, 0, null, "\u{202F}");
+        return number_format((float) $this->seedbonus, 0, null, "\u{202F}");
     }
 
     /**

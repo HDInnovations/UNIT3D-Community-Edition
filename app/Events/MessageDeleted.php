@@ -30,18 +30,10 @@ class MessageDeleted implements ShouldBroadcastNow
     use SerializesModels;
 
     /**
-     * Message details.
-     *
-     * @var Message
-     */
-    public $message;
-
-    /**
      * Create a new event instance.
      */
-    public function __construct(Message $message)
+    public function __construct(public Message $message)
     {
-        $this->message = Message::find($message->id);
     }
 
     /**

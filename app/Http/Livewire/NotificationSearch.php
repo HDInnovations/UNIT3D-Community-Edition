@@ -102,7 +102,7 @@ class NotificationSearch extends Component
     #[Computed]
     final public function notifications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return auth()->user()?->notifications()
+        return auth()->user()->notifications()
             ->select('*')
             ->selectRaw("CASE WHEN read_at IS NULL THEN 'FALSE' ELSE 'TRUE' END as is_read")
             ->where(function ($query): void {

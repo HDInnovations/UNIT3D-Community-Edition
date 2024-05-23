@@ -67,7 +67,7 @@ class SystemBot
      */
     public function getHelp(): string
     {
-        return $this->replaceVars($this->bot->help);
+        return $this->replaceVars($this->bot->help ?? '');
     }
 
     /**
@@ -92,11 +92,8 @@ class SystemBot
             }
 
             $value = $amount;
-            $recipient->seedbonus += $value;
-            $recipient->save();
-
-            $this->target->seedbonus -= $value;
-            $this->target->save();
+            $recipient->increment('seedbonus', $value);
+            $this->target->decrement('seedbonus', $value);
 
             $gift = Gift::create([
                 'sender_id'    => $this->target->id,

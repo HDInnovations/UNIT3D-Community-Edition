@@ -160,7 +160,7 @@ class RequestController extends Controller
 
         $category = $torrentRequest->category;
 
-        if ($torrentRequest->tmdb != 0) {
+        if ($torrentRequest->tmdb > 0) {
             switch (true) {
                 case $category->tv_meta:
                     (new TMDBScraper())->tv($torrentRequest->tmdb);
@@ -216,7 +216,7 @@ class RequestController extends Controller
 
         $torrentRequest->update($request->validated());
 
-        if ($torrentRequest->tmdb != 0) {
+        if ($torrentRequest->tmdb > 0) {
             switch (true) {
                 case $torrentRequest->category->tv_meta:
                     (new TMDBScraper())->tv($torrentRequest->tmdb);

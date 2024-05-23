@@ -71,7 +71,7 @@ class AutoRewardResurrection extends Command
                     ->first();
             }
 
-            if (isset($history)) {
+            if (isset($user, $torrent, $history)) {
                 $resurrection->rewarded = true;
                 $resurrection->save();
 

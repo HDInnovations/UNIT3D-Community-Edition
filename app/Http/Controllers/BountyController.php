@@ -23,7 +23,6 @@ use App\Models\TorrentRequestBounty;
 use App\Notifications\NewRequestBounty;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -50,10 +49,12 @@ class BountyController extends Controller
 
         $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
-        $torrentRequest->votes++;
-        $torrentRequest->bounty += $request->integer('seedbonus');
-        $torrentRequest->created_at = Carbon::now();
-        $torrentRequest->save();
+        $torrentRequest->incrementEach([
+            'votes'  => 1,
+            'bounty' => $request->integer('seedbonus'),
+        ], [
+            'created_at' => now(),
+        ]);
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(

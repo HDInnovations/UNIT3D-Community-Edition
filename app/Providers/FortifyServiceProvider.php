@@ -82,7 +82,7 @@ class FortifyServiceProvider extends ServiceProvider
                 if ($rootUrlOverride = config('unit3d.root_url_override')) {
                     $url = redirect()->getIntendedUrl();
 
-                    return redirect(
+                    return $url === null ? $rootUrlOverride : redirect(
                         rtrim(
                             rtrim($rootUrlOverride, '/')
                             .parse_url($url, PHP_URL_PATH)
@@ -192,7 +192,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
 
                 $user->notify(new FailedLogin(
-                    $request->ip()
+                    $request->ip() ?? 'Invalid IP'
                 ));
 
                 throw ValidationException::withMessages([

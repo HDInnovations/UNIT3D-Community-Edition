@@ -288,22 +288,22 @@ class Bbcode
         $source = preg_replace_callback(
             '/\[url=(.*?)](.*?)\[\/url]/i',
             fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.e($matches[2]).'</a>',
-            $source
+            $source ?? ''
         );
         $source = preg_replace_callback(
             '/\[img](.*?)\[\/img]/i',
             fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[1], isImage: true).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
-            $source
+            $source ?? ''
         );
         $source = preg_replace_callback(
             '/\[img width=(\d+)](.*?)\[\/img]/i',
             fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
-            $source
+            $source ?? ''
         );
         $source = preg_replace_callback(
             '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
             fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
-            $source
+            $source ?? ''
         );
 
         // YouTube video elements need to be replaced like this because the content inside the two tags
@@ -311,17 +311,17 @@ class Bbcode
         $source = preg_replace_callback(
             '/\[youtube]([a-z0-9_-]{11})\[\/youtube]/i',
             static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source
+            $source ?? ''
         );
         $source = preg_replace_callback(
             '/\[video]([a-z0-9_-]{11})\[\/video]/i',
             static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source
+            $source ?? ''
         );
         $source = preg_replace_callback(
             '/\[video="youtube"]([a-z0-9_-]{11})\[\/video]/i',
             static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source
+            $source ?? ''
         );
 
         // Common comparison syntax used in other torrent management systems is quite specific,
@@ -347,7 +347,7 @@ class Bbcode
 
                 return $html;
             },
-            $source
+            $source ?? ''
         );
 
         // Stack of unclosed elements
@@ -396,7 +396,7 @@ class Bbcode
                     // The opening bbcode tag uses the regex `^` character to make
                     // sure only the beginning of $remainingText is matched
                     if (preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
-                        $replacement = preg_replace($el['openBbcode'], (string) $el['openHtml'], $matches[0]);
+                        $replacement = (string) preg_replace($el['openBbcode'], (string) $el['openHtml'], $matches[0]);
                         $source = substr_replace((string) $source, $replacement, $index, \strlen($matches[0]));
 
                         if ($replaceLineBreaks === true && $el['block'] === true) {
