@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $votes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Poll $poll
+ * @method static \Database\Factories\OptionFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Option newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Option query()
+ * @mixin \Eloquent
  */
 class Option extends Model
 {

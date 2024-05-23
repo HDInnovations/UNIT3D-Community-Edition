@@ -27,6 +27,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read TorrentRequest|null $request
+ * @property-read User $user
+ * @method static \Database\Factories\TorrentRequestClaimFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequestClaim newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequestClaim newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequestClaim query()
+ * @mixin \Eloquent
  */
 class TorrentRequestClaim extends Model
 {

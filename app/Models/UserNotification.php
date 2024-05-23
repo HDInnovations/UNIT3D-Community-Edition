@@ -50,6 +50,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $json_forum_groups
  * @property array $json_following_groups
  * @property array $json_subscription_groups
+ * @property-read \App\Models\array{} $expected_fields
+ * @property-read \App\Models\array{} $expected_groups
+ * @property-read User $user
+ * @method static \Database\Factories\UserNotificationFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|UserNotification newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserNotification newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserNotification query()
+ * @mixin \Eloquent
  */
 class UserNotification extends Model
 {

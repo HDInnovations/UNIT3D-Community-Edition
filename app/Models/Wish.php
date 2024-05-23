@@ -28,6 +28,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $source
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $user
+ * @method static \Database\Factories\WishFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Wish newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Wish newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Wish query()
+ * @mixin \Eloquent
  */
 class Wish extends Model
 {

@@ -20,27 +20,32 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Bot.
  *
- * @property int                             $id
- * @property int                             $position
- * @property string                          $name
- * @property string                          $command
- * @property string|null                     $color
- * @property string|null                     $icon
- * @property string|null                     $emoji
- * @property string|null                     $info
- * @property string|null                     $about
- * @property string|null                     $help
- * @property int                             $active
- * @property int                             $is_protected
- * @property int                             $is_nerdbot
- * @property int                             $is_systembot
- * @property int                             $uploaded
- * @property int                             $downloaded
- * @property int                             $fl_tokens
- * @property float                           $seedbonus
- * @property int                             $invites
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                       $id
+ * @property        int                                       $position
+ * @property        string                                    $name
+ * @property        string                                    $command
+ * @property        string|null                               $color
+ * @property        string|null                               $icon
+ * @property        string|null                               $emoji
+ * @property        string|null                               $info
+ * @property        string|null                               $about
+ * @property        string|null                               $help
+ * @property        int                                       $active
+ * @property        int                                       $is_protected
+ * @property        int                                       $is_nerdbot
+ * @property        int                                       $is_systembot
+ * @property        int                                       $uploaded
+ * @property        int                                       $downloaded
+ * @property        int                                       $fl_tokens
+ * @property        string                                    $seedbonus
+ * @property        int                                       $invites
+ * @property        \Illuminate\Support\Carbon|null           $created_at
+ * @property        \Illuminate\Support\Carbon|null           $updated_at
+ * @method   static \Database\Factories\BotFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|Bot newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|Bot newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|Bot query()
+ * @mixin \Eloquent
  */
 class Bot extends Model
 {

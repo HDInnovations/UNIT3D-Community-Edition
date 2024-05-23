@@ -22,6 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $user_id
  * @property \Illuminate\Support\Carbon      $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|EmailUpdate newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EmailUpdate newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EmailUpdate query()
+ * @mixin \Eloquent
  */
 class EmailUpdate extends Model
 {

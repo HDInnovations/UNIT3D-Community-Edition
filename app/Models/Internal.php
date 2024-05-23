@@ -24,6 +24,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $icon
  * @property string $effect
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @method static \Database\Factories\InternalFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Internal newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Internal newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Internal query()
+ * @mixin \Eloquent
  */
 class Internal extends Model
 {

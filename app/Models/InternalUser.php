@@ -19,9 +19,18 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 /**
  * App\Models\InternalUser.
  *
- * @property int $id
- * @property int $user_id
- * @property int $internal_id
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $internal_id
+ * @property int                             $position
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Internal $internal
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|InternalUser newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|InternalUser newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|InternalUser query()
+ * @mixin \Eloquent
  */
 class InternalUser extends Pivot
 {

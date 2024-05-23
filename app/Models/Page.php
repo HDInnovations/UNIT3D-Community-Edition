@@ -22,11 +22,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Page.
  *
- * @property int                             $id
- * @property string|null                     $name
- * @property string|null                     $content
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                        $id
+ * @property        string|null                                $name
+ * @property        string|null                                $content
+ * @property        \Illuminate\Support\Carbon|null            $created_at
+ * @property        \Illuminate\Support\Carbon|null            $updated_at
+ * @method   static \Database\Factories\PageFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|Page newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|Page newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|Page query()
+ * @mixin \Eloquent
  */
 class Page extends Model
 {

@@ -20,6 +20,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
 /**
  * App\Models\Comment.
@@ -33,6 +34,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string                          $commentable_type
  * @property int                             $commentable_id
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Comment> $children
+ * @property-read Model|Eloquent $commentable
+ * @property-read User|null $user
+ * @method static \Database\Factories\CommentFactory factory($count = null, $state = [])
+ * @method static Builder|Comment                    newModelQuery()
+ * @method static Builder|Comment                    newQuery()
+ * @method static Builder|Comment                    parent()
+ * @method static Builder|Comment                    query()
+ * @mixin \Eloquent
  */
 class Comment extends Model
 {

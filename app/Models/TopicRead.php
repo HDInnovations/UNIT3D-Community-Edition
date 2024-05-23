@@ -20,7 +20,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $user_id
  * @property int $topic_id
- * @property int $post_id
+ * @property int $last_read_post_id
+ * @property-read Post $lastReadPost
+ * @property-read Topic $topic
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|TopicRead newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TopicRead newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TopicRead query()
+ * @mixin \Eloquent
  */
 class TopicRead extends Model
 {

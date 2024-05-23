@@ -40,6 +40,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int                             $forum_id
+ * @property-read Forum $forum
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ForumPermission> $forumPermissions
+ * @property-read Post|null $latestPost
+ * @property-read Post|null $latestPostSlow
+ * @property-read User|null $latestPoster
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TopicRead> $reads
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $subscribedUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
+ * @property-read User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic authorized(?bool $canReadTopic = null, ?bool $canReplyTopic = null, ?bool $canStartTopic = null)
+ * @method static \Database\Factories\TopicFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Topic query()
+ * @mixin \Eloquent
  */
 class Topic extends Model
 {

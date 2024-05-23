@@ -30,7 +30,6 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Torrent.
  *
- * @property string                                                                     $info_hash
  * @property int                                                                        $id
  * @property string                                                                     $name
  * @property string                                                                     $description
@@ -40,7 +39,7 @@ use voku\helper\AntiXSS;
  * @property int                                                                        $num_file
  * @property string|null                                                                $folder
  * @property float                                                                      $size
- * @property mixed|null                                                                 $nfo
+ * @property string|null                                                                $nfo
  * @property int                                                                        $leechers
  * @property int                                                                        $seeders
  * @property int                                                                        $times_completed
@@ -71,7 +70,7 @@ use voku\helper\AntiXSS;
  * @property string|null                                                                $bumped_at
  * @property \Illuminate\Support\Carbon|null                                            $fl_until
  * @property \Illuminate\Support\Carbon|null                                            $du_until
- * @property string|null                                                                $release_year
+ * @property int|null                                                                   $release_year
  * @property int                                                                        $type_id
  * @property int|null                                                                   $resolution_id
  * @property int|null                                                                   $distributor_id
@@ -79,6 +78,88 @@ use voku\helper\AntiXSS;
  * @property int                                                                        $personal_release
  * @property int|null                                                                   $balance
  * @property int|null                                                                   $balance_offset
+ * @property string                                                                     $info_hash
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Bookmark> $bookmarks
+ * @property-read Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read Distributor|null $distributor
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentFile> $files
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\FreeleechToken> $freeleechTokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\History> $history
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Warning> $hitrun
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Keyword> $keywords
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Peer> $leeches
+ * @property-read User|null $moderated
+ * @property-read Movie|null $movie
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Peer> $peers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Playlist> $playlists
+ * @property-read Region|null $region
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read Resolution|null $resolution
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resurrection> $resurrections
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Peer> $seeds
+ * @property-write mixed $media_info
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subtitle> $subtitles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Thank> $thanks
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentTip> $tips
+ * @property-read Tv|null $tv
+ * @property-read Type|null $type
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent alive()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent bookmarkedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent dead()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent doubleup()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent downloadedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent dying()
+ * @method static \Database\Factories\TorrentFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent featured()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent graveyard()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent highSpeed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent internal()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent lastPerGroup(?array $fields = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent leechedby(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent notDownloadedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofAdult(?bool $isAdult = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofCategory(array $categories)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofCollection(int $collectionId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofCompany(int $companyId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofDescription(string $description, bool $isRegex = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofDistributor(array $distributors)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofEpisode(int $episodeNumber)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofFilename(string $filename)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofFreeleech(array|int $free)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofGenre(array $genres)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofImdb(int $tvdbId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofKeyword(array $keywords)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofMal(int $malId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofMediainfo(string $mediainfo, bool $isRegex = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofName(string $name, bool $isRegex = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofNetwork(int $networkId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofPlaylist(int $playlistId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofPrimaryLanguage(array $languages)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofRefundable(int $refundable)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofRegion(array $regions)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofResolution(array $resolutions)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofSeason(int $seasonNumber)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofSizeGreaterOrEqualTo(int $size)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofSizeLesserOrEqualTo(int $size)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofTmdb(int $tvdbId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofTvdb(int $tvdbId)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofType(array $types)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent ofUploader(string $username, ?\App\Models\User $authenticatedUser = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent personalRelease()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent refundable()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent releasedAfterOrIn(int $year)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent releasedBeforeOrIn(int $year)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent sd()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent seededBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent streamOptimized()
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent uncompletedBy(\App\Models\User $user)
+ * @method static \Illuminate\Database\Eloquent\Builder|Torrent wishedBy(\App\Models\User $user)
+ * @mixin \Eloquent
  */
 class Torrent extends Model
 {

@@ -20,8 +20,14 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\WhitelistedImageUrl.
  *
- * @property int    $id
- * @property string $pattern
+ * @property        int                                                       $id
+ * @property        string                                                    $pattern
+ * @property        \Illuminate\Support\Carbon|null                           $created_at
+ * @property        \Illuminate\Support\Carbon|null                           $updated_at
+ * @method   static \Illuminate\Database\Eloquent\Builder|WhitelistedImageUrl newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|WhitelistedImageUrl newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|WhitelistedImageUrl query()
+ * @mixin \Eloquent
  */
 class WhitelistedImageUrl extends Model
 {

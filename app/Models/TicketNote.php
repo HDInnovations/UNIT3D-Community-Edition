@@ -16,6 +16,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $ticket_id
+ * @property string                          $message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Ticket|null $ticket
+ * @property-read User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketNote newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketNote newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TicketNote query()
+ * @mixin \Eloquent
+ */
 class TicketNote extends Model
 {
     use HasFactory;

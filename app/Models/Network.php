@@ -26,6 +26,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $homepage
  * @property string|null $headquarters
  * @property string|null $origin_country
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $movie
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tv> $tv
+ * @method static \Database\Factories\NetworkFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Network newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Network newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Network query()
+ * @mixin \Eloquent
  */
 class Network extends Model
 {

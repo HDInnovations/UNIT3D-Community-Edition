@@ -26,6 +26,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $bot_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Bot|null $bot
+ * @property-read Chatroom|null $room
+ * @property-read User|null $target
+ * @property-read User $user
+ * @method static \Database\Factories\UserEchoFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|UserEcho newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserEcho newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserEcho query()
+ * @mixin \Eloquent
  */
 class UserEcho extends Model
 {

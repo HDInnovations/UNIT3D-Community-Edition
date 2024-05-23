@@ -23,6 +23,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $content
  * @property string|null                     $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Apikey newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Apikey newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Apikey query()
+ * @mixin \Eloquent
  */
 class Apikey extends Model
 {

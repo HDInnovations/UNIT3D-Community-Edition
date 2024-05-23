@@ -35,6 +35,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TicketAttachment> $attachments
+ * @property-read TicketCategory|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TicketNote> $notes
+ * @property-read TicketPriority|null $priority
+ * @property-read User|null $staff
+ * @property-read User $user
+ * @method static \Database\Factories\TicketFactory factory($count = null, $state = [])
+ * @method static Builder|Ticket                    newModelQuery()
+ * @method static Builder|Ticket                    newQuery()
+ * @method static Builder|Ticket                    query()
+ * @method static Builder|Ticket                    stale()
+ * @method static Builder|Ticket                    status(string $status)
+ * @mixin \Eloquent
  */
 class Ticket extends Model
 {

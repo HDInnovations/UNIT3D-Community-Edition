@@ -28,6 +28,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $backdrop
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Movie> $movie
+ * @method static \Database\Factories\CollectionFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Collection query()
+ * @mixin \Eloquent
  */
 class Collection extends Model
 {

@@ -27,6 +27,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool                            $rewarded
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\ResurrectionFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Resurrection newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Resurrection newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Resurrection query()
+ * @mixin \Eloquent
  */
 class Resurrection extends Model
 {

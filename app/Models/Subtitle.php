@@ -39,6 +39,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $moderated_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read MediaLanguage|null $language
+ * @property-read Torrent $torrent
+ * @property-read User $user
+ * @method static \Database\Factories\SubtitleFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Subtitle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subtitle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Subtitle query()
+ * @mixin \Eloquent
  */
 class Subtitle extends Model
 {

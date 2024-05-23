@@ -23,6 +23,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $content
  * @property string                          $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Rsskey newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rsskey newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rsskey query()
+ * @mixin \Eloquent
  */
 class Rsskey extends Model
 {

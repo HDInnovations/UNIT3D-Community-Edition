@@ -28,6 +28,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $air_date
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Episode> $episodes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @property-read Tv $tv
+ * @method static \Database\Factories\SeasonFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Season newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Season newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Season query()
+ * @mixin \Eloquent
  */
 class Season extends Model
 {

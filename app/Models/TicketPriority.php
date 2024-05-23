@@ -20,11 +20,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TicketPriority.
  *
- * @property int                             $id
- * @property string                          $name
- * @property int                             $position
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                                  $id
+ * @property        string                                               $name
+ * @property        int                                                  $position
+ * @property        \Illuminate\Support\Carbon|null                      $created_at
+ * @property        \Illuminate\Support\Carbon|null                      $updated_at
+ * @method   static \Database\Factories\TicketPriorityFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|TicketPriority newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|TicketPriority newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|TicketPriority query()
+ * @mixin \Eloquent
  */
 class TicketPriority extends Model
 {

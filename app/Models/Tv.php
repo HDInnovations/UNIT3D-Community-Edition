@@ -50,6 +50,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $trailer
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Person> $creators
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Credit> $credits
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Genre> $genres
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Network> $networks
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Person> $people
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Recommendation> $recommendations
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Tv> $recommendedTv
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Season> $seasons
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\TvFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Tv newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tv newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Tv query()
+ * @mixin \Eloquent
  */
 class Tv extends Model
 {

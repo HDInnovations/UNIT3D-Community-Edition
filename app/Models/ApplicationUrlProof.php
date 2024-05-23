@@ -25,6 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $url
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Application|null $application
+ * @method static \Database\Factories\ApplicationUrlProofFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicationUrlProof newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicationUrlProof newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ApplicationUrlProof query()
+ * @mixin \Eloquent
  */
 class ApplicationUrlProof extends Model
 {

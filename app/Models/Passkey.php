@@ -23,6 +23,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $content
  * @property string                          $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Passkey newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Passkey newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Passkey query()
+ * @mixin \Eloquent
  */
 class Passkey extends Model
 {

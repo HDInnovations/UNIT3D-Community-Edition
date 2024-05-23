@@ -47,7 +47,7 @@ use voku\helper\AntiXSS;
  * @property string|null                     $about
  * @property string|null                     $signature
  * @property int                             $fl_tokens
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $invites
  * @property int                             $hitandruns
  * @property string                          $rsskey
@@ -85,6 +85,95 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int                             $own_flushes
  * @property string|null                     $email_verified_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $ApprovedRequests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Assada\Achievements\Model\AchievementProgress> $achievements
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Apikey> $apikeys
+ * @property-read Application|null $application
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Article> $articles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserAudible> $audibles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $bookmarks
+ * @property-read ChatStatus|null $chatStatus
+ * @property-read Chatroom|null $chatroom
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $connectableSeedingTorrents
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserEcho> $echoes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EmailUpdate> $emailUpdates
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\FailedLoginAttempt> $failedLogins
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\FeaturedTorrent> $featuredTorrent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $filledRequests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $followers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $following
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ForumPermission> $forumPermissions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\FreeleechToken> $freeleechTokens
+ * @property-read string $about_html
+ * @property-read string $formatted_buffer
+ * @property-read string $formatted_downloaded
+ * @property-read string $formatted_ratio
+ * @property-read string $formatted_seedbonus
+ * @property-read string $formatted_uploaded
+ * @property-read float $ratio
+ * @property-read string $signature_html
+ * @property-read Group|null $group
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\History> $history
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Internal> $internals
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $leechingTorrents
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Like> $likes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Message> $messages
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $moderated
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Note> $notes
+ * @property-read UserNotification|null $notification
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Passkey> $passkeys
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Peer> $peers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PersonalFreeleech> $personalFreeleeches
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Playlist> $playlists
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Poll> $polls
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read UserPrivacy|null $privacy
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Gift> $receivedGifts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invite> $receivedInvites
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostTip> $receivedPostTips
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PrivateMessage> $receivedPrivateMessages
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentTip> $receivedTorrentTips
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Report> $reports
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequestBounty> $requestBounty
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Resurrection> $resurrections
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rss> $rss
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Rsskey> $rsskeys
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Seedbox> $seedboxes
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $seedingTorrents
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Gift> $sentGifts
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invite> $sentInvites
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostTip> $sentPostTips
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PrivateMessage> $sentPrivateMessages
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentTip> $sentTorrentTips
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Report> $solvedReports
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Ban> $staffban
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Warning> $staffdeletedwarning
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Warning> $staffwarning
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Forum> $subscribedForums
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Topic> $subscribedTopics
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subscription> $subscriptions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Thank> $thanksGiven
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Thank> $thanksReceived
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Ticket> $tickets
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Topic> $topics
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\History> $uploadSnatches
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Ban> $userban
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Warning> $userwarning
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Warning> $warnings
+ * @property-read Watchlist|null $watchlist
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Wish> $wishes
+ * @method static \Database\Factories\UserFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
+ * @mixin \Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

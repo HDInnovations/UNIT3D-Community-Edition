@@ -25,6 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $ip_address
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User|null $user
+ * @method static \Database\Factories\FailedLoginAttemptFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|FailedLoginAttempt newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FailedLoginAttempt newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FailedLoginAttempt query()
+ * @mixin \Eloquent
  */
 class FailedLoginAttempt extends Model
 {

@@ -19,11 +19,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\GitUpdate.
  *
- * @property int                             $id
- * @property string                          $name
- * @property string                          $hash
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                             $id
+ * @property        string                                          $name
+ * @property        string                                          $hash
+ * @property        \Illuminate\Support\Carbon|null                 $created_at
+ * @property        \Illuminate\Support\Carbon|null                 $updated_at
+ * @method   static \Database\Factories\GitUpdateFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|GitUpdate newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|GitUpdate newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|GitUpdate query()
+ * @mixin \Eloquent
  */
 class GitUpdate extends Model
 {

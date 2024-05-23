@@ -19,12 +19,17 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\BlacklistClient.
  *
- * @property int                             $id
- * @property string                          $name
- * @property string|null                     $reason
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string                          $peer_id_prefix
+ * @property        int                                                   $id
+ * @property        string                                                $name
+ * @property        string|null                                           $reason
+ * @property        \Illuminate\Support\Carbon|null                       $created_at
+ * @property        \Illuminate\Support\Carbon|null                       $updated_at
+ * @property        string                                                $peer_id_prefix
+ * @method   static \Database\Factories\BlacklistClientFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|BlacklistClient newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|BlacklistClient newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|BlacklistClient query()
+ * @mixin \Eloquent
  */
 class BlacklistClient extends Model
 {

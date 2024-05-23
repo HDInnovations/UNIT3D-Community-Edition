@@ -23,6 +23,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $id
  * @property int    $position
  * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Credit> $credits
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Person> $people
+ * @method static \Database\Factories\OccupationFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Occupation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Occupation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Occupation query()
+ * @mixin \Eloquent
  */
 class Occupation extends Model
 {

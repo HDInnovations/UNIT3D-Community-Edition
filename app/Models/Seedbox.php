@@ -27,6 +27,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $ip
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $user
+ * @method static \Database\Factories\SeedboxFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Seedbox newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Seedbox newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Seedbox query()
+ * @mixin \Eloquent
  */
 class Seedbox extends Model
 {

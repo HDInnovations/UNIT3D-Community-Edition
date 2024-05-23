@@ -25,12 +25,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $downloaded
  * @property int    $left
  * @property int    $corrupt
- * @property mixed  $peer_id
+ * @property string $peer_id
  * @property int    $port
  * @property int    $numwant
  * @property string $created_at
  * @property string $event
  * @property string $key
+ * @property-read User|null $requests
+ * @property-read Torrent|null $torrents
+ * @method static \Illuminate\Database\Eloquent\Builder|Announce newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Announce newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Announce query()
+ * @mixin \Eloquent
  */
 class Announce extends Model
 {

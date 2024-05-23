@@ -31,6 +31,15 @@ use voku\helper\AntiXSS;
  * @property int|null                        $related_to
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $receiver
+ * @property-read PrivateMessage|null $reply
+ * @property-read PrivateMessage|null $replyRecursive
+ * @property-read User $sender
+ * @method static \Database\Factories\PrivateMessageFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|PrivateMessage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PrivateMessage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PrivateMessage query()
+ * @mixin \Eloquent
  */
 class PrivateMessage extends Model
 {

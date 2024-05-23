@@ -32,6 +32,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User|null $receiver
+ * @property-read User $sender
+ * @method static \Database\Factories\InviteFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Invite newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invite newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invite onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invite query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invite withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Invite withoutTrashed()
+ * @mixin \Eloquent
  */
 class Invite extends Model
 {

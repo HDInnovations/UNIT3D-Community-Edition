@@ -19,11 +19,18 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Gift.
  *
  * @property int                        $id
- * @property ?int                       $sender_id
- * @property ?int                       $recipient_id
- * @property ?int                       $torrent_id
+ * @property int|null                   $sender_id
+ * @property int|null                   $recipient_id
+ * @property int|null                   $torrent_id
  * @property string                     $bon
  * @property \Illuminate\Support\Carbon $created_at
+ * @property-read User|null $recipient
+ * @property-read User|null $sender
+ * @property-read Torrent|null $torrent
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentTip newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentTip newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentTip query()
+ * @mixin \Eloquent
  */
 class TorrentTip extends Model
 {

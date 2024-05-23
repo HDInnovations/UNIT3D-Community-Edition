@@ -25,6 +25,14 @@ use Illuminate\Notifications\Notifiable;
  * @property string                          $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Message> $messages
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @method static \Database\Factories\ChatroomFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Chatroom newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chatroom newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chatroom query()
+ * @mixin \Eloquent
  */
 class Chatroom extends Model
 {

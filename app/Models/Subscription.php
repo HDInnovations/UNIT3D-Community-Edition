@@ -27,6 +27,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $topic_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Forum|null $forum
+ * @property-read Topic|null $topic
+ * @property-read User $user
+ * @method static \Database\Factories\SubscriptionFactory factory($count = null, $state = [])
+ * @method static Builder|Subscription                    newModelQuery()
+ * @method static Builder|Subscription                    newQuery()
+ * @method static Builder|Subscription                    ofForum(int $forum_id)
+ * @method static Builder|Subscription                    ofTopic(int $topic_id)
+ * @method static Builder|Subscription                    query()
+ * @mixin \Eloquent
  */
 class Subscription extends Model
 {

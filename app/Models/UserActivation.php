@@ -19,6 +19,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\UserActivation.
+ *
+ * @property-read User|null $user
+ * @method static \Database\Factories\UserActivationFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|UserActivation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserActivation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserActivation query()
+ * @mixin \Eloquent
  */
 class UserActivation extends Model
 {

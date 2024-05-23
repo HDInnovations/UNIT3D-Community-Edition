@@ -19,11 +19,18 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Gift.
  *
  * @property int                        $id
- * @property ?int                       $sender_id
- * @property ?int                       $recipient_id
- * @property ?int                       $post_id
+ * @property int|null                   $sender_id
+ * @property int|null                   $recipient_id
+ * @property int|null                   $post_id
  * @property string                     $bon
  * @property \Illuminate\Support\Carbon $created_at
+ * @property-read Post|null $post
+ * @property-read User|null $recipient
+ * @property-read User|null $sender
+ * @method static \Illuminate\Database\Eloquent\Builder|PostTip newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostTip newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PostTip query()
+ * @mixin \Eloquent
  */
 class PostTip extends Model
 {

@@ -33,6 +33,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User|null $deletedBy
+ * @property-read User $staffuser
+ * @property-read Torrent|null $torrenttitle
+ * @property-read User $warneduser
+ * @method static Builder|Warning                    active()
+ * @method static \Database\Factories\WarningFactory factory($count = null, $state = [])
+ * @method static Builder|Warning                    newModelQuery()
+ * @method static Builder|Warning                    newQuery()
+ * @method static Builder|Warning                    onlyTrashed()
+ * @method static Builder|Warning                    query()
+ * @method static Builder|Warning                    withTrashed()
+ * @method static Builder|Warning                    withoutTrashed()
+ * @mixin \Eloquent
  */
 class Warning extends Model
 {

@@ -22,11 +22,18 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int                             $user_id
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $requests_id
  * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read TorrentRequest|null $request
+ * @property-read User $user
+ * @method static \Database\Factories\TorrentRequestBountyFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequestBounty newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequestBounty newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentRequestBounty query()
+ * @mixin \Eloquent
  */
 class TorrentRequestBounty extends Model
 {

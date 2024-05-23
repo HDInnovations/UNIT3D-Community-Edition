@@ -26,6 +26,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int         $occupation_id
  * @property int|null    $order
  * @property string|null $character
+ * @property-read Movie|null $movie
+ * @property-read Occupation $occupation
+ * @property-read Person $person
+ * @property-read Tv|null $tv
+ * @method static \Database\Factories\CreditFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Credit newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Credit newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Credit query()
+ * @mixin \Eloquent
  */
 class Credit extends Model
 {

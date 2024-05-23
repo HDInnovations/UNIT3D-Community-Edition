@@ -23,6 +23,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int    $id
  * @property string $name
  * @property int    $position
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\RegionFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Region newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Region newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Region query()
+ * @mixin \Eloquent
  */
 class Region extends Model
 {

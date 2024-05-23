@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $icon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @method static \Database\Factories\ChatStatusFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatStatus newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatStatus newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatStatus query()
+ * @mixin \Eloquent
  */
 class ChatStatus extends Model
 {

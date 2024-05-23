@@ -34,6 +34,14 @@ use voku\helper\AntiXSS;
  * @property int                             $is_featured
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @property-read User $user
+ * @method static \Database\Factories\PlaylistFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Playlist newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Playlist newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Playlist query()
+ * @mixin \Eloquent
  */
 class Playlist extends Model
 {

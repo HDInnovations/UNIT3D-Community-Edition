@@ -24,6 +24,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property int    $size
  * @property int    $torrent_id
+ * @property-read Torrent $torrent
+ * @method static \Database\Factories\TorrentFileFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentFile newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentFile newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|TorrentFile query()
+ * @mixin \Eloquent
  */
 class TorrentFile extends Model
 {

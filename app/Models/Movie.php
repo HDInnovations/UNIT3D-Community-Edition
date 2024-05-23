@@ -44,6 +44,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $trailer
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Collection> $collection
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Company> $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Credit> $credits
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Person> $directors
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Genre> $genres
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Person> $people
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Recommendation> $recommendations
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Movie> $recommendedMovies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\MovieFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Movie newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Movie newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Movie query()
+ * @mixin \Eloquent
  */
 class Movie extends Model
 {

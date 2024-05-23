@@ -22,6 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int    $id
  * @property string $name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\TorrentRequest> $requests
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> $torrents
+ * @method static \Database\Factories\DistributorFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Distributor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Distributor newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Distributor query()
+ * @mixin \Eloquent
  */
 class Distributor extends Model
 {

@@ -29,6 +29,15 @@ use voku\helper\AntiXSS;
  * @property string                          $message
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Bot|null $bot
+ * @property-read Chatroom|null $chatroom
+ * @property-read User|null $receiver
+ * @property-read User $user
+ * @method static \Database\Factories\MessageFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Message newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Message newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Message query()
+ * @mixin \Eloquent
  */
 class Message extends Model
 {

@@ -27,6 +27,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Bot|null $bot
+ * @property-read Chatroom|null $room
+ * @property-read User|null $target
+ * @property-read User $user
+ * @method static \Database\Factories\UserAudibleFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|UserAudible newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserAudible newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserAudible query()
+ * @mixin \Eloquent
  */
 class UserAudible extends Model
 {

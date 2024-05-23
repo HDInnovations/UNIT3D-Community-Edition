@@ -33,6 +33,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $reported_user
  * @property int|null                        $torrent_id
  * @property int|null                        $request_id
+ * @property-read User|null $reported
+ * @property-read User $reporter
+ * @property-read TorrentRequest|null $request
+ * @property-read User|null $staff
+ * @property-read Torrent|null $torrent
+ * @method static \Database\Factories\ReportFactory            factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Report newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Report newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Report query()
+ * @mixin \Eloquent
  */
 class Report extends Model
 {

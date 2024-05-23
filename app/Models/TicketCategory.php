@@ -20,11 +20,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\TicketCategory.
  *
- * @property int                             $id
- * @property string                          $name
- * @property int                             $position
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property        int                                                  $id
+ * @property        string                                               $name
+ * @property        int                                                  $position
+ * @property        \Illuminate\Support\Carbon|null                      $created_at
+ * @property        \Illuminate\Support\Carbon|null                      $updated_at
+ * @method   static \Database\Factories\TicketCategoryFactory            factory($count = null, $state = [])
+ * @method   static \Illuminate\Database\Eloquent\Builder|TicketCategory newModelQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|TicketCategory newQuery()
+ * @method   static \Illuminate\Database\Eloquent\Builder|TicketCategory query()
+ * @mixin \Eloquent
  */
 class TicketCategory extends Model
 {
