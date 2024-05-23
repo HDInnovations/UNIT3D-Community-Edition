@@ -248,10 +248,10 @@ class Unit3dAnnounce
         ]);
     }
 
-    public static function addBlacklistedAgent(String $blacklistedAgent): bool
+    public static function addBlacklistedAgent(BlacklistClient $blacklistedAgent): bool
     {
         return self::put('blacklisted-agents', [
-            'name' => $blacklistedAgent,
+            'name' => $blacklistedAgent->name,
         ]);
     }
 

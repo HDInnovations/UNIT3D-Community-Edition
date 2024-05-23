@@ -40,7 +40,7 @@ class StoreTorrentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<Closure|\Illuminate\Validation\ConditionalRules|string>|string>
+     * @return array<string, array<Closure(string, mixed, Closure(string): never): void|\Illuminate\Validation\Rules\ProhibitedIf|\Illuminate\Validation\ConditionalRules|string>>
      */
     public function rules(Request $request): array
     {

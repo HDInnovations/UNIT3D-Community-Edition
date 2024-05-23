@@ -21,7 +21,7 @@ use App\Models\User;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
 use App\Services\Unit3dAnnounce;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Exception;

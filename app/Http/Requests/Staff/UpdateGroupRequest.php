@@ -34,7 +34,7 @@ class UpdateGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\ProhibitedIf|string>>
      */
     public function rules(Request $request): array
     {

@@ -25,13 +25,15 @@ class RejectApplicationRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<string|\Illuminate\Validation\Rules\In>>
      */
     public function rules(): array
     {
         return [
-            'status' => Rule::in([Application::REJECTED]),
-            'deny'   => [
+            'status' => [
+                Rule::in([Application::REJECTED]),
+            ],
+            'deny' => [
                 'required',
             ],
         ];

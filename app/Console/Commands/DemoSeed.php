@@ -254,7 +254,7 @@ Menu
                 } catch (Exception $exception) {
                     $abort = true;
 
-                    $this->warn($exception);
+                    $this->warn($exception->getMessage());
 
                     break;
                 }
@@ -459,7 +459,7 @@ Menu
                 } catch (Exception $exception) {
                     $abort = true;
 
-                    $this->warn($exception);
+                    $this->warn($exception->getMessage());
 
                     break;
                 }

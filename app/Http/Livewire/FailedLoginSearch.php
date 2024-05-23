@@ -60,6 +60,9 @@ class FailedLoginSearch extends Component
             ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
             ->groupBy('ip_address')
             ->having('login_attempts', '>', '3')
+            /**
+             * @phpstan-ignore-next-line
+             */
             ->having('latest_created_at', '>=', Carbon::now()->subWeek())
             ->orderByDesc('login_attempts')
             ->limit(10)

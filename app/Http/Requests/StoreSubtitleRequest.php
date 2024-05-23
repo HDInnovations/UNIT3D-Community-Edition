@@ -33,7 +33,7 @@ class StoreSubtitleRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<Closure|\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<Closure(string, mixed, Closure(string): never): void|\Illuminate\Validation\Rules\Exists|string>>
      */
     public function rules(): array
     {
