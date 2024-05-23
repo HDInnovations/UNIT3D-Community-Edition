@@ -36,6 +36,7 @@
     "combine_consecutive_unsets": true,
     "concat_space": true,
     "declare_parentheses": true,
+    "declare_strict_types": true,
     "explicit_string_variable": true,
     "fully_qualified_strict_types": true,
     "function_typehint_space": true,
