@@ -11,16 +11,11 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
-    'about'      => 'Acerca de',
-    'bot'        => 'Robot',
-    'bots'       => 'Robots',
-    'color'      => 'Color',
-    'command'    => 'Orden',
-    'edit-bot'   => 'Editar Robot',
-    'emoji-code' => 'Código emoji',
-    'help'       => 'Ayuda',
-    'icon'       => 'Icono',
-    'info'       => 'Información',
-    'name'       => 'Nombre',
+return [
+    'added'          => '¡Tu comentario ha sido añadido!',
+    'deleted'        => 'El comentario ha sido eliminado.',
+    'edited'         => 'El comentario ha sido editado.',
+    'rights-revoked' => '¡Se te han revocado los derechos de comentar!',
+    'slow-down'      => 'Despacio - ¡Demasiados comentarios!',
+    'torrent-status' => 'El torrent necesita ser moderado antes de que puedas comentarlo.',    
 ];
