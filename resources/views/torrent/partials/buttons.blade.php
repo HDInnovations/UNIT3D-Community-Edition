@@ -237,7 +237,7 @@
                         </span>
                     @endif
 
-                    @foreach ($files = $torrent->files->sortBy('name')->values()->sortBy(fn ($f) => dirname($f->name)."/~~~", SORT_NATURAL)->values() as $file)
+                    @foreach ($files = $torrent->files->sortBy(fn ($file) => (($dir = dirname($file->name)) === '.' ? chr(0xFF) : $dir."/".chr(0xFF)).basename($file->name), SORT_NATURAL)->values() as $file)
                         @php
                             $prevNodes = explode('/', $files[$loop->index - 1]->name ?? ' ')
                         @endphp
