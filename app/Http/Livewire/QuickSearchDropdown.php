@@ -15,6 +15,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Movie;
 use App\Models\Person;
+use App\Models\Torrent;
 use App\Models\Tv;
 use Livewire\Component;
 
@@ -32,6 +33,14 @@ class QuickSearchDropdown extends Component
             'search_results' => $this->quicksearchText === '' ? [] : match ($this->quicksearchRadio) {
                 'movies' => Movie::query()
                     ->select(['id', 'poster', 'title', 'release_date'])
+                    ->selectSub(
+                        Torrent::query()
+                            ->select('category_id')
+                            ->whereColumn('torrents.tmdb', '=', 'movies.id')
+                            ->whereRelation('category', 'movie_meta', '=', true)
+                            ->limit(1),
+                        'category_id'
+                    )
                     ->selectRaw("concat(title, ' ', release_date) as title_and_year")
                     ->when(
                         preg_match('/^\d+$/', $this->quicksearchText),
@@ -43,12 +52,20 @@ class QuickSearchDropdown extends Component
                                 fn ($query) => $query->having('title_and_year', 'LIKE', $search),
                             )
                     )
-                    ->has('torrents')
+                    ->havingNotNull('category_id')
                     ->oldest('title')
                     ->take(10)
                     ->get(),
                 'series' => Tv::query()
                     ->select(['id', 'poster', 'name', 'first_air_date'])
+                    ->selectSub(
+                        Torrent::query()
+                            ->select('category_id')
+                            ->whereColumn('torrents.tmdb', '=', 'tv.id')
+                            ->whereRelation('category', 'tv_meta', '=', true)
+                            ->limit(1),
+                        'category_id'
+                    )
                     ->selectRaw("concat(name, ' ', first_air_date) as title_and_year")
                     ->when(
                         preg_match('/^\d+$/', $this->quicksearchText),
@@ -60,7 +77,7 @@ class QuickSearchDropdown extends Component
                                 fn ($query) => $query->having('title_and_year', 'LIKE', $search),
                             )
                     )
-                    ->has('torrents')
+                    ->havingNotNull('category_id')
                     ->oldest('name')
                     ->take(10)
                     ->get(),
