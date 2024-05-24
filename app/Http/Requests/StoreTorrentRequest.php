@@ -138,7 +138,8 @@ class StoreTorrentRequest extends FormRequest
             'imdb' => [
                 Rule::when($category->movie_meta || $category->tv_meta, [
                     'required',
-                    'numeric',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
@@ -147,8 +148,8 @@ class StoreTorrentRequest extends FormRequest
             'tvdb' => [
                 Rule::when($category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::when(!$category->tv_meta, [
                     Rule::in([0]),
@@ -157,8 +158,8 @@ class StoreTorrentRequest extends FormRequest
             'tmdb' => [
                 Rule::when($category->movie_meta || $category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
@@ -167,8 +168,8 @@ class StoreTorrentRequest extends FormRequest
             'mal' => [
                 Rule::when($category->movie_meta || $category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
@@ -177,8 +178,8 @@ class StoreTorrentRequest extends FormRequest
             'igdb' => [
                 Rule::when($category->game_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::when(!$category->game_meta, [
                     Rule::in([0]),
@@ -187,16 +188,16 @@ class StoreTorrentRequest extends FormRequest
             'season_number' => [
                 Rule::when($category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::prohibitedIf(!$category->tv_meta),
             ],
             'episode_number' => [
                 Rule::when($category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
                 Rule::prohibitedIf(!$category->tv_meta),
             ],
