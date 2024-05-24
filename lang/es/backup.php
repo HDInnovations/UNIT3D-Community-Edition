@@ -36,7 +36,7 @@ return [
     'delete_confirm'                 => '¿Estás seguro de que deseas eliminar este archivo de copia de seguridad?',
     'delete_confirmation_title'      => 'Hecho',
     'delete_confirmation_message'    => 'El archivo de copia de seguridad fue eliminado.',
-    'delete_error_title'             => 'Error',
+    'delete_error_title'             => 'Ups, ha ocurrido un error',
     'delete_error_message'           => 'El archivo de copia de seguridad NO ha sido eliminado.',
     'delete_cancel_title'            => 'Está bien',
     'delete_cancel_message'          => 'El archivo de copia de seguridad NO ha sido eliminado.',
