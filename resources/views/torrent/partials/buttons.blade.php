@@ -206,7 +206,7 @@
                         List
                     </li>
                 </menu>
-                <div class="dialog__form" x-show="tab === 'hierarchy'">
+                <div class="dialog__form" x-show="tab === 'hierarchy'" style="gap: 0">
                     @if ($torrent->folder !== null)
                         <span
                             style="
