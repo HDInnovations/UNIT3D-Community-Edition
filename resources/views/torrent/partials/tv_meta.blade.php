@@ -63,6 +63,22 @@
             @if ($meta?->id)
                 <li>
                     <form
+                        action="{{ route('users.wishes.store', ['user' => auth()->user()]) }}"
+                        method="post"
+                    >
+                        @csrf
+                        <input type="hidden" name="meta" value="tv" />
+                        <input type="hidden" name="movie_id" value="{{ $meta->id }}" />
+                        <button
+                            style="cursor: pointer"
+                            title="Receive notifications every time a new torrent is uploaded."
+                        >
+                            Notify of New Uploads
+                        </button>
+                    </form>
+                </li>
+                <li>
+                    <form
                         action="{{ route('torrents.similar.update', ['category' => $category, 'tmdbId' => $meta->id]) }}"
                         method="post"
                     >
@@ -73,6 +89,7 @@
                                 disabled
                                 title="This item was recently updated. Try again tomorrow."
                             @endif
+                            style="cursor: pointer"
                         >
                             Update Metadata
                         </button>

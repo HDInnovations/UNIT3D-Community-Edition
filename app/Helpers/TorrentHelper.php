@@ -28,13 +28,12 @@ use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
 use App\Models\AutomaticTorrentFreeleech;
 use App\Models\Movie;
-use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
-use App\Models\Wish;
 use App\Notifications\NewUpload;
+use App\Notifications\NewWishListNotice;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 
@@ -74,20 +73,23 @@ class TorrentHelper
 
         $uploader = $torrent->user;
 
-        $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
+        switch (true) {
+            case $torrent->category->movie_meta:
+                User::query()
+                    ->whereHas('wishes', fn ($query) => $query->where('movie_id', '=', $torrent->tmdb))
+                    ->get()
+                    ->each
+                    ->notify(new NewWishListNotice($torrent));
 
-        foreach ($wishes as $wish) {
-            $wish->source = sprintf('%s/torrents/%s', $appurl, $torrent->id);
-            $wish->save();
+                break;
+            case $torrent->category->tv_meta:
+                User::query()
+                    ->whereHas('wishes', fn ($query) => $query->where('tv_id', '=', $torrent->tmdb))
+                    ->get()
+                    ->each
+                    ->notify(new NewWishListNotice($torrent));
 
-            // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = User::SYSTEM_USER_ID;
-            $pm->receiver_id = $wish->user_id;
-            $pm->subject = 'Wish List Notice!';
-            $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-            $pm->save();
+                break;
         }
 
         if ($torrent->anon == 0) {
