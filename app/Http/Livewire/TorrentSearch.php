@@ -453,6 +453,7 @@ class TorrentSearch extends Component
                 'sticky',
                 'sd',
                 'internal',
+                'release_year',
                 'created_at',
                 'bumped_at',
                 'type_id',
