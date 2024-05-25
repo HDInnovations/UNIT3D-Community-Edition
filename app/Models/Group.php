@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -47,7 +50,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $min_uploaded
  * @property int      $min_seedsize
  * @property int      $min_avg_seedtime
- * @property float    $min_ratio
+ * @property string   $min_ratio
  * @property int      $min_age
  * @property int      $min_uploads
  */
@@ -65,6 +68,7 @@ class Group extends Model
     {
         return [
             'system_required' => 'boolean',
+            'min_ratio'       => 'decimal:2',
         ];
     }
 

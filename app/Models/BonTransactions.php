@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int      $id
  * @property int      $bon_exchange_id
  * @property string   $name
- * @property float    $cost
+ * @property string   $cost
  * @property int|null $sender_id
  * @property int|null $receiver_id
  * @property int|null $torrent_id
@@ -54,6 +57,18 @@ class BonTransactions extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'cost' => 'decimal:2',
+        ];
+    }
 
     /**
      * Belongs To A Sender.

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int                             $user_id
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $requests_id
  * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -46,6 +49,18 @@ class TorrentRequestBounty extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'seedbonus' => 'decimal:2',
+        ];
+    }
 
     /**
      * Belongs To A User.

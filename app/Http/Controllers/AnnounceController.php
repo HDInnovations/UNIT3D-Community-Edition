@@ -287,8 +287,17 @@ final class AnnounceController extends Controller
         }
 
         // Part.4 Get request ip and convert it to packed form
-        /** @var string $ip */
-        $ip = inet_pton($request->getClientIp());
+        $ip = $request->getClientIp();
+
+        if ($ip === null) {
+            throw new TrackerException(130, [':attribute' => 'ip']);
+        }
+
+        $ip = inet_pton($ip);
+
+        if ($ip === false) {
+            throw new TrackerException(130, [':attribute' => 'ip']);
+        }
 
         return new AnnounceQueryDTO(
             (int) $queries['port'],
@@ -299,7 +308,7 @@ final class AnnounceController extends Controller
             (int) $queries['numwant'],
             $queries['event'],
             (string) $queries['key'],
-            $request->headers->get('user-agent'),
+            $request->headers->get('user-agent') ?? '',
             (string) $queries['info_hash'],
             (string) $queries['peer_id'],
             $ip,

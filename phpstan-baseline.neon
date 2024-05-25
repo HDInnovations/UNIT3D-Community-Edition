@@ -486,11 +486,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Controllers/ApprovedRequestFillController.php
-
-		-
 			message: "#^Cannot access property \\$alive on bool\\|stdClass\\.$#"
 			count: 1
 			path: app/Http/Controllers/RssController.php
@@ -1144,66 +1139,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Resources\\\\UserResource\\:\\:toArray\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: app/Http/Resources/UserResource.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
-			count: 1
-			path: app/Models/Article.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function htmlspecialchars expects string, array\\<string\\>\\|string given\\.$#"
-			count: 2
-			path: app/Models/User.php
-
-		-
-			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
-			count: 2
-			path: app/Models/User.php
 
 		-
 			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"

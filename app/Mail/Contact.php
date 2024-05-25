@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +28,7 @@ class Contact extends Mailable
     /**
      * Contact Constructor.
      */
-    public function __construct(public string $email)
+    public function __construct(public string|\Illuminate\Support\Stringable $email)
     {
     }
 

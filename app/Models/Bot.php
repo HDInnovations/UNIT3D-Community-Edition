@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $uploaded
  * @property int                             $downloaded
  * @property int                             $fl_tokens
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $invites
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -56,6 +59,7 @@ class Bot extends Model
     {
         return [
             'name' => 'string',
+            'cost' => 'decimal:2',
         ];
     }
 

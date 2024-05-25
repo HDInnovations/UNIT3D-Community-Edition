@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,7 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int                             $warned_by
  * @property int|null                        $torrent
  * @property string                          $reason
- * @property string|null                     $expires_on
+ * @property \Illuminate\Support\Carbon|null $expires_on
  * @property bool                            $active
  * @property int|null                        $deleted_by
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -50,7 +53,8 @@ class Warning extends Model
     protected function casts(): array
     {
         return [
-            'active' => 'boolean',
+            'expires_on' => 'datetime',
+            'active'     => 'boolean',
         ];
     }
 

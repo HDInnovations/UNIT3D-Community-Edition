@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +37,7 @@ use voku\helper\AntiXSS;
  * @property int                             $igdb
  * @property string                          $description
  * @property int                             $user_id
- * @property float                           $bounty
+ * @property string                          $bounty
  * @property int                             $votes
  * @property int|null                        $claimed
  * @property int                             $anon
@@ -80,6 +83,7 @@ class TorrentRequest extends Model
             'filled_when'   => 'datetime',
             'approved_when' => 'datetime',
             'igdb'          => 'integer',
+            'bounty'        => 'decimal:2',
         ];
     }
 
@@ -195,7 +199,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute(?string $value): void
     {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

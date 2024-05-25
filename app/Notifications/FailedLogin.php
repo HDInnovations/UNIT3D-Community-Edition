@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -55,6 +58,6 @@ class FailedLogin extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => Carbon::now()]));
+        return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => Carbon::now()->__toString()]));
     }
 }

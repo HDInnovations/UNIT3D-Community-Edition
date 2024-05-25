@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -45,12 +48,12 @@ class TorrentHelper
         $appurl = config('app.url');
         $appname = config('app.name');
 
-        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->find($id);
+        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->status = Torrent::APPROVED;
         $torrent->moderated_at = now();
-        $torrent->moderated_by = auth()->id();
+        $torrent->moderated_by = (int) auth()->id();
 
         if (!$torrent->free) {
             $autoFreeleechs = AutomaticTorrentFreeleech::query()
@@ -90,7 +93,7 @@ class TorrentHelper
             $pm->save();
         }
 
-        if ($torrent->anon == 0) {
+        if ($torrent->anon == 0 && $uploader !== null) {
             foreach ($uploader->followers()->get() as $follower) {
                 if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
                     $follower->notify(new NewUpload('follower', $torrent));

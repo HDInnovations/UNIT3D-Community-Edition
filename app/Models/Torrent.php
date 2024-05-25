@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -68,7 +71,7 @@ use voku\helper\AntiXSS;
  * @property int                                                                        $internal
  * @property \Illuminate\Support\Carbon|null                                            $created_at
  * @property \Illuminate\Support\Carbon|null                                            $updated_at
- * @property string|null                                                                $bumped_at
+ * @property \Illuminate\Support\Carbon|null                                            $bumped_at
  * @property \Illuminate\Support\Carbon|null                                            $fl_until
  * @property \Illuminate\Support\Carbon|null                                            $du_until
  * @property string|null                                                                $release_year
@@ -98,6 +101,7 @@ class Torrent extends Model
     {
         return [
             'igdb'         => 'integer',
+            'bumped_at'    => 'datetime',
             'fl_until'     => 'datetime',
             'du_until'     => 'datetime',
             'doubleup'     => 'boolean',
@@ -396,7 +400,7 @@ class Torrent extends Model
      */
     public function setDescriptionAttribute(?string $value): void
     {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -207,7 +210,7 @@ class NerdBot
 
     public function getHelp(): string
     {
-        return $this->replaceVars($this->bot->help);
+        return $this->replaceVars($this->bot->help ?? '');
     }
 
     public function getKing(): string

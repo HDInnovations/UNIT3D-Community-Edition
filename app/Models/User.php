@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -47,7 +50,7 @@ use voku\helper\AntiXSS;
  * @property string|null                     $about
  * @property string|null                     $signature
  * @property int                             $fl_tokens
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $invites
  * @property int                             $hitandruns
  * @property string                          $rsskey
@@ -76,7 +79,7 @@ use voku\helper\AntiXSS;
  * @property string|null                     $api_token
  * @property \Illuminate\Support\Carbon|null $last_login
  * @property \Illuminate\Support\Carbon|null $last_action
- * @property string|null                     $disabled_at
+ * @property \Illuminate\Support\Carbon|null $disabled_at
  * @property int|null                        $deleted_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -129,6 +132,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'last_login'   => 'datetime',
             'last_action'  => 'datetime',
+            'disabled_at'  => 'datetime',
             'hidden'       => 'boolean',
             'can_comment'  => 'boolean',
             'can_download' => 'boolean',
@@ -136,6 +140,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'can_invite'   => 'boolean',
             'can_upload'   => 'boolean',
             'can_chat'     => 'boolean',
+            'seedbonus'    => 'decimal:2',
         ];
     }
 
@@ -1045,7 +1050,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setSignatureAttribute(?string $value): void
     {
-        $this->attributes['signature'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['signature'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -1063,7 +1068,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setAboutAttribute(?string $value): void
     {
-        $this->attributes['about'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['about'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -1085,7 +1090,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedSeedbonusAttribute(): string
     {
-        return number_format($this->seedbonus, 0, null, "\u{202F}");
+        return number_format((float) $this->seedbonus, 0, null, "\u{202F}");
     }
 
     /**

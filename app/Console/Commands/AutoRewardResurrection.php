@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -68,7 +71,7 @@ class AutoRewardResurrection extends Command
                     ->first();
             }
 
-            if (isset($history)) {
+            if (isset($user, $torrent, $history)) {
                 $resurrection->rewarded = true;
                 $resurrection->save();
 

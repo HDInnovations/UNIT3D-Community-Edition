@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -81,7 +84,7 @@ class Collection
         return [
             'id'        => $this->data['id'] ?? null,
             'name'      => $this->data['name'] ?? null,
-            'name_sort' => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $this->data['name'])),
+            'name_sort' => addslashes(str_replace(['The ', 'An ', 'A ', '"'], [''], $this->data['name'] ?? '')),
             'parts'     => is_countable($this->data['parts']) ? \count($this->data['parts']) : 0,
             'overview'  => $this->data['overview'] ?? null,
             'poster'    => $this->tmdb->image('poster', $this->data),

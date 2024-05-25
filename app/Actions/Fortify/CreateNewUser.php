@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -64,8 +67,10 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
             ],
             'code' => [
-                Rule::when(config('other.invite-only') === true, 'required'),
-                Rule::when(config('other.invite-only') === true, Rule::exists('invites', 'code')->whereNull('accepted_by'))
+                Rule::when(config('other.invite-only') === true, [
+                    'required',
+                    Rule::exists('invites', 'code')->whereNull('accepted_by'),
+                ]),
             ]
         ])->validate();
 
