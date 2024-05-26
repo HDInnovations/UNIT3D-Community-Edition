@@ -9,7 +9,7 @@
                 {{ $comment->created_at?->diffForHumans() }}
             </time>
             <menu class="comment__toolbar">
-                @if ($comment->isParent() && $comment->children()->doesntExist())
+                @if ($comment->isParent() && ! $comment->children_exists)
                     <li class="comment__toolbar-item">
                         <button wire:click="$toggle('isReplying')" class="comment__reply">
                             <abbr class="comment__reply-abbr" title="Reply to this comment">
@@ -123,7 +123,7 @@
     @if ($comment->isParent())
         <section class="comment__replies">
             <h5 class="sr-only">Replies</h5>
-            @if ($comment->children()->exists())
+            @if (! $comment->children_exists)
                 <ul class="comment__reply-list">
                     @foreach ($comment->children as $child)
                         <livewire:comment :comment="$child" :key="$child->id" />
@@ -131,7 +131,7 @@
                 </ul>
             @endif
 
-            @if ($isReplying || $comment->children()->exists())
+            @if ($isReplying || ! $comment->children_exists)
                 <form wire:submit="postReply" class="form reply-comment" x-data="toggle">
                     <p class="form__group">
                         <textarea
