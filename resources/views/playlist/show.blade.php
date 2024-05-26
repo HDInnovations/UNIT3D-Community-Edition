@@ -163,23 +163,8 @@
         <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
         <div class="panel__body playlist__torrents">
             @foreach ($torrents as $torrent)
-                @php
-                    $meta = match (true) {
-                        $torrent->category->tv_meta => App\Models\Tv::query()
-                            ->with('genres', 'networks', 'seasons')
-                            ->find($torrent->tmdb ?? 0),
-                        $torrent->category->movie_meta => App\Models\Movie::query()
-                            ->with('genres', 'companies', 'collection')
-                            ->find($torrent->tmdb ?? 0),
-                        $torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()
-                            ->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])
-                            ->find((int) $playlistTorrent->torrent->igdb),
-                        default => null,
-                    };
-                @endphp
-
                 <div class="playlist__torrent-container">
-                    <x-torrent.card :meta="$meta" :torrent="$torrent" />
+                    <x-torrent.card :meta="$torrent->meta" :torrent="$torrent" />
                     @if (auth()->id() === $playlist->user_id || auth()->user()->group->is_modo)
                         <form
                             action="{{ route('playlist_torrents.destroy', ['playlistTorrent' => $torrent->pivot]) }}"
