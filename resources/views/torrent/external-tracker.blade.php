@@ -93,7 +93,6 @@
                                                 :user="$user"
                                                 :anon="
                                                     $user->hidden == 1
-                                                    || $user->peer_hidden == 1
                                                     || $user->privacy?->show_peer === 0
                                                     || ($user->id == $torrent->user->id && $torrent->anon == 1)
                                                 "
