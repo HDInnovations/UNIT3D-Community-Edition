@@ -19,6 +19,7 @@
     data-category-id="{{ $torrent->category_id }}"
     data-type-id="{{ $torrent->type_id }}"
     data-resolution-id="{{ $torrent->resolution_id }}"
+    wire:key="torrent-search-row-{{ $torrent->id }}"
 >
     @if (auth()->user()->show_poster == 1)
         <td class="torrent-search--list__poster">
@@ -141,7 +142,7 @@
                 </a>
             @endif
 
-            {{-- @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('torrent-'.$torrent->id)) --}}
+            @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('bookmark-torrent-'.$torrent->id))
 
             @if (config('torrent.download_check_page'))
                 <a
