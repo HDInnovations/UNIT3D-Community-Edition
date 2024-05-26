@@ -18,22 +18,11 @@ namespace App\Traits;
 
 use App\Models\Movie;
 use App\Models\Tv;
-use JsonException;
 use MarcReichel\IGDBLaravel\Models\Game;
-use ReflectionException;
 
 trait TorrentMeta
 {
-    /**
-     * @param \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent>|\Illuminate\Pagination\CursorPaginator<\App\Models\Torrent>|\Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent> $torrents
-     *
-     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
-     * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
-     * @throws ReflectionException
-     * @throws JsonException
-     * @return ($torrents is \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> ? \Illuminate\Support\Collection<int, \App\Models\Torrent> : ($torrents is \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent> ? \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent> : \Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent>))
-     */
-    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator $torrents): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator
+    public function scopeMeta($torrents): \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
     {
         $movieIds = $torrents->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $torrents->where('meta', '=', 'tv')->pluck('tmdb');
@@ -44,27 +33,18 @@ trait TorrentMeta
         $games = [];
 
         foreach ($gameIds as $gameId) {
-            $games[$gameId] = Game::with(['cover' => ['url', 'image_id'], 'genres' => ['name']])->find($gameId);
+            $games[$gameId] = Game::with(['cover' => ['url', 'image_id']])->find($gameId);
         }
 
-        $setRelation = function ($torrent) use ($movies, $tv, $games) {
-            $torrent->setRelation(
-                'meta',
-                match ($torrent->meta) {
-                    'movie' => $movies[$torrent->tmdb] ?? null,
-                    'tv'    => $tv[$torrent->tmdb] ?? null,
-                    'game'  => $games[$torrent->igdb] ?? null,
-                    default => null,
-                },
-            );
+        return $torrents->map(function ($torrent) use ($movies, $tv, $games) {
+            $torrent->meta = match ($torrent->meta) {
+                'movie' => $movies[$torrent->tmdb] ?? null,
+                'tv'    => $tv[$torrent->tmdb] ?? null,
+                'game'  => $games[$torrent->igdb] ?? null,
+                default => null,
+            };
 
             return $torrent;
-        };
-
-        if ($torrents instanceof \Illuminate\Database\Eloquent\Collection) {
-            return $torrents->map($setRelation);
-        }
-
-        return $torrents->through($setRelation);
+        });
     }
 }
