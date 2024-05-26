@@ -25,7 +25,7 @@ use Illuminate\Support\Str;
 class TV
 {
     /**
-     * @var array{
+     * @var null|array{
      *     adult: ?bool,
      *     backdrop_path: ?string,
      *     created_by: ?array<
@@ -293,7 +293,7 @@ class TV
      *     }
      * }
      */
-    public array $data;
+    public null|array $data;
 
     public TMDB $tmdb;
 

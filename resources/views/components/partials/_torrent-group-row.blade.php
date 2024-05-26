@@ -14,12 +14,12 @@
             <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 @switch($media->meta)
                     @case('movie')
-                        {{ \preg_replace('/^.*( ' . (substr($media->release_date ?? '0', 0, 4) - 1) . ' | ' . substr($media->release_date ?? '0', 0, 4) . ' | ' . (substr($media->release_date ?? '0', 0, 4) + 1) . ' )/i', '', $torrent->name) }}
+                        {{ \preg_replace('/^.*( ' . implode(' | ', range($torrent->release_year - 1, $torrent->release_year + 1)) . ' )/i', '', $torrent->name) }}
 
                         @break
                     @case('tv')
-                        {{-- Removes the following patterns from the name: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000-01-01, 2000-01-01 --}}
-                        {{ \preg_replace('/^.*( S\d{2,4}(?:-?E\d{2,4})*? | \d{4}(?:-\d{2}){1,2} | ' . (substr($media->first_air_date ?? '0', 0, 4) - 1) . ' | ' . substr($media->first_air_date ?? '0', 0, 4) . ' | ' . (substr($media->first_air_date ?? '0', 0, 4) + 1) . ' )/i', '', $torrent->name) }}
+                        {{-- Removes the following patterns from the name: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000-, 2000 --}}
+                        {{ \preg_replace('/^.*( S\d{2,4}(?:-?E\d{2,4})*? | ' . implode(' | ', range($torrent->release_year - 1, $torrent->release_year + 1)) . ' | ' . implode('-| ', range(substr($media->first_air_date, 0, 4) - 1, substr($media->last_air_date, 0, 4) + 1)) . '-)/i', '', $torrent->name) }}
 
                         @break
                 @endswitch

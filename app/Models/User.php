@@ -55,14 +55,6 @@ use voku\helper\AntiXSS;
  * @property int                             $hitandruns
  * @property string                          $rsskey
  * @property int                             $chatroom_id
- * @property int                             $censor
- * @property int                             $chat_hidden
- * @property bool                            $hidden
- * @property int                             $style
- * @property int                             $torrent_layout
- * @property int                             $torrent_filters
- * @property string|null                     $custom_css
- * @property string|null                     $standalone_css
  * @property int                             $read_rules
  * @property bool                            $can_chat
  * @property bool                            $can_comment
@@ -70,11 +62,6 @@ use voku\helper\AntiXSS;
  * @property bool                            $can_request
  * @property bool                            $can_invite
  * @property bool                            $can_upload
- * @property int                             $show_poster
- * @property int                             $peer_hidden
- * @property int                             $private_profile
- * @property int                             $block_notifications
- * @property int                             $stat_hidden
  * @property string|null                     $remember_token
  * @property string|null                     $api_token
  * @property \Illuminate\Support\Carbon|null $last_login
@@ -83,7 +70,6 @@ use voku\helper\AntiXSS;
  * @property int|null                        $deleted_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string                          $locale
  * @property int                             $chat_status_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int                             $own_flushes
@@ -288,6 +274,28 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has One Settings Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserSetting>
+     */
+    public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(UserSetting::class);
+    }
+
+    /**
+     * Get user's settings object.
+     */
+    public function getSettingsAttribute(): ?UserSetting
+    {
+        $settings = cache()->rememberForever('user-settings:by-user-id:'.$this->id, fn () => $this->getRelationValue('settings'));
+
+        $this->setRelation('settings', $settings);
+
+        return $settings;
+    }
+
+    /**
      * Has One Privacy Object.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy>
@@ -298,6 +306,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get user's notification object.
+     */
+    public function getNotificationAttribute(): ?UserNotification
+    {
+        $notification = cache()->rememberForever('user-notification:by-user-id:'.$this->id, fn () => $this->getRelationValue('notification'));
+
+        $this->setRelation('notification', $notification);
+
+        return $notification;
+    }
+
+    /**
      * Has One Notifications Object.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification>
@@ -305,6 +325,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function notification(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(UserNotification::class);
+    }
+
+    /**
+     * Get user's privacy object.
+     */
+    public function getPrivacyAttribute(): ?UserPrivacy
+    {
+        $privacy = cache()->rememberForever('user-privacy:by-user-id:'.$this->id, fn () => $this->getRelationValue('privacy'));
+
+        $this->setRelation('privacy', $privacy);
+
+        return $privacy;
     }
 
     /**
@@ -902,7 +934,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
 
-        if ($target->block_notifications == 1) {
+        if ($target->notification?->block_notifications == 1) {
             return false;
         }
 
@@ -933,7 +965,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
 
-        if ($target->getAttribute('hidden')) {
+        if ($target->privacy?->getAttribute('hidden')) {
             return false;
         }
 
@@ -964,7 +996,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
 
-        if ($target->private_profile == 1) {
+        if ($target->privacy?->private_profile == 1) {
             return false;
         }
 

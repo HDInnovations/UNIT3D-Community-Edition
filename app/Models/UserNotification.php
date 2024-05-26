@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int   $id
  * @property int   $user_id
+ * @property int   $block_notifications
  * @property int   $show_bon_gift
  * @property int   $show_mention_forum_post
  * @property int   $show_mention_article_comment

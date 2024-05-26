@@ -79,6 +79,7 @@
                             <th>{{ __('torrent.started') }}</th>
                             <th>{{ __('torrent.last-update') }}</th>
                             <th>{{ __('common.status') }}</th>
+                            <th>Visible</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,7 +94,6 @@
                                                 :user="$user"
                                                 :anon="
                                                     $user->hidden == 1
-                                                    || $user->peer_hidden == 1
                                                     || $user->privacy?->show_peer === 0
                                                     || ($user->id == $torrent->user->id && $torrent->anon == 1)
                                                 "
@@ -157,6 +157,13 @@
                                         @endif
                                     @else
                                             Inactive
+                                    @endif
+                                </td>
+                                <td class="{{ $peer['is_visible'] ? 'text-green' : 'text-red' }}">
+                                    @if ($peer['is_visible'])
+                                        {{ __('common.yes') }}
+                                    @else
+                                        {{ __('common.no') }}
                                     @endif
                                 </td>
                             </tr>

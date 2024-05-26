@@ -155,11 +155,9 @@ class PostController extends Controller
         }
 
         // User Tagged Notification
-        if ($user->id !== $post->user_id) {
-            preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
-            $users = User::whereIn('username', $matches[1])->get();
-            Notification::send($users, new NewPostTag($post));
-        }
+        preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
+        $users = User::whereIn('username', $matches[1])->where('id', '!=', $user->id)->get();
+        Notification::send($users, new NewPostTag($post));
 
         return redirect()->to($realUrl)
             ->withSuccess(trans('forum.reply-topic-success'));

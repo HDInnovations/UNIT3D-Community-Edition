@@ -487,7 +487,7 @@
                             type="checkbox"
                             value="1"
                             name="block_notifications"
-                            @checked($user->block_notifications)
+                            @checked($user->notification?->block_notifications)
                         />
                         Block all notifications.
                     </label>

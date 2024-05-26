@@ -6,8 +6,8 @@
 
 <tr
     @class([
-        'torrent-search--list__row' => auth()->user()->show_poster,
-        'torrent-search--list__no-poster-row' => ! auth()->user()->show_poster,
+        'torrent-search--list__row' => auth()->user()->settings?->show_poster,
+        'torrent-search--list__no-poster-row' => ! auth()->user()->settings?->show_poster,
         'torrent-search--list__sticky-row' => $torrent->sticky,
     ])
     data-torrent-id="{{ $torrent->id }}"
@@ -19,8 +19,9 @@
     data-category-id="{{ $torrent->category_id }}"
     data-type-id="{{ $torrent->type_id }}"
     data-resolution-id="{{ $torrent->resolution_id }}"
+    wire:key="torrent-search-row-{{ $torrent->id }}"
 >
-    @if (auth()->user()->show_poster == 1)
+    @if (auth()->user()->settings?->show_poster)
         <td class="torrent-search--list__poster">
             <a
                 href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}"
@@ -141,7 +142,7 @@
                 </a>
             @endif
 
-            {{-- @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('torrent-'.$torrent->id)) --}}
+            @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('bookmark-torrent-'.$torrent->id))
 
             @if (config('torrent.download_check_page'))
                 <a

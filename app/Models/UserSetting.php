@@ -16,32 +16,44 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Wish.
+ * App\Models\UserSetting.
  *
  * @property int                             $id
  * @property int                             $user_id
- * @property string                          $title
- * @property int                             $movie_id
- * @property int                             $tv_id
+ * @property bool                            $censor
+ * @property bool                            $chat_hidden
+ * @property string                          $locale
+ * @property int                             $style
+ * @property int                             $torrent_layout
+ * @property bool                            $torrent_filters
+ * @property ?string                         $custom_css
+ * @property ?string                         $standalone_css
+ * @property bool                            $show_poster
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
-class Wish extends Model
+class UserSetting extends Model
 {
-    use Auditable;
     use HasFactory;
 
     /**
-     * The Attributes That Aren't Mass Assignable.
+     * Get the attributes that should be cast.
      *
-     * @var string[]
+     * @return array<string, string>
      */
-    protected $guarded = [];
+    protected function casts(): array
+    {
+        return [
+            'censor'          => 'bool',
+            'chat_hidden'     => 'bool',
+            'torrent_filters' => 'bool',
+            'show_poster'     => 'bool',
+        ];
+    }
 
     /**
      * Belongs To A User.
@@ -51,27 +63,5 @@ class Wish extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Has many torrents.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
-     */
-    public function movieTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Torrent::class, 'tmdb', 'movie_id')
-            ->whereHas('category', fn ($query) => $query->where('movie_meta', '=', true));
-    }
-
-    /**
-     * Has many torrents.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
-     */
-    public function tvTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')
-            ->whereHas('category', fn ($query) => $query->where('tv_meta', '=', true));
     }
 }

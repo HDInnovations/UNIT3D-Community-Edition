@@ -35,6 +35,7 @@ class UserNotificationFactory extends Factory
     {
         return [
             'user_id'                      => User::factory(),
+            'block_notifications'          => $this->faker->boolean(),
             'show_bon_gift'                => $this->faker->boolean(),
             'show_mention_forum_post'      => $this->faker->boolean(),
             'show_mention_article_comment' => $this->faker->boolean(),

@@ -119,8 +119,9 @@ class UserNotes extends Component
         $this->validateOnly('messages.*');
 
         Note::whereKey($id)->update([
-            'staff_id' => auth()->id(),
-            'message'  => $this->messages[$id],
+            'staff_id'   => auth()->id(),
+            'message'    => $this->messages[$id],
+            'updated_at' => now(),
         ]);
 
         $this->dispatch('success', type: 'success', message: 'Note has successfully been updated!');

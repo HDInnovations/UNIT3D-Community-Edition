@@ -21,7 +21,7 @@
             class="nav-tab__link"
             href="{{
                 route('torrents.index', [
-                    'view' => match (auth()->user()->torrent_layout) {
+                    'view' => match (auth()->user()->settings?->torrent_layout) {
                         1 => 'card',
                         2 => 'group',
                         3 => 'poster',
@@ -327,7 +327,7 @@
                         <label class="form__label form__label--floating" for="autoimdb">
                             IMDB ID
                         </label>
-                        <span class="form__hint">Numeric digits only. No leading zeros.</span>
+                        <span class="form__hint">Numeric digits only.</span>
                     </p>
                     <p class="form__group" x-show="cats[cat].type === 'tv'">
                         <input type="hidden" name="tvdb" value="0" />
@@ -584,7 +584,12 @@
             <div class="panel__body">
                 <p>
                     {{ __('torrent.announce-url') }}:
-                    <a href="{{ route('announce', ['passkey' => $user->passkey]) }}">
+                    <a
+                        x-data="upload"
+                        data-announce-url="{{ route('announce', ['passkey' => $user->passkey]) }}"
+                        x-on:click.prevent="copy"
+                        href="{{ route('announce', ['passkey' => $user->passkey]) }}"
+                    >
                         {{ route('announce', ['passkey' => $user->passkey]) }}
                     </a>
                 </p>
@@ -604,4 +609,21 @@
     <script src="{{ asset('build/unit3d/parser.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('build/unit3d/helper.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('build/unit3d/imgbb.js') }}" crossorigin="anonymous"></script>
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('upload', () => ({
+                copy() {
+                    navigator.clipboard.writeText(this.$el.dataset.announceUrl);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        icon: 'success',
+                        title: 'Copied to clipboard!',
+                    });
+                },
+            }));
+        });
+    </script>
 @endsection

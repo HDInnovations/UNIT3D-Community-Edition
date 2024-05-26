@@ -492,7 +492,7 @@
                             type="checkbox"
                             value="1"
                             name="hidden"
-                            @checked($user->hidden)
+                            @checked($user->privacy?->hidden)
                         />
                         {{ __('user.become-hidden') }}
                     </label>
@@ -505,7 +505,7 @@
                             type="checkbox"
                             value="1"
                             name="private_profile"
-                            @checked($user->private_profile)
+                            @checked($user->privacy?->private_profile)
                         />
                         {{ __('user.go-private') }}
                     </label>

@@ -461,21 +461,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Parameter \\#1 \\$inputFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) expects Illuminate\\\\Http\\\\UploadedFile\\|null, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -704,11 +689,6 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\<string, string\\>\\|bool given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GeneralSettingController.php
 
 		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
@@ -961,21 +941,6 @@ parameters:
 			path: app/Http/Livewire/Top10.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
@@ -1007,21 +972,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:ofName\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) has parameter \\$torrents with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentSearch\\:\\:scopeMeta\\(\\) return type with generic class Illuminate\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TValue$#"
 			count: 1
 			path: app/Http/Livewire/TorrentSearch.php
 
@@ -1158,11 +1108,6 @@ parameters:
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$receiver_id\\.$#"
 			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:\\$censor\\.$#"
-			count: 3
 			path: app/Repositories/ChatRepository.php
 
 		-
