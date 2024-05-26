@@ -327,7 +327,7 @@
                         <label class="form__label form__label--floating" for="autoimdb">
                             IMDB ID
                         </label>
-                        <span class="form__hint">Numeric digits only. No leading zeros.</span>
+                        <span class="form__hint">Numeric digits only.</span>
                     </p>
                     <p class="form__group" x-show="cats[cat].type === 'tv'">
                         <input type="hidden" name="tvdb" value="0" />

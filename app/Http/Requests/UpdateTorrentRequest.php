@@ -88,33 +88,40 @@ class UpdateTorrentRequest extends FormRequest
             ],
             'imdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'tvdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'tmdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'mal' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'igdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'season_number' => [
                 Rule::when($category->tv_meta, 'required'),
                 Rule::when(!$category->tv_meta, 'nullable'),
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'episode_number' => [
                 Rule::when($category->tv_meta, 'required'),
                 Rule::when(!$category->tv_meta, 'nullable'),
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'anon' => [
                 'required',
