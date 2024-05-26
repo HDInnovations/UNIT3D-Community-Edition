@@ -40,7 +40,7 @@
                             <option
                                 class="form__option"
                                 value="{{ $code }}"
-                                @selected($user->locale === $code)
+                                @selected($user->settings?->locale === $code)
                             >
                                 {{ $name }}
                             </option>
@@ -52,49 +52,109 @@
                     <legend class="form__legend">Style</legend>
                     <p class="form__group">
                         <select id="style" class="form__select" name="style" required>
-                            <option class="form__option" value="0" @selected($user->style === 0)>
+                            <option
+                                class="form__option"
+                                value="0"
+                                @selected($user->settings?->style === 0)
+                            >
                                 Light
                             </option>
-                            <option class="form__option" value="1" @selected($user->style === 1)>
+                            <option
+                                class="form__option"
+                                value="1"
+                                @selected($user->settings?->style === 1)
+                            >
                                 Galactic
                             </option>
-                            <option class="form__option" value="2" @selected($user->style === 2)>
+                            <option
+                                class="form__option"
+                                value="2"
+                                @selected($user->settings?->style === 2)
+                            >
                                 Dark Blue
                             </option>
-                            <option class="form__option" value="3" @selected($user->style === 3)>
+                            <option
+                                class="form__option"
+                                value="3"
+                                @selected($user->settings?->style === 3)
+                            >
                                 Dark Green
                             </option>
-                            <option class="form__option" value="4" @selected($user->style === 4)>
+                            <option
+                                class="form__option"
+                                value="4"
+                                @selected($user->settings?->style === 4)
+                            >
                                 Dark Pink
                             </option>
-                            <option class="form__option" value="5" @selected($user->style === 5)>
+                            <option
+                                class="form__option"
+                                value="5"
+                                @selected($user->settings?->style === 5)
+                            >
                                 Dark Purple
                             </option>
-                            <option class="form__option" value="6" @selected($user->style === 6)>
+                            <option
+                                class="form__option"
+                                value="6"
+                                @selected($user->settings?->style === 6)
+                            >
                                 Dark Red
                             </option>
-                            <option class="form__option" value="7" @selected($user->style === 7)>
+                            <option
+                                class="form__option"
+                                value="7"
+                                @selected($user->settings?->style === 7)
+                            >
                                 Dark Teal
                             </option>
-                            <option class="form__option" value="8" @selected($user->style === 8)>
+                            <option
+                                class="form__option"
+                                value="8"
+                                @selected($user->settings?->style === 8)
+                            >
                                 Dark Yellow
                             </option>
-                            <option class="form__option" value="9" @selected($user->style === 9)>
+                            <option
+                                class="form__option"
+                                value="9"
+                                @selected($user->settings?->style === 9)
+                            >
                                 Cosmic Void
                             </option>
-                            <option class="form__option" value="10" @selected($user->style === 10)>
+                            <option
+                                class="form__option"
+                                value="10"
+                                @selected($user->settings?->style === 10)
+                            >
                                 Nord
                             </option>
-                            <option class="form__option" value="11" @selected($user->style === 11)>
+                            <option
+                                class="form__option"
+                                value="11"
+                                @selected($user->settings?->style === 11)
+                            >
                                 Revel (Desktop only)
                             </option>
-                            <option class="form__option" value="12" @selected($user->style === 12)>
+                            <option
+                                class="form__option"
+                                value="12"
+                                @selected($user->settings?->style === 12)
+                            >
                                 Material Design 3 Light
                             </option>
-                            <option class="form__option" value="13" @selected($user->style === 13)>
+                            <option
+                                class="form__option"
+                                value="13"
+                                @selected($user->settings?->style === 13)
+                            >
                                 Material Design 3 Dark
                             </option>
-                            <option class="form__option" value="14" @selected($user->style === 14)>
+                            <option
+                                class="form__option"
+                                value="14"
+                                @selected($user->settings?->style === 14)
+                            >
                                 Material Design 3 Amoled
                             </option>
                         </select>
@@ -107,7 +167,7 @@
                             name="custom_css"
                             placeholder=" "
                             type="url"
-                            value="{{ $user->custom_css }}"
+                            value="{{ $user->settings?->custom_css }}"
                         />
                         <label class="form__label form__label--floating" for="custom_css">
                             External CSS Stylesheet (Stacks on top of above theme)
@@ -120,7 +180,7 @@
                             name="standalone_css"
                             placeholder=" "
                             type="url"
-                            value="{{ $user->standalone_css }}"
+                            value="{{ $user->settings?->standalone_css }}"
                         />
                         <label class="form__label form__label--floating" for="standalone_css">
                             Standalone CSS Stylesheet (No site theme used)
@@ -137,7 +197,7 @@
                                 type="checkbox"
                                 name="censor"
                                 value="1"
-                                @checked($user->censor)
+                                @checked($user->settings?->censor)
                             />
                             Language Censor Chat
                         </label>
@@ -150,7 +210,7 @@
                                 type="checkbox"
                                 name="chat_hidden"
                                 value="1"
-                                @checked($user->chat_hidden)
+                                @checked($user->settings?->chat_hidden)
                             />
                             Hide Chat
                         </label>
@@ -168,28 +228,28 @@
                             <option
                                 class="form__option"
                                 value="0"
-                                @selected($user->torrent_layout === 0)
+                                @selected($user->settings?->torrent_layout === 0)
                             >
                                 Torrent list
                             </option>
                             <option
                                 class="form__option"
                                 value="1"
-                                @selected($user->torrent_layout === 1)
+                                @selected($user->settings?->torrent_layout === 1)
                             >
                                 Torrent cards
                             </option>
                             <option
                                 class="form__option"
                                 value="2"
-                                @selected($user->torrent_layout === 2)
+                                @selected($user->settings?->torrent_layout === 2)
                             >
                                 Torrent groupings
                             </option>
                             <option
                                 class="form__option"
                                 value="3"
-                                @selected($user->torrent_layout === 3)
+                                @selected($user->settings?->torrent_layout === 3)
                             >
                                 Torrent posters
                             </option>
@@ -206,7 +266,7 @@
                                 type="checkbox"
                                 name="show_poster"
                                 value="1"
-                                @checked($user->show_poster)
+                                @checked($user->settings?->show_poster)
                             />
                             Show Posters On Torrent List View
                         </label>

@@ -35,6 +35,8 @@ class UserPrivacyFactory extends Factory
     {
         return [
             'user_id'                    => User::factory(),
+            'hidden'                     => $this->faker->boolean(),
+            'private_profile'            => $this->faker->boolean(),
             'show_achievement'           => $this->faker->boolean(),
             'show_bon'                   => $this->faker->boolean(),
             'show_comment'               => $this->faker->boolean(),

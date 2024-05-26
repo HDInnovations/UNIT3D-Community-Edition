@@ -5,7 +5,7 @@
 
 <article class="torrent-search--grouped__result">
     <header class="torrent-search--grouped__header">
-        @if (auth()->user()->show_poster == 1)
+        @if (auth()->user()->settings?->show_poster)
             <a
                 href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}"
                 class="torrent-search--grouped__poster"

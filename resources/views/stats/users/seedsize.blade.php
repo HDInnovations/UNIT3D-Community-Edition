@@ -38,7 +38,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                                <x-user_tag :user="$user" :anon="$user->private_profile" />
+                                <x-user_tag
+                                    :user="$user"
+                                    :anon="$user->privacy?->private_profile"
+                                />
                             </td>
                             <td>
                                 {{ \App\Helpers\StringHelper::formatBytes($user->seedsize ?? 0) }}

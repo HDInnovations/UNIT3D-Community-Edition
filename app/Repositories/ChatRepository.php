@@ -100,7 +100,7 @@ class ChatRepository
 
     public function message($userId, $roomId, $message, $receiver = null, $bot = null)
     {
-        if ($this->user->find($userId)->censor) {
+        if ($this->user->find($userId)->settings?->censor) {
             $message = $this->censorMessage($message);
         }
 
@@ -125,7 +125,7 @@ class ChatRepository
     {
         $user = $this->user->find($receiver);
 
-        if ($user->censor) {
+        if ($user->settings?->censor) {
             $message = $this->censorMessage($message);
         }
 
@@ -153,7 +153,7 @@ class ChatRepository
 
     public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null)
     {
-        if ($this->user->find($userId)->censor) {
+        if ($this->user->find($userId)->settings?->censor) {
             $message = $this->censorMessage($message);
         }
 

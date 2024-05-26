@@ -4,7 +4,7 @@
 
 @section('main')
     @include('blocks.news')
-    @if (! auth()->user()->chat_hidden)
+    @if (! auth()->user()->settings?->chat_hidden)
         <div id="vue">
             @include('blocks.chat')
         </div>

@@ -42,7 +42,7 @@ class AchievementUnlocked
             Session::flash('achievement', $unlocked->progress->details->name);
         }
 
-        if ($user->private_profile == 0) {
+        if ($user->privacy?->private_profile == 0) {
             $profileUrl = href_profile($user);
 
             $this->chatRepository->systemMessage(
