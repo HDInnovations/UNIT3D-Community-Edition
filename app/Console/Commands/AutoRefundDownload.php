@@ -60,7 +60,7 @@ class AutoRefundDownload extends Command
             ->where('history.seeder', '=', 1)
             ->where('history.seedtime', '>=', $MIN_SEEDTIME)
             ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
-            ->where('history.created_at', '>=', $now->copy()->subSeconds($MIN_SEEDTIME))
+            ->where('history.created_at', '<=', $now->copy()->subSeconds($MIN_SEEDTIME))
             ->whereColumn('torrents.user_id', '!=', 'history.user_id')
             ->when(!config('other.refundable'), fn ($query) => $query->where(
                 fn ($query) => $query
@@ -69,7 +69,7 @@ class AutoRefundDownload extends Command
             ))
             ->update([
                 'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size - history.refunded_download)'),
-                'users.downloaded'          => DB::raw('users.downloaded - @delta'),
+                'users.downloaded'          => DB::raw('GREATEST(0, users.downloaded - @delta)'),
                 'history.updated_at'        => DB::raw('history.updated_at'),
             ]);
 
