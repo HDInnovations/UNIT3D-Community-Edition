@@ -112,6 +112,7 @@ class Unit3dAnnounce
      *                 port: int,
      *                 is_seeder: bool,
      *                 is_active: bool,
+     *                 is_visible: bool,
      *                 updated_at: int,
      *                 uploaded: int,
      *                 downloaded: int,
@@ -154,6 +155,7 @@ class Unit3dAnnounce
                 || !\array_key_exists('port', $peer) || !\is_int($peer['port'])
                 || !\array_key_exists('is_seeder', $peer) || !\is_bool($peer['is_seeder'])
                 || !\array_key_exists('is_active', $peer) || !\is_bool($peer['is_active'])
+                || !\array_key_exists('is_visible', $peer) || !\is_bool($peer['is_visible'])
                 || !\array_key_exists('updated_at', $peer) || !\is_int($peer['updated_at'])
                 || !\array_key_exists('uploaded', $peer) || !\is_int($peer['uploaded'])
                 || !\array_key_exists('downloaded', $peer) || !\is_int($peer['downloaded'])
