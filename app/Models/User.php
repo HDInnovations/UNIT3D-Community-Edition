@@ -71,10 +71,8 @@ use voku\helper\AntiXSS;
  * @property bool                            $can_invite
  * @property bool                            $can_upload
  * @property int                             $show_poster
- * @property int                             $peer_hidden
  * @property int                             $private_profile
  * @property int                             $block_notifications
- * @property int                             $stat_hidden
  * @property string|null                     $remember_token
  * @property string|null                     $api_token
  * @property \Illuminate\Support\Carbon|null $last_login

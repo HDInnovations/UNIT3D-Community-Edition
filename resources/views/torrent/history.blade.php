@@ -91,7 +91,6 @@
                                     :user="$history->user"
                                     :anon="
                                         $history->user->hidden == 1
-                                        || $history->user->peer_hidden == 1
                                         || $history->user->privacy?->show_peer === 0
                                         || ($history->user->id == $torrent->user->id && $torrent->anon == 1)
                                     "
