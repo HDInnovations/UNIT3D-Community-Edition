@@ -17,14 +17,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Torrent;
+use App\Http\Requests\StoreWishRequest;
 use App\Models\User;
 use App\Models\Wish;
 use App\Services\Tmdb\Client\Movie;
-use Illuminate\Database\Query\Builder;
+use App\Services\Tmdb\Client\TV;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use JsonException;
 
 /**
@@ -41,8 +39,11 @@ class WishController extends Controller
 
         return view('user.wish.index', [
             'user'   => $user,
-            'wishes' => $user->wishes()->latest()->paginate(25),
-            'route'  => 'wish',
+            'wishes' => $user->wishes()
+                ->withCount(['movieTorrents', 'tvTorrents'])
+                ->latest()
+                ->paginate(25),
+            'route' => 'wish',
         ]);
     }
 
@@ -51,41 +52,46 @@ class WishController extends Controller
      *
      * @throws JsonException
      */
-    public function store(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    public function store(StoreWishRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->is($user), 403);
 
-        $request->validate([
-            'tmdb' => [
-                'required',
-                'integer',
-                'not_in:0',
-                Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),
-            ],
-            ''
-        ]);
+        switch ($request->meta) {
+            case 'movie':
+                $meta = (new Movie($request->movie_id))->data;
 
-        $meta = (new Movie($request->tmdb))->data;
+                if ($meta === null) {
+                    return to_route('users.wishes.index', ['user' => $user])
+                        ->withErrors('TMDB Bad Request!');
+                }
 
-        if ($meta === null) {
-            return to_route('users.wishes.index', ['user' => $user])
-                ->withErrors('TMDM Bad Request!');
+                $title = $meta['title'].' ('.$meta['release_date'].')';
+
+                Wish::create([
+                    'user_id'  => $user->id,
+                    'title'    => $title,
+                    'movie_id' => $request->movie_id,
+                ]);
+
+                break;
+            case 'tv':
+                $meta = (new TV($request->tv_id))->data;
+
+                if ($meta === null) {
+                    return to_route('users.wishes.index', ['user' => $user])
+                        ->withErrors('TMDB Bad Request!');
+                }
+
+                $title = $meta['name'].' ('.$meta['first_air_date'].')';
+
+                Wish::create([
+                    'user_id' => $user->id,
+                    'title'   => $title,
+                    'tv_id'   => $request->tv_id,
+                ]);
+
+                break;
         }
-
-        $torrent = Torrent::query()
-            ->where('tmdb', '=', $request->tmdb)
-            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-            ->where('seeders', '>', 0)
-            ->where('status', '=', 1)
-            ->first();
-
-        Wish::create([
-            'title'   => $meta['title'].' ('.$meta['release_date'].')',
-            'type'    => 'Movie',
-            'tmdb'    => $request->tmdb,
-            'source'  => $torrent === null ? Wish::find($request->integer('tmdb'))?->source : route('torrents.show', $torrent->id),
-            'user_id' => $user->id,
-        ]);
 
         return to_route('users.wishes.index', ['user' => $user])
             ->withSuccess('Wish Successfully Added!');
