@@ -134,12 +134,11 @@ class PrivacySettingController extends Controller
         $privacy->json_rank_groups = array_map('intval', $request->json_rank_groups ?? []);
         $privacy->json_request_groups = array_map('intval', $request->json_request_groups ?? []);
         $privacy->json_other_groups = array_map('intval', $request->json_other_groups ?? []);
+        $privacy->private_profile = $request->private_profile;
+        $privacy->hidden = $request->hidden;
         $privacy->save();
 
-        $user->update([
-            'private_profile' => $request->private_profile,
-            'hidden'          => $request->hidden,
-        ]);
+        cache()->forget('user-privacy:by-user-id:'.$user->id);
 
         return to_route('users.privacy_settings.edit', ['user' => $user])
             ->withSuccess('Your privacy settings have been successfully saved.');

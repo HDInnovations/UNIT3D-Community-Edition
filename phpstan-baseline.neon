@@ -706,11 +706,6 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\<string, string\\>\\|bool given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GeneralSettingController.php
-
-		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 4
 			path: app/Http/Controllers/User/WarningController.php
@@ -1158,11 +1153,6 @@ parameters:
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$receiver_id\\.$#"
 			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\:\\:\\$censor\\.$#"
-			count: 3
 			path: app/Repositories/ChatRepository.php
 
 		-

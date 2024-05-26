@@ -24,6 +24,7 @@ use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -382,16 +383,16 @@ class StatsController extends Controller
     public function themes(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.themes.index', [
-            'siteThemes' => User::select(DB::raw('style, count(*) as value'))
+            'siteThemes' => UserSetting::select(DB::raw('style, count(*) as value'))
                 ->groupBy('style')
                 ->orderByDesc('value')
                 ->get(),
-            'customThemes' => User::where('custom_css', '!=', '')
+            'customThemes' => UserSetting::where('custom_css', '!=', '')
                 ->select(DB::raw('custom_css, count(*) as value'))
                 ->groupBy('custom_css')
                 ->orderByDesc('value')
                 ->get(),
-            'standaloneThemes' => User::whereNotNull('standalone_css')
+            'standaloneThemes' => UserSetting::whereNotNull('standalone_css')
                 ->select(DB::raw('standalone_css, count(*) as value'))
                 ->groupBy('standalone_css')
                 ->orderByDesc('value')

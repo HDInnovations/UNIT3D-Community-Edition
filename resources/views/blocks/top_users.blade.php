@@ -97,7 +97,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$uploader->user"
-                            :anon="$uploader->user->private_profile"
+                            :anon="$uploader->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -105,7 +105,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $uploader->value }} Uploads</h4>
 
-                    @if ($uploader->user->private_profile)
+                    @if ($uploader->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -127,7 +127,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$downloader->user"
-                            :anon="$downloader->user->private_profile"
+                            :anon="$downloader->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -135,7 +135,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $downloader->value }} Downloads</h4>
 
-                    @if ($downloader->user->private_profile)
+                    @if ($downloader->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -155,7 +155,7 @@
             @foreach ($uploaded as $upload)
                 <article class="user-stat-card">
                     <h3 class="user-stat-card__username">
-                        <x-user_tag :user="$upload" :anon="$upload->private_profile" />
+                        <x-user_tag :user="$upload" :anon="$upload->privacy?->private_profile" />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
                         </div>
@@ -164,7 +164,7 @@
                         {{ App\Helpers\StringHelper::formatBytes($upload->uploaded, 2) }} Uploaded
                     </h4>
 
-                    @if ($upload->private_profile)
+                    @if ($upload->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -184,7 +184,10 @@
             @foreach ($downloaded as $download)
                 <article class="user-stat-card">
                     <h3 class="user-stat-card__username">
-                        <x-user_tag :user="$download" :anon="$download->private_profile" />
+                        <x-user_tag
+                            :user="$download"
+                            :anon="$download->privacy?->private_profile"
+                        />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
                         </div>
@@ -194,7 +197,7 @@
                         Downloaded
                     </h4>
 
-                    @if ($download->private_profile)
+                    @if ($download->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -216,7 +219,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$seeder->user"
-                            :anon="$seeder->user->private_profile"
+                            :anon="$seeder->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -224,7 +227,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $seeder->value }} Seeds</h4>
 
-                    @if ($seeder->user->private_profile)
+                    @if ($seeder->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -244,7 +247,10 @@
             @foreach ($seedtimes as $seedtime)
                 <article class="user-stat-card">
                     <h3 class="user-stat-card__username">
-                        <x-user_tag :user="$seedtime" :anon="$seedtime->private_profile" />
+                        <x-user_tag
+                            :user="$seedtime"
+                            :anon="$seedtime->privacy?->private_profile"
+                        />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
                         </div>
@@ -254,7 +260,7 @@
                         Seedtime Average
                     </h4>
 
-                    @if ($seedtime->private_profile)
+                    @if ($seedtime->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -274,7 +280,7 @@
             @foreach ($served as $serve)
                 <article class="user-stat-card">
                     <h3 class="user-stat-card__username">
-                        <x-user_tag :user="$serve" :anon="$serve->private_profile" />
+                        <x-user_tag :user="$serve" :anon="$serve->privacy?->private_profile" />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
                         </div>
@@ -283,7 +289,7 @@
                         {{ $serve->upload_snatches_count }} Users Served
                     </h4>
 
-                    @if ($serve->private_profile)
+                    @if ($serve->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -305,7 +311,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$commenter->user"
-                            :anon="$commenter->user->private_profile"
+                            :anon="$commenter->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -313,7 +319,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $commenter->value }} Comments Made</h4>
 
-                    @if ($commenter->user->private_profile)
+                    @if ($commenter->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -335,7 +341,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$poster->user"
-                            :anon="$poster->user->private_profile"
+                            :anon="$poster->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -343,7 +349,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $poster->value }} Posts Made</h4>
 
-                    @if ($poster->user->private_profile)
+                    @if ($poster->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -365,7 +371,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$thanker->user"
-                            :anon="$thanker->user->private_profile"
+                            :anon="$thanker->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -373,7 +379,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $thanker->value }} Thanks Given</h4>
 
-                    @if ($thanker->user->private_profile)
+                    @if ($thanker->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""
@@ -395,7 +401,7 @@
                     <h3 class="user-stat-card__username">
                         <x-user_tag
                             :user="$personal->user"
-                            :anon="$personal->user->private_profile"
+                            :anon="$personal->user->privacy?->private_profile"
                         />
                         <div title="Place" class="top-users__place">
                             {{ Number::ordinal($loop->iteration) }}
@@ -403,7 +409,7 @@
                     </h3>
                     <h4 class="user-stat-card__stat">{{ $personal->value }} Personal Releases</h4>
 
-                    @if ($personal->user->private_profile)
+                    @if ($personal->user->privacy?->private_profile)
                         <img
                             class="user-stat-card__avatar"
                             alt=""

@@ -40,7 +40,7 @@
                             <td>
                                 <x-user_tag
                                     :user="$user->user"
-                                    :anon="$user->user->private_profile"
+                                    :anon="$user->user->privacy?->private_profile"
                                 />
                             </td>
                             <td>{{ $user->value }}</td>

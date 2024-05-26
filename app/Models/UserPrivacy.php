@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int   $id
  * @property int   $user_id
+ * @property int   $private_profile
+ * @property bool  $hidden
  * @property int   $show_achievement
  * @property int   $show_bon
  * @property int   $show_comment
@@ -90,6 +92,7 @@ class UserPrivacy extends Model
     protected function casts(): array
     {
         return [
+            'hidden'                  => 'bool',
             'json_profile_groups'     => 'array',
             'json_torrent_groups'     => 'array',
             'json_forum_groups'       => 'array',

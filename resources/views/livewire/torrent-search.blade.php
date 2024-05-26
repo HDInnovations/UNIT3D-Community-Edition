@@ -814,11 +814,11 @@
                         <thead>
                             <tr
                                 @class([
-                                    'torrent-search--list__headers' => auth()->user()->show_poster,
-                                    'torrent-search--list__no-poster-headers' => ! auth()->user()->show_poster,
+                                    'torrent-search--list__headers' => auth()->user()->settings?->show_poster,
+                                    'torrent-search--list__no-poster-headers' => ! auth()->user()->settings?->show_poster,
                                 ])
                             >
-                                @if (auth()->user()->show_poster)
+                                @if (auth()->user()->settings?->show_poster)
                                     <th class="torrent-search--list__poster-header">Poster</th>
                                 @endif
 

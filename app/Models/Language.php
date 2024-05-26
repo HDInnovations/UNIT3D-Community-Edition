@@ -61,12 +61,11 @@ class Language
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
      *
-     * @return bool|array<string, string>
+     * @return ($locale is null ? array<string, string> : bool)
      */
     public static function allowed(?string $locale = null): bool|array
     {
         if ($locale !== null) {
-            /** @phpstan-ignore-next-line `self:allowed()` always returns array since it's passing `null` for the `locale` parameter */
             return \array_key_exists($locale, self::allowed());
         }
 

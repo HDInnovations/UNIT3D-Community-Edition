@@ -75,7 +75,7 @@ class HomeController extends Controller
                     ->where('last_action', '>', now()->subMinutes(60))
                     ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
                     ->get()
-                    ->sortBy(fn ($user) => $user->hidden || !$user->isVisible($user, 'other', 'show_online'))
+                    ->sortBy(fn ($user) => $user->privacy?->hidden || !$user->isVisible($user, 'other', 'show_online'))
             ),
             'groups' => cache()->remember(
                 'user-groups',
@@ -149,7 +149,7 @@ class HomeController extends Controller
             'uploaded' => cache()->remember(
                 'top-users:uploaded',
                 3_600,
-                fn () => User::select(['id', 'group_id', 'username', 'uploaded', 'image', 'private_profile'])
+                fn () => User::select(['id', 'group_id', 'username', 'uploaded', 'image'])
                     ->where('id', '!=', User::SYSTEM_USER_ID)
                     ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                     ->orderByDesc('uploaded')
@@ -159,7 +159,7 @@ class HomeController extends Controller
             'downloaded' => cache()->remember(
                 'top-users:downloaded',
                 3_600,
-                fn () => User::select(['id', 'group_id', 'username', 'downloaded', 'image', 'private_profile'])
+                fn () => User::select(['id', 'group_id', 'username', 'downloaded', 'image'])
                     ->where('id', '!=', User::SYSTEM_USER_ID)
                     ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                     ->orderByDesc('downloaded')
