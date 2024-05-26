@@ -69,7 +69,7 @@
                             @case('movies')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $search_result->id]) }}"
+                                    href="{{ route('torrents.similar', ['category_id' => $search_result->category_id, 'tmdb' => $search_result->id]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
@@ -92,7 +92,7 @@
                             @case('series')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('torrents.similar', ['category_id' => '2', 'tmdb' => $search_result->id]) }}"
+                                    href="{{ route('torrents.similar', ['category_id' => $search_result->category_id, 'tmdb' => $search_result->id]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
