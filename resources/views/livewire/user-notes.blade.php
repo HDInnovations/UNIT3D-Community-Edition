@@ -49,6 +49,7 @@
                     <th>{{ __('common.staff') }}</th>
                     <th>{{ __('user.note') }}</th>
                     <th>{{ __('user.created-on') }}</th>
+                    <th>{{ __('torrent.updated_at') }}</th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
             </thead>
@@ -63,6 +64,14 @@
                             <time
                                 datetime="{{ $note->created_at }}"
                                 title="{{ $note->created_at }}"
+                            >
+                                {{ $note->created_at->diffForHumans() }}
+                            </time>
+                        </td>
+                        <td>
+                            <time
+                                datetime="{{ $note->updated_at }}"
+                                title="{{ $note->updated_at }}"
                             >
                                 {{ $note->created_at->diffForHumans() }}
                             </time>
