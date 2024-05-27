@@ -82,6 +82,7 @@ class TorrentRequest extends Model
         return [
             'filled_when'   => 'datetime',
             'approved_when' => 'datetime',
+            'tmdb'          => 'integer',
             'igdb'          => 'integer',
             'bounty'        => 'decimal:2',
         ];
