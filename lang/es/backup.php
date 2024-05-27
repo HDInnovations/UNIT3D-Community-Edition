@@ -51,5 +51,4 @@ return [
     'no_disks_configured'            => 'No hay discos de copia de seguridad configurados en config/backup.php',
     'backup_doesnt_exist'            => 'El archivo de copia de seguridad no existe.',
     'only_local_downloads_supported' => 'Solo se admiten descargas desde el sistema de archivos local.',
-    
 ];

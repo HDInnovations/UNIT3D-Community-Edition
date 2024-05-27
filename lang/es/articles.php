@@ -17,4 +17,3 @@ return [
     'published-at'  => 'Publicado el ',
     'read-more'     => 'Leer más',
 ];
-

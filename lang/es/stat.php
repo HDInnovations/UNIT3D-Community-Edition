@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     'active'                  => 'Activo',
     'all'                     => 'Todo',
     'all-time'                => 'Todo el Tiempo',
@@ -59,5 +59,5 @@
     'total-upload'            => 'Subida total',
     'updated'                 => '(¡Actualizado cada 10 minutos!)',
     'users-in-group'          => 'Usuarios en el grupo',
-    'users-per-group'         => 'Usuarios por grupo', 
+    'users-per-group'         => 'Usuarios por grupo',
 ];

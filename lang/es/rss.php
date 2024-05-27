@@ -30,5 +30,5 @@ return [
     'rss'                 => 'RSS',
     'rss-feed'            => 'Feed RSS',
     'type'                => 'Tipo',
-    'updated'             => 'Feed RSS privado Actualizado',    
+    'updated'             => 'Feed RSS privado Actualizado',
 ];

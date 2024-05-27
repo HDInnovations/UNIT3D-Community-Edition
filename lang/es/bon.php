@@ -63,5 +63,5 @@ return [
     'you-have-sent-gifts'     => 'Has enviado',
     'you-have-received-tips'  => 'Has recibido',
     'you-have-sent-tips'      => 'Has enviado',
-    'your-points'             => 'Tus puntos',    
+    'your-points'             => 'Tus puntos',
 ];

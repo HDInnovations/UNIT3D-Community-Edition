@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     'already-marked-read' => '¡Notificación ya marcada como leída!',
     'all-deleted'         => '¡Todas las notificaciones eliminadas!',
     'all-marked-read'     => '¡Todas las notificaciones marcadas como leídas!',
@@ -40,5 +40,5 @@
     'request-unclaims'    => 'Petición de dejar de completarlo',
     'reseed-requests'     => 'Petición de volver a compartir',
     'title'               => 'Título',
-    'unfollows'           => 'Dejar de seguir',    
+    'unfollows'           => 'Dejar de seguir',
 ];

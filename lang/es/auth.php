@@ -11,12 +11,12 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     /*
-    |--------------------------------------------------------------------------
-    | Default Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
+   |--------------------------------------------------------------------------
+   | Default Authentication Language Lines
+   |--------------------------------------------------------------------------
+   */
     'activation-error'        => '¡Token inválido o prohibido o la cuenta ya está confirmada!',
     'activation-success'      => '¡Cuenta confirmada! ¡Ahora puedes iniciar sesión!',
     'add-image'               => 'Agregar otro enlace de imagen',

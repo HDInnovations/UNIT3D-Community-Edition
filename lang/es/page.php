@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     'aboutus-advantage'     => 'Lo mejor de',
     'aboutus-advantage1'    => 'Tenemos miembros y personal con experiencia que están bien versados en el mundo del video / audio HD y soporte técnico.',
     'aboutus-advantage2'    => 'Junto con nuestra gran pasión por las películas y los programas de televisión, también ofrecemos una de las mejores selecciones de algo que la mayoría no hace: ¡FANRES! <em>MUCHAS GRACIAS</em> a nuestros proveedores de contenido.',
@@ -35,4 +35,3 @@
     'staff-title'           => 'Gestores',
     'whitelist-emaildomain' => 'Dominio de confianza',
 ];
-

@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     'assign'               => 'Asignar',
     'assigned-staff'       => 'Personal asignado',
     'assigned-success'     => '¡El Ticket del servicio de ayuda fue asignado con éxito!',
@@ -48,4 +48,3 @@
     'unassigned-success'   => '¡El Ticket del Servicio de Ayuda fue desasignado con éxito!',
     'updated-success'      => '¡El Ticket del servicio de ayuda fue actualizado con éxito!',
 ];
-

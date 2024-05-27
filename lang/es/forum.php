@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     'action'                    => 'Acción',
     'activity'                  => 'Actividad',
     'approved'                  => 'Aprobado',
@@ -31,7 +31,6 @@
     'display-forum'             => 'Mostrar hilos en',
     'edit-post'                 => 'Editar mensaje',
     'edit-post-success'         => '¡Mensaje editado correctamente!',
-    'edit-post'                 => 'Editar publicación',
     'forum'                     => 'Foro',
     'forums'                    => 'Foros',
     'forums-post-search'        => 'Búsqueda de mensajes',

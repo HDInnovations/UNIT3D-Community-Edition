@@ -17,5 +17,5 @@ return [
     'edited'         => 'El comentario ha sido editado.',
     'rights-revoked' => '¡Se te han revocado los derechos de comentar!',
     'slow-down'      => 'Despacio - ¡Demasiados comentarios!',
-    'torrent-status' => 'El torrent necesita ser moderado antes de que puedas comentarlo.',    
+    'torrent-status' => 'El torrent necesita ser moderado antes de que puedas comentarlo.',
 ];

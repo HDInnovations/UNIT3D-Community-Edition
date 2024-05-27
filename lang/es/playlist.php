@@ -33,5 +33,5 @@ return [
     'published-success' => '¡Tu lista de reproducción se ha creado correctamente!',
     'title'             => 'Título',
     'titles'            => 'Títulos',
-    'update-success'    => '¡Tu lista de reproducción se ha actualizado correctamente!',    
+    'update-success'    => '¡Tu lista de reproducción se ha actualizado correctamente!',
 ];

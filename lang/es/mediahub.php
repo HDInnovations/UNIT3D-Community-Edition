@@ -36,5 +36,5 @@ return [
     'title'           => 'MediaHub',
     'tv-credits'      => 'Créditos de TV:',
     'view-collection' => 'Ver la colección',
-    'wiki-read'       => 'Leer biografía completa en Wikipedia:',    
+    'wiki-read'       => 'Leer biografía completa en Wikipedia:',
 ];

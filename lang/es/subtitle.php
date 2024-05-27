@@ -11,7 +11,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
- return [
+return [
     'downloads'      => 'Descargas',
     'extension'      => 'Extensión',
     'delete-confirm' => '¿Estás seguro de que quieres eliminar esto?',
