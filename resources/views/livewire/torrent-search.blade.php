@@ -1038,12 +1038,14 @@
                 </table>
                 <div class="panel__body torrent-search--poster__results">
                     @forelse ($torrents as $group)
-                        @switch (true)
+                        @switch(true)
                             @case((bool) $group->movie_id)
                                 <x-movie.poster :media="$group" />
+
                                 @break
                             @case((bool) $group->tv_id)
                                 <x-tv.poster :media="$group" />
+
                                 @break
                         @endswitch
                     @empty
