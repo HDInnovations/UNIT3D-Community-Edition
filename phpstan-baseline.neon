@@ -446,6 +446,11 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$tmdb\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
 			message: "#^Call to an undefined method App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:save\\(\\)\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -469,6 +474,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$torrentFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) expects Illuminate\\\\Http\\\\UploadedFile, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Match arm comparison between 1 and bool\\|null is always false\\.$#"
+			count: 2
+			path: app/Http/Controllers/PlaylistController.php
 
 		-
 			message: "#^Cannot access property \\$alive on bool\\|stdClass\\.$#"
@@ -1089,6 +1099,16 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Resources\\\\UserResource\\:\\:toArray\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: app/Http/Resources/UserResource.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Torrent\\:\\:scopeOfTmdb\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: "#^Method App\\\\Models\\\\TorrentRequest\\:\\:scopeOfTmdb\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
 
 		-
 			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
