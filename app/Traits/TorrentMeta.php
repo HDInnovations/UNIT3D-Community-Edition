@@ -51,8 +51,8 @@ trait TorrentMeta
             $torrent->setAttribute(
                 'meta',
                 match ($torrent->meta) {
-                    'movie' => $movies[$torrent->tmdb] ?? null,
-                    'tv'    => $tv[$torrent->tmdb] ?? null,
+                    'movie' => $movies[$torrent->movie_id] ?? null,
+                    'tv'    => $tv[$torrent->tv_id] ?? null,
                     'game'  => $games[$torrent->igdb] ?? null,
                     default => null,
                 },

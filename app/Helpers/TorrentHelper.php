@@ -79,7 +79,7 @@ class TorrentHelper
         switch (true) {
             case $torrent->category->movie_meta:
                 User::query()
-                    ->whereHas('wishes', fn ($query) => $query->where('movie_id', '=', $torrent->tmdb))
+                    ->whereHas('wishes', fn ($query) => $query->where('movie_id', '=', $torrent->movie_id))
                     ->get()
                     ->each
                     ->notify(new NewWishListNotice($torrent));
@@ -87,7 +87,7 @@ class TorrentHelper
                 break;
             case $torrent->category->tv_meta:
                 User::query()
-                    ->whereHas('wishes', fn ($query) => $query->where('tv_id', '=', $torrent->tmdb))
+                    ->whereHas('wishes', fn ($query) => $query->where('tv_id', '=', $torrent->tv_id))
                     ->get()
                     ->each
                     ->notify(new NewWishListNotice($torrent));
@@ -128,10 +128,10 @@ class TorrentHelper
             $meta = null;
             $category = $torrent->category;
 
-            if ($torrent->tmdb > 0) {
+            if ($torrent->tv_id > 0 || $torrent->movie_id > 0) {
                 $meta = match (true) {
-                    $category->tv_meta    => Tv::find($torrent->tmdb),
-                    $category->movie_meta => Movie::find($torrent->tmdb),
+                    $category->tv_meta    => Tv::find($torrent->tv_id),
+                    $category->movie_meta => Movie::find($torrent->movie_id),
                     default               => null,
                 };
             }

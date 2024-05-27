@@ -439,14 +439,14 @@ class TorrentController extends Controller
         }
 
         // TMDB Meta
-        if ($torrent->tmdb != 0) {
+        if ($torrent->tv_id > 0 || $torrent->movie_id > 0) {
             switch (true) {
                 case $category->tv_meta:
-                    (new TMDBScraper())->tv($torrent->tmdb);
+                    (new TMDBScraper())->tv($torrent->tv_id);
 
                     break;
                 case $category->movie_meta:
-                    (new TMDBScraper())->movie($torrent->tmdb);
+                    (new TMDBScraper())->movie($torrent->movie_id);
 
                     break;
             }
