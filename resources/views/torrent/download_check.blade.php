@@ -83,8 +83,6 @@
                     {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
                     {{ config('other.ratio') }} :
                 </dt>
-            </div>
-            <div class="key-value__group">
                 <dd>
                     @if ($user->ratio < config('other.ratio'))
                         <span class="text-red">
