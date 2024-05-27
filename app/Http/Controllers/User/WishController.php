@@ -58,7 +58,7 @@ class WishController extends Controller
 
         switch ($request->meta) {
             case 'movie':
-                $meta = (new Movie($request->movie_id))->data;
+                $meta = (new Movie((int) $request->movie_id))->data;
 
                 if ($meta === null) {
                     return to_route('users.wishes.index', ['user' => $user])
@@ -75,7 +75,7 @@ class WishController extends Controller
 
                 break;
             case 'tv':
-                $meta = (new TV($request->tv_id))->data;
+                $meta = (new TV((int) $request->tv_id))->data;
 
                 if ($meta === null) {
                     return to_route('users.wishes.index', ['user' => $user])

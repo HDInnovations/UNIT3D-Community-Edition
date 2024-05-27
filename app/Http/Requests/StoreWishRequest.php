@@ -43,12 +43,14 @@ class StoreWishRequest extends FormRequest
         return [
             'movie_id' => [
                 'required_if:meta,movie',
+                'required_without:tv_id',
                 'decimal:0',
                 'min:1',
                 Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),
             ],
             'tv_id' => [
                 'required_if:meta,tv',
+                'required_without:movie_id',
                 'decimal:0',
                 'min:1',
                 Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),

@@ -68,7 +68,7 @@
                     >
                         @csrf
                         <input type="hidden" name="meta" value="tv" />
-                        <input type="hidden" name="movie_id" value="{{ $meta->id }}" />
+                        <input type="hidden" name="tv_id" value="{{ $meta->id }}" />
                         <button
                             style="cursor: pointer"
                             title="Receive notifications every time a new torrent is uploaded."
