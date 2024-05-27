@@ -23,7 +23,7 @@ return new class () extends Migration {
 
         DB::table('torrents')
             ->whereIn('category_id', DB::table('categories')->select('id')->where('movie_meta', '=', true))
-            ->whereIn('tmdb', DB::table('movie')->select('id'))
+            ->whereIn('tmdb', DB::table('movies')->select('id'))
             ->update([
                 'movie_id' => DB::raw('tmdb'),
             ]);
