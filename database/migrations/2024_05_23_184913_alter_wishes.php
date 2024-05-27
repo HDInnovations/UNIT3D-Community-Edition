@@ -26,7 +26,7 @@ return new class () extends Migration {
         Schema::table('wishes', function (Blueprint $table): void {
             $table->dropColumn(['source', 'type']);
             $table->integer('tmdb')->unsigned()->nullable()->change();
-            $table->integer('tv_id')->unsigned()->nullable()->after('tmdb');
+            $table->integer('tv_id')->unsigned()->nullable()->after('tmdb')->index();
             $table->renameColumn('tmdb', 'movie_id');
         });
     }
