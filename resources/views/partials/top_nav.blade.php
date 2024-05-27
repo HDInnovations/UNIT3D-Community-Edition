@@ -345,7 +345,7 @@
             >
                 <i class="{{ auth()->user()->group->icon }}"></i>
                 {{ auth()->user()->username }}
-                @if (auth()->user()->warnings()->active()->exists())
+                @if ($warningsExists = auth()->user()->warnings()->active()->exists())
                     <i
                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                         title="{{ __('common.active-warning') }}"
@@ -451,7 +451,7 @@
                             >
                                 <i class="{{ auth()->user()->group->icon }}"></i>
                                 {{ auth()->user()->username }}
-                                @if (auth()->user()->warnings()->active()->exists())
+                                @if ($warningsExists)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                         title="{{ __('common.active-warning') }}"
