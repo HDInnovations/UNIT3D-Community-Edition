@@ -48,7 +48,7 @@ trait TorrentMeta
         }
 
         $setRelation = function ($torrent) use ($movies, $tv, $games) {
-            $torrent->setRelation(
+            $torrent->setAttribute(
                 'meta',
                 match ($torrent->meta) {
                     'movie' => $movies[$torrent->tmdb] ?? null,
