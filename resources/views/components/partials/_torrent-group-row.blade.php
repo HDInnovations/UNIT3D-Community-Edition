@@ -19,7 +19,20 @@
                         @break
                     @case('tv')
                         {{-- Removes the following patterns from the name: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000-, 2000 --}}
-                        {{ \preg_replace('/^.*( S\d{2,4}(?:-?E\d{2,4})*? | ' . implode(' | ', range($torrent->release_year - 1, $torrent->release_year + 1)) . ' | ' . implode('-| ', range(substr($media->first_air_date, 0, 4) - 1, substr($media->last_air_date, 0, 4) + 1)) . '-)/i', '', $torrent->name) }}
+                        @php
+                            if (
+                                $media->first_air_date !== null &&
+                                preg_match('/^[0-9]{4}/', $media->first_air_date) &&
+                                $media->last_air_date &&
+                                preg_match('/^[0-9]{4}/', $media->last_air_date)
+                            ) {
+                                $range = range((int) substr($media->first_air_date, 0, 4) - 1, (int) substr($media->last_air_date, 0, 4) + 1);
+                            } else {
+                                $range = [];
+                            }
+                        @endphp
+
+                        {{ \preg_replace('/^.*( S\d{2,4}(?:-?E\d{2,4})*? | ' . implode(' | ', range($torrent->release_year - 1, $torrent->release_year + 1)) . ' | ' . implode('-| ', $range) . '-)/i', '', $torrent->name) }}
 
                         @break
                 @endswitch

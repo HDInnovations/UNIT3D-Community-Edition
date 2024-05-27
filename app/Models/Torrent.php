@@ -100,6 +100,7 @@ class Torrent extends Model
     protected function casts(): array
     {
         return [
+            'tmdb'         => 'integer',
             'igdb'         => 'integer',
             'bumped_at'    => 'datetime',
             'fl_until'     => 'datetime',

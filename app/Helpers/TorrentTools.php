@@ -28,7 +28,7 @@ class TorrentTools
      */
     public static function normalizeTorrent(UploadedFile $torrentFile)
     {
-        $result = Bencode::bdecode_file($torrentFile);
+        $result = Bencode::bdecode_file($torrentFile->getRealPath());
 
         // Whitelisted keys
         $result = array_intersect_key($result, [
